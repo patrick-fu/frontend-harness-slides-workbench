@@ -297,7 +297,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       } else if (id === 2) {
         beatTitle = c.title;
         const features = (c.features as Array<{ name: string }>) || [];
-        const visible = Math.min((beatIdx + 1) * 3, 6);
+        const visible = Math.min(beatIdx * 3, 6);
         beatBody = features.slice(0, visible).map((f) => f.name).join(" / ");
       } else if (id === 3) {
         beatTitle = c.name;

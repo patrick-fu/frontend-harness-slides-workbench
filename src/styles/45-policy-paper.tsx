@@ -433,7 +433,7 @@ export default function PolicyPaper({
   /* Scene 3: Recommendations (HERO) */
   const renderRecommendations = () => {
     const s = sceneData as (typeof data.scenes)[2];
-    const visibleCount = Math.min(beat + 2, s.recs.length);
+    const visibleCount = Math.min(beat * 2 + 2, s.recs.length);
     return (
       <div className={styles.recommendations}>
         <div className={styles.recHeader}>

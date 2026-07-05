@@ -153,7 +153,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       else if (id === 2 || id === 3 || id === 4) {
         beatTitle = c.heading;
         const items = (c.items as Array<{ name: string }>) || [];
-        const visible = Math.min((beatIdx + 1) * 2, 4);
+        const visible = Math.min(beatIdx * 2, 4);
         beatBody = items.slice(0, visible).map((x) => x.name).join(" / ");
       } else if (id === 5) { beatTitle = `${c.closing} ${c.accent}`; beatBody = c.sub; }
       return { id: beatIdx, action: actions[beatIdx], title: beatTitle, body: beatBody };

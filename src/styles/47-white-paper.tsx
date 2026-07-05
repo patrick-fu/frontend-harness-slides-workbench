@@ -544,7 +544,7 @@ export default function WhitePaper({
   /* Scene 3: Architecture Diagram (HERO) */
   const renderArchitecture = () => {
     const s = sceneData as (typeof data.scenes)[2];
-    const visibleNodes = Math.min(beat + 2, s.nodes.length);
+    const visibleNodes = Math.min(beat * 2 + 3, s.nodes.length);
     return (
       <div className={styles.architecture}>
         <div className={styles.archHeader}>
@@ -643,7 +643,7 @@ export default function WhitePaper({
   /* Scene 4: Benchmarks */
   const renderBenchmarks = () => {
     const s = sceneData as (typeof data.scenes)[3];
-    const visibleCount = Math.min(beat + 3, s.rows.length);
+    const visibleCount = Math.min(beat * 2 + 3, s.rows.length);
     return (
       <div className={styles.benchmarks}>
         <div className={styles.benchHeader}>

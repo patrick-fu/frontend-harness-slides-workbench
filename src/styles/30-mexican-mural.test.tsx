@@ -18,7 +18,7 @@ function renderStage(props: Partial<BespokeStyleProps> = {}) {
     onNavigate: defaultProps.onNavigate as ReturnType<typeof vi.fn>, ...rest };
 }
 
-const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 };
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 1, 5: 1 };
 
 describe("Style 30: 30-mexican-mural — render coverage", () => {
   it("renders all 5 scenes × all beats without throwing", () => {

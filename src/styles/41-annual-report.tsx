@@ -263,7 +263,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       } else if (id === 3) {
         beatTitle = c.title as string;
         const rows = (c.tableRows as string[][]) || [];
-        const visible = rows.slice(0, (beatIdx + 1) * 3);
+        const visible = rows.slice(0, (beatIdx + 1) * 4);
         beatBody = visible.map((r) => `${r[0]}: ${r[1]}`).join(" / ");
       } else if (id === 4) {
         beatTitle = c.title as string;
@@ -482,7 +482,7 @@ export default function AnnualReport({
     const c = SCENES[3][language];
     const headers = c.tableHeaders as string[];
     const rows = c.tableRows as string[][];
-    const visibleRows = rows.slice(0, Math.min(rows.length, (beat + 1) * 3 + 1));
+    const visibleRows = rows.slice(0, Math.min(rows.length, (beat + 1) * 4));
 
     return (
       <div className={styles.financials}>

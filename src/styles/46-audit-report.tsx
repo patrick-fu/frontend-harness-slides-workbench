@@ -644,7 +644,7 @@ export default function AuditReport({
   /* Scene 3: Findings */
   const renderFindings = () => {
     const s = sceneData as (typeof data.scenes)[2];
-    const visibleCount = Math.min(beat + 2, s.findings.length);
+    const visibleCount = Math.min(beat * 2 + 2, s.findings.length);
     return (
       <div className={styles.findings}>
         <div className={styles.findingsHeader}>
@@ -713,7 +713,7 @@ export default function AuditReport({
   /* Scene 4: Risk Matrix (HERO) */
   const renderRisk = () => {
     const s = sceneData as (typeof data.scenes)[3];
-    const visibleCount = Math.min(beat + 3, s.rows.length);
+    const visibleCount = Math.min(beat * 3 + 3, s.rows.length);
     return (
       <div className={styles.riskMatrix}>
         <div className={styles.riskHeader}>
@@ -814,9 +814,9 @@ export default function AuditReport({
               key={i}
               className={styles.complianceItem}
               style={{
-                opacity: entered && i <= beat + 3 ? 1 : 0,
+                opacity: entered && (beat >= 1 || i < 4) ? 1 : 0,
                 transform:
-                  entered && i <= beat + 3
+                  entered && (beat >= 1 || i < 4)
                     ? "translateX(0)"
                     : "translateX(-0.5cqh)",
                 transition: "opacity 0.3s ease, transform 0.3s ease",

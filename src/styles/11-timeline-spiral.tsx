@@ -178,7 +178,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       } else if (id === 2) {
         beatTitle = c.title;
         const nodes = (c.nodes as Array<{ year: string; event: string }>) || [];
-        const visible = Math.min((beatIdx + 1) * 2 + (beatIdx === 2 ? 1 : 0), 5);
+        const visible = beatIdx === 0 ? 0 : beatIdx === 1 ? 3 : 5;
         beatBody = nodes.slice(0, visible).map((n) => `${n.year}: ${n.event}`).join(" / ");
       } else if (id === 3) {
         beatTitle = c.eventTitle;

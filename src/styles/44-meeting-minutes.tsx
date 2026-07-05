@@ -560,7 +560,7 @@ export default function MeetingMinutes({
   /* ── Scene 4: Action Items (HERO) ────────────────────────────────────── */
   const renderActions = () => {
     const s = sceneData as (typeof data.scenes)[3];
-    const visibleCount = Math.min(beat + 2, s.actions.length);
+    const visibleCount = Math.min(beat * 3 + 3, s.actions.length);
     return (
       <div className={styles.actions}>
         <div className={styles.actionsHeader}>

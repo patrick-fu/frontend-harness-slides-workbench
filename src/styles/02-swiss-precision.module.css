@@ -98,7 +98,7 @@
 
 .heroTitle {
   font-size: 14cqw;
-  font-weight: 75;
+  font-weight: 700;
   line-height: 0.9;
   letter-spacing: -0.04em;
   margin: 0;
@@ -163,7 +163,7 @@
 
 .metricValue {
   font-size: 6cqw;
-  font-weight: 75;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: -0.03em;
   color: var(--style-02-ink, #1a1a1a);
@@ -222,7 +222,7 @@
 
 .stepId {
   font-size: 2cqw;
-  font-weight: 75;
+  font-weight: 700;
   color: var(--style-02-accent, #d32f2f);
   letter-spacing: 0.05em;
   min-width: 4cqw;
@@ -314,7 +314,7 @@
 
 .qualityScore {
   font-size: 1.8cqw;
-  font-weight: 75;
+  font-weight: 700;
   min-width: 6cqw;
   text-align: right;
   color: var(--style-02-ink, #1a1a1a);
@@ -343,7 +343,7 @@
 
 .closingText {
   font-size: 7cqw;
-  font-weight: 75;
+  font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.03em;
   margin: 0 0 3cqh 0;

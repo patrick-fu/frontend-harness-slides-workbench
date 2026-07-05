@@ -454,7 +454,7 @@ export default function ExecutiveSummary({
   /* Scene 2: Key Metrics (HERO) */
   const renderMetrics = () => {
     const s = sceneData as (typeof data.scenes)[1];
-    const visibleCount = Math.min(beat + 2, s.metrics.length);
+    const visibleCount = Math.min(beat * 2 + 2, s.metrics.length);
     return (
       <div className={styles.metrics}>
         <div className={styles.metricsHeader}>
@@ -500,7 +500,7 @@ export default function ExecutiveSummary({
   /* Scene 3: Priorities */
   const renderPriorities = () => {
     const s = sceneData as (typeof data.scenes)[2];
-    const visibleCount = Math.min(beat + 2, s.items.length);
+    const visibleCount = Math.min(beat * 2 + 2, s.items.length);
     return (
       <div className={styles.priorities}>
         <div className={styles.prioritiesHeader}>
@@ -535,7 +535,7 @@ export default function ExecutiveSummary({
   /* Scene 4: Risks */
   const renderRisks = () => {
     const s = sceneData as (typeof data.scenes)[3];
-    const visibleCount = Math.min(beat + 2, s.risks.length);
+    const visibleCount = Math.min(beat * 2 + 2, s.risks.length);
     return (
       <div className={styles.risks}>
         <div className={styles.risksHeader}>
@@ -595,9 +595,9 @@ export default function ExecutiveSummary({
               key={i}
               className={styles.nextItem}
               style={{
-                opacity: entered && i <= beat ? 1 : 0,
+                opacity: entered && (beat >= 1 || i === 0) ? 1 : 0,
                 transform:
-                  entered && i <= beat
+                  entered && (beat >= 1 || i === 0)
                     ? "translateX(0)"
                     : "translateX(-0.8cqh)",
                 transition: "opacity 0.4s ease, transform 0.4s ease",

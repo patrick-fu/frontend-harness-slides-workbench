@@ -341,7 +341,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
         beatBody = c.subtitle || "";
       } else if (id === 2) {
         beatTitle = c.heading || "";
-        const visibleLayers = (c.layers || []).slice(0, Math.min((beatIdx + 1) * 2, 4));
+        const visibleLayers = (c.layers || []).slice(0, Math.min(beatIdx * 2, 4));
         beatBody = visibleLayers.map((l) => `${l.id} ${l.name}`).join(" / ");
       } else if (id === 3) {
         beatTitle = c.heading || "";
@@ -350,7 +350,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
         }
       } else if (id === 4) {
         beatTitle = c.specTitle || "";
-        const visibleBlocks = (c.specBlocks || []).slice(0, Math.min((beatIdx + 1) * 2, 4));
+        const visibleBlocks = (c.specBlocks || []).slice(0, Math.min(beatIdx * 2, 4));
         beatBody = beatIdx >= 1 ? visibleBlocks.map((b) => b.title).join(" / ") : "";
       } else if (id === 5) {
         beatTitle = `${c.closingStatement || ""}${c.closingAccent || ""}`;
@@ -467,7 +467,7 @@ export default function Blueprint({
   const renderScene2 = () => {
     const c = SCENES[2][language];
     const layers = c.layers || [];
-    const visibleCount = Math.min((beat + 1) * 2, 4);
+    const visibleCount = Math.min(beat * 2, 4);
     return (
       <div className={styles.scene2}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -560,7 +560,7 @@ export default function Blueprint({
   const renderScene4 = () => {
     const c = SCENES[4][language];
     const blocks = c.specBlocks || [];
-    const visibleCount = Math.min((beat + 1) * 2, 4);
+    const visibleCount = Math.min(beat * 2, 4);
     return (
       <div className={styles.scene4}>
         <span className={styles.sceneLabel}>{c.label}</span>

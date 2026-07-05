@@ -171,17 +171,17 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       } else if (id === 2) {
         beatTitle = c.heading;
         const motifs = (c.motifs as Array<{ name: string }>) || [];
-        const visible = Math.min((beatIdx + 1) * 2, 4);
+        const visible = Math.min(beatIdx * 2, 4);
         beatBody = motifs.slice(0, visible).map((m) => m.name).join(" / ");
       } else if (id === 3) {
         beatTitle = c.heading;
         const mss = (c.manuscripts as Array<{ name: string }>) || [];
-        const visible = Math.min((beatIdx + 1) * 2, 3);
+        const visible = Math.min(beatIdx * 2, 3);
         beatBody = mss.slice(0, visible).map((m) => m.name).join(" / ");
       } else if (id === 4) {
         beatTitle = c.heading;
         const mats = (c.materials as Array<{ name: string }>) || [];
-        const visible = Math.min((beatIdx + 1) * 2, 4);
+        const visible = Math.min(beatIdx * 2, 4);
         beatBody = mats.slice(0, visible).map((m) => m.name).join(" / ");
       } else if (id === 5) {
         beatTitle = `${c.closing} ${c.accent}`;

@@ -2,6 +2,20 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./04-aurora-gradient.module.css";
 
+// ─── Font Injection ────────────────────────────────────────────────────────
+
+function useFonts() {
+  useEffect(() => {
+    const id = "style-04-fonts";
+    if (document.getElementById(id)) return;
+    const link = document.createElement("link");
+    link.id = id;
+    link.rel = "stylesheet";
+    link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap";
+    document.head.appendChild(link);
+  }, []);
+}
+
 // ─── Content ────────────────────────────────────────────────────────────────
 
 interface SceneContent {
@@ -226,6 +240,7 @@ export default function AuroraGradient({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
+  useFonts();
   const [entered, setEntered] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -449,7 +464,7 @@ export default function AuroraGradient({
         <h3 className={styles.regionTitle}>{c.regionTitle}</h3>
         <div className={styles.regionGrid}>
           {regions.map((r, i) => {
-            const visible = i <= beat;
+            const visible = i <= beat + 1;
             const statusColor = r.status === "Critical" || r.status === "危急" ? "#ff6b6b"
               : r.status === "Severe" || r.status === "严重" ? "#fbbf24"
               : "#a78bfa";

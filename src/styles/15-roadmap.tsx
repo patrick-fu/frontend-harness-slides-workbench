@@ -459,7 +459,7 @@ export default function Roadmap({
             </div>
             <div className={styles.phaseItems}>
               {active.items.map((item, ii) => {
-                const visible = beat >= 1;
+                const visible = true;
                 const cls = [styles.phaseItem, visible && entered ? styles.phaseItemVisible : ""].filter(Boolean).join(" ");
                 return (
                   <div
@@ -493,7 +493,7 @@ export default function Roadmap({
         </div>
         <div className={styles.depArea}>
           {chains.map((chain, ci) => {
-            const visible = beat >= 1;
+            const visible = true;
             const cls = [styles.depChain, visible && entered ? styles.depChainVisible : ""].filter(Boolean).join(" ");
             return (
               <div

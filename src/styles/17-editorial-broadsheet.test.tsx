@@ -143,11 +143,11 @@ describe("Style 17 — Navigation presence", () => {
     expect(screen.getByTestId("style-17-nav")).toBeInTheDocument();
   });
 
-  it("renders page number display", () => {
+  it("renders 5 scene navigation dots", () => {
     renderStage({ scene: 3, beat: 0, isThumbnail: false });
     const nav = screen.getByTestId("style-17-nav");
-    expect(nav).toHaveTextContent(/3/);
-    expect(nav).toHaveTextContent(/5/);
+    const dots = nav.querySelectorAll('button[aria-label^="Jump to scene"]');
+    expect(dots).toHaveLength(5);
   });
 });
 
@@ -160,41 +160,40 @@ describe("Style 17 — Navigation interaction", () => {
     onNavigate = vi.fn();
   });
 
-  it("clicking right half of nav goes to next scene", () => {
+  it("clicking scene dot calls onNavigate with target scene", () => {
     renderStage({ scene: 1, beat: 0, isThumbnail: false, onNavigate });
-    const navRight = screen.getByTestId("style-17-nav-right");
-    fireEvent.click(navRight);
-    // stopPropagation should have been called internally
-    expect(onNavigate).toHaveBeenCalledWith(2, 0);
+    const dot = screen.getByLabelText("Jump to scene 3");
+    fireEvent.click(dot);
+    expect(onNavigate).toHaveBeenCalledWith(3, 0);
   });
 
-  it("clicking left half of nav goes to previous scene", () => {
+  it("clicking current scene dot still calls onNavigate", () => {
     renderStage({ scene: 3, beat: 0, isThumbnail: false, onNavigate });
-    const navLeft = screen.getByTestId("style-17-nav-left");
-    fireEvent.click(navLeft);
-    expect(onNavigate).toHaveBeenCalledWith(2, 0);
+    const dot = screen.getByLabelText("Jump to scene 3");
+    fireEvent.click(dot);
+    expect(onNavigate).toHaveBeenCalledWith(3, 0);
   });
 
-  it("clicking left on scene 1 wraps to scene 5", () => {
+  it("clicking scene 5 from scene 1 works", () => {
     renderStage({ scene: 1, beat: 0, isThumbnail: false, onNavigate });
-    const navLeft = screen.getByTestId("style-17-nav-left");
-    fireEvent.click(navLeft);
+    const dot = screen.getByLabelText("Jump to scene 5");
+    fireEvent.click(dot);
     expect(onNavigate).toHaveBeenCalledWith(5, 0);
   });
 
-  it("clicking right on scene 5 wraps to scene 1", () => {
+  it("clicking scene 1 from scene 5 works", () => {
     renderStage({ scene: 5, beat: 0, isThumbnail: false, onNavigate });
-    const navRight = screen.getByTestId("style-17-nav-right");
-    fireEvent.click(navRight);
+    const dot = screen.getByLabelText("Jump to scene 1");
+    fireEvent.click(dot);
     expect(onNavigate).toHaveBeenCalledWith(1, 0);
   });
 
-  it("nav click calls stopPropagation on the event", () => {
+  it("nav dot click calls stopPropagation on the event", () => {
     renderStage({ scene: 2, beat: 0, isThumbnail: false, onNavigate });
-    const navRight = screen.getByTestId("style-17-nav-right");
+    const dot = screen.getByLabelText("Jump to scene 4");
     const clickEvent = new MouseEvent("click", { bubbles: true });
     const stopPropagationSpy = vi.spyOn(clickEvent, "stopPropagation");
-    fireEvent(navRight, clickEvent);
+    fireEvent(dot, clickEvent);
     expect(stopPropagationSpy).toHaveBeenCalled();
   });
 });

@@ -302,7 +302,7 @@ export default function CaseStudy({
           </div>
           <div className={styles.problemPoints}>
             {points.map((p, i) => {
-              const visible = beat >= i + 1;
+              const visible = beat >= i;
               const cls = [styles.problemPoint, visible && entered ? styles.problemPointVisible : ""].filter(Boolean).join(" ");
               return (
                 <div

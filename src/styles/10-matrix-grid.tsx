@@ -187,7 +187,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       } else if (id === 2) {
         beatTitle = c.title;
         const quads = (c.quads as Array<{ name: string }>) || [];
-        const visible = Math.min((beatIdx + 1) * 2, 4);
+        const visible = Math.min(beatIdx * 2, 4);
         beatBody = quads.slice(0, visible).map((q) => q.name).join(" / ");
       } else if (id === 3) {
         beatTitle = c.title;
@@ -271,7 +271,7 @@ export default function MatrixGrid({
   const renderScene2 = () => {
     const c = SCENES[2][language as keyof typeof SCENES[2]];
     const quads = c.quads as Array<{ label: string; name: string; desc: string; count: string; highlight?: boolean }>;
-    const visibleCount = Math.min((beat + 1) * 2, 4);
+    const visibleCount = Math.min(beat * 2, 4);
     return (
       <div className={styles.scene2}>
         <span className={styles.secHeader}>{c.header}</span>

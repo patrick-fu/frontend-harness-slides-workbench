@@ -436,7 +436,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
         }
       } else if (id === 4) {
         beatTitle = c.dashTitle || "";
-        const visible = (c.cards || []).slice(0, Math.min((beatIdx + 1) * 3, 6));
+        const visible = (c.cards || []).slice(0, Math.min(beatIdx * 3, 6));
         beatBody = beatIdx >= 1 ? visible.map((card) => `${card.label}: ${card.value}`).join(" / ") : "";
       } else if (id === 5) {
         beatTitle = `${c.closingBig || ""}${c.closingAccent || ""}`;
@@ -595,7 +595,7 @@ export default function TerminalGlow({
   const renderScene2 = () => {
     const c = SCENES[2][language];
     const output = c.output || [];
-    const visibleCount = beat >= 1 ? Math.min(6 + beat * 4, output.length) : 0;
+    const visibleCount = beat >= 1 ? output.length : 0;
     return (
       <div className={styles.scene2}>
         <TermChrome title={c.termTitle || ""} path={c.termPath || ""} />

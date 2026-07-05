@@ -331,13 +331,12 @@ export default function ZineCulture({
           <h2 className={styles.zineCollageTitle}>
             {(content.collageTitle || "").split("\n").map((line, i) => (
               <React.Fragment key={i}>
-                {line.split(content.collageHighlight || "").map((part, j) =>
-                  part === content.collageHighlight ? (
-                    <span key={j}>{part}</span>
-                  ) : (
-                    <React.Fragment key={j}>{part}</React.Fragment>
-                  ),
-                )}
+                {line.split(content.collageHighlight || "").map((part, j, arr) => (
+                  <React.Fragment key={j}>
+                    {part}
+                    {j < arr.length - 1 && <span>{content.collageHighlight}</span>}
+                  </React.Fragment>
+                ))}
                 {i < (content.collageTitle || "").split("\n").length - 1 && <br />}
               </React.Fragment>
             ))}
@@ -470,7 +469,7 @@ export default function ZineCulture({
               onClick={(e) => handleNavClick(e, s)}
             >
               <span className={styles.navIndicatorStar}>
-                {isActive ? "&#9733;" : "&#9734;"}
+                {isActive ? "★" : "☆"}
               </span>
             </button>
           );

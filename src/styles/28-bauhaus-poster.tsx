@@ -140,7 +140,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     },
   };
 
-  const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 };
+  const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 1, 5: 1 };
 
   const scenes = [1, 2, 3, 4, 5].map((id) => {
     const beatCount = BEAT_COUNTS[id];
@@ -157,12 +157,12 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       } else if (id === 2) {
         beatTitle = c.heading;
         const pillars = (c.pillars as Array<{ title: string }>) || [];
-        const visible = Math.min((beatIdx + 1) * 2, 3);
+        const visible = Math.min(beatIdx * 2, 3);
         beatBody = pillars.slice(0, visible).map((p) => p.title).join(" / ");
       } else if (id === 3) {
         beatTitle = c.heading;
         const masters = (c.masters as Array<{ name: string }>) || [];
-        const visible = Math.min((beatIdx + 1) * 2, 4);
+        const visible = Math.min(beatIdx * 2, 4);
         beatBody = masters.slice(0, visible).map((m) => m.name).join(" / ");
       } else if (id === 4) {
         beatTitle = c.heading;

@@ -330,7 +330,7 @@ export default function LiteraryReview({
         <div className={styles.poemContainer}>
           <h2 className={styles.poemTitle}>{content.poemTitle}</h2>
           <p className={styles.poemAuthor}>{content.poemAuthor}</p>
-          {stanzas.slice(0, beat + 1).map((stanza, i) => (
+          {stanzas.slice(0, beat).map((stanza, i) => (
             <p
               key={i}
               className={styles.poemStanza}

@@ -161,7 +161,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
         beatBody = beatIdx >= 1 ? c.body || "" : c.concept || "";
       } else if (id === 4) {
         beatTitle = c.practice || "";
-        const visibleSteps = (c.practiceSteps || []).slice(0, Math.min((beatIdx + 1) * 2, 4));
+        const visibleSteps = (c.practiceSteps || []).slice(0, Math.min(beatIdx * 2, 4));
         beatBody = visibleSteps.join(" / ");
       } else if (id === 5) {
         beatTitle = `${c.kanji} ${c.closing}`;
@@ -208,7 +208,7 @@ export default function ZenVoid({
       requestAnimationFrame(() => setEntered(true));
     });
     return () => cancelAnimationFrame(id);
-  }, [scene]);
+  }, [scene, beat]);
 
   // Font loading
   useEffect(() => {
@@ -322,7 +322,7 @@ export default function ZenVoid({
         <h2 className={styles.practiceTitle}>{c.practice}</h2>
         <ul className={styles.practiceList}>
           {steps.map((step, i) => {
-            const visible = i < Math.min((beat + 1) * 2, 4);
+            const visible = i < Math.min(beat * 2, 4);
             return (
               <li
                 key={i}

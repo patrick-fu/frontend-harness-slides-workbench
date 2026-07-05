@@ -367,7 +367,7 @@ export default function ManuscriptScroll({
         <div className={styles.scrollVerse}>
           <div className={styles.scrollVerseOrnamentTop}>
             <span className={styles.scrollVerseOrnamentSymbol}>
-              {isZh ? "卷" : "&#10086;"}
+              {isZh ? "卷" : "❦"}
             </span>
           </div>
           <p className={verseClasses}>

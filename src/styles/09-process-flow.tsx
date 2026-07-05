@@ -360,7 +360,7 @@ export default function ProcessFlow({
   const renderScene2 = () => {
     const c = SCENES[2][language];
     const steps = (c.steps as Array<{ icon: string; label: string; desc: string }>) || [];
-    const visibleCount = Math.min((beat + 1) * 2, 4);
+    const visibleCount = Math.min(beat * 2, 4);
     return (
       <div className={styles.scene2}>
         <span className={styles.sceneHeading}>{c.heading as string}</span>
@@ -400,7 +400,7 @@ export default function ProcessFlow({
   const renderScene3 = () => {
     const c = SCENES[3][language];
     const steps = (c.steps as Array<{ num: string; title: string; body: string; badge: string }>) || [];
-    const visibleCount = beat === 0 ? 3 : beat === 1 ? 4 : 5;
+    const visibleCount = Math.min(beat * 3, steps.length);
     return (
       <div className={styles.scene3}>
         <span className={styles.sceneHeading}>{c.heading as string}</span>

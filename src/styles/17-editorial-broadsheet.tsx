@@ -2,6 +2,20 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./17-editorial-broadsheet.module.css";
 
+// ─── Font Injection ────────────────────────────────────────────────────────
+
+function useFonts() {
+  useEffect(() => {
+    const id = "style-17-fonts";
+    if (document.getElementById(id)) return;
+    const link = document.createElement("link");
+    link.id = id;
+    link.rel = "stylesheet";
+    link.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+Pro:wght@400;600;700&family=Noto+Serif+SC:wght@400;700;900&display=swap";
+    document.head.appendChild(link);
+  }, []);
+}
+
 // ─── Content ────────────────────────────────────────────────────────────────
 
 interface SceneContent {
@@ -296,6 +310,7 @@ export default function EditorialBroadsheet({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
+  useFonts();
   const [entered, setEntered] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -315,22 +330,6 @@ export default function EditorialBroadsheet({
       onNavigate?.(targetScene, 0);
     },
     [onNavigate],
-  );
-
-  const handleNavLeft = useCallback(
-    (e: React.MouseEvent) => {
-      const prev = scene > 1 ? scene - 1 : 5;
-      handleNavClick(e, prev);
-    },
-    [scene, handleNavClick],
-  );
-
-  const handleNavRight = useCallback(
-    (e: React.MouseEvent) => {
-      const next = scene < 5 ? scene + 1 : 1;
-      handleNavClick(e, next);
-    },
-    [scene, handleNavClick],
   );
 
   const rootClasses = [
@@ -536,33 +535,30 @@ export default function EditorialBroadsheet({
     return (
       <nav
         data-testid="style-17-nav"
-        className={styles.nav}
+        className={styles.navDots}
         aria-label="Scene navigation"
       >
-        <div className={styles.navRule} />
-        <div className={styles.navButtons}>
-          <button
-            type="button"
-            data-testid="style-17-nav-left"
-            className={styles.navBtn}
-            onClick={handleNavLeft}
-            aria-label="Previous scene"
-          >
-            {language === "zh" ? "上一页" : "Prev"}
-          </button>
-          <span className={styles.pageIndicator}>
-            {scene} / 5
-          </span>
-          <button
-            type="button"
-            data-testid="style-17-nav-right"
-            className={styles.navBtn}
-            onClick={handleNavRight}
-            aria-label="Next scene"
-          >
-            {language === "zh" ? "下一页" : "Next"}
-          </button>
-        </div>
+        {[1, 2, 3, 4, 5].map((s) => {
+          const isActive = s === scene;
+          const dotClasses = [
+            styles.navDot,
+            isActive ? styles.navDotActive : "",
+          ]
+            .filter(Boolean)
+            .join(" ");
+          return (
+            <button
+              key={s}
+              type="button"
+              className={dotClasses}
+              aria-label={`Jump to scene ${s}`}
+              onClick={(e) => handleNavClick(e, s)}
+              style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+            >
+              <span className={styles.navDotTooltip}>Scene {s}</span>
+            </button>
+          );
+        })}
       </nav>
     );
   };

@@ -2,6 +2,20 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./33-glass-dashboard.module.css";
 
+// ─── Font Injection ────────────────────────────────────────────────────────
+
+function useFonts() {
+  useEffect(() => {
+    const id = "style-33-fonts";
+    if (document.getElementById(id)) return;
+    const link = document.createElement("link");
+    link.id = id;
+    link.rel = "stylesheet";
+    link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap";
+    document.head.appendChild(link);
+  }, []);
+}
+
 // ─── Content ────────────────────────────────────────────────────────────────
 
 interface SceneContent {
@@ -305,6 +319,7 @@ export default function GlassDashboard({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
+  useFonts();
   const [entered, setEntered] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -475,7 +490,7 @@ export default function GlassDashboard({
         <h1 className={styles.gridTitle}>{c.gridTitle}</h1>
         <div className={styles.cardGrid}>
           {(c.cards || []).map((card, i) => {
-            const visible = i <= beat;
+            const visible = i < (beat + 1) * 2;
             return (
               <div
                 key={i}

@@ -91,7 +91,7 @@ const SCENES: Record<number, SceneContent> = {
   4: {
     en: {
       trendLabel: "The Agenda",
-      trendTitle: "Five Shifts\nDefining the Season",
+      trendTitle: "Three Shifts\nDefining the Season",
       trends: [
         {
           name: "Quiet Luxury 2.0",
@@ -109,7 +109,7 @@ const SCENES: Record<number, SceneContent> = {
     },
     zh: {
       trendLabel: "议题",
-      trendTitle: "定义本季的\n五个转变",
+      trendTitle: "定义本季的\n三个转变",
       trends: [
         {
           name: "静谧奢华 2.0",

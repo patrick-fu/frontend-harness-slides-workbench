@@ -2,6 +2,20 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./38-figma-canvas.module.css";
 
+// ─── Font Injection ────────────────────────────────────────────────────────
+
+function useFonts() {
+  useEffect(() => {
+    const id = "style-38-fonts";
+    if (document.getElementById(id)) return;
+    const link = document.createElement("link");
+    link.id = id;
+    link.rel = "stylesheet";
+    link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap";
+    document.head.appendChild(link);
+  }, []);
+}
+
 // ─── Content ────────────────────────────────────────────────────────────────
 
 const SCENES = {
@@ -335,6 +349,7 @@ export default function FigmaCanvas({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
+  useFonts();
   const [entered, setEntered] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 

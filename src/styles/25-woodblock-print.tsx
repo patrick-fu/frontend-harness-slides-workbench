@@ -378,7 +378,7 @@ export default function WoodblockPrint({
         <span className={styles.sceneLabel}>{c.label}</span>
         <h2 className={styles.sceneHeading}>{c.heading}</h2>
         <div className={styles.printArea}>
-          <GreatWaveSVG className={styles.greatWave} />
+          {beat >= 2 && <GreatWaveSVG className={styles.greatWave} />}
           <div className={styles.printInfo}>
             <h3 className={styles.printTitle}>{c.printTitle}</h3>
             <p className={styles.printArtist}>{c.artist}</p>
@@ -389,7 +389,7 @@ export default function WoodblockPrint({
             {stats.map((s, i) => (
               <div
                 key={i}
-                className={styles.statItem}
+                className={[styles.statItem, entered ? styles.statItemVisible : ""].filter(Boolean).join(" ")}
                 style={reducedMotion ? { opacity: 1 } : { transitionDelay: `${i * 0.12}s` }}
               >
                 <span className={styles.statValue}>{s.value}</span>

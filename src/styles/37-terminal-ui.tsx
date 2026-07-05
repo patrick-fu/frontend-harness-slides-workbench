@@ -2,6 +2,20 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./37-terminal-ui.module.css";
 
+// ─── Font Injection ────────────────────────────────────────────────────────
+
+function useFonts() {
+  useEffect(() => {
+    const id = "style-37-fonts";
+    if (document.getElementById(id)) return;
+    const link = document.createElement("link");
+    link.id = id;
+    link.rel = "stylesheet";
+    link.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap";
+    document.head.appendChild(link);
+  }, []);
+}
+
 // ─── Content ────────────────────────────────────────────────────────────────
 
 const BOOT_ASCII_EN = String.raw`
@@ -357,6 +371,7 @@ export default function TerminalUI({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
+  useFonts();
   const [entered, setEntered] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -440,6 +455,7 @@ export default function TerminalUI({
   const renderScene2 = () => {
     const c = SCENES[2][language];
     const lines = c.lines as Array<{ type: string; text: string; cls?: string }>;
+    const secondCmdIdx = lines.findIndex((l, i) => i > 0 && l.type === "cmd");
     return (
       <div className={styles.terminalWindow}>
         <div className={styles.terminalTitlebar}>
@@ -453,7 +469,7 @@ export default function TerminalUI({
         </div>
         <div className={styles.cmdBody}>
           {lines.map((line, i) => {
-            const visible = entered;
+            const visible = entered && (beat >= 1 || secondCmdIdx === -1 || i < secondCmdIdx);
             if (line.type === "blank") {
               return (
                 <div
@@ -473,6 +489,8 @@ export default function TerminalUI({
                   className={styles.terminalLine}
                   style={{
                     animationDelay: reducedMotion ? "0s" : `${i * 0.06}s`,
+                    opacity: visible ? 1 : 0,
+                    transition: reducedMotion ? "none" : "opacity 0.15s steps(3)",
                   }}
                 >
                   <span className={styles.terminalPrompt}>$</span>
@@ -497,6 +515,8 @@ export default function TerminalUI({
                 className={styles.terminalLine}
                 style={{
                   animationDelay: reducedMotion ? "0s" : `${i * 0.06}s`,
+                  opacity: visible ? 1 : 0,
+                  transition: reducedMotion ? "none" : "opacity 0.15s steps(3)",
                   paddingLeft: "2cqw",
                 }}
               >
@@ -535,7 +555,7 @@ export default function TerminalUI({
             {c.header}
           </div>
           {c.sections.map((section, si) => {
-            const visible = entered && si <= beat;
+            const visible = entered && si <= beat + 1;
             return (
               <div
                 key={si}
