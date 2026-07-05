@@ -79,6 +79,21 @@ function AppContent() {
 
   const [flashStyle, setFlashStyle] = useState(false);
 
+  // ── Viewport detection: sidebar only pushes content on desktop (≥md=768px)
+  // On mobile, sidebar is a drawer overlay — content should be full-width.
+
+  const [isDesktop, setIsDesktop] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth >= 768 : true,
+  );
+
+  useEffect(() => {
+    const mql = window.matchMedia("(min-width: 768px)");
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    setIsDesktop(mql.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, []);
+
   // ── Document title ───────────────────────────────────────────────────────
 
   useEffect(() => {
@@ -192,10 +207,10 @@ function AppContent() {
 
     return {
       paddingTop: headerHeight + versionBarHeight,
-      paddingLeft: effectiveSidebarWidth,
+      paddingLeft: isDesktop ? effectiveSidebarWidth : 0,
       paddingBottom: bottomBarHeight,
     };
-  }, [sidebarWidth, sidebarCollapsed, isLab]);
+  }, [sidebarWidth, sidebarCollapsed, isLab, isDesktop]);
 
   // ── Render ───────────────────────────────────────────────────────────────
 
