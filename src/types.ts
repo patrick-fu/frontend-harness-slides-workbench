@@ -18,6 +18,8 @@ export interface BespokeStyleProps {
   reducedMotion: boolean;
   /** Called by the Style's internal navigation to request a jump. */
   onNavigate?: (scene: number, beat: number) => void;
+  /** True when this is the outgoing scene clone during a framework-level slide transition. Skip enter animations. */
+  isTransitionClone?: boolean;
 }
 
 /**
