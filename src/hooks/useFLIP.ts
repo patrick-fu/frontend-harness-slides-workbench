@@ -119,8 +119,6 @@ export function useFLIP<T extends HTMLElement>({
       if (dx === 0 && dy === 0) continue;
 
       const htmlEl = el as HTMLElement;
-      // Save original transition
-      const prevTransition = htmlEl.style.transition;
       const prevTransform = htmlEl.style.transform;
 
       // Set to inverted position WITHOUT transition
@@ -161,5 +159,5 @@ export function useFLIP<T extends HTMLElement>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watch, duration, easing, getElements]);
 
-  return { ref: containerRef, snapshot };
+  return { ref: containerRef as React.RefObject<T>, snapshot };
 }

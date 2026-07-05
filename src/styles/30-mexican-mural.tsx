@@ -239,7 +239,7 @@ export default function MexicanMural({
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
 
-  const renderScene1 = (forceEntered = false) => {
+  const renderScene1 = (_forceEntered = false) => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
     return (
       <div className={styles.scene1}>
@@ -340,7 +340,7 @@ export default function MexicanMural({
     );
   };
 
-  const renderScene5 = (forceEntered = false) => {
+  const renderScene5 = (_forceEntered = false) => {
     const c = SCENES[5][language as keyof typeof SCENES[5]];
     return (
       <div className={styles.scene5}>

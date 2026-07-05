@@ -271,7 +271,6 @@ export default function NationalGeographic({
   onNavigate,
   isTransitionClone,
 }: BespokeStyleProps) {
-  const content = SCENES[scene]?.[language] || SCENES[1][language];
   const [entered, setEntered] = useState(false);
 
   const [outgoingScene, setOutgoingScene] = useState<number | null>(null);

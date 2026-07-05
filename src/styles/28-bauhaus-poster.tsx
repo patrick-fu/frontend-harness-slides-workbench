@@ -308,7 +308,7 @@ export default function BauhausPoster({
     );
   };
 
-  const renderScene4 = (beatNum: number, effectiveEntered: boolean) => {
+  const renderScene4 = (beatNum: number, _effectiveEntered: boolean) => {
     const c = SCENES[4][language as keyof typeof SCENES[4]];
     const stats = c.stats as Array<{ value: string; label: string }>;
     return (

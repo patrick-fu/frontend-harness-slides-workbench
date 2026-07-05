@@ -281,8 +281,6 @@ export default function FinancialTimes({
   onNavigate,
   isTransitionClone,
 }: BespokeStyleProps) {
-  const content = SCENES[scene]?.[language] || SCENES[1][language];
-
   const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const prevSceneRef = useRef<number>(scene);

@@ -496,7 +496,7 @@ export default function WhitePaper({
     .join(" ");
 
   /* Scene 1: Cover */
-  const renderCover = (sceneNum: number, _beatNum: number, isEntered: boolean) => {
+  const renderCover = (sceneNum: number, _beatNum: number, _isEntered: boolean) => {
     const s = data.scenes[sceneNum - 1] as (typeof data.scenes)[0];
     return (
       <div className={styles.cover}>

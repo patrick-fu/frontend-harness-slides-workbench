@@ -286,7 +286,7 @@ export default function SwissPrecision({
     isThumbnail ? styles.thumbnail : "",
   ].filter(Boolean).join(" ");
 
-  const renderScene1 = (beatNum: number) => {
+  const renderScene1 = (_beatNum: number) => {
     const c = SCENES[1][language];
     return (
       <div className={styles.scene1}>
@@ -418,7 +418,7 @@ export default function SwissPrecision({
     );
   };
 
-  const renderScene5 = (beatNum: number) => {
+  const renderScene5 = (_beatNum: number) => {
     const c = SCENES[5][language];
     return (
       <div className={styles.scene5}>

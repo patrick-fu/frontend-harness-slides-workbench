@@ -545,7 +545,7 @@ export default function TerminalGlow({
 
   // ── Scene renderers (parameterized by beatNum) ──────────────────────────
 
-  const renderScene1 = (beatNum: number, isCurrent: boolean) => {
+  const renderScene1 = (beatNum: number, _isCurrent: boolean) => {
     const c = SCENES[1][language];
     const bootLines = c.bootLines || [];
     return (
