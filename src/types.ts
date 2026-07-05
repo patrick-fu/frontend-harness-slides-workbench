@@ -82,3 +82,15 @@ export interface StyleRegistryEntry {
   component: React.ComponentType<BespokeStyleProps>;
   getMetadata: (lang: "en" | "zh") => StyleMetadata;
 }
+
+/** Metadata for a single scene, used by layout controls. */
+export interface SceneMetadata {
+  id: number;
+  title: string;
+  beats: Array<{
+    id: number;
+    action: string;
+    title: string;
+    body: string;
+  }>;
+}

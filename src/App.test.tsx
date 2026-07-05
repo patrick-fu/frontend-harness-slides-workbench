@@ -1,0 +1,109 @@
+import { describe, it, expect, beforeEach } from "vitest";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import App from "./App";
+
+// ─── Setup ──────────────────────────────────────────────────────────────────
+
+// Mock matchMedia for theme detection
+beforeEach(() => {
+  // Reset URL hash
+  window.location.hash = "";
+
+  // Clear localStorage
+  localStorage.clear();
+  sessionStorage.clear();
+});
+
+// ─── Tests ──────────────────────────────────────────────────────────────────
+
+describe("App", () => {
+  it("renders without crashing", () => {
+    expect(() => render(<App />)).not.toThrow();
+  });
+
+  it("default view shows Overview", () => {
+    render(<App />);
+    expect(screen.getByTestId("overview-view")).toBeInTheDocument();
+    // Lab view should not be in the DOM (only rendered when view=lab)
+    expect(screen.queryByTestId("lab-view")).not.toBeInTheDocument();
+  });
+
+  it("renders registered style cards in Overview", () => {
+    render(<App />);
+    // We have 3 pilot styles: 01, 17, 33
+    expect(screen.getByTestId("style-card-01")).toBeInTheDocument();
+    expect(screen.getByTestId("style-card-17")).toBeInTheDocument();
+    expect(screen.getByTestId("style-card-33")).toBeInTheDocument();
+  });
+
+  it("clicking a style card navigates to Lab view", async () => {
+    render(<App />);
+
+    // Click on style 01 card
+    const card = screen.getByTestId("style-card-01");
+    fireEvent.click(card);
+
+    // Lab view should now be visible
+    await waitFor(() => {
+      expect(screen.getByTestId("lab-view")).toBeInTheDocument();
+    });
+
+    // Overview should be hidden (display: none on its wrapper)
+    const overview = screen.getByTestId("overview-view");
+    expect(overview.parentElement).toHaveStyle({ display: "none" });
+  });
+
+  it("header title click returns to Overview", async () => {
+    render(<App />);
+
+    // First navigate to lab
+    const card = screen.getByTestId("style-card-01");
+    fireEvent.click(card);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("lab-view")).toBeInTheDocument();
+    });
+
+    // Click header title to go back to overview
+    const titleBtn = screen.getByText("Frontend Harness Slides Workbench");
+    fireEvent.click(titleBtn);
+
+    await waitFor(() => {
+      const overview = screen.getByTestId("overview-view");
+      expect(overview.parentElement).not.toHaveStyle({ display: "none" });
+    });
+  });
+
+  it("language toggle switches between EN and ZH", () => {
+    render(<App />);
+
+    const langBtn = screen.getByText("EN");
+    fireEvent.click(langBtn);
+
+    // After toggle, should show ZH
+    expect(screen.getByText("ZH")).toBeInTheDocument();
+  });
+
+  it("renders sidebar with style navigation", () => {
+    render(<App />);
+
+    // Sidebar should be in the DOM (wrapped in div with data-testid)
+    const sidebarWrapper = screen.getByTestId("sidebar");
+    expect(sidebarWrapper).toBeInTheDocument();
+  });
+
+  it("URL hash reflects navigation state", async () => {
+    render(<App />);
+
+    // Click style 17 card
+    const card = screen.getByTestId("style-card-17");
+    fireEvent.click(card);
+
+    await waitFor(() => {
+      expect(window.location.hash).toContain("view=lab");
+      expect(window.location.hash).toContain("style=17");
+      expect(window.location.hash).toContain("scene=1");
+      expect(window.location.hash).toContain("beat=0");
+    });
+  });
+});

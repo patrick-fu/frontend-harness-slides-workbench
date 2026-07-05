@@ -1,8 +1,41 @@
 @import "tailwindcss";
 
+/* ─── Theme tokens ──────────────────────────────────────────────────────── */
+
 @theme {
   --color-ink: #030712;
   --color-paper: #f8fafc;
+}
+
+/* ─── Light / dark theme CSS variables ──────────────────────────────────── */
+
+:root,
+[data-theme="light"] {
+  --bg: #f8fafc;
+  --ink: #030712;
+  --panel: #ffffff;
+  --border: rgba(3, 7, 18, 0.1);
+  --muted: rgba(3, 7, 18, 0.5);
+  --accent: #2563eb;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] {
+  --bg: #030712;
+  --ink: #f8fafc;
+  --panel: #0f172a;
+  --border: rgba(248, 250, 252, 0.12);
+  --muted: rgba(248, 250, 252, 0.5);
+  --accent: #60a5fa;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* ─── Base resets ───────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html,
@@ -10,4 +43,139 @@ body,
 #root {
   height: 100%;
   margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+/* ─── Scrollbar styling ─────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+/* ─── Frozen mode (instant animations) ──────────────────────────────────── */
+
+[data-frozen="true"] * {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+/* ─── Pure mode: hide chrome ────────────────────────────────────────────── */
+
+[data-pure-mode="true"] [data-testid="header"],
+[data-pure-mode="true"] [data-testid="sidebar"],
+[data-pure-mode="true"] [data-testid="bottom-bar"],
+[data-pure-mode="true"] header,
+[data-pure-mode="true"] aside,
+[data-pure-mode="true"] nav[data-sidebar] {
+  display: none !important;
+}
+
+/* ─── Print / PDF export ────────────────────────────────────────────────── */
+
+@media print {
+  @page {
+    size: 16in 9in;
+    margin: 0;
+  }
+
+  html,
+  body {
+    width: 16in;
+    height: 9in;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Hide all chrome when printing */
+  header,
+  aside,
+  nav,
+  [data-testid="header"],
+  [data-testid="sidebar"],
+  [data-testid="bottom-bar"],
+  [data-testid="sidebar-toggle"],
+  [data-testid="theme-toggle"],
+  [data-testid="github-link"],
+  button {
+    display: none !important;
+  }
+
+  /* Ensure the stage fills the page */
+  [data-testid="pure-mode-stage"],
+  [data-stage],
+  .stage {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 16in !important;
+    height: 9in !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Disable all animations in print */
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Prevent page breaks inside stage content */
+  [data-testid="pure-mode-stage"],
+  [data-stage],
+  .stage,
+  .slide-content {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+}
+
+/* ─── Selection styling ─────────────────────────────────────────────────── */
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ─── Focus outline ─────────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
