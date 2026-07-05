@@ -13,6 +13,7 @@
   --color-chrome: var(--chrome);
   --color-chrome-ink: var(--chrome-ink);
   --color-canvas: var(--canvas);
+  --color-elevated: var(--elevated);
 }
 
 /* ─── Light / dark theme CSS variables ──────────────────────────────────── */
@@ -29,6 +30,7 @@
   --chrome: #f5f5f5;
   --chrome-ink: #1a1a1a;
   --canvas: #e8e8e8;
+  --elevated: #ffffff;
 }
 
 [data-theme="dark"] {
@@ -42,6 +44,7 @@
   --chrome: #1a1a1a;
   --chrome-ink: #d4d4d4;
   --canvas: #141414;
+  --elevated: #2a2a2a;
 }
 
 /* ─── Base resets ───────────────────────────────────────────────────────── */

@@ -45,7 +45,7 @@ export default function PureModeOverlay({
       className={
         isPureMode
           ? "fixed inset-0 w-full h-full flex items-center justify-center z-40"
-          : "w-full h-full"
+          : "w-full h-full flex items-center justify-center"
       }
     >
       {children}

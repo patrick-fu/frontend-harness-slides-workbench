@@ -24,25 +24,56 @@ function langLabel(mode: LanguageMode): string {
   }
 }
 
-function langMobileLabel(mode: LanguageMode): string {
+function langIcon(mode: LanguageMode) {
   switch (mode) {
     case "auto":
-      return "A";
+      return (
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="6" cy="6" r="4.5" />
+          <path d="M1.5 6h9M6 1.5c1.5 1.5 1.5 7.5 0 9M6 1.5c-1.5 1.5-1.5 7.5 0 9" />
+        </svg>
+      );
     case "en":
-      return "EN";
+      return null;
     case "zh":
-      return "中";
+      return null;
   }
 }
 
-function themeMobileLabel(mode: ThemeMode): string {
+function themeIcon(mode: ThemeMode) {
   switch (mode) {
     case "auto":
-      return "⚙";
+      return (
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="1" y="1" width="10" height="10" rx="2" />
+          <circle cx="6" cy="6" r="1.5" />
+          <path d="M6 1v1.5M6 9.5V11M1 6h1.5M9.5 6H11" />
+        </svg>
+      );
     case "light":
-      return "☀";
+      return (
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="6" cy="6" r="2.5" />
+          <path d="M6 0.5v1.5M6 10v1.5M0.5 6h1.5M10 6h1.5M2.1 2.1l1 1M8.9 8.9l1 1M2.1 9.9l1-1M8.9 3.1l1-1" />
+        </svg>
+      );
     case "dark":
-      return "☾";
+      return (
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M9.5 7A4.5 4.5 0 015 2.5 4.5 4.5 0 109.5 7z" />
+        </svg>
+      );
+  }
+}
+
+function themeLabel(mode: ThemeMode): string {
+  switch (mode) {
+    case "auto":
+      return "Auto";
+    case "light":
+      return "Light";
+    case "dark":
+      return "Dark";
   }
 }
 
@@ -104,12 +135,12 @@ export default function Header({
       </div>
 
       {/* Right: language, theme, GitHub */}
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1.5">
         {/* ── Language: desktop segmented / mobile cycling button ── */}
         <div data-testid="lang-toggle" className="flex items-center">
           {/* Desktop segmented control */}
           <div
-            className="hidden md:flex items-center rounded-md overflow-hidden border border-ink/10"
+            className="hidden md:flex items-center rounded-full p-0.5 bg-ink/[0.06]"
             role="group"
             aria-label="Language"
           >
@@ -122,14 +153,15 @@ export default function Header({
                   data-testid={`lang-segment-${mode}`}
                   onClick={() => setLanguage(mode)}
                   className={[
-                    "px-2 py-0.5 text-[11px] font-medium transition-colors",
+                    "flex items-center gap-1 px-2.5 py-0.5 text-[11px] font-medium rounded-full transition-all duration-200",
                     selected
-                      ? "bg-chrome-ink text-chrome"
-                      : "text-chrome-ink hover:bg-ink/10",
+                      ? "bg-elevated text-ink shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.06)]"
+                      : "text-chrome-ink/60 hover:text-chrome-ink",
                   ].join(" ")}
                   aria-pressed={selected}
                 >
-                  {langLabel(mode)}
+                  {langIcon(mode)}
+                  <span>{langLabel(mode)}</span>
                 </button>
               );
             })}
@@ -140,10 +172,10 @@ export default function Header({
             type="button"
             data-testid="lang-segment-mobile"
             onClick={() => setLanguage(cycleLanguage(language))}
-            className="md:hidden px-2 py-0.5 text-[11px] font-medium rounded-md hover:bg-ink/10 transition-colors text-chrome-ink"
+            className="md:hidden flex items-center gap-1 px-2 py-0.5 text-[11px] font-medium rounded-md hover:bg-ink/10 transition-colors text-chrome-ink"
             aria-label={`Language: ${language}. Click to cycle.`}
           >
-            {langMobileLabel(language)}
+            {langIcon(language) ?? <span>{langLabel(language)}</span>}
           </button>
         </div>
 
@@ -151,7 +183,7 @@ export default function Header({
         <div data-testid="theme-toggle" className="flex items-center">
           {/* Desktop segmented control */}
           <div
-            className="hidden md:flex items-center rounded-md overflow-hidden border border-ink/10"
+            className="hidden md:flex items-center rounded-full p-0.5 bg-ink/[0.06]"
             role="group"
             aria-label="Theme"
           >
@@ -164,14 +196,15 @@ export default function Header({
                   data-testid={`theme-segment-${mode}`}
                   onClick={() => setTheme(mode)}
                   className={[
-                    "px-2 py-0.5 text-[11px] font-medium transition-colors capitalize",
+                    "flex items-center gap-1 px-2.5 py-0.5 text-[11px] font-medium rounded-full transition-all duration-200 capitalize",
                     selected
-                      ? "bg-chrome-ink text-chrome"
-                      : "text-chrome-ink hover:bg-ink/10",
+                      ? "bg-elevated text-ink shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.06)]"
+                      : "text-chrome-ink/60 hover:text-chrome-ink",
                   ].join(" ")}
                   aria-pressed={selected}
                 >
-                  {mode}
+                  {themeIcon(mode)}
+                  <span>{themeLabel(mode)}</span>
                 </button>
               );
             })}
@@ -185,7 +218,7 @@ export default function Header({
             className="md:hidden p-1.5 rounded-md hover:bg-ink/10 transition-colors text-chrome-ink"
             aria-label={`Theme: ${theme}. Click to cycle.`}
           >
-            {themeMobileLabel(theme)}
+            {themeIcon(theme)}
           </button>
         </div>
 
