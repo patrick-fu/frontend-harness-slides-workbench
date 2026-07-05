@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export interface UrlState {
   view: "overview" | "lab";
@@ -83,15 +83,10 @@ export function useUrlState(): [
   (updater: Partial<UrlState> | ((prev: UrlState) => Partial<UrlState>)) => void,
 ] {
   const [state, setState] = useState<UrlState>(() => parseHash());
-  const isNavigatingRef = useRef(false);
 
-  // Listen for hash changes (browser back/forward)
+  // Listen for hash changes (browser back/forward, direct hash assignment)
   useEffect(() => {
     function handleHashChange() {
-      if (isNavigatingRef.current) {
-        isNavigatingRef.current = false;
-        return;
-      }
       setState(parseHash());
     }
 
@@ -108,9 +103,8 @@ export function useUrlState(): [
           typeof updater === "function" ? updater(prev) : updater;
         const next = { ...prev, ...patch };
 
-        // Update URL hash
+        // Update URL hash via replaceState (does NOT fire hashchange)
         if (typeof window !== "undefined") {
-          isNavigatingRef.current = true;
           const hash = buildHash(next);
           const newUrl = `${window.location.pathname}${window.location.search}#${hash}`;
           window.history.replaceState(null, "", newUrl);

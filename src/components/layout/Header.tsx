@@ -15,7 +15,10 @@ export default function Header({
   onCycleTheme,
 }: HeaderProps) {
   return (
-    <header className="fixed top-0 left-0 right-0 w-full z-50 h-12 md:h-14 bg-paper border-b border-ink/10 flex items-center px-3 md:px-4">
+    <header
+      data-testid="header"
+      className="fixed top-0 left-0 right-0 w-full z-50 h-12 md:h-14 bg-paper border-b border-ink/10 flex items-center px-3 md:px-4"
+    >
       {/* Left: hamburger / sidebar toggle */}
       <button
         type="button"
@@ -55,6 +58,7 @@ export default function Header({
         {/* Language toggle */}
         <button
           type="button"
+          data-testid="lang-toggle"
           onClick={onToggleLanguage}
           className="px-2 py-1 text-xs font-medium rounded-md hover:bg-ink/10 transition-colors"
           aria-label={`Switch to ${language === "en" ? "Chinese" : "English"}`}

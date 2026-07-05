@@ -129,6 +129,7 @@ export default function Sidebar({
       )}
 
       <aside
+        data-testid="sidebar"
         className={sidebarClasses}
         style={{
           width: effectiveWidth,
@@ -219,6 +220,7 @@ export default function Sidebar({
                           <button
                             type="button"
                             role="treeitem"
+                            data-testid={`sidebar-style-${entry.id}`}
                             onClick={() => handleStyleClick(entry.id)}
                             aria-current={isCurrent ? "true" : undefined}
                             className={[

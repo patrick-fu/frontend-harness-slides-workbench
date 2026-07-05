@@ -190,7 +190,6 @@ function AppContent() {
     >
       {/* Header (hidden in pure mode by CSS) */}
       <div
-        data-testid="header"
         style={{ display: urlState.pureMode ? "none" : undefined }}
       >
         <Header
@@ -205,7 +204,6 @@ function AppContent() {
 
       {/* Sidebar (hidden in pure mode by CSS) */}
       <div
-        data-testid="sidebar"
         style={{ display: urlState.pureMode ? "none" : undefined }}
       >
         <Sidebar
