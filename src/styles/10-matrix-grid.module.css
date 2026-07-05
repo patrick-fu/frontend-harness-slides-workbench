@@ -20,19 +20,21 @@
   display: flex;
   flex-direction: column;
   padding: 5cqh 7cqw;
-  transition:
-    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.trackEnter {
-  opacity: 0;
-  transform: translateX(-3cqw);
+.animateSceneEnter {
+  animation: sceneEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.trackActive {
-  opacity: 1;
-  transform: translateX(0);
+@keyframes sceneEnter {
+  from {
+    opacity: 0;
+    transform: translateY(1.5cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── Scene 1: Title ────────────────────────────────────────────────────── */
@@ -389,58 +391,56 @@
 
 /* ── Navigation ────────────────────────────────────────────────────────── */
 
-.navDots {
+.navGrid {
   position: absolute;
-  bottom: 3cqh;
-  right: 5cqw;
+  bottom: 2.5cqh;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  gap: 1cqw;
+  gap: 0.5cqw;
   z-index: 10;
-  flex-direction: column;
 }
 
-.navDot {
-  width: 0.5cqw;
-  height: 3cqh;
-  border-radius: 0.25cqw;
+.navGridCell {
+  width: 2.5cqw;
+  height: 0.5cqh;
+  border-radius: 0.1cqw;
   border: none;
   padding: 0;
   cursor: pointer;
   background: var(--style-10-ink, #1a1a2e);
-  opacity: 0.1;
+  opacity: 0.15;
   transition:
     opacity 0.3s ease,
-    height 0.3s ease,
-    background 0.3s ease;
+    background 0.3s ease,
+    width 0.3s ease;
 }
 
-.navDot:hover {
-  opacity: 0.3;
+.navGridCell:hover {
+  opacity: 0.35;
 }
 
-.navDotActive {
-  opacity: 0.5;
-  height: 5cqh;
+.navGridCellActive {
+  opacity: 0.55;
   background: var(--style-10-accent, #4361ee);
+  width: 4cqw;
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
-.reducedMotion .track,
+.reducedMotion .animateSceneEnter {
+  animation-duration: 0s !important;
+}
+
 .reducedMotion .quadCell,
 .reducedMotion .tableRow,
 .reducedMotion .matrixCell,
-.reducedMotion .navDot {
+.reducedMotion .navGridCell {
   transition-duration: 0s !important;
-}
-
-.reducedMotion .trackEnter {
-  opacity: 1;
-  transform: none;
 }
 
 /* ── Thumbnail ─────────────────────────────────────────────────────────── */
 
-.thumbnail .navDots {
+.thumbnail .navGrid {
   display: none;
 }

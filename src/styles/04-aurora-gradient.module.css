@@ -85,9 +85,21 @@
   flex-direction: column;
   padding: 6cqh 8cqw;
   z-index: 1;
-  transition:
-    opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animateSceneEnter {
+  animation: sceneEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes sceneEnter {
+  from {
+    opacity: 0;
+    transform: translateY(2cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .trackEnter {
@@ -434,61 +446,78 @@
   opacity: 0.25;
 }
 
-/* ── Navigation ────────────────────────────────────────────────────────── */
+/* ── Navigation: Aurora Color Wheel ────────────────────────────────────── */
 
 .nav {
   position: absolute;
   bottom: 4cqh;
   right: 5cqw;
-  display: flex;
-  gap: 1cqw;
   z-index: 10;
 }
 
-.navDot {
-  width: 0.8cqw;
-  height: 0.8cqw;
-  min-width: 6px;
-  min-height: 6px;
+.colorWheel {
+  position: relative;
+  width: 9cqw;
+  height: 9cqw;
+  min-width: 60px;
+  min-height: 60px;
+}
+
+.wheelSegment {
+  position: absolute;
+  width: 1.6cqw;
+  height: 1.6cqw;
+  min-width: 10px;
+  min-height: 10px;
   border-radius: 50%;
   border: none;
   padding: 0;
   cursor: pointer;
-  background: rgba(232, 228, 240, 0.15);
+  transform: translate(-50%, -50%);
   transition:
-    background 0.3s ease,
     box-shadow 0.3s ease,
-    transform 0.3s ease;
+    transform 0.3s ease,
+    opacity 0.3s ease;
+  opacity: 0.55;
 }
 
-.navDot:hover {
-  background: rgba(232, 228, 240, 0.4);
-  transform: scale(1.3);
+.wheelSegment:hover {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.35);
 }
 
-.navDotActive {
-  background: #a78bfa;
-  box-shadow: 0 0 1cqw #a78bfa;
+.wheelSegmentActive {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.25);
+}
+
+.wheelHub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2cqw;
+  height: 2cqw;
+  min-width: 12px;
+  min-height: 12px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  pointer-events: none;
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
-.reducedMotion .track,
-.reducedMotion .headline,
+.reducedMotion .animateSceneEnter,
 .reducedMotion .dataCard,
 .reducedMotion .regionCard,
-.reducedMotion .forecast,
 .reducedMotion .forecastMetric,
-.reducedMotion .navDot,
+.reducedMotion .wheelSegment,
 .reducedMotion .auroraBlob,
 .reducedMotion .pulseRing {
   transition-duration: 0s !important;
   animation-duration: 0s !important;
-}
-
-.reducedMotion .trackEnter {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* ── Thumbnail ─────────────────────────────────────────────────────────── */

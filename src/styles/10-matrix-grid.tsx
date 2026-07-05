@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./10-matrix-grid.module.css";
 
@@ -233,16 +233,6 @@ export default function MatrixGrid({
   scene, beat, language, isThumbnail, reducedMotion, onNavigate,
 }: BespokeStyleProps) {
   useFonts();
-  const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setEntered(true));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -253,7 +243,7 @@ export default function MatrixGrid({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, entered ? styles.trackActive : styles.trackEnter].filter(Boolean).join(" ");
+  const trackClasses = [styles.track, styles.animateSceneEnter].filter(Boolean).join(" ");
 
   const renderScene1 = () => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
@@ -281,7 +271,7 @@ export default function MatrixGrid({
             const visible = i < visibleCount;
             const cls = [
               styles.quadCell,
-              visible && entered ? styles.quadCellVisible : "",
+              visible ? styles.quadCellVisible : "",
               q.highlight ? styles.quadCellHighlight : "",
             ].filter(Boolean).join(" ");
             return (
@@ -327,7 +317,7 @@ export default function MatrixGrid({
                 const visible = i < visibleCount;
                 const cls = [
                   styles.tableRow,
-                  visible && entered ? styles.tableRowVisible : "",
+                  visible ? styles.tableRowVisible : "",
                 ].filter(Boolean).join(" ");
                 return (
                   <tr
@@ -367,7 +357,7 @@ export default function MatrixGrid({
             const visible = beat >= 1;
             const cls = [
               styles.matrixCell,
-              visible && entered ? styles.matrixCellVisible : "",
+              visible ? styles.matrixCellVisible : "",
             ].filter(Boolean).join(" ");
             return (
               <div
@@ -385,7 +375,7 @@ export default function MatrixGrid({
             <React.Fragment key={`feat-${fi}`}>
               <div
                 className={[styles.matrixCell, styles.matrixCellVisible].join(" ")}
-                style={{ opacity: beat >= 1 && entered ? 1 : 0, transition: reducedMotion ? "none" : `opacity 0.4s ease ${fi * 0.1}s` }}
+                style={{ opacity: beat >= 1 ? 1 : 0, transition: reducedMotion ? "none" : `opacity 0.4s ease ${fi * 0.1}s` }}
               >
                 <span className={styles.matrixFeature} style={{ fontWeight: 600, textAlign: "left", width: "100%" }}>{feat.name}</span>
               </div>
@@ -396,7 +386,7 @@ export default function MatrixGrid({
                 return (
                   <div
                     key={`val-${fi}-${vi}`}
-                    className={[styles.matrixCell, visible && entered ? styles.matrixCellVisible : ""].filter(Boolean).join(" ")}
+                    className={[styles.matrixCell, visible ? styles.matrixCellVisible : ""].filter(Boolean).join(" ")}
                     style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${(fi * 4 + vi) * 0.04 + 0.2}s` }}
                   >
                     <span className={[styles.matrixVal, valCls].join(" ")}>{val}</span>
@@ -442,14 +432,14 @@ export default function MatrixGrid({
   const renderNav = () => {
     if (isThumbnail) return null;
     return (
-      <nav className={styles.navDots} aria-label="Scene navigation">
+      <nav className={styles.navGrid} aria-label="Scene navigation">
         {[1, 2, 3, 4, 5].map((s) => {
           const isActive = s === scene;
           return (
             <button
               key={s}
               type="button"
-              className={[styles.navDot, isActive ? styles.navDotActive : ""].filter(Boolean).join(" ")}
+              className={[styles.navGridCell, isActive ? styles.navGridCellActive : ""].filter(Boolean).join(" ")}
               aria-label={`Jump to scene ${s}`}
               onClick={(e) => handleNavClick(e, s)}
             />
@@ -462,10 +452,9 @@ export default function MatrixGrid({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`10-${scene}`}
         className={trackClasses}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

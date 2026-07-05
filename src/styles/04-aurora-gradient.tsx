@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./04-aurora-gradient.module.css";
 
@@ -241,16 +241,6 @@ export default function AuroraGradient({
   onNavigate,
 }: BespokeStyleProps) {
   useFonts();
-  const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setEntered(true));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -293,26 +283,17 @@ export default function AuroraGradient({
     const c = SCENES[2][language];
     return (
       <div className={styles.scene2}>
-        <h2
-          className={styles.headline}
-          style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "none" : "translateY(1cqh)",
-            transition: reducedMotion ? "none" : "opacity 0.8s ease, transform 0.8s ease",
-          }}
-        >
-          {c.headline}
-        </h2>
+        <h2 className={styles.headline}>{c.headline}</h2>
         <div className={styles.dataGrid}>
           {(c.dataPoints || []).map((d, i) => (
             <div
               key={i}
               className={styles.dataCard}
               style={{
-                opacity: entered && beat >= 1 ? 1 : 0,
-                transform: entered && beat >= 1 ? "none" : "translateY(2cqh)",
+                opacity: beat >= 1 ? 1 : 0,
+                transform: beat >= 1 ? "none" : "translateY(2cqh)",
                 transition: reducedMotion ? "none" : `opacity 0.6s ease ${0.1 + i * 0.1}s, transform 0.6s ease ${0.1 + i * 0.1}s`,
-                boxShadow: entered && beat >= 1 ? `0 0 30cqw ${d.color}15, inset 0 1px 0 rgba(255,255,255,0.05)` : "none",
+                boxShadow: beat >= 1 ? `0 0 30cqw ${d.color}15, inset 0 1px 0 rgba(255,255,255,0.05)` : "none",
               }}
             >
               <span className={styles.dataLabel}>{d.label}</span>
@@ -385,7 +366,7 @@ export default function AuroraGradient({
                 points={areaPoints}
                 fill="url(#auroraGrad)"
                 style={{
-                  opacity: entered ? 1 : 0,
+                  opacity: 1,
                   transition: reducedMotion ? "none" : "opacity 1s ease 0.3s",
                 }}
               />
@@ -402,7 +383,7 @@ export default function AuroraGradient({
                 filter="url(#glow)"
                 style={{
                   strokeDasharray: 200,
-                  strokeDashoffset: entered ? 0 : 200,
+                  strokeDashoffset: beat >= 1 ? 0 : 200,
                   transition: reducedMotion ? "none" : "stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s",
                 }}
               />
@@ -417,7 +398,7 @@ export default function AuroraGradient({
                   cx={cx} cy={cy} r="0.4"
                   fill="#e8e4f0"
                   style={{
-                    opacity: entered ? 0.8 : 0,
+                    opacity: beat >= 1 ? 0.8 : 0,
                     transition: reducedMotion ? "none" : `opacity 0.4s ease ${0.5 + i * 0.08}s`,
                   }}
                 />
@@ -473,8 +454,8 @@ export default function AuroraGradient({
                 key={i}
                 className={styles.regionCard}
                 style={{
-                  opacity: visible && entered ? 1 : 0,
-                  transform: visible && entered ? "none" : "scale(0.95)",
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? "none" : "scale(0.95)",
                   transition: reducedMotion ? "none" : `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s`,
                   borderColor: `${statusColor}30`,
                 }}
@@ -513,16 +494,7 @@ export default function AuroraGradient({
     const c = SCENES[5][language];
     return (
       <div className={styles.scene5}>
-        <h2
-          className={styles.forecast}
-          style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "none" : "translateY(1cqh)",
-            transition: reducedMotion ? "none" : "opacity 0.8s ease, transform 0.8s ease",
-          }}
-        >
-          {c.forecast}
-        </h2>
+        <h2 className={styles.forecast}>{c.forecast}</h2>
         <p className={styles.forecastSub}>{c.forecastSub}</p>
         <div className={styles.forecastMetrics}>
           {(c.forecastMetrics || []).map((m, i) => (
@@ -530,8 +502,8 @@ export default function AuroraGradient({
               key={i}
               className={styles.forecastMetric}
               style={{
-                opacity: entered && beat >= 1 ? 1 : 0,
-                transform: entered && beat >= 1 ? "none" : "translateY(1cqh)",
+                opacity: beat >= 1 ? 1 : 0,
+                transform: beat >= 1 ? "none" : "translateY(1cqh)",
                 transition: reducedMotion ? "none" : `opacity 0.5s ease ${0.1 + i * 0.12}s, transform 0.5s ease ${0.1 + i * 0.12}s`,
               }}
             >
@@ -560,20 +532,43 @@ export default function AuroraGradient({
 
   const renderNav = () => {
     if (isThumbnail) return null;
+
+    const sceneColors = ["#a78bfa", "#38bdf8", "#4ade80", "#fbbf24", "#ff6b6b"];
+    const radius = 3.5; // cqw — distance from center
+    const total = 5;
+
     return (
       <nav className={styles.nav} aria-label="Scene navigation">
-        {[1, 2, 3, 4, 5].map((s) => {
-          const isActive = s === scene;
-          return (
-            <button
-              key={s}
-              type="button"
-              className={[styles.navDot, isActive ? styles.navDotActive : ""].filter(Boolean).join(" ")}
-              aria-label={`Jump to scene ${s}`}
-              onClick={(e) => handleNavClick(e, s)}
-            />
-          );
-        })}
+        <div className={styles.colorWheel}>
+          {[1, 2, 3, 4, 5].map((s, i) => {
+            const isActive = s === scene;
+            const angle = (i / total) * 2 * Math.PI - Math.PI / 2;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            const color = sceneColors[i];
+            return (
+              <button
+                key={s}
+                type="button"
+                className={[
+                  styles.wheelSegment,
+                  isActive ? styles.wheelSegmentActive : "",
+                ].filter(Boolean).join(" ")}
+                aria-label={`Jump to scene ${s}`}
+                onClick={(e) => handleNavClick(e, s)}
+                style={{
+                  left: `calc(50% + ${x}cqw)`,
+                  top: `calc(50% + ${y}cqw)`,
+                  background: color,
+                  boxShadow: isActive
+                    ? `0 0 1.5cqw ${color}, 0 0 3cqw ${color}80`
+                    : `0 0 0.5cqw ${color}40`,
+                }}
+              />
+            );
+          })}
+          <div className={styles.wheelHub} aria-hidden="true" />
+        </div>
       </nav>
     );
   };
@@ -582,9 +577,9 @@ export default function AuroraGradient({
     <div className={rootClasses}>
       {renderAuroraBg()}
       <div
-        ref={trackRef}
-        className={[styles.track, entered ? styles.trackActive : styles.trackEnter].filter(Boolean).join(" ")}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        key={scene}
+        className={[styles.track, styles.animateSceneEnter].filter(Boolean).join(" ")}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

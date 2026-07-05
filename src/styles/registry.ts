@@ -1,4 +1,4 @@
-import type { StyleRegistryEntry } from "../types";
+import type { StyleRegistryEntry, StyleVersion, StyleMetadata } from "../types";
 import ExecutiveSilence01, {
   getMetadata as getMetadata01,
 } from "./01-executive-silence";
@@ -144,260 +144,235 @@ import ExecutiveSummary48, {
   getMetadata as getMetadata48,
 } from "./48-executive-summary";
 
+// ─── Helpers ────────────────────────────────────────────────────────────────
+
+const DEFAULT_MODEL = "Doubao-Seed-Evolving";
+
 /**
- * The authoritative registry of all 48 Styles.
- *
- * Phase 1: 3 pilot styles (01, 17, 33).
- * Phase 3: all 48 entries populated.
+ * Extract a short topic name from the metadata theme string.
+ * The theme field typically looks like:
+ *   "决策的艺术——以极简、高端的排版呈现高管领导智慧"
+ *   "The Art of Decision — executive leadership wisdom in sparse, premium typography"
+ * We take the first clause before the em dash separator.
+ */
+function extractTopic(theme: string): string {
+  return theme.split(/[—–\-:：]/)[0].trim();
+}
+
+/**
+ * Build a StyleVersion from a component + getMetadata pair.
+ * Calls getMetadata to extract the style name and derive the topic.
+ */
+function buildVersion(
+  versionId: string,
+  component: React.ComponentType<any>,
+  getMetadata: (lang: "en" | "zh") => StyleMetadata,
+  model: string = DEFAULT_MODEL,
+): {
+  version: StyleVersion;
+  name: { en: string; zh: string };
+} {
+  const metaEn = getMetadata("en");
+  const metaZh = getMetadata("zh");
+  return {
+    version: {
+      id: versionId,
+      topic: extractTopic(metaZh.theme),
+      model,
+      component,
+      getMetadata,
+    },
+    name: { en: metaEn.name, zh: metaZh.name },
+  };
+}
+
+/**
+ * Build a full StyleRegistryEntry from one or more (component, getMetadata) pairs.
+ * Currently each style has exactly 1 version; more can be added by passing
+ * additional tuples to the versions array.
+ */
+function buildEntry(
+  styleId: string,
+  versions: Array<{
+    component: React.ComponentType<any>;
+    getMetadata: (lang: "en" | "zh") => StyleMetadata;
+    model?: string;
+  }>,
+): StyleRegistryEntry {
+  const built = versions.map((v, i) =>
+    buildVersion(`v${i + 1}`, v.component, v.getMetadata, v.model),
+  );
+  return {
+    id: styleId,
+    name: built[0].name, // Style name from the first version's metadata
+    versions: built.map((b) => b.version),
+  };
+}
+
+// ─── Registry ───────────────────────────────────────────────────────────────
+
+/**
+ * The authoritative registry of all Styles and their Versions.
  *
  * Registry order determines cross-style cycling order (D33: band-grouped).
- * Styles not yet implemented are omitted; they will be added as they land.
+ * Within each Style, versions are ordered by their index in the versions array.
+ *
+ * Navigation cycling: style01v1 → style01v2 → ... → style02v1 → ...
  */
 export const STYLE_REGISTRY: StyleRegistryEntry[] = [
   // Minimal Keynote: 01-08
-  {
-    id: "01",
-    component: ExecutiveSilence01,
-    getMetadata: getMetadata01,
-  },
-  {
-    id: "02",
-    component: SwissPrecision02,
-    getMetadata: getMetadata02,
-  },
-  {
-    id: "03",
-    component: ZenVoid03,
-    getMetadata: getMetadata03,
-  },
-  {
-    id: "04",
-    component: AuroraGradient04,
-    getMetadata: getMetadata04,
-  },
-  {
-    id: "05",
-    component: Blueprint05,
-    getMetadata: getMetadata05,
-  },
-  {
-    id: "06",
-    component: MonochromeStudy06,
-    getMetadata: getMetadata06,
-  },
-  {
-    id: "07",
-    component: QuietConfidence07,
-    getMetadata: getMetadata07,
-  },
-  {
-    id: "08",
-    component: TerminalGlow08,
-    getMetadata: getMetadata08,
-  },
+  buildEntry("01", [{ component: ExecutiveSilence01, getMetadata: getMetadata01 }]),
+  buildEntry("02", [{ component: SwissPrecision02, getMetadata: getMetadata02 }]),
+  buildEntry("03", [{ component: ZenVoid03, getMetadata: getMetadata03 }]),
+  buildEntry("04", [{ component: AuroraGradient04, getMetadata: getMetadata04 }]),
+  buildEntry("05", [{ component: Blueprint05, getMetadata: getMetadata05 }]),
+  buildEntry("06", [{ component: MonochromeStudy06, getMetadata: getMetadata06 }]),
+  buildEntry("07", [{ component: QuietConfidence07, getMetadata: getMetadata07 }]),
+  buildEntry("08", [{ component: TerminalGlow08, getMetadata: getMetadata08 }]),
   // Balanced Hybrid: 09-16
-  {
-    id: "09",
-    component: ProcessFlow09,
-    getMetadata: getMetadata09,
-  },
-  {
-    id: "10",
-    component: MatrixGrid10,
-    getMetadata: getMetadata10,
-  },
-  {
-    id: "11",
-    component: TimelineSpiral11,
-    getMetadata: getMetadata11,
-  },
-  {
-    id: "12",
-    component: Iconography12,
-    getMetadata: getMetadata12,
-  },
-  {
-    id: "13",
-    component: StickyBoard13,
-    getMetadata: getMetadata13,
-  },
-  {
-    id: "14",
-    component: OrgChart14,
-    getMetadata: getMetadata14,
-  },
-  {
-    id: "15",
-    component: Roadmap15,
-    getMetadata: getMetadata15,
-  },
-  {
-    id: "16",
-    component: CaseStudy16,
-    getMetadata: getMetadata16,
-  },
+  buildEntry("09", [{ component: ProcessFlow09, getMetadata: getMetadata09 }]),
+  buildEntry("10", [{ component: MatrixGrid10, getMetadata: getMetadata10 }]),
+  buildEntry("11", [{ component: TimelineSpiral11, getMetadata: getMetadata11 }]),
+  buildEntry("12", [{ component: Iconography12, getMetadata: getMetadata12 }]),
+  buildEntry("13", [{ component: StickyBoard13, getMetadata: getMetadata13 }]),
+  buildEntry("14", [{ component: OrgChart14, getMetadata: getMetadata14 }]),
+  buildEntry("15", [{ component: Roadmap15, getMetadata: getMetadata15 }]),
+  buildEntry("16", [{ component: CaseStudy16, getMetadata: getMetadata16 }]),
   // Editorial & Print: 17-24
-  {
-    id: "17",
-    component: EditorialBroadsheet17,
-    getMetadata: getMetadata17,
-  },
-  {
-    id: "18",
-    component: LiteraryReview18,
-    getMetadata: getMetadata18,
-  },
-  {
-    id: "19",
-    component: FinancialTimes19,
-    getMetadata: getMetadata19,
-  },
-  {
-    id: "20",
-    component: NationalGeographic20,
-    getMetadata: getMetadata20,
-  },
-  {
-    id: "21",
-    component: VogueEditorial21,
-    getMetadata: getMetadata21,
-  },
-  {
-    id: "22",
-    component: AcademicJournal22,
-    getMetadata: getMetadata22,
-  },
-  {
-    id: "23",
-    component: ZineCulture23,
-    getMetadata: getMetadata23,
-  },
-  {
-    id: "24",
-    component: ManuscriptScroll24,
-    getMetadata: getMetadata24,
-  },
+  buildEntry("17", [{ component: EditorialBroadsheet17, getMetadata: getMetadata17 }]),
+  buildEntry("18", [{ component: LiteraryReview18, getMetadata: getMetadata18 }]),
+  buildEntry("19", [{ component: FinancialTimes19, getMetadata: getMetadata19 }]),
+  buildEntry("20", [{ component: NationalGeographic20, getMetadata: getMetadata20 }]),
+  buildEntry("21", [{ component: VogueEditorial21, getMetadata: getMetadata21 }]),
+  buildEntry("22", [{ component: AcademicJournal22, getMetadata: getMetadata22 }]),
+  buildEntry("23", [{ component: ZineCulture23, getMetadata: getMetadata23 }]),
+  buildEntry("24", [{ component: ManuscriptScroll24, getMetadata: getMetadata24 }]),
   // Craft & Cultural Traditions: 25-32
-  {
-    id: "25",
-    component: WoodblockPrint25,
-    getMetadata: getMetadata25,
-  },
-  {
-    id: "26",
-    component: ChineseInk26,
-    getMetadata: getMetadata26,
-  },
-  {
-    id: "27",
-    component: ArtDeco27,
-    getMetadata: getMetadata27,
-  },
-  {
-    id: "28",
-    component: BauhausPoster28,
-    getMetadata: getMetadata28,
-  },
-  {
-    id: "29",
-    component: CelticKnot29,
-    getMetadata: getMetadata29,
-  },
-  {
-    id: "30",
-    component: MexicanMural30,
-    getMetadata: getMetadata30,
-  },
-  {
-    id: "31",
-    component: AfricanKente31,
-    getMetadata: getMetadata31,
-  },
-  {
-    id: "32",
-    component: NordicRosemaling32,
-    getMetadata: getMetadata32,
-  },
+  buildEntry("25", [{ component: WoodblockPrint25, getMetadata: getMetadata25 }]),
+  buildEntry("26", [{ component: ChineseInk26, getMetadata: getMetadata26 }]),
+  buildEntry("27", [{ component: ArtDeco27, getMetadata: getMetadata27 }]),
+  buildEntry("28", [{ component: BauhausPoster28, getMetadata: getMetadata28 }]),
+  buildEntry("29", [{ component: CelticKnot29, getMetadata: getMetadata29 }]),
+  buildEntry("30", [{ component: MexicanMural30, getMetadata: getMetadata30 }]),
+  buildEntry("31", [{ component: AfricanKente31, getMetadata: getMetadata31 }]),
+  buildEntry("32", [{ component: NordicRosemaling32, getMetadata: getMetadata32 }]),
   // Contemporary Digital: 33-40
-  {
-    id: "33",
-    component: GlassDashboard33,
-    getMetadata: getMetadata33,
-  },
-  {
-    id: "34",
-    component: RetroOs9534,
-    getMetadata: getMetadata34,
-  },
-  {
-    id: "35",
-    component: NeonGrid35,
-    getMetadata: getMetadata35,
-  },
-  {
-    id: "36",
-    component: GlassMorph36,
-    getMetadata: getMetadata36,
-  },
-  {
-    id: "37",
-    component: TerminalUi37,
-    getMetadata: getMetadata37,
-  },
-  {
-    id: "38",
-    component: FigmaCanvas38,
-    getMetadata: getMetadata38,
-  },
-  {
-    id: "39",
-    component: NotionDoc39,
-    getMetadata: getMetadata39,
-  },
-  {
-    id: "40",
-    component: ParticleField40,
-    getMetadata: getMetadata40,
-  },
+  buildEntry("33", [{ component: GlassDashboard33, getMetadata: getMetadata33 }]),
+  buildEntry("34", [{ component: RetroOs9534, getMetadata: getMetadata34 }]),
+  buildEntry("35", [{ component: NeonGrid35, getMetadata: getMetadata35 }]),
+  buildEntry("36", [{ component: GlassMorph36, getMetadata: getMetadata36 }]),
+  buildEntry("37", [{ component: TerminalUi37, getMetadata: getMetadata37 }]),
+  buildEntry("38", [{ component: FigmaCanvas38, getMetadata: getMetadata38 }]),
+  buildEntry("39", [{ component: NotionDoc39, getMetadata: getMetadata39 }]),
+  buildEntry("40", [{ component: ParticleField40, getMetadata: getMetadata40 }]),
   // Text Report: 41-48
-  {
-    id: "41",
-    component: AnnualReport41,
-    getMetadata: getMetadata41,
-  },
-  {
-    id: "42",
-    component: LegalBrief42,
-    getMetadata: getMetadata42,
-  },
-  {
-    id: "43",
-    component: ResearchDigest43,
-    getMetadata: getMetadata43,
-  },
-  {
-    id: "44",
-    component: MeetingMinutes44,
-    getMetadata: getMetadata44,
-  },
-  {
-    id: "45",
-    component: PolicyPaper45,
-    getMetadata: getMetadata45,
-  },
-  {
-    id: "46",
-    component: AuditReport46,
-    getMetadata: getMetadata46,
-  },
-  {
-    id: "47",
-    component: WhitePaper47,
-    getMetadata: getMetadata47,
-  },
-  {
-    id: "48",
-    component: ExecutiveSummary48,
-    getMetadata: getMetadata48,
-  },
+  buildEntry("41", [{ component: AnnualReport41, getMetadata: getMetadata41 }]),
+  buildEntry("42", [{ component: LegalBrief42, getMetadata: getMetadata42 }]),
+  buildEntry("43", [{ component: ResearchDigest43, getMetadata: getMetadata43 }]),
+  buildEntry("44", [{ component: MeetingMinutes44, getMetadata: getMetadata44 }]),
+  buildEntry("45", [{ component: PolicyPaper45, getMetadata: getMetadata45 }]),
+  buildEntry("46", [{ component: AuditReport46, getMetadata: getMetadata46 }]),
+  buildEntry("47", [{ component: WhitePaper47, getMetadata: getMetadata47 }]),
+  buildEntry("48", [{ component: ExecutiveSummary48, getMetadata: getMetadata48 }]),
 ];
+
+// ─── Utility functions for version-aware navigation ─────────────────────────
+
+/** A flat list of all versions across all styles, in navigation order. */
+export interface FlatVersionEntry {
+  styleId: string;
+  styleName: { en: string; zh: string };
+  versionId: string;
+  versionIndex: number; // index within the style's versions array
+  topic: string;
+  model: string;
+  component: React.ComponentType<any>;
+  getMetadata: (lang: "en" | "zh") => StyleMetadata;
+}
+
+/**
+ * Returns a flat array of all versions in navigation order.
+ * Used for cross-style/version cycling (D81).
+ */
+export function getAllVersions(): FlatVersionEntry[] {
+  const result: FlatVersionEntry[] = [];
+  for (const style of STYLE_REGISTRY) {
+    for (let vi = 0; vi < style.versions.length; vi++) {
+      const v = style.versions[vi];
+      result.push({
+        styleId: style.id,
+        styleName: style.name,
+        versionId: v.id,
+        versionIndex: vi,
+        topic: v.topic,
+        model: v.model,
+        component: v.component,
+        getMetadata: v.getMetadata,
+      });
+    }
+  }
+  return result;
+}
+
+/**
+ * Find a specific version entry by style ID and version ID.
+ */
+export function findVersion(
+  styleId: string,
+  versionId: string,
+): FlatVersionEntry | null {
+  const style = STYLE_REGISTRY.find((s) => s.id === styleId);
+  if (!style) return null;
+  const vi = style.versions.findIndex((v) => v.id === versionId);
+  if (vi === -1) return null;
+  const v = style.versions[vi];
+  return {
+    styleId: style.id,
+    styleName: style.name,
+    versionId: v.id,
+    versionIndex: vi,
+    topic: v.topic,
+    model: v.model,
+    component: v.component,
+    getMetadata: v.getMetadata,
+  };
+}
+
+/**
+ * Get the next version in navigation order (D81).
+ * Wraps from last version of last style back to first version of first style.
+ */
+export function getNextVersion(
+  styleId: string,
+  versionId: string,
+): FlatVersionEntry {
+  const all = getAllVersions();
+  const idx = all.findIndex(
+    (v) => v.styleId === styleId && v.versionId === versionId,
+  );
+  const nextIdx = (idx + 1) % all.length;
+  return all[nextIdx];
+}
+
+/**
+ * Get the previous version in navigation order (D81).
+ * Wraps from first version of first style back to last version of last style.
+ */
+export function getPrevVersion(
+  styleId: string,
+  versionId: string,
+): FlatVersionEntry {
+  const all = getAllVersions();
+  const idx = all.findIndex(
+    (v) => v.styleId === styleId && v.versionId === versionId,
+  );
+  const prevIdx = (idx - 1 + all.length) % all.length;
+  return all[prevIdx];
+}
+
+/**
+ * Total number of versions across all styles.
+ */
+export function getTotalVersionCount(): number {
+  return STYLE_REGISTRY.reduce((sum, s) => sum + s.versions.length, 0);
+}

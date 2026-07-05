@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./14-org-chart.module.css";
 
@@ -260,16 +260,6 @@ export default function OrgChart({
   scene, beat, language, isThumbnail, reducedMotion, onNavigate,
 }: BespokeStyleProps) {
   useFonts();
-  const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setEntered(true));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -280,7 +270,8 @@ export default function OrgChart({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, entered ? styles.trackActive : styles.trackEnter].filter(Boolean).join(" ");
+
+  const trackClasses = [styles.track, styles.animateSceneEnter].filter(Boolean).join(" ");
 
   const renderScene1 = () => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
@@ -307,8 +298,8 @@ export default function OrgChart({
     const c = SCENES[2][language as keyof typeof SCENES[2]];
     const ceo = c.ceo as { name: string; role: string; initials: string; count: string };
     const vps = c.vps as Array<{ name: string; role: string; initials: string; count: string; color: string }>;
-    const ceoVisible = entered;
-    const vpsVisible = beat >= 1 && entered;
+    const ceoVisible = true;
+    const vpsVisible = beat >= 1;
     return (
       <div className={styles.scene2}>
         <div className={styles.chartHeader}>
@@ -379,7 +370,7 @@ export default function OrgChart({
             <span className={styles.membersLabel}>{c.membersLabel}</span>
             <div className={styles.membersGrid}>
               {members.map((m, i) => {
-                const visible = beat >= 1 && entered;
+                const visible = beat >= 1;
                 const cls = [styles.memberCard, visible ? styles.memberCardVisible : ""].filter(Boolean).join(" ");
                 return (
                   <div
@@ -412,7 +403,7 @@ export default function OrgChart({
         <h2 className={styles.chartTitle}>{c.title}</h2>
         <div className={styles.growthTimeline}>
           {growth.map((g, i) => {
-            const visible = beat >= 1 && entered;
+            const visible = beat >= 1;
             const cls = [styles.growthRow, visible ? styles.growthRowVisible : ""].filter(Boolean).join(" ");
             const countNum = parseInt(g.count.replace(/\D/g, ""));
             const pct = (countNum / maxCount) * 100;
@@ -492,10 +483,9 @@ export default function OrgChart({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`14-${scene}`}
         className={trackClasses}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

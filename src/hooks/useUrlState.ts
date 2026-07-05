@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 export interface UrlState {
   view: "overview" | "lab";
   styleId: string;
+  versionId: string;
   scene: number;
   beat: number;
   pureMode: boolean;
@@ -12,6 +13,7 @@ export interface UrlState {
 const DEFAULT_STATE: UrlState = {
   view: "overview",
   styleId: "01",
+  versionId: "v1",
   scene: 1,
   beat: 0,
   pureMode: false,
@@ -32,6 +34,9 @@ function parseHash(): UrlState {
 
   const styleId = params.get("style");
   if (styleId) state.styleId = styleId;
+
+  const versionId = params.get("version");
+  if (versionId) state.versionId = versionId;
 
   const scene = params.get("scene");
   if (scene) {
@@ -58,6 +63,7 @@ function buildHash(state: UrlState): string {
   const params = new URLSearchParams();
   params.set("view", state.view);
   params.set("style", state.styleId);
+  params.set("version", state.versionId);
   params.set("scene", String(state.scene));
   params.set("beat", String(state.beat));
   if (state.pureMode) params.set("pure", "1");
@@ -71,12 +77,13 @@ function buildHash(state: UrlState): string {
  * State shape:
  *   view: "overview" | "lab"
  *   styleId: string (e.g. "01", "17", "33")
+ *   versionId: string (e.g. "v1", "v2")
  *   scene: number (1-5)
  *   beat: number (0-based)
  *   pureMode: boolean
  *   frozen: boolean
  *
- * URL format: #view=lab&style=01&scene=3&beat=2&pure=1&frozen=1
+ * URL format: #view=lab&style=01&version=v1&scene=3&beat=2&pure=1&frozen=1
  */
 export function useUrlState(): [
   UrlState,

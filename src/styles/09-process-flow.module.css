@@ -22,19 +22,21 @@
   display: flex;
   flex-direction: column;
   padding: 6cqh 8cqw;
-  transition:
-    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.trackEnter {
-  opacity: 0;
-  transform: translateX(4cqw);
+@keyframes sceneEnter {
+  from {
+    opacity: 0;
+    transform: translateX(3cqw);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.trackActive {
-  opacity: 1;
-  transform: translateX(0);
+.animateSceneEnter {
+  animation: sceneEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ── Scene 1: Title ────────────────────────────────────────────────────── */
@@ -349,60 +351,105 @@
   border-radius: 3cqw;
 }
 
-/* ── Navigation dots ───────────────────────────────────────────────────── */
+/* ── Navigation: flowchart nodes ───────────────────────────────────────── */
 
-.navDots {
+.navFlow {
   position: absolute;
   bottom: 3.5cqh;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 1.5cqw;
+  align-items: center;
   z-index: 10;
 }
 
-.navDot {
-  width: 2.5cqw;
-  height: 0.6cqh;
-  border-radius: 0.3cqh;
+.navNode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6cqh;
+  background: none;
   border: none;
-  padding: 0;
+  padding: 0.5cqh 0.8cqw;
   cursor: pointer;
+}
+
+.navNodeDot {
+  width: 1.1cqw;
+  height: 1.1cqw;
+  border-radius: 50%;
   background: var(--style-09-ink, #212529);
-  opacity: 0.12;
+  opacity: 0.18;
   transition:
     opacity 0.3s ease,
-    width 0.3s ease,
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.navNode:hover .navNodeDot {
+  opacity: 0.4;
+}
+
+.navNodeActive .navNodeDot {
+  opacity: 1;
+  background: var(--style-09-accent, #4a90d9);
+  transform: scale(1.35);
+  box-shadow: 0 0 0 0.3cqw rgba(74, 144, 217, 0.2);
+}
+
+.navNodeCompleted .navNodeDot {
+  opacity: 0.55;
+  background: var(--style-09-accent, #4a90d9);
+}
+
+.navNodeLabel {
+  font-size: 0.9cqw;
+  font-weight: 500;
+  color: var(--style-09-muted, #6c757d);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  transition:
+    color 0.3s ease,
+    font-weight 0.3s ease;
+}
+
+.navNodeActive .navNodeLabel {
+  color: var(--style-09-accent, #4a90d9);
+  font-weight: 600;
+}
+
+.navConnector {
+  width: 3.5cqw;
+  height: 0.12cqh;
+  background: var(--style-09-ink, #212529);
+  opacity: 0.15;
+  margin-bottom: 1.5cqh;
+  flex-shrink: 0;
+  border-radius: 0.06cqh;
+  transition:
+    opacity 0.3s ease,
     background 0.3s ease;
 }
 
-.navDot:hover {
-  opacity: 0.35;
-}
-
-.navDotActive {
-  opacity: 0.6;
-  width: 5cqw;
+.navConnectorActive {
+  opacity: 0.5;
   background: var(--style-09-accent, #4a90d9);
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
-.reducedMotion .track,
 .reducedMotion .cycleStep,
 .reducedMotion .stepRow,
 .reducedMotion .metricCard,
-.reducedMotion .navDot {
+.reducedMotion .navNodeDot,
+.reducedMotion .navNodeLabel,
+.reducedMotion .navConnector {
   transition-duration: 0s !important;
-}
-
-.reducedMotion .trackEnter {
-  opacity: 1;
-  transform: none;
 }
 
 /* ── Thumbnail mode ────────────────────────────────────────────────────── */
 
-.thumbnail .navDots {
+.thumbnail .navFlow {
   display: none;
 }

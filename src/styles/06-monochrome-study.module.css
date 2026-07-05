@@ -22,19 +22,32 @@
   display: flex;
   flex-direction: column;
   padding: 5cqh 8cqw;
-  transition:
-    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.trackEnter {
-  opacity: 0;
-  transform: translateY(2cqh);
+.animateSceneEnter {
+  animation: sceneEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.trackActive {
-  opacity: 1;
-  transform: translateY(0);
+@keyframes sceneEnter {
+  from {
+    opacity: 0;
+    transform: translateY(2cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes beatReveal {
+  from {
+    opacity: 0;
+    transform: translateY(1cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── Scene 1: Title ────────────────────────────────────────────────────── */
@@ -135,10 +148,14 @@
   font-size: 2cqw;
   font-weight: 300;
   color: var(--style-06-ink, #ffffff);
-  opacity: 0.4;
+  opacity: 0;
   margin-top: 4cqh;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.bwStatementSubVisible {
+  animation: beatReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
 }
 
 /* ── Scene 3: Contrast Pair ────────────────────────────────────────────── */
@@ -170,15 +187,10 @@
 .bwContrastItem {
   padding: 4cqh 3cqw;
   opacity: 0;
-  transform: scale(0.95);
-  transition:
-    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .bwContrastItemVisible {
-  opacity: 1;
-  transform: scale(1);
+  animation: beatReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .bwContrastItem:first-child {
@@ -235,15 +247,10 @@
   padding: 2cqh 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   opacity: 0;
-  transform: translateX(-2cqw);
-  transition:
-    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .bwScaleItemVisible {
-  opacity: 1;
-  transform: translateX(0);
+  animation: beatReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .bwScaleNum {
@@ -321,80 +328,62 @@
   letter-spacing: 0.08em;
 }
 
-/* ── Navigation: vertical bar indicators ───────────────────────────────── */
+/* ── Navigation: bottom dots ──────────────────────────────────────────── */
 
 .nav {
   position: absolute;
-  right: 3cqw;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 4cqh;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  flex-direction: column;
-  gap: 1.5cqh;
+  flex-direction: row;
+  gap: 1.2cqw;
   z-index: 10;
 }
 
 .navItem {
-  display: flex;
-  align-items: center;
-  gap: 1cqw;
   background: none;
   border: none;
-  padding: 0.5cqh 0;
+  padding: 0.5cqh;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.navBar {
-  width: 0.3cqw;
-  height: 4cqh;
+.navDot {
+  width: 0.5cqw;
+  height: 0.5cqw;
+  min-width: 6px;
+  min-height: 6px;
+  border-radius: 50%;
   background: var(--style-06-ink, #ffffff);
-  opacity: 0.08;
+  opacity: 0.15;
   transition:
     opacity 0.3s ease,
-    width 0.3s ease,
-    height 0.3s ease;
+    transform 0.3s ease;
 }
 
-.navItem:hover .navBar {
-  opacity: 0.4;
-  width: 0.5cqw;
-}
-
-.navItemActive .navBar {
-  opacity: 0.6;
-  width: 0.6cqw;
-  height: 6cqh;
-}
-
-.navNum {
-  font-size: 0.9cqw;
-  font-weight: 500;
-  color: var(--style-06-ink, #ffffff);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  letter-spacing: 0.1em;
-}
-
-.navItem:hover .navNum {
+.navItem:hover .navDot {
   opacity: 0.5;
 }
 
-.navItemActive .navNum {
-  opacity: 0.8;
+.navItemActive .navDot {
+  opacity: 0.85;
+  transform: scale(1.6);
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
-.reducedMotion .track,
-.reducedMotion .bwContrastItem,
-.reducedMotion .bwScaleItem,
-.reducedMotion .navBar {
-  transition-duration: 0s !important;
+.reducedMotion .animateSceneEnter,
+.reducedMotion .bwContrastItemVisible,
+.reducedMotion .bwScaleItemVisible,
+.reducedMotion .bwStatementSubVisible {
+  animation-duration: 0s !important;
 }
 
-.reducedMotion .trackEnter {
-  opacity: 1;
-  transform: translateY(0);
+.reducedMotion .navDot {
+  transition-duration: 0s !important;
 }
 
 /* ── Thumbnail ─────────────────────────────────────────────────────────── */

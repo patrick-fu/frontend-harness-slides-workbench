@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./01-executive-silence.module.css";
 
@@ -246,19 +246,6 @@ export default function ExecutiveSilence({
 }: BespokeStyleProps) {
   useFonts();
   const content = SCENES[scene]?.[language] || SCENES[1][language];
-  const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  // Trigger enter animation on mount / scene change
-  useLayoutEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setEntered(true);
-      });
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -278,7 +265,7 @@ export default function ExecutiveSilence({
 
   const trackClasses = [
     styles.track,
-    entered ? styles.trackActive : styles.trackEnter,
+    styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");
@@ -295,16 +282,7 @@ export default function ExecutiveSilence({
         <>
           <p className={styles.statement}>{content.statement}</p>
           {beat >= 1 && (
-            <p
-              className={styles.attribution}
-              style={{
-                opacity: entered ? 0.85 : 0,
-                transition: reducedMotion
-                  ? "none"
-                  : "opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
-                transitionDelay: "0.3s",
-              }}
-            >
+            <p className={styles.attribution}>
               {content.attribution}
             </p>
           )}
@@ -322,21 +300,15 @@ export default function ExecutiveSilence({
           <ul className={styles.questionList}>
             {questions.map((q, i) => {
               const visible = i <= beat;
-              const itemClasses = [
-                styles.questionItem,
-                visible && entered ? styles.questionItemVisible : "",
-              ]
-                .filter(Boolean)
-                .join(" ");
               return (
                 <li
                   key={i}
-                  className={itemClasses}
-                  style={
-                    reducedMotion
-                      ? { opacity: visible ? 1 : 0, transform: "none" }
-                      : undefined
-                  }
+                  className={[
+                    styles.questionItem,
+                    visible ? styles.questionItemVisible : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
                 >
                   <span className={styles.questionNumber}>
                     {String(i + 1).padStart(2, "0")}
@@ -355,19 +327,7 @@ export default function ExecutiveSilence({
         <>
           <p className={styles.statement}>{content.statement}</p>
           {beat >= 1 && (
-            <p
-              className={[
-                styles.dataPoint,
-                entered ? styles.dataPointVisible : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
-              style={
-                reducedMotion
-                  ? { opacity: 1, transform: "none" }
-                  : undefined
-              }
-            >
+            <p className={styles.dataPoint}>
               {content.dataPoint}
             </p>
           )}
@@ -389,31 +349,33 @@ export default function ExecutiveSilence({
     return null;
   };
 
-  // ── Navigation dots ─────────────────────────────────────────────────────
+  // ── Ruler navigation ────────────────────────────────────────────────────
 
-  const renderNavDots = () => {
+  const renderRulerNav = () => {
     if (isThumbnail) return null;
 
     return (
-      <nav className={styles.navDots} aria-label="Scene navigation">
+      <nav className={styles.rulerNav} aria-label="Scene navigation">
+        <div className={styles.rulerTrack} />
         {[1, 2, 3, 4, 5].map((s) => {
           const isActive = s === scene;
-          const dotClasses = [
-            styles.navDot,
-            isActive ? styles.navDotActive : "",
-          ]
-            .filter(Boolean)
-            .join(" ");
           return (
             <button
               key={s}
               type="button"
-              className={dotClasses}
+              className={[
+                styles.rulerMarker,
+                isActive ? styles.rulerMarkerActive : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
               aria-label={`Jump to scene ${s}`}
               onClick={(e) => handleNavClick(e, s)}
-              style={reducedMotion ? { transitionDuration: "0s" } : undefined}
             >
-              <span className={styles.navDotTooltip}>Scene {s}</span>
+              <span className={styles.rulerNumber}>
+                {String(s).padStart(2, "0")}
+              </span>
+              <span className={styles.rulerTick} />
             </button>
           );
         })}
@@ -424,13 +386,13 @@ export default function ExecutiveSilence({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
+        key={scene}
         className={trackClasses}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>
-      {renderNavDots()}
+      {renderRulerNav()}
     </div>
   );
 }

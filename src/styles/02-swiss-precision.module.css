@@ -22,19 +22,21 @@
   display: flex;
   flex-direction: column;
   padding: 6cqh 8cqw;
-  transition:
-    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.trackEnter {
-  opacity: 0;
-  transform: translateX(3cqw);
+.animateSceneEnter {
+  animation: sceneEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.trackActive {
-  opacity: 1;
-  transform: translateX(0);
+@keyframes sceneEnter {
+  from {
+    opacity: 0;
+    transform: translateX(3cqw);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* ── Scene 1: Title ────────────────────────────────────────────────────── */
@@ -364,62 +366,64 @@
 .nav {
   position: absolute;
   bottom: 4cqh;
-  left: 8cqw;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  gap: 0;
+  align-items: center;
+  gap: 2.5cqw;
   z-index: 10;
 }
 
-.navItem {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.6cqh;
-  background: none;
-  border: none;
-  padding: 0.5cqh 1.5cqw 0.5cqh 0;
+.navTrack {
+  position: absolute;
+  top: 50%;
+  left: 0.6cqw;
+  right: 0.6cqw;
+  height: 1px;
+  background: rgba(26, 26, 26, 0.12);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.navDot {
+  width: 1.2cqw;
+  height: 1.2cqw;
+  min-width: 8px;
+  min-height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--style-02-ink, #1a1a1a);
+  background: transparent;
   cursor: pointer;
+  padding: 0;
   position: relative;
+  z-index: 1;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
 }
 
-.navNum {
-  font-size: 1.2cqw;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  color: var(--style-02-ink, #1a1a1a);
-  opacity: 0.25;
-  transition: opacity 0.3s ease;
-  font-family: "Helvetica Neue", monospace;
+.navDot:hover {
+  border-color: var(--style-02-accent, #d32f2f);
 }
 
-.navItem:hover .navNum {
-  opacity: 0.6;
-}
-
-.navItemActive .navNum {
-  opacity: 1;
-  color: var(--style-02-accent, #d32f2f);
-}
-
-.navLine {
-  width: 3cqw;
-  height: 2px;
+.navDotActive {
   background: var(--style-02-accent, #d32f2f);
+  border-color: var(--style-02-accent, #d32f2f);
+  transform: scale(1.25);
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
-.reducedMotion .track,
+.reducedMotion .animateSceneEnter {
+  animation-duration: 0s;
+}
+
 .reducedMotion .metricBlock,
 .reducedMotion .processStep,
 .reducedMotion .qualityRow,
-.reducedMotion .navNum {
+.reducedMotion .navDot {
   transition-duration: 0s !important;
-}
-
-.reducedMotion .trackEnter {
-  opacity: 1;
-  transform: translateX(0);
 }
 
 /* ── Thumbnail ─────────────────────────────────────────────────────────── */

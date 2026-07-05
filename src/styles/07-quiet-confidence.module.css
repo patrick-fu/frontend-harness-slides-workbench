@@ -22,19 +22,21 @@
   display: flex;
   flex-direction: column;
   padding: 6cqh 9cqw;
-  transition:
-    opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.trackEnter {
-  opacity: 0;
-  transform: translateY(1cqh);
+.animateSceneEnter {
+  animation: sceneEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.trackActive {
-  opacity: 1;
-  transform: translateY(0);
+@keyframes sceneEnter {
+  from {
+    opacity: 0;
+    transform: translateY(1cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── Decorative hairline ───────────────────────────────────────────────── */
@@ -157,6 +159,16 @@
   margin-top: 4cqh;
   max-width: 45cqw;
   font-style: italic;
+  animation: thesisNoteReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+@keyframes thesisNoteReveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.5;
+  }
 }
 
 /* ── Scene 3: Investment Principles (Hero) ─────────────────────────────── */
@@ -332,6 +344,16 @@
   opacity: 0.35;
   margin-top: 5cqh;
   font-style: italic;
+  animation: footnoteReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+}
+
+@keyframes footnoteReveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.35;
+  }
 }
 
 /* ── Scene 5: Closing ──────────────────────────────────────────────────── */
@@ -386,75 +408,91 @@
   letter-spacing: 0.08em;
 }
 
-/* ── Navigation: serif numerals ────────────────────────────────────────── */
+/* ── Navigation: left-side serif markers ───────────────────────────────── */
 
-.nav {
+.sideNav {
   position: absolute;
-  bottom: 4cqh;
-  left: 9cqw;
+  left: 3cqw;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
-  gap: 0;
+  flex-direction: column;
+  gap: 2.5cqh;
   z-index: 10;
 }
 
-.navItem {
+.sideNavItem {
   display: flex;
   align-items: center;
+  gap: 1cqw;
   background: none;
   border: none;
-  padding: 0.5cqh 1.2cqw 0.5cqh 0;
+  padding: 0.5cqh 0;
   cursor: pointer;
-  position: relative;
+  transition: opacity 0.3s ease;
 }
 
-.navItem:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  right: 0.4cqw;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 1.5cqh;
+.sideNavTick {
+  width: 1.5cqw;
+  height: 1px;
   background: var(--style-07-ink, #3d3529);
-  opacity: 0.1;
+  opacity: 0.15;
+  transition:
+    opacity 0.3s ease,
+    width 0.3s ease;
+  flex-shrink: 0;
 }
 
-.navNum {
+.sideNavItemActive .sideNavTick {
+  opacity: 0.5;
+  width: 2.5cqw;
+}
+
+.sideNavNum {
   font-family: "Playfair Display", Georgia, serif;
-  font-size: 1.4cqw;
+  font-size: 1.2cqw;
   font-weight: 400;
   font-style: italic;
   color: var(--style-07-ink, #3d3529);
-  opacity: 0.12;
+  opacity: 0.15;
   transition: opacity 0.3s ease;
   letter-spacing: 0.02em;
 }
 
-.navItem:hover .navNum {
-  opacity: 0.5;
+.sideNavItem:hover .sideNavNum {
+  opacity: 0.4;
 }
 
-.navItemActive .navNum {
-  opacity: 0.7;
+.sideNavItem:hover .sideNavTick {
+  opacity: 0.3;
+}
+
+.sideNavItemActive .sideNavNum {
+  opacity: 0.65;
+}
+
+.sideNavItemActive:hover .sideNavNum {
+  opacity: 0.65;
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
-.reducedMotion .track,
-.reducedMotion .qcPrinciple,
-.reducedMotion .qcDataPoint,
-.reducedMotion .navNum {
-  transition-duration: 0s !important;
+.reducedMotion .animateSceneEnter,
+.reducedMotion .qcThesisNote,
+.reducedMotion .qcDataFootnote {
+  animation-duration: 0s !important;
 }
 
-.reducedMotion .trackEnter {
-  opacity: 1;
-  transform: translateY(0);
+.reducedMotion .qcPrinciple,
+.reducedMotion .qcDataPoint,
+.reducedMotion .sideNavNum,
+.reducedMotion .sideNavTick {
+  transition-duration: 0s !important;
 }
 
 /* ── Thumbnail ─────────────────────────────────────────────────────────── */
 
-.thumbnail .nav {
+.thumbnail .sideNav {
   display: none;
 }
 

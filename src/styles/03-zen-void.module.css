@@ -28,6 +28,28 @@
 
 /* ── Transition track ──────────────────────────────────────────────────── */
 
+@keyframes sceneEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes beatReveal {
+  from {
+    opacity: 0;
+    transform: translateY(1cqh);
+  }
+  to {
+    opacity: 0.6;
+    transform: none;
+  }
+}
+
 .track {
   position: absolute;
   inset: 0;
@@ -35,20 +57,15 @@
   align-items: center;
   justify-content: center;
   padding: 8cqh 10cqw;
-  transition:
-    opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1;
 }
 
-.trackEnter {
-  opacity: 0;
-  transform: scale(0.97);
+.animateSceneEnter {
+  animation: sceneEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.trackActive {
-  opacity: 1;
-  transform: scale(1);
+.beatReveal {
+  animation: beatReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
 }
 
 /* ── Scene 1: Title ────────────────────────────────────────────────────── */
@@ -279,18 +296,19 @@
 
 .nav {
   position: absolute;
-  bottom: 5cqh;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 3cqw;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
-  gap: 2.5cqw;
+  flex-direction: column;
+  gap: 2.5cqh;
   z-index: 10;
 }
 
 .navDot {
   background: none;
   border: none;
-  padding: 1cqh;
+  padding: 0.8cqh;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -299,25 +317,25 @@
 
 .navDotInner {
   display: block;
-  width: 0.6cqw;
-  height: 0.6cqw;
-  min-width: 4px;
-  min-height: 4px;
+  width: 0.5cqw;
+  height: 0.5cqw;
+  min-width: 3px;
+  min-height: 3px;
   border-radius: 50%;
   background: var(--style-03-ink, #f0ece4);
-  opacity: 0.15;
+  opacity: 0.12;
   transition:
     opacity 0.5s ease,
     transform 0.5s ease;
 }
 
 .navDot:hover .navDotInner {
-  opacity: 0.5;
+  opacity: 0.4;
   transform: scale(1.5);
 }
 
 .navDotActive .navDotInner {
-  opacity: 0.6;
+  opacity: 0.5;
   transform: scale(1.8);
 }
 
@@ -332,11 +350,7 @@
 .reducedMotion .navDotInner,
 .reducedMotion .ensoSvg circle {
   transition-duration: 0s !important;
-}
-
-.reducedMotion .trackEnter {
-  opacity: 1;
-  transform: scale(1);
+  animation-duration: 0s !important;
 }
 
 /* ── Thumbnail ─────────────────────────────────────────────────────────── */

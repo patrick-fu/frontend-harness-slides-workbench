@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./12-iconography.module.css";
 
@@ -343,16 +343,7 @@ export default function Iconography({
   scene, beat, language, isThumbnail, reducedMotion, onNavigate,
 }: BespokeStyleProps) {
   useFonts();
-  const [entered, setEntered] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setEntered(true));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -363,13 +354,13 @@ export default function Iconography({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, entered ? styles.trackActive : styles.trackEnter].filter(Boolean).join(" ");
+  const trackClasses = [styles.track, styles.animateSceneEnter].filter(Boolean).join(" ");
 
   const renderScene1 = () => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
     return (
       <div className={styles.scene1}>
-        <div className={[styles.heroIcon, entered ? styles.heroIconVisible : ""].filter(Boolean).join(" ")}>
+        <div className={[styles.heroIcon, styles.heroIconVisible].filter(Boolean).join(" ")}>
           <IconRocket />
         </div>
         <h1 className={styles.heroTitle}>
@@ -391,7 +382,7 @@ export default function Iconography({
         <div className={styles.featureGrid}>
           {features.map((f, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.featureCard, visible && entered ? styles.featureCardVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.featureCard, visible ? styles.featureCardVisible : ""].filter(Boolean).join(" ");
             return (
               <div
                 key={i}
@@ -416,7 +407,7 @@ export default function Iconography({
       <div className={styles.scene3}>
         <span className={styles.secLabel}>{c.label}</span>
         <div className={styles.spotlight}>
-          <div className={[styles.spotlightIconArea, entered ? styles.spotlightIconAreaVisible : ""].filter(Boolean).join(" ")}>
+          <div className={[styles.spotlightIconArea, styles.spotlightIconAreaVisible].filter(Boolean).join(" ")}>
             <IconBolt />
           </div>
           <div className={styles.spotlightInfo}>
@@ -428,7 +419,7 @@ export default function Iconography({
                 {bullets.map((b, i) => (
                   <div
                     key={i}
-                    className={[styles.spotlightBullet, entered ? styles.spotlightBulletVisible : ""].filter(Boolean).join(" ")}
+                    className={[styles.spotlightBullet, styles.spotlightBulletVisible].filter(Boolean).join(" ")}
                     style={reducedMotion ? { opacity: 1, transform: "none" } : { transitionDelay: `${i * 0.1}s` }}
                   >
                     <span className={styles.bulletCheck}>✓</span>
@@ -453,7 +444,7 @@ export default function Iconography({
         <div className={styles.integrationRow}>
           {integrations.map((item, i) => {
             const visible = beat >= 1;
-            const cls = [styles.intItem, visible && entered ? styles.intItemVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.intItem, visible ? styles.intItemVisible : ""].filter(Boolean).join(" ");
             return (
               <div
                 key={i}
@@ -478,7 +469,7 @@ export default function Iconography({
         <div className={styles.closingIconRow}>
           {iconTypes.map((type, i) => (
             <React.Fragment key={i}>{React.cloneElement(renderIcon(type) as React.ReactElement<{ className?: string; style?: React.CSSProperties }>, {
-              className: entered ? styles.visible : "",
+              className: styles.visible,
               style: reducedMotion ? undefined : { transitionDelay: `${i * 0.1}s` },
             })}</React.Fragment>
           ))}
@@ -502,18 +493,21 @@ export default function Iconography({
 
   const renderNav = () => {
     if (isThumbnail) return null;
+    const sceneIcons: Record<number, string> = { 1: "rocket", 2: "chart", 3: "bolt", 4: "puzzle", 5: "globe" };
     return (
-      <nav className={styles.navDots} aria-label="Scene navigation">
+      <nav className={styles.navIcons} aria-label="Scene navigation">
         {[1, 2, 3, 4, 5].map((s) => {
           const isActive = s === scene;
           return (
             <button
               key={s}
               type="button"
-              className={[styles.navDot, isActive ? styles.navDotActive : ""].filter(Boolean).join(" ")}
+              className={[styles.navIcon, isActive ? styles.navIconActive : ""].filter(Boolean).join(" ")}
               aria-label={`Jump to scene ${s}`}
               onClick={(e) => handleNavClick(e, s)}
-            />
+            >
+              {renderIcon(sceneIcons[s])}
+            </button>
           );
         })}
       </nav>
@@ -526,7 +520,7 @@ export default function Iconography({
         ref={trackRef}
         key={`12-${scene}`}
         className={trackClasses}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

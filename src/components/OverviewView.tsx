@@ -18,9 +18,12 @@ export default function OverviewView({
   const [selectedBands, setSelectedBands] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  // Build metadata list for all registered styles
+  // Build metadata list for all registered styles (using first version)
   const allMetadata = useMemo(
-    () => registry.map((entry) => entry.getMetadata(language)),
+    () =>
+      registry
+        .filter((entry) => entry.versions.length > 0)
+        .map((entry) => entry.versions[0].getMetadata(language)),
     [registry, language],
   );
 
@@ -75,6 +78,12 @@ export default function OverviewView({
 
   const noResults = filteredMetadata.length === 0 && allMetadata.length > 0;
 
+  // Count total versions
+  const totalVersions = useMemo(
+    () => registry.reduce((sum, s) => sum + s.versions.length, 0),
+    [registry],
+  );
+
   return (
     <div
       data-testid="overview-view"
@@ -88,8 +97,8 @@ export default function OverviewView({
           </h1>
           <p className="text-sm opacity-50">
             {language === "zh"
-              ? `${registry.length} 种已注册风格`
-              : `${registry.length} registered styles`}
+              ? `${registry.length} 种风格 · ${totalVersions} 个版本`
+              : `${registry.length} styles · ${totalVersions} versions`}
           </p>
         </div>
 
@@ -112,7 +121,9 @@ export default function OverviewView({
         {noResults && (
           <div className="text-center py-16 opacity-50">
             <p className="text-lg">
-              {language === "zh" ? "没有匹配的风格" : "No styles match your filters"}
+              {language === "zh"
+                ? "没有匹配的风格"
+                : "No styles match your filters"}
             </p>
           </div>
         )}
@@ -160,9 +171,11 @@ interface StyleCardProps {
 }
 
 function StyleCard({ meta, registry, language, onSelect }: StyleCardProps) {
-  // Find the registry entry to get the component
+  // Find the registry entry to get the component (first version)
   const entry = registry.find((e) => e.id === meta.id);
-  const StyleComponent = entry?.component;
+  const StyleComponent = entry?.versions[0]?.component;
+  const styleName = entry?.name[language] || meta.name;
+  const versionCount = entry?.versions.length ?? 0;
 
   const handleClick = useCallback(() => {
     onSelect(meta.id);
@@ -201,6 +214,19 @@ function StyleCard({ meta, registry, language, onSelect }: StyleCardProps) {
             />
           </div>
         )}
+        {/* Version count badge */}
+        {versionCount > 1 && (
+          <div
+            className="absolute top-2 right-2 px-1.5 py-0.5 rounded-md text-[10px] font-medium"
+            style={{
+              background: "rgba(0,0,0,0.5)",
+              color: "#fff",
+              backdropFilter: "blur(4px)",
+            }}
+          >
+            ×{versionCount}
+          </div>
+        )}
       </div>
 
       {/* Card info */}
@@ -214,7 +240,7 @@ function StyleCard({ meta, registry, language, onSelect }: StyleCardProps) {
           className="text-sm font-semibold truncate"
           style={{ color: meta.colors.ink }}
         >
-          {meta.name}
+          {styleName}
         </h3>
         <p
           className="text-xs opacity-50 mt-0.5 line-clamp-2"

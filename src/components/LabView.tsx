@@ -1,16 +1,27 @@
 import { useRef, useCallback, useMemo, useEffect } from "react";
-import type { StyleRegistryEntry, BespokeStyleProps, SceneMetadata } from "../types";
+import type {
+  StyleRegistryEntry,
+  BespokeStyleProps,
+  SceneMetadata,
+  StyleVersion,
+} from "../types";
 import { useStageScale } from "../hooks/useStageScale";
 import { useKeyboard } from "../hooks/useKeyboard";
 import { useTouchNav } from "../hooks/useTouchNav";
-import { computeNext, computePrev, jumpScene } from "../utils/navigation";
+import {
+  computeNext,
+  computePrev,
+  jumpScene,
+} from "../utils/navigation";
 import PureModeOverlay from "./PureModeOverlay";
 import CrossStyleFlash from "./CrossStyleFlash";
 import BottomBar from "./layout/BottomBar";
+import VersionBar from "./layout/VersionBar";
 
 export interface LabViewProps {
   registry: StyleRegistryEntry[];
   styleId: string;
+  versionId: string;
   scene: number;
   beat: number;
   isPureMode: boolean;
@@ -20,17 +31,45 @@ export interface LabViewProps {
   flashStyle: boolean;
   onNavigate: (target: {
     styleId: string;
+    versionId: string;
     scene: number;
     beat: number;
     flashStyle?: boolean;
   }) => void;
   onFlashDone: () => void;
   onExitPure: () => void;
+  onSelectVersion: (styleId: string, versionId: string) => void;
+  onGoOverview: () => void;
+}
+
+/**
+ * Look up a style + version from the registry.
+ * Falls back to first version if the specified versionId is not found.
+ */
+function findStyleAndVersion(
+  registry: StyleRegistryEntry[],
+  styleId: string,
+  versionId: string,
+): {
+  style: StyleRegistryEntry;
+  version: StyleVersion;
+  versionIndex: number;
+} | null {
+  const style = registry.find((s) => s.id === styleId);
+  if (!style || style.versions.length === 0) return null;
+  let versionIndex = style.versions.findIndex((v) => v.id === versionId);
+  if (versionIndex === -1) versionIndex = 0;
+  return {
+    style,
+    version: style.versions[versionIndex],
+    versionIndex,
+  };
 }
 
 export default function LabView({
   registry,
   styleId,
+  versionId,
   scene,
   beat,
   isPureMode,
@@ -41,21 +80,24 @@ export default function LabView({
   onNavigate,
   onFlashDone,
   onExitPure,
+  onSelectVersion,
+  onGoOverview,
 }: LabViewProps) {
   const stageContainerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const { scale, width: scaledWidth, height: scaledHeight } = useStageScale(stageContainerRef);
+  const { scale, width: scaledWidth, height: scaledHeight } =
+    useStageScale(stageContainerRef);
 
-  // Find current style entry and metadata
-  const currentEntry = useMemo(
-    () => registry.find((e) => e.id === styleId),
-    [registry, styleId],
+  // Find current style + version
+  const found = useMemo(
+    () => findStyleAndVersion(registry, styleId, versionId),
+    [registry, styleId, versionId],
   );
 
   const meta = useMemo(() => {
-    if (!currentEntry) return null;
-    return currentEntry.getMetadata(language);
-  }, [currentEntry, language]);
+    if (!found) return null;
+    return found.version.getMetadata(language);
+  }, [found, language]);
 
   // Build scenes metadata for BottomBar
   const scenes: SceneMetadata[] = useMemo(() => {
@@ -67,45 +109,69 @@ export default function LabView({
     }));
   }, [meta]);
 
-  // Determine if at first/last for button states
+  // Determine if at absolute first/last for button states
   const isFirst = useMemo(() => {
-    if (styleId !== registry[0]?.id) return false;
+    if (!found) return false;
+    const firstStyle = registry[0];
+    if (found.style.id !== firstStyle?.id) return false;
+    if (found.versionIndex !== 0) return false;
     return scene === 1 && beat === 0;
-  }, [registry, styleId, scene, beat]);
+  }, [found, registry, scene, beat]);
 
   const isLast = useMemo(() => {
-    if (styleId !== registry[registry.length - 1]?.id) return false;
-    if (!meta) return false;
+    if (!found || !meta) return false;
+    const lastStyle = registry[registry.length - 1];
+    if (found.style.id !== lastStyle?.id) return false;
+    if (found.versionIndex !== found.style.versions.length - 1) return false;
     const lastScene = meta.scenes[meta.scenes.length - 1];
     const lastBeat = lastScene?.beats[lastScene.beats.length - 1]?.id ?? 0;
     return scene === 5 && beat >= lastBeat;
-  }, [registry, styleId, scene, beat, meta]);
+  }, [found, registry, scene, beat, meta]);
 
   // ── Navigation handlers ─────────────────────────────────────────────────
 
   const handleNext = useCallback(() => {
-    const target = computeNext(registry, styleId, scene, beat, isPureMode);
+    const target = computeNext(
+      registry,
+      styleId,
+      versionId,
+      scene,
+      beat,
+      isPureMode,
+    );
     if (target) onNavigate(target);
-  }, [registry, styleId, scene, beat, isPureMode, onNavigate]);
+  }, [registry, styleId, versionId, scene, beat, isPureMode, onNavigate]);
 
   const handlePrev = useCallback(() => {
-    const target = computePrev(registry, styleId, scene, beat, isPureMode);
+    const target = computePrev(
+      registry,
+      styleId,
+      versionId,
+      scene,
+      beat,
+      isPureMode,
+    );
     if (target) onNavigate(target);
-  }, [registry, styleId, scene, beat, isPureMode, onNavigate]);
+  }, [registry, styleId, versionId, scene, beat, isPureMode, onNavigate]);
 
   const handleJumpScene = useCallback(
     (targetScene: number) => {
-      const target = jumpScene(registry, styleId, targetScene);
+      const target = jumpScene(registry, styleId, versionId, targetScene);
       onNavigate(target);
     },
-    [registry, styleId, onNavigate],
+    [registry, styleId, versionId, onNavigate],
   );
 
   const handleStyleInternalNavigate = useCallback(
     (targetScene: number, targetBeat: number) => {
-      onNavigate({ styleId, scene: targetScene, beat: targetBeat });
+      onNavigate({
+        styleId,
+        versionId,
+        scene: targetScene,
+        beat: targetBeat,
+      });
     },
-    [styleId, onNavigate],
+    [styleId, versionId, onNavigate],
   );
 
   // ── Keyboard navigation ─────────────────────────────────────────────────
@@ -139,20 +205,22 @@ export default function LabView({
 
   // ── Render ──────────────────────────────────────────────────────────────
 
-  if (!currentEntry || !meta) {
+  if (!found || !meta) {
     return (
       <div
         data-testid="lab-view"
         className="w-full h-full flex items-center justify-center"
       >
         <p className="opacity-50">
-          {language === "zh" ? `风格 ${styleId} 未找到` : `Style ${styleId} not found`}
+          {language === "zh"
+            ? `风格 ${styleId} 未找到`
+            : `Style ${styleId} not found`}
         </p>
       </div>
     );
   }
 
-  const StyleComponent = currentEntry.component;
+  const StyleComponent = found.version.component;
 
   const styleProps: BespokeStyleProps = {
     scene,
@@ -177,6 +245,17 @@ export default function LabView({
       data-testid="lab-view"
       className="w-full h-full flex flex-col"
     >
+      {/* VersionBar (hidden in pure mode) */}
+      {!isPureMode && (
+        <VersionBar
+          style={found.style}
+          currentVersionId={versionId}
+          language={language}
+          onGoOverview={onGoOverview}
+          onSelectVersion={(vid) => onSelectVersion(found.style.id, vid)}
+        />
+      )}
+
       {/* Stage area */}
       <div
         ref={stageContainerRef}

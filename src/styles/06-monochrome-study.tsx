@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./06-monochrome-study.module.css";
 
@@ -268,17 +268,6 @@ export default function MonochromeStudy({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setEntered(true));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene]);
-
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -297,7 +286,7 @@ export default function MonochromeStudy({
 
   const trackClasses = [
     styles.track,
-    entered ? styles.trackActive : styles.trackEnter,
+    styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");
@@ -328,16 +317,7 @@ export default function MonochromeStudy({
             {c.statementTail}
           </h2>
           {beat >= 1 && (
-            <p
-              className={styles.bwStatementSub}
-              style={{
-                opacity: entered ? 0.4 : 0,
-                transition: reducedMotion
-                  ? "none"
-                  : "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-                transitionDelay: "0.3s",
-              }}
-            >
+            <p className={styles.bwStatementSubVisible}>
               {c.statementSub}
             </p>
           )}
@@ -357,7 +337,7 @@ export default function MonochromeStudy({
             const visible = beat >= 1;
             const itemClasses = [
               styles.bwContrastItem,
-              visible && entered ? styles.bwContrastItemVisible : "",
+              visible ? styles.bwContrastItemVisible : "",
             ]
               .filter(Boolean)
               .join(" ");
@@ -367,8 +347,8 @@ export default function MonochromeStudy({
                 className={itemClasses}
                 style={
                   reducedMotion
-                    ? { opacity: visible ? 1 : 0, transform: "none" }
-                    : { transitionDelay: `${i * 0.15}s` }
+                    ? { animationDuration: "0s" }
+                    : { animationDelay: `${i * 0.15}s` }
                 }
               >
                 <div className={styles.bwContrastLabel}>{item.label}</div>
@@ -394,7 +374,7 @@ export default function MonochromeStudy({
             const visible = i < visibleCount;
             const itemClasses = [
               styles.bwScaleItem,
-              visible && entered ? styles.bwScaleItemVisible : "",
+              visible ? styles.bwScaleItemVisible : "",
             ]
               .filter(Boolean)
               .join(" ");
@@ -404,8 +384,8 @@ export default function MonochromeStudy({
                 className={itemClasses}
                 style={
                   reducedMotion
-                    ? { opacity: visible ? 1 : 0, transform: "none" }
-                    : { transitionDelay: `${i * 0.08}s` }
+                    ? { animationDuration: "0s" }
+                    : { animationDelay: `${i * 0.08}s` }
                 }
               >
                 <span className={styles.bwScaleNum}>{item.num}</span>
@@ -471,8 +451,7 @@ export default function MonochromeStudy({
               aria-label={`Jump to scene ${s}`}
               onClick={(e) => handleNavClick(e, s)}
             >
-              <span className={styles.navBar} />
-              <span className={styles.navNum}>{String(s).padStart(2, "0")}</span>
+              <span className={styles.navDot} />
             </button>
           );
         })}
@@ -483,10 +462,9 @@ export default function MonochromeStudy({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
-        key={`06-${scene}`}
+        key={scene}
         className={trackClasses}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

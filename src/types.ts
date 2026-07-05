@@ -76,11 +76,28 @@ export interface StyleMetadata {
   }>;
 }
 
-/** A single entry in the Style registry. */
-export interface StyleRegistryEntry {
+/** A single version of a Style, produced by one Agent/model. */
+export interface StyleVersion {
+  /** Version ID, e.g. "v1", "v2" — internal ordering within the Style. */
   id: string;
+  /** Topic name (human-readable), e.g. "决策的艺术", "Product Launch". */
+  topic: string;
+  /** Model that produced this version, e.g. "Doubao-Seed-Evolving". */
+  model: string;
+  /** The React component that renders this version. */
   component: React.ComponentType<BespokeStyleProps>;
+  /** Returns localized metadata for this version. */
   getMetadata: (lang: "en" | "zh") => StyleMetadata;
+}
+
+/** A single entry in the Style registry — one Style with one or more Versions. */
+export interface StyleRegistryEntry {
+  /** Two-digit string ID, e.g. "01" .. "48". */
+  id: string;
+  /** Localized Style name (both languages for quick access without metadata lookup). */
+  name: { en: string; zh: string };
+  /** All versions of this Style, ordered by version ID. */
+  versions: StyleVersion[];
 }
 
 /** Metadata for a single scene, used by layout controls. */

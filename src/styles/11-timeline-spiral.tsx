@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./11-timeline-spiral.module.css";
 
@@ -221,16 +221,6 @@ export default function TimelineSpiral({
   scene, beat, language, isThumbnail, reducedMotion, onNavigate,
 }: BespokeStyleProps) {
   useFonts();
-  const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setEntered(true));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -241,7 +231,7 @@ export default function TimelineSpiral({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, entered ? styles.trackActive : styles.trackEnter].filter(Boolean).join(" ");
+  const trackClasses = [styles.track, styles.animateSceneEnter].filter(Boolean).join(" ");
 
   const renderScene1 = () => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
@@ -282,7 +272,7 @@ export default function TimelineSpiral({
           <div className={styles.timelineNodes}>
             {nodes.map((node, i) => {
               const visible = i < visibleCount;
-              const cls = [styles.tlNode, visible && entered ? styles.tlNodeVisible : ""].filter(Boolean).join(" ");
+              const cls = [styles.tlNode, visible ? styles.tlNodeVisible : ""].filter(Boolean).join(" ");
               return (
                 <div
                   key={i}
@@ -314,30 +304,13 @@ export default function TimelineSpiral({
             <span className={styles.milestoneYearLabel}>{language === "zh" ? "关键年" : "Pivotal Year"}</span>
           </div>
           <div className={styles.milestoneInfo}>
-            <h2 className={styles.milestoneEventTitle}
-              style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "none" : "translateX(2cqw)",
-                transition: reducedMotion ? "none" : "opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-              }}
-            >{c.eventTitle}</h2>
+            <h2 className={styles.milestoneEventTitle}>{c.eventTitle}</h2>
             {beat >= 1 && (
               <>
-                <p className={styles.milestoneDesc}
-                  style={{
-                    opacity: entered ? 1 : 0,
-                    transition: reducedMotion ? "none" : "opacity 0.5s ease 0.15s",
-                  }}
-                >{c.desc}</p>
+                <p className={styles.milestoneDesc}>{c.desc}</p>
                 <div className={styles.milestoneStats}>
                   {stats.map((s, i) => (
-                    <div key={i} className={styles.milestoneStat}
-                      style={{
-                        opacity: entered ? 1 : 0,
-                        transform: entered ? "none" : "translateY(0.5cqh)",
-                        transition: reducedMotion ? "none" : `opacity 0.4s ease ${0.3 + i * 0.1}s, transform 0.4s ease ${0.3 + i * 0.1}s`,
-                      }}
-                    >
+                    <div key={i} className={styles.milestoneStat}>
                       <span className={styles.milestoneStatVal}>{s.val}</span>
                       <span className={styles.milestoneStatLbl}>{s.lbl}</span>
                     </div>
@@ -361,7 +334,7 @@ export default function TimelineSpiral({
         <div className={styles.growthGrid}>
           {metrics.map((m, i) => {
             const visible = beat >= 1;
-            const cls = [styles.growthCard, visible && entered ? styles.growthCardVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.growthCard, visible ? styles.growthCardVisible : ""].filter(Boolean).join(" ");
             return (
               <div
                 key={i}
@@ -407,17 +380,21 @@ export default function TimelineSpiral({
   const renderNav = () => {
     if (isThumbnail) return null;
     return (
-      <nav className={styles.navDots} aria-label="Scene navigation">
+      <nav className={styles.navTimeline} aria-label="Scene navigation">
+        <div className={styles.navBaseline} aria-hidden="true" />
         {[1, 2, 3, 4, 5].map((s) => {
           const isActive = s === scene;
           return (
             <button
               key={s}
               type="button"
-              className={[styles.navDot, isActive ? styles.navDotActive : ""].filter(Boolean).join(" ")}
+              className={[styles.navTick, isActive ? styles.navTickActive : ""].filter(Boolean).join(" ")}
               aria-label={`Jump to scene ${s}`}
               onClick={(e) => handleNavClick(e, s)}
-            />
+            >
+              <span className={styles.navTickMark} />
+              <span className={styles.navTickNum}>{s}</span>
+            </button>
           );
         })}
       </nav>
@@ -427,10 +404,9 @@ export default function TimelineSpiral({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`11-${scene}`}
         className={trackClasses}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

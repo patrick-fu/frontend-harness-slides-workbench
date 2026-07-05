@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./02-swiss-precision.module.css";
 
@@ -237,16 +237,6 @@ export default function SwissPrecision({
   onNavigate,
 }: BespokeStyleProps) {
   useFonts();
-  const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setEntered(true));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -300,8 +290,8 @@ export default function SwissPrecision({
               key={i}
               className={styles.metricBlock}
               style={{
-                opacity: entered && beat >= 1 ? 1 : 0,
-                transform: entered && beat >= 1 ? "none" : "translateY(1cqh)",
+                opacity: beat >= 1 ? 1 : 0,
+                transform: beat >= 1 ? "none" : "translateY(1cqh)",
                 transition: reducedMotion ? "none" : `opacity 0.5s ease ${i * 0.12}s, transform 0.5s ease ${i * 0.12}s`,
               }}
             >
@@ -332,8 +322,8 @@ export default function SwissPrecision({
                 key={i}
                 className={styles.processStep}
                 style={{
-                  opacity: visible && entered ? 1 : 0,
-                  transform: visible && entered ? "none" : "translateX(-2cqw)",
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? "none" : "translateX(-2cqw)",
                   transition: reducedMotion ? "none" : `opacity 0.4s ease ${i * 0.08}s, transform 0.4s ease ${i * 0.08}s`,
                 }}
               >
@@ -367,7 +357,6 @@ export default function SwissPrecision({
                 key={i}
                 className={styles.qualityRow}
                 style={{
-                  opacity: entered ? 1 : 0,
                   transition: reducedMotion ? "none" : `opacity 0.4s ease ${i * 0.1}s`,
                 }}
               >
@@ -423,19 +412,17 @@ export default function SwissPrecision({
     if (isThumbnail) return null;
     return (
       <nav className={styles.nav} aria-label="Scene navigation">
+        <span className={styles.navTrack} />
         {[1, 2, 3, 4, 5].map((s) => {
           const isActive = s === scene;
           return (
             <button
               key={s}
               type="button"
-              className={[styles.navItem, isActive ? styles.navItemActive : ""].filter(Boolean).join(" ")}
+              className={[styles.navDot, isActive ? styles.navDotActive : ""].filter(Boolean).join(" ")}
               aria-label={`Jump to scene ${s}`}
               onClick={(e) => handleNavClick(e, s)}
-            >
-              <span className={styles.navNum}>{String(s).padStart(2, "0")}</span>
-              {isActive && <span className={styles.navLine} />}
-            </button>
+            />
           );
         })}
       </nav>
@@ -445,10 +432,9 @@ export default function SwissPrecision({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`02-${scene}`}
-        className={[styles.track, entered ? styles.trackActive : styles.trackEnter].filter(Boolean).join(" ")}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        className={[styles.track, styles.animateSceneEnter].join(" ")}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

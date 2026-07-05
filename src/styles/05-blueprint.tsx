@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./05-blueprint.module.css";
 
@@ -219,19 +219,7 @@ function RegMark({ className }: { className: string }) {
   );
 }
 
-// ─── Crosshair Nav SVG ─────────────────────────────────────────────────────
-
-function CrosshairIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle className={styles.navCrosshair} cx="12" cy="12" r="8" fill="none" />
-      <line className={styles.navCrosshair} x1="12" y1="2" x2="12" y2="8" />
-      <line className={styles.navCrosshair} x1="12" y1="16" x2="12" y2="22" />
-      <line className={styles.navCrosshair} x1="2" y1="12" x2="8" y2="12" />
-      <line className={styles.navCrosshair} x1="16" y1="12" x2="22" y2="12" />
-    </svg>
-  );
-}
+// ─── Ruler Nav SVG tick ────────────────────────────────────────────────────
 
 // ─── Architecture Diagram SVG (Scene 4) ────────────────────────────────────
 
@@ -407,17 +395,6 @@ export default function Blueprint({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setEntered(true));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene]);
-
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -436,7 +413,7 @@ export default function Blueprint({
 
   const trackClasses = [
     styles.track,
-    entered ? styles.trackActive : styles.trackEnter,
+    styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");
@@ -477,7 +454,7 @@ export default function Blueprint({
             const visible = i < visibleCount;
             const layerClasses = [
               styles.sysLayer,
-              visible && entered ? styles.sysLayerVisible : "",
+              visible ? styles.sysLayerVisible : "",
             ]
               .filter(Boolean)
               .join(" ");
@@ -514,7 +491,7 @@ export default function Blueprint({
             const visible = beat >= 1;
             const nodeClasses = [
               styles.flowNode,
-              visible && entered ? styles.flowNodeVisible : "",
+              visible ? styles.flowNodeVisible : "",
             ]
               .filter(Boolean)
               .join(" ");
@@ -573,7 +550,7 @@ export default function Blueprint({
             const visible = i < visibleCount;
             const blockClasses = [
               styles.specBlock,
-              visible && entered ? styles.specBlockVisible : "",
+              visible ? styles.specBlockVisible : "",
             ]
               .filter(Boolean)
               .join(" ");
@@ -637,22 +614,14 @@ export default function Blueprint({
   const renderNav = () => {
     if (isThumbnail) return null;
 
-    const positions = [
-      styles.navPos1,
-      styles.navPos2,
-      styles.navPos3,
-      styles.navPos4,
-      styles.navPos5,
-    ];
-
     return (
-      <div className={styles.nav} aria-label="Scene navigation">
-        {[1, 2, 3, 4, 5].map((s, i) => {
+      <nav className={styles.rulerNav} aria-label="Scene navigation">
+        <div className={styles.rulerTrack} aria-hidden="true" />
+        {[1, 2, 3, 4, 5].map((s) => {
           const isActive = s === scene;
           const itemClasses = [
-            styles.navItem,
-            positions[i],
-            isActive ? styles.navItemActive : "",
+            styles.rulerMarker,
+            isActive ? styles.rulerMarkerActive : "",
           ]
             .filter(Boolean)
             .join(" ");
@@ -664,11 +633,14 @@ export default function Blueprint({
               aria-label={`Jump to scene ${s}`}
               onClick={(e) => handleNavClick(e, s)}
             >
-              <CrosshairIcon />
+              <span className={styles.rulerNumber}>
+                {String(s).padStart(2, "0")}
+              </span>
+              <span className={styles.rulerTick} aria-hidden="true" />
             </button>
           );
         })}
-      </div>
+      </nav>
     );
   };
 
@@ -687,10 +659,9 @@ export default function Blueprint({
       <RegMark className={`${styles.regMark} ${styles.regMarkBR}`} />
 
       <div
-        ref={trackRef}
-        key={`05-${scene}`}
+        key={scene}
         className={trackClasses}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

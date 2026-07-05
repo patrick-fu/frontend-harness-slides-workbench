@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./08-terminal-glow.module.css";
 
@@ -493,17 +493,6 @@ export default function TerminalGlow({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setEntered(true));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene]);
-
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -522,7 +511,7 @@ export default function TerminalGlow({
 
   const trackClasses = [
     styles.track,
-    entered ? styles.trackActive : styles.trackEnter,
+    styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");
@@ -540,7 +529,7 @@ export default function TerminalGlow({
             const visible = i <= beat * 3 + 2;
             const lineClasses = [
               styles.bootLine,
-              visible && entered ? styles.bootLineVisible : "",
+              visible ? styles.bootLineVisible : "",
               line.type === "ok" ? styles.bootLineOk : "",
               line.type === "warn" ? styles.bootLineWarn : "",
               line.type === "accent" ? styles.bootLineAccent : "",
@@ -566,23 +555,11 @@ export default function TerminalGlow({
           <>
             <h1
               className={styles.termTitleMain}
-              style={{
-                opacity: entered ? 1 : 0,
-                transition: reducedMotion
-                  ? "none"
-                  : "opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-              }}
             >
               {c.mainTitle}
             </h1>
             <p
               className={styles.termTitleSub}
-              style={{
-                opacity: entered ? 0.5 : 0,
-                transition: reducedMotion
-                  ? "none"
-                  : "opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s",
-              }}
             >
               {c.subTitle}
             </p>
@@ -609,7 +586,7 @@ export default function TerminalGlow({
             const visible = i < visibleCount;
             const lineClasses = [
               styles.outputLine,
-              visible && entered ? styles.outputLineVisible : "",
+              visible ? styles.outputLineVisible : "",
               line.type === "green" ? styles.outputLineGreen : "",
               line.type === "amber" ? styles.outputLineAmber : "",
               line.type === "dim" ? styles.outputLineDim : "",
@@ -656,7 +633,7 @@ export default function TerminalGlow({
               const visible = i < visibleCount;
               const lineClasses = [
                 styles.codeLine,
-                visible && entered ? styles.codeLineVisible : "",
+                visible ? styles.codeLineVisible : "",
               ]
                 .filter(Boolean)
                 .join(" ");
@@ -739,7 +716,7 @@ export default function TerminalGlow({
             const visible = i < visibleCount;
             const cardClasses = [
               styles.dashCard,
-              visible && entered ? styles.dashCardVisible : "",
+              visible ? styles.dashCardVisible : "",
             ]
               .filter(Boolean)
               .join(" ");
@@ -826,19 +803,15 @@ export default function TerminalGlow({
   const renderNav = () => {
     if (isThumbnail) return null;
 
-    const tabNames = {
-      en: ["boot", "status", "code", "dash", "exit"],
-      zh: ["启动", "状态", "代码", "仪表", "退出"],
-    };
-    const tabs = tabNames[language];
-
     return (
-      <nav className={styles.nav} aria-label="Scene navigation">
-        {[1, 2, 3, 4, 5].map((s, i) => {
+      <nav className={styles.cmdNav} aria-label="Scene navigation">
+        <span className={styles.cmdPrompt}>$</span>
+        <span className={styles.cmdCmd}>goto</span>
+        {[1, 2, 3, 4, 5].map((s) => {
           const isActive = s === scene;
           const itemClasses = [
-            styles.navItem,
-            isActive ? styles.navItemActive : "",
+            styles.cmdScene,
+            isActive ? styles.cmdSceneActive : "",
           ]
             .filter(Boolean)
             .join(" ");
@@ -850,11 +823,11 @@ export default function TerminalGlow({
               aria-label={`Jump to scene ${s}`}
               onClick={(e) => handleNavClick(e, s)}
             >
-              <span className={styles.navTabNum}>{String(s).padStart(2, "0")}</span>
-              <span className={styles.navTabName}>{tabs[i]}</span>
+              scene_{s}
             </button>
           );
         })}
+        <span className={styles.cursor} aria-hidden="true" />
       </nav>
     );
   };
@@ -866,10 +839,9 @@ export default function TerminalGlow({
       <div className={styles.vignette} aria-hidden="true" />
 
       <div
-        ref={trackRef}
-        key={`08-${scene}`}
+        key={scene}
         className={trackClasses}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

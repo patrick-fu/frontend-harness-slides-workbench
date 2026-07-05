@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./09-process-flow.module.css";
 
@@ -306,17 +306,6 @@ export default function ProcessFlow({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setEntered(true));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene]);
-
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -335,7 +324,7 @@ export default function ProcessFlow({
 
   const trackClasses = [
     styles.track,
-    entered ? styles.trackActive : styles.trackEnter,
+    styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");
@@ -370,7 +359,7 @@ export default function ProcessFlow({
             const visible = i < visibleCount;
             const cls = [
               styles.cycleStep,
-              visible && entered ? styles.cycleStepVisible : "",
+              visible ? styles.cycleStepVisible : "",
             ].filter(Boolean).join(" ");
             return (
               <React.Fragment key={i}>
@@ -410,7 +399,7 @@ export default function ProcessFlow({
             const visible = i < visibleCount;
             const cls = [
               styles.stepRow,
-              visible && entered ? styles.stepRowVisible : "",
+              visible ? styles.stepRowVisible : "",
             ].filter(Boolean).join(" ");
             return (
               <div
@@ -448,7 +437,7 @@ export default function ProcessFlow({
             const visible = beat >= 1;
             const cls = [
               styles.metricCard,
-              visible && entered ? styles.metricCardVisible : "",
+              visible ? styles.metricCardVisible : "",
             ].filter(Boolean).join(" ");
             return (
               <div
@@ -502,17 +491,35 @@ export default function ProcessFlow({
   const renderNav = () => {
     if (isThumbnail) return null;
     return (
-      <nav className={styles.navDots} aria-label="Scene navigation">
-        {[1, 2, 3, 4, 5].map((s) => {
+      <nav className={styles.navFlow} aria-label="Scene navigation">
+        {[1, 2, 3, 4, 5].map((s, i) => {
           const isActive = s === scene;
+          const isCompleted = s < scene;
+          const nodeClass = [
+            styles.navNode,
+            isActive ? styles.navNodeActive : "",
+            isCompleted ? styles.navNodeCompleted : "",
+          ].filter(Boolean).join(" ");
           return (
-            <button
-              key={s}
-              type="button"
-              className={[styles.navDot, isActive ? styles.navDotActive : ""].filter(Boolean).join(" ")}
-              aria-label={`Jump to scene ${s}`}
-              onClick={(e) => handleNavClick(e, s)}
-            />
+            <React.Fragment key={s}>
+              <button
+                type="button"
+                className={nodeClass}
+                aria-label={`Jump to scene ${s}`}
+                onClick={(e) => handleNavClick(e, s)}
+              >
+                <span className={styles.navNodeDot} />
+                <span className={styles.navNodeLabel}>{s}</span>
+              </button>
+              {i < 4 && (
+                <span
+                  className={[
+                    styles.navConnector,
+                    s < scene ? styles.navConnectorActive : "",
+                  ].filter(Boolean).join(" ")}
+                />
+              )}
+            </React.Fragment>
           );
         })}
       </nav>
@@ -522,10 +529,9 @@ export default function ProcessFlow({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`09-${scene}`}
         className={trackClasses}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

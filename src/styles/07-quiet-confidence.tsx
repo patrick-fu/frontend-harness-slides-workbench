@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./07-quiet-confidence.module.css";
 
@@ -317,17 +317,6 @@ export default function QuietConfidence({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setEntered(true));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene]);
-
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -346,7 +335,7 @@ export default function QuietConfidence({
 
   const trackClasses = [
     styles.track,
-    entered ? styles.trackActive : styles.trackEnter,
+    styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");
@@ -384,16 +373,7 @@ export default function QuietConfidence({
           <em>{c.thesisItalic}</em>
         </h2>
         {beat >= 1 && (
-          <p
-            className={styles.qcThesisNote}
-            style={{
-              opacity: entered ? 0.5 : 0,
-              transition: reducedMotion
-                ? "none"
-                : "opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
-              transitionDelay: "0.4s",
-            }}
-          >
+          <p className={styles.qcThesisNote}>
             {c.thesisNote}
           </p>
         )}
@@ -417,7 +397,7 @@ export default function QuietConfidence({
             const visible = i < visibleCount;
             const pClasses = [
               styles.qcPrinciple,
-              visible && entered ? styles.qcPrincipleVisible : "",
+              visible ? styles.qcPrincipleVisible : "",
             ]
               .filter(Boolean)
               .join(" ");
@@ -455,7 +435,7 @@ export default function QuietConfidence({
             const visible = beat >= 1;
             const dpClasses = [
               styles.qcDataPoint,
-              visible && entered ? styles.qcDataPointVisible : "",
+              visible ? styles.qcDataPointVisible : "",
             ]
               .filter(Boolean)
               .join(" ");
@@ -483,16 +463,7 @@ export default function QuietConfidence({
           })}
         </div>
         {beat >= 1 && (
-          <p
-            className={styles.qcDataFootnote}
-            style={{
-              opacity: entered ? 0.35 : 0,
-              transition: reducedMotion
-                ? "none"
-                : "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-              transitionDelay: "0.6s",
-            }}
-          >
+          <p className={styles.qcDataFootnote}>
             {c.dataFootnote}
           </p>
         )}
@@ -538,12 +509,12 @@ export default function QuietConfidence({
     if (isThumbnail) return null;
 
     return (
-      <nav className={styles.nav} aria-label="Scene navigation">
+      <nav className={styles.sideNav} aria-label="Scene navigation">
         {[1, 2, 3, 4, 5].map((s) => {
           const isActive = s === scene;
           const itemClasses = [
-            styles.navItem,
-            isActive ? styles.navItemActive : "",
+            styles.sideNavItem,
+            isActive ? styles.sideNavItemActive : "",
           ]
             .filter(Boolean)
             .join(" ");
@@ -555,7 +526,8 @@ export default function QuietConfidence({
               aria-label={`Jump to scene ${s}`}
               onClick={(e) => handleNavClick(e, s)}
             >
-              <span className={styles.navNum}>{s}</span>
+              <span className={styles.sideNavTick} aria-hidden="true" />
+              <span className={styles.sideNavNum}>{s}</span>
             </button>
           );
         })}
@@ -566,10 +538,9 @@ export default function QuietConfidence({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`07-${scene}`}
         className={trackClasses}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

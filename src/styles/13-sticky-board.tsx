@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./13-sticky-board.module.css";
 
@@ -291,16 +291,6 @@ export default function StickyBoard({
   scene, beat, language, isThumbnail, reducedMotion, onNavigate,
 }: BespokeStyleProps) {
   useFonts();
-  const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setEntered(true));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -311,7 +301,7 @@ export default function StickyBoard({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, entered ? styles.trackActive : styles.trackEnter].filter(Boolean).join(" ");
+  const trackClasses = [styles.track, styles.animateSceneEnter].filter(Boolean).join(" ");
 
   const renderScene1 = () => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
@@ -342,7 +332,7 @@ export default function StickyBoard({
             const cls = [
               styles.stickyNote,
               noteColorClass(note.color),
-              visible && entered ? styles.stickyNoteVisible : "",
+              visible ? styles.stickyNoteVisible : "",
             ].filter(Boolean).join(" ");
             return (
               <div
@@ -382,7 +372,7 @@ export default function StickyBoard({
                 const cls = [
                   styles.dtMiniNote,
                   miniColorClass(note.color),
-                  visible && entered ? styles.dtMiniNoteVisible : "",
+                  visible ? styles.dtMiniNoteVisible : "",
                 ].filter(Boolean).join(" ");
                 return (
                   <div
@@ -413,7 +403,7 @@ export default function StickyBoard({
         <div className={styles.voteArea}>
           {votes.map((v, i) => {
             const visible = beat >= 1;
-            const cls = [styles.voteRow, visible && entered ? styles.voteRowVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.voteRow, visible ? styles.voteRowVisible : ""].filter(Boolean).join(" ");
             return (
               <div
                 key={i}
@@ -464,18 +454,31 @@ export default function StickyBoard({
 
   const renderNav = () => {
     if (isThumbnail) return null;
+    const tabColors = ["yellow", "pink", "blue", "green", "orange"];
+    const rotations = [-2, 1.5, -1, 2, -1.5];
     return (
-      <nav className={styles.navDots} aria-label="Scene navigation">
-        {[1, 2, 3, 4, 5].map((s) => {
+      <nav className={styles.sideNav} aria-label="Scene navigation">
+        {[1, 2, 3, 4, 5].map((s, i) => {
           const isActive = s === scene;
           return (
             <button
               key={s}
               type="button"
-              className={[styles.navDot, isActive ? styles.navDotActive : ""].filter(Boolean).join(" ")}
+              className={[
+                styles.sideNavTab,
+                noteColorClass(tabColors[i]),
+                isActive ? styles.sideNavTabActive : "",
+              ].filter(Boolean).join(" ")}
+              style={{
+                transform: `rotate(${rotations[i]}deg)`,
+                ...(reducedMotion ? { transitionDuration: "0s" } : {}),
+              }}
               aria-label={`Jump to scene ${s}`}
               onClick={(e) => handleNavClick(e, s)}
-            />
+            >
+              <div className={styles.sideNavPin} />
+              <span className={styles.sideNavNum}>{s}</span>
+            </button>
           );
         })}
       </nav>
@@ -485,7 +488,6 @@ export default function StickyBoard({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`13-${scene}`}
         className={trackClasses}
         style={reducedMotion ? { transitionDuration: "0s" } : undefined}

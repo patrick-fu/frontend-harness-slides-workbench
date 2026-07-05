@@ -86,10 +86,10 @@ function AppContent() {
       resolvedLanguage === "zh" ? "FH Slides 工作台" : "FH Slides Workbench";
 
     if (urlState.view === "lab") {
-      const entry = STYLE_REGISTRY.find((e) => e.id === urlState.styleId);
-      if (entry) {
-        const meta = entry.getMetadata(resolvedLanguage);
-        document.title = `${meta.name} — ${baseTitle}`;
+      const style = STYLE_REGISTRY.find((s) => s.id === urlState.styleId);
+      if (style) {
+        const styleName = style.name[resolvedLanguage];
+        document.title = `${styleName} — ${baseTitle}`;
         return;
       }
     }
@@ -122,7 +122,30 @@ function AppContent() {
 
   const handleSelectStyle = useCallback(
     (styleId: string) => {
-      setUrlState({ view: "lab", styleId, scene: 1, beat: 0 });
+      // Find the style to get its first version
+      const style = STYLE_REGISTRY.find((s) => s.id === styleId);
+      const versionId = style?.versions[0]?.id || "v1";
+      setUrlState({
+        view: "lab",
+        styleId,
+        versionId,
+        scene: 1,
+        beat: 0,
+      });
+      setSidebarOpen(false);
+    },
+    [setUrlState],
+  );
+
+  const handleSelectVersion = useCallback(
+    (styleId: string, versionId: string) => {
+      setUrlState({
+        view: "lab",
+        styleId,
+        versionId,
+        scene: 1,
+        beat: 0,
+      });
       setSidebarOpen(false);
     },
     [setUrlState],
@@ -131,12 +154,14 @@ function AppContent() {
   const handleNavigate = useCallback(
     (target: {
       styleId: string;
+      versionId: string;
       scene: number;
       beat: number;
       flashStyle?: boolean;
     }) => {
       setUrlState({
         styleId: target.styleId,
+        versionId: target.versionId,
         scene: target.scene,
         beat: target.beat,
       });
@@ -162,10 +187,11 @@ function AppContent() {
   const contentStyle = useMemo(() => {
     const effectiveSidebarWidth = sidebarCollapsed ? 48 : sidebarWidth;
     const headerHeight = 36; // h-9
+    const versionBarHeight = isLab ? 28 : 0; // h-7, only in lab
     const bottomBarHeight = isLab ? 36 : 0; // h-9
 
     return {
-      paddingTop: headerHeight,
+      paddingTop: headerHeight + versionBarHeight,
       paddingLeft: effectiveSidebarWidth,
       paddingBottom: bottomBarHeight,
     };
@@ -199,7 +225,9 @@ function AppContent() {
         <Sidebar
           registry={STYLE_REGISTRY}
           currentStyleId={urlState.styleId}
+          currentVersionId={urlState.versionId}
           onSelectStyle={handleSelectStyle}
+          onSelectVersion={handleSelectVersion}
           isOpen={sidebarOpen}
           onClose={handleCloseSidebar}
           language={resolvedLanguage}
@@ -245,6 +273,7 @@ function AppContent() {
             <LabView
               registry={STYLE_REGISTRY}
               styleId={urlState.styleId}
+              versionId={urlState.versionId}
               scene={urlState.scene}
               beat={urlState.beat}
               isPureMode={urlState.pureMode}
@@ -255,6 +284,8 @@ function AppContent() {
               onNavigate={handleNavigate}
               onFlashDone={handleFlashDone}
               onExitPure={handleExitPure}
+              onSelectVersion={handleSelectVersion}
+              onGoOverview={handleGoOverview}
             />
           </div>
         )}

@@ -32,26 +32,34 @@ const MockStyleComponent = vi.fn(() => (
 const mockRegistry = [
   {
     id: "01",
-    component: MockStyleComponent,
-    getMetadata: (lang: "en" | "zh") => ({
-      id: "01",
-      name: lang === "en" ? "Test Style" : "测试风格",
-      band: "minimal-keynote" as const,
-      theme: "test",
-      densityLabel: "Sparse",
-      heroScene: 1,
-      colors: { bg: "#fff", ink: "#000", panel: "#eee" },
-      typography: { header: "Test 700", body: "Test 400" },
-      tags: ["test"],
-      fonts: [],
-      scenes: [
-        { id: 1, title: "Scene 1", beats: [{ id: 0, action: "Title", title: "T", body: "B" }] },
-        { id: 2, title: "Scene 2", beats: [{ id: 0, action: "A", title: "T", body: "B" }] },
-        { id: 3, title: "Scene 3", beats: [{ id: 0, action: "A", title: "T", body: "B" }] },
-        { id: 4, title: "Scene 4", beats: [{ id: 0, action: "A", title: "T", body: "B" }] },
-        { id: 5, title: "Scene 5", beats: [{ id: 0, action: "A", title: "T", body: "B" }] },
-      ],
-    }),
+    name: { en: "Test Style", zh: "测试风格" },
+    versions: [
+      {
+        id: "v1",
+        topic: "Test Topic",
+        model: "test-model",
+        component: MockStyleComponent,
+        getMetadata: (lang: "en" | "zh") => ({
+          id: "01",
+          name: lang === "en" ? "Test Style" : "测试风格",
+          band: "minimal-keynote" as const,
+          theme: "test",
+          densityLabel: "Sparse",
+          heroScene: 1,
+          colors: { bg: "#fff", ink: "#000", panel: "#eee" },
+          typography: { header: "Test 700", body: "Test 400" },
+          tags: ["test"],
+          fonts: [],
+          scenes: [
+            { id: 1, title: "Scene 1", beats: [{ id: 0, action: "Title", title: "T", body: "B" }] },
+            { id: 2, title: "Scene 2", beats: [{ id: 0, action: "A", title: "T", body: "B" }] },
+            { id: 3, title: "Scene 3", beats: [{ id: 0, action: "A", title: "T", body: "B" }] },
+            { id: 4, title: "Scene 4", beats: [{ id: 0, action: "A", title: "T", body: "B" }] },
+            { id: 5, title: "Scene 5", beats: [{ id: 0, action: "A", title: "T", body: "B" }] },
+          ],
+        }),
+      },
+    ],
   },
 ];
 
@@ -61,6 +69,7 @@ function renderLabView(props: Partial<React.ComponentProps<typeof LabView>> = {}
   const defaultProps = {
     registry: mockRegistry,
     styleId: "01",
+    versionId: "v1",
     scene: 1,
     beat: 0,
     isPureMode: false,
@@ -71,6 +80,8 @@ function renderLabView(props: Partial<React.ComponentProps<typeof LabView>> = {}
     onNavigate: vi.fn(),
     onFlashDone: vi.fn(),
     onExitPure: vi.fn(),
+    onSelectVersion: vi.fn(),
+    onGoOverview: vi.fn(),
     ...props,
   };
   return render(<LabView {...defaultProps} />);

@@ -28,13 +28,14 @@ const BAND_LABELS: Record<BandId, { en: string; zh: string }> = {
 function makeMockEntry(
   id: string,
   band: BandId,
-  name: string,
+  nameEn: string,
+  nameZh: string,
 ): StyleRegistryEntry {
   const meta: StyleMetadata = {
     id,
     band,
-    name,
-    theme: `Theme for ${name}`,
+    name: nameEn,
+    theme: `Theme for ${nameEn}`,
     densityLabel: "Medium",
     heroScene: 1,
     colors: { bg: "#fff", ink: "#000", panel: "#eee" },
@@ -50,30 +51,38 @@ function makeMockEntry(
 
   return {
     id,
-    component: () => null,
-    getMetadata: (lang: "en" | "zh") => {
-      if (lang === "zh") {
-        return { ...meta, name: `${name} (zh)` };
-      }
-      return meta;
-    },
+    name: { en: nameEn, zh: nameZh },
+    versions: [
+      {
+        id: "v1",
+        topic: nameEn,
+        model: "test-model",
+        component: () => null,
+        getMetadata: (lang: "en" | "zh") => {
+          if (lang === "zh") {
+            return { ...meta, name: nameZh };
+          }
+          return meta;
+        },
+      },
+    ],
   };
 }
 
 function makeMockRegistry(): StyleRegistryEntry[] {
   return [
-    makeMockEntry("01", "minimal-keynote", "Executive Silence"),
-    makeMockEntry("02", "minimal-keynote", "Pure Focus"),
-    makeMockEntry("09", "balanced-hybrid", "System Flow"),
-    makeMockEntry("10", "balanced-hybrid", "Process Map"),
-    makeMockEntry("17", "editorial-print", "Broadsheet"),
-    makeMockEntry("18", "editorial-print", "Magazine"),
-    makeMockEntry("25", "craft-cultural", "Woodblock"),
-    makeMockEntry("26", "craft-cultural", "Origami"),
-    makeMockEntry("33", "contemporary-digital", "Glass UI"),
-    makeMockEntry("34", "contemporary-digital", "Retro OS"),
-    makeMockEntry("41", "text-report", "Evidence First"),
-    makeMockEntry("42", "text-report", "Data Brief"),
+    makeMockEntry("01", "minimal-keynote", "Executive Silence", "静默主旨"),
+    makeMockEntry("02", "minimal-keynote", "Pure Focus", "纯粹聚焦"),
+    makeMockEntry("09", "balanced-hybrid", "System Flow", "系统流程"),
+    makeMockEntry("10", "balanced-hybrid", "Process Map", "过程地图"),
+    makeMockEntry("17", "editorial-print", "Broadsheet", "大报版式"),
+    makeMockEntry("18", "editorial-print", "Magazine", "杂志"),
+    makeMockEntry("25", "craft-cultural", "Woodblock", "木刻版画"),
+    makeMockEntry("26", "craft-cultural", "Origami", "折纸"),
+    makeMockEntry("33", "contemporary-digital", "Glass UI", "玻璃界面"),
+    makeMockEntry("34", "contemporary-digital", "Retro OS", "复古系统"),
+    makeMockEntry("41", "text-report", "Evidence First", "证据优先"),
+    makeMockEntry("42", "text-report", "Data Brief", "数据简报"),
   ];
 }
 
@@ -83,7 +92,9 @@ function renderSidebar(
   const defaultProps = {
     registry: makeMockRegistry(),
     currentStyleId: "01",
+    currentVersionId: "v1",
     onSelectStyle: vi.fn(),
+    onSelectVersion: vi.fn(),
     isOpen: true,
     onClose: vi.fn(),
     language: "en" as const,
@@ -96,6 +107,7 @@ function renderSidebar(
   return {
     ...result,
     onSelectStyle: defaultProps.onSelectStyle,
+    onSelectVersion: defaultProps.onSelectVersion,
     onClose: defaultProps.onClose,
     onWidthChange: defaultProps.onWidthChange,
   };
@@ -132,7 +144,7 @@ describe("Sidebar — band sections", () => {
 
   it("shows Chinese style names when language='zh'", () => {
     renderSidebar({ language: "zh" });
-    expect(screen.getByText("Executive Silence (zh)")).toBeInTheDocument();
+    expect(screen.getByText("静默主旨")).toBeInTheDocument();
   });
 });
 

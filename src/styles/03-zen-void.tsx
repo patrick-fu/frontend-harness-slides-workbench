@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./03-zen-void.module.css";
 
@@ -199,17 +199,6 @@ export default function ZenVoid({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setEntered(true));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene, beat]);
-
   // Font loading
   useEffect(() => {
     if (document.getElementById("style-03-fonts")) return;
@@ -248,7 +237,7 @@ export default function ZenVoid({
             opacity="0.3"
           />
         </svg>
-        <span className={styles.kanji} style={{ opacity: entered ? 1 : 0, transition: reducedMotion ? "none" : "opacity 2s ease" }}>
+        <span className={styles.kanji}>
           {c.kanji}
         </span>
         <span className={styles.word}>{c.word}</span>
@@ -263,14 +252,7 @@ export default function ZenVoid({
     return (
       <div className={styles.sceneConcept}>
         <div className={styles.kanjiColumn}>
-          <span
-            className={styles.kanjiLarge}
-            style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "none" : "translateY(2cqh)",
-              transition: reducedMotion ? "none" : "opacity 1.5s ease, transform 1.5s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}
-          >
+          <span className={styles.kanjiLarge}>
             {c.kanji}
           </span>
           <svg className={styles.brushVertical} viewBox="0 0 20 200" preserveAspectRatio="xMidYMid meet">
@@ -281,14 +263,7 @@ export default function ZenVoid({
           <h2 className={styles.conceptWord}>{c.word}</h2>
           <p className={styles.conceptText}>{c.concept}</p>
           {beat >= 1 && (
-            <p
-              className={styles.bodyText}
-              style={{
-                opacity: entered ? 0.6 : 0,
-                transform: entered ? "none" : "translateY(1cqh)",
-                transition: reducedMotion ? "none" : "opacity 1s ease 0.3s, transform 1s ease 0.3s",
-              }}
-            >
+            <p className={[styles.bodyText, reducedMotion ? "" : styles.beatReveal].filter(Boolean).join(" ")}>
               {c.body}
             </p>
           )}
@@ -313,7 +288,7 @@ export default function ZenVoid({
               strokeDasharray="200 40"
               opacity="0.25"
               style={{
-                strokeDashoffset: entered ? 0 : 240,
+                strokeDashoffset: 0,
                 transition: reducedMotion ? "none" : "stroke-dashoffset 2s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
             />
@@ -328,8 +303,8 @@ export default function ZenVoid({
                 key={i}
                 className={styles.practiceItem}
                 style={{
-                  opacity: visible && entered ? 1 : 0,
-                  transform: visible && entered ? "none" : "translateX(-1cqw)",
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? "none" : "translateX(-1cqw)",
                   transition: reducedMotion ? "none" : `opacity 0.8s ease ${i * 0.15}s, transform 0.8s ease ${i * 0.15}s`,
                 }}
               >
@@ -347,13 +322,7 @@ export default function ZenVoid({
     const c = SCENES[5][language];
     return (
       <div className={styles.sceneClosing}>
-        <span
-          className={styles.kanjiClosing}
-          style={{
-            opacity: entered ? 1 : 0,
-            transition: reducedMotion ? "none" : "opacity 2s ease",
-          }}
-        >
+        <span className={styles.kanjiClosing}>
           {c.kanji}
         </span>
         <h2 className={styles.closingStatement}>{c.closing}</h2>
@@ -398,10 +367,9 @@ export default function ZenVoid({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
-        key={`03-${scene}`}
-        className={[styles.track, entered ? styles.trackActive : styles.trackEnter].filter(Boolean).join(" ")}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        key={scene}
+        className={[styles.track, reducedMotion ? "" : styles.animateSceneEnter].filter(Boolean).join(" ")}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

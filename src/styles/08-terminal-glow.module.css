@@ -54,19 +54,21 @@
   flex-direction: column;
   padding: 4cqh 5cqw;
   z-index: 1;
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
 }
 
-.trackEnter {
-  opacity: 0;
-  transform: translateY(0.5cqh);
+.animateSceneEnter {
+  animation: sceneEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.trackActive {
-  opacity: 1;
-  transform: translateY(0);
+@keyframes sceneEnter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── Terminal window chrome ────────────────────────────────────────────── */
@@ -505,90 +507,71 @@
   min-width: 8px;
 }
 
-/* ── Navigation: terminal tab indicators ───────────────────────────────── */
+/* ── Navigation: command prompt ────────────────────────────────────────── */
 
-.nav {
+.cmdNav {
   position: absolute;
-  top: 0;
+  bottom: 2.5cqh;
   left: 5cqw;
   right: 5cqw;
   display: flex;
-  gap: 0;
+  align-items: center;
+  gap: 1.2cqw;
   z-index: 10;
-  border-bottom: 1px solid rgba(63, 185, 80, 0.1);
+  font-family: "JetBrains Mono", "Fira Code", "SF Mono", Consolas, monospace;
+  padding: 1cqh 1.5cqw;
+  border-top: 1px solid rgba(63, 185, 80, 0.08);
 }
 
-.navItem {
-  display: flex;
-  align-items: center;
-  gap: 0.6cqw;
+.cmdPrompt {
+  font-size: 1.4cqw;
+  color: var(--style-08-green, #3fb950);
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.cmdCmd {
+  font-size: 1.3cqw;
+  color: var(--style-08-ink, #c9d1d9);
+  opacity: 0.35;
+  letter-spacing: 0.02em;
+}
+
+.cmdScene {
+  font-size: 1.3cqw;
+  color: var(--style-08-ink, #c9d1d9);
   background: none;
   border: none;
-  padding: 1.2cqh 1.8cqw;
   cursor: pointer;
-  position: relative;
-  font-family: "JetBrains Mono", monospace;
-  border-bottom: 1px solid transparent;
-  margin-bottom: -1px;
-  transition: border-color 0.2s ease;
+  padding: 0.3cqh 0.4cqw;
+  font-family: inherit;
+  opacity: 0.2;
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s ease, color 0.2s ease;
 }
 
-.navItem:hover {
-  border-bottom-color: rgba(63, 185, 80, 0.2);
+.cmdScene:hover {
+  opacity: 0.5;
 }
 
-.navItemActive {
-  border-bottom-color: var(--style-08-green, #3fb950);
-}
-
-.navTabNum {
-  font-size: 1cqw;
+.cmdSceneActive {
   color: var(--style-08-green, #3fb950);
-  opacity: 0.08;
-  transition: opacity 0.2s ease;
-}
-
-.navItem:hover .navTabNum {
-  opacity: 0.3;
-}
-
-.navItemActive .navTabNum {
-  opacity: 0.6;
-}
-
-.navTabName {
-  font-size: 1.1cqw;
-  color: var(--style-08-ink, #c9d1d9);
-  opacity: 0.08;
-  transition: opacity 0.2s ease;
-  letter-spacing: 0.03em;
-}
-
-.navItem:hover .navTabName {
-  opacity: 0.3;
-}
-
-.navItemActive .navTabName {
-  opacity: 0.6;
+  opacity: 0.75;
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
-.reducedMotion .track,
+.reducedMotion .animateSceneEnter,
 .reducedMotion .bootLine,
 .reducedMotion .outputLine,
 .reducedMotion .codeLine,
 .reducedMotion .dashCard,
 .reducedMotion .cursor,
 .reducedMotion .closingCursor,
-.reducedMotion .dashStatusDot {
+.reducedMotion .dashStatusDot,
+.reducedMotion .cmdScene {
   transition-duration: 0s !important;
   animation-duration: 0s !important;
-}
-
-.reducedMotion .trackEnter {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .reducedMotion .cursor,
@@ -607,7 +590,7 @@
   display: none;
 }
 
-.thumbnail .nav {
+.thumbnail .cmdNav {
   display: none;
 }
 

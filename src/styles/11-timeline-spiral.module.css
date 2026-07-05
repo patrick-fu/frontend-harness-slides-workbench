@@ -20,19 +20,21 @@
   display: flex;
   flex-direction: column;
   padding: 5cqh 6cqw;
-  transition:
-    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.trackEnter {
-  opacity: 0;
-  transform: translateY(2cqh);
+@keyframes sceneEnter {
+  from {
+    opacity: 0;
+    transform: translateY(2cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.trackActive {
-  opacity: 1;
-  transform: translateY(0);
+.animateSceneEnter {
+  animation: sceneEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ── Scene 1: Title ────────────────────────────────────────────────────── */
@@ -430,60 +432,99 @@
   line-height: 1.4;
 }
 
-/* ── Navigation ────────────────────────────────────────────────────────── */
+/* ── Navigation (Timeline Ticks) ──────────────────────────────────────── */
 
-.navDots {
+.navTimeline {
   position: absolute;
   bottom: 3cqh;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 1.2cqw;
+  align-items: flex-end;
+  gap: 3cqw;
   z-index: 10;
+  padding-bottom: 0.5cqh;
 }
 
-.navDot {
-  width: 0.8cqw;
-  height: 0.8cqw;
-  border-radius: 50%;
-  border: 0.15cqw solid var(--style-11-accent, #0366d6);
+.navBaseline {
+  position: absolute;
+  bottom: 0.5cqh;
+  left: 1cqw;
+  right: 1cqw;
+  height: 0.15cqh;
+  background: var(--style-11-muted, #586069);
+  opacity: 0.2;
+  border-radius: 0.1cqh;
+  pointer-events: none;
+}
+
+.navTick {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8cqh;
+  background: none;
+  border: none;
   padding: 0;
   cursor: pointer;
-  background: transparent;
-  opacity: 0.15;
+  position: relative;
+}
+
+.navTickMark {
+  width: 0.2cqw;
+  height: 1.5cqh;
+  background: var(--style-11-muted, #586069);
+  border-radius: 0.1cqw;
+  opacity: 0.3;
   transition:
     opacity 0.3s ease,
+    height 0.3s ease,
     background 0.3s ease,
-    transform 0.3s ease;
+    width 0.3s ease;
 }
 
-.navDot:hover {
-  opacity: 0.4;
-  transform: scale(1.2);
-}
-
-.navDotActive {
-  opacity: 0.7;
+.navTickActive .navTickMark {
+  height: 3cqh;
+  width: 0.3cqw;
+  opacity: 1;
   background: var(--style-11-accent, #0366d6);
-  transform: scale(1.15);
+}
+
+.navTickNum {
+  font-size: 1cqw;
+  font-weight: 600;
+  color: var(--style-11-muted, #586069);
+  opacity: 0.4;
+  font-variant-numeric: tabular-nums;
+  transition:
+    opacity 0.3s ease,
+    color 0.3s ease;
+}
+
+.navTickActive .navTickNum {
+  opacity: 1;
+  color: var(--style-11-accent, #0366d6);
+}
+
+.navTick:hover .navTickMark {
+  opacity: 0.6;
+}
+
+.navTick:hover .navTickNum {
+  opacity: 0.7;
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
-.reducedMotion .track,
 .reducedMotion .tlNode,
 .reducedMotion .growthCard,
-.reducedMotion .navDot {
+.reducedMotion .navTickMark,
+.reducedMotion .navTickNum {
   transition-duration: 0s !important;
-}
-
-.reducedMotion .trackEnter {
-  opacity: 1;
-  transform: none;
 }
 
 /* ── Thumbnail ─────────────────────────────────────────────────────────── */
 
-.thumbnail .navDots {
+.thumbnail .navTimeline {
   display: none;
 }

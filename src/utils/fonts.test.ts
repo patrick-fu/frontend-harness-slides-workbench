@@ -28,8 +28,16 @@ function makeMetadata(
 function makeEntry(id: string, fonts: string[]): StyleRegistryEntry {
   return {
     id,
-    component: () => null,
-    getMetadata: (_lang: "en" | "zh") => makeMetadata(id, fonts),
+    name: { en: `Style ${id}`, zh: `风格 ${id}` },
+    versions: [
+      {
+        id: "v1",
+        topic: "Test Topic",
+        model: "test-model",
+        component: () => null,
+        getMetadata: (_lang: "en" | "zh") => makeMetadata(id, fonts),
+      },
+    ],
   };
 }
 

@@ -68,9 +68,25 @@ Navigation UI rendered **inside** the Stage by a Style component. Each Style des
 
 Internal Navigation communicates with the Envelope via the `onNavigate(scene, beat)` callback.
 
+### Version（版本）
+
+某个风格（Style）下的一个具体实现。每个 Agent/模型产出一个版本，拥有独立的题材、内容和视觉表现。版本由题材名（如"决策的艺术"）标识，而非 v1/v2。一个风格可以有多个版本，它们共享风格 ID 但有不同的 `versionId`。
+
+### Topic（题材）
+
+版本的主题/内容方向，如 "决策的艺术"、"产品发布会"。用几个字概括，是版本的人类可读标识。同一个风格下可以有完全不同题材的版本（风格定义视觉 DNA，题材定义内容方向）。
+
+### Model Label（模型标签）
+
+每个版本的元信息中包含编写该版本的模型名称，如 "Doubao-Seed-Evolving"、"GPT-5.5"。显示在 VersionBar 和版本信息中。
+
+### VersionBar（版本条）
+
+Header 下方的紧凑信息条（h-7），显示当前位置：`风格编号·风格名 › 题材名 [模型] v1/3 ⋮`。点击 ⋮ 可查看版本信息。
+
 ### Registry (注册表)
 
-The authoritative array of all 48 available Styles. Each entry contains the Style's ID, React component, and `getMetadata` function. The Registry is the single source of truth for enumeration.
+The authoritative array of all available Styles. Each entry contains the Style's ID, localized name, and a `versions` array. This is the single source of truth for enumeration.
 
 ### Active Styles List (活跃风格列表)
 
@@ -1069,6 +1085,145 @@ The sidebar's top collapse/expand toggle button was removed as redundant. The ha
 - **Mobile**: hamburger toggles `sidebarOpen` (drawer slide-in)
 - The resize handle on the right edge is preserved for desktop width adjustment.
 
+### D80 — Multi-Version Architecture: Style → Versions[]
+
+Each Style can have multiple Versions, each produced by a different Agent/model. A Version is identified by its topic (e.g. "决策的艺术"), not by v1/v2 numbering.
+
+```typescript
+interface StyleVersion {
+  id: string;                    // "v1", "v2" — internal ordering
+  topic: string;                 // 题材名，如 "决策的艺术"
+  model: string;                 // 编写模型，如 "Doubao-Seed-Evolving"
+  component: ComponentType<BespokeStyleProps>;
+  getMetadata: (lang: "en" | "zh") => StyleMetadata;
+}
+
+interface StyleRegistryEntry {
+  id: string;                    // "01" .. "48"
+  name: { en: string; zh: string };  // 风格名（双语）
+  versions: StyleVersion[];
+}
+```
+
+- 当前所有 48 个风格各有 1 个版本，model 统一为 "Doubao-Seed-Evolving"
+- 版本的 `getMetadata` 返回的 `theme` 字段即题材描述
+- 风格名（name）从版本 metadata 中提取，双语存储在 registry entry 上
+- 新增版本时追加到 `versions` 数组末尾
+
+### D81 — Version-Aware Navigation Cycling
+
+跨风格/版本导航顺序：style01v1 → style01v2 → ... → style02v1 → style02v2 → ...
+
+- 导航状态扩展为 `(styleId, versionId, scene, beat)`
+- Next 到达当前版本最后一个 beat 时，先检查该风格是否有更多版本
+  - 有下一个版本 → 跳到下一个版本的 scene 1 beat 0
+  - 无下一个版本 → 跳到下一个风格的第一个版本的 scene 1 beat 0
+- Prev 同理反向
+- URL 参数增加 `version`（默认 "v1"）
+- Active Versions List = 所有版本的扁平列表，按风格顺序排列
+
+### D82 — VersionBar: Header 下方的版本信息条
+
+在 Header 和 Stage 之间增加一条高 28px（h-7）的紧凑信息条：
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│  01 · Executive Silence  ›  决策的艺术  [Doubao]  v1/1  ⋮    │
+└──────────────────────────────────────────────────────────────┘
+```
+
+- 左侧：风格编号·风格名（可点击返回 Overview）
+- 中间：› 题材名（当前版本的 topic）
+- 右侧：[模型标签] 版本序号 ⋮ 下拉菜单
+- ⋮ 下拉："查看版本信息"（显示 model、topic、版本详情）
+- 当风格只有 1 个版本时，版本序号显示 "v1/1" 但视觉弱化
+- 当风格有多个版本时，版本序号可点击切换版本
+- 移动端：简化为 "01 › 决策的艺术"，其余收入 ⋮ 菜单
+- Pure Mode 下隐藏
+
+### D83 — BottomBar: 拟物堆叠卡片指示版本切换
+
+BottomBar 的 Prev/Next 按钮区域增加堆叠卡片视觉效果，暗示跨版本切换：
+
+- 当 Next 将跨版本边界时，Next 按钮右侧出现层叠卡片预览
+- 当 Prev 将跨版本边界时，Prev 按钮左侧出现层叠卡片预览
+- Hover 时卡片扇形展开，显示下一个/上一个版本的题材名
+- 点击卡片直接跳到该版本
+- 这是 "拟物" 设计语言的体现：卡片堆叠 = 版本堆叠
+
+### D84 — Sidebar: 风格展开显示版本列表
+
+Sidebar 中每个风格条目可展开，显示该风格的所有版本：
+
+```
+▼ 01  Executive Silence
+    ▸ 决策的艺术  [Doubao]
+    ▸ 产品发布会  [GPT-5.5]
+  02  Swiss Precision
+    ▸ 效率系统  [Doubao]
+```
+
+- 点击版本条目跳到该版本的 scene 1 beat 0
+- 当前版本高亮
+- 版本条目显示：题材名 + 模型标签（小号、弱化）
+- 默认收起（保持 sidebar 简洁）
+- 当前活跃风格自动展开
+
+### D85 — Scene Transition Fix: key={scene} + CSS @keyframes
+
+正确的场景转场模式（取代 D77 的 useLayoutEffect + entered 方案）：
+
+```tsx
+// ✅ 正确：key 强制重新挂载，CSS animation 从第 0 帧开始
+<div key={scene} className={styles.animateEnter}>
+  {content}
+</div>
+```
+
+```css
+.animateEnter {
+  animation: sceneEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+```
+
+- **禁止** `useLayoutEffect` + `entered` state 模式（导致空白帧闪烁）
+- `key={scene}` 放在内容包装 div 上（不是最外层 root）
+- `animation: ... forwards` 确保动画结束后保持最终状态
+- `reducedMotion` 时设置 `animationDuration: "0s"`
+
+### D86 — Navigation Diversity: 6 类导航风格分配
+
+48 个风格的内部导航分为 6 类，每类有不同的视觉表现：
+
+| 类别 | 风格范围 | 导航形式 |
+|------|----------|----------|
+| A: Bespoke | 01-08, 17-24 | 风格定制化导航（ruler、时间轴等） |
+| B: Bottom | 09-16 | 底部标准圆点 |
+| C: Side | 25-32 | 侧边标签/刻度 |
+| D: Picker | 33-40 | 选择器/下拉式 |
+| E: Subtle | 41-48 | 极弱化/无可见导航 |
+| F: None | (特殊) | 完全无内部导航 |
+
+这是 Phase 4 导航多样性改造的分配方案，由 sub-agent 自由发挥实现。
+
+### D87 — Segmented Control: Pill + Soft Shadow + Icons
+
+Header 中的语言/主题切换采用 segmented control 设计：
+
+- **Track**: `rounded-full p-0.5 bg-ink/[0.06]`（药丸形轨道，微妙背景色）
+- **Selected item**: `bg-elevated text-ink shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.06)]`（微妙 elevation）
+- **Icons**: 移动端使用 SVG icon（Auto=齿轮, Light=太阳, Dark=月亮; 语言用 A/EN/中）
+- 桌面端 ≥768px 显示完整 segmented control，移动端 <768px 变为单按钮循环切换
+
+### D88 — Chrome Theme-Aware: Envelope 响应深浅色
+
+Envelope（Header、Sidebar、BottomBar）跟随系统/用户选择的主题模式：
+
+- **Light mode**: chrome bg `#f5f5f5`（暖浅灰），text dark；Stage canvas bg `#e8e8e8`
+- **Dark mode**: chrome bg `#1a1a1a`（深灰），text light；Stage canvas bg `#141414`
+- 设计语言：Figma-style chrome，微妙的层次感（不是永久深色）
+- 每个风格自己控制 Stage 内的背景/前景色（不受 Envelope 主题影响）
+
 ---
 
 ## Open Questions
@@ -1081,25 +1236,37 @@ _(None currently)_
 
 | Phase | Status | Notes |
 |-------|--------|-------|
-| Domain modeling & decisions | ✅ Done | D01-D73 confirmed, CONTEXT.md created |
+| Domain modeling & decisions | ✅ Done | D01-D88 confirmed, CONTEXT.md created |
 | Phase 1: Reference styles | ✅ Done | Styles 01, 17, 33 validated contract |
 | Phase 2: Envelope framework | ✅ Done | Overview, Lab, Pure Mode, nav, filter, theme, i18n |
 | Phase 3: Batch style production | ✅ Done | All 48 styles built and registered |
 | Phase 4: Shared infra extraction | ✅ Done | Font dedup, registry, shared utilities |
+| Chrome redesign | ✅ Done | Segmented controls, theme-aware, Figma-style |
+| Header test fix | ✅ Done | 31/31 tests passing after segmented control update |
+| Style authoring spec | ✅ Done | docs/STYLE_AUTHORING_SPEC.md written |
+| Multi-version skeleton | 🔄 In Progress | types.ts + registry.ts refactoring, VersionBar, stacked cards, sidebar versions |
+| Transition fix (01-14) | 🔄 Partial | 6 styles fixed (01,03,04,05,06,08), 8 need key={scene} (02,07,09-14) |
+| Transition fix (15-48) | ⏳ Pending | Awaiting skeleton completion |
+| Navigation diversity | ⏳ Pending | 48-style nav diversity implementation |
 | Testing setup | ✅ Done | 599 unit tests (Vitest) + 78 e2e (Playwright) |
 | Adversarial review fixes | ✅ Done | 46 high-severity defects fixed across all 48 styles |
 | Deployment | ✅ Done | Vercel: https://frontend-harness-slides-workbench.vercel.app |
 
-### Adversarial Review Fixes (2026-07-05)
+### Current Work: Multi-Version Skeleton (2026-07-05)
 
-48-style adversarial review discovered and fixed 46 high-severity defects:
+正在进行骨架改造：将 StyleRegistryEntry 从单组件改为版本数组结构。
 
-**Beat logic alignment** (component + metadata): Styles 03, 05, 08, 09, 10, 11, 12, 13, 15, 18, 25, 26, 27-32, 41, 44, 45, 46, 47, 48 — beat 0 now correctly shows "heading only" per metadata promises, not items.
+**已完成**：
+- `docs/STYLE_AUTHORING_SPEC.md` — 版本化风格编写规范
+- CONTEXT.md 更新 — D80-D88 决策记录
 
-**Navigation contract violation**: Style 17 used Prev/Next buttons instead of 5 scene jump dots. Replaced with dot-based nav matching all other styles.
+**进行中**：
+- `src/types.ts` — StyleRegistryEntry 版本化结构
+- `src/styles/registry.ts` — 包装现有 48 风格为版本条目
 
-**Content/metadata fixes**: Styles 28/30 BEAT_COUNTS[4] corrected (2→1), Style 21 title "Five Shifts"→"Three Shifts" (only 3 items), Styles 23/24 HTML entity rendering.
-
-**CSS/asset fixes**: Style 02 font-weight 75→700 (invalid CSS), Style 25 stats animation, font loading injection added to 10 styles (01, 02, 04, 17, 33-38).
-
-**Verification**: All 599 unit tests pass, 78/78 Playwright e2e pass, build succeeds.
+**待办**：
+- 导航逻辑扩展（version 参数 + 跨版本循环）
+- VersionBar 组件
+- BottomBar 堆叠卡片
+- Sidebar 版本展开
+- 修复 02, 07, 09-14 的 key={scene} 缺失
