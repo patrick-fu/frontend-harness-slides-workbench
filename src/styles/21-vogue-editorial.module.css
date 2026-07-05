@@ -18,19 +18,21 @@
   inset: 0;
   display: flex;
   flex-direction: column;
-  transition:
-    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.trackEnter {
-  opacity: 0;
-  transform: translateY(1.5cqh);
+.animateSceneEnter {
+  animation: sceneEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.trackActive {
-  opacity: 1;
-  transform: translateY(0);
+@keyframes sceneEnter {
+  from {
+    opacity: 0;
+    transform: translateY(1.5cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── Scene 1: Cover ────────────────────────────────────────────────────── */
@@ -502,9 +504,8 @@
   transition-duration: 0s !important;
 }
 
-.reducedMotion .trackEnter {
-  opacity: 1;
-  transform: none;
+.reducedMotion .animateSceneEnter {
+  animation-duration: 0s !important;
 }
 
 /* ── Thumbnail mode ─────────────────────────────────────────────────────── */

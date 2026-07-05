@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./21-vogue-editorial.module.css";
 
@@ -264,7 +264,6 @@ export default function VogueEditorial({
 }: BespokeStyleProps) {
   const content = SCENES[scene]?.[language] || SCENES[1][language];
   const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   // Font injection
   useEffect(() => {
@@ -306,7 +305,7 @@ export default function VogueEditorial({
 
   const trackClasses = [
     styles.track,
-    entered ? styles.trackActive : styles.trackEnter,
+    styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");
@@ -500,10 +499,9 @@ export default function VogueEditorial({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`21-${scene}`}
         className={trackClasses}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

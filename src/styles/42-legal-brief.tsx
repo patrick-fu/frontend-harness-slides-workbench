@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./42-legal-brief.module.css";
 
@@ -293,7 +293,6 @@ export default function LegalBrief({
   onNavigate,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const inject = (id: string, href: string) => {
@@ -681,10 +680,9 @@ export default function LegalBrief({
   return (
     <div data-testid="style-42-root" className={rootClasses}>
       <div
-        ref={trackRef}
         key={`42-${scene}`}
-        className={styles.transitionTrack}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

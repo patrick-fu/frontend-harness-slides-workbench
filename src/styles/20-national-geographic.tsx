@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./20-national-geographic.module.css";
 
@@ -266,7 +266,6 @@ export default function NationalGeographic({
 }: BespokeStyleProps) {
   const content = SCENES[scene]?.[language] || SCENES[1][language];
   const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   // Font injection
   useEffect(() => {
@@ -308,7 +307,7 @@ export default function NationalGeographic({
 
   const trackClasses = [
     styles.track,
-    entered ? styles.trackActive : styles.trackEnter,
+    styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");
@@ -532,10 +531,9 @@ export default function NationalGeographic({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`20-${scene}`}
         className={trackClasses}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

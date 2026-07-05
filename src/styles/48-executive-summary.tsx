@@ -670,7 +670,7 @@ export default function ExecutiveSummary({
 
   return (
     <div className={rootClasses}>
-      <div key={`48-${scene}`} className={styles.transitionTrack}>
+      <div key={`48-${scene}`} className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}>
         {renderScene()}
       </div>
       {renderNav()}

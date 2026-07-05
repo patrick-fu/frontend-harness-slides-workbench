@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./18-literary-review.module.css";
 
@@ -233,7 +233,6 @@ export default function LiteraryReview({
 }: BespokeStyleProps) {
   const content = SCENES[scene]?.[language] || SCENES[1][language];
   const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   // Font injection
   useEffect(() => {
@@ -275,7 +274,7 @@ export default function LiteraryReview({
 
   const trackClasses = [
     styles.track,
-    entered ? styles.trackActive : styles.trackEnter,
+    styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");
@@ -434,10 +433,9 @@ export default function LiteraryReview({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`18-${scene}`}
         className={trackClasses}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

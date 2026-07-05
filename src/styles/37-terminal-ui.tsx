@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./37-terminal-ui.module.css";
 
@@ -373,7 +373,6 @@ export default function TerminalUI({
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setEntered(false);
@@ -734,9 +733,8 @@ export default function TerminalUI({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`37-${scene}`}
-        className={styles.transitionTrack}
+        className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}
       >
         {renderSceneContent()}
       </div>

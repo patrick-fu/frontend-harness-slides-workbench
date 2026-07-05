@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./17-editorial-broadsheet.module.css";
 
@@ -312,9 +312,8 @@ export default function EditorialBroadsheet({
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -570,7 +569,6 @@ export default function EditorialBroadsheet({
       style={reducedMotion ? { transitionDuration: "0s" } : undefined}
     >
       <div
-        ref={trackRef}
         className={styles.transitionTrack}
         style={{
           transform: `translateY(-${(scene - 1) * 20}%)`,

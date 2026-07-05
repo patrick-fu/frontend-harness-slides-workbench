@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./24-manuscript-scroll.module.css";
 
@@ -255,7 +255,6 @@ export default function ManuscriptScroll({
 }: BespokeStyleProps) {
   const content = SCENES[scene]?.[language] || SCENES[1][language];
   const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   // Font injection
   useEffect(() => {
@@ -501,7 +500,6 @@ export default function ManuscriptScroll({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`24-${scene}`}
         className={styles.transitionTrack}
         style={{

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./43-research-digest.module.css";
 
@@ -442,7 +442,6 @@ export default function ResearchDigest({
   onNavigate,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const inject = (id: string, href: string) => {
@@ -885,10 +884,9 @@ export default function ResearchDigest({
   return (
     <div data-testid="style-43-root" className={rootClasses}>
       <div
-        ref={trackRef}
         key={`43-${scene}`}
-        className={styles.transitionTrack}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

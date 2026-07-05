@@ -813,7 +813,7 @@ export default function WhitePaper({
 
   return (
     <div className={rootClasses}>
-      <div key={`47-${scene}`} className={styles.transitionTrack}>
+      <div key={`47-${scene}`} className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}>
         {renderScene()}
       </div>
       {renderNav()}

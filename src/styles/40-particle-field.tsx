@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./40-particle-field.module.css";
 
@@ -315,7 +315,6 @@ export default function ParticleField({
   onNavigate,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const FONT_ID = "style-40-fonts-inter";
@@ -718,10 +717,9 @@ export default function ParticleField({
   return (
     <div data-testid="style-40-root" className={rootClasses}>
       <div
-        ref={trackRef}
         key={`40-${scene}`}
-        className={styles.transitionTrack}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
+        className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}
+        style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}
       </div>

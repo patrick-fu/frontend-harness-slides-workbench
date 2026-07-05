@@ -30,6 +30,15 @@
   height: 100%;
 }
 
+.animateSceneEnter {
+  animation: sceneEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes sceneEnter {
+  from { opacity: 0; transform: translateY(1.5cqh); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* ── Scene 1: Cover ────────────────────────────────────────────────────── */
 
 .cover {

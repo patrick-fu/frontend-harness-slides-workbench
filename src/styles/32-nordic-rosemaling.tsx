@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./32-nordic-rosemaling.module.css";
 
@@ -173,7 +173,6 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export default function NordicRosemaling({ scene, beat, language, isThumbnail, reducedMotion, onNavigate }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => { requestAnimationFrame(() => setEntered(true)); });
@@ -181,7 +180,7 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
   }, [scene]);
   const handleNavClick = useCallback((e: React.MouseEvent, targetScene: number) => { e.stopPropagation(); onNavigate?.(targetScene, 0); }, [onNavigate]);
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, entered ? styles.trackActive : styles.trackEnter].filter(Boolean).join(" ");
+  const trackClasses = [styles.track, styles.animateSceneEnter].filter(Boolean).join(" ");
 
   const renderScene1 = () => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
@@ -318,7 +317,7 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
 
   return (
     <div className={rootClasses}>
-      <div ref={trackRef} key={`32-${scene}`} className={trackClasses} style={reducedMotion ? { transitionDuration: "0s" } : undefined}>
+      <div key={`32-${scene}`} className={trackClasses} style={reducedMotion ? { animationDuration: "0s" } : undefined}>
         {renderSceneContent()}
       </div>
       {renderNav()}

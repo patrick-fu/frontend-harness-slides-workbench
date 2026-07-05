@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./36-glass-morph.module.css";
 
@@ -370,7 +370,6 @@ export default function GlassMorph({
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setEntered(false);
@@ -780,9 +779,8 @@ export default function GlassMorph({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`36-${scene}`}
-        className={styles.transitionTrack}
+        className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}
       >
         {renderSceneContent()}
       </div>

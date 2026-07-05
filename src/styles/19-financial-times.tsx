@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./19-financial-times.module.css";
 
@@ -276,7 +276,6 @@ export default function FinancialTimes({
 }: BespokeStyleProps) {
   const content = SCENES[scene]?.[language] || SCENES[1][language];
   const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   // Font injection
   useEffect(() => {
@@ -548,7 +547,6 @@ export default function FinancialTimes({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`19-${scene}`}
         className={styles.transitionTrack}
         style={{

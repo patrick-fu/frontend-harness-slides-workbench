@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./35-neon-grid.module.css";
 
@@ -268,7 +268,6 @@ export default function NeonGrid({
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setEntered(false);
@@ -576,9 +575,8 @@ export default function NeonGrid({
   return (
     <div className={rootClasses}>
       <div
-        ref={trackRef}
         key={`35-${scene}`}
-        className={styles.transitionTrack}
+        className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}
       >
         {renderSceneContent()}
       </div>

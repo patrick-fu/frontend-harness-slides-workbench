@@ -303,6 +303,11 @@ export default function LabView({
           onJumpScene={handleJumpScene}
           isFirst={isFirst}
           isLast={isLast}
+          registry={registry}
+          styleId={styleId}
+          versionId={versionId}
+          onSelectVersion={onSelectVersion}
+          language={language}
         />
       )}
     </div>
