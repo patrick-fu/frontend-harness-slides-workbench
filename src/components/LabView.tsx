@@ -1,4 +1,4 @@
-import { useRef, useCallback, useMemo, useEffect, useState } from "react";
+import { useRef, useCallback, useMemo, useEffect } from "react";
 import type {
   StyleRegistryEntry,
   BespokeStyleProps,
@@ -203,61 +203,6 @@ export default function LabView({
     };
   }, [frozen]);
 
-  // ── Scene transition: slide between scenes within same style+version ────
-
-  const TRANSITION_MS = 700;
-
-  interface TransitionState {
-    prevScene: number;
-    prevBeat: number;
-    direction: 1 | -1;
-  }
-
-  const [transition, setTransition] = useState<TransitionState | null>(null);
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const prevSceneRef = useRef(scene);
-  const prevBeatRef = useRef(beat);
-  const prevStyleRef = useRef(styleId);
-  const prevVersionRef = useRef(versionId);
-
-  useEffect(() => {
-    const sameStyle =
-      prevStyleRef.current === styleId && prevVersionRef.current === versionId;
-    const sceneChanged = prevSceneRef.current !== scene;
-
-    if (sameStyle && sceneChanged && !reducedMotion && !frozen && !isPureMode) {
-      const direction = (scene > prevSceneRef.current ? 1 : -1) as 1 | -1;
-
-      // Clear any pending transition cleanup
-      if (transitionTimerRef.current) {
-        clearTimeout(transitionTimerRef.current);
-      }
-
-      setTransition({
-        prevScene: prevSceneRef.current,
-        prevBeat: prevBeatRef.current,
-        direction,
-      });
-
-      transitionTimerRef.current = setTimeout(() => {
-        setTransition(null);
-        transitionTimerRef.current = null;
-      }, TRANSITION_MS);
-    }
-
-    prevSceneRef.current = scene;
-    prevBeatRef.current = beat;
-    prevStyleRef.current = styleId;
-    prevVersionRef.current = versionId;
-
-    return () => {
-      if (transitionTimerRef.current) {
-        clearTimeout(transitionTimerRef.current);
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scene, beat, styleId, versionId, reducedMotion, frozen, isPureMode]);
-
   // ── Render ──────────────────────────────────────────────────────────────
 
   if (!found || !meta) {
@@ -340,78 +285,7 @@ export default function LabView({
                 transformOrigin: "top left",
               }}
             >
-              {/* Scene transition keyframes (injected once) */}
-              <style>{`
-                @keyframes labSlideForward {
-                  from { transform: translateY(0); }
-                  to { transform: translateY(-1080px); }
-                }
-                @keyframes labSlideBackward {
-                  from { transform: translateY(-1080px); }
-                  to { transform: translateY(0); }
-                }
-              `}</style>
-
-              {/* Slide track: holds both scenes during transition */}
-              <div
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  top: 0,
-                  width: 1920,
-                  height: transition ? 2160 : 1080,
-                  ...(transition && !reducedMotion && !frozen
-                    ? {
-                        animation: `${
-                          transition.direction > 0
-                            ? "labSlideForward"
-                            : "labSlideBackward"
-                        } ${TRANSITION_MS}ms cubic-bezier(0.16, 1, 0.3, 1) forwards`,
-                      }
-                    : {}),
-                }}
-              >
-                {/* Outgoing scene — only rendered during active transition */}
-                {transition && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: 0,
-                      top: transition.direction > 0 ? 0 : 1080,
-                      width: 1920,
-                      height: 1080,
-                    }}
-                  >
-                    <StyleComponent
-                      scene={transition.prevScene}
-                      beat={transition.prevBeat}
-                      language={language}
-                      isThumbnail={false}
-                      reducedMotion={reducedMotion || frozen}
-                      onNavigate={handleStyleInternalNavigate}
-                      isTransitionClone={true}
-                    />
-                  </div>
-                )}
-
-                {/* Current / incoming scene */}
-                <div
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    top: transition
-                      ? transition.direction > 0
-                        ? 1080
-                        : 0
-                      : 0,
-                    width: 1920,
-                    height: 1080,
-                  }}
-                >
-                  <StyleComponent {...styleProps} />
-                </div>
-              </div>
-
+              <StyleComponent {...styleProps} />
               {flashNotification}
             </div>
           </div>
