@@ -9,9 +9,9 @@ function renderHeader(props: Partial<React.ComponentProps<typeof Header>> = {}) 
     onToggleSidebar: vi.fn(),
     onGoOverview: vi.fn(),
     language: "en" as const,
-    onToggleLanguage: vi.fn(),
-    theme: "light",
-    onCycleTheme: vi.fn(),
+    setLanguage: vi.fn(),
+    theme: "light" as const,
+    setTheme: vi.fn(),
     ...props,
   };
   const result = render(<Header {...defaultProps} />);
@@ -19,8 +19,8 @@ function renderHeader(props: Partial<React.ComponentProps<typeof Header>> = {}) 
     ...result,
     onToggleSidebar: defaultProps.onToggleSidebar,
     onGoOverview: defaultProps.onGoOverview,
-    onToggleLanguage: defaultProps.onToggleLanguage,
-    onCycleTheme: defaultProps.onCycleTheme,
+    setLanguage: defaultProps.setLanguage,
+    setTheme: defaultProps.setTheme,
   };
 }
 
@@ -79,43 +79,149 @@ describe("Header — app title", () => {
   });
 });
 
-// ─── Language toggle ────────────────────────────────────────────────────────
+// ─── Language segmented control ─────────────────────────────────────────────
 
-describe("Header — language toggle", () => {
-  it("shows 'EN' when language='en'", () => {
+describe("Header — language segmented control", () => {
+  it("renders lang-toggle container", () => {
+    renderHeader();
+    expect(screen.getByTestId("lang-toggle")).toBeInTheDocument();
+  });
+
+  it("renders all three desktop language segments", () => {
+    renderHeader();
+    expect(screen.getByTestId("lang-segment-auto")).toBeInTheDocument();
+    expect(screen.getByTestId("lang-segment-en")).toBeInTheDocument();
+    expect(screen.getByTestId("lang-segment-zh")).toBeInTheDocument();
+  });
+
+  it("desktop EN segment is selected when language='en'", () => {
     renderHeader({ language: "en" });
-    expect(screen.getByText("EN")).toBeInTheDocument();
+    const en = screen.getByTestId("lang-segment-en");
+    expect(en.className).toMatch(/bg-chrome-ink/);
+    expect(en.className).toMatch(/text-chrome/);
   });
 
-  it("shows 'ZH' when language='zh'", () => {
+  it("desktop ZH segment is selected when language='zh'", () => {
     renderHeader({ language: "zh" });
-    expect(screen.getByText("ZH")).toBeInTheDocument();
+    const zh = screen.getByTestId("lang-segment-zh");
+    expect(zh.className).toMatch(/bg-chrome-ink/);
+    expect(zh.className).toMatch(/text-chrome/);
   });
 
-  it("clicking the language button calls onToggleLanguage", () => {
-    const { onToggleLanguage } = renderHeader({ language: "en" });
-    const btn = screen.getByText("EN").closest("button");
-    expect(btn).not.toBeNull();
-    fireEvent.click(btn!);
-    expect(onToggleLanguage).toHaveBeenCalledTimes(1);
+  it("desktop Auto segment is selected when language='auto'", () => {
+    renderHeader({ language: "auto" });
+    const auto = screen.getByTestId("lang-segment-auto");
+    expect(auto.className).toMatch(/bg-chrome-ink/);
+    expect(auto.className).toMatch(/text-chrome/);
+  });
+
+  it("unselected language segments are transparent", () => {
+    renderHeader({ language: "en" });
+    const auto = screen.getByTestId("lang-segment-auto");
+    const zh = screen.getByTestId("lang-segment-zh");
+    expect(auto.className).not.toMatch(/bg-chrome-ink/);
+    expect(zh.className).not.toMatch(/bg-chrome-ink/);
+  });
+
+  it("clicking a language segment calls setLanguage with that value", () => {
+    const { setLanguage } = renderHeader({ language: "en" });
+    fireEvent.click(screen.getByTestId("lang-segment-zh"));
+    expect(setLanguage).toHaveBeenCalledWith("zh");
+  });
+
+  it("renders mobile language cycling button", () => {
+    renderHeader();
+    expect(screen.getByTestId("lang-segment-mobile")).toBeInTheDocument();
+  });
+
+  it("mobile button shows 'EN' when language='en'", () => {
+    renderHeader({ language: "en" });
+    expect(screen.getByTestId("lang-segment-mobile")).toHaveTextContent("EN");
+  });
+
+  it("mobile button shows '中' when language='zh'", () => {
+    renderHeader({ language: "zh" });
+    expect(screen.getByTestId("lang-segment-mobile")).toHaveTextContent("中");
+  });
+
+  it("mobile button shows 'A' when language='auto'", () => {
+    renderHeader({ language: "auto" });
+    expect(screen.getByTestId("lang-segment-mobile")).toHaveTextContent("A");
+  });
+
+  it("clicking mobile language button cycles to next language", () => {
+    const { setLanguage } = renderHeader({ language: "auto" });
+    fireEvent.click(screen.getByTestId("lang-segment-mobile"));
+    expect(setLanguage).toHaveBeenCalledWith("en");
   });
 });
 
-// ─── Theme toggle ───────────────────────────────────────────────────────────
+// ─── Theme segmented control ────────────────────────────────────────────────
 
-describe("Header — theme toggle", () => {
-  it("renders a theme toggle button", () => {
+describe("Header — theme segmented control", () => {
+  it("renders theme-toggle container", () => {
     renderHeader();
-    const btn = screen.getByTestId("theme-toggle");
-    expect(btn).toBeInTheDocument();
-    expect(btn.tagName).toBe("BUTTON");
+    expect(screen.getByTestId("theme-toggle")).toBeInTheDocument();
   });
 
-  it("clicking the theme toggle calls onCycleTheme", () => {
-    const { onCycleTheme } = renderHeader();
-    const btn = screen.getByTestId("theme-toggle");
-    fireEvent.click(btn);
-    expect(onCycleTheme).toHaveBeenCalledTimes(1);
+  it("renders all three desktop theme segments", () => {
+    renderHeader();
+    expect(screen.getByTestId("theme-segment-auto")).toBeInTheDocument();
+    expect(screen.getByTestId("theme-segment-light")).toBeInTheDocument();
+    expect(screen.getByTestId("theme-segment-dark")).toBeInTheDocument();
+  });
+
+  it("desktop light segment is selected when theme='light'", () => {
+    renderHeader({ theme: "light" });
+    const light = screen.getByTestId("theme-segment-light");
+    expect(light.className).toMatch(/bg-chrome-ink/);
+    expect(light.className).toMatch(/text-chrome/);
+  });
+
+  it("desktop dark segment is selected when theme='dark'", () => {
+    renderHeader({ theme: "dark" });
+    const dark = screen.getByTestId("theme-segment-dark");
+    expect(dark.className).toMatch(/bg-chrome-ink/);
+    expect(dark.className).toMatch(/text-chrome/);
+  });
+
+  it("desktop auto segment is selected when theme='auto'", () => {
+    renderHeader({ theme: "auto" });
+    const auto = screen.getByTestId("theme-segment-auto");
+    expect(auto.className).toMatch(/bg-chrome-ink/);
+    expect(auto.className).toMatch(/text-chrome/);
+  });
+
+  it("clicking a theme segment calls setTheme with that value", () => {
+    const { setTheme } = renderHeader({ theme: "light" });
+    fireEvent.click(screen.getByTestId("theme-segment-dark"));
+    expect(setTheme).toHaveBeenCalledWith("dark");
+  });
+
+  it("renders mobile theme cycling button", () => {
+    renderHeader();
+    expect(screen.getByTestId("theme-segment-mobile")).toBeInTheDocument();
+  });
+
+  it("mobile button shows ☀ when theme='light'", () => {
+    renderHeader({ theme: "light" });
+    expect(screen.getByTestId("theme-segment-mobile")).toHaveTextContent("☀");
+  });
+
+  it("mobile button shows ☾ when theme='dark'", () => {
+    renderHeader({ theme: "dark" });
+    expect(screen.getByTestId("theme-segment-mobile")).toHaveTextContent("☾");
+  });
+
+  it("mobile button shows ⚙ when theme='auto'", () => {
+    renderHeader({ theme: "auto" });
+    expect(screen.getByTestId("theme-segment-mobile")).toHaveTextContent("⚙");
+  });
+
+  it("clicking mobile theme button cycles to next theme", () => {
+    const { setTheme } = renderHeader({ theme: "auto" });
+    fireEvent.click(screen.getByTestId("theme-segment-mobile"));
+    expect(setTheme).toHaveBeenCalledWith("light");
   });
 });
 

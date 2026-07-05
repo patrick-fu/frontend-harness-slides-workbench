@@ -107,7 +107,7 @@ export default function Sidebar({
 
   const sidebarClasses = [
     "fixed md:fixed top-0 left-0 h-full z-40",
-    "bg-chrome text-chrome-ink border-r border-white/10",
+    "bg-chrome text-chrome-ink border-r border-ink/10",
     "flex flex-col",
     "transition-transform duration-200 md:transition-none",
     // Mobile: slide in from left
@@ -157,7 +157,7 @@ export default function Sidebar({
                   type="button"
                   data-testid={`band-toggle-${band}`}
                   onClick={() => toggleBand(band)}
-                  className="w-full flex items-center gap-1 px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-chrome-ink/50 hover:bg-white/5 transition-colors"
+                  className="w-full flex items-center gap-1 px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-ink/50 hover:bg-ink/5 transition-colors"
                   aria-expanded={!isBandCollapsed}
                 >
                   <svg
@@ -198,12 +198,12 @@ export default function Sidebar({
                               "w-full flex items-center gap-2 px-2 py-1.5 text-left text-sm transition-colors",
                               "rounded-md mx-1",
                               isCurrent
-                                ? "bg-white/10 font-medium"
-                                : "hover:bg-white/5",
+                                ? "bg-ink/10 font-medium"
+                                : "hover:bg-ink/5",
                             ].join(" ")}
                             title={collapsed ? meta.name : undefined}
                           >
-                            <span className="shrink-0 text-xs font-mono text-chrome-ink/40 w-6 text-center">
+                            <span className="shrink-0 text-xs font-mono text-ink/40 w-6 text-center">
                               {entry.id}
                             </span>
                             {!collapsed && (
@@ -229,7 +229,7 @@ export default function Sidebar({
             aria-orientation="vertical"
             aria-label="Resize sidebar"
           >
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0.5 h-8 bg-white/10 group-hover:bg-white/25 rounded-full transition-colos" />
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0.5 h-8 bg-ink/10 group-hover:bg-ink/25 rounded-full transition-colos" />
           </div>
         )}
       </aside>

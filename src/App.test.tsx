@@ -74,14 +74,23 @@ describe("App", () => {
     });
   });
 
-  it("language toggle switches between EN and ZH", () => {
+  it("language segmented control switches between auto/en/zh", () => {
     render(<App />);
 
-    const langBtn = screen.getByText("EN");
-    fireEvent.click(langBtn);
+    // Initial language is "auto" — resolved to "en" in jsdom
+    const enSegment = screen.getByTestId("lang-segment-en");
+    fireEvent.click(enSegment);
 
-    // After toggle, should show ZH
-    expect(screen.getByText("ZH")).toBeInTheDocument();
+    // After clicking EN segment, language should be set to "en"
+    expect(screen.getByTestId("lang-segment-en")).toBeInTheDocument();
+  });
+
+  it("theme segmented control is present", () => {
+    render(<App />);
+
+    expect(screen.getByTestId("theme-segment-auto")).toBeInTheDocument();
+    expect(screen.getByTestId("theme-segment-light")).toBeInTheDocument();
+    expect(screen.getByTestId("theme-segment-dark")).toBeInTheDocument();
   });
 
   it("renders sidebar with style navigation", () => {

@@ -97,7 +97,7 @@ The Envelope's color scheme: `auto` (follows system), `light`, or `dark`. Persis
 
 ### Language Mode (语言模式)
 
-`en` or `zh`. Controls both Envelope UI text and the `language` prop passed to Style components. Persisted in localStorage.
+`auto`, `en`, or `zh`. Controls both Envelope UI text and the `language` prop passed to Style components. Persisted in localStorage. Auto mode follows `navigator.language`: `zh-*` → Chinese, everything else → English.
 
 ### Harness Contract (线束契约)
 
@@ -1012,6 +1012,62 @@ No "Export PDF" button, no html2canvas, no jsPDF. The browser is the PDF engine.
 ### D73 — Dev Server: Vite Default Port 5173
 
 No custom port configuration. Vite's default `5173` is used.
+
+### D74 — Envelope Chrome Follows System Theme
+
+The Envelope chrome (Header, Sidebar, BottomBar) responds to the system/selected theme mode. It is NOT permanently dark.
+
+- **Light mode**: chrome background `#f5f5f5` (warm light gray), text dark
+- **Dark mode**: chrome background `#1a1a1a` (deep gray), text light
+- Stage canvas background also follows theme: light `#e8e8e8`, dark `#141414`
+- This gives clear visual hierarchy in both modes: chrome is always one step darker/lighter than the canvas
+
+This supersedes the earlier "always dark chrome" experiment. The Figma aesthetic is preserved via subtle layering, not permanent darkness.
+
+### D75 — Theme Switch: Segmented Control (Desktop) + Single Button (Mobile)
+
+Theme switching UI:
+
+- **Desktop ≥768px**: segmented control with three options: `Auto | Light | Dark`. Selected option uses filled background.
+- **Mobile <768px**: single icon button showing current state (☀ for Light, ☾ for Dark, ⚙ for Auto). Tapping cycles through Auto → Light → Dark → Auto.
+- Theme state persisted in localStorage (`fhsw:theme`).
+- Auto follows `prefers-color-scheme`.
+
+### D76 — Language Switch: Segmented Control (Desktop) + Single Button (Mobile)
+
+Language switching UI mirrors the theme switch pattern:
+
+- **Desktop ≥768px**: segmented control with three options: `Auto | EN | ZH`. Selected option uses filled background.
+- **Mobile <768px**: single text button showing current state (`A` for Auto, `EN` for English, `中` for Chinese). Tapping cycles through Auto → EN → ZH → Auto.
+- Language state persisted in localStorage (`fhsw:language`).
+- **Auto behavior**: if `navigator.language` starts with `"zh"`, use Chinese; otherwise use English (covers all non-Chinese locales: en, ja, ko, es, fr, etc.).
+
+### D77 — Scene Transition Bug: Inner `key` Prop Destroys DOM
+
+Root cause of all scene/beat transitions being hard cuts:
+
+Every Style component's inner animation track div has `key={`XX-${scene}`}`. When scene changes, React destroys the old DOM node and creates a new one. The new node mounts with `entered=true` (carried over from the previous scene's state), so content appears instantly — the hard cut. Then `useEffect` fires, sets `entered=false`, double-rAF, sets `entered=true` — causing a brief flash rather than a smooth transition.
+
+For V-slide styles (17, 19, 22, 24, 33-48), this is even worse: they rely on `transition: transform` to animate between scenes, but the `key` causes the element to be recreated with the final `translateY` value directly — no transition can occur.
+
+**Fix**: remove the inner `key` prop from all track divs, and change `useEffect` to `useLayoutEffect` so `setEntered(false)` runs before the browser paints (avoids the flash). DOM elements are reused across scene changes, so CSS transitions have a starting value to animate from.
+
+### D78 — Transition Fix Phasing: Pilot 4 Styles, Then Full Rollout
+
+Fix D77 in phases:
+
+1. **Pilot**: fix styles 01 (Executive Silence, fade), 04 (Aurora Gradient, complex animation), 17 (Editorial Broadsheet, V-slide), 34 (Retro OS 95, interactive). Verify transitions work correctly in browser.
+2. **Full rollout**: apply same fix to remaining 44 styles.
+
+This de-risks the change — if the fix breaks something, it's contained to 4 styles.
+
+### D79 — Sidebar: No Collapse Toggle Button (Removed)
+
+The sidebar's top collapse/expand toggle button was removed as redundant. The hamburger button in the Header is the single control for sidebar visibility:
+
+- **Desktop**: hamburger toggles `sidebarCollapsed` (48px strip vs full width)
+- **Mobile**: hamburger toggles `sidebarOpen` (drawer slide-in)
+- The resize handle on the right edge is preserved for desktop width adjustment.
 
 ---
 

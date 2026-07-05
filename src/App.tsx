@@ -25,13 +25,13 @@ const DEFAULT_SIDEBAR_WIDTH = 280;
 // ─── App Content (inside providers) ─────────────────────────────────────────
 
 function AppContent() {
-  const { language, setLanguage } = useLanguage();
+  const { language, resolvedLanguage, setLanguage } = useLanguage();
   const { theme, setTheme, resolvedTheme } = useTheme();
   const { reducedMotion } = useReducedMotion();
   const [urlState, setUrlState] = useUrlState();
 
   // Font preloading
-  useFontPreload(STYLE_REGISTRY, language);
+  useFontPreload(STYLE_REGISTRY, resolvedLanguage);
 
   // ── Sidebar state ────────────────────────────────────────────────────────
 
@@ -83,19 +83,19 @@ function AppContent() {
 
   useEffect(() => {
     const baseTitle =
-      language === "zh" ? "FH Slides 工作台" : "FH Slides Workbench";
+      resolvedLanguage === "zh" ? "FH Slides 工作台" : "FH Slides Workbench";
 
     if (urlState.view === "lab") {
       const entry = STYLE_REGISTRY.find((e) => e.id === urlState.styleId);
       if (entry) {
-        const meta = entry.getMetadata(language);
+        const meta = entry.getMetadata(resolvedLanguage);
         document.title = `${meta.name} — ${baseTitle}`;
         return;
       }
     }
 
     document.title = baseTitle;
-  }, [urlState.view, urlState.styleId, language]);
+  }, [urlState.view, urlState.styleId, resolvedLanguage]);
 
   // ── Handlers ─────────────────────────────────────────────────────────────
 
@@ -127,17 +127,6 @@ function AppContent() {
     },
     [setUrlState],
   );
-
-  const handleToggleLanguage = useCallback(() => {
-    setLanguage(language === "en" ? "zh" : "en");
-  }, [language, setLanguage]);
-
-  const handleCycleTheme = useCallback(() => {
-    const order: Array<"light" | "dark" | "auto"> = ["light", "dark", "auto"];
-    const currentIndex = order.indexOf(theme);
-    const next = order[(currentIndex + 1) % order.length];
-    setTheme(next);
-  }, [theme, setTheme]);
 
   const handleNavigate = useCallback(
     (target: {
@@ -197,9 +186,9 @@ function AppContent() {
           onToggleSidebar={handleToggleSidebar}
           onGoOverview={handleGoOverview}
           language={language}
-          onToggleLanguage={handleToggleLanguage}
+          setLanguage={setLanguage}
           theme={theme}
-          onCycleTheme={handleCycleTheme}
+          setTheme={setTheme}
         />
       </div>
 
@@ -213,7 +202,7 @@ function AppContent() {
           onSelectStyle={handleSelectStyle}
           isOpen={sidebarOpen}
           onClose={handleCloseSidebar}
-          language={language}
+          language={resolvedLanguage}
           width={sidebarWidth}
           onWidthChange={handleSidebarWidthChange}
           collapsed={sidebarCollapsed}
@@ -245,7 +234,7 @@ function AppContent() {
         >
           <OverviewView
             registry={STYLE_REGISTRY}
-            language={language}
+            language={resolvedLanguage}
             onSelectStyle={handleSelectStyle}
           />
         </div>
@@ -260,7 +249,7 @@ function AppContent() {
               beat={urlState.beat}
               isPureMode={urlState.pureMode}
               reducedMotion={reducedMotion}
-              language={language}
+              language={resolvedLanguage}
               frozen={urlState.frozen}
               flashStyle={flashStyle}
               onNavigate={handleNavigate}
@@ -272,7 +261,7 @@ function AppContent() {
       </main>
 
       {/* Portrait hint */}
-      <PortraitHint language={language} />
+      <PortraitHint language={resolvedLanguage} />
     </div>
   );
 }

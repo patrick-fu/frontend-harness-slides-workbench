@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useLayoutEffect, useState, useRef, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./04-aurora-gradient.module.css";
 
@@ -244,7 +244,7 @@ export default function AuroraGradient({
   const [entered, setEntered] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
       requestAnimationFrame(() => setEntered(true));
@@ -583,7 +583,6 @@ export default function AuroraGradient({
       {renderAuroraBg()}
       <div
         ref={trackRef}
-        key={`04-${scene}`}
         className={[styles.track, entered ? styles.trackActive : styles.trackEnter].filter(Boolean).join(" ")}
         style={reducedMotion ? { transitionDuration: "0s" } : undefined}
       >

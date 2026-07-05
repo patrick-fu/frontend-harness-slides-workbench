@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useLayoutEffect, useState, useRef, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./17-editorial-broadsheet.module.css";
 
@@ -314,7 +314,7 @@ export default function EditorialBroadsheet({
   const [entered, setEntered] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -571,7 +571,6 @@ export default function EditorialBroadsheet({
     >
       <div
         ref={trackRef}
-        key={`17-${scene}`}
         className={styles.transitionTrack}
         style={{
           transform: `translateY(-${(scene - 1) * 20}%)`,

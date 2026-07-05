@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useLayoutEffect, useState, useRef, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./01-executive-silence.module.css";
 
@@ -250,7 +250,7 @@ export default function ExecutiveSilence({
   const trackRef = useRef<HTMLDivElement>(null);
 
   // Trigger enter animation on mount / scene change
-  useEffect(() => {
+  useLayoutEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -425,7 +425,6 @@ export default function ExecutiveSilence({
     <div className={rootClasses}>
       <div
         ref={trackRef}
-        key={`01-${scene}`}
         className={trackClasses}
         style={reducedMotion ? { transitionDuration: "0s" } : undefined}
       >
