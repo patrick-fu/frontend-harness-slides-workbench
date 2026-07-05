@@ -1,0 +1,386 @@
+/* Style 29: Celtic Knot — Craft & Cultural Traditions */
+/* Deep green parchment, gold interlace, illuminated manuscript aesthetic */
+
+.root {
+  --style-29-bg: #1a3a2a;
+  --style-29-gold: #d4a843;
+  --style-29-gold-light: #e8c96a;
+  --style-29-parchment: #f0e6c8;
+  --style-29-ink: #2a1a0a;
+  --style-29-panel: #0f2818;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--style-29-bg);
+  color: var(--style-29-parchment);
+  font-family: "Cinzel", "Inter", system-ui, serif;
+}
+
+.root.thumbnail { font-size: 0.6em; }
+
+.reducedMotion * {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+/* Parchment texture */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(212, 168, 67, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(212, 168, 67, 0.04) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.track {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.trackEnter { opacity: 0; }
+.trackActive {
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+/* ─── Scene 1: Title ─── */
+
+.scene1 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 8cqh 8cqw;
+}
+
+.knotCenter {
+  width: 35cqh;
+  height: 35cqh;
+  color: var(--style-29-gold);
+  margin-bottom: 3cqh;
+  opacity: 0.85;
+}
+
+.scene1Content {
+  text-align: center;
+}
+
+.titleMain {
+  font-size: 8cqh;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: 0.2em;
+  color: var(--style-29-gold);
+  text-transform: uppercase;
+}
+
+.titleEn {
+  font-size: 4cqh;
+  font-weight: 400;
+  margin: 0.5cqh 0 0;
+  letter-spacing: 0.3em;
+  color: var(--style-29-parchment);
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.titleDivider {
+  width: 20cqw;
+  height: 0.2cqh;
+  margin: 2.5cqh auto;
+  background: linear-gradient(90deg, transparent, var(--style-29-gold), transparent);
+}
+
+.titleSub {
+  font-size: 2.8cqh;
+  font-weight: 400;
+  margin: 0;
+  color: var(--style-29-parchment);
+  opacity: 0.65;
+  font-family: "Inter", system-ui, sans-serif;
+  letter-spacing: 0.03em;
+}
+
+/* ─── Scene 2: Motifs ─── */
+
+.scene2 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.sceneLabel {
+  font-size: 2cqh;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--style-29-gold);
+  font-family: "Inter", system-ui, sans-serif;
+  margin-bottom: 1cqh;
+}
+
+.sceneHeading {
+  font-size: 5cqh;
+  font-weight: 700;
+  margin: 0 0 4cqh;
+  color: var(--style-29-parchment);
+}
+
+.motifGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2cqw;
+  flex: 1;
+}
+
+.motifCard {
+  background: var(--style-29-panel);
+  border: 0.15cqh solid var(--style-29-gold);
+  padding: 3cqh 1.5cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(2cqh);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.motifVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.motifIcon {
+  width: 8cqh;
+  height: 8cqh;
+  color: var(--style-29-gold);
+  margin-bottom: 1.5cqh;
+}
+
+.motifName {
+  font-size: 2.8cqh;
+  font-weight: 700;
+  color: var(--style-29-gold);
+  margin-bottom: 0.8cqh;
+  font-family: "Cinzel", serif;
+}
+
+.motifMeaning {
+  font-size: 2cqh;
+  line-height: 1.5;
+  color: var(--style-29-parchment);
+  opacity: 0.65;
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Scene 3: Manuscripts ─── */
+
+.scene3 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.manuscriptList {
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+  flex: 1;
+  margin-top: 2cqh;
+}
+
+.manuscriptRow {
+  display: grid;
+  grid-template-columns: 0.6fr 2.5fr 1.2fr 1.5fr;
+  gap: 1.5cqw;
+  align-items: center;
+  padding: 2cqh 2cqw;
+  background: var(--style-29-panel);
+  border-left: 0.5cqh solid var(--style-29-gold);
+  opacity: 0;
+  transform: translateX(-2cqw);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.manuscriptVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.manuscriptIcon {
+  width: 5cqh;
+  height: 6cqh;
+  color: var(--style-29-gold);
+}
+
+.manuscriptIcon svg { width: 100%; height: 100%; }
+
+.manuscriptName {
+  font-size: 3.2cqh;
+  font-weight: 700;
+  color: var(--style-29-parchment);
+  font-family: "Cinzel", serif;
+}
+
+.manuscriptYear {
+  font-size: 2.6cqh;
+  color: var(--style-29-gold);
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 600;
+}
+
+.manuscriptOrigin {
+  font-size: 2.4cqh;
+  color: var(--style-29-parchment);
+  opacity: 0.55;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Scene 4: Materials ─── */
+
+.scene4 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.materialGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5cqw;
+  flex: 1;
+}
+
+.materialCard {
+  background: var(--style-29-panel);
+  border: 0.15cqh solid var(--style-29-gold);
+  padding: 3cqh 2.5cqw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.materialVisible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.materialName {
+  font-size: 3.5cqh;
+  font-weight: 700;
+  color: var(--style-29-gold);
+  margin-bottom: 0.8cqh;
+  font-family: "Cinzel", serif;
+}
+
+.materialDesc {
+  font-size: 2.2cqh;
+  color: var(--style-29-parchment);
+  opacity: 0.65;
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Scene 5: Closing ─── */
+
+.scene5 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 8cqh 8cqw;
+}
+
+.knotLarge {
+  width: 25cqh;
+  height: 25cqh;
+  color: var(--style-29-gold);
+  margin-bottom: 3cqh;
+  opacity: 0.6;
+}
+
+.closingText {
+  font-size: 6.5cqh;
+  font-weight: 700;
+  margin: 0;
+  color: var(--style-29-parchment);
+  text-align: center;
+  line-height: 1.3;
+  font-family: "Cinzel", serif;
+}
+
+.closingAccent {
+  color: var(--style-29-gold);
+}
+
+.closingSub {
+  font-size: 2.6cqh;
+  color: var(--style-29-parchment);
+  opacity: 0.55;
+  margin-top: 2cqh;
+  font-family: "Inter", system-ui, sans-serif;
+  letter-spacing: 0.08em;
+}
+
+/* ─── Navigation ─── */
+
+.nav {
+  position: absolute;
+  bottom: 3cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.2cqw;
+  z-index: 10;
+}
+
+.navItem {
+  width: 5cqh;
+  height: 5cqh;
+  border: 0.15cqh solid var(--style-29-gold);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.navItem:hover { background: var(--style-29-gold); }
+.navItem:hover .navIcon { color: var(--style-29-bg); }
+
+.navItemActive { background: var(--style-29-gold); }
+.navItemActive .navIcon { color: var(--style-29-bg); }
+
+.navIcon {
+  width: 2.5cqh;
+  height: 2.5cqh;
+  color: var(--style-29-gold);
+  transition: color 0.3s ease;
+}

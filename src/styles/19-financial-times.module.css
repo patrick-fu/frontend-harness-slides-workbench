@@ -1,0 +1,502 @@
+/* ── Style 19: Financial Times ──────────────────────────────────────────── */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--style-19-bg, #fff1e5);
+  color: var(--style-19-ink, #1a1a1a);
+  font-family: "Source Serif Pro", Georgia, serif;
+}
+
+/* ── V-Slide Transition Track ──────────────────────────────────────────── */
+
+.transitionTrack {
+  display: flex;
+  flex-direction: column;
+  height: 500%;
+  width: 100%;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.scene {
+  height: 20%;
+  width: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Scene 1: Front Page ───────────────────────────────────────────────── */
+
+.ftMasthead {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 3cqh 5cqw;
+  box-sizing: border-box;
+}
+
+.ftTopBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.2cqh solid var(--style-19-ink, #1a1a1a);
+  padding-bottom: 1cqh;
+  margin-bottom: 2cqh;
+}
+
+.ftEdition {
+  font-size: 1.6cqh;
+  font-family: "Source Serif Pro", Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-variant: small-caps;
+}
+
+.ftDate {
+  font-size: 1.6cqh;
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-style: italic;
+}
+
+.ftPrice {
+  font-size: 1.6cqh;
+  font-family: Georgia, serif;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+.ftTitleBlock {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ftLogo {
+  font-family: Georgia, "Source Serif Pro", serif;
+  font-size: 12cqh;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--style-19-ink, #1a1a1a);
+  margin: 0;
+  letter-spacing: -0.02em;
+  font-style: italic;
+}
+
+.ftTagline {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2.2cqh;
+  color: var(--style-19-ink, #1a1a1a);
+  margin-top: 1.5cqh;
+  font-variant: small-caps;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+}
+
+.ftBottomRule {
+  border-top: 0.2cqh solid var(--style-19-ink, #1a1a1a);
+  padding-top: 1cqh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ftSectionLabel {
+  font-size: 1.5cqh;
+  font-family: "Source Serif Pro", Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-variant: small-caps;
+  opacity: 0.5;
+}
+
+/* ── Scene 2: Market Report ────────────────────────────────────────────── */
+
+.marketReport {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 5cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.reportHeader {
+  border-bottom: 0.15cqh solid var(--style-19-ink, #1a1a1a);
+  padding-bottom: 1.5cqh;
+  margin-bottom: 2cqh;
+}
+
+.reportKicker {
+  font-size: 1.6cqh;
+  font-family: "Source Serif Pro", Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-variant: small-caps;
+  color: var(--style-19-ink, #1a1a1a);
+  opacity: 0.6;
+  margin-bottom: 0.5cqh;
+}
+
+.reportHeadline {
+  font-family: Georgia, "Source Serif Pro", serif;
+  font-size: 5.5cqh;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--style-19-ink, #1a1a1a);
+  margin: 0;
+  font-style: italic;
+}
+
+.reportDeck {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2.4cqh;
+  color: var(--style-19-ink, #1a1a1a);
+  margin-top: 0.8cqh;
+  opacity: 0.65;
+  font-style: italic;
+}
+
+.marketTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2cqh;
+  margin-top: 1cqh;
+}
+
+.marketTable th {
+  text-align: left;
+  padding: 1cqh 1cqw;
+  border-bottom: 0.1cqh solid var(--style-19-ink, #1a1a1a);
+  font-variant: small-caps;
+  letter-spacing: 0.08em;
+  font-size: 1.6cqh;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.marketTable th:last-child,
+.marketTable td:last-child {
+  text-align: right;
+}
+
+.marketTable td {
+  padding: 0.8cqh 1cqw;
+  border-bottom: 0.04cqh solid rgba(26, 26, 26, 0.15);
+}
+
+.marketTable tr:last-child td {
+  border-bottom: none;
+}
+
+.indexName {
+  font-weight: 600;
+}
+
+.indexValue {
+  font-family: Georgia, serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.indexChange {
+  font-family: Georgia, serif;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.indexUp {
+  color: #1a7a3a;
+}
+
+.indexDown {
+  color: #c41e3a;
+}
+
+/* ── Scene 3: Earnings Analysis ────────────────────────────────────────── */
+
+.earningsScene {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 5cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.earningsHeader {
+  border-bottom: 0.15cqh solid var(--style-19-ink, #1a1a1a);
+  padding-bottom: 1.5cqh;
+  margin-bottom: 2.5cqh;
+}
+
+.earningsLabel {
+  font-size: 1.6cqh;
+  font-family: "Source Serif Pro", Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-variant: small-caps;
+  opacity: 0.6;
+  margin-bottom: 0.5cqh;
+}
+
+.earningsTitle {
+  font-family: Georgia, "Source Serif Pro", serif;
+  font-size: 5cqh;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.1;
+  color: var(--style-19-ink, #1a1a1a);
+  margin: 0;
+}
+
+.earningsGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3cqw;
+}
+
+.earningsColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.earningsColumnTitle {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2cqh;
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 0.08cqh solid var(--style-19-ink, #1a1a1a);
+  padding-bottom: 0.8cqh;
+  margin-bottom: 1.5cqh;
+  opacity: 0.7;
+}
+
+.earningsItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.8cqh 0;
+  border-bottom: 0.04cqh solid rgba(26, 26, 26, 0.1);
+}
+
+.earningsItemLabel {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2cqh;
+  color: var(--style-19-ink, #1a1a1a);
+}
+
+.earningsItemValue {
+  font-family: Georgia, serif;
+  font-size: 2.2cqh;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--style-19-ink, #1a1a1a);
+}
+
+.earningsItemValue.highlight {
+  color: #1a7a3a;
+}
+
+.earningsItemValue.warn {
+  color: #c41e3a;
+}
+
+/* ── Scene 4: Opinion / Analysis ───────────────────────────────────────── */
+
+.analysisScene {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.analysisRule {
+  width: 8cqw;
+  height: 0.2cqh;
+  background: var(--style-19-ink, #1a1a1a);
+  margin-bottom: 3cqh;
+}
+
+.analysisLabel {
+  font-size: 1.8cqh;
+  font-family: "Source Serif Pro", Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-variant: small-caps;
+  opacity: 0.5;
+  margin-bottom: 2cqh;
+}
+
+.analysisHeadline {
+  font-family: Georgia, "Source Serif Pro", serif;
+  font-size: 6cqh;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.1;
+  color: var(--style-19-ink, #1a1a1a);
+  margin: 0 0 3cqh 0;
+}
+
+.analysisBody {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2.6cqh;
+  line-height: 1.6;
+  color: var(--style-19-ink, #1a1a1a);
+  column-count: 2;
+  column-gap: 4cqw;
+  column-rule: 0.04cqh solid rgba(26, 26, 26, 0.15);
+  opacity: 0.85;
+  text-align: justify;
+}
+
+.analysisByline {
+  margin-top: 3cqh;
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.8cqh;
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+}
+
+/* ── Scene 5: Closing Ticker ───────────────────────────────────────────── */
+
+.tickerScene {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 5cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.tickerOrnament {
+  display: flex;
+  align-items: center;
+  gap: 2cqw;
+  margin-bottom: 4cqh;
+}
+
+.tickerOrnamentLine {
+  width: 12cqw;
+  height: 0.08cqh;
+  background: var(--style-19-ink, #1a1a1a);
+  opacity: 0.3;
+}
+
+.tickerClosing {
+  font-family: Georgia, "Source Serif Pro", serif;
+  font-size: 7cqh;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.15;
+  color: var(--style-19-ink, #1a1a1a);
+  margin: 0;
+}
+
+.tickerSub {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2.4cqh;
+  color: var(--style-19-ink, #1a1a1a);
+  margin-top: 2cqh;
+  font-variant: small-caps;
+  letter-spacing: 0.12em;
+  opacity: 0.55;
+}
+
+/* ── Navigation indicators ─────────────────────────────────────────────── */
+
+.navIndicators {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.navIndicator {
+  position: absolute;
+  pointer-events: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.08;
+  transition: opacity 0.3s ease;
+}
+
+.navIndicator:hover {
+  opacity: 0.3;
+}
+
+.navIndicatorActive {
+  opacity: 0.18;
+}
+
+.navIndicatorActive:hover {
+  opacity: 0.45;
+}
+
+.navIndicator:nth-child(1) {
+  top: 6cqh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navIndicator:nth-child(2) {
+  top: 25cqh;
+  right: 5cqw;
+}
+
+.navIndicator:nth-child(3) {
+  bottom: 15cqh;
+  right: 10cqw;
+}
+
+.navIndicator:nth-child(4) {
+  bottom: 15cqh;
+  left: 10cqw;
+}
+
+.navIndicator:nth-child(5) {
+  top: 25cqh;
+  left: 5cqw;
+}
+
+.navIndicatorMark {
+  display: block;
+  width: 2.5cqh;
+  height: 0.4cqh;
+  background: var(--style-19-ink, #1a1a1a);
+}
+
+.navIndicatorActive .navIndicatorMark {
+  height: 0.6cqh;
+  background: #c41e3a;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+.reducedMotion .transitionTrack,
+.reducedMotion .navIndicator {
+  transition-duration: 0s !important;
+}
+
+/* ── Thumbnail mode ─────────────────────────────────────────────────────── */
+
+.thumbnail .navIndicators {
+  display: none;
+}

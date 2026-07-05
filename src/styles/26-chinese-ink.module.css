@@ -1,0 +1,425 @@
+/* Style 26: Chinese Ink — Craft & Cultural Traditions */
+/* Ink wash painting: rice paper tones, brushstroke effects, misty mountains */
+
+.root {
+  --style-26-bg: #f5f0e8;
+  --style-26-ink: #1a1a1a;
+  --style-26-panel: #ebe5d9;
+  --style-26-seal: #c0392b;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--style-26-bg);
+  color: var(--style-26-ink);
+  font-family: "Noto Serif SC", "Inter", system-ui, sans-serif;
+}
+
+.root.thumbnail { font-size: 0.6em; }
+
+.reducedMotion * {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+/* Paper texture overlay */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse at 30% 40%, rgba(180, 160, 130, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(160, 140, 110, 0.06) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.track {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.trackEnter { opacity: 0; }
+.trackActive {
+  opacity: 1;
+  transition: opacity 1.2s ease;
+}
+
+/* ─── Scene 1: Title ─── */
+
+.scene1 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 8cqh 8cqw;
+}
+
+.mountainBg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50cqh;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.scene1Content {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.titleChar {
+  font-size: 20cqh;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  color: var(--style-26-ink);
+  letter-spacing: 0.1em;
+}
+
+.titleEn {
+  font-size: 3.5cqh;
+  font-weight: 300;
+  margin: 1.5cqh 0 0;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--style-26-ink);
+  opacity: 0.5;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.inkDrop {
+  width: 2cqh;
+  height: 2cqh;
+  background: var(--style-26-ink);
+  border-radius: 50%;
+  margin: 3cqh auto;
+  opacity: 0.6;
+}
+
+.titleSub {
+  font-size: 3cqh;
+  font-weight: 400;
+  margin: 0;
+  color: var(--style-26-ink);
+  opacity: 0.65;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Scene 2: Four Treasures ─── */
+
+.scene2 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.sceneLabel {
+  font-size: 2.2cqh;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--style-26-ink);
+  opacity: 0.5;
+  font-family: "Inter", system-ui, sans-serif;
+  margin-bottom: 1cqh;
+}
+
+.sceneHeading {
+  font-size: 5.5cqh;
+  font-weight: 700;
+  margin: 0 0 4cqh;
+  color: var(--style-26-ink);
+}
+
+.treasuresGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5cqw;
+  flex: 1;
+}
+
+.treasureCard {
+  background: var(--style-26-panel);
+  padding: 3cqh 1.5cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-top: 0.4cqh solid var(--style-26-ink);
+  opacity: 0;
+  transform: translateY(2cqh);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.treasureVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.treasureChar {
+  font-size: 9cqh;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--style-26-ink);
+  margin-bottom: 1.5cqh;
+}
+
+.treasureName {
+  font-size: 3cqh;
+  font-weight: 700;
+  color: var(--style-26-ink);
+  font-family: "Inter", system-ui, sans-serif;
+  margin-bottom: 0.8cqh;
+}
+
+.treasureDesc {
+  font-size: 2cqh;
+  line-height: 1.5;
+  color: var(--style-26-ink);
+  opacity: 0.65;
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Scene 3: Mountains ─── */
+
+.scene3 {
+  width: 100%;
+  height: 100%;
+  padding: 5cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.mountainScene {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 0;
+}
+
+.mountainLarge {
+  width: 80cqw;
+  height: 55cqh;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mistOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20cqh;
+  background: linear-gradient(to top, var(--style-26-bg) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.poemBox {
+  position: absolute;
+  right: 5cqw;
+  top: 5cqh;
+  text-align: right;
+  z-index: 2;
+}
+
+.poemText {
+  font-size: 4.5cqh;
+  font-weight: 700;
+  color: var(--style-26-ink);
+  margin: 0;
+  line-height: 1.6;
+  writing-mode: vertical-rl;
+}
+
+.poemEn {
+  font-size: 2cqh;
+  color: var(--style-26-ink);
+  opacity: 0.5;
+  margin: 1cqh 0 0;
+  font-family: "Inter", system-ui, sans-serif;
+  font-style: italic;
+}
+
+/* ─── Scene 4: Masters ─── */
+
+.scene4 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.bambooLeft {
+  position: absolute;
+  left: 3cqw;
+  top: 10cqh;
+  height: 60cqh;
+  width: auto;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.mastersList {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5cqh;
+  flex: 1;
+  margin-top: 2cqh;
+  margin-left: 10cqw;
+}
+
+.masterRow {
+  display: grid;
+  grid-template-columns: 1.5fr 1.2fr 2fr;
+  gap: 2cqw;
+  align-items: baseline;
+  padding: 2cqh 2cqw;
+  border-bottom: 0.15cqh solid var(--style-26-ink);
+  opacity: 0;
+  transform: translateX(-1.5cqw);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.masterVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.masterName {
+  font-size: 3.8cqh;
+  font-weight: 700;
+  color: var(--style-26-ink);
+}
+
+.masterEra {
+  font-size: 2.4cqh;
+  color: var(--style-26-ink);
+  opacity: 0.55;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.masterWork {
+  font-size: 2.6cqh;
+  color: var(--style-26-ink);
+  opacity: 0.7;
+  font-family: "Inter", system-ui, sans-serif;
+  font-style: italic;
+}
+
+/* ─── Scene 5: Closing ─── */
+
+.scene5 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 8cqh 8cqw;
+}
+
+.blankSpace {
+  width: 30cqw;
+  height: 15cqh;
+  margin-bottom: 3cqh;
+}
+
+.closingText {
+  font-size: 7cqh;
+  font-weight: 700;
+  margin: 0;
+  color: var(--style-26-ink);
+  text-align: center;
+  line-height: 1.4;
+}
+
+.closingAccent {
+  color: var(--style-26-ink);
+  opacity: 0.6;
+  font-weight: 400;
+}
+
+.closingSub {
+  font-size: 2.8cqh;
+  color: var(--style-26-ink);
+  opacity: 0.5;
+  margin-top: 2.5cqh;
+  font-family: "Inter", system-ui, sans-serif;
+  letter-spacing: 0.08em;
+}
+
+.sealStamp {
+  position: absolute;
+  bottom: 8cqh;
+  right: 10cqw;
+  width: 8cqh;
+  height: 8cqh;
+  background: var(--style-26-seal);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4.5cqh;
+  font-weight: 900;
+  font-family: "Noto Serif SC", serif;
+  border-radius: 0.5cqh;
+  opacity: 0.85;
+}
+
+/* ─── Navigation ─── */
+
+.nav {
+  position: absolute;
+  bottom: 3cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.2cqw;
+  z-index: 10;
+}
+
+.navItem {
+  width: 3.5cqh;
+  height: 3.5cqh;
+  border: 0.2cqh solid var(--style-26-ink);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.navItem:hover { background: var(--style-26-ink); }
+.navItem:hover .navDot { background: var(--style-26-bg); }
+
+.navItemActive { background: var(--style-26-ink); }
+.navItemActive .navDot { background: var(--style-26-bg); }
+
+.navDot {
+  width: 1.2cqh;
+  height: 1.2cqh;
+  background: var(--style-26-ink);
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}

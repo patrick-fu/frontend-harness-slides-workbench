@@ -1,0 +1,463 @@
+/* Style 25: Woodblock Print — Craft & Cultural Traditions */
+/* Ukiyo-e aesthetic: indigo on beige, wave motifs, Fuji silhouettes */
+
+.root {
+  --style-25-bg: #e8dcc8;
+  --style-25-ink: #1a3a5c;
+  --style-25-panel: #f0e8d8;
+  --style-25-accent: #c75b3a;
+  --style-25-gold: #b8956a;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--style-25-bg);
+  color: var(--style-25-ink);
+  font-family: "Noto Serif JP", "Inter", system-ui, sans-serif;
+}
+
+.root.thumbnail {
+  font-size: 0.6em;
+}
+
+.reducedMotion * {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+/* ─── Track (scene container) ─── */
+
+.track {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.trackEnter {
+  opacity: 0;
+  transform: translateY(3cqh);
+}
+
+.trackActive {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* ─── Scene 1: Title ─── */
+
+.scene1 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 8cqh 8cqw;
+}
+
+.fujiBg {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60cqw;
+  height: 40cqh;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.waveBorder {
+  position: absolute;
+  bottom: 5cqh;
+  left: 0;
+  width: 100%;
+  height: 6cqh;
+  pointer-events: none;
+}
+
+.scene1Content {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.titleKanji {
+  font-size: 18cqh;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: 0.05em;
+  color: var(--style-25-ink);
+}
+
+.titleEn {
+  font-size: 4cqh;
+  font-weight: 300;
+  margin: 1cqh 0 0;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--style-25-ink);
+  opacity: 0.7;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.titleDivider {
+  width: 12cqw;
+  height: 0.3cqh;
+  margin: 3cqh auto;
+  background: var(--style-25-accent);
+}
+
+.titleSub {
+  font-size: 3.2cqh;
+  font-weight: 400;
+  margin: 0;
+  color: var(--style-25-ink);
+  opacity: 0.8;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Scene 2: Process ─── */
+
+.scene2 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.sceneLabel {
+  font-size: 2.2cqh;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--style-25-accent);
+  font-family: "Inter", system-ui, sans-serif;
+  margin-bottom: 1cqh;
+}
+
+.sceneHeading {
+  font-size: 6cqh;
+  font-weight: 700;
+  margin: 0 0 4cqh;
+  color: var(--style-25-ink);
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3cqw;
+  flex: 1;
+}
+
+.stepCard {
+  background: var(--style-25-panel);
+  border: 0.3cqh solid var(--style-25-ink);
+  padding: 3cqh 2cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(2cqh);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.stepCardVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stepKanji {
+  font-size: 8cqh;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--style-25-ink);
+  margin-bottom: 1cqh;
+}
+
+.stepLabel {
+  font-size: 3.2cqh;
+  font-weight: 700;
+  color: var(--style-25-ink);
+  font-family: "Inter", system-ui, sans-serif;
+  margin-bottom: 0.8cqh;
+}
+
+.stepDesc {
+  font-size: 2.2cqh;
+  line-height: 1.5;
+  color: var(--style-25-ink);
+  opacity: 0.75;
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Scene 3: Great Wave ─── */
+
+.scene3 {
+  width: 100%;
+  height: 100%;
+  padding: 5cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.printArea {
+  display: flex;
+  gap: 4cqw;
+  align-items: center;
+  flex: 1;
+  min-height: 0;
+}
+
+.greatWave {
+  width: 50cqw;
+  height: 40cqh;
+  flex-shrink: 0;
+}
+
+.printInfo {
+  flex: 1;
+}
+
+.printTitle {
+  font-size: 5cqh;
+  font-weight: 700;
+  margin: 0 0 1cqh;
+  color: var(--style-25-ink);
+  line-height: 1.2;
+}
+
+.printArtist {
+  font-size: 2.8cqh;
+  color: var(--style-25-ink);
+  opacity: 0.7;
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  font-style: italic;
+}
+
+.statsRow {
+  display: flex;
+  gap: 4cqw;
+  margin-top: 3cqh;
+  padding-top: 3cqh;
+  border-top: 0.2cqh solid var(--style-25-ink);
+  opacity: 0.85;
+}
+
+.statItem {
+  text-align: center;
+  flex: 1;
+  opacity: 0;
+  transform: translateY(1cqh);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.statsRow .statItem {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.statValue {
+  display: block;
+  font-size: 5cqh;
+  font-weight: 900;
+  color: var(--style-25-accent);
+  line-height: 1;
+}
+
+.statLabel {
+  display: block;
+  font-size: 2.2cqh;
+  color: var(--style-25-ink);
+  opacity: 0.7;
+  margin-top: 0.5cqh;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Scene 4: Masters ─── */
+
+.scene4 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.mastersList {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5cqh;
+  flex: 1;
+  margin-top: 2cqh;
+}
+
+.masterRow {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 2fr;
+  gap: 2cqw;
+  align-items: baseline;
+  padding: 2cqh 2cqw;
+  background: var(--style-25-panel);
+  border-left: 0.6cqh solid var(--style-25-accent);
+  opacity: 0;
+  transform: translateX(-2cqw);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.masterRowVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.masterName {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--style-25-ink);
+}
+
+.masterYears {
+  font-size: 2.6cqh;
+  color: var(--style-25-accent);
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 500;
+}
+
+.masterWork {
+  font-size: 2.6cqh;
+  color: var(--style-25-ink);
+  opacity: 0.75;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Scene 5: Closing ─── */
+
+.scene5 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 8cqh 8cqw;
+}
+
+.waveBorderTop {
+  position: absolute;
+  top: 5cqh;
+  left: 0;
+  width: 100%;
+  height: 6cqh;
+  transform: scaleY(-1);
+  pointer-events: none;
+}
+
+.closingText {
+  font-size: 8cqh;
+  font-weight: 700;
+  margin: 0;
+  color: var(--style-25-ink);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.closingAccent {
+  color: var(--style-25-accent);
+}
+
+.closingSub {
+  font-size: 3cqh;
+  color: var(--style-25-ink);
+  opacity: 0.65;
+  margin-top: 2cqh;
+  font-family: "Inter", system-ui, sans-serif;
+  letter-spacing: 0.1em;
+}
+
+.fujiBottom {
+  position: absolute;
+  bottom: 2cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40cqw;
+  height: 25cqh;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+/* ─── Navigation ─── */
+
+.nav {
+  position: absolute;
+  bottom: 3cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.5cqw;
+  z-index: 10;
+}
+
+.navItem {
+  width: 5cqh;
+  height: 5cqh;
+  border: 0.25cqh solid var(--style-25-ink);
+  background: var(--style-25-panel);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  border-radius: 0;
+}
+
+.navItem:hover {
+  background: var(--style-25-ink);
+}
+
+.navItem:hover .navCircle {
+  fill: var(--style-25-panel);
+}
+
+.navItem:hover .navWave {
+  stroke: var(--style-25-panel);
+}
+
+.navItemActive {
+  background: var(--style-25-accent);
+  border-color: var(--style-25-accent);
+}
+
+.navItemActive .navCircle {
+  fill: var(--style-25-panel);
+}
+
+.navItemActive .navWave {
+  stroke: var(--style-25-panel);
+}
+
+.navItem svg {
+  width: 3cqh;
+  height: 3cqh;
+}
+
+.navCircle {
+  fill: var(--style-25-ink);
+  transition: fill 0.3s ease;
+}
+
+.navWave {
+  stroke: var(--style-25-ink);
+  stroke-width: 1.5;
+  transition: stroke 0.3s ease;
+}
+
+/* Nav position helpers (used inline via positions array) */
+.navPos1, .navPos2, .navPos3, .navPos4, .navPos5 {}

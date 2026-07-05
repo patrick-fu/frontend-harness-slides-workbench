@@ -1,0 +1,80 @@
+/* Style 31: African Kente — Craft & Cultural Traditions */
+/* Vibrant woven stripes, symbolic gold/green/red/black on dark background */
+
+.root {
+  --style-31-bg: #1a1a1a;
+  --style-31-gold: #d4a843;
+  --style-31-green: #2d7a3a;
+  --style-31-red: #c0392b;
+  --style-31-cream: #f0e0c8;
+  --style-31-panel: #2a2a2a;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--style-31-bg);
+  color: var(--style-31-cream);
+  font-family: "Oswald", "Inter", system-ui, sans-serif;
+}
+
+.root.thumbnail { font-size: 0.6em; }
+.reducedMotion * { animation-duration: 0s !important; transition-duration: 0s !important; }
+
+.track { width: 100%; height: 100%; position: relative; z-index: 1; }
+.trackEnter { opacity: 0; }
+.trackActive { opacity: 1; transition: opacity 0.6s ease; }
+
+/* ─── Scene 1 ─── */
+.scene1 { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6cqh 8cqw; }
+.stripTop { width: 80cqw; height: 6cqh; margin-bottom: 4cqh; }
+.stripBottom { width: 80cqw; height: 6cqh; margin-top: 4cqh; }
+.scene1Content { text-align: center; }
+.titleText { font-size: 16cqh; font-weight: 700; line-height: 1; margin: 0; letter-spacing: 0.1em; color: var(--style-31-gold); text-transform: uppercase; }
+.titleDivider { display: flex; gap: 0.8cqw; justify-content: center; margin: 2cqh 0; }
+.dGold { width: 6cqw; height: 0.8cqh; background: var(--style-31-gold); display: block; }
+.dGreen { width: 6cqw; height: 0.8cqh; background: var(--style-31-green); display: block; }
+.dRed { width: 6cqw; height: 0.8cqh; background: var(--style-31-red); display: block; }
+.titleSub { font-size: 3cqh; font-weight: 400; margin: 0; color: var(--style-31-cream); opacity: 0.7; font-family: "Inter", system-ui, sans-serif; }
+
+/* ─── Shared ─── */
+.scene2, .scene3, .scene4, .scene5 { width: 100%; height: 100%; padding: 6cqh 8cqw; display: flex; flex-direction: column; }
+.sceneLabel { font-size: 2cqh; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--style-31-gold); font-family: "Inter", system-ui, sans-serif; margin-bottom: 1cqh; }
+.sceneHeading { font-size: 5.5cqh; font-weight: 700; margin: 0 0 3cqh; color: var(--style-31-cream); line-height: 1.1; }
+
+/* ─── Grid cards ─── */
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2cqw; flex: 1; }
+.card { background: var(--style-31-panel); padding: 2.5cqh 1.5cqw; display: flex; flex-direction: column; align-items: center; text-align: center; border-top: 0.5cqh solid var(--style-31-gold); opacity: 0; transform: translateY(2cqh); transition: opacity 0.5s ease, transform 0.5s ease; }
+.cardVisible { opacity: 1; transform: translateY(0); }
+.swatch { width: 10cqh; height: 10cqh; border-radius: 50%; margin-bottom: 1.5cqh; border: 0.3cqh solid rgba(255,255,255,0.15); }
+.cardName { font-size: 3cqh; font-weight: 700; color: var(--style-31-gold); margin-bottom: 0.5cqh; }
+.cardDesc { font-size: 2cqh; line-height: 1.5; color: var(--style-31-cream); opacity: 0.65; margin: 0; font-family: "Inter", system-ui, sans-serif; }
+
+/* ─── List rows ─── */
+.list { display: flex; flex-direction: column; gap: 2cqh; flex: 1; }
+.listRow { display: grid; grid-template-columns: 1.5fr 2fr 3fr; gap: 2cqw; align-items: center; padding: 2cqh 2cqw; background: var(--style-31-panel); border-left: 0.5cqh solid var(--style-31-green); opacity: 0; transform: translateX(-2cqw); transition: opacity 0.5s ease, transform 0.5s ease; }
+.listVisible { opacity: 1; transform: translateX(0); }
+.stripMini { width: 100%; height: 4cqh; }
+.listName { font-size: 3.2cqh; font-weight: 700; color: var(--style-31-cream); }
+.listMeaning { font-size: 2.4cqh; color: var(--style-31-cream); opacity: 0.6; font-family: "Inter", system-ui, sans-serif; }
+
+/* ─── Step cards ─── */
+.stepCard { background: var(--style-31-panel); padding: 2.5cqh 1.5cqw; display: flex; flex-direction: column; align-items: center; text-align: center; border-top: 0.5cqh solid var(--style-31-red); opacity: 0; transform: translateY(2cqh); transition: opacity 0.5s ease, transform 0.5s ease; }
+.stepNum { font-size: 5cqh; font-weight: 700; color: var(--style-31-red); line-height: 1; margin-bottom: 0.5cqh; }
+.stepTitle { font-size: 2.8cqh; font-weight: 700; color: var(--style-31-cream); margin-bottom: 0.5cqh; }
+.stepDesc { font-size: 1.9cqh; line-height: 1.5; color: var(--style-31-cream); opacity: 0.6; margin: 0; font-family: "Inter", system-ui, sans-serif; }
+
+/* ─── Scene 5 ─── */
+.scene5 { align-items: center; justify-content: center; text-align: center; }
+.stripCenter { width: 60cqw; height: 5cqh; margin-bottom: 4cqh; }
+.closingText { font-size: 7cqh; font-weight: 700; margin: 0; color: var(--style-31-cream); line-height: 1.2; }
+.closingAccent { color: var(--style-31-gold); }
+.closingSub { font-size: 2.6cqh; color: var(--style-31-cream); opacity: 0.55; margin-top: 2cqh; font-family: "Inter", system-ui, sans-serif; }
+
+/* ─── Nav ─── */
+.nav { position: absolute; bottom: 3cqh; left: 50%; transform: translateX(-50%); display: flex; gap: 1cqw; z-index: 10; }
+.navItem { width: 4.5cqh; height: 4.5cqh; border: 0.2cqh solid var(--style-31-gold); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; border-radius: 50%; transition: background 0.2s ease; }
+.navItem:hover { background: var(--style-31-gold); }
+.navItem:hover .navDot { background: var(--style-31-bg); }
+.navItemActive { background: var(--style-31-gold); }
+.navItemActive .navDot { background: var(--style-31-bg); }
+.navDot { width: 1.5cqh; height: 1.5cqh; background: var(--style-31-gold); border-radius: 50%; transition: background 0.2s ease; }

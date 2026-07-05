@@ -1,0 +1,395 @@
+/* Style 30: Mexican Mural — Craft & Cultural Traditions */
+/* Earth tones, revolutionary boldness, monumental fresco wall aesthetic */
+
+.root {
+  --style-30-bg: #2d1810;
+  --style-30-terra: #c0392b;
+  --style-30-sun: #f4a261;
+  --style-30-cream: #f0e0c8;
+  --style-30-olive: #4a6741;
+  --style-30-panel: #3d2418;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--style-30-bg);
+  color: var(--style-30-cream);
+  font-family: "Bebas Neue", "Inter", system-ui, sans-serif;
+}
+
+.root.thumbnail { font-size: 0.6em; }
+
+.reducedMotion * {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+/* Wall texture overlay */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(244, 162, 97, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(192, 57, 43, 0.06) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.track {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.trackEnter { opacity: 0; transform: translateY(2cqh); }
+.trackActive {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* ─── Scene 1: Title ─── */
+
+.scene1 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 8cqh 8cqw;
+}
+
+.sunBg {
+  position: absolute;
+  width: 60cqh;
+  height: 60cqh;
+  right: -10cqw;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.scene1Content {
+  text-align: left;
+  position: relative;
+  z-index: 1;
+  max-width: 60cqw;
+}
+
+.titleText {
+  font-size: 16cqh;
+  font-weight: 400;
+  line-height: 0.9;
+  margin: 0;
+  letter-spacing: 0.05em;
+  color: var(--style-30-sun);
+  text-transform: uppercase;
+}
+
+.titleBar {
+  width: 25cqw;
+  height: 1.5cqh;
+  background: var(--style-30-terra);
+  margin: 2cqh 0;
+}
+
+.titleSub {
+  font-size: 3.2cqh;
+  font-weight: 400;
+  margin: 0;
+  color: var(--style-30-cream);
+  opacity: 0.75;
+  font-family: "Inter", system-ui, sans-serif;
+  line-height: 1.4;
+}
+
+/* ─── Scene 2: Artists ─── */
+
+.scene2 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.sceneLabel {
+  font-size: 2.2cqh;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--style-30-sun);
+  font-family: "Inter", system-ui, sans-serif;
+  margin-bottom: 1cqh;
+}
+
+.sceneHeading {
+  font-size: 6cqh;
+  font-weight: 400;
+  margin: 0 0 3cqh;
+  color: var(--style-30-cream);
+  line-height: 1;
+}
+
+.artistList {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5cqh;
+  flex: 1;
+}
+
+.artistRow {
+  display: grid;
+  grid-template-columns: 0.8fr 3fr 2fr;
+  gap: 2cqw;
+  align-items: center;
+  padding: 2cqh 2cqw;
+  background: var(--style-30-panel);
+  border-left: 0.8cqh solid var(--style-30-terra);
+  opacity: 0;
+  transform: translateX(-3cqw);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.artistVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.artistPortrait {
+  width: 7cqh;
+  height: 7cqh;
+  color: var(--style-30-sun);
+}
+
+.artistPortrait svg { width: 100%; height: 100%; }
+
+.artistInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.artistName {
+  font-size: 3.8cqh;
+  font-weight: 400;
+  color: var(--style-30-cream);
+  line-height: 1.1;
+}
+
+.artistYears {
+  font-size: 2.2cqh;
+  color: var(--style-30-sun);
+  font-family: "Inter", system-ui, sans-serif;
+  margin-top: 0.3cqh;
+}
+
+.artistStyle {
+  font-size: 2.4cqh;
+  color: var(--style-30-cream);
+  opacity: 0.6;
+  font-family: "Inter", system-ui, sans-serif;
+  font-style: italic;
+}
+
+/* ─── Scene 3: Themes ─── */
+
+.scene3 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.themeGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2cqw;
+  flex: 1;
+}
+
+.themeCard {
+  background: var(--style-30-panel);
+  padding: 3cqh 1.5cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-top: 0.6cqh solid var(--style-30-olive);
+  opacity: 0;
+  transform: translateY(2cqh);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.themeVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.themeIcon {
+  font-size: 6cqh;
+  margin-bottom: 1.5cqh;
+}
+
+.themeTitle {
+  font-size: 3.2cqh;
+  font-weight: 400;
+  color: var(--style-30-sun);
+  margin-bottom: 0.8cqh;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.themeDesc {
+  font-size: 2cqh;
+  line-height: 1.5;
+  color: var(--style-30-cream);
+  opacity: 0.65;
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Scene 4: Legacy ─── */
+
+.scene4 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.statsRow {
+  display: flex;
+  gap: 6cqw;
+  margin-top: 4cqh;
+}
+
+.statBlock {
+  text-align: left;
+  border-left: 0.5cqh solid var(--style-30-sun);
+  padding-left: 2cqw;
+}
+
+.statValue {
+  display: block;
+  font-size: 9cqh;
+  font-weight: 400;
+  color: var(--style-30-sun);
+  line-height: 1;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.statLabel {
+  display: block;
+  font-size: 2.4cqh;
+  color: var(--style-30-cream);
+  opacity: 0.65;
+  margin-top: 0.5cqh;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.wallTexture {
+  flex: 1;
+  margin-top: 3cqh;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 4cqh,
+      rgba(244, 162, 97, 0.03) 4cqh,
+      rgba(244, 162, 97, 0.03) 4.2cqh
+    );
+}
+
+/* ─── Scene 5: Closing ─── */
+
+.scene5 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 8cqh 8cqw;
+}
+
+.sunSmall {
+  width: 20cqh;
+  height: 20cqh;
+  margin-bottom: 3cqh;
+  opacity: 0.6;
+}
+
+.closingText {
+  font-size: 8cqh;
+  font-weight: 400;
+  margin: 0;
+  color: var(--style-30-cream);
+  text-align: center;
+  line-height: 1.1;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.closingAccent {
+  color: var(--style-30-terra);
+}
+
+.closingSub {
+  font-size: 2.8cqh;
+  color: var(--style-30-cream);
+  opacity: 0.6;
+  margin-top: 2cqh;
+  font-family: "Inter", system-ui, sans-serif;
+  font-style: italic;
+}
+
+.fistIcon {
+  font-size: 6cqh;
+  margin-top: 3cqh;
+  opacity: 0.7;
+}
+
+/* ─── Navigation ─── */
+
+.nav {
+  position: absolute;
+  bottom: 3cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1cqw;
+  z-index: 10;
+}
+
+.navItem {
+  width: 5cqh;
+  height: 5cqh;
+  border: 0.2cqh solid var(--style-30-sun);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.2s ease;
+}
+
+.navItem:hover { background: var(--style-30-sun); }
+.navItem:hover .navBar { background: var(--style-30-bg); }
+
+.navItemActive { background: var(--style-30-terra); border-color: var(--style-30-terra); }
+.navItemActive .navBar { background: var(--style-30-cream); }
+
+.navBar {
+  width: 2.5cqh;
+  height: 0.8cqh;
+  background: var(--style-30-sun);
+  transition: background 0.2s ease;
+}

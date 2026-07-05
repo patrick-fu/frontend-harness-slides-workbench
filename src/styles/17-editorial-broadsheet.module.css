@@ -1,0 +1,507 @@
+/* ── Style 17: Editorial Broadsheet ─────────────────────────────────────── */
+
+:root {
+  --style-17-paper: #faf8f3;
+  --style-17-ink: #1a1a1a;
+  --style-17-accent: #c41e3a;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--style-17-paper);
+  color: var(--style-17-ink);
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  user-select: none;
+}
+
+/* ── V-Slide Transition Track ──────────────────────────────────────────── */
+
+.transitionTrack {
+  display: flex;
+  flex-direction: column;
+  height: 500%;
+  width: 100%;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.transitionTrack.reducedMotion {
+  transition-duration: 0s;
+}
+
+.scene {
+  height: 20%;
+  width: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Scene 1: Front Page Masthead ──────────────────────────────────────── */
+
+.masthead {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 4cqh 6cqw;
+  box-sizing: border-box;
+}
+
+.mastheadTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.15cqh solid var(--style-17-ink);
+  padding-bottom: 1.5cqh;
+  margin-bottom: 2cqh;
+}
+
+.edition {
+  font-size: 1.8cqh;
+  font-family: "Source Serif Pro", Georgia, serif;
+  color: var(--style-17-ink);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.dateLine {
+  font-size: 1.8cqh;
+  font-family: "Source Serif Pro", Georgia, serif;
+  color: var(--style-17-ink);
+  font-style: italic;
+}
+
+.paperName {
+  font-size: 1.8cqh;
+  font-family: "Source Serif Pro", Georgia, serif;
+  color: var(--style-17-ink);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.headlineArea {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.headline {
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 10cqh;
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--style-17-ink);
+  text-align: center;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.headline.verticalZh {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 8cqh;
+  text-align: right;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+}
+
+.deck {
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 3cqh;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--style-17-ink);
+  text-align: center;
+  margin-top: 2cqh;
+  opacity: 0.7;
+}
+
+.sectionMarker {
+  display: inline-block;
+  font-size: 2cqh;
+  font-family: "Source Serif Pro", Georgia, serif;
+  color: var(--style-17-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-top: 0.1cqh solid var(--style-17-accent);
+  border-bottom: 0.1cqh solid var(--style-17-accent);
+  padding: 0.5cqh 1cqw;
+  margin-bottom: 2cqh;
+}
+
+/* ── Scene 2: Lead Story with Drop Cap ─────────────────────────────────── */
+
+.leadStory {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.storyHeader {
+  border-bottom: 0.15cqh solid var(--style-17-ink);
+  padding-bottom: 2cqh;
+  margin-bottom: 3cqh;
+}
+
+.storyKicker {
+  font-size: 2cqh;
+  color: var(--style-17-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-family: "Source Serif Pro", Georgia, serif;
+  margin-bottom: 1cqh;
+}
+
+.storyHeadline {
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 6cqh;
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--style-17-ink);
+  margin: 0 0 1cqh 0;
+}
+
+.storyDeck {
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2.8cqh;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--style-17-ink);
+  opacity: 0.7;
+  margin: 0;
+}
+
+.storyBody {
+  flex: 1;
+  column-count: 2;
+  column-gap: 4cqw;
+  column-rule: 0.05cqh solid rgba(26, 26, 26, 0.2);
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2.2cqh;
+  line-height: 1.6;
+  color: var(--style-17-ink);
+  overflow: hidden;
+}
+
+.storyBody p {
+  margin: 0 0 1.5cqh 0;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.dropCap::first-letter {
+  float: left;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 8cqh;
+  line-height: 0.8;
+  font-weight: 900;
+  color: var(--style-17-accent);
+  margin-right: 0.5cqw;
+  margin-top: 0.5cqh;
+}
+
+.byline {
+  font-size: 2cqh;
+  font-family: "Source Serif Pro", Georgia, serif;
+  color: var(--style-17-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1cqh;
+  opacity: 0.6;
+}
+
+/* ── Scene 3: Data Sidebar ─────────────────────────────────────────────── */
+
+.dataScene {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.dataHeader {
+  border-bottom: 0.15cqh solid var(--style-17-ink);
+  padding-bottom: 1.5cqh;
+  margin-bottom: 3cqh;
+}
+
+.dataHeaderLabel {
+  font-size: 2cqh;
+  color: var(--style-17-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-family: "Source Serif Pro", Georgia, serif;
+}
+
+.dataHeaderTitle {
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 5cqh;
+  font-weight: 900;
+  color: var(--style-17-ink);
+  margin: 0.5cqh 0 0 0;
+  line-height: 1.1;
+}
+
+.statBlocks {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5cqh;
+}
+
+.statBlock {
+  display: flex;
+  align-items: baseline;
+  gap: 2cqw;
+  border-bottom: 0.05cqh solid rgba(26, 26, 26, 0.15);
+  padding-bottom: 2cqh;
+}
+
+.statBlock:last-child {
+  border-bottom: none;
+}
+
+.statNumber {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 7cqh;
+  font-weight: 900;
+  color: var(--style-17-accent);
+  line-height: 1;
+  min-width: 12cqw;
+  text-align: right;
+}
+
+.statLabel {
+  flex: 1;
+}
+
+.statTitle {
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 3cqh;
+  font-weight: 700;
+  color: var(--style-17-ink);
+  margin: 0 0 0.5cqh 0;
+  line-height: 1.2;
+}
+
+.statDesc {
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2cqh;
+  color: var(--style-17-ink);
+  opacity: 0.7;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ── Scene 4: Photo Essay Spread ───────────────────────────────────────── */
+
+.photoEssay {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.essayHeader {
+  border-bottom: 0.15cqh solid var(--style-17-ink);
+  padding-bottom: 1.5cqh;
+  margin-bottom: 3cqh;
+}
+
+.essayLabel {
+  font-size: 2cqh;
+  color: var(--style-17-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-family: "Source Serif Pro", Georgia, serif;
+}
+
+.essayTitle {
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 5cqh;
+  font-weight: 900;
+  color: var(--style-17-ink);
+  margin: 0.5cqh 0 0 0;
+  line-height: 1.1;
+}
+
+.photoGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3cqw;
+}
+
+.photoPanel {
+  display: flex;
+  flex-direction: column;
+}
+
+.photoPlaceholder {
+  flex: 1;
+  background: rgba(26, 26, 26, 0.06);
+  border: 0.1cqh solid rgba(26, 26, 26, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 30cqh;
+}
+
+.photoPlaceholderLabel {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2cqh;
+  color: var(--style-17-ink);
+  opacity: 0.4;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.photoCaption {
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2cqh;
+  color: var(--style-17-ink);
+  margin-top: 1.5cqh;
+  line-height: 1.4;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.photoCaption strong {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--style-17-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 1.8cqh;
+  margin-right: 0.5cqw;
+}
+
+/* ── Scene 5: Editorial Opinion ────────────────────────────────────────── */
+
+.editorial {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 10cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.editorialRule {
+  width: 20cqw;
+  height: 0.15cqh;
+  background: var(--style-17-accent);
+  margin-bottom: 4cqh;
+}
+
+.editorialLabel {
+  font-size: 2cqh;
+  color: var(--style-17-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-family: "Source Serif Pro", Georgia, serif;
+  margin-bottom: 2cqh;
+}
+
+.editorialHeadline {
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 7cqh;
+  font-weight: 900;
+  color: var(--style-17-ink);
+  margin: 0 0 3cqh 0;
+  line-height: 1.1;
+}
+
+.editorialBody {
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2.8cqh;
+  color: var(--style-17-ink);
+  line-height: 1.6;
+  max-width: 60cqw;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+.editorialSignature {
+  margin-top: 4cqh;
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2cqh;
+  color: var(--style-17-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.5;
+}
+
+/* ── Navigation ────────────────────────────────────────────────────────── */
+
+.nav {
+  position: absolute;
+  bottom: 2cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  opacity: 0.15;
+  transition: opacity 0.3s ease;
+}
+
+.nav:hover {
+  opacity: 0.4;
+}
+
+.navRule {
+  width: 30cqw;
+  height: 0.05cqh;
+  background: var(--style-17-ink);
+  margin-bottom: 1cqh;
+}
+
+.navButtons {
+  display: flex;
+  align-items: center;
+  gap: 2cqw;
+}
+
+.navBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1cqh 2cqw;
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2cqh;
+  color: var(--style-17-ink);
+  letter-spacing: 0.1em;
+  user-select: none;
+}
+
+.navBtn:hover {
+  color: var(--style-17-accent);
+}
+
+.pageIndicator {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2cqh;
+  color: var(--style-17-ink);
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+}

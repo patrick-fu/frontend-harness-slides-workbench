@@ -1,0 +1,452 @@
+/* Style 27: Art Deco — Craft & Cultural Traditions */
+/* 1920s geometric luxury: gold on midnight blue, sunbursts, stepped forms */
+
+.root {
+  --style-27-bg: #0a1628;
+  --style-27-gold: #d4a843;
+  --style-27-gold-light: #f0d060;
+  --style-27-panel: #122040;
+  --style-27-cream: #f5e6c8;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--style-27-bg);
+  color: var(--style-27-cream);
+  font-family: "Playfair Display", "Inter", system-ui, serif;
+}
+
+.root.thumbnail { font-size: 0.6em; }
+
+.reducedMotion * {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+/* Art deco pattern overlay */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(212, 168, 67, 0.03) 49px, rgba(212, 168, 67, 0.03) 50px),
+    repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(212, 168, 67, 0.03) 49px, rgba(212, 168, 67, 0.03) 50px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.track {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.trackEnter { opacity: 0; transform: scale(0.98); }
+.trackActive {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* ─── Scene 1: Title ─── */
+
+.scene1 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 8cqh 8cqw;
+}
+
+.fanLeft {
+  position: absolute;
+  left: 5cqw;
+  top: 50%;
+  transform: translateY(-50%) scaleX(-1);
+  width: 25cqw;
+  height: 50cqh;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.fanRight {
+  position: absolute;
+  right: 5cqw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 25cqw;
+  height: 50cqh;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.borderTop {
+  position: absolute;
+  top: 4cqh;
+  left: 10cqw;
+  right: 10cqw;
+  height: 4cqh;
+  pointer-events: none;
+}
+
+.borderBottom {
+  position: absolute;
+  bottom: 4cqh;
+  left: 10cqw;
+  right: 10cqw;
+  height: 4cqh;
+  pointer-events: none;
+}
+
+.scene1Content {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.titleMain {
+  font-size: 12cqh;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: 0.15em;
+  color: var(--style-27-gold);
+  text-transform: uppercase;
+}
+
+.titleDivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2cqh 0;
+}
+
+.titleDivider::before,
+.titleDivider::after {
+  content: "";
+  flex: 1;
+  height: 0.15cqh;
+  background: var(--style-27-gold);
+  max-width: 15cqw;
+}
+
+.dividerDiamond {
+  font-size: 3cqh;
+  color: var(--style-27-gold);
+  margin: 0 1.5cqw;
+}
+
+.titleSub {
+  font-size: 10cqh;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: 0.2em;
+  color: var(--style-27-cream);
+  text-transform: uppercase;
+}
+
+.titleTag {
+  font-size: 2.8cqh;
+  font-weight: 400;
+  margin: 3cqh 0 0;
+  color: var(--style-27-cream);
+  opacity: 0.6;
+  font-family: "Inter", system-ui, sans-serif;
+  letter-spacing: 0.05em;
+}
+
+/* ─── Scene 2: Design Language ─── */
+
+.scene2 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.sceneLabel {
+  font-size: 2cqh;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--style-27-gold);
+  font-family: "Inter", system-ui, sans-serif;
+  margin-bottom: 1cqh;
+}
+
+.sceneHeading {
+  font-size: 5.5cqh;
+  font-weight: 700;
+  margin: 0 0 4cqh;
+  color: var(--style-27-cream);
+}
+
+.decoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2cqw;
+  flex: 1;
+}
+
+.decoCard {
+  background: var(--style-27-panel);
+  border: 0.2cqh solid var(--style-27-gold);
+  padding: 3cqh 1.5cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  opacity: 0;
+  transform: translateY(2cqh);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.decoCard::before {
+  content: "";
+  position: absolute;
+  top: 0.5cqh;
+  left: 0.5cqw;
+  right: 0.5cqw;
+  bottom: 0.5cqh;
+  border: 0.1cqh solid var(--style-27-gold);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.decoCardVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.decoIcon {
+  font-size: 6cqh;
+  color: var(--style-27-gold);
+  margin-bottom: 1.5cqh;
+}
+
+.decoName {
+  font-size: 2.8cqh;
+  font-weight: 700;
+  color: var(--style-27-gold);
+  font-family: "Inter", system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.8cqh;
+}
+
+.decoDesc {
+  font-size: 2cqh;
+  line-height: 1.5;
+  color: var(--style-27-cream);
+  opacity: 0.65;
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Scene 3: Buildings ─── */
+
+.scene3 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.buildingList {
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+  flex: 1;
+  margin-top: 2cqh;
+}
+
+.buildingRow {
+  display: grid;
+  grid-template-columns: 0.5fr 2.5fr 1fr 1.5fr 1fr;
+  gap: 1.5cqw;
+  align-items: center;
+  padding: 2cqh 2cqw;
+  background: var(--style-27-panel);
+  border-left: 0.5cqh solid var(--style-27-gold);
+  opacity: 0;
+  transform: translateX(-2cqw);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.buildingVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.buildingSpire {
+  width: 3cqh;
+  height: 6cqh;
+  color: var(--style-27-gold);
+}
+
+.buildingSpire svg { width: 100%; height: 100%; }
+
+.buildingName {
+  font-size: 3.2cqh;
+  font-weight: 700;
+  color: var(--style-27-cream);
+}
+
+.buildingYear {
+  font-size: 2.6cqh;
+  color: var(--style-27-gold);
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 600;
+}
+
+.buildingCity {
+  font-size: 2.4cqh;
+  color: var(--style-27-cream);
+  opacity: 0.6;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.buildingHeight {
+  font-size: 2.4cqh;
+  color: var(--style-27-gold);
+  opacity: 0.8;
+  font-family: "Inter", system-ui, sans-serif;
+  text-align: right;
+}
+
+/* ─── Scene 4: Materials ─── */
+
+.scene4 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.materialGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5cqw;
+  flex: 1;
+}
+
+.materialCard {
+  background: var(--style-27-panel);
+  border: 0.2cqh solid var(--style-27-gold);
+  padding: 3cqh 2.5cqw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.materialVisible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.materialName {
+  font-size: 3.8cqh;
+  font-weight: 700;
+  color: var(--style-27-gold);
+  margin-bottom: 0.8cqh;
+}
+
+.materialUse {
+  font-size: 2.4cqh;
+  color: var(--style-27-cream);
+  opacity: 0.65;
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Scene 5: Closing ─── */
+
+.scene5 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 8cqh 8cqw;
+}
+
+.fanCenter {
+  width: 30cqw;
+  height: 35cqh;
+  margin-bottom: 2cqh;
+  opacity: 0.5;
+}
+
+.closingText {
+  font-size: 7cqh;
+  font-weight: 700;
+  margin: 0;
+  color: var(--style-27-cream);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.closingAccent {
+  color: var(--style-27-gold);
+  font-style: italic;
+}
+
+.closingSub {
+  font-size: 2.6cqh;
+  color: var(--style-27-cream);
+  opacity: 0.5;
+  margin-top: 2cqh;
+  font-family: "Inter", system-ui, sans-serif;
+  letter-spacing: 0.08em;
+}
+
+/* ─── Navigation ─── */
+
+.nav {
+  position: absolute;
+  bottom: 3cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.2cqw;
+  z-index: 10;
+}
+
+.navItem {
+  width: 4.5cqh;
+  height: 4.5cqh;
+  border: 0.2cqh solid var(--style-27-gold);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+.navItem:hover { background: var(--style-27-gold); }
+.navItem:hover .navDiamond { color: var(--style-27-bg); }
+
+.navItemActive { background: var(--style-27-gold); }
+.navItemActive .navDiamond { color: var(--style-27-bg); }
+
+.navDiamond {
+  font-size: 2cqh;
+  color: var(--style-27-gold);
+  transition: color 0.3s ease;
+}

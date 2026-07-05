@@ -1,0 +1,456 @@
+/* ── Style 22: Academic Journal ────────────────────────────────────────── */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--style-22-bg, #ffffff);
+  color: var(--style-22-ink, #1a1a1a);
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+}
+
+/* ── V-Slide Transition Track ──────────────────────────────────────────── */
+
+.transitionTrack {
+  display: flex;
+  flex-direction: column;
+  height: 500%;
+  width: 100%;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.scene {
+  height: 20%;
+  width: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Scene 1: Title Page ───────────────────────────────────────────────── */
+
+.journalTitlePage {
+  width: 100%;
+  height: 100%;
+  padding: 5cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.journalHeader {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.8cqh;
+  color: var(--style-22-ink, #1a1a1a);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 4cqh;
+  opacity: 0.5;
+  font-variant: small-caps;
+}
+
+.journalPaperTitle {
+  font-family: Georgia, "Source Serif Pro", "cjk:Noto Serif SC", serif;
+  font-size: 7cqh;
+  font-weight: 700;
+  line-height: 1.12;
+  color: var(--style-22-ink, #1a1a1a);
+  margin: 0 0 3cqh 0;
+  max-width: 70cqw;
+}
+
+.journalAuthors {
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2.4cqh;
+  color: var(--style-22-ink, #1a1a1a);
+  margin-bottom: 1cqh;
+  opacity: 0.8;
+}
+
+.journalAffiliation {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.8cqh;
+  color: var(--style-22-ink, #1a1a1a);
+  font-style: italic;
+  opacity: 0.5;
+  margin-bottom: 4cqh;
+}
+
+.journalDateLine {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.6cqh;
+  color: var(--style-22-ink, #1a1a1a);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-variant: small-caps;
+  opacity: 0.4;
+  border-top: 0.04cqh solid rgba(26, 26, 26, 0.2);
+  padding-top: 2cqh;
+}
+
+/* ── Scene 2: Abstract ─────────────────────────────────────────────────── */
+
+.abstractScene {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.abstractBox {
+  background: var(--style-22-panel, #f5f5f5);
+  border-left: 0.3cqh solid var(--style-22-ink, #1a1a1a);
+  padding: 3cqh 4cqw;
+  margin-bottom: 3cqh;
+}
+
+.abstractLabel {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.8cqh;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-variant: small-caps;
+  color: var(--style-22-ink, #1a1a1a);
+  margin-bottom: 1.5cqh;
+}
+
+.abstractText {
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2.2cqh;
+  line-height: 1.65;
+  color: var(--style-22-ink, #1a1a1a);
+  text-align: justify;
+  margin: 0;
+}
+
+.keywordsRow {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5cqw;
+  flex-wrap: wrap;
+}
+
+.keywordsLabel {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.8cqh;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-variant: small-caps;
+  color: var(--style-22-ink, #1a1a1a);
+  opacity: 0.6;
+}
+
+.keywordTag {
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 1.8cqh;
+  color: var(--style-22-ink, #1a1a1a);
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* ── Scene 3: Methodology ──────────────────────────────────────────────── */
+
+.methodScene {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.methodSectionHead {
+  border-bottom: 0.1cqh solid var(--style-22-ink, #1a1a1a);
+  padding-bottom: 1cqh;
+  margin-bottom: 3cqh;
+}
+
+.methodSectionNum {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.8cqh;
+  color: var(--style-22-ink, #1a1a1a);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-variant: small-caps;
+  opacity: 0.5;
+  margin-bottom: 0.5cqh;
+}
+
+.methodSectionTitle {
+  font-family: Georgia, "Source Serif Pro", "cjk:Noto Serif SC", serif;
+  font-size: 5cqh;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--style-22-ink, #1a1a1a);
+  margin: 0;
+}
+
+.methodBody {
+  flex: 1;
+  column-count: 2;
+  column-gap: 4cqw;
+  column-rule: 0.04cqh solid rgba(26, 26, 26, 0.12);
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2.1cqh;
+  line-height: 1.6;
+  color: var(--style-22-ink, #1a1a1a);
+  text-align: justify;
+}
+
+.methodBody p {
+  margin: 0 0 1.5cqh 0;
+}
+
+.citation {
+  font-size: 1.6cqh;
+  vertical-align: super;
+  color: var(--style-22-ink, #1a1a1a);
+  opacity: 0.6;
+  font-weight: 600;
+}
+
+/* ── Scene 4: Results / Data Table ─────────────────────────────────────── */
+
+.resultsScene {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.resultsHeader {
+  border-bottom: 0.1cqh solid var(--style-22-ink, #1a1a1a);
+  padding-bottom: 1cqh;
+  margin-bottom: 3cqh;
+}
+
+.resultsLabel {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.8cqh;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-variant: small-caps;
+  opacity: 0.5;
+  margin-bottom: 0.5cqh;
+}
+
+.resultsTitle {
+  font-family: Georgia, "Source Serif Pro", "cjk:Noto Serif SC", serif;
+  font-size: 5cqh;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--style-22-ink, #1a1a1a);
+  margin: 0;
+}
+
+.resultsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2cqh;
+}
+
+.resultsTable th {
+  text-align: left;
+  padding: 1cqh 1.5cqw;
+  border-bottom: 0.1cqh solid var(--style-22-ink, #1a1a1a);
+  border-top: 0.1cqh solid var(--style-22-ink, #1a1a1a);
+  font-weight: 700;
+  font-size: 1.8cqh;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+.resultsTable th:not(:first-child) {
+  text-align: center;
+}
+
+.resultsTable td {
+  padding: 0.8cqh 1.5cqw;
+  border-bottom: 0.04cqh solid rgba(26, 26, 26, 0.12);
+}
+
+.resultsTable td:not(:first-child) {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.resultsTable tr:last-child td {
+  border-bottom: 0.1cqh solid var(--style-22-ink, #1a1a1a);
+}
+
+.resultsTable .tableHighlight {
+  font-weight: 700;
+  color: #1a5a3a;
+}
+
+.tableNote {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.6cqh;
+  color: var(--style-22-ink, #1a1a1a);
+  font-style: italic;
+  opacity: 0.5;
+  margin-top: 1.5cqh;
+}
+
+/* ── Scene 5: Conclusion / References ──────────────────────────────────── */
+
+.conclusionScene {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.conclusionHead {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.8cqh;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-variant: small-caps;
+  opacity: 0.5;
+  margin-bottom: 2cqh;
+}
+
+.conclusionTitle {
+  font-family: Georgia, "Source Serif Pro", "cjk:Noto Serif SC", serif;
+  font-size: 5.5cqh;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--style-22-ink, #1a1a1a);
+  margin: 0 0 3cqh 0;
+}
+
+.conclusionBody {
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2.4cqh;
+  line-height: 1.65;
+  color: var(--style-22-ink, #1a1a1a);
+  max-width: 60cqw;
+  text-align: justify;
+  margin: 0 0 3cqh 0;
+}
+
+.referencesBox {
+  border-top: 0.08cqh solid rgba(26, 26, 26, 0.2);
+  padding-top: 2cqh;
+}
+
+.referencesLabel {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.6cqh;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-variant: small-caps;
+  opacity: 0.4;
+  margin-bottom: 1cqh;
+}
+
+.referenceItem {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.6cqh;
+  color: var(--style-22-ink, #1a1a1a);
+  line-height: 1.5;
+  opacity: 0.55;
+  margin-bottom: 0.5cqh;
+}
+
+/* ── Navigation indicators ─────────────────────────────────────────────── */
+
+.navIndicators {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.navIndicator {
+  position: absolute;
+  pointer-events: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.08;
+  transition: opacity 0.3s ease;
+}
+
+.navIndicator:hover {
+  opacity: 0.3;
+}
+
+.navIndicatorActive {
+  opacity: 0.2;
+}
+
+.navIndicatorActive:hover {
+  opacity: 0.45;
+}
+
+.navIndicator:nth-child(1) {
+  top: 6cqh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navIndicator:nth-child(2) {
+  top: 28cqh;
+  right: 5cqw;
+}
+
+.navIndicator:nth-child(3) {
+  bottom: 16cqh;
+  right: 10cqw;
+}
+
+.navIndicator:nth-child(4) {
+  bottom: 16cqh;
+  left: 10cqw;
+}
+
+.navIndicator:nth-child(5) {
+  top: 28cqh;
+  left: 5cqw;
+}
+
+.navIndicatorNum {
+  display: block;
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2cqh;
+  font-weight: 700;
+  color: var(--style-22-ink, #1a1a1a);
+  font-variant-numeric: tabular-nums;
+}
+
+.navIndicatorActive .navIndicatorNum {
+  text-decoration: underline;
+  text-underline-offset: 0.3cqh;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+.reducedMotion .transitionTrack,
+.reducedMotion .navIndicator {
+  transition-duration: 0s !important;
+}
+
+/* ── Thumbnail mode ─────────────────────────────────────────────────────── */
+
+.thumbnail .navIndicators {
+  display: none;
+}
