@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback, useState } from "react";
+import React, { useLayoutEffect, useEffect, useRef, useCallback, useState } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./12-iconography.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -356,7 +356,7 @@ export default function Iconography({
   const prevSceneRef = useRef<number>(scene);
 
   // Detect scene changes and manage transition lifecycle
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = prevSceneRef.current;
     if (prev !== scene && !reducedMotion) {
       setOutgoingScene(prev);

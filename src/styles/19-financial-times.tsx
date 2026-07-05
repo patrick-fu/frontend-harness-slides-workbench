@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from "react";
+import React, { useLayoutEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./19-financial-times.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -286,7 +286,7 @@ export default function FinancialTimes({
   const prevSceneRef = useRef<number>(scene);
 
   // Font injection
-  useEffect(() => {
+  useLayoutEffect(() => {
     const id = "style-19-fonts";
     if (document.getElementById(id)) return;
     const link = document.createElement("link");
@@ -298,7 +298,7 @@ export default function FinancialTimes({
   }, []);
 
   // Detect scene changes and manage transition lifecycle
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = prevSceneRef.current;
     if (prev !== scene && !reducedMotion) {
       setOutgoingScene(prev);

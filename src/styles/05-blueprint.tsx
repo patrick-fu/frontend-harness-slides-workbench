@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./05-blueprint.module.css";
@@ -408,7 +408,7 @@ export default function Blueprint({
   const [isTransitioning, setIsTransitioning] = useState(false);
   const prevScene = useRef(scene);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (prevScene.current !== scene) {
       if (!reducedMotion && !isThumbnail) {
         setOutgoingScene(prevScene.current);

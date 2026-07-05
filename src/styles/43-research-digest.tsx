@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./43-research-digest.module.css";
 
@@ -468,7 +468,7 @@ export default function ResearchDigest({
     );
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
       requestAnimationFrame(() => setEntered(true));
@@ -477,7 +477,7 @@ export default function ResearchDigest({
   }, [scene]);
 
   /* Scene-to-scene transition detection */
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (reducedMotion) {
       prevSceneRef.current = scene;
       return;

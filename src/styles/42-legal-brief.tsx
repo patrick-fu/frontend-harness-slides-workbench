@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./42-legal-brief.module.css";
 
@@ -304,7 +304,7 @@ export default function LegalBrief({
   const [showDivider, setShowDivider] = useState(false);
   const prevSceneRef = useRef<number>(scene);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const inject = (id: string, href: string) => {
       if (document.getElementById(id)) return;
       const link = document.createElement("link");
@@ -324,7 +324,7 @@ export default function LegalBrief({
   }, []);
 
   // Detect scene changes and manage transition lifecycle
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = prevSceneRef.current;
     if (prev !== scene && !reducedMotion) {
       setOutgoingScene(prev);

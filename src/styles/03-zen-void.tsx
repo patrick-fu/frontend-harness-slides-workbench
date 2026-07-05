@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef, useState } from "react";
+import React, { useLayoutEffect, useCallback, useRef, useState } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./03-zen-void.module.css";
@@ -212,7 +212,7 @@ export default function ZenVoid({
   isTransitionClone,
 }: BespokeStyleProps) {
   // Font loading
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (document.getElementById("style-03-fonts")) return;
     const link = document.createElement("link");
     link.id = "style-03-fonts";
@@ -227,7 +227,7 @@ export default function ZenVoid({
   const prevSceneRef = useRef(scene);
   const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (reducedMotion) {
       prevSceneRef.current = scene;
       return;

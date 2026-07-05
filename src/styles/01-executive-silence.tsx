@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./01-executive-silence.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -258,7 +258,7 @@ export default function ExecutiveSilence({
   const prevSceneRef = useRef<number>(scene);
 
   // Detect scene changes and manage transition lifecycle
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = prevSceneRef.current;
     if (prev !== scene && !reducedMotion) {
       setOutgoingScene(prev);

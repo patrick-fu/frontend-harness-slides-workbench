@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./22-academic-journal.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -306,7 +306,7 @@ export default function AcademicJournal({
   }, []);
 
   // Beat-level entered state
-  useEffect(() => {
+  useLayoutEffect(() => {
     setEntered(false);
     const raf = requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -317,7 +317,7 @@ export default function AcademicJournal({
   }, [scene, beat]);
 
   // Scene change detection
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = prevSceneRef.current;
     if (prev !== scene && !reducedMotion) {
       setOutgoingScene(prev);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useState, useCallback, useMemo, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./40-particle-field.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -353,7 +353,7 @@ export default function ParticleField({
   const prevSceneRef = useRef<number>(scene);
 
   // Detect scene changes and manage transition lifecycle
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = prevSceneRef.current;
     if (prev !== scene && !reducedMotion) {
       setOutgoingScene(prev);

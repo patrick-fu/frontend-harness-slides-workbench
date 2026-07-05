@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useLayoutEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./24-manuscript-scroll.module.css";
 
@@ -266,7 +266,7 @@ export default function ManuscriptScroll({
   const prevSceneRef = useRef<number>(scene);
 
   // Font injection
-  useEffect(() => {
+  useLayoutEffect(() => {
     const id = "style-24-fonts";
     if (document.getElementById(id)) return;
     const link = document.createElement("link");
@@ -278,7 +278,7 @@ export default function ManuscriptScroll({
   }, []);
 
   // Detect scene changes and manage transition lifecycle
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = prevSceneRef.current;
     if (prev !== scene && !reducedMotion) {
       setOutgoingScene(prev);

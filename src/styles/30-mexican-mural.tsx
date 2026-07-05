@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./30-mexican-mural.module.css";
 
@@ -205,7 +205,7 @@ export default function MexicanMural({
   const [isTransitioning, setIsTransitioning] = useState(false);
   const prevSceneRef = useRef<number>(scene);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
       requestAnimationFrame(() => setEntered(true));
@@ -214,7 +214,7 @@ export default function MexicanMural({
   }, [scene]);
 
   // Detect scene changes for transition
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = prevSceneRef.current;
     if (prev !== scene && !reducedMotion) {
       setOutgoingScene(prev);

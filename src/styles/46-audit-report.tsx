@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useLayoutEffect, useEffect, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./46-audit-report.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -548,7 +548,7 @@ export default function AuditReport({
   const [showStamp, setShowStamp] = useState(false);
   const prevSceneRef = useRef<number>(scene);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const id = "style-46-fonts";
     if (document.getElementById(id)) return;
     const link = document.createElement("link");
@@ -560,7 +560,7 @@ export default function AuditReport({
   }, []);
 
   // Detect scene changes and manage transition lifecycle
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = prevSceneRef.current;
     if (prev !== scene && !reducedMotion) {
       setOutgoingScene(prev);

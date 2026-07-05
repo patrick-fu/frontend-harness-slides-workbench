@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useLayoutEffect, useEffect, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./44-meeting-minutes.module.css";
@@ -379,7 +379,7 @@ export default function MeetingMinutes({
   }, []);
 
   /* Enter animation on scene change */
-  useEffect(() => {
+  useLayoutEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
       requestAnimationFrame(() => setEntered(true));
@@ -388,7 +388,7 @@ export default function MeetingMinutes({
   }, [scene]);
 
   /* Scene-to-scene transition: timestamp banner + cross-fade */
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (reducedMotion) {
       prevSceneRef.current = scene;
       return;

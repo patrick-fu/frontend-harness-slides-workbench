@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./25-woodblock-print.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -315,7 +315,7 @@ export default function WoodblockPrint({
   const prevSceneRef = useRef<number>(scene);
 
   // Detect scene changes and manage transition lifecycle
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = prevSceneRef.current;
     if (prev !== scene && !reducedMotion) {
       setOutgoingScene(prev);

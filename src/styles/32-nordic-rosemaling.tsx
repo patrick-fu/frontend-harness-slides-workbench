@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./32-nordic-rosemaling.module.css";
 
@@ -261,7 +261,7 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
   const [vinePhase, setVinePhase] = useState<"draw" | "fade" | null>(null);
   const prevSceneRef = useRef<number>(scene);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = prevSceneRef.current;
     if (prev !== scene && !reducedMotion) {
       setOutgoingScene(prev);

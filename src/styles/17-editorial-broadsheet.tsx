@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useLayoutEffect, useEffect, useState, useRef, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./17-editorial-broadsheet.module.css";
 
@@ -323,7 +323,7 @@ export default function EditorialBroadsheet({
   const prevSceneRef = useRef<number>(scene);
 
   // Detect scene changes and manage transition lifecycle
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = prevSceneRef.current;
     if (prev !== scene && !reducedMotion) {
       setOutgoingScene(prev);

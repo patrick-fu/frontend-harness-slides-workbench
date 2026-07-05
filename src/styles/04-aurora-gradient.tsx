@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef, useState } from "react";
+import React, { useLayoutEffect, useEffect, useCallback, useRef, useState } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./04-aurora-gradient.module.css";
@@ -260,7 +260,7 @@ export default function AuroraGradient({
   const prevSceneRef = useRef(scene);
   const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (reducedMotion) {
       prevSceneRef.current = scene;
       return;

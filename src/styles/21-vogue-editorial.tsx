@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./21-vogue-editorial.module.css";
 
@@ -286,7 +286,7 @@ export default function VogueEditorial({
   }, []);
 
   // Beat-level entered state — triggers reveal animations within current scene
-  useEffect(() => {
+  useLayoutEffect(() => {
     setEntered(false);
     const raf = requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -297,7 +297,7 @@ export default function VogueEditorial({
   }, [scene, beat]);
 
   // Scene change detection — manage outgoing scene lifecycle
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = prevSceneRef.current;
     if (prev !== scene && !reducedMotion) {
       setOutgoingScene(prev);

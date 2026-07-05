@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./06-monochrome-study.module.css";
 
@@ -282,7 +282,7 @@ export default function MonochromeStudy({
   const [showFlash, setShowFlash] = useState(false);
   const prevScene = useRef(scene);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (prevScene.current !== scene) {
       if (!reducedMotion && !isThumbnail) {
         setOutgoingScene(prevScene.current);

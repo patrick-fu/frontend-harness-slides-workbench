@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useLayoutEffect, useEffect, useState, useRef, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./18-literary-review.module.css";
 
@@ -244,7 +244,7 @@ export default function LiteraryReview({
   const prevSceneRef = useRef<number>(scene);
 
   // Font injection
-  useEffect(() => {
+  useLayoutEffect(() => {
     const id = "style-18-fonts";
     if (document.getElementById(id)) return;
     const link = document.createElement("link");
@@ -256,7 +256,7 @@ export default function LiteraryReview({
   }, []);
 
   // Detect scene changes and manage transition lifecycle
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = prevSceneRef.current;
     if (prev !== scene && !reducedMotion) {
       setOutgoingScene(prev);
