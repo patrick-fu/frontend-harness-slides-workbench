@@ -1,0 +1,650 @@
+/* ─── Style 34: Retro OS 95 ────────────────────────────────────────────────
+   Windows 95 / classic Mac OS aesthetic. Beveled everything.
+   All sizing in cqw/cqh. No px/vw/vh.
+   ──────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --style-34-bg: #008080;
+  --style-34-ink: #000000;
+  --style-34-panel: #c0c0c0;
+  --style-34-panel-light: #ffffff;
+  --style-34-panel-dark: #808080;
+  --style-34-panel-darker: #404040;
+  --style-34-titlebar: #000080;
+  --style-34-titlebar-text: #ffffff;
+  --style-34-button-face: #c0c0c0;
+  --style-34-accent: #000080;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--style-34-bg);
+  color: var(--style-34-ink);
+  font-family: "MS Sans Serif", "Tahoma", "Inter", system-ui, sans-serif;
+  font-size: 2.2cqh;
+  image-rendering: pixelated;
+}
+
+/* ── Transition Track (instant) ────────────────────────────────────────── */
+
+.transitionTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Beveled Panel (outset) ────────────────────────────────────────────── */
+
+.bevelPanel {
+  background: var(--style-34-panel);
+  border-top: 0.3cqh solid var(--style-34-panel-light);
+  border-left: 0.3cqh solid var(--style-34-panel-light);
+  border-right: 0.3cqh solid var(--style-34-panel-darker);
+  border-bottom: 0.3cqh solid var(--style-34-panel-darker);
+  box-shadow:
+    inset 0.15cqh 0.15cqh 0 0 #dfdfdf,
+    inset -0.15cqh -0.15cqh 0 0 var(--style-34-panel-dark);
+}
+
+/* ── Beveled Panel (inset) ─────────────────────────────────────────────── */
+
+.bevelInset {
+  background: #ffffff;
+  border-top: 0.25cqh solid var(--style-34-panel-darker);
+  border-left: 0.25cqh solid var(--style-34-panel-darker);
+  border-right: 0.25cqh solid var(--style-34-panel-light);
+  border-bottom: 0.25cqh solid var(--style-34-panel-light);
+}
+
+/* ── Window ────────────────────────────────────────────────────────────── */
+
+.window {
+  position: absolute;
+  background: var(--style-34-panel);
+  border-top: 0.35cqh solid var(--style-34-panel-light);
+  border-left: 0.35cqh solid var(--style-34-panel-light);
+  border-right: 0.35cqh solid var(--style-34-panel-darker);
+  border-bottom: 0.35cqh solid var(--style-34-panel-darker);
+  box-shadow:
+    inset 0.15cqh 0.15cqh 0 0 #dfdfdf,
+    inset -0.15cqh -0.15cqh 0 0 var(--style-34-panel-dark);
+}
+
+.windowTitlebar {
+  background: linear-gradient(
+    90deg,
+    var(--style-34-titlebar) 0%,
+    #1084d0 100%
+  );
+  color: var(--style-34-titlebar-text);
+  padding: 0.6cqh 1cqw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 2.2cqh;
+  user-select: none;
+}
+
+.windowTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.windowControls {
+  display: flex;
+  gap: 0.4cqw;
+}
+
+.windowCtrlBtn {
+  width: 3.2cqh;
+  height: 3.2cqh;
+  min-width: 16px;
+  background: var(--style-34-panel);
+  border-top: 0.2cqh solid var(--style-34-panel-light);
+  border-left: 0.2cqh solid var(--style-34-panel-light);
+  border-right: 0.2cqh solid var(--style-34-panel-darker);
+  border-bottom: 0.2cqh solid var(--style-34-panel-darker);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8cqh;
+  font-weight: bold;
+  cursor: pointer;
+  color: #000;
+  font-family: "Marlett", "MS Sans Serif", sans-serif;
+  padding: 0;
+  line-height: 1;
+}
+
+.windowBody {
+  padding: 2cqh 2cqw;
+}
+
+/* ── Scene 1: Desktop / Title ──────────────────────────────────────────── */
+
+.desktop {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desktopIcons {
+  position: absolute;
+  top: 3cqh;
+  left: 3cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 3cqh;
+}
+
+.desktopIcon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5cqh;
+  width: 8cqw;
+  cursor: pointer;
+}
+
+.desktopIconImg {
+  width: 6cqh;
+  height: 6cqh;
+  font-size: 5cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desktopIconLabel {
+  font-size: 1.8cqh;
+  color: #ffffff;
+  text-shadow: 0.15cqh 0.15cqh 0 #000000;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.titleWindow {
+  width: 60cqw;
+}
+
+.titleWindowBody {
+  padding: 4cqh 3cqw;
+  text-align: center;
+}
+
+.titleBig {
+  font-size: 7cqh;
+  font-weight: bold;
+  margin: 0 0 1cqh 0;
+  color: #000080;
+  letter-spacing: 0.02em;
+}
+
+.titleSub {
+  font-size: 3cqh;
+  margin: 0;
+  color: #404040;
+}
+
+/* ── Scene 2: File Explorer ────────────────────────────────────────────── */
+
+.explorerScene {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 3cqw;
+  box-sizing: border-box;
+}
+
+.explorerWindow {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.explorerToolbar {
+  background: var(--style-34-panel);
+  padding: 0.8cqh 1cqw;
+  display: flex;
+  gap: 0.5cqw;
+  border-bottom: 0.2cqh solid var(--style-34-panel-dark);
+}
+
+.toolbarBtn {
+  background: var(--style-34-panel);
+  border-top: 0.15cqh solid var(--style-34-panel-light);
+  border-left: 0.15cqh solid var(--style-34-panel-light);
+  border-right: 0.15cqh solid var(--style-34-panel-darker);
+  border-bottom: 0.15cqh solid var(--style-34-panel-darker);
+  padding: 0.5cqh 1.2cqw;
+  font-size: 1.8cqh;
+  cursor: pointer;
+  font-family: inherit;
+  color: #000;
+}
+
+.toolbarBtn:active {
+  border-top: 0.15cqh solid var(--style-34-panel-darker);
+  border-left: 0.15cqh solid var(--style-34-panel-darker);
+  border-right: 0.15cqh solid var(--style-34-panel-light);
+  border-bottom: 0.15cqh solid var(--style-34-panel-light);
+}
+
+.explorerAddress {
+  background: var(--style-34-panel);
+  padding: 0.6cqh 1cqw;
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  border-bottom: 0.15cqh solid var(--style-34-panel-dark);
+}
+
+.addressLabel {
+  font-size: 1.8cqh;
+  font-weight: bold;
+}
+
+.addressBar {
+  flex: 1;
+  background: #ffffff;
+  border-top: 0.15cqh solid var(--style-34-panel-darker);
+  border-left: 0.15cqh solid var(--style-34-panel-darker);
+  border-right: 0.15cqh solid var(--style-34-panel-light);
+  border-bottom: 0.15cqh solid var(--style-34-panel-light);
+  padding: 0.4cqh 0.8cqw;
+  font-size: 1.8cqh;
+  font-family: inherit;
+}
+
+.explorerContent {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.explorerSidebar {
+  width: 20cqw;
+  background: var(--style-34-panel);
+  border-right: 0.2cqh solid var(--style-34-panel-dark);
+  padding: 1.5cqh 1cqw;
+  overflow-y: auto;
+}
+
+.sidebarItem {
+  font-size: 1.8cqh;
+  padding: 0.5cqh 0.8cqw;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5cqw;
+}
+
+.sidebarItem:hover {
+  background: #000080;
+  color: #ffffff;
+}
+
+.explorerFiles {
+  flex: 1;
+  background: #ffffff;
+  border-top: 0.15cqh solid var(--style-34-panel-darker);
+  border-left: 0.15cqh solid var(--style-34-panel-darker);
+  margin: 1cqh;
+  padding: 1.5cqh;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 12cqw);
+  gap: 2cqh;
+  align-content: start;
+  overflow-y: auto;
+}
+
+.fileItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5cqh;
+  cursor: pointer;
+  padding: 0.8cqh;
+  opacity: 0;
+  transform: translateY(0.5cqh);
+  transition: opacity 0.2s steps(4), transform 0.2s steps(4);
+}
+
+.fileItemVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fileItem:hover {
+  background: #e0e0e0;
+}
+
+.fileItemImg {
+  font-size: 5cqh;
+}
+
+.fileItemName {
+  font-size: 1.6cqh;
+  text-align: center;
+  line-height: 1.2;
+  word-break: break-all;
+}
+
+/* ── Scene 3: Dialog Box ───────────────────────────────────────────────── */
+
+.dialogScene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialogBox {
+  width: 55cqw;
+  background: var(--style-34-panel);
+  border-top: 0.35cqh solid var(--style-34-panel-light);
+  border-left: 0.35cqh solid var(--style-34-panel-light);
+  border-right: 0.35cqh solid var(--style-34-panel-darker);
+  border-bottom: 0.35cqh solid var(--style-34-panel-darker);
+  box-shadow:
+    inset 0.15cqh 0.15cqh 0 0 #dfdfdf,
+    inset -0.15cqh -0.15cqh 0 0 var(--style-34-panel-dark);
+}
+
+.dialogBody {
+  padding: 3cqh 3cqw;
+  display: flex;
+  gap: 2.5cqw;
+  align-items: flex-start;
+}
+
+.dialogIcon {
+  font-size: 8cqh;
+  flex-shrink: 0;
+}
+
+.dialogContent {
+  flex: 1;
+}
+
+.dialogText {
+  font-size: 2.8cqh;
+  margin: 0 0 2cqh 0;
+  line-height: 1.4;
+}
+
+.dialogDetails {
+  font-size: 2cqh;
+  color: #404040;
+  margin: 0 0 2.5cqh 0;
+  line-height: 1.5;
+  opacity: 0;
+  transition: opacity 0.2s steps(4);
+}
+
+.dialogDetailsVisible {
+  opacity: 1;
+}
+
+.dialogButtons {
+  display: flex;
+  gap: 1.5cqw;
+  justify-content: flex-end;
+}
+
+.osButton {
+  background: var(--style-34-panel);
+  border-top: 0.25cqh solid var(--style-34-panel-light);
+  border-left: 0.25cqh solid var(--style-34-panel-light);
+  border-right: 0.25cqh solid var(--style-34-panel-darker);
+  border-bottom: 0.25cqh solid var(--style-34-panel-darker);
+  padding: 1cqh 3cqw;
+  font-size: 2.2cqh;
+  font-family: inherit;
+  cursor: pointer;
+  color: #000;
+  min-width: 10cqw;
+}
+
+.osButton:active {
+  border-top: 0.25cqh solid var(--style-34-panel-darker);
+  border-left: 0.25cqh solid var(--style-34-panel-darker);
+  border-right: 0.25cqh solid var(--style-34-panel-light);
+  border-bottom: 0.25cqh solid var(--style-34-panel-light);
+}
+
+.osButtonDefault {
+  outline: 0.15cqh dotted #000;
+  outline-offset: -0.5cqh;
+}
+
+/* ── Scene 4: About / System Properties ────────────────────────────────── */
+
+.aboutScene {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 5cqw;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aboutWindow {
+  width: 70cqw;
+}
+
+.aboutBody {
+  padding: 3cqh 3cqw;
+  display: flex;
+  gap: 3cqw;
+}
+
+.aboutLogo {
+  width: 15cqw;
+  height: 15cqw;
+  background: linear-gradient(135deg, #ff0000, #ff8800, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8cqh;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0.2cqh 0.2cqh 0 rgba(0,0,0,0.3);
+  flex-shrink: 0;
+  border-top: 0.2cqh solid var(--style-34-panel-darker);
+  border-left: 0.2cqh solid var(--style-34-panel-darker);
+  border-right: 0.2cqh solid var(--style-34-panel-light);
+  border-bottom: 0.2cqh solid var(--style-34-panel-light);
+}
+
+.aboutInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5cqh;
+}
+
+.aboutTitle {
+  font-size: 4.5cqh;
+  font-weight: bold;
+  margin: 0;
+  color: #000080;
+}
+
+.aboutVersion {
+  font-size: 2.5cqh;
+  color: #404040;
+  margin: 0;
+}
+
+.aboutSpecs {
+  margin-top: 1.5cqh;
+  border-top: 0.15cqh solid var(--style-34-panel-dark);
+  padding-top: 1.5cqh;
+}
+
+.specRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6cqh 0;
+  font-size: 2.2cqh;
+  border-bottom: 0.1cqh dotted #a0a0a0;
+}
+
+.specLabel {
+  font-weight: bold;
+}
+
+.specValue {
+  color: #000080;
+}
+
+/* ── Scene 5: Shutdown / Closing ───────────────────────────────────────── */
+
+.shutdownScene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000000;
+}
+
+.shutdownContent {
+  text-align: center;
+}
+
+.shutdownText {
+  font-size: 5cqh;
+  color: #ffaa00;
+  font-weight: bold;
+  margin: 0 0 2cqh 0;
+  text-shadow: 0 0 1cqh rgba(255, 170, 0, 0.5);
+}
+
+.shutdownSub {
+  font-size: 2.5cqh;
+  color: #cccccc;
+  margin: 0;
+}
+
+.shutdownItIs {
+  font-size: 8cqh;
+  color: #ffffff;
+  font-weight: bold;
+  margin: 3cqh 0 0 0;
+  letter-spacing: 0.05em;
+}
+
+/* ── Taskbar ───────────────────────────────────────────────────────────── */
+
+.taskbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5.5cqh;
+  background: var(--style-34-panel);
+  border-top: 0.3cqh solid var(--style-34-panel-light);
+  display: flex;
+  align-items: center;
+  padding: 0.5cqh 0.8cqw;
+  gap: 0.8cqw;
+  z-index: 20;
+}
+
+.startButton {
+  background: var(--style-34-panel);
+  border-top: 0.2cqh solid var(--style-34-panel-light);
+  border-left: 0.2cqh solid var(--style-34-panel-light);
+  border-right: 0.2cqh solid var(--style-34-panel-darker);
+  border-bottom: 0.2cqh solid var(--style-34-panel-darker);
+  padding: 0.5cqh 1.5cqw;
+  font-size: 2.2cqh;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 0.5cqw;
+  color: #000;
+}
+
+.startButton:active {
+  border-top: 0.2cqh solid var(--style-34-panel-darker);
+  border-left: 0.2cqh solid var(--style-34-panel-darker);
+  border-right: 0.2cqh solid var(--style-34-panel-light);
+  border-bottom: 0.2cqh solid var(--style-34-panel-light);
+}
+
+.taskbarClock {
+  margin-left: auto;
+  background: var(--style-34-panel);
+  border-top: 0.15cqh solid var(--style-34-panel-darker);
+  border-left: 0.15cqh solid var(--style-34-panel-darker);
+  border-right: 0.15cqh solid var(--style-34-panel-light);
+  border-bottom: 0.15cqh solid var(--style-34-panel-light);
+  padding: 0.4cqh 1.2cqw;
+  font-size: 1.8cqh;
+}
+
+/* ── Navigation Indicators (arranged like taskbar tray items) ──────────── */
+
+.navIndicators {
+  position: absolute;
+  top: 2cqh;
+  right: 2cqw;
+  display: flex;
+  gap: 0.6cqw;
+  z-index: 30;
+}
+
+.navIndicator {
+  width: 2.8cqh;
+  height: 2.8cqh;
+  min-width: 12px;
+  min-height: 12px;
+  background: var(--style-34-panel);
+  border-top: 0.15cqh solid var(--style-34-panel-light);
+  border-left: 0.15cqh solid var(--style-34-panel-light);
+  border-right: 0.15cqh solid var(--style-34-panel-darker);
+  border-bottom: 0.15cqh solid var(--style-34-panel-darker);
+  cursor: pointer;
+  font-size: 1.4cqh;
+  font-family: inherit;
+  font-weight: bold;
+  color: #808080;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  opacity: 0.12;
+  transition: opacity 0.15s steps(3);
+}
+
+.navIndicator:hover {
+  opacity: 0.6;
+}
+
+.navIndicatorActive {
+  opacity: 0.5;
+  color: #000080;
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────────────── */
+
+.reducedMotion * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}

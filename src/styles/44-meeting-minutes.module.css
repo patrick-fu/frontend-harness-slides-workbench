@@ -1,0 +1,615 @@
+/* ── Style 44: Meeting Minutes ────────────────────────────────────────── */
+
+:root {
+  --style-44-bg: #ffffff;
+  --style-44-ink: #1f2937;
+  --style-44-panel: #f3f4f6;
+  --style-44-accent: #2563eb;
+  --style-44-rule: #e5e7eb;
+  --style-44-muted: #6b7280;
+  --style-44-green: #16a34a;
+  --style-44-amber: #d97706;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--style-44-bg);
+  color: var(--style-44-ink);
+  font-family: "Inter", system-ui, -apple-system, "Noto Sans SC", sans-serif;
+  user-select: none;
+}
+
+/* ── Transition Track ──────────────────────────────────────────────────── */
+
+.transitionTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Scene 1: Header ───────────────────────────────────────────────────── */
+
+.header {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+  margin-bottom: 3cqh;
+}
+
+.headerLogo {
+  width: 6cqh;
+  height: 6cqh;
+  background: var(--style-44-accent);
+  border-radius: 1.2cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3cqh;
+  font-weight: 700;
+  color: #fff;
+  font-family: Georgia, serif;
+}
+
+.headerOrg {
+  font-size: 2.2cqh;
+  font-weight: 600;
+  color: var(--style-44-ink);
+  line-height: 1.3;
+}
+
+.headerOrgSub {
+  font-size: 1.7cqh;
+  color: var(--style-44-muted);
+  font-weight: 400;
+}
+
+.headerTitle {
+  font-size: 6.5cqh;
+  font-weight: 700;
+  color: var(--style-44-ink);
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.headerTitleAccent {
+  color: var(--style-44-accent);
+}
+
+.headerMeta {
+  display: flex;
+  gap: 4cqw;
+  margin-top: 3cqh;
+  padding-top: 2.5cqh;
+  border-top: 0.15cqh solid var(--style-44-rule);
+}
+
+.headerMetaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3cqh;
+}
+
+.headerMetaLabel {
+  font-size: 1.5cqh;
+  font-weight: 600;
+  color: var(--style-44-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.headerMetaValue {
+  font-size: 2.2cqh;
+  font-weight: 600;
+  color: var(--style-44-ink);
+}
+
+/* ── Scene 2: Attendance ───────────────────────────────────────────────── */
+
+.attendance {
+  width: 100%;
+  height: 100%;
+  padding: 3.5cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.attendanceHeader {
+  margin-bottom: 2.5cqh;
+}
+
+.attendanceTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--style-44-ink);
+  margin: 0;
+}
+
+.attendanceSubtitle {
+  font-size: 2cqh;
+  color: var(--style-44-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.attendanceGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3cqw;
+}
+
+.attendanceGroup {
+  background: var(--style-44-panel);
+  border-radius: 1cqh;
+  padding: 2.5cqh 2.5cqw;
+}
+
+.attendanceGroupLabel {
+  font-size: 1.8cqh;
+  font-weight: 700;
+  color: var(--style-44-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1.5cqh;
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+}
+
+.attendanceCount {
+  font-size: 1.5cqh;
+  font-weight: 600;
+  color: var(--style-44-accent);
+  background: rgba(37, 99, 235, 0.1);
+  padding: 0.2cqh 0.8cqw;
+  border-radius: 0.4cqh;
+}
+
+.attendeeList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1cqh;
+}
+
+.attendeeItem {
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  font-size: 2cqh;
+  color: var(--style-44-ink);
+}
+
+.attendeeCheckbox {
+  width: 2.2cqh;
+  height: 2.2cqh;
+  border: 0.15cqh solid var(--style-44-rule);
+  border-radius: 0.4cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #fff;
+}
+
+.attendeeCheckboxChecked {
+  background: var(--style-44-green);
+  border-color: var(--style-44-green);
+}
+
+.attendeeCheckboxAbsent {
+  background: #fef2f2;
+  border-color: #fca5a5;
+}
+
+.attendeeCheck {
+  color: #fff;
+  font-size: 1.4cqh;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.attendeeName {
+  font-weight: 500;
+}
+
+.attendeeRole {
+  color: var(--style-44-muted);
+  font-weight: 400;
+  font-size: 1.7cqh;
+}
+
+.attendeeAbsentText {
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+/* ── Scene 3: Discussion ───────────────────────────────────────────────── */
+
+.discussion {
+  width: 100%;
+  height: 100%;
+  padding: 3.5cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.discussionHeader {
+  margin-bottom: 2.5cqh;
+}
+
+.discussionTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--style-44-ink);
+  margin: 0;
+}
+
+.discussionSubtitle {
+  font-size: 2cqh;
+  color: var(--style-44-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.discussionItems {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+  overflow: hidden;
+}
+
+.discussionItem {
+  border-left: 0.3cqh solid var(--style-44-accent);
+  padding: 1.5cqh 2cqw;
+  background: var(--style-44-panel);
+  border-radius: 0 0.8cqh 0.8cqh 0;
+}
+
+.discussionItemNum {
+  font-size: 1.5cqh;
+  font-weight: 700;
+  color: var(--style-44-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5cqh;
+}
+
+.discussionItemTopic {
+  font-size: 2.4cqh;
+  font-weight: 700;
+  color: var(--style-44-ink);
+  margin: 0 0 0.5cqh 0;
+}
+
+.discussionItemNotes {
+  font-size: 1.9cqh;
+  line-height: 1.55;
+  color: var(--style-44-ink);
+  margin: 0;
+}
+
+/* ── Scene 4: Action Items (HERO) ──────────────────────────────────────── */
+
+.actions {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.actionsHeader {
+  margin-bottom: 2cqh;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.actionsTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--style-44-ink);
+  margin: 0;
+}
+
+.actionsBadge {
+  font-size: 1.8cqh;
+  font-weight: 700;
+  color: var(--style-44-accent);
+  background: rgba(37, 99, 235, 0.1);
+  padding: 0.5cqh 1.5cqw;
+  border-radius: 0.6cqh;
+}
+
+.actionTable {
+  flex: 1;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.8cqh;
+}
+
+.actionTable thead tr {
+  border-bottom: 0.2cqh solid var(--style-44-ink);
+}
+
+.actionTable th {
+  text-align: left;
+  padding: 1.2cqh 1cqw;
+  font-weight: 700;
+  color: var(--style-44-ink);
+  font-size: 1.6cqh;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.actionTable th:nth-child(1) { width: 4cqw; }
+.actionTable th:nth-child(4) { width: 12cqw; }
+.actionTable th:nth-child(5) { width: 10cqw; }
+
+.actionTable tbody tr {
+  border-bottom: 0.08cqh solid var(--style-44-rule);
+}
+
+.actionTable td {
+  padding: 1.3cqh 1cqw;
+  vertical-align: top;
+}
+
+.actionId {
+  font-weight: 700;
+  color: var(--style-44-accent);
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 1.6cqh;
+}
+
+.actionDesc {
+  font-weight: 500;
+  color: var(--style-44-ink);
+  line-height: 1.4;
+}
+
+.actionOwner {
+  font-weight: 700;
+  color: var(--style-44-ink);
+}
+
+.actionOwnerDept {
+  display: block;
+  font-weight: 400;
+  color: var(--style-44-muted);
+  font-size: 1.5cqh;
+}
+
+.actionDeadline {
+  font-weight: 600;
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 1.6cqh;
+}
+
+.actionDeadlineUrgent {
+  color: #dc2626;
+}
+
+.actionDeadlineSoon {
+  color: var(--style-44-amber);
+}
+
+.actionStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5cqw;
+  font-size: 1.5cqh;
+  font-weight: 600;
+  padding: 0.3cqh 0.8cqw;
+  border-radius: 0.4cqh;
+}
+
+.actionStatusOpen {
+  color: var(--style-44-amber);
+  background: rgba(217, 119, 6, 0.1);
+}
+
+.actionStatusInProgress {
+  color: var(--style-44-accent);
+  background: rgba(37, 99, 235, 0.1);
+}
+
+.actionStatusDot {
+  width: 0.8cqh;
+  height: 0.8cqh;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Scene 5: Decisions ────────────────────────────────────────────────── */
+
+.decisions {
+  width: 100%;
+  height: 100%;
+  padding: 3.5cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.decisionsHeader {
+  margin-bottom: 2.5cqh;
+}
+
+.decisionsTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--style-44-ink);
+  margin: 0;
+}
+
+.decisionsSubtitle {
+  font-size: 2cqh;
+  color: var(--style-44-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.decisionList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+}
+
+.decisionItem {
+  display: flex;
+  gap: 2cqw;
+  padding: 2cqh 2.5cqw;
+  background: var(--style-44-panel);
+  border-radius: 1cqh;
+  border-left: 0.4cqh solid var(--style-44-green);
+}
+
+.decisionNum {
+  font-size: 3.5cqh;
+  font-weight: 700;
+  color: var(--style-44-green);
+  min-width: 4cqw;
+  line-height: 1;
+  font-family: Georgia, serif;
+}
+
+.decisionContent {
+  flex: 1;
+}
+
+.decisionTopic {
+  font-size: 2.2cqh;
+  font-weight: 700;
+  color: var(--style-44-ink);
+  margin: 0 0 0.5cqh 0;
+}
+
+.decisionText {
+  font-size: 1.9cqh;
+  line-height: 1.5;
+  color: var(--style-44-ink);
+  margin: 0;
+}
+
+.decisionVote {
+  font-size: 1.6cqh;
+  font-weight: 600;
+  color: var(--style-44-muted);
+  margin-top: 0.8cqh;
+}
+
+.nextMeeting {
+  margin-top: 2.5cqh;
+  padding-top: 2cqh;
+  border-top: 0.15cqh solid var(--style-44-rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nextMeetingLabel {
+  font-size: 1.7cqh;
+  font-weight: 600;
+  color: var(--style-44-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.nextMeetingValue {
+  font-size: 2.2cqh;
+  font-weight: 700;
+  color: var(--style-44-ink);
+}
+
+.nextMeetingValue span {
+  color: var(--style-44-accent);
+}
+
+/* ── Navigation ────────────────────────────────────────────────────────── */
+
+.nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-top: 0.05cqh solid var(--style-44-rule);
+  padding: 1cqh 6cqw 1.2cqh;
+}
+
+.navItems {
+  display: flex;
+  justify-content: center;
+  gap: 0.3cqw;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2cqh;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.7cqh 2.5cqw;
+  border-radius: 0.6cqh;
+  transition: background 0.2s ease, color 0.2s ease;
+  font-family: "Inter", sans-serif;
+}
+
+.navItem:hover {
+  background: var(--style-44-panel);
+}
+
+.navIcon {
+  font-size: 2.2cqh;
+  line-height: 1;
+}
+
+.navLabel {
+  font-size: 1.4cqh;
+  color: var(--style-44-muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.navItemActive {
+  background: var(--style-44-accent);
+}
+
+.navItemActive:hover {
+  background: var(--style-44-accent);
+}
+
+.navItemActive .navLabel {
+  color: #fff;
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────────────── */
+
+.reducedMotion * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}

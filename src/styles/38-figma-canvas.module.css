@@ -1,0 +1,751 @@
+/* ─── Style 38: Figma Canvas ───────────────────────────────────────────────
+   Figma-like canvas. Frames as rounded rectangles. SVG bezier connections.
+   Design tokens panel. Zoom indicator. Selection handles.
+   Light canvas with subtle grid.
+   All sizing in cqw/cqh. No px/vw/vh.
+   ──────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --style-38-bg: #f5f5f5;
+  --style-38-ink: #2c2c2c;
+  --style-38-panel: #ffffff;
+  --style-38-accent: #0d99ff;
+  --style-38-accent-light: rgba(13, 153, 255, 0.1);
+  --style-38-border: #e5e5e5;
+  --style-38-border-dark: #d0d0d0;
+  --style-38-grid: rgba(0, 0, 0, 0.04);
+  --style-38-selection: #0d99ff;
+  --style-38-purple: #a855f7;
+  --style-38-green: #22c55e;
+  --style-38-orange: #f97316;
+  --style-38-pink: #ec4899;
+  --style-38-gray: #6b7280;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--style-38-bg);
+  color: var(--style-38-ink);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* Canvas grid */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--style-38-grid) 0.1cqh, transparent 0.1cqh),
+    linear-gradient(90deg, var(--style-38-grid) 0.1cqh, transparent 0.1cqh);
+  background-size: 3cqw 3cqh;
+  pointer-events: none;
+}
+
+/* ── Transition Track ──────────────────────────────────────────────────── */
+
+.transitionTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Figma Toolbar ─────────────────────────────────────────────────────── */
+
+.figmaToolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6cqh;
+  background: var(--style-38-panel);
+  border-bottom: 0.15cqh solid var(--style-38-border);
+  display: flex;
+  align-items: center;
+  padding: 0 2cqw;
+  gap: 1.5cqw;
+  z-index: 20;
+}
+
+.toolbarLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+  font-weight: 700;
+  font-size: 2.2cqh;
+}
+
+.logoShapes {
+  display: flex;
+  width: 4cqh;
+  height: 2.5cqh;
+  position: relative;
+}
+
+.logoShape {
+  width: 2cqh;
+  height: 2cqh;
+  position: absolute;
+}
+
+.logoShape1 {
+  background: #f24e1e;
+  border-radius: 50% 0 0 50%;
+  top: 0;
+  left: 0;
+}
+
+.logoShape2 {
+  background: #a259ff;
+  border-radius: 50%;
+  top: 0;
+  left: 1.2cqh;
+}
+
+.logoShape3 {
+  background: #1abcfe;
+  border-radius: 0 50% 50% 0;
+  top: 0;
+  left: 2.4cqh;
+}
+
+.toolbarDivider {
+  width: 0.15cqh;
+  height: 3cqh;
+  background: var(--style-38-border);
+}
+
+.toolbarTools {
+  display: flex;
+  gap: 0.3cqw;
+}
+
+.toolbarTool {
+  width: 4.5cqh;
+  height: 4.5cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8cqh;
+  cursor: pointer;
+  font-size: 2.2cqh;
+  transition: background 0.15s ease;
+}
+
+.toolbarTool:hover {
+  background: var(--style-38-accent-light);
+}
+
+.toolbarToolActive {
+  background: var(--style-38-accent-light);
+  color: var(--style-38-accent);
+}
+
+.toolbarZoom {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5cqw;
+  font-size: 1.8cqh;
+  color: var(--style-38-gray);
+  background: var(--style-38-bg);
+  padding: 0.6cqh 1.2cqw;
+  border-radius: 0.8cqh;
+  border: 0.1cqh solid var(--style-38-border);
+}
+
+/* ── Canvas Area ───────────────────────────────────────────────────────── */
+
+.canvasArea {
+  position: absolute;
+  top: 6cqh;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+/* ── Frame (Figma-style) ───────────────────────────────────────────────── */
+
+.figmaFrame {
+  position: absolute;
+  background: var(--style-38-panel);
+  border-radius: 1.2cqh;
+  box-shadow: 0 0.4cqh 2.4cqh rgba(0, 0, 0, 0.08), 0 0.1cqh 0.4cqh rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+
+.figmaFrameSelected {
+  box-shadow: 0 0 0 0.3cqh var(--style-38-selection), 0 0.4cqh 2.4cqh rgba(0, 0, 0, 0.12);
+}
+
+.frameLabel {
+  position: absolute;
+  top: -3.5cqh;
+  left: 0;
+  font-size: 1.6cqh;
+  font-weight: 600;
+  color: var(--style-38-ink);
+  white-space: nowrap;
+}
+
+.frameLabelSelected {
+  color: var(--style-38-selection);
+}
+
+/* Selection handles */
+.selectionHandle {
+  position: absolute;
+  width: 1.2cqh;
+  height: 1.2cqh;
+  min-width: 6px;
+  min-height: 6px;
+  background: var(--style-38-panel);
+  border: 0.2cqh solid var(--style-38-selection);
+  border-radius: 0.2cqh;
+  z-index: 5;
+}
+
+/* ── Scene 1: Canvas Overview ──────────────────────────────────────────── */
+
+.canvasOverview {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.canvasTitle {
+  position: absolute;
+  top: 3cqh;
+  left: 4cqw;
+  font-size: 3.5cqh;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.canvasSubtitle {
+  position: absolute;
+  top: 8cqh;
+  left: 4cqw;
+  font-size: 2cqh;
+  color: var(--style-38-gray);
+  margin: 0;
+}
+
+.overviewFrames {
+  position: absolute;
+  top: 14cqh;
+  left: 4cqw;
+  right: 4cqw;
+  bottom: 4cqh;
+}
+
+/* ── Scene 2: Design Tokens ────────────────────────────────────────────── */
+
+.tokensScene {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 3cqh 4cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+}
+
+.tokensTitle {
+  font-size: 3.5cqh;
+  font-weight: 700;
+  margin: 0;
+}
+
+.tokensSubtitle {
+  font-size: 2cqh;
+  color: var(--style-38-gray);
+  margin: 0;
+}
+
+.tokensGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1.5cqw;
+  min-height: 0;
+}
+
+.tokenCard {
+  background: var(--style-38-panel);
+  border: 0.15cqh solid var(--style-38-border);
+  border-radius: 1.5cqh;
+  padding: 2cqh 1.5cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 1cqh;
+  opacity: 0;
+  transform: translateY(1cqh);
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.2s ease;
+}
+
+.tokenCard:hover {
+  box-shadow: 0 0.4cqh 1.6cqh rgba(0, 0, 0, 0.08);
+}
+
+.tokenCardVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tokenSwatch {
+  width: 100%;
+  height: 8cqh;
+  border-radius: 1cqh;
+  position: relative;
+  overflow: hidden;
+}
+
+.tokenName {
+  font-size: 2cqh;
+  font-weight: 600;
+  margin: 0;
+}
+
+.tokenValue {
+  font-size: 1.6cqh;
+  color: var(--style-38-gray);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.tokenCategory {
+  font-size: 1.4cqh;
+  color: var(--style-38-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+/* Typography token card */
+.typoCard {
+  grid-column: span 2;
+  background: var(--style-38-panel);
+  border: 0.15cqh solid var(--style-38-border);
+  border-radius: 1.5cqh;
+  padding: 2cqh 2cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5cqh;
+}
+
+.typoPreview {
+  font-size: 4cqh;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.typoDetails {
+  display: flex;
+  gap: 3cqw;
+  font-size: 1.6cqh;
+  color: var(--style-38-gray);
+}
+
+.typoDetailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3cqh;
+}
+
+.typoDetailLabel {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1.3cqh;
+}
+
+.typoDetailValue {
+  font-weight: 600;
+  color: var(--style-38-ink);
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* ── Scene 3: Component Flow ───────────────────────────────────────────── */
+
+.flowScene {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 3cqh 3cqw;
+  box-sizing: border-box;
+}
+
+.flowTitle {
+  font-size: 3cqh;
+  font-weight: 700;
+  margin: 0 0 0.5cqh 0;
+}
+
+.flowSubtitle {
+  font-size: 1.8cqh;
+  color: var(--style-38-gray);
+  margin: 0 0 2cqh 0;
+}
+
+.flowCanvas {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 8cqh);
+}
+
+.flowConnections {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.flowNode {
+  position: absolute;
+  background: var(--style-38-panel);
+  border: 0.2cqh solid var(--style-38-border);
+  border-radius: 1.5cqh;
+  padding: 1.5cqh 1.5cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8cqh;
+  min-width: 14cqw;
+  box-shadow: 0 0.3cqh 1.2cqh rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.2s ease;
+}
+
+.flowNode:hover {
+  border-color: var(--style-38-accent);
+}
+
+.flowNodeVisible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.flowNodeIcon {
+  width: 5cqh;
+  height: 5cqh;
+  border-radius: 1.2cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5cqh;
+}
+
+.flowNodeTitle {
+  font-size: 1.8cqh;
+  font-weight: 600;
+  text-align: center;
+}
+
+.flowNodeDesc {
+  font-size: 1.4cqh;
+  color: var(--style-38-gray);
+  text-align: center;
+}
+
+/* ── Scene 4: Detail Frame ─────────────────────────────────────────────── */
+
+.detailScene {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 3cqh 3cqw;
+  box-sizing: border-box;
+  display: flex;
+  gap: 2cqw;
+}
+
+.detailMainFrame {
+  flex: 1;
+  background: var(--style-38-panel);
+  border: 0.2cqh solid var(--style-38-selection);
+  border-radius: 2cqh;
+  box-shadow: 0 0.6cqh 3cqh rgba(0, 0, 0, 0.1);
+  padding: 3cqh 3cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+  min-width: 0;
+  position: relative;
+}
+
+.detailFrameLabel {
+  position: absolute;
+  top: -3.5cqh;
+  left: 0;
+  font-size: 1.6cqh;
+  font-weight: 600;
+  color: var(--style-38-selection);
+}
+
+.detailSidebar {
+  width: 28cqw;
+  background: var(--style-38-panel);
+  border: 0.15cqh solid var(--style-38-border);
+  border-radius: 1.5cqh;
+  padding: 2cqh 1.5cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+.sidebarSection {
+  border-bottom: 0.15cqh solid var(--style-38-border);
+  padding-bottom: 1.5cqh;
+}
+
+.sidebarSection:last-child {
+  border-bottom: none;
+}
+
+.sidebarSectionTitle {
+  font-size: 1.5cqh;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--style-38-gray);
+  margin: 0 0 1cqh 0;
+}
+
+.sidebarRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6cqh 0;
+  font-size: 1.7cqh;
+}
+
+.sidebarLabel {
+  color: var(--style-38-gray);
+}
+
+.sidebarValue {
+  font-weight: 600;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.5cqh;
+}
+
+.sidebarColorRow {
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+  padding: 0.6cqh 0;
+}
+
+.sidebarColorSwatch {
+  width: 3cqh;
+  height: 3cqh;
+  border-radius: 0.6cqh;
+  border: 0.1cqh solid var(--style-38-border);
+  flex-shrink: 0;
+}
+
+/* Frame content mockup */
+.frameMockup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5cqh;
+}
+
+.mockupHeader {
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+}
+
+.mockupAvatar {
+  width: 7cqh;
+  height: 7cqh;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--style-38-accent), var(--style-38-purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 3cqh;
+  font-weight: 700;
+}
+
+.mockupHeaderInfo {
+  flex: 1;
+}
+
+.mockupName {
+  font-size: 3cqh;
+  font-weight: 700;
+  margin: 0;
+}
+
+.mockupRole {
+  font-size: 1.8cqh;
+  color: var(--style-38-gray);
+  margin: 0;
+}
+
+.mockupStats {
+  display: flex;
+  gap: 2cqw;
+}
+
+.mockupStat {
+  flex: 1;
+  background: var(--style-38-bg);
+  border-radius: 1.2cqh;
+  padding: 1.5cqh 1.2cqw;
+  text-align: center;
+}
+
+.mockupStatValue {
+  font-size: 3.5cqh;
+  font-weight: 800;
+  display: block;
+}
+
+.mockupStatLabel {
+  font-size: 1.4cqh;
+  color: var(--style-38-gray);
+}
+
+.mockupButton {
+  background: var(--style-38-accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 1.2cqh;
+  padding: 1.5cqh;
+  font-size: 2cqh;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* ── Scene 5: Handoff / Closing ────────────────────────────────────────── */
+
+.handoffScene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4cqh;
+  box-sizing: border-box;
+  text-align: center;
+  gap: 2cqh;
+}
+
+.handoffBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8cqw;
+  padding: 1cqh 2.5cqw;
+  background: var(--style-38-accent-light);
+  color: var(--style-38-accent);
+  border-radius: 3cqh;
+  font-size: 1.8cqh;
+  font-weight: 600;
+}
+
+.handoffTitle {
+  font-size: 6cqh;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0;
+  max-width: 70cqw;
+  line-height: 1.1;
+}
+
+.handoffSub {
+  font-size: 2.5cqh;
+  color: var(--style-38-gray);
+  margin: 0;
+  max-width: 55cqw;
+  line-height: 1.5;
+}
+
+.handoffStats {
+  display: flex;
+  gap: 5cqw;
+  margin-top: 2cqh;
+}
+
+.handoffStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5cqh;
+}
+
+.handoffStatValue {
+  font-size: 5cqh;
+  font-weight: 800;
+}
+
+.handoffStatLabel {
+  font-size: 1.6cqh;
+  color: var(--style-38-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ── Navigation Indicators ─────────────────────────────────────────────── */
+
+.navIndicators {
+  position: absolute;
+  bottom: 2.5cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.6cqw;
+  z-index: 50;
+}
+
+.navIndicator {
+  width: 3.5cqh;
+  height: 0.5cqh;
+  min-width: 16px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: var(--style-38-border-dark);
+  border-radius: 0.3cqh;
+  opacity: 0.12;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.navIndicator:hover {
+  opacity: 0.4;
+}
+
+.navIndicatorActive {
+  opacity: 0.5;
+  background: var(--style-38-accent);
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────────────── */
+
+.reducedMotion * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}

@@ -1,0 +1,600 @@
+/* ── Style 48: Executive Summary ─────────────────────────────────────── */
+
+:root {
+  --style-48-bg: #ffffff;
+  --style-48-ink: #0f172a;
+  --style-48-panel: #f8fafc;
+  --style-48-accent: #1e40af;
+  --style-48-accent2: #0891b2;
+  --style-48-rule: #e2e8f0;
+  --style-48-muted: #64748b;
+  --style-48-green: #16a34a;
+  --style-48-red: #dc2626;
+  --style-48-amber: #d97706;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--style-48-bg);
+  color: var(--style-48-ink);
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
+  user-select: none;
+}
+
+/* ── Transition Track ──────────────────────────────────────────────────── */
+
+.transitionTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Scene 1: Header / Title ──────────────────────────────────────────── */
+
+.pageHeader {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pageHeaderTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3cqh;
+}
+
+.pageHeaderCompany {
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+}
+
+.pageHeaderLogo {
+  width: 6cqh;
+  height: 6cqh;
+  background: linear-gradient(135deg, var(--style-48-accent), var(--style-48-accent2));
+  border-radius: 1.2cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3cqh;
+  font-weight: 800;
+  color: #fff;
+}
+
+.pageHeaderCompanyName {
+  font-size: 2.4cqh;
+  font-weight: 700;
+  color: var(--style-48-ink);
+  line-height: 1.2;
+}
+
+.pageHeaderCompanySub {
+  font-size: 1.6cqh;
+  color: var(--style-48-muted);
+}
+
+.pageHeaderDate {
+  font-size: 1.8cqh;
+  font-weight: 600;
+  color: var(--style-48-muted);
+  text-align: right;
+}
+
+.pageHeaderType {
+  font-size: 1.8cqh;
+  font-weight: 700;
+  color: var(--style-48-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1cqh;
+}
+
+.pageHeaderTitle {
+  font-size: 6.5cqh;
+  font-weight: 800;
+  color: var(--style-48-ink);
+  margin: 0;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.pageHeaderTitle em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--style-48-accent), var(--style-48-accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pageHeaderTagline {
+  font-size: 2.4cqh;
+  font-weight: 400;
+  color: var(--style-48-muted);
+  margin: 1cqh 0 0 0;
+}
+
+.pageHeaderRule {
+  width: 100%;
+  height: 0.15cqh;
+  background: linear-gradient(90deg, var(--style-48-accent), var(--style-48-accent2), transparent);
+  margin: 2.5cqh 0;
+}
+
+.pageHeaderPrepared {
+  font-size: 1.7cqh;
+  color: var(--style-48-muted);
+  margin: 0;
+}
+
+.pageHeaderPrepared strong {
+  color: var(--style-48-ink);
+}
+
+/* ── Scene 2: Key Metrics (HERO) ─────────────────────────────────────── */
+
+.metrics {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.metricsHeader {
+  margin-bottom: 2cqh;
+}
+
+.metricsTitle {
+  font-size: 3.5cqh;
+  font-weight: 700;
+  color: var(--style-48-ink);
+  margin: 0;
+}
+
+.metricsSubtitle {
+  font-size: 1.8cqh;
+  color: var(--style-48-muted);
+  margin: 0.3cqh 0 0 0;
+}
+
+.metricsGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1.5cqh;
+}
+
+.metricCard {
+  background: var(--style-48-panel);
+  border: 0.05cqh solid var(--style-48-rule);
+  border-radius: 1.2cqh;
+  padding: 2cqh 2.5cqw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.metricCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.3cqh;
+  background: linear-gradient(90deg, var(--style-48-accent), var(--style-48-accent2));
+}
+
+.metricLabel {
+  font-size: 1.5cqh;
+  font-weight: 600;
+  color: var(--style-48-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5cqh;
+}
+
+.metricValue {
+  font-size: 5.5cqh;
+  font-weight: 800;
+  color: var(--style-48-ink);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.metricValueUnit {
+  font-size: 0.45em;
+  font-weight: 600;
+  color: var(--style-48-muted);
+}
+
+.metricChange {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4cqw;
+  font-size: 1.7cqh;
+  font-weight: 700;
+  margin-top: 0.5cqh;
+}
+
+.metricChangeUp { color: var(--style-48-green); }
+.metricChangeDown { color: var(--style-48-red); }
+
+.metricSub {
+  font-size: 1.5cqh;
+  color: var(--style-48-muted);
+  margin-top: 0.3cqh;
+}
+
+/* ── Scene 3: Strategic Priorities ────────────────────────────────────── */
+
+.priorities {
+  width: 100%;
+  height: 100%;
+  padding: 3.5cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.prioritiesHeader {
+  margin-bottom: 2cqh;
+}
+
+.prioritiesTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--style-48-ink);
+  margin: 0;
+}
+
+.prioritiesSubtitle {
+  font-size: 2cqh;
+  color: var(--style-48-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.prioritiesList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2cqh;
+}
+
+.priorityItem {
+  display: flex;
+  gap: 2cqw;
+  padding: 1.8cqh 2.5cqw;
+  background: var(--style-48-panel);
+  border: 0.05cqh solid var(--style-48-rule);
+  border-radius: 1cqh;
+  align-items: flex-start;
+}
+
+.priorityIcon {
+  width: 4.5cqh;
+  height: 4.5cqh;
+  border-radius: 1cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2cqh;
+  flex-shrink: 0;
+  background: rgba(30, 64, 175, 0.08);
+}
+
+.priorityBody {
+  flex: 1;
+}
+
+.priorityTitle {
+  font-size: 2.3cqh;
+  font-weight: 700;
+  color: var(--style-48-ink);
+  margin: 0 0 0.3cqh 0;
+}
+
+.priorityDesc {
+  font-size: 1.8cqh;
+  line-height: 1.5;
+  color: var(--style-48-ink);
+  margin: 0;
+}
+
+.priorityOwner {
+  font-size: 1.5cqh;
+  font-weight: 600;
+  color: var(--style-48-accent);
+  margin-top: 0.5cqh;
+}
+
+/* ── Scene 4: Risk Overview ───────────────────────────────────────────── */
+
+.risks {
+  width: 100%;
+  height: 100%;
+  padding: 3.5cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.risksHeader {
+  margin-bottom: 2cqh;
+}
+
+.risksTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--style-48-ink);
+  margin: 0;
+}
+
+.risksSubtitle {
+  font-size: 2cqh;
+  color: var(--style-48-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.risksGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5cqh;
+}
+
+.riskCard {
+  background: var(--style-48-panel);
+  border: 0.05cqh solid var(--style-48-rule);
+  border-radius: 1cqh;
+  padding: 2cqh 2.5cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8cqh;
+}
+
+.riskCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.riskName {
+  font-size: 2.1cqh;
+  font-weight: 700;
+  color: var(--style-48-ink);
+  margin: 0;
+}
+
+.riskLevel {
+  font-size: 1.4cqh;
+  font-weight: 700;
+  padding: 0.3cqh 1cqw;
+  border-radius: 0.4cqh;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.riskLevelHigh {
+  color: var(--style-48-red);
+  background: rgba(220, 38, 38, 0.08);
+}
+
+.riskLevelMedium {
+  color: var(--style-48-amber);
+  background: rgba(217, 119, 6, 0.08);
+}
+
+.riskLevelLow {
+  color: var(--style-48-green);
+  background: rgba(22, 163, 74, 0.08);
+}
+
+.riskDesc {
+  font-size: 1.7cqh;
+  line-height: 1.5;
+  color: var(--style-48-ink);
+  margin: 0;
+}
+
+.riskMitigation {
+  font-size: 1.5cqh;
+  color: var(--style-48-muted);
+  margin: 0;
+  padding-top: 0.5cqh;
+  border-top: 0.05cqh solid var(--style-48-rule);
+}
+
+.riskMitigation strong {
+  color: var(--style-48-ink);
+}
+
+/* ── Scene 5: Next Steps ──────────────────────────────────────────────── */
+
+.nextSteps {
+  width: 100%;
+  height: 100%;
+  padding: 3.5cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.nextHeader {
+  margin-bottom: 2.5cqh;
+}
+
+.nextTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--style-48-ink);
+  margin: 0;
+}
+
+.nextSubtitle {
+  font-size: 2cqh;
+  color: var(--style-48-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.nextItems {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5cqh;
+}
+
+.nextItem {
+  display: flex;
+  gap: 2cqw;
+  padding: 2cqh 2.5cqw;
+  background: var(--style-48-panel);
+  border: 0.05cqh solid var(--style-48-rule);
+  border-radius: 1cqh;
+  border-left: 0.4cqh solid var(--style-48-accent);
+}
+
+.nextNumber {
+  font-size: 3.5cqh;
+  font-weight: 800;
+  color: var(--style-48-accent);
+  min-width: 3.5cqw;
+  line-height: 1;
+  font-family: Georgia, serif;
+}
+
+.nextContent {
+  flex: 1;
+}
+
+.nextAction {
+  font-size: 2.2cqh;
+  font-weight: 700;
+  color: var(--style-48-ink);
+  margin: 0 0 0.3cqh 0;
+}
+
+.nextDetail {
+  font-size: 1.8cqh;
+  line-height: 1.5;
+  color: var(--style-48-ink);
+  margin: 0;
+}
+
+.nextMeta {
+  display: flex;
+  gap: 2cqw;
+  margin-top: 0.5cqh;
+}
+
+.nextMetaItem {
+  font-size: 1.5cqh;
+  font-weight: 600;
+  color: var(--style-48-muted);
+}
+
+.nextMetaItem span {
+  color: var(--style-48-ink);
+}
+
+.nextFooter {
+  margin-top: 2.5cqh;
+  padding-top: 2cqh;
+  border-top: 0.1cqh solid var(--style-48-rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nextFooterText {
+  font-size: 1.7cqh;
+  color: var(--style-48-muted);
+  margin: 0;
+}
+
+.nextFooterContact {
+  font-size: 1.7cqh;
+  font-weight: 600;
+  color: var(--style-48-accent);
+}
+
+/* ── Navigation ────────────────────────────────────────────────────────── */
+
+.nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-top: 0.05cqh solid var(--style-48-rule);
+  padding: 1cqh 6cqw 1.2cqh;
+}
+
+.navItems {
+  display: flex;
+  justify-content: center;
+  gap: 0.3cqw;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2cqh;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.7cqh 2.5cqw;
+  border-radius: 0.6cqh;
+  transition: background 0.2s ease, color 0.2s ease;
+  font-family: "Inter", sans-serif;
+}
+
+.navItem:hover {
+  background: var(--style-48-panel);
+}
+
+.navIcon {
+  font-size: 2.2cqh;
+  line-height: 1;
+}
+
+.navLabel {
+  font-size: 1.4cqh;
+  color: var(--style-48-muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.navItemActive {
+  background: var(--style-48-accent);
+}
+
+.navItemActive:hover {
+  background: var(--style-48-accent);
+}
+
+.navItemActive .navLabel {
+  color: #ffffff;
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────────────── */
+
+.reducedMotion * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}

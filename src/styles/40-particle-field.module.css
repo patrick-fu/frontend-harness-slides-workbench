@@ -1,0 +1,339 @@
+/* ── Style 40: Particle Field ──────────────────────────────────────────── */
+
+:root {
+  --style-40-bg: #050510;
+  --style-40-ink: #e0e0ff;
+  --style-40-panel: #0a0a20;
+  --style-40-accent: #6366f1;
+  --style-40-accent2: #818cf8;
+  --style-40-border: rgba(99, 102, 241, 0.2);
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--style-40-bg);
+  color: var(--style-40-ink);
+  font-family: "Inter", system-ui, sans-serif;
+  user-select: none;
+}
+
+/* Ambient glow */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 30% 40%, rgba(99, 102, 241, 0.08), transparent),
+    radial-gradient(ellipse 50% 70% at 70% 60%, rgba(129, 140, 248, 0.06), transparent);
+  pointer-events: none;
+}
+
+/* ── Transition Track ──────────────────────────────────────────────────── */
+
+.transitionTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Scene Base ────────────────────────────────────────────────────────── */
+
+.scene {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Particle Container ────────────────────────────────────────────────── */
+
+.particleContainer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.connectionSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.nodeLabel {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 1.8cqh;
+  font-weight: 500;
+  color: var(--style-40-ink);
+  background: rgba(10, 10, 32, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--style-40-border);
+  border-radius: 0.8cqh;
+  padding: 0.6cqh 1.2cqw;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ── Scene 1: Title Overlay ────────────────────────────────────────────── */
+
+.titleOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  text-align: center;
+  pointer-events: none;
+}
+
+.mainTitle {
+  font-size: 8cqh;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  margin: 0;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, var(--style-40-ink), var(--style-40-accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mainSubtitle {
+  font-size: 2.5cqh;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: var(--style-40-ink);
+  opacity: 0.5;
+  margin: 2cqh 0 0 0;
+}
+
+/* ── Scene Header ──────────────────────────────────────────────────────── */
+
+.sceneHeader {
+  position: absolute;
+  top: 4cqh;
+  left: 4cqw;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.sceneTitle {
+  font-size: 4cqh;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--style-40-ink);
+}
+
+.sceneSubtitle {
+  font-size: 2cqh;
+  font-weight: 300;
+  color: var(--style-40-ink);
+  opacity: 0.5;
+  margin: 0.8cqh 0 0 0;
+  letter-spacing: 0.02em;
+}
+
+/* ── Phase Indicator (Scene 3) ────────────────────────────────────────── */
+
+.phaseIndicator {
+  position: absolute;
+  bottom: 5cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.2cqw;
+  z-index: 5;
+}
+
+.phaseDot {
+  width: 1.2cqh;
+  height: 1.2cqh;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.25);
+  border: 1px solid var(--style-40-border);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.phaseDotActive {
+  background: var(--style-40-accent);
+  box-shadow: 0 0 1.5cqh rgba(99, 102, 241, 0.5);
+}
+
+/* ── Cluster Legend (Scene 4) ──────────────────────────────────────────── */
+
+.clusterLegend {
+  position: absolute;
+  bottom: 5cqh;
+  left: 4cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2cqh;
+  z-index: 5;
+  background: rgba(10, 10, 32, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--style-40-border);
+  border-radius: 1.5cqh;
+  padding: 2cqh 2cqw;
+}
+
+.clusterItem {
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+}
+
+.clusterSwatch {
+  width: 1.5cqh;
+  height: 1.5cqh;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.clusterName {
+  font-size: 1.8cqh;
+  font-weight: 500;
+  color: var(--style-40-ink);
+  min-width: 14cqw;
+}
+
+.clusterCount {
+  font-size: 2cqh;
+  font-weight: 700;
+  color: var(--style-40-ink);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+
+/* ── Scene 5: Summary ──────────────────────────────────────────────────── */
+
+.summaryScene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4cqh 6cqw;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.summaryTitle {
+  font-size: 5cqh;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 4cqh 0;
+  color: var(--style-40-ink);
+  text-align: center;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2cqw;
+  width: 100%;
+  max-width: 80cqw;
+  z-index: 2;
+}
+
+.statCard {
+  background: rgba(10, 10, 32, 0.6);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--style-40-border);
+  border-radius: 2cqh;
+  padding: 3cqh 2cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1cqh;
+  text-align: center;
+}
+
+.statValue {
+  font-size: 7cqh;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(135deg, var(--style-40-accent2), var(--style-40-ink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.statLabel {
+  font-size: 1.8cqh;
+  font-weight: 400;
+  color: var(--style-40-ink);
+  opacity: 0.5;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Background decorative particles for scene 5 */
+.bgParticles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bgParticle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--style-40-accent);
+  transform: translate(-50%, -50%);
+}
+
+/* ── Navigation Dots ───────────────────────────────────────────────────── */
+
+.navDots {
+  position: absolute;
+  bottom: 3cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1cqw;
+  z-index: 10;
+}
+
+.navDot {
+  width: 1cqh;
+  height: 1cqh;
+  border-radius: 50%;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  cursor: pointer;
+  background: rgba(99, 102, 241, 0.15);
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 0;
+}
+
+.navDotActive {
+  background: var(--style-40-accent);
+  transform: scale(1.4);
+  box-shadow: 0 0 1.2cqh rgba(99, 102, 241, 0.5);
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────────────── */
+
+.reducedMotion * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}

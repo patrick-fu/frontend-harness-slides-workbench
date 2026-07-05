@@ -1,0 +1,596 @@
+/* ── Style 41: Annual Report ──────────────────────────────────────────── */
+
+:root {
+  --style-41-paper: #ffffff;
+  --style-41-ink: #1a1a1a;
+  --style-41-panel: #f5f5f5;
+  --style-41-accent: #1a3a5c;
+  --style-41-rule: #c8c8c8;
+  --style-41-muted: #666666;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--style-41-paper);
+  color: var(--style-41-ink);
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  user-select: none;
+}
+
+/* ── Transition Track ──────────────────────────────────────────────────── */
+
+.transitionTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Scene 1: Cover ────────────────────────────────────────────────────── */
+
+.cover {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 4cqh 8cqw;
+  box-sizing: border-box;
+}
+
+.coverTopRule {
+  height: 0.3cqh;
+  background: var(--style-41-accent);
+  margin-bottom: 6cqh;
+}
+
+.coverInner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.coverMeta {
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+  font-size: 1.8cqh;
+  color: var(--style-41-muted);
+  font-family: "Source Serif Pro", Georgia, serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 3cqh;
+}
+
+.coverMetaDot {
+  color: var(--style-41-accent);
+}
+
+.coverCompany {
+  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-size: 9cqh;
+  font-weight: 700;
+  color: var(--style-41-accent);
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.coverRule {
+  width: 12cqw;
+  height: 0.15cqh;
+  background: var(--style-41-accent);
+  margin: 3cqh 0;
+}
+
+.coverYear {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 4cqh;
+  font-weight: 400;
+  color: var(--style-41-ink);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.coverTagline {
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-size: 2.8cqh;
+  font-style: italic;
+  color: var(--style-41-muted);
+  margin: 2cqh 0 0 0;
+}
+
+.coverSpacer {
+  flex: 1;
+}
+
+.coverFiscal {
+  font-size: 1.8cqh;
+  color: var(--style-41-muted);
+  font-family: "Source Serif Pro", Georgia, serif;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.coverBottomRule {
+  height: 0.15cqh;
+  background: var(--style-41-rule);
+  margin-top: 3cqh;
+}
+
+/* ── Scene 2: Chairman's Letter ────────────────────────────────────────── */
+
+.letter {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 10cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.letterHeader {
+  margin-bottom: 3cqh;
+}
+
+.letterTitle {
+  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-size: 4.5cqh;
+  font-weight: 700;
+  color: var(--style-41-accent);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.letterRule {
+  width: 100%;
+  height: 0.1cqh;
+  background: var(--style-41-rule);
+  margin-top: 1.5cqh;
+}
+
+.letterSalutation {
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-size: 2.8cqh;
+  font-weight: 600;
+  color: var(--style-41-ink);
+  margin: 0 0 2cqh 0;
+}
+
+.letterBody {
+  flex: 1;
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-size: 2.2cqh;
+  line-height: 1.65;
+  color: var(--style-41-ink);
+  overflow: hidden;
+}
+
+.letterBody p {
+  margin: 0 0 1.8cqh 0;
+  text-align: justify;
+}
+
+.letterDropCap::first-letter {
+  float: left;
+  font-family: Georgia, "Source Serif Pro", serif;
+  font-size: 7cqh;
+  line-height: 0.8;
+  font-weight: 700;
+  color: var(--style-41-accent);
+  margin-right: 0.6cqw;
+  margin-top: 0.5cqh;
+}
+
+.letterSignature {
+  margin-top: 2cqh;
+  text-align: right;
+}
+
+.letterSigName {
+  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-size: 2.6cqh;
+  font-weight: 700;
+  color: var(--style-41-ink);
+  margin: 0;
+}
+
+.letterSigTitle {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2cqh;
+  color: var(--style-41-muted);
+  margin: 0.3cqh 0 0 0;
+  font-style: italic;
+}
+
+/* ── Scene 3: Financial Highlights ─────────────────────────────────────── */
+
+.financials {
+  width: 100%;
+  height: 100%;
+  padding: 3.5cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.finHeader {
+  margin-bottom: 2.5cqh;
+}
+
+.finTitle {
+  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-size: 4.5cqh;
+  font-weight: 700;
+  color: var(--style-41-accent);
+  margin: 0;
+}
+
+.finSubtitle {
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-size: 2.4cqh;
+  color: var(--style-41-ink);
+  margin: 0.5cqh 0 0 0;
+}
+
+.finNote {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.8cqh;
+  color: var(--style-41-muted);
+  margin: 0.5cqh 0 0 0;
+  font-style: italic;
+}
+
+.finTableWrap {
+  flex: 1;
+  overflow: hidden;
+}
+
+.finTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-size: 2.2cqh;
+}
+
+.finTable thead tr {
+  border-bottom: 0.2cqh solid var(--style-41-ink);
+}
+
+.finTable th {
+  text-align: left;
+  padding: 1.2cqh 1cqw;
+  font-weight: 700;
+  color: var(--style-41-ink);
+  font-size: 2cqh;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.finThRight {
+  text-align: right !important;
+}
+
+.finTable tbody tr {
+  border-bottom: 0.05cqh solid var(--style-41-rule);
+}
+
+.finTable tbody tr:last-child {
+  border-bottom: 0.2cqh solid var(--style-41-ink);
+}
+
+.finTable td {
+  padding: 1.1cqh 1cqw;
+  color: var(--style-41-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.finTdRight {
+  text-align: right !important;
+}
+
+.finTdChange {
+  color: #1a7a3a !important;
+  font-weight: 600;
+}
+
+.finFootnote {
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-size: 1.7cqh;
+  color: var(--style-41-muted);
+  margin: 1.5cqh 0 0 0;
+  line-height: 1.5;
+  font-style: italic;
+  padding-top: 1cqh;
+  border-top: 0.05cqh solid var(--style-41-rule);
+}
+
+/* ── Scene 4: Segment Performance ──────────────────────────────────────── */
+
+.segments {
+  width: 100%;
+  height: 100%;
+  padding: 3.5cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.segHeader {
+  margin-bottom: 3cqh;
+}
+
+.segTitle {
+  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-size: 4.5cqh;
+  font-weight: 700;
+  color: var(--style-41-accent);
+  margin: 0;
+}
+
+.segIntro {
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-size: 2.2cqh;
+  color: var(--style-41-ink);
+  margin: 1cqh 0 0 0;
+  line-height: 1.5;
+  max-width: 70cqw;
+}
+
+.segBars {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+  justify-content: center;
+}
+
+.segBarRow {
+  display: grid;
+  grid-template-columns: 20cqw 1fr 12cqw;
+  align-items: center;
+  gap: 2cqw;
+}
+
+.segBarLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3cqh;
+}
+
+.segBarName {
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-size: 2.2cqh;
+  font-weight: 600;
+  color: var(--style-41-ink);
+}
+
+.segBarGrowth {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.8cqh;
+  color: #1a7a3a;
+  font-weight: 600;
+}
+
+.segBarTrack {
+  height: 2.5cqh;
+  background: var(--style-41-panel);
+  border-radius: 0.4cqh;
+  overflow: hidden;
+}
+
+.segBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--style-41-accent), #2a5a8c);
+  border-radius: 0.4cqh;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.segBarRevenue {
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-size: 2.4cqh;
+  font-weight: 700;
+  color: var(--style-41-ink);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.segDetails {
+  margin-top: 2cqh;
+  display: flex;
+  gap: 3cqw;
+}
+
+.segDetail {
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-size: 2cqh;
+  color: var(--style-41-ink);
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+.segDetail strong {
+  color: var(--style-41-accent);
+}
+
+/* ── Scene 5: Auditor's Report ─────────────────────────────────────────── */
+
+.auditor {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 10cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.auditorHeader {
+  margin-bottom: 2.5cqh;
+}
+
+.auditorTitle {
+  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--style-41-accent);
+  margin: 0;
+}
+
+.auditorRule {
+  width: 100%;
+  height: 0.1cqh;
+  background: var(--style-41-rule);
+  margin-top: 1.5cqh;
+}
+
+.auditorTo {
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-size: 2.4cqh;
+  font-weight: 600;
+  color: var(--style-41-ink);
+  margin: 0 0 2cqh 0;
+}
+
+.auditorBody {
+  flex: 1;
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-size: 2.1cqh;
+  line-height: 1.65;
+  color: var(--style-41-ink);
+  overflow: hidden;
+}
+
+.auditorBody p {
+  margin: 0 0 1.5cqh 0;
+  text-align: justify;
+}
+
+.auditorEmphasis {
+  border-left: 0.3cqh solid var(--style-41-accent);
+  padding-left: 2cqw;
+  font-style: italic;
+  color: var(--style-41-muted);
+}
+
+.auditorSigBlock {
+  margin-top: 2cqh;
+  text-align: right;
+  padding-top: 1.5cqh;
+  border-top: 0.05cqh solid var(--style-41-rule);
+}
+
+.auditorFirm {
+  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-size: 2.6cqh;
+  font-weight: 700;
+  color: var(--style-41-ink);
+  margin: 0;
+}
+
+.auditorPartner {
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-size: 2cqh;
+  color: var(--style-41-ink);
+  margin: 0.3cqh 0;
+}
+
+.auditorLocation {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.8cqh;
+  color: var(--style-41-muted);
+  margin: 0.3cqh 0 0 0;
+  font-style: italic;
+}
+
+/* ── Navigation ────────────────────────────────────────────────────────── */
+
+.nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-top: 0.05cqh solid var(--style-41-rule);
+  padding: 1.2cqh 6cqw 1.5cqh;
+}
+
+.navRule {
+  display: none;
+}
+
+.navItems {
+  display: flex;
+  justify-content: center;
+  gap: 0.5cqw;
+  margin-bottom: 0.5cqh;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3cqh;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.8cqh 2cqw;
+  border-radius: 0.8cqh;
+  transition: background 0.2s ease, color 0.2s ease;
+  font-family: "Source Serif Pro", Georgia, serif;
+}
+
+.navItem:hover {
+  background: var(--style-41-panel);
+}
+
+.navNum {
+  font-size: 2.2cqh;
+  font-weight: 700;
+  color: var(--style-41-muted);
+  font-family: Georgia, "Source Serif Pro", serif;
+  line-height: 1;
+}
+
+.navLabel {
+  font-size: 1.5cqh;
+  color: var(--style-41-muted);
+  letter-spacing: 0.04em;
+}
+
+.navItemActive {
+  background: var(--style-41-accent);
+}
+
+.navItemActive:hover {
+  background: var(--style-41-accent);
+}
+
+.navItemActive .navNum {
+  color: #ffffff;
+}
+
+.navItemActive .navLabel {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.navPageIndicator {
+  text-align: center;
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.5cqh;
+  color: var(--style-41-muted);
+  letter-spacing: 0.06em;
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────────────── */
+
+.reducedMotion * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}

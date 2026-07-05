@@ -1,0 +1,609 @@
+/* ── Style 43: Research Digest ────────────────────────────────────────── */
+
+:root {
+  --style-43-bg: #fafaf7;
+  --style-43-ink: #2d2d2d;
+  --style-43-panel: #f0ede8;
+  --style-43-accent: #374151;
+  --style-43-rule: #d4d0c8;
+  --style-43-muted: #6b7280;
+  --style-43-link: #4f46e5;
+  --style-43-tag-bg: #e8e4dc;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--style-43-bg);
+  color: var(--style-43-ink);
+  font-family: "Inter", Georgia, "Noto Serif SC", sans-serif;
+  user-select: none;
+}
+
+/* ── Transition Track ──────────────────────────────────────────────────── */
+
+.transitionTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Scene 1: Cover ────────────────────────────────────────────────────── */
+
+.cover {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 4cqh 10cqw;
+  box-sizing: border-box;
+}
+
+.coverInner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.coverEdition {
+  font-family: "Inter", sans-serif;
+  font-size: 1.8cqh;
+  font-weight: 500;
+  color: var(--style-43-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 3cqh;
+}
+
+.coverTitle {
+  font-family: Georgia, "Noto Serif SC", serif;
+  font-size: 8cqh;
+  font-weight: 700;
+  color: var(--style-43-ink);
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.coverRule {
+  width: 10cqw;
+  height: 0.15cqh;
+  background: var(--style-43-accent);
+  margin: 3cqh 0;
+}
+
+.coverSubtitle {
+  font-family: Georgia, "Noto Serif SC", serif;
+  font-size: 3cqh;
+  font-weight: 400;
+  color: var(--style-43-muted);
+  margin: 0;
+  font-style: italic;
+  max-width: 60cqw;
+  line-height: 1.4;
+}
+
+.coverTopics {
+  display: flex;
+  gap: 1cqw;
+  margin-top: 3cqh;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.coverTopicTag {
+  font-family: "Inter", sans-serif;
+  font-size: 1.7cqh;
+  font-weight: 500;
+  color: var(--style-43-accent);
+  background: var(--style-43-panel);
+  padding: 0.6cqh 1.5cqw;
+  border-radius: 2cqh;
+  letter-spacing: 0.02em;
+}
+
+.coverSpacer {
+  flex: 1;
+}
+
+.coverFooter {
+  text-align: center;
+}
+
+.coverFooter p {
+  font-family: "Inter", sans-serif;
+  font-size: 1.7cqh;
+  color: var(--style-43-muted);
+  margin: 0.3cqh 0;
+}
+
+.coverCompiled {
+  font-style: italic;
+}
+
+/* ── Scene 2: Featured Paper ───────────────────────────────────────────── */
+
+.featured {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.featuredLabel {
+  font-family: "Inter", sans-serif;
+  font-size: 1.8cqh;
+  font-weight: 600;
+  color: var(--style-43-link);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 1.5cqh;
+}
+
+.paperCard {
+  flex: 1;
+  background: #ffffff;
+  border: 0.05cqh solid var(--style-43-rule);
+  border-radius: 1.2cqh;
+  padding: 3cqh 4cqw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 0.5cqh 2cqh rgba(0, 0, 0, 0.04);
+}
+
+.paperMetaRow {
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+  margin-bottom: 1.5cqh;
+  flex-wrap: wrap;
+}
+
+.paperVenueBadge {
+  font-family: "Inter", sans-serif;
+  font-size: 1.7cqh;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--style-43-accent);
+  padding: 0.4cqh 1.2cqw;
+  border-radius: 0.4cqh;
+  letter-spacing: 0.03em;
+}
+
+.paperTrack {
+  font-family: "Inter", sans-serif;
+  font-size: 1.6cqh;
+  font-weight: 500;
+  color: var(--style-43-muted);
+  font-style: italic;
+}
+
+.paperCiteCount {
+  font-family: "Inter", sans-serif;
+  font-size: 1.7cqh;
+  font-weight: 600;
+  color: var(--style-43-link);
+  margin-left: auto;
+}
+
+.paperTitle {
+  font-family: Georgia, "Noto Serif SC", serif;
+  font-size: 3.8cqh;
+  font-weight: 700;
+  color: var(--style-43-ink);
+  margin: 0 0 1cqh 0;
+  line-height: 1.2;
+}
+
+.paperAuthors {
+  font-family: "Inter", sans-serif;
+  font-size: 2.2cqh;
+  color: var(--style-43-ink);
+  margin: 0 0 1.5cqh 0;
+  font-weight: 500;
+}
+
+.paperAffil {
+  font-weight: 400;
+  color: var(--style-43-muted);
+}
+
+.paperTags {
+  display: flex;
+  gap: 0.8cqw;
+  margin-bottom: 2cqh;
+  flex-wrap: wrap;
+}
+
+.paperTag {
+  font-family: "Inter", sans-serif;
+  font-size: 1.5cqh;
+  font-weight: 500;
+  color: var(--style-43-accent);
+  background: var(--style-43-tag-bg);
+  padding: 0.4cqh 1cqw;
+  border-radius: 0.4cqh;
+}
+
+.paperAbstract {
+  flex: 1;
+  overflow: hidden;
+  border-top: 0.05cqh solid var(--style-43-rule);
+  padding-top: 1.5cqh;
+}
+
+.paperAbstractLabel {
+  font-family: "Inter", sans-serif;
+  font-size: 1.6cqh;
+  font-weight: 600;
+  color: var(--style-43-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.8cqh 0;
+}
+
+.paperAbstractText {
+  font-family: Georgia, "Noto Serif SC", serif;
+  font-size: 2cqh;
+  line-height: 1.6;
+  color: var(--style-43-ink);
+  margin: 0;
+  text-align: justify;
+}
+
+.paperFooter {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5cqh;
+  padding-top: 1cqh;
+  border-top: 0.05cqh solid var(--style-43-rule);
+}
+
+.paperPages {
+  font-family: "Inter", sans-serif;
+  font-size: 1.6cqh;
+  color: var(--style-43-muted);
+}
+
+.paperRefs {
+  font-family: "Inter", sans-serif;
+  font-size: 1.6cqh;
+  color: var(--style-43-muted);
+  font-style: italic;
+}
+
+/* ── Scene 3: Citation Network ─────────────────────────────────────────── */
+
+.network {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.networkHeader {
+  margin-bottom: 1.5cqh;
+}
+
+.networkTitle {
+  font-family: Georgia, "Noto Serif SC", serif;
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--style-43-ink);
+  margin: 0;
+}
+
+.networkSubtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 2cqh;
+  color: var(--style-43-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.networkViz {
+  flex: 1;
+  position: relative;
+  background: var(--style-43-panel);
+  border-radius: 1cqh;
+  overflow: hidden;
+}
+
+.networkSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.networkNode {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+.networkNodeDot {
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.networkNodeLabel {
+  margin-top: 0.6cqh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.networkNodeName {
+  font-family: "Inter", sans-serif;
+  font-size: 1.5cqh;
+  font-weight: 600;
+  color: var(--style-43-ink);
+  background: rgba(250, 250, 247, 0.9);
+  padding: 0.2cqh 0.6cqw;
+  border-radius: 0.3cqh;
+}
+
+.networkNodeCites {
+  font-family: "Inter", sans-serif;
+  font-size: 1.3cqh;
+  font-weight: 500;
+  color: var(--style-43-muted);
+  margin-top: 0.2cqh;
+}
+
+.networkLegend {
+  display: flex;
+  gap: 2cqw;
+  margin-top: 1.5cqh;
+  justify-content: center;
+}
+
+.networkLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6cqw;
+  font-family: "Inter", sans-serif;
+  font-size: 1.6cqh;
+  color: var(--style-43-muted);
+  font-weight: 500;
+}
+
+.networkLegendDot {
+  width: 1.5cqh;
+  height: 1.5cqh;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Scene 4: Keyword Cloud ────────────────────────────────────────────── */
+
+.keywords {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.kwHeader {
+  margin-bottom: 2.5cqh;
+}
+
+.kwTitle {
+  font-family: Georgia, "Noto Serif SC", serif;
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--style-43-ink);
+  margin: 0;
+}
+
+.kwSubtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 2cqh;
+  color: var(--style-43-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.kwCloud {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2cqh 1.5cqw;
+  align-content: center;
+  justify-content: center;
+  padding: 2cqh;
+  background: var(--style-43-panel);
+  border-radius: 1cqh;
+}
+
+.kwTag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5cqw;
+  font-family: Georgia, "Noto Serif SC", serif;
+  color: var(--style-43-ink);
+  background: #ffffff;
+  padding: 0.5cqh 1.2cqw;
+  border-radius: 0.6cqh;
+  border: 0.05cqh solid var(--style-43-rule);
+  line-height: 1.3;
+}
+
+.kwCount {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  color: var(--style-43-muted);
+  font-size: 0.7em;
+}
+
+/* Size variants */
+.kwSizeXL {
+  font-size: 4.2cqh;
+  font-weight: 700;
+}
+
+.kwSizeLG {
+  font-size: 3.2cqh;
+  font-weight: 600;
+}
+
+.kwSizeMD {
+  font-size: 2.5cqh;
+  font-weight: 500;
+}
+
+.kwSizeSM {
+  font-size: 2cqh;
+  font-weight: 400;
+}
+
+.kwSizeXS {
+  font-size: 1.6cqh;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+/* ── Scene 5: Statistics ───────────────────────────────────────────────── */
+
+.stats {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.statsHeader {
+  margin-bottom: 3cqh;
+}
+
+.statsTitle {
+  font-family: Georgia, "Noto Serif SC", serif;
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--style-43-ink);
+  margin: 0;
+}
+
+.statsSubtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 2cqh;
+  color: var(--style-43-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.statsGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2cqh;
+}
+
+.statCard {
+  background: #ffffff;
+  border: 0.05cqh solid var(--style-43-rule);
+  border-radius: 1cqh;
+  padding: 2.5cqh 2.5cqw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 0.3cqh 1.5cqh rgba(0, 0, 0, 0.03);
+}
+
+.statValue {
+  font-family: Georgia, "Noto Serif SC", serif;
+  font-size: 5.5cqh;
+  font-weight: 700;
+  color: var(--style-43-accent);
+  line-height: 1;
+  margin-bottom: 0.8cqh;
+}
+
+.statLabel {
+  font-family: "Inter", sans-serif;
+  font-size: 2cqh;
+  font-weight: 600;
+  color: var(--style-43-ink);
+  margin-bottom: 0.4cqh;
+}
+
+.statSub {
+  font-family: "Inter", sans-serif;
+  font-size: 1.6cqh;
+  color: var(--style-43-muted);
+  font-style: italic;
+}
+
+/* ── Navigation (Filter Tabs) ──────────────────────────────────────────── */
+
+.nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: rgba(250, 250, 247, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 0.05cqh solid var(--style-43-rule);
+  padding: 1cqh 6cqw;
+}
+
+.navTabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.3cqw;
+}
+
+.navTab {
+  font-family: "Inter", sans-serif;
+  font-size: 1.7cqh;
+  font-weight: 500;
+  color: var(--style-43-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.7cqh 2cqw;
+  border-radius: 0.6cqh;
+  transition: background 0.2s ease, color 0.2s ease;
+  letter-spacing: 0.02em;
+}
+
+.navTab:hover {
+  background: var(--style-43-panel);
+  color: var(--style-43-ink);
+}
+
+.navTabActive {
+  background: var(--style-43-accent);
+  color: #ffffff;
+}
+
+.navTabActive:hover {
+  background: var(--style-43-accent);
+  color: #ffffff;
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────────────── */
+
+.reducedMotion * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}

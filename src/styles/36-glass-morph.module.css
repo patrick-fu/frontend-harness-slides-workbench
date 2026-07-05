@@ -1,0 +1,740 @@
+/* ─── Style 36: Glass Morph ────────────────────────────────────────────────
+   Advanced glassmorphism. Layered glass panels with backdrop-filter blur.
+   Dark gradient background. Subtle border highlights.
+   All sizing in cqw/cqh. No px/vw/vh.
+   ──────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --style-36-bg-start: #0f0c29;
+  --style-36-bg-mid: #302b63;
+  --style-36-bg-end: #24243e;
+  --style-36-ink: #ffffff;
+  --style-36-panel: rgba(255, 255, 255, 0.08);
+  --style-36-border: rgba(255, 255, 255, 0.1);
+  --style-36-border-strong: rgba(255, 255, 255, 0.18);
+  --style-36-accent: #a78bfa;
+  --style-36-accent2: #38bdf8;
+  --style-36-accent3: #f472b6;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: linear-gradient(
+    135deg,
+    var(--style-36-bg-start) 0%,
+    var(--style-36-bg-mid) 50%,
+    var(--style-36-bg-end) 100%
+  );
+  color: var(--style-36-ink);
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* Ambient orbs */
+.root::before {
+  content: "";
+  position: absolute;
+  width: 60cqw;
+  height: 60cqw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.15) 0%, transparent 70%);
+  top: -20%;
+  right: -10%;
+  pointer-events: none;
+}
+
+.root::after {
+  content: "";
+  position: absolute;
+  width: 50cqw;
+  height: 50cqw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+  bottom: -15%;
+  left: -10%;
+  pointer-events: none;
+}
+
+/* ── Transition Track ──────────────────────────────────────────────────── */
+
+.transitionTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Glass Panel Base ──────────────────────────────────────────────────── */
+
+.glass {
+  background: var(--style-36-panel);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--style-36-border);
+  border-radius: 2cqh;
+}
+
+.glassStrong {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid var(--style-36-border-strong);
+  border-radius: 2.5cqh;
+}
+
+/* ── Scene 1: App Home Screen ──────────────────────────────────────────── */
+
+.appHome {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 4cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5cqh;
+}
+
+.appHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.appGreeting {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3cqh;
+}
+
+.appHello {
+  font-size: 2cqh;
+  opacity: 0.6;
+  font-weight: 400;
+  margin: 0;
+}
+
+.appUserName {
+  font-size: 4.5cqh;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.appAvatar {
+  width: 7cqh;
+  height: 7cqh;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--style-36-accent), var(--style-36-accent2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3cqh;
+  font-weight: 700;
+  border: 0.2cqh solid rgba(255, 255, 255, 0.2);
+}
+
+.appSearch {
+  background: var(--style-36-panel);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--style-36-border);
+  border-radius: 3cqh;
+  padding: 1.5cqh 2.5cqw;
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+}
+
+.searchIcon {
+  font-size: 2.5cqh;
+  opacity: 0.5;
+}
+
+.searchInput {
+  flex: 1;
+  font-size: 2.2cqh;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--style-36-ink);
+  font-family: inherit;
+  opacity: 0.7;
+}
+
+.appQuickActions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5cqw;
+}
+
+.quickAction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8cqh;
+  padding: 2cqh 1cqw;
+  background: var(--style-36-panel);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--style-36-border);
+  border-radius: 2cqh;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.quickAction:hover {
+  transform: translateY(-0.3cqh);
+  border-color: var(--style-36-border-strong);
+}
+
+.quickActionIcon {
+  width: 6cqh;
+  height: 6cqh;
+  border-radius: 1.5cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3cqh;
+}
+
+.quickActionLabel {
+  font-size: 1.6cqh;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+/* ── Scene 2: Feature Cards Stack ──────────────────────────────────────── */
+
+.featureScene {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 4cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+}
+
+.featureTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.featureSubtitle {
+  font-size: 2.2cqh;
+  opacity: 0.5;
+  margin: 0;
+}
+
+.featureStack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5cqh;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.featureCard {
+  display: flex;
+  align-items: center;
+  gap: 2cqw;
+  padding: 2.5cqh 2.5cqw;
+  background: var(--style-36-panel);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--style-36-border);
+  border-radius: 2.5cqh;
+  opacity: 0;
+  transform: translateX(3cqw);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.2s ease;
+}
+
+.featureCard:hover {
+  border-color: var(--style-36-border-strong);
+}
+
+.featureCardVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.featureCardIcon {
+  width: 8cqh;
+  height: 8cqh;
+  border-radius: 2cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4cqh;
+  flex-shrink: 0;
+}
+
+.featureCardContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.featureCardTitle {
+  font-size: 2.8cqh;
+  font-weight: 600;
+  margin: 0 0 0.5cqh 0;
+}
+
+.featureCardDesc {
+  font-size: 1.8cqh;
+  opacity: 0.6;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.featureCardBadge {
+  padding: 0.6cqh 1.2cqw;
+  border-radius: 2cqh;
+  font-size: 1.5cqh;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ── Scene 3: Dashboard Panels ─────────────────────────────────────────── */
+
+.dashboardScene {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 3cqw;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 2cqh;
+}
+
+.dashHeader {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashTitle {
+  font-size: 3.5cqh;
+  font-weight: 700;
+  margin: 0;
+}
+
+.dashDate {
+  font-size: 1.8cqh;
+  opacity: 0.5;
+  padding: 0.8cqh 1.5cqw;
+  background: var(--style-36-panel);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--style-36-border);
+  border-radius: 2cqh;
+}
+
+.dashPanel {
+  background: var(--style-36-panel);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--style-36-border);
+  border-radius: 2.5cqh;
+  padding: 2.5cqh 2cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5cqh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.dashPanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashPanelTitle {
+  font-size: 2.2cqh;
+  font-weight: 600;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.dashPanelMore {
+  font-size: 1.6cqh;
+  opacity: 0.4;
+  cursor: pointer;
+}
+
+.dashBigNumber {
+  font-size: 7cqh;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--style-36-accent), var(--style-36-accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dashTrend {
+  display: flex;
+  align-items: center;
+  gap: 0.5cqw;
+  font-size: 1.8cqh;
+  font-weight: 600;
+}
+
+.dashTrendUp {
+  color: #4ade80;
+}
+
+.dashTrendDown {
+  color: #f87171;
+}
+
+.dashChart {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6cqw;
+  min-height: 0;
+  padding-top: 1cqh;
+}
+
+.dashBar {
+  flex: 1;
+  border-radius: 0.5cqh 0.5cqh 0 0;
+  background: linear-gradient(180deg, var(--style-36-accent), rgba(167, 139, 250, 0.2));
+  transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 0.5cqh;
+}
+
+.dashList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1cqh;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.dashListItem {
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+  padding: 1cqh 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dashListItem:last-child {
+  border-bottom: none;
+}
+
+.dashListDot {
+  width: 1.2cqh;
+  height: 1.2cqh;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dashListText {
+  flex: 1;
+  font-size: 1.7cqh;
+  opacity: 0.7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dashListValue {
+  font-size: 1.7cqh;
+  font-weight: 600;
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+
+/* ── Scene 4: Profile / Settings ───────────────────────────────────────── */
+
+.profileScene {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 4cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3cqh;
+}
+
+.profileCard {
+  width: 100%;
+  max-width: 60cqw;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid var(--style-36-border-strong);
+  border-radius: 3cqh;
+  padding: 4cqh 3cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2cqh;
+  text-align: center;
+}
+
+.profileAvatar {
+  width: 14cqh;
+  height: 14cqh;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--style-36-accent3), var(--style-36-accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6cqh;
+  font-weight: 700;
+  border: 0.3cqh solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 4cqw rgba(167, 139, 250, 0.3);
+}
+
+.profileName {
+  font-size: 4.5cqh;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.profileRole {
+  font-size: 2.2cqh;
+  opacity: 0.6;
+  margin: 0;
+}
+
+.profileStats {
+  display: flex;
+  gap: 4cqw;
+  margin-top: 1cqh;
+}
+
+.profileStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3cqh;
+}
+
+.profileStatValue {
+  font-size: 4cqh;
+  font-weight: 800;
+}
+
+.profileStatLabel {
+  font-size: 1.5cqh;
+  opacity: 0.5;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.profileSettings {
+  width: 100%;
+  max-width: 60cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 1cqh;
+}
+
+.settingRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.8cqh 2.5cqw;
+  background: var(--style-36-panel);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--style-36-border);
+  border-radius: 2cqh;
+}
+
+.settingInfo {
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+}
+
+.settingIcon {
+  font-size: 3cqh;
+  width: 5cqh;
+  height: 5cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.2cqh;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.settingText {
+  display: flex;
+  flex-direction: column;
+}
+
+.settingLabel {
+  font-size: 2.2cqh;
+  font-weight: 500;
+}
+
+.settingDesc {
+  font-size: 1.6cqh;
+  opacity: 0.5;
+}
+
+/* Toggle switch */
+.settingToggle {
+  width: 6cqw;
+  height: 3.5cqh;
+  border-radius: 3cqh;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--style-36-border);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.settingToggleOn {
+  background: linear-gradient(135deg, var(--style-36-accent), var(--style-36-accent2));
+}
+
+.settingToggleKnob {
+  position: absolute;
+  top: 0.35cqh;
+  left: 0.4cqw;
+  width: 2.6cqh;
+  height: 2.6cqh;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0.2cqh 0.8cqh rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.settingToggleOn .settingToggleKnob {
+  transform: translateX(2.5cqw);
+}
+
+/* ── Scene 5: Summary / CTA ────────────────────────────────────────────── */
+
+.ctaScene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4cqh;
+  box-sizing: border-box;
+  text-align: center;
+  gap: 2.5cqh;
+}
+
+.ctaBadge {
+  padding: 1cqh 2.5cqw;
+  background: var(--style-36-panel);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--style-36-border);
+  border-radius: 3cqh;
+  font-size: 1.8cqh;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.ctaHeadline {
+  font-size: 7cqh;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0;
+  max-width: 70cqw;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ctaSub {
+  font-size: 2.5cqh;
+  opacity: 0.6;
+  margin: 0;
+  max-width: 55cqw;
+  line-height: 1.5;
+}
+
+.ctaButton {
+  margin-top: 1cqh;
+  padding: 2cqh 5cqw;
+  background: linear-gradient(135deg, var(--style-36-accent), var(--style-36-accent2));
+  border: none;
+  border-radius: 3cqh;
+  color: #ffffff;
+  font-size: 2.5cqh;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 1cqh 3cqw rgba(167, 139, 250, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-0.3cqh);
+  box-shadow: 0 1.5cqh 4cqw rgba(167, 139, 250, 0.4);
+}
+
+/* ── Navigation Indicators ─────────────────────────────────────────────── */
+
+.navIndicators {
+  position: absolute;
+  right: 2.5cqw;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5cqh;
+  z-index: 50;
+}
+
+.navIndicator {
+  width: 0.8cqh;
+  height: 0.8cqh;
+  min-width: 6px;
+  min-height: 6px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.08);
+  transition: background 0.3s ease, transform 0.3s ease;
+  position: relative;
+}
+
+.navIndicator:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.3);
+}
+
+.navIndicatorActive {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.4);
+  box-shadow: 0 0 1cqw rgba(167, 139, 250, 0.4);
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────────────── */
+
+.reducedMotion * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}

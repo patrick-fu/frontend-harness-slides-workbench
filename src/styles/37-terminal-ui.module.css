@@ -1,0 +1,539 @@
+/* ─── Style 37: Terminal UI ────────────────────────────────────────────────
+   Terminal / TUI aesthetic. ASCII borders. Monospace everything.
+   Color-coded output. Blinking cursor. Typewriter feel.
+   All sizing in cqw/cqh. No px/vw/vh.
+   ──────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --style-37-bg: #0a0a0a;
+  --style-37-ink: #00ff00;
+  --style-37-panel: #1a1a1a;
+  --style-37-success: #00ff00;
+  --style-37-error: #ff4444;
+  --style-37-warning: #ffff00;
+  --style-37-info: #00aaff;
+  --style-37-dim: #555555;
+  --style-37-cursor: #00ff00;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--style-37-bg);
+  color: var(--style-37-ink);
+  font-family: "JetBrains Mono", "Fira Code", "SF Mono", "Cascadia Code", "Consolas", monospace;
+  font-size: 2.2cqh;
+  line-height: 1.5;
+}
+
+/* CRT scanline effect */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 0.35cqh,
+    rgba(0, 0, 0, 0.12) 0.35cqh,
+    rgba(0, 0, 0, 0.12) 0.42cqh
+  );
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* CRT glow vignette */
+.root::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+  z-index: 99;
+}
+
+/* ── Transition Track ──────────────────────────────────────────────────── */
+
+.transitionTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Terminal Window Frame ─────────────────────────────────────────────── */
+
+.terminalWindow {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminalTitlebar {
+  background: #222222;
+  padding: 0.8cqh 1.5cqw;
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  border-bottom: 0.15cqh solid #333333;
+  flex-shrink: 0;
+}
+
+.terminalDots {
+  display: flex;
+  gap: 0.6cqw;
+}
+
+.terminalDot {
+  width: 1.8cqh;
+  height: 1.8cqh;
+  min-width: 8px;
+  min-height: 8px;
+  border-radius: 50%;
+}
+
+.terminalDotRed {
+  background: #ff5f57;
+}
+
+.terminalDotYellow {
+  background: #ffbd2e;
+}
+
+.terminalDotGreen {
+  background: #28c840;
+}
+
+.terminalTitle {
+  font-size: 1.8cqh;
+  color: #888888;
+  flex: 1;
+  text-align: center;
+}
+
+.terminalBody {
+  flex: 1;
+  padding: 2.5cqh 3cqw;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* ── ASCII Box ─────────────────────────────────────────────────────────── */
+
+.asciiBox {
+  border: none;
+  font-family: inherit;
+  white-space: pre;
+  line-height: 1.4;
+  font-size: 2cqh;
+  color: var(--style-37-ink);
+}
+
+/* ── Terminal Output Lines ─────────────────────────────────────────────── */
+
+.terminalLine {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8cqw;
+  margin-bottom: 0.3cqh;
+  font-size: 2.1cqh;
+  opacity: 0;
+  animation: lineIn 0.05s steps(1) forwards;
+}
+
+@keyframes lineIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.terminalPrompt {
+  color: var(--style-37-info);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.terminalCommand {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.terminalOutput {
+  color: var(--style-37-ink);
+}
+
+.terminalOutputSuccess {
+  color: var(--style-37-success);
+}
+
+.terminalOutputError {
+  color: var(--style-37-error);
+}
+
+.terminalOutputWarning {
+  color: var(--style-37-warning);
+}
+
+.terminalOutputInfo {
+  color: var(--style-37-info);
+}
+
+.terminalOutputDim {
+  color: var(--style-37-dim);
+}
+
+/* ── Blinking Cursor ───────────────────────────────────────────────────── */
+
+.blinkCursor {
+  display: inline-block;
+  width: 1.2cqh;
+  height: 2.2cqh;
+  background: var(--style-37-cursor);
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+  margin-left: 0.2cqw;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ── Scene 1: Boot / Welcome ───────────────────────────────────────────── */
+
+.bootScene {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 4cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bootAscii {
+  font-size: 1.8cqh;
+  line-height: 1.2;
+  color: var(--style-37-success);
+  white-space: pre;
+  margin-bottom: 3cqh;
+  text-shadow: 0 0 0.5cqh rgba(0, 255, 0, 0.3);
+}
+
+.bootLine {
+  font-size: 2cqh;
+  margin-bottom: 0.5cqh;
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+}
+
+.bootStatus {
+  color: var(--style-37-success);
+  font-weight: bold;
+}
+
+.bootStatusErr {
+  color: var(--style-37-error);
+}
+
+.bootPrompt {
+  margin-top: 2cqh;
+  font-size: 2.2cqh;
+  color: var(--style-37-info);
+}
+
+/* ── Scene 2: Command Output ───────────────────────────────────────────── */
+
+.cmdScene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cmdBody {
+  flex: 1;
+  padding: 2.5cqh 3cqw;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* ── Scene 3: Help / Man Page ──────────────────────────────────────────── */
+
+.helpScene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.helpBody {
+  flex: 1;
+  padding: 2.5cqh 3cqw;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.helpHeader {
+  color: var(--style-37-warning);
+  font-size: 2.5cqh;
+  font-weight: bold;
+  margin-bottom: 1.5cqh;
+  border-bottom: 0.15cqh dashed var(--style-37-dim);
+  padding-bottom: 0.8cqh;
+}
+
+.helpSection {
+  margin-bottom: 2cqh;
+}
+
+.helpSectionTitle {
+  color: var(--style-37-info);
+  font-weight: bold;
+  font-size: 2.2cqh;
+  margin-bottom: 0.8cqh;
+}
+
+.helpItem {
+  display: flex;
+  gap: 2cqw;
+  margin-bottom: 0.6cqh;
+  font-size: 2cqh;
+}
+
+.helpFlag {
+  color: var(--style-37-success);
+  font-weight: bold;
+  min-width: 12cqw;
+}
+
+.helpDesc {
+  color: rgba(255, 255, 255, 0.7);
+  flex: 1;
+}
+
+/* ── Scene 4: Progress / Install ───────────────────────────────────────── */
+
+.progressScene {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 5cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2cqh;
+}
+
+.progressHeader {
+  font-size: 2.8cqh;
+  color: #ffffff;
+  margin-bottom: 1cqh;
+}
+
+.progressSub {
+  font-size: 2cqh;
+  color: var(--style-37-dim);
+  margin-bottom: 2cqh;
+}
+
+.progressBar {
+  width: 100%;
+  height: 3.5cqh;
+  background: #111111;
+  border: 0.15cqh solid #333333;
+  position: relative;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--style-37-success) 0cqw,
+    var(--style-37-success) 1.5cqw,
+    #00cc00 1.5cqw,
+    #00cc00 3cqw
+  );
+  transition: width 0.3s steps(8);
+  box-shadow: 0 0 1cqw rgba(0, 255, 0, 0.3);
+}
+
+.progressLabel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.8cqh;
+  color: #ffffff;
+  font-weight: bold;
+  text-shadow: 0.1cqh 0.1cqh 0 #000000;
+  z-index: 1;
+}
+
+.progressLog {
+  font-size: 1.8cqh;
+  color: var(--style-37-dim);
+  line-height: 1.6;
+  max-height: 20cqh;
+  overflow-y: auto;
+}
+
+.progressLogLine {
+  display: flex;
+  gap: 1cqw;
+}
+
+.progressLogTime {
+  color: var(--style-37-info);
+  flex-shrink: 0;
+}
+
+.progressLogMsg {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ── Scene 5: System Info / Closing ────────────────────────────────────── */
+
+.infoScene {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 4cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+}
+
+.infoAsciiBox {
+  border: 0.15cqh solid var(--style-37-success);
+  padding: 2cqh 2.5cqw;
+  position: relative;
+  box-shadow: 0 0 2cqw rgba(0, 255, 0, 0.1);
+}
+
+.infoAsciiBox::before {
+  content: "+";
+  position: absolute;
+  top: -0.15cqh;
+  left: -0.15cqh;
+  color: var(--style-37-success);
+  background: var(--style-37-bg);
+  padding: 0 0.3cqw;
+  font-size: 2cqh;
+  line-height: 1;
+}
+
+.infoTitle {
+  font-size: 3.5cqh;
+  font-weight: bold;
+  color: var(--style-37-success);
+  text-shadow: 0 0 0.8cqw rgba(0, 255, 0, 0.3);
+  margin: 0 0 1cqh 0;
+}
+
+.infoSubtitle {
+  font-size: 2.2cqh;
+  color: var(--style-37-dim);
+  margin: 0 0 2cqh 0;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5cqh 3cqw;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3cqh;
+}
+
+.infoLabel {
+  font-size: 1.6cqh;
+  color: var(--style-37-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.infoValue {
+  font-size: 2.4cqh;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.infoGoodbye {
+  font-size: 2.5cqh;
+  color: var(--style-37-success);
+  text-align: center;
+  margin-top: auto;
+  padding-top: 2cqh;
+}
+
+/* ── Navigation Indicators ─────────────────────────────────────────────── */
+
+.navIndicators {
+  position: absolute;
+  bottom: 2cqh;
+  right: 3cqw;
+  display: flex;
+  gap: 0.8cqw;
+  z-index: 50;
+}
+
+.navIndicator {
+  width: 2.5cqh;
+  height: 2.5cqh;
+  min-width: 10px;
+  min-height: 10px;
+  border: 0.15cqh solid var(--style-37-dim);
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1.4cqh;
+  color: var(--style-37-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  opacity: 0.12;
+  transition: opacity 0.15s steps(3), border-color 0.15s steps(3), color 0.15s steps(3);
+}
+
+.navIndicator:hover {
+  opacity: 0.5;
+  border-color: var(--style-37-ink);
+  color: var(--style-37-ink);
+}
+
+.navIndicatorActive {
+  opacity: 0.5;
+  border-color: var(--style-37-success);
+  color: var(--style-37-success);
+  box-shadow: 0 0 0.8cqw rgba(0, 255, 0, 0.2);
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────────────── */
+
+.reducedMotion * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}
+
+.reducedMotion .blinkCursor {
+  animation: none;
+  opacity: 1;
+}
