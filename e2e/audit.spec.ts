@@ -354,43 +354,53 @@ test.describe("Frozen mode", () => {
 // ─── 6: Language toggle ────────────────────────────────────────────────────
 
 test.describe("Language toggle", () => {
-  test("clicking lang-toggle switches between EN and ZH", async ({ page }) => {
+  test("clicking language segments changes selection", async ({ page }) => {
     await openOverview(page);
 
-    const langBtn = page.locator('[data-testid="lang-toggle"]');
+    const autoSeg = page.locator('[data-testid="lang-segment-auto"]');
+    const enSeg = page.locator('[data-testid="lang-segment-en"]');
+    const zhSeg = page.locator('[data-testid="lang-segment-zh"]');
 
-    // Button should be visible
-    await expect(langBtn).toBeVisible();
+    // Segments should be visible
+    await expect(autoSeg).toBeVisible();
+    await expect(enSeg).toBeVisible();
+    await expect(zhSeg).toBeVisible();
 
-    const initial = (await langBtn.textContent())?.trim();
-    // Initial should be either "EN" or "ZH"
-    expect(initial).toBeTruthy();
+    // Initial state: "auto" should be selected
+    await expect(autoSeg).toHaveAttribute("aria-pressed", "true");
+    await expect(enSeg).toHaveAttribute("aria-pressed", "false");
+    await expect(zhSeg).toHaveAttribute("aria-pressed", "false");
 
-    await langBtn.click();
-    await page.waitForTimeout(300);
+    // Click EN
+    await enSeg.click();
+    await page.waitForTimeout(200);
+    await expect(autoSeg).toHaveAttribute("aria-pressed", "false");
+    await expect(enSeg).toHaveAttribute("aria-pressed", "true");
+    await expect(zhSeg).toHaveAttribute("aria-pressed", "false");
 
-    const after = (await langBtn.textContent())?.trim();
-    expect(after).not.toBe(initial);
+    // Click ZH
+    await zhSeg.click();
+    await page.waitForTimeout(200);
+    await expect(autoSeg).toHaveAttribute("aria-pressed", "false");
+    await expect(enSeg).toHaveAttribute("aria-pressed", "false");
+    await expect(zhSeg).toHaveAttribute("aria-pressed", "true");
 
-    // Click again to toggle back
-    await langBtn.click();
-    await page.waitForTimeout(300);
-
-    const back = (await langBtn.textContent())?.trim();
-    expect(back).toBe(initial);
+    // Click Auto to go back
+    await autoSeg.click();
+    await page.waitForTimeout(200);
+    await expect(autoSeg).toHaveAttribute("aria-pressed", "true");
+    await expect(enSeg).toHaveAttribute("aria-pressed", "false");
+    await expect(zhSeg).toHaveAttribute("aria-pressed", "false");
   });
 
   test("language persists after navigation", async ({ page }) => {
     await openOverview(page);
 
-    const langBtn = page.locator('[data-testid="lang-toggle"]');
-    const initial = (await langBtn.textContent())?.trim();
-
-    // Toggle language
-    await langBtn.click();
+    const enSegOverview = page.locator('[data-testid="lang-segment-en"]');
+    // Switch to EN
+    await enSegOverview.click();
     await page.waitForTimeout(200);
-    const toggled = (await langBtn.textContent())?.trim();
-    expect(toggled).not.toBe(initial);
+    await expect(enSegOverview).toHaveAttribute("aria-pressed", "true");
 
     // Navigate to a style
     await page.locator('[data-testid="style-card-01"]').click();
@@ -400,10 +410,11 @@ test.describe("Language toggle", () => {
     });
     await page.waitForTimeout(300);
 
-    // Language should still be toggled
-    const langBtnLab = page.locator('[data-testid="lang-toggle"]');
-    const current = (await langBtnLab.textContent())?.trim();
-    expect(current).toBe(toggled);
+    // Language should still be EN
+    const enSegLab = page.locator('[data-testid="lang-segment-en"]');
+    await expect(enSegLab).toHaveAttribute("aria-pressed", "true");
+    const zhSegLab = page.locator('[data-testid="lang-segment-zh"]');
+    await expect(zhSegLab).toHaveAttribute("aria-pressed", "false");
   });
 });
 
