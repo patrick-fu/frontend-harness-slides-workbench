@@ -1025,10 +1025,25 @@ _(None currently)_
 
 | Phase | Status | Notes |
 |-------|--------|-------|
-| Domain modeling & decisions | ✅ Done | D01-D16 confirmed, CONTEXT.md created |
-| Phase 1: Reference styles | ⬜ Pending | Need 2-3 styles to validate contract |
-| Phase 2: Envelope framework | ⬜ Pending | Overview, Lab, Pure Mode, nav, filter, theme, i18n |
-| Phase 3: Batch style production | ⬜ Pending | 45+ styles via parallel sub-agents |
-| Phase 4: Shared infra extraction | ⬜ Pending | After all styles exist |
-| Testing setup | ⬜ Pending | Playwright, following skill audit profiles |
-| Deployment | ⬜ Pending | Vercel + GitHub Actions CI |
+| Domain modeling & decisions | ✅ Done | D01-D73 confirmed, CONTEXT.md created |
+| Phase 1: Reference styles | ✅ Done | Styles 01, 17, 33 validated contract |
+| Phase 2: Envelope framework | ✅ Done | Overview, Lab, Pure Mode, nav, filter, theme, i18n |
+| Phase 3: Batch style production | ✅ Done | All 48 styles built and registered |
+| Phase 4: Shared infra extraction | ✅ Done | Font dedup, registry, shared utilities |
+| Testing setup | ✅ Done | 599 unit tests (Vitest) + 78 e2e (Playwright) |
+| Adversarial review fixes | ✅ Done | 46 high-severity defects fixed across all 48 styles |
+| Deployment | ✅ Done | Vercel: https://frontend-harness-slides-workbench.vercel.app |
+
+### Adversarial Review Fixes (2026-07-05)
+
+48-style adversarial review discovered and fixed 46 high-severity defects:
+
+**Beat logic alignment** (component + metadata): Styles 03, 05, 08, 09, 10, 11, 12, 13, 15, 18, 25, 26, 27-32, 41, 44, 45, 46, 47, 48 — beat 0 now correctly shows "heading only" per metadata promises, not items.
+
+**Navigation contract violation**: Style 17 used Prev/Next buttons instead of 5 scene jump dots. Replaced with dot-based nav matching all other styles.
+
+**Content/metadata fixes**: Styles 28/30 BEAT_COUNTS[4] corrected (2→1), Style 21 title "Five Shifts"→"Three Shifts" (only 3 items), Styles 23/24 HTML entity rendering.
+
+**CSS/asset fixes**: Style 02 font-weight 75→700 (invalid CSS), Style 25 stats animation, font loading injection added to 10 styles (01, 02, 04, 17, 33-38).
+
+**Verification**: All 599 unit tests pass, 78/78 Playwright e2e pass, build succeeds.
