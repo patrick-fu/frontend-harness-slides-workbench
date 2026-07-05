@@ -3,8 +3,16 @@
 /* ─── Theme tokens ──────────────────────────────────────────────────────── */
 
 @theme {
-  --color-ink: #030712;
-  --color-paper: #f8fafc;
+  /* Dynamic tokens — reference CSS variables so they respond to data-theme */
+  --color-ink: var(--ink);
+  --color-paper: var(--bg);
+  --color-panel: var(--panel);
+  --color-accent: var(--accent);
+
+  /* Static chrome colors (always dark, Figma-style) */
+  --color-chrome: #1a1a1a;
+  --color-chrome-ink: #d4d4d4;
+  --color-canvas: #141414;
 }
 
 /* ─── Light / dark theme CSS variables ──────────────────────────────────── */

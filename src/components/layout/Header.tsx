@@ -17,19 +17,19 @@ export default function Header({
   return (
     <header
       data-testid="header"
-      className="fixed top-0 left-0 right-0 w-full z-50 h-12 md:h-14 bg-paper border-b border-ink/10 flex items-center px-3 md:px-4"
+      className="fixed top-0 left-0 right-0 w-full z-50 h-9 bg-chrome text-chrome-ink border-b border-white/10 flex items-center px-3"
     >
       {/* Left: hamburger / sidebar toggle */}
       <button
         type="button"
         data-testid="sidebar-toggle"
         onClick={onToggleSidebar}
-        className="p-2 rounded-md hover:bg-ink/10 transition-colors flex items-center justify-center"
+        className="p-1.5 rounded-md hover:bg-white/10 transition-colors flex items-center justify-center"
         aria-label="Toggle sidebar"
       >
         <svg
-          width="20"
-          height="20"
+          width="18"
+          height="18"
           viewBox="0 0 20 20"
           fill="none"
           stroke="currentColor"
@@ -47,7 +47,7 @@ export default function Header({
         <button
           type="button"
           onClick={onGoOverview}
-          className="text-sm md:text-base font-semibold tracking-tight hover:opacity-70 transition-opacity cursor-pointer"
+          className="text-sm font-semibold tracking-tight hover:opacity-70 transition-opacity cursor-pointer text-chrome-ink"
         >
           Frontend Harness Slides Workbench
         </button>
@@ -60,7 +60,7 @@ export default function Header({
           type="button"
           data-testid="lang-toggle"
           onClick={onToggleLanguage}
-          className="px-2 py-1 text-xs font-medium rounded-md hover:bg-ink/10 transition-colors"
+          className="px-2 py-1 text-xs font-medium rounded-md hover:bg-white/10 transition-colors text-chrome-ink"
           aria-label={`Switch to ${language === "en" ? "Chinese" : "English"}`}
         >
           {language === "en" ? "EN" : "ZH"}
@@ -71,7 +71,7 @@ export default function Header({
           type="button"
           data-testid="theme-toggle"
           onClick={onCycleTheme}
-          className="p-2 rounded-md hover:bg-ink/10 transition-colors"
+          className="p-1.5 rounded-md hover:bg-white/10 transition-colors text-chrome-ink"
           aria-label="Cycle theme"
         >
           <svg
@@ -95,7 +95,7 @@ export default function Header({
           href="https://github.com/patrick-fu/frontend-harness-slides-workbench"
           target="_blank"
           rel="noopener noreferrer"
-          className="p-2 rounded-md hover:bg-ink/10 transition-colors"
+          className="p-1.5 rounded-md hover:bg-white/10 transition-colors text-chrome-ink"
           aria-label="View source on GitHub"
         >
           <svg

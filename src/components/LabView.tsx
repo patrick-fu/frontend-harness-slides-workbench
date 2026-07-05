@@ -180,7 +180,7 @@ export default function LabView({
       {/* Stage area */}
       <div
         ref={stageContainerRef}
-        className="flex-1 flex items-center justify-center overflow-hidden relative"
+        className="flex-1 flex items-center justify-center overflow-hidden relative bg-canvas"
         style={{ minHeight: 0, minWidth: 0 }}
       >
         <PureModeOverlay isPureMode={isPureMode} onExitPure={onExitPure}>

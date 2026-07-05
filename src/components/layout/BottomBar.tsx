@@ -31,7 +31,7 @@ export default function BottomBar({
   return (
     <div
       data-testid="bottom-bar"
-      className="fixed bottom-0 left-0 right-0 w-full z-50 h-14 bg-paper border-t border-ink/10 flex items-center px-4"
+      className="fixed bottom-0 left-0 right-0 w-full z-50 h-9 bg-chrome text-chrome-ink border-t border-white/10 flex items-center px-3"
       role="toolbar"
       aria-label="Slide navigation"
     >
@@ -41,12 +41,12 @@ export default function BottomBar({
         data-testid="prev-button"
         onClick={onPrev}
         disabled={isFirst}
-        className="p-2 rounded-md hover:bg-ink/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+        className="p-1 rounded-md hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
         aria-label="Previous"
       >
         <svg
-          width="20"
-          height="20"
+          width="16"
+          height="16"
           viewBox="0 0 20 20"
           fill="none"
           stroke="currentColor"
@@ -74,10 +74,10 @@ export default function BottomBar({
                 aria-label={`Scene ${scene.id}`}
                 onClick={() => onJumpScene(scene.id)}
                 className={[
-                  "w-2.5 h-2.5 rounded-full transition-all duration-200",
+                  "w-2 h-2 rounded-full transition-all duration-200",
                   isActive
-                    ? "bg-ink scale-125"
-                    : "bg-ink/25 hover:bg-ink/50",
+                    ? "bg-chrome-ink scale-125"
+                    : "bg-white/25 hover:bg-white/50",
                 ].join(" ")}
               />
             );
@@ -88,7 +88,7 @@ export default function BottomBar({
         <div className="flex items-center gap-2 min-w-[80px]">
           <div
             data-testid="beat-progress-bar"
-            className="flex-1 h-1 bg-ink/10 rounded-full overflow-hidden min-w-[40px]"
+            className="flex-1 h-0.5 bg-white/10 rounded-full overflow-hidden min-w-[40px]"
             role="progressbar"
             aria-valuenow={currentBeat + 1}
             aria-valuemin={1}
@@ -97,13 +97,13 @@ export default function BottomBar({
           >
             <div
               data-testid="beat-progress-fill"
-              className="h-full bg-ink/60 rounded-full transition-all duration-200"
+              className="h-full bg-white/60 rounded-full transition-all duration-200"
               style={{ width: `${beatProgress}%` }}
             />
           </div>
           <span
             data-testid="beat-counter"
-            className="text-xs font-mono text-ink/50 tabular-nums whitespace-nowrap"
+            className="text-[10px] font-mono text-chrome-ink/50 tabular-nums whitespace-nowrap"
           >
             {currentBeat + 1}/{totalBeats}
           </span>
@@ -116,12 +116,12 @@ export default function BottomBar({
         data-testid="next-button"
         onClick={onNext}
         disabled={isLast}
-        className="p-2 rounded-md hover:bg-ink/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+        className="p-1 rounded-md hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
         aria-label="Next"
       >
         <svg
-          width="20"
-          height="20"
+          width="16"
+          height="16"
           viewBox="0 0 20 20"
           fill="none"
           stroke="currentColor"

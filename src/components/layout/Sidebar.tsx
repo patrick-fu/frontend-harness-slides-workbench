@@ -16,7 +16,6 @@ export interface SidebarProps {
   width: number;
   onWidthChange: (w: number) => void;
   collapsed: boolean;
-  onToggleCollapsed: () => void;
 }
 
 const MIN_WIDTH = 240;
@@ -33,7 +32,6 @@ export default function Sidebar({
   width,
   onWidthChange,
   collapsed,
-  onToggleCollapsed,
 }: SidebarProps) {
   const [collapsedBands, setCollapsedBands] = useState<Set<BandId>>(new Set());
   const [isDragging, setIsDragging] = useState(false);
@@ -109,7 +107,7 @@ export default function Sidebar({
 
   const sidebarClasses = [
     "fixed md:fixed top-0 left-0 h-full z-40",
-    "bg-paper border-r border-ink/10",
+    "bg-chrome text-chrome-ink border-r border-white/10",
     "flex flex-col",
     "transition-transform duration-200 md:transition-none",
     // Mobile: slide in from left
@@ -133,40 +131,13 @@ export default function Sidebar({
         className={sidebarClasses}
         style={{
           width: effectiveWidth,
-          paddingTop: "48px",
+          paddingTop: "36px",
+          paddingBottom: "36px",
           top: 0,
           userSelect: isDragging ? "none" : undefined,
         }}
         aria-label="Style navigation"
       >
-        {/* Collapse toggle (desktop) */}
-        <div className="flex items-center justify-end p-1 border-b border-ink/10">
-          <button
-            type="button"
-            data-testid="sidebar-collapse-toggle"
-            onClick={onToggleCollapsed}
-            className="p-1.5 rounded hover:bg-ink/10 transition-colors"
-            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              {collapsed ? (
-                <polyline points="6,3 11,8 6,13" />
-              ) : (
-                <polyline points="10,3 5,8 10,13" />
-              )}
-            </svg>
-          </button>
-        </div>
-
         {/* Band sections — scrollable area */}
         <div className="flex-1 overflow-y-auto py-1">
           {grouped.map(([band, entries]) => {
@@ -186,7 +157,7 @@ export default function Sidebar({
                   type="button"
                   data-testid={`band-toggle-${band}`}
                   onClick={() => toggleBand(band)}
-                  className="w-full flex items-center gap-1 px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-ink/50 hover:bg-ink/5 transition-colors"
+                  className="w-full flex items-center gap-1 px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-chrome-ink/50 hover:bg-white/5 transition-colors"
                   aria-expanded={!isBandCollapsed}
                 >
                   <svg
@@ -227,12 +198,12 @@ export default function Sidebar({
                               "w-full flex items-center gap-2 px-2 py-1.5 text-left text-sm transition-colors",
                               "rounded-md mx-1",
                               isCurrent
-                                ? "bg-ink/10 font-medium"
-                                : "hover:bg-ink/5",
+                                ? "bg-white/10 font-medium"
+                                : "hover:bg-white/5",
                             ].join(" ")}
                             title={collapsed ? meta.name : undefined}
                           >
-                            <span className="shrink-0 text-xs font-mono text-ink/40 w-6 text-center">
+                            <span className="shrink-0 text-xs font-mono text-chrome-ink/40 w-6 text-center">
                               {entry.id}
                             </span>
                             {!collapsed && (
@@ -258,7 +229,7 @@ export default function Sidebar({
             aria-orientation="vertical"
             aria-label="Resize sidebar"
           >
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0.5 h-8 bg-ink/10 group-hover:bg-ink/30 rounded-full transition-colos" />
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0.5 h-8 bg-white/10 group-hover:bg-white/25 rounded-full transition-colos" />
           </div>
         )}
       </aside>

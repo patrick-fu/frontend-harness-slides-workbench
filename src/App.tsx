@@ -112,10 +112,6 @@ function AppContent() {
     setSidebarOpen(false);
   }, []);
 
-  const handleToggleSidebarCollapsed = useCallback(() => {
-    setSidebarCollapsed((prev) => !prev);
-  }, []);
-
   const handleSidebarWidthChange = useCallback((w: number) => {
     setSidebarWidth(w);
   }, []);
@@ -176,8 +172,8 @@ function AppContent() {
 
   const contentStyle = useMemo(() => {
     const effectiveSidebarWidth = sidebarCollapsed ? 48 : sidebarWidth;
-    const headerHeight = 56; // h-14
-    const bottomBarHeight = isLab ? 56 : 0; // h-14
+    const headerHeight = 36; // h-9
+    const bottomBarHeight = isLab ? 36 : 0; // h-9
 
     return {
       paddingTop: headerHeight,
@@ -221,7 +217,6 @@ function AppContent() {
           width={sidebarWidth}
           onWidthChange={handleSidebarWidthChange}
           collapsed={sidebarCollapsed}
-          onToggleCollapsed={handleToggleSidebarCollapsed}
         />
       </div>
 
@@ -234,6 +229,7 @@ function AppContent() {
             : {
                 paddingTop: contentStyle.paddingTop,
                 paddingLeft: contentStyle.paddingLeft,
+                paddingBottom: contentStyle.paddingBottom,
                 height: "100vh",
               }
         }

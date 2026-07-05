@@ -90,7 +90,6 @@ function renderSidebar(
     width: 280,
     onWidthChange: vi.fn(),
     collapsed: false,
-    onToggleCollapsed: vi.fn(),
     ...props,
   };
   const result = render(<Sidebar {...defaultProps} />);
@@ -99,7 +98,6 @@ function renderSidebar(
     onSelectStyle: defaultProps.onSelectStyle,
     onClose: defaultProps.onClose,
     onWidthChange: defaultProps.onWidthChange,
-    onToggleCollapsed: defaultProps.onToggleCollapsed,
   };
 }
 
@@ -181,16 +179,17 @@ describe("Sidebar — collapsed state", () => {
     expect(screen.getByText("Executive Silence")).toBeInTheDocument();
   });
 
-  it("renders a collapse/expand toggle button", () => {
-    renderSidebar();
-    const toggle = screen.getByTestId("sidebar-collapse-toggle");
-    expect(toggle).toBeInTheDocument();
+  it("hides style names when collapsed (only IDs visible)", () => {
+    renderSidebar({ collapsed: true });
+    // Style name spans should not be rendered (collapsed hides them)
+    expect(screen.queryByText("Executive Silence")).not.toBeInTheDocument();
+    // But the ID number should still be visible
+    expect(screen.getByText("01")).toBeInTheDocument();
   });
 
-  it("clicking collapse toggle calls onToggleCollapsed", () => {
-    const { onToggleCollapsed } = renderSidebar();
-    fireEvent.click(screen.getByTestId("sidebar-collapse-toggle"));
-    expect(onToggleCollapsed).toHaveBeenCalledTimes(1);
+  it("does not render a collapse toggle button (controlled by parent hamburger)", () => {
+    renderSidebar();
+    expect(screen.queryByTestId("sidebar-collapse-toggle")).not.toBeInTheDocument();
   });
 });
 
