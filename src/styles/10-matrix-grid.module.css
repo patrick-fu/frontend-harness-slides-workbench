@@ -1,0 +1,446 @@
+/* ─── Style 10: Matrix Grid ──────────────────────────────────────────────
+   Competitive landscape analysis. Grid-based layouts, comparison tables.
+   All sizing in cqw/cqh. No px/vw/vh.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--style-10-bg, #ffffff);
+  color: var(--style-10-ink, #1a1a2e);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 5cqh 7cqw;
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.trackEnter {
+  opacity: 0;
+  transform: translateX(-3cqw);
+}
+
+.trackActive {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Scene 1: Title ────────────────────────────────────────────────────── */
+
+.scene1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.labelTag {
+  display: inline-block;
+  font-size: 1.4cqw;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--style-10-accent, #4361ee);
+  padding: 0.6cqh 1.5cqw;
+  border: 0.15cqw solid var(--style-10-accent, #4361ee);
+  border-radius: 0.4cqw;
+  margin-bottom: 3cqh;
+  width: fit-content;
+}
+
+.title {
+  font-size: 7.5cqw;
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  margin: 0;
+  color: var(--style-10-ink, #1a1a2e);
+}
+
+.titleHighlight {
+  color: var(--style-10-accent, #4361ee);
+}
+
+.subtitle {
+  font-size: 2.4cqw;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-top: 3cqh;
+  color: var(--style-10-muted, #64748b);
+  max-width: 55cqw;
+}
+
+/* ── Scene 2: Competitive Quadrant ─────────────────────────────────────── */
+
+.scene2 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.secHeader {
+  font-size: 1.6cqw;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--style-10-accent, #4361ee);
+  margin-bottom: 0.5cqh;
+}
+
+.secTitle {
+  font-size: 4cqw;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 3cqh 0;
+  color: var(--style-10-ink, #1a1a2e);
+}
+
+.quadrant {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1.5cqw;
+  flex: 1;
+  min-height: 0;
+}
+
+.quadCell {
+  background: var(--style-10-panel, #f5f5f5);
+  border-radius: 1cqw;
+  padding: 2.5cqh 2.5cqw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 0.15cqw solid transparent;
+  opacity: 0;
+  transform: scale(0.95);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease;
+}
+
+.quadCellVisible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.quadCellHighlight {
+  border-color: var(--style-10-accent, #4361ee);
+  background: rgba(67, 97, 238, 0.06);
+}
+
+.quadLabel {
+  font-size: 1.3cqw;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--style-10-muted, #64748b);
+  margin-bottom: 1cqh;
+}
+
+.quadName {
+  font-size: 2.8cqw;
+  font-weight: 700;
+  color: var(--style-10-ink, #1a1a2e);
+  margin-bottom: 0.5cqh;
+}
+
+.quadDesc {
+  font-size: 1.4cqw;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--style-10-muted, #64748b);
+}
+
+.quadCount {
+  font-size: 3.5cqw;
+  font-weight: 800;
+  color: var(--style-10-accent, #4361ee);
+  margin-top: 0.5cqh;
+}
+
+/* ── Scene 3: Comparison Table ─────────────────────────────────────────── */
+
+.scene3 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.tableWrap {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 1cqw;
+  border: 0.15cqw solid #e2e8f0;
+  background: var(--style-10-bg, #ffffff);
+}
+
+.table {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  font-size: 1.4cqw;
+}
+
+.table th {
+  text-align: left;
+  padding: 1.5cqh 1.5cqw;
+  font-weight: 600;
+  font-size: 1.3cqw;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--style-10-muted, #64748b);
+  background: var(--style-10-panel, #f5f5f5);
+  border-bottom: 0.15cqw solid #e2e8f0;
+}
+
+.table th.featureCol {
+  width: 25%;
+}
+
+.table th.ourCol {
+  color: var(--style-10-accent, #4361ee);
+}
+
+.table td {
+  padding: 1.2cqh 1.5cqw;
+  border-bottom: 0.1cqw solid #f1f5f9;
+  color: var(--style-10-ink, #1a1a2e);
+  font-weight: 400;
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr.ourRow {
+  background: rgba(67, 97, 238, 0.03);
+}
+
+.table td.ourCell {
+  font-weight: 600;
+  color: var(--style-10-accent, #4361ee);
+}
+
+.checkMark {
+  color: #22c55e;
+  font-weight: 700;
+  font-size: 1.8cqw;
+}
+
+.crossMark {
+  color: #ef4444;
+  font-weight: 400;
+  font-size: 1.8cqw;
+}
+
+.partialMark {
+  color: #f59e0b;
+  font-weight: 500;
+  font-size: 1.4cqw;
+}
+
+.tableRow {
+  opacity: 0;
+  transform: translateX(-1cqw);
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tableRowVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Scene 4: Feature Matrix ───────────────────────────────────────────── */
+
+.scene4 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.matrixGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2cqw;
+  flex: 1;
+  margin-top: 1cqh;
+}
+
+.matrixCell {
+  background: var(--style-10-panel, #f5f5f5);
+  border-radius: 0.8cqw;
+  padding: 2cqh 1.5cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.8cqh;
+  opacity: 0;
+  transform: translateY(1cqh);
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.matrixCellVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.matrixCellHeader {
+  font-size: 1.1cqw;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--style-10-muted, #64748b);
+  width: 100%;
+  padding-bottom: 0.6cqh;
+  border-bottom: 0.1cqw solid #e2e8f0;
+}
+
+.matrixCellHeader.highlight {
+  color: var(--style-10-accent, #4361ee);
+  border-bottom-color: var(--style-10-accent, #4361ee);
+}
+
+.matrixFeature {
+  font-size: 1.3cqw;
+  font-weight: 500;
+  color: var(--style-10-ink, #1a1a2e);
+  line-height: 1.2;
+}
+
+.matrixVal {
+  font-size: 1.6cqw;
+  font-weight: 700;
+}
+
+.matrixVal.good { color: #22c55e; }
+.matrixVal.bad { color: #ef4444; }
+.matrixVal.mid { color: #f59e0b; }
+
+/* ── Scene 5: Closing ──────────────────────────────────────────────────── */
+
+.scene5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+
+.closingStatement {
+  font-size: 5.5cqw;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0;
+  color: var(--style-10-ink, #1a1a2e);
+  max-width: 75cqw;
+}
+
+.closingStatement em {
+  font-style: normal;
+  color: var(--style-10-accent, #4361ee);
+}
+
+.closingData {
+  display: flex;
+  gap: 6cqw;
+  margin-top: 5cqh;
+}
+
+.closingDataItem {
+  text-align: center;
+}
+
+.closingDataVal {
+  font-size: 5cqw;
+  font-weight: 800;
+  color: var(--style-10-accent, #4361ee);
+  line-height: 1;
+  display: block;
+}
+
+.closingDataLbl {
+  font-size: 1.5cqw;
+  font-weight: 500;
+  color: var(--style-10-muted, #64748b);
+  margin-top: 0.8cqh;
+  display: block;
+}
+
+/* ── Navigation ────────────────────────────────────────────────────────── */
+
+.navDots {
+  position: absolute;
+  bottom: 3cqh;
+  right: 5cqw;
+  display: flex;
+  gap: 1cqw;
+  z-index: 10;
+  flex-direction: column;
+}
+
+.navDot {
+  width: 0.5cqw;
+  height: 3cqh;
+  border-radius: 0.25cqw;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: var(--style-10-ink, #1a1a2e);
+  opacity: 0.1;
+  transition:
+    opacity 0.3s ease,
+    height 0.3s ease,
+    background 0.3s ease;
+}
+
+.navDot:hover {
+  opacity: 0.3;
+}
+
+.navDotActive {
+  opacity: 0.5;
+  height: 5cqh;
+  background: var(--style-10-accent, #4361ee);
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+
+.reducedMotion .track,
+.reducedMotion .quadCell,
+.reducedMotion .tableRow,
+.reducedMotion .matrixCell,
+.reducedMotion .navDot {
+  transition-duration: 0s !important;
+}
+
+.reducedMotion .trackEnter {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Thumbnail ─────────────────────────────────────────────────────────── */
+
+.thumbnail .navDots {
+  display: none;
+}

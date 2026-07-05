@@ -1,0 +1,408 @@
+/* ─── Style 09: Process Flow ──────────────────────────────────────────────
+   Agile methodology walkthrough. Step-by-step visual flow.
+   All sizing in cqw/cqh. No px/vw/vh.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--style-09-bg, #f8f9fa);
+  color: var(--style-09-ink, #212529);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* ── Transition track ──────────────────────────────────────────────────── */
+
+.track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 6cqh 8cqw;
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.trackEnter {
+  opacity: 0;
+  transform: translateX(4cqw);
+}
+
+.trackActive {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Scene 1: Title ────────────────────────────────────────────────────── */
+
+.scene1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.eyebrow {
+  font-size: 1.8cqw;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--style-09-accent, #4a90d9);
+  margin-bottom: 2cqh;
+}
+
+.titleMain {
+  font-size: 7cqw;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0;
+  color: var(--style-09-ink, #212529);
+}
+
+.titleAccent {
+  color: var(--style-09-accent, #4a90d9);
+}
+
+.titleSub {
+  font-size: 2.5cqw;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-top: 3cqh;
+  color: var(--style-09-muted, #6c757d);
+  max-width: 60cqw;
+}
+
+/* ── Scene 2: Sprint Cycle ─────────────────────────────────────────────── */
+
+.scene2 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sceneHeading {
+  font-size: 2cqw;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--style-09-accent, #4a90d9);
+  margin-bottom: 1cqh;
+}
+
+.sceneTitle {
+  font-size: 4.5cqw;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 4cqh 0;
+  color: var(--style-09-ink, #212529);
+}
+
+.cycleRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5cqw;
+  flex: 1;
+}
+
+.cycleStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5cqh;
+  opacity: 0;
+  transform: translateY(1.5cqh);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cycleStepVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stepIcon {
+  width: 10cqw;
+  height: 10cqw;
+  border-radius: 50%;
+  background: var(--style-09-panel, #ffffff);
+  box-shadow: 0 0.5cqh 2cqh rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.3cqw solid var(--style-09-accent, #4a90d9);
+}
+
+.stepIcon svg {
+  width: 5cqw;
+  height: 5cqw;
+}
+
+.stepLabel {
+  font-size: 1.6cqw;
+  font-weight: 600;
+  text-align: center;
+  color: var(--style-09-ink, #212529);
+}
+
+.stepDesc {
+  font-size: 1.2cqw;
+  font-weight: 400;
+  text-align: center;
+  color: var(--style-09-muted, #6c757d);
+  max-width: 12cqw;
+  line-height: 1.3;
+}
+
+.cycleArrow {
+  width: 3cqw;
+  height: 3cqh;
+  flex-shrink: 0;
+  color: var(--style-09-muted, #6c757d);
+  opacity: 0.4;
+}
+
+/* ── Scene 3: Process Steps ────────────────────────────────────────────── */
+
+.scene3 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.stepsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+  flex: 1;
+  margin-top: 2cqh;
+}
+
+.stepRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 3cqw;
+  padding: 2.5cqh 3cqw;
+  background: var(--style-09-panel, #ffffff);
+  border-radius: 1cqw;
+  box-shadow: 0 0.3cqh 1.5cqh rgba(0, 0, 0, 0.04);
+  border-left: 0.5cqw solid var(--style-09-accent, #4a90d9);
+  opacity: 0;
+  transform: translateX(-2cqw);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stepRowVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.stepNumber {
+  font-size: 3cqw;
+  font-weight: 700;
+  color: var(--style-09-accent, #4a90d9);
+  line-height: 1;
+  min-width: 4cqw;
+  font-variant-numeric: tabular-nums;
+}
+
+.stepContent {
+  flex: 1;
+}
+
+.stepTitle {
+  font-size: 2.2cqw;
+  font-weight: 600;
+  margin: 0 0 0.5cqh 0;
+  color: var(--style-09-ink, #212529);
+}
+
+.stepBody {
+  font-size: 1.5cqw;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--style-09-muted, #6c757d);
+  margin: 0;
+}
+
+.stepBadge {
+  font-size: 1.2cqw;
+  font-weight: 500;
+  padding: 0.4cqh 1cqw;
+  background: rgba(74, 144, 217, 0.1);
+  color: var(--style-09-accent, #4a90d9);
+  border-radius: 2cqw;
+  white-space: nowrap;
+  margin-top: 0.8cqh;
+  display: inline-block;
+}
+
+/* ── Scene 4: Metrics ──────────────────────────────────────────────────── */
+
+.scene4 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5cqw;
+  flex: 1;
+  margin-top: 3cqh;
+}
+
+.metricCard {
+  background: var(--style-09-panel, #ffffff);
+  border-radius: 1.2cqw;
+  padding: 3.5cqh 2.5cqw;
+  box-shadow: 0 0.4cqh 2cqh rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transform: scale(0.92);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.metricCardVisible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.metricValue {
+  font-size: 6cqw;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--style-09-accent, #4a90d9);
+  letter-spacing: -0.03em;
+}
+
+.metricLabel {
+  font-size: 1.6cqw;
+  font-weight: 500;
+  margin-top: 1.5cqh;
+  color: var(--style-09-ink, #212529);
+}
+
+.metricDesc {
+  font-size: 1.2cqw;
+  font-weight: 400;
+  margin-top: 0.8cqh;
+  color: var(--style-09-muted, #6c757d);
+  line-height: 1.3;
+}
+
+/* ── Scene 5: Closing ──────────────────────────────────────────────────── */
+
+.scene5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+
+.closingBig {
+  font-size: 8cqw;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0;
+  color: var(--style-09-ink, #212529);
+}
+
+.closingBig span {
+  color: var(--style-09-accent, #4a90d9);
+}
+
+.closingSub {
+  font-size: 2.8cqw;
+  font-weight: 400;
+  margin-top: 3cqh;
+  color: var(--style-09-muted, #6c757d);
+}
+
+.closingTag {
+  font-size: 1.5cqw;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 5cqh;
+  padding: 1cqh 2.5cqw;
+  background: var(--style-09-accent, #4a90d9);
+  color: #fff;
+  border-radius: 3cqw;
+}
+
+/* ── Navigation dots ───────────────────────────────────────────────────── */
+
+.navDots {
+  position: absolute;
+  bottom: 3.5cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.5cqw;
+  z-index: 10;
+}
+
+.navDot {
+  width: 2.5cqw;
+  height: 0.6cqh;
+  border-radius: 0.3cqh;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: var(--style-09-ink, #212529);
+  opacity: 0.12;
+  transition:
+    opacity 0.3s ease,
+    width 0.3s ease,
+    background 0.3s ease;
+}
+
+.navDot:hover {
+  opacity: 0.35;
+}
+
+.navDotActive {
+  opacity: 0.6;
+  width: 5cqw;
+  background: var(--style-09-accent, #4a90d9);
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+
+.reducedMotion .track,
+.reducedMotion .cycleStep,
+.reducedMotion .stepRow,
+.reducedMotion .metricCard,
+.reducedMotion .navDot {
+  transition-duration: 0s !important;
+}
+
+.reducedMotion .trackEnter {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Thumbnail mode ────────────────────────────────────────────────────── */
+
+.thumbnail .navDots {
+  display: none;
+}

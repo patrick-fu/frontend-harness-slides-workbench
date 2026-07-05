@@ -1,0 +1,565 @@
+/* ─── Style 14: Org Chart ───────────────────────────────────────────────
+   Team scaling structure. Organizational diagram with node-based layouts.
+   All sizing in cqw/cqh. No px/vw/vh.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--style-14-bg, #f7fafc);
+  color: var(--style-14-ink, #2d3748);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 4cqh 6cqw;
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.trackEnter {
+  opacity: 0;
+  transform: translateY(1.5cqh);
+}
+
+.trackActive {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Scene 1: Title ────────────────────────────────────────────────────── */
+
+.scene1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.orgEyebrow {
+  font-size: 1.4cqw;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--style-14-accent, #4299e1);
+  margin-bottom: 2cqh;
+}
+
+.orgTitle {
+  font-size: 7cqw;
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  margin: 0;
+  color: var(--style-14-ink, #2d3748);
+}
+
+.orgTitle em {
+  font-style: normal;
+  color: var(--style-14-accent, #4299e1);
+}
+
+.orgSub {
+  font-size: 2.4cqw;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-top: 2.5cqh;
+  color: var(--style-14-muted, #718096);
+  max-width: 55cqw;
+}
+
+.orgStats {
+  display: flex;
+  gap: 5cqw;
+  margin-top: 5cqh;
+}
+
+.orgStatItem {
+  text-align: left;
+}
+
+.orgStatVal {
+  font-size: 4cqw;
+  font-weight: 800;
+  color: var(--style-14-accent, #4299e1);
+  line-height: 1;
+  display: block;
+  letter-spacing: -0.02em;
+}
+
+.orgStatLbl {
+  font-size: 1.3cqw;
+  font-weight: 500;
+  color: var(--style-14-muted, #718096);
+  margin-top: 0.5cqh;
+  display: block;
+}
+
+/* ── Scene 2: Org Chart Tree ───────────────────────────────────────────── */
+
+.scene2 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chartHeader {
+  margin-bottom: 1cqh;
+}
+
+.chartLabel {
+  font-size: 1.3cqw;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--style-14-accent, #4299e1);
+}
+
+.chartTitle {
+  font-size: 3.5cqw;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0.3cqh 0 0 0;
+  color: var(--style-14-ink, #2d3748);
+}
+
+.chartArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 0;
+}
+
+/* SVG connector lines */
+.chartLines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.chartLevels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3cqh;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.chartLevel {
+  display: flex;
+  justify-content: center;
+  gap: 2cqw;
+}
+
+.teamCard {
+  background: var(--style-14-panel, #ffffff);
+  border-radius: 1.2cqw;
+  padding: 2cqh 2cqw;
+  box-shadow: 0 0.3cqh 1.5cqh rgba(0, 0, 0, 0.06);
+  border: 0.1cqw solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1cqh;
+  min-width: 16cqw;
+  opacity: 0;
+  transform: translateY(1cqh) scale(0.95);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.teamCardVisible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.teamCard.ceo {
+  min-width: 20cqw;
+  border-color: var(--style-14-accent, #4299e1);
+  box-shadow: 0 0.5cqh 2cqh rgba(66, 153, 225, 0.15);
+}
+
+.avatar {
+  width: 5cqw;
+  height: 5cqw;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2cqw;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.avatarBlue { background: linear-gradient(135deg, #4299e1, #3182ce); }
+.avatarGreen { background: linear-gradient(135deg, #48bb78, #38a169); }
+.avatarPurple { background: linear-gradient(135deg, #9f7aea, #805ad5); }
+.avatarOrange { background: linear-gradient(135deg, #ed8936, #dd6b20); }
+.avatarPink { background: linear-gradient(135deg, #ed64a6, #d53f8c); }
+.avatarTeal { background: linear-gradient(135deg, #38b2ac, #319795); }
+
+.teamName {
+  font-size: 1.6cqw;
+  font-weight: 700;
+  color: var(--style-14-ink, #2d3748);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.teamRole {
+  font-size: 1.2cqw;
+  font-weight: 500;
+  color: var(--style-14-muted, #718096);
+  text-align: center;
+}
+
+.teamCount {
+  font-size: 1.1cqw;
+  font-weight: 600;
+  color: var(--style-14-accent, #4299e1);
+  background: rgba(66, 153, 225, 0.1);
+  padding: 0.3cqh 0.8cqw;
+  border-radius: 1cqw;
+}
+
+/* ── Scene 3: Team Detail ──────────────────────────────────────────────── */
+
+.scene3 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.teamDetail {
+  flex: 1;
+  display: flex;
+  gap: 5cqw;
+  align-items: flex-start;
+  margin-top: 2cqh;
+}
+
+.teamLead {
+  flex-shrink: 0;
+  text-align: center;
+  width: 25cqw;
+}
+
+.leadAvatar {
+  width: 14cqw;
+  height: 14cqw;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5cqw;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 auto 2cqh auto;
+  box-shadow: 0 0.5cqh 3cqh rgba(66, 153, 225, 0.2);
+}
+
+.leadName {
+  font-size: 3cqw;
+  font-weight: 800;
+  color: var(--style-14-ink, #2d3748);
+  display: block;
+  line-height: 1.1;
+}
+
+.leadTitle {
+  font-size: 1.6cqw;
+  font-weight: 500;
+  color: var(--style-14-muted, #718096);
+  display: block;
+  margin-top: 0.5cqh;
+}
+
+.teamMembers {
+  flex: 1;
+}
+
+.membersLabel {
+  font-size: 1.3cqw;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--style-14-accent, #4299e1);
+  margin-bottom: 1.5cqh;
+  display: block;
+}
+
+.membersGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5cqw;
+}
+
+.memberCard {
+  background: var(--style-14-panel, #ffffff);
+  border-radius: 1cqw;
+  padding: 1.5cqh 1.5cqw;
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+  box-shadow: 0 0.2cqh 1cqh rgba(0, 0, 0, 0.04);
+  border: 0.1cqw solid #e2e8f0;
+  opacity: 0;
+  transform: translateX(1cqw);
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.memberCardVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.memberAvatar {
+  width: 4cqw;
+  height: 4cqw;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4cqw;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.memberInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.memberName {
+  font-size: 1.4cqw;
+  font-weight: 600;
+  color: var(--style-14-ink, #2d3748);
+}
+
+.memberRole {
+  font-size: 1.1cqw;
+  font-weight: 400;
+  color: var(--style-14-muted, #718096);
+}
+
+/* ── Scene 4: Growth Metrics ───────────────────────────────────────────── */
+
+.scene4 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.growthTimeline {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.5cqh;
+  margin-top: 1cqh;
+}
+
+.growthRow {
+  display: flex;
+  align-items: center;
+  gap: 3cqw;
+  opacity: 0;
+  transform: translateX(-1.5cqw);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.growthRowVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.growthYear {
+  font-size: 3cqw;
+  font-weight: 800;
+  color: var(--style-14-accent, #4299e1);
+  min-width: 8cqw;
+  font-variant-numeric: tabular-nums;
+}
+
+.growthBarWrap {
+  flex: 1;
+  height: 4cqh;
+  background: #e2e8f0;
+  border-radius: 1cqh;
+  overflow: hidden;
+  position: relative;
+}
+
+.growthBar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--style-14-accent, #4299e1), #63b3ed);
+  border-radius: 1cqh;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 1.5cqw;
+}
+
+.growthBarLabel {
+  font-size: 1.4cqw;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.growthDesc {
+  font-size: 1.4cqw;
+  font-weight: 500;
+  color: var(--style-14-muted, #718096);
+  min-width: 20cqw;
+}
+
+/* ── Scene 5: Closing ──────────────────────────────────────────────────── */
+
+.scene5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+
+.closingBig {
+  font-size: 6cqw;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0;
+  color: var(--style-14-ink, #2d3748);
+  max-width: 70cqw;
+}
+
+.closingBig em {
+  font-style: normal;
+  color: var(--style-14-accent, #4299e1);
+}
+
+.closingSub {
+  font-size: 2.2cqw;
+  font-weight: 400;
+  color: var(--style-14-muted, #718096);
+  margin-top: 3cqh;
+  max-width: 55cqw;
+  line-height: 1.4;
+}
+
+.closingValues {
+  display: flex;
+  gap: 4cqw;
+  margin-top: 5cqh;
+}
+
+.closingValue {
+  text-align: center;
+}
+
+.closingValIcon {
+  width: 5cqw;
+  height: 5cqw;
+  border-radius: 50%;
+  background: rgba(66, 153, 225, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1cqh auto;
+  font-size: 2.5cqw;
+}
+
+.closingValText {
+  font-size: 1.5cqw;
+  font-weight: 600;
+  color: var(--style-14-ink, #2d3748);
+}
+
+/* ── Navigation ────────────────────────────────────────────────────────── */
+
+.navDots {
+  position: absolute;
+  bottom: 3cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.2cqw;
+  z-index: 10;
+}
+
+.navDot {
+  width: 2.5cqw;
+  height: 0.5cqh;
+  border-radius: 0.25cqh;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: var(--style-14-ink, #2d3748);
+  opacity: 0.1;
+  transition:
+    opacity 0.3s ease,
+    width 0.3s ease,
+    background 0.3s ease;
+}
+
+.navDot:hover {
+  opacity: 0.3;
+}
+
+.navDotActive {
+  opacity: 0.5;
+  width: 5cqw;
+  background: var(--style-14-accent, #4299e1);
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+
+.reducedMotion .track,
+.reducedMotion .teamCard,
+.reducedMotion .memberCard,
+.reducedMotion .growthRow,
+.reducedMotion .navDot {
+  transition-duration: 0s !important;
+}
+
+.reducedMotion .trackEnter {
+  opacity: 1;
+  transform: none;
+}
+
+.reducedMotion .growthBar {
+  transition-duration: 0s !important;
+}
+
+/* ── Thumbnail ─────────────────────────────────────────────────────────── */
+
+.thumbnail .navDots {
+  display: none;
+}

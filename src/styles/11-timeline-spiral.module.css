@@ -1,0 +1,489 @@
+/* ─── Style 11: Timeline Spiral ──────────────────────────────────────────
+   Company evolution history. Horizontal timeline with milestone markers.
+   All sizing in cqw/cqh. No px/vw/vh.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--style-11-bg, #fafbfc);
+  color: var(--style-11-ink, #24292e);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 5cqh 6cqw;
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.trackEnter {
+  opacity: 0;
+  transform: translateY(2cqh);
+}
+
+.trackActive {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Scene 1: Title ────────────────────────────────────────────────────── */
+
+.scene1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.brandMark {
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+  margin-bottom: 4cqh;
+}
+
+.brandDot {
+  width: 1.2cqw;
+  height: 1.2cqw;
+  border-radius: 50%;
+  background: var(--style-11-accent, #0366d6);
+}
+
+.brandName {
+  font-size: 1.6cqw;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--style-11-muted, #586069);
+}
+
+.heroTitle {
+  font-size: 8cqw;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin: 0;
+  color: var(--style-11-ink, #24292e);
+}
+
+.heroTitle span {
+  color: var(--style-11-accent, #0366d6);
+}
+
+.heroSub {
+  font-size: 2.6cqw;
+  font-weight: 400;
+  line-height: 1.35;
+  margin-top: 3cqh;
+  color: var(--style-11-muted, #586069);
+  max-width: 60cqw;
+}
+
+.heroYears {
+  display: flex;
+  gap: 4cqw;
+  margin-top: 5cqh;
+}
+
+.heroYearItem {
+  text-align: left;
+}
+
+.heroYearNum {
+  font-size: 3.5cqw;
+  font-weight: 700;
+  color: var(--style-11-accent, #0366d6);
+  line-height: 1;
+  display: block;
+}
+
+.heroYearLbl {
+  font-size: 1.3cqw;
+  font-weight: 500;
+  color: var(--style-11-muted, #586069);
+  margin-top: 0.5cqh;
+  display: block;
+}
+
+/* ── Scene 2: Timeline ─────────────────────────────────────────────────── */
+
+.scene2 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.timelineHeader {
+  margin-bottom: 2cqh;
+}
+
+.timelineLabel {
+  font-size: 1.4cqw;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--style-11-accent, #0366d6);
+}
+
+.timelineTitle {
+  font-size: 3.8cqw;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0.5cqh 0 0 0;
+  color: var(--style-11-ink, #24292e);
+}
+
+.timelineContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0 2cqw;
+  min-height: 0;
+}
+
+.timelineLine {
+  position: absolute;
+  top: 50%;
+  left: 4cqw;
+  right: 4cqw;
+  height: 0.3cqh;
+  background: linear-gradient(90deg, var(--style-11-accent, #0366d6), #79b8ff);
+  border-radius: 0.15cqh;
+  transform: translateY(-50%);
+}
+
+.timelineNodes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.tlNode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5cqh;
+  opacity: 0;
+  transform: translateY(1cqh);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tlNodeVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tlNodeDot {
+  width: 2.5cqw;
+  height: 2.5cqw;
+  border-radius: 50%;
+  background: var(--style-11-panel, #ffffff);
+  border: 0.4cqw solid var(--style-11-accent, #0366d6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0.3cqh 1cqh rgba(3, 102, 214, 0.2);
+  position: relative;
+}
+
+.tlNodeDot::after {
+  content: "";
+  width: 0.8cqw;
+  height: 0.8cqw;
+  border-radius: 50%;
+  background: var(--style-11-accent, #0366d6);
+}
+
+.tlNodeYear {
+  font-size: 1.8cqw;
+  font-weight: 700;
+  color: var(--style-11-accent, #0366d6);
+  font-variant-numeric: tabular-nums;
+}
+
+.tlNodeEvent {
+  font-size: 1.3cqw;
+  font-weight: 500;
+  text-align: center;
+  color: var(--style-11-ink, #24292e);
+  max-width: 14cqw;
+  line-height: 1.3;
+}
+
+.tlNodeDesc {
+  font-size: 1.1cqw;
+  font-weight: 400;
+  text-align: center;
+  color: var(--style-11-muted, #586069);
+  max-width: 14cqw;
+  line-height: 1.3;
+}
+
+/* ── Scene 3: Milestone Detail ─────────────────────────────────────────── */
+
+.scene3 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.milestoneDetail {
+  flex: 1;
+  display: flex;
+  gap: 5cqw;
+  align-items: center;
+  margin-top: 2cqh;
+}
+
+.milestoneYearBlock {
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.milestoneYearBig {
+  font-size: 12cqw;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--style-11-accent, #0366d6);
+  letter-spacing: -0.04em;
+  display: block;
+}
+
+.milestoneYearLabel {
+  font-size: 1.4cqw;
+  font-weight: 500;
+  color: var(--style-11-muted, #586069);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.milestoneInfo {
+  flex: 1;
+}
+
+.milestoneEventTitle {
+  font-size: 4cqw;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 2cqh 0;
+  color: var(--style-11-ink, #24292e);
+}
+
+.milestoneDesc {
+  font-size: 2cqw;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--style-11-muted, #586069);
+  margin: 0 0 3cqh 0;
+}
+
+.milestoneStats {
+  display: flex;
+  gap: 4cqw;
+}
+
+.milestoneStat {
+  text-align: left;
+}
+
+.milestoneStatVal {
+  font-size: 3cqw;
+  font-weight: 700;
+  color: var(--style-11-ink, #24292e);
+  display: block;
+  line-height: 1;
+}
+
+.milestoneStatLbl {
+  font-size: 1.2cqw;
+  font-weight: 500;
+  color: var(--style-11-muted, #586069);
+  margin-top: 0.5cqh;
+  display: block;
+}
+
+/* ── Scene 4: Growth Metrics ───────────────────────────────────────────── */
+
+.scene4 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.growthGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2cqw;
+  flex: 1;
+  margin-top: 2cqh;
+}
+
+.growthCard {
+  background: var(--style-11-panel, #ffffff);
+  border-radius: 1cqw;
+  padding: 3cqh 3cqw;
+  box-shadow: 0 0.2cqh 1.5cqh rgba(0, 0, 0, 0.04);
+  border: 0.1cqw solid #e1e4e8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(1cqh);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.growthCardVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.growthCardLabel {
+  font-size: 1.3cqw;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--style-11-muted, #586069);
+  margin-bottom: 1cqh;
+}
+
+.growthCardValue {
+  font-size: 5cqw;
+  font-weight: 800;
+  color: var(--style-11-accent, #0366d6);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.growthCardUnit {
+  font-size: 2cqw;
+  font-weight: 600;
+  color: var(--style-11-muted, #586069);
+  margin-left: 0.5cqw;
+}
+
+.growthCardDesc {
+  font-size: 1.4cqw;
+  font-weight: 400;
+  color: var(--style-11-muted, #586069);
+  margin-top: 1cqh;
+  line-height: 1.3;
+}
+
+/* ── Scene 5: Closing ──────────────────────────────────────────────────── */
+
+.scene5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+
+.closingQuote {
+  font-size: 5cqw;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--style-11-ink, #24292e);
+  max-width: 70cqw;
+}
+
+.closingQuote em {
+  font-style: normal;
+  color: var(--style-11-accent, #0366d6);
+}
+
+.closingAuthor {
+  font-size: 1.8cqw;
+  font-weight: 500;
+  color: var(--style-11-muted, #586069);
+  margin-top: 3cqh;
+}
+
+.closingVision {
+  font-size: 2.2cqw;
+  font-weight: 400;
+  color: var(--style-11-muted, #586069);
+  margin-top: 5cqh;
+  max-width: 50cqw;
+  line-height: 1.4;
+}
+
+/* ── Navigation ────────────────────────────────────────────────────────── */
+
+.navDots {
+  position: absolute;
+  bottom: 3cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.2cqw;
+  z-index: 10;
+}
+
+.navDot {
+  width: 0.8cqw;
+  height: 0.8cqw;
+  border-radius: 50%;
+  border: 0.15cqw solid var(--style-11-accent, #0366d6);
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  opacity: 0.15;
+  transition:
+    opacity 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.navDot:hover {
+  opacity: 0.4;
+  transform: scale(1.2);
+}
+
+.navDotActive {
+  opacity: 0.7;
+  background: var(--style-11-accent, #0366d6);
+  transform: scale(1.15);
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+
+.reducedMotion .track,
+.reducedMotion .tlNode,
+.reducedMotion .growthCard,
+.reducedMotion .navDot {
+  transition-duration: 0s !important;
+}
+
+.reducedMotion .trackEnter {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Thumbnail ─────────────────────────────────────────────────────────── */
+
+.thumbnail .navDots {
+  display: none;
+}

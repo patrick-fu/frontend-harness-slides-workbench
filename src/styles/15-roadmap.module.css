@@ -1,0 +1,579 @@
+/* ─── Style 15: Roadmap ─────────────────────────────────────────────────
+   12-month product roadmap. Gantt-style timeline, phased milestones.
+   All sizing in cqw/cqh. No px/vw/vh.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--style-15-bg, #1a2332);
+  color: var(--style-15-ink, #e2e8f0);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* Subtle grid pattern */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 0.1cqh, transparent 0.1cqh),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0.1cqw, transparent 0.1cqw);
+  background-size: 5cqw 5cqh;
+  pointer-events: none;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 4cqh 6cqw;
+  z-index: 1;
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.trackEnter {
+  opacity: 0;
+  transform: translateX(3cqw);
+}
+
+.trackActive {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Scene 1: Title ────────────────────────────────────────────────────── */
+
+.scene1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.roadmapLabel {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.4cqw;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--style-15-accent, #64b5f6);
+  margin-bottom: 2cqh;
+}
+
+.roadmapTitle {
+  font-size: 8cqw;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin: 0;
+  color: var(--style-15-ink, #e2e8f0);
+}
+
+.roadmapTitle em {
+  font-style: normal;
+  color: var(--style-15-accent, #64b5f6);
+}
+
+.roadmapSub {
+  font-size: 2.4cqw;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-top: 3cqh;
+  color: var(--style-15-muted, #94a3b8);
+  max-width: 55cqw;
+}
+
+.roadmapMeta {
+  display: flex;
+  gap: 4cqw;
+  margin-top: 5cqh;
+}
+
+.roadmapMetaItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.roadmapMetaVal {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 3cqw;
+  font-weight: 700;
+  color: var(--style-15-accent, #64b5f6);
+  line-height: 1;
+}
+
+.roadmapMetaLbl {
+  font-size: 1.3cqw;
+  font-weight: 500;
+  color: var(--style-15-muted, #94a3b8);
+  margin-top: 0.5cqh;
+}
+
+/* ── Scene 2: Gantt Overview ──────────────────────────────────────────── */
+
+.scene2 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ganttHeader {
+  margin-bottom: 2cqh;
+}
+
+.ganttLabel {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.2cqw;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--style-15-accent, #64b5f6);
+}
+
+.ganttTitle {
+  font-size: 3.5cqw;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0.3cqh 0 0 0;
+  color: var(--style-15-ink, #e2e8f0);
+}
+
+.ganttChart {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--style-15-panel, #2d3748);
+  border-radius: 1cqw;
+  padding: 2.5cqh 2.5cqw;
+  border: 0.1cqw solid rgba(255, 255, 255, 0.06);
+  min-height: 0;
+}
+
+.ganttMonths {
+  display: flex;
+  margin-bottom: 1.5cqh;
+  padding-left: 18cqw;
+}
+
+.ganttMonth {
+  flex: 1;
+  text-align: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.1cqw;
+  font-weight: 500;
+  color: var(--style-15-muted, #94a3b8);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ganttMonth.current {
+  color: var(--style-15-accent, #64b5f6);
+  font-weight: 700;
+}
+
+.ganttRows {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2cqh;
+  overflow: hidden;
+}
+
+.ganttRow {
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+  opacity: 0;
+  transform: translateX(-1cqw);
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ganttRowVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ganttTaskName {
+  width: 16.5cqw;
+  font-size: 1.3cqw;
+  font-weight: 500;
+  color: var(--style-15-ink, #e2e8f0);
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ganttTrack {
+  flex: 1;
+  height: 3.5cqh;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0.5cqh;
+  position: relative;
+}
+
+.ganttBar {
+  position: absolute;
+  top: 0.4cqh;
+  bottom: 0.4cqh;
+  border-radius: 0.4cqh;
+  transition: left 0.6s cubic-bezier(0.16, 1, 0.3, 1), width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  padding: 0 1cqw;
+  overflow: hidden;
+}
+
+.ganttBarLabel {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1cqw;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+}
+
+/* Phase colors */
+.barQ1 { background: linear-gradient(135deg, #64b5f6, #42a5f5); }
+.barQ2 { background: linear-gradient(135deg, #81c784, #66bb6a); }
+.barQ3 { background: linear-gradient(135deg, #ffb74d, #ffa726); }
+.barQ4 { background: linear-gradient(135deg, #ba68c8, #ab47bc); }
+
+/* ── Scene 3: Phase Detail ────────────────────────────────────────────── */
+
+.scene3 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.phaseDetail {
+  flex: 1;
+  display: flex;
+  gap: 4cqw;
+  margin-top: 1cqh;
+}
+
+.phaseSidebar {
+  width: 25cqw;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1cqh;
+}
+
+.phaseTab {
+  padding: 1.5cqh 2cqw;
+  border-radius: 0.8cqw;
+  cursor: default;
+  font-size: 1.5cqw;
+  font-weight: 600;
+  border: 0.1cqw solid transparent;
+  transition: all 0.3s ease;
+  color: var(--style-15-muted, #94a3b8);
+  background: transparent;
+  text-align: left;
+}
+
+.phaseTab.active {
+  background: var(--style-15-panel, #2d3748);
+  border-color: rgba(100, 181, 246, 0.3);
+  color: var(--style-15-ink, #e2e8f0);
+}
+
+.phaseTabQ {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.1cqw;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.3cqh;
+  opacity: 0.7;
+}
+
+.phaseContent {
+  flex: 1;
+  background: var(--style-15-panel, #2d3748);
+  border-radius: 1cqw;
+  padding: 3cqh 3cqw;
+  border: 0.1cqw solid rgba(255, 255, 255, 0.06);
+}
+
+.phaseHeader {
+  margin-bottom: 2.5cqh;
+}
+
+.phaseName {
+  font-size: 3cqw;
+  font-weight: 700;
+  color: var(--style-15-ink, #e2e8f0);
+  margin: 0;
+  line-height: 1.1;
+}
+
+.phasePeriod {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.3cqw;
+  font-weight: 500;
+  color: var(--style-15-accent, #64b5f6);
+  margin-top: 0.5cqh;
+  display: block;
+}
+
+.phaseItems {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5cqh;
+}
+
+.phaseItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2cqw;
+  padding: 1.2cqh 1.5cqw;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 0.6cqw;
+  border-left: 0.3cqw solid var(--style-15-accent, #64b5f6);
+  opacity: 0;
+  transform: translateX(1cqw);
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.phaseItemVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.phaseItemIcon {
+  width: 3cqw;
+  height: 3cqw;
+  border-radius: 0.6cqw;
+  background: rgba(100, 181, 246, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.5cqw;
+}
+
+.phaseItemText {
+  flex: 1;
+}
+
+.phaseItemTitle {
+  font-size: 1.5cqw;
+  font-weight: 600;
+  color: var(--style-15-ink, #e2e8f0);
+  display: block;
+  margin-bottom: 0.3cqh;
+}
+
+.phaseItemDesc {
+  font-size: 1.2cqw;
+  font-weight: 400;
+  color: var(--style-15-muted, #94a3b8);
+  line-height: 1.3;
+}
+
+/* ── Scene 4: Dependencies ────────────────────────────────────────────── */
+
+.scene4 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.depArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2cqh;
+  margin-top: 1cqh;
+}
+
+.depChain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5cqw;
+  opacity: 0;
+  transform: translateY(1cqh);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.depChainVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.depNode {
+  padding: 1.5cqh 2.5cqw;
+  background: var(--style-15-panel, #2d3748);
+  border-radius: 1cqw;
+  border: 0.15cqw solid rgba(100, 181, 246, 0.25);
+  text-align: center;
+  min-width: 14cqw;
+}
+
+.depNodeKey {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1cqw;
+  font-weight: 500;
+  color: var(--style-15-accent, #64b5f6);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 0.3cqh;
+}
+
+.depNodeName {
+  font-size: 1.5cqw;
+  font-weight: 600;
+  color: var(--style-15-ink, #e2e8f0);
+}
+
+.depArrow {
+  width: 3cqw;
+  height: 2cqh;
+  color: var(--style-15-accent, #64b5f6);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* ── Scene 5: Closing ──────────────────────────────────────────────────── */
+
+.scene5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+
+.closingRoadmap {
+  font-size: 6cqw;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0;
+  color: var(--style-15-ink, #e2e8f0);
+  max-width: 70cqw;
+}
+
+.closingRoadmap em {
+  font-style: normal;
+  color: var(--style-15-accent, #64b5f6);
+}
+
+.closingRoadmapSub {
+  font-size: 2.2cqw;
+  font-weight: 400;
+  color: var(--style-15-muted, #94a3b8);
+  margin-top: 3cqh;
+  max-width: 55cqw;
+  line-height: 1.4;
+}
+
+.closingProgress {
+  display: flex;
+  gap: 3cqw;
+  margin-top: 5cqh;
+}
+
+.closingProgItem {
+  text-align: center;
+}
+
+.closingProgVal {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 3.5cqw;
+  font-weight: 700;
+  color: var(--style-15-accent, #64b5f6);
+  display: block;
+  line-height: 1;
+}
+
+.closingProgLbl {
+  font-size: 1.3cqw;
+  font-weight: 500;
+  color: var(--style-15-muted, #94a3b8);
+  margin-top: 0.5cqh;
+  display: block;
+}
+
+/* ── Navigation ────────────────────────────────────────────────────────── */
+
+.navDots {
+  position: absolute;
+  bottom: 3cqh;
+  right: 5cqw;
+  display: flex;
+  gap: 1cqw;
+  z-index: 10;
+  flex-direction: column;
+}
+
+.navDot {
+  width: 0.6cqw;
+  height: 0.6cqw;
+  border-radius: 50%;
+  border: 0.1cqw solid var(--style-15-accent, #64b5f6);
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  opacity: 0.15;
+  transition:
+    opacity 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.navDot:hover {
+  opacity: 0.4;
+  transform: scale(1.3);
+}
+
+.navDotActive {
+  opacity: 0.7;
+  background: var(--style-15-accent, #64b5f6);
+  transform: scale(1.3);
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+
+.reducedMotion .track,
+.reducedMotion .ganttRow,
+.reducedMotion .phaseItem,
+.reducedMotion .depChain,
+.reducedMotion .navDot {
+  transition-duration: 0s !important;
+}
+
+.reducedMotion .trackEnter {
+  opacity: 1;
+  transform: none;
+}
+
+.reducedMotion .ganttBar {
+  transition-duration: 0s !important;
+}
+
+/* ── Thumbnail ─────────────────────────────────────────────────────────── */
+
+.thumbnail .navDots {
+  display: none;
+}

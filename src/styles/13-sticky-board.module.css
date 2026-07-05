@@ -1,0 +1,503 @@
+/* ─── Style 13: Sticky Board ─────────────────────────────────────────────
+   Design thinking workshop. Sticky note aesthetic on cork board background.
+   All sizing in cqw/cqh. No px/vw/vh.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--style-13-bg, #d4a574);
+  color: var(--style-13-ink, #2d2d2d);
+  font-family: "Caveat", "Inter", cursive, system-ui, sans-serif;
+}
+
+/* Cork board texture */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(139, 90, 43, 0.3) 0.5cqw, transparent 0.5cqw),
+    radial-gradient(circle at 70% 60%, rgba(160, 100, 50, 0.25) 0.4cqw, transparent 0.4cqw),
+    radial-gradient(circle at 40% 80%, rgba(120, 75, 35, 0.3) 0.3cqw, transparent 0.3cqw),
+    radial-gradient(circle at 85% 20%, rgba(150, 95, 45, 0.2) 0.45cqw, transparent 0.45cqw),
+    radial-gradient(circle at 10% 70%, rgba(130, 80, 40, 0.25) 0.35cqw, transparent 0.35cqw);
+  background-size: 8cqw 8cqh, 6cqw 6cqh, 10cqw 10cqh, 7cqw 7cqh, 9cqw 9cqh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 4cqh 6cqw;
+  z-index: 1;
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.trackEnter {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+.trackActive {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Scene 1: Title ────────────────────────────────────────────────────── */
+
+.scene1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+
+.boardTitle {
+  font-size: 9cqw;
+  font-weight: 700;
+  line-height: 1.0;
+  margin: 0;
+  color: #fff9c4;
+  text-shadow: 0.3cqw 0.3cqh 0 rgba(0, 0, 0, 0.15);
+  transform: rotate(-2deg);
+}
+
+.boardTitle em {
+  font-style: normal;
+  color: #ff8a65;
+}
+
+.boardSub {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 2.2cqw;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-top: 3cqh;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 55cqw;
+}
+
+.boardTag {
+  display: inline-block;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.4cqw;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 4cqh;
+  padding: 0.8cqh 2.5cqw;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 3cqw;
+  backdrop-filter: blur(0.5cqw);
+}
+
+/* ── Scene 2: Brainstorm Notes ─────────────────────────────────────────── */
+
+.scene2 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.boardHeader {
+  text-align: center;
+  margin-bottom: 2cqh;
+}
+
+.boardLabel {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.3cqw;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.boardHeading {
+  font-size: 5cqw;
+  font-weight: 700;
+  color: #fff9c4;
+  margin: 0.5cqh 0 0 0;
+  text-shadow: 0.2cqw 0.2cqh 0 rgba(0, 0, 0, 0.12);
+}
+
+.notesArea {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: 2cqw;
+  padding: 2cqh 0;
+}
+
+.stickyNote {
+  width: 18cqw;
+  height: 16cqh;
+  padding: 2.5cqh 2cqw 2cqh 2cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  box-shadow: 0.3cqw 0.5cqh 1.5cqh rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: scale(0.7) rotate(-5deg);
+  transition:
+    opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.stickyNoteVisible {
+  opacity: 1;
+  transform: scale(1) rotate(var(--note-rotate, -2deg));
+}
+
+.stickyNote::before {
+  content: "";
+  position: absolute;
+  top: -0.8cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3cqw;
+  height: 1.6cqh;
+  background: rgba(200, 50, 50, 0.7);
+  border-radius: 0.2cqw;
+  box-shadow: 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.2);
+}
+
+.pinDot {
+  position: absolute;
+  top: -0.3cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.2cqw;
+  height: 1.2cqw;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ff6b6b, #c92a2a);
+  box-shadow: 0 0.15cqh 0.4cqh rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.noteText {
+  font-size: 2.8cqw;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--style-13-ink, #2d2d2d);
+}
+
+.noteSub {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.2cqw;
+  font-weight: 400;
+  color: rgba(45, 45, 45, 0.6);
+  margin-top: 1cqh;
+}
+
+/* Note colors */
+.noteYellow { background: #fff9c4; --note-rotate: -3deg; }
+.notePink { background: #f8bbd9; --note-rotate: 2deg; }
+.noteBlue { background: #b3e5fc; --note-rotate: -1deg; }
+.noteGreen { background: #c8e6c9; --note-rotate: 3deg; }
+.noteOrange { background: #ffe0b2; --note-rotate: -2deg; }
+.notePurple { background: #e1bee7; --note-rotate: 1deg; }
+
+/* ── Scene 3: Columns (Empathize/Define/Ideate) ───────────────────────── */
+
+.scene3 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.columnsArea {
+  flex: 1;
+  display: flex;
+  gap: 2.5cqw;
+  margin-top: 1cqh;
+}
+
+.dtColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5cqh;
+}
+
+.dtColHeader {
+  text-align: center;
+  padding: 1.5cqh 1cqw;
+  border-radius: 1cqw;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.dtColNum {
+  font-size: 1.2cqw;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  display: block;
+}
+
+.dtColTitle {
+  font-size: 2.2cqw;
+  font-weight: 700;
+  margin-top: 0.3cqh;
+  display: block;
+}
+
+.dtColHeader.empathize { background: #b3e5fc; color: #01579b; }
+.dtColHeader.define { background: #c8e6c9; color: #1b5e20; }
+.dtColHeader.ideate { background: #ffe0b2; color: #e65100; }
+
+.dtMiniNote {
+  padding: 1.5cqh 1.5cqw;
+  border-radius: 0.6cqw;
+  font-size: 1.8cqw;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  box-shadow: 0.15cqw 0.25cqh 0.8cqh rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  transform: translateY(1cqh) rotate(-1deg);
+  transition:
+    opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.dtMiniNoteVisible {
+  opacity: 1;
+  transform: translateY(0) rotate(var(--mini-rotate, 0deg));
+}
+
+.miniYellow { background: #fff9c4; --mini-rotate: -2deg; }
+.miniPink { background: #f8bbd9; --mini-rotate: 1deg; }
+.miniBlue { background: #b3e5fc; --mini-rotate: -1deg; }
+.miniGreen { background: #c8e6c9; --mini-rotate: 2deg; }
+.miniOrange { background: #ffe0b2; --mini-rotate: -1.5deg; }
+.miniPurple { background: #e1bee7; --mini-rotate: 1.5deg; }
+
+/* ── Scene 4: Voting / Prioritize ──────────────────────────────────────── */
+
+.scene4 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.voteArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2cqh;
+  margin-top: 1cqh;
+}
+
+.voteRow {
+  display: flex;
+  align-items: center;
+  gap: 2cqw;
+  opacity: 0;
+  transform: translateX(-2cqw);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.voteRowVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.voteNote {
+  width: 22cqw;
+  height: 10cqh;
+  padding: 1.5cqh 2cqw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 2.2cqw;
+  font-weight: 600;
+  line-height: 1.15;
+  box-shadow: 0.2cqw 0.3cqh 1cqh rgba(0, 0, 0, 0.15);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.voteDots {
+  display: flex;
+  gap: 0.6cqw;
+}
+
+.voteDot {
+  width: 2.5cqw;
+  height: 2.5cqw;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ff6b6b, #c92a2a);
+  box-shadow: 0 0.15cqh 0.4cqh rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.2cqw;
+  font-weight: 700;
+  color: #fff;
+}
+
+.voteCount {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 2cqw;
+  font-weight: 700;
+  color: #fff9c4;
+  min-width: 5cqw;
+}
+
+/* ── Scene 5: Closing ──────────────────────────────────────────────────── */
+
+.scene5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+
+.closingNote {
+  width: 40cqw;
+  height: 30cqh;
+  background: #fff9c4;
+  padding: 4cqh 4cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0.5cqw 0.8cqh 3cqh rgba(0, 0, 0, 0.25);
+  position: relative;
+  transform: rotate(-2deg);
+}
+
+.closingNote::before {
+  content: "";
+  position: absolute;
+  top: -1cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5cqw;
+  height: 2cqh;
+  background: rgba(200, 50, 50, 0.7);
+  border-radius: 0.3cqw;
+}
+
+.closingPin {
+  position: absolute;
+  top: -0.3cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.8cqw;
+  height: 1.8cqw;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ff6b6b, #c92a2a);
+  box-shadow: 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.closingNoteText {
+  font-size: 5cqw;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--style-13-ink, #2d2d2d);
+  margin: 0;
+}
+
+.closingNoteText em {
+  font-style: normal;
+  color: #e65100;
+}
+
+.closingNoteSub {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.6cqw;
+  font-weight: 400;
+  color: rgba(45, 45, 45, 0.6);
+  margin-top: 2cqh;
+}
+
+/* ── Navigation ────────────────────────────────────────────────────────── */
+
+.navDots {
+  position: absolute;
+  bottom: 3cqh;
+  right: 5cqw;
+  display: flex;
+  gap: 1cqw;
+  z-index: 10;
+}
+
+.navDot {
+  width: 1.2cqw;
+  height: 1.2cqw;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: #fff9c4;
+  opacity: 0.15;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0.15cqh 0.4cqh rgba(0, 0, 0, 0.2);
+}
+
+.navDot:hover {
+  opacity: 0.4;
+  transform: scale(1.3);
+}
+
+.navDotActive {
+  opacity: 0.7;
+  transform: scale(1.3);
+  background: #ff8a65;
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+
+.reducedMotion .track,
+.reducedMotion .stickyNote,
+.reducedMotion .dtMiniNote,
+.reducedMotion .voteRow,
+.reducedMotion .navDot {
+  transition-duration: 0s !important;
+}
+
+.reducedMotion .trackEnter {
+  opacity: 1;
+  transform: none;
+}
+
+.reducedMotion .stickyNote {
+  opacity: 1;
+  transform: scale(1) rotate(var(--note-rotate, -2deg));
+}
+
+/* ── Thumbnail ─────────────────────────────────────────────────────────── */
+
+.thumbnail .navDots {
+  display: none;
+}

@@ -1,0 +1,429 @@
+/* ─── Style 02: Swiss Precision ────────────────────────────────────────────
+   Swiss International Style. Grid alignment. Monochrome + red accent.
+   All sizing in cqw/cqh.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--style-02-bg, #f5f5f5);
+  color: var(--style-02-ink, #1a1a1a);
+  font-family: "Helvetica Neue", "Inter", system-ui, sans-serif;
+}
+
+/* ── Transition track ──────────────────────────────────────────────────── */
+
+.track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 6cqh 8cqw;
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.trackEnter {
+  opacity: 0;
+  transform: translateX(3cqw);
+}
+
+.trackActive {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Scene 1: Title ────────────────────────────────────────────────────── */
+
+.scene1 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.gridLines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+}
+
+.gridLineV {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--style-02-ink, #1a1a1a);
+}
+
+.gridLineH {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--style-02-ink, #1a1a1a);
+}
+
+.cornerMark {
+  position: absolute;
+  font-size: 2cqw;
+  font-weight: 300;
+  color: var(--style-02-ink, #1a1a1a);
+  opacity: 0.2;
+  font-family: "Helvetica Neue", monospace;
+}
+
+.titleBlock {
+  position: relative;
+  z-index: 1;
+  max-width: 70cqw;
+}
+
+.label {
+  display: block;
+  font-size: 1.4cqw;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--style-02-ink, #1a1a1a);
+  opacity: 0.5;
+  margin-bottom: 3cqh;
+}
+
+.heroTitle {
+  font-size: 14cqw;
+  font-weight: 75;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  margin: 0;
+  color: var(--style-02-ink, #1a1a1a);
+}
+
+.redRule {
+  width: 12cqw;
+  height: 0.6cqh;
+  background: var(--style-02-accent, #d32f2f);
+  margin: 3cqh 0;
+}
+
+.subtitle {
+  font-size: 3cqw;
+  font-weight: 300;
+  line-height: 1.3;
+  margin: 0;
+  color: var(--style-02-ink, #1a1a1a);
+  opacity: 0.7;
+}
+
+/* ── Scene 2: Metrics ──────────────────────────────────────────────────── */
+
+.scene2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.sectionLabel {
+  display: block;
+  font-size: 1.2cqw;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--style-02-accent, #d32f2f);
+  margin-bottom: 2cqh;
+}
+
+.metricStatement {
+  font-size: 5cqw;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 5cqh 0;
+  color: var(--style-02-ink, #1a1a1a);
+}
+
+.metricRow {
+  display: flex;
+  gap: 5cqw;
+  align-items: flex-start;
+}
+
+.metricBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1cqh;
+}
+
+.metricValue {
+  font-size: 6cqw;
+  font-weight: 75;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--style-02-ink, #1a1a1a);
+}
+
+.metricUnit {
+  font-size: 2.5cqw;
+  font-weight: 300;
+  margin-left: 0.5cqw;
+  opacity: 0.5;
+}
+
+.metricLabel {
+  font-size: 1.6cqw;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--style-02-ink, #1a1a1a);
+  opacity: 0.5;
+  border-top: 1px solid var(--style-02-ink, #1a1a1a);
+  padding-top: 1cqh;
+}
+
+/* ── Scene 3: Process Steps ────────────────────────────────────────────── */
+
+.scene3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.processTitle {
+  font-size: 4cqw;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 4cqh 0;
+  color: var(--style-02-ink, #1a1a1a);
+}
+
+.processList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.processStep {
+  display: flex;
+  align-items: flex-start;
+  gap: 2cqw;
+  padding: 2cqh 0;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+  position: relative;
+}
+
+.stepId {
+  font-size: 2cqw;
+  font-weight: 75;
+  color: var(--style-02-accent, #d32f2f);
+  letter-spacing: 0.05em;
+  min-width: 4cqw;
+  padding-top: 0.3cqh;
+}
+
+.stepContent {
+  flex: 1;
+}
+
+.stepTitle {
+  font-size: 2.5cqw;
+  font-weight: 500;
+  margin: 0 0 0.5cqh 0;
+  color: var(--style-02-ink, #1a1a1a);
+}
+
+.stepDesc {
+  font-size: 1.6cqw;
+  font-weight: 300;
+  line-height: 1.4;
+  margin: 0;
+  color: var(--style-02-ink, #1a1a1a);
+  opacity: 0.6;
+}
+
+.stepConnector {
+  display: none;
+}
+
+/* ── Scene 4: Quality Dashboard ────────────────────────────────────────── */
+
+.scene4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.dashboardTitle {
+  font-size: 3.5cqw;
+  font-weight: 500;
+  margin: 0 0 4cqh 0;
+  color: var(--style-02-ink, #1a1a1a);
+  letter-spacing: -0.01em;
+}
+
+.qualityBars {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5cqh;
+}
+
+.qualityRow {
+  display: flex;
+  align-items: center;
+  gap: 2cqw;
+}
+
+.qualityName {
+  font-size: 1.6cqw;
+  font-weight: 400;
+  min-width: 20cqw;
+  color: var(--style-02-ink, #1a1a1a);
+  opacity: 0.7;
+}
+
+.qualityBarTrack {
+  flex: 1;
+  height: 1.2cqh;
+  background: rgba(26, 26, 26, 0.08);
+  position: relative;
+}
+
+.qualityBarFill {
+  height: 100%;
+  width: 0;
+  background: var(--style-02-accent, #d32f2f);
+}
+
+.qualityThreshold {
+  position: absolute;
+  top: -0.4cqh;
+  bottom: -0.4cqh;
+  width: 1px;
+  background: var(--style-02-ink, #1a1a1a);
+  opacity: 0.3;
+}
+
+.qualityScore {
+  font-size: 1.8cqw;
+  font-weight: 75;
+  min-width: 6cqw;
+  text-align: right;
+  color: var(--style-02-ink, #1a1a1a);
+}
+
+/* ── Scene 5: Closing ──────────────────────────────────────────────────── */
+
+.scene5 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.closingBlock {
+  text-align: center;
+  max-width: 60cqw;
+}
+
+.redRuleLarge {
+  width: 8cqw;
+  height: 0.8cqh;
+  background: var(--style-02-accent, #d32f2f);
+  margin: 0 auto 4cqh;
+}
+
+.closingText {
+  font-size: 7cqw;
+  font-weight: 75;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0 0 3cqh 0;
+  color: var(--style-02-ink, #1a1a1a);
+}
+
+.closingSub {
+  font-size: 2cqw;
+  font-weight: 300;
+  margin: 0;
+  color: var(--style-02-ink, #1a1a1a);
+  opacity: 0.5;
+  letter-spacing: 0.05em;
+}
+
+/* ── Navigation ────────────────────────────────────────────────────────── */
+
+.nav {
+  position: absolute;
+  bottom: 4cqh;
+  left: 8cqw;
+  display: flex;
+  gap: 0;
+  z-index: 10;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6cqh;
+  background: none;
+  border: none;
+  padding: 0.5cqh 1.5cqw 0.5cqh 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.navNum {
+  font-size: 1.2cqw;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--style-02-ink, #1a1a1a);
+  opacity: 0.25;
+  transition: opacity 0.3s ease;
+  font-family: "Helvetica Neue", monospace;
+}
+
+.navItem:hover .navNum {
+  opacity: 0.6;
+}
+
+.navItemActive .navNum {
+  opacity: 1;
+  color: var(--style-02-accent, #d32f2f);
+}
+
+.navLine {
+  width: 3cqw;
+  height: 2px;
+  background: var(--style-02-accent, #d32f2f);
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+
+.reducedMotion .track,
+.reducedMotion .metricBlock,
+.reducedMotion .processStep,
+.reducedMotion .qualityRow,
+.reducedMotion .navNum {
+  transition-duration: 0s !important;
+}
+
+.reducedMotion .trackEnter {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Thumbnail ─────────────────────────────────────────────────────────── */
+
+.thumbnail .nav {
+  display: none;
+}

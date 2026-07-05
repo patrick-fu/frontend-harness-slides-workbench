@@ -1,0 +1,616 @@
+/* ─── Style 08: Terminal Glow ─────────────────────────────────────────────
+   Terminal/hacker aesthetic. Dark bg, monospace, green/amber accents.
+   All sizing in cqw/cqh. No px/vw/vh.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--style-08-bg, #0d1117);
+  color: var(--style-08-ink, #c9d1d9);
+  font-family: "JetBrains Mono", "Fira Code", "SF Mono", Consolas, monospace;
+}
+
+/* ── CRT scanline overlay ──────────────────────────────────────────────── */
+
+.scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  opacity: 0.4;
+}
+
+/* ── Subtle vignette ───────────────────────────────────────────────────── */
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+/* ── Transition track ──────────────────────────────────────────────────── */
+
+.track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 4cqh 5cqw;
+  z-index: 1;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.trackEnter {
+  opacity: 0;
+  transform: translateY(0.5cqh);
+}
+
+.trackActive {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Terminal window chrome ────────────────────────────────────────────── */
+
+.termChrome {
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  padding-bottom: 1.5cqh;
+  margin-bottom: 2cqh;
+  border-bottom: 1px solid rgba(63, 185, 80, 0.15);
+}
+
+.termDots {
+  display: flex;
+  gap: 0.6cqw;
+}
+
+.termDot {
+  width: 1.2cqw;
+  height: 1.2cqw;
+  border-radius: 50%;
+  min-width: 6px;
+  min-height: 6px;
+}
+
+.termDotRed {
+  background: #ff5f57;
+  opacity: 0.7;
+}
+
+.termDotYellow {
+  background: #febc2e;
+  opacity: 0.7;
+}
+
+.termDotGreen {
+  background: #28c840;
+  opacity: 0.7;
+}
+
+.termTitle {
+  font-size: 1.2cqw;
+  color: var(--style-08-ink, #c9d1d9);
+  opacity: 0.35;
+  letter-spacing: 0.05em;
+}
+
+.termPath {
+  font-size: 1.1cqw;
+  color: var(--style-08-green, #3fb950);
+  opacity: 0.5;
+  margin-left: auto;
+}
+
+/* ── Cursor blink ──────────────────────────────────────────────────────── */
+
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.8cqw;
+  height: 1em;
+  background: var(--style-08-green, #3fb950);
+  vertical-align: text-bottom;
+  animation: cursor-blink 1s step-end infinite;
+  min-width: 6px;
+}
+
+/* ── Scene 1: Boot / Title ─────────────────────────────────────────────── */
+
+.scene1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.bootLines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8cqh;
+}
+
+.bootLine {
+  font-size: 1.4cqw;
+  line-height: 1.4;
+  color: var(--style-08-ink, #c9d1d9);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.bootLineVisible {
+  opacity: 0.7;
+}
+
+.bootLineOk {
+  color: var(--style-08-green, #3fb950);
+}
+
+.bootLineWarn {
+  color: var(--style-08-amber, #d29922);
+}
+
+.bootLineAccent {
+  color: var(--style-08-green, #3fb950);
+}
+
+.termTitleMain {
+  font-size: 7cqw;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 3cqh 0 1cqh 0;
+  color: var(--style-08-green, #3fb950);
+  text-shadow: 0 0 20cqw rgba(63, 185, 80, 0.15);
+}
+
+.termTitleSub {
+  font-size: 2cqw;
+  font-weight: 400;
+  color: var(--style-08-ink, #c9d1d9);
+  opacity: 0.5;
+  margin: 0;
+}
+
+/* ── Scene 2: Command Output ───────────────────────────────────────────── */
+
+.scene2 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.promptLine {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8cqw;
+  font-size: 1.8cqw;
+  margin-bottom: 2cqh;
+}
+
+.promptSymbol {
+  color: var(--style-08-green, #3fb950);
+  font-weight: 500;
+}
+
+.promptCmd {
+  color: var(--style-08-ink, #c9d1d9);
+  font-weight: 400;
+}
+
+.outputBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6cqh;
+  flex: 1;
+}
+
+.outputLine {
+  font-size: 1.5cqw;
+  line-height: 1.45;
+  color: var(--style-08-ink, #c9d1d9);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.outputLineVisible {
+  opacity: 0.75;
+}
+
+.outputLineDim {
+  opacity: 0.4;
+}
+
+.outputLineGreen {
+  color: var(--style-08-green, #3fb950);
+}
+
+.outputLineAmber {
+  color: var(--style-08-amber, #d29922);
+}
+
+.outputIndent {
+  padding-left: 3cqw;
+}
+
+/* ── Scene 3: Code Editor View ─────────────────────────────────────────── */
+
+.scene3 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.codeEditor {
+  flex: 1;
+  display: flex;
+  border: 1px solid rgba(63, 185, 80, 0.12);
+  background: rgba(22, 27, 34, 0.5);
+  overflow: hidden;
+}
+
+.lineNumbers {
+  display: flex;
+  flex-direction: column;
+  padding: 2cqh 1.5cqw;
+  border-right: 1px solid rgba(63, 185, 80, 0.08);
+  user-select: none;
+  min-width: 4cqw;
+}
+
+.lineNum {
+  font-size: 1.3cqw;
+  line-height: 1.6;
+  color: var(--style-08-ink, #c9d1d9);
+  opacity: 0.2;
+  text-align: right;
+}
+
+.codeContent {
+  flex: 1;
+  padding: 2cqh 2.5cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.codeLine {
+  font-size: 1.4cqw;
+  line-height: 1.6;
+  white-space: pre;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.codeLineVisible {
+  opacity: 1;
+}
+
+.codeKeyword {
+  color: var(--style-08-amber, #d29922);
+}
+
+.codeString {
+  color: var(--style-08-green, #3fb950);
+}
+
+.codeComment {
+  color: var(--style-08-ink, #c9d1d9);
+  opacity: 0.35;
+  font-style: italic;
+}
+
+.codeFunc {
+  color: #d2a8ff;
+}
+
+.codeVar {
+  color: #79c0ff;
+}
+
+/* ── Scene 4: Dashboard / Metrics (Hero) ───────────────────────────────── */
+
+.scene4 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.dashHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3cqh;
+}
+
+.dashTitle {
+  font-size: 2cqw;
+  font-weight: 500;
+  color: var(--style-08-green, #3fb950);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.dashStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+  font-size: 1.2cqw;
+  color: var(--style-08-green, #3fb950);
+  opacity: 0.7;
+}
+
+.dashStatusDot {
+  width: 0.8cqw;
+  height: 0.8cqw;
+  min-width: 4px;
+  min-height: 4px;
+  border-radius: 50%;
+  background: var(--style-08-green, #3fb950);
+  box-shadow: 0 0 1cqw rgba(63, 185, 80, 0.5);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.dashGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2cqh 2cqw;
+  flex: 1;
+}
+
+.dashCard {
+  border: 1px solid rgba(63, 185, 80, 0.12);
+  background: rgba(22, 27, 34, 0.4);
+  padding: 2.5cqh 2cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8cqh;
+  opacity: 0;
+  transform: translateY(0.5cqh);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.dashCard:hover {
+  border-color: rgba(63, 185, 80, 0.3);
+}
+
+.dashCardVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dashCardLabel {
+  font-size: 1cqw;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--style-08-ink, #c9d1d9);
+  opacity: 0.35;
+}
+
+.dashCardValue {
+  font-size: 4cqw;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--style-08-green, #3fb950);
+  letter-spacing: -0.02em;
+}
+
+.dashCardValueAmber {
+  color: var(--style-08-amber, #d29922);
+}
+
+.dashCardSub {
+  font-size: 1.1cqw;
+  color: var(--style-08-ink, #c9d1d9);
+  opacity: 0.4;
+}
+
+.dashCardBar {
+  height: 0.6cqh;
+  background: rgba(63, 185, 80, 0.1);
+  margin-top: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.dashCardBarFill {
+  height: 100%;
+  background: var(--style-08-green, #3fb950);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dashCardBarFillAmber {
+  background: var(--style-08-amber, #d29922);
+}
+
+/* ── Scene 5: Closing / Shutdown ───────────────────────────────────────── */
+
+.scene5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+
+.closingPrompt {
+  font-size: 1.5cqw;
+  color: var(--style-08-green, #3fb950);
+  opacity: 0.6;
+  margin-bottom: 2cqh;
+}
+
+.closingBig {
+  font-size: 8cqw;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--style-08-green, #3fb950);
+  margin: 0;
+  text-shadow: 0 0 30cqw rgba(63, 185, 80, 0.2);
+  letter-spacing: -0.02em;
+}
+
+.closingBig span {
+  color: var(--style-08-amber, #d29922);
+}
+
+.closingSub {
+  font-size: 1.8cqw;
+  color: var(--style-08-ink, #c9d1d9);
+  opacity: 0.4;
+  margin-top: 3cqh;
+}
+
+.closingCursor {
+  display: inline-block;
+  width: 1.2cqw;
+  height: 2.2cqh;
+  background: var(--style-08-green, #3fb950);
+  vertical-align: middle;
+  margin-left: 0.5cqw;
+  animation: cursor-blink 1s step-end infinite;
+  min-width: 8px;
+}
+
+/* ── Navigation: terminal tab indicators ───────────────────────────────── */
+
+.nav {
+  position: absolute;
+  top: 0;
+  left: 5cqw;
+  right: 5cqw;
+  display: flex;
+  gap: 0;
+  z-index: 10;
+  border-bottom: 1px solid rgba(63, 185, 80, 0.1);
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6cqw;
+  background: none;
+  border: none;
+  padding: 1.2cqh 1.8cqw;
+  cursor: pointer;
+  position: relative;
+  font-family: "JetBrains Mono", monospace;
+  border-bottom: 1px solid transparent;
+  margin-bottom: -1px;
+  transition: border-color 0.2s ease;
+}
+
+.navItem:hover {
+  border-bottom-color: rgba(63, 185, 80, 0.2);
+}
+
+.navItemActive {
+  border-bottom-color: var(--style-08-green, #3fb950);
+}
+
+.navTabNum {
+  font-size: 1cqw;
+  color: var(--style-08-green, #3fb950);
+  opacity: 0.08;
+  transition: opacity 0.2s ease;
+}
+
+.navItem:hover .navTabNum {
+  opacity: 0.3;
+}
+
+.navItemActive .navTabNum {
+  opacity: 0.6;
+}
+
+.navTabName {
+  font-size: 1.1cqw;
+  color: var(--style-08-ink, #c9d1d9);
+  opacity: 0.08;
+  transition: opacity 0.2s ease;
+  letter-spacing: 0.03em;
+}
+
+.navItem:hover .navTabName {
+  opacity: 0.3;
+}
+
+.navItemActive .navTabName {
+  opacity: 0.6;
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+
+.reducedMotion .track,
+.reducedMotion .bootLine,
+.reducedMotion .outputLine,
+.reducedMotion .codeLine,
+.reducedMotion .dashCard,
+.reducedMotion .cursor,
+.reducedMotion .closingCursor,
+.reducedMotion .dashStatusDot {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}
+
+.reducedMotion .trackEnter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reducedMotion .cursor,
+.reducedMotion .closingCursor {
+  opacity: 1 !important;
+  animation: none !important;
+}
+
+/* ── Thumbnail ─────────────────────────────────────────────────────────── */
+
+.thumbnail .scanlines {
+  display: none;
+}
+
+.thumbnail .vignette {
+  display: none;
+}
+
+.thumbnail .nav {
+  display: none;
+}
+
+.thumbnail .termChrome {
+  display: none;
+}
