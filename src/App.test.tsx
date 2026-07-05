@@ -106,4 +106,66 @@ describe("App", () => {
       expect(window.location.hash).toContain("beat=0");
     });
   });
+
+  // ── Regression: hamburger button behavior ────────────────────────────────
+
+  it("desktop: clicking hamburger toggles sidebar collapsed state (width change)", async () => {
+    // Simulate desktop viewport
+    Object.defineProperty(window, "innerWidth", { value: 1280, writable: true });
+
+    render(<App />);
+
+    // Navigate to lab so sidebar is visible
+    const card = screen.getByTestId("style-card-01");
+    fireEvent.click(card);
+    await waitFor(() => {
+      expect(screen.getByTestId("lab-view")).toBeInTheDocument();
+    });
+
+    const sidebar = screen.getByTestId("sidebar");
+    const initialWidth = sidebar.style.width;
+
+    // Click hamburger
+    const toggle = screen.getByTestId("sidebar-toggle");
+    fireEvent.click(toggle);
+
+    // Sidebar should be collapsed (48px)
+    expect(sidebar.style.width).toBe("48px");
+    expect(sidebar.style.width).not.toBe(initialWidth);
+
+    // Click again to expand
+    fireEvent.click(toggle);
+    expect(sidebar.style.width).not.toBe("48px");
+  });
+
+  it("mobile: clicking hamburger toggles sidebar open/close (translate-x)", async () => {
+    // Simulate mobile viewport
+    Object.defineProperty(window, "innerWidth", { value: 375, writable: true });
+
+    render(<App />);
+
+    // Navigate to lab
+    const card = screen.getByTestId("style-card-01");
+    fireEvent.click(card);
+    await waitFor(() => {
+      expect(screen.getByTestId("lab-view")).toBeInTheDocument();
+    });
+
+    const sidebar = screen.getByTestId("sidebar");
+
+    // Initially sidebar should be hidden on mobile (translate-x-full or similar)
+    expect(sidebar.className).toMatch(/-translate-x-full/);
+
+    // Click hamburger to open
+    const toggle = screen.getByTestId("sidebar-toggle");
+    fireEvent.click(toggle);
+
+    // Sidebar should now be visible (translate-x-0)
+    expect(sidebar.className).toMatch(/translate-x-0/);
+    expect(sidebar.className).not.toMatch(/-translate-x-full/);
+
+    // Click again to close
+    fireEvent.click(toggle);
+    expect(sidebar.className).toMatch(/-translate-x-full/);
+  });
 });

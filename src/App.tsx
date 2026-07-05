@@ -100,7 +100,12 @@ function AppContent() {
   // ── Handlers ─────────────────────────────────────────────────────────────
 
   const handleToggleSidebar = useCallback(() => {
-    setSidebarOpen((prev) => !prev);
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      setSidebarOpen((prev) => !prev);
+    } else {
+      setSidebarCollapsed((prev) => !prev);
+    }
   }, []);
 
   const handleCloseSidebar = useCallback(() => {

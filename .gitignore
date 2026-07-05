@@ -7,3 +7,4 @@ artifacts
 .env*
 playwright-report/
 test-results/
+tsconfig.tsbuildinfo

@@ -44,7 +44,7 @@ export default function LabView({
 }: LabViewProps) {
   const stageContainerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const { scale } = useStageScale(stageContainerRef);
+  const { scale, width: scaledWidth, height: scaledHeight } = useStageScale(stageContainerRef);
 
   // Find current style entry and metadata
   const currentEntry = useMemo(
@@ -181,24 +181,34 @@ export default function LabView({
       <div
         ref={stageContainerRef}
         className="flex-1 flex items-center justify-center overflow-hidden relative"
-        style={{ minHeight: 0 }}
+        style={{ minHeight: 0, minWidth: 0 }}
       >
         <PureModeOverlay isPureMode={isPureMode} onExitPure={onExitPure}>
+          {/* Wrapper with real visual dimensions so flex centering works */}
           <div
-            ref={stageRef}
-            data-testid="stage"
-            data-stage="true"
-            className="relative overflow-hidden select-none"
             style={{
-              width: 1920,
-              height: 1080,
-              containerType: "size",
-              transform: `scale(${scale})`,
-              transformOrigin: "center center",
+              width: scaledWidth,
+              height: scaledHeight,
+              position: "relative",
+              flexShrink: 0,
             }}
           >
-            <StyleComponent {...styleProps} />
-            {flashNotification}
+            <div
+              ref={stageRef}
+              data-testid="stage"
+              data-stage="true"
+              className="absolute top-0 left-0 overflow-hidden select-none"
+              style={{
+                width: 1920,
+                height: 1080,
+                containerType: "size",
+                transform: `scale(${scale})`,
+                transformOrigin: "top left",
+              }}
+            >
+              <StyleComponent {...styleProps} />
+              {flashNotification}
+            </div>
           </div>
         </PureModeOverlay>
       </div>
