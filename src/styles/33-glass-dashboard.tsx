@@ -318,6 +318,7 @@ export default function GlassDashboard({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
@@ -624,7 +625,7 @@ export default function GlassDashboard({
     >
       <div
         key={`33-${scene}`}
-        className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}
+        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
         style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}

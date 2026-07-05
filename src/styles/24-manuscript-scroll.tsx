@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./24-manuscript-scroll.module.css";
 
@@ -252,9 +252,10 @@ export default function ManuscriptScroll({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   const content = SCENES[scene]?.[language] || SCENES[1][language];
-  const [entered, setEntered] = useState(false);
+  void isTransitionClone;
 
   // Font injection
   useEffect(() => {
@@ -267,16 +268,6 @@ export default function ManuscriptScroll({
       "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap";
     document.head.appendChild(link);
   }, []);
-
-  useEffect(() => {
-    setEntered(false);
-    const raf = requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setEntered(true);
-      });
-    });
-    return () => cancelAnimationFrame(raf);
-  }, [scene]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -339,7 +330,7 @@ export default function ManuscriptScroll({
             <div
               className={styles.scrollPageBody}
               style={{
-                opacity: entered ? 1 : 0,
+                opacity: 1,
                 transition: reducedMotion
                   ? "none"
                   : "opacity 0.6s ease 0.15s",
@@ -382,7 +373,7 @@ export default function ManuscriptScroll({
               <p
                 className={styles.scrollVerseAttribution}
                 style={{
-                  opacity: entered ? 0.55 : 0,
+                  opacity: 0.55,
                   transition: reducedMotion
                     ? "none"
                     : "opacity 0.6s ease 0.2s",
@@ -422,7 +413,7 @@ export default function ManuscriptScroll({
             <div
               className={styles.scrollCommentaryRight}
               style={{
-                opacity: entered ? 1 : 0,
+                opacity: 1,
                 transition: reducedMotion
                   ? "none"
                   : "opacity 0.5s ease 0.15s",
@@ -500,7 +491,6 @@ export default function ManuscriptScroll({
   return (
     <div className={rootClasses}>
       <div
-        key={`24-${scene}`}
         className={styles.transitionTrack}
         style={{
           transform: `translateY(-${(scene - 1) * 20}%)`,

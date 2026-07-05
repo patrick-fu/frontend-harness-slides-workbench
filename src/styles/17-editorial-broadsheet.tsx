@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./17-editorial-broadsheet.module.css";
 
@@ -309,19 +309,10 @@ export default function EditorialBroadsheet({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
-  const [entered, setEntered] = useState(false);
-
-  useEffect(() => {
-    setEntered(false);
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setEntered(true);
-      });
-    });
-    return () => cancelAnimationFrame(id);
-  }, [scene]);
+  void isTransitionClone;
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -395,8 +386,8 @@ export default function EditorialBroadsheet({
                 key={i}
                 className={i === 0 ? styles.dropCap : ""}
                 style={{
-                  opacity: entered ? 1 : 0,
-                  transform: entered ? "none" : "translateY(1cqh)",
+                  opacity: 1,
+                  transform: "none",
                   transition: reducedMotion
                     ? "none"
                     : `opacity 0.6s ease ${i * 0.1}s, transform 0.6s ease ${i * 0.1}s`,
@@ -428,9 +419,9 @@ export default function EditorialBroadsheet({
                 key={i}
                 className={styles.statBlock}
                 style={{
-                  opacity: visible && entered ? 1 : 0,
+                  opacity: visible ? 1 : 0,
                   transform:
-                    visible && entered ? "none" : "translateX(-2cqw)",
+                    visible ? "none" : "translateX(-2cqw)",
                   transition: reducedMotion
                     ? "none"
                     : `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s`,
@@ -466,7 +457,7 @@ export default function EditorialBroadsheet({
                 key={i}
                 className={styles.photoPanel}
                 style={{
-                  opacity: visible && entered ? 1 : 0,
+                  opacity: visible ? 1 : 0,
                   transition: reducedMotion
                     ? "none"
                     : `opacity 0.5s ease ${i * 0.2}s`,

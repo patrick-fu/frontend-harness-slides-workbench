@@ -440,6 +440,7 @@ export default function ResearchDigest({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
 
@@ -885,7 +886,7 @@ export default function ResearchDigest({
     <div data-testid="style-43-root" className={rootClasses}>
       <div
         key={`43-${scene}`}
-        className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}
+        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
         style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}

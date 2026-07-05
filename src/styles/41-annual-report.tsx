@@ -307,6 +307,7 @@ export default function AnnualReport({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
 
@@ -733,7 +734,7 @@ export default function AnnualReport({
     <div data-testid="style-41-root" className={rootClasses}>
       <div
         key={`41-${scene}`}
-        className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}
+        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
         style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}

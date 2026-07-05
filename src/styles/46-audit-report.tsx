@@ -534,6 +534,7 @@ export default function AuditReport({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
 
@@ -890,7 +891,7 @@ export default function AuditReport({
 
   return (
     <div className={rootClasses}>
-      <div key={`46-${scene}`} className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}>
+      <div key={`46-${scene}`} className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}>
         {renderScene()}
       </div>
       {renderNav()}

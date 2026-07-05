@@ -256,6 +256,7 @@ export default function ZineCulture({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   const content = SCENES[scene]?.[language] || SCENES[1][language];
   const [entered, setEntered] = useState(false);
@@ -300,7 +301,7 @@ export default function ZineCulture({
 
   const trackClasses = [
     styles.track,
-    styles.animateSceneEnter,
+    !isTransitionClone && styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");

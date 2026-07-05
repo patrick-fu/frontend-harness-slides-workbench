@@ -490,6 +490,7 @@ export default function TerminalGlow({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
 
@@ -511,7 +512,7 @@ export default function TerminalGlow({
 
   const trackClasses = [
     styles.track,
-    styles.animateSceneEnter,
+    !isTransitionClone && styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");

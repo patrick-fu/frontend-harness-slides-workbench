@@ -303,6 +303,7 @@ export default function ProcessFlow({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
 
@@ -324,7 +325,7 @@ export default function ProcessFlow({
 
   const trackClasses = [
     styles.track,
-    styles.animateSceneEnter,
+    !isTransitionClone && styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");

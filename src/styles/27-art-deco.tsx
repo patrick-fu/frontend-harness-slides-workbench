@@ -221,7 +221,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 }
 
 export default function ArtDeco({
-  scene, beat, language, isThumbnail, reducedMotion, onNavigate,
+  scene, beat, language, isThumbnail, reducedMotion, onNavigate, isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
@@ -243,7 +243,7 @@ export default function ArtDeco({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, styles.animateSceneEnter].filter(Boolean).join(" ");
+  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
 
   const renderScene1 = () => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];

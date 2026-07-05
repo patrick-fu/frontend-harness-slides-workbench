@@ -265,6 +265,7 @@ export default function NeonGrid({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
@@ -576,7 +577,7 @@ export default function NeonGrid({
     <div className={rootClasses}>
       <div
         key={`35-${scene}`}
-        className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}
+        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
       >
         {renderSceneContent()}
       </div>

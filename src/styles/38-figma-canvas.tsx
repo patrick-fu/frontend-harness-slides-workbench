@@ -348,6 +348,7 @@ export default function FigmaCanvas({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
@@ -950,7 +951,7 @@ export default function FigmaCanvas({
     <div className={rootClasses}>
       <div
         key={`38-${scene}`}
-        className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}
+        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
       >
         {renderSceneContent()}
       </div>

@@ -239,6 +239,7 @@ export default function AuroraGradient({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
 
@@ -578,7 +579,7 @@ export default function AuroraGradient({
       {renderAuroraBg()}
       <div
         key={scene}
-        className={[styles.track, styles.animateSceneEnter].filter(Boolean).join(" ")}
+        className={[styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ")}
         style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}

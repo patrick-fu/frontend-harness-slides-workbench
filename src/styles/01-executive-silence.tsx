@@ -243,6 +243,7 @@ export default function ExecutiveSilence({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
   const content = SCENES[scene]?.[language] || SCENES[1][language];
@@ -265,7 +266,7 @@ export default function ExecutiveSilence({
 
   const trackClasses = [
     styles.track,
-    styles.animateSceneEnter,
+    !isTransitionClone && styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");

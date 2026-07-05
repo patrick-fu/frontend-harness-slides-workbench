@@ -198,6 +198,7 @@ export default function ZenVoid({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   // Font loading
   useEffect(() => {
@@ -368,7 +369,7 @@ export default function ZenVoid({
     <div className={rootClasses}>
       <div
         key={scene}
-        className={[styles.track, reducedMotion ? "" : styles.animateSceneEnter].filter(Boolean).join(" ")}
+        className={[styles.track, !isTransitionClone && !reducedMotion && styles.animateSceneEnter].filter(Boolean).join(" ")}
         style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}

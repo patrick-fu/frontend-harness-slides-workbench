@@ -382,6 +382,7 @@ export default function ExecutiveSummary({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
 
@@ -670,7 +671,7 @@ export default function ExecutiveSummary({
 
   return (
     <div className={rootClasses}>
-      <div key={`48-${scene}`} className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}>
+      <div key={`48-${scene}`} className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}>
         {renderScene()}
       </div>
       {renderNav()}

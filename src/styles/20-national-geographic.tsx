@@ -263,6 +263,7 @@ export default function NationalGeographic({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   const content = SCENES[scene]?.[language] || SCENES[1][language];
   const [entered, setEntered] = useState(false);
@@ -307,7 +308,7 @@ export default function NationalGeographic({
 
   const trackClasses = [
     styles.track,
-    styles.animateSceneEnter,
+    !isTransitionClone && styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");

@@ -329,6 +329,7 @@ export default function NotionDoc({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
 
@@ -925,7 +926,7 @@ export default function NotionDoc({
     >
       <div
         key={`39-${scene}`}
-        className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}
+        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
         style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         <div className={styles.layout}>

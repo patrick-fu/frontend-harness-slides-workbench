@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./19-financial-times.module.css";
 
@@ -273,9 +273,10 @@ export default function FinancialTimes({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   const content = SCENES[scene]?.[language] || SCENES[1][language];
-  const [entered, setEntered] = useState(false);
+  void isTransitionClone;
 
   // Font injection
   useEffect(() => {
@@ -288,16 +289,6 @@ export default function FinancialTimes({
       "https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap";
     document.head.appendChild(link);
   }, []);
-
-  useEffect(() => {
-    setEntered(false);
-    const raf = requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setEntered(true);
-      });
-    });
-    return () => cancelAnimationFrame(raf);
-  }, [scene]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -363,7 +354,7 @@ export default function FinancialTimes({
             <table
               className={styles.marketTable}
               style={{
-                opacity: entered ? 1 : 0,
+                opacity: 1,
                 transition: reducedMotion
                   ? "none"
                   : "opacity 0.5s ease 0.1s",
@@ -406,8 +397,8 @@ export default function FinancialTimes({
             <div
               className={styles.earningsColumn}
               style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "none" : "translateX(-2cqw)",
+                opacity: 1,
+                transform: "none",
                 transition: reducedMotion
                   ? "none"
                   : "opacity 0.5s ease, transform 0.5s ease",
@@ -433,8 +424,8 @@ export default function FinancialTimes({
               <div
                 className={styles.earningsColumn}
                 style={{
-                  opacity: entered ? 1 : 0,
-                  transform: entered ? "none" : "translateX(2cqw)",
+                  opacity: 1,
+                  transform: "none",
                   transition: reducedMotion
                     ? "none"
                     : "opacity 0.5s ease 0.15s, transform 0.5s ease 0.15s",
@@ -475,7 +466,7 @@ export default function FinancialTimes({
               <p
                 className={styles.analysisBody}
                 style={{
-                  opacity: entered ? 0.85 : 0,
+                  opacity: 0.85,
                   transition: reducedMotion
                     ? "none"
                     : "opacity 0.6s ease 0.2s",
@@ -547,7 +538,6 @@ export default function FinancialTimes({
   return (
     <div className={rootClasses}>
       <div
-        key={`19-${scene}`}
         className={styles.transitionTrack}
         style={{
           transform: `translateY(-${(scene - 1) * 20}%)`,

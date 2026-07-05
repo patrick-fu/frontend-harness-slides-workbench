@@ -319,6 +319,7 @@ export default function PolicyPaper({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
 
@@ -615,7 +616,7 @@ export default function PolicyPaper({
 
   return (
     <div className={rootClasses}>
-      <div key={`45-${scene}`} className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}>
+      <div key={`45-${scene}`} className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}>
         {renderScene()}
       </div>
       {renderNav()}

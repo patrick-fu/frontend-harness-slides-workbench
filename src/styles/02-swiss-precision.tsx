@@ -235,6 +235,7 @@ export default function SwissPrecision({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
 
@@ -433,7 +434,7 @@ export default function SwissPrecision({
     <div className={rootClasses}>
       <div
         key={`02-${scene}`}
-        className={[styles.track, styles.animateSceneEnter].join(" ")}
+        className={[styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ")}
         style={reducedMotion ? { animationDuration: "0s" } : undefined}
       >
         {renderSceneContent()}

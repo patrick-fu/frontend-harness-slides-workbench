@@ -279,6 +279,7 @@ export default function RetroOS95({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
@@ -612,7 +613,7 @@ export default function RetroOS95({
     <div className={rootClasses}>
       <div
         key={`34-${scene}`}
-        className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}
+        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
       >
         {renderSceneContent()}
       </div>

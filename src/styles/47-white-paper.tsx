@@ -435,6 +435,7 @@ export default function WhitePaper({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
 
@@ -813,7 +814,7 @@ export default function WhitePaper({
 
   return (
     <div className={rootClasses}>
-      <div key={`47-${scene}`} className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}>
+      <div key={`47-${scene}`} className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}>
         {renderScene()}
       </div>
       {renderNav()}

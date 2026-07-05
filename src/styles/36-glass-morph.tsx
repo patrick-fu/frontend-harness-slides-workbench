@@ -367,6 +367,7 @@ export default function GlassMorph({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
@@ -780,7 +781,7 @@ export default function GlassMorph({
     <div className={rootClasses}>
       <div
         key={`36-${scene}`}
-        className={`${styles.transitionTrack} ${styles.animateSceneEnter}`}
+        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
       >
         {renderSceneContent()}
       </div>

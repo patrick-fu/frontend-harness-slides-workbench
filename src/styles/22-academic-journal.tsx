@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./22-academic-journal.module.css";
 
@@ -280,9 +280,10 @@ export default function AcademicJournal({
   isThumbnail,
   reducedMotion,
   onNavigate,
+  isTransitionClone,
 }: BespokeStyleProps) {
   const content = SCENES[scene]?.[language] || SCENES[1][language];
-  const [entered, setEntered] = useState(false);
+  void isTransitionClone;
 
   // Font injection
   useEffect(() => {
@@ -295,16 +296,6 @@ export default function AcademicJournal({
       "https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Serif+SC:wght@400;700&display=swap";
     document.head.appendChild(link);
   }, []);
-
-  useEffect(() => {
-    setEntered(false);
-    const raf = requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setEntered(true);
-      });
-    });
-    return () => cancelAnimationFrame(raf);
-  }, [scene]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -348,7 +339,7 @@ export default function AcademicJournal({
           <div
             className={styles.abstractBox}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: 1,
               transition: reducedMotion
                 ? "none"
                 : "opacity 0.5s ease",
@@ -363,7 +354,7 @@ export default function AcademicJournal({
             <div
               className={styles.keywordsRow}
               style={{
-                opacity: entered ? 1 : 0,
+                opacity: 1,
                 transition: reducedMotion
                   ? "none"
                   : "opacity 0.5s ease 0.2s",
@@ -400,7 +391,7 @@ export default function AcademicJournal({
             <div
               className={styles.methodBody}
               style={{
-                opacity: entered ? 1 : 0,
+                opacity: 1,
                 transition: reducedMotion
                   ? "none"
                   : "opacity 0.5s ease 0.15s",
@@ -428,7 +419,7 @@ export default function AcademicJournal({
           {beat >= 1 && (
             <div
               style={{
-                opacity: entered ? 1 : 0,
+                opacity: 1,
                 transition: reducedMotion
                   ? "none"
                   : "opacity 0.5s ease 0.1s",
@@ -487,7 +478,7 @@ export default function AcademicJournal({
             <div
               className={styles.referencesBox}
               style={{
-                opacity: entered ? 1 : 0,
+                opacity: 1,
                 transition: reducedMotion
                   ? "none"
                   : "opacity 0.5s ease 0.2s",
@@ -542,7 +533,6 @@ export default function AcademicJournal({
   return (
     <div className={rootClasses}>
       <div
-        key={`22-${scene}`}
         className={styles.transitionTrack}
         style={{
           transform: `translateY(-${(scene - 1) * 20}%)`,
