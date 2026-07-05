@@ -194,56 +194,64 @@
 .scene3 {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   height: 100%;
+  min-height: 0;
 }
 
 .processTitle {
-  font-size: 4cqw;
+  font-size: 3cqw;
   font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  margin: 0 0 4cqh 0;
+  margin: 0 0 2cqh 0;
   color: var(--style-02-ink, #1a1a1a);
+  flex-shrink: 0;
 }
 
 .processList {
   display: flex;
   flex-direction: column;
   gap: 0;
+  flex: 1;
+  min-height: 0;
 }
 
 .processStep {
   display: flex;
   align-items: flex-start;
   gap: 2cqw;
-  padding: 2cqh 0;
+  padding: 1cqh 0;
+  flex: 1;
+  min-height: 0;
   border-bottom: 1px solid rgba(26, 26, 26, 0.1);
   position: relative;
 }
 
 .stepId {
-  font-size: 2cqw;
+  font-size: 1.6cqw;
   font-weight: 700;
   color: var(--style-02-accent, #d32f2f);
   letter-spacing: 0.05em;
-  min-width: 4cqw;
-  padding-top: 0.3cqh;
+  min-width: 3cqw;
+  padding-top: 0.2cqh;
+  flex-shrink: 0;
 }
 
 .stepContent {
   flex: 1;
+  min-width: 0;
 }
 
 .stepTitle {
-  font-size: 2.5cqw;
+  font-size: 2cqw;
   font-weight: 500;
-  margin: 0 0 0.5cqh 0;
+  margin: 0 0 0.3cqh 0;
   color: var(--style-02-ink, #1a1a1a);
+  line-height: 1.2;
 }
 
 .stepDesc {
-  font-size: 1.6cqw;
+  font-size: 1.3cqw;
   font-weight: 300;
   line-height: 1.4;
   margin: 0;

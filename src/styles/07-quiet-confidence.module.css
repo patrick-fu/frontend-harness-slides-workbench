@@ -184,12 +184,12 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 5cqh;
+  margin-bottom: 3cqh;
 }
 
 .qcPrinciplesTitle {
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  font-size: 3.5cqw;
+  font-size: 2.8cqw;
   font-weight: 400;
   line-height: 1.15;
   margin: 0;
@@ -210,13 +210,16 @@
   flex-direction: column;
   gap: 0;
   flex: 1;
+  min-height: 0;
 }
 
 .qcPrinciple {
   display: flex;
   align-items: flex-start;
   gap: 3cqw;
-  padding: 3cqh 0;
+  padding: 1.5cqh 0;
+  flex: 1;
+  min-height: 0;
   border-bottom: 1px solid rgba(61, 53, 41, 0.08);
   opacity: 0;
   transform: translateY(0.5cqh);
@@ -250,17 +253,17 @@
 
 .qcPrincipleTitle {
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  font-size: 2.8cqw;
+  font-size: 2.2cqw;
   font-weight: 400;
   line-height: 1.2;
   color: var(--style-07-ink, #3d3529);
-  margin: 0 0 1cqh 0;
+  margin: 0 0 0.5cqh 0;
 }
 
 .qcPrincipleDesc {
-  font-size: 1.6cqw;
+  font-size: 1.3cqw;
   font-weight: 300;
-  line-height: 1.55;
+  line-height: 1.5;
   color: var(--style-07-ink, #3d3529);
   opacity: 0.55;
   margin: 0;
