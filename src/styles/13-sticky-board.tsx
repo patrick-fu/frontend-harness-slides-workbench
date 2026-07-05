@@ -1,6 +1,7 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./13-sticky-board.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -285,12 +286,53 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 500; // ms — peel 400ms + slap 350ms with overlap
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function StickyBoard({
   scene, beat, language, isThumbnail, reducedMotion, onNavigate, isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
+
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // FLIP for sticky notes board (scene 2) — notes reposition as new ones appear
+  const { ref: notesBoardRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+    selector: ".stickyNote",
+  });
+
+  // FLIP for columns area (scene 3) — mini notes push layout
+  const { ref: columnsBoardRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+    selector: ".dtMiniNote",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -301,155 +343,156 @@ export default function StickyBoard({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
 
-  const renderScene1 = () => {
-    const c = SCENES[1][language as keyof typeof SCENES[1]];
-    return (
-      <div className={styles.scene1}>
-        <h1 className={styles.boardTitle}>
-          {c.title} <em>{c.titleAccent}</em><br />{c.title2}
-        </h1>
-        <p className={styles.boardSub}>{c.sub}</p>
-        <span className={styles.boardTag}>{c.tag}</span>
-      </div>
-    );
-  };
+  const renderSceneFor = (sceneNum: number, beatNum: number, isCurrent: boolean) => {
+    const c = SCENES[sceneNum as keyof typeof SCENES]?.[language as "en" | "zh"];
+    if (!c) return null;
 
-  const renderScene2 = () => {
-    const c = SCENES[2][language as keyof typeof SCENES[2]];
-    const notes = c.notes as Array<{ text: string; sub: string; color: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 3 : 6;
-    return (
-      <div className={styles.scene2}>
-        <div className={styles.boardHeader}>
-          <span className={styles.boardLabel}>{c.label}</span>
-          <h2 className={styles.boardHeading}>{c.heading}</h2>
+    if (sceneNum === 1) {
+      const data = c as typeof SCENES[1]["en"];
+      return (
+        <div className={styles.scene1}>
+          <h1 className={styles.boardTitle}>
+            {data.title} <em>{data.titleAccent}</em><br />{data.title2}
+          </h1>
+          <p className={styles.boardSub}>{data.sub}</p>
+          <span className={styles.boardTag}>{data.tag}</span>
         </div>
-        <div className={styles.notesArea}>
-          {notes.map((note, i) => {
-            const visible = i < visibleCount;
-            const cls = [
-              styles.stickyNote,
-              noteColorClass(note.color),
-              visible ? styles.stickyNoteVisible : "",
-            ].filter(Boolean).join(" ");
-            return (
-              <div
-                key={i}
-                className={cls}
-                style={reducedMotion ? { opacity: visible ? 1 : 0, transform: visible ? undefined : "scale(0.7)" } : { transitionDelay: `${i * 0.1}s` }}
-              >
-                <div className={styles.pinDot} />
-                <span className={styles.noteText}>{note.text}</span>
-                <span className={styles.noteSub}>{note.sub}</span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
-
-  const renderScene3 = () => {
-    const c = SCENES[3][language as keyof typeof SCENES[3]];
-    const columns = c.columns as Array<{ phase: string; title: string; color: string; notes: Array<{ text: string; color: string }> }>;
-    return (
-      <div className={styles.scene3}>
-        <div className={styles.boardHeader}>
-          <span className={styles.boardLabel}>{c.label}</span>
-          <h2 className={styles.boardHeading}>{c.heading}</h2>
-        </div>
-        <div className={styles.columnsArea}>
-          {columns.map((col, ci) => (
-            <div key={ci} className={styles.dtColumn}>
-              <div className={[styles.dtColHeader, styles[col.color]].join(" ")}>
-                <span className={styles.dtColNum}>{col.phase}</span>
-                <span className={styles.dtColTitle}>{col.title}</span>
-              </div>
-              {col.notes.map((note, ni) => {
-                const visible = beat >= 1;
-                const cls = [
-                  styles.dtMiniNote,
-                  miniColorClass(note.color),
-                  visible ? styles.dtMiniNoteVisible : "",
-                ].filter(Boolean).join(" ");
-                return (
-                  <div
-                    key={ni}
-                    className={cls}
-                    style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${ci * 0.15 + ni * 0.1}s` }}
-                  >
-                    {note.text}
-                  </div>
-                );
-              })}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  const renderScene4 = () => {
-    const c = SCENES[4][language as keyof typeof SCENES[4]];
-    const votes = c.votes as Array<{ text: string; votes: number; color: string }>;
-    return (
-      <div className={styles.scene4}>
-        <div className={styles.boardHeader}>
-          <span className={styles.boardLabel}>{c.label}</span>
-          <h2 className={styles.boardHeading}>{c.heading}</h2>
-        </div>
-        <div className={styles.voteArea}>
-          {votes.map((v, i) => {
-            const visible = beat >= 1;
-            const cls = [styles.voteRow, visible ? styles.voteRowVisible : ""].filter(Boolean).join(" ");
-            return (
-              <div
-                key={i}
-                className={cls}
-                style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.12}s` }}
-              >
-                <div className={[styles.voteNote, noteColorClass(v.color)].join(" ")} style={{ transform: `rotate(${(i % 2 === 0 ? -1 : 1) * 1.5}deg)` }}>
-                  <div className={styles.pinDot} />
-                  {v.text}
-                </div>
-                <div className={styles.voteDots}>
-                  {Array.from({ length: Math.min(v.votes, 8) }, (_, di) => (
-                    <div key={di} className={styles.voteDot}>{di === 0 ? v.votes : ""}</div>
-                  ))}
-                </div>
-                <span className={styles.voteCount}>{v.votes} {language === "zh" ? "票" : "votes"}</span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
-
-  const renderScene5 = () => {
-    const c = SCENES[5][language as keyof typeof SCENES[5]];
-    return (
-      <div className={styles.scene5}>
-        <div className={styles.closingNote}>
-          <div className={styles.closingPin} />
-          <h2 className={styles.closingNoteText} dangerouslySetInnerHTML={{ __html: c.text }} />
-          <p className={styles.closingNoteSub}>{c.sub}</p>
-        </div>
-      </div>
-    );
-  };
-
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
-      case 5: return renderScene5();
-      default: return null;
+      );
     }
+
+    if (sceneNum === 2) {
+      const data = c as typeof SCENES[2]["en"];
+      const notes = data.notes as Array<{ text: string; sub: string; color: string }>;
+      const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 3 : 6;
+      return (
+        <div className={styles.scene2}>
+          <div className={styles.boardHeader}>
+            <span className={styles.boardLabel}>{data.label}</span>
+            <h2 className={styles.boardHeading}>{data.heading}</h2>
+          </div>
+          <div
+            ref={isCurrent ? notesBoardRef : undefined}
+            className={styles.notesArea}
+          >
+            {notes.map((note, i) => {
+              const visible = i < visibleCount;
+              const cls = [
+                styles.stickyNote,
+                noteColorClass(note.color),
+                visible ? styles.stickyNoteVisible : "",
+              ].filter(Boolean).join(" ");
+              return (
+                <div
+                  key={i}
+                  className={cls}
+                  style={reducedMotion ? { opacity: visible ? 1 : 0, transform: visible ? undefined : "scale(0.7)" } : { transitionDelay: `${i * 0.1}s` }}
+                >
+                  <div className={styles.pinDot} />
+                  <span className={styles.noteText}>{note.text}</span>
+                  <span className={styles.noteSub}>{note.sub}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 3) {
+      const data = c as typeof SCENES[3]["en"];
+      const columns = data.columns as Array<{ phase: string; title: string; color: string; notes: Array<{ text: string; color: string }> }>;
+      return (
+        <div className={styles.scene3}>
+          <div className={styles.boardHeader}>
+            <span className={styles.boardLabel}>{data.label}</span>
+            <h2 className={styles.boardHeading}>{data.heading}</h2>
+          </div>
+          <div
+            ref={isCurrent ? columnsBoardRef : undefined}
+            className={styles.columnsArea}
+          >
+            {columns.map((col, ci) => (
+              <div key={ci} className={styles.dtColumn}>
+                <div className={[styles.dtColHeader, styles[col.color]].join(" ")}>
+                  <span className={styles.dtColNum}>{col.phase}</span>
+                  <span className={styles.dtColTitle}>{col.title}</span>
+                </div>
+                {col.notes.map((note, ni) => {
+                  const visible = beatNum >= 1;
+                  const cls = [
+                    styles.dtMiniNote,
+                    miniColorClass(note.color),
+                    visible ? styles.dtMiniNoteVisible : "",
+                  ].filter(Boolean).join(" ");
+                  return (
+                    <div
+                      key={ni}
+                      className={cls}
+                      style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${ci * 0.15 + ni * 0.1}s` }}
+                    >
+                      {note.text}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 4) {
+      const data = c as typeof SCENES[4]["en"];
+      const votes = data.votes as Array<{ text: string; votes: number; color: string }>;
+      return (
+        <div className={styles.scene4}>
+          <div className={styles.boardHeader}>
+            <span className={styles.boardLabel}>{data.label}</span>
+            <h2 className={styles.boardHeading}>{data.heading}</h2>
+          </div>
+          <div className={styles.voteArea}>
+            {votes.map((v, i) => {
+              const visible = beatNum >= 1;
+              const cls = [styles.voteRow, visible ? styles.voteRowVisible : ""].filter(Boolean).join(" ");
+              return (
+                <div
+                  key={i}
+                  className={cls}
+                  style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.12}s` }}
+                >
+                  <div className={[styles.voteNote, noteColorClass(v.color)].join(" ")} style={{ transform: `rotate(${(i % 2 === 0 ? -1 : 1) * 1.5}deg)` }}>
+                    <div className={styles.pinDot} />
+                    {v.text}
+                  </div>
+                  <div className={styles.voteDots}>
+                    {Array.from({ length: Math.min(v.votes, 8) }, (_, di) => (
+                      <div key={di} className={styles.voteDot}>{di === 0 ? v.votes : ""}</div>
+                    ))}
+                  </div>
+                  <span className={styles.voteCount}>{v.votes} {language === "zh" ? "票" : "votes"}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 5) {
+      const data = c as typeof SCENES[5]["en"];
+      return (
+        <div className={styles.scene5}>
+          <div className={styles.closingNote}>
+            <div className={styles.closingPin} />
+            <h2 className={styles.closingNoteText} dangerouslySetInnerHTML={{ __html: data.text }} />
+            <p className={styles.closingNoteSub}>{data.sub}</p>
+          </div>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   const renderNav = () => {
@@ -485,15 +528,34 @@ export default function StickyBoard({
     );
   };
 
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`13-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { transitionDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (peel-off exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, false)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene (slap-down enter animation) */}
+      <div className={incomingLayerClasses}>
+        <div className={styles.track}>
+          {renderSceneFor(scene, beat, true)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );

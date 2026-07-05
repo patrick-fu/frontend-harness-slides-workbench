@@ -14,12 +14,53 @@
   font-family: "Inter", system-ui, -apple-system, sans-serif;
 }
 
+/* ── Scene transition layers ──────────────────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
 .track {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   padding: 4cqh 6cqw;
+}
+
+/* Tree re-grow: outgoing scene collapses (scale down + fade) */
+.exitAnim {
+  animation: treeCollapseExit 0.4s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes treeCollapseExit {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+/* Tree re-grow: incoming scene grows from root outward (scale up + fade) */
+.enterAnim {
+  animation: treeGrowEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+  z-index: 2;
+}
+
+@keyframes treeGrowEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .animateSceneEnter {
@@ -152,6 +193,18 @@
   height: 100%;
   pointer-events: none;
   z-index: 0;
+}
+
+.chartLineDraw {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: chartLineDrawIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes chartLineDrawIn {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .chartLevels {
@@ -543,17 +596,24 @@
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
+.reducedMotion .exitAnim,
+.reducedMotion .enterAnim,
 .reducedMotion .animateSceneEnter,
 .reducedMotion .teamCard,
 .reducedMotion .memberCard,
 .reducedMotion .growthRow,
-.reducedMotion .navDot {
+.reducedMotion .navDot,
+.reducedMotion .chartLineDraw {
   animation-duration: 0s !important;
   transition-duration: 0s !important;
 }
 
 .reducedMotion .growthBar {
   transition-duration: 0s !important;
+}
+
+.reducedMotion .chartLineDraw {
+  stroke-dashoffset: 0;
 }
 
 /* ── Thumbnail ─────────────────────────────────────────────────────────── */

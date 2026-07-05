@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./15-roadmap.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -332,14 +333,40 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 600; // 550ms animation + buffer
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function Roadmap({
   scene, beat, language, isThumbnail, reducedMotion, onNavigate, isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
+
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
   const [entered, setEntered] = useState(false);
 
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // Beat-level "entered" state for current scene — triggers CSS reveals
   useEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
@@ -347,6 +374,20 @@ export default function Roadmap({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
+
+  // FLIP for gantt rows (scene 2) — when new rows appear
+  const { ref: ganttRowsRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
+
+  // FLIP for phase items (scene 3) — when items in active phase shift
+  const { ref: phaseItemsRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -357,119 +398,70 @@ export default function Roadmap({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
 
-  const renderScene1 = () => {
-    const c = SCENES[1][language as keyof typeof SCENES[1]];
-    return (
-      <div className={styles.scene1}>
-        <span className={styles.roadmapLabel}>{c.label}</span>
-        <h1 className={styles.roadmapTitle}>
-          {c.title} <em>{c.titleAccent}</em>
-        </h1>
-        <p className={styles.roadmapSub}>{c.sub}</p>
-        <div className={styles.roadmapMeta}>
-          {c.meta.map((m, i) => (
-            <div key={i} className={styles.roadmapMetaItem}>
-              <span className={styles.roadmapMetaVal}>{m.val}</span>
-              <span className={styles.roadmapMetaLbl}>{m.lbl}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
+  // ── Render scene content for a given scene number ────────────────────────
 
-  const renderScene2 = () => {
-    const c = SCENES[2][language as keyof typeof SCENES[2]];
-    const tasks = c.tasks as Array<{ name: string; start: number; width: number; phase: string; label: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 3 : 6;
-    return (
-      <div className={styles.scene2}>
-        <div className={styles.ganttHeader}>
-          <span className={styles.ganttLabel}>{c.label}</span>
-          <h2 className={styles.ganttTitle}>{c.title}</h2>
-        </div>
-        <div className={styles.ganttChart}>
-          <div className={styles.ganttMonths}>
-            {c.months.map((m, i) => (
-              <span key={i} className={[styles.ganttMonth, i === c.currentMonth ? styles.current : ""].filter(Boolean).join(" ")}>{m}</span>
+  const renderSceneFor = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    const langKey = language as keyof typeof SCENES[1];
+
+    if (sceneNum === 1) {
+      const c = SCENES[1][langKey];
+      return (
+        <div className={styles.scene1}>
+          <span className={styles.roadmapLabel}>{c.label}</span>
+          <h1 className={styles.roadmapTitle}>
+            {c.title} <em>{c.titleAccent}</em>
+          </h1>
+          <p className={styles.roadmapSub}>{c.sub}</p>
+          <div className={styles.roadmapMeta}>
+            {c.meta.map((m, i) => (
+              <div key={i} className={styles.roadmapMetaItem}>
+                <span className={styles.roadmapMetaVal}>{m.val}</span>
+                <span className={styles.roadmapMetaLbl}>{m.lbl}</span>
+              </div>
             ))}
           </div>
-          <div className={styles.ganttRows}>
-            {tasks.map((task, i) => {
-              const visible = i < visibleCount;
-              const cls = [styles.ganttRow, visible && entered ? styles.ganttRowVisible : ""].filter(Boolean).join(" ");
-              return (
-                <div
-                  key={i}
-                  className={cls}
-                  style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.08}s` }}
-                >
-                  <span className={styles.ganttTaskName}>{task.name}</span>
-                  <div className={styles.ganttTrack}>
-                    <div
-                      className={[styles.ganttBar, phaseBarClass(task.phase)].join(" ")}
-                      style={{
-                        left: `${task.start}%`,
-                        width: `${task.width}%`,
-                      }}
-                    >
-                      <span className={styles.ganttBarLabel}>{task.label}</span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
         </div>
-      </div>
-    );
-  };
+      );
+    }
 
-  const renderScene3 = () => {
-    const c = SCENES[3][language as keyof typeof SCENES[3]];
-    const phases = c.phases as Array<{ q: string; name: string; period: string; items: Array<{ icon: string; title: string; desc: string }> }>;
-    const activePhase = Math.min(beat, phases.length - 1);
-    const active = phases[activePhase];
-    return (
-      <div className={styles.scene3}>
-        <div className={styles.ganttHeader}>
-          <span className={styles.ganttLabel}>{c.label}</span>
-          <h2 className={styles.ganttTitle}>{c.title}</h2>
-        </div>
-        <div className={styles.phaseDetail}>
-          <div className={styles.phaseSidebar}>
-            {phases.map((p, i) => (
-              <button
-                key={i}
-                type="button"
-                className={[styles.phaseTab, i === activePhase ? styles.active : ""].filter(Boolean).join(" ")}
-              >
-                <span className={styles.phaseTabQ}>{p.q}</span>
-                {p.name}
-              </button>
-            ))}
+    if (sceneNum === 2) {
+      const c = SCENES[2][langKey];
+      const tasks = c.tasks as Array<{ name: string; start: number; width: number; phase: string; label: string }>;
+      const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 3 : 6;
+      return (
+        <div className={styles.scene2}>
+          <div className={styles.ganttHeader}>
+            <span className={styles.ganttLabel}>{c.label}</span>
+            <h2 className={styles.ganttTitle}>{c.title}</h2>
           </div>
-          <div className={styles.phaseContent}>
-            <div className={styles.phaseHeader}>
-              <h3 className={styles.phaseName}>{active.name}</h3>
-              <span className={styles.phasePeriod}>{active.period}</span>
+          <div className={styles.ganttChart}>
+            <div className={styles.ganttMonths}>
+              {c.months.map((m, i) => (
+                <span key={i} className={[styles.ganttMonth, i === c.currentMonth ? styles.current : ""].filter(Boolean).join(" ")}>{m}</span>
+              ))}
             </div>
-            <div className={styles.phaseItems}>
-              {active.items.map((item, ii) => {
-                const visible = true;
-                const cls = [styles.phaseItem, visible && entered ? styles.phaseItemVisible : ""].filter(Boolean).join(" ");
+            <div ref={sceneNum === scene ? ganttRowsRef : undefined} className={styles.ganttRows}>
+              {tasks.map((task, i) => {
+                const visible = i < visibleCount;
+                const cls = [styles.ganttRow, visible && isEntered ? styles.ganttRowVisible : ""].filter(Boolean).join(" ");
                 return (
                   <div
-                    key={ii}
+                    key={i}
                     className={cls}
-                    style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${ii * 0.12}s` }}
+                    style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.08}s` }}
                   >
-                    <div className={styles.phaseItemIcon}>{item.icon}</div>
-                    <div className={styles.phaseItemText}>
-                      <span className={styles.phaseItemTitle}>{item.title}</span>
-                      <span className={styles.phaseItemDesc}>{item.desc}</span>
+                    <span className={styles.ganttTaskName}>{task.name}</span>
+                    <div className={styles.ganttTrack}>
+                      <div
+                        className={[styles.ganttBar, phaseBarClass(task.phase)].join(" ")}
+                        style={{
+                          left: `${task.start}%`,
+                          width: `${task.width}%`,
+                        }}
+                      >
+                        <span className={styles.ganttBarLabel}>{task.label}</span>
+                      </div>
                     </div>
                   </div>
                 );
@@ -477,77 +469,122 @@ export default function Roadmap({
             </div>
           </div>
         </div>
-      </div>
-    );
-  };
-
-  const renderScene4 = () => {
-    const c = SCENES[4][language as keyof typeof SCENES[4]];
-    const chains = c.chains as Array<{ nodes: Array<{ key: string; name: string }> }>;
-    return (
-      <div className={styles.scene4}>
-        <div className={styles.ganttHeader}>
-          <span className={styles.ganttLabel}>{c.label}</span>
-          <h2 className={styles.ganttTitle}>{c.title}</h2>
-        </div>
-        <div className={styles.depArea}>
-          {chains.map((chain, ci) => {
-            const visible = true;
-            const cls = [styles.depChain, visible && entered ? styles.depChainVisible : ""].filter(Boolean).join(" ");
-            return (
-              <div
-                key={ci}
-                className={cls}
-                style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${ci * 0.2}s` }}
-              >
-                {chain.nodes.map((node, ni) => (
-                  <React.Fragment key={ni}>
-                    <div className={styles.depNode}>
-                      <span className={styles.depNodeKey}>{node.key}</span>
-                      <span className={styles.depNodeName}>{node.name}</span>
-                    </div>
-                    {ni < chain.nodes.length - 1 && (
-                      <svg className={styles.depArrow} viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M2 8h18M16 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    )}
-                  </React.Fragment>
-                ))}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
-
-  const renderScene5 = () => {
-    const c = SCENES[5][language as keyof typeof SCENES[5]];
-    return (
-      <div className={styles.scene5}>
-        <h2 className={styles.closingRoadmap} dangerouslySetInnerHTML={{ __html: c.text }} />
-        <p className={styles.closingRoadmapSub}>{c.sub}</p>
-        <div className={styles.closingProgress}>
-          {c.progress.map((p, i) => (
-            <div key={i} className={styles.closingProgItem}>
-              <span className={styles.closingProgVal}>{p.val}</span>
-              <span className={styles.closingProgLbl}>{p.lbl}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
-      case 5: return renderScene5();
-      default: return null;
+      );
     }
+
+    if (sceneNum === 3) {
+      const c = SCENES[3][langKey];
+      const phases = c.phases as Array<{ q: string; name: string; period: string; items: Array<{ icon: string; title: string; desc: string }> }>;
+      const activePhase = Math.min(beatNum, phases.length - 1);
+      const active = phases[activePhase];
+      return (
+        <div className={styles.scene3}>
+          <div className={styles.ganttHeader}>
+            <span className={styles.ganttLabel}>{c.label}</span>
+            <h2 className={styles.ganttTitle}>{c.title}</h2>
+          </div>
+          <div className={styles.phaseDetail}>
+            <div className={styles.phaseSidebar}>
+              {phases.map((p, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  className={[styles.phaseTab, i === activePhase ? styles.active : ""].filter(Boolean).join(" ")}
+                >
+                  <span className={styles.phaseTabQ}>{p.q}</span>
+                  {p.name}
+                </button>
+              ))}
+            </div>
+            <div className={styles.phaseContent}>
+              <div className={styles.phaseHeader}>
+                <h3 className={styles.phaseName}>{active.name}</h3>
+                <span className={styles.phasePeriod}>{active.period}</span>
+              </div>
+              <div ref={sceneNum === scene ? phaseItemsRef : undefined} className={styles.phaseItems}>
+                {active.items.map((item, ii) => {
+                  const visible = true;
+                  const cls = [styles.phaseItem, visible && isEntered ? styles.phaseItemVisible : ""].filter(Boolean).join(" ");
+                  return (
+                    <div
+                      key={ii}
+                      className={cls}
+                      style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${ii * 0.12}s` }}
+                    >
+                      <div className={styles.phaseItemIcon}>{item.icon}</div>
+                      <div className={styles.phaseItemText}>
+                        <span className={styles.phaseItemTitle}>{item.title}</span>
+                        <span className={styles.phaseItemDesc}>{item.desc}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 4) {
+      const c = SCENES[4][langKey];
+      const chains = c.chains as Array<{ nodes: Array<{ key: string; name: string }> }>;
+      return (
+        <div className={styles.scene4}>
+          <div className={styles.ganttHeader}>
+            <span className={styles.ganttLabel}>{c.label}</span>
+            <h2 className={styles.ganttTitle}>{c.title}</h2>
+          </div>
+          <div className={styles.depArea}>
+            {chains.map((chain, ci) => {
+              const visible = true;
+              const cls = [styles.depChain, visible && isEntered ? styles.depChainVisible : ""].filter(Boolean).join(" ");
+              return (
+                <div
+                  key={ci}
+                  className={cls}
+                  style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${ci * 0.2}s` }}
+                >
+                  {chain.nodes.map((node, ni) => (
+                    <React.Fragment key={ni}>
+                      <div className={styles.depNode}>
+                        <span className={styles.depNodeKey}>{node.key}</span>
+                        <span className={styles.depNodeName}>{node.name}</span>
+                      </div>
+                      {ni < chain.nodes.length - 1 && (
+                        <svg className={styles.depArrow} viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <path d="M2 8h18M16 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 5) {
+      const c = SCENES[5][langKey];
+      return (
+        <div className={styles.scene5}>
+          <h2 className={styles.closingRoadmap} dangerouslySetInnerHTML={{ __html: c.text }} />
+          <p className={styles.closingRoadmapSub}>{c.sub}</p>
+          <div className={styles.closingProgress}>
+            {c.progress.map((p, i) => (
+              <div key={i} className={styles.closingProgItem}>
+                <span className={styles.closingProgVal}>{p.val}</span>
+                <span className={styles.closingProgLbl}>{p.lbl}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   const renderNav = () => {
@@ -570,15 +607,36 @@ export default function Roadmap({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`15-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div className={styles.track}>
+          {renderSceneFor(scene, beat, entered)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );

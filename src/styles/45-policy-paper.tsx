@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./45-policy-paper.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 /* ── Content ─────────────────────────────────────────────────────────────── */
 
@@ -310,6 +311,11 @@ const SCENES = {
   },
 } as const;
 
+/* ── Transition constants ────────────────────────────────────────────────── */
+
+const TRANSITION_DURATION = 500; // ms — rule draw 400ms + content fade overlap
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 3 };
+
 /* ── Component ───────────────────────────────────────────────────────────── */
 
 export default function PolicyPaper({
@@ -322,6 +328,9 @@ export default function PolicyPaper({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
   useEffect(() => {
     const id = "style-45-fonts";
@@ -334,6 +343,22 @@ export default function PolicyPaper({
     document.head.appendChild(link);
   }, []);
 
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
   useEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
@@ -341,6 +366,13 @@ export default function PolicyPaper({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
+
+  // FLIP for recommendation list (scene 3)
+  const { ref: recListRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, target: number) => {
@@ -351,226 +383,243 @@ export default function PolicyPaper({
   );
 
   const data = SCENES[language];
-  const sceneData = data.scenes[scene - 1];
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : ""]
     .filter(Boolean)
     .join(" ");
 
-  /* Scene 1: Title */
-  const renderTitle = () => {
-    const s = sceneData as (typeof data.scenes)[0];
-    return (
-      <div className={styles.titlePage}>
-        <div className={styles.titleSeries}>{s.series}</div>
-        <h1 className={styles.titleMain}>
-          {s.title} <em>{s.titleEm}</em>
-          <br />
-          {s.titleSuffix}
-        </h1>
-        <p className={styles.titleSubtitle}>{s.subtitle}</p>
-        <div className={styles.titleRule} />
-        <div className={styles.titleMeta}>
-          {s.meta.map((m, i) => (
-            <div key={i} className={styles.titleMetaItem}>
-              <span className={styles.titleMetaLabel}>{m.label}</span>
-              <span className={styles.titleMetaValue}>{m.value}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
+  /* ── Render scene content for a given scene number ─────────────────────── */
 
-  /* Scene 2: Executive Summary */
-  const renderSummary = () => {
-    const s = sceneData as (typeof data.scenes)[1];
-    return (
-      <div className={styles.execSummary}>
-        <div className={styles.execLabel}>{s.execLabel}</div>
-        <div className={styles.execBox}>
-          <h2 className={styles.execTitle}>{s.title}</h2>
-          <div className={styles.execBody}>
-            {s.paras.map((p, i) => (
-              <p
-                key={i}
-                className={styles.execPara}
-                style={{
-                  opacity: entered && i <= beat ? 1 : 0,
-                  transform:
-                    entered && i <= beat
-                      ? "translateY(0)"
-                      : "translateY(0.8cqh)",
-                  transition: "opacity 0.4s ease, transform 0.4s ease",
-                  transitionDelay: `${i * 0.15}s`,
-                }}
-              >
-                {p}
-              </p>
-            ))}
-            <div className={styles.execKeyPoints}>
-              <div className={styles.execKeyPointsLabel}>
-                {s.keyPointsLabel}
-              </div>
-              {s.keyPoints.map((kp, i) => (
-                <div
-                  key={i}
-                  className={styles.execKeyPoint}
-                  style={{
-                    opacity: entered && beat >= 1 ? 1 : 0,
-                    transition: "opacity 0.3s ease",
-                    transitionDelay: `${i * 0.08}s`,
-                  }}
-                >
-                  {kp}
+  const renderSceneFor = (
+    sceneNum: number,
+    beatNum: number,
+    isCurrent: boolean,
+  ) => {
+    const s = data.scenes[sceneNum - 1];
+    if (!s) return null;
+
+    const showEntered = isCurrent ? entered : true;
+
+    switch (sceneNum) {
+      case 1: {
+        const sd = s as (typeof data.scenes)[0];
+        return (
+          <div className={styles.titlePage}>
+            <div className={styles.titleSeries}>{sd.series}</div>
+            <h1 className={styles.titleMain}>
+              {sd.title} <em>{sd.titleEm}</em>
+              <br />
+              {sd.titleSuffix}
+            </h1>
+            <p className={styles.titleSubtitle}>{sd.subtitle}</p>
+            <div className={styles.titleRule} />
+            <div className={styles.titleMeta}>
+              {sd.meta.map((m, i) => (
+                <div key={i} className={styles.titleMetaItem}>
+                  <span className={styles.titleMetaLabel}>{m.label}</span>
+                  <span className={styles.titleMetaValue}>{m.value}</span>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-      </div>
-    );
-  };
+        );
+      }
 
-  /* Scene 3: Recommendations (HERO) */
-  const renderRecommendations = () => {
-    const s = sceneData as (typeof data.scenes)[2];
-    const visibleCount = Math.min(beat * 2 + 2, s.recs.length);
-    return (
-      <div className={styles.recommendations}>
-        <div className={styles.recHeader}>
-          <h2 className={styles.recTitle}>{s.title}</h2>
-          <p className={styles.recSubtitle}>{s.subtitle}</p>
-        </div>
-        <div className={styles.recList}>
-          {s.recs.slice(0, visibleCount).map((r, i) => (
-            <div
-              key={r.num}
-              className={styles.recItem}
-              style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "translateX(0)" : "translateX(-1cqw)",
-                transition: "opacity 0.4s ease, transform 0.4s ease",
-                transitionDelay: `${i * 0.1}s`,
-              }}
-            >
-              <div className={styles.recNumber}>{r.num}</div>
-              <div className={styles.recContent}>
-                <h3 className={styles.recHeading}>{r.heading}</h3>
-                <p className={styles.recText}>{r.text}</p>
-                <span
-                  className={`${styles.recPriority} ${
-                    r.priorityClass === "high"
-                      ? styles.recPriorityHigh
-                      : r.priorityClass === "medium"
-                        ? styles.recPriorityMedium
-                        : styles.recPriorityLow
-                  }`}
-                >
-                  {r.priority}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  /* Scene 4: Evidence */
-  const renderEvidence = () => {
-    const s = sceneData as (typeof data.scenes)[3];
-    return (
-      <div className={styles.evidence}>
-        <div className={styles.evidenceHeader}>
-          <h2 className={styles.evidenceTitle}>{s.title}</h2>
-          <p className={styles.evidenceSubtitle}>{s.subtitle}</p>
-        </div>
-        <div className={styles.evidenceBody}>
-          {s.paras.map((p, i) => (
-            <p
-              key={i}
-              className={styles.evidencePara}
-              style={{
-                opacity: entered && i <= beat ? 1 : 0,
-                transform:
-                  entered && i <= beat
-                    ? "translateY(0)"
-                    : "translateY(0.6cqh)",
-                transition: "opacity 0.4s ease, transform 0.4s ease",
-                transitionDelay: `${i * 0.12}s`,
-              }}
-              dangerouslySetInnerHTML={{
-                __html: p.replace(
-                  /(\d+)/g,
-                  (_, n) =>
-                    /[¹²³⁴⁵⁶⁷⁸⁹]/.test(
-                      String.fromCharCode(0x00b0 + parseInt(n)),
-                    )
-                      ? `<span class="${styles.evidenceFootnote}">${n}</span>`
-                      : `<span class="${styles.evidenceFootnote}">${n}</span>`,
-                ),
-              }}
-            />
-          ))}
-          <div className={styles.evidenceFootnotes}>
-            <div className={styles.evidenceFootnotesLabel}>
-              {s.footnotesLabel}
-            </div>
-            {s.footnotes.map((fn, i) => (
-              <div key={i} className={styles.evidenceFootnoteItem}>
-                <span className={styles.evidenceFootnoteMark}>
-                  {fn.mark}.
-                </span>
-                {fn.text}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  /* Scene 5: Roadmap */
-  const renderRoadmap = () => {
-    const s = sceneData as (typeof data.scenes)[4];
-    return (
-      <div className={styles.roadmap}>
-        <div className={styles.roadmapHeader}>
-          <h2 className={styles.roadmapTitle}>{s.title}</h2>
-          <p className={styles.roadmapSubtitle}>{s.subtitle}</p>
-        </div>
-        <div className={styles.roadmapPhases}>
-          {s.phases.map((phase, i) => (
-            <div
-              key={i}
-              className={styles.roadmapPhase}
-              style={{
-                opacity: entered && i <= beat ? 1 : 0,
-                transform:
-                  entered && i <= beat
-                    ? "translateY(0)"
-                    : "translateY(1cqh)",
-                transition: "opacity 0.4s ease, transform 0.4s ease",
-                transitionDelay: `${i * 0.15}s`,
-              }}
-            >
-              <div className={styles.roadmapPhaseLabel}>{phase.label}</div>
-              <h3 className={styles.roadmapPhaseTitle}>{phase.title}</h3>
-              <div className={styles.roadmapPhaseTimeline}>
-                {phase.timeline}
-              </div>
-              <ul className={styles.roadmapPhaseItems}>
-                {phase.items.map((item, j) => (
-                  <li key={j} className={styles.roadmapPhaseItem}>
-                    {item}
-                  </li>
+      case 2: {
+        const sd = s as (typeof data.scenes)[1];
+        return (
+          <div className={styles.execSummary}>
+            <div className={styles.execLabel}>{sd.execLabel}</div>
+            <div className={styles.execBox}>
+              <h2 className={styles.execTitle}>{sd.title}</h2>
+              <div className={styles.execBody}>
+                {sd.paras.map((p, i) => (
+                  <p
+                    key={i}
+                    className={styles.execPara}
+                    style={{
+                      opacity: showEntered && i <= beatNum ? 1 : 0,
+                      transform:
+                        showEntered && i <= beatNum
+                          ? "translateY(0)"
+                          : "translateY(0.8cqh)",
+                      transition: "opacity 0.4s ease, transform 0.4s ease",
+                      transitionDelay: `${i * 0.15}s`,
+                    }}
+                  >
+                    {p}
+                  </p>
                 ))}
-              </ul>
+                <div className={styles.execKeyPoints}>
+                  <div className={styles.execKeyPointsLabel}>
+                    {sd.keyPointsLabel}
+                  </div>
+                  {sd.keyPoints.map((kp, i) => (
+                    <div
+                      key={i}
+                      className={styles.execKeyPoint}
+                      style={{
+                        opacity: showEntered && beatNum >= 1 ? 1 : 0,
+                        transition: "opacity 0.3s ease",
+                        transitionDelay: `${i * 0.08}s`,
+                      }}
+                    >
+                      {kp}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
-    );
+          </div>
+        );
+      }
+
+      case 3: {
+        const sd = s as (typeof data.scenes)[2];
+        const visibleCount = Math.min(beatNum * 2 + 2, sd.recs.length);
+        return (
+          <div className={styles.recommendations}>
+            <div className={styles.recHeader}>
+              <h2 className={styles.recTitle}>{sd.title}</h2>
+              <p className={styles.recSubtitle}>{sd.subtitle}</p>
+            </div>
+            <div
+              ref={isCurrent ? recListRef : undefined}
+              className={styles.recList}
+            >
+              {sd.recs.slice(0, visibleCount).map((r, i) => (
+                <div
+                  key={r.num}
+                  className={styles.recItem}
+                  style={{
+                    opacity: showEntered ? 1 : 0,
+                    transform: showEntered
+                      ? "translateX(0)"
+                      : "translateX(-1cqw)",
+                    transition: "opacity 0.4s ease, transform 0.4s ease",
+                    transitionDelay: `${i * 0.1}s`,
+                  }}
+                >
+                  <div className={styles.recNumber}>{r.num}</div>
+                  <div className={styles.recContent}>
+                    <h3 className={styles.recHeading}>{r.heading}</h3>
+                    <p className={styles.recText}>{r.text}</p>
+                    <span
+                      className={`${styles.recPriority} ${
+                        r.priorityClass === "high"
+                          ? styles.recPriorityHigh
+                          : r.priorityClass === "medium"
+                            ? styles.recPriorityMedium
+                            : styles.recPriorityLow
+                      }`}
+                    >
+                      {r.priority}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      case 4: {
+        const sd = s as (typeof data.scenes)[3];
+        return (
+          <div className={styles.evidence}>
+            <div className={styles.evidenceHeader}>
+              <h2 className={styles.evidenceTitle}>{sd.title}</h2>
+              <p className={styles.evidenceSubtitle}>{sd.subtitle}</p>
+            </div>
+            <div className={styles.evidenceBody}>
+              {sd.paras.map((p, i) => (
+                <p
+                  key={i}
+                  className={styles.evidencePara}
+                  style={{
+                    opacity: showEntered && i <= beatNum ? 1 : 0,
+                    transform:
+                      showEntered && i <= beatNum
+                        ? "translateY(0)"
+                        : "translateY(0.6cqh)",
+                    transition: "opacity 0.4s ease, transform 0.4s ease",
+                    transitionDelay: `${i * 0.12}s`,
+                  }}
+                  dangerouslySetInnerHTML={{
+                    __html: p.replace(
+                      /(\d+)/g,
+                      (_, n) =>
+                        /[¹²³⁴⁵⁶⁷⁸⁹]/.test(
+                          String.fromCharCode(0x00b0 + parseInt(n)),
+                        )
+                          ? `<span class="${styles.evidenceFootnote}">${n}</span>`
+                          : `<span class="${styles.evidenceFootnote}">${n}</span>`,
+                    ),
+                  }}
+                />
+              ))}
+              <div className={styles.evidenceFootnotes}>
+                <div className={styles.evidenceFootnotesLabel}>
+                  {sd.footnotesLabel}
+                </div>
+                {sd.footnotes.map((fn, i) => (
+                  <div key={i} className={styles.evidenceFootnoteItem}>
+                    <span className={styles.evidenceFootnoteMark}>
+                      {fn.mark}.
+                    </span>
+                    {fn.text}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      case 5: {
+        const sd = s as (typeof data.scenes)[4];
+        return (
+          <div className={styles.roadmap}>
+            <div className={styles.roadmapHeader}>
+              <h2 className={styles.roadmapTitle}>{sd.title}</h2>
+              <p className={styles.roadmapSubtitle}>{sd.subtitle}</p>
+            </div>
+            <div className={styles.roadmapPhases}>
+              {sd.phases.map((phase, i) => (
+                <div
+                  key={i}
+                  className={styles.roadmapPhase}
+                  style={{
+                    opacity: showEntered && i <= beatNum ? 1 : 0,
+                    transform:
+                      showEntered && i <= beatNum
+                        ? "translateY(0)"
+                        : "translateY(1cqh)",
+                    transition: "opacity 0.4s ease, transform 0.4s ease",
+                    transitionDelay: `${i * 0.15}s`,
+                  }}
+                >
+                  <div className={styles.roadmapPhaseLabel}>{phase.label}</div>
+                  <h3 className={styles.roadmapPhaseTitle}>{phase.title}</h3>
+                  <div className={styles.roadmapPhaseTimeline}>
+                    {phase.timeline}
+                  </div>
+                  <ul className={styles.roadmapPhaseItems}>
+                    {phase.items.map((item, j) => (
+                      <li key={j} className={styles.roadmapPhaseItem}>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      default:
+        return null;
+    }
   };
 
   /* Navigation */
@@ -597,28 +646,35 @@ export default function PolicyPaper({
     );
   };
 
-  const renderScene = () => {
-    switch (scene) {
-      case 1:
-        return renderTitle();
-      case 2:
-        return renderSummary();
-      case 3:
-        return renderRecommendations();
-      case 4:
-        return renderEvidence();
-      case 5:
-        return renderRoadmap();
-      default:
-        return null;
-    }
-  };
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
 
   return (
     <div className={rootClasses}>
-      <div key={`45-${scene}`} className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}>
-        {renderScene()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, false)}
+        </div>
+      )}
+
+      {/* Incoming / current scene with margin rule */}
+      {!isTransitionClone && isTransitioning && (
+        <div className={styles.marginRule} aria-hidden="true" />
+      )}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat, true)}
       </div>
+
       {renderNav()}
     </div>
   );

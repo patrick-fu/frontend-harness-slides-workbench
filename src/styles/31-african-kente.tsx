@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./31-african-kente.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 function useFonts() {
   useEffect(() => {
@@ -89,6 +90,11 @@ const SCENES = {
   },
 };
 
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
+const TRANSITION_DURATION = 700;
+
+const WEFT_COLORS = ["#d4a843", "#2d7a3a", "#c0392b", "#1a1a1a", "#003DA5", "#d4a843", "#2d7a3a", "#c0392b"];
+
 function KenteStrip({ className }: { className?: string }) {
   const colors = ["#d4a843", "#2d7a3a", "#c0392b", "#1a1a1a", "#d4a843", "#2d7a3a", "#c0392b", "#1a1a1a"];
   return (
@@ -100,6 +106,35 @@ function KenteStrip({ className }: { className?: string }) {
         <line key={i} x1={i * 27} y1="0" x2={i * 27} y2="30" stroke="#1a1a1a" strokeWidth="0.5" opacity="0.3" />
       ))}
     </svg>
+  );
+}
+
+function WeftBars({ phase }: { phase: "enter" | "fade" }) {
+  const barPositions = [8, 20, 33, 46, 58, 71, 84, 94];
+  return (
+    <div className={`${styles.weftOverlay} ${phase === "fade" ? styles.weftOverlayFade : ""}`} aria-hidden="true">
+      {barPositions.map((top, i) => {
+        const fromLeft = i % 2 === 0;
+        const color = WEFT_COLORS[i % WEFT_COLORS.length];
+        const delay = fromLeft ? i * 50 : i * 50 + 25;
+        const barClass = [
+          styles.weftBar,
+          fromLeft ? styles.weftBarLeft : styles.weftBarRight,
+          phase === "fade" ? styles.weftBarRetract : "",
+        ].filter(Boolean).join(" ");
+        return (
+          <div
+            key={i}
+            className={barClass}
+            style={{
+              top: `${top}%`,
+              background: color,
+              animationDelay: `${delay}ms`,
+            }}
+          />
+        );
+      })}
+    </div>
   );
 }
 
@@ -127,7 +162,6 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       5: ["结语呈现"],
     },
   };
-  const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
   const scenes = [1, 2, 3, 4, 5].map((id) => {
     const beatCount = BEAT_COUNTS[id];
     const actions = beatActions[lang][id as keyof (typeof beatActions)["en"]];
@@ -168,15 +202,64 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 
 export default function AfricanKente({ scene, beat, language, isThumbnail, reducedMotion, onNavigate, isTransitionClone }: BespokeStyleProps) {
   useFonts();
+
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [weftPhase, setWeftPhase] = useState<"enter" | "fade" | null>(null);
+  const prevSceneRef = useRef<number>(scene);
+
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      setWeftPhase("enter");
+
+      const fadeTimer = setTimeout(() => {
+        setWeftPhase("fade");
+      }, 420);
+
+      const doneTimer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+        setWeftPhase(null);
+      }, TRANSITION_DURATION);
+
+      prevSceneRef.current = scene;
+      return () => {
+        clearTimeout(fadeTimer);
+        clearTimeout(doneTimer);
+      };
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
   const [entered, setEntered] = useState(false);
   useEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => { requestAnimationFrame(() => setEntered(true)); });
     return () => cancelAnimationFrame(id);
   }, [scene]);
+
+  // FLIP for scene 3 pattern list
+  const { ref: patternListRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
+
+  // FLIP for scene 2 color grid and scene 4 process grid
+  const { ref: grid2Ref } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+  });
+  const { ref: grid4Ref } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+  });
+
   const handleNavClick = useCallback((e: React.MouseEvent, targetScene: number) => { e.stopPropagation(); onNavigate?.(targetScene, 0); }, [onNavigate]);
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
 
   const renderScene1 = () => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
@@ -195,15 +278,15 @@ export default function AfricanKente({ scene, beat, language, isThumbnail, reduc
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (currentBeat: number) => {
     const c = SCENES[2][language as keyof typeof SCENES[2]];
     const items = c.items as Array<{ name: string; meaning: string; color: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 4;
+    const visibleCount = currentBeat === 0 ? 0 : currentBeat === 1 ? 2 : 4;
     return (
       <div className={styles.scene2}>
         <span className={styles.sceneLabel}>{c.label}</span>
         <h2 className={styles.sceneHeading}>{c.heading}</h2>
-        <div className={styles.grid4}>
+        <div ref={grid2Ref} className={styles.grid4}>
           {items.map((item, i) => {
             const visible = i < visibleCount;
             const cls = [styles.card, visible && entered ? styles.cardVisible : ""].filter(Boolean).join(" ");
@@ -220,15 +303,15 @@ export default function AfricanKente({ scene, beat, language, isThumbnail, reduc
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (currentBeat: number) => {
     const c = SCENES[3][language as keyof typeof SCENES[3]];
     const items = c.items as Array<{ name: string; meaning: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 3;
+    const visibleCount = currentBeat === 0 ? 0 : currentBeat === 1 ? 2 : 3;
     return (
       <div className={styles.scene3}>
         <span className={styles.sceneLabel}>{c.label}</span>
         <h2 className={styles.sceneHeading}>{c.heading}</h2>
-        <div className={styles.list}>
+        <div ref={patternListRef} className={styles.list}>
           {items.map((item, i) => {
             const visible = i < visibleCount;
             const cls = [styles.listRow, visible && entered ? styles.listVisible : ""].filter(Boolean).join(" ");
@@ -245,15 +328,15 @@ export default function AfricanKente({ scene, beat, language, isThumbnail, reduc
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (currentBeat: number) => {
     const c = SCENES[4][language as keyof typeof SCENES[4]];
     const items = c.items as Array<{ num: string; title: string; desc: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 4;
+    const visibleCount = currentBeat === 0 ? 0 : currentBeat === 1 ? 2 : 4;
     return (
       <div className={styles.scene4}>
         <span className={styles.sceneLabel}>{c.label}</span>
         <h2 className={styles.sceneHeading}>{c.heading}</h2>
-        <div className={styles.grid4}>
+        <div ref={grid4Ref} className={styles.grid4}>
           {items.map((item, i) => {
             const visible = i < visibleCount;
             const cls = [styles.stepCard, visible && entered ? styles.cardVisible : ""].filter(Boolean).join(" ");
@@ -281,12 +364,12 @@ export default function AfricanKente({ scene, beat, language, isThumbnail, reduc
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+    switch (sceneNum) {
       case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
+      case 2: return renderScene2(beatNum);
+      case 3: return renderScene3(beatNum);
+      case 4: return renderScene4(beatNum);
       case 5: return renderScene5();
       default: return null;
     }
@@ -309,11 +392,30 @@ export default function AfricanKente({ scene, beat, language, isThumbnail, reduc
     );
   };
 
+  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim].filter(Boolean).join(" ");
+  const incomingLayerClasses = [styles.sceneLayer, isTransitioning && !isTransitionClone ? styles.enterAnim : ""].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div key={`31-${scene}`} className={trackClasses} style={reducedMotion ? { animationDuration: "0s" } : undefined}>
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div className={styles.track}>
+          {renderSceneFor(scene, beat)}
+        </div>
       </div>
+
+      {/* Weft bars overlay during transition */}
+      {weftPhase && <WeftBars phase={weftPhase} />}
+
       {renderNav()}
     </div>
   );

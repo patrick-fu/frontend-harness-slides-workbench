@@ -1,6 +1,11 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./07-quiet-confidence.module.css";
+
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 800; // ms — breath-pause dissolve total
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 };
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -318,6 +323,26 @@ export default function QuietConfidence({
 }: BespokeStyleProps) {
   useFonts();
 
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -334,16 +359,9 @@ export default function QuietConfidence({
     .filter(Boolean)
     .join(" ");
 
-  const trackClasses = [
-    styles.track,
-    !isTransitionClone && styles.animateSceneEnter,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  // ── Scene renderers (parameterized by beatNum) ──────────────────────────
 
-  // ── Scene renderers ─────────────────────────────────────────────────────
-
-  const renderScene1 = () => {
+  const renderScene1 = (_beatNum: number) => {
     const c = SCENES[1][language];
     return (
       <div className={styles.scene1}>
@@ -364,7 +382,7 @@ export default function QuietConfidence({
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number) => {
     const c = SCENES[2][language];
     return (
       <div className={styles.scene2}>
@@ -373,7 +391,7 @@ export default function QuietConfidence({
           {c.thesis}
           <em>{c.thesisItalic}</em>
         </h2>
-        {beat >= 1 && (
+        {beatNum >= 1 && (
           <p className={styles.qcThesisNote}>
             {c.thesisNote}
           </p>
@@ -382,10 +400,10 @@ export default function QuietConfidence({
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number) => {
     const c = SCENES[3][language];
     const principles = c.principles || [];
-    const visibleCount = Math.min((beat + 1) * 2, 4);
+    const visibleCount = Math.min((beatNum + 1) * 2, 4);
     return (
       <div className={styles.scene3}>
         <div className={styles.qcPrinciplesHeader}>
@@ -425,7 +443,7 @@ export default function QuietConfidence({
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number) => {
     const c = SCENES[4][language];
     const points = c.dataPoints || [];
     return (
@@ -433,7 +451,7 @@ export default function QuietConfidence({
         <span className={styles.qcDataLabel}>{c.dataLabel}</span>
         <div className={styles.qcDataRow}>
           {points.map((dp, i) => {
-            const visible = beat >= 1;
+            const visible = beatNum >= 1;
             const dpClasses = [
               styles.qcDataPoint,
               visible ? styles.qcDataPointVisible : "",
@@ -463,7 +481,7 @@ export default function QuietConfidence({
             );
           })}
         </div>
-        {beat >= 1 && (
+        {beatNum >= 1 && (
           <p className={styles.qcDataFootnote}>
             {c.dataFootnote}
           </p>
@@ -472,7 +490,7 @@ export default function QuietConfidence({
     );
   };
 
-  const renderScene5 = () => {
+  const renderScene5 = (_beatNum: number) => {
     const c = SCENES[5][language];
     return (
       <div className={styles.scene5}>
@@ -487,18 +505,18 @@ export default function QuietConfidence({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+    switch (sceneNum) {
       case 1:
-        return renderScene1();
+        return renderScene1(beatNum);
       case 2:
-        return renderScene2();
+        return renderScene2(beatNum);
       case 3:
-        return renderScene3();
+        return renderScene3(beatNum);
       case 4:
-        return renderScene4();
+        return renderScene4(beatNum);
       case 5:
-        return renderScene5();
+        return renderScene5(beatNum);
       default:
         return null;
     }
@@ -536,15 +554,39 @@ export default function QuietConfidence({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`07-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div
+          key={`07-${scene}`}
+          className={styles.track}
+        >
+          {renderSceneFor(scene, beat)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );

@@ -11,7 +11,12 @@
   font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
 }
 
-/* ── Magic Move Transition ─────────────────────────────────────────────── */
+/* ── Scene-to-scene transition layers ──────────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
 
 .track {
   position: absolute;
@@ -20,18 +25,71 @@
   flex-direction: column;
 }
 
-.animateSceneEnter {
-  animation: sceneEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* ── Fashion curtain pull (diagonal fabric sweep) ────────────────────────
+   Incoming scene: revealed via clip-path from top-right to bottom-left.
+   The diagonal edge sweeps across, with a slight overshoot at the end
+   to create a "fabric snap" feeling.
+   Duration: 650ms total.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.enterAnim {
+  animation: vogueCurtainEnter 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 2;
 }
 
-@keyframes sceneEnter {
-  from {
+@keyframes vogueCurtainEnter {
+  0% {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    opacity: 0.9;
+  }
+  70% {
+    clip-path: polygon(-8% 0, 100% 0, 100% 100%, 32% 100%);
+    opacity: 1;
+  }
+  85% {
+    clip-path: polygon(-15% 0, 100% 0, 100% 100%, 22% 100%);
+    opacity: 1;
+  }
+  100% {
+    clip-path: polygon(-5% 0, 100% 0, 100% 100%, 35% 100%);
+    opacity: 1;
+  }
+}
+
+.exitAnim {
+  animation: vogueCurtainExit 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 1;
+}
+
+@keyframes vogueCurtainExit {
+  0% {
+    opacity: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  60% {
+    opacity: 0.6;
+  }
+  100% {
     opacity: 0;
-    transform: translateY(1.5cqh);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+/* ── Beat-level: headline letter-spacing track-in ────────────────────────
+   Headlines track in from wide letter-spacing to tight.
+   0.5em → 0.05em over 600ms.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.headlineTrackIn {
+  animation: headlineTrackIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes headlineTrackIn {
+  from {
+    letter-spacing: 0.5em;
   }
   to {
-    opacity: 1;
-    transform: translateY(0);
+    letter-spacing: 0.05em;
   }
 }
 
@@ -499,13 +557,25 @@
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
 
-.reducedMotion .track,
+.reducedMotion .sceneLayer,
 .reducedMotion .navIndicator {
   transition-duration: 0s !important;
 }
 
-.reducedMotion .animateSceneEnter {
+.reducedMotion .enterAnim,
+.reducedMotion .exitAnim,
+.reducedMotion .headlineTrackIn {
   animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+
+.reducedMotion .enterAnim {
+  clip-path: none !important;
+  opacity: 1 !important;
+}
+
+.reducedMotion .exitAnim {
+  opacity: 0 !important;
 }
 
 /* ── Thumbnail mode ─────────────────────────────────────────────────────── */

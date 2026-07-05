@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./40-particle-field.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Content ────────────────────────────────────────────────────────────────
 
@@ -305,6 +306,37 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 // ─── Component ──────────────────────────────────────────────────────────────
 
 const CLUSTER_COLORS = ["#818cf8", "#34d399", "#f472b6", "#fbbf24"];
+const TRANSITION_DURATION = 800; // ms — outgoing 500ms + incoming 500ms w/ 200ms delay
+
+function computeParticles(sceneNum: number, beatNum: number) {
+  if (sceneNum === 1) {
+    const p = generateParticles(65, 42, "scatter");
+    return { particles: p, connections: [] as Array<[number, number]> };
+  }
+  if (sceneNum === 2) {
+    const p = generateParticles(55, 77, "network");
+    const c = generateConnections(p, 18, 77);
+    return { particles: p, connections: c };
+  }
+  if (sceneNum === 3) {
+    const seeds = [11, 22, 33];
+    const layouts: Array<"scatter" | "network" | "clusters"> = [
+      "scatter",
+      "network",
+      "clusters",
+    ];
+    const idx = Math.min(beatNum, 2);
+    const p = generateParticles(60, seeds[idx], layouts[idx]);
+    const c = generateConnections(p, 16, seeds[idx]);
+    return { particles: p, connections: c };
+  }
+  if (sceneNum === 4) {
+    const p = generateParticles(64, 55, "clusters");
+    const c = generateConnections(p, 14, 55);
+    return { particles: p, connections: c };
+  }
+  return { particles: [] as Particle[], connections: [] as Array<[number, number]> };
+}
 
 export default function ParticleField({
   scene,
@@ -316,6 +348,33 @@ export default function ParticleField({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // FLIP for particle container — particles animate between positions on beat changes
+  const { ref: particleFieldRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 500,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+    selector: ".particle",
+  });
 
   useEffect(() => {
     const FONT_ID = "style-40-fonts-inter";
@@ -354,54 +413,47 @@ export default function ParticleField({
 
   // Generate particles based on scene
   const { particles, connections } = useMemo(() => {
-    if (scene === 1) {
-      const p = generateParticles(65, 42, "scatter");
-      return { particles: p, connections: [] as Array<[number, number]> };
-    }
-    if (scene === 2) {
-      const p = generateParticles(55, 77, "network");
-      const c = generateConnections(p, 18, 77);
-      return { particles: p, connections: c };
-    }
-    if (scene === 3) {
-      const seeds = [11, 22, 33];
-      const layouts: Array<"scatter" | "network" | "clusters"> = [
-        "scatter",
-        "network",
-        "clusters",
-      ];
-      const p = generateParticles(60, seeds[Math.min(beat, 2)], layouts[Math.min(beat, 2)]);
-      const c = generateConnections(p, 16, seeds[Math.min(beat, 2)]);
-      return { particles: p, connections: c };
-    }
-    if (scene === 4) {
-      const p = generateParticles(64, 55, "clusters");
-      const c = generateConnections(p, 14, 55);
-      return { particles: p, connections: c };
-    }
-    return { particles: [] as Particle[], connections: [] as Array<[number, number]> };
+    return computeParticles(scene, beat);
   }, [scene, beat]);
+
+  // Generate particles for outgoing scene (always at max beat state)
+  const outgoingParticles = useMemo(() => {
+    if (outgoingScene === null) return { particles: [] as Particle[], connections: [] as Array<[number, number]> };
+    const maxBeat = ({ 1: 0, 2: 1, 3: 2, 4: 1, 5: 0 } as Record<number, number>)[outgoingScene] ?? 0;
+    return computeParticles(outgoingScene, maxBeat);
+  }, [outgoingScene]);
 
   // ── Render scene content ────────────────────────────────────────────────
 
-  const renderParticleField = (showConnections: boolean, showLabels: boolean) => {
-    const c = SCENES[scene][language];
+  const renderParticleField = (
+    showConnections: boolean,
+    showLabels: boolean,
+    forceEntered = false,
+    overrideScene?: number,
+    overrideBeat?: number,
+  ) => {
+    const effScene = overrideScene ?? scene;
+    const effBeat = overrideBeat ?? beat;
+    const effEntered = forceEntered || entered;
+    const c = SCENES[effScene][language];
     const labels = c.nodeLabels || [];
+    const useParticles = overrideScene !== undefined ? outgoingParticles.particles : particles;
+    const useConnections = overrideScene !== undefined ? outgoingParticles.connections : connections;
 
     return (
-      <div className={styles.particleContainer}>
-        {showConnections && connections.length > 0 && (
+      <div ref={overrideScene === undefined ? particleFieldRef : undefined} className={styles.particleContainer}>
+        {showConnections && useConnections.length > 0 && (
           <svg
             className={styles.connectionSvg}
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
           >
-            {connections.map(([i, j], idx) => {
-              const p1 = particles[i];
-              const p2 = particles[j];
+            {useConnections.map(([i, j], idx) => {
+              const p1 = useParticles[i];
+              const p2 = useParticles[j];
               if (!p1 || !p2) return null;
               const color =
-                scene === 4
+                effScene === 4
                   ? CLUSTER_COLORS[p1.cluster] + "40"
                   : "rgba(99, 102, 241, 0.15)";
               return (
@@ -415,7 +467,7 @@ export default function ParticleField({
                   strokeWidth="0.15"
                   vectorEffect="non-scaling-stroke"
                   style={{
-                    opacity: entered ? 1 : 0,
+                    opacity: effEntered ? 1 : 0,
                     transition: reducedMotion
                       ? "none"
                       : `opacity 0.6s ease ${idx * 0.005}s`,
@@ -425,15 +477,15 @@ export default function ParticleField({
             })}
           </svg>
         )}
-        {particles.map((p, i) => {
+        {useParticles.map((p, i) => {
           const color =
-            scene === 4 || scene === 3
+            effScene === 4 || effScene === 3
               ? CLUSTER_COLORS[p.cluster]
               : "#6366f1";
           return (
             <div
               key={i}
-              className={styles.particle}
+              className={`${styles.particle} particle`}
               style={{
                 left: `${p.x}%`,
                 top: `${p.y}%`,
@@ -441,8 +493,8 @@ export default function ParticleField({
                 height: `${p.size}cqh`,
                 background: color,
                 boxShadow: `0 0 ${p.size * 2}cqh ${color}80`,
-                opacity: entered ? 1 : 0,
-                transform: entered ? "scale(1)" : "scale(0)",
+                opacity: effEntered ? 1 : 0,
+                transform: effEntered ? "scale(1)" : "scale(0)",
                 transition: reducedMotion
                   ? "none"
                   : `opacity 0.5s ease ${i * 0.01}s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.01}s`,
@@ -468,7 +520,7 @@ export default function ParticleField({
                 style={{
                   left: `${pos.x}%`,
                   top: `${pos.y}%`,
-                  opacity: entered && beat >= 1 ? 1 : 0,
+                  opacity: effEntered && effBeat >= 1 ? 1 : 0,
                   transition: reducedMotion
                     ? "none"
                     : `opacity 0.4s ease ${0.4 + i * 0.1}s`,
@@ -482,17 +534,19 @@ export default function ParticleField({
     );
   };
 
-  const renderScene1 = () => {
-    const c = SCENES[1][language];
+  const renderScene1 = (forceEntered = false, overrideScene?: number, overrideBeat?: number) => {
+    const effScene = overrideScene ?? scene;
+    const effEntered = forceEntered || entered;
+    const c = SCENES[effScene][language];
     return (
       <div className={styles.scene}>
-        {renderParticleField(false, false)}
+        {renderParticleField(false, false, forceEntered, overrideScene, overrideBeat)}
         <div className={styles.titleOverlay}>
           <h1
             className={styles.mainTitle}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "none" : "translateY(2cqh)",
+              opacity: effEntered ? 1 : 0,
+              transform: effEntered ? "none" : "translateY(2cqh)",
               transition: reducedMotion
                 ? "none"
                 : "opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s",
@@ -503,7 +557,7 @@ export default function ParticleField({
           <p
             className={styles.mainSubtitle}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: effEntered ? 1 : 0,
               transition: reducedMotion
                 ? "none"
                 : "opacity 0.8s ease 0.6s",
@@ -516,16 +570,19 @@ export default function ParticleField({
     );
   };
 
-  const renderScene2 = () => {
-    const c = SCENES[2][language];
+  const renderScene2 = (forceEntered = false, overrideScene?: number, overrideBeat?: number) => {
+    const effScene = overrideScene ?? scene;
+    const effBeat = overrideBeat ?? beat;
+    const effEntered = forceEntered || entered;
+    const c = SCENES[effScene][language];
     return (
       <div className={styles.scene}>
-        {renderParticleField(true, beat >= 1)}
+        {renderParticleField(true, effBeat >= 1, forceEntered, overrideScene, overrideBeat)}
         <div className={styles.sceneHeader}>
           <h2
             className={styles.sceneTitle}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: effEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.6s ease",
             }}
           >
@@ -537,21 +594,24 @@ export default function ParticleField({
     );
   };
 
-  const renderScene3 = () => {
-    const c = SCENES[3][language];
+  const renderScene3 = (forceEntered = false, overrideScene?: number, overrideBeat?: number) => {
+    const effScene = overrideScene ?? scene;
+    const effBeat = overrideBeat ?? beat;
+    const effEntered = forceEntered || entered;
+    const c = SCENES[effScene][language];
     return (
       <div className={styles.scene}>
-        {renderParticleField(true, false)}
+        {renderParticleField(true, false, forceEntered, overrideScene, overrideBeat)}
         <div className={styles.sceneHeader}>
           <h2 className={styles.sceneTitle}>{c.title}</h2>
           <p
             className={styles.sceneSubtitle}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: effEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.5s ease",
             }}
           >
-            {c.beatSubtitles?.[beat]}
+            {c.beatSubtitles?.[effBeat]}
           </p>
         </div>
         <div className={styles.phaseIndicator}>
@@ -560,7 +620,7 @@ export default function ParticleField({
               key={p}
               className={[
                 styles.phaseDot,
-                p <= beat ? styles.phaseDotActive : "",
+                p <= effBeat ? styles.phaseDotActive : "",
               ]
                 .filter(Boolean)
                 .join(" ")}
@@ -571,25 +631,28 @@ export default function ParticleField({
     );
   };
 
-  const renderScene4 = () => {
-    const c = SCENES[4][language];
+  const renderScene4 = (forceEntered = false, overrideScene?: number, overrideBeat?: number) => {
+    const effScene = overrideScene ?? scene;
+    const effBeat = overrideBeat ?? beat;
+    const effEntered = forceEntered || entered;
+    const c = SCENES[effScene][language];
     const clusters = c.clusterData || [];
     return (
       <div className={styles.scene}>
-        {renderParticleField(true, false)}
+        {renderParticleField(true, false, forceEntered, overrideScene, overrideBeat)}
         <div className={styles.sceneHeader}>
           <h2 className={styles.sceneTitle}>{c.title}</h2>
           <p className={styles.sceneSubtitle}>{c.subtitle}</p>
         </div>
-        {beat >= 1 && (
+        {effBeat >= 1 && (
           <div className={styles.clusterLegend}>
             {clusters.map((cl, i) => (
               <div
                 key={i}
                 className={styles.clusterItem}
                 style={{
-                  opacity: entered ? 1 : 0,
-                  transform: entered ? "none" : "translateX(-2cqw)",
+                  opacity: effEntered ? 1 : 0,
+                  transform: effEntered ? "none" : "translateX(-2cqw)",
                   transition: reducedMotion
                     ? "none"
                     : `opacity 0.4s ease ${i * 0.1}s, transform 0.4s ease ${i * 0.1}s`,
@@ -609,16 +672,18 @@ export default function ParticleField({
     );
   };
 
-  const renderScene5 = () => {
-    const c = SCENES[5][language];
+  const renderScene5 = (forceEntered = false, overrideScene?: number) => {
+    const effScene = overrideScene ?? scene;
+    const effEntered = forceEntered || entered;
+    const c = SCENES[effScene][language];
     const stats = c.stats || [];
     return (
       <div className={styles.summaryScene}>
         <h2
           className={styles.summaryTitle}
           style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "none" : "translateY(-1cqh)",
+            opacity: effEntered ? 1 : 0,
+            transform: effEntered ? "none" : "translateY(-1cqh)",
             transition: reducedMotion
               ? "none"
               : "opacity 0.6s ease, transform 0.6s ease",
@@ -632,8 +697,8 @@ export default function ParticleField({
               key={i}
               className={styles.statCard}
               style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "none" : "translateY(1.5cqh)",
+                opacity: effEntered ? 1 : 0,
+                transform: effEntered ? "none" : "translateY(1.5cqh)",
                 transition: reducedMotion
                   ? "none"
                   : `opacity 0.5s ease ${0.2 + i * 0.1}s, transform 0.5s ease ${0.2 + i * 0.1}s`,
@@ -657,7 +722,7 @@ export default function ParticleField({
                   top: `${rand() * 100}%`,
                   width: "0.8cqh",
                   height: "0.8cqh",
-                  opacity: entered ? 0.3 : 0,
+                  opacity: effEntered ? 0.3 : 0,
                   transition: reducedMotion
                     ? "none"
                     : `opacity 1s ease ${i * 0.03}s`,
@@ -670,22 +735,28 @@ export default function ParticleField({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  const renderSceneFor = (
+    sceneNum: number,
+    beatNum: number,
+    forceEntered = false,
+  ) => {
+    switch (sceneNum) {
       case 1:
-        return renderScene1();
+        return renderScene1(forceEntered, sceneNum, beatNum);
       case 2:
-        return renderScene2();
+        return renderScene2(forceEntered, sceneNum, beatNum);
       case 3:
-        return renderScene3();
+        return renderScene3(forceEntered, sceneNum, beatNum);
       case 4:
-        return renderScene4();
+        return renderScene4(forceEntered, sceneNum, beatNum);
       case 5:
-        return renderScene5();
+        return renderScene5(forceEntered, sceneNum);
       default:
         return null;
     }
   };
+
+  const renderSceneContent = () => renderSceneFor(scene, beat);
 
   // ── Navigation Dots ─────────────────────────────────────────────────────
 
@@ -715,15 +786,40 @@ export default function ParticleField({
     );
   };
 
+  // ── Layer classes ────────────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
+  const OUTGOING_MAX_BEAT: Record<number, number> = {
+    1: 0, 2: 1, 3: 2, 4: 1, 5: 0,
+  };
+
   return (
     <div data-testid="style-40-root" className={rootClasses}>
-      <div
-        key={`40-${scene}`}
-        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
+      {/* Outgoing scene (particle scatter exit) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(
+            outgoingScene,
+            OUTGOING_MAX_BEAT[outgoingScene] ?? 0,
+            true,
+          )}
+        </div>
+      )}
+
+      {/* Incoming / current scene (particle coalesce enter) */}
+      <div className={incomingLayerClasses}>
         {renderSceneContent()}
       </div>
+
       {renderNavDots()}
     </div>
   );

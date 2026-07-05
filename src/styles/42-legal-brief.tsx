@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./42-legal-brief.module.css";
 
@@ -282,6 +282,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 350; // ms — 250ms rule draw + 100ms outgoing fade
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function LegalBrief({
@@ -294,6 +299,10 @@ export default function LegalBrief({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showDivider, setShowDivider] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
   useEffect(() => {
     const inject = (id: string, href: string) => {
@@ -314,6 +323,25 @@ export default function LegalBrief({
     );
   }, []);
 
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      setShowDivider(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+        setShowDivider(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // Beat-level entered animation (for incoming scene reveals)
   useEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
@@ -339,14 +367,14 @@ export default function LegalBrief({
 
   // ── Scene 1: Caption ───────────────────────────────────────────────────
 
-  const renderScene1 = () => {
+  const renderScene1 = (isEntered: boolean) => {
     const c = SCENES[1][language];
     return (
       <div className={styles.caption}>
         <div
           className={styles.captionCourt}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.6s ease 0.2s",
           }}
         >
@@ -360,7 +388,7 @@ export default function LegalBrief({
         <div
           className={styles.captionCase}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.8s ease 0.5s",
           }}
         >
@@ -385,7 +413,7 @@ export default function LegalBrief({
         <div
           className={styles.captionMeta}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.6s ease 0.9s",
           }}
         >
@@ -398,7 +426,7 @@ export default function LegalBrief({
         <div
           className={styles.captionCounsel}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.6s ease 1.2s",
           }}
         >
@@ -420,10 +448,10 @@ export default function LegalBrief({
 
   // ── Scene 2: Statement of Facts ───────────────────────────────────────
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number, isEntered: boolean) => {
     const c = SCENES[2][language];
     const paragraphs = c.paragraphs as Array<{ num: string; text: string }>;
-    const visibleCount = beat === 0 ? 3 : 5;
+    const visibleCount = beatNum === 0 ? 3 : 5;
     const visible = paragraphs.slice(0, visibleCount);
 
     return (
@@ -438,8 +466,8 @@ export default function LegalBrief({
               key={i}
               className={styles.factPara}
               style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "none" : "translateX(-1cqw)",
+                opacity: isEntered ? 1 : 0,
+                transform: isEntered ? "none" : "translateX(-1cqw)",
                 transition: reducedMotion
                   ? "none"
                   : `opacity 0.5s ease ${i * 0.1}s, transform 0.5s ease ${i * 0.1}s`,
@@ -456,7 +484,7 @@ export default function LegalBrief({
 
   // ── Scene 3: Legal Argument ───────────────────────────────────────────
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number, isEntered: boolean) => {
     const c = SCENES[3][language];
     const citations = c.citations as Array<{ text: string; relevance: string }>;
     return (
@@ -469,18 +497,18 @@ export default function LegalBrief({
           <span className={styles.argSectionNum}>{c.sectionHeading}</span>
           <h3 className={styles.argSectionTitle}>{c.sectionTitle}</h3>
         </div>
-        {beat >= 0 && (
+        {beatNum >= 0 && (
           <p
             className={styles.argText}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.6s ease 0.2s",
             }}
           >
             {c.argument}
           </p>
         )}
-        {beat >= 1 && (
+        {beatNum >= 1 && (
           <div className={styles.argCitations}>
             <p className={styles.argCitationsLabel}>
               {language === "zh" ? "引用判例：" : "Authorities Cited:"}
@@ -490,7 +518,7 @@ export default function LegalBrief({
                 key={i}
                 className={styles.argCite}
                 style={{
-                  opacity: entered ? 1 : 0,
+                  opacity: isEntered ? 1 : 0,
                   transition: reducedMotion
                     ? "none"
                     : `opacity 0.4s ease ${0.4 + i * 0.12}s`,
@@ -502,11 +530,11 @@ export default function LegalBrief({
             ))}
           </div>
         )}
-        {beat >= 2 && (
+        {beatNum >= 2 && (
           <p
             className={styles.argText}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.6s ease 0.8s",
             }}
           >
@@ -519,10 +547,10 @@ export default function LegalBrief({
 
   // ── Scene 4: Prayer for Relief ────────────────────────────────────────
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number, isEntered: boolean) => {
     const c = SCENES[4][language];
     const remedies = c.remedies as string[];
-    const visibleCount = beat === 0 ? 3 : 5;
+    const visibleCount = beatNum === 0 ? 3 : 5;
     const visible = remedies.slice(0, visibleCount);
 
     return (
@@ -534,7 +562,7 @@ export default function LegalBrief({
         <p
           className={styles.reliefWherefore}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.5s ease 0.2s",
           }}
         >
@@ -546,8 +574,8 @@ export default function LegalBrief({
               key={i}
               className={styles.reliefItem}
               style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "none" : "translateX(-1cqw)",
+                opacity: isEntered ? 1 : 0,
+                transform: isEntered ? "none" : "translateX(-1cqw)",
                 transition: reducedMotion
                   ? "none"
                   : `opacity 0.5s ease ${0.3 + i * 0.12}s, transform 0.5s ease ${0.3 + i * 0.12}s`,
@@ -563,7 +591,7 @@ export default function LegalBrief({
 
   // ── Scene 5: Conclusion ───────────────────────────────────────────────
 
-  const renderScene5 = () => {
+  const renderScene5 = (isEntered: boolean) => {
     const c = SCENES[5][language];
     return (
       <div className={styles.conclusion}>
@@ -574,7 +602,7 @@ export default function LegalBrief({
         <p
           className={styles.concText}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.6s ease 0.2s",
           }}
         >
@@ -583,7 +611,7 @@ export default function LegalBrief({
         <p
           className={styles.concDate}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.5s ease 0.6s",
           }}
         >
@@ -592,7 +620,7 @@ export default function LegalBrief({
         <div
           className={styles.concSigBlock}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.6s ease 0.9s",
           }}
         >
@@ -621,18 +649,24 @@ export default function LegalBrief({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  // ── Render scene content for a given scene number ────────────────────────
+
+  const renderSceneFor = (
+    sceneNum: number,
+    beatNum: number,
+    isEntered: boolean,
+  ) => {
+    switch (sceneNum) {
       case 1:
-        return renderScene1();
+        return renderScene1(isEntered);
       case 2:
-        return renderScene2();
+        return renderScene2(beatNum, isEntered);
       case 3:
-        return renderScene3();
+        return renderScene3(beatNum, isEntered);
       case 4:
-        return renderScene4();
+        return renderScene4(beatNum, isEntered);
       case 5:
-        return renderScene5();
+        return renderScene5(isEntered);
       default:
         return null;
     }
@@ -678,15 +712,37 @@ export default function LegalBrief({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div data-testid="style-42-root" className={rootClasses}>
-      <div
-        key={`42-${scene}`}
-        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (section divider exit: above-rule clip + fade) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+        </div>
+      )}
+
+      {/* Incoming / current scene (section divider enter) */}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat, entered)}
       </div>
+
+      {/* Section divider rule */}
+      {showDivider && !reducedMotion && (
+        <div className={styles.dividerRule} />
+      )}
+
       {renderNav()}
     </div>
   );

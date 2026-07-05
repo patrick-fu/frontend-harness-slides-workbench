@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./38-figma-canvas.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -339,6 +340,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ───────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 500; // ms — matches zoom/pan animation duration
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function FigmaCanvas({
@@ -351,9 +357,34 @@ export default function FigmaCanvas({
   isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
-  const [entered, setEntered] = useState(false);
 
+  const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
+  // Detect scene changes and manage transition lifecycle
   useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // Beat-level entered state — controls reveal animations
+  useEffect(() => {
+    if (reducedMotion) {
+      setEntered(true);
+      return;
+    }
     setEntered(false);
     const id = requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -361,7 +392,15 @@ export default function FigmaCanvas({
       });
     });
     return () => cancelAnimationFrame(id);
-  }, [scene]);
+  }, [scene, reducedMotion]);
+
+  // FLIP for canvas design elements
+  const { ref: canvasRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+    selector: ".figmaFrame, .flowNode, .tokenCard",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -378,7 +417,7 @@ export default function FigmaCanvas({
     .filter(Boolean)
     .join(" ");
 
-  // ── Figma Toolbar ───────────────────────────────────────────────────────
+  // ── Figma Toolbar (persistent across scenes) ────────────────────────────
 
   const renderToolbar = () => {
     if (isThumbnail) return null;
@@ -414,131 +453,126 @@ export default function FigmaCanvas({
 
   // ── Scene 1: Canvas Overview ────────────────────────────────────────────
 
-  const renderScene1 = () => {
+  const renderScene1 = (isEntered: boolean) => {
     const c = SCENES[1][language];
     const frames = c.frames as Array<{
       id: string; label: string; x: number; y: number; w: number; h: number; color: string;
     }>;
     return (
-      <>
-        {renderToolbar()}
-        <div className={styles.canvasArea}>
-          <div className={styles.canvasOverview}>
-            <h1
-              className={styles.canvasTitle}
+      <div className={styles.canvasOverview}>
+        <h1
+          className={styles.canvasTitle}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transform: isEntered ? "translateY(0)" : "translateY(-1cqh)",
+            transition: reducedMotion
+              ? "none"
+              : "opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+          }}
+        >
+          {c.title}
+        </h1>
+        <p
+          className={styles.canvasSubtitle}
+          style={{
+            opacity: isEntered ? 0.6 : 0,
+            transition: reducedMotion ? "none" : "opacity 0.5s ease 0.1s",
+          }}
+        >
+          {c.subtitle}
+        </p>
+        <div className={styles.overviewFrames}>
+          {frames.map((frame, i) => (
+            <div
+              key={frame.id}
+              className={`${styles.figmaFrame} ${i === 1 ? styles.figmaFrameSelected : ""}`}
               style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "translateY(0)" : "translateY(-1cqh)",
+                left: `${frame.x}cqw`,
+                top: `${frame.y}cqh`,
+                width: `${frame.w}cqw`,
+                height: `${frame.h}cqh`,
+                opacity: isEntered ? 1 : 0,
+                transform: isEntered ? "translateY(0) scale(1)" : "translateY(1.5cqh) scale(0.95)",
                 transition: reducedMotion
                   ? "none"
-                  : "opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                  : `opacity 0.4s ease ${0.2 + i * 0.08}s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${0.2 + i * 0.08}s`,
               }}
             >
-              {c.title}
-            </h1>
-            <p
-              className={styles.canvasSubtitle}
-              style={{
-                opacity: entered ? 0.6 : 0,
-                transition: reducedMotion ? "none" : "opacity 0.5s ease 0.1s",
-              }}
-            >
-              {c.subtitle}
-            </p>
-            <div className={styles.overviewFrames}>
-              {frames.map((frame, i) => (
+              <span
+                className={`${styles.frameLabel} ${i === 1 ? styles.frameLabelSelected : ""}`}
+              >
+                {frame.label}
+              </span>
+              {/* Frame content mockup */}
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  background: `linear-gradient(135deg, ${frame.color}10, ${frame.color}05)`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  gap: "1cqh",
+                  padding: "2cqh",
+                  boxSizing: "border-box",
+                }}
+              >
                 <div
-                  key={frame.id}
-                  className={`${styles.figmaFrame} ${i === 1 ? styles.figmaFrameSelected : ""}`}
                   style={{
-                    left: `${frame.x}cqw`,
-                    top: `${frame.y}cqh`,
-                    width: `${frame.w}cqw`,
-                    height: `${frame.h}cqh`,
-                    opacity: entered ? 1 : 0,
-                    transform: entered ? "translateY(0) scale(1)" : "translateY(1.5cqh) scale(0.95)",
-                    transition: reducedMotion
-                      ? "none"
-                      : `opacity 0.4s ease ${0.2 + i * 0.08}s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${0.2 + i * 0.08}s`,
+                    width: "60%",
+                    height: "3cqh",
+                    background: frame.color,
+                    borderRadius: "0.8cqh",
+                    opacity: 0.3,
                   }}
-                >
-                  <span
-                    className={`${styles.frameLabel} ${i === 1 ? styles.frameLabelSelected : ""}`}
-                  >
-                    {frame.label}
-                  </span>
-                  {/* Frame content mockup */}
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      background: `linear-gradient(135deg, ${frame.color}10, ${frame.color}05)`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexDirection: "column",
-                      gap: "1cqh",
-                      padding: "2cqh",
-                      boxSizing: "border-box",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "60%",
-                        height: "3cqh",
-                        background: frame.color,
-                        borderRadius: "0.8cqh",
-                        opacity: 0.3,
-                      }}
-                    />
-                    <div
-                      style={{
-                        width: "80%",
-                        height: "1.5cqh",
-                        background: "#e5e5e5",
-                        borderRadius: "0.4cqh",
-                      }}
-                    />
-                    <div
-                      style={{
-                        width: "65%",
-                        height: "1.5cqh",
-                        background: "#e5e5e5",
-                        borderRadius: "0.4cqh",
-                      }}
-                    />
-                    <div
-                      style={{
-                        width: "40%",
-                        height: "4cqh",
-                        background: frame.color,
-                        borderRadius: "1cqh",
-                        marginTop: "1cqh",
-                        opacity: 0.6,
-                      }}
-                    />
-                  </div>
-                  {/* Selection handles for selected frame */}
-                  {i === 1 && (
-                    <>
-                      <div className={styles.selectionHandle} style={{ top: "-0.6cqh", left: "-0.6cqh" }} />
-                      <div className={styles.selectionHandle} style={{ top: "-0.6cqh", right: "-0.6cqh" }} />
-                      <div className={styles.selectionHandle} style={{ bottom: "-0.6cqh", left: "-0.6cqh" }} />
-                      <div className={styles.selectionHandle} style={{ bottom: "-0.6cqh", right: "-0.6cqh" }} />
-                    </>
-                  )}
-                </div>
-              ))}
+                />
+                <div
+                  style={{
+                    width: "80%",
+                    height: "1.5cqh",
+                    background: "#e5e5e5",
+                    borderRadius: "0.4cqh",
+                  }}
+                />
+                <div
+                  style={{
+                    width: "65%",
+                    height: "1.5cqh",
+                    background: "#e5e5e5",
+                    borderRadius: "0.4cqh",
+                  }}
+                />
+                <div
+                  style={{
+                    width: "40%",
+                    height: "4cqh",
+                    background: frame.color,
+                    borderRadius: "1cqh",
+                    marginTop: "1cqh",
+                    opacity: 0.6,
+                  }}
+                />
+              </div>
+              {/* Selection handles for selected frame */}
+              {i === 1 && (
+                <>
+                  <div className={styles.selectionHandle} style={{ top: "-0.6cqh", left: "-0.6cqh" }} />
+                  <div className={styles.selectionHandle} style={{ top: "-0.6cqh", right: "-0.6cqh" }} />
+                  <div className={styles.selectionHandle} style={{ bottom: "-0.6cqh", left: "-0.6cqh" }} />
+                  <div className={styles.selectionHandle} style={{ bottom: "-0.6cqh", right: "-0.6cqh" }} />
+                </>
+              )}
             </div>
-          </div>
+          ))}
         </div>
-      </>
+      </div>
     );
   };
 
   // ── Scene 2: Design Tokens ──────────────────────────────────────────────
 
-  const renderScene2 = () => {
+  const renderScene2 = (isEntered: boolean, beatNum: number) => {
     const c = SCENES[2][language];
     const tokens = c.tokens as Array<{
       name: string; value: string; category: string; color: string;
@@ -548,96 +582,91 @@ export default function FigmaCanvas({
       lineHeight: string; letterSpacing: string;
     };
     return (
-      <>
-        {renderToolbar()}
-        <div className={styles.canvasArea}>
-          <div className={styles.tokensScene}>
-            <h2
-              className={styles.tokensTitle}
-              style={{
-                opacity: entered ? 1 : 0,
-                transition: reducedMotion ? "none" : "opacity 0.5s ease",
-              }}
-            >
-              {c.title}
-            </h2>
-            <p
-              className={styles.tokensSubtitle}
-              style={{
-                opacity: entered ? 1 : 0,
-                transition: reducedMotion ? "none" : "opacity 0.5s ease 0.1s",
-              }}
-            >
-              {c.subtitle}
-            </p>
-            <div className={styles.tokensGrid}>
-              {tokens.map((token, i) => {
-                const visible = entered;
-                return (
-                  <div
-                    key={i}
-                    className={`${styles.tokenCard} ${visible ? styles.tokenCardVisible : ""}`}
-                    style={{
-                      transitionDelay: reducedMotion ? "0s" : `${i * 0.08}s`,
-                    }}
-                  >
-                    <div
-                      className={styles.tokenSwatch}
-                      style={{ background: token.color }}
-                    />
-                    <span className={styles.tokenCategory}>{token.category}</span>
-                    <h4 className={styles.tokenName}>{token.name}</h4>
-                    <span className={styles.tokenValue}>{token.value}</span>
-                  </div>
-                );
-              })}
-              {beat >= 1 && (
+      <div className={styles.tokensScene}>
+        <h2
+          className={styles.tokensTitle}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transition: reducedMotion ? "none" : "opacity 0.5s ease",
+          }}
+        >
+          {c.title}
+        </h2>
+        <p
+          className={styles.tokensSubtitle}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transition: reducedMotion ? "none" : "opacity 0.5s ease 0.1s",
+          }}
+        >
+          {c.subtitle}
+        </p>
+        <div className={styles.tokensGrid}>
+          {tokens.map((token, i) => {
+            const visible = isEntered;
+            return (
+              <div
+                key={i}
+                className={`${styles.tokenCard} ${visible ? styles.tokenCardVisible : ""}`}
+                style={{
+                  transitionDelay: reducedMotion ? "0s" : `${i * 0.08}s`,
+                }}
+              >
                 <div
-                  className={styles.typoCard}
-                  style={{
-                    opacity: entered ? 1 : 0,
-                    transform: entered ? "translateY(0)" : "translateY(1cqh)",
-                    transition: reducedMotion
-                      ? "none"
-                      : "opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s",
-                  }}
-                >
-                  <span className={styles.tokenCategory}>Typography</span>
-                  <div className={styles.typoPreview}>{typo.preview}</div>
-                  <div className={styles.typoDetails}>
-                    <div className={styles.typoDetailItem}>
-                      <span className={styles.typoDetailLabel}>Family</span>
-                      <span className={styles.typoDetailValue}>{typo.fontFamily}</span>
-                    </div>
-                    <div className={styles.typoDetailItem}>
-                      <span className={styles.typoDetailLabel}>Size</span>
-                      <span className={styles.typoDetailValue}>{typo.fontSize}</span>
-                    </div>
-                    <div className={styles.typoDetailItem}>
-                      <span className={styles.typoDetailLabel}>Weight</span>
-                      <span className={styles.typoDetailValue}>{typo.fontWeight}</span>
-                    </div>
-                    <div className={styles.typoDetailItem}>
-                      <span className={styles.typoDetailLabel}>Line</span>
-                      <span className={styles.typoDetailValue}>{typo.lineHeight}</span>
-                    </div>
-                    <div className={styles.typoDetailItem}>
-                      <span className={styles.typoDetailLabel}>Tracking</span>
-                      <span className={styles.typoDetailValue}>{typo.letterSpacing}</span>
-                    </div>
-                  </div>
+                  className={styles.tokenSwatch}
+                  style={{ background: token.color }}
+                />
+                <span className={styles.tokenCategory}>{token.category}</span>
+                <h4 className={styles.tokenName}>{token.name}</h4>
+                <span className={styles.tokenValue}>{token.value}</span>
+              </div>
+            );
+          })}
+          {beatNum >= 1 && (
+            <div
+              className={styles.typoCard}
+              style={{
+                opacity: isEntered ? 1 : 0,
+                transform: isEntered ? "translateY(0)" : "translateY(1cqh)",
+                transition: reducedMotion
+                  ? "none"
+                  : "opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s",
+              }}
+            >
+              <span className={styles.tokenCategory}>Typography</span>
+              <div className={styles.typoPreview}>{typo.preview}</div>
+              <div className={styles.typoDetails}>
+                <div className={styles.typoDetailItem}>
+                  <span className={styles.typoDetailLabel}>Family</span>
+                  <span className={styles.typoDetailValue}>{typo.fontFamily}</span>
                 </div>
-              )}
+                <div className={styles.typoDetailItem}>
+                  <span className={styles.typoDetailLabel}>Size</span>
+                  <span className={styles.typoDetailValue}>{typo.fontSize}</span>
+                </div>
+                <div className={styles.typoDetailItem}>
+                  <span className={styles.typoDetailLabel}>Weight</span>
+                  <span className={styles.typoDetailValue}>{typo.fontWeight}</span>
+                </div>
+                <div className={styles.typoDetailItem}>
+                  <span className={styles.typoDetailLabel}>Line</span>
+                  <span className={styles.typoDetailValue}>{typo.lineHeight}</span>
+                </div>
+                <div className={styles.typoDetailItem}>
+                  <span className={styles.typoDetailLabel}>Tracking</span>
+                  <span className={styles.typoDetailValue}>{typo.letterSpacing}</span>
+                </div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
-      </>
+      </div>
     );
   };
 
   // ── Scene 3: Component Flow ─────────────────────────────────────────────
 
-  const renderScene3 = () => {
+  const renderScene3 = (isEntered: boolean, beatNum: number) => {
     const c = SCENES[3][language];
     const nodes = c.nodes as Array<{
       id: string; icon: string; title: string; desc: string; x: number; y: number; color: string;
@@ -647,265 +676,269 @@ export default function FigmaCanvas({
     const nodeMap = new Map(nodes.map((n) => [n.id, n]));
 
     return (
-      <>
-        {renderToolbar()}
-        <div className={styles.canvasArea}>
-          <div className={styles.flowScene}>
-            <h2
-              className={styles.flowTitle}
-              style={{
-                opacity: entered ? 1 : 0,
-                transition: reducedMotion ? "none" : "opacity 0.5s ease",
-              }}
-            >
-              {c.title}
-            </h2>
-            <p
-              className={styles.flowSubtitle}
-              style={{
-                opacity: entered ? 1 : 0,
-                transition: reducedMotion ? "none" : "opacity 0.5s ease 0.1s",
-              }}
-            >
-              {c.subtitle}
-            </p>
-            <div className={styles.flowCanvas}>
-              {/* SVG connection lines */}
-              <svg
-                className={styles.flowConnections}
-                viewBox="0 0 100 100"
-                preserveAspectRatio="none"
-                style={{ width: "100%", height: "100%" }}
+      <div className={styles.flowScene}>
+        <h2
+          className={styles.flowTitle}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transition: reducedMotion ? "none" : "opacity 0.5s ease",
+          }}
+        >
+          {c.title}
+        </h2>
+        <p
+          className={styles.flowSubtitle}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transition: reducedMotion ? "none" : "opacity 0.5s ease 0.1s",
+          }}
+        >
+          {c.subtitle}
+        </p>
+        <div className={styles.flowCanvas}>
+          {/* SVG connection lines */}
+          <svg
+            className={styles.flowConnections}
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            style={{ width: "100%", height: "100%" }}
+          >
+            {connections.map((conn, i) => {
+              const from = nodeMap.get(conn.from);
+              const to = nodeMap.get(conn.to);
+              if (!from || !to) return null;
+              const x1 = from.x + 7;
+              const y1 = from.y + 8;
+              const x2 = to.x + 7;
+              const y2 = to.y + 8;
+              const mx = (x1 + x2) / 2;
+              return (
+                <path
+                  key={i}
+                  d={`M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`}
+                  fill="none"
+                  stroke="#0d99ff"
+                  strokeWidth="0.3"
+                  strokeDasharray="1.5 0.8"
+                  opacity={isEntered && beatNum >= 1 ? 0.5 : 0}
+                  style={{
+                    transition: reducedMotion ? "none" : "opacity 0.5s ease 0.4s",
+                  }}
+                />
+              );
+            })}
+          </svg>
+          {/* Flow nodes */}
+          {nodes.map((node, i) => {
+            const nodeVisible = isEntered && i <= beatNum * 2 + 1;
+            return (
+              <div
+                key={node.id}
+                className={`${styles.flowNode} ${nodeVisible ? styles.flowNodeVisible : ""}`}
+                style={{
+                  left: `${node.x}cqw`,
+                  top: `${node.y}cqh`,
+                  transitionDelay: reducedMotion ? "0s" : `${i * 0.1}s`,
+                }}
               >
-                {connections.map((conn, i) => {
-                  const from = nodeMap.get(conn.from);
-                  const to = nodeMap.get(conn.to);
-                  if (!from || !to) return null;
-                  const x1 = from.x + 7;
-                  const y1 = from.y + 8;
-                  const x2 = to.x + 7;
-                  const y2 = to.y + 8;
-                  const mx = (x1 + x2) / 2;
-                  return (
-                    <path
-                      key={i}
-                      d={`M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`}
-                      fill="none"
-                      stroke="#0d99ff"
-                      strokeWidth="0.3"
-                      strokeDasharray="1.5 0.8"
-                      opacity={entered && beat >= 1 ? 0.5 : 0}
-                      style={{
-                        transition: reducedMotion ? "none" : "opacity 0.5s ease 0.4s",
-                      }}
-                    />
-                  );
-                })}
-              </svg>
-              {/* Flow nodes */}
-              {nodes.map((node, i) => {
-                const nodeVisible = entered && i <= beat * 2 + 1;
-                return (
-                  <div
-                    key={node.id}
-                    className={`${styles.flowNode} ${nodeVisible ? styles.flowNodeVisible : ""}`}
-                    style={{
-                      left: `${node.x}cqw`,
-                      top: `${node.y}cqh`,
-                      transitionDelay: reducedMotion ? "0s" : `${i * 0.1}s`,
-                    }}
-                  >
-                    <div
-                      className={styles.flowNodeIcon}
-                      style={{ background: node.color }}
-                    >
-                      {node.icon}
-                    </div>
-                    <span className={styles.flowNodeTitle}>{node.title}</span>
-                    <span className={styles.flowNodeDesc}>{node.desc}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+                <div
+                  className={styles.flowNodeIcon}
+                  style={{ background: node.color }}
+                >
+                  {node.icon}
+                </div>
+                <span className={styles.flowNodeTitle}>{node.title}</span>
+                <span className={styles.flowNodeDesc}>{node.desc}</span>
+              </div>
+            );
+          })}
         </div>
-      </>
+      </div>
     );
   };
 
   // ── Scene 4: Detail Frame + Inspector ───────────────────────────────────
 
-  const renderScene4 = () => {
+  const renderScene4 = (isEntered: boolean, beatNum: number) => {
     const c = SCENES[4][language];
     return (
-      <>
-        {renderToolbar()}
-        <div className={styles.canvasArea}>
-          <div className={styles.detailScene}>
-            <div
-              className={styles.detailMainFrame}
-              style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "scale(1)" : "scale(0.97)",
-                transition: reducedMotion
-                  ? "none"
-                  : "opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-              }}
-            >
-              <span className={styles.detailFrameLabel}>{c.frameLabel}</span>
-              <div className={styles.frameMockup}>
-                <div className={styles.mockupHeader}>
-                  <div className={styles.mockupAvatar}>{c.initial}</div>
-                  <div className={styles.mockupHeaderInfo}>
-                    <h3 className={styles.mockupName}>{c.name}</h3>
-                    <p className={styles.mockupRole}>{c.role}</p>
-                  </div>
-                </div>
-                <div className={styles.mockupStats}>
-                  {c.stats.map((stat, i) => (
-                    <div key={i} className={styles.mockupStat}>
-                      <span className={styles.mockupStatValue}>{stat.value}</span>
-                      <span className={styles.mockupStatLabel}>{stat.label}</span>
-                    </div>
-                  ))}
-                </div>
-                <button className={styles.mockupButton}>{c.button}</button>
+      <div className={styles.detailScene}>
+        <div
+          className={styles.detailMainFrame}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transform: isEntered ? "scale(1)" : "scale(0.97)",
+            transition: reducedMotion
+              ? "none"
+              : "opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+          }}
+        >
+          <span className={styles.detailFrameLabel}>{c.frameLabel}</span>
+          <div className={styles.frameMockup}>
+            <div className={styles.mockupHeader}>
+              <div className={styles.mockupAvatar}>{c.initial}</div>
+              <div className={styles.mockupHeaderInfo}>
+                <h3 className={styles.mockupName}>{c.name}</h3>
+                <p className={styles.mockupRole}>{c.role}</p>
               </div>
-              {/* Selection handles */}
-              <div className={styles.selectionHandle} style={{ top: "-0.7cqh", left: "-0.7cqh" }} />
-              <div className={styles.selectionHandle} style={{ top: "-0.7cqh", right: "-0.7cqh" }} />
-              <div className={styles.selectionHandle} style={{ bottom: "-0.7cqh", left: "-0.7cqh" }} />
-              <div className={styles.selectionHandle} style={{ bottom: "-0.7cqh", right: "-0.7cqh" }} />
             </div>
-
-            {beat >= 1 && (
-              <div
-                className={styles.detailSidebar}
-                style={{
-                  opacity: entered ? 1 : 0,
-                  transform: entered ? "translateX(0)" : "translateX(2cqw)",
-                  transition: reducedMotion
-                    ? "none"
-                    : "opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s",
-                }}
-              >
-                <div className={styles.sidebarSection}>
-                  <h4 className={styles.sidebarSectionTitle}>
-                    {language === "zh" ? "位置与尺寸" : "Position & Size"}
-                  </h4>
-                  {c.properties.map((prop, i) => (
-                    <div key={i} className={styles.sidebarRow}>
-                      <span className={styles.sidebarLabel}>{prop.label}</span>
-                      <span className={styles.sidebarValue}>{prop.value}</span>
-                    </div>
-                  ))}
+            <div className={styles.mockupStats}>
+              {c.stats.map((stat, i) => (
+                <div key={i} className={styles.mockupStat}>
+                  <span className={styles.mockupStatValue}>{stat.value}</span>
+                  <span className={styles.mockupStatLabel}>{stat.label}</span>
                 </div>
-                <div className={styles.sidebarSection}>
-                  <h4 className={styles.sidebarSectionTitle}>
-                    {language === "zh" ? "填充" : "Fill"}
-                  </h4>
-                  {c.fills.map((fill, i) => (
-                    <div key={i} className={styles.sidebarColorRow}>
-                      <div
-                        className={styles.sidebarColorSwatch}
-                        style={{ background: fill.color }}
-                      />
-                      <span style={{ fontSize: "1.6cqh" }}>{fill.label}</span>
-                      <span
-                        className={styles.sidebarValue}
-                        style={{ marginLeft: "auto" }}
-                      >
-                        {fill.color}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-                <div className={styles.sidebarSection}>
-                  <h4 className={styles.sidebarSectionTitle}>
-                    {language === "zh" ? "效果" : "Effects"}
-                  </h4>
-                  {c.effects.map((eff, i) => (
-                    <div key={i} className={styles.sidebarRow}>
-                      <span className={styles.sidebarLabel}>{eff.label}</span>
-                      <span className={styles.sidebarValue}>{eff.value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+              ))}
+            </div>
+            <button className={styles.mockupButton}>{c.button}</button>
           </div>
+          {/* Selection handles */}
+          <div className={styles.selectionHandle} style={{ top: "-0.7cqh", left: "-0.7cqh" }} />
+          <div className={styles.selectionHandle} style={{ top: "-0.7cqh", right: "-0.7cqh" }} />
+          <div className={styles.selectionHandle} style={{ bottom: "-0.7cqh", left: "-0.7cqh" }} />
+          <div className={styles.selectionHandle} style={{ bottom: "-0.7cqh", right: "-0.7cqh" }} />
         </div>
-      </>
+
+        {beatNum >= 1 && (
+          <div
+            className={styles.detailSidebar}
+            style={{
+              opacity: isEntered ? 1 : 0,
+              transform: isEntered ? "translateX(0)" : "translateX(2cqw)",
+              transition: reducedMotion
+                ? "none"
+                : "opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s",
+            }}
+          >
+            <div className={styles.sidebarSection}>
+              <h4 className={styles.sidebarSectionTitle}>
+                {language === "zh" ? "位置与尺寸" : "Position & Size"}
+              </h4>
+              {c.properties.map((prop, i) => (
+                <div key={i} className={styles.sidebarRow}>
+                  <span className={styles.sidebarLabel}>{prop.label}</span>
+                  <span className={styles.sidebarValue}>{prop.value}</span>
+                </div>
+              ))}
+            </div>
+            <div className={styles.sidebarSection}>
+              <h4 className={styles.sidebarSectionTitle}>
+                {language === "zh" ? "填充" : "Fill"}
+              </h4>
+              {c.fills.map((fill, i) => (
+                <div key={i} className={styles.sidebarColorRow}>
+                  <div
+                    className={styles.sidebarColorSwatch}
+                    style={{ background: fill.color }}
+                  />
+                  <span style={{ fontSize: "1.6cqh" }}>{fill.label}</span>
+                  <span
+                    className={styles.sidebarValue}
+                    style={{ marginLeft: "auto" }}
+                  >
+                    {fill.color}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className={styles.sidebarSection}>
+              <h4 className={styles.sidebarSectionTitle}>
+                {language === "zh" ? "效果" : "Effects"}
+              </h4>
+              {c.effects.map((eff, i) => (
+                <div key={i} className={styles.sidebarRow}>
+                  <span className={styles.sidebarLabel}>{eff.label}</span>
+                  <span className={styles.sidebarValue}>{eff.value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     );
   };
 
   // ── Scene 5: Handoff / Closing ──────────────────────────────────────────
 
-  const renderScene5 = () => {
+  const renderScene5 = (isEntered: boolean) => {
     const c = SCENES[5][language];
     return (
-      <>
-        {renderToolbar()}
-        <div className={styles.canvasArea}>
-          <div className={styles.handoffScene}>
-            <span
-              className={styles.handoffBadge}
-              style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "translateY(0)" : "translateY(-1cqh)",
-                transition: reducedMotion
-                  ? "none"
-                  : "opacity 0.5s ease, transform 0.5s ease",
-              }}
-            >
-              ✓ {c.badge}
-            </span>
-            <h1
-              className={styles.handoffTitle}
-              style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "translateY(0)" : "translateY(1cqh)",
-                transition: reducedMotion
-                  ? "none"
-                  : "opacity 0.6s ease 0.1s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s",
-              }}
-            >
-              {c.title}
-            </h1>
-            <p
-              className={styles.handoffSub}
-              style={{
-                opacity: entered ? 1 : 0,
-                transition: reducedMotion ? "none" : "opacity 0.5s ease 0.3s",
-              }}
-            >
-              {c.sub}
-            </p>
-            <div
-              className={styles.handoffStats}
-              style={{
-                opacity: entered ? 1 : 0,
-                transition: reducedMotion ? "none" : "opacity 0.5s ease 0.4s",
-              }}
-            >
-              {c.stats.map((stat, i) => (
-                <div key={i} className={styles.handoffStat}>
-                  <span
-                    className={styles.handoffStatValue}
-                    style={{
-                      color: ["#0d99ff", "#a855f7", "#22c55e"][i],
-                    }}
-                  >
-                    {stat.value}
-                  </span>
-                  <span className={styles.handoffStatLabel}>{stat.label}</span>
-                </div>
-              ))}
+      <div className={styles.handoffScene}>
+        <span
+          className={styles.handoffBadge}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transform: isEntered ? "translateY(0)" : "translateY(-1cqh)",
+            transition: reducedMotion
+              ? "none"
+              : "opacity 0.5s ease, transform 0.5s ease",
+          }}
+        >
+          ✓ {c.badge}
+        </span>
+        <h1
+          className={styles.handoffTitle}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transform: isEntered ? "translateY(0)" : "translateY(1cqh)",
+            transition: reducedMotion
+              ? "none"
+              : "opacity 0.6s ease 0.1s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s",
+          }}
+        >
+          {c.title}
+        </h1>
+        <p
+          className={styles.handoffSub}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transition: reducedMotion ? "none" : "opacity 0.5s ease 0.3s",
+          }}
+        >
+          {c.sub}
+        </p>
+        <div
+          className={styles.handoffStats}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transition: reducedMotion ? "none" : "opacity 0.5s ease 0.4s",
+          }}
+        >
+          {c.stats.map((stat, i) => (
+            <div key={i} className={styles.handoffStat}>
+              <span
+                className={styles.handoffStatValue}
+                style={{
+                  color: ["#0d99ff", "#a855f7", "#22c55e"][i],
+                }}
+              >
+                {stat.value}
+              </span>
+              <span className={styles.handoffStatLabel}>{stat.label}</span>
             </div>
-          </div>
+          ))}
         </div>
-      </>
+      </div>
     );
+  };
+
+  // ── Render scene content for a given scene number ────────────────────────
+
+  const renderSceneFor = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    switch (sceneNum) {
+      case 1:
+        return renderScene1(isEntered);
+      case 2:
+        return renderScene2(isEntered, beatNum);
+      case 3:
+        return renderScene3(isEntered, beatNum);
+      case 4:
+        return renderScene4(isEntered, beatNum);
+      case 5:
+        return renderScene5(isEntered);
+      default:
+        return null;
+    }
   };
 
   // ── Navigation Indicators ───────────────────────────────────────────────
@@ -930,31 +963,39 @@ export default function FigmaCanvas({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1:
-        return renderScene1();
-      case 2:
-        return renderScene2();
-      case 3:
-        return renderScene3();
-      case 4:
-        return renderScene4();
-      case 5:
-        return renderScene5();
-      default:
-        return null;
-    }
-  };
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
 
   return (
     <div className={rootClasses}>
-      <div
-        key={`38-${scene}`}
-        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
-      >
-        {renderSceneContent()}
+      {/* Persistent toolbar (outside scene layers so it doesn't animate) */}
+      {renderToolbar()}
+
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.canvasArea}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div ref={canvasRef} className={styles.canvasArea}>
+          {renderSceneFor(scene, beat, entered)}
+        </div>
       </div>
+
       {renderNavIndicators()}
     </div>
   );

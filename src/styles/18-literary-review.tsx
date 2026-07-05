@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./18-literary-review.module.css";
 
@@ -221,6 +221,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ──────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 850; // ms — book spread turn 800ms + buffer
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function LiteraryReview({
@@ -235,6 +240,10 @@ export default function LiteraryReview({
   const content = SCENES[scene]?.[language] || SCENES[1][language];
   const [entered, setEntered] = useState(false);
 
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
   // Font injection
   useEffect(() => {
     const id = "style-18-fonts";
@@ -247,6 +256,23 @@ export default function LiteraryReview({
     document.head.appendChild(link);
   }, []);
 
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // Beat-level enter animation
   useEffect(() => {
     setEntered(false);
     const raf = requestAnimationFrame(() => {
@@ -273,15 +299,12 @@ export default function LiteraryReview({
     .filter(Boolean)
     .join(" ");
 
-  const trackClasses = [
-    styles.track,
-    !isTransitionClone && styles.animateSceneEnter,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  // ── Render scene content for a given scene number ────────────────────────
 
-  const renderSceneContent = () => {
-    if (scene === 1) {
+  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+    const c = SCENES[sceneNum]?.[language] || SCENES[1][language];
+
+    if (sceneNum === 1) {
       return (
         <div className={styles.journalMasthead}>
           <div className={styles.journalOrnament}>
@@ -289,8 +312,8 @@ export default function LiteraryReview({
             <span className={styles.journalOrnamentSymbol}>&#10086;</span>
             <span className={styles.journalOrnamentLine} />
           </div>
-          <h1 className={styles.journalTitle}>{content.title}</h1>
-          <p className={styles.journalSubtitle}>{content.subtitle}</p>
+          <h1 className={styles.journalTitle}>{c.title}</h1>
+          <p className={styles.journalSubtitle}>{c.subtitle}</p>
           <p className={styles.journalVolume}>
             {language === "zh" ? "第十八卷 · 2026年夏" : "Vol. XVIII · Summer 2026"}
           </p>
@@ -298,15 +321,15 @@ export default function LiteraryReview({
       );
     }
 
-    if (scene === 2) {
+    if (sceneNum === 2) {
       return (
         <div className={styles.excerptContainer}>
-          <p className={styles.excerptLabel}>{content.label}</p>
+          <p className={styles.excerptLabel}>{c.label}</p>
           <div className={styles.excerptDividerTop}>
             <span className={styles.excerptDividerDiamond} />
           </div>
-          <p className={styles.excerptText}>{content.text}</p>
-          {beat >= 1 && (
+          <p className={styles.excerptText}>{c.text}</p>
+          {beatNum >= 1 && (
             <p
               className={styles.excerptAttribution}
               style={{
@@ -316,7 +339,7 @@ export default function LiteraryReview({
                   : "opacity 0.8s ease 0.3s",
               }}
             >
-              {content.attribution}
+              {c.attribution}
             </p>
           )}
           <div className={styles.excerptDividerBottom} />
@@ -324,13 +347,13 @@ export default function LiteraryReview({
       );
     }
 
-    if (scene === 3) {
-      const stanzas = content.stanzas || [];
+    if (sceneNum === 3) {
+      const stanzas = c.stanzas || [];
       return (
         <div className={styles.poemContainer}>
-          <h2 className={styles.poemTitle}>{content.poemTitle}</h2>
-          <p className={styles.poemAuthor}>{content.poemAuthor}</p>
-          {stanzas.slice(0, beat).map((stanza, i) => (
+          <h2 className={styles.poemTitle}>{c.poemTitle}</h2>
+          <p className={styles.poemAuthor}>{c.poemAuthor}</p>
+          {stanzas.slice(0, beatNum).map((stanza, i) => (
             <p
               key={i}
               className={styles.poemStanza}
@@ -354,14 +377,14 @@ export default function LiteraryReview({
       );
     }
 
-    if (scene === 4) {
+    if (sceneNum === 4) {
       return (
         <div className={styles.essayContainer}>
           <div className={styles.essayHeader}>
-            <p className={styles.essayKicker}>{content.kicker}</p>
-            <h2 className={styles.essayHeadline}>{content.headline}</h2>
+            <p className={styles.essayKicker}>{c.kicker}</p>
+            <h2 className={styles.essayHeadline}>{c.headline}</h2>
           </div>
-          {beat >= 1 && (
+          {beatNum >= 1 && (
             <div
               className={styles.essayBody}
               style={{
@@ -371,7 +394,7 @@ export default function LiteraryReview({
                   : "opacity 0.6s ease 0.2s",
               }}
             >
-              {(content.body || []).map((para, i) => (
+              {(c.body || []).map((para, i) => (
                 <p key={i}>{para}</p>
               ))}
             </div>
@@ -380,21 +403,21 @@ export default function LiteraryReview({
       );
     }
 
-    if (scene === 5) {
+    if (sceneNum === 5) {
       return (
         <div className={styles.colophonContainer}>
           <div className={styles.colophonOrnament}>
             <span className={styles.colophonSymbol}>&#10086;</span>
           </div>
           <p className={styles.colophonText}>
-            {(content.closing || "").split("\n").map((line, i) => (
+            {(c.closing || "").split("\n").map((line, i) => (
               <React.Fragment key={i}>
                 {line}
-                {i < (content.closing || "").split("\n").length - 1 && <br />}
+                {i < (c.closing || "").split("\n").length - 1 && <br />}
               </React.Fragment>
             ))}
           </p>
-          <p className={styles.colophonNote}>{content.note}</p>
+          <p className={styles.colophonNote}>{c.note}</p>
         </div>
       );
     }
@@ -431,15 +454,40 @@ export default function LiteraryReview({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`18-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (book spread turn exit) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene (book spread turn enter) */}
+      <div className={incomingLayerClasses}>
+        <div
+          key={`18-${scene}`}
+          className={styles.track}
+          style={reducedMotion ? { animationDuration: "0s" } : undefined}
+        >
+          {renderSceneFor(scene, beat)}
+        </div>
       </div>
+
       {renderNavIndicators()}
     </div>
   );

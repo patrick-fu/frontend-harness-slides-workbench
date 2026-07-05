@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./24-manuscript-scroll.module.css";
 
@@ -243,6 +243,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 800; // scroll unroll duration
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function ManuscriptScroll({
@@ -254,8 +259,11 @@ export default function ManuscriptScroll({
   onNavigate,
   isTransitionClone,
 }: BespokeStyleProps) {
-  const content = SCENES[scene]?.[language] || SCENES[1][language];
   void isTransitionClone;
+
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
   // Font injection
   useEffect(() => {
@@ -268,6 +276,22 @@ export default function ManuscriptScroll({
       "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap";
     document.head.appendChild(link);
   }, []);
+
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -287,8 +311,12 @@ export default function ManuscriptScroll({
 
   const isZh = language === "zh";
 
-  const renderSceneContent = () => {
-    if (scene === 1) {
+  // ── Render scene content for a given scene number ────────────────────────
+
+  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+    const sc = SCENES[sceneNum]?.[language] || SCENES[1][language];
+
+    if (sceneNum === 1) {
       const titleClasses = [
         styles.scrollMainTitle,
         isZh ? styles.vertical : "",
@@ -299,34 +327,34 @@ export default function ManuscriptScroll({
       return (
         <div className={styles.scrollTitle}>
           <div className={styles.scrollSeals}>
-            {(content.seals || []).map((seal, i) => (
+            {(sc.seals || []).map((seal, i) => (
               <div key={i} className={styles.scrollSeal}>
                 {seal}
               </div>
             ))}
           </div>
-          <h1 className={titleClasses}>{content.title}</h1>
-          <p className={styles.scrollSubtitle}>{content.subtitle}</p>
-          <p className={styles.scrollDynasty}>{content.dynasty}</p>
+          <h1 className={titleClasses}>{sc.title}</h1>
+          <p className={styles.scrollSubtitle}>{sc.subtitle}</p>
+          <p className={styles.scrollDynasty}>{sc.dynasty}</p>
         </div>
       );
     }
 
-    if (scene === 2) {
+    if (sceneNum === 2) {
       return (
         <div className={styles.scrollPage}>
           <div className={styles.scrollPageHeader}>
             <span className={styles.scrollPageHeaderOrnament}>
-              {content.pageOrnament}
+              {sc.pageOrnament}
             </span>
             <h2 className={styles.scrollPageTitle}>
-              {content.pageTitle}
+              {sc.pageTitle}
             </h2>
             <span className={styles.scrollPageHeaderOrnament}>
-              {content.pageOrnament}
+              {sc.pageOrnament}
             </span>
           </div>
-          {beat >= 1 && (
+          {beatNum >= 1 && (
             <div
               className={styles.scrollPageBody}
               style={{
@@ -336,7 +364,7 @@ export default function ManuscriptScroll({
                   : "opacity 0.6s ease 0.15s",
               }}
             >
-              {(content.paras || []).map((p, i) => (
+              {(sc.paras || []).map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
@@ -345,7 +373,7 @@ export default function ManuscriptScroll({
       );
     }
 
-    if (scene === 3) {
+    if (sceneNum === 3) {
       const verseClasses = [
         styles.scrollVerseText,
         isZh ? styles.vertical : "",
@@ -361,14 +389,14 @@ export default function ManuscriptScroll({
             </span>
           </div>
           <p className={verseClasses}>
-            {(content.verse || "").split("\n").map((line, i) => (
+            {(sc.verse || "").split("\n").map((line, i) => (
               <React.Fragment key={i}>
                 {line}
-                {i < (content.verse || "").split("\n").length - 1 && <br />}
+                {i < (sc.verse || "").split("\n").length - 1 && <br />}
               </React.Fragment>
             ))}
           </p>
-          {beat >= 1 && (
+          {beatNum >= 1 && (
             <>
               <p
                 className={styles.scrollVerseAttribution}
@@ -379,10 +407,10 @@ export default function ManuscriptScroll({
                     : "opacity 0.6s ease 0.2s",
                 }}
               >
-                {content.verseAttribution}
+                {sc.verseAttribution}
               </p>
               <div className={styles.scrollVerseSeal}>
-                {content.verseSeal}
+                {sc.verseSeal}
               </div>
             </>
           )}
@@ -390,26 +418,26 @@ export default function ManuscriptScroll({
       );
     }
 
-    if (scene === 4) {
+    if (sceneNum === 4) {
       return (
         <div className={styles.scrollCommentary}>
           <div className={styles.scrollCommentaryLeft}>
             <p className={styles.scrollCommentaryLabel}>
-              {content.commentaryLabel}
+              {sc.commentaryLabel}
             </p>
             <h2 className={styles.scrollCommentaryTitle}>
-              {(content.commentaryTitle || "").split("\n").map((line, i) => (
+              {(sc.commentaryTitle || "").split("\n").map((line, i) => (
                 <React.Fragment key={i}>
                   {line}
-                  {i < (content.commentaryTitle || "").split("\n").length - 1 && <br />}
+                  {i < (sc.commentaryTitle || "").split("\n").length - 1 && <br />}
                 </React.Fragment>
               ))}
             </h2>
             <p className={styles.scrollCommentaryNote}>
-              {content.commentaryNote}
+              {sc.commentaryNote}
             </p>
           </div>
-          {beat >= 1 && (
+          {beatNum >= 1 && (
             <div
               className={styles.scrollCommentaryRight}
               style={{
@@ -419,7 +447,7 @@ export default function ManuscriptScroll({
                   : "opacity 0.5s ease 0.15s",
               }}
             >
-              {(content.commentaryParas || []).map((p, i) => (
+              {(sc.commentaryParas || []).map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
@@ -428,25 +456,25 @@ export default function ManuscriptScroll({
       );
     }
 
-    if (scene === 5) {
+    if (sceneNum === 5) {
       return (
         <div className={styles.scrollClosing}>
           <div className={styles.scrollClosingOrnament}>
             <span className={styles.scrollClosingOrnamentChar}>
-              {content.closingOrnament}
+              {sc.closingOrnament}
             </span>
           </div>
           <p className={styles.scrollClosingText}>
-            {(content.closingText || "").split("\n").map((line, i) => (
+            {(sc.closingText || "").split("\n").map((line, i) => (
               <React.Fragment key={i}>
                 {line}
-                {i < (content.closingText || "").split("\n").length - 1 && <br />}
+                {i < (sc.closingText || "").split("\n").length - 1 && <br />}
               </React.Fragment>
             ))}
           </p>
-          <p className={styles.scrollClosingNote}>{content.closingNote}</p>
+          <p className={styles.scrollClosingNote}>{sc.closingNote}</p>
           <div className={styles.scrollClosingSeals}>
-            {(content.closingSeals || []).map((seal, i) => (
+            {(sc.closingSeals || []).map((seal, i) => (
               <div key={i} className={styles.scrollClosingSeal}>
                 {seal}
               </div>
@@ -488,21 +516,48 @@ export default function ManuscriptScroll({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitFade,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.scrollReveal : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        className={styles.transitionTrack}
-        style={{
-          transform: `translateY(-${(scene - 1) * 20}%)`,
-          ...(reducedMotion ? { transitionDuration: "0s" } : {}),
-        }}
-      >
-        {[1, 2, 3, 4, 5].map((s) => (
-          <div key={s} className={styles.scene}>
-            {s === scene && renderSceneContent()}
+      {/* Outgoing scene (fade behind) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.sceneContent}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
           </div>
-        ))}
+        </div>
+      )}
+
+      {/* Incoming / current scene (scroll unroll reveal) */}
+      <div className={incomingLayerClasses}>
+        <div
+          key={`24-${scene}`}
+          className={styles.sceneContent}
+        >
+          {renderSceneFor(scene, beat)}
+        </div>
       </div>
+
+      {/* Scroll rod — moves from top to bottom during transition */}
+      {isTransitioning && !reducedMotion && (
+        <div className={styles.scrollRod} aria-hidden="true">
+          <div className={styles.scrollRodBar} />
+          <div className={styles.scrollRodFinialLeft} />
+          <div className={styles.scrollRodFinialRight} />
+        </div>
+      )}
+
       {renderNavIndicators()}
     </div>
   );

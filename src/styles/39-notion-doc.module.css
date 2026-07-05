@@ -52,6 +52,62 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Scene-to-Scene Transition: Block Stack ────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.contentWrapper {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.exitAnim {
+  animation: notionBlockExit 0.35s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes notionBlockExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-2cqh);
+  }
+}
+
+.enterAnim {
+  animation: notionBlockEnter 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  z-index: 2;
+}
+
+@keyframes notionBlockEnter {
+  from {
+    opacity: 0;
+    transform: translateY(2cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sidebarPulse {
+  animation: sidebarPulse 0.5s ease;
+}
+
+@keyframes sidebarPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
 /* ── Layout: Sidebar + Content ─────────────────────────────────────────── */
 
 .layout {

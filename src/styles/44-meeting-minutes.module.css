@@ -39,6 +39,90 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Scene-to-Scene Transition ─────────────────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.enterAnim {
+  animation: sceneFadeIn 0.25s ease-out 0.2s both;
+}
+
+@keyframes sceneFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.exitAnim {
+  animation: sceneFadeOut 0.2s ease-in forwards;
+}
+
+@keyframes sceneFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* ── Timestamp Banner ──────────────────────────────────────────────────── */
+
+.timestampBanner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  animation: timestampSlide 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes timestampSlide {
+  0% {
+    transform: translateY(-100%);
+    opacity: 1;
+  }
+  44% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  78% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+
+.timestampInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1cqw;
+  padding: 1.2cqh 4cqw;
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.95), rgba(37, 99, 235, 0.85));
+  backdrop-filter: blur(8px);
+  border-bottom: 0.15cqh solid rgba(37, 99, 235, 0.3);
+  box-shadow: 0 0.5cqh 2cqh rgba(37, 99, 235, 0.25);
+}
+
+.timestampIcon {
+  font-size: 2.5cqh;
+  line-height: 1;
+}
+
+.timestampText {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 2.2cqh;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 /* ── Scene 1: Header ───────────────────────────────────────────────────── */
 
 .header {

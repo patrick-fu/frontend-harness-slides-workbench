@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./39-notion-doc.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Content ────────────────────────────────────────────────────────────────
 
@@ -320,6 +321,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 500; // ms — outgoing 300ms + incoming 300ms w/ 100ms delay
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 2, 4: 1, 5: 3 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function NotionDoc({
@@ -332,6 +338,33 @@ export default function NotionDoc({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // FLIP for blocks container — when new blocks appear, existing ones shift
+  const { ref: blocksRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 350,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+    selector: ".notionBlock",
+  });
 
   // Font injection
   useEffect(() => {
@@ -371,9 +404,16 @@ export default function NotionDoc({
 
   // ── Sidebar ──────────────────────────────────────────────────────────────
 
-  const renderSidebar = () => {
+  const renderSidebar = (isTransitioning: boolean) => {
     return (
-      <aside className={styles.sidebar}>
+      <aside
+        className={[
+          styles.sidebar,
+          isTransitioning && !reducedMotion ? styles.sidebarPulse : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
         <div className={styles.sidebarHeader}>
           <span className={styles.sidebarWorkspaceIcon}>⬡</span>
           <span className={styles.sidebarWorkspaceName}>
@@ -425,8 +465,9 @@ export default function NotionDoc({
 
   // ── Scene 1: Cover Page ──────────────────────────────────────────────────
 
-  const renderScene1 = () => {
+  const renderScene1 = (forceEntered = false) => {
     const c = SCENES[1][language];
+    const effEntered = forceEntered || entered;
     return (
       <div className={styles.coverPage}>
         <div
@@ -437,38 +478,38 @@ export default function NotionDoc({
         </div>
         <div className={styles.coverContent}>
           <div
-            className={styles.coverIcon}
+            className={`${styles.coverIcon} notionBlock`}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "translateY(0)" : "translateY(1cqh)",
+              opacity: effEntered ? 1 : 0,
+              transform: effEntered ? "translateY(0)" : "translateY(1cqh)",
               transition: reducedMotion ? "none" : "opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s",
             }}
           >
             {c.icon}
           </div>
           <h1
-            className={styles.coverTitle}
+            className={`${styles.coverTitle} notionBlock`}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "translateY(0)" : "translateY(1cqh)",
+              opacity: effEntered ? 1 : 0,
+              transform: effEntered ? "translateY(0)" : "translateY(1cqh)",
               transition: reducedMotion ? "none" : "opacity 0.5s ease 0.35s, transform 0.5s ease 0.35s",
             }}
           >
             {c.title}
           </h1>
           <p
-            className={styles.coverSubtitle}
+            className={`${styles.coverSubtitle} notionBlock`}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: effEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.5s ease 0.5s",
             }}
           >
             {c.subtitle}
           </p>
           <div
-            className={styles.coverMeta}
+            className={`${styles.coverMeta} notionBlock`}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: effEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.5s ease 0.65s",
             }}
           >
@@ -492,9 +533,11 @@ export default function NotionDoc({
 
   // ── Scene 2: Content Blocks ──────────────────────────────────────────────
 
-  const renderScene2 = () => {
+  const renderScene2 = (forceEntered = false, overrideBeat?: number) => {
     const c = SCENES[2][language];
-    const showLists = beat >= 1;
+    const effEntered = forceEntered || entered;
+    const effBeat = overrideBeat !== undefined ? overrideBeat : beat;
+    const showLists = effBeat >= 1;
 
     return (
       <div className={styles.docPage}>
@@ -503,13 +546,13 @@ export default function NotionDoc({
           <h1 className={styles.pageTitle}>{c.pageTitle}</h1>
         </div>
 
-        <div className={styles.blocksContainer}>
+        <div ref={blocksRef} className={styles.blocksContainer}>
           {/* H2 */}
           <h2
-            className={styles.blockH2}
+            className={`${styles.blockH2} notionBlock`}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "none" : "translateY(0.8cqh)",
+              opacity: effEntered ? 1 : 0,
+              transform: effEntered ? "none" : "translateY(0.8cqh)",
               transition: reducedMotion ? "none" : "opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s",
             }}
           >
@@ -518,10 +561,10 @@ export default function NotionDoc({
 
           {/* Paragraph */}
           <p
-            className={styles.blockParagraph}
+            className={`${styles.blockParagraph} notionBlock`}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "none" : "translateY(0.8cqh)",
+              opacity: effEntered ? 1 : 0,
+              transform: effEntered ? "none" : "translateY(0.8cqh)",
               transition: reducedMotion ? "none" : "opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s",
             }}
           >
@@ -530,10 +573,10 @@ export default function NotionDoc({
 
           {/* H3 */}
           <h3
-            className={styles.blockH3}
+            className={`${styles.blockH3} notionBlock`}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "none" : "translateY(0.8cqh)",
+              opacity: effEntered ? 1 : 0,
+              transform: effEntered ? "none" : "translateY(0.8cqh)",
               transition: reducedMotion ? "none" : "opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s",
             }}
           >
@@ -543,9 +586,9 @@ export default function NotionDoc({
           {/* Bullet List */}
           {showLists && (
             <ul
-              className={styles.blockBulletList}
+              className={`${styles.blockBulletList} notionBlock`}
               style={{
-                opacity: entered ? 1 : 0,
+                opacity: effEntered ? 1 : 0,
                 transition: reducedMotion ? "none" : "opacity 0.4s ease 0.1s",
               }}
             >
@@ -554,8 +597,8 @@ export default function NotionDoc({
                   key={i}
                   className={styles.blockBulletItem}
                   style={{
-                    opacity: entered ? 1 : 0,
-                    transform: entered ? "none" : "translateX(-0.5cqw)",
+                    opacity: effEntered ? 1 : 0,
+                    transform: effEntered ? "none" : "translateX(-0.5cqw)",
                     transition: reducedMotion
                       ? "none"
                       : `opacity 0.3s ease ${0.15 + i * 0.06}s, transform 0.3s ease ${0.15 + i * 0.06}s`,
@@ -571,9 +614,9 @@ export default function NotionDoc({
           {/* Numbered List */}
           {showLists && (
             <ol
-              className={styles.blockNumberedList}
+              className={`${styles.blockNumberedList} notionBlock`}
               style={{
-                opacity: entered ? 1 : 0,
+                opacity: effEntered ? 1 : 0,
                 transition: reducedMotion ? "none" : "opacity 0.4s ease 0.3s",
               }}
             >
@@ -582,8 +625,8 @@ export default function NotionDoc({
                   key={i}
                   className={styles.blockNumberedItem}
                   style={{
-                    opacity: entered ? 1 : 0,
-                    transform: entered ? "none" : "translateX(-0.5cqw)",
+                    opacity: effEntered ? 1 : 0,
+                    transform: effEntered ? "none" : "translateX(-0.5cqw)",
                     transition: reducedMotion
                       ? "none"
                       : `opacity 0.3s ease ${0.35 + i * 0.06}s, transform 0.3s ease ${0.35 + i * 0.06}s`,
@@ -599,10 +642,10 @@ export default function NotionDoc({
           {/* Code Block */}
           {showLists && (
             <div
-              className={styles.blockCode}
+              className={`${styles.blockCode} notionBlock`}
               style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "none" : "translateY(0.8cqh)",
+                opacity: effEntered ? 1 : 0,
+                transform: effEntered ? "none" : "translateY(0.8cqh)",
                 transition: reducedMotion ? "none" : "opacity 0.4s ease 0.6s, transform 0.4s ease 0.6s",
               }}
             >
@@ -624,9 +667,11 @@ export default function NotionDoc({
 
   // ── Scene 3: Toggle Sections ─────────────────────────────────────────────
 
-  const renderScene3 = () => {
+  const renderScene3 = (forceEntered = false, overrideBeat?: number) => {
     const c = SCENES[3][language];
     const toggles = c.toggles || [];
+    const effEntered = forceEntered || entered;
+    const effBeat = overrideBeat !== undefined ? overrideBeat : beat;
 
     return (
       <div className={styles.docPage}>
@@ -635,15 +680,15 @@ export default function NotionDoc({
           <h1 className={styles.pageTitle}>{c.pageTitle}</h1>
         </div>
 
-        <div className={styles.blocksContainer}>
+        <div ref={blocksRef} className={styles.blocksContainer}>
           {toggles.map((toggle, i) => {
-            const isOpen = beat >= i;
+            const isOpen = effBeat >= i;
             return (
               <div
                 key={i}
-                className={styles.toggleBlock}
+                className={`${styles.toggleBlock} notionBlock`}
                 style={{
-                  opacity: entered ? 1 : 0,
+                  opacity: effEntered ? 1 : 0,
                   transition: reducedMotion ? "none" : `opacity 0.4s ease ${i * 0.15}s`,
                 }}
               >
@@ -685,8 +730,9 @@ export default function NotionDoc({
 
   // ── Scene 4: Callout & Todo ──────────────────────────────────────────────
 
-  const renderScene4 = () => {
+  const renderScene4 = (forceEntered = false) => {
     const c = SCENES[4][language];
+    const effEntered = forceEntered || entered;
 
     return (
       <div className={styles.docPage}>
@@ -695,13 +741,13 @@ export default function NotionDoc({
           <h1 className={styles.pageTitle}>{c.pageTitle}</h1>
         </div>
 
-        <div className={styles.blocksContainer}>
+        <div ref={blocksRef} className={styles.blocksContainer}>
           {/* Callout */}
           <div
-            className={styles.calloutBlock}
+            className={`${styles.calloutBlock} notionBlock`}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "none" : "translateY(0.8cqh)",
+              opacity: effEntered ? 1 : 0,
+              transform: effEntered ? "none" : "translateY(0.8cqh)",
               transition: reducedMotion ? "none" : "opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s",
             }}
           >
@@ -711,9 +757,9 @@ export default function NotionDoc({
 
           {/* Divider */}
           <div
-            className={styles.blockDivider}
+            className={`${styles.blockDivider} notionBlock`}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: effEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.4s ease 0.25s",
             }}
           />
@@ -721,9 +767,9 @@ export default function NotionDoc({
           {/* Todo List */}
           <div className={styles.todoList}>
             <h3
-              className={styles.todoHeading}
+              className={`${styles.todoHeading} notionBlock`}
               style={{
-                opacity: entered ? 1 : 0,
+                opacity: effEntered ? 1 : 0,
                 transition: reducedMotion ? "none" : "opacity 0.4s ease 0.3s",
               }}
             >
@@ -732,10 +778,10 @@ export default function NotionDoc({
             {(c.todos || []).map((todo, i) => (
               <div
                 key={i}
-                className={styles.todoItem}
+                className={`${styles.todoItem} notionBlock`}
                 style={{
-                  opacity: entered ? 1 : 0,
-                  transform: entered ? "none" : "translateX(-0.5cqw)",
+                  opacity: effEntered ? 1 : 0,
+                  transform: effEntered ? "none" : "translateX(-0.5cqw)",
                   transition: reducedMotion
                     ? "none"
                     : `opacity 0.3s ease ${0.35 + i * 0.07}s, transform 0.3s ease ${0.35 + i * 0.07}s`,
@@ -772,11 +818,13 @@ export default function NotionDoc({
 
   // ── Scene 5: Table View ──────────────────────────────────────────────────
 
-  const renderScene5 = () => {
+  const renderScene5 = (forceEntered = false, overrideBeat?: number) => {
     const c = SCENES[5][language];
     const columns = c.tableColumns || [];
     const rows = c.tableRows || [];
-    const visibleCount = Math.min(rows.length, (beat + 1) * 2);
+    const effEntered = forceEntered || entered;
+    const effBeat = overrideBeat !== undefined ? overrideBeat : beat;
+    const visibleCount = Math.min(rows.length, (effBeat + 1) * 2);
 
     return (
       <div className={styles.docPage}>
@@ -785,11 +833,11 @@ export default function NotionDoc({
           <h1 className={styles.pageTitle}>{c.pageTitle}</h1>
         </div>
 
-        <div className={styles.blocksContainer}>
+        <div ref={blocksRef} className={styles.blocksContainer}>
           <div
-            className={styles.tableWrapper}
+            className={`${styles.tableWrapper} notionBlock`}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: effEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.4s ease 0.1s",
             }}
           >
@@ -810,7 +858,7 @@ export default function NotionDoc({
                       key={i}
                       className={styles.tableHeader}
                       style={{
-                        opacity: entered ? 1 : 0,
+                        opacity: effEntered ? 1 : 0,
                         transition: reducedMotion
                           ? "none"
                           : `opacity 0.3s ease ${0.15 + i * 0.05}s`,
@@ -827,8 +875,8 @@ export default function NotionDoc({
                     key={ri}
                     className={ri % 2 === 1 ? styles.tableRowAlt : ""}
                     style={{
-                      opacity: entered ? 1 : 0,
-                      transform: entered ? "none" : "translateY(0.5cqh)",
+                      opacity: effEntered ? 1 : 0,
+                      transform: effEntered ? "none" : "translateY(0.5cqh)",
                       transition: reducedMotion
                         ? "none"
                         : `opacity 0.3s ease ${0.2 + ri * 0.06}s, transform 0.3s ease ${0.2 + ri * 0.06}s`,
@@ -873,22 +921,28 @@ export default function NotionDoc({
 
   // ── Scene Router ─────────────────────────────────────────────────────────
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  const renderSceneFor = (
+    sceneNum: number,
+    beatNum: number,
+    forceEntered = false,
+  ) => {
+    switch (sceneNum) {
       case 1:
-        return renderScene1();
+        return renderScene1(forceEntered);
       case 2:
-        return renderScene2();
+        return renderScene2(forceEntered, beatNum);
       case 3:
-        return renderScene3();
+        return renderScene3(forceEntered, beatNum);
       case 4:
-        return renderScene4();
+        return renderScene4(forceEntered);
       case 5:
-        return renderScene5();
+        return renderScene5(forceEntered, beatNum);
       default:
         return null;
     }
   };
+
+  const renderSceneContent = () => renderSceneFor(scene, beat);
 
   // ── Navigation Dots ──────────────────────────────────────────────────────
 
@@ -919,21 +973,49 @@ export default function NotionDoc({
     );
   };
 
+  // ── Layer classes ────────────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div
       data-testid="style-39-root"
       className={rootClasses}
     >
-      <div
-        key={`39-${scene}`}
-        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        <div className={styles.layout}>
-          {renderSidebar()}
-          <main className={styles.contentArea}>
-            {renderSceneContent()}
-          </main>
+      <div className={styles.layout}>
+        {renderSidebar(isTransitioning)}
+
+        <div className={styles.contentWrapper}>
+          {/* Outgoing scene content (exit animation) */}
+          {outgoingScene !== null && (
+            <div className={outgoingLayerClasses}>
+              <main className={styles.contentArea}>
+                {renderSceneFor(
+                  outgoingScene,
+                  BEAT_COUNTS[outgoingScene] - 1,
+                  true,
+                )}
+              </main>
+            </div>
+          )}
+
+          {/* Incoming / current scene content */}
+          <div className={incomingLayerClasses}>
+            <main
+              key={`39-content-${scene}`}
+              className={styles.contentArea}
+            >
+              {renderSceneContent()}
+            </main>
+          </div>
         </div>
       </div>
       {renderNavDots()}

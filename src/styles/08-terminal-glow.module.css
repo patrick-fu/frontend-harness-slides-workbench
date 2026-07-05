@@ -47,6 +47,11 @@
 
 /* ── Transition track ──────────────────────────────────────────────────── */
 
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
 .track {
   position: absolute;
   inset: 0;
@@ -68,6 +73,40 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* ── Scene-to-scene transition: CRT scan-out / scan-in ────────────────── */
+
+.exitAnim {
+  animation: crtScanOut 0.3s ease-in forwards;
+  z-index: 2;
+}
+
+@keyframes crtScanOut {
+  from {
+    clip-path: inset(0% 0 0% 0);
+    filter: brightness(1);
+  }
+  to {
+    clip-path: inset(50% 0 50% 0);
+    filter: brightness(0.4);
+  }
+}
+
+.enterAnim {
+  animation: crtScanIn 0.3s ease-out 0.38s both;
+  z-index: 1;
+}
+
+@keyframes crtScanIn {
+  from {
+    clip-path: inset(50% 0 50% 0);
+    filter: brightness(1.3) drop-shadow(0 0 6px rgba(63, 185, 80, 0.4));
+  }
+  to {
+    clip-path: inset(0% 0 0% 0);
+    filter: brightness(1) drop-shadow(0 0 0 transparent);
   }
 }
 
@@ -562,6 +601,8 @@
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
 .reducedMotion .animateSceneEnter,
+.reducedMotion .enterAnim,
+.reducedMotion .exitAnim,
 .reducedMotion .bootLine,
 .reducedMotion .outputLine,
 .reducedMotion .codeLine,
@@ -572,6 +613,12 @@
 .reducedMotion .cmdScene {
   transition-duration: 0s !important;
   animation-duration: 0s !important;
+}
+
+.reducedMotion .enterAnim,
+.reducedMotion .exitAnim {
+  clip-path: inset(0% 0 0% 0) !important;
+  filter: none !important;
 }
 
 .reducedMotion .cursor,

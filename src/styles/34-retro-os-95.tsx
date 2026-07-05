@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./34-retro-os-95.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -270,6 +271,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ──────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 450;
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 1, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function RetroOS95({
@@ -282,8 +288,29 @@ export default function RetroOS95({
   isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
+
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
   const [entered, setEntered] = useState(false);
 
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // Beat-level entered animation (for internal element reveals)
   useEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
@@ -293,6 +320,12 @@ export default function RetroOS95({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
+
+  // FLIP for scene 1 desktop icons
+  const { ref: desktopIconsRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -308,245 +341,6 @@ export default function RetroOS95({
   ]
     .filter(Boolean)
     .join(" ");
-
-  // ── Scene 1: Desktop ────────────────────────────────────────────────────
-
-  const renderScene1 = () => {
-    const c = SCENES[1][language];
-    const icons = (c.icons as Array<{ img: string; label: string }>) || [];
-    return (
-      <div className={styles.desktop}>
-        {/* Desktop icons */}
-        <div className={styles.desktopIcons}>
-          {icons.map((icon, i) => (
-            <div
-              key={i}
-              className={styles.desktopIcon}
-              style={{
-                opacity: entered ? 1 : 0,
-                transition: reducedMotion
-                  ? "none"
-                  : `opacity 0.15s steps(4) ${i * 0.08}s`,
-              }}
-            >
-              <div className={styles.desktopIconImg}>{icon.img}</div>
-              <div className={styles.desktopIconLabel}>{icon.label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Welcome window */}
-        <div
-          className={`${styles.window} ${styles.titleWindow}`}
-          style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "scale(1)" : "scale(0.95)",
-            transition: reducedMotion
-              ? "none"
-              : "opacity 0.2s steps(4), transform 0.2s steps(4)",
-          }}
-        >
-          <div className={styles.windowTitlebar}>
-            <span className={styles.windowTitle}>{String(c.windowTitle)}</span>
-            <div className={styles.windowControls}>
-              <button className={styles.windowCtrlBtn} aria-label="Minimize">_</button>
-              <button className={styles.windowCtrlBtn} aria-label="Maximize">▢</button>
-              <button className={styles.windowCtrlBtn} aria-label="Close">×</button>
-            </div>
-          </div>
-          <div className={`${styles.windowBody} ${styles.titleWindowBody}`}>
-            <h1 className={styles.titleBig}>{String(c.title)}</h1>
-            <p className={styles.titleSub}>{String(c.subtitle)}</p>
-          </div>
-        </div>
-
-        {renderTaskbar()}
-      </div>
-    );
-  };
-
-  // ── Scene 2: File Explorer ──────────────────────────────────────────────
-
-  const renderScene2 = () => {
-    const c = SCENES[2][language];
-    const sidebar = (c.sidebar as Array<{ img: string; label: string }>) || [];
-    const files = (c.files as Array<{ img: string; label: string }>) || [];
-    return (
-      <div className={styles.explorerScene}>
-        <div className={`${styles.window} ${styles.explorerWindow}`}>
-          <div className={styles.windowTitlebar}>
-            <span className={styles.windowTitle}>{String(c.windowTitle)}</span>
-            <div className={styles.windowControls}>
-              <button className={styles.windowCtrlBtn} aria-label="Minimize">_</button>
-              <button className={styles.windowCtrlBtn} aria-label="Maximize">▢</button>
-              <button className={styles.windowCtrlBtn} aria-label="Close">×</button>
-            </div>
-          </div>
-          <div className={styles.explorerToolbar}>
-            {["←", "→", "↑", "✂", "📋", "↺"].map((btn, i) => (
-              <button key={i} className={styles.toolbarBtn}>{btn}</button>
-            ))}
-          </div>
-          <div className={styles.explorerAddress}>
-            <span className={styles.addressLabel}>
-              {language === "zh" ? "地址" : "Address"}
-            </span>
-            <div className={styles.addressBar}>{String(c.address)}</div>
-          </div>
-          <div className={styles.explorerContent}>
-            <div className={styles.explorerSidebar}>
-              {sidebar.map((item, i) => (
-                <div key={i} className={styles.sidebarItem}>
-                  <span>{item.img}</span>
-                  <span>{item.label}</span>
-                </div>
-              ))}
-            </div>
-            <div className={styles.explorerFiles}>
-              {files.map((file, i) => {
-                const visible = beat >= 1 && entered;
-                return (
-                  <div
-                    key={i}
-                    className={`${styles.fileItem} ${visible ? styles.fileItemVisible : ""}`}
-                    style={{
-                      transitionDelay: reducedMotion ? "0s" : `${i * 0.06}s`,
-                    }}
-                  >
-                    <div className={styles.fileItemImg}>{file.img}</div>
-                    <div className={styles.fileItemName}>{file.label}</div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  // ── Scene 3: Dialog ─────────────────────────────────────────────────────
-
-  const renderScene3 = () => {
-    const c = SCENES[3][language];
-    const buttons = (c.buttons as string[]) || ["OK"];
-    const showDetails = beat >= 1;
-    const showButtons = beat >= 2;
-    return (
-      <div className={styles.dialogScene}>
-        <div
-          className={styles.dialogBox}
-          style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "scale(1)" : "scale(0.9)",
-            transition: reducedMotion
-              ? "none"
-              : "opacity 0.15s steps(3), transform 0.15s steps(3)",
-          }}
-        >
-          <div className={styles.windowTitlebar}>
-            <span className={styles.windowTitle}>{String(c.windowTitle)}</span>
-            <div className={styles.windowControls}>
-              <button className={styles.windowCtrlBtn} aria-label="Close">×</button>
-            </div>
-          </div>
-          <div className={styles.dialogBody}>
-            <div className={styles.dialogIcon}>{String(c.icon)}</div>
-            <div className={styles.dialogContent}>
-              <p className={styles.dialogText}>{String(c.text)}</p>
-              <p
-                className={`${styles.dialogDetails} ${showDetails ? styles.dialogDetailsVisible : ""}`}
-              >
-                {String(c.details)}
-              </p>
-              <div
-                className={styles.dialogButtons}
-                style={{
-                  opacity: showButtons ? 1 : 0,
-                  transition: reducedMotion ? "none" : "opacity 0.15s steps(3)",
-                }}
-              >
-                {buttons.map((btn, i) => (
-                  <button
-                    key={i}
-                    className={`${styles.osButton} ${i === 0 ? styles.osButtonDefault : ""}`}
-                  >
-                    {btn}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  // ── Scene 4: About / System Info ────────────────────────────────────────
-
-  const renderScene4 = () => {
-    const c = SCENES[4][language];
-    const specs = (c.specs as Array<{ label: string; value: string }>) || [];
-    return (
-      <div className={styles.aboutScene}>
-        <div className={`${styles.window} ${styles.aboutWindow}`}>
-          <div className={styles.windowTitlebar}>
-            <span className={styles.windowTitle}>{String(c.windowTitle)}</span>
-            <div className={styles.windowControls}>
-              <button className={styles.windowCtrlBtn} aria-label="OK">OK</button>
-            </div>
-          </div>
-          <div className={styles.aboutBody}>
-            <div className={styles.aboutLogo}>{String(c.logo)}</div>
-            <div className={styles.aboutInfo}>
-              <h2 className={styles.aboutTitle}>{String(c.title)}</h2>
-              <p className={styles.aboutVersion}>{String(c.version)}</p>
-              <div className={styles.aboutSpecs}>
-                {specs.map((spec, i) => (
-                  <div
-                    key={i}
-                    className={styles.specRow}
-                    style={{
-                      opacity: entered ? 1 : 0,
-                      transition: reducedMotion
-                        ? "none"
-                        : `opacity 0.15s steps(3) ${i * 0.08}s`,
-                    }}
-                  >
-                    <span className={styles.specLabel}>{spec.label}</span>
-                    <span className={styles.specValue}>{spec.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  // ── Scene 5: Shutdown ───────────────────────────────────────────────────
-
-  const renderScene5 = () => {
-    const c = SCENES[5][language];
-    return (
-      <div className={styles.shutdownScene}>
-        <div className={styles.shutdownContent}>
-          <p
-            className={styles.shutdownText}
-            style={{
-              opacity: entered ? 1 : 0,
-              transition: reducedMotion ? "none" : "opacity 0.3s steps(6)",
-            }}
-          >
-            {String(c.text)}
-          </p>
-          <p className={styles.shutdownSub}>{String(c.sub)}</p>
-          <p className={styles.shutdownItIs}>{String(c.closing)}</p>
-        </div>
-      </div>
-    );
-  };
 
   // ── Taskbar ─────────────────────────────────────────────────────────────
 
@@ -566,6 +360,245 @@ export default function RetroOS95({
         </div>
       </div>
     );
+  };
+
+  // ── Render scene content for a given scene number ────────────────────────
+
+  const renderSceneFor = (
+    sceneNum: number,
+    beatNum: number,
+    effectiveEntered: boolean,
+  ) => {
+    const c = SCENES[sceneNum]?.[language] || SCENES[1][language];
+
+    if (sceneNum === 1) {
+      const icons = (c.icons as Array<{ img: string; label: string }>) || [];
+      return (
+        <div className={styles.desktop}>
+          {/* Desktop icons */}
+          <div
+            ref={sceneNum === scene ? desktopIconsRef : undefined}
+            className={styles.desktopIcons}
+          >
+            {icons.map((icon, i) => (
+              <div
+                key={i}
+                className={styles.desktopIcon}
+                style={{
+                  opacity: effectiveEntered ? 1 : 0,
+                  transition: reducedMotion
+                    ? "none"
+                    : `opacity 0.15s steps(4) ${i * 0.08}s`,
+                }}
+              >
+                <div className={styles.desktopIconImg}>{icon.img}</div>
+                <div className={styles.desktopIconLabel}>{icon.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Welcome window */}
+          <div
+            className={`${styles.window} ${styles.titleWindow}`}
+            style={{
+              opacity: effectiveEntered ? 1 : 0,
+              transform: effectiveEntered ? "scale(1)" : "scale(0.95)",
+              transition: reducedMotion
+                ? "none"
+                : "opacity 0.2s steps(4), transform 0.2s steps(4)",
+            }}
+          >
+            <div className={styles.windowTitlebar}>
+              <span className={styles.windowTitle}>{String(c.windowTitle)}</span>
+              <div className={styles.windowControls}>
+                <button className={styles.windowCtrlBtn} aria-label="Minimize">_</button>
+                <button className={styles.windowCtrlBtn} aria-label="Maximize">▢</button>
+                <button className={styles.windowCtrlBtn} aria-label="Close">×</button>
+              </div>
+            </div>
+            <div className={`${styles.windowBody} ${styles.titleWindowBody}`}>
+              <h1 className={styles.titleBig}>{String(c.title)}</h1>
+              <p className={styles.titleSub}>{String(c.subtitle)}</p>
+            </div>
+          </div>
+
+          {renderTaskbar()}
+        </div>
+      );
+    }
+
+    if (sceneNum === 2) {
+      const sidebar = (c.sidebar as Array<{ img: string; label: string }>) || [];
+      const files = (c.files as Array<{ img: string; label: string }>) || [];
+      return (
+        <div className={styles.explorerScene}>
+          <div className={`${styles.window} ${styles.explorerWindow}`}>
+            <div className={styles.windowTitlebar}>
+              <span className={styles.windowTitle}>{String(c.windowTitle)}</span>
+              <div className={styles.windowControls}>
+                <button className={styles.windowCtrlBtn} aria-label="Minimize">_</button>
+                <button className={styles.windowCtrlBtn} aria-label="Maximize">▢</button>
+                <button className={styles.windowCtrlBtn} aria-label="Close">×</button>
+              </div>
+            </div>
+            <div className={styles.explorerToolbar}>
+              {["←", "→", "↑", "✂", "📋", "↺"].map((btn, i) => (
+                <button key={i} className={styles.toolbarBtn}>{btn}</button>
+              ))}
+            </div>
+            <div className={styles.explorerAddress}>
+              <span className={styles.addressLabel}>
+                {language === "zh" ? "地址" : "Address"}
+              </span>
+              <div className={styles.addressBar}>{String(c.address)}</div>
+            </div>
+            <div className={styles.explorerContent}>
+              <div className={styles.explorerSidebar}>
+                {sidebar.map((item, i) => (
+                  <div key={i} className={styles.sidebarItem}>
+                    <span>{item.img}</span>
+                    <span>{item.label}</span>
+                  </div>
+                ))}
+              </div>
+              <div className={styles.explorerFiles}>
+                {files.map((file, i) => {
+                  const visible = beatNum >= 1 && effectiveEntered;
+                  return (
+                    <div
+                      key={i}
+                      className={`${styles.fileItem} ${visible ? styles.fileItemVisible : ""}`}
+                      style={{
+                        transitionDelay: reducedMotion ? "0s" : `${i * 0.06}s`,
+                      }}
+                    >
+                      <div className={styles.fileItemImg}>{file.img}</div>
+                      <div className={styles.fileItemName}>{file.label}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 3) {
+      const buttons = (c.buttons as string[]) || ["OK"];
+      const showDetails = beatNum >= 1;
+      const showButtons = beatNum >= 2;
+      return (
+        <div className={styles.dialogScene}>
+          <div
+            className={styles.dialogBox}
+            style={{
+              opacity: effectiveEntered ? 1 : 0,
+              transform: effectiveEntered ? "scale(1)" : "scale(0.9)",
+              transition: reducedMotion
+                ? "none"
+                : "opacity 0.15s steps(3), transform 0.15s steps(3)",
+            }}
+          >
+            <div className={styles.windowTitlebar}>
+              <span className={styles.windowTitle}>{String(c.windowTitle)}</span>
+              <div className={styles.windowControls}>
+                <button className={styles.windowCtrlBtn} aria-label="Close">×</button>
+              </div>
+            </div>
+            <div className={styles.dialogBody}>
+              <div className={styles.dialogIcon}>{String(c.icon)}</div>
+              <div className={styles.dialogContent}>
+                <p className={styles.dialogText}>{String(c.text)}</p>
+                <p
+                  className={`${styles.dialogDetails} ${showDetails ? styles.dialogDetailsVisible : ""}`}
+                >
+                  {String(c.details)}
+                </p>
+                <div
+                  className={styles.dialogButtons}
+                  style={{
+                    opacity: showButtons ? 1 : 0,
+                    transition: reducedMotion ? "none" : "opacity 0.15s steps(3)",
+                  }}
+                >
+                  {buttons.map((btn, i) => (
+                    <button
+                      key={i}
+                      className={`${styles.osButton} ${i === 0 ? styles.osButtonDefault : ""}`}
+                    >
+                      {btn}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 4) {
+      const specs = (c.specs as Array<{ label: string; value: string }>) || [];
+      return (
+        <div className={styles.aboutScene}>
+          <div className={`${styles.window} ${styles.aboutWindow}`}>
+            <div className={styles.windowTitlebar}>
+              <span className={styles.windowTitle}>{String(c.windowTitle)}</span>
+              <div className={styles.windowControls}>
+                <button className={styles.windowCtrlBtn} aria-label="OK">OK</button>
+              </div>
+            </div>
+            <div className={styles.aboutBody}>
+              <div className={styles.aboutLogo}>{String(c.logo)}</div>
+              <div className={styles.aboutInfo}>
+                <h2 className={styles.aboutTitle}>{String(c.title)}</h2>
+                <p className={styles.aboutVersion}>{String(c.version)}</p>
+                <div className={styles.aboutSpecs}>
+                  {specs.map((spec, i) => (
+                    <div
+                      key={i}
+                      className={styles.specRow}
+                      style={{
+                        opacity: effectiveEntered ? 1 : 0,
+                        transition: reducedMotion
+                          ? "none"
+                          : `opacity 0.15s steps(3) ${i * 0.08}s`,
+                      }}
+                    >
+                      <span className={styles.specLabel}>{spec.label}</span>
+                      <span className={styles.specValue}>{spec.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 5) {
+      return (
+        <div className={styles.shutdownScene}>
+          <div className={styles.shutdownContent}>
+            <p
+              className={styles.shutdownText}
+              style={{
+                opacity: effectiveEntered ? 1 : 0,
+                transition: reducedMotion ? "none" : "opacity 0.3s steps(6)",
+              }}
+            >
+              {String(c.text)}
+            </p>
+            <p className={styles.shutdownSub}>{String(c.sub)}</p>
+            <p className={styles.shutdownItIs}>{String(c.closing)}</p>
+          </div>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   // ── Navigation Indicators ───────────────────────────────────────────────
@@ -592,31 +625,36 @@ export default function RetroOS95({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1:
-        return renderScene1();
-      case 2:
-        return renderScene2();
-      case 3:
-        return renderScene3();
-      case 4:
-        return renderScene4();
-      case 5:
-        return renderScene5();
-      default:
-        return null;
-    }
-  };
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className={rootClasses}>
-      <div
-        key={`34-${scene}`}
-        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat, entered)}
       </div>
+
       {renderNavIndicators()}
     </div>
   );

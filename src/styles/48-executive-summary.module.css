@@ -26,6 +26,11 @@
 
 /* ── Transition Track ──────────────────────────────────────────────────── */
 
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
 .transitionTrack {
   position: relative;
   width: 100%;
@@ -39,6 +44,36 @@
 @keyframes sceneEnter {
   from { opacity: 0; transform: translateY(1.5cqh); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Scene-to-scene: typewriter reveal (Text Report band) ─────────────── */
+
+.exitAnim {
+  animation: typewriterExit 0.25s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes typewriterExit {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.enterAnim {
+  animation: typewriterEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  z-index: 2;
+}
+
+@keyframes typewriterEnter {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0% 0);
+  }
 }
 
 /* ── Scene 1: Header / Title ──────────────────────────────────────────── */

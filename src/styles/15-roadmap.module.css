@@ -555,6 +555,46 @@
   transform: scale(1.3);
 }
 
+/* ── Scene-to-scene transition layers ──────────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.exitAnim {
+  animation: roadmapExit 550ms ease-in forwards;
+  z-index: 2;
+}
+
+.enterAnim {
+  animation: roadmapEnter 550ms ease-out forwards;
+  z-index: 3;
+}
+
+@keyframes roadmapExit {
+  from {
+    opacity: 1;
+    transform: perspective(800px) translateX(0) translateZ(0);
+  }
+  to {
+    opacity: 0;
+    transform: perspective(800px) translateX(-60%) translateZ(-100px);
+  }
+}
+
+@keyframes roadmapEnter {
+  from {
+    opacity: 0;
+    transform: perspective(800px) translateX(60%) translateZ(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(800px) translateX(0) translateZ(0);
+  }
+}
+
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
 .reducedMotion .track,
@@ -565,7 +605,9 @@
   transition-duration: 0s !important;
 }
 
-.reducedMotion .animateSceneEnter {
+.reducedMotion .animateSceneEnter,
+.reducedMotion .enterAnim,
+.reducedMotion .exitAnim {
   animation-duration: 0s !important;
 }
 

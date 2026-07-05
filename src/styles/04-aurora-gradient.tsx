@@ -1,5 +1,6 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useRef, useState } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import { useFLIP } from "../hooks/useFLIP";
 import styles from "./04-aurora-gradient.module.css";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
@@ -142,6 +143,16 @@ const SCENES: Record<number, SceneContent> = {
   },
 };
 
+const MAX_BEAT: Record<number, number> = {
+  1: 0,
+  2: 1,
+  3: 1,
+  4: 2,
+  5: 1,
+};
+
+const TRANSITION_DURATION = 900;
+
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
@@ -243,6 +254,41 @@ export default function AuroraGradient({
 }: BespokeStyleProps) {
   useFonts();
 
+  // ── Transition state ────────────────────────────────────────────────────
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      prevSceneRef.current = scene;
+      return;
+    }
+    if (prevSceneRef.current !== scene) {
+      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+      setOutgoingScene(prevSceneRef.current);
+      setIsTransitioning(true);
+      transitionTimerRef.current = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+        transitionTimerRef.current = null;
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+    }
+    return () => {
+      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+    };
+  }, [scene, reducedMotion]);
+
+  // ── FLIP for scene 4 region grid ────────────────────────────────────────
+  const { ref: regionFlipRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 450,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+    selector: `.${styles.regionCard}`,
+  });
+
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -257,6 +303,7 @@ export default function AuroraGradient({
     isThumbnail ? styles.thumbnail : "",
   ].filter(Boolean).join(" ");
 
+  // ── Persistent aurora background (shared across all scenes) ─────────────
   const renderAuroraBg = () => (
     <div className={styles.auroraBg} aria-hidden="true">
       <div className={`${styles.auroraBlob} ${styles.auroraBlob1}`} />
@@ -265,8 +312,10 @@ export default function AuroraGradient({
     </div>
   );
 
-  const renderScene1 = () => {
-    const c = SCENES[1][language];
+  // ── Scene renderers (parameterized) ─────────────────────────────────────
+
+  const renderScene1 = (sceneNum: number) => {
+    const c = SCENES[sceneNum][language];
     return (
       <div className={styles.scene1}>
         <div className={styles.titleGlow} aria-hidden="true" />
@@ -280,7 +329,7 @@ export default function AuroraGradient({
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number) => {
     const c = SCENES[2][language];
     return (
       <div className={styles.scene2}>
@@ -291,10 +340,10 @@ export default function AuroraGradient({
               key={i}
               className={styles.dataCard}
               style={{
-                opacity: beat >= 1 ? 1 : 0,
-                transform: beat >= 1 ? "none" : "translateY(2cqh)",
+                opacity: beatNum >= 1 ? 1 : 0,
+                transform: beatNum >= 1 ? "none" : "translateY(2cqh)",
                 transition: reducedMotion ? "none" : `opacity 0.6s ease ${0.1 + i * 0.1}s, transform 0.6s ease ${0.1 + i * 0.1}s`,
-                boxShadow: beat >= 1 ? `0 0 30cqw ${d.color}15, inset 0 1px 0 rgba(255,255,255,0.05)` : "none",
+                boxShadow: beatNum >= 1 ? `0 0 30cqw ${d.color}15, inset 0 1px 0 rgba(255,255,255,0.05)` : "none",
               }}
             >
               <span className={styles.dataLabel}>{d.label}</span>
@@ -309,7 +358,7 @@ export default function AuroraGradient({
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number) => {
     const c = SCENES[3][language];
     const data = c.chartData || [];
     const labels = c.chartLabels || [];
@@ -362,7 +411,7 @@ export default function AuroraGradient({
               />
             ))}
             {/* Area fill */}
-            {beat >= 1 && (
+            {beatNum >= 1 && (
               <polygon
                 points={areaPoints}
                 fill="url(#auroraGrad)"
@@ -373,7 +422,7 @@ export default function AuroraGradient({
               />
             )}
             {/* Line */}
-            {beat >= 1 && (
+            {beatNum >= 1 && (
               <polyline
                 points={points}
                 fill="none"
@@ -384,13 +433,13 @@ export default function AuroraGradient({
                 filter="url(#glow)"
                 style={{
                   strokeDasharray: 200,
-                  strokeDashoffset: beat >= 1 ? 0 : 200,
+                  strokeDashoffset: beatNum >= 1 ? 0 : 200,
                   transition: reducedMotion ? "none" : "stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s",
                 }}
               />
             )}
             {/* Data points */}
-            {beat >= 1 && data.map((v, i) => {
+            {beatNum >= 1 && data.map((v, i) => {
               const cx = (i / (data.length - 1)) * chartW;
               const cy = chartH - (v / maxVal) * chartH;
               return (
@@ -399,7 +448,7 @@ export default function AuroraGradient({
                   cx={cx} cy={cy} r="0.4"
                   fill="#e8e4f0"
                   style={{
-                    opacity: beat >= 1 ? 0.8 : 0,
+                    opacity: beatNum >= 1 ? 0.8 : 0,
                     transition: reducedMotion ? "none" : `opacity 0.4s ease ${0.5 + i * 0.08}s`,
                   }}
                 />
@@ -438,15 +487,18 @@ export default function AuroraGradient({
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number, applyFlip: boolean) => {
     const c = SCENES[4][language];
     const regions = c.regions || [];
     return (
       <div className={styles.scene4}>
         <h3 className={styles.regionTitle}>{c.regionTitle}</h3>
-        <div className={styles.regionGrid}>
+        <div
+          ref={applyFlip ? regionFlipRef : undefined}
+          className={styles.regionGrid}
+        >
           {regions.map((r, i) => {
-            const visible = i <= beat + 1;
+            const visible = i <= beatNum + 1;
             const statusColor = r.status === "Critical" || r.status === "危急" ? "#ff6b6b"
               : r.status === "Severe" || r.status === "严重" ? "#fbbf24"
               : "#a78bfa";
@@ -491,7 +543,7 @@ export default function AuroraGradient({
     );
   };
 
-  const renderScene5 = () => {
+  const renderScene5 = (beatNum: number) => {
     const c = SCENES[5][language];
     return (
       <div className={styles.scene5}>
@@ -503,8 +555,8 @@ export default function AuroraGradient({
               key={i}
               className={styles.forecastMetric}
               style={{
-                opacity: beat >= 1 ? 1 : 0,
-                transform: beat >= 1 ? "none" : "translateY(1cqh)",
+                opacity: beatNum >= 1 ? 1 : 0,
+                transform: beatNum >= 1 ? "none" : "translateY(1cqh)",
                 transition: reducedMotion ? "none" : `opacity 0.5s ease ${0.1 + i * 0.12}s, transform 0.5s ease ${0.1 + i * 0.12}s`,
               }}
             >
@@ -520,13 +572,13 @@ export default function AuroraGradient({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
-      case 5: return renderScene5();
+  const renderSceneFor = (sceneNum: number, beatNum: number, applyFlip: boolean) => {
+    switch (sceneNum) {
+      case 1: return renderScene1(sceneNum);
+      case 2: return renderScene2(beatNum);
+      case 3: return renderScene3(beatNum);
+      case 4: return renderScene4(beatNum, applyFlip);
+      case 5: return renderScene5(beatNum);
       default: return null;
     }
   };
@@ -535,7 +587,7 @@ export default function AuroraGradient({
     if (isThumbnail) return null;
 
     const sceneColors = ["#a78bfa", "#38bdf8", "#4ade80", "#fbbf24", "#ff6b6b"];
-    const radius = 3.5; // cqw — distance from center
+    const radius = 3.5;
     const total = 5;
 
     return (
@@ -574,16 +626,44 @@ export default function AuroraGradient({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone && !reducedMotion ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
+      {/* Persistent aurora background (shared, not part of transition) */}
       {renderAuroraBg()}
-      <div
-        key={scene}
-        className={[styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ")}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+
+      {/* Outgoing scene (transitioning out) */}
+      {outgoingScene !== null && !reducedMotion && (
+        <div className={outgoingLayerClasses} aria-hidden="true">
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, MAX_BEAT[outgoingScene] ?? 0, false)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div
+          className={[
+            styles.track,
+            !isTransitionClone && !reducedMotion && !isTransitioning ? styles.animateSceneEnter : "",
+          ].filter(Boolean).join(" ")}
+          style={reducedMotion ? { animationDuration: "0s" } : undefined}
+        >
+          {renderSceneFor(scene, beat, true)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );

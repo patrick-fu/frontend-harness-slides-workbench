@@ -1,6 +1,7 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./02-swiss-precision.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -226,6 +227,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 700; // ms — rule-draw sweep
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function SwissPrecision({
@@ -238,6 +244,33 @@ export default function SwissPrecision({
   isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
+
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // FLIP for scene 3 process step list
+  const { ref: processListRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -253,7 +286,7 @@ export default function SwissPrecision({
     isThumbnail ? styles.thumbnail : "",
   ].filter(Boolean).join(" ");
 
-  const renderScene1 = () => {
+  const renderScene1 = (beatNum: number) => {
     const c = SCENES[1][language];
     return (
       <div className={styles.scene1}>
@@ -279,7 +312,7 @@ export default function SwissPrecision({
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number) => {
     const c = SCENES[2][language];
     return (
       <div className={styles.scene2}>
@@ -291,9 +324,9 @@ export default function SwissPrecision({
               key={i}
               className={styles.metricBlock}
               style={{
-                opacity: beat >= 1 ? 1 : 0,
-                transform: beat >= 1 ? "none" : "translateY(1cqh)",
-                transition: reducedMotion ? "none" : `opacity 0.5s ease ${i * 0.12}s, transform 0.5s ease ${i * 0.12}s`,
+                opacity: beatNum >= 1 ? 1 : 0,
+                transform: beatNum >= 1 ? "none" : "translateX(-2cqw)",
+                transition: reducedMotion ? "none" : `opacity 0.4s ease ${i * 0.12}s, transform 0.4s ease ${i * 0.12}s`,
               }}
             >
               <span className={styles.metricValue}>
@@ -307,15 +340,15 @@ export default function SwissPrecision({
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number, applyFlip: boolean) => {
     const c = SCENES[3][language];
     const steps = c.processSteps || [];
-    const visibleCount = Math.min((beat + 1) * 2, 5);
+    const visibleCount = Math.min((beatNum + 1) * 2, 5);
     return (
       <div className={styles.scene3}>
         <span className={styles.sectionLabel}>{c.label}</span>
         <h2 className={styles.processTitle}>{c.statement}</h2>
-        <div className={styles.processList}>
+        <div ref={applyFlip ? processListRef : undefined} className={styles.processList}>
           {steps.map((step, i) => {
             const visible = i < visibleCount;
             return (
@@ -342,7 +375,7 @@ export default function SwissPrecision({
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number) => {
     const c = SCENES[4][language];
     const criteria = c.criteria || [];
     return (
@@ -351,7 +384,7 @@ export default function SwissPrecision({
         <h2 className={styles.dashboardTitle}>{c.qualityTitle}</h2>
         <div className={styles.qualityBars}>
           {criteria.map((cr, i) => {
-            const visible = beat >= 1;
+            const visible = beatNum >= 1;
             const barWidth = visible ? (cr.score / 100) * 100 : 0;
             return (
               <div
@@ -385,7 +418,7 @@ export default function SwissPrecision({
     );
   };
 
-  const renderScene5 = () => {
+  const renderScene5 = (beatNum: number) => {
     const c = SCENES[5][language];
     return (
       <div className={styles.scene5}>
@@ -398,13 +431,13 @@ export default function SwissPrecision({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
-      case 5: return renderScene5();
+  const renderSceneFor = (sceneNum: number, beatNum: number, applyFlip: boolean = false) => {
+    switch (sceneNum) {
+      case 1: return renderScene1(beatNum);
+      case 2: return renderScene2(beatNum);
+      case 3: return renderScene3(beatNum, applyFlip);
+      case 4: return renderScene4(beatNum);
+      case 5: return renderScene5(beatNum);
       default: return null;
     }
   };
@@ -430,15 +463,41 @@ export default function SwissPrecision({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`02-${scene}`}
-        className={[styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ")}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit: stays visible then fades in last 200ms) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene (enter: clip-path reveal from top) */}
+      <div className={incomingLayerClasses}>
+        <div key={`02-${scene}`} className={styles.track}>
+          {renderSceneFor(scene, beat, true)}
+        </div>
       </div>
+
+      {/* Sweep rule: 2px red horizontal line that travels top→bottom */}
+      {isTransitioning && !reducedMotion && (
+        <div className={styles.sweepRule} />
+      )}
+
       {renderNav()}
     </div>
   );

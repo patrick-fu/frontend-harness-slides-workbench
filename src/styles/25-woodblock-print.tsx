@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./25-woodblock-print.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -297,6 +298,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 400; // ms — enter 350ms, exit 300ms
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function WoodblockPrint({
@@ -304,7 +310,27 @@ export default function WoodblockPrint({
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // Beat-level entered animation trigger
   useEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
@@ -312,6 +338,20 @@ export default function WoodblockPrint({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
+
+  // FLIP for scene 2 steps grid
+  const { ref: stepsRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
+
+  // FLIP for scene 4 masters list
+  const { ref: mastersRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -322,10 +362,8 @@ export default function WoodblockPrint({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
 
-  const renderScene1 = () => {
-    const c = SCENES[1][language as keyof typeof SCENES[1]];
+  const renderScene1 = (c: any) => {
     return (
       <div className={styles.scene1}>
         <MtFujiSVG className={styles.fujiBg} />
@@ -340,18 +378,18 @@ export default function WoodblockPrint({
     );
   };
 
-  const renderScene2 = () => {
-    const c = SCENES[2][language as keyof typeof SCENES[2]];
+  const renderScene2 = (c: any, beatNum: number, forceEntered: boolean) => {
     const steps = c.steps as Array<{ kanji: string; label: string; desc: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 3;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 2 : 3;
+    const isEntered = forceEntered || entered;
     return (
       <div className={styles.scene2}>
         <span className={styles.sceneLabel}>{c.label}</span>
         <h2 className={styles.sceneHeading}>{c.heading}</h2>
-        <div className={styles.stepsGrid}>
+        <div ref={stepsRef} className={styles.stepsGrid}>
           {steps.map((step, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.stepCard, visible && entered ? styles.stepCardVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.stepCard, visible && isEntered ? styles.stepCardVisible : ""].filter(Boolean).join(" ");
             return (
               <div
                 key={i}
@@ -369,26 +407,26 @@ export default function WoodblockPrint({
     );
   };
 
-  const renderScene3 = () => {
-    const c = SCENES[3][language as keyof typeof SCENES[3]];
+  const renderScene3 = (c: any, beatNum: number, forceEntered: boolean) => {
     const stats = c.stats as Array<{ value: string; label: string }>;
+    const isEntered = forceEntered || entered;
     return (
       <div className={styles.scene3}>
         <span className={styles.sceneLabel}>{c.label}</span>
         <h2 className={styles.sceneHeading}>{c.heading}</h2>
         <div className={styles.printArea}>
-          {beat >= 2 && <GreatWaveSVG className={styles.greatWave} />}
+          {beatNum >= 2 && <GreatWaveSVG className={styles.greatWave} />}
           <div className={styles.printInfo}>
             <h3 className={styles.printTitle}>{c.printTitle}</h3>
             <p className={styles.printArtist}>{c.artist}</p>
           </div>
         </div>
-        {beat >= 1 && (
+        {beatNum >= 1 && (
           <div className={styles.statsRow}>
             {stats.map((s, i) => (
               <div
                 key={i}
-                className={[styles.statItem, entered ? styles.statItemVisible : ""].filter(Boolean).join(" ")}
+                className={[styles.statItem, isEntered ? styles.statItemVisible : ""].filter(Boolean).join(" ")}
                 style={reducedMotion ? { opacity: 1 } : { transitionDelay: `${i * 0.12}s` }}
               >
                 <span className={styles.statValue}>{s.value}</span>
@@ -401,18 +439,18 @@ export default function WoodblockPrint({
     );
   };
 
-  const renderScene4 = () => {
-    const c = SCENES[4][language as keyof typeof SCENES[4]];
+  const renderScene4 = (c: any, beatNum: number, forceEntered: boolean) => {
     const masters = c.masters as Array<{ name: string; years: string; work: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 3;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 2 : 3;
+    const isEntered = forceEntered || entered;
     return (
       <div className={styles.scene4}>
         <span className={styles.sceneLabel}>{c.label}</span>
         <h2 className={styles.sceneHeading}>{c.heading}</h2>
-        <div className={styles.mastersList}>
+        <div ref={mastersRef} className={styles.mastersList}>
           {masters.map((m, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.masterRow, visible && entered ? styles.masterRowVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.masterRow, visible && isEntered ? styles.masterRowVisible : ""].filter(Boolean).join(" ");
             return (
               <div
                 key={i}
@@ -430,8 +468,7 @@ export default function WoodblockPrint({
     );
   };
 
-  const renderScene5 = () => {
-    const c = SCENES[5][language as keyof typeof SCENES[5]];
+  const renderScene5 = (c: any) => {
     return (
       <div className={styles.scene5}>
         <WavePatternSVG className={styles.waveBorderTop} />
@@ -444,13 +481,15 @@ export default function WoodblockPrint({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
-      case 5: return renderScene5();
+  const renderSceneFor = (sceneNum: number, beatNum: number, forceEntered: boolean) => {
+    const c = SCENES[sceneNum as keyof typeof SCENES]?.[language as keyof typeof SCENES[1]];
+    if (!c) return null;
+    switch (sceneNum) {
+      case 1: return renderScene1(c);
+      case 2: return renderScene2(c, beatNum, forceEntered);
+      case 3: return renderScene3(c, beatNum, forceEntered);
+      case 4: return renderScene4(c, beatNum, forceEntered);
+      case 5: return renderScene5(c);
       default: return null;
     }
   };
@@ -482,15 +521,27 @@ export default function WoodblockPrint({
     );
   };
 
+  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim].filter(Boolean).join(" ");
+  const incomingLayerClasses = [styles.sceneLayer, isTransitioning && !isTransitionClone ? styles.enterAnim : ""].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`25-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div key={`25-${scene}`} className={styles.track}>
+          {renderSceneFor(scene, beat, false)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );

@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./23-zine-culture.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Content ────────────────────────────────────────────────────────────────
 
@@ -247,6 +248,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 700; // scatter 500ms + assemble 500ms w/ overlap
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function ZineCulture({
@@ -258,8 +264,10 @@ export default function ZineCulture({
   onNavigate,
   isTransitionClone,
 }: BespokeStyleProps) {
-  const content = SCENES[scene]?.[language] || SCENES[1][language];
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
   // Font injection
   useEffect(() => {
@@ -273,6 +281,22 @@ export default function ZineCulture({
     document.head.appendChild(link);
   }, []);
 
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
   useEffect(() => {
     setEntered(false);
     const raf = requestAnimationFrame(() => {
@@ -282,6 +306,21 @@ export default function ZineCulture({
     });
     return () => cancelAnimationFrame(raf);
   }, [scene]);
+
+  // FLIP for collage elements and band list
+  const { ref: collageRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 500,
+    selector: ".zineElement",
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
+
+  const { ref: bandListRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 500,
+    selector: ".zineElement",
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -299,82 +338,86 @@ export default function ZineCulture({
     .filter(Boolean)
     .join(" ");
 
-  const trackClasses = [
-    styles.track,
-    !isTransitionClone && styles.animateSceneEnter,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  // ── Render scene content for a given scene number ────────────────────────
 
-  const renderSceneContent = () => {
-    if (scene === 1) {
+  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+    const sc = SCENES[sceneNum]?.[language] || SCENES[1][language];
+    const isCurrent = sceneNum === scene;
+
+    if (sceneNum === 1) {
       return (
         <div className={styles.zineCover}>
-          <div className={styles.zineStamp}>{content.stamp}</div>
+          <div className={`${styles.zineStamp} zineElement`}>{sc.stamp}</div>
           <h1 className={styles.zineCoverTitle}>
-            {(content.title || "").split("\n").map((line, i) => (
+            {(sc.title || "").split("\n").map((line, i) => (
               <React.Fragment key={i}>
                 {line}
-                {i < (content.title || "").split("\n").length - 1 && <br />}
+                {i < (sc.title || "").split("\n").length - 1 && <br />}
               </React.Fragment>
             ))}
           </h1>
-          <p className={styles.zineCoverSub}>{content.subtitle}</p>
-          <p className={styles.zineCoverIssue}>{content.issue}</p>
+          <p className={styles.zineCoverSub}>{sc.subtitle}</p>
+          <p className={styles.zineCoverIssue}>{sc.issue}</p>
         </div>
       );
     }
 
-    if (scene === 2) {
+    if (sceneNum === 2) {
       return (
-        <div className={styles.zineCollage}>
+        <div
+          className={styles.zineCollage}
+          ref={isCurrent ? collageRef : undefined}
+        >
           <h2 className={styles.zineCollageTitle}>
-            {(content.collageTitle || "").split("\n").map((line, i) => (
+            {(sc.collageTitle || "").split("\n").map((line, i) => (
               <React.Fragment key={i}>
-                {line.split(content.collageHighlight || "").map((part, j, arr) => (
+                {line.split(sc.collageHighlight || "").map((part, j, arr) => (
                   <React.Fragment key={j}>
                     {part}
-                    {j < arr.length - 1 && <span>{content.collageHighlight}</span>}
+                    {j < arr.length - 1 && <span>{sc.collageHighlight}</span>}
                   </React.Fragment>
                 ))}
-                {i < (content.collageTitle || "").split("\n").length - 1 && <br />}
+                {i < (sc.collageTitle || "").split("\n").length - 1 && <br />}
               </React.Fragment>
             ))}
           </h2>
-          <div className={styles.zineCutout1} />
-          {beat >= 0 && <div className={styles.zineCutout2} />}
-          {beat >= 1 && (
+          <div className={`${styles.zineCutout1} zineElement`} />
+          {beatNum >= 0 && <div className={`${styles.zineCutout2} zineElement`} />}
+          {beatNum >= 1 && (
             <>
-              <div className={styles.zineCutout3} />
-              <p className={styles.zineHandwritten}>
-                {content.handwritten}
+              <div className={`${styles.zineCutout3} zineElement`} />
+              <p className={`${styles.zineHandwritten} zineElement`}>
+                {sc.handwritten}
               </p>
-              <span className={styles.zineArrow}>&#8599;</span>
+              <span className={`${styles.zineArrow} zineElement`}>&#8599;</span>
             </>
           )}
         </div>
       );
     }
 
-    if (scene === 3) {
-      const bands = content.bands || [];
-      const visibleCount = Math.min((beat + 1) * 2, bands.length);
+    if (sceneNum === 3) {
+      const bands = sc.bands || [];
+      const visibleCount = Math.min((beatNum + 1) * 2, bands.length);
       return (
         <div className={styles.zineList}>
-          <p className={styles.zineListLabel}>{content.listLabel}</p>
+          <p className={styles.zineListLabel}>{sc.listLabel}</p>
           <h2 className={styles.zineListTitle}>
-            {(content.listTitle || "").split("\n").map((line, i) => (
+            {(sc.listTitle || "").split("\n").map((line, i) => (
               <React.Fragment key={i}>
                 {line}
-                {i < (content.listTitle || "").split("\n").length - 1 && <br />}
+                {i < (sc.listTitle || "").split("\n").length - 1 && <br />}
               </React.Fragment>
             ))}
           </h2>
-          <div className={styles.zineBandItems}>
+          <div
+            className={styles.zineBandItems}
+            ref={isCurrent ? bandListRef : undefined}
+          >
             {bands.slice(0, visibleCount).map((band, i) => (
               <div
                 key={i}
-                className={styles.zineBandItem}
+                className={`${styles.zineBandItem} zineElement`}
                 style={{
                   opacity: entered ? 1 : 0,
                   transition: reducedMotion
@@ -394,16 +437,17 @@ export default function ZineCulture({
       );
     }
 
-    if (scene === 4) {
+    if (sceneNum === 4) {
       return (
         <div className={styles.zineInterview}>
           <p className={styles.zineInterviewLabel}>
-            {content.interviewLabel}
+            {sc.interviewLabel}
           </p>
-          <p className={styles.zineInterviewQ}>{content.q1}</p>
-          <p className={styles.zineInterviewA}>{content.a1}</p>
-          {beat >= 1 && (
+          <p className={styles.zineInterviewQ}>{sc.q1}</p>
+          <p className={styles.zineInterviewA}>{sc.a1}</p>
+          {beatNum >= 1 && (
             <div
+              className="zineElement"
               style={{
                 opacity: entered ? 1 : 0,
                 transition: reducedMotion
@@ -411,35 +455,35 @@ export default function ZineCulture({
                   : "opacity 0.4s ease 0.1s",
               }}
             >
-              <p className={styles.zineInterviewQ}>{content.q2}</p>
-              <p className={styles.zineInterviewA}>{content.a2}</p>
+              <p className={styles.zineInterviewQ}>{sc.q2}</p>
+              <p className={styles.zineInterviewA}>{sc.a2}</p>
             </div>
           )}
         </div>
       );
     }
 
-    if (scene === 5) {
+    if (sceneNum === 5) {
       return (
         <div className={styles.zineBack}>
           <div className={styles.zineBackBox}>
             <p className={styles.zineBackText}>
-              {(content.backText || "").split("\n").map((line, i) => (
+              {(sc.backText || "").split("\n").map((line, i) => (
                 <React.Fragment key={i}>
-                  {line.split(content.backEm || "").map((part, j) =>
-                    part === content.backEm ? (
+                  {line.split(sc.backEm || "").map((part, j) =>
+                    part === sc.backEm ? (
                       <em key={j}>{part}</em>
                     ) : (
                       <React.Fragment key={j}>{part}</React.Fragment>
                     ),
                   )}
-                  {i < (content.backText || "").split("\n").length - 1 && <br />}
+                  {i < (sc.backText || "").split("\n").length - 1 && <br />}
                 </React.Fragment>
               ))}
             </p>
-            <p className={styles.zineBackSub}>{content.backSub}</p>
+            <p className={styles.zineBackSub}>{sc.backSub}</p>
           </div>
-          <span className={styles.zineDoodle}>{content.doodle}</span>
+          <span className={`${styles.zineDoodle} zineElement`}>{sc.doodle}</span>
         </div>
       );
     }
@@ -478,15 +522,44 @@ export default function ZineCulture({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`23-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (scatter exit) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene (assemble enter) */}
+      <div className={incomingLayerClasses}>
+        <div
+          key={`23-${scene}`}
+          className={styles.track}
+          style={
+            reducedMotion || isTransitionClone
+              ? { animationDuration: "0s" }
+              : undefined
+          }
+        >
+          {renderSceneFor(scene, beat)}
+        </div>
       </div>
+
       {renderNavIndicators()}
     </div>
   );

@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./33-glass-dashboard.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -309,6 +310,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ──────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 450;
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 1, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function GlassDashboard({
@@ -321,8 +327,29 @@ export default function GlassDashboard({
   isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
+
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
   const [entered, setEntered] = useState(false);
 
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // Beat-level entered animation (for internal element reveals)
   useEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
@@ -332,6 +359,13 @@ export default function GlassDashboard({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
+
+  // FLIP for scene 3 card grid
+  const { ref: cardGridRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 450,
+    selector: `.${styles.glassCard}`,
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -348,245 +382,242 @@ export default function GlassDashboard({
     .filter(Boolean)
     .join(" ");
 
-  // ── Render scene content ────────────────────────────────────────────────
+  // ── Render scene content for a given scene number ────────────────────────
 
-  const renderScene1 = () => {
-    const c = SCENES[1][language];
-    return (
-      <div className={styles.dashboard}>
-        <div className={styles.dashboardHeader}>
-          <div>
-            <h1 className={styles.dashboardTitle}>{c.title}</h1>
-            <p className={styles.dashboardSubtitle}>{c.subtitle}</p>
-          </div>
-          <span className={styles.dashboardBadge}>
-            {language === "zh" ? "实时" : "Live"}
-          </span>
-        </div>
+  const renderSceneFor = (
+    sceneNum: number,
+    beatNum: number,
+    effectiveEntered: boolean,
+  ) => {
+    const c = SCENES[sceneNum]?.[language] || SCENES[1][language];
 
-        <div className={styles.kpiRow}>
-          {(c.kpis || []).map((kpi, i) => (
-            <div
-              key={i}
-              className={styles.kpiCard}
-              style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "none" : "translateY(1cqh)",
-                transition: reducedMotion
-                  ? "none"
-                  : `opacity 0.4s ease ${i * 0.08}s, transform 0.4s ease ${i * 0.08}s`,
-              }}
-            >
-              <span className={styles.kpiLabel}>{kpi.label}</span>
-              <span className={styles.kpiValue}>{kpi.value}</span>
-              <span
-                className={[
-                  styles.kpiDelta,
-                  kpi.up ? styles.kpiDeltaUp : styles.kpiDeltaDown,
-                ].join(" ")}
-              >
-                {kpi.delta}
-              </span>
+    if (sceneNum === 1) {
+      return (
+        <div className={styles.dashboard}>
+          <div className={styles.dashboardHeader}>
+            <div>
+              <h1 className={styles.dashboardTitle}>{c.title}</h1>
+              <p className={styles.dashboardSubtitle}>{c.subtitle}</p>
             </div>
-          ))}
-        </div>
-
-        <div className={styles.mainGrid}>
-          <div className={styles.chartPanel}>
-            <div className={styles.panelHeader}>
-              <h3 className={styles.panelTitle}>
-                {language === "zh" ? "请求量趋势" : "Request Volume Trend"}
-              </h3>
-            </div>
-            <div className={styles.chartArea}>
-              {(c.chartBars || []).map((h, i) => (
-                <div
-                  key={i}
-                  className={styles.chartBar}
-                  data-label={(c.chartLabels || [])[i]}
-                  style={{
-                    height: entered ? `${h}%` : "0%",
-                    transition: reducedMotion
-                      ? "none"
-                      : `height 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.04}s`,
-                  }}
-                />
-              ))}
-            </div>
+            <span className={styles.dashboardBadge}>
+              {language === "zh" ? "实时" : "Live"}
+            </span>
           </div>
 
-          <div className={styles.sidePanel}>
-            <div className={styles.activityPanel}>
-              <div className={styles.panelHeader}>
-                <h3 className={styles.panelTitle}>
-                  {language === "zh" ? "最近活动" : "Recent Activity"}
-                </h3>
-              </div>
-              <div className={styles.activityList}>
-                {(c.activities || []).slice(0, 4).map((act, i) => (
-                  <div
-                    key={i}
-                    className={styles.activityItem}
-                    style={{
-                      opacity: entered ? 1 : 0,
-                      transition: reducedMotion
-                        ? "none"
-                        : `opacity 0.3s ease ${0.3 + i * 0.08}s`,
-                    }}
-                  >
-                    <div
-                      className={styles.activityDot}
-                      style={{ background: act.color }}
-                    />
-                    <span className={styles.activityText}>{act.text}</span>
-                    <span className={styles.activityTime}>{act.time}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const renderScene2 = () => {
-    const c = SCENES[2][language];
-    return (
-      <div className={styles.detailView}>
-        <div className={styles.detailHeader}>
-          <h1 className={styles.detailTitle}>{c.detailTitle}</h1>
-        </div>
-        <div className={styles.detailMeta}>
-          <span>{c.detailMeta}</span>
-        </div>
-        <div className={styles.detailBody}>
-          {(c.metrics || []).map((m, i) => (
-            <div
-              key={i}
-              className={styles.metricCard}
-              style={{
-                opacity: entered && beat >= 1 ? 1 : 0,
-                transform: entered && beat >= 1 ? "none" : "translateY(1cqh)",
-                transition: reducedMotion
-                  ? "none"
-                  : `opacity 0.4s ease ${i * 0.1}s, transform 0.4s ease ${i * 0.1}s`,
-              }}
-            >
-              <span className={styles.metricLabel}>{m.label}</span>
-              <span className={styles.metricBig}>{m.value}</span>
-              <span className={styles.metricTrend}>{m.trend}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  const renderScene3 = () => {
-    const c = SCENES[3][language];
-    return (
-      <div className={styles.gridScene}>
-        <h1 className={styles.gridTitle}>{c.gridTitle}</h1>
-        <div className={styles.cardGrid}>
-          {(c.cards || []).map((card, i) => {
-            const visible = i < (beat + 1) * 2;
-            return (
+          <div className={styles.kpiRow}>
+            {(c.kpis || []).map((kpi, i) => (
               <div
                 key={i}
-                className={styles.glassCard}
+                className={styles.kpiCard}
                 style={{
-                  opacity: visible && entered ? 1 : 0,
-                  transform: visible && entered ? "none" : "translateY(1.5cqh)",
+                  opacity: effectiveEntered ? 1 : 0,
+                  transform: effectiveEntered ? "none" : "translateY(1cqh)",
                   transition: reducedMotion
                     ? "none"
                     : `opacity 0.4s ease ${i * 0.08}s, transform 0.4s ease ${i * 0.08}s`,
                 }}
               >
-                <div
-                  className={styles.cardIcon}
-                  style={{ background: `${card.color}22` }}
+                <span className={styles.kpiLabel}>{kpi.label}</span>
+                <span className={styles.kpiValue}>{kpi.value}</span>
+                <span
+                  className={[
+                    styles.kpiDelta,
+                    kpi.up ? styles.kpiDeltaUp : styles.kpiDeltaDown,
+                  ].join(" ")}
                 >
-                  {card.icon}
-                </div>
-                <h3 className={styles.cardTitle}>{card.title}</h3>
-                <p className={styles.cardDesc}>{card.desc}</p>
-                <span className={styles.cardValue}>{card.value}</span>
+                  {kpi.delta}
+                </span>
               </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
+            ))}
+          </div>
 
-  const renderScene4 = () => {
-    const c = SCENES[4][language];
-    return (
-      <div className={styles.metricScene}>
-        <span className={styles.metricSceneLabel}>{c.bigLabel}</span>
-        <h2
-          className={styles.metricSceneValue}
-          style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "none" : "scale(0.9)",
-            transition: reducedMotion
-              ? "none"
-              : "opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-          }}
-        >
-          {c.bigValue}
-        </h2>
-        <span className={styles.metricSceneUnit}>{c.bigUnit}</span>
-        <p className={styles.metricSceneCaption}>{c.bigCaption}</p>
-      </div>
-    );
-  };
-
-  const renderScene5 = () => {
-    const c = SCENES[5][language];
-    return (
-      <div className={styles.summaryScene}>
-        <h1
-          className={styles.summaryHeadline}
-          style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "none" : "translateY(1cqh)",
-            transition: reducedMotion
-              ? "none"
-              : "opacity 0.5s ease, transform 0.5s ease",
-          }}
-        >
-          {c.summaryHeadline}
-        </h1>
-        <p className={styles.summarySub}>{c.summarySub}</p>
-        <div className={styles.summaryStats}>
-          {(c.summaryStats || []).map((s, i) => (
-            <div key={i} className={styles.summaryStat}>
-              <span className={styles.summaryStatValue}>{s.value}</span>
-              <span className={styles.summaryStatLabel}>{s.label}</span>
+          <div className={styles.mainGrid}>
+            <div className={styles.chartPanel}>
+              <div className={styles.panelHeader}>
+                <h3 className={styles.panelTitle}>
+                  {language === "zh" ? "请求量趋势" : "Request Volume Trend"}
+                </h3>
+              </div>
+              <div className={styles.chartArea}>
+                {(c.chartBars || []).map((h, i) => (
+                  <div
+                    key={i}
+                    className={styles.chartBar}
+                    data-label={(c.chartLabels || [])[i]}
+                    style={{
+                      height: effectiveEntered ? `${h}%` : "0%",
+                      transition: reducedMotion
+                        ? "none"
+                        : `height 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.04}s`,
+                    }}
+                  />
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
 
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1:
-        return renderScene1();
-      case 2:
-        return renderScene2();
-      case 3:
-        return renderScene3();
-      case 4:
-        return renderScene4();
-      case 5:
-        return renderScene5();
-      default:
-        return null;
+            <div className={styles.sidePanel}>
+              <div className={styles.activityPanel}>
+                <div className={styles.panelHeader}>
+                  <h3 className={styles.panelTitle}>
+                    {language === "zh" ? "最近活动" : "Recent Activity"}
+                  </h3>
+                </div>
+                <div className={styles.activityList}>
+                  {(c.activities || []).slice(0, 4).map((act, i) => (
+                    <div
+                      key={i}
+                      className={styles.activityItem}
+                      style={{
+                        opacity: effectiveEntered ? 1 : 0,
+                        transition: reducedMotion
+                          ? "none"
+                          : `opacity 0.3s ease ${0.3 + i * 0.08}s`,
+                      }}
+                    >
+                      <div
+                        className={styles.activityDot}
+                        style={{ background: act.color }}
+                      />
+                      <span className={styles.activityText}>{act.text}</span>
+                      <span className={styles.activityTime}>{act.time}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     }
+
+    if (sceneNum === 2) {
+      return (
+        <div className={styles.detailView}>
+          <div className={styles.detailHeader}>
+            <h1 className={styles.detailTitle}>{c.detailTitle}</h1>
+          </div>
+          <div className={styles.detailMeta}>
+            <span>{c.detailMeta}</span>
+          </div>
+          <div className={styles.detailBody}>
+            {(c.metrics || []).map((m, i) => (
+              <div
+                key={i}
+                className={styles.metricCard}
+                style={{
+                  opacity: effectiveEntered && beatNum >= 1 ? 1 : 0,
+                  transform:
+                    effectiveEntered && beatNum >= 1
+                      ? "none"
+                      : "translateY(1cqh)",
+                  transition: reducedMotion
+                    ? "none"
+                    : `opacity 0.4s ease ${i * 0.1}s, transform 0.4s ease ${i * 0.1}s`,
+                }}
+              >
+                <span className={styles.metricLabel}>{m.label}</span>
+                <span className={styles.metricBig}>{m.value}</span>
+                <span className={styles.metricTrend}>{m.trend}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 3) {
+      return (
+        <div className={styles.gridScene}>
+          <h1 className={styles.gridTitle}>{c.gridTitle}</h1>
+          <div
+            ref={sceneNum === scene ? cardGridRef : undefined}
+            className={styles.cardGrid}
+          >
+            {(c.cards || []).map((card, i) => {
+              const visible = i < (beatNum + 1) * 2;
+              return (
+                <div
+                  key={i}
+                  className={styles.glassCard}
+                  style={{
+                    opacity: visible && effectiveEntered ? 1 : 0,
+                    transform:
+                      visible && effectiveEntered
+                        ? "none"
+                        : "translateY(1.5cqh)",
+                    transition: reducedMotion
+                      ? "none"
+                      : `opacity 0.4s ease ${i * 0.08}s, transform 0.4s ease ${i * 0.08}s`,
+                  }}
+                >
+                  <div
+                    className={styles.cardIcon}
+                    style={{ background: `${card.color}22` }}
+                  >
+                    {card.icon}
+                  </div>
+                  <h3 className={styles.cardTitle}>{card.title}</h3>
+                  <p className={styles.cardDesc}>{card.desc}</p>
+                  <span className={styles.cardValue}>{card.value}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 4) {
+      return (
+        <div className={styles.metricScene}>
+          <span className={styles.metricSceneLabel}>{c.bigLabel}</span>
+          <h2
+            className={styles.metricSceneValue}
+            style={{
+              opacity: effectiveEntered ? 1 : 0,
+              transform: effectiveEntered ? "none" : "scale(0.9)",
+              transition: reducedMotion
+                ? "none"
+                : "opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+            }}
+          >
+            {c.bigValue}
+          </h2>
+          <span className={styles.metricSceneUnit}>{c.bigUnit}</span>
+          <p className={styles.metricSceneCaption}>{c.bigCaption}</p>
+        </div>
+      );
+    }
+
+    if (sceneNum === 5) {
+      return (
+        <div className={styles.summaryScene}>
+          <h1
+            className={styles.summaryHeadline}
+            style={{
+              opacity: effectiveEntered ? 1 : 0,
+              transform: effectiveEntered ? "none" : "translateY(1cqh)",
+              transition: reducedMotion
+                ? "none"
+                : "opacity 0.5s ease, transform 0.5s ease",
+            }}
+          >
+            {c.summaryHeadline}
+          </h1>
+          <p className={styles.summarySub}>{c.summarySub}</p>
+          <div className={styles.summaryStats}>
+            {(c.summaryStats || []).map((s, i) => (
+              <div key={i} className={styles.summaryStat}>
+                <span className={styles.summaryStatValue}>{s.value}</span>
+                <span className={styles.summaryStatLabel}>{s.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   // ── Navigation Dots ─────────────────────────────────────────────────────
@@ -618,18 +649,39 @@ export default function GlassDashboard({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <div
       data-testid="style-33-root"
       className={rootClasses}
     >
-      <div
-        key={`33-${scene}`}
-        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat, entered)}
       </div>
+
       {renderNavDots()}
     </div>
   );

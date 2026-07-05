@@ -1,5 +1,5 @@
 /* ─── Style 04: Aurora Gradient ────────────────────────────────────────────
-   Dark background with aurora gradient overlays. Glowing text elements.
+   Dark background with aurora gradient overlays. Glowing data elements.
    All sizing in cqw/cqh.
    ──────────────────────────────────────────────────────────────────────── */
 
@@ -74,6 +74,52 @@
 @keyframes auroraFloat3 {
   0%, 100% { transform: translate(0, 0); }
   50% { transform: translate(5cqw, -3cqh); }
+}
+
+/* ── Scene layer (dual-scene transition) ──────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* The current (incoming) scene layer should receive pointer events */
+.sceneLayer:last-of-type {
+  pointer-events: auto;
+}
+
+/* ── Aurora curtain diagonal wipe ─────────────────────────────────────── */
+
+@keyframes sceneEnterAurora {
+  from {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    opacity: 0.9;
+  }
+  to {
+    clip-path: polygon(0 0, 150% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
+}
+
+@keyframes sceneExitAurora {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.enterAnim {
+  animation: sceneEnterAurora 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 3;
+}
+
+.exitAnim {
+  animation: sceneExitAurora 0.5s ease-in 0.2s forwards;
+  z-index: 2;
 }
 
 /* ── Transition track ──────────────────────────────────────────────────── */
@@ -518,6 +564,12 @@
 .reducedMotion .pulseRing {
   transition-duration: 0s !important;
   animation-duration: 0s !important;
+}
+
+.reducedMotion .enterAnim,
+.reducedMotion .exitAnim {
+  animation: none !important;
+  clip-path: none !important;
 }
 
 /* ── Thumbnail ─────────────────────────────────────────────────────────── */

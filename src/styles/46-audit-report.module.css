@@ -25,7 +25,151 @@
   user-select: none;
 }
 
-/* ── Transition Track ──────────────────────────────────────────────────── */
+/* ── Scene-to-Scene Transition ─────────────────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.exitAnim {
+  animation: auditExit 0.2s ease-in 0.3s forwards;
+  z-index: 1;
+}
+
+@keyframes auditExit {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.enterAnim {
+  animation: auditEnter 0.2s ease-out 0.3s both;
+  z-index: 2;
+}
+
+@keyframes auditEnter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Audit Finding Stamp Overlay ────────────────────────────────────────── */
+
+.stampOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+  animation: stampFadeOut 0.5s ease-out forwards;
+}
+
+@keyframes stampFadeOut {
+  0%, 60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.stampCircle {
+  width: 28cqh;
+  height: 28cqh;
+  border-radius: 50%;
+  border: 0.6cqh solid #dc2626;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  filter: contrast(1.2);
+  animation: stampSlam 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform: rotate(-8deg);
+}
+
+@keyframes stampSlam {
+  0% {
+    transform: scale(2) rotate(-8deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(0.95) rotate(-8deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(-8deg);
+    opacity: 1;
+  }
+}
+
+.stampCircle::before {
+  content: "";
+  position: absolute;
+  inset: 0.8cqh;
+  border-radius: 50%;
+  border: 0.15cqh solid #dc2626;
+}
+
+.stampText {
+  font-size: 3.2cqh;
+  font-weight: 900;
+  color: #dc2626;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: "Inter", system-ui, sans-serif;
+  line-height: 1;
+}
+
+.stampSubtext {
+  font-size: 1.6cqh;
+  font-weight: 700;
+  color: #dc2626;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-top: 0.5cqh;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ── Finding item beat-level reveal with severity flash ────────────────── */
+
+.findingItem {
+  opacity: 0;
+  transform: translateX(-0.8cqh);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.findingItemVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.findingItemVisible .findingSeverity {
+  animation: severityFlash 0.4s ease-out;
+}
+
+@keyframes severityFlash {
+  0% {
+    filter: brightness(1);
+  }
+  30% {
+    filter: brightness(1.5) saturate(1.5);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+/* ── Transition Track (legacy) ──────────────────────────────────────────── */
 
 .transitionTrack {
   position: relative;

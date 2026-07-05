@@ -1,6 +1,7 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./01-executive-silence.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -234,6 +235,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 650; // ms — outgoing 500ms + incoming 600ms w/ 50ms delay
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function ExecutiveSilence({
@@ -246,7 +252,33 @@ export default function ExecutiveSilence({
   isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
-  const content = SCENES[scene]?.[language] || SCENES[1][language];
+
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // FLIP for scene 3 question list
+  const { ref: questionListRef } = useFLIP<HTMLUListElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -264,25 +296,20 @@ export default function ExecutiveSilence({
     .filter(Boolean)
     .join(" ");
 
-  const trackClasses = [
-    styles.track,
-    !isTransitionClone && styles.animateSceneEnter,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  // ── Render scene content for a given scene number ────────────────────────
 
-  // ── Render scene content ────────────────────────────────────────────────
+  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+    const content = SCENES[sceneNum]?.[language] || SCENES[1][language];
 
-  const renderSceneContent = () => {
-    if (scene === 1) {
+    if (sceneNum === 1) {
       return <h1 className={styles.title}>{content.title}</h1>;
     }
 
-    if (scene === 2) {
+    if (sceneNum === 2) {
       return (
         <>
           <p className={styles.statement}>{content.statement}</p>
-          {beat >= 1 && (
+          {beatNum >= 1 && (
             <p className={styles.attribution}>
               {content.attribution}
             </p>
@@ -291,16 +318,19 @@ export default function ExecutiveSilence({
       );
     }
 
-    if (scene === 3) {
+    if (sceneNum === 3) {
       const questions = content.questions || [];
       return (
         <>
           {content.heading && (
             <p className={styles.sceneHeading}>{content.heading}</p>
           )}
-          <ul className={styles.questionList}>
+          <ul
+            ref={sceneNum === scene ? questionListRef : undefined}
+            className={styles.questionList}
+          >
             {questions.map((q, i) => {
-              const visible = i <= beat;
+              const visible = i <= beatNum;
               return (
                 <li
                   key={i}
@@ -310,6 +340,9 @@ export default function ExecutiveSilence({
                   ]
                     .filter(Boolean)
                     .join(" ")}
+                  style={{
+                    transitionDelay: visible ? `${i * 0.15}s` : undefined,
+                  }}
                 >
                   <span className={styles.questionNumber}>
                     {String(i + 1).padStart(2, "0")}
@@ -323,11 +356,11 @@ export default function ExecutiveSilence({
       );
     }
 
-    if (scene === 4) {
+    if (sceneNum === 4) {
       return (
         <>
           <p className={styles.statement}>{content.statement}</p>
-          {beat >= 1 && (
+          {beatNum >= 1 && (
             <p className={styles.dataPoint}>
               {content.dataPoint}
             </p>
@@ -336,7 +369,7 @@ export default function ExecutiveSilence({
       );
     }
 
-    if (scene === 5) {
+    if (sceneNum === 5) {
       return (
         <h2 className={styles.closing}>
           {content.closing}{" "}
@@ -384,15 +417,39 @@ export default function ExecutiveSilence({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={scene}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div
+          key={scene}
+          className={styles.track}
+        >
+          {renderSceneFor(scene, beat)}
+        </div>
       </div>
+
       {renderRulerNav()}
     </div>
   );

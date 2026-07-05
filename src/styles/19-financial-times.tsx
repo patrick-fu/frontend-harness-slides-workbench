@@ -1,6 +1,7 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./19-financial-times.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Content ────────────────────────────────────────────────────────────────
 
@@ -264,6 +265,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 700; // ms — outgoing 400ms + incoming 600ms w/ overlap
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function FinancialTimes({
@@ -276,7 +282,10 @@ export default function FinancialTimes({
   isTransitionClone,
 }: BespokeStyleProps) {
   const content = SCENES[scene]?.[language] || SCENES[1][language];
-  void isTransitionClone;
+
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
   // Font injection
   useEffect(() => {
@@ -289,6 +298,36 @@ export default function FinancialTimes({
       "https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap";
     document.head.appendChild(link);
   }, []);
+
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // FLIP for scene 2 market table rows
+  const { ref: marketTableRef } = useFLIP<HTMLTableSectionElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
+
+  // FLIP for scene 3 earnings grid columns
+  const { ref: earningsGridRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -306,8 +345,10 @@ export default function FinancialTimes({
     .filter(Boolean)
     .join(" ");
 
-  const renderSceneContent = () => {
-    if (scene === 1) {
+  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+    const sc = SCENES[sceneNum]?.[language] || SCENES[1][language];
+
+    if (sceneNum === 1) {
       return (
         <div className={styles.ftMasthead}>
           <div className={styles.ftTopBar}>
@@ -320,8 +361,8 @@ export default function FinancialTimes({
             <span className={styles.ftPrice}>$3.50</span>
           </div>
           <div className={styles.ftTitleBlock}>
-            <h1 className={styles.ftLogo}>{content.headline}</h1>
-            <p className={styles.ftTagline}>{content.tagline}</p>
+            <h1 className={styles.ftLogo}>{sc.headline}</h1>
+            <p className={styles.ftTagline}>{sc.tagline}</p>
           </div>
           <div className={styles.ftBottomRule}>
             <span className={styles.ftSectionLabel}>
@@ -342,15 +383,15 @@ export default function FinancialTimes({
       );
     }
 
-    if (scene === 2) {
+    if (sceneNum === 2) {
       return (
         <div className={styles.marketReport}>
           <div className={styles.reportHeader}>
-            <p className={styles.reportKicker}>{content.kicker}</p>
-            <h2 className={styles.reportHeadline}>{content.headline}</h2>
-            <p className={styles.reportDeck}>{content.deck}</p>
+            <p className={styles.reportKicker}>{sc.kicker}</p>
+            <h2 className={styles.reportHeadline}>{sc.headline}</h2>
+            <p className={styles.reportDeck}>{sc.deck}</p>
           </div>
-          {beat >= 1 && (
+          {beatNum >= 1 && (
             <table
               className={styles.marketTable}
               style={{
@@ -367,8 +408,8 @@ export default function FinancialTimes({
                   <th>{language === "zh" ? "涨跌幅" : "Change"}</th>
                 </tr>
               </thead>
-              <tbody>
-                {(content.markets || []).map((m, i) => (
+              <tbody ref={sceneNum === scene ? marketTableRef : undefined}>
+                {(sc.markets || []).map((m, i) => (
                   <tr key={i}>
                     <td className={styles.indexName}>{m.name}</td>
                     <td className={styles.indexValue}>{m.value}</td>
@@ -386,14 +427,17 @@ export default function FinancialTimes({
       );
     }
 
-    if (scene === 3) {
+    if (sceneNum === 3) {
       return (
         <div className={styles.earningsScene}>
           <div className={styles.earningsHeader}>
-            <p className={styles.earningsLabel}>{content.earningsLabel}</p>
-            <h2 className={styles.earningsTitle}>{content.earningsTitle}</h2>
+            <p className={styles.earningsLabel}>{sc.earningsLabel}</p>
+            <h2 className={styles.earningsTitle}>{sc.earningsTitle}</h2>
           </div>
-          <div className={styles.earningsGrid}>
+          <div
+            className={styles.earningsGrid}
+            ref={sceneNum === scene ? earningsGridRef : undefined}
+          >
             <div
               className={styles.earningsColumn}
               style={{
@@ -407,7 +451,7 @@ export default function FinancialTimes({
               <div className={styles.earningsColumnTitle}>
                 {language === "zh" ? "收入" : "Revenue"}
               </div>
-              {(content.revenueItems || []).map((item, i) => (
+              {(sc.revenueItems || []).map((item, i) => (
                 <div key={i} className={styles.earningsItem}>
                   <span className={styles.earningsItemLabel}>
                     {item.label}
@@ -420,7 +464,7 @@ export default function FinancialTimes({
                 </div>
               ))}
             </div>
-            {beat >= 1 && (
+            {beatNum >= 1 && (
               <div
                 className={styles.earningsColumn}
                 style={{
@@ -434,7 +478,7 @@ export default function FinancialTimes({
                 <div className={styles.earningsColumnTitle}>
                   {language === "zh" ? "利润" : "Profitability"}
                 </div>
-                {(content.marginItems || []).map((item, i) => (
+                {(sc.marginItems || []).map((item, i) => (
                   <div key={i} className={styles.earningsItem}>
                     <span className={styles.earningsItemLabel}>
                       {item.label}
@@ -453,15 +497,15 @@ export default function FinancialTimes({
       );
     }
 
-    if (scene === 4) {
+    if (sceneNum === 4) {
       return (
         <div className={styles.analysisScene}>
           <div className={styles.analysisRule} />
-          <p className={styles.analysisLabel}>{content.analysisLabel}</p>
+          <p className={styles.analysisLabel}>{sc.analysisLabel}</p>
           <h2 className={styles.analysisHeadline}>
-            {content.analysisHeadline}
+            {sc.analysisHeadline}
           </h2>
-          {beat >= 1 && (
+          {beatNum >= 1 && (
             <>
               <p
                 className={styles.analysisBody}
@@ -472,10 +516,10 @@ export default function FinancialTimes({
                     : "opacity 0.6s ease 0.2s",
                 }}
               >
-                {content.analysisBody}
+                {sc.analysisBody}
               </p>
               <p className={styles.analysisByline}>
-                {content.analysisByline}
+                {sc.analysisByline}
               </p>
             </>
           )}
@@ -483,7 +527,7 @@ export default function FinancialTimes({
       );
     }
 
-    if (scene === 5) {
+    if (sceneNum === 5) {
       return (
         <div className={styles.tickerScene}>
           <div className={styles.tickerOrnament}>
@@ -491,14 +535,14 @@ export default function FinancialTimes({
             <span className={styles.tickerOrnamentLine} />
           </div>
           <h2 className={styles.tickerClosing}>
-            {(content.closing || "").split("\n").map((line, i) => (
+            {(sc.closing || "").split("\n").map((line, i) => (
               <React.Fragment key={i}>
                 {line}
-                {i < (content.closing || "").split("\n").length - 1 && <br />}
+                {i < (sc.closing || "").split("\n").length - 1 && <br />}
               </React.Fragment>
             ))}
           </h2>
-          <p className={styles.tickerSub}>{content.closingSub}</p>
+          <p className={styles.tickerSub}>{sc.closingSub}</p>
         </div>
       );
     }
@@ -535,21 +579,32 @@ export default function FinancialTimes({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        className={styles.transitionTrack}
-        style={{
-          transform: `translateY(-${(scene - 1) * 20}%)`,
-          ...(reducedMotion ? { transitionDuration: "0s" } : {}),
-        }}
-      >
-        {[1, 2, 3, 4, 5].map((s) => (
-          <div key={s} className={styles.scene}>
-            {s === scene && renderSceneContent()}
-          </div>
-        ))}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat)}
       </div>
+
       {renderNavIndicators()}
     </div>
   );

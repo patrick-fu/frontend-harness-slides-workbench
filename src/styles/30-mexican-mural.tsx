@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./30-mexican-mural.module.css";
 
@@ -88,6 +88,9 @@ const SCENES = {
   },
 };
 
+const TRANSITION_DURATION = 750;
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 1, 5: 1 };
+
 function MuralSunSVG({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -141,8 +144,6 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       5: ["结语呈现"],
     },
   };
-
-  const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 1, 5: 1 };
 
   const scenes = [1, 2, 3, 4, 5].map((id) => {
     const beatCount = BEAT_COUNTS[id];
@@ -200,6 +201,9 @@ export default function MexicanMural({
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
   useEffect(() => {
     setEntered(false);
@@ -208,6 +212,22 @@ export default function MexicanMural({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
+
+  // Detect scene changes for transition
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -218,9 +238,8 @@ export default function MexicanMural({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
 
-  const renderScene1 = () => {
+  const renderScene1 = (forceEntered = false) => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
     return (
       <div className={styles.scene1}>
@@ -234,10 +253,11 @@ export default function MexicanMural({
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number, forceEntered = false) => {
     const c = SCENES[2][language as keyof typeof SCENES[2]];
     const artists = c.artists as Array<{ name: string; years: string; style: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 3;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 2 : 3;
+    const showEntered = forceEntered || entered;
     return (
       <div className={styles.scene2}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -245,9 +265,9 @@ export default function MexicanMural({
         <div className={styles.artistList}>
           {artists.map((a, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.artistRow, visible && entered ? styles.artistVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.artistRow, visible && showEntered ? styles.artistVisible : ""].filter(Boolean).join(" ");
             return (
-              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.2}s` }}>
+              <div key={i} className={cls} style={reducedMotion || forceEntered ? { opacity: visible ? 1 : 0, filter: visible ? "saturate(1)" : "saturate(0.5)"} : { transitionDelay: `${i * 0.2}s` }}>
                 <div className={styles.artistPortrait} aria-hidden="true">
                   <svg viewBox="0 0 60 60" fill="none">
                     <circle cx="30" cy="30" r="28" fill="currentColor" opacity="0.2" />
@@ -268,10 +288,11 @@ export default function MexicanMural({
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number, forceEntered = false) => {
     const c = SCENES[3][language as keyof typeof SCENES[3]];
     const themes = c.themes as Array<{ icon: string; title: string; desc: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 4;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 2 : 4;
+    const showEntered = forceEntered || entered;
     return (
       <div className={styles.scene3}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -279,9 +300,9 @@ export default function MexicanMural({
         <div className={styles.themeGrid}>
           {themes.map((t, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.themeCard, visible && entered ? styles.themeVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.themeCard, visible && showEntered ? styles.themeVisible : ""].filter(Boolean).join(" ");
             return (
-              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s` }}>
+              <div key={i} className={cls} style={reducedMotion || forceEntered ? { opacity: visible ? 1 : 0, filter: visible ? "saturate(1)" : "saturate(0.5)"} : { transitionDelay: `${i * 0.15}s` }}>
                 <span className={styles.themeIcon}>{t.icon}</span>
                 <span className={styles.themeTitle}>{t.title}</span>
                 <p className={styles.themeDesc}>{t.desc}</p>
@@ -293,21 +314,25 @@ export default function MexicanMural({
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number, forceEntered = false) => {
     const c = SCENES[4][language as keyof typeof SCENES[4]];
     const stats = c.stats as Array<{ value: string; label: string }>;
+    const showStats = beatNum >= 1;
     return (
       <div className={styles.scene4}>
         <span className={styles.sceneLabel}>{c.label}</span>
         <h2 className={styles.sceneHeading}>{c.heading}</h2>
-        {beat >= 1 && (
+        {showStats && (
           <div className={styles.statsRow}>
-            {stats.map((s, i) => (
-              <div key={i} className={styles.statBlock}>
-                <span className={styles.statValue}>{s.value}</span>
-                <span className={styles.statLabel}>{s.label}</span>
-              </div>
-            ))}
+            {stats.map((s, i) => {
+              const cls = [styles.statBlock, forceEntered || entered ? styles.statVisible : ""].filter(Boolean).join(" ");
+              return (
+                <div key={i} className={cls} style={reducedMotion || forceEntered ? { opacity: 1, filter: "saturate(1)" } : { transitionDelay: `${i * 0.15}s` }}>
+                  <span className={styles.statValue}>{s.value}</span>
+                  <span className={styles.statLabel}>{s.label}</span>
+                </div>
+              );
+            })}
           </div>
         )}
         <div className={styles.wallTexture} aria-hidden="true" />
@@ -315,7 +340,7 @@ export default function MexicanMural({
     );
   };
 
-  const renderScene5 = () => {
+  const renderScene5 = (forceEntered = false) => {
     const c = SCENES[5][language as keyof typeof SCENES[5]];
     return (
       <div className={styles.scene5}>
@@ -329,13 +354,13 @@ export default function MexicanMural({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
-      case 5: return renderScene5();
+  const renderSceneFor = (sceneNum: number, beatNum: number, forceEntered = false) => {
+    switch (sceneNum) {
+      case 1: return renderScene1(forceEntered);
+      case 2: return renderScene2(beatNum, forceEntered);
+      case 3: return renderScene3(beatNum, forceEntered);
+      case 4: return renderScene4(beatNum, forceEntered);
+      case 5: return renderScene5(forceEntered);
       default: return null;
     }
   };
@@ -363,15 +388,32 @@ export default function MexicanMural({
     );
   };
 
+  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim].filter(Boolean).join(" ");
+  const incomingLayerClasses = [styles.sceneLayer, isTransitioning && !isTransitionClone ? styles.enterAnim : ""].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`30-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+          </div>
+        </div>
+      )}
+
+      {/* Plaster edge glow during fresco transition */}
+      {isTransitioning && !reducedMotion && (
+        <div className={styles.plasterOverlay} aria-hidden="true" />
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div key={`30-${scene}`} className={styles.track}>
+          {renderSceneFor(scene, beat, isTransitioning)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );

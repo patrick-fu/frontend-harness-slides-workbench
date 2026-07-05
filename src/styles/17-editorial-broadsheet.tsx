@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./17-editorial-broadsheet.module.css";
 
@@ -300,6 +300,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ──────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 750; // ms — page flip 700ms + small buffer
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function EditorialBroadsheet({
@@ -312,7 +317,26 @@ export default function EditorialBroadsheet({
   isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
-  void isTransitionClone;
+
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -329,192 +353,176 @@ export default function EditorialBroadsheet({
     .filter(Boolean)
     .join(" ");
 
-  // ── Render scene content ────────────────────────────────────────────────
+  // ── Render scene content for a given scene number ────────────────────────
 
-  const renderScene1 = () => {
-    const c = SCENES[1][language];
-    const headlineClasses = [
-      styles.headline,
-      language === "zh" ? `${styles.verticalZh} verticalZh` : "",
-    ]
-      .filter(Boolean)
-      .join(" ");
+  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+    const c = SCENES[sceneNum]?.[language] || SCENES[1][language];
 
-    return (
-      <div className={styles.masthead}>
-        <div className={styles.mastheadTop}>
-          <span className={styles.edition}>Vol. XVII</span>
-          <span className={styles.dateLine}>
-            {language === "zh" ? "2026年7月" : "July 2026"}
-          </span>
-          <span className={styles.paperName}>
-            {language === "zh" ? "城市观察" : "The Urban Observer"}
-          </span>
-        </div>
-        <div className={styles.headlineArea}>
-          <div style={{ textAlign: "center" }}>
-            <span className={styles.sectionMarker}>
-              {language === "zh" ? "特别报道" : "Special Report"}
+    if (sceneNum === 1) {
+      const headlineClasses = [
+        styles.headline,
+        language === "zh" ? `${styles.verticalZh} verticalZh` : "",
+      ]
+        .filter(Boolean)
+        .join(" ");
+
+      return (
+        <div className={styles.masthead}>
+          <div className={styles.mastheadTop}>
+            <span className={styles.edition}>Vol. XVII</span>
+            <span className={styles.dateLine}>
+              {language === "zh" ? "2026年7月" : "July 2026"}
             </span>
-            <h1
-              data-testid="style-17-headline"
-              className={headlineClasses}
-            >
-              {c.headline}
-            </h1>
-            <p className={styles.deck}>{c.deck}</p>
+            <span className={styles.paperName}>
+              {language === "zh" ? "城市观察" : "The Urban Observer"}
+            </span>
+          </div>
+          <div className={styles.headlineArea}>
+            <div style={{ textAlign: "center" }}>
+              <span className={styles.sectionMarker}>
+                {language === "zh" ? "特别报道" : "Special Report"}
+              </span>
+              <h1
+                data-testid="style-17-headline"
+                className={headlineClasses}
+              >
+                {c.headline}
+              </h1>
+              <p className={styles.deck}>{c.deck}</p>
+            </div>
           </div>
         </div>
-      </div>
-    );
-  };
-
-  const renderScene2 = () => {
-    const c = SCENES[2][language];
-    return (
-      <div className={styles.leadStory}>
-        <div className={styles.storyHeader}>
-          <p className={styles.storyKicker}>{c.kicker}</p>
-          <h2 className={styles.storyHeadline}>{c.storyHeadline}</h2>
-          <p className={styles.storyDeck}>{c.storyDeck}</p>
-        </div>
-        <p className={styles.byline}>{c.byline}</p>
-        {beat >= 1 && (
-          <div className={styles.storyBody}>
-            {(c.body || []).map((para, i) => (
-              <p
-                key={i}
-                className={i === 0 ? styles.dropCap : ""}
-                style={{
-                  opacity: 1,
-                  transform: "none",
-                  transition: reducedMotion
-                    ? "none"
-                    : `opacity 0.6s ease ${i * 0.1}s, transform 0.6s ease ${i * 0.1}s`,
-                }}
-              >
-                {para}
-              </p>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  const renderScene3 = () => {
-    const c = SCENES[3][language];
-    const stats = c.stats || [];
-    return (
-      <div className={styles.dataScene}>
-        <div className={styles.dataHeader}>
-          <span className={styles.dataHeaderLabel}>{c.dataLabel}</span>
-          <h2 className={styles.dataHeaderTitle}>{c.dataTitle}</h2>
-        </div>
-        <div className={styles.statBlocks}>
-          {stats.map((stat, i) => {
-            const visible = i <= beat;
-            return (
-              <div
-                key={i}
-                className={styles.statBlock}
-                style={{
-                  opacity: visible ? 1 : 0,
-                  transform:
-                    visible ? "none" : "translateX(-2cqw)",
-                  transition: reducedMotion
-                    ? "none"
-                    : `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s`,
-                }}
-              >
-                <span className={styles.statNumber}>{stat.number}</span>
-                <div className={styles.statLabel}>
-                  <h3 className={styles.statTitle}>{stat.title}</h3>
-                  <p className={styles.statDesc}>{stat.desc}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
-
-  const renderScene4 = () => {
-    const c = SCENES[4][language];
-    const captions = c.captions || [];
-    return (
-      <div className={styles.photoEssay}>
-        <div className={styles.essayHeader}>
-          <span className={styles.essayLabel}>{c.essayLabel}</span>
-          <h2 className={styles.essayTitle}>{c.essayTitle}</h2>
-        </div>
-        <div className={styles.photoGrid}>
-          {captions.map((cap, i) => {
-            const visible = i <= beat;
-            return (
-              <div
-                key={i}
-                className={styles.photoPanel}
-                style={{
-                  opacity: visible ? 1 : 0,
-                  transition: reducedMotion
-                    ? "none"
-                    : `opacity 0.5s ease ${i * 0.2}s`,
-                }}
-              >
-                <div className={styles.photoPlaceholder}>
-                  <span className={styles.photoPlaceholderLabel}>
-                    {cap.label}
-                  </span>
-                </div>
-                <p className={styles.photoCaption}>
-                  <strong>{cap.label}</strong>
-                  {cap.text}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
-
-  const renderScene5 = () => {
-    const c = SCENES[5][language];
-    return (
-      <div className={styles.editorial}>
-        <div className={styles.editorialRule} />
-        <span className={styles.editorialLabel}>{c.editorialLabel}</span>
-        <h2
-          data-testid="style-17-headline"
-          className={styles.editorialHeadline}
-        >
-          {c.editorialHeadline}
-        </h2>
-        <p className={styles.editorialBody}>{c.editorialBody}</p>
-        <span className={styles.editorialSignature}>
-          {c.editorialSignature}
-        </span>
-      </div>
-    );
-  };
-
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1:
-        return renderScene1();
-      case 2:
-        return renderScene2();
-      case 3:
-        return renderScene3();
-      case 4:
-        return renderScene4();
-      case 5:
-        return renderScene5();
-      default:
-        return null;
+      );
     }
+
+    if (sceneNum === 2) {
+      return (
+        <div className={styles.leadStory}>
+          <div className={styles.storyHeader}>
+            <p className={styles.storyKicker}>{c.kicker}</p>
+            <h2 className={styles.storyHeadline}>{c.storyHeadline}</h2>
+            <p className={styles.storyDeck}>{c.storyDeck}</p>
+          </div>
+          <p className={styles.byline}>{c.byline}</p>
+          {beatNum >= 1 && (
+            <div className={styles.storyBody}>
+              {(c.body || []).map((para, i) => (
+                <p
+                  key={i}
+                  className={i === 0 ? styles.dropCap : ""}
+                  style={{
+                    opacity: 1,
+                    transform: "none",
+                    transition: reducedMotion
+                      ? "none"
+                      : `opacity 0.6s ease ${i * 0.1}s, transform 0.6s ease ${i * 0.1}s`,
+                  }}
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    if (sceneNum === 3) {
+      const stats = c.stats || [];
+      return (
+        <div className={styles.dataScene}>
+          <div className={styles.dataHeader}>
+            <span className={styles.dataHeaderLabel}>{c.dataLabel}</span>
+            <h2 className={styles.dataHeaderTitle}>{c.dataTitle}</h2>
+          </div>
+          <div className={styles.statBlocks}>
+            {stats.map((stat, i) => {
+              const visible = i <= beatNum;
+              return (
+                <div
+                  key={i}
+                  className={styles.statBlock}
+                  style={{
+                    opacity: visible ? 1 : 0,
+                    transform:
+                      visible ? "none" : "translateX(-2cqw)",
+                    transition: reducedMotion
+                      ? "none"
+                      : `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s`,
+                  }}
+                >
+                  <span className={styles.statNumber}>{stat.number}</span>
+                  <div className={styles.statLabel}>
+                    <h3 className={styles.statTitle}>{stat.title}</h3>
+                    <p className={styles.statDesc}>{stat.desc}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 4) {
+      const captions = c.captions || [];
+      return (
+        <div className={styles.photoEssay}>
+          <div className={styles.essayHeader}>
+            <span className={styles.essayLabel}>{c.essayLabel}</span>
+            <h2 className={styles.essayTitle}>{c.essayTitle}</h2>
+          </div>
+          <div className={styles.photoGrid}>
+            {captions.map((cap, i) => {
+              const visible = i <= beatNum;
+              return (
+                <div
+                  key={i}
+                  className={styles.photoPanel}
+                  style={{
+                    opacity: visible ? 1 : 0,
+                    transition: reducedMotion
+                      ? "none"
+                      : `opacity 0.5s ease ${i * 0.2}s`,
+                  }}
+                >
+                  <div className={styles.photoPlaceholder}>
+                    <span className={styles.photoPlaceholderLabel}>
+                      {cap.label}
+                    </span>
+                  </div>
+                  <p className={styles.photoCaption}>
+                    <strong>{cap.label}</strong>
+                    {cap.text}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 5) {
+      return (
+        <div className={styles.editorial}>
+          <div className={styles.editorialRule} />
+          <span className={styles.editorialLabel}>{c.editorialLabel}</span>
+          <h2
+            data-testid="style-17-headline"
+            className={styles.editorialHeadline}
+          >
+            {c.editorialHeadline}
+          </h2>
+          <p className={styles.editorialBody}>{c.editorialBody}</p>
+          <span className={styles.editorialSignature}>
+            {c.editorialSignature}
+          </span>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   // ── Navigation ──────────────────────────────────────────────────────────
@@ -553,25 +561,36 @@ export default function EditorialBroadsheet({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div
       data-testid="style-17-root"
       className={rootClasses}
       style={reducedMotion ? { transitionDuration: "0s" } : undefined}
     >
-      <div
-        className={styles.transitionTrack}
-        style={{
-          transform: `translateY(-${(scene - 1) * 20}%)`,
-          ...(reducedMotion ? { transitionDuration: "0s" } : {}),
-        }}
-      >
-        {[1, 2, 3, 4, 5].map((s) => (
-          <div key={s} className={styles.scene}>
-            {s === scene && renderSceneContent()}
-          </div>
-        ))}
+      {/* Outgoing scene (page flip exit) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+        </div>
+      )}
+
+      {/* Incoming / current scene (page flip enter) */}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat)}
       </div>
+
       {renderNav()}
     </div>
   );

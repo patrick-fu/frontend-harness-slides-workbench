@@ -36,6 +36,13 @@
   z-index: 0;
 }
 
+/* ── Scene transition layers ─────────────────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
 .track {
   width: 100%;
   height: 100%;
@@ -50,6 +57,65 @@
 @keyframes sceneEnter {
   from { opacity: 0; transform: translateY(1.5cqh); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Scene-to-scene: Fresco Reveal ──────────────────────────────────── */
+
+.exitAnim {
+  animation: frescoExit 0.75s ease-in-out forwards;
+  z-index: 1;
+}
+
+@keyframes frescoExit {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.enterAnim {
+  animation: frescoReveal 0.75s ease-in-out both;
+  z-index: 2;
+}
+
+@keyframes frescoReveal {
+  0% {
+    clip-path: polygon(0% 100%, 0% 100%, 0% 100%);
+    opacity: 0.85;
+  }
+  100% {
+    clip-path: polygon(-50% 100%, 100% -50%, 100% 150%);
+    opacity: 1;
+  }
+}
+
+/* ── Plaster edge overlay ───────────────────────────────────────────── */
+
+.plasterOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(244, 162, 97, 0.12) 45%,
+    rgba(231, 111, 81, 0.18) 50%,
+    rgba(244, 162, 97, 0.12) 55%,
+    transparent 100%
+  );
+  animation: plasterSweep 0.75s ease-in-out forwards;
+}
+
+@keyframes plasterSweep {
+  0% {
+    clip-path: polygon(0% 100%, 0% 100%, 0% 100%);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    clip-path: polygon(-50% 100%, 100% -50%, 100% 150%);
+    opacity: 0;
+  }
 }
 
 /* ─── Scene 1: Title ─── */
@@ -154,12 +220,14 @@
   border-left: 0.8cqh solid var(--style-30-terra);
   opacity: 0;
   transform: translateX(-3cqw);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  filter: saturate(0.5);
+  transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
 }
 
 .artistVisible {
   opacity: 1;
   transform: translateX(0);
+  filter: saturate(1.2);
 }
 
 .artistPortrait {
@@ -224,12 +292,14 @@
   border-top: 0.6cqh solid var(--style-30-olive);
   opacity: 0;
   transform: translateY(2cqh);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  filter: saturate(0.5);
+  transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
 }
 
 .themeVisible {
   opacity: 1;
   transform: translateY(0);
+  filter: saturate(1.2);
 }
 
 .themeIcon {
@@ -276,6 +346,14 @@
   text-align: left;
   border-left: 0.5cqh solid var(--style-30-sun);
   padding-left: 2cqw;
+  opacity: 0;
+  filter: saturate(0.5);
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+.statVisible {
+  opacity: 1;
+  filter: saturate(1.2);
 }
 
 .statValue {

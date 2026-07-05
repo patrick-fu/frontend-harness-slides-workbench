@@ -45,21 +45,44 @@
   pointer-events: none;
 }
 
-/* ── Transition Track ──────────────────────────────────────────────────── */
+/* ── Scene-to-scene transition: frame pan + zoom (Figma canvas nav) ───── */
 
-.transitionTrack {
-  position: relative;
-  width: 100%;
-  height: 100%;
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
 }
 
-.animateSceneEnter {
-  animation: sceneEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.exitAnim {
+  animation: figmaZoomOut 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 1;
 }
 
-@keyframes sceneEnter {
-  from { opacity: 0; transform: translateY(1.5cqh); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes figmaZoomOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    opacity: 0.2;
+    transform: scale(0.4) translate(-20cqw, -10cqh);
+  }
+}
+
+.enterAnim {
+  animation: figmaZoomIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 2;
+}
+
+@keyframes figmaZoomIn {
+  from {
+    opacity: 0.2;
+    transform: scale(0.4) translate(20cqw, 10cqh);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
 }
 
 /* ── Figma Toolbar ─────────────────────────────────────────────────────── */

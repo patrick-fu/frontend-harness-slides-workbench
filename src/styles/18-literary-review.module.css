@@ -9,6 +9,79 @@
   background: var(--style-18-bg, #faf6ee);
   color: var(--style-18-ink, #1a1a1a);
   font-family: "Lora", "cjk:Noto Serif SC", Georgia, serif;
+  perspective: 2500px;
+}
+
+/* ── Scene-to-Scene: Book Spread Turn (two pages flip together) ───────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+
+/* Outgoing spread: both pages rotate away from center spine */
+.exitAnim {
+  animation: bookSpreadExit 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: center center;
+  z-index: 2;
+}
+
+@keyframes bookSpreadExit {
+  0% {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotateY(170deg);
+    opacity: 0;
+  }
+}
+
+/* Incoming spread: rotates in from behind */
+.enterAnim {
+  animation: bookSpreadEnter 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: center center;
+  z-index: 1;
+}
+
+@keyframes bookSpreadEnter {
+  0% {
+    transform: rotateY(-170deg);
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+/* Center spine shadow during transition */
+.exitAnim::before,
+.enterAnim::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(0, 0, 0, 0.08) 20%,
+    rgba(0, 0, 0, 0.12) 50%,
+    rgba(0, 0, 0, 0.08) 80%,
+    transparent
+  );
+  pointer-events: none;
+  z-index: 5;
 }
 
 /* ── Transition track ──────────────────────────────────────────────────── */
@@ -421,12 +494,21 @@
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
 
 .reducedMotion .track,
-.reducedMotion .navIndicator {
+.reducedMotion .navIndicator,
+.reducedMotion .sceneLayer {
   transition-duration: 0s !important;
+  animation-duration: 0s !important;
 }
 
-.reducedMotion .animateSceneEnter {
-  animation-duration: 0s !important;
+.reducedMotion .animateSceneEnter,
+.reducedMotion .exitAnim,
+.reducedMotion .enterAnim {
+  animation: none !important;
+}
+
+.reducedMotion .exitAnim::before,
+.reducedMotion .enterAnim::before {
+  display: none;
 }
 
 /* ── Thumbnail mode ─────────────────────────────────────────────────────── */

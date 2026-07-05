@@ -16,6 +16,11 @@
 
 /* ── Transition track ──────────────────────────────────────────────────── */
 
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
 .track {
   position: absolute;
   inset: 0;
@@ -36,6 +41,54 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+/* ── Scene-to-scene transition: rule-draw reveal ──────────────────────── */
+
+.exitAnim {
+  animation: sceneExitFade 0.7s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+  z-index: 1;
+}
+
+@keyframes sceneExitFade {
+  0% { opacity: 1; }
+  71.4% { opacity: 1; }  /* hold for first 500ms */
+  100% { opacity: 0; }   /* fade in last 200ms */
+}
+
+.enterAnim {
+  animation: sceneRevealClip 0.7s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+  z-index: 2;
+}
+
+@keyframes sceneRevealClip {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0% 0);
+  }
+}
+
+.sweepRule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: var(--style-02-accent, #d32f2f);
+  z-index: 20;
+  pointer-events: none;
+  animation: sweepRuleMove 0.7s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+@keyframes sweepRuleMove {
+  from {
+    top: 0%;
+  }
+  to {
+    top: 100%;
   }
 }
 
@@ -423,8 +476,15 @@
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
-.reducedMotion .animateSceneEnter {
-  animation-duration: 0s;
+.reducedMotion .animateSceneEnter,
+.reducedMotion .enterAnim,
+.reducedMotion .exitAnim,
+.reducedMotion .sweepRule {
+  animation-duration: 0s !important;
+}
+
+.reducedMotion .enterAnim {
+  clip-path: inset(0 0 0% 0) !important;
 }
 
 .reducedMotion .metricBlock,

@@ -25,6 +25,11 @@
 
 /* ── Transition track ──────────────────────────────────────────────────── */
 
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
 .track {
   position: absolute;
   inset: 0;
@@ -36,18 +41,71 @@
   z-index: 2;
 }
 
-.animateSceneEnter {
-  animation: sceneEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* ── Scene-to-scene: Collage scatter-and-reassemble ───────────────────── */
+
+.exitAnim {
+  animation: zineScatterExit 0.5s ease-in forwards;
+  z-index: 1;
+  --scatter-x: 8cqw;
+  --scatter-y: 5cqh;
+  --scatter-rot: 4deg;
 }
 
-@keyframes sceneEnter {
-  from {
-    opacity: 0;
-    transform: translateY(1.5cqh);
-  }
-  to {
+@keyframes zineScatterExit {
+  0% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  40% {
+    opacity: 0.7;
+    transform: translate(calc(var(--scatter-x) * 0.4), calc(var(--scatter-y) * 0.4)) rotate(calc(var(--scatter-rot) * 0.5)) scale(1.02);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--scatter-x), var(--scatter-y)) rotate(var(--scatter-rot)) scale(0.92);
+  }
+}
+
+.enterAnim {
+  animation: zineAssembleEnter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+  z-index: 2;
+  --fly-x: -10cqw;
+  --fly-y: -6cqh;
+  --fly-rot: -5deg;
+}
+
+@keyframes zineAssembleEnter {
+  0% {
+    opacity: 0;
+    transform: translate(var(--fly-x), var(--fly-y)) rotate(var(--fly-rot)) scale(0.9);
+  }
+  60% {
+    opacity: 0.85;
+    transform: translate(calc(var(--fly-x) * -0.08), calc(var(--fly-y) * -0.08)) rotate(calc(var(--fly-rot) * -0.15)) scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
+
+/* Beat-level pop-in for zine elements */
+.zineBeatPop {
+  animation: zinePopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes zinePopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(var(--pop-rot, -3deg));
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.15) rotate(calc(var(--pop-rot, -3deg) * 0.3));
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(var(--pop-rot, 0deg));
   }
 }
 
@@ -445,7 +503,9 @@
   transition-duration: 0s !important;
 }
 
-.reducedMotion .animateSceneEnter {
+.reducedMotion .exitAnim,
+.reducedMotion .enterAnim,
+.reducedMotion .zineBeatPop {
   animation-duration: 0s !important;
 }
 

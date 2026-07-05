@@ -1,6 +1,9 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./27-art-deco.module.css";
+
+const TRANSITION_DURATION = 700;
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
 
 function useFonts() {
   useEffect(() => {
@@ -225,6 +228,9 @@ export default function ArtDeco({
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
   useEffect(() => {
     setEntered(false);
@@ -233,6 +239,22 @@ export default function ArtDeco({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
+
+  // Detect scene changes for transition
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -243,7 +265,6 @@ export default function ArtDeco({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
 
   const renderScene1 = () => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
@@ -265,10 +286,10 @@ export default function ArtDeco({
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number, effectiveEntered: boolean) => {
     const c = SCENES[2][language as keyof typeof SCENES[2]];
     const elements = c.elements as Array<{ icon: string; name: string; desc: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 4;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 2 : 4;
     return (
       <div className={styles.scene2}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -276,7 +297,7 @@ export default function ArtDeco({
         <div className={styles.decoGrid}>
           {elements.map((el, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.decoCard, visible && entered ? styles.decoCardVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.decoCard, visible && effectiveEntered ? styles.decoCardVisible : ""].filter(Boolean).join(" ");
             return (
               <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s` }}>
                 <span className={styles.decoIcon}>{el.icon}</span>
@@ -290,10 +311,10 @@ export default function ArtDeco({
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number, effectiveEntered: boolean) => {
     const c = SCENES[3][language as keyof typeof SCENES[3]];
     const buildings = c.buildings as Array<{ name: string; year: string; city: string; height: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 3;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 2 : 3;
     return (
       <div className={styles.scene3}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -301,7 +322,7 @@ export default function ArtDeco({
         <div className={styles.buildingList}>
           {buildings.map((b, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.buildingRow, visible && entered ? styles.buildingVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.buildingRow, visible && effectiveEntered ? styles.buildingVisible : ""].filter(Boolean).join(" ");
             return (
               <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.2}s` }}>
                 <div className={styles.buildingSpire} aria-hidden="true">
@@ -319,10 +340,10 @@ export default function ArtDeco({
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number, effectiveEntered: boolean) => {
     const c = SCENES[4][language as keyof typeof SCENES[4]];
     const materials = c.materials as Array<{ name: string; use: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 4;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 2 : 4;
     return (
       <div className={styles.scene4}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -330,7 +351,7 @@ export default function ArtDeco({
         <div className={styles.materialGrid}>
           {materials.map((m, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.materialCard, visible && entered ? styles.materialVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.materialCard, visible && effectiveEntered ? styles.materialVisible : ""].filter(Boolean).join(" ");
             return (
               <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s` }}>
                 <span className={styles.materialName}>{m.name}</span>
@@ -356,12 +377,13 @@ export default function ArtDeco({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  const renderSceneFor = (sceneNum: number, beatNum: number, isOutgoing: boolean) => {
+    const effectiveEntered = isOutgoing ? true : entered;
+    switch (sceneNum) {
       case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
+      case 2: return renderScene2(beatNum, effectiveEntered);
+      case 3: return renderScene3(beatNum, effectiveEntered);
+      case 4: return renderScene4(beatNum, effectiveEntered);
       case 5: return renderScene5();
       default: return null;
     }
@@ -390,15 +412,27 @@ export default function ArtDeco({
     );
   };
 
+  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim].filter(Boolean).join(" ");
+  const incomingLayerClasses = [styles.sceneLayer, isTransitioning && !isTransitionClone ? styles.enterAnim : ""].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`27-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div className={styles.track}>
+          {renderSceneFor(scene, beat, false)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );

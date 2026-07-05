@@ -37,7 +37,75 @@
   pointer-events: none;
 }
 
-/* ── Transition Track ──────────────────────────────────────────────────── */
+/* ── Transition: Scene layers (section divider rule) ─────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
+/* Outgoing: show only above divider (top 45%), fade in last 100ms of 350ms */
+.exitAnim {
+  animation: sectionDividerExit 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 2;
+}
+
+@keyframes sectionDividerExit {
+  0% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+  71.4% {
+    clip-path: inset(0 0 55% 0);
+    opacity: 1;
+  }
+  100% {
+    clip-path: inset(0 0 55% 0);
+    opacity: 0;
+  }
+}
+
+/* Incoming: revealed below divider progressively, then full screen */
+.enterAnim {
+  animation: sectionDividerEnter 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 1;
+}
+
+@keyframes sectionDividerEnter {
+  0% {
+    clip-path: inset(45% 0 0 100%);
+  }
+  71.4% {
+    clip-path: inset(45% 0 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Section divider: 3px black rule drawing left→right at 45% from top */
+.dividerRule {
+  position: absolute;
+  top: calc(45% - 1.5px);
+  left: 0;
+  height: 3px;
+  background: var(--style-42-ink, #1a1a1a);
+  z-index: 5;
+  pointer-events: none;
+  animation: dividerRuleDraw 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  box-shadow: 0 0 0.4cqh rgba(0, 0, 0, 0.15);
+}
+
+@keyframes dividerRuleDraw {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* ── Transition Track (legacy) ──────────────────────────────────────────── */
 
 .transitionTrack {
   position: relative;
@@ -592,4 +660,14 @@
 .reducedMotion * {
   transition-duration: 0s !important;
   animation-duration: 0s !important;
+}
+
+.reducedMotion .dividerRule {
+  display: none;
+}
+
+.reducedMotion .exitAnim,
+.reducedMotion .enterAnim {
+  animation: none !important;
+  clip-path: none !important;
 }

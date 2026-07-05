@@ -1,6 +1,12 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./08-terminal-glow.module.css";
+import { useFLIP } from "../hooks/useFLIP";
+
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 700; // ms — scan-out 300 + gap 80 + scan-in 300 + buffer 20
+const BEAT_COUNTS: Record<number, number> = { 1: 2, 2: 2, 3: 2, 4: 3, 5: 1 };
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -494,6 +500,33 @@ export default function TerminalGlow({
 }: BespokeStyleProps) {
   useFonts();
 
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // FLIP for output areas where new lines push old ones up
+  const { ref: outputRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 300,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
+
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -510,16 +543,9 @@ export default function TerminalGlow({
     .filter(Boolean)
     .join(" ");
 
-  const trackClasses = [
-    styles.track,
-    !isTransitionClone && styles.animateSceneEnter,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  // ── Scene renderers (parameterized by beatNum) ──────────────────────────
 
-  // ── Scene renderers ─────────────────────────────────────────────────────
-
-  const renderScene1 = () => {
+  const renderScene1 = (beatNum: number, isCurrent: boolean) => {
     const c = SCENES[1][language];
     const bootLines = c.bootLines || [];
     return (
@@ -527,7 +553,7 @@ export default function TerminalGlow({
         <TermChrome title={c.termTitle || ""} path={c.termPath || ""} />
         <div className={styles.bootLines}>
           {bootLines.map((line, i) => {
-            const visible = i <= beat * 3 + 2;
+            const visible = i <= beatNum * 3 + 2;
             const lineClasses = [
               styles.bootLine,
               visible ? styles.bootLineVisible : "",
@@ -552,7 +578,7 @@ export default function TerminalGlow({
             );
           })}
         </div>
-        {beat >= 1 && (
+        {beatNum >= 1 && (
           <>
             <h1
               className={styles.termTitleMain}
@@ -570,10 +596,10 @@ export default function TerminalGlow({
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number, isCurrent: boolean) => {
     const c = SCENES[2][language];
     const output = c.output || [];
-    const visibleCount = beat >= 1 ? output.length : 0;
+    const visibleCount = beatNum >= 1 ? output.length : 0;
     return (
       <div className={styles.scene2}>
         <TermChrome title={c.termTitle || ""} path={c.termPath || ""} />
@@ -582,7 +608,10 @@ export default function TerminalGlow({
           <span className={styles.promptCmd}>{c.cmd}</span>
           <span className={styles.cursor} aria-hidden="true" />
         </div>
-        <div className={styles.outputBlock}>
+        <div
+          ref={isCurrent ? outputRef : undefined}
+          className={styles.outputBlock}
+        >
           {output.map((line, i) => {
             const visible = i < visibleCount;
             const lineClasses = [
@@ -614,10 +643,10 @@ export default function TerminalGlow({
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number, _isCurrent: boolean) => {
     const c = SCENES[3][language];
     const codeLines = c.codeLines || [];
-    const visibleCount = beat >= 1 ? codeLines.length : 0;
+    const visibleCount = beatNum >= 1 ? codeLines.length : 0;
     return (
       <div className={styles.scene3}>
         <TermChrome title={c.termTitle || ""} path={c.termPath || ""} />
@@ -698,10 +727,10 @@ export default function TerminalGlow({
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number, _isCurrent: boolean) => {
     const c = SCENES[4][language];
     const cards = c.cards || [];
-    const visibleCount = Math.min(beat * 3, 6);
+    const visibleCount = Math.min(beatNum * 3, 6);
     return (
       <div className={styles.scene4}>
         <TermChrome title={c.termTitle || ""} path={c.termPath || ""} />
@@ -765,7 +794,7 @@ export default function TerminalGlow({
     );
   };
 
-  const renderScene5 = () => {
+  const renderScene5 = (_beatNum: number, _isCurrent: boolean) => {
     const c = SCENES[5][language];
     return (
       <div className={styles.scene5}>
@@ -782,18 +811,18 @@ export default function TerminalGlow({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  const renderSceneFor = (sceneNum: number, beatNum: number, isCurrent: boolean) => {
+    switch (sceneNum) {
       case 1:
-        return renderScene1();
+        return renderScene1(beatNum, isCurrent);
       case 2:
-        return renderScene2();
+        return renderScene2(beatNum, isCurrent);
       case 3:
-        return renderScene3();
+        return renderScene3(beatNum, isCurrent);
       case 4:
-        return renderScene4();
+        return renderScene4(beatNum, isCurrent);
       case 5:
-        return renderScene5();
+        return renderScene5(beatNum, isCurrent);
       default:
         return null;
     }
@@ -833,18 +862,41 @@ export default function TerminalGlow({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      {/* CRT effects */}
+      {/* CRT effects (persistent across transitions) */}
       <div className={styles.scanlines} aria-hidden="true" />
       <div className={styles.vignette} aria-hidden="true" />
 
-      <div
-        key={scene}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (scan-out animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, false)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene (scan-in animation) */}
+      <div className={incomingLayerClasses}>
+        <div
+          key={`08-${scene}`}
+          className={styles.track}
+        >
+          {renderSceneFor(scene, beat, true)}
+        </div>
       </div>
 
       {renderNav()}

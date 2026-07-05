@@ -39,6 +39,33 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Scene-to-Scene Transition ─────────────────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.enterAnim {
+  animation: lineReveal 0.5s linear forwards;
+}
+
+@keyframes lineReveal {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0% 0); }
+}
+
+.exitAnim {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0.2; }
+}
+
 /* ── Scene 1: Cover ────────────────────────────────────────────────────── */
 
 .cover {

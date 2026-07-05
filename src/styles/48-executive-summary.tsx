@@ -1,6 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./48-executive-summary.module.css";
+
+/* ── Transition constants ──────────────────────────────────────────────── */
+
+const TRANSITION_DURATION = 850; // ms — outgoing 250ms + incoming 600ms
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 2, 4: 2, 5: 2 };
 
 /* ── Content ─────────────────────────────────────────────────────────────── */
 
@@ -385,6 +390,25 @@ export default function ExecutiveSummary({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
 
   useEffect(() => {
     const id = "style-48-fonts";
@@ -414,14 +438,13 @@ export default function ExecutiveSummary({
   );
 
   const data = SCENES[language];
-  const sceneData = data.scenes[scene - 1];
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : ""]
     .filter(Boolean)
     .join(" ");
 
   /* Scene 1: Header */
-  const renderHeader = () => {
-    const s = sceneData as (typeof data.scenes)[0];
+  const renderHeader = (sceneNum: number, _beatNum: number, _isEntered: boolean) => {
+    const s = data.scenes[sceneNum - 1] as (typeof data.scenes)[0];
     return (
       <div className={styles.pageHeader}>
         <div className={styles.pageHeaderTop}>
@@ -453,9 +476,9 @@ export default function ExecutiveSummary({
   };
 
   /* Scene 2: Key Metrics (HERO) */
-  const renderMetrics = () => {
-    const s = sceneData as (typeof data.scenes)[1];
-    const visibleCount = Math.min(beat * 2 + 2, s.metrics.length);
+  const renderMetrics = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    const s = data.scenes[sceneNum - 1] as (typeof data.scenes)[1];
+    const visibleCount = Math.min(beatNum * 2 + 2, s.metrics.length);
     return (
       <div className={styles.metrics}>
         <div className={styles.metricsHeader}>
@@ -468,8 +491,8 @@ export default function ExecutiveSummary({
               key={m.label}
               className={styles.metricCard}
               style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "translateY(0)" : "translateY(0.8cqh)",
+                opacity: isEntered ? 1 : 0,
+                transform: isEntered ? "translateY(0)" : "translateY(0.8cqh)",
                 transition: "opacity 0.4s ease, transform 0.4s ease",
                 transitionDelay: `${i * 0.08}s`,
               }}
@@ -499,9 +522,9 @@ export default function ExecutiveSummary({
   };
 
   /* Scene 3: Priorities */
-  const renderPriorities = () => {
-    const s = sceneData as (typeof data.scenes)[2];
-    const visibleCount = Math.min(beat * 2 + 2, s.items.length);
+  const renderPriorities = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    const s = data.scenes[sceneNum - 1] as (typeof data.scenes)[2];
+    const visibleCount = Math.min(beatNum * 2 + 2, s.items.length);
     return (
       <div className={styles.priorities}>
         <div className={styles.prioritiesHeader}>
@@ -514,8 +537,8 @@ export default function ExecutiveSummary({
               key={i}
               className={styles.priorityItem}
               style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "translateX(0)" : "translateX(-0.8cqh)",
+                opacity: isEntered ? 1 : 0,
+                transform: isEntered ? "translateX(0)" : "translateX(-0.8cqh)",
                 transition: "opacity 0.4s ease, transform 0.4s ease",
                 transitionDelay: `${i * 0.1}s`,
               }}
@@ -534,9 +557,9 @@ export default function ExecutiveSummary({
   };
 
   /* Scene 4: Risks */
-  const renderRisks = () => {
-    const s = sceneData as (typeof data.scenes)[3];
-    const visibleCount = Math.min(beat * 2 + 2, s.risks.length);
+  const renderRisks = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    const s = data.scenes[sceneNum - 1] as (typeof data.scenes)[3];
+    const visibleCount = Math.min(beatNum * 2 + 2, s.risks.length);
     return (
       <div className={styles.risks}>
         <div className={styles.risksHeader}>
@@ -549,8 +572,8 @@ export default function ExecutiveSummary({
               key={i}
               className={styles.riskCard}
               style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "scale(1)" : "scale(0.97)",
+                opacity: isEntered ? 1 : 0,
+                transform: isEntered ? "scale(1)" : "scale(0.97)",
                 transition: "opacity 0.4s ease, transform 0.4s ease",
                 transitionDelay: `${i * 0.1}s`,
               }}
@@ -582,8 +605,8 @@ export default function ExecutiveSummary({
   };
 
   /* Scene 5: Next Steps */
-  const renderNext = () => {
-    const s = sceneData as (typeof data.scenes)[4];
+  const renderNext = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    const s = data.scenes[sceneNum - 1] as (typeof data.scenes)[4];
     return (
       <div className={styles.nextSteps}>
         <div className={styles.nextHeader}>
@@ -596,9 +619,9 @@ export default function ExecutiveSummary({
               key={i}
               className={styles.nextItem}
               style={{
-                opacity: entered && (beat >= 1 || i === 0) ? 1 : 0,
+                opacity: isEntered && (beatNum >= 1 || i === 0) ? 1 : 0,
                 transform:
-                  entered && (beat >= 1 || i === 0)
+                  isEntered && (beatNum >= 1 || i === 0)
                     ? "translateX(0)"
                     : "translateX(-0.8cqh)",
                 transition: "opacity 0.4s ease, transform 0.4s ease",
@@ -652,28 +675,49 @@ export default function ExecutiveSummary({
     );
   };
 
-  const renderScene = () => {
-    switch (scene) {
+  const renderSceneFor = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    switch (sceneNum) {
       case 1:
-        return renderHeader();
+        return renderHeader(sceneNum, beatNum, isEntered);
       case 2:
-        return renderMetrics();
+        return renderMetrics(sceneNum, beatNum, isEntered);
       case 3:
-        return renderPriorities();
+        return renderPriorities(sceneNum, beatNum, isEntered);
       case 4:
-        return renderRisks();
+        return renderRisks(sceneNum, beatNum, isEntered);
       case 5:
-        return renderNext();
+        return renderNext(sceneNum, beatNum, isEntered);
       default:
         return null;
     }
   };
 
+  /* Layer classes */
+  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim]
+    .filter(Boolean)
+    .join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <div className={rootClasses}>
-      <div key={`48-${scene}`} className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}>
-        {renderScene()}
+      {/* Outgoing scene (typewriter exit) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat, entered)}
       </div>
+
       {renderNav()}
     </div>
   );

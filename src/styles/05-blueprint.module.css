@@ -52,6 +52,11 @@
   z-index: 1;
 }
 
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
 .animateSceneEnter {
   animation: sceneEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -65,6 +70,66 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* ── Scene-to-scene transition: grid-line dissolve ─────────────────────── */
+
+.exitAnim {
+  animation: gridExit 600ms ease-in forwards;
+}
+
+.enterAnim {
+  animation: gridEnter 600ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
+}
+
+@keyframes gridExit {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+    clip-path: inset(0 0 0 0);
+  }
+  60% {
+    opacity: 0.4;
+    filter: blur(1px);
+    clip-path: inset(3% 3% 3% 3%);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(3px);
+    clip-path: inset(8% 8% 8% 8%);
+  }
+}
+
+@keyframes gridEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.985);
+    clip-path: inset(5% 5% 5% 5%);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Grid background pulse during transition */
+.transitioning .gridMajor {
+  animation: gridMajorPulse 800ms ease-in-out;
+}
+
+.transitioning .gridMinor {
+  animation: gridMinorPulse 800ms ease-in-out;
+}
+
+@keyframes gridMajorPulse {
+  0%, 100% { opacity: 1; }
+  40% { opacity: 0.4; }
+}
+
+@keyframes gridMinorPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 /* ── Corner registration marks ─────────────────────────────────────────── */
@@ -541,11 +606,15 @@
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
 .reducedMotion .animateSceneEnter,
+.reducedMotion .enterAnim,
+.reducedMotion .exitAnim,
 .reducedMotion .sysLayer,
 .reducedMotion .flowNode,
 .reducedMotion .specBlock,
 .reducedMotion .rulerNumber,
-.reducedMotion .rulerTick {
+.reducedMotion .rulerTick,
+.reducedMotion .transitioning .gridMajor,
+.reducedMotion .transitioning .gridMinor {
   animation-duration: 0s !important;
   transition-duration: 0s !important;
 }

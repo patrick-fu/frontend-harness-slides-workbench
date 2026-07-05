@@ -22,7 +22,65 @@
   user-select: none;
 }
 
-/* ── Transition Track ──────────────────────────────────────────────────── */
+/* ── Scene-to-Scene Transition ─────────────────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.exitAnim {
+  animation: policyExit 0.3s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes policyExit {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.enterAnim {
+  animation: policyEnter 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.05s both;
+  z-index: 2;
+}
+
+@keyframes policyEnter {
+  from {
+    opacity: 0;
+    transform: translateX(1cqw);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Margin rule — vertical accent that draws from top */
+.marginRule {
+  position: absolute;
+  left: 5cqw;
+  top: 0;
+  width: 0.3cqh;
+  background: #1a3a6c;
+  z-index: 5;
+  animation: marginRuleDraw 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  border-radius: 0 0 0.15cqh 0.15cqh;
+}
+
+@keyframes marginRuleDraw {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+/* ── Transition Track (legacy) ──────────────────────────────────────────── */
 
 .transitionTrack {
   position: relative;

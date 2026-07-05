@@ -20,9 +20,87 @@
 .root.thumbnail { font-size: 0.6em; }
 .reducedMotion * { animation-duration: 0s !important; transition-duration: 0s !important; }
 
+/* ─── Scene layer (dual rendering) ─── */
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
 .track { width: 100%; height: 100%; position: relative; z-index: 1; }
-.animateSceneEnter { animation: sceneEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-@keyframes sceneEnter { from { opacity: 0; transform: translateY(1.5cqh); } to { opacity: 1; transform: translateY(0); } }
+
+/* ─── Scene-to-scene transition: weft insertion ─── */
+.exitAnim {
+  animation: kenteExit 0.45s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes kenteExit {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.enterAnim {
+  animation: kenteEnter 0.5s ease-out forwards;
+  z-index: 2;
+}
+
+@keyframes kenteEnter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ─── Weft bars overlay ─── */
+.weftOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.weftOverlayFade {
+  animation: weftOverlayFade 0.25s ease-out forwards;
+}
+
+@keyframes weftOverlayFade {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.weftBar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2.8cqh;
+  will-change: transform, opacity;
+}
+
+.weftBarLeft {
+  animation: weftSlideLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.weftBarRight {
+  animation: weftSlideRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes weftSlideLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes weftSlideRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.weftBarRetract {
+  animation: weftRetract 0.25s ease-in forwards !important;
+}
+
+@keyframes weftRetract {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(0) scaleY(0.3); }
+}
 
 /* ─── Scene 1 ─── */
 .scene1 { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6cqh 8cqw; }
@@ -43,22 +121,22 @@
 
 /* ─── Grid cards ─── */
 .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2cqw; flex: 1; }
-.card { background: var(--style-31-panel); padding: 2.5cqh 1.5cqw; display: flex; flex-direction: column; align-items: center; text-align: center; border-top: 0.5cqh solid var(--style-31-gold); opacity: 0; transform: translateY(2cqh); transition: opacity 0.5s ease, transform 0.5s ease; }
-.cardVisible { opacity: 1; transform: translateY(0); }
+.card { background: var(--style-31-panel); padding: 2.5cqh 1.5cqw; display: flex; flex-direction: column; align-items: center; text-align: center; border-top: 0.5cqh solid var(--style-31-gold); opacity: 0; transform: scale(0.7); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform-origin: center; }
+.cardVisible { opacity: 1; transform: scale(1); }
 .swatch { width: 10cqh; height: 10cqh; border-radius: 50%; margin-bottom: 1.5cqh; border: 0.3cqh solid rgba(255,255,255,0.15); }
 .cardName { font-size: 3cqh; font-weight: 700; color: var(--style-31-gold); margin-bottom: 0.5cqh; }
 .cardDesc { font-size: 2cqh; line-height: 1.5; color: var(--style-31-cream); opacity: 0.65; margin: 0; font-family: "Inter", system-ui, sans-serif; }
 
 /* ─── List rows ─── */
 .list { display: flex; flex-direction: column; gap: 2cqh; flex: 1; }
-.listRow { display: grid; grid-template-columns: 1.5fr 2fr 3fr; gap: 2cqw; align-items: center; padding: 2cqh 2cqw; background: var(--style-31-panel); border-left: 0.5cqh solid var(--style-31-green); opacity: 0; transform: translateX(-2cqw); transition: opacity 0.5s ease, transform 0.5s ease; }
-.listVisible { opacity: 1; transform: translateX(0); }
+.listRow { display: grid; grid-template-columns: 1.5fr 2fr 3fr; gap: 2cqw; align-items: center; padding: 2cqh 2cqw; background: var(--style-31-panel); border-left: 0.5cqh solid var(--style-31-green); opacity: 0; transform: scale(0.85); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform-origin: left center; }
+.listVisible { opacity: 1; transform: scale(1); }
 .stripMini { width: 100%; height: 4cqh; }
 .listName { font-size: 3.2cqh; font-weight: 700; color: var(--style-31-cream); }
 .listMeaning { font-size: 2.4cqh; color: var(--style-31-cream); opacity: 0.6; font-family: "Inter", system-ui, sans-serif; }
 
 /* ─── Step cards ─── */
-.stepCard { background: var(--style-31-panel); padding: 2.5cqh 1.5cqw; display: flex; flex-direction: column; align-items: center; text-align: center; border-top: 0.5cqh solid var(--style-31-red); opacity: 0; transform: translateY(2cqh); transition: opacity 0.5s ease, transform 0.5s ease; }
+.stepCard { background: var(--style-31-panel); padding: 2.5cqh 1.5cqw; display: flex; flex-direction: column; align-items: center; text-align: center; border-top: 0.5cqh solid var(--style-31-red); opacity: 0; transform: scale(0.7); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform-origin: center; }
 .stepNum { font-size: 5cqh; font-weight: 700; color: var(--style-31-red); line-height: 1; margin-bottom: 0.5cqh; }
 .stepTitle { font-size: 2.8cqh; font-weight: 700; color: var(--style-31-cream); margin-bottom: 0.5cqh; }
 .stepDesc { font-size: 1.9cqh; line-height: 1.5; color: var(--style-31-cream); opacity: 0.6; margin: 0; font-family: "Inter", system-ui, sans-serif; }

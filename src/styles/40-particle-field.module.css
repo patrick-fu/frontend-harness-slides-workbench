@@ -48,6 +48,49 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Scene-to-Scene Transition: Particle Scatter & Coalesce ───────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.exitAnim {
+  animation: particleScatter 0.5s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes particleScatter {
+  from {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(0.92);
+  }
+}
+
+.enterAnim {
+  animation: particleCoalesce 0.5s ease-out 0.2s both;
+  z-index: 2;
+}
+
+@keyframes particleCoalesce {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
 /* ── Scene Base ────────────────────────────────────────────────────────── */
 
 .scene {

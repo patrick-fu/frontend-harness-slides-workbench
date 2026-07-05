@@ -44,6 +44,13 @@
   z-index: 1;
 }
 
+/* ── Scene-to-scene transition layers ─────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
 .animateSceneEnter {
   animation: sceneEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -51,6 +58,48 @@
 @keyframes sceneEnter {
   from { opacity: 0; transform: translateY(1.5cqh); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Bauhaus shape slide — large shape wipes diagonally across */
+.exitAnim {
+  animation: bauhausExit 0.6s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes bauhausExit {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.enterAnim {
+  animation: bauhausEnter 0.6s ease-out forwards;
+  z-index: 2;
+}
+
+@keyframes bauhausEnter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.shapeOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shapeWipe {
+  width: 50cqh;
+  height: 50cqh;
+  animation: shapeSlide 0.6s linear forwards;
+}
+
+@keyframes shapeSlide {
+  from { transform: translate(-65cqw, -65cqh); }
+  to { transform: translate(65cqw, 65cqh); }
 }
 
 /* ─── Scene 1: Title ─── */

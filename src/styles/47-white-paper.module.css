@@ -26,6 +26,11 @@
 
 /* ── Transition Track ──────────────────────────────────────────────────── */
 
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
 .transitionTrack {
   position: relative;
   width: 100%;
@@ -39,6 +44,38 @@
 @keyframes sceneEnter {
   from { opacity: 0; transform: translateY(1.5cqh); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Scene-to-scene: page edge peel (top-right corner) ─────────────────── */
+
+.exitAnim {
+  animation: peelExit 0.5s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes peelExit {
+  from {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  to {
+    opacity: 0;
+    filter: brightness(0.92);
+  }
+}
+
+.enterAnim {
+  animation: peelEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 2;
+}
+
+@keyframes peelEnter {
+  from {
+    clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 100%, 100% 0);
+  }
+  to {
+    clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 0, 0 0);
+  }
 }
 
 /* ── Scene 1: Title / Abstract ────────────────────────────────────────── */

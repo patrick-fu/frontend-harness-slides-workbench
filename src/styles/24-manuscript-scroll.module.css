@@ -37,25 +37,117 @@
     );
 }
 
-/* ── V-Slide Transition Track ──────────────────────────────────────────── */
+/* ── Scene-to-Scene: Scroll Unroll ─────────────────────────────────────── */
 
-.transitionTrack {
-  display: flex;
-  flex-direction: column;
-  height: 500%;
-  width: 100%;
-  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
-  position: relative;
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.sceneContent {
+  position: absolute;
+  inset: 0;
   z-index: 2;
 }
 
-.scene {
-  height: 20%;
-  width: 100%;
-  flex-shrink: 0;
-  overflow: hidden;
-  position: relative;
+/* Outgoing: fade to opacity 0.3 */
+.exitFade {
+  animation: scrollExitFade 0.8s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes scrollExitFade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+/* Incoming: clip-path scroll unroll from top */
+.scrollReveal {
+  animation: scrollUnrollReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 2;
+}
+
+@keyframes scrollUnrollReveal {
+  0% {
+    clip-path: inset(0 0 100% 0);
+  }
+  100% {
+    clip-path: inset(0 0 0% 0);
+  }
+}
+
+/* ── Scroll Rod ────────────────────────────────────────────────────────── */
+
+.scrollRod {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2.5cqh;
+  z-index: 5;
+  pointer-events: none;
+  animation: scrollRodMove 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes scrollRodMove {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: calc(100% - 2.5cqh);
+  }
+}
+
+.scrollRodBar {
+  position: absolute;
+  left: 3cqw;
+  right: 3cqw;
+  top: 50%;
+  height: 0.6cqh;
+  transform: translateY(-50%);
+  background: linear-gradient(
+    180deg,
+    #8b6914 0%,
+    #c49a3c 30%,
+    #d4aa4c 50%,
+    #c49a3c 70%,
+    #8b6914 100%
+  );
+  border-radius: 0.3cqh;
+  box-shadow:
+    0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.3),
+    inset 0 0.05cqh 0.1cqh rgba(255, 255, 255, 0.3);
+}
+
+.scrollRodFinialLeft,
+.scrollRodFinialRight {
+  position: absolute;
+  top: 50%;
+  width: 2.5cqh;
+  height: 2.5cqh;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    #e8c860 0%,
+    #c49a3c 40%,
+    #9a7820 70%,
+    #7a5c10 100%
+  );
+  box-shadow:
+    0 0.2cqh 0.4cqh rgba(0, 0, 0, 0.35),
+    inset 0.1cqh 0.1cqh 0.2cqh rgba(255, 255, 255, 0.25);
+}
+
+.scrollRodFinialLeft {
+  left: 1cqw;
+}
+
+.scrollRodFinialRight {
+  right: 1cqw;
 }
 
 /* ── Scene 1: Title Scroll ─────────────────────────────────────────────── */
@@ -506,9 +598,14 @@
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
 
-.reducedMotion .transitionTrack,
 .reducedMotion .navIndicator {
   transition-duration: 0s !important;
+}
+
+.reducedMotion .exitFade,
+.reducedMotion .scrollReveal,
+.reducedMotion .scrollRod {
+  animation-duration: 0s !important;
 }
 
 /* ── Thumbnail mode ─────────────────────────────────────────────────────── */

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./29-celtic-knot.module.css";
 
@@ -90,6 +90,9 @@ const SCENES = {
   },
 };
 
+const TRANSITION_DURATION = 650;
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
+
 function CelticKnotSVG({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -154,8 +157,6 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     },
   };
 
-  const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
-
   const scenes = [1, 2, 3, 4, 5].map((id) => {
     const beatCount = BEAT_COUNTS[id];
     const actions = beatActions[lang][id as keyof (typeof beatActions)["en"]];
@@ -214,6 +215,9 @@ export default function CelticKnot({
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
   useEffect(() => {
     setEntered(false);
@@ -222,6 +226,22 @@ export default function CelticKnot({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
+
+  // Detect scene changes for transition
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -232,9 +252,8 @@ export default function CelticKnot({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
 
-  const renderScene1 = () => {
+  const renderScene1 = (forceEntered = false) => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
     return (
       <div className={styles.scene1}>
@@ -249,10 +268,11 @@ export default function CelticKnot({
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number, forceEntered = false) => {
     const c = SCENES[2][language as keyof typeof SCENES[2]];
     const motifs = c.motifs as Array<{ name: string; meaning: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 4;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 2 : 4;
+    const showEntered = forceEntered || entered;
     return (
       <div className={styles.scene2}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -260,9 +280,9 @@ export default function CelticKnot({
         <div className={styles.motifGrid}>
           {motifs.map((m, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.motifCard, visible && entered ? styles.motifVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.motifCard, visible && showEntered ? styles.motifVisible : ""].filter(Boolean).join(" ");
             return (
-              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s` }}>
+              <div key={i} className={cls} style={reducedMotion || forceEntered ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s` }}>
                 <TriskeleSVG className={styles.motifIcon} />
                 <span className={styles.motifName}>{m.name}</span>
                 <p className={styles.motifMeaning}>{m.meaning}</p>
@@ -274,10 +294,11 @@ export default function CelticKnot({
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number, forceEntered = false) => {
     const c = SCENES[3][language as keyof typeof SCENES[3]];
     const manuscripts = c.manuscripts as Array<{ name: string; year: string; origin: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 3;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 2 : 3;
+    const showEntered = forceEntered || entered;
     return (
       <div className={styles.scene3}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -285,9 +306,9 @@ export default function CelticKnot({
         <div className={styles.manuscriptList}>
           {manuscripts.map((m, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.manuscriptRow, visible && entered ? styles.manuscriptVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.manuscriptRow, visible && showEntered ? styles.manuscriptVisible : ""].filter(Boolean).join(" ");
             return (
-              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.2}s` }}>
+              <div key={i} className={cls} style={reducedMotion || forceEntered ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.2}s` }}>
                 <div className={styles.manuscriptIcon} aria-hidden="true">
                   <svg viewBox="0 0 40 50" fill="none">
                     <rect x="5" y="3" width="30" height="44" rx="2" fill="currentColor" opacity="0.2" />
@@ -309,10 +330,11 @@ export default function CelticKnot({
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number, forceEntered = false) => {
     const c = SCENES[4][language as keyof typeof SCENES[4]];
     const materials = c.materials as Array<{ name: string; desc: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 4;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 2 : 4;
+    const showEntered = forceEntered || entered;
     return (
       <div className={styles.scene4}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -320,9 +342,9 @@ export default function CelticKnot({
         <div className={styles.materialGrid}>
           {materials.map((m, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.materialCard, visible && entered ? styles.materialVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.materialCard, visible && showEntered ? styles.materialVisible : ""].filter(Boolean).join(" ");
             return (
-              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s` }}>
+              <div key={i} className={cls} style={reducedMotion || forceEntered ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s` }}>
                 <span className={styles.materialName}>{m.name}</span>
                 <p className={styles.materialDesc}>{m.desc}</p>
               </div>
@@ -333,7 +355,7 @@ export default function CelticKnot({
     );
   };
 
-  const renderScene5 = () => {
+  const renderScene5 = (forceEntered = false) => {
     const c = SCENES[5][language as keyof typeof SCENES[5]];
     return (
       <div className={styles.scene5}>
@@ -346,13 +368,13 @@ export default function CelticKnot({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
-      case 5: return renderScene5();
+  const renderSceneFor = (sceneNum: number, beatNum: number, forceEntered = false) => {
+    switch (sceneNum) {
+      case 1: return renderScene1(forceEntered);
+      case 2: return renderScene2(beatNum, forceEntered);
+      case 3: return renderScene3(beatNum, forceEntered);
+      case 4: return renderScene4(beatNum, forceEntered);
+      case 5: return renderScene5(forceEntered);
       default: return null;
     }
   };
@@ -380,15 +402,37 @@ export default function CelticKnot({
     );
   };
 
+  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim].filter(Boolean).join(" ");
+  const incomingLayerClasses = [styles.sceneLayer, isTransitioning && !isTransitionClone ? styles.enterAnim : ""].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`29-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+          </div>
+        </div>
+      )}
+
+      {/* Interlace weave strands overlay during transition */}
+      {isTransitioning && !reducedMotion && (
+        <div className={styles.strandOverlay} aria-hidden="true">
+          <div className={`${styles.strand} ${styles.strand1}`} />
+          <div className={`${styles.strand} ${styles.strand2}`} />
+          <div className={`${styles.strand} ${styles.strand3}`} />
+          <div className={`${styles.strand} ${styles.strand4}`} />
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div key={`29-${scene}`} className={styles.track}>
+          {renderSceneFor(scene, beat, isTransitioning)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );

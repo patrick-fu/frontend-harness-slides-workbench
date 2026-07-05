@@ -1,6 +1,7 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./22-academic-journal.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Content ────────────────────────────────────────────────────────────────
 
@@ -271,6 +272,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ──────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 500;
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 2, 4: 2, 5: 2 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function AcademicJournal({
@@ -282,8 +288,10 @@ export default function AcademicJournal({
   onNavigate,
   isTransitionClone,
 }: BespokeStyleProps) {
-  const content = SCENES[scene]?.[language] || SCENES[1][language];
-  void isTransitionClone;
+  const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
   // Font injection
   useEffect(() => {
@@ -296,6 +304,40 @@ export default function AcademicJournal({
       "https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Serif+SC:wght@400;700&display=swap";
     document.head.appendChild(link);
   }, []);
+
+  // Beat-level entered state
+  useEffect(() => {
+    setEntered(false);
+    const raf = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setEntered(true);
+      });
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [scene, beat]);
+
+  // Scene change detection
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // FLIP for reference list in scene 5 (citations push the layout)
+  const { ref: referencesRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -313,8 +355,22 @@ export default function AcademicJournal({
     .filter(Boolean)
     .join(" ");
 
-  const renderSceneContent = () => {
-    if (scene === 1) {
+  // ── Render scene content for a given scene number ────────────────────────
+
+  const renderSceneFor = (
+    sceneNum: number,
+    beatNum: number,
+    isOutgoing: boolean,
+  ) => {
+    const content = SCENES[sceneNum]?.[language] || SCENES[1][language];
+    const effectiveBeat = isOutgoing ? BEAT_COUNTS[sceneNum] - 1 : beatNum;
+    const effectiveEntered = isOutgoing ? true : entered;
+    // Beat-level reveal class for equation/data displays: scale(0.95)→scale(1)
+    const eqRevealClass = !isOutgoing && effectiveEntered && !reducedMotion
+      ? styles.eqReveal
+      : "";
+
+    if (sceneNum === 1) {
       return (
         <div className={styles.journalTitlePage}>
           <p className={styles.journalHeader}>{content.journal}</p>
@@ -333,11 +389,11 @@ export default function AcademicJournal({
       );
     }
 
-    if (scene === 2) {
+    if (sceneNum === 2) {
       return (
         <div className={styles.abstractScene}>
           <div
-            className={styles.abstractBox}
+            className={`${styles.abstractBox} ${eqRevealClass}`}
             style={{
               opacity: 1,
               transition: reducedMotion
@@ -350,11 +406,11 @@ export default function AcademicJournal({
             </p>
             <p className={styles.abstractText}>{content.abstract}</p>
           </div>
-          {beat >= 1 && (
+          {effectiveBeat >= 1 && (
             <div
               className={styles.keywordsRow}
               style={{
-                opacity: 1,
+                opacity: effectiveEntered ? 1 : 0,
                 transition: reducedMotion
                   ? "none"
                   : "opacity 0.5s ease 0.2s",
@@ -375,7 +431,7 @@ export default function AcademicJournal({
       );
     }
 
-    if (scene === 3) {
+    if (sceneNum === 3) {
       return (
         <div className={styles.methodScene}>
           <div className={styles.methodSectionHead}>
@@ -387,11 +443,11 @@ export default function AcademicJournal({
               {content.methodTitle}
             </h2>
           </div>
-          {beat >= 1 && (
+          {effectiveBeat >= 1 && (
             <div
-              className={styles.methodBody}
+              className={`${styles.methodBody} ${eqRevealClass}`}
               style={{
-                opacity: 1,
+                opacity: effectiveEntered ? 1 : 0,
                 transition: reducedMotion
                   ? "none"
                   : "opacity 0.5s ease 0.15s",
@@ -406,7 +462,7 @@ export default function AcademicJournal({
       );
     }
 
-    if (scene === 4) {
+    if (sceneNum === 4) {
       const rows = content.tableRows || [];
       return (
         <div className={styles.resultsScene}>
@@ -416,10 +472,11 @@ export default function AcademicJournal({
             </p>
             <h2 className={styles.resultsTitle}>{content.resultsTitle}</h2>
           </div>
-          {beat >= 1 && (
+          {effectiveBeat >= 1 && (
             <div
+              className={eqRevealClass}
               style={{
-                opacity: 1,
+                opacity: effectiveEntered ? 1 : 0,
                 transition: reducedMotion
                   ? "none"
                   : "opacity 0.5s ease 0.1s",
@@ -464,9 +521,12 @@ export default function AcademicJournal({
       );
     }
 
-    if (scene === 5) {
+    if (sceneNum === 5) {
       return (
-        <div className={styles.conclusionScene}>
+        <div
+          className={styles.conclusionScene}
+          ref={!isOutgoing && sceneNum === 5 ? referencesRef : undefined}
+        >
           <p className={styles.conclusionHead}>
             {content.conclusionLabel}
           </p>
@@ -474,11 +534,11 @@ export default function AcademicJournal({
             {content.conclusionTitle}
           </h2>
           <p className={styles.conclusionBody}>{content.conclusionBody}</p>
-          {beat >= 1 && (
+          {effectiveBeat >= 1 && (
             <div
-              className={styles.referencesBox}
+              className={`${styles.referencesBox} ${eqRevealClass}`}
               style={{
-                opacity: 1,
+                opacity: effectiveEntered ? 1 : 0,
                 transition: reducedMotion
                   ? "none"
                   : "opacity 0.5s ease 0.2s",
@@ -530,21 +590,32 @@ export default function AcademicJournal({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        className={styles.transitionTrack}
-        style={{
-          transform: `translateY(-${(scene - 1) * 20}%)`,
-          ...(reducedMotion ? { transitionDuration: "0s" } : {}),
-        }}
-      >
-        {[1, 2, 3, 4, 5].map((s) => (
-          <div key={s} className={styles.scene}>
-            {s === scene && renderSceneContent()}
-          </div>
-        ))}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat, false)}
       </div>
+
       {renderNavIndicators()}
     </div>
   );

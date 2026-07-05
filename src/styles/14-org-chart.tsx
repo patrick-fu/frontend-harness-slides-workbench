@@ -1,6 +1,7 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./14-org-chart.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -254,12 +255,53 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 650; // ms — exit 400ms + enter 500ms w/ 50ms delay
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function OrgChart({
   scene, beat, language, isThumbnail, reducedMotion, onNavigate, isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
+
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // FLIP for org chart nodes (scene 2) — nodes reposition when new members appear
+  const { ref: orgChartRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+    selector: ".teamCard",
+  });
+
+  // FLIP for members grid (scene 3) — member cards push siblings
+  const { ref: membersGridRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+    selector: ".memberCard",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -271,193 +313,193 @@ export default function OrgChart({
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
 
-  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
+  const renderSceneFor = (sceneNum: number, beatNum: number, isCurrent: boolean) => {
+    const c = SCENES[sceneNum as keyof typeof SCENES]?.[language as "en" | "zh"];
+    if (!c) return null;
 
-  const renderScene1 = () => {
-    const c = SCENES[1][language as keyof typeof SCENES[1]];
-    return (
-      <div className={styles.scene1}>
-        <span className={styles.orgEyebrow}>{c.eyebrow}</span>
-        <h1 className={styles.orgTitle}>
-          {c.title}<br /><em>{c.titleAccent}</em>
-        </h1>
-        <p className={styles.orgSub}>{c.sub}</p>
-        <div className={styles.orgStats}>
-          {(c.stats as Array<{ val: string; lbl: string }>).map((s, i) => (
-            <div key={i} className={styles.orgStatItem}>
-              <span className={styles.orgStatVal}>{s.val}</span>
-              <span className={styles.orgStatLbl}>{s.lbl}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  const renderScene2 = () => {
-    const c = SCENES[2][language as keyof typeof SCENES[2]];
-    const ceo = c.ceo as { name: string; role: string; initials: string; count: string };
-    const vps = c.vps as Array<{ name: string; role: string; initials: string; count: string; color: string }>;
-    const ceoVisible = true;
-    const vpsVisible = beat >= 1;
-    return (
-      <div className={styles.scene2}>
-        <div className={styles.chartHeader}>
-          <span className={styles.chartLabel}>{c.label}</span>
-          <h2 className={styles.chartTitle}>{c.title}</h2>
-        </div>
-        <div className={styles.chartArea}>
-          {/* SVG connector lines */}
-          <svg className={styles.chartLines} viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
-            {vpsVisible && (
-              <>
-                <line x1="50" y1="18" x2="50" y2="28" stroke="#cbd5e0" strokeWidth="0.3" />
-                <line x1="15" y1="28" x2="85" y2="28" stroke="#cbd5e0" strokeWidth="0.3" />
-                {[15, 32, 50, 68, 85].map((x, i) => (
-                  <line key={i} x1={x} y1="28" x2={x} y2="38" stroke="#cbd5e0" strokeWidth="0.3" />
-                ))}
-              </>
-            )}
-          </svg>
-          <div className={styles.chartLevels}>
-            {/* CEO level */}
-            <div className={styles.chartLevel}>
-              <div
-                className={[styles.teamCard, styles.ceo, ceoVisible ? styles.teamCardVisible : ""].filter(Boolean).join(" ")}
-                style={reducedMotion ? { opacity: ceoVisible ? 1 : 0, transform: "none" } : undefined}
-              >
-                <div className={[styles.avatar, styles.avatarBlue].join(" ")}>{ceo.initials}</div>
-                <span className={styles.teamName}>{ceo.name}</span>
-                <span className={styles.teamRole}>{ceo.role}</span>
-                <span className={styles.teamCount}>{ceo.count}</span>
+    if (sceneNum === 1) {
+      const data = c as typeof SCENES[1]["en"];
+      return (
+        <div className={styles.scene1}>
+          <span className={styles.orgEyebrow}>{data.eyebrow}</span>
+          <h1 className={styles.orgTitle}>
+            {data.title}<br /><em>{data.titleAccent}</em>
+          </h1>
+          <p className={styles.orgSub}>{data.sub}</p>
+          <div className={styles.orgStats}>
+            {(data.stats as Array<{ val: string; lbl: string }>).map((s, i) => (
+              <div key={i} className={styles.orgStatItem}>
+                <span className={styles.orgStatVal}>{s.val}</span>
+                <span className={styles.orgStatLbl}>{s.lbl}</span>
               </div>
-            </div>
-            {/* VP level */}
-            <div className={styles.chartLevel} style={{ flexWrap: "wrap", maxWidth: "90%" }}>
-              {vps.map((vp, i) => (
-                <div
-                  key={i}
-                  className={[styles.teamCard, vpsVisible ? styles.teamCardVisible : ""].filter(Boolean).join(" ")}
-                  style={reducedMotion ? { opacity: vpsVisible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.08}s` }}
-                >
-                  <div className={[styles.avatar, avatarColorClass(vp.color)].join(" ")}>{vp.initials}</div>
-                  <span className={styles.teamName}>{vp.name}</span>
-                  <span className={styles.teamRole}>{vp.role}</span>
-                  <span className={styles.teamCount}>{vp.count}</span>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
-      </div>
-    );
-  };
+      );
+    }
 
-  const renderScene3 = () => {
-    const c = SCENES[3][language as keyof typeof SCENES[3]];
-    const lead = c.lead as { name: string; role: string; initials: string; color: string };
-    const members = c.members as Array<{ name: string; role: string; initials: string; color: string }>;
-    return (
-      <div className={styles.scene3}>
-        <span className={styles.chartLabel}>{c.label}</span>
-        <div className={styles.teamDetail}>
-          <div className={styles.teamLead}>
-            <div className={[styles.leadAvatar, avatarColorClass(lead.color)].join(" ")}>{lead.initials}</div>
-            <span className={styles.leadName}>{lead.name}</span>
-            <span className={styles.leadTitle}>{lead.role}</span>
+    if (sceneNum === 2) {
+      const data = c as typeof SCENES[2]["en"];
+      const ceo = data.ceo as { name: string; role: string; initials: string; count: string };
+      const vps = data.vps as Array<{ name: string; role: string; initials: string; count: string; color: string }>;
+      const ceoVisible = true;
+      const vpsVisible = beatNum >= 1;
+      return (
+        <div className={styles.scene2}>
+          <div className={styles.chartHeader}>
+            <span className={styles.chartLabel}>{data.label}</span>
+            <h2 className={styles.chartTitle}>{data.title}</h2>
           </div>
-          <div className={styles.teamMembers}>
-            <span className={styles.membersLabel}>{c.membersLabel}</span>
-            <div className={styles.membersGrid}>
-              {members.map((m, i) => {
-                const visible = beat >= 1;
-                const cls = [styles.memberCard, visible ? styles.memberCardVisible : ""].filter(Boolean).join(" ");
-                return (
+          <div
+            ref={isCurrent ? orgChartRef : undefined}
+            className={styles.chartArea}
+          >
+            {/* SVG connector lines */}
+            <svg className={styles.chartLines} viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
+              {vpsVisible && (
+                <>
+                  <line x1="50" y1="18" x2="50" y2="28" stroke="#cbd5e0" strokeWidth="0.3" className={styles.chartLineDraw} />
+                  <line x1="15" y1="28" x2="85" y2="28" stroke="#cbd5e0" strokeWidth="0.3" className={styles.chartLineDraw} />
+                  {[15, 32, 50, 68, 85].map((x, i) => (
+                    <line key={i} x1={x} y1="28" x2={x} y2="38" stroke="#cbd5e0" strokeWidth="0.3" className={styles.chartLineDraw} style={{ transitionDelay: `${i * 0.05}s` }} />
+                  ))}
+                </>
+              )}
+            </svg>
+            <div className={styles.chartLevels}>
+              {/* CEO level */}
+              <div className={styles.chartLevel}>
+                <div
+                  className={[styles.teamCard, styles.ceo, ceoVisible ? styles.teamCardVisible : ""].filter(Boolean).join(" ")}
+                  style={reducedMotion ? { opacity: ceoVisible ? 1 : 0, transform: "none" } : undefined}
+                >
+                  <div className={[styles.avatar, styles.avatarBlue].join(" ")}>{ceo.initials}</div>
+                  <span className={styles.teamName}>{ceo.name}</span>
+                  <span className={styles.teamRole}>{ceo.role}</span>
+                  <span className={styles.teamCount}>{ceo.count}</span>
+                </div>
+              </div>
+              {/* VP level */}
+              <div className={styles.chartLevel} style={{ flexWrap: "wrap", maxWidth: "90%" }}>
+                {vps.map((vp, i) => (
                   <div
                     key={i}
-                    className={cls}
-                    style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.07}s` }}
+                    className={[styles.teamCard, vpsVisible ? styles.teamCardVisible : ""].filter(Boolean).join(" ")}
+                    style={reducedMotion ? { opacity: vpsVisible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.08}s` }}
                   >
-                    <div className={[styles.memberAvatar, avatarColorClass(m.color)].join(" ")}>{m.initials}</div>
-                    <div className={styles.memberInfo}>
-                      <span className={styles.memberName}>{m.name}</span>
-                      <span className={styles.memberRole}>{m.role}</span>
-                    </div>
+                    <div className={[styles.avatar, avatarColorClass(vp.color)].join(" ")}>{vp.initials}</div>
+                    <span className={styles.teamName}>{vp.name}</span>
+                    <span className={styles.teamRole}>{vp.role}</span>
+                    <span className={styles.teamCount}>{vp.count}</span>
                   </div>
-                );
-              })}
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
-  };
-
-  const renderScene4 = () => {
-    const c = SCENES[4][language as keyof typeof SCENES[4]];
-    const growth = c.growth as Array<{ year: string; count: string; desc: string }>;
-    const maxCount = 420;
-    return (
-      <div className={styles.scene4}>
-        <span className={styles.chartLabel}>{c.label}</span>
-        <h2 className={styles.chartTitle}>{c.title}</h2>
-        <div className={styles.growthTimeline}>
-          {growth.map((g, i) => {
-            const visible = beat >= 1;
-            const cls = [styles.growthRow, visible ? styles.growthRowVisible : ""].filter(Boolean).join(" ");
-            const countNum = parseInt(g.count.replace(/\D/g, ""));
-            const pct = (countNum / maxCount) * 100;
-            return (
-              <div
-                key={i}
-                className={cls}
-                style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.1}s` }}
-              >
-                <span className={styles.growthYear}>{g.year}</span>
-                <div className={styles.growthBarWrap}>
-                  <div
-                    className={styles.growthBar}
-                    style={{ width: visible ? `${pct}%` : "0%" }}
-                  >
-                    <span className={styles.growthBarLabel}>{g.count}</span>
-                  </div>
-                </div>
-                <span className={styles.growthDesc}>{g.desc}</span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
-
-  const renderScene5 = () => {
-    const c = SCENES[5][language as keyof typeof SCENES[5]];
-    return (
-      <div className={styles.scene5}>
-        <h2 className={styles.closingBig} dangerouslySetInnerHTML={{ __html: c.headline }} />
-        <p className={styles.closingSub}>{c.sub}</p>
-        <div className={styles.closingValues}>
-          {(c.values as Array<{ icon: string; text: string }>).map((v, i) => (
-            <div key={i} className={styles.closingValue}>
-              <div className={styles.closingValIcon}>{v.icon}</div>
-              <span className={styles.closingValText}>{v.text}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
-      case 5: return renderScene5();
-      default: return null;
+      );
     }
+
+    if (sceneNum === 3) {
+      const data = c as typeof SCENES[3]["en"];
+      const lead = data.lead as { name: string; role: string; initials: string; color: string };
+      const members = data.members as Array<{ name: string; role: string; initials: string; color: string }>;
+      return (
+        <div className={styles.scene3}>
+          <span className={styles.chartLabel}>{data.label}</span>
+          <div className={styles.teamDetail}>
+            <div className={styles.teamLead}>
+              <div className={[styles.leadAvatar, avatarColorClass(lead.color)].join(" ")}>{lead.initials}</div>
+              <span className={styles.leadName}>{lead.name}</span>
+              <span className={styles.leadTitle}>{lead.role}</span>
+            </div>
+            <div className={styles.teamMembers}>
+              <span className={styles.membersLabel}>{data.membersLabel}</span>
+              <div
+                ref={isCurrent ? membersGridRef : undefined}
+                className={styles.membersGrid}
+              >
+                {members.map((m, i) => {
+                  const visible = beatNum >= 1;
+                  const cls = [styles.memberCard, visible ? styles.memberCardVisible : ""].filter(Boolean).join(" ");
+                  return (
+                    <div
+                      key={i}
+                      className={cls}
+                      style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.07}s` }}
+                    >
+                      <div className={[styles.memberAvatar, avatarColorClass(m.color)].join(" ")}>{m.initials}</div>
+                      <div className={styles.memberInfo}>
+                        <span className={styles.memberName}>{m.name}</span>
+                        <span className={styles.memberRole}>{m.role}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 4) {
+      const data = c as typeof SCENES[4]["en"];
+      const growth = data.growth as Array<{ year: string; count: string; desc: string }>;
+      const maxCount = 420;
+      return (
+        <div className={styles.scene4}>
+          <span className={styles.chartLabel}>{data.label}</span>
+          <h2 className={styles.chartTitle}>{data.title}</h2>
+          <div className={styles.growthTimeline}>
+            {growth.map((g, i) => {
+              const visible = beatNum >= 1;
+              const cls = [styles.growthRow, visible ? styles.growthRowVisible : ""].filter(Boolean).join(" ");
+              const countNum = parseInt(g.count.replace(/\D/g, ""));
+              const pct = (countNum / maxCount) * 100;
+              return (
+                <div
+                  key={i}
+                  className={cls}
+                  style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.1}s` }}
+                >
+                  <span className={styles.growthYear}>{g.year}</span>
+                  <div className={styles.growthBarWrap}>
+                    <div
+                      className={styles.growthBar}
+                      style={{ width: visible ? `${pct}%` : "0%" }}
+                    >
+                      <span className={styles.growthBarLabel}>{g.count}</span>
+                    </div>
+                  </div>
+                  <span className={styles.growthDesc}>{g.desc}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 5) {
+      const data = c as typeof SCENES[5]["en"];
+      return (
+        <div className={styles.scene5}>
+          <h2 className={styles.closingBig} dangerouslySetInnerHTML={{ __html: data.headline }} />
+          <p className={styles.closingSub}>{data.sub}</p>
+          <div className={styles.closingValues}>
+            {(data.values as Array<{ icon: string; text: string }>).map((v, i) => (
+              <div key={i} className={styles.closingValue}>
+                <div className={styles.closingValIcon}>{v.icon}</div>
+                <span className={styles.closingValText}>{v.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   const renderNav = () => {
@@ -480,15 +522,34 @@ export default function OrgChart({
     );
   };
 
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`14-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (tree collapse exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, false)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene (tree grow enter animation) */}
+      <div className={incomingLayerClasses}>
+        <div className={styles.track}>
+          {renderSceneFor(scene, beat, true)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );

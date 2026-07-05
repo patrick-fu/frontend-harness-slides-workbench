@@ -1,6 +1,9 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./28-bauhaus-poster.module.css";
+
+const TRANSITION_DURATION = 600;
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 1, 5: 1 };
 
 function useFonts() {
   useEffect(() => {
@@ -198,6 +201,9 @@ export default function BauhausPoster({
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
   useEffect(() => {
     setEntered(false);
@@ -206,6 +212,22 @@ export default function BauhausPoster({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
+
+  // Detect scene changes for transition
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -216,7 +238,6 @@ export default function BauhausPoster({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
 
   const renderScene1 = () => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
@@ -236,10 +257,10 @@ export default function BauhausPoster({
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number, effectiveEntered: boolean) => {
     const c = SCENES[2][language as keyof typeof SCENES[2]];
     const pillars = c.pillars as Array<{ shape: string; color: string; title: string; desc: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 3;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 2 : 3;
     return (
       <div className={styles.scene2}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -247,7 +268,7 @@ export default function BauhausPoster({
         <div className={styles.pillarsRow}>
           {pillars.map((p, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.pillarCard, visible && entered ? styles.pillarVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.pillarCard, visible && effectiveEntered ? styles.pillarVisible : ""].filter(Boolean).join(" ");
             return (
               <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.2}s` }}>
                 <BauhausShape type={p.shape} color={p.color} size={80} className={styles.pillarShape} />
@@ -261,10 +282,10 @@ export default function BauhausPoster({
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number, effectiveEntered: boolean) => {
     const c = SCENES[3][language as keyof typeof SCENES[3]];
     const masters = c.masters as Array<{ name: string; role: string; years: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 4;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 2 : 4;
     return (
       <div className={styles.scene3}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -272,7 +293,7 @@ export default function BauhausPoster({
         <div className={styles.mastersGrid}>
           {masters.map((m, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.masterCard, visible && entered ? styles.masterVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.masterCard, visible && effectiveEntered ? styles.masterVisible : ""].filter(Boolean).join(" ");
             return (
               <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s` }}>
                 <div className={styles.masterNum}>{String(i + 1).padStart(2, "0")}</div>
@@ -287,14 +308,14 @@ export default function BauhausPoster({
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number, effectiveEntered: boolean) => {
     const c = SCENES[4][language as keyof typeof SCENES[4]];
     const stats = c.stats as Array<{ value: string; label: string }>;
     return (
       <div className={styles.scene4}>
         <span className={styles.sceneLabel}>{c.label}</span>
         <h2 className={styles.sceneHeading}>{c.heading}</h2>
-        {beat >= 1 && (
+        {beatNum >= 1 && (
           <div className={styles.statsRow}>
             {stats.map((s, i) => (
               <div key={i} className={styles.statBlock} style={reducedMotion ? { opacity: 1 } : { transitionDelay: `${i * 0.15}s` }}>
@@ -332,12 +353,13 @@ export default function BauhausPoster({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  const renderSceneFor = (sceneNum: number, beatNum: number, isOutgoing: boolean) => {
+    const effectiveEntered = isOutgoing ? true : entered;
+    switch (sceneNum) {
       case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
+      case 2: return renderScene2(beatNum, effectiveEntered);
+      case 3: return renderScene3(beatNum, effectiveEntered);
+      case 4: return renderScene4(beatNum, effectiveEntered);
       case 5: return renderScene5();
       default: return null;
     }
@@ -366,15 +388,34 @@ export default function BauhausPoster({
     );
   };
 
+  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim].filter(Boolean).join(" ");
+  const incomingLayerClasses = [styles.sceneLayer, isTransitioning && !isTransitionClone ? styles.enterAnim : ""].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`28-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div className={styles.track}>
+          {renderSceneFor(scene, beat, false)}
+        </div>
       </div>
+
+      {/* Shape wipe overlay */}
+      {isTransitioning && !reducedMotion && (
+        <div className={styles.shapeOverlay} aria-hidden="true">
+          <BauhausShape type="circle" color="#e63946" size={400} className={styles.shapeWipe} />
+        </div>
+      )}
+
       {renderNav()}
     </div>
   );

@@ -1,6 +1,12 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback, useState } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./12-iconography.module.css";
+import { useFLIP } from "../hooks/useFLIP";
+
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 530; // 500ms animation + 30ms enter delay
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 };
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -345,6 +351,41 @@ export default function Iconography({
   useFonts();
   const trackRef = useRef<HTMLDivElement>(null);
 
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // FLIP for icon grids where new icons push the layout
+  const { ref: featureGridRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+    selector: ".featureCard",
+  });
+
+  const { ref: integrationRowRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+    selector: ".intItem",
+  });
+
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -354,7 +395,6 @@ export default function Iconography({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
 
   const renderScene1 = () => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
@@ -371,15 +411,15 @@ export default function Iconography({
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number, isCurrent: boolean) => {
     const c = SCENES[2][language as keyof typeof SCENES[2]];
     const features = c.features as Array<{ icon: string; name: string; desc: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 3 : 6;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 3 : 6;
     return (
       <div className={styles.scene2}>
         <span className={styles.secLabel}>{c.label}</span>
         <h2 className={styles.secTitle}>{c.title}</h2>
-        <div className={styles.featureGrid}>
+        <div ref={isCurrent ? featureGridRef : undefined} className={styles.featureGrid}>
           {features.map((f, i) => {
             const visible = i < visibleCount;
             const cls = [styles.featureCard, visible ? styles.featureCardVisible : ""].filter(Boolean).join(" ");
@@ -400,7 +440,7 @@ export default function Iconography({
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number) => {
     const c = SCENES[3][language as keyof typeof SCENES[3]];
     const bullets = c.bullets as string[];
     return (
@@ -414,7 +454,7 @@ export default function Iconography({
             <span className={styles.spotlightBadge}>{c.badge}</span>
             <h2 className={styles.spotlightName}>{c.name}</h2>
             <p className={styles.spotlightDesc}>{c.desc}</p>
-            {beat >= 1 && (
+            {beatNum >= 1 && (
               <div className={styles.spotlightBullets}>
                 {bullets.map((b, i) => (
                   <div
@@ -434,16 +474,16 @@ export default function Iconography({
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number, isCurrent: boolean) => {
     const c = SCENES[4][language as keyof typeof SCENES[4]];
     const integrations = c.integrations as Array<{ icon: string; label: string }>;
     return (
       <div className={styles.scene4}>
         <span className={styles.secLabel}>{c.label}</span>
         <h2 className={styles.secTitle}>{c.title}</h2>
-        <div className={styles.integrationRow}>
+        <div ref={isCurrent ? integrationRowRef : undefined} className={styles.integrationRow}>
           {integrations.map((item, i) => {
-            const visible = beat >= 1;
+            const visible = beatNum >= 1;
             const cls = [styles.intItem, visible ? styles.intItemVisible : ""].filter(Boolean).join(" ");
             return (
               <div
@@ -480,12 +520,12 @@ export default function Iconography({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  const renderSceneFor = (sceneNum: number, beatNum: number, isCurrent: boolean) => {
+    switch (sceneNum) {
       case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
+      case 2: return renderScene2(beatNum, isCurrent);
+      case 3: return renderScene3(beatNum);
+      case 4: return renderScene4(beatNum, isCurrent);
       case 5: return renderScene5();
       default: return null;
     }
@@ -514,16 +554,27 @@ export default function Iconography({
     );
   };
 
+  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim].filter(Boolean).join(" ");
+  const incomingLayerClasses = [styles.sceneLayer, isTransitioning && !isTransitionClone ? styles.enterAnim : ""].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        ref={trackRef}
-        key={`12-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (icon scale-down + fade) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, false)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene (icon scale-up + fade-in) */}
+      <div className={incomingLayerClasses}>
+        <div ref={trackRef} key={scene} className={styles.track}>
+          {renderSceneFor(scene, beat, true)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );

@@ -20,7 +20,60 @@
   user-select: none;
 }
 
-/* ── Transition Track ──────────────────────────────────────────────────── */
+/* ── Transition: Scene layers (hard cut) ──────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
+/* Hard cut: outgoing disappears instantly */
+.exitAnim {
+  animation: hardCutExit 0.01s step-end forwards;
+  z-index: 1;
+}
+
+@keyframes hardCutExit {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Hard cut: incoming appears instantly */
+.enterAnim {
+  z-index: 2;
+}
+
+/* ── Page flash overlay (PAGE N OF M indicator) ───────────────────────── */
+
+.pageFlash {
+  position: absolute;
+  bottom: 6cqh;
+  right: 6cqw;
+  z-index: 20;
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 2.2cqh;
+  font-weight: 600;
+  color: var(--style-41-accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  padding: 0.8cqh 2cqw;
+  border-radius: 0.6cqh;
+  border: 0.05cqh solid var(--style-41-rule);
+  box-shadow: 0 0.4cqh 1.6cqh rgba(0, 0, 0, 0.08);
+  animation: pageFlashInOut 0.2s ease-in-out forwards;
+  pointer-events: none;
+}
+
+@keyframes pageFlashInOut {
+  0% { opacity: 0; transform: translateY(0.5cqh); }
+  30% { opacity: 1; transform: translateY(0); }
+  70% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-0.3cqh); }
+}
+
+/* ── Transition Track (legacy) ──────────────────────────────────────────── */
 
 .transitionTrack {
   position: relative;
@@ -602,4 +655,8 @@
 .reducedMotion * {
   transition-duration: 0s !important;
   animation-duration: 0s !important;
+}
+
+.reducedMotion .pageFlash {
+  display: none;
 }

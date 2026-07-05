@@ -1,5 +1,6 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useRef, useState } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import { useFLIP } from "../hooks/useFLIP";
 import styles from "./03-zen-void.module.css";
 
 // ─── Content ────────────────────────────────────────────────────────────────
@@ -103,6 +104,16 @@ const SCENES: Record<number, SceneContent> = {
     },
   },
 };
+
+const MAX_BEAT: Record<number, number> = {
+  1: 0,
+  2: 1,
+  3: 1,
+  4: 2,
+  5: 0,
+};
+
+const TRANSITION_DURATION = 900;
 
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
@@ -210,6 +221,40 @@ export default function ZenVoid({
     document.head.appendChild(link);
   }, []);
 
+  // ── Transition state ────────────────────────────────────────────────────
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      prevSceneRef.current = scene;
+      return;
+    }
+    if (prevSceneRef.current !== scene) {
+      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+      setOutgoingScene(prevSceneRef.current);
+      setIsTransitioning(true);
+      transitionTimerRef.current = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+        transitionTimerRef.current = null;
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+    }
+    return () => {
+      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+    };
+  }, [scene, reducedMotion]);
+
+  // ── FLIP for scene 4 practice list ──────────────────────────────────────
+  const { ref: practiceFlipRef } = useFLIP<HTMLUListElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
+
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -224,8 +269,10 @@ export default function ZenVoid({
     isThumbnail ? styles.thumbnail : "",
   ].filter(Boolean).join(" ");
 
-  const renderScene1 = () => {
-    const c = SCENES[1][language];
+  // ── Scene renderers (parameterized by sceneNum / beatNum) ───────────────
+
+  const renderScene1 = (sceneNum: number) => {
+    const c = SCENES[sceneNum][language];
     return (
       <div className={styles.sceneCenter}>
         <svg className={styles.brushStroke} viewBox="0 0 200 60" preserveAspectRatio="xMidYMid meet">
@@ -248,7 +295,7 @@ export default function ZenVoid({
     );
   };
 
-  const renderConceptScene = (sceneNum: number) => {
+  const renderConceptScene = (sceneNum: number, beatNum: number) => {
     const c = SCENES[sceneNum][language];
     return (
       <div className={styles.sceneConcept}>
@@ -263,7 +310,7 @@ export default function ZenVoid({
         <div className={styles.textContent}>
           <h2 className={styles.conceptWord}>{c.word}</h2>
           <p className={styles.conceptText}>{c.concept}</p>
-          {beat >= 1 && (
+          {beatNum >= 1 && (
             <p className={[styles.bodyText, reducedMotion ? "" : styles.beatReveal].filter(Boolean).join(" ")}>
               {c.body}
             </p>
@@ -273,7 +320,7 @@ export default function ZenVoid({
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number, applyFlip: boolean) => {
     const c = SCENES[4][language];
     const steps = c.practiceSteps || [];
     return (
@@ -296,9 +343,12 @@ export default function ZenVoid({
           </svg>
         </div>
         <h2 className={styles.practiceTitle}>{c.practice}</h2>
-        <ul className={styles.practiceList}>
+        <ul
+          ref={applyFlip ? practiceFlipRef : undefined}
+          className={styles.practiceList}
+        >
           {steps.map((step, i) => {
-            const visible = i < Math.min(beat * 2, 4);
+            const visible = i < Math.min(beatNum * 2, 4);
             return (
               <li
                 key={i}
@@ -319,8 +369,8 @@ export default function ZenVoid({
     );
   };
 
-  const renderScene5 = () => {
-    const c = SCENES[5][language];
+  const renderScene5 = (sceneNum: number) => {
+    const c = SCENES[sceneNum][language];
     return (
       <div className={styles.sceneClosing}>
         <span className={styles.kanjiClosing}>
@@ -332,13 +382,13 @@ export default function ZenVoid({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1: return renderScene1();
-      case 2: return renderConceptScene(2);
-      case 3: return renderConceptScene(3);
-      case 4: return renderScene4();
-      case 5: return renderScene5();
+  const renderSceneFor = (sceneNum: number, beatNum: number, applyFlip: boolean) => {
+    switch (sceneNum) {
+      case 1: return renderScene1(sceneNum);
+      case 2: return renderConceptScene(sceneNum, beatNum);
+      case 3: return renderConceptScene(sceneNum, beatNum);
+      case 4: return renderScene4(beatNum, applyFlip);
+      case 5: return renderScene5(sceneNum);
       default: return null;
     }
   };
@@ -365,15 +415,41 @@ export default function ZenVoid({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone && !reducedMotion ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={scene}
-        className={[styles.track, !isTransitionClone && !reducedMotion && styles.animateSceneEnter].filter(Boolean).join(" ")}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (transitioning out) */}
+      {outgoingScene !== null && !reducedMotion && (
+        <div className={outgoingLayerClasses} aria-hidden="true">
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, MAX_BEAT[outgoingScene] ?? 0, false)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div
+          className={[
+            styles.track,
+            !isTransitionClone && !reducedMotion && !isTransitioning ? styles.animateSceneEnter : "",
+          ].filter(Boolean).join(" ")}
+          style={reducedMotion ? { animationDuration: "0s" } : undefined}
+        >
+          {renderSceneFor(scene, beat, true)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );

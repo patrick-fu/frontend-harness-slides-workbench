@@ -31,7 +31,48 @@
   pointer-events: none;
 }
 
-/* ── Transition Track ──────────────────────────────────────────────────── */
+/* ── Scene-to-Scene Transition: Glass panel shuffle ────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.exitAnim {
+  animation: glassExit 0.35s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes glassExit {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-3cqh) scale(0.97);
+  }
+}
+
+.enterAnim {
+  animation: glassEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+  z-index: 2;
+}
+
+@keyframes glassEnter {
+  from {
+    opacity: 0;
+    transform: translateY(3cqh) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Transition Track (legacy, kept for backward compat) ───────────────── */
 
 .transitionTrack {
   position: relative;

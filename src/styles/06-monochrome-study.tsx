@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./06-monochrome-study.module.css";
 
@@ -256,6 +256,13 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ───────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 200;
+const FLASH_DURATION = 150;
+const BEAT_COUNTS_FOR_SCENE: Record<number, number> = { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 };
+const getMaxBeat = (sceneNum: number): number => (BEAT_COUNTS_FOR_SCENE[sceneNum] || 1) - 1;
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function MonochromeStudy({
@@ -269,6 +276,40 @@ export default function MonochromeStudy({
 }: BespokeStyleProps) {
   useFonts();
 
+  // ── Transition state ────────────────────────────────────────────────────
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showFlash, setShowFlash] = useState(false);
+  const prevScene = useRef(scene);
+
+  useEffect(() => {
+    if (prevScene.current !== scene) {
+      if (!reducedMotion && !isThumbnail) {
+        setOutgoingScene(prevScene.current);
+        setIsTransitioning(true);
+        setShowFlash(true);
+
+        // Flash fades out after FLASH_DURATION
+        const flashTimer = setTimeout(() => {
+          setShowFlash(false);
+        }, FLASH_DURATION);
+
+        // Clean up outgoing scene after total transition duration
+        const transitionTimer = setTimeout(() => {
+          setOutgoingScene(null);
+          setIsTransitioning(false);
+        }, TRANSITION_DURATION);
+
+        prevScene.current = scene;
+        return () => {
+          clearTimeout(flashTimer);
+          clearTimeout(transitionTimer);
+        };
+      }
+      prevScene.current = scene;
+    }
+  }, [scene, reducedMotion, isThumbnail]);
+
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -281,13 +322,6 @@ export default function MonochromeStudy({
     styles.root,
     reducedMotion ? styles.reducedMotion : "",
     isThumbnail ? styles.thumbnail : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  const trackClasses = [
-    styles.track,
-    !isTransitionClone && styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");
@@ -307,17 +341,17 @@ export default function MonochromeStudy({
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number) => {
     const c = SCENES[2][language];
     return (
       <div className={styles.scene2}>
         <div className={styles.bwStatementWrap}>
           <h2 className={styles.bwStatement}>
             {c.statement}
-            {beat >= 1 && <em>{c.statementHighlight}</em>}
+            {beatNum >= 1 && <em>{c.statementHighlight}</em>}
             {c.statementTail}
           </h2>
-          {beat >= 1 && (
+          {beatNum >= 1 && (
             <p className={styles.bwStatementSubVisible}>
               {c.statementSub}
             </p>
@@ -327,7 +361,7 @@ export default function MonochromeStudy({
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number) => {
     const c = SCENES[3][language];
     const items = c.contrast || [];
     return (
@@ -335,7 +369,7 @@ export default function MonochromeStudy({
         <span className={styles.bwSectionLabel}>{c.sectionLabel}</span>
         <div className={styles.bwContrast}>
           {items.map((item, i) => {
-            const visible = beat >= 1;
+            const visible = beatNum >= 1;
             const itemClasses = [
               styles.bwContrastItem,
               visible ? styles.bwContrastItemVisible : "",
@@ -363,10 +397,10 @@ export default function MonochromeStudy({
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number) => {
     const c = SCENES[4][language];
     const items = c.scaleItems || [];
-    const visibleCount = Math.min((beat + 1) * 2, 4);
+    const visibleCount = Math.min((beatNum + 1) * 2, 4);
     return (
       <div className={styles.scene4}>
         <span className={styles.bwSectionLabel}>{c.sectionLabel}</span>
@@ -412,16 +446,16 @@ export default function MonochromeStudy({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+    switch (sceneNum) {
       case 1:
         return renderScene1();
       case 2:
-        return renderScene2();
+        return renderScene2(beatNum);
       case 3:
-        return renderScene3();
+        return renderScene3(beatNum);
       case 4:
-        return renderScene4();
+        return renderScene4(beatNum);
       case 5:
         return renderScene5();
       default:
@@ -462,13 +496,42 @@ export default function MonochromeStudy({
 
   return (
     <div className={rootClasses}>
+      {/* Outgoing scene (during transition) */}
+      {outgoingScene !== null && (
+        <div
+          className={styles.sceneLayer}
+          style={{ zIndex: 2, pointerEvents: "none" }}
+        >
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, getMaxBeat(outgoingScene))}
+          </div>
+        </div>
+      )}
+
+      {/* Current/incoming scene */}
       <div
-        key={scene}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
+        className={[
+          styles.sceneLayer,
+          !isTransitioning && !isTransitionClone ? styles.animateSceneEnter : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+        style={{ zIndex: isTransitioning ? 1 : 1 }}
       >
-        {renderSceneContent()}
+        <div className={styles.track}>
+          {renderSceneFor(scene, beat)}
+        </div>
       </div>
+
+      {/* Flash overlay (during transition) */}
+      {showFlash && (
+        <div
+          className={`${styles.flashOverlay} ${styles.flashFadeOut}`}
+          style={{ zIndex: 10 }}
+          aria-hidden="true"
+        />
+      )}
+
       {renderNav()}
     </div>
   );

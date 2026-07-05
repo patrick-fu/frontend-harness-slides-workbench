@@ -1,6 +1,8 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./43-research-digest.module.css";
+
+const TRANSITION_DURATION = 500;
 
 // ─── Content ────────────────────────────────────────────────────────────────
 
@@ -443,6 +445,9 @@ export default function ResearchDigest({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef(scene);
 
   useEffect(() => {
     const inject = (id: string, href: string) => {
@@ -471,6 +476,25 @@ export default function ResearchDigest({
     return () => cancelAnimationFrame(id);
   }, [scene]);
 
+  /* Scene-to-scene transition detection */
+  useEffect(() => {
+    if (reducedMotion) {
+      prevSceneRef.current = scene;
+      return;
+    }
+    if (prevSceneRef.current !== scene) {
+      const prev = prevSceneRef.current;
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+  }, [scene, reducedMotion]);
+
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -488,17 +512,19 @@ export default function ResearchDigest({
 
   // ── Scene 1: Cover ─────────────────────────────────────────────────────
 
-  const renderScene1 = () => {
+  const renderScene1 = (opts: { entered: boolean; reducedMotion: boolean }) => {
     const c = SCENES[1][language];
     const topics = c.topics as string[];
+    const e = opts.entered;
+    const rm = opts.reducedMotion;
     return (
       <div className={styles.cover}>
         <div className={styles.coverInner}>
           <div
             className={styles.coverEdition}
             style={{
-              opacity: entered ? 1 : 0,
-              transition: reducedMotion ? "none" : "opacity 0.6s ease 0.2s",
+              opacity: e ? 1 : 0,
+              transition: rm ? "none" : "opacity 0.6s ease 0.2s",
             }}
           >
             {c.edition}
@@ -506,9 +532,9 @@ export default function ResearchDigest({
           <h1
             className={styles.coverTitle}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "none" : "translateY(1.5cqh)",
-              transition: reducedMotion
+              opacity: e ? 1 : 0,
+              transform: e ? "none" : "translateY(1.5cqh)",
+              transition: rm
                 ? "none"
                 : "opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s",
             }}
@@ -519,8 +545,8 @@ export default function ResearchDigest({
           <p
             className={styles.coverSubtitle}
             style={{
-              opacity: entered ? 1 : 0,
-              transition: reducedMotion ? "none" : "opacity 0.8s ease 0.7s",
+              opacity: e ? 1 : 0,
+              transition: rm ? "none" : "opacity 0.8s ease 0.7s",
             }}
           >
             {c.subtitle}
@@ -528,8 +554,8 @@ export default function ResearchDigest({
           <div
             className={styles.coverTopics}
             style={{
-              opacity: entered ? 1 : 0,
-              transition: reducedMotion ? "none" : "opacity 0.6s ease 1s",
+              opacity: e ? 1 : 0,
+              transition: rm ? "none" : "opacity 0.6s ease 1s",
             }}
           >
             {topics.map((topic, i) => (
@@ -542,8 +568,8 @@ export default function ResearchDigest({
           <div
             className={styles.coverFooter}
             style={{
-              opacity: entered ? 0.7 : 0,
-              transition: reducedMotion ? "none" : "opacity 0.6s ease 1.3s",
+              opacity: e ? 0.7 : 0,
+              transition: rm ? "none" : "opacity 0.6s ease 1.3s",
             }}
           >
             <p>{c.scope}</p>
@@ -556,10 +582,13 @@ export default function ResearchDigest({
 
   // ── Scene 2: Featured Paper ────────────────────────────────────────────
 
-  const renderScene2 = () => {
+  const renderScene2 = (opts: { entered: boolean; beat: number; reducedMotion: boolean }) => {
     const c = SCENES[2][language];
     const paper = c.paper as Record<string, any>;
     const tags = paper.tags as string[];
+    const e = opts.entered;
+    const b = opts.beat;
+    const rm = opts.reducedMotion;
     return (
       <div className={styles.featured}>
         <div className={styles.featuredLabel}>
@@ -568,9 +597,9 @@ export default function ResearchDigest({
         <div
           className={styles.paperCard}
           style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "none" : "translateY(1cqh)",
-            transition: reducedMotion
+            opacity: e ? 1 : 0,
+            transform: e ? "none" : "translateY(1cqh)",
+            transition: rm
               ? "none"
               : "opacity 0.6s ease, transform 0.6s ease",
           }}
@@ -587,7 +616,7 @@ export default function ResearchDigest({
             {paper.authors}
             <span className={styles.paperAffil}> · {paper.affiliation}</span>
           </p>
-          {beat >= 0 && (
+          {b >= 0 && (
             <div className={styles.paperTags}>
               {tags.map((tag, i) => (
                 <span key={i} className={styles.paperTag}>
@@ -596,12 +625,12 @@ export default function ResearchDigest({
               ))}
             </div>
           )}
-          {beat >= 1 && (
+          {b >= 1 && (
             <div
               className={styles.paperAbstract}
               style={{
-                opacity: entered ? 1 : 0,
-                transition: reducedMotion
+                opacity: e ? 1 : 0,
+                transition: rm
                   ? "none"
                   : "opacity 0.6s ease 0.2s",
               }}
@@ -625,7 +654,7 @@ export default function ResearchDigest({
 
   // ── Scene 3: Citation Network ──────────────────────────────────────────
 
-  const renderScene3 = () => {
+  const renderScene3 = (opts: { entered: boolean; beat: number; reducedMotion: boolean }) => {
     const c = SCENES[3][language];
     const papers = c.papers as Array<{
       id: number;
@@ -638,12 +667,12 @@ export default function ResearchDigest({
       y: number;
     }>;
     const connections = c.connections as Array<[number, number]>;
+    const e = opts.entered;
+    const b = opts.beat;
+    const rm = opts.reducedMotion;
 
-    const paperMap = useMemo(() => {
-      const m: Record<number, (typeof papers)[0]> = {};
-      papers.forEach((p) => (m[p.id] = p));
-      return m;
-    }, [papers]);
+    const paperMap: Record<number, (typeof papers)[0]> = {};
+    papers.forEach((p) => (paperMap[p.id] = p));
 
     return (
       <div className={styles.network}>
@@ -653,7 +682,7 @@ export default function ResearchDigest({
         </div>
         <div className={styles.networkViz}>
           {/* Connection lines */}
-          {beat >= 1 && (
+          {b >= 1 && (
             <svg
               className={styles.networkSvg}
               viewBox="0 0 100 100"
@@ -674,8 +703,8 @@ export default function ResearchDigest({
                     strokeWidth="0.2"
                     vectorEffect="non-scaling-stroke"
                     style={{
-                      opacity: entered ? 1 : 0,
-                      transition: reducedMotion
+                      opacity: e ? 1 : 0,
+                      transition: rm
                         ? "none"
                         : `opacity 0.5s ease ${i * 0.04}s`,
                     }}
@@ -688,7 +717,7 @@ export default function ResearchDigest({
           {papers.map((p, i) => {
             const color = CLUSTER_COLORS[p.cluster] || "#6366f1";
             const size = 1.5 + Math.log2(p.citations) * 0.4;
-            const showLabels = beat >= 2;
+            const showLabels = b >= 2;
             return (
               <div
                 key={p.id}
@@ -696,11 +725,11 @@ export default function ResearchDigest({
                 style={{
                   left: `${p.x}%`,
                   top: `${p.y}%`,
-                  opacity: entered && beat >= 0 ? 1 : 0,
-                  transform: entered
+                  opacity: e && b >= 0 ? 1 : 0,
+                  transform: e
                     ? "translate(-50%, -50%) scale(1)"
                     : "translate(-50%, -50%) scale(0)",
-                  transition: reducedMotion
+                  transition: rm
                     ? "none"
                     : `opacity 0.5s ease ${i * 0.08}s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.08}s`,
                 }}
@@ -718,8 +747,8 @@ export default function ResearchDigest({
                   <div
                     className={styles.networkNodeLabel}
                     style={{
-                      opacity: entered ? 1 : 0,
-                      transition: reducedMotion
+                      opacity: e ? 1 : 0,
+                      transition: rm
                         ? "none"
                         : `opacity 0.4s ease ${0.5 + i * 0.06}s`,
                     }}
@@ -735,7 +764,7 @@ export default function ResearchDigest({
           })}
         </div>
         {/* Legend */}
-        {beat >= 2 && (
+        {b >= 2 && (
           <div className={styles.networkLegend}>
             {Object.entries(CLUSTER_COLORS).map(([name, color]) => (
               <div key={name} className={styles.networkLegendItem}>
@@ -754,14 +783,17 @@ export default function ResearchDigest({
 
   // ── Scene 4: Keyword Cloud ─────────────────────────────────────────────
 
-  const renderScene4 = () => {
+  const renderScene4 = (opts: { entered: boolean; beat: number; reducedMotion: boolean }) => {
     const c = SCENES[4][language];
     const keywords = c.keywords as Array<{
       term: string;
       count: number;
       size: string;
     }>;
-    const visibleCount = beat === 0 ? Math.ceil(keywords.length / 2) : keywords.length;
+    const e = opts.entered;
+    const b = opts.beat;
+    const rm = opts.reducedMotion;
+    const visibleCount = b === 0 ? Math.ceil(keywords.length / 2) : keywords.length;
     const visible = keywords.slice(0, visibleCount);
 
     return (
@@ -779,9 +811,9 @@ export default function ResearchDigest({
                 styles[`kwSize${kw.size.toUpperCase()}`],
               ].join(" ")}
               style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "none" : "translateY(0.5cqh)",
-                transition: reducedMotion
+                opacity: e ? 1 : 0,
+                transform: e ? "none" : "translateY(0.5cqh)",
+                transition: rm
                   ? "none"
                   : `opacity 0.4s ease ${i * 0.04}s, transform 0.4s ease ${i * 0.04}s`,
               }}
@@ -797,9 +829,11 @@ export default function ResearchDigest({
 
   // ── Scene 5: Statistics ────────────────────────────────────────────────
 
-  const renderScene5 = () => {
+  const renderScene5 = (opts: { entered: boolean; reducedMotion: boolean }) => {
     const c = SCENES[5][language];
     const stats = c.stats as Array<{ label: string; value: string; sub: string }>;
+    const e = opts.entered;
+    const rm = opts.reducedMotion;
     return (
       <div className={styles.stats}>
         <div className={styles.statsHeader}>
@@ -812,9 +846,9 @@ export default function ResearchDigest({
               key={i}
               className={styles.statCard}
               style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "none" : "translateY(1cqh)",
-                transition: reducedMotion
+                opacity: e ? 1 : 0,
+                transform: e ? "none" : "translateY(1cqh)",
+                transition: rm
                   ? "none"
                   : `opacity 0.5s ease ${0.1 + i * 0.08}s, transform 0.5s ease ${0.1 + i * 0.08}s`,
               }}
@@ -829,22 +863,28 @@ export default function ResearchDigest({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  const renderSceneByNumber = (
+    num: number,
+    opts: { entered: boolean; beat: number; reducedMotion: boolean },
+  ) => {
+    switch (num) {
       case 1:
-        return renderScene1();
+        return renderScene1(opts);
       case 2:
-        return renderScene2();
+        return renderScene2(opts);
       case 3:
-        return renderScene3();
+        return renderScene3(opts);
       case 4:
-        return renderScene4();
+        return renderScene4(opts);
       case 5:
-        return renderScene5();
+        return renderScene5(opts);
       default:
         return null;
     }
   };
+
+  const currentOpts = { entered, beat, reducedMotion };
+  const outgoingOpts = { entered: true, beat: 99, reducedMotion };
 
   // ── Navigation (Filter Tabs) ──────────────────────────────────────────
 
@@ -884,13 +924,22 @@ export default function ResearchDigest({
 
   return (
     <div data-testid="style-43-root" className={rootClasses}>
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && !reducedMotion && (
+        <div className={`${styles.sceneLayer} ${styles.exitAnim}`}>
+          {renderSceneByNumber(outgoingScene, outgoingOpts)}
+        </div>
+      )}
+
+      {/* Incoming / current scene (enter animation) */}
       <div
-        key={`43-${scene}`}
-        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
+        className={`${styles.sceneLayer} ${
+          isTransitioning && !isTransitionClone ? styles.enterAnim : ""
+        }`}
       >
-        {renderSceneContent()}
+        {renderSceneByNumber(scene, currentOpts)}
       </div>
+
       {renderNav()}
     </div>
   );

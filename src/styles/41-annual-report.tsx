@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./41-annual-report.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Content ────────────────────────────────────────────────────────────────
 
@@ -298,6 +299,12 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 200; // ms — page flash duration for hard cut
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 };
+const TOTAL_SCENES = 5;
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function AnnualReport({
@@ -310,6 +317,10 @@ export default function AnnualReport({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showPageFlash, setShowPageFlash] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
   useEffect(() => {
     const inject = (id: string, href: string) => {
@@ -330,6 +341,25 @@ export default function AnnualReport({
     );
   }, []);
 
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      setShowPageFlash(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+        setShowPageFlash(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // Beat-level entered animation (for incoming scene reveals)
   useEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
@@ -337,6 +367,13 @@ export default function AnnualReport({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
+
+  // FLIP for scene 3 financial table
+  const { ref: finTableRef } = useFLIP<HTMLTableElement>({
+    watch: [beat],
+    duration: 350,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -355,7 +392,7 @@ export default function AnnualReport({
 
   // ── Scene 1: Cover ──────────────────────────────────────────────────────
 
-  const renderScene1 = () => {
+  const renderScene1 = (isEntered: boolean) => {
     const c = SCENES[1][language];
     return (
       <div className={styles.cover}>
@@ -364,7 +401,7 @@ export default function AnnualReport({
           <div
             className={styles.coverMeta}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.6s ease 0.2s",
             }}
           >
@@ -375,8 +412,8 @@ export default function AnnualReport({
           <h1
             className={styles.coverCompany}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "none" : "translateY(1cqh)",
+              opacity: isEntered ? 1 : 0,
+              transform: isEntered ? "none" : "translateY(1cqh)",
               transition: reducedMotion
                 ? "none"
                 : "opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s",
@@ -388,7 +425,7 @@ export default function AnnualReport({
           <h2
             className={styles.coverYear}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.8s ease 0.7s",
             }}
           >
@@ -397,7 +434,7 @@ export default function AnnualReport({
           <p
             className={styles.coverTagline}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.8s ease 1s",
             }}
           >
@@ -407,7 +444,7 @@ export default function AnnualReport({
           <p
             className={styles.coverFiscal}
             style={{
-              opacity: entered ? 0.6 : 0,
+              opacity: isEntered ? 0.6 : 0,
               transition: reducedMotion ? "none" : "opacity 0.8s ease 1.3s",
             }}
           >
@@ -421,7 +458,7 @@ export default function AnnualReport({
 
   // ── Scene 2: Chairman's Letter ─────────────────────────────────────────
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number, isEntered: boolean) => {
     const c = SCENES[2][language];
     const paragraphs = c.paragraphs as string[];
     return (
@@ -433,21 +470,21 @@ export default function AnnualReport({
         <p
           className={styles.letterSalutation}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.5s ease 0.2s",
           }}
         >
           {c.salutation}
         </p>
-        {beat >= 1 && (
+        {beatNum >= 1 && (
           <div className={styles.letterBody}>
             {paragraphs.map((para, i) => (
               <p
                 key={i}
                 className={i === 0 ? styles.letterDropCap : ""}
                 style={{
-                  opacity: entered ? 1 : 0,
-                  transform: entered ? "none" : "translateY(0.8cqh)",
+                  opacity: isEntered ? 1 : 0,
+                  transform: isEntered ? "none" : "translateY(0.8cqh)",
                   transition: reducedMotion
                     ? "none"
                     : `opacity 0.6s ease ${0.3 + i * 0.15}s, transform 0.6s ease ${0.3 + i * 0.15}s`,
@@ -458,11 +495,11 @@ export default function AnnualReport({
             ))}
           </div>
         )}
-        {beat >= 1 && (
+        {beatNum >= 1 && (
           <div
             className={styles.letterSignature}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion
                 ? "none"
                 : `opacity 0.6s ease ${0.3 + paragraphs.length * 0.15}s`,
@@ -478,11 +515,11 @@ export default function AnnualReport({
 
   // ── Scene 3: Financial Highlights ──────────────────────────────────────
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number, isEntered: boolean, isCurrent: boolean) => {
     const c = SCENES[3][language];
     const headers = c.tableHeaders as string[];
     const rows = c.tableRows as string[][];
-    const visibleRows = rows.slice(0, Math.min(rows.length, (beat + 1) * 4));
+    const visibleRows = rows.slice(0, Math.min(rows.length, (beatNum + 1) * 4));
 
     return (
       <div className={styles.financials}>
@@ -492,7 +529,10 @@ export default function AnnualReport({
           <p className={styles.finNote}>{c.note}</p>
         </div>
         <div className={styles.finTableWrap}>
-          <table className={styles.finTable}>
+          <table
+            ref={isCurrent ? finTableRef : undefined}
+            className={styles.finTable}
+          >
             <thead>
               <tr>
                 {headers.map((h, i) => (
@@ -510,10 +550,10 @@ export default function AnnualReport({
                 <tr
                   key={i}
                   style={{
-                    opacity: entered ? 1 : 0,
+                    opacity: isEntered ? 1 : 0,
                     transition: reducedMotion
                       ? "none"
-                      : `opacity 0.3s ease ${i * 0.05}s`,
+                      : `opacity 0.15s ease ${i * 0.03}s`,
                   }}
                 >
                   {row.map((cell, j) => (
@@ -534,11 +574,11 @@ export default function AnnualReport({
             </tbody>
           </table>
         </div>
-        {beat >= 2 && (
+        {beatNum >= 2 && (
           <p
             className={styles.finFootnote}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.5s ease 0.3s",
             }}
           >
@@ -551,7 +591,7 @@ export default function AnnualReport({
 
   // ── Scene 4: Segment Performance ───────────────────────────────────────
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number, isEntered: boolean) => {
     const c = SCENES[4][language];
     const segments = c.segments as Array<{
       name: string;
@@ -573,8 +613,8 @@ export default function AnnualReport({
               key={i}
               className={styles.segBarRow}
               style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "none" : "translateX(-2cqw)",
+                opacity: isEntered ? 1 : 0,
+                transform: isEntered ? "none" : "translateX(-2cqw)",
                 transition: reducedMotion
                   ? "none"
                   : `opacity 0.5s ease ${i * 0.12}s, transform 0.5s ease ${i * 0.12}s`,
@@ -588,7 +628,7 @@ export default function AnnualReport({
                 <div
                   className={styles.segBarFill}
                   style={{
-                    width: entered ? `${seg.pct}%` : "0%",
+                    width: isEntered ? `${seg.pct}%` : "0%",
                     transition: reducedMotion
                       ? "none"
                       : `width 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${0.2 + i * 0.12}s`,
@@ -599,14 +639,14 @@ export default function AnnualReport({
             </div>
           ))}
         </div>
-        {beat >= 1 && (
+        {beatNum >= 1 && (
           <div className={styles.segDetails}>
             {segments.slice(0, 2).map((seg, i) => (
               <p
                 key={i}
                 className={styles.segDetail}
                 style={{
-                  opacity: entered ? 1 : 0,
+                  opacity: isEntered ? 1 : 0,
                   transition: reducedMotion
                     ? "none"
                     : `opacity 0.5s ease ${0.6 + i * 0.15}s`,
@@ -623,7 +663,7 @@ export default function AnnualReport({
 
   // ── Scene 5: Auditor's Report ──────────────────────────────────────────
 
-  const renderScene5 = () => {
+  const renderScene5 = (isEntered: boolean) => {
     const c = SCENES[5][language];
     return (
       <div className={styles.auditor}>
@@ -635,7 +675,7 @@ export default function AnnualReport({
         <div className={styles.auditorBody}>
           <p
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.6s ease 0.2s",
             }}
           >
@@ -643,7 +683,7 @@ export default function AnnualReport({
           </p>
           <p
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.6s ease 0.5s",
             }}
           >
@@ -652,7 +692,7 @@ export default function AnnualReport({
           <p
             className={styles.auditorEmphasis}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.6s ease 0.8s",
             }}
           >
@@ -670,18 +710,25 @@ export default function AnnualReport({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  // ── Render scene content for a given scene number ────────────────────────
+
+  const renderSceneFor = (
+    sceneNum: number,
+    beatNum: number,
+    isEntered: boolean,
+    isCurrent: boolean = false,
+  ) => {
+    switch (sceneNum) {
       case 1:
-        return renderScene1();
+        return renderScene1(isEntered);
       case 2:
-        return renderScene2();
+        return renderScene2(beatNum, isEntered);
       case 3:
-        return renderScene3();
+        return renderScene3(beatNum, isEntered, isCurrent);
       case 4:
-        return renderScene4();
+        return renderScene4(beatNum, isEntered);
       case 5:
-        return renderScene5();
+        return renderScene5(isEntered);
       default:
         return null;
     }
@@ -730,15 +777,41 @@ export default function AnnualReport({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div data-testid="style-41-root" className={rootClasses}>
-      <div
-        key={`41-${scene}`}
-        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (hard cut: instant exit) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+        </div>
+      )}
+
+      {/* Incoming / current scene (hard cut: instant enter) */}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat, entered, true)}
       </div>
+
+      {/* Page number flash overlay */}
+      {showPageFlash && !reducedMotion && (
+        <div className={styles.pageFlash}>
+          {language === "zh"
+            ? `第 ${scene} 页，共 ${TOTAL_SCENES} 页`
+            : `PAGE ${scene} OF ${TOTAL_SCENES}`}
+        </div>
+      )}
+
       {renderNav()}
     </div>
   );

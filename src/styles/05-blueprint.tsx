@@ -1,5 +1,6 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import { useFLIP } from "../hooks/useFLIP";
 import styles from "./05-blueprint.module.css";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
@@ -383,6 +384,12 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ───────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 800;
+const BEAT_COUNTS_FOR_SCENE: Record<number, number> = { 1: 1, 2: 3, 3: 2, 4: 3, 5: 1 };
+const getMaxBeat = (sceneNum: number): number => (BEAT_COUNTS_FOR_SCENE[sceneNum] || 1) - 1;
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function Blueprint({
@@ -396,6 +403,39 @@ export default function Blueprint({
 }: BespokeStyleProps) {
   useFonts();
 
+  // ── Transition state ────────────────────────────────────────────────────
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevScene = useRef(scene);
+
+  useEffect(() => {
+    if (prevScene.current !== scene) {
+      if (!reducedMotion && !isThumbnail) {
+        setOutgoingScene(prevScene.current);
+        setIsTransitioning(true);
+        const timer = setTimeout(() => {
+          setOutgoingScene(null);
+          setIsTransitioning(false);
+        }, TRANSITION_DURATION);
+        prevScene.current = scene;
+        return () => clearTimeout(timer);
+      }
+      prevScene.current = scene;
+    }
+  }, [scene, reducedMotion, isThumbnail]);
+
+  // ── FLIP for list reflows ───────────────────────────────────────────────
+  const { ref: layersFlipRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
+  const { ref: specFlipRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
+
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -408,13 +448,7 @@ export default function Blueprint({
     styles.root,
     reducedMotion ? styles.reducedMotion : "",
     isThumbnail ? styles.thumbnail : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  const trackClasses = [
-    styles.track,
-    !isTransitionClone && styles.animateSceneEnter,
+    isTransitioning ? styles.transitioning : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -442,15 +476,15 @@ export default function Blueprint({
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number) => {
     const c = SCENES[2][language];
     const layers = c.layers || [];
-    const visibleCount = Math.min(beat * 2, 4);
+    const visibleCount = Math.min(beatNum * 2, 4);
     return (
       <div className={styles.scene2}>
         <span className={styles.sceneLabel}>{c.label}</span>
         <h2 className={styles.sceneHeading}>{c.heading}</h2>
-        <div className={styles.systemLayers}>
+        <div className={styles.systemLayers} ref={layersFlipRef}>
           {layers.map((layer, i) => {
             const visible = i < visibleCount;
             const layerClasses = [
@@ -480,7 +514,7 @@ export default function Blueprint({
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number) => {
     const c = SCENES[3][language];
     const nodes = c.flowNodes || [];
     return (
@@ -489,7 +523,7 @@ export default function Blueprint({
         <h2 className={styles.sceneHeading}>{c.heading}</h2>
         <div className={styles.flowDiagram}>
           {nodes.map((node, i) => {
-            const visible = beat >= 1;
+            const visible = beatNum >= 1;
             const nodeClasses = [
               styles.flowNode,
               visible ? styles.flowNodeVisible : "",
@@ -535,10 +569,10 @@ export default function Blueprint({
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number) => {
     const c = SCENES[4][language];
     const blocks = c.specBlocks || [];
-    const visibleCount = Math.min(beat * 2, 4);
+    const visibleCount = Math.min(beatNum * 2, 4);
     return (
       <div className={styles.scene4}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -546,7 +580,7 @@ export default function Blueprint({
           <h2 className={styles.specTitle}>{c.specTitle}</h2>
           <span className={styles.specRev}>{c.specRev}</span>
         </div>
-        <div className={styles.specGrid}>
+        <div className={styles.specGrid} ref={specFlipRef}>
           {blocks.map((block, i) => {
             const visible = i < visibleCount;
             const blockClasses = [
@@ -593,16 +627,16 @@ export default function Blueprint({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+    switch (sceneNum) {
       case 1:
         return renderScene1();
       case 2:
-        return renderScene2();
+        return renderScene2(beatNum);
       case 3:
-        return renderScene3();
+        return renderScene3(beatNum);
       case 4:
-        return renderScene4();
+        return renderScene4(beatNum);
       case 5:
         return renderScene5();
       default:
@@ -659,12 +693,32 @@ export default function Blueprint({
       <RegMark className={`${styles.regMark} ${styles.regMarkBL}`} />
       <RegMark className={`${styles.regMark} ${styles.regMarkBR}`} />
 
+      {/* Outgoing scene (during transition) */}
+      {outgoingScene !== null && (
+        <div
+          className={`${styles.sceneLayer} ${styles.exitAnim}`}
+          style={{ zIndex: 2, pointerEvents: "none" }}
+        >
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, getMaxBeat(outgoingScene))}
+          </div>
+        </div>
+      )}
+
+      {/* Current/incoming scene */}
       <div
-        key={scene}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
+        className={[
+          styles.sceneLayer,
+          isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+          !isTransitioning && !isTransitionClone ? styles.animateSceneEnter : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+        style={{ zIndex: isTransitioning ? 3 : 1 }}
       >
-        {renderSceneContent()}
+        <div className={styles.track}>
+          {renderSceneFor(scene, beat)}
+        </div>
       </div>
 
       {renderNav()}

@@ -33,9 +33,104 @@
   z-index: 0;
 }
 
+/* ─── Scene layer (dual rendering) ─── */
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+}
+
 .track { width: 100%; height: 100%; position: relative; z-index: 1; }
-.animateSceneEnter { animation: sceneEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-@keyframes sceneEnter { from { opacity: 0; transform: translateY(1.5cqh); } to { opacity: 1; transform: translateY(0); } }
+
+/* ─── Scene-to-scene transition: floral vine grow ─── */
+.exitAnim {
+  animation: rosemalingExit 0.4s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes rosemalingExit {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.enterAnim {
+  animation: rosemalingEnter 0.5s ease-out forwards;
+  z-index: 2;
+}
+
+@keyframes rosemalingEnter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ─── Vine overlay (curtain that draws across then fades) ─── */
+.vineOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: var(--style-32-bg);
+}
+
+.vineOverlayFade {
+  animation: vineCurtainFade 0.3s ease-out forwards;
+}
+
+@keyframes vineCurtainFade {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.vineSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.vinePath {
+  stroke-dasharray: 3000;
+  stroke-dashoffset: 3000;
+  animation: vineDraw 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.vinePath2 {
+  animation-delay: 0.08s;
+}
+
+.vinePath3 {
+  animation-delay: 0.15s;
+}
+
+@keyframes vineDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+.vineFlower {
+  opacity: 0;
+  animation: flowerBloom 0.3s ease-out forwards;
+}
+
+@keyframes flowerBloom {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 0.8; transform: scale(1); }
+}
+
+.vineFlowerDelay0 { animation-delay: 0.35s; }
+.vineFlowerDelay1 { animation-delay: 0.42s; }
+.vineFlowerDelay2 { animation-delay: 0.48s; }
+.vineFlowerDelay3 { animation-delay: 0.54s; }
+
+.vineLeaf {
+  opacity: 0;
+  animation: leafAppear 0.3s ease-out forwards;
+}
+
+@keyframes leafAppear {
+  from { opacity: 0; }
+  to { opacity: 0.6; }
+}
+
+.vineLeafDelay0 { animation-delay: 0.4s; }
+.vineLeafDelay1 { animation-delay: 0.46s; }
+.vineLeafDelay2 { animation-delay: 0.52s; }
 
 /* ─── Scene 1 ─── */
 .scene1 { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; padding: 8cqh 8cqw; }
@@ -55,21 +150,21 @@
 
 /* ─── Grid cards ─── */
 .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2cqw; flex: 1; }
-.card { background: var(--style-32-panel); padding: 2.5cqh 1.5cqw; display: flex; flex-direction: column; align-items: center; text-align: center; border-top: 0.4cqh solid var(--style-32-rose); opacity: 0; transform: translateY(2cqh); transition: opacity 0.5s ease, transform 0.5s ease; }
-.cardVisible { opacity: 1; transform: translateY(0); }
+.card { background: var(--style-32-panel); padding: 2.5cqh 1.5cqw; display: flex; flex-direction: column; align-items: center; text-align: center; border-top: 0.4cqh solid var(--style-32-rose); opacity: 0; transform: scale(0) rotate(-10deg); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform-origin: center bottom; }
+.cardVisible { opacity: 1; transform: scale(1) rotate(0deg); }
 .cardFlower { width: 8cqh; height: 8cqh; margin-bottom: 1.5cqh; }
 .cardName { font-size: 3cqh; font-weight: 700; color: var(--style-32-cream); margin-bottom: 0.5cqh; font-family: "Playfair Display", serif; }
 .cardDesc { font-size: 2cqh; line-height: 1.5; color: var(--style-32-cream); opacity: 0.6; margin: 0; font-family: "Inter", system-ui, sans-serif; }
 
 /* ─── Motif cards ─── */
-.motifCard { background: var(--style-32-panel); padding: 3cqh 1.5cqw; display: flex; flex-direction: column; align-items: center; text-align: center; border: 0.15cqh solid rgba(212, 102, 122, 0.3); opacity: 0; transform: scale(0.95); transition: opacity 0.5s ease, transform 0.5s ease; }
+.motifCard { background: var(--style-32-panel); padding: 3cqh 1.5cqw; display: flex; flex-direction: column; align-items: center; text-align: center; border: 0.15cqh solid rgba(212, 102, 122, 0.3); opacity: 0; transform: scale(0) rotate(-10deg); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform-origin: center bottom; }
 .motifIcon { font-size: 6cqh; margin-bottom: 1cqh; color: var(--style-32-rose); line-height: 1; }
 .motifName { font-size: 3.2cqh; font-weight: 700; color: var(--style-32-cream); margin-bottom: 0.5cqh; font-family: "Playfair Display", serif; }
 .motifMeaning { font-size: 2.2cqh; line-height: 1.5; color: var(--style-32-cream); opacity: 0.6; margin: 0; font-family: "Inter", system-ui, sans-serif; }
 
 /* ─── Palette ─── */
 .paletteRow { display: flex; gap: 3cqw; justify-content: center; flex: 1; align-items: center; }
-.swatchCard { display: flex; flex-direction: column; align-items: center; text-align: center; opacity: 0; transform: translateY(2cqh); transition: opacity 0.5s ease, transform 0.5s ease; }
+.swatchCard { display: flex; flex-direction: column; align-items: center; text-align: center; opacity: 0; transform: scale(0) rotate(-10deg); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform-origin: center bottom; }
 .swatchCircle { width: 14cqh; height: 14cqh; border-radius: 50%; margin-bottom: 1.5cqh; border: 0.4cqh solid rgba(245, 230, 200, 0.2); box-shadow: 0 0.5cqh 2cqh rgba(0,0,0,0.3); }
 .swatchName { font-size: 2.8cqh; font-weight: 700; color: var(--style-32-cream); font-family: "Playfair Display", serif; }
 .swatchHex { font-size: 2cqh; color: var(--style-32-cream); opacity: 0.5; font-family: "Inter", system-ui, sans-serif; margin-top: 0.3cqh; }

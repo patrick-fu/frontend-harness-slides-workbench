@@ -11,27 +11,80 @@
   font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
 }
 
-/* ── Magic Move Transition Track ───────────────────────────────────────── */
+/* ── Scene-to-Scene Transition: Yellow Frame Photo Reveal ──────────────── */
 
-.track {
+.sceneLayer {
   position: absolute;
   inset: 0;
-  display: flex;
-  flex-direction: column;
+  will-change: transform, opacity;
 }
 
-.animateSceneEnter {
-  animation: sceneEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Persistent yellow frame border (brand anchor) */
+.yellowFrame {
+  position: absolute;
+  inset: 2cqh;
+  border: 0.3cqh solid #ffcc00;
+  pointer-events: none;
+  z-index: 5;
+  border-radius: 0.2cqw;
 }
 
-@keyframes sceneEnter {
+/* Frame reveal overlay — expands from center during transition */
+.frameReveal {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  animation: frameExpand 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes frameExpand {
+  0% {
+    clip-path: inset(45% 45% 45% 45%);
+    background: rgba(255, 204, 0, 0.15);
+    box-shadow: inset 0 0 0 0.4cqh #ffcc00;
+  }
+  70% {
+    background: rgba(255, 204, 0, 0.05);
+  }
+  100% {
+    clip-path: inset(0% 0% 0% 0%);
+    background: transparent;
+    box-shadow: inset 0 0 0 0.4cqh #ffcc00;
+  }
+}
+
+/* Outgoing: content fades out behind frame */
+.exitAnim {
+  animation: natGeoExit 0.3s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes natGeoExit {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+/* Incoming: content fades in as frame settles */
+.enterAnim {
+  animation: natGeoEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  z-index: 2;
+}
+
+@keyframes natGeoEnter {
   from {
     opacity: 0;
-    transform: translateY(1.5cqh);
+    transform: scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1);
   }
 }
 
@@ -556,17 +609,22 @@
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
 
-.reducedMotion .track,
 .reducedMotion .navIndicator {
   transition-duration: 0s !important;
 }
 
-.reducedMotion .animateSceneEnter {
+.reducedMotion .exitAnim,
+.reducedMotion .enterAnim,
+.reducedMotion .frameReveal {
   animation-duration: 0s !important;
 }
 
 /* ── Thumbnail mode ─────────────────────────────────────────────────────── */
 
 .thumbnail .navIndicators {
+  display: none;
+}
+
+.thumbnail .yellowFrame {
   display: none;
 }

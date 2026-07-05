@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./20-national-geographic.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Content ────────────────────────────────────────────────────────────────
 
@@ -254,6 +255,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 700; // ms — frame expand 500ms + content cross-fade
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function NationalGeographic({
@@ -268,6 +274,10 @@ export default function NationalGeographic({
   const content = SCENES[scene]?.[language] || SCENES[1][language];
   const [entered, setEntered] = useState(false);
 
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
   // Font injection
   useEffect(() => {
     const id = "style-20-fonts";
@@ -280,6 +290,23 @@ export default function NationalGeographic({
     document.head.appendChild(link);
   }, []);
 
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // Beat-level enter animation
   useEffect(() => {
     setEntered(false);
     const raf = requestAnimationFrame(() => {
@@ -288,7 +315,15 @@ export default function NationalGeographic({
       });
     });
     return () => cancelAnimationFrame(raf);
-  }, [scene]);
+  }, [scene, beat]);
+
+  // FLIP for scene 3 gallery grid
+  const { ref: galleryGridRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+    selector: `.${styles.galleryCard}`,
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -306,34 +341,29 @@ export default function NationalGeographic({
     .filter(Boolean)
     .join(" ");
 
-  const trackClasses = [
-    styles.track,
-    !isTransitionClone && styles.animateSceneEnter,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+    const sc = SCENES[sceneNum]?.[language] || SCENES[1][language];
 
-  const renderSceneContent = () => {
-    if (scene === 1) {
+    if (sceneNum === 1) {
       return (
         <div className={styles.coverScene}>
           <div className={styles.coverPhoto} />
           <div className={styles.coverContent}>
             <div className={styles.coverYellowBar} />
-            <p className={styles.coverLabel}>{content.label}</p>
-            <h1 className={styles.coverTitle}>{content.title}</h1>
-            <p className={styles.coverSubtitle}>{content.subtitle}</p>
+            <p className={styles.coverLabel}>{sc.label}</p>
+            <h1 className={styles.coverTitle}>{sc.title}</h1>
+            <p className={styles.coverSubtitle}>{sc.subtitle}</p>
           </div>
         </div>
       );
     }
 
-    if (scene === 2) {
+    if (sceneNum === 2) {
       return (
         <div className={styles.featureScene}>
           <div className={styles.featurePhoto}>
             <div className={styles.featurePhotoGradient} />
-            {beat >= 0 && (
+            {beatNum >= 0 && (
               <div
                 className={styles.featurePhotoCaption}
                 style={{
@@ -344,10 +374,10 @@ export default function NationalGeographic({
                 }}
               >
                 <p className={styles.featurePhotoCaptionText}>
-                  {content.caption}
+                  {sc.caption}
                 </p>
                 <p className={styles.featurePhotoCaptionCredit}>
-                  {content.credit}
+                  {sc.credit}
                 </p>
               </div>
             )}
@@ -362,9 +392,9 @@ export default function NationalGeographic({
                 : "opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s",
             }}
           >
-            <p className={styles.featureKicker}>{content.kicker}</p>
-            <h2 className={styles.featureHeadline}>{content.title}</h2>
-            {beat >= 1 && (
+            <p className={styles.featureKicker}>{sc.kicker}</p>
+            <h2 className={styles.featureHeadline}>{sc.title}</h2>
+            {beatNum >= 1 && (
               <p
                 className={styles.featureDeck}
                 style={{
@@ -374,7 +404,7 @@ export default function NationalGeographic({
                     : "opacity 0.5s ease 0.3s",
                 }}
               >
-                {content.deck}
+                {sc.deck}
               </p>
             )}
           </div>
@@ -382,20 +412,23 @@ export default function NationalGeographic({
       );
     }
 
-    if (scene === 3) {
-      const cards = content.galleryCards || [];
+    if (sceneNum === 3) {
+      const cards = sc.galleryCards || [];
       return (
         <div className={styles.galleryScene}>
           <div className={styles.galleryHeader}>
             <div className={styles.galleryYellowAccent} />
             <div>
-              <p className={styles.galleryLabel}>{content.label}</p>
-              <h2 className={styles.galleryTitle}>{content.galleryTitle}</h2>
+              <p className={styles.galleryLabel}>{sc.label}</p>
+              <h2 className={styles.galleryTitle}>{sc.galleryTitle}</h2>
             </div>
           </div>
-          <div className={styles.galleryGrid}>
+          <div
+            className={styles.galleryGrid}
+            ref={sceneNum === scene ? galleryGridRef : undefined}
+          >
             {cards.map((card, i) => {
-              const visible = i <= beat;
+              const visible = i <= beatNum;
               return (
                 <div
                   key={i}
@@ -426,15 +459,15 @@ export default function NationalGeographic({
       );
     }
 
-    if (scene === 4) {
-      const stats = content.stats || [];
+    if (sceneNum === 4) {
+      const stats = sc.stats || [];
       return (
         <div className={styles.mapScene}>
           <div className={styles.mapHeader}>
             <div className={styles.mapYellowBar} />
             <div>
-              <p className={styles.mapLabel}>{content.label}</p>
-              <h2 className={styles.mapTitle}>{content.mapTitle}</h2>
+              <p className={styles.mapLabel}>{sc.label}</p>
+              <h2 className={styles.mapTitle}>{sc.mapTitle}</h2>
             </div>
           </div>
           <div className={styles.mapBody}>
@@ -451,7 +484,7 @@ export default function NationalGeographic({
                 {language === "zh" ? "地图区域" : "Map Area"}
               </span>
             </div>
-            {beat >= 1 && (
+            {beatNum >= 1 && (
               <div
                 className={styles.mapStats}
                 style={{
@@ -479,19 +512,19 @@ export default function NationalGeographic({
       );
     }
 
-    if (scene === 5) {
+    if (sceneNum === 5) {
       return (
         <div className={styles.closingScene}>
           <div className={styles.closingBg} />
           <div className={styles.closingContent}>
             <div className={styles.closingYellowBar} />
             <blockquote className={styles.closingQuote}>
-              "{content.quote}"
+              "{sc.quote}"
             </blockquote>
             <p className={styles.closingAttribution}>
-              {content.attribution}
+              {sc.attribution}
             </p>
-            <p className={styles.closingOrg}>{content.org}</p>
+            <p className={styles.closingOrg}>{sc.org}</p>
           </div>
         </div>
       );
@@ -529,15 +562,40 @@ export default function NationalGeographic({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`20-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Persistent yellow frame border (Nat Geo brand anchor) */}
+      <div className={styles.yellowFrame} aria-hidden="true" />
+
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat)}
       </div>
+
+      {/* Yellow frame reveal overlay (animated during transition) */}
+      {isTransitioning && !isTransitionClone && !reducedMotion && (
+        <div className={styles.frameReveal} aria-hidden="true" />
+      )}
+
       {renderNavIndicators()}
     </div>
   );

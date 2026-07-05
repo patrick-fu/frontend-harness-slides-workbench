@@ -1,6 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./47-white-paper.module.css";
+
+/* ── Transition constants ──────────────────────────────────────────────── */
+
+const TRANSITION_DURATION = 600; // ms — page edge peel
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 3, 5: 2 };
 
 /* ── Content ─────────────────────────────────────────────────────────────── */
 
@@ -438,6 +443,25 @@ export default function WhitePaper({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
 
   useEffect(() => {
     const id = "style-47-fonts";
@@ -467,14 +491,13 @@ export default function WhitePaper({
   );
 
   const data = SCENES[language];
-  const sceneData = data.scenes[scene - 1];
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : ""]
     .filter(Boolean)
     .join(" ");
 
   /* Scene 1: Cover */
-  const renderCover = () => {
-    const s = sceneData as (typeof data.scenes)[0];
+  const renderCover = (sceneNum: number, _beatNum: number, isEntered: boolean) => {
+    const s = data.scenes[sceneNum - 1] as (typeof data.scenes)[0];
     return (
       <div className={styles.cover}>
         <div className={styles.coverSeries}>{s.series}</div>
@@ -496,8 +519,8 @@ export default function WhitePaper({
   };
 
   /* Scene 2: Overview */
-  const renderOverview = () => {
-    const s = sceneData as (typeof data.scenes)[1];
+  const renderOverview = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    const s = data.scenes[sceneNum - 1] as (typeof data.scenes)[1];
     return (
       <div className={styles.overview}>
         <div className={styles.overviewHeader}>
@@ -510,9 +533,9 @@ export default function WhitePaper({
               key={i}
               className={styles.overviewPara}
               style={{
-                opacity: entered && i <= beat ? 1 : 0,
+                opacity: isEntered && i <= beatNum ? 1 : 0,
                 transform:
-                  entered && i <= beat
+                  isEntered && i <= beatNum
                     ? "translateY(0)"
                     : "translateY(0.8cqh)",
                 transition: "opacity 0.4s ease, transform 0.4s ease",
@@ -528,7 +551,7 @@ export default function WhitePaper({
                 key={i}
                 className={styles.overviewTerm}
                 style={{
-                  opacity: entered && beat >= 1 ? 1 : 0,
+                  opacity: isEntered && beatNum >= 1 ? 1 : 0,
                   transition: "opacity 0.3s ease",
                   transitionDelay: `${i * 0.05}s`,
                 }}
@@ -543,9 +566,9 @@ export default function WhitePaper({
   };
 
   /* Scene 3: Architecture Diagram (HERO) */
-  const renderArchitecture = () => {
-    const s = sceneData as (typeof data.scenes)[2];
-    const visibleNodes = Math.min(beat * 2 + 3, s.nodes.length);
+  const renderArchitecture = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    const s = data.scenes[sceneNum - 1] as (typeof data.scenes)[2];
+    const visibleNodes = Math.min(beatNum * 2 + 3, s.nodes.length);
     return (
       <div className={styles.architecture}>
         <div className={styles.archHeader}>
@@ -614,8 +637,8 @@ export default function WhitePaper({
                 top: `${node.y}cqh`,
                 width: `${node.w}cqw`,
                 height: `${node.h}cqh`,
-                opacity: entered ? 1 : 0,
-                transform: entered ? "scale(1)" : "scale(0.9)",
+                opacity: isEntered ? 1 : 0,
+                transform: isEntered ? "scale(1)" : "scale(0.9)",
                 transition:
                   "opacity 0.4s ease, transform 0.4s ease",
               }}
@@ -642,9 +665,9 @@ export default function WhitePaper({
   };
 
   /* Scene 4: Benchmarks */
-  const renderBenchmarks = () => {
-    const s = sceneData as (typeof data.scenes)[3];
-    const visibleCount = Math.min(beat * 2 + 3, s.rows.length);
+  const renderBenchmarks = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    const s = data.scenes[sceneNum - 1] as (typeof data.scenes)[3];
+    const visibleCount = Math.min(beatNum * 2 + 3, s.rows.length);
     return (
       <div className={styles.benchmarks}>
         <div className={styles.benchHeader}>
@@ -666,7 +689,7 @@ export default function WhitePaper({
                 <tr
                   key={row.system}
                   style={{
-                    opacity: entered ? 1 : 0,
+                    opacity: isEntered ? 1 : 0,
                     transition: "opacity 0.3s ease",
                     transitionDelay: `${i * 0.07}s`,
                   }}
@@ -696,7 +719,7 @@ export default function WhitePaper({
                     <div className={styles.benchBarWrap}>
                       <div
                         className={styles.benchBarFill}
-                        style={{ width: entered ? `${row.pct}%` : "0%" }}
+                        style={{ width: isEntered ? `${row.pct}%` : "0%" }}
                       />
                     </div>
                   </td>
@@ -716,8 +739,8 @@ export default function WhitePaper({
   };
 
   /* Scene 5: Conclusion */
-  const renderConclusion = () => {
-    const s = sceneData as (typeof data.scenes)[4];
+  const renderConclusion = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    const s = data.scenes[sceneNum - 1] as (typeof data.scenes)[4];
     return (
       <div className={styles.conclusion}>
         <div className={styles.concHeader}>
@@ -730,9 +753,9 @@ export default function WhitePaper({
               key={i}
               className={styles.concPara}
               style={{
-                opacity: entered && i <= beat ? 1 : 0,
+                opacity: isEntered && i <= beatNum ? 1 : 0,
                 transform:
-                  entered && i <= beat
+                  isEntered && i <= beatNum
                     ? "translateY(0)"
                     : "translateY(0.6cqh)",
                 transition: "opacity 0.4s ease, transform 0.4s ease",
@@ -749,7 +772,7 @@ export default function WhitePaper({
                 key={i}
                 className={styles.concContribItem}
                 style={{
-                  opacity: entered && beat >= 1 ? 1 : 0,
+                  opacity: isEntered && beatNum >= 1 ? 1 : 0,
                   transition: "opacity 0.3s ease",
                   transitionDelay: `${i * 0.08}s`,
                 }}
@@ -795,28 +818,49 @@ export default function WhitePaper({
     );
   };
 
-  const renderScene = () => {
-    switch (scene) {
+  const renderSceneFor = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    switch (sceneNum) {
       case 1:
-        return renderCover();
+        return renderCover(sceneNum, beatNum, isEntered);
       case 2:
-        return renderOverview();
+        return renderOverview(sceneNum, beatNum, isEntered);
       case 3:
-        return renderArchitecture();
+        return renderArchitecture(sceneNum, beatNum, isEntered);
       case 4:
-        return renderBenchmarks();
+        return renderBenchmarks(sceneNum, beatNum, isEntered);
       case 5:
-        return renderConclusion();
+        return renderConclusion(sceneNum, beatNum, isEntered);
       default:
         return null;
     }
   };
 
+  /* Layer classes */
+  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim]
+    .filter(Boolean)
+    .join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <div className={rootClasses}>
-      <div key={`47-${scene}`} className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}>
-        {renderScene()}
+      {/* Outgoing scene (page edge peel exit) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat, entered)}
       </div>
+
       {renderNav()}
     </div>
   );

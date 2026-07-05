@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./37-terminal-ui.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -361,6 +362,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ───────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 400; // ms — outgoing 150ms + gap 50ms + line reveal ~200ms
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function TerminalUI({
@@ -373,9 +379,34 @@ export default function TerminalUI({
   isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
-  const [entered, setEntered] = useState(false);
 
+  const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
+
+  // Detect scene changes and manage transition lifecycle
   useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // Beat-level entered state — controls reveal animations
+  useEffect(() => {
+    if (reducedMotion) {
+      setEntered(true);
+      return;
+    }
     setEntered(false);
     const id = requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -383,7 +414,14 @@ export default function TerminalUI({
       });
     });
     return () => cancelAnimationFrame(id);
-  }, [scene]);
+  }, [scene, reducedMotion]);
+
+  // FLIP for terminal output area (scene 2) — new lines push old ones up
+  const { ref: terminalOutputRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 300,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -402,14 +440,14 @@ export default function TerminalUI({
 
   // ── Scene 1: Boot ───────────────────────────────────────────────────────
 
-  const renderScene1 = () => {
+  const renderScene1 = (isEntered: boolean) => {
     const c = SCENES[1][language];
     return (
       <div className={styles.bootScene}>
         <pre
           className={styles.bootAscii}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.3s steps(6)",
           }}
         >
@@ -420,7 +458,7 @@ export default function TerminalUI({
             key={i}
             className={styles.bootLine}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion
                 ? "none"
                 : `opacity 0.05s steps(1) ${0.3 + i * 0.08}s`,
@@ -437,7 +475,7 @@ export default function TerminalUI({
         <div
           className={styles.bootPrompt}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion
               ? "none"
               : `opacity 0.1s steps(2) ${0.3 + c.bootLines.length * 0.08}s`,
@@ -452,7 +490,7 @@ export default function TerminalUI({
 
   // ── Scene 2: Commands ───────────────────────────────────────────────────
 
-  const renderScene2 = () => {
+  const renderScene2 = (isEntered: boolean, beatNum: number, isCurrent: boolean) => {
     const c = SCENES[2][language];
     const lines = c.lines as Array<{ type: string; text: string; cls?: string }>;
     const secondCmdIdx = lines.findIndex((l, i) => i > 0 && l.type === "cmd");
@@ -467,9 +505,12 @@ export default function TerminalUI({
           <span className={styles.terminalTitle}>{c.title}</span>
           <span style={{ width: "6cqw" }} />
         </div>
-        <div className={styles.cmdBody}>
+        <div
+          ref={isCurrent ? terminalOutputRef : undefined}
+          className={styles.cmdBody}
+        >
           {lines.map((line, i) => {
-            const visible = entered && (beat >= 1 || secondCmdIdx === -1 || i < secondCmdIdx);
+            const visible = isEntered && (beatNum >= 1 || secondCmdIdx === -1 || i < secondCmdIdx);
             if (line.type === "blank") {
               return (
                 <div
@@ -531,7 +572,7 @@ export default function TerminalUI({
 
   // ── Scene 3: Help / Man Page ────────────────────────────────────────────
 
-  const renderScene3 = () => {
+  const renderScene3 = (isEntered: boolean, beatNum: number) => {
     const c = SCENES[3][language];
     return (
       <div className={styles.helpScene}>
@@ -548,14 +589,14 @@ export default function TerminalUI({
           <div
             className={styles.helpHeader}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.2s steps(4)",
             }}
           >
             {c.header}
           </div>
           {c.sections.map((section, si) => {
-            const visible = entered && si <= beat + 1;
+            const visible = isEntered && si <= beatNum + 1;
             return (
               <div
                 key={si}
@@ -587,15 +628,15 @@ export default function TerminalUI({
 
   // ── Scene 4: Progress / Install ─────────────────────────────────────────
 
-  const renderScene4 = () => {
+  const renderScene4 = (isEntered: boolean, beatNum: number) => {
     const c = SCENES[4][language];
-    const progress = entered ? c.progress : 0;
+    const progress = isEntered ? c.progress : 0;
     return (
       <div className={styles.progressScene}>
         <div
           className={styles.progressHeader}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.3s steps(6)",
           }}
         >
@@ -605,7 +646,7 @@ export default function TerminalUI({
         <div
           className={styles.progressSub}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.3s steps(6) 0.1s",
           }}
         >
@@ -621,11 +662,11 @@ export default function TerminalUI({
           />
           <span className={styles.progressLabel}>{progress}%</span>
         </div>
-        {beat >= 1 && (
+        {beatNum >= 1 && (
           <div
             className={styles.progressLog}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.3s steps(6) 0.2s",
             }}
           >
@@ -643,15 +684,15 @@ export default function TerminalUI({
 
   // ── Scene 5: System Info / Summary ──────────────────────────────────────
 
-  const renderScene5 = () => {
+  const renderScene5 = (isEntered: boolean) => {
     const c = SCENES[5][language];
     return (
       <div className={styles.infoScene}>
         <div
           className={styles.infoAsciiBox}
           style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "scale(1)" : "scale(0.97)",
+            opacity: isEntered ? 1 : 0,
+            transform: isEntered ? "scale(1)" : "scale(0.97)",
             transition: reducedMotion
               ? "none"
               : "opacity 0.3s steps(6), transform 0.3s steps(6)",
@@ -665,7 +706,7 @@ export default function TerminalUI({
                 key={i}
                 className={styles.infoItem}
                 style={{
-                  opacity: entered ? 1 : 0,
+                  opacity: isEntered ? 1 : 0,
                   transition: reducedMotion
                     ? "none"
                     : `opacity 0.15s steps(3) ${0.2 + i * 0.05}s`,
@@ -680,7 +721,7 @@ export default function TerminalUI({
         <div
           className={styles.infoGoodbye}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.3s steps(6) 0.6s",
           }}
         >
@@ -688,6 +729,25 @@ export default function TerminalUI({
         </div>
       </div>
     );
+  };
+
+  // ── Render scene content for a given scene number ────────────────────────
+
+  const renderSceneFor = (sceneNum: number, beatNum: number, isEntered: boolean, isCurrent: boolean) => {
+    switch (sceneNum) {
+      case 1:
+        return renderScene1(isEntered);
+      case 2:
+        return renderScene2(isEntered, beatNum, isCurrent);
+      case 3:
+        return renderScene3(isEntered, beatNum);
+      case 4:
+        return renderScene4(isEntered, beatNum);
+      case 5:
+        return renderScene5(isEntered);
+      default:
+        return null;
+    }
   };
 
   // ── Navigation Indicators ───────────────────────────────────────────────
@@ -714,31 +774,32 @@ export default function TerminalUI({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1:
-        return renderScene1();
-      case 2:
-        return renderScene2();
-      case 3:
-        return renderScene3();
-      case 4:
-        return renderScene4();
-      case 5:
-        return renderScene5();
-      default:
-        return null;
-    }
-  };
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
 
   return (
     <div className={rootClasses}>
-      <div
-        key={`37-${scene}`}
-        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true, false)}
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat, entered, true)}
       </div>
+
       {renderNavIndicators()}
     </div>
   );

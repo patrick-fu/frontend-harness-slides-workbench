@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./16-case-study.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -234,14 +235,40 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 500; // 450ms animation + buffer
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 2, 4: 3, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function CaseStudy({
   scene, beat, language, isThumbnail, reducedMotion, onNavigate, isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
+
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
   const [entered, setEntered] = useState(false);
 
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // Beat-level "entered" state for current scene — triggers CSS reveals
   useEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
@@ -249,6 +276,13 @@ export default function CaseStudy({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
+
+  // FLIP for problem points list (scene 2) — when new points push layout
+  const { ref: problemPointsRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -259,183 +293,179 @@ export default function CaseStudy({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
 
-  const renderScene1 = () => {
-    const c = SCENES[1][language as keyof typeof SCENES[1]];
-    return (
-      <div className={styles.scene1}>
-        <div className={styles.caseCustomer}>
-          <div className={styles.customerLogo}>{c.logo}</div>
-          <div className={styles.customerInfo}>
-            <span className={styles.customerIndustry}>{c.industry}</span>
-            <span className={styles.customerName}>{c.customer}</span>
+  // ── Render scene content for a given scene number ────────────────────────
+
+  const renderSceneFor = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    const langKey = language as keyof typeof SCENES[1];
+
+    if (sceneNum === 1) {
+      const c = SCENES[1][langKey];
+      return (
+        <div className={styles.scene1}>
+          <div className={styles.caseCustomer}>
+            <div className={styles.customerLogo}>{c.logo}</div>
+            <div className={styles.customerInfo}>
+              <span className={styles.customerIndustry}>{c.industry}</span>
+              <span className={styles.customerName}>{c.customer}</span>
+            </div>
+          </div>
+          <span className={styles.caseEyebrow}>{c.eyebrow}</span>
+          <h1 className={styles.caseTitle}>
+            {c.title} <em>{c.titleAccent}</em> {c.title2}
+          </h1>
+          <p className={styles.caseSub}>{c.sub}</p>
+        </div>
+      );
+    }
+
+    if (sceneNum === 2) {
+      const c = SCENES[2][langKey];
+      const points = c.points as Array<{ icon: string; title: string; desc: string }>;
+      return (
+        <div className={styles.scene2}>
+          <span className={styles.sectionLabel}>{c.label}</span>
+          <h2 className={styles.sectionTitle}>{c.title}</h2>
+          <div className={styles.problemArea}>
+            <div className={styles.problemQuote}>
+              <p className={styles.quoteText}>{c.quote}</p>
+              <div className={styles.quoteAuthor}>
+                <div className={styles.quoteAvatar}>{c.authorInitials}</div>
+                <div className={styles.quoteAuthorInfo}>
+                  <span className={styles.quoteAuthorName}>{c.authorName}</span>
+                  <span className={styles.quoteAuthorRole}>{c.authorRole}</span>
+                </div>
+              </div>
+            </div>
+            <div ref={sceneNum === scene ? problemPointsRef : undefined} className={styles.problemPoints}>
+              {points.map((p, i) => {
+                const visible = beatNum >= i;
+                const cls = [styles.problemPoint, visible && isEntered ? styles.problemPointVisible : ""].filter(Boolean).join(" ");
+                return (
+                  <div
+                    key={i}
+                    className={cls}
+                    style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.12}s` }}
+                  >
+                    <div className={styles.problemIcon}>{p.icon}</div>
+                    <div className={styles.problemText}>
+                      <span className={styles.problemPointTitle}>{p.title}</span>
+                      <span className={styles.problemPointDesc}>{p.desc}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
-        <span className={styles.caseEyebrow}>{c.eyebrow}</span>
-        <h1 className={styles.caseTitle}>
-          {c.title} <em>{c.titleAccent}</em> {c.title2}
-        </h1>
-        <p className={styles.caseSub}>{c.sub}</p>
-      </div>
-    );
-  };
+      );
+    }
 
-  const renderScene2 = () => {
-    const c = SCENES[2][language as keyof typeof SCENES[2]];
-    const points = c.points as Array<{ icon: string; title: string; desc: string }>;
-    return (
-      <div className={styles.scene2}>
-        <span className={styles.sectionLabel}>{c.label}</span>
-        <h2 className={styles.sectionTitle}>{c.title}</h2>
-        <div className={styles.problemArea}>
-          <div className={styles.problemQuote}>
-            <p className={styles.quoteText}>{c.quote}</p>
-            <div className={styles.quoteAuthor}>
-              <div className={styles.quoteAvatar}>{c.authorInitials}</div>
-              <div className={styles.quoteAuthorInfo}>
-                <span className={styles.quoteAuthorName}>{c.authorName}</span>
-                <span className={styles.quoteAuthorRole}>{c.authorRole}</span>
+    if (sceneNum === 3) {
+      const c = SCENES[3][langKey];
+      const before = c.before as Array<{ icon: string; text: string }>;
+      const after = c.after as Array<{ icon: string; text: string }>;
+      const panelsVisible = beatNum >= 1;
+      return (
+        <div className={styles.scene3}>
+          <span className={styles.sectionLabel}>{c.label}</span>
+          <h2 className={styles.sectionTitle}>{c.title}</h2>
+          <div className={styles.solutionArea}>
+            <div
+              className={[styles.solutionBefore, panelsVisible && isEntered ? styles.solutionBeforeVisible : ""].filter(Boolean).join(" ")}
+              style={reducedMotion ? { opacity: panelsVisible ? 1 : 0, transform: "none" } : undefined}
+            >
+              <div className={styles.solutionPanelHeader}>
+                {language === "zh" ? "之前" : "Before"}
+              </div>
+              <div className={styles.solutionPanelBody}>
+                {before.map((item, i) => (
+                  <div key={i} className={styles.solutionItem}>
+                    <span className={styles.solutionItemIcon}>{item.icon}</span>
+                    {item.text}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div
+              className={[styles.solutionAfter, panelsVisible && isEntered ? styles.solutionAfterVisible : ""].filter(Boolean).join(" ")}
+              style={reducedMotion ? { opacity: panelsVisible ? 1 : 0, transform: "none" } : { transitionDelay: "0.15s" }}
+            >
+              <div className={styles.solutionPanelHeader}>
+                {language === "zh" ? "之后" : "After"}
+              </div>
+              <div className={styles.solutionPanelBody}>
+                {after.map((item, i) => (
+                  <div key={i} className={styles.solutionItem}>
+                    <span className={styles.solutionItemIcon}>{item.icon}</span>
+                    {item.text}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-          <div className={styles.problemPoints}>
-            {points.map((p, i) => {
-              const visible = beat >= i;
-              const cls = [styles.problemPoint, visible && entered ? styles.problemPointVisible : ""].filter(Boolean).join(" ");
-              return (
-                <div
-                  key={i}
-                  className={cls}
-                  style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.12}s` }}
-                >
-                  <div className={styles.problemIcon}>{p.icon}</div>
-                  <div className={styles.problemText}>
-                    <span className={styles.problemPointTitle}>{p.title}</span>
-                    <span className={styles.problemPointDesc}>{p.desc}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
         </div>
-      </div>
-    );
-  };
-
-  const renderScene3 = () => {
-    const c = SCENES[3][language as keyof typeof SCENES[3]];
-    const before = c.before as Array<{ icon: string; text: string }>;
-    const after = c.after as Array<{ icon: string; text: string }>;
-    const panelsVisible = beat >= 1;
-    return (
-      <div className={styles.scene3}>
-        <span className={styles.sectionLabel}>{c.label}</span>
-        <h2 className={styles.sectionTitle}>{c.title}</h2>
-        <div className={styles.solutionArea}>
-          <div
-            className={[styles.solutionBefore, panelsVisible && entered ? styles.solutionBeforeVisible : ""].filter(Boolean).join(" ")}
-            style={reducedMotion ? { opacity: panelsVisible ? 1 : 0, transform: "none" } : undefined}
-          >
-            <div className={styles.solutionPanelHeader}>
-              {language === "zh" ? "之前" : "Before"}
-            </div>
-            <div className={styles.solutionPanelBody}>
-              {before.map((item, i) => (
-                <div key={i} className={styles.solutionItem}>
-                  <span className={styles.solutionItemIcon}>{item.icon}</span>
-                  {item.text}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div
-            className={[styles.solutionAfter, panelsVisible && entered ? styles.solutionAfterVisible : ""].filter(Boolean).join(" ")}
-            style={reducedMotion ? { opacity: panelsVisible ? 1 : 0, transform: "none" } : { transitionDelay: "0.15s" }}
-          >
-            <div className={styles.solutionPanelHeader}>
-              {language === "zh" ? "之后" : "After"}
-            </div>
-            <div className={styles.solutionPanelBody}>
-              {after.map((item, i) => (
-                <div key={i} className={styles.solutionItem}>
-                  <span className={styles.solutionItemIcon}>{item.icon}</span>
-                  {item.text}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const renderScene4 = () => {
-    const c = SCENES[4][language as keyof typeof SCENES[4]];
-    const metrics = c.metrics as Array<{ value: string; unit: string; label: string; desc: string }>;
-    const quoteVisible = beat >= 2;
-    return (
-      <div className={styles.scene4}>
-        <span className={styles.sectionLabel}>{c.label}</span>
-        <h2 className={styles.sectionTitle}>{c.title}</h2>
-        <div className={styles.resultsArea}>
-          <div className={styles.metricsRow}>
-            {metrics.map((m, i) => {
-              const visible = beat >= 1;
-              const cls = [styles.metricCard, visible && entered ? styles.metricCardVisible : ""].filter(Boolean).join(" ");
-              return (
-                <div
-                  key={i}
-                  className={cls}
-                  style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.15}s` }}
-                >
-                  <span className={styles.metricValue}>
-                    {m.value}
-                    <span className={styles.metricUnit}>{m.unit}</span>
-                  </span>
-                  <span className={styles.metricLabel}>{m.label}</span>
-                  <span className={styles.metricDesc}>{m.desc}</span>
-                </div>
-              );
-            })}
-          </div>
-          <div
-            className={[styles.resultsQuote, quoteVisible && entered ? styles.resultsQuoteVisible : ""].filter(Boolean).join(" ")}
-            style={reducedMotion ? { opacity: quoteVisible ? 1 : 0, transform: "none" } : undefined}
-          >
-            <p className={styles.resultsQuoteText}>{c.quote}</p>
-            <span className={styles.resultsQuoteAttr}>{c.quoteAttr}</span>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const renderScene5 = () => {
-    const c = SCENES[5][language as keyof typeof SCENES[5]];
-    return (
-      <div className={styles.scene5}>
-        <h2 className={styles.closingCase} dangerouslySetInnerHTML={{ __html: c.text }} />
-        <p className={styles.closingCaseSub}>{c.sub}</p>
-        <button type="button" className={styles.closingCTA} onClick={(e) => { if (!isThumbnail) e.stopPropagation(); }}>
-          {c.cta}
-          <svg width="1.5cqw" height="1.5cqh" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-      </div>
-    );
-  };
-
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
-      case 5: return renderScene5();
-      default: return null;
+      );
     }
+
+    if (sceneNum === 4) {
+      const c = SCENES[4][langKey];
+      const metrics = c.metrics as Array<{ value: string; unit: string; label: string; desc: string }>;
+      const quoteVisible = beatNum >= 2;
+      return (
+        <div className={styles.scene4}>
+          <span className={styles.sectionLabel}>{c.label}</span>
+          <h2 className={styles.sectionTitle}>{c.title}</h2>
+          <div className={styles.resultsArea}>
+            <div className={styles.metricsRow}>
+              {metrics.map((m, i) => {
+                const visible = beatNum >= 1;
+                const cls = [styles.metricCard, visible && isEntered ? styles.metricCardVisible : ""].filter(Boolean).join(" ");
+                return (
+                  <div
+                    key={i}
+                    className={cls}
+                    style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.15}s` }}
+                  >
+                    <span className={styles.metricValue}>
+                      {m.value}
+                      <span className={styles.metricUnit}>{m.unit}</span>
+                    </span>
+                    <span className={styles.metricLabel}>{m.label}</span>
+                    <span className={styles.metricDesc}>{m.desc}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <div
+              className={[styles.resultsQuote, quoteVisible && isEntered ? styles.resultsQuoteVisible : ""].filter(Boolean).join(" ")}
+              style={reducedMotion ? { opacity: quoteVisible ? 1 : 0, transform: "none" } : undefined}
+            >
+              <p className={styles.resultsQuoteText}>{c.quote}</p>
+              <span className={styles.resultsQuoteAttr}>{c.quoteAttr}</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (sceneNum === 5) {
+      const c = SCENES[5][langKey];
+      return (
+        <div className={styles.scene5}>
+          <h2 className={styles.closingCase} dangerouslySetInnerHTML={{ __html: c.text }} />
+          <p className={styles.closingCaseSub}>{c.sub}</p>
+          <button type="button" className={styles.closingCTA} onClick={(e) => { if (!isThumbnail) e.stopPropagation(); }}>
+            {c.cta}
+            <svg width="1.5cqw" height="1.5cqh" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   const renderNav = () => {
@@ -458,15 +488,36 @@ export default function CaseStudy({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`16-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div className={styles.track}>
+          {renderSceneFor(scene, beat, entered)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );

@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./46-audit-report.module.css";
+import { useFLIP } from "../hooks/useFLIP";
 
 /* ── Content ─────────────────────────────────────────────────────────────── */
 
@@ -525,6 +526,11 @@ const SCENES = {
   },
 } as const;
 
+/* ── Transition constants ────────────────────────────────────────────────── */
+
+const TRANSITION_DURATION = 500; // ms — stamp 200ms + hold 100ms + fade 200ms
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 3, 5: 2 };
+
 /* ── Component ───────────────────────────────────────────────────────────── */
 
 export default function AuditReport({
@@ -537,6 +543,10 @@ export default function AuditReport({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showStamp, setShowStamp] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
   useEffect(() => {
     const id = "style-46-fonts";
@@ -549,6 +559,34 @@ export default function AuditReport({
     document.head.appendChild(link);
   }, []);
 
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      setShowStamp(true);
+
+      // Hide stamp after slam + hold phase (300ms)
+      const stampTimer = setTimeout(() => {
+        setShowStamp(false);
+      }, 300);
+
+      // Full transition complete
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+
+      prevSceneRef.current = scene;
+      return () => {
+        clearTimeout(stampTimer);
+        clearTimeout(timer);
+      };
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
   useEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
@@ -556,6 +594,21 @@ export default function AuditReport({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
+
+  // FLIP for findings list (scene 3)
+  const { ref: findingsListRef } = useFLIP<HTMLDivElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
+
+  // FLIP for risk table rows (scene 4)
+  const { ref: riskTableRef } = useFLIP<HTMLTableSectionElement>({
+    watch: [beat],
+    duration: 400,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+    selector: "tr",
+  });
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, target: number) => {
@@ -566,286 +619,298 @@ export default function AuditReport({
   );
 
   const data = SCENES[language];
-  const sceneData = data.scenes[scene - 1];
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : ""]
     .filter(Boolean)
     .join(" ");
 
-  /* Scene 1: Header */
-  const renderHeader = () => {
-    const s = sceneData as (typeof data.scenes)[0];
-    return (
-      <div className={styles.reportHeader}>
-        <div className={styles.reportHeaderTop}>
-          <div className={styles.reportFirmLogo}>M</div>
-          <div className={styles.reportFirmInfo}>
-            <div className={styles.reportFirmName}>{s.firm}</div>
-            <div className={styles.reportFirmTagline}>{s.tagline}</div>
-          </div>
-        </div>
-        <div className={styles.reportType}>{s.type}</div>
-        <h1 className={styles.reportTitle}>
-          {s.title}{" "}
-          <span className={styles.reportTitleAccent}>{s.titleAccent}</span>
-        </h1>
-        <p className={styles.reportSubtitle}>{s.subtitle}</p>
-        <div className={styles.reportMeta}>
-          {s.meta.map((m, i) => (
-            <div key={i} className={styles.reportMetaItem}>
-              <span className={styles.reportMetaLabel}>{m.label}</span>
-              <span className={styles.reportMetaValue}>{m.value}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
+  /* ── Render scene content for a given scene number ─────────────────────── */
 
-  /* Scene 2: Scope */
-  const renderScope = () => {
-    const s = sceneData as (typeof data.scenes)[1];
-    return (
-      <div className={styles.scope}>
-        <div className={styles.scopeHeader}>
-          <h2 className={styles.scopeTitle}>{s.title}</h2>
-          <p className={styles.scopeSubtitle}>{s.subtitle}</p>
-        </div>
-        <div className={styles.scopeBody}>
-          {s.sections.map((sec, i) => (
-            <div
-              key={i}
-              className={styles.scopeSection}
-              style={{
-                opacity: entered && i <= beat ? 1 : 0,
-                transform:
-                  entered && i <= beat
-                    ? "translateY(0)"
-                    : "translateY(0.8cqh)",
-                transition: "opacity 0.4s ease, transform 0.4s ease",
-                transitionDelay: `${i * 0.15}s`,
-              }}
-            >
-              <div className={styles.scopeSectionLabel}>{sec.label}</div>
-              <h3 className={styles.scopeSectionTitle}>{sec.title}</h3>
-              <p className={styles.scopeSectionText}>{sec.text}</p>
-              <ul className={styles.scopeList}>
-                {sec.items.map((item, j) => (
-                  <li key={j} className={styles.scopeListItem}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
+  const renderSceneFor = (
+    sceneNum: number,
+    beatNum: number,
+    isCurrent: boolean,
+  ) => {
+    const s = data.scenes[sceneNum - 1];
+    if (!s) return null;
 
-  /* Scene 3: Findings */
-  const renderFindings = () => {
-    const s = sceneData as (typeof data.scenes)[2];
-    const visibleCount = Math.min(beat * 2 + 2, s.findings.length);
-    return (
-      <div className={styles.findings}>
-        <div className={styles.findingsHeader}>
-          <h2 className={styles.findingsTitle}>{s.title}</h2>
-          <span className={styles.findingsCount}>{s.countLabel}</span>
-        </div>
-        <div className={styles.findingsSummary}>
-          {s.stats.map((stat, i) => (
-            <div key={i} className={styles.findingsStat}>
-              <span
-                className={styles.findingsStatValue}
-                style={{ color: stat.color }}
-              >
-                {stat.value}
-              </span>
-              <div className={styles.findingsStatLabel}>{stat.label}</div>
-            </div>
-          ))}
-        </div>
-        <div className={styles.findingsList}>
-          {s.findings.slice(0, visibleCount).map((f, i) => (
-            <div
-              key={f.ref}
-              className={styles.findingItem}
-              style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "translateX(0)" : "translateX(-0.8cqh)",
-                transition: "opacity 0.35s ease, transform 0.35s ease",
-                transitionDelay: `${i * 0.08}s`,
-              }}
-            >
-              <div
-                className={`${styles.findingSeverity} ${
-                  f.severityClass === "critical"
-                    ? styles.findingSeverityCritical
-                    : f.severityClass === "high"
-                      ? styles.findingSeverityHigh
-                      : f.severityClass === "medium"
-                        ? styles.findingSeverityMedium
-                        : styles.findingSeverityLow
-                }`}
-              >
-                {f.severity}
+    const showEntered = isCurrent ? entered : true;
+
+    switch (sceneNum) {
+      case 1: {
+        const sd = s as (typeof data.scenes)[0];
+        return (
+          <div className={styles.reportHeader}>
+            <div className={styles.reportHeaderTop}>
+              <div className={styles.reportFirmLogo}>M</div>
+              <div className={styles.reportFirmInfo}>
+                <div className={styles.reportFirmName}>{sd.firm}</div>
+                <div className={styles.reportFirmTagline}>{sd.tagline}</div>
               </div>
-              <div className={styles.findingContent}>
-                <h3 className={styles.findingTitle}>{f.title}</h3>
-                <p className={styles.findingDesc}>{f.desc}</p>
-                <div className={styles.findingMeta}>
-                  <span className={styles.findingMetaItem}>
-                    {language === "zh" ? "类别" : "Category"}:{" "}
-                    <span>{f.category}</span>
+            </div>
+            <div className={styles.reportType}>{sd.type}</div>
+            <h1 className={styles.reportTitle}>
+              {sd.title}{" "}
+              <span className={styles.reportTitleAccent}>{sd.titleAccent}</span>
+            </h1>
+            <p className={styles.reportSubtitle}>{sd.subtitle}</p>
+            <div className={styles.reportMeta}>
+              {sd.meta.map((m, i) => (
+                <div key={i} className={styles.reportMetaItem}>
+                  <span className={styles.reportMetaLabel}>{m.label}</span>
+                  <span className={styles.reportMetaValue}>{m.value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      case 2: {
+        const sd = s as (typeof data.scenes)[1];
+        return (
+          <div className={styles.scope}>
+            <div className={styles.scopeHeader}>
+              <h2 className={styles.scopeTitle}>{sd.title}</h2>
+              <p className={styles.scopeSubtitle}>{sd.subtitle}</p>
+            </div>
+            <div className={styles.scopeBody}>
+              {sd.sections.map((sec, i) => (
+                <div
+                  key={i}
+                  className={styles.scopeSection}
+                  style={{
+                    opacity: showEntered && i <= beatNum ? 1 : 0,
+                    transform:
+                      showEntered && i <= beatNum
+                        ? "translateY(0)"
+                        : "translateY(0.8cqh)",
+                    transition: "opacity 0.4s ease, transform 0.4s ease",
+                    transitionDelay: `${i * 0.15}s`,
+                  }}
+                >
+                  <div className={styles.scopeSectionLabel}>{sec.label}</div>
+                  <h3 className={styles.scopeSectionTitle}>{sec.title}</h3>
+                  <p className={styles.scopeSectionText}>{sec.text}</p>
+                  <ul className={styles.scopeList}>
+                    {sec.items.map((item, j) => (
+                      <li key={j} className={styles.scopeListItem}>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      case 3: {
+        const sd = s as (typeof data.scenes)[2];
+        const visibleCount = Math.min(beatNum * 2 + 2, sd.findings.length);
+        return (
+          <div className={styles.findings}>
+            <div className={styles.findingsHeader}>
+              <h2 className={styles.findingsTitle}>{sd.title}</h2>
+              <span className={styles.findingsCount}>{sd.countLabel}</span>
+            </div>
+            <div className={styles.findingsSummary}>
+              {sd.stats.map((stat, i) => (
+                <div key={i} className={styles.findingsStat}>
+                  <span
+                    className={styles.findingsStatValue}
+                    style={{ color: stat.color }}
+                  >
+                    {stat.value}
                   </span>
-                  <span className={styles.findingMetaItem}>
-                    {language === "zh" ? "编号" : "Ref"}:{" "}
-                    <span>{f.ref}</span>
-                  </span>
+                  <div className={styles.findingsStatLabel}>{stat.label}</div>
+                </div>
+              ))}
+            </div>
+            <div
+              ref={isCurrent ? findingsListRef : undefined}
+              className={styles.findingsList}
+            >
+              {sd.findings.slice(0, visibleCount).map((f, i) => (
+                <div
+                  key={f.ref}
+                  className={`${styles.findingItem} ${showEntered ? styles.findingItemVisible : ""}`}
+                  style={{
+                    transitionDelay: `${i * 0.08}s`,
+                  }}
+                >
+                  <div
+                    className={`${styles.findingSeverity} ${
+                      f.severityClass === "critical"
+                        ? styles.findingSeverityCritical
+                        : f.severityClass === "high"
+                          ? styles.findingSeverityHigh
+                          : f.severityClass === "medium"
+                            ? styles.findingSeverityMedium
+                            : styles.findingSeverityLow
+                    }`}
+                  >
+                    {f.severity}
+                  </div>
+                  <div className={styles.findingContent}>
+                    <h3 className={styles.findingTitle}>{f.title}</h3>
+                    <p className={styles.findingDesc}>{f.desc}</p>
+                    <div className={styles.findingMeta}>
+                      <span className={styles.findingMetaItem}>
+                        {language === "zh" ? "类别" : "Category"}:{" "}
+                        <span>{f.category}</span>
+                      </span>
+                      <span className={styles.findingMetaItem}>
+                        {language === "zh" ? "编号" : "Ref"}:{" "}
+                        <span>{f.ref}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      case 4: {
+        const sd = s as (typeof data.scenes)[3];
+        const visibleCount = Math.min(beatNum * 3 + 3, sd.rows.length);
+        return (
+          <div className={styles.riskMatrix}>
+            <div className={styles.riskHeader}>
+              <h2 className={styles.riskTitle}>{sd.title}</h2>
+              <p className={styles.riskSubtitle}>{sd.subtitle}</p>
+            </div>
+            <div className={styles.riskTableWrap}>
+              <table className={styles.riskTable}>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>{language === "zh" ? "控制领域" : "Control Domain"}</th>
+                    <th>{language === "zh" ? "风险等级" : "Risk Level"}</th>
+                    <th>{language === "zh" ? "状态" : "Status"}</th>
+                  </tr>
+                </thead>
+                <tbody ref={isCurrent ? riskTableRef : undefined}>
+                  {sd.rows.slice(0, visibleCount).map((row, i) => (
+                    <tr
+                      key={row.id}
+                      style={{
+                        opacity: showEntered ? 1 : 0,
+                        transition: "opacity 0.3s ease",
+                        transitionDelay: `${i * 0.06}s`,
+                      }}
+                    >
+                      <td className={styles.riskId}>{row.id}</td>
+                      <td>
+                        <span className={styles.riskControl}>{row.control}</span>
+                        <span className={styles.riskControlDesc}>
+                          {row.desc}
+                        </span>
+                      </td>
+                      <td className={styles.riskLevelCell}>
+                        <span
+                          className={`${styles.riskLevelBadge} ${
+                            row.levelClass === "high"
+                              ? styles.riskLevelHigh
+                              : row.levelClass === "medium"
+                                ? styles.riskLevelMedium
+                                : styles.riskLevelLow
+                          }`}
+                        >
+                          {row.level}
+                        </span>
+                      </td>
+                      <td>
+                        <span
+                          className={`${styles.riskStatus} ${
+                            row.statusClass === "open"
+                              ? styles.riskStatusOpen
+                              : row.statusClass === "remediated"
+                                ? styles.riskStatusRemediated
+                                : styles.riskStatusAccepted
+                          }`}
+                        >
+                          {row.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        );
+      }
+
+      case 5: {
+        const sd = s as (typeof data.scenes)[4];
+        return (
+          <div className={styles.compliance}>
+            <div className={styles.complianceHeader}>
+              <h2 className={styles.complianceTitle}>{sd.title}</h2>
+              <p className={styles.complianceSubtitle}>{sd.subtitle}</p>
+            </div>
+            <div className={styles.complianceSummary}>
+              <div className={styles.complianceScore}>
+                <div className={styles.complianceScoreCircle}>
+                  <div className={styles.complianceScoreInner}>
+                    <span className={styles.complianceScoreValue}>89</span>
+                    <span className={styles.complianceScorePct}>%</span>
+                  </div>
+                </div>
+                <div className={styles.complianceScoreInfo}>
+                  <div className={styles.complianceScoreLabel}>
+                    {sd.scoreLabel}
+                  </div>
+                  <h3 className={styles.complianceScoreTitle}>{sd.scoreTitle}</h3>
+                  <p className={styles.complianceScoreText}>{sd.scoreText}</p>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  /* Scene 4: Risk Matrix (HERO) */
-  const renderRisk = () => {
-    const s = sceneData as (typeof data.scenes)[3];
-    const visibleCount = Math.min(beat * 3 + 3, s.rows.length);
-    return (
-      <div className={styles.riskMatrix}>
-        <div className={styles.riskHeader}>
-          <h2 className={styles.riskTitle}>{s.title}</h2>
-          <p className={styles.riskSubtitle}>{s.subtitle}</p>
-        </div>
-        <div className={styles.riskTableWrap}>
-          <table className={styles.riskTable}>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>{language === "zh" ? "控制领域" : "Control Domain"}</th>
-                <th>{language === "zh" ? "风险等级" : "Risk Level"}</th>
-                <th>{language === "zh" ? "状态" : "Status"}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {s.rows.slice(0, visibleCount).map((row, i) => (
-                <tr
-                  key={row.id}
+            <div className={styles.complianceItems}>
+              {sd.items.map((item, i) => (
+                <div
+                  key={i}
+                  className={styles.complianceItem}
                   style={{
-                    opacity: entered ? 1 : 0,
-                    transition: "opacity 0.3s ease",
-                    transitionDelay: `${i * 0.06}s`,
+                    opacity: showEntered && (beatNum >= 1 || i < 4) ? 1 : 0,
+                    transform:
+                      showEntered && (beatNum >= 1 || i < 4)
+                        ? "translateX(0)"
+                        : "translateX(-0.5cqh)",
+                    transition: "opacity 0.3s ease, transform 0.3s ease",
+                    transitionDelay: `${i * 0.05}s`,
                   }}
                 >
-                  <td className={styles.riskId}>{row.id}</td>
-                  <td>
-                    <span className={styles.riskControl}>{row.control}</span>
-                    <span className={styles.riskControlDesc}>
-                      {row.desc}
-                    </span>
-                  </td>
-                  <td className={styles.riskLevelCell}>
-                    <span
-                      className={`${styles.riskLevelBadge} ${
-                        row.levelClass === "high"
-                          ? styles.riskLevelHigh
-                          : row.levelClass === "medium"
-                            ? styles.riskLevelMedium
-                            : styles.riskLevelLow
-                      }`}
-                    >
-                      {row.level}
-                    </span>
-                  </td>
-                  <td>
-                    <span
-                      className={`${styles.riskStatus} ${
-                        row.statusClass === "open"
-                          ? styles.riskStatusOpen
-                          : row.statusClass === "remediated"
-                            ? styles.riskStatusRemediated
-                            : styles.riskStatusAccepted
-                      }`}
-                    >
-                      {row.status}
-                    </span>
-                  </td>
-                </tr>
+                  <div
+                    className={`${styles.complianceCheck} ${
+                      item.status === "pass"
+                        ? styles.complianceCheckPass
+                        : item.status === "fail"
+                          ? styles.complianceCheckFail
+                          : styles.complianceCheckPartial
+                    }`}
+                  >
+                    {item.status === "pass"
+                      ? "✓"
+                      : item.status === "fail"
+                        ? "✕"
+                        : "◐"}
+                  </div>
+                  <span className={styles.complianceItemText}>{item.text}</span>
+                  <span className={styles.complianceItemRef}>{item.ref}</span>
+                </div>
               ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
-  };
-
-  /* Scene 5: Compliance */
-  const renderCompliance = () => {
-    const s = sceneData as (typeof data.scenes)[4];
-    return (
-      <div className={styles.compliance}>
-        <div className={styles.complianceHeader}>
-          <h2 className={styles.complianceTitle}>{s.title}</h2>
-          <p className={styles.complianceSubtitle}>{s.subtitle}</p>
-        </div>
-        <div className={styles.complianceSummary}>
-          <div className={styles.complianceScore}>
-            <div className={styles.complianceScoreCircle}>
-              <div className={styles.complianceScoreInner}>
-                <span className={styles.complianceScoreValue}>89</span>
-                <span className={styles.complianceScorePct}>%</span>
-              </div>
-            </div>
-            <div className={styles.complianceScoreInfo}>
-              <div className={styles.complianceScoreLabel}>
-                {s.scoreLabel}
-              </div>
-              <h3 className={styles.complianceScoreTitle}>{s.scoreTitle}</h3>
-              <p className={styles.complianceScoreText}>{s.scoreText}</p>
             </div>
           </div>
-        </div>
-        <div className={styles.complianceItems}>
-          {s.items.map((item, i) => (
-            <div
-              key={i}
-              className={styles.complianceItem}
-              style={{
-                opacity: entered && (beat >= 1 || i < 4) ? 1 : 0,
-                transform:
-                  entered && (beat >= 1 || i < 4)
-                    ? "translateX(0)"
-                    : "translateX(-0.5cqh)",
-                transition: "opacity 0.3s ease, transform 0.3s ease",
-                transitionDelay: `${i * 0.05}s`,
-              }}
-            >
-              <div
-                className={`${styles.complianceCheck} ${
-                  item.status === "pass"
-                    ? styles.complianceCheckPass
-                    : item.status === "fail"
-                      ? styles.complianceCheckFail
-                      : styles.complianceCheckPartial
-                }`}
-              >
-                {item.status === "pass"
-                  ? "✓"
-                  : item.status === "fail"
-                    ? "✕"
-                    : "◐"}
-              </div>
-              <span className={styles.complianceItemText}>{item.text}</span>
-              <span className={styles.complianceItemRef}>{item.ref}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+        );
+      }
+
+      default:
+        return null;
+    }
   };
 
   /* Navigation */
@@ -872,28 +937,46 @@ export default function AuditReport({
     );
   };
 
-  const renderScene = () => {
-    switch (scene) {
-      case 1:
-        return renderHeader();
-      case 2:
-        return renderScope();
-      case 3:
-        return renderFindings();
-      case 4:
-        return renderRisk();
-      case 5:
-        return renderCompliance();
-      default:
-        return null;
-    }
-  };
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
 
   return (
     <div className={rootClasses}>
-      <div key={`46-${scene}`} className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}>
-        {renderScene()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, false)}
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat, true)}
       </div>
+
+      {/* Audit finding stamp overlay */}
+      {showStamp && !isTransitionClone && (
+        <div className={styles.stampOverlay} aria-hidden="true">
+          <div className={styles.stampCircle}>
+            <div className={styles.stampText}>
+              {language === "zh" ? "审计发现" : "AUDIT FINDING"}
+            </div>
+            <div className={styles.stampSubtext}>
+              {language === "zh" ? "已核实" : "VERIFIED"}
+            </div>
+          </div>
+        </div>
+      )}
+
       {renderNav()}
     </div>
   );

@@ -1,6 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import { useFLIP } from "../hooks/useFLIP";
 import styles from "./44-meeting-minutes.module.css";
+
+const TRANSITION_DURATION = 450;
 
 /* ── Content ─────────────────────────────────────────────────────────────── */
 
@@ -357,6 +360,11 @@ export default function MeetingMinutes({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showTimestamp, setShowTimestamp] = useState(false);
+  const prevSceneRef = useRef(scene);
+  const timestampTimer = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   /* Font injection */
   useEffect(() => {
@@ -379,6 +387,38 @@ export default function MeetingMinutes({
     return () => cancelAnimationFrame(id);
   }, [scene]);
 
+  /* Scene-to-scene transition: timestamp banner + cross-fade */
+  useEffect(() => {
+    if (reducedMotion) {
+      prevSceneRef.current = scene;
+      return;
+    }
+    if (prevSceneRef.current !== scene) {
+      const prev = prevSceneRef.current;
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      setShowTimestamp(true);
+
+      // Clear timestamp banner after its full animation: slide(200) + hold(150) + fade(100) = 450ms
+      const t1 = setTimeout(() => {
+        setShowTimestamp(false);
+      }, 450);
+
+      // Clear outgoing scene after transition duration
+      const t2 = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+
+      timestampTimer.current = [t1, t2];
+      prevSceneRef.current = scene;
+
+      return () => {
+        timestampTimer.current.forEach(clearTimeout);
+      };
+    }
+  }, [scene, reducedMotion]);
+
   const handleNavClick = useCallback(
     (e: React.MouseEvent, target: number) => {
       e.stopPropagation();
@@ -387,6 +427,13 @@ export default function MeetingMinutes({
     [onNavigate],
   );
 
+  /* FLIP for action item list growth (Scene 4) */
+  const { ref: flipRef } = useFLIP<HTMLTableSectionElement>({
+    watch: [beat, scene],
+    duration: 350,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
+
   const data = SCENES[language];
   const sceneData = data.scenes[scene - 1];
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : ""]
@@ -394,8 +441,7 @@ export default function MeetingMinutes({
     .join(" ");
 
   /* ── Scene 1: Header ─────────────────────────────────────────────────── */
-  const renderHeader = () => {
-    const s = sceneData as (typeof data.scenes)[0];
+  const renderHeader = (s: (typeof data.scenes)[0]) => {
     return (
       <div className={styles.header}>
         <div className={styles.headerTop}>
@@ -423,8 +469,12 @@ export default function MeetingMinutes({
   };
 
   /* ── Scene 2: Attendance ─────────────────────────────────────────────── */
-  const renderAttendance = () => {
-    const s = sceneData as (typeof data.scenes)[1];
+  const renderAttendance = (
+    s: (typeof data.scenes)[1],
+    opts: { entered: boolean; beat: number },
+  ) => {
+    const e = opts.entered;
+    const b = opts.beat;
     return (
       <div className={styles.attendance}>
         <div className={styles.attendanceHeader}>
@@ -443,9 +493,9 @@ export default function MeetingMinutes({
                   key={i}
                   className={styles.attendeeItem}
                   style={{
-                    opacity: entered && beat >= 0 && i <= beat ? 1 : 0,
+                    opacity: e && b >= 0 && i <= b ? 1 : 0,
                     transform:
-                      entered && beat >= 0 && i <= beat
+                      e && b >= 0 && i <= b
                         ? "translateX(0)"
                         : "translateX(-1cqw)",
                     transition: "opacity 0.35s ease, transform 0.35s ease",
@@ -525,8 +575,12 @@ export default function MeetingMinutes({
   };
 
   /* ── Scene 3: Discussion ─────────────────────────────────────────────── */
-  const renderDiscussion = () => {
-    const s = sceneData as (typeof data.scenes)[2];
+  const renderDiscussion = (
+    s: (typeof data.scenes)[2],
+    opts: { entered: boolean; beat: number },
+  ) => {
+    const e = opts.entered;
+    const b = opts.beat;
     return (
       <div className={styles.discussion}>
         <div className={styles.discussionHeader}>
@@ -539,9 +593,9 @@ export default function MeetingMinutes({
               key={i}
               className={styles.discussionItem}
               style={{
-                opacity: entered && i <= beat ? 1 : 0,
+                opacity: e && i <= b ? 1 : 0,
                 transform:
-                  entered && i <= beat
+                  e && i <= b
                     ? "translateY(0)"
                     : "translateY(0.8cqh)",
                 transition: "opacity 0.4s ease, transform 0.4s ease",
@@ -559,9 +613,13 @@ export default function MeetingMinutes({
   };
 
   /* ── Scene 4: Action Items (HERO) ────────────────────────────────────── */
-  const renderActions = () => {
-    const s = sceneData as (typeof data.scenes)[3];
-    const visibleCount = Math.min(beat * 3 + 3, s.actions.length);
+  const renderActions = (
+    s: (typeof data.scenes)[3],
+    opts: { entered: boolean; beat: number },
+  ) => {
+    const e = opts.entered;
+    const b = opts.beat;
+    const visibleCount = Math.min(b * 3 + 3, s.actions.length);
     return (
       <div className={styles.actions}>
         <div className={styles.actionsHeader}>
@@ -578,13 +636,13 @@ export default function MeetingMinutes({
               <th>{language === "zh" ? "状态" : "Status"}</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody ref={flipRef}>
             {s.actions.slice(0, visibleCount).map((a, i) => (
               <tr
                 key={a.id}
                 style={{
-                  opacity: entered ? 1 : 0,
-                  transform: entered ? "translateY(0)" : "translateY(0.5cqh)",
+                  opacity: e ? 1 : 0,
+                  transform: e ? "translateY(0)" : "translateY(0.5cqh)",
                   transition: "opacity 0.3s ease, transform 0.3s ease",
                   transitionDelay: `${i * 0.07}s`,
                 }}
@@ -631,8 +689,12 @@ export default function MeetingMinutes({
   };
 
   /* ── Scene 5: Decisions ──────────────────────────────────────────────── */
-  const renderDecisions = () => {
-    const s = sceneData as (typeof data.scenes)[4];
+  const renderDecisions = (
+    s: (typeof data.scenes)[4],
+    opts: { entered: boolean; beat: number },
+  ) => {
+    const e = opts.entered;
+    const b = opts.beat;
     return (
       <div className={styles.decisions}>
         <div className={styles.decisionsHeader}>
@@ -645,9 +707,9 @@ export default function MeetingMinutes({
               key={i}
               className={styles.decisionItem}
               style={{
-                opacity: entered && i <= beat ? 1 : 0,
+                opacity: e && i <= b ? 1 : 0,
                 transform:
-                  entered && i <= beat
+                  e && i <= b
                     ? "translateX(0)"
                     : "translateX(-0.8cqh)",
                 transition: "opacity 0.4s ease, transform 0.4s ease",
@@ -698,28 +760,61 @@ export default function MeetingMinutes({
   };
 
   /* ── Render ──────────────────────────────────────────────────────────── */
-  const renderScene = () => {
-    switch (scene) {
+  const renderSceneByNumber = (
+    num: number,
+    opts: { entered: boolean; beat: number },
+  ) => {
+    const s = data.scenes[num - 1];
+    if (!s) return null;
+    switch (num) {
       case 1:
-        return renderHeader();
+        return renderHeader(s as (typeof data.scenes)[0]);
       case 2:
-        return renderAttendance();
+        return renderAttendance(s as (typeof data.scenes)[1], opts);
       case 3:
-        return renderDiscussion();
+        return renderDiscussion(s as (typeof data.scenes)[2], opts);
       case 4:
-        return renderActions();
+        return renderActions(s as (typeof data.scenes)[3], opts);
       case 5:
-        return renderDecisions();
+        return renderDecisions(s as (typeof data.scenes)[4], opts);
       default:
         return null;
     }
   };
 
+  const currentOpts = { entered, beat };
+  const outgoingOpts = { entered: true, beat: 99 };
+
   return (
     <div className={rootClasses}>
-      <div key={`44-${scene}`} className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}>
-        {renderScene()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && !reducedMotion && (
+        <div className={`${styles.sceneLayer} ${styles.exitAnim}`}>
+          {renderSceneByNumber(outgoingScene, outgoingOpts)}
+        </div>
+      )}
+
+      {/* Incoming / current scene (enter animation) */}
+      <div
+        className={`${styles.sceneLayer} ${
+          isTransitioning && !isTransitionClone ? styles.enterAnim : ""
+        }`}
+      >
+        {renderSceneByNumber(scene, currentOpts)}
       </div>
+
+      {/* Timestamp banner overlay */}
+      {showTimestamp && !reducedMotion && (
+        <div className={styles.timestampBanner}>
+          <div className={styles.timestampInner}>
+            <span className={styles.timestampIcon}>📋</span>
+            <span className={styles.timestampText}>
+              {sceneData?.label || `Scene ${scene}`}
+            </span>
+          </div>
+        </div>
+      )}
+
       {renderNav()}
     </div>
   );

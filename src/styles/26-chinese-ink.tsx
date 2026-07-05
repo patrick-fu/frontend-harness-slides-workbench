@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./26-chinese-ink.module.css";
 
@@ -204,12 +204,39 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 950; // ms — enter 900ms, exit 600ms
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 2, 4: 3, 5: 1 };
+
+// ─── Component ──────────────────────────────────────────────────────────────
+
 export default function ChineseInk({
   scene, beat, language, isThumbnail, reducedMotion, onNavigate, isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
+  // Detect scene changes and manage transition lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
+  // Beat-level entered animation trigger
   useEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => {
@@ -227,10 +254,8 @@ export default function ChineseInk({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
 
-  const renderScene1 = () => {
-    const c = SCENES[1][language as keyof typeof SCENES[1]];
+  const renderScene1 = (c: any) => {
     return (
       <div className={styles.scene1}>
         <InkMountainSVG className={styles.mountainBg} />
@@ -244,10 +269,10 @@ export default function ChineseInk({
     );
   };
 
-  const renderScene2 = () => {
-    const c = SCENES[2][language as keyof typeof SCENES[2]];
+  const renderScene2 = (c: any, beatNum: number, forceEntered: boolean) => {
     const items = c.items as Array<{ char: string; name: string; desc: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 4;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 2 : 4;
+    const isEntered = forceEntered || entered;
     return (
       <div className={styles.scene2}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -255,7 +280,7 @@ export default function ChineseInk({
         <div className={styles.treasuresGrid}>
           {items.map((item, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.treasureCard, visible && entered ? styles.treasureVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.treasureCard, visible && isEntered ? styles.treasureVisible : ""].filter(Boolean).join(" ");
             return (
               <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.2}s` }}>
                 <span className={styles.treasureChar}>{item.char}</span>
@@ -269,8 +294,7 @@ export default function ChineseInk({
     );
   };
 
-  const renderScene3 = () => {
-    const c = SCENES[3][language as keyof typeof SCENES[3]];
+  const renderScene3 = (c: any, beatNum: number) => {
     return (
       <div className={styles.scene3}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -278,7 +302,7 @@ export default function ChineseInk({
         <div className={styles.mountainScene}>
           <InkMountainSVG className={styles.mountainLarge} />
           <div className={styles.mistOverlay} />
-          {beat >= 1 && (
+          {beatNum >= 1 && (
             <div className={styles.poemBox}>
               <p className={styles.poemText}>{c.poem}</p>
               <p className={styles.poemEn}>{c.poemEn}</p>
@@ -289,10 +313,10 @@ export default function ChineseInk({
     );
   };
 
-  const renderScene4 = () => {
-    const c = SCENES[4][language as keyof typeof SCENES[4]];
+  const renderScene4 = (c: any, beatNum: number, forceEntered: boolean) => {
     const masters = c.masters as Array<{ name: string; era: string; work: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 3;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 2 : 3;
+    const isEntered = forceEntered || entered;
     return (
       <div className={styles.scene4}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -301,7 +325,7 @@ export default function ChineseInk({
         <div className={styles.mastersList}>
           {masters.map((m, i) => {
             const visible = i < visibleCount;
-            const cls = [styles.masterRow, visible && entered ? styles.masterVisible : ""].filter(Boolean).join(" ");
+            const cls = [styles.masterRow, visible && isEntered ? styles.masterVisible : ""].filter(Boolean).join(" ");
             return (
               <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.2}s` }}>
                 <span className={styles.masterName}>{m.name}</span>
@@ -315,8 +339,7 @@ export default function ChineseInk({
     );
   };
 
-  const renderScene5 = () => {
-    const c = SCENES[5][language as keyof typeof SCENES[5]];
+  const renderScene5 = (c: any) => {
     return (
       <div className={styles.scene5}>
         <div className={styles.blankSpace} />
@@ -329,13 +352,15 @@ export default function ChineseInk({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
-      case 5: return renderScene5();
+  const renderSceneFor = (sceneNum: number, beatNum: number, forceEntered: boolean) => {
+    const c = SCENES[sceneNum as keyof typeof SCENES]?.[language as keyof typeof SCENES[1]];
+    if (!c) return null;
+    switch (sceneNum) {
+      case 1: return renderScene1(c);
+      case 2: return renderScene2(c, beatNum, forceEntered);
+      case 3: return renderScene3(c, beatNum);
+      case 4: return renderScene4(c, beatNum, forceEntered);
+      case 5: return renderScene5(c);
       default: return null;
     }
   };
@@ -363,15 +388,27 @@ export default function ChineseInk({
     );
   };
 
+  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim].filter(Boolean).join(" ");
+  const incomingLayerClasses = [styles.sceneLayer, isTransitioning && !isTransitionClone ? styles.enterAnim : ""].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`26-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div key={`26-${scene}`} className={styles.track}>
+          {renderSceneFor(scene, beat, false)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );

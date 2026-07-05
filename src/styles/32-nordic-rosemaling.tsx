@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./32-nordic-rosemaling.module.css";
 
@@ -91,6 +91,9 @@ const SCENES = {
   },
 };
 
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
+const TRANSITION_DURATION = 900; // 600ms vine-draw + 300ms fade
+
 function RosemalingFlower({ className, color = "#d4667a" }: { className?: string; color?: string }) {
   return (
     <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -114,6 +117,87 @@ function ScrollVine({ className }: { className?: string }) {
         <circle key={i} cx={x} cy={i % 2 === 0 ? 12 : 28} r="4" fill="#d4667a" opacity="0.6" />
       ))}
     </svg>
+  );
+}
+
+/**
+ * Full-screen overlay with SVG vines that "draw" across the stage
+ * during scene transitions, then fade out to reveal the incoming scene.
+ */
+function VineOverlay({ phase }: { phase: "draw" | "fade" }) {
+  const overlayClass = [
+    styles.vineOverlay,
+    phase === "fade" ? styles.vineOverlayFade : "",
+  ].filter(Boolean).join(" ");
+
+  return (
+    <div className={overlayClass} aria-hidden="true">
+      <svg className={styles.vineSvg} viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        {/* Main curling vine from top-left */}
+        <path
+          className={styles.vinePath}
+          d="M-50 80 Q 200 200, 400 120 Q 600 40, 800 180 Q 1000 320, 1200 200 Q 1400 80, 1600 220 Q 1800 360, 1970 280"
+          stroke="#4a8c3f"
+          strokeWidth="4"
+          fill="none"
+        />
+        {/* Secondary vine from bottom-right */}
+        <path
+          className={`${styles.vinePath} ${styles.vinePath2}`}
+          d="M1970 1000 Q 1750 880, 1550 960 Q 1350 1040, 1150 900 Q 950 760, 750 880 Q 550 1000, 350 860 Q 150 720, -50 820"
+          stroke="#4a8c3f"
+          strokeWidth="3.5"
+          fill="none"
+        />
+        {/* Third vine from top-right */}
+        <path
+          className={`${styles.vinePath} ${styles.vinePath3}`}
+          d="M1970 60 Q 1700 180, 1500 100 Q 1300 20, 1100 160 Q 900 300, 700 180 Q 500 60, 300 160"
+          stroke="#d4667a"
+          strokeWidth="3"
+          fill="none"
+          opacity="0.7"
+        />
+        {/* Flower accents along vine 1 */}
+        {[300, 700, 1100, 1500].map((cx, i) => (
+          <circle
+            key={`f1-${i}`}
+            className={`${styles.vineFlower} ${styles[`vineFlowerDelay${i}`]}`}
+            cx={cx}
+            cy={i % 2 === 0 ? 140 : 240}
+            r="12"
+            fill="#d4667a"
+            opacity="0.8"
+          />
+        ))}
+        {/* Flower accents along vine 2 */}
+        {[400, 800, 1200, 1600].map((cx, i) => (
+          <circle
+            key={`f2-${i}`}
+            className={`${styles.vineFlower} ${styles[`vineFlowerDelay${i + 1}`]}`}
+            cx={cx}
+            cy={i % 2 === 0 ? 920 : 840}
+            r="10"
+            fill="#d4a843"
+            opacity="0.7"
+          />
+        ))}
+        {/* Leaf shapes */}
+        {[500, 900, 1300].map((cx, i) => (
+          <ellipse
+            key={`l-${i}`}
+            className={`${styles.vineLeaf} ${styles[`vineLeafDelay${i}`]}`}
+            cx={cx}
+            cy={160 + i * 30}
+            rx="20"
+            ry="8"
+            fill="#4a8c3f"
+            opacity="0.6"
+            transform={`rotate(${i * 25 - 20} ${cx} ${160 + i * 30})`}
+          />
+        ))}
+      </svg>
+    </div>
   );
 }
 
@@ -141,7 +225,6 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       5: ["结语呈现"],
     },
   };
-  const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
   const scenes = [1, 2, 3, 4, 5].map((id) => {
     const beatCount = BEAT_COUNTS[id];
     const actions = beatActions[lang][id as keyof (typeof beatActions)["en"]];
@@ -172,15 +255,47 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 
 export default function NordicRosemaling({ scene, beat, language, isThumbnail, reducedMotion, onNavigate, isTransitionClone }: BespokeStyleProps) {
   useFonts();
+
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [vinePhase, setVinePhase] = useState<"draw" | "fade" | null>(null);
+  const prevSceneRef = useRef<number>(scene);
+
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      setVinePhase("draw");
+
+      const fadeTimer = setTimeout(() => {
+        setVinePhase("fade");
+      }, 600);
+
+      const doneTimer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+        setVinePhase(null);
+      }, TRANSITION_DURATION);
+
+      prevSceneRef.current = scene;
+      return () => {
+        clearTimeout(fadeTimer);
+        clearTimeout(doneTimer);
+      };
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
+
   const [entered, setEntered] = useState(false);
   useEffect(() => {
     setEntered(false);
     const id = requestAnimationFrame(() => { requestAnimationFrame(() => setEntered(true)); });
     return () => cancelAnimationFrame(id);
   }, [scene]);
+
   const handleNavClick = useCallback((e: React.MouseEvent, targetScene: number) => { e.stopPropagation(); onNavigate?.(targetScene, 0); }, [onNavigate]);
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
 
   const renderScene1 = () => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
@@ -199,10 +314,10 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (currentBeat: number) => {
     const c = SCENES[2][language as keyof typeof SCENES[2]];
     const items = c.items as Array<{ name: string; desc: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 4;
+    const visibleCount = currentBeat === 0 ? 0 : currentBeat === 1 ? 2 : 4;
     return (
       <div className={styles.scene2}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -224,10 +339,10 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (currentBeat: number) => {
     const c = SCENES[3][language as keyof typeof SCENES[3]];
     const items = c.items as Array<{ name: string; meaning: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 4;
+    const visibleCount = currentBeat === 0 ? 0 : currentBeat === 1 ? 2 : 4;
     const icons = ["✿", "❦", "♪", "♥"];
     return (
       <div className={styles.scene3}>
@@ -250,10 +365,10 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (currentBeat: number) => {
     const c = SCENES[4][language as keyof typeof SCENES[4]];
     const items = c.items as Array<{ name: string; hex: string }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 2 : 4;
+    const visibleCount = currentBeat === 0 ? 0 : currentBeat === 1 ? 2 : 4;
     return (
       <div className={styles.scene4}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -287,12 +402,12 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+    switch (sceneNum) {
       case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
+      case 2: return renderScene2(beatNum);
+      case 3: return renderScene3(beatNum);
+      case 4: return renderScene4(beatNum);
       case 5: return renderScene5();
       default: return null;
     }
@@ -315,11 +430,30 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
     );
   };
 
+  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim].filter(Boolean).join(" ");
+  const incomingLayerClasses = [styles.sceneLayer, isTransitioning && !isTransitionClone ? styles.enterAnim : ""].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div key={`32-${scene}`} className={trackClasses} style={reducedMotion ? { animationDuration: "0s" } : undefined}>
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div className={styles.track}>
+          {renderSceneFor(scene, beat)}
+        </div>
       </div>
+
+      {/* Vine overlay during transition */}
+      {vinePhase && <VineOverlay phase={vinePhase} />}
+
       {renderNav()}
     </div>
   );

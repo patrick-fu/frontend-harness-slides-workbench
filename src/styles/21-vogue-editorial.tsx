@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./21-vogue-editorial.module.css";
 
@@ -252,6 +252,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+// ─── Transition constants ──────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 650;
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 };
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function VogueEditorial({
@@ -263,8 +268,10 @@ export default function VogueEditorial({
   onNavigate,
   isTransitionClone,
 }: BespokeStyleProps) {
-  const content = SCENES[scene]?.[language] || SCENES[1][language];
   const [entered, setEntered] = useState(false);
+  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevSceneRef = useRef<number>(scene);
 
   // Font injection
   useEffect(() => {
@@ -278,6 +285,7 @@ export default function VogueEditorial({
     document.head.appendChild(link);
   }, []);
 
+  // Beat-level entered state — triggers reveal animations within current scene
   useEffect(() => {
     setEntered(false);
     const raf = requestAnimationFrame(() => {
@@ -286,7 +294,23 @@ export default function VogueEditorial({
       });
     });
     return () => cancelAnimationFrame(raf);
-  }, [scene]);
+  }, [scene, beat]);
+
+  // Scene change detection — manage outgoing scene lifecycle
+  useEffect(() => {
+    const prev = prevSceneRef.current;
+    if (prev !== scene && !reducedMotion) {
+      setOutgoingScene(prev);
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setOutgoingScene(null);
+        setIsTransitioning(false);
+      }, TRANSITION_DURATION);
+      prevSceneRef.current = scene;
+      return () => clearTimeout(timer);
+    }
+    prevSceneRef.current = scene;
+  }, [scene, reducedMotion]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -304,25 +328,38 @@ export default function VogueEditorial({
     .filter(Boolean)
     .join(" ");
 
-  const trackClasses = [
-    styles.track,
-    !isTransitionClone && styles.animateSceneEnter,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  // ── Render scene content for a given scene number ────────────────────────
 
-  const renderSceneContent = () => {
-    if (scene === 1) {
+  const renderSceneFor = (
+    sceneNum: number,
+    beatNum: number,
+    isOutgoing: boolean,
+  ) => {
+    const content = SCENES[sceneNum]?.[language] || SCENES[1][language];
+    // Outgoing scene always shows its final state
+    const effectiveBeat = isOutgoing ? BEAT_COUNTS[sceneNum] - 1 : beatNum;
+    // Outgoing scene is always "entered" (no beat-level animations playing)
+    const effectiveEntered = isOutgoing ? true : entered;
+    // Headline tracking class — only for incoming scene
+    const headlineClass = !isOutgoing && effectiveEntered && !reducedMotion
+      ? styles.headlineTrackIn
+      : "";
+
+    if (sceneNum === 1) {
       return (
         <div className={styles.vogueCover}>
           <div className={styles.vogueCoverImage} />
           <div className={styles.vogueCoverContent}>
             <div className={styles.vogueMasthead}>
-              <h1 className={styles.vogueLogo}>{content.logo}</h1>
+              <h1 className={`${styles.vogueLogo} ${headlineClass}`}>
+                {content.logo}
+              </h1>
               <p className={styles.vogueIssue}>{content.issue}</p>
             </div>
             <div className={styles.vogueCoverBottom}>
-              <h2 className={styles.vogueCoverTitle}>{content.title}</h2>
+              <h2 className={`${styles.vogueCoverTitle} ${headlineClass}`}>
+                {content.title}
+              </h2>
               <p className={styles.vogueCoverSub}>{content.subtitle}</p>
             </div>
           </div>
@@ -330,7 +367,7 @@ export default function VogueEditorial({
       );
     }
 
-    if (scene === 2) {
+    if (sceneNum === 2) {
       return (
         <div className={styles.vogueSpread}>
           <div className={styles.vogueSpreadImage}>
@@ -340,15 +377,15 @@ export default function VogueEditorial({
           </div>
           <div className={styles.vogueSpreadText}>
             <p className={styles.vogueSpreadKicker}>{content.kicker}</p>
-            <h2 className={styles.vogueSpreadHeadline}>
+            <h2 className={`${styles.vogueSpreadHeadline} ${headlineClass}`}>
               {content.headline}
             </h2>
             <div className={styles.vogueHairline} />
-            {beat >= 1 && (
+            {effectiveBeat >= 1 && (
               <p
                 className={styles.vogueSpreadBody}
                 style={{
-                  opacity: entered ? 0.75 : 0,
+                  opacity: effectiveEntered ? 0.75 : 0,
                   transition: reducedMotion
                     ? "none"
                     : "opacity 0.6s ease 0.2s",
@@ -362,7 +399,7 @@ export default function VogueEditorial({
       );
     }
 
-    if (scene === 3) {
+    if (sceneNum === 3) {
       const portraits = content.portraits || [];
       return (
         <div className={styles.vogueGallery}>
@@ -370,7 +407,7 @@ export default function VogueEditorial({
             <p className={styles.vogueGalleryLabel}>
               {content.galleryLabel}
             </p>
-            <h2 className={styles.vogueGalleryTitle}>
+            <h2 className={`${styles.vogueGalleryTitle} ${headlineClass}`}>
               {(content.galleryTitle || "").split("\n").map((line, i) => (
                 <React.Fragment key={i}>
                   {line}
@@ -381,15 +418,17 @@ export default function VogueEditorial({
           </div>
           <div className={styles.vogueGalleryGrid}>
             {portraits.map((p, i) => {
-              const visible = i <= beat;
+              const visible = i <= effectiveBeat;
               return (
                 <div
                   key={i}
                   className={styles.voguePortrait}
                   style={{
-                    opacity: visible && entered ? 1 : 0,
+                    opacity: visible && effectiveEntered ? 1 : 0,
                     transform:
-                      visible && entered ? "none" : "translateY(1.5cqh)",
+                      visible && effectiveEntered
+                        ? "none"
+                        : "translateY(1.5cqh)",
                     transition: reducedMotion
                       ? "none"
                       : `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s`,
@@ -406,13 +445,13 @@ export default function VogueEditorial({
       );
     }
 
-    if (scene === 4) {
+    if (sceneNum === 4) {
       const trends = content.trends || [];
       return (
         <div className={styles.vogueTrend}>
           <div className={styles.vogueTrendHeader}>
             <p className={styles.vogueTrendLabel}>{content.trendLabel}</p>
-            <h2 className={styles.vogueTrendTitle}>
+            <h2 className={`${styles.vogueTrendTitle} ${headlineClass}`}>
               {(content.trendTitle || "").split("\n").map((line, i) => (
                 <React.Fragment key={i}>
                   {line}
@@ -421,11 +460,11 @@ export default function VogueEditorial({
               ))}
             </h2>
           </div>
-          {beat >= 1 && (
+          {effectiveBeat >= 1 && (
             <div
               className={styles.vogueTrendItems}
               style={{
-                opacity: entered ? 1 : 0,
+                opacity: effectiveEntered ? 1 : 0,
                 transition: reducedMotion
                   ? "none"
                   : "opacity 0.5s ease 0.15s",
@@ -448,11 +487,11 @@ export default function VogueEditorial({
       );
     }
 
-    if (scene === 5) {
+    if (sceneNum === 5) {
       return (
         <div className={styles.vogueClosing}>
           <div className={styles.vogueClosingHairline} />
-          <p className={styles.vogueClosingText}>
+          <p className={`${styles.vogueClosingText} ${headlineClass}`}>
             {(content.closing || "").split("\n").map((line, i) => (
               <React.Fragment key={i}>
                 {line}
@@ -497,15 +536,36 @@ export default function VogueEditorial({
     );
   };
 
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`21-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        <div className={styles.track}>
+          {renderSceneFor(scene, beat, false)}
+        </div>
       </div>
+
       {renderNavIndicators()}
     </div>
   );
