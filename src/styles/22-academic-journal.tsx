@@ -1,5 +1,6 @@
-import React, { useLayoutEffect, useEffect, useCallback, useState, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useCallback, useState } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import styles from "./22-academic-journal.module.css";
 
 // ─── Content ────────────────────────────────────────────────────────────────
@@ -243,10 +244,16 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 
 // ─── Transition constants ──────────────────────────────────────────────────
 
-const TRANSITION_DURATION = 500;
+// ─── Component ──────────────────────────────────────────────────────────────
+
 const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 2, 4: 2, 5: 2 };
 
-// ─── Component ──────────────────────────────────────────────────────────────
+const BEAT_LAYOUT_MODES = {
+  2: "motion",
+  3: "motion",
+  4: "motion",
+  5: "motion",
+} satisfies Record<number, "motion" | "reserved">;
 
 export default function AcademicJournal({
   scene,
@@ -255,47 +262,8 @@ export default function AcademicJournal({
   isThumbnail,
   reducedMotion,
   onNavigate,
-  isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    lastScene: scene,
-  });
-
-  // Synchronous derivation
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-
-    if (!reducedMotion) {
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
-        });
-      }, TRANSITION_DURATION);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        lastScene: scene,
-      });
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        lastScene: scene,
-      });
-    }
-  }
-
-  var outgoingScene = transitionInfo.outgoingScene;
-  var isTransitioning = transitionInfo.isTransitioning;
 
   // Font injection
   useEffect(() => {
@@ -520,29 +488,20 @@ export default function AcademicJournal({
 
   // ── Build layer classes ─────────────────────────────────────────────────
 
-  const outgoingLayerClasses = [
-    styles.sceneLayer,
-    styles.exitAnim,
-  ].filter(Boolean).join(" ");
-
-  const incomingLayerClasses = [
-    styles.sceneLayer,
-    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
-  ].filter(Boolean).join(" ");
-
   return (
     <div className={rootClasses}>
-      {/* Outgoing scene (exit animation) */}
-      {outgoingScene !== null && (
-        <div className={outgoingLayerClasses}>
-          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
-        </div>
-      )}
-
-      {/* Incoming / current scene */}
-      <div className={incomingLayerClasses}>
-        {renderSceneFor(scene, beat, false)}
-      </div>
+            <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        beatLayoutModes={BEAT_LAYOUT_MODES}
+        renderScene={(sceneId, sceneBeat) => (
+          <div className={styles.sceneLayer}>
+            {renderSceneFor(sceneId, sceneBeat, false)}
+          </div>
+        )}
+      />
 
       {renderNavIndicators()}
     </div>

@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import styles from "./31-african-kente.module.css";
 import { useFLIP } from "../hooks/useFLIP";
 
@@ -90,11 +91,6 @@ const SCENES = {
   },
 };
 
-const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
-const TRANSITION_DURATION = 500;
-
-const WEDGE_COLORS = ["#d42a2a", "#111111", "#d42a2a", "#111111", "#f0e8d8", "#d42a2a", "#111111", "#d42a2a"];
-
 function RedWedgeSVG({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -107,36 +103,6 @@ function RedWedgeSVG({ className }: { className?: string }) {
       <rect x="60" y="60" width="50" height="70" fill="#d42a2a" opacity="0.5" transform="rotate(10 85 95)" />
       <line x1="0" y1="150" x2="400" y2="50" stroke="#111111" strokeWidth="3" opacity="0.3" />
     </svg>
-  );
-}
-
-function WedgeBars({ phase }: { phase: "enter" | "fade" }) {
-  const barPositions = [10, 22, 35, 48, 60, 72, 84, 92];
-  return (
-    <div className={`${styles.weftOverlay} ${phase === "fade" ? styles.weftOverlayFade : ""}`} aria-hidden="true">
-      {barPositions.map((top, i) => {
-        const fromLeft = i % 2 === 0;
-        const color = WEDGE_COLORS[i % WEDGE_COLORS.length];
-        const delay = fromLeft ? i * 40 : i * 40 + 20;
-        const barClass = [
-          styles.weftBar,
-          fromLeft ? styles.weftBarLeft : styles.weftBarRight,
-          phase === "fade" ? styles.weftBarRetract : "",
-        ].filter(Boolean).join(" ");
-        return (
-          <div
-            key={i}
-            className={barClass}
-            style={{
-              top: `${top}%`,
-              background: color,
-              animationDelay: `${delay}ms`,
-              transform: `rotate(${-3 + (i % 3)}deg)`,
-            }}
-          />
-        );
-      })}
-    </div>
   );
 }
 
@@ -202,61 +168,16 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
-export default function AfricanKente({ scene, beat, language, isThumbnail, reducedMotion, onNavigate, isTransitionClone }: BespokeStyleProps) {
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
+
+const BEAT_LAYOUT_MODES = {
+  2: "motion",
+  3: "motion",
+  4: "motion",
+} satisfies Record<number, "motion" | "reserved">;
+
+export default function AfricanKente({ scene, beat, language, isThumbnail, reducedMotion, onNavigate }: BespokeStyleProps) {
   useFonts();
-
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    weftPhase: null as "enter" | "fade" | null,
-    lastScene: scene,
-  });
-
-  // Synchronous derivation — sets transition state in the SAME render cycle
-  // as the scene prop change.
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-    if (fadeTimerRef.current) {
-      clearTimeout(fadeTimerRef.current);
-    }
-
-    if (!reducedMotion) {
-      fadeTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { ...prev, weftPhase: "fade" };
-        });
-      }, 300);
-
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { outgoingScene: null, isTransitioning: false, weftPhase: null, lastScene: prev.lastScene };
-        });
-      }, TRANSITION_DURATION);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        weftPhase: "enter",
-        lastScene: scene,
-      });
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        weftPhase: null,
-        lastScene: scene,
-      });
-    }
-  }
-
-  var outgoingScene = transitionInfo.outgoingScene;
-  var isTransitioning = transitionInfo.isTransitioning;
-  var weftPhase = transitionInfo.weftPhase;
 
   const [entered, setEntered] = useState(false);
   useEffect(() => {
@@ -417,29 +338,24 @@ export default function AfricanKente({ scene, beat, language, isThumbnail, reduc
     );
   };
 
-  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim].filter(Boolean).join(" ");
-  const incomingLayerClasses = [styles.sceneLayer, isTransitioning && !isTransitionClone ? styles.enterAnim : ""].filter(Boolean).join(" ");
-
   return (
     <div className={rootClasses}>
-      {/* Outgoing scene (exit animation) */}
-      {outgoingScene !== null && (
-        <div className={outgoingLayerClasses}>
-          <div className={styles.track}>
-            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+            <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        beatLayoutModes={BEAT_LAYOUT_MODES}
+        renderScene={(sceneId, sceneBeat) => (
+          <div className={styles.sceneLayer}>
+            <div className={styles.track}>
+              {renderSceneFor(sceneId, sceneBeat)}
+            </div>
           </div>
-        </div>
-      )}
-
-      {/* Incoming / current scene */}
-      <div className={incomingLayerClasses}>
-        <div className={styles.track}>
-          {renderSceneFor(scene, beat)}
-        </div>
-      </div>
+        )}
+      />
 
       {/* Wedge bars overlay during transition */}
-      {weftPhase && <WedgeBars phase={weftPhase} />}
 
       {renderNav()}
     </div>

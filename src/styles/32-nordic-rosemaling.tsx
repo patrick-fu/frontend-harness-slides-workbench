@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import styles from "./32-nordic-rosemaling.module.css";
 
 function useFonts() {
@@ -91,9 +92,6 @@ const SCENES = {
   },
 };
 
-const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
-const TRANSITION_DURATION = 600;
-
 function FunnelMachineSVG({ className }: { className?: string }) {
   const laneColors = ["#4ade80", "#60a5fa", "#fbbf24", "#f472b6"];
   return (
@@ -116,43 +114,6 @@ function FunnelMachineSVG({ className }: { className?: string }) {
       <rect x="110" y="175" width="80" height="20" rx="3" fill="rgba(226,232,240,0.1)" stroke="rgba(226,232,240,0.3)" strokeWidth="1" />
       <text x="150" y="189" textAnchor="middle" fill="#4ade80" fontFamily="JetBrains Mono, monospace" fontSize="12" fontWeight="600">SCORE</text>
     </svg>
-  );
-}
-
-function GearSpinOverlay({ phase }: { phase: "spin" | "fade" }) {
-  const overlayClass = [
-    styles.vineOverlay,
-    phase === "fade" ? styles.vineOverlayFade : "",
-  ].filter(Boolean).join(" ");
-
-  return (
-    <div className={overlayClass} aria-hidden="true">
-      <svg className={styles.vineSvg} viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        {/* Rotating gear arcs */}
-        {[...Array(6)].map((_, i) => {
-          const cx = 200 + i * 300;
-          const cy = 540;
-          const r = 80 + (i % 3) * 30;
-          const color = ["#4ade80", "#60a5fa", "#fbbf24", "#f472b6", "#4ade80", "#60a5fa"][i];
-          return (
-            <g key={i} className={styles.gearGroup} style={{ transformOrigin: `${cx}px ${cy}px`, animationDelay: `${i * 0.05}s` }}>
-              <circle cx={cx} cy={cy} r={r} stroke={color} strokeWidth="3" fill="none" opacity="0.4" strokeDasharray="20 10" />
-              <circle cx={cx} cy={cy} r={r * 0.6} stroke={color} strokeWidth="2" fill="none" opacity="0.25" />
-              {[0, 90, 180, 270].map((deg, j) => {
-                const rad = (deg * Math.PI) / 180;
-                const tx = cx + r * Math.cos(rad);
-                const ty = cy + r * Math.sin(rad);
-                return <rect key={j} x={tx - 6} y={ty - 6} width="12" height="12" rx="2" fill={color} opacity="0.5" transform={`rotate(${deg} ${tx} ${ty})`} />;
-              })}
-            </g>
-          );
-        })}
-        {/* Horizontal scan lines */}
-        {[...Array(12)].map((_, i) => (
-          <line key={`scan-${i}`} x1="0" y1={90 + i * 80} x2="1920" y2={90 + i * 80} stroke="rgba(74,222,128,0.15)" strokeWidth="1" className={styles.scanLine} style={{ animationDelay: `${i * 0.03}s` }} />
-        ))}
-      </svg>
-    </div>
   );
 }
 
@@ -208,60 +169,16 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
-export default function NordicRosemaling({ scene, beat, language, isThumbnail, reducedMotion, onNavigate, isTransitionClone }: BespokeStyleProps) {
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
+
+const BEAT_LAYOUT_MODES = {
+  2: "motion",
+  3: "motion",
+  4: "motion",
+} satisfies Record<number, "motion" | "reserved">;
+
+export default function NordicRosemaling({ scene, beat, language, isThumbnail, reducedMotion, onNavigate }: BespokeStyleProps) {
   useFonts();
-
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    vinePhase: null as "spin" | "fade" | null,
-    lastScene: scene,
-  });
-
-  // Synchronous derivation
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-    if (fadeTimerRef.current) {
-      clearTimeout(fadeTimerRef.current);
-    }
-
-    if (!reducedMotion) {
-      fadeTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { ...prev, vinePhase: "fade" };
-        });
-      }, 400);
-
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { outgoingScene: null, isTransitioning: false, vinePhase: null, lastScene: prev.lastScene };
-        });
-      }, TRANSITION_DURATION);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        vinePhase: "spin",
-        lastScene: scene,
-      });
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        vinePhase: null,
-        lastScene: scene,
-      });
-    }
-  }
-
-  var outgoingScene = transitionInfo.outgoingScene;
-  var isTransitioning = transitionInfo.isTransitioning;
-  var vinePhase = transitionInfo.vinePhase;
 
   const [entered, setEntered] = useState(false);
   useEffect(() => {
@@ -411,29 +328,24 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
     );
   };
 
-  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim].filter(Boolean).join(" ");
-  const incomingLayerClasses = [styles.sceneLayer, isTransitioning && !isTransitionClone ? styles.enterAnim : ""].filter(Boolean).join(" ");
-
   return (
     <div className={rootClasses}>
-      {/* Outgoing scene (exit animation) */}
-      {outgoingScene !== null && (
-        <div className={outgoingLayerClasses}>
-          <div className={styles.track}>
-            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+            <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        beatLayoutModes={BEAT_LAYOUT_MODES}
+        renderScene={(sceneId, sceneBeat) => (
+          <div className={styles.sceneLayer}>
+            <div className={styles.track}>
+              {renderSceneFor(sceneId, sceneBeat)}
+            </div>
           </div>
-        </div>
-      )}
-
-      {/* Incoming / current scene */}
-      <div className={incomingLayerClasses}>
-        <div className={styles.track}>
-          {renderSceneFor(scene, beat)}
-        </div>
-      </div>
+        )}
+      />
 
       {/* Gear spin overlay during transition */}
-      {vinePhase && <GearSpinOverlay phase={vinePhase} />}
 
       {renderNav()}
     </div>

@@ -1,9 +1,7 @@
-import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import styles from "./27-art-deco.module.css";
-
-const TRANSITION_DURATION = 700;
-const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
 
 function useFonts() {
   useEffect(() => {
@@ -223,50 +221,16 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+const BEAT_LAYOUT_MODES = {
+  2: "motion",
+  3: "motion",
+  4: "motion",
+} satisfies Record<number, "motion" | "reserved">;
+
 export default function ArtDeco({
-  scene, beat, language, isThumbnail, reducedMotion, onNavigate, isTransitionClone,
-}: BespokeStyleProps) {
+  scene, beat, language, isThumbnail, reducedMotion, onNavigate, }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    lastScene: scene,
-  });
-
-  // Synchronous derivation — sets transition state in the SAME render cycle
-  // as the scene prop change. Eliminates the 1-frame gap where the incoming
-  // scene is visible without its enter animation class.
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-
-    if (!reducedMotion) {
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
-        });
-      }, TRANSITION_DURATION);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        lastScene: scene,
-      });
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        lastScene: scene,
-      });
-    }
-  }
-
-  var outgoingScene = transitionInfo.outgoingScene;
-  var isTransitioning = transitionInfo.isTransitioning;
 
   useLayoutEffect(() => {
     setEntered(false);
@@ -432,26 +396,22 @@ export default function ArtDeco({
     );
   };
 
-  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim].filter(Boolean).join(" ");
-  const incomingLayerClasses = [styles.sceneLayer, isTransitioning && !isTransitionClone ? styles.enterAnim : ""].filter(Boolean).join(" ");
-
   return (
     <div className={rootClasses}>
-      {/* Outgoing scene (exit animation) */}
-      {outgoingScene !== null && (
-        <div className={outgoingLayerClasses}>
-          <div className={styles.track}>
-            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+            <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        beatLayoutModes={BEAT_LAYOUT_MODES}
+        renderScene={(sceneId, sceneBeat) => (
+          <div className={styles.sceneLayer}>
+            <div className={styles.track}>
+              {renderSceneFor(sceneId, sceneBeat, false)}
+            </div>
           </div>
-        </div>
-      )}
-
-      {/* Incoming / current scene */}
-      <div className={incomingLayerClasses}>
-        <div className={styles.track}>
-          {renderSceneFor(scene, beat, false)}
-        </div>
-      </div>
+        )}
+      />
 
       {renderNav()}
     </div>

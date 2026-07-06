@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import Style17, { getMetadata } from "./17-editorial-broadsheet";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 
@@ -30,6 +30,14 @@ function renderStage(props: Partial<BespokeStyleProps> = {}) {
       <Style17 {...defaultProps} />
     </div>
   );
+}
+
+function getActivePanel() {
+  const activePanel = document.querySelector(
+    '[data-testid="spatial-scene-panel"][data-active="true"]',
+  );
+  expect(activePanel).toBeInstanceOf(HTMLElement);
+  return activePanel as HTMLElement;
 }
 
 const BEAT_COUNTS: Record<number, number> = {
@@ -229,7 +237,7 @@ describe("Style 17 — Chinese language", () => {
 
   it("renders vertical writing mode for zh headline on scene 1", () => {
     renderStage({ scene: 1, beat: 0, language: "zh" });
-    const headline = screen.getByTestId("style-17-headline");
+    const headline = within(getActivePanel()).getByTestId("style-17-headline");
     expect(headline).toHaveClass("verticalZh");
   });
 });
@@ -249,7 +257,7 @@ describe("Style 17 — English language", () => {
 
   it("does not apply vertical writing mode for en headline", () => {
     renderStage({ scene: 1, beat: 0, language: "en" });
-    const headline = screen.getByTestId("style-17-headline");
+    const headline = within(getActivePanel()).getByTestId("style-17-headline");
     expect(headline).not.toHaveClass("verticalZh");
   });
 });
