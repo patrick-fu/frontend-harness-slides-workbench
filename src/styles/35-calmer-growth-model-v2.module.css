@@ -1,0 +1,656 @@
+.root {
+  --grove-bg: #183f2b;
+  --grove-bg-soft: #274a31;
+  --grove-ink: #f4e8c8;
+  --grove-cream: #fff2cf;
+  --grove-sage: #8b9550;
+  --grove-olive: #5d6f30;
+  --grove-rust: #bf5b36;
+  --grove-ochre: #d0a13a;
+  --grove-walnut: #6d4424;
+  --grove-teal: #2f6b5f;
+  --grove-shadow: rgba(27, 19, 10, 0.34);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  overflow: hidden;
+  color: var(--grove-ink);
+  background:
+    radial-gradient(circle at 13% 12%, rgba(191, 91, 54, 0.22), transparent 17cqw),
+    radial-gradient(circle at 89% 86%, rgba(208, 161, 58, 0.18), transparent 24cqw),
+    linear-gradient(128deg, #183f2b 0%, #1f4930 54%, #153321 100%);
+  font-family: "Inter", "Noto Sans SC", Arial, sans-serif;
+}
+
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      92deg,
+      rgba(244, 232, 200, 0.035) 0,
+      rgba(244, 232, 200, 0.035) 0.08cqw,
+      transparent 0.08cqw,
+      transparent 2.8cqw
+    ),
+    linear-gradient(90deg, rgba(109, 68, 36, 0.18), transparent 34cqw);
+  opacity: 0.72;
+}
+
+.sceneTrack {
+  position: absolute;
+  inset: 0;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 7cqh 7cqw 14cqh;
+  box-sizing: border-box;
+}
+
+.sceneGrid {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 42cqw) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  column-gap: 5cqw;
+  row-gap: 3cqh;
+  align-items: center;
+}
+
+.scene2 .sceneGrid,
+.scene4 .sceneGrid {
+  grid-template-columns: minmax(0, 37cqw) minmax(0, 1fr);
+}
+
+.scene3 .sceneGrid,
+.scene5 .sceneGrid {
+  grid-template-columns: minmax(0, 40cqw) minmax(0, 1fr);
+}
+
+.copyBlock {
+  align-self: center;
+  max-width: 41cqw;
+}
+
+.kicker {
+  margin: 0 0 2.2cqh;
+  color: var(--grove-rust);
+  font-size: 1.18cqw;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.copyBlock h1 {
+  margin: 0;
+  color: var(--grove-cream);
+  font-family: "Cormorant Garamond", "Noto Serif SC", Georgia, serif;
+  font-size: 5.65cqw;
+  line-height: 0.95;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+.body {
+  margin: 3cqh 0 0;
+  max-width: 34cqw;
+  color: rgba(244, 232, 200, 0.86);
+  font-size: 1.45cqw;
+  line-height: 1.5;
+  letter-spacing: 0;
+  animation: groveSettle 780ms cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+.visualBlock {
+  position: relative;
+  align-self: stretch;
+  min-height: 62cqh;
+  display: grid;
+  place-items: center;
+}
+
+.noteBlock {
+  grid-column: 1 / 3;
+  justify-self: end;
+  width: 40cqw;
+  padding: 2.4cqh 2.4cqw;
+  border-top: 0.12cqw solid rgba(244, 232, 200, 0.45);
+  color: var(--grove-cream);
+  animation: groveSettle 760ms cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+.noteBlock span {
+  display: block;
+  color: var(--grove-ochre);
+  font-size: 1.05cqw;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.noteBlock p {
+  margin: 1.2cqh 0 0;
+  font-family: "Cormorant Garamond", "Noto Serif SC", Georgia, serif;
+  font-size: 2.2cqw;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.beatMarkers {
+  display: flex;
+  gap: 0.85cqw;
+  margin-top: 3cqh;
+  align-items: center;
+}
+
+.beatMarker {
+  width: 0.92cqw;
+  height: 0.92cqw;
+  border-radius: 50%;
+  background: rgba(244, 232, 200, 0.22);
+  transform: scale(0.76);
+  transition:
+    background 420ms ease,
+    transform 420ms ease;
+}
+
+.beatMarker[data-active="true"] {
+  background: var(--grove-rust);
+  transform: scale(1);
+}
+
+.groveVisual,
+.layerStack,
+.flowVisual,
+.seasonVisual,
+.pathVisual {
+  position: relative;
+  width: 43cqw;
+  height: 62cqh;
+}
+
+.posterSvg,
+.flowSvg,
+.seasonRing,
+.pathSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 1.2cqh 2.6cqh var(--grove-shadow));
+}
+
+.sunDot,
+.pathSun {
+  fill: var(--grove-rust);
+  opacity: 0.94;
+}
+
+.groundLine,
+.rootLine,
+.flowRoot,
+.pathGround,
+.pathTrace {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.groundLine {
+  stroke: rgba(244, 232, 200, 0.5);
+  stroke-width: 5;
+}
+
+.canopyBack {
+  fill: var(--grove-olive);
+}
+
+.canopyFront {
+  fill: var(--grove-sage);
+  opacity: 0;
+  transform: translateY(3cqh);
+  transition:
+    opacity 800ms cubic-bezier(0.19, 1, 0.22, 1),
+    transform 800ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.canopyFront[data-show="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.trunk {
+  fill: none;
+  stroke: var(--grove-walnut);
+  stroke-width: 16;
+  stroke-linecap: round;
+}
+
+.rootLine {
+  stroke: var(--grove-ochre);
+  stroke-width: 7;
+  opacity: 0;
+  stroke-dasharray: 18 16;
+  transform: translateY(2cqh);
+  transition:
+    opacity 820ms ease,
+    transform 820ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.rootLine[data-show="true"] {
+  opacity: 0.92;
+  transform: translateY(0);
+}
+
+.labelRow {
+  position: absolute;
+  left: 5cqw;
+  right: 3cqw;
+  bottom: 2cqh;
+  display: flex;
+  gap: 1cqw;
+  justify-content: flex-end;
+}
+
+.groveLabel,
+.seasonLabel,
+.pathStop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 6.8cqw;
+  min-height: 4.4cqh;
+  padding: 0.9cqh 1.1cqw;
+  border: 0.1cqw solid rgba(244, 232, 200, 0.42);
+  border-radius: 4cqw;
+  color: rgba(244, 232, 200, 0.7);
+  background: rgba(21, 51, 33, 0.46);
+  font-size: 1.02cqw;
+  line-height: 1.05;
+  letter-spacing: 0;
+  text-align: center;
+  opacity: 0.42;
+  transform: translateY(1.4cqh);
+  transition:
+    opacity 720ms cubic-bezier(0.19, 1, 0.22, 1) var(--grove-delay, 0ms),
+    transform 720ms cubic-bezier(0.19, 1, 0.22, 1) var(--grove-delay, 0ms),
+    background 720ms ease var(--grove-delay, 0ms);
+}
+
+.groveLabel[data-active="true"],
+.seasonLabel[data-active="true"],
+.pathStop[data-active="true"] {
+  opacity: 1;
+  color: var(--grove-cream);
+  background: rgba(191, 91, 54, 0.28);
+  transform: translateY(0);
+}
+
+.layerStack {
+  display: grid;
+  align-content: center;
+  gap: 3.4cqh;
+}
+
+.layer {
+  position: relative;
+  z-index: 1;
+  width: 38cqw;
+  min-height: 12cqh;
+  border-radius: 8cqw 8cqw 3cqw 3cqw;
+  display: grid;
+  place-items: center;
+  color: var(--grove-cream);
+  font-family: "Cormorant Garamond", "Noto Serif SC", Georgia, serif;
+  font-size: 2.55cqw;
+  line-height: 1;
+  letter-spacing: 0;
+  opacity: 0.2;
+  transform: translateY(4cqh);
+  transition:
+    opacity 760ms cubic-bezier(0.19, 1, 0.22, 1) var(--grove-delay, 0ms),
+    transform 760ms cubic-bezier(0.19, 1, 0.22, 1) var(--grove-delay, 0ms);
+}
+
+.layer:nth-child(1) {
+  background: var(--grove-olive);
+}
+
+.layer:nth-child(2) {
+  margin-left: 4cqw;
+  background: var(--grove-sage);
+}
+
+.layer:nth-child(3) {
+  margin-left: 8cqw;
+  background: var(--grove-walnut);
+}
+
+.layer[data-active="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.layerStem {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.layerStem path {
+  fill: none;
+  stroke: rgba(244, 232, 200, 0.42);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 14 18;
+  opacity: 0.8;
+}
+
+.layerStem path[data-show="false"] {
+  opacity: 0;
+}
+
+.flowCanopy {
+  fill: none;
+  stroke: var(--grove-sage);
+  stroke-width: 34;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.flowRoot {
+  stroke: rgba(244, 232, 200, 0.42);
+  stroke-width: 10;
+}
+
+.flowPulse {
+  fill: none;
+  stroke: var(--grove-ochre);
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 20 22;
+  opacity: 0;
+  transition: opacity 820ms ease;
+}
+
+.flowPulse[data-show="true"] {
+  opacity: 1;
+  animation: flowPulse 2200ms ease-in-out infinite;
+}
+
+.resourceCards {
+  position: absolute;
+  left: 2cqw;
+  right: 2cqw;
+  bottom: 1cqh;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2cqw;
+}
+
+.resourceCard {
+  min-height: 13cqh;
+  padding: 1.8cqh 1.2cqw;
+  border: 0.1cqw solid rgba(244, 232, 200, 0.34);
+  border-radius: 1.6cqw;
+  background: rgba(255, 242, 207, 0.08);
+  opacity: 0.28;
+  transform: translateY(2.6cqh);
+  transition:
+    opacity 720ms cubic-bezier(0.19, 1, 0.22, 1) var(--grove-delay, 0ms),
+    transform 720ms cubic-bezier(0.19, 1, 0.22, 1) var(--grove-delay, 0ms),
+    background 720ms ease var(--grove-delay, 0ms);
+}
+
+.resourceCard[data-active="true"] {
+  opacity: 1;
+  transform: translateY(0);
+  background: rgba(255, 242, 207, 0.14);
+}
+
+.resourceCard span {
+  color: var(--grove-rust);
+  font-size: 0.95cqw;
+  font-weight: 700;
+}
+
+.resourceCard p {
+  margin: 1.4cqh 0 0;
+  color: var(--grove-cream);
+  font-family: "Cormorant Garamond", "Noto Serif SC", Georgia, serif;
+  font-size: 2.1cqw;
+  line-height: 1;
+}
+
+.seasonRing {
+  left: 4cqw;
+  width: 35cqw;
+  height: 55cqh;
+}
+
+.ringBase,
+.ringCenter {
+  fill: rgba(255, 242, 207, 0.08);
+  stroke: rgba(244, 232, 200, 0.22);
+  stroke-width: 24;
+}
+
+.ringCenter {
+  fill: var(--grove-bg-soft);
+  stroke: var(--grove-walnut);
+  stroke-width: 10;
+}
+
+.ringArc {
+  fill: none;
+  stroke: var(--grove-rust);
+  stroke-width: 26;
+  stroke-linecap: round;
+  opacity: 0.16;
+  transition: opacity 640ms ease;
+}
+
+.ringArc[data-active="true"] {
+  opacity: 0.88;
+}
+
+.seasonLabels {
+  position: absolute;
+  inset: 4cqh 2cqw 4cqh 2cqw;
+}
+
+.seasonLabel {
+  position: absolute;
+}
+
+.seasonLabel:nth-child(1) {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(1.4cqh);
+}
+
+.seasonLabel:nth-child(2) {
+  top: 42%;
+  right: 0;
+}
+
+.seasonLabel:nth-child(3) {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(1.4cqh);
+}
+
+.seasonLabel:nth-child(4) {
+  top: 42%;
+  left: 0;
+}
+
+.seasonLabel[data-active="true"]:nth-child(1),
+.seasonLabel[data-active="true"]:nth-child(3) {
+  transform: translateX(-50%) translateY(0);
+}
+
+.pathGround {
+  stroke: rgba(244, 232, 200, 0.28);
+  stroke-width: 44;
+}
+
+.pathTrace {
+  stroke: var(--grove-ochre);
+  stroke-width: 8;
+  stroke-dasharray: 18 18;
+  opacity: 0;
+  transition: opacity 820ms ease;
+}
+
+.pathTrace[data-show="true"] {
+  opacity: 0.95;
+}
+
+.pathTree {
+  fill: none;
+  stroke: var(--grove-olive);
+  stroke-width: 30;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pathStops {
+  position: absolute;
+  inset: 0;
+}
+
+.pathStop {
+  position: absolute;
+}
+
+.pathStop:nth-child(1) {
+  left: 4cqw;
+  bottom: 8cqh;
+}
+
+.pathStop:nth-child(2) {
+  left: 19cqw;
+  top: 22cqh;
+}
+
+.pathStop:nth-child(3) {
+  right: 2cqw;
+  top: 8cqh;
+}
+
+.beadRail {
+  position: absolute;
+  z-index: 4;
+  left: 22cqw;
+  right: 22cqw;
+  bottom: 4.8cqh;
+  height: 6.2cqh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.beadRail::before {
+  content: "";
+  position: absolute;
+  left: 2.2cqw;
+  right: 2.2cqw;
+  top: 50%;
+  height: 0.9cqh;
+  border-radius: 1cqw;
+  background: linear-gradient(90deg, #54351d, #8b5b2e, #56371e);
+  transform: translateY(-50%);
+  box-shadow: inset 0 0.22cqh 0.3cqh rgba(255, 242, 207, 0.18);
+}
+
+.bead {
+  position: relative;
+  z-index: 1;
+  width: 3.6cqw;
+  height: 3.6cqw;
+  border: 0.14cqw solid rgba(49, 29, 13, 0.76);
+  border-radius: 50%;
+  appearance: none;
+  cursor: pointer;
+  color: rgba(255, 242, 207, 0.74);
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255, 242, 207, 0.5), transparent 0.72cqw),
+    radial-gradient(circle at 60% 64%, #5c351c, #8b5b2e 72%);
+  font-size: 1.05cqw;
+  font-weight: 700;
+  font-family: "Inter", "Noto Sans SC", Arial, sans-serif;
+  line-height: 1;
+  transition:
+    transform 520ms cubic-bezier(0.19, 1, 0.22, 1),
+    background 520ms ease,
+    color 520ms ease;
+}
+
+.bead[data-active="true"] {
+  color: var(--grove-bg);
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255, 242, 207, 0.7), transparent 0.72cqw),
+    radial-gradient(circle at 60% 64%, #b77b34, var(--grove-ochre) 72%);
+  transform: translateY(-0.8cqh) scale(1.08);
+}
+
+.bead:focus-visible {
+  outline: 0.18cqw solid var(--grove-cream);
+  outline-offset: 0.35cqw;
+}
+
+@keyframes groveSettle {
+  from {
+    opacity: 0;
+    transform: translateY(1.8cqh);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes flowPulse {
+  0%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dashoffset: 42;
+  }
+}
+
+.root[data-motion-off="true"] *,
+.scene[data-motion-off="true"] *,
+.beatMarkers[data-motion-off="true"] * {
+  transition-duration: 0ms;
+  animation-duration: 0ms;
+  animation-iteration-count: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root *,
+  .root *::before,
+  .root *::after {
+    transition-duration: 0ms;
+    animation-duration: 0ms;
+    animation-iteration-count: 1;
+  }
+}

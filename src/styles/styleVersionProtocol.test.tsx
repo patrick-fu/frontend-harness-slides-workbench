@@ -71,6 +71,14 @@ const REQUIRED_CURATED_V2_STYLE_IDS = [
   "30",
   "31",
   "32",
+  "33",
+  "34",
+  "35",
+  "36",
+  "37",
+  "38",
+  "39",
+  "40",
 ];
 
 const styleSources = import.meta.glob("./[0-9][0-9]-*.tsx", {

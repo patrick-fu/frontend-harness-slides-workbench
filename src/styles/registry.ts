@@ -152,6 +152,14 @@ import NotionDoc39, {
 import ParticleField40, {
   getMetadata as getMetadata40,
 } from "./40-particle-field";
+import { spatialProductBriefV2Version } from "./33-spatial-product-brief-v2";
+import { toolchainDesktopV2Version } from "./34-toolchain-desktop-v2";
+import { calmerGrowthModelV2Version } from "./35-calmer-growth-model-v2";
+import { privateBetaSalonV2Version } from "./36-private-beta-salon-v2";
+import { newHabitRunbookV2Version } from "./37-new-habit-runbook-v2";
+import { fiveActsSystemV2Version } from "./38-five-acts-system-v2";
+import { deriveShortcutV2Version } from "./39-derive-shortcut-v2";
+import { latencyBossFightV2Version } from "./40-latency-boss-fight-v2";
 import AnnualReport41, {
   getMetadata as getMetadata41,
 } from "./41-annual-report";
@@ -323,14 +331,38 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
     prioritizeWithoutDebateV2Version,
   ]),
   // Contemporary Digital: 33-40
-  buildEntry("33", [{ component: GlassDashboard33, getMetadata: getMetadata33 }]),
-  buildEntry("34", [{ component: RetroOs9534, getMetadata: getMetadata34 }]),
-  buildEntry("35", [{ component: NeonGrid35, getMetadata: getMetadata35 }]),
-  buildEntry("36", [{ component: GlassMorph36, getMetadata: getMetadata36 }]),
-  buildEntry("37", [{ component: TerminalUi37, getMetadata: getMetadata37 }]),
-  buildEntry("38", [{ component: FigmaCanvas38, getMetadata: getMetadata38 }]),
-  buildEntry("39", [{ component: NotionDoc39, getMetadata: getMetadata39 }]),
-  buildEntry("40", [{ component: ParticleField40, getMetadata: getMetadata40 }]),
+  buildEntry("33", [
+    { component: GlassDashboard33, getMetadata: getMetadata33 },
+    spatialProductBriefV2Version,
+  ]),
+  buildEntry("34", [
+    { component: RetroOs9534, getMetadata: getMetadata34 },
+    toolchainDesktopV2Version,
+  ]),
+  buildEntry("35", [
+    { component: NeonGrid35, getMetadata: getMetadata35 },
+    calmerGrowthModelV2Version,
+  ]),
+  buildEntry("36", [
+    { component: GlassMorph36, getMetadata: getMetadata36 },
+    privateBetaSalonV2Version,
+  ]),
+  buildEntry("37", [
+    { component: TerminalUi37, getMetadata: getMetadata37 },
+    newHabitRunbookV2Version,
+  ]),
+  buildEntry("38", [
+    { component: FigmaCanvas38, getMetadata: getMetadata38 },
+    fiveActsSystemV2Version,
+  ]),
+  buildEntry("39", [
+    { component: NotionDoc39, getMetadata: getMetadata39 },
+    deriveShortcutV2Version,
+  ]),
+  buildEntry("40", [
+    { component: ParticleField40, getMetadata: getMetadata40 },
+    latencyBossFightV2Version,
+  ]),
   // Text Report: 41-48
   buildEntry("41", [{ component: AnnualReport41, getMetadata: getMetadata41 }]),
   buildEntry("42", [{ component: LegalBrief42, getMetadata: getMetadata42 }]),

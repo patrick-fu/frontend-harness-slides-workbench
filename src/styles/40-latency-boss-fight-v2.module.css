@@ -1,0 +1,668 @@
+.root {
+  --arcade-bg: #080914;
+  --arcade-ink: #f5fbff;
+  --arcade-panel: #11152c;
+  --arcade-cyan: #37f4ff;
+  --arcade-green: #7cffb2;
+  --arcade-red: #ff3b6b;
+  --arcade-yellow: #ffe45c;
+  --arcade-shadow: #000413;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.035) 0,
+      rgba(255, 255, 255, 0.035) 0.18cqh,
+      transparent 0.18cqh,
+      transparent 0.74cqh
+    ),
+    linear-gradient(180deg, #101433 0%, var(--arcade-bg) 64%, #05060d 100%);
+  color: var(--arcade-ink);
+  font-family: "Press Start 2P", "ZCOOL KuaiLe", "Microsoft YaHei", monospace;
+  image-rendering: pixelated;
+}
+
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(55, 244, 255, 0.16) 0.12cqw, transparent 0.12cqw),
+    linear-gradient(0deg, rgba(255, 228, 92, 0.12) 0.16cqh, transparent 0.16cqh);
+  background-size: 4.8cqw 5.6cqh;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.root::after {
+  content: "";
+  position: absolute;
+  inset: 1.2cqw;
+  border: 0.28cqw solid var(--arcade-cyan);
+  box-shadow:
+    0 0 0 0.22cqw var(--arcade-shadow),
+    0 0 0 0.46cqw rgba(255, 228, 92, 0.72),
+    0 0 1.8cqw rgba(55, 244, 255, 0.65);
+  pointer-events: none;
+}
+
+.motionReduced *,
+.motionReduced *::before,
+.motionReduced *::after {
+  animation: none !important;
+  transition-duration: 0s !important;
+}
+
+.hud {
+  position: absolute;
+  top: 2.4cqh;
+  left: 3.2cqw;
+  right: 3.2cqw;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: 22cqw 1fr 20cqw;
+  gap: 1.6cqw;
+  align-items: center;
+  padding: 1.1cqh 1.1cqw;
+  background: rgba(8, 9, 20, 0.86);
+  border: 0.22cqw solid var(--arcade-yellow);
+  box-shadow: 0.52cqw 0.72cqh 0 var(--arcade-shadow);
+}
+
+.hudLabel,
+.hudValue,
+.scoreLabel {
+  display: block;
+  line-height: 1.45;
+}
+
+.hudLabel,
+.scoreLabel {
+  color: var(--arcade-cyan);
+  font-size: 0.72cqw;
+}
+
+.hudValue {
+  color: var(--arcade-ink);
+  font-size: 1.08cqw;
+}
+
+.bossMeterShell {
+  display: grid;
+  gap: 0.7cqh;
+}
+
+.bossMeterText {
+  display: flex;
+  justify-content: space-between;
+  color: var(--arcade-yellow);
+  font-size: 0.76cqw;
+  line-height: 1.3;
+}
+
+.bossMeter {
+  width: 100%;
+  height: 1.65cqh;
+  padding: 0.22cqh;
+  background: #05060d;
+  border: 0.18cqw solid var(--arcade-red);
+}
+
+.bossMeterFill {
+  width: var(--boss-hp);
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--arcade-red) 0,
+    var(--arcade-red) 1.2cqw,
+    #ff7b47 1.2cqw,
+    #ff7b47 2cqw
+  );
+  transition: width 260ms steps(5, end);
+}
+
+.scoreBox {
+  text-align: right;
+}
+
+.scoreValue {
+  margin-top: 0.58cqh;
+  color: var(--arcade-green);
+  font-size: 1.16cqw;
+  line-height: 1.4;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.sceneLayer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 15cqh 5.2cqw 7.2cqh;
+}
+
+.sceneInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  gap: 1.8cqh;
+  align-content: start;
+}
+
+.sceneHeader {
+  display: grid;
+  gap: 1.1cqh;
+  max-width: 58cqw;
+}
+
+.kicker {
+  color: var(--arcade-yellow);
+  font-size: 0.82cqw;
+  line-height: 1.55;
+}
+
+.title {
+  margin: 0;
+  color: var(--arcade-ink);
+  font-size: 3.4cqw;
+  line-height: 1.18;
+  text-shadow:
+    0.26cqw 0.36cqh 0 var(--arcade-shadow),
+    0 0 1.4cqw rgba(55, 244, 255, 0.52);
+}
+
+.subtitle {
+  max-width: 46cqw;
+  margin: 0;
+  color: var(--arcade-cyan);
+  font-size: 1.02cqw;
+  line-height: 1.75;
+}
+
+.sceneBody {
+  position: relative;
+  display: grid;
+  min-height: 46cqh;
+}
+
+.bossArena {
+  grid-template-columns: 35cqw 1fr;
+  align-items: center;
+  gap: 4cqw;
+}
+
+.bossCard,
+.statusCard,
+.attackCard,
+.powerCard,
+.comboCard,
+.scoreCard {
+  background: rgba(17, 21, 44, 0.9);
+  border: 0.24cqw solid var(--arcade-cyan);
+  box-shadow: 0.52cqw 0.76cqh 0 var(--arcade-shadow);
+}
+
+.bossCard {
+  min-height: 37cqh;
+  padding: 2.8cqh 2cqw;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 2cqh;
+}
+
+.bossSprite {
+  width: 19cqw;
+  height: 19cqh;
+  overflow: visible;
+  filter: drop-shadow(0.42cqw 0.64cqh 0 var(--arcade-shadow));
+  animation: bossIdle 760ms steps(2, end) infinite;
+}
+
+.playerSprite {
+  width: 9cqw;
+  height: 12cqh;
+  overflow: visible;
+  filter: drop-shadow(0.34cqw 0.48cqh 0 var(--arcade-shadow));
+  animation: playerStep 520ms steps(2, end) infinite;
+}
+
+.spriteLabel {
+  color: var(--arcade-red);
+  font-size: 1.08cqw;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.statusGrid {
+  display: grid;
+  gap: 1.6cqh;
+}
+
+.statusCard {
+  padding: 1.7cqh 1.4cqw;
+  display: grid;
+  gap: 0.9cqh;
+}
+
+.statName {
+  color: var(--arcade-yellow);
+  font-size: 0.8cqw;
+  line-height: 1.45;
+}
+
+.statValue {
+  color: var(--arcade-ink);
+  font-size: 1.18cqw;
+  line-height: 1.5;
+}
+
+.statHint {
+  color: var(--arcade-green);
+  font-size: 0.72cqw;
+  line-height: 1.6;
+}
+
+.attackArena {
+  grid-template-columns: 42cqw 1fr;
+  gap: 3cqw;
+  align-items: center;
+}
+
+.patternScreen {
+  min-height: 42cqh;
+  padding: 2cqh 1.6cqw;
+  background: rgba(5, 6, 13, 0.72);
+  border: 0.24cqw solid var(--arcade-red);
+  box-shadow: 0.52cqw 0.76cqh 0 var(--arcade-shadow);
+}
+
+.attackSvg {
+  width: 100%;
+  height: 29cqh;
+  overflow: visible;
+}
+
+.attackPath {
+  fill: none;
+  stroke: var(--arcade-red);
+  stroke-width: 12;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  stroke-dasharray: 22 16;
+  animation: march 600ms steps(5, end) infinite;
+}
+
+.attackNode {
+  fill: var(--arcade-yellow);
+  animation: blink 460ms steps(2, end) infinite;
+}
+
+.warningText {
+  margin-top: 1.4cqh;
+  color: var(--arcade-red);
+  font-size: 0.86cqw;
+  line-height: 1.6;
+}
+
+.attackList {
+  display: grid;
+  gap: 1.4cqh;
+}
+
+.attackCard {
+  padding: 1.5cqh 1.3cqw;
+  border-color: var(--arcade-red);
+  animation: cardPop 260ms steps(3, end) both;
+  animation-delay: var(--delay);
+}
+
+.cardTitle {
+  color: var(--arcade-yellow);
+  font-size: 0.86cqw;
+  line-height: 1.45;
+}
+
+.cardText {
+  margin-top: 0.9cqh;
+  color: var(--arcade-ink);
+  font-size: 0.78cqw;
+  line-height: 1.65;
+}
+
+.powerArena {
+  grid-template-columns: 1fr 29cqw;
+  gap: 3cqw;
+  align-items: start;
+}
+
+.inventory {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6cqh 1.4cqw;
+}
+
+.powerCard {
+  min-height: 15.5cqh;
+  padding: 1.5cqh 1.2cqw;
+  display: grid;
+  grid-template-columns: 6cqw 1fr;
+  gap: 1cqw;
+  align-items: center;
+  animation: cardPop 260ms steps(3, end) both;
+  animation-delay: var(--delay);
+}
+
+.powerIcon {
+  width: 5.6cqw;
+  height: 5.6cqh;
+  display: grid;
+  place-items: center;
+  color: var(--arcade-bg);
+  background: var(--power-color);
+  box-shadow: 0.38cqw 0.52cqh 0 var(--arcade-shadow);
+  font-size: 1.4cqw;
+}
+
+.powerName {
+  color: var(--power-color);
+  font-size: 0.86cqw;
+  line-height: 1.45;
+}
+
+.powerText {
+  margin-top: 0.75cqh;
+  color: var(--arcade-ink);
+  font-size: 0.72cqw;
+  line-height: 1.6;
+}
+
+.playerPanel {
+  min-height: 42cqh;
+  padding: 2.2cqh 1.6cqw;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 2cqh;
+  background: rgba(5, 6, 13, 0.72);
+  border: 0.24cqw solid var(--arcade-green);
+  box-shadow: 0.52cqw 0.76cqh 0 var(--arcade-shadow);
+}
+
+.loadoutText {
+  color: var(--arcade-green);
+  font-size: 0.86cqw;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.comboArena {
+  grid-template-columns: 28cqw 1fr;
+  gap: 3.4cqw;
+  align-items: center;
+}
+
+.comboBoss {
+  display: grid;
+  justify-items: center;
+  gap: 2cqh;
+}
+
+.damageTag {
+  padding: 1cqh 1cqw;
+  color: var(--arcade-yellow);
+  background: var(--arcade-red);
+  border: 0.2cqw solid var(--arcade-ink);
+  box-shadow: 0.36cqw 0.5cqh 0 var(--arcade-shadow);
+  font-size: 1.05cqw;
+  line-height: 1.4;
+  animation: blink 420ms steps(2, end) infinite;
+}
+
+.comboStack {
+  display: grid;
+  gap: 1.3cqh;
+}
+
+.comboCard {
+  padding: 1.45cqh 1.35cqw;
+  display: grid;
+  grid-template-columns: 6cqw 1fr;
+  align-items: center;
+  gap: 1.2cqw;
+  border-color: var(--arcade-yellow);
+  animation: comboHit 300ms steps(3, end) both;
+  animation-delay: var(--delay);
+}
+
+.comboKey {
+  color: var(--arcade-bg);
+  background: var(--arcade-yellow);
+  padding: 1cqh 0.8cqw;
+  text-align: center;
+  font-size: 0.78cqw;
+  line-height: 1.35;
+}
+
+.comboText {
+  color: var(--arcade-ink);
+  font-size: 0.82cqw;
+  line-height: 1.65;
+}
+
+.scoreArena {
+  grid-template-columns: 1fr 31cqw;
+  gap: 3cqw;
+  align-items: center;
+}
+
+.scoreBoard {
+  padding: 3cqh 2.2cqw;
+  background: rgba(5, 6, 13, 0.84);
+  border: 0.28cqw solid var(--arcade-green);
+  box-shadow: 0.62cqw 0.9cqh 0 var(--arcade-shadow);
+}
+
+.scoreNumber {
+  color: var(--arcade-green);
+  font-size: 5.2cqw;
+  line-height: 1.25;
+  text-shadow:
+    0.38cqw 0.52cqh 0 var(--arcade-shadow),
+    0 0 1.4cqw rgba(124, 255, 178, 0.62);
+}
+
+.scoreCaption {
+  margin-top: 1.4cqh;
+  color: var(--arcade-yellow);
+  font-size: 1.02cqw;
+  line-height: 1.7;
+}
+
+.resultList {
+  display: grid;
+  gap: 1.2cqh;
+  margin-top: 2.4cqh;
+}
+
+.resultItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.2cqw;
+  padding: 1.1cqh 1cqw;
+  color: var(--arcade-ink);
+  background: rgba(17, 21, 44, 0.9);
+  border: 0.18cqw solid var(--arcade-cyan);
+  font-size: 0.72cqw;
+  line-height: 1.6;
+  animation: cardPop 260ms steps(3, end) both;
+  animation-delay: var(--delay);
+}
+
+.badgePanel {
+  display: grid;
+  gap: 1.6cqh;
+}
+
+.badge {
+  padding: 1.8cqh 1.3cqw;
+  color: var(--arcade-bg);
+  background: var(--arcade-yellow);
+  border: 0.2cqw solid var(--arcade-ink);
+  box-shadow: 0.45cqw 0.62cqh 0 var(--arcade-shadow);
+  font-size: 0.85cqw;
+  line-height: 1.55;
+  text-align: center;
+  animation: cardPop 260ms steps(3, end) both;
+  animation-delay: var(--delay);
+}
+
+.beatRail {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  gap: 0.72cqw;
+  align-items: center;
+  padding: 0.9cqh 0.8cqw;
+  background: rgba(5, 6, 13, 0.84);
+  border: 0.16cqw solid var(--arcade-cyan);
+}
+
+.beatMarker {
+  width: 1.1cqw;
+  height: 1.1cqw;
+  background: #1a1e3f;
+  border: 0.16cqw solid var(--arcade-cyan);
+}
+
+.beatMarkerActive {
+  background: var(--arcade-yellow);
+  border-color: var(--arcade-yellow);
+  box-shadow: 0 0 1cqw rgba(255, 228, 92, 0.8);
+}
+
+.lifeNav {
+  position: absolute;
+  left: 50%;
+  bottom: 2.5cqh;
+  z-index: 9;
+  display: flex;
+  gap: 0.9cqw;
+  padding: 0.8cqh 1cqw;
+  background: rgba(8, 9, 20, 0.9);
+  border: 0.18cqw solid var(--arcade-green);
+  transform: translateX(-50%);
+}
+
+.lifeButton {
+  width: 2.2cqw;
+  height: 2.2cqw;
+  padding: 0;
+  border: 0.18cqw solid var(--arcade-green);
+  background: #141835;
+  cursor: pointer;
+}
+
+.lifeButton:focus-visible {
+  outline: 0.26cqw solid var(--arcade-yellow);
+  outline-offset: 0.3cqw;
+}
+
+.lifeButtonActive {
+  background: var(--arcade-yellow);
+  border-color: var(--arcade-yellow);
+  box-shadow: 0 0 1.2cqw rgba(255, 228, 92, 0.78);
+}
+
+.lifeButtonCleared {
+  background: var(--arcade-green);
+}
+
+.hiddenNav {
+  display: none;
+}
+
+.srOnly {
+  position: absolute;
+  width: 0.1cqw;
+  height: 0.1cqh;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@keyframes bossIdle {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(1.1cqh);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes playerStep {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(0.8cqw);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  46%,
+  100% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes march {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -76;
+  }
+}
+
+@keyframes cardPop {
+  from {
+    opacity: 0;
+    transform: translateY(2cqh) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes comboHit {
+  from {
+    opacity: 0;
+    transform: translateX(3cqw) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
