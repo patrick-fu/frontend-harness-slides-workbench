@@ -56,6 +56,14 @@ import Roadmap15, {
 import CaseStudy16, {
   getMetadata as getMetadata16,
 } from "./16-case-study";
+import { threeTracksReleaseV2Version } from "./09-three-tracks-release-v2";
+import { durableToolV2Version } from "./10-durable-tool-v2";
+import { eventToInsightV2Version } from "./11-event-to-insight-v2";
+import { onboardingThatBreathesV2Version } from "./12-onboarding-that-breathes-v2";
+import { rawNotesCleanBriefV2Version } from "./13-raw-notes-clean-brief-v2";
+import { twoTeamsOneArtifactV2Version } from "./14-two-teams-one-artifact-v2";
+import { tuningOperatingModelV2Version } from "./15-tuning-operating-model-v2";
+import { incidentLearnsV2Version } from "./16-incident-learns-v2";
 import EditorialBroadsheet17, {
   getMetadata as getMetadata17,
 } from "./17-editorial-broadsheet";
@@ -200,14 +208,38 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
     sentenceWeKeepV2Version,
   ]),
   // Balanced Hybrid: 09-16
-  buildEntry("09", [{ component: ProcessFlow09, getMetadata: getMetadata09 }]),
-  buildEntry("10", [{ component: MatrixGrid10, getMetadata: getMetadata10 }]),
-  buildEntry("11", [{ component: TimelineSpiral11, getMetadata: getMetadata11 }]),
-  buildEntry("12", [{ component: Iconography12, getMetadata: getMetadata12 }]),
-  buildEntry("13", [{ component: StickyBoard13, getMetadata: getMetadata13 }]),
-  buildEntry("14", [{ component: OrgChart14, getMetadata: getMetadata14 }]),
-  buildEntry("15", [{ component: Roadmap15, getMetadata: getMetadata15 }]),
-  buildEntry("16", [{ component: CaseStudy16, getMetadata: getMetadata16 }]),
+  buildEntry("09", [
+    { component: ProcessFlow09, getMetadata: getMetadata09 },
+    threeTracksReleaseV2Version,
+  ]),
+  buildEntry("10", [
+    { component: MatrixGrid10, getMetadata: getMetadata10 },
+    durableToolV2Version,
+  ]),
+  buildEntry("11", [
+    { component: TimelineSpiral11, getMetadata: getMetadata11 },
+    eventToInsightV2Version,
+  ]),
+  buildEntry("12", [
+    { component: Iconography12, getMetadata: getMetadata12 },
+    onboardingThatBreathesV2Version,
+  ]),
+  buildEntry("13", [
+    { component: StickyBoard13, getMetadata: getMetadata13 },
+    rawNotesCleanBriefV2Version,
+  ]),
+  buildEntry("14", [
+    { component: OrgChart14, getMetadata: getMetadata14 },
+    twoTeamsOneArtifactV2Version,
+  ]),
+  buildEntry("15", [
+    { component: Roadmap15, getMetadata: getMetadata15 },
+    tuningOperatingModelV2Version,
+  ]),
+  buildEntry("16", [
+    { component: CaseStudy16, getMetadata: getMetadata16 },
+    incidentLearnsV2Version,
+  ]),
   // Editorial & Print: 17-24
   buildEntry("17", [{ component: EditorialBroadsheet17, getMetadata: getMetadata17 }]),
   buildEntry("18", [{ component: LiteraryReview18, getMetadata: getMetadata18 }]),
