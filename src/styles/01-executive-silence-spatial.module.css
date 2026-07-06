@@ -1,0 +1,154 @@
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: #0d0d0c;
+  color: #f2efe9;
+  font-family: "Playfair Display", "Inter", system-ui, -apple-system, sans-serif;
+}
+
+.root.reducedMotion * {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+.scenePanel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10cqw;
+}
+
+.content {
+  width: 100%;
+  max-width: 72cqw;
+}
+
+.kicker {
+  margin: 0 0 3cqh;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.35cqw;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c4a882;
+}
+
+.title {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 7.6cqw;
+  font-weight: 500;
+  line-height: 1.05;
+  color: #f2efe9;
+}
+
+.body {
+  max-width: 48cqw;
+  margin: 4cqh 0 0;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 2.25cqw;
+  font-weight: 300;
+  line-height: 1.45;
+  color: rgb(242 239 233 / 0.72);
+}
+
+.metricRow {
+  display: flex;
+  gap: 3cqw;
+  margin-top: 5cqh;
+}
+
+.metric {
+  min-width: 14cqw;
+  border-top: 1px solid rgb(196 168 130 / 0.45);
+  padding-top: 2cqh;
+}
+
+.metricValue {
+  display: block;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 4.4cqw;
+  line-height: 1;
+}
+
+.metricLabel {
+  display: block;
+  margin-top: 1cqh;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.3cqw;
+  color: rgb(242 239 233 / 0.58);
+}
+
+.quietList {
+  display: grid;
+  gap: 2cqh;
+  margin: 5cqh 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.quietItem {
+  display: flex;
+  gap: 1.5cqw;
+  align-items: baseline;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 2.25cqw;
+  font-weight: 300;
+  color: rgb(242 239 233 / 0.78);
+}
+
+.quietIndex {
+  font-size: 1.15cqw;
+  letter-spacing: 0.12em;
+  color: #c4a882;
+}
+
+.reveal {
+  animation: reveal 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.4cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rulerNav {
+  position: absolute;
+  bottom: 4.5cqh;
+  left: 10cqw;
+  right: 10cqw;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgb(242 239 233 / 0.12);
+}
+
+.rulerMarker {
+  border: 0;
+  background: transparent;
+  padding: 1.1cqh 0.5cqw 0;
+  color: rgb(242 239 233 / 0.34);
+  cursor: pointer;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.2cqw;
+  letter-spacing: 0.08em;
+}
+
+.rulerMarkerActive {
+  color: #c4a882;
+}
+
+.thumbnail .rulerNav {
+  display: none;
+}

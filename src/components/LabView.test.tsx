@@ -1,7 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import React from "react";
 import LabView from "./LabView";
+import { STYLE_REGISTRY } from "../styles/registry";
+import type {
+  BespokeStyleProps,
+  StyleRegistryEntry,
+  StyleVersion,
+} from "../types";
 
 // ─── Mocks ────────────────────────────────────────────────────────────────────
 
@@ -25,7 +31,7 @@ vi.mock("../hooks/useTouchNav", () => ({
 
 // ─── Mock registry with minimal style ────────────────────────────────────────
 
-const MockStyleComponent = vi.fn(() => (
+const MockStyleComponent = vi.fn((_props: BespokeStyleProps) => (
   <div data-testid="mock-style">Style Content</div>
 ));
 
@@ -63,6 +69,54 @@ const mockRegistry = [
   },
 ];
 
+function makeVersion(
+  id: string,
+  topic: string,
+  beatCounts: number[],
+  component: React.ComponentType<BespokeStyleProps> = MockStyleComponent,
+): StyleVersion {
+  return {
+    id,
+    topic,
+    model: `model-${id}`,
+    component,
+    getMetadata: (lang: "en" | "zh") => ({
+      id: "01",
+      name: lang === "en" ? "Test Style" : "测试风格",
+      band: "minimal-keynote" as const,
+      theme: "test",
+      densityLabel: "Sparse",
+      heroScene: 1,
+      colors: { bg: "#fff", ink: "#000", panel: "#eee" },
+      typography: { header: "Test 700", body: "Test 400" },
+      tags: ["test"],
+      fonts: [],
+      scenes: [1, 2, 3, 4, 5].map((sceneId, idx) => ({
+        id: sceneId,
+        title: `Scene ${sceneId}`,
+        beats: Array.from({ length: beatCounts[idx] }, (_, beatId) => ({
+          id: beatId,
+          action: `Beat ${beatId}`,
+          title: "T",
+          body: "B",
+        })),
+      })),
+    }),
+  };
+}
+
+const multiVersionRegistry: StyleRegistryEntry[] = [
+  {
+    id: "01",
+    name: { en: "Test Style", zh: "测试风格" },
+    versions: [
+      makeVersion("v1", "Original", [1, 2, 3, 2, 1]),
+      makeVersion("v2", "Comparable", [1, 2, 2, 2, 1]),
+      makeVersion("compact", "Compact", [1, 1, 1, 1, 1]),
+    ],
+  },
+];
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function renderLabView(props: Partial<React.ComponentProps<typeof LabView>> = {}) {
@@ -80,7 +134,6 @@ function renderLabView(props: Partial<React.ComponentProps<typeof LabView>> = {}
     onNavigate: vi.fn(),
     onFlashDone: vi.fn(),
     onExitPure: vi.fn(),
-    onSelectVersion: vi.fn(),
     onGoOverview: vi.fn(),
     ...props,
   };
@@ -144,5 +197,65 @@ describe("LabView — stage centering regression tests", () => {
     renderLabView();
     const stage = screen.getByTestId("stage");
     expect(stage.style.transform).toBe(`scale(${mockScale})`);
+  });
+});
+
+describe("LabView — protocol style versions", () => {
+  it("renders style 01 spatial-track version through the normal lab UI", () => {
+    renderLabView({
+      registry: STYLE_REGISTRY,
+      styleId: "01",
+      versionId: "spatial-track",
+      scene: 1,
+      beat: 0,
+    });
+
+    expect(screen.getByTestId("version-bar")).toHaveTextContent("Quiet Launch");
+    expect(screen.getByText("Quiet signals move first.")).toBeInTheDocument();
+    expect(screen.getByTestId("spatial-scene-track")).toBeInTheDocument();
+  });
+});
+
+describe("LabView — version switching", () => {
+  it("top-bar version switching preserves the current scene and beat for comparison", () => {
+    const onNavigate = vi.fn();
+    renderLabView({
+      registry: multiVersionRegistry,
+      versionId: "v1",
+      scene: 3,
+      beat: 1,
+      onNavigate,
+    });
+
+    fireEvent.click(screen.getByTestId("version-switcher"));
+    fireEvent.click(screen.getByTestId("version-option-v2"));
+
+    expect(onNavigate).toHaveBeenCalledWith({
+      styleId: "01",
+      versionId: "v2",
+      scene: 3,
+      beat: 1,
+    });
+  });
+
+  it("top-bar version switching clamps the beat when the target version has fewer beats", () => {
+    const onNavigate = vi.fn();
+    renderLabView({
+      registry: multiVersionRegistry,
+      versionId: "v1",
+      scene: 3,
+      beat: 2,
+      onNavigate,
+    });
+
+    fireEvent.click(screen.getByTestId("version-switcher"));
+    fireEvent.click(screen.getByTestId("version-option-compact"));
+
+    expect(onNavigate).toHaveBeenCalledWith({
+      styleId: "01",
+      versionId: "compact",
+      scene: 3,
+      beat: 0,
+    });
   });
 });

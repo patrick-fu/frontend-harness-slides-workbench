@@ -38,7 +38,6 @@ export interface LabViewProps {
   }) => void;
   onFlashDone: () => void;
   onExitPure: () => void;
-  onSelectVersion: (styleId: string, versionId: string) => void;
   onGoOverview: () => void;
 }
 
@@ -80,7 +79,6 @@ export default function LabView({
   onNavigate,
   onFlashDone,
   onExitPure,
-  onSelectVersion,
   onGoOverview,
 }: LabViewProps) {
   const stageContainerRef = useRef<HTMLDivElement>(null);
@@ -174,6 +172,32 @@ export default function LabView({
     [styleId, versionId, onNavigate],
   );
 
+  const handleVersionBarSelect = useCallback(
+    (targetVersionId: string) => {
+      if (!found) return;
+
+      const targetVersion = found.style.versions.find(
+        (v) => v.id === targetVersionId,
+      );
+      if (!targetVersion) return;
+
+      const targetMeta = targetVersion.getMetadata(language);
+      const targetScene = targetMeta.scenes.find((s) => s.id === scene)
+        ?? targetMeta.scenes[0];
+      const targetSceneId = targetScene?.id ?? 1;
+      const lastBeat =
+        targetScene?.beats[targetScene.beats.length - 1]?.id ?? 0;
+
+      onNavigate({
+        styleId: found.style.id,
+        versionId: targetVersionId,
+        scene: targetSceneId,
+        beat: Math.min(beat, lastBeat),
+      });
+    },
+    [found, language, scene, beat, onNavigate],
+  );
+
   // ── Keyboard navigation ─────────────────────────────────────────────────
 
   useKeyboard({
@@ -252,7 +276,7 @@ export default function LabView({
           currentVersionId={versionId}
           language={language}
           onGoOverview={onGoOverview}
-          onSelectVersion={(vid) => onSelectVersion(found.style.id, vid)}
+          onSelectVersion={handleVersionBarSelect}
         />
       )}
 
@@ -303,11 +327,6 @@ export default function LabView({
           onJumpScene={handleJumpScene}
           isFirst={isFirst}
           isLast={isLast}
-          registry={registry}
-          styleId={styleId}
-          versionId={versionId}
-          onSelectVersion={onSelectVersion}
-          language={language}
         />
       )}
     </div>

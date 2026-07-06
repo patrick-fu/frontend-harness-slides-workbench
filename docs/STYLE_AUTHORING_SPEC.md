@@ -17,9 +17,31 @@
 
 ---
 
-## 2. 协议：输入与输出
+## 2. 协议：版本模块是 Agent 面向接口
 
-Agent 产出的文件是一个标准的 React 组件，接收以下 Props：
+Agent 产出的单位是一个黑盒 Style Version module。模块内部可以拆分组件和 CSS，但对 Workbench 只暴露一个 `defineStyleVersion(...)` 结果：
+
+```ts
+import { defineStyleVersion } from "./version";
+
+export const executiveSilenceSpatialVersion = defineStyleVersion({
+  id: "spatial-track",
+  topic: "Quiet Launch",
+  model: "GPT-5",
+  component: ExecutiveSilenceSpatial,
+  getMetadata,
+});
+```
+
+稳定要求：
+
+- `id` 必须显式、稳定、小写，可用数字和 hyphen，例如 `spatial-track`。
+- `topic` 是 VersionBar / Sidebar 显示的题材名。
+- `component` 是版本组件。
+- `getMetadata(lang)` 返回该版本完整 metadata。
+- legacy tuple 仍会生成 `v1`，但新增版本不要依赖数组顺序生成 ID。
+
+版本组件接收以下 Props：
 
 ```ts
 interface BespokeStyleProps {
@@ -32,13 +54,15 @@ interface BespokeStyleProps {
 }
 ```
 
-**输出**：一个 `export default` 的 React 组件 + 一个 `getMetadata(lang)` 函数。
+`isTransitionClone` 是旧 outgoing-clone 模型遗留字段。新增版本不要读取或传递它。
+
+**输出**：一个 `defineStyleVersion(...)` 导出的版本模块；可以同时保留 `export default` 组件和 `getMetadata(lang)` 便于测试。
 
 ---
 
 ## 3. 文件结构
 
-每个版本是一个**单体 `.tsx` 文件**，放在 `src/styles/` 目录下。
+每个版本至少包含一个 `.tsx` 模块，放在 `src/styles/` 目录下。复杂样式可配套 CSS Module；不要把转场生命周期写进每一页场景。
 
 ### 命名规则
 
@@ -48,14 +72,14 @@ interface BespokeStyleProps {
 
 示例：
 ```
-01-executive-silence-decision-art-v1.tsx     ← 风格01，题材"决策的艺术"，版本1
-01-executive-silence-product-launch-v2.tsx   ← 风格01，题材"产品发布"，版本2
+01-executive-silence-decision-art.tsx        ← 风格01，题材"决策的艺术"
+01-executive-silence-product-launch.tsx      ← 风格01，题材"产品发布"
 16-case-study-globex-v1.tsx                  ← 风格16，题材"Globex案例"，版本1
 ```
 
 如果有配套 CSS Module：
 ```
-01-executive-silence-decision-art-v1.module.css
+01-executive-silence-decision-art.module.css
 ```
 
 ### 文件内部结构
@@ -64,7 +88,9 @@ interface BespokeStyleProps {
 // 1. 导入
 import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
-import styles from "./01-executive-silence-decision-art-v1.module.css"; // 可选
+import SpatialSceneTrack from "./SpatialSceneTrack";
+import { defineStyleVersion } from "./version";
+import styles from "./01-executive-silence-decision-art.module.css"; // 可选
 
 // 2. 字体注入（可选）
 function useFonts() {
@@ -119,22 +145,38 @@ export default function ExecutiveSilenceDecisionArt({
 
   // 渲染逻辑...
   return (
-    <div className={styles.root} key={scene}>
-      {/* 场景内容 */}
+    <div className={styles.root}>
+      <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        renderScene={(sceneId, sceneBeat, isActive) => (
+          <ScenePanel scene={sceneId} beat={sceneBeat} isActive={isActive} />
+        )}
+      />
     </div>
   );
 }
+
+export const executiveSilenceDecisionArtVersion = defineStyleVersion({
+  id: "decision-art",
+  topic: "决策的艺术",
+  model: "GPT-5",
+  component: ExecutiveSilenceDecisionArt,
+  getMetadata,
+});
 ```
 
 ---
 
 ## 4. 版本元信息
 
-每个版本需要在**注册表**中声明以下元信息：
+每个版本需要通过 `defineStyleVersion(...)` 声明以下元信息：
 
 ```ts
 interface StyleVersion {
-  id: string;              // 版本 ID，如 "v1", "v2"
+  id: string;              // 稳定版本 ID，如 "decision-art", "spatial-track"
   topic: string;           // 题材名（几个字），如 "决策的艺术"
   model: string;           // 编写模型，如 "Doubao-Seed-Evolving", "GPT-5.5"
   component: React.ComponentType<BespokeStyleProps>;  // 默认导出的组件
@@ -163,20 +205,32 @@ interface StyleVersion {
 
 ### 5.2 场景转场
 
-- 使用 `key={scene}` 强制组件在场景切换时重新挂载
-- 配合 CSS `@keyframes` + `animation: ... forwards` 实现入场动画
-- **禁止**使用 `useLayoutEffect` + `entered` state 模式（会导致闪烁）
+- 默认使用 `SpatialSceneTrack` 管理 scene 生命周期。
+- `SpatialSceneTrack` 会渲染稳定相邻 panels，并通过整条 track 的 `translate3d(...)` 做空间移动。
+- 不要在 Style 内维护 `outgoingScene`、不要渲染 full-screen outgoing clone、不要读取 `isTransitionClone`。
+- `reducedMotion` 或 thumbnail/frozen 场景下传入 `reducedMotion={true}`，track 会关闭 transition。
 
 ```tsx
 // ✅ 正确
-<div key={scene} className={styles.animateEnter}>
-  {content}
-</div>
+<SpatialSceneTrack
+  scene={scene}
+  beat={beat}
+  axis="x"
+  reducedMotion={reducedMotion || isThumbnail}
+  renderScene={(sceneId, sceneBeat, isActive) => (
+    <ScenePanel scene={sceneId} beat={sceneBeat} isActive={isActive} />
+  )}
+/>
 
 // ❌ 错误
-const [entered, setEntered] = useState(false);
-useLayoutEffect(() => { setEntered(false); rAF(() => setEntered(true)); }, [scene]);
+const [outgoingScene, setOutgoingScene] = useState(null);
+return <>
+  {outgoingScene && <Scene scene={outgoingScene} data-transition-clone="true" />}
+  <Scene key={scene} scene={scene} />
+</>;
 ```
+
+旧版本中仍可能存在 `key={scene}` 或 `outgoingScene`，这属于兼容层，不是新增版本模板。
 
 ### 5.3 Beat 动态揭示
 
@@ -275,42 +329,24 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 
 ## 7. 注册到 Workbench
 
-完成单体文件后，在 `src/styles/registry.ts` 中注册：
+完成版本模块后，在 `src/styles/registry.ts` 中注册。当前 registry 仍是集中枚举文件，属于已知冲突热点；新增版本应把所有元信息放进自己的版本模块，registry 只做一行 import 和数组追加。
 
 ### 7.1 导入
 
 ```ts
-import ExecutiveSilenceDecisionArtV1, {
-  getMetadata as getMetadata01V1,
-} from "./01-executive-silence-decision-art-v1";
+import { executiveSilenceDecisionArtVersion } from "./01-executive-silence-decision-art";
 ```
 
 ### 7.2 注册到版本数组
 
 ```ts
-// 在 STYLE_REGISTRY 中，风格 01 的条目：
-{
-  id: "01",
-  name: { en: "Executive Silence", zh: "高管静默" },
-  versions: [
-    {
-      id: "v1",
-      topic: "决策的艺术",
-      model: "Doubao-Seed-Evolving",
-      component: ExecutiveSilenceDecisionArtV1,
-      getMetadata: getMetadata01V1,
-    },
-    // 新版本追加在这里
-    // {
-    //   id: "v2",
-    //   topic: "产品发布会",
-    //   model: "GPT-5.5",
-    //   component: ExecutiveSilenceProductLaunchV2,
-    //   getMetadata: getMetadata01V2,
-    // },
-  ],
-}
+buildEntry("01", [
+  { component: ExecutiveSilence01, getMetadata: getMetadata01 },
+  executiveSilenceDecisionArtVersion,
+]);
 ```
+
+不要新增手写 `{ id, topic, model, component, getMetadata }` 对象到 registry。用版本模块导出的常量。
 
 ---
 
@@ -341,7 +377,7 @@ import ExecutiveSilenceDecisionArtV1, {
 - 交互细节
 - CSS 实现方式（inline style / CSS module / styled-jsx）
 
-**唯一硬性约束**：第 5 节列出的设计约束（cqw/cqh 单位、key={scene} 转场模式、reducedMotion 支持等）。
+**唯一硬性约束**：第 5 节列出的设计约束（cqw/cqh 单位、SpatialSceneTrack 或等价空间轨道、reducedMotion 支持等）。
 
 ---
 
@@ -349,16 +385,19 @@ import ExecutiveSilenceDecisionArtV1, {
 
 提交前确认：
 
-- [ ] 文件命名符合 `{styleId}-{topic}-v{n}.tsx`
-- [ ] `export default` 组件
+- [ ] 文件命名符合 `{styleId}-{topic}.tsx`
+- [ ] 导出 `defineStyleVersion(...)` 版本模块
+- [ ] 版本 `id` 显式稳定，不依赖数组顺序
+- [ ] 可选 `export default` 组件
 - [ ] `export function getMetadata(lang)` 导出
 - [ ] 组件接收 `BespokeStyleProps` 所有 props
 - [ ] 使用 `cqw`/`cqh` 单位，无 `px`/`vw`/`vh`
-- [ ] 场景转场使用 `key={scene}` + CSS `@keyframes`
+- [ ] 场景转场使用 `SpatialSceneTrack` 或等价相邻 panel track
+- [ ] 不使用 `outgoingScene` / full-screen transition clone / `isTransitionClone`
 - [ ] Beat 揭示基于 `beat` 条件
 - [ ] `reducedMotion` 时禁用动画
 - [ ] `isThumbnail` 时隐藏导航
 - [ ] 双语内容（en + zh）
 - [ ] `getMetadata` 包含完整的 5 个场景 beats 定义
 - [ ] 字体在 `getMetadata().fonts` 中声明
-- [ ] 已在 `registry.ts` 中注册
+- [ ] 已在 `registry.ts` 中追加版本模块常量

@@ -18,7 +18,10 @@ export interface BespokeStyleProps {
   reducedMotion: boolean;
   /** Called by the Style's internal navigation to request a jump. */
   onNavigate?: (scene: number, beat: number) => void;
-  /** True when this is the outgoing scene clone during a framework-level slide transition. Skip enter animations. */
+  /**
+   * @deprecated Legacy outgoing-clone transition hook. New style versions should
+   * use framework-owned scene lifecycle helpers such as SpatialSceneTrack instead.
+   */
   isTransitionClone?: boolean;
 }
 
@@ -80,7 +83,7 @@ export interface StyleMetadata {
 
 /** A single version of a Style, produced by one Agent/model. */
 export interface StyleVersion {
-  /** Version ID, e.g. "v1", "v2" — internal ordering within the Style. */
+  /** Stable version ID, e.g. "v1" for legacy entries or "spatial-track" for explicit protocol modules. */
   id: string;
   /** Topic name (human-readable), e.g. "决策的艺术", "Product Launch". */
   topic: string;

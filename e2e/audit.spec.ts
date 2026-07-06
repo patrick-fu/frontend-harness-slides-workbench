@@ -66,6 +66,7 @@ const ALL_STYLE_IDS = STYLE_BEATS.map((s) => s.id);
 function buildHash(params: {
   view: string;
   style?: string;
+  version?: string;
   scene?: number;
   beat?: number;
   pure?: boolean;
@@ -73,6 +74,7 @@ function buildHash(params: {
 }): string {
   const parts = [`view=${params.view}`];
   if (params.style) parts.push(`style=${params.style}`);
+  if (params.version) parts.push(`version=${params.version}`);
   if (params.scene !== undefined) parts.push(`scene=${params.scene}`);
   if (params.beat !== undefined) parts.push(`beat=${params.beat}`);
   parts.push(`pure=${params.pure ? "1" : "0"}`);
@@ -99,11 +101,12 @@ async function openLab(
   styleId: string,
   scene: number,
   beat: number,
-  opts: { pure?: boolean; frozen?: boolean } = {},
+  opts: { version?: string; pure?: boolean; frozen?: boolean } = {},
 ) {
   const hash = buildHash({
     view: "lab",
     style: styleId,
+    version: opts.version,
     scene,
     beat,
     pure: opts.pure ?? false,
@@ -297,6 +300,217 @@ test.describe("Navigation", () => {
     expect(hash.style).toBe("01");
     expect(Number(hash.scene)).toBe(5);
     expect(Number(hash.beat)).toBe(0);
+  });
+});
+
+test.describe("Style 01 protocol spatial track", () => {
+  const SPATIAL_TRACK_BEATS: Record<number, number> = {
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 2,
+    5: 1,
+  };
+
+  test("top bar exposes compact version dropdown without losing the current frame", async ({
+    page,
+  }) => {
+    await openLab(page, "01", 3, 2, {
+      version: "spatial-track",
+      frozen: true,
+    });
+
+    await expect(page.locator('[data-testid="version-switcher"]')).toBeVisible();
+    await expect(page.locator('[data-testid="version-switcher"]')).toContainText("v2/2");
+    await expect(page.locator('[data-testid="version-option-v1"]')).toHaveCount(0);
+    await expect(page.locator('[data-testid="version-card-stack-left"]')).toHaveCount(0);
+    await expect(page.locator('[data-testid="version-card-stack-right"]')).toHaveCount(0);
+    expect(await page.locator('[role="menu"]').count()).toBe(0);
+
+    await page.locator('[data-testid="version-switcher"]').click();
+    await expect(page.locator('[data-testid="version-menu"]')).toBeVisible();
+    await expect(page.locator('[data-testid="version-option-v1"]')).toBeVisible();
+    await expect(
+      page.locator('[data-testid="version-option-spatial-track"]'),
+    ).toHaveAttribute("aria-current", "true");
+
+    await page.locator('[data-testid="version-option-v1"]').click();
+    await page.waitForTimeout(200);
+
+    const hash = parseHashFromUrl(page.url());
+    expect(hash.style).toBe("01");
+    expect(hash.version).toBe("v1");
+    expect(Number(hash.scene)).toBe(3);
+    expect(Number(hash.beat)).toBe(2);
+  });
+
+  test("version dropdown stays open while hovering from trigger to menu", async ({
+    page,
+  }) => {
+    await openLab(page, "01", 3, 2, {
+      version: "spatial-track",
+      frozen: true,
+    });
+
+    const trigger = page.locator('[data-testid="version-switcher"]');
+    await expect(trigger).toBeVisible();
+
+    const triggerBox = await trigger.boundingBox();
+    expect(triggerBox).not.toBeNull();
+    await page.mouse.move(
+      triggerBox!.x + triggerBox!.width / 2,
+      triggerBox!.y + triggerBox!.height / 2,
+    );
+
+    const menu = page.locator('[data-testid="version-menu"]');
+    const option = page.locator('[data-testid="version-option-v1"]');
+    await expect(menu).toBeVisible();
+    await expect(option).toBeVisible();
+
+    const optionBox = await option.boundingBox();
+    expect(optionBox).not.toBeNull();
+    await page.mouse.move(
+      optionBox!.x + optionBox!.width / 2,
+      optionBox!.y + optionBox!.height / 2,
+      { steps: 10 },
+    );
+
+    await expect(menu).toBeVisible();
+    await expect(option).toBeVisible();
+    await option.click();
+    await page.waitForTimeout(200);
+
+    const hash = parseHashFromUrl(page.url());
+    expect(hash.version).toBe("v1");
+    expect(Number(hash.scene)).toBe(3);
+    expect(Number(hash.beat)).toBe(2);
+  });
+
+  test("non-frozen scene advance uses adjacent panels instead of outgoing clones", async ({
+    page,
+  }) => {
+    await openLab(page, "01", 1, 0, {
+      version: "spatial-track",
+      frozen: false,
+    });
+
+    await expect(page.locator('[data-testid="spatial-scene-track"]')).toBeVisible();
+    await page.keyboard.press("ArrowRight");
+    await page.waitForTimeout(100);
+
+    const trackState = await page.evaluate(() => {
+      const track = document.querySelector<HTMLElement>(
+        '[data-testid="spatial-scene-track"]',
+      );
+      const strip = document.querySelector<HTMLElement>(
+        '[data-testid="spatial-scene-strip"]',
+      );
+      const panels = Array.from(
+        document.querySelectorAll<HTMLElement>(
+          '[data-testid="spatial-scene-panel"]',
+        ),
+      );
+      const stage = document.querySelector<HTMLElement>('[data-testid="stage"]');
+      const activePanel = document.querySelector<HTMLElement>(
+        '[data-testid="spatial-scene-panel"][data-active="true"]',
+      );
+      const stageRect = stage?.getBoundingClientRect();
+      const activeRect = activePanel?.getBoundingClientRect();
+      return {
+        activeScene: track?.dataset.activeScene,
+        axis: track?.dataset.axis,
+        transform: strip?.style.transform,
+        panelSceneIds: panels.map((panel) => panel.dataset.sceneId),
+        activeFlags: panels.map((panel) => panel.dataset.active),
+        activePanelVisible:
+          !!stageRect &&
+          !!activeRect &&
+          activeRect.left < stageRect.right &&
+          activeRect.right > stageRect.left &&
+          activeRect.top < stageRect.bottom &&
+          activeRect.bottom > stageRect.top,
+        cloneCount: document.querySelectorAll('[data-transition-clone="true"]')
+          .length,
+      };
+    });
+
+    expect(trackState.axis).toBe("x");
+    expect(trackState.activeScene).toBe("2");
+    expect(trackState.transform).toMatch(/^translate3d\(-20%, 0(px)?, 0(px)?\)$/);
+    expect(trackState.panelSceneIds).toEqual(["1", "2", "3", "4", "5"]);
+    expect(trackState.activeFlags).toEqual([
+      "false",
+      "true",
+      "false",
+      "false",
+      "false",
+    ]);
+    expect(trackState.activePanelVisible).toBe(true);
+    expect(trackState.cloneCount).toBe(0);
+  });
+
+  test("every spatial-track frame keeps active content inside the stage", async ({
+    page,
+  }) => {
+    for (const [sceneText, beatCount] of Object.entries(SPATIAL_TRACK_BEATS)) {
+      const scene = Number(sceneText);
+      for (let beat = 0; beat < beatCount; beat++) {
+        await openLab(page, "01", scene, beat, {
+          version: "spatial-track",
+          frozen: false,
+        });
+
+        const state = await page.evaluate(() => {
+          const stage = document.querySelector<HTMLElement>(
+            '[data-testid="stage"]',
+          );
+          const activePanel = document.querySelector<HTMLElement>(
+            '[data-testid="spatial-scene-panel"][data-active="true"]',
+          );
+          const activeTitle = activePanel?.querySelector<HTMLElement>("h1");
+          const stageRect = stage?.getBoundingClientRect();
+          const panelRect = activePanel?.getBoundingClientRect();
+          const titleRect = activeTitle?.getBoundingClientRect();
+
+          const intersectsStage = (rect: DOMRect | undefined) =>
+            !!stageRect &&
+            !!rect &&
+            rect.left < stageRect.right &&
+            rect.right > stageRect.left &&
+            rect.top < stageRect.bottom &&
+            rect.bottom > stageRect.top;
+
+          return {
+            activeScene: activePanel?.dataset.sceneId,
+            activeText: activePanel?.textContent?.trim().slice(0, 80) ?? "",
+            activePanelVisible: intersectsStage(panelRect),
+            activeTitleVisible: intersectsStage(titleRect),
+            panelWidthDelta:
+              stageRect && panelRect ? Math.abs(stageRect.width - panelRect.width) : null,
+            panelHeightDelta:
+              stageRect && panelRect ? Math.abs(stageRect.height - panelRect.height) : null,
+            cloneCount: document.querySelectorAll('[data-transition-clone="true"]')
+              .length,
+          };
+        });
+
+        expect(state.activeScene, `scene ${scene} beat ${beat}`).toBe(
+          String(scene),
+        );
+        expect(state.activeText.length, `scene ${scene} beat ${beat}`).toBeGreaterThan(0);
+        expect(state.activePanelVisible, `scene ${scene} beat ${beat}`).toBe(
+          true,
+        );
+        expect(state.activeTitleVisible, `scene ${scene} beat ${beat}`).toBe(
+          true,
+        );
+        expect(state.panelWidthDelta, `scene ${scene} beat ${beat}`).not.toBeNull();
+        expect(state.panelWidthDelta!, `scene ${scene} beat ${beat}`).toBeLessThanOrEqual(2);
+        expect(state.panelHeightDelta, `scene ${scene} beat ${beat}`).not.toBeNull();
+        expect(state.panelHeightDelta!, `scene ${scene} beat ${beat}`).toBeLessThanOrEqual(2);
+        expect(state.cloneCount, `scene ${scene} beat ${beat}`).toBe(0);
+      }
+    }
   });
 });
 

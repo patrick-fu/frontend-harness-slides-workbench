@@ -299,7 +299,6 @@ function AppContent() {
               onNavigate={handleNavigate}
               onFlashDone={handleFlashDone}
               onExitPure={handleExitPure}
-              onSelectVersion={handleSelectVersion}
               onGoOverview={handleGoOverview}
             />
           </div>

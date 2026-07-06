@@ -1,7 +1,9 @@
-import type { StyleRegistryEntry, StyleVersion, StyleMetadata } from "../types";
+import type { StyleRegistryEntry, StyleMetadata } from "../types";
+import { buildStyleRegistryEntry } from "./version";
 import ExecutiveSilence01, {
   getMetadata as getMetadata01,
 } from "./01-executive-silence";
+import { executiveSilenceSpatialVersion } from "./01-executive-silence-spatial";
 import SwissPrecision02, {
   getMetadata as getMetadata02,
 } from "./02-swiss-precision";
@@ -144,70 +146,7 @@ import ExecutiveSummary48, {
   getMetadata as getMetadata48,
 } from "./48-executive-summary";
 
-// ─── Helpers ────────────────────────────────────────────────────────────────
-
-const DEFAULT_MODEL = "Doubao-Seed-Evolving";
-
-/**
- * Extract a short topic name from the metadata theme string.
- * The theme field typically looks like:
- *   "决策的艺术——以极简、高端的排版呈现高管领导智慧"
- *   "The Art of Decision — executive leadership wisdom in sparse, premium typography"
- * We take the first clause before the em dash separator.
- */
-function extractTopic(theme: string): string {
-  return theme.split(/[—–\-:：]/)[0].trim();
-}
-
-/**
- * Build a StyleVersion from a component + getMetadata pair.
- * Calls getMetadata to extract the style name and derive the topic.
- */
-function buildVersion(
-  versionId: string,
-  component: React.ComponentType<any>,
-  getMetadata: (lang: "en" | "zh") => StyleMetadata,
-  model: string = DEFAULT_MODEL,
-): {
-  version: StyleVersion;
-  name: { en: string; zh: string };
-} {
-  const metaEn = getMetadata("en");
-  const metaZh = getMetadata("zh");
-  return {
-    version: {
-      id: versionId,
-      topic: extractTopic(metaZh.theme),
-      model,
-      component,
-      getMetadata,
-    },
-    name: { en: metaEn.name, zh: metaZh.name },
-  };
-}
-
-/**
- * Build a full StyleRegistryEntry from one or more (component, getMetadata) pairs.
- * Currently each style has exactly 1 version; more can be added by passing
- * additional tuples to the versions array.
- */
-function buildEntry(
-  styleId: string,
-  versions: Array<{
-    component: React.ComponentType<any>;
-    getMetadata: (lang: "en" | "zh") => StyleMetadata;
-    model?: string;
-  }>,
-): StyleRegistryEntry {
-  const built = versions.map((v, i) =>
-    buildVersion(`v${i + 1}`, v.component, v.getMetadata, v.model),
-  );
-  return {
-    id: styleId,
-    name: built[0].name, // Style name from the first version's metadata
-    versions: built.map((b) => b.version),
-  };
-}
+const buildEntry = buildStyleRegistryEntry;
 
 // ─── Registry ───────────────────────────────────────────────────────────────
 
@@ -221,7 +160,10 @@ function buildEntry(
  */
 export const STYLE_REGISTRY: StyleRegistryEntry[] = [
   // Minimal Keynote: 01-08
-  buildEntry("01", [{ component: ExecutiveSilence01, getMetadata: getMetadata01 }]),
+  buildEntry("01", [
+    { component: ExecutiveSilence01, getMetadata: getMetadata01 },
+    executiveSilenceSpatialVersion,
+  ]),
   buildEntry("02", [{ component: SwissPrecision02, getMetadata: getMetadata02 }]),
   buildEntry("03", [{ component: ZenVoid03, getMetadata: getMetadata03 }]),
   buildEntry("04", [{ component: AuroraGradient04, getMetadata: getMetadata04 }]),
