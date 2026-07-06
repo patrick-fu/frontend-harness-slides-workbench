@@ -120,6 +120,14 @@ import AfricanKente31, {
 import NordicRosemaling32, {
   getMetadata as getMetadata32,
 } from "./32-nordic-rosemaling";
+import { tideMapTeamV2Version } from "./25-tide-map-team-v2";
+import { growthSignalsV2Version } from "./26-growth-signals-v2";
+import { infrastructureGalaV2Version } from "./27-infrastructure-gala-v2";
+import { fieldRouteSignalV2Version } from "./28-field-route-signal-v2";
+import { releaseMixtapeV2Version } from "./29-release-mixtape-v2";
+import { shippingHardThingV2Version } from "./30-shipping-hard-thing-v2";
+import { moveOrgChartV2Version } from "./31-move-org-chart-v2";
+import { prioritizeWithoutDebateV2Version } from "./32-prioritize-without-debate-v2";
 import GlassDashboard33, {
   getMetadata as getMetadata33,
 } from "./33-glass-dashboard";
@@ -282,14 +290,38 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
     archiveReassembledV2Version,
   ]),
   // Craft & Cultural Traditions: 25-32
-  buildEntry("25", [{ component: WoodblockPrint25, getMetadata: getMetadata25 }]),
-  buildEntry("26", [{ component: ChineseInk26, getMetadata: getMetadata26 }]),
-  buildEntry("27", [{ component: ArtDeco27, getMetadata: getMetadata27 }]),
-  buildEntry("28", [{ component: BauhausPoster28, getMetadata: getMetadata28 }]),
-  buildEntry("29", [{ component: CelticKnot29, getMetadata: getMetadata29 }]),
-  buildEntry("30", [{ component: MexicanMural30, getMetadata: getMetadata30 }]),
-  buildEntry("31", [{ component: AfricanKente31, getMetadata: getMetadata31 }]),
-  buildEntry("32", [{ component: NordicRosemaling32, getMetadata: getMetadata32 }]),
+  buildEntry("25", [
+    { component: WoodblockPrint25, getMetadata: getMetadata25 },
+    tideMapTeamV2Version,
+  ]),
+  buildEntry("26", [
+    { component: ChineseInk26, getMetadata: getMetadata26 },
+    growthSignalsV2Version,
+  ]),
+  buildEntry("27", [
+    { component: ArtDeco27, getMetadata: getMetadata27 },
+    infrastructureGalaV2Version,
+  ]),
+  buildEntry("28", [
+    { component: BauhausPoster28, getMetadata: getMetadata28 },
+    fieldRouteSignalV2Version,
+  ]),
+  buildEntry("29", [
+    { component: CelticKnot29, getMetadata: getMetadata29 },
+    releaseMixtapeV2Version,
+  ]),
+  buildEntry("30", [
+    { component: MexicanMural30, getMetadata: getMetadata30 },
+    shippingHardThingV2Version,
+  ]),
+  buildEntry("31", [
+    { component: AfricanKente31, getMetadata: getMetadata31 },
+    moveOrgChartV2Version,
+  ]),
+  buildEntry("32", [
+    { component: NordicRosemaling32, getMetadata: getMetadata32 },
+    prioritizeWithoutDebateV2Version,
+  ]),
   // Contemporary Digital: 33-40
   buildEntry("33", [{ component: GlassDashboard33, getMetadata: getMetadata33 }]),
   buildEntry("34", [{ component: RetroOs9534, getMetadata: getMetadata34 }]),

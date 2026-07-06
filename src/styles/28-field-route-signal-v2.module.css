@@ -1,0 +1,684 @@
+.root {
+  --paper: #e9d29d;
+  --sand: #dcb772;
+  --ink: #173c34;
+  --teal: #27777a;
+  --orange: #d7642d;
+  --plate-a: var(--orange);
+  --plate-b: var(--teal);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Noto Sans SC", "Barlow Condensed", Arial, sans-serif;
+}
+
+.root[data-static="true"] *,
+.root[data-static="true"] *::before,
+.root[data-static="true"] *::after {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.grainSvg {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  fill: var(--ink);
+  opacity: .15;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+.printFrame {
+  position: absolute;
+  inset: 2.1cqw;
+  z-index: 5;
+  border: .18cqw solid var(--ink);
+  pointer-events: none;
+}
+
+.scenePanel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.scene1 {
+  --plate-a: var(--orange);
+  --plate-b: var(--teal);
+}
+
+.scene2 {
+  --plate-a: var(--teal);
+  --plate-b: var(--orange);
+}
+
+.scene3 {
+  --plate-a: var(--teal);
+  --plate-b: var(--ink);
+}
+
+.scene4 {
+  --plate-a: var(--orange);
+  --plate-b: var(--teal);
+}
+
+.scene5 {
+  --plate-a: var(--ink);
+  --plate-b: var(--orange);
+}
+
+.posterBody {
+  position: absolute;
+  inset: 5.4cqh 7.1cqw;
+  display: grid;
+  grid-template-columns: 41cqw 18cqw 20cqw;
+  grid-template-rows: 19cqh 47cqh 14cqh;
+  column-gap: 2.4cqw;
+  row-gap: 2.4cqh;
+}
+
+.headerBlock {
+  grid-column: 1 / 4;
+  grid-row: 1;
+  align-self: end;
+  max-width: 80cqw;
+}
+
+.eyebrow {
+  margin: 0 0 1.1cqh;
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 1.35cqw;
+  font-weight: 800;
+  letter-spacing: .22cqw;
+  text-transform: uppercase;
+}
+
+.headerBlock h1 {
+  margin: 0;
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 7.2cqw;
+  line-height: .78;
+  font-weight: 900;
+  letter-spacing: .05cqw;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  max-width: 47cqw;
+  margin: 1.3cqh 0 0;
+  font-size: 1.28cqw;
+  line-height: 1.22;
+  font-weight: 700;
+}
+
+.illustration {
+  grid-column: 1 / 3;
+  grid-row: 2 / 4;
+  min-width: 0;
+  min-height: 0;
+  border: .22cqw solid var(--ink);
+  background: var(--sand);
+  overflow: hidden;
+}
+
+.mapSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.coordinateCard {
+  grid-column: 3;
+  grid-row: 2;
+  align-self: start;
+  padding: 2.1cqh 1.5cqw;
+  border: .18cqw solid var(--ink);
+  background: var(--plate-a);
+  color: var(--paper);
+}
+
+.coordinateCard p {
+  margin: 0;
+  font-size: 1.2cqw;
+  line-height: 1.28;
+  font-weight: 700;
+}
+
+.cardKicker {
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 1.25cqw !important;
+  letter-spacing: .12cqw;
+  text-transform: uppercase;
+}
+
+.cardTitle {
+  margin: 1.4cqh 0 .9cqh !important;
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 2.55cqw !important;
+  line-height: .95 !important;
+  font-weight: 900 !important;
+  letter-spacing: .05cqw;
+  text-transform: uppercase;
+}
+
+.routeStack {
+  grid-column: 3;
+  grid-row: 3;
+  align-self: start;
+  padding: 1.5cqh 0 0;
+  border-top: .18cqw solid var(--ink);
+}
+
+.routeNote {
+  margin: 0 0 1.2cqh;
+  font-size: 1.18cqw;
+  line-height: 1.25;
+  font-weight: 800;
+}
+
+.routeStack ul {
+  display: grid;
+  gap: .65cqh;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.routeStack li {
+  display: flex;
+  align-items: center;
+  gap: .7cqw;
+  font-size: 1.05cqw;
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.routeStack li::before {
+  content: "";
+  width: .85cqw;
+  height: .85cqw;
+  flex: 0 0 auto;
+  background: var(--orange);
+  transform: rotate(45deg);
+}
+
+.fieldFooter {
+  grid-column: 1 / 3;
+  grid-row: 3;
+  align-self: end;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 2cqw;
+  padding-top: 1.6cqh;
+  border-top: .18cqw solid var(--ink);
+}
+
+.fieldFooter span {
+  font-size: 1.1cqw;
+  line-height: 1.22;
+  font-weight: 700;
+}
+
+.fieldFooter strong {
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 1.8cqw;
+  line-height: .9;
+  letter-spacing: .12cqw;
+  text-transform: uppercase;
+}
+
+.scene2 .posterBody {
+  grid-template-columns: 26cqw 27cqw 28cqw;
+}
+
+.scene2 .headerBlock {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+}
+
+.scene2 .headerBlock h1,
+.scene3 .headerBlock h1,
+.scene4 .headerBlock h1,
+.scene5 .headerBlock h1 {
+  font-size: 5.7cqw;
+  line-height: .84;
+}
+
+.scene2 .subtitle {
+  max-width: 23cqw;
+}
+
+.scene2 .illustration {
+  grid-column: 2 / 4;
+  grid-row: 1 / 4;
+}
+
+.scene2 .coordinateCard {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.scene2 .routeStack {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.scene2 .fieldFooter {
+  display: none;
+}
+
+.scene3 .illustration {
+  grid-column: 1 / 4;
+  grid-row: 2;
+}
+
+.scene3 .coordinateCard {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.scene3 .routeStack {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.scene3 .fieldFooter {
+  grid-column: 3;
+  grid-row: 3;
+  grid-template-columns: 1fr;
+}
+
+.scene4 .headerBlock {
+  grid-column: 1 / 3;
+}
+
+.scene4 .illustration {
+  grid-column: 1 / 3;
+  grid-row: 2 / 4;
+}
+
+.scene4 .coordinateCard {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  align-self: end;
+}
+
+.scene4 .routeStack {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+.scene4 .fieldFooter {
+  display: none;
+}
+
+.scene5 .illustration {
+  grid-column: 1 / 4;
+  grid-row: 2;
+}
+
+.scene5 .coordinateCard {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.scene5 .routeStack {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.scene5 .fieldFooter {
+  grid-column: 3;
+  grid-row: 3;
+  grid-template-columns: 1fr;
+}
+
+.beatRun {
+  position: absolute;
+  right: 7.2cqw;
+  bottom: 3.8cqh;
+  z-index: 3;
+  display: flex;
+  gap: .75cqw;
+  align-items: center;
+}
+
+.beatMark {
+  width: 1.1cqw;
+  height: 1.1cqw;
+  border: .14cqw solid var(--ink);
+  background: var(--paper);
+  transform: rotate(45deg);
+  opacity: .65;
+}
+
+.activeBeat {
+  background: var(--orange);
+  opacity: 1;
+}
+
+.coordinateRail {
+  position: absolute;
+  left: 2.9cqw;
+  top: 10cqh;
+  bottom: 10cqh;
+  z-index: 7;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 6.8cqw;
+  color: var(--paper);
+}
+
+.railRule {
+  position: absolute;
+  left: 1.1cqw;
+  top: 0;
+  bottom: 0;
+  width: .18cqw;
+  background: var(--ink);
+}
+
+.railNorth,
+.railWest {
+  position: relative;
+  z-index: 1;
+  width: 2.2cqw;
+  margin: 0;
+  padding: .55cqh .28cqw;
+  background: var(--ink);
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 1.1cqw;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+}
+
+.railWest {
+  align-self: end;
+}
+
+.railStops {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4cqh 0;
+}
+
+.railStop {
+  display: grid;
+  grid-template-columns: 1.9cqw 4.4cqw;
+  grid-template-rows: auto auto;
+  column-gap: .45cqw;
+  align-items: center;
+  width: 6.6cqw;
+  min-height: 8.5cqh;
+  padding: .6cqh .25cqw .6cqh 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.railStop:focus-visible {
+  outline: .18cqw solid var(--orange);
+  outline-offset: .25cqw;
+}
+
+.stopNumber {
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 1.45cqw;
+  height: 1.45cqw;
+  background: var(--paper);
+  border: .15cqw solid var(--ink);
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: .78cqw;
+  font-weight: 900;
+  line-height: 1;
+  transform: rotate(45deg);
+}
+
+.stopNumberText {
+  transform: rotate(-45deg);
+}
+
+.stopLabel {
+  overflow: hidden;
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: .92cqw;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: .06cqw;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.stopBeats {
+  display: flex;
+  gap: .28cqw;
+  margin-top: .65cqh;
+}
+
+.stopBeat {
+  width: .5cqw;
+  height: .5cqw;
+  background: var(--ink);
+  opacity: .28;
+}
+
+.activeStop .stopNumber,
+.activeStopBeat {
+  background: var(--orange);
+  opacity: 1;
+}
+
+.skyPlate {
+  fill: var(--paper);
+}
+
+.ridgeBack {
+  fill: var(--plate-a);
+  opacity: .92;
+}
+
+.ridgeMid {
+  fill: var(--plate-b);
+  opacity: .95;
+}
+
+.groundPlate {
+  fill: var(--ink);
+}
+
+.routeGhost,
+.routeLine,
+.routeLeg,
+.flagLine,
+.contour,
+.rainBand,
+.noteRule,
+.stampRoute {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.routeGhost {
+  stroke: var(--orange);
+  stroke-width: .6cqw;
+  opacity: .34;
+}
+
+.routeLine {
+  stroke: var(--paper);
+  stroke-width: .42cqw;
+  stroke-dasharray: 1.2cqw 1cqw;
+}
+
+.routeLeg {
+  stroke: var(--orange);
+  stroke-width: .62cqw;
+}
+
+.contour {
+  stroke: var(--ink);
+  stroke-width: .18cqw;
+  opacity: .52;
+}
+
+.svgReveal,
+.routeLine,
+.stampGroup {
+  opacity: 0;
+  transform: translateY(1.4cqh);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    opacity 560ms cubic-bezier(.16, 1, .3, 1),
+    transform 560ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.routeLine.visible {
+  animation: routeDrift 3600ms ease-in-out infinite alternate;
+}
+
+.signPost {
+  fill: var(--ink);
+}
+
+.signFace,
+.noteCard {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: .24cqw;
+}
+
+.svgLabel {
+  fill: var(--ink);
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 2.3cqw;
+  font-weight: 900;
+  letter-spacing: .08cqw;
+  text-transform: uppercase;
+}
+
+.cairn {
+  fill: var(--orange);
+  stroke: var(--ink);
+  stroke-width: .14cqw;
+}
+
+.flagLine {
+  stroke: var(--paper);
+  stroke-width: .34cqw;
+}
+
+.flag {
+  fill: var(--orange);
+  stroke: var(--ink);
+  stroke-width: .2cqw;
+}
+
+.targetRing,
+.signalRing {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: .32cqw;
+}
+
+.targetCore {
+  fill: var(--orange);
+  stroke: var(--ink);
+  stroke-width: .16cqw;
+}
+
+.cloud {
+  fill: var(--ink);
+}
+
+.rainBand {
+  stroke: var(--paper);
+  stroke-width: .44cqw;
+}
+
+.clearWindow {
+  fill: var(--orange);
+  stroke: var(--ink);
+  stroke-width: .2cqw;
+}
+
+.basinShadow {
+  fill: var(--ink);
+  opacity: .84;
+}
+
+.signalRing {
+  animation: signalHold 2800ms ease-in-out infinite alternate;
+}
+
+.noteRule {
+  stroke: var(--ink);
+  stroke-width: .22cqw;
+}
+
+.stampOuter,
+.stampInner {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: .42cqw;
+}
+
+.stampInner {
+  stroke: var(--orange);
+  stroke-dasharray: 1cqw .8cqw;
+}
+
+.stampRoute {
+  stroke: var(--ink);
+  stroke-width: .34cqw;
+}
+
+@keyframes routeDrift {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 2.2cqw;
+  }
+}
+
+@keyframes signalHold {
+  from {
+    opacity: .72;
+  }
+  to {
+    opacity: 1;
+  }
+}
