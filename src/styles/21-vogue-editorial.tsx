@@ -44,96 +44,96 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      logo: "Vogue",
-      issue: "The Culture Issue — July 2026",
-      title: "The New Silhouette",
-      subtitle: "How cultural currents are reshaping the way we present ourselves",
+      logo: "SOLAR",
+      issue: "Biennale 2026 — Programme Announcement",
+      title: "The Return of Slow Light",
+      subtitle: "On attention, duration, and the art of being present",
     },
     zh: {
-      logo: "Vogue",
-      issue: "文化特刊 — 2026年7月",
-      title: "新轮廓",
-      subtitle: "文化潮流如何重塑我们展现自我的方式",
+      logo: "日光",
+      issue: "双年展 2026 — 项目公告",
+      title: "慢光的回归",
+      subtitle: "论注意力、持续性与在场的艺术",
     },
   },
   2: {
     en: {
-      kicker: "Fashion & Identity",
-      headline: "The Unraveling of Uniform",
-      body: "In an era defined by fluidity and self-invention, the very notion of a signature look is being re-examined. Designers are moving away from the tyranny of the seasonal silhouette, embracing instead a more personal, idiosyncratic approach to dressing that speaks to the complexity of modern identity.",
+      kicker: "Curatorial Statement",
+      headline: "Against the Speed of Everything",
+      body: "This biennale gathers artists, architects, and thinkers who refuse the acceleration of contemporary life. Their work asks: what forms of knowledge can only emerge when we slow down? What beauty is lost to the tempo of the feed?",
     },
     zh: {
-      kicker: "时尚与身份",
-      headline: "制服的消解",
-      body: "在一个以流动性和自我重塑为特征的时代，标志性造型这一概念本身正在被重新审视。设计师们正在摆脱季节性轮廓的束缚，转而拥抱一种更加个人化、不拘一格的着装方式，它诉说着现代身份的复杂性。",
+      kicker: "策展宣言",
+      headline: "对抗一切的速度",
+      body: "本届双年展聚集了拒绝当代生活加速的艺术家、建筑师和思想者。他们的作品追问：什么样的知识只有在我们放慢时才能浮现？什么样的美在信息流的节奏中遗失？",
     },
   },
   3: {
     en: {
-      galleryLabel: "Voices",
-      galleryTitle: "Three Women\nRedefining the Frame",
+      galleryLabel: "Positions",
+      galleryTitle: "Three Voices\nin the Discourse",
       portraits: [
-        { name: "Amara Okafor", role: "Designer" },
-        { name: "Lin Mei", role: "Photographer" },
-        { name: "Sofia Rivera", role: "Curator" },
+        { name: "Elena Vasquez", role: "Installation Artist" },
+        { name: "Kenji Tanaka", role: "Architectural Theorist" },
+        { name: "Amara Diallo", role: "Environmental Filmmaker" },
       ],
     },
     zh: {
-      galleryLabel: "声音",
-      galleryTitle: "三位女性\n正在重新定义框架",
+      galleryLabel: "立场",
+      galleryTitle: "话语中的\n三个声音",
       portraits: [
-        { name: "阿玛拉·奥卡福", role: "设计师" },
-        { name: "林梅", role: "摄影师" },
-        { name: "索菲娅·里维拉", role: "策展人" },
+        { name: "埃莱娜·巴斯克斯", role: "装置艺术家" },
+        { name: "田中健二", role: "建筑理论家" },
+        { name: "阿玛拉·迪亚洛", role: "环境电影人" },
       ],
     },
   },
   4: {
     en: {
-      trendLabel: "The Agenda",
-      trendTitle: "Three Shifts\nDefining the Season",
+      trendLabel: "Programme",
+      trendTitle: "Three Threads\nRunning Through",
       trends: [
         {
-          name: "Quiet Luxury 2.0",
-          desc: "Understatement evolves — it is no longer about invisibility, but about the confidence of restraint.",
+          name: "Duration as Material",
+          desc: "Works that unfold over hours, days, or seasons — refusing the compression of experience into the instant.",
         },
         {
-          name: "Digital Couture",
-          desc: "Virtual garments move from novelty to necessity as digital spaces become primary social venues.",
+          name: "The Weather of Attention",
+          desc: "Examining how ambient conditions — light, temperature, silence — shape what we are able to notice.",
         },
         {
-          name: "Sustainable Craft",
-          desc: "Artisanal techniques meet environmental consciousness in a new wave of material honesty.",
+          name: "Slow Institutions",
+          desc: "Cultural organisations rethinking their tempo: longer residencies, deeper commissions, fewer but better.",
         },
       ],
     },
     zh: {
-      trendLabel: "议题",
-      trendTitle: "定义本季的\n三个转变",
+      trendLabel: "项目",
+      trendTitle: "贯穿的\n三条线索",
       trends: [
         {
-          name: "静谧奢华 2.0",
-          desc: "低调在演变——它不再关于隐形，而是关于克制的自信。",
+          name: "作为材料的时长",
+          desc: "在数小时、数天或数季中展开的作品——拒绝将体验压缩为瞬间。",
         },
         {
-          name: "数字高定",
-          desc: "随着数字空间成为主要社交场所，虚拟服装从新奇走向必需。",
+          name: "注意力的气候",
+          desc: "审视环境条件——光线、温度、沉默——如何塑造我们能够注意到的东西。",
         },
         {
-          name: "可持续工艺",
-          desc: "在新一轮材料诚实性浪潮中，手工技艺与环保意识相遇。",
+          name: "缓慢的机构",
+          desc: "文化机构重新思考节奏：更长的驻留，更深的委托，少而精。",
         },
       ],
     },
   },
   5: {
     en: {
-      closing: "Style is a way\nto say who you are\nwithout speaking.",
-      sig: "— Vogue Editorial",
+      closing: "The only way out\nis through the door\nthat takes the longest to open.",
+      sig: "— Solar Biennale 2026",
     },
     zh: {
-      closing: "风格是一种\n无需开口\n就能说明你是谁的方式。",
-      sig: "—— Vogue 编辑部",
+      closing: "唯一的出路\n是那扇\n需要最久才能打开的门。",
+      sig: "—— 日光双年展 2026",
     },
   },
 };
@@ -141,16 +141,16 @@ const SCENES: Record<number, SceneContent> = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Vogue Editorial", zh: "Vogue 编辑" };
+  const nameMap = { en: "Solar Biennale Poster", zh: "日光双年展海报" };
   const themeMap = {
-    en: "Cultural trends analysis — high fashion magazine aesthetic with elegant serif italics and generous white space",
-    zh: "文化趋势分析——高级时尚杂志美学，优雅衬线斜体与充裕留白",
+    en: "Cultural programme decks and manifesto statements — warm parchment flooded with solar glow, deep indigo ink, and three-voice typographic discipline",
+    zh: "文化项目演示与宣言陈述——暖色羊皮纸浸润日光辉光，深靛蓝墨水，三声部字体纪律",
   };
   const densityLabelMap = { en: "Airy", zh: "疏朗" };
 
   const sceneTitles = {
-    en: ["Cover", "Editorial Spread", "Voices", "Trend Agenda", "Closing"],
-    zh: ["封面", "编辑跨页", "声音", "趋势议题", "结语"],
+    en: ["Poster Title", "Curatorial Statement", "Positions", "Programme Threads", "Manifesto"],
+    zh: ["海报标题", "策展宣言", "立场", "项目线索", "结语宣言"],
   };
 
   const beatActions = {
@@ -228,26 +228,26 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 2,
     colors: {
-      bg: "#fefefe",
-      ink: "#1a1a1a",
-      panel: "#f5f5f5",
+      bg: "#f5ede0",
+      ink: "#1a1f3a",
+      panel: "#ebe2d2",
     },
     typography: {
-      header: "Playfair Display Italic",
+      header: "Playfair Display 400",
       body: "Inter 300",
     },
     tags: [
-      "fashion",
-      "vogue",
-      "elegant",
-      "serif-italic",
-      "airy",
-      "white-space",
-      "editorial",
-      "culture",
-      "minimal",
+      "solar",
+      "biennale",
+      "poster",
+      "parchment",
+      "indigo-ink",
+      "sun-bloom",
+      "hairline-rule",
+      "three-voice",
+      "contemplative",
     ],
-    fonts: ["Playfair Display", "Inter", "cjk:Noto Serif SC"],
+    fonts: ["Playfair Display", "Inter", "IBM Plex Mono", "cjk:Noto Serif SC"],
     scenes,
   };
 }
@@ -269,9 +269,46 @@ export default function VogueEditorial({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // Font injection
   useEffect(() => {
@@ -281,7 +318,7 @@ export default function VogueEditorial({
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@400;700&display=swap";
+      "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;700&display=swap";
     document.head.appendChild(link);
   }, []);
 
@@ -295,22 +332,6 @@ export default function VogueEditorial({
     });
     return () => cancelAnimationFrame(raf);
   }, [scene, beat]);
-
-  // Scene change detection — manage outgoing scene lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
-    }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -567,6 +588,13 @@ export default function VogueEditorial({
       </div>
 
       {renderNavIndicators()}
+
+      {/* Mono folio — persistent page number bottom-right */}
+      {!isThumbnail && (
+        <span className={styles.folio}>
+          {String(scene).padStart(2, "0")} / 05
+        </span>
+      )}
     </div>
   );
 }

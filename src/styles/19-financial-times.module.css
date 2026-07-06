@@ -1,4 +1,4 @@
-/* ── Style 19: Financial Times ──────────────────────────────────────────── */
+/* ── Style 19: Warm Editorial Feature ─────────────────────────────────── */
 
 .root {
   width: 100%;
@@ -6,8 +6,8 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-19-bg, #fff1e5);
-  color: var(--style-19-ink, #1a1a1a);
+  background: var(--style-19-bg, #faf3e6);
+  color: var(--style-19-ink, #2c2416);
   font-family: "Source Serif Pro", Georgia, serif;
 }
 
@@ -16,6 +16,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   will-change: transform, opacity;
 }
 
@@ -235,11 +236,11 @@
 }
 
 .indexUp {
-  color: #1a7a3a;
+  color: #6b8e6b;
 }
 
 .indexDown {
-  color: #c41e3a;
+  color: #b8735a;
 }
 
 /* ── Scene 3: Earnings Analysis ────────────────────────────────────────── */
@@ -326,11 +327,11 @@
 }
 
 .earningsItemValue.highlight {
-  color: #1a7a3a;
+  color: #6b8e6b;
 }
 
 .earningsItemValue.warn {
-  color: #c41e3a;
+  color: #b8735a;
 }
 
 /* ── Scene 4: Opinion / Analysis ───────────────────────────────────────── */
@@ -508,7 +509,7 @@
 
 .navIndicatorActive .navIndicatorMark {
   height: 0.6cqh;
-  background: #c41e3a;
+  background: #6b8e6b;
 }
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */

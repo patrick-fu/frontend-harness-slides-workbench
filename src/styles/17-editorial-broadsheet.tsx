@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./17-editorial-broadsheet.module.css";
 
@@ -189,10 +189,10 @@ const SCENES: Record<number, SceneContent> = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Editorial Broadsheet", zh: "编辑大报" };
+  const nameMap = { en: "Front-Page Broadsheet", zh: "头版大报" };
   const themeMap = {
-    en: "The Transforming City — urban evolution told through newspaper typography and data journalism",
-    zh: "变迁中的城市——通过报纸排版和数据新闻讲述城市演变",
+    en: "Narrative-heavy briefings and long-form story arcs — dense newsprint authority with nameplate journalism gravitas",
+    zh: "叙事型深度报道与长篇故事弧线——密集新闻纸权威感配以报头式新闻庄重感",
   };
   const densityLabelMap = { en: "Reading-First", zh: "阅读优先" };
 
@@ -276,23 +276,27 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
     colors: {
-      bg: "#faf8f3",
+      bg: "#f5f0e6",
       ink: "#1a1a1a",
-      panel: "#f0ede4",
+      panel: "#ebe5d8",
     },
     typography: {
       header: "Playfair Display 900",
       body: "Source Serif Pro 400",
     },
     tags: [
-      "editorial",
       "newspaper",
-      "serif",
-      "dense",
-      "academic",
-      "light",
+      "broadsheet",
+      "editorial",
       "journalism",
+      "academic",
       "urban",
+      "dense",
+      "serif",
+      "light",
+      "newsprint",
+      "authoritative",
+      "ink-on-paper",
       "multicolumn",
     ],
     fonts: ["Playfair Display", "Source Serif Pro", "cjk:Noto Serif SC"],
@@ -318,25 +322,45 @@ export default function EditorialBroadsheet({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {

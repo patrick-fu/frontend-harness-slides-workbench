@@ -1,4 +1,4 @@
-/* ── Style 18: Literary Review ──────────────────────────────────────────── */
+/* ── Style 18: Magazine Masthead ──────────────────────────────────────── */
 
 .root {
   width: 100%;
@@ -6,9 +6,9 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-18-bg, #faf6ee);
-  color: var(--style-18-ink, #1a1a1a);
-  font-family: "Lora", "cjk:Noto Serif SC", Georgia, serif;
+  background: var(--style-18-bg, #1a3a2a);
+  color: var(--style-18-ink, #f5f0e6);
+  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
   perspective: 2500px;
 }
 
@@ -17,6 +17,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   backface-visibility: hidden;
 }
 
@@ -43,7 +44,7 @@
 
 /* Incoming spread: rotates in from behind */
 .enterAnim {
-  animation: bookSpreadEnter 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: bookSpreadEnter 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
   transform-origin: center center;
   z-index: 1;
 }
@@ -129,47 +130,49 @@
 .journalOrnamentLine {
   flex: 0 0 8cqw;
   height: 0.08cqh;
-  background: var(--style-18-ink, #1a1a1a);
+  background: var(--style-18-ink, #f5f0e6);
   opacity: 0.3;
 }
 
 .journalOrnamentSymbol {
   font-family: "Playfair Display", Georgia, serif;
   font-size: 3cqh;
-  color: var(--style-18-ink, #1a1a1a);
+  color: var(--style-18-ink, #f5f0e6);
   opacity: 0.4;
 }
 
 .journalTitle {
   font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
   font-size: 9cqh;
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 900;
+  font-style: normal;
   line-height: 1.1;
-  color: var(--style-18-ink, #1a1a1a);
+  color: var(--style-18-ink, #f5f0e6);
   margin: 0;
   text-align: center;
   letter-spacing: -0.01em;
 }
 
 .journalSubtitle {
-  font-family: "Lora", "cjk:Noto Serif SC", Georgia, serif;
+  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
   font-size: 2.8cqh;
   font-weight: 400;
-  color: var(--style-18-ink, #1a1a1a);
+  color: var(--style-18-ink, #f5f0e6);
   text-align: center;
   margin-top: 2cqh;
   opacity: 0.6;
-  font-style: italic;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
 }
 
 .journalVolume {
-  font-family: "Lora", Georgia, serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 1.8cqh;
-  color: var(--style-18-ink, #1a1a1a);
+  color: var(--style-18-ink, #f5f0e6);
   text-align: center;
   margin-top: 4cqh;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   opacity: 0.4;
 }
@@ -183,13 +186,14 @@
 }
 
 .excerptLabel {
-  font-family: "Lora", Georgia, serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 1.8cqh;
-  color: var(--style-18-ink, #1a1a1a);
+  color: var(--style-18-ink, #f5f0e6);
   text-transform: uppercase;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   margin-bottom: 3cqh;
   opacity: 0.5;
+  font-weight: 500;
 }
 
 .excerptDividerTop {
@@ -205,7 +209,7 @@
   content: "";
   flex: 1;
   height: 0.06cqh;
-  background: var(--style-18-ink, #1a1a1a);
+  background: var(--style-18-ink, #f5f0e6);
   opacity: 0.2;
   max-width: 15cqw;
 }
@@ -213,17 +217,17 @@
 .excerptDividerDiamond {
   width: 1.2cqh;
   height: 1.2cqh;
-  background: var(--style-18-ink, #1a1a1a);
+  background: var(--style-18-ink, #f5f0e6);
   opacity: 0.3;
   transform: rotate(45deg);
   margin: 0 2cqw;
 }
 
 .excerptText {
-  font-family: "Lora", "cjk:Noto Serif SC", Georgia, serif;
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
   font-size: 3.2cqh;
   line-height: 1.7;
-  color: var(--style-18-ink, #1a1a1a);
+  color: var(--style-18-ink, #f5f0e6);
   text-align: justify;
   margin: 0;
   hyphens: auto;
@@ -234,21 +238,23 @@
   font-family: "Playfair Display", Georgia, serif;
   font-size: 10cqh;
   line-height: 0.75;
-  font-weight: 700;
-  font-style: italic;
-  color: var(--style-18-ink, #1a1a1a);
+  font-weight: 900;
+  font-style: normal;
+  color: var(--style-18-ink, #f5f0e6);
   margin-right: 0.8cqw;
   margin-top: 1cqh;
 }
 
 .excerptAttribution {
-  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
+  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
   font-size: 2.2cqh;
-  font-style: italic;
-  color: var(--style-18-ink, #1a1a1a);
+  font-style: normal;
+  color: var(--style-18-ink, #f5f0e6);
   text-align: right;
   margin-top: 3cqh;
   opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
 }
 
 .excerptDividerBottom {
@@ -264,7 +270,7 @@
   content: "";
   flex: 1;
   height: 0.06cqh;
-  background: var(--style-18-ink, #1a1a1a);
+  background: var(--style-18-ink, #f5f0e6);
   opacity: 0.15;
   max-width: 10cqw;
 }
@@ -279,28 +285,31 @@
 .poemTitle {
   font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
   font-size: 4cqh;
-  font-weight: 400;
-  font-style: italic;
-  color: var(--style-18-ink, #1a1a1a);
+  font-weight: 900;
+  font-style: normal;
+  color: var(--style-18-ink, #f5f0e6);
   margin: 0 0 1cqh 0;
 }
 
 .poemAuthor {
-  font-family: "Lora", Georgia, serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 2cqh;
-  color: var(--style-18-ink, #1a1a1a);
+  color: var(--style-18-ink, #f5f0e6);
   opacity: 0.5;
   margin-bottom: 5cqh;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 400;
 }
 
 .poemStanza {
-  font-family: "Lora", "cjk:Noto Serif SC", Georgia, serif;
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
   font-size: 2.8cqh;
   line-height: 1.8;
-  color: var(--style-18-ink, #1a1a1a);
+  color: var(--style-18-ink, #f5f0e6);
   margin: 0 0 3cqh 0;
-  font-style: italic;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .poemStanza em {
@@ -321,11 +330,12 @@
 }
 
 .essayKicker {
-  font-family: "Lora", Georgia, serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 1.8cqh;
-  color: var(--style-18-ink, #1a1a1a);
+  color: var(--style-18-ink, #f5f0e6);
   text-transform: uppercase;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
+  font-weight: 500;
   opacity: 0.5;
   margin-bottom: 1.5cqh;
 }
@@ -333,21 +343,21 @@
 .essayHeadline {
   font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
   font-size: 5.5cqh;
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 900;
+  font-style: normal;
   line-height: 1.15;
-  color: var(--style-18-ink, #1a1a1a);
+  color: var(--style-18-ink, #f5f0e6);
   margin: 0;
 }
 
 .essayBody {
   column-count: 2;
   column-gap: 5cqw;
-  column-rule: 0.04cqh solid rgba(26, 26, 26, 0.15);
-  font-family: "Lora", "cjk:Noto Serif SC", Georgia, serif;
+  column-rule: 0.04cqh solid rgba(245, 240, 230, 0.15);
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
   font-size: 2.2cqh;
   line-height: 1.65;
-  color: var(--style-18-ink, #1a1a1a);
+  color: var(--style-18-ink, #f5f0e6);
   text-align: justify;
   hyphens: auto;
 }
@@ -361,8 +371,8 @@
   font-family: "Playfair Display", Georgia, serif;
   font-size: 7cqh;
   line-height: 0.8;
-  font-weight: 700;
-  font-style: italic;
+  font-weight: 900;
+  font-style: normal;
   margin-right: 0.5cqw;
   margin-top: 0.5cqh;
 }
@@ -387,34 +397,35 @@
   content: "";
   width: 6cqw;
   height: 0.06cqh;
-  background: var(--style-18-ink, #1a1a1a);
+  background: var(--style-18-ink, #f5f0e6);
   opacity: 0.25;
 }
 
 .colophonSymbol {
   font-family: "Playfair Display", Georgia, serif;
   font-size: 4cqh;
-  color: var(--style-18-ink, #1a1a1a);
+  color: var(--style-18-ink, #f5f0e6);
   opacity: 0.35;
 }
 
 .colophonText {
   font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
   font-size: 5cqh;
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 900;
+  font-style: normal;
   line-height: 1.4;
-  color: var(--style-18-ink, #1a1a1a);
+  color: var(--style-18-ink, #f5f0e6);
   margin: 0 0 3cqh 0;
 }
 
 .colophonNote {
-  font-family: "Lora", Georgia, serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 2cqh;
-  color: var(--style-18-ink, #1a1a1a);
+  color: var(--style-18-ink, #f5f0e6);
   opacity: 0.45;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
+  font-weight: 400;
 }
 
 /* ── Navigation indicators (360° spatial) ───────────────────────────────── */
@@ -481,13 +492,13 @@
   width: 1.2cqh;
   height: 1.2cqh;
   border-radius: 50%;
-  background: var(--style-18-ink, #1a1a1a);
-  border: 0.15cqh solid var(--style-18-ink, #1a1a1a);
+  background: var(--style-18-ink, #f5f0e6);
+  border: 0.15cqh solid var(--style-18-ink, #f5f0e6);
 }
 
 .navIndicatorActive .navIndicatorDot {
   background: transparent;
-  border-color: var(--style-18-ink, #1a1a1a);
+  border-color: var(--style-18-ink, #f5f0e6);
   transform: scale(1.4);
 }
 

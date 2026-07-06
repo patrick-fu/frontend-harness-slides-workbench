@@ -1,4 +1,4 @@
-/* ── Style 21: Vogue Editorial ─────────────────────────────────────────── */
+/* ── Style 21: Solar Biennale Poster ──────────────────────────────────── */
 
 .root {
   width: 100%;
@@ -6,9 +6,27 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-21-bg, #fefefe);
-  color: var(--style-21-ink, #1a1a1a);
+  background: var(--style-21-bg, #f5ede0);
+  color: var(--style-21-ink, #1a1f3a);
   font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
+}
+
+/* Solar bloom atmosphere — off-center, behind everything */
+.root::after {
+  content: "";
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  top: 10%;
+  right: 5%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 200, 80, 0.18) 0%,
+    rgba(255, 200, 80, 0.08) 40%,
+    transparent 70%
+  );
 }
 
 /* ── Scene-to-scene transition layers ──────────────────────────────────── */
@@ -16,6 +34,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .track {
@@ -23,77 +42,78 @@
   inset: 0;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
 }
 
-/* ── Fashion curtain pull (diagonal fabric sweep) ────────────────────────
-   Incoming scene: revealed via clip-path from top-right to bottom-left.
-   The diagonal edge sweeps across, with a slight overshoot at the end
-   to create a "fabric snap" feeling.
-   Duration: 650ms total.
-   ──────────────────────────────────────────────────────────────────────── */
-
+/* Slow, composed crossfade — nothing snaps */
 .enterAnim {
-  animation: vogueCurtainEnter 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: solarEnter 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) both;
   z-index: 2;
 }
 
-@keyframes vogueCurtainEnter {
-  0% {
-    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
-    opacity: 0.9;
+@keyframes solarEnter {
+  from {
+    opacity: 0;
+    transform: translateY(1.5cqh);
   }
-  70% {
-    clip-path: polygon(-8% 0, 100% 0, 100% 100%, 32% 100%);
+  to {
     opacity: 1;
-  }
-  85% {
-    clip-path: polygon(-15% 0, 100% 0, 100% 100%, 22% 100%);
-    opacity: 1;
-  }
-  100% {
-    clip-path: polygon(-5% 0, 100% 0, 100% 100%, 35% 100%);
-    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .exitAnim {
-  animation: vogueCurtainExit 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: solarExit 0.5s cubic-bezier(0.4, 0, 0.6, 1) forwards;
   z-index: 1;
 }
 
-@keyframes vogueCurtainExit {
-  0% {
+@keyframes solarExit {
+  from {
     opacity: 1;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: translateY(0);
   }
-  60% {
-    opacity: 0.6;
-  }
-  100% {
+  to {
     opacity: 0;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: translateY(-1cqh);
   }
 }
 
 /* ── Beat-level: headline letter-spacing track-in ────────────────────────
    Headlines track in from wide letter-spacing to tight.
-   0.5em → 0.05em over 600ms.
+   0.4em → 0.02em over 700ms — slow and dignified.
    ──────────────────────────────────────────────────────────────────────── */
 
 .headlineTrackIn {
-  animation: headlineTrackIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: headlineTrackIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes headlineTrackIn {
   from {
-    letter-spacing: 0.5em;
+    letter-spacing: 0.4em;
   }
   to {
-    letter-spacing: 0.05em;
+    letter-spacing: 0.02em;
   }
 }
 
-/* ── Scene 1: Cover ────────────────────────────────────────────────────── */
+/* ── Mono folio (page number) — bottom-right, three-quarter opacity ──── */
+
+.folio {
+  position: absolute;
+  bottom: 3cqh;
+  right: 4cqw;
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 1.4cqh;
+  color: var(--style-21-ink, #1a1f3a);
+  opacity: 0.45;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* ── Scene 1: Poster Title ─────────────────────────────────────────────── */
 
 .vogueCover {
   width: 100%;
@@ -103,28 +123,20 @@
   position: relative;
 }
 
+/* Solar yellow flooded panel — poster identity */
 .vogueCoverImage {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    170deg,
-    #e8e0d8 0%,
-    #d4c8bc 25%,
-    #c4b5a8 50%,
-    #b8a898 75%,
-    #d0c4b8 100%
+    160deg,
+    rgba(255, 200, 80, 0.25) 0%,
+    rgba(255, 200, 80, 0.08) 40%,
+    transparent 70%
   );
 }
 
 .vogueCoverImage::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent 50%,
-    rgba(254, 254, 254, 0.3) 100%
-  );
+  display: none;
 }
 
 .vogueCoverContent {
@@ -138,73 +150,74 @@
 }
 
 .vogueMasthead {
-  text-align: center;
+  text-align: left;
 }
 
 .vogueLogo {
   font-family: "Playfair Display", Georgia, serif;
-  font-size: 11cqh;
-  font-weight: 900;
-  font-style: italic;
+  font-size: 10cqh;
+  font-weight: 400;
+  font-style: normal;
   line-height: 1;
-  color: var(--style-21-ink, #1a1a1a);
+  color: var(--style-21-ink, #1a1f3a);
   margin: 0;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .vogueIssue {
   font-family: "Inter", system-ui, sans-serif;
-  font-size: 1.6cqh;
-  color: var(--style-21-ink, #1a1a1a);
+  font-size: 1.5cqh;
+  color: var(--style-21-ink, #1a1f3a);
   text-transform: uppercase;
   letter-spacing: 0.3em;
-  margin-top: 1cqh;
+  margin-top: 1.2cqh;
   opacity: 0.5;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .vogueCoverBottom {
-  text-align: center;
+  text-align: left;
+  max-width: 60cqw;
 }
 
 .vogueCoverTitle {
   font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
-  font-size: 6cqh;
+  font-size: 7cqh;
   font-weight: 400;
   font-style: italic;
-  line-height: 1.1;
-  color: var(--style-21-ink, #1a1a1a);
+  line-height: 1.08;
+  color: var(--style-21-ink, #1a1f3a);
   margin: 0;
 }
 
 .vogueCoverSub {
   font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
   font-size: 2.2cqh;
-  color: var(--style-21-ink, #1a1a1a);
+  color: var(--style-21-ink, #1a1f3a);
   margin-top: 1.5cqh;
   font-weight: 300;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   opacity: 0.6;
 }
 
-/* ── Scene 2: Editorial Spread ─────────────────────────────────────────── */
+/* ── Scene 2: Curatorial Statement ─────────────────────────────────────── */
 
 .vogueSpread {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.2fr;
   gap: 0;
 }
 
+/* Solar yellow flooded column */
 .vogueSpreadImage {
   position: relative;
   background: linear-gradient(
-    165deg,
-    #f0ebe5 0%,
-    #e0d8cf 30%,
-    #d5ccc2 60%,
-    #e8e2da 100%
+    170deg,
+    rgba(255, 200, 80, 0.3) 0%,
+    rgba(255, 200, 80, 0.12) 50%,
+    rgba(245, 237, 224, 0) 100%
   );
 }
 
@@ -212,13 +225,13 @@
   position: absolute;
   bottom: 4cqh;
   left: 4cqw;
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 1.4cqh;
-  color: var(--style-21-ink, #1a1a1a);
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 1.3cqh;
+  color: var(--style-21-ink, #1a1f3a);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   opacity: 0.35;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .vogueSpreadText {
@@ -230,11 +243,11 @@
 
 .vogueSpreadKicker {
   font-family: "Inter", system-ui, sans-serif;
-  font-size: 1.5cqh;
-  color: var(--style-21-ink, #1a1a1a);
+  font-size: 1.4cqh;
+  color: var(--style-21-ink, #1a1f3a);
   text-transform: uppercase;
-  letter-spacing: 0.3em;
-  font-weight: 400;
+  letter-spacing: 0.35em;
+  font-weight: 500;
   margin-bottom: 3cqh;
   opacity: 0.5;
 }
@@ -245,15 +258,15 @@
   font-weight: 400;
   font-style: italic;
   line-height: 1.08;
-  color: var(--style-21-ink, #1a1a1a);
+  color: var(--style-21-ink, #1a1f3a);
   margin: 0 0 3cqh 0;
 }
 
 .vogueHairline {
   width: 4cqw;
   height: 0.04cqh;
-  background: var(--style-21-ink, #1a1a1a);
-  opacity: 0.3;
+  background: var(--style-21-ink, #1a1f3a);
+  opacity: 0.25;
   margin-bottom: 3cqh;
 }
 
@@ -261,13 +274,13 @@
   font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
   font-size: 2.2cqh;
   line-height: 1.7;
-  color: var(--style-21-ink, #1a1a1a);
+  color: var(--style-21-ink, #1a1f3a);
   font-weight: 300;
   opacity: 0.75;
-  max-width: 35cqw;
+  max-width: 38cqw;
 }
 
-/* ── Scene 3: Portrait Gallery ─────────────────────────────────────────── */
+/* ── Scene 3: Positions / Three Voices ─────────────────────────────────── */
 
 .vogueGallery {
   width: 100%;
@@ -279,17 +292,17 @@
 }
 
 .vogueGalleryHeader {
-  text-align: center;
+  text-align: left;
   margin-bottom: 5cqh;
 }
 
 .vogueGalleryLabel {
   font-family: "Inter", system-ui, sans-serif;
-  font-size: 1.5cqh;
-  color: var(--style-21-ink, #1a1a1a);
+  font-size: 1.4cqh;
+  color: var(--style-21-ink, #1a1f3a);
   text-transform: uppercase;
-  letter-spacing: 0.3em;
-  font-weight: 400;
+  letter-spacing: 0.35em;
+  font-weight: 500;
   opacity: 0.5;
   margin-bottom: 1.5cqh;
 }
@@ -300,7 +313,7 @@
   font-weight: 400;
   font-style: italic;
   line-height: 1.15;
-  color: var(--style-21-ink, #1a1a1a);
+  color: var(--style-21-ink, #1a1f3a);
   margin: 0;
 }
 
@@ -314,28 +327,31 @@
 .voguePortrait {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
+  border-top: 0.04cqh solid rgba(26, 31, 58, 0.15);
+  padding-top: 2cqh;
 }
 
 .voguePortraitFrame {
   width: 100%;
-  aspect-ratio: 3 / 4;
-  border-radius: 0.2cqw;
+  aspect-ratio: 4 / 5;
+  border-radius: 0;
   overflow: hidden;
   margin-bottom: 2cqh;
 }
 
+/* Warm parchment tones with solar tint */
 .voguePortrait:nth-child(1) .voguePortraitFrame {
-  background: linear-gradient(160deg, #e8ddd0, #c9b8a8, #a89888);
+  background: linear-gradient(160deg, rgba(255, 200, 80, 0.2), rgba(245, 237, 224, 0.6), rgba(230, 220, 200, 0.4));
 }
 
 .voguePortrait:nth-child(2) .voguePortraitFrame {
-  background: linear-gradient(160deg, #d8d4cc, #b5b0a8, #9a9590);
+  background: linear-gradient(160deg, rgba(245, 237, 224, 0.8), rgba(230, 220, 200, 0.5), rgba(255, 200, 80, 0.1));
 }
 
 .voguePortrait:nth-child(3) .voguePortraitFrame {
-  background: linear-gradient(160deg, #e5dce8, #c5b8cc, #a89ab0);
+  background: linear-gradient(160deg, rgba(255, 200, 80, 0.15), rgba(245, 237, 224, 0.7), rgba(220, 210, 195, 0.5));
 }
 
 .voguePortraitName {
@@ -343,21 +359,21 @@
   font-size: 2.8cqh;
   font-weight: 400;
   font-style: italic;
-  color: var(--style-21-ink, #1a1a1a);
+  color: var(--style-21-ink, #1a1f3a);
   margin: 0 0 0.5cqh 0;
 }
 
 .voguePortraitRole {
   font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
-  font-size: 1.6cqh;
-  color: var(--style-21-ink, #1a1a1a);
+  font-size: 1.5cqh;
+  color: var(--style-21-ink, #1a1f3a);
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-weight: 300;
+  letter-spacing: 0.2em;
+  font-weight: 400;
   opacity: 0.5;
 }
 
-/* ── Scene 4: Trend Report ─────────────────────────────────────────────── */
+/* ── Scene 4: Programme Threads ────────────────────────────────────────── */
 
 .vogueTrend {
   width: 100%;
@@ -375,11 +391,11 @@
 
 .vogueTrendLabel {
   font-family: "Inter", system-ui, sans-serif;
-  font-size: 1.5cqh;
-  color: var(--style-21-ink, #1a1a1a);
+  font-size: 1.4cqh;
+  color: var(--style-21-ink, #1a1f3a);
   text-transform: uppercase;
-  letter-spacing: 0.3em;
-  font-weight: 400;
+  letter-spacing: 0.35em;
+  font-weight: 500;
   opacity: 0.5;
   margin-bottom: 1.5cqh;
 }
@@ -390,7 +406,7 @@
   font-weight: 400;
   font-style: italic;
   line-height: 1.1;
-  color: var(--style-21-ink, #1a1a1a);
+  color: var(--style-21-ink, #1a1f3a);
   margin: 0;
 }
 
@@ -405,21 +421,22 @@
   align-items: baseline;
   gap: 3cqw;
   padding: 2.5cqh 0;
-  border-top: 0.04cqh solid rgba(26, 26, 26, 0.12);
+  border-top: 0.04cqh solid rgba(26, 31, 58, 0.12);
 }
 
 .vogueTrendItem:last-child {
-  border-bottom: 0.04cqh solid rgba(26, 26, 26, 0.12);
+  border-bottom: 0.04cqh solid rgba(26, 31, 58, 0.12);
 }
 
 .vogueTrendNumber {
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: 3.5cqh;
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 2.8cqh;
   font-weight: 400;
-  font-style: italic;
-  color: var(--style-21-ink, #1a1a1a);
-  opacity: 0.3;
+  font-style: normal;
+  color: var(--style-21-ink, #1a1f3a);
+  opacity: 0.35;
   min-width: 4cqw;
+  font-variant-numeric: tabular-nums;
 }
 
 .vogueTrendText {
@@ -431,20 +448,20 @@
   font-size: 3cqh;
   font-weight: 400;
   font-style: italic;
-  color: var(--style-21-ink, #1a1a1a);
+  color: var(--style-21-ink, #1a1f3a);
   margin: 0 0 0.5cqh 0;
 }
 
 .vogueTrendDesc {
   font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
   font-size: 1.9cqh;
-  color: var(--style-21-ink, #1a1a1a);
+  color: var(--style-21-ink, #1a1f3a);
   font-weight: 300;
   line-height: 1.5;
   opacity: 0.65;
 }
 
-/* ── Scene 5: Closing Statement ────────────────────────────────────────── */
+/* ── Scene 5: Manifesto Closing ────────────────────────────────────────── */
 
 .vogueClosing {
   width: 100%;
@@ -455,14 +472,33 @@
   justify-content: center;
   padding: 0 10cqw;
   text-align: center;
+  position: relative;
+}
+
+/* Solar bloom intensifies on closing */
+.vogueClosing::before {
+  content: "";
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  top: 10%;
+  left: 10%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 200, 80, 0.15) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
 }
 
 .vogueClosingHairline {
   width: 6cqw;
   height: 0.04cqh;
-  background: var(--style-21-ink, #1a1a1a);
+  background: var(--style-21-ink, #1a1f3a);
   opacity: 0.25;
   margin-bottom: 5cqh;
+  position: relative;
+  z-index: 1;
 }
 
 .vogueClosingText {
@@ -471,18 +507,22 @@
   font-weight: 400;
   font-style: italic;
   line-height: 1.2;
-  color: var(--style-21-ink, #1a1a1a);
+  color: var(--style-21-ink, #1a1f3a);
   margin: 0 0 4cqh 0;
+  position: relative;
+  z-index: 1;
 }
 
 .vogueClosingSig {
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 1.6cqh;
-  color: var(--style-21-ink, #1a1a1a);
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 1.5cqh;
+  color: var(--style-21-ink, #1a1f3a);
   text-transform: uppercase;
-  letter-spacing: 0.3em;
-  font-weight: 300;
-  opacity: 0.4;
+  letter-spacing: 0.2em;
+  font-weight: 400;
+  opacity: 0.45;
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Navigation indicators ─────────────────────────────────────────────── */
@@ -501,7 +541,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  opacity: 0.08;
+  opacity: 0.1;
   transition: opacity 0.3s ease;
 }
 
@@ -510,7 +550,7 @@
 }
 
 .navIndicatorActive {
-  opacity: 0.2;
+  opacity: 0.22;
 }
 
 .navIndicatorActive:hover {
@@ -547,7 +587,7 @@
   display: block;
   width: 3cqh;
   height: 0.04cqh;
-  background: var(--style-21-ink, #1a1a1a);
+  background: var(--style-21-ink, #1a1f3a);
 }
 
 .navIndicatorActive .navIndicatorLine {
@@ -570,8 +610,8 @@
 }
 
 .reducedMotion .enterAnim {
-  clip-path: none !important;
   opacity: 1 !important;
+  transform: none !important;
 }
 
 .reducedMotion .exitAnim {
@@ -581,5 +621,9 @@
 /* ── Thumbnail mode ─────────────────────────────────────────────────────── */
 
 .thumbnail .navIndicators {
+  display: none;
+}
+
+.thumbnail .folio {
   display: none;
 }

@@ -1,4 +1,4 @@
-/* ── Style 20: National Geographic ─────────────────────────────────────── */
+/* ── Style 20: Scholar's Vellum ─────────────────────────────────────── */
 
 .root {
   width: 100%;
@@ -6,89 +6,67 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-20-bg, #f5f5f0);
-  color: var(--style-20-ink, #1a1a1a);
-  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
+  background: var(--style-20-bg, #1c1f2e);
+  color: var(--style-20-ink, #f0e6c8);
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
 }
 
-/* ── Scene-to-Scene Transition: Yellow Frame Photo Reveal ──────────────── */
+/* ── Scene-to-Scene Transition: Vellum Page Turn ─────────────────────── */
 
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   will-change: transform, opacity;
 }
 
-/* Persistent yellow frame border (brand anchor) */
-.yellowFrame {
-  position: absolute;
-  inset: 2cqh;
-  border: 0.3cqh solid #ffcc00;
-  pointer-events: none;
-  z-index: 5;
-  border-radius: 0.2cqw;
-}
-
-/* Frame reveal overlay — expands from center during transition */
-.frameReveal {
+/* Subtle parchment texture overlay */
+.root::before {
+  content: "";
   position: absolute;
   inset: 0;
-  z-index: 4;
   pointer-events: none;
-  animation: frameExpand 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(240, 230, 200, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(240, 230, 200, 0.02) 0%, transparent 50%);
 }
 
-@keyframes frameExpand {
-  0% {
-    clip-path: inset(45% 45% 45% 45%);
-    background: rgba(255, 204, 0, 0.15);
-    box-shadow: inset 0 0 0 0.4cqh #ffcc00;
-  }
-  70% {
-    background: rgba(255, 204, 0, 0.05);
-  }
-  100% {
-    clip-path: inset(0% 0% 0% 0%);
-    background: transparent;
-    box-shadow: inset 0 0 0 0.4cqh #ffcc00;
-  }
-}
-
-/* Outgoing: content fades out behind frame */
+/* Outgoing: page lifts and fades */
 .exitAnim {
-  animation: natGeoExit 0.3s ease-in forwards;
+  animation: vellumExit 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   z-index: 1;
 }
 
-@keyframes natGeoExit {
+@keyframes vellumExit {
   from {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0) scale(1);
   }
   to {
     opacity: 0;
-    transform: scale(0.98);
+    transform: translateY(-3%) scale(0.99);
   }
 }
 
-/* Incoming: content fades in as frame settles */
+/* Incoming: page settles in from below */
 .enterAnim {
-  animation: natGeoEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  animation: vellumEnter 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
   z-index: 2;
 }
 
-@keyframes natGeoEnter {
+@keyframes vellumEnter {
   from {
     opacity: 0;
-    transform: scale(0.98);
+    transform: translateY(3%) scale(0.99);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0) scale(1);
   }
 }
 
-/* ── Scene 1: Cover ────────────────────────────────────────────────────── */
+/* ── Scene 1: Title Page ──────────────────────────────────────────────── */
 
 .coverScene {
   width: 100%;
@@ -96,138 +74,113 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5cqh 8cqw;
+  box-sizing: border-box;
 }
 
 .coverPhoto {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    160deg,
-    #1a3a2a 0%,
-    #2d5a3d 30%,
-    #4a7c59 60%,
-    #8fbc8f 100%
-  );
-}
-
-.coverPhoto::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent 40%,
-    rgba(0, 0, 0, 0.5) 100%
-  );
+  display: none;
 }
 
 .coverContent {
   position: relative;
   z-index: 2;
-  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 5cqh 6cqw;
+  align-items: center;
+  text-align: center;
 }
 
 .coverYellowBar {
-  width: 6cqw;
-  height: 0.6cqh;
-  background: #ffcc00;
-  margin-bottom: 3cqh;
+  width: 4cqw;
+  height: 0.08cqh;
+  background: var(--style-20-ink, #f0e6c8);
+  margin-bottom: 4cqh;
+  opacity: 0.35;
 }
 
 .coverLabel {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 2cqh;
-  color: #ffcc00;
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 1.8cqh;
+  color: #7a9e9f;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-weight: 700;
-  margin-bottom: 1.5cqh;
+  letter-spacing: 0.25em;
+  font-weight: 400;
+  margin-bottom: 2.5cqh;
 }
 
 .coverTitle {
-  font-family: Georgia, "cjk:Noto Serif SC", "Times New Roman", serif;
-  font-size: 9cqh;
-  font-weight: 900;
-  line-height: 1.05;
-  color: #ffffff;
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 8cqh;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.1;
+  color: var(--style-20-ink, #f0e6c8);
   margin: 0;
-  text-shadow: 0 0.5cqh 2cqh rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.01em;
 }
 
 .coverSubtitle {
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 2.8cqh;
-  color: rgba(255, 255, 255, 0.8);
-  margin-top: 1.5cqh;
-  font-weight: 300;
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2.6cqh;
+  color: var(--style-20-ink, #f0e6c8);
+  margin-top: 2cqh;
+  font-weight: 400;
+  font-style: italic;
+  opacity: 0.6;
 }
 
-/* ── Scene 2: Feature Story with photo ─────────────────────────────────── */
+/* ── Scene 2: Opening Essay ───────────────────────────────────────────── */
 
 .featureScene {
   width: 100%;
   height: 100%;
-  padding: 4cqh 5cqw;
+  padding: 4cqh 6cqw;
   box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 4cqw;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .featurePhoto {
-  position: relative;
-  height: 75cqh;
-  border-radius: 0.5cqw;
-  overflow: hidden;
+  display: none;
 }
 
 .featurePhotoGradient {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    #2c5f2d 0%,
-    #5a8f5c 40%,
-    #97bc62 70%,
-    #d4e09b 100%
-  );
+  display: none;
 }
 
 .featurePhotoCaption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2cqh 2cqw;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.6) 0%,
-    transparent 100%
-  );
-  border-left: 0.4cqh solid #ffcc00;
+  position: relative;
+  padding: 0;
+  background: none;
+  border-left: none;
+  margin-bottom: 3cqh;
 }
 
 .featurePhotoCaptionText {
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 1.8cqh;
-  color: #ffffff;
-  line-height: 1.4;
-  font-weight: 300;
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2.2cqh;
+  color: var(--style-20-ink, #f0e6c8);
+  line-height: 1.6;
+  font-weight: 400;
+  font-style: italic;
+  opacity: 0.7;
+  border-left: 0.15cqh solid #7a9e9f;
+  padding-left: 2cqw;
 }
 
 .featurePhotoCaptionCredit {
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "IBM Plex Mono", "Courier New", monospace;
   font-size: 1.4cqh;
-  color: #ffcc00;
-  margin-top: 0.5cqh;
-  font-weight: 500;
+  color: #7a9e9f;
+  margin-top: 0.8cqh;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
+  padding-left: 2cqw;
 }
 
 .featureText {
@@ -236,34 +189,36 @@
 }
 
 .featureKicker {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.8cqh;
-  color: #c41e3a;
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 1.6cqh;
+  color: #7a9e9f;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-weight: 700;
+  letter-spacing: 0.25em;
+  font-weight: 400;
   margin-bottom: 1.5cqh;
 }
 
 .featureHeadline {
-  font-family: Georgia, "cjk:Noto Serif SC", "Times New Roman", serif;
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
   font-size: 5.5cqh;
-  font-weight: 900;
-  line-height: 1.1;
-  color: var(--style-20-ink, #1a1a1a);
-  margin: 0 0 2cqh 0;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.15;
+  color: var(--style-20-ink, #f0e6c8);
+  margin: 0 0 2.5cqh 0;
 }
 
 .featureDeck {
-  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
-  font-size: 2.4cqh;
-  line-height: 1.5;
-  color: var(--style-20-ink, #1a1a1a);
-  opacity: 0.75;
-  font-weight: 300;
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2.6cqh;
+  line-height: 1.65;
+  color: var(--style-20-ink, #f0e6c8);
+  opacity: 0.8;
+  font-weight: 400;
+  max-width: 60cqw;
 }
 
-/* ── Scene 3: Photo Gallery / Data spread ──────────────────────────────── */
+/* ── Scene 3: Three Propositions ─────────────────────────────────────── */
 
 .galleryScene {
   width: 100%;
@@ -278,33 +233,34 @@
   display: flex;
   align-items: baseline;
   gap: 2cqw;
-  margin-bottom: 3cqh;
+  margin-bottom: 3.5cqh;
   padding-bottom: 1.5cqh;
-  border-bottom: 0.1cqh solid rgba(26, 26, 26, 0.15);
+  border-bottom: 0.06cqh solid rgba(240, 230, 200, 0.12);
 }
 
 .galleryYellowAccent {
-  width: 0.6cqh;
-  height: 5cqh;
-  background: #ffcc00;
-  border-radius: 0.1cqw;
+  width: 0.15cqh;
+  height: 4.5cqh;
+  background: #7a9e9f;
+  border-radius: 0;
 }
 
 .galleryLabel {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.8cqh;
-  color: #c41e3a;
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 1.6cqh;
+  color: #7a9e9f;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-weight: 700;
+  letter-spacing: 0.2em;
+  font-weight: 400;
 }
 
 .galleryTitle {
-  font-family: Georgia, "cjk:Noto Serif SC", "Times New Roman", serif;
-  font-size: 4.5cqh;
-  font-weight: 900;
-  line-height: 1.1;
-  color: var(--style-20-ink, #1a1a1a);
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 4cqh;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.15;
+  color: var(--style-20-ink, #f0e6c8);
   margin: 0;
 }
 
@@ -312,63 +268,53 @@
   flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 2cqw;
+  gap: 2.5cqw;
 }
 
 .galleryCard {
   display: flex;
   flex-direction: column;
+  border-top: 0.06cqh solid rgba(240, 230, 200, 0.15);
+  padding-top: 2cqh;
 }
 
 .galleryCardPhoto {
-  height: 30cqh;
-  border-radius: 0.3cqw;
-  overflow: hidden;
-  position: relative;
-}
-
-.galleryCard:nth-child(1) .galleryCardPhoto {
-  background: linear-gradient(135deg, #1e5631, #4a8f5f, #a8d8a8);
-}
-
-.galleryCard:nth-child(2) .galleryCardPhoto {
-  background: linear-gradient(135deg, #2c3e50, #5d7a8a, #b0c4d8);
-}
-
-.galleryCard:nth-child(3) .galleryCardPhoto {
-  background: linear-gradient(135deg, #8b4513, #c4956a, #e8d5b7);
+  display: none;
 }
 
 .galleryCardNumber {
-  position: absolute;
-  top: 1.5cqh;
-  left: 1.5cqw;
-  font-family: Georgia, serif;
-  font-size: 3cqh;
-  font-weight: 900;
-  color: #ffcc00;
-  text-shadow: 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.4);
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 3.5cqh;
+  font-weight: 600;
+  font-style: italic;
+  color: #7a9e9f;
+  line-height: 1;
+  margin-bottom: 1.5cqh;
+  opacity: 0.7;
 }
 
 .galleryCardCaption {
-  padding: 1.5cqh 0.5cqw 0 0.5cqw;
-  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
-  font-size: 1.8cqh;
-  line-height: 1.4;
-  color: var(--style-20-ink, #1a1a1a);
+  padding: 0;
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2cqh;
+  line-height: 1.55;
+  color: var(--style-20-ink, #f0e6c8);
   font-weight: 400;
+  opacity: 0.85;
 }
 
 .galleryCardCaption strong {
   display: block;
-  font-family: Georgia, "cjk:Noto Serif SC", serif;
-  font-size: 2.2cqh;
-  font-weight: 700;
-  margin-bottom: 0.3cqh;
-  color: var(--style-20-ink, #1a1a1a);
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2.4cqh;
+  font-weight: 600;
+  font-style: italic;
+  margin-bottom: 0.8cqh;
+  color: var(--style-20-ink, #f0e6c8);
+  opacity: 1;
 }
 
-/* ── Scene 4: Map / Infographic area ───────────────────────────────────── */
+/* ── Scene 4: Architecture of Thought ─────────────────────────────────── */
 
 .mapScene {
   width: 100%;
@@ -383,29 +329,30 @@
   display: flex;
   align-items: center;
   gap: 2cqw;
-  margin-bottom: 3cqh;
+  margin-bottom: 3.5cqh;
 }
 
 .mapYellowBar {
-  width: 4cqw;
-  height: 0.4cqh;
-  background: #ffcc00;
+  width: 3.5cqw;
+  height: 0.08cqh;
+  background: #7a9e9f;
 }
 
 .mapLabel {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.8cqh;
-  color: #c41e3a;
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 1.6cqh;
+  color: #7a9e9f;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-weight: 700;
+  letter-spacing: 0.2em;
+  font-weight: 400;
 }
 
 .mapTitle {
-  font-family: Georgia, "cjk:Noto Serif SC", "Times New Roman", serif;
-  font-size: 4.5cqh;
-  font-weight: 900;
-  color: var(--style-20-ink, #1a1a1a);
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 4cqh;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--style-20-ink, #f0e6c8);
   margin: 0;
 }
 
@@ -419,58 +366,60 @@
 .mapVisual {
   background: linear-gradient(
     145deg,
-    #e8e4d8 0%,
-    #d4cfc0 30%,
-    #c9c4b5 60%,
-    #bfb9a8 100%
+    rgba(240, 230, 200, 0.04) 0%,
+    rgba(240, 230, 200, 0.02) 50%,
+    rgba(122, 158, 159, 0.06) 100%
   );
-  border-radius: 0.5cqw;
+  border-radius: 0.3cqw;
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 0.04cqh solid rgba(240, 230, 200, 0.08);
 }
 
 .mapVisualLabel {
-  font-family: Georgia, serif;
+  font-family: "Source Serif Pro", Georgia, serif;
   font-size: 2.5cqh;
-  color: rgba(26, 26, 26, 0.3);
+  color: rgba(240, 230, 200, 0.2);
   font-style: italic;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
+  text-transform: none;
+  letter-spacing: 0.02em;
 }
 
 .mapStats {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 3cqh;
+  gap: 3.5cqh;
 }
 
 .mapStat {
-  border-left: 0.3cqh solid #ffcc00;
+  border-left: 0.15cqh solid #7a9e9f;
   padding-left: 2cqw;
 }
 
 .mapStatNumber {
-  font-family: Georgia, "cjk:Noto Serif SC", serif;
-  font-size: 6cqh;
-  font-weight: 900;
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 5.5cqh;
+  font-weight: 600;
+  font-style: italic;
   line-height: 1;
-  color: var(--style-20-ink, #1a1a1a);
+  color: var(--style-20-ink, #f0e6c8);
 }
 
 .mapStatLabel {
-  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
   font-size: 2cqh;
-  color: var(--style-20-ink, #1a1a1a);
-  opacity: 0.7;
-  margin-top: 0.5cqh;
+  color: var(--style-20-ink, #f0e6c8);
+  opacity: 0.65;
+  margin-top: 0.6cqh;
   font-weight: 400;
+  line-height: 1.4;
 }
 
-/* ── Scene 5: Closing / Quote ──────────────────────────────────────────── */
+/* ── Scene 5: Marginalia / Closing ────────────────────────────────────── */
 
 .closingScene {
   width: 100%;
@@ -489,50 +438,64 @@
   inset: 0;
   background: linear-gradient(
     170deg,
-    #1a3a2a 0%,
-    #2d5a3d 50%,
-    #1a3a2a 100%
+    rgba(240, 230, 200, 0.02) 0%,
+    rgba(122, 158, 159, 0.04) 50%,
+    rgba(240, 230, 200, 0.02) 100%
   );
 }
 
 .closingContent {
   position: relative;
   z-index: 2;
+  max-width: 65cqw;
 }
 
 .closingYellowBar {
-  width: 8cqw;
-  height: 0.5cqh;
-  background: #ffcc00;
+  width: 6cqw;
+  height: 0.06cqh;
+  background: #7a9e9f;
   margin: 0 auto 4cqh auto;
+  opacity: 0.5;
 }
 
 .closingQuote {
-  font-family: Georgia, "cjk:Noto Serif SC", "Times New Roman", serif;
-  font-size: 5.5cqh;
-  font-weight: 900;
-  line-height: 1.2;
-  color: #ffffff;
+  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 5cqh;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--style-20-ink, #f0e6c8);
   margin: 0;
   font-style: italic;
 }
 
 .closingAttribution {
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 2.2cqh;
-  color: #ffcc00;
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 1.8cqh;
+  color: #7a9e9f;
   margin-top: 3cqh;
   font-weight: 400;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .closingOrg {
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 1.8cqh;
-  color: rgba(255, 255, 255, 0.5);
-  margin-top: 0.8cqh;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.6cqh;
+  color: var(--style-20-ink, #f0e6c8);
+  margin-top: 1cqh;
+  font-style: italic;
+  opacity: 0.4;
+  letter-spacing: 0.05em;
+}
+
+/* ── Yellow frame (removed for vellum aesthetic) ──────────────────────── */
+
+.yellowFrame {
+  display: none;
+}
+
+.frameReveal {
+  display: none;
 }
 
 /* ── Navigation indicators ─────────────────────────────────────────────── */
@@ -551,7 +514,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  opacity: 0.1;
+  opacity: 0.12;
   transition: opacity 0.3s ease;
 }
 
@@ -560,7 +523,7 @@
 }
 
 .navIndicatorActive {
-  opacity: 0.22;
+  opacity: 0.25;
 }
 
 .navIndicatorActive:hover {
@@ -595,16 +558,17 @@
 
 .navIndicatorDot {
   display: block;
-  width: 1.5cqh;
-  height: 1.5cqh;
+  width: 1.2cqh;
+  height: 1.2cqh;
   border-radius: 50%;
-  background: #ffcc00;
-  border: 0.15cqh solid #ffcc00;
+  background: var(--style-20-ink, #f0e6c8);
+  border: 0.12cqh solid var(--style-20-ink, #f0e6c8);
 }
 
 .navIndicatorActive .navIndicatorDot {
-  background: transparent;
-  transform: scale(1.5);
+  background: #7a9e9f;
+  border-color: #7a9e9f;
+  transform: scale(1.4);
 }
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */

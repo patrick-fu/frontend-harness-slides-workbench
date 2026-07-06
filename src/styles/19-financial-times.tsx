@@ -52,100 +52,90 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      headline: "Financial Times",
-      tagline: "Quarterly Earnings Review — Q2 2026",
+      headline: "The Quiet Rebellion",
+      tagline: "Reclaiming attention in an age of distraction",
     },
     zh: {
-      headline: "金融时报",
-      tagline: "2026年第二季度财报回顾",
+      headline: "安静的反叛",
+      tagline: "在分心的时代重新夺回注意力",
     },
   },
   2: {
     en: {
-      kicker: "Markets",
-      headline: "Global Indices Mixed as Tech Rally Fades",
-      deck: "Investors weigh earnings surprises against inflation concerns amid shifting rate expectations",
+      kicker: "Cover Essay",
+      headline: "The Depth Deficit",
+      deck: "Why shallow thinking has become the defining condition of our time — and what we can do about it",
       markets: [
-        { name: "S&P 500", value: "5,847.21", change: "+0.82%", up: true },
-        { name: "NASDAQ", value: "18,392.45", change: "+1.24%", up: true },
-        { name: "FTSE 100", value: "8,271.33", change: "−0.31%", up: false },
-        { name: "Nikkei 225", value: "39,128.70", change: "−0.56%", up: false },
-        { name: "DAX", value: "18,534.12", change: "+0.18%", up: true },
-        { name: "Hang Seng", value: "17,842.55", change: "−1.12%", up: false },
+        { name: "Deep work hours/day", value: "1.2", change: "avg.", up: true },
+        { name: "Attention span (sec)", value: "47", change: "−25%", up: false },
+        { name: "Context switching", value: "every 3m", change: "freq.", up: false },
       ],
     },
     zh: {
-      kicker: "市场",
-      headline: "科技股涨势消退 全球指数涨跌互现",
-      deck: "投资者在利率预期转变之际权衡财报惊喜与通胀担忧",
+      kicker: "封面特稿",
+      headline: "深度赤字",
+      deck: "为什么浅层思考已成为我们这个时代的决定性状况——以及我们能做些什么",
       markets: [
-        { name: "标普500", value: "5,847.21", change: "+0.82%", up: true },
-        { name: "纳斯达克", value: "18,392.45", change: "+1.24%", up: true },
-        { name: "富时100", value: "8,271.33", change: "−0.31%", up: false },
-        { name: "日经225", value: "39,128.70", change: "−0.56%", up: false },
-        { name: "德国DAX", value: "18,534.12", change: "+0.18%", up: true },
-        { name: "恒生指数", value: "17,842.55", change: "−1.12%", up: false },
+        { name: "每日深度工作时长", value: "1.2", change: "小时", up: true },
+        { name: "注意力跨度（秒）", value: "47", change: "−25%", up: false },
+        { name: "上下文切换", value: "每3分钟", change: "频率", up: false },
       ],
     },
   },
   3: {
     en: {
-      earningsLabel: "Earnings Analysis",
-      earningsTitle: "Q2 Results: Margins Expand Despite Revenue Headwinds",
+      earningsLabel: "The Practice",
+      earningsTitle: "Three Disciplines for Rebuilding Focus",
       revenueItems: [
-        { label: "Total Revenue", value: "$84.2B" },
-        { label: "YoY Growth", value: "+7.3%", hl: "up" },
-        { label: "Operating Income", value: "$22.1B" },
-        { label: "Operating Margin", value: "26.2%", hl: "up" },
+        { label: "Temporal Boundaries", value: "Set hard stops", hl: "up" },
+        { label: "Sensory Simplicity", value: "Reduce input noise" },
+        { label: "Cognitive Rituals", value: "Warm-up routines", hl: "up" },
       ],
       marginItems: [
-        { label: "Net Income", value: "$18.7B" },
-        { label: "EPS", value: "$2.94" },
-        { label: "Free Cash Flow", value: "$19.3B", hl: "up" },
-        { label: "Guidance (Q3)", value: "$86–89B" },
+        { label: "Single-Tasking", value: "One thing at a time" },
+        { label: "Boredom Tolerance", value: "Let the mind wander" },
+        { label: "Analog Hours", value: "Screens off, 90 min", hl: "up" },
       ],
     },
     zh: {
-      earningsLabel: "盈利分析",
-      earningsTitle: "二季度业绩：尽管收入承压 利润率仍在扩大",
+      earningsLabel: "修炼方法",
+      earningsTitle: "重建专注力的三项修炼",
       revenueItems: [
-        { label: "总营收", value: "$842亿" },
-        { label: "同比增长", value: "+7.3%", hl: "up" },
-        { label: "营业利润", value: "$221亿" },
-        { label: "营业利润率", value: "26.2%", hl: "up" },
+        { label: "时间边界", value: "设定硬性停止点", hl: "up" },
+        { label: "感官简约", value: "减少输入噪音" },
+        { label: "认知仪式", value: "预热惯例", hl: "up" },
       ],
       marginItems: [
-        { label: "净利润", value: "$187亿" },
-        { label: "每股收益", value: "$2.94" },
-        { label: "自由现金流", value: "$193亿", hl: "up" },
-        { label: "三季度指引", value: "$860–890亿" },
+        { label: "单任务", value: "一次只做一件事" },
+        { label: "无聊耐受", value: "让思绪漫游" },
+        { label: "模拟时段", value: "断网90分钟", hl: "up" },
       ],
     },
   },
   4: {
     en: {
-      analysisLabel: "Lex Column",
-      analysisHeadline: "The Margin Mirage",
+      analysisLabel: "Reflection",
+      analysisHeadline: "On Slowness as a Moral Act",
       analysisBody:
-        "Beneath the headline numbers lies a more nuanced story. Companies have proven remarkably adept at protecting profitability through cost discipline and pricing power, but the quality of earnings deserves scrutiny. Revenue growth is increasingly driven by price rather than volume, a pattern that historically precedes margin compression when demand softens. Investors should distinguish between operational efficiency and financial engineering.",
-      analysisByline: "— FT Lex Team",
+        "There is something quietly radical about choosing to read a single long article instead of scrolling forty short ones. About giving one idea your full attention for an hour rather than grazing a hundred. This is not nostalgia for a slower time — it is a practical recognition that depth, not speed, is where meaning lives. The most important things we make — relationships, understanding, craft — all require the one commodity we have stopped protecting: uninterrupted time.",
+      analysisByline: "— From the Essay Series",
     },
     zh: {
-      analysisLabel: "Lex专栏",
-      analysisHeadline: "利润率的幻象",
+      analysisLabel: "沉思",
+      analysisHeadline: "论缓慢作为一种道德行为",
       analysisBody:
-        "在头条数字之下隐藏着一个更为微妙的故事。企业通过成本管控和定价权在保护盈利能力方面表现得出奇地娴熟，但盈利质量值得审视。收入增长越来越多地由价格而非数量驱动，从历史经验看，当需求走软时，这种模式往往先于利润率压缩。投资者应区分运营效率和财务工程。",
-      analysisByline: "—— FT Lex团队",
+        "选择读一篇长文而不是刷四十篇短文，这其中蕴含着一种安静的激进。把一个小时的全部注意力给予一个想法而不是浅尝一百个。这不是对慢时代的怀旧——而是一种实际的认知，即深度而非速度，才是意义所在。我们所创造的最重要的东西——关系、理解、技艺——都需要一种我们已经停止保护的商品：不被打断的时间。",
+      analysisByline: "—— 摘自随笔系列",
     },
   },
   5: {
     en: {
-      closing: "Markets close.\nAnalysis continues.",
-      closingSub: "Financial Times — Markets Edition — Q2 2026",
+      closing: "Read deeply.\nThink slowly.",
+      closingSub: "The Quiet Rebellion — Summer Feature — 2026",
     },
     zh: {
-      closing: "市场已收盘。\n分析仍在继续。",
-      closingSub: "金融时报 — 市场版 — 2026年第二季度",
+      closing: "深度阅读。\n缓慢思考。",
+      closingSub: "安静的反叛 — 夏季特稿 — 2026",
     },
   },
 };
@@ -153,10 +143,10 @@ const SCENES: Record<number, SceneContent> = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Financial Times", zh: "金融时报" };
+  const nameMap = { en: "Warm Editorial Feature", zh: "暖色专题特稿" };
   const themeMap = {
-    en: "Quarterly earnings analysis — salmon-pink paper with financial tables and serif headlines",
-    zh: "季度财报分析——鲑鱼粉纸张配财务数据表与衬线标题",
+    en: "Narrative-driven thought-leadership and personal essays — warm cream paper with literary serif voice and generous margins",
+    zh: "叙事型思想领导力与个人随笔——暖色奶油纸配以文学衬线字体与充裕留白",
   };
   const densityLabelMap = { en: "Data-Dense", zh: "数据密集" };
 
@@ -241,26 +231,26 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
     colors: {
-      bg: "#fff1e5",
-      ink: "#1a1a1a",
-      panel: "#ffe4cc",
+      bg: "#faf3e6",
+      ink: "#2c2416",
+      panel: "#f0e8d4",
     },
     typography: {
-      header: "Georgia Bold Italic",
-      body: "Source Serif Pro 400",
+      header: "Source Serif Pro Italic",
+      body: "Inter 400",
     },
     tags: [
-      "financial",
-      "newspaper",
-      "salmon",
-      "data",
+      "editorial",
+      "warm-paper",
+      "literary",
+      "feature-spread",
       "serif",
-      "earnings",
-      "markets",
-      "tabular",
-      "small-caps",
+      "unhurried",
+      "cream",
+      "pull-quote",
+      "narrative",
     ],
-    fonts: ["Georgia", "Source Serif Pro"],
+    fonts: ["Source Serif Pro", "Inter"],
     scenes,
   };
 }
@@ -281,9 +271,45 @@ export default function FinancialTimes({
   onNavigate,
   isTransitionClone,
 }: BespokeStyleProps) {
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // Font injection
   useLayoutEffect(() => {
@@ -293,25 +319,9 @@ export default function FinancialTimes({
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap";
+      "https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500&display=swap";
     document.head.appendChild(link);
   }, []);
-
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
-    }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
 
   // FLIP for scene 2 market table rows
   const { ref: marketTableRef } = useFLIP<HTMLTableSectionElement>({

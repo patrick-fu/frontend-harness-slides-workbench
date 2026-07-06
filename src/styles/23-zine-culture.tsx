@@ -136,10 +136,10 @@ const SCENES: Record<number, SceneContent> = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Zine Culture", zh: "杂志文化" };
+  const nameMap = { en: "Riso Print Zine", zh: "孔版印刷杂志" };
   const themeMap = {
-    en: "Indie music scene report — DIY cut-and-paste collage aesthetic with mixed typography and photocopied texture",
-    zh: "独立音乐场景报告——DIY拼贴美学，混合字体与影印质感",
+    en: "Manifestos and workshop decks — risograph print with 2-3 spot inks, paper grain, misregistration, and three-voice typography: condensed display, quiet body, hand-script",
+    zh: "宣言与工作坊演示——孔版印刷，2-3种专色油墨，纸张纹理，套印偏移，三声部字体：浓缩展示、安静正文、手写注记",
   };
   const densityLabelMap = { en: "Chaotic", zh: "混搭" };
 
@@ -224,26 +224,26 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 2,
     colors: {
-      bg: "#f0ebe0",
-      ink: "#1a1a1a",
-      panel: "#e8e0d0",
+      bg: "#f2ead8",
+      ink: "#1a1a2e",
+      panel: "#e8dfc8",
     },
     typography: {
-      header: "Permanent Marker",
-      body: "Caveat / Inter",
+      header: "Oswald 700",
+      body: "Inter 400",
     },
     tags: [
+      "riso",
       "zine",
+      "risograph",
+      "spot-ink",
+      "paper-grain",
+      "misregistration",
+      "condensed-display",
+      "hand-script",
       "diy",
-      "collage",
-      "handwritten",
-      "indie",
-      "punk",
-      "mixed-fonts",
-      "texture",
-      "off-kilter",
     ],
-    fonts: ["Caveat", "Permanent Marker", "Inter", "cjk:Noto Serif SC"],
+    fonts: ["Oswald", "Caveat", "Inter", "cjk:Noto Serif SC"],
     scenes,
   };
 }
@@ -265,9 +265,46 @@ export default function ZineCulture({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // Font injection
   useLayoutEffect(() => {
@@ -277,25 +314,9 @@ export default function ZineCulture({
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Permanent+Marker&family=Inter:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap";
+      "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Caveat:wght@400;700&family=Inter:wght@400;500;700&family=Noto+Serif+SC:wght@400;700&display=swap";
     document.head.appendChild(link);
   }, []);
-
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
-    }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
 
   useEffect(() => {
     setEntered(false);

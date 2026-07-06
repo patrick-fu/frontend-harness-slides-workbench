@@ -43,66 +43,66 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      label: "Wildlife Conservation",
-      title: "Vanishing Worlds",
-      subtitle: "The race to save Earth's most vulnerable ecosystems",
+      label: "Essay No. 14",
+      title: "On the Nature of Knowing",
+      subtitle: "Reflections on understanding in an age of information",
     },
     zh: {
-      label: "野生动物保护",
-      title: "消逝的世界",
-      subtitle: "拯救地球最脆弱生态系统的竞赛",
+      label: "第十四篇随笔",
+      title: "论认知的本质",
+      subtitle: "关于信息时代理解的反思",
     },
   },
   2: {
     en: {
-      kicker: "Cover Story",
-      title: "The Last Great Forests",
-      deck: "Deep in the Amazon basin, indigenous communities and scientists are joining forces to protect what remains of the world's largest tropical rainforest — and discovering that its survival may be inseparable from our own.",
-      caption: "Dawn light filters through the canopy in the Peruvian Amazon. Old-growth rainforests support more species per hectare than any other terrestrial ecosystem on Earth.",
-      credit: "Photograph by Carlos Rivas / National Geographic",
+      kicker: "Opening",
+      title: "The Quiet Work of Attention",
+      deck: "Before we can know anything deeply, we must first learn to pay attention — and attention, it turns out, is less a skill than a discipline of being present.",
+      caption: "Every act of seeing is also an act of choosing what not to see.",
+      credit: "— pinned to the wall, 3:47 am",
     },
     zh: {
-      kicker: "封面故事",
-      title: "最后的大森林",
-      deck: "在亚马逊盆地深处，原住民社区和科学家正在联手保护世界上最大热带雨林的残存部分——并发现它的生存可能与我们自身的生存密不可分。",
-      caption: "秘鲁亚马逊地区，晨光透过树冠洒落。原始雨林每公顷支持的物种数量超过地球上任何其他陆地生态系统。",
-      credit: "摄影：卡洛斯·里瓦斯 / 国家地理",
+      kicker: "开篇",
+      title: "注意力的静默劳作",
+      deck: "在我们能够深入认识任何事物之前，我们必须首先学会专注——而专注，与其说是一种技能，不如说是一种在场的修炼。",
+      caption: "每一次看见的行为，也是一次选择不去看什么的行为。",
+      credit: "—— 钉在墙上，凌晨3:47",
     },
   },
   3: {
     en: {
-      label: "Species at Risk",
-      galleryTitle: "Three Icons, Three Stories",
+      label: "Three Propositions",
+      galleryTitle: "What We Carry Forward",
       galleryCards: [
         {
-          title: "The Amur Leopard",
-          caption: "Fewer than 120 remain in the wild. Habitat loss and poaching have pushed this solitary hunter to the brink of extinction.",
+          title: "I. Memory is not storage",
+          caption: "It is reconstruction. Every recall rebuilds the past from fragments of the present, which is why remembering changes us.",
         },
         {
-          title: "The Vaquita",
-          caption: "The world's rarest marine mammal. Illegal gillnets in the Gulf of California threaten to silence this tiny porpoise forever.",
+          title: "II. Understanding is embodied",
+          caption: "We do not think with our brains alone but with our hands, our environments, and the people around us. Knowledge is distributed.",
         },
         {
-          title: "The Sumatran Orangutan",
-          caption: "Palm oil expansion has destroyed 80% of its habitat in two decades. Conservation corridors offer a fragile lifeline.",
+          title: "III. Wisdom requires slowness",
+          caption: "The pace of insight cannot be accelerated. What arrives quickly is information; what settles slowly is understanding.",
         },
       ],
     },
     zh: {
-      label: "濒危物种",
-      galleryTitle: "三个标志，三个故事",
+      label: "三个命题",
+      galleryTitle: "我们传承的东西",
       galleryCards: [
         {
-          title: "远东豹",
-          caption: "野生个体不足120只。栖息地丧失和偷猎将这种独居猎手推向了灭绝的边缘。",
+          title: "一、记忆不是存储",
+          caption: "它是重建。每一次回忆都从当下的碎片中重建过去，这就是为什么记忆改变着我们。",
         },
         {
-          title: "小头鼠海豚",
-          caption: "世界上最稀有的海洋哺乳动物。加利福尼亚湾的非法刺网威胁着这种小型鼠海豚的永久沉默。",
+          title: "二、理解是具身的",
+          caption: "我们不仅仅用大脑思考，还用双手、环境和周围的人思考。知识是分布式的。",
         },
         {
-          title: "苏门答腊猩猩",
-          caption: "棕榈油扩张在二十年内摧毁了其80%的栖息地。保护走廊提供了一条脆弱的生命线。",
+          title: "三、智慧需要缓慢",
+          caption: "洞见的节奏无法加速。快速到达的是信息；缓慢沉淀的是理解。",
         },
       ],
     },
@@ -110,33 +110,33 @@ const SCENES: Record<number, SceneContent> = {
   4: {
     en: {
       label: "By the Numbers",
-      mapTitle: "The Global Picture",
+      mapTitle: "The Architecture of Thought",
       stats: [
-        { number: "1M+", label: "Species threatened with extinction" },
-        { number: "60%", label: "Wildlife populations lost since 1970" },
-        { number: "30%", label: "Global land under protection" },
+        { number: "01", label: "The mind needs silence to think" },
+        { number: "07", label: "Years to master a domain, not days" },
+        { number: "40%", label: "Of what we 'know' is actually inference" },
       ],
     },
     zh: {
-      label: "数据说话",
-      mapTitle: "全球图景",
+      label: "数据佐证",
+      mapTitle: "思想的建筑",
       stats: [
-        { number: "100万+", label: "濒临灭绝的物种" },
-        { number: "60%", label: "自1970年以来消失的野生动物种群" },
-        { number: "30%", label: "受保护的全球陆地面积" },
+        { number: "01", label: "心灵需要沉默才能思考" },
+        { number: "07", label: "掌握一个领域需要年，不是天" },
+        { number: "40%", label: "我们'知道'的东西其实是推断" },
       ],
     },
   },
   5: {
     en: {
-      quote: "We are the first generation to feel the impact of climate change, and the last generation that can do something about it.",
-      attribution: "Dr. Jane Goodall",
-      org: "National Geographic Explorer at Large",
+      quote: "The most important thing we can learn in this century is not what to think, but how to be with what we do not yet understand.",
+      attribution: "— From the Margins",
+      org: "Scholar's Vellum — Essay XIV — 2026",
     },
     zh: {
-      quote: "我们是感受到气候变化影响的第一代，也是能够为此做些什么的最后一代。",
-      attribution: "珍·古道尔博士",
-      org: "国家地理常驻探险家",
+      quote: "在这个世纪，我们能学到的最重要的东西，不是该想什么，而是如何与我们尚未理解的事物共处。",
+      attribution: "—— 摘自页边笔记",
+      org: "学者羊皮卷 — 第十四篇 — 2026",
     },
   },
 };
@@ -144,32 +144,32 @@ const SCENES: Record<number, SceneContent> = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "National Geographic", zh: "国家地理" };
+  const nameMap = { en: "Scholar's Vellum", zh: "学者羊皮卷" };
   const themeMap = {
-    en: "Wildlife conservation report — large photo areas with yellow accent borders and bold serif headlines",
-    zh: "野生动物保护报道——大图片区域配黄色边框与粗体衬线标题",
+    en: "Research essays and reflective decks — warm-dark library wall with candlelit amber-cream italic serif and dusty teal annotations",
+    zh: "研究随笔与反思型演示——暖色深色图书馆墙配以烛光琥珀米色斜体衬线与灰青色注解",
   };
-  const densityLabelMap = { en: "Visual-First", zh: "视觉优先" };
+  const densityLabelMap = { en: "Reading-First", zh: "阅读优先" };
 
   const sceneTitles = {
-    en: ["Cover", "Feature Story", "Species Gallery", "Data Map", "Closing Quote"],
-    zh: ["封面", "专题报道", "物种图鉴", "数据地图", "结语引述"],
+    en: ["Title Page", "Opening Essay", "Three Propositions", "Architecture of Thought", "Marginalia"],
+    zh: ["扉页", "开篇随笔", "三个命题", "思想的建筑", "页边笔记"],
   };
 
   const beatActions = {
     en: {
-      1: ["Cover photo and title reveal"],
-      2: ["Feature photo with caption", "Story text appears"],
-      3: ["Card 1 appears", "Card 2 appears", "Card 3 appears"],
-      4: ["Map visual", "Stats column reveals"],
-      5: ["Quote with attribution"],
+      1: ["Manuscript title appears"],
+      2: ["Essay opening with caption", "Deck text reveals"],
+      3: ["Proposition I", "Proposition II", "Proposition III"],
+      4: ["Thought architecture visual", "Stats column reveals"],
+      5: ["Marginalia quote with attribution"],
     },
     zh: {
-      1: ["封面图片与标题呈现"],
-      2: ["专题图配说明", "报道文字呈现"],
-      3: ["卡片一呈现", "卡片二呈现", "卡片三呈现"],
-      4: ["地图视觉", "数据栏呈现"],
-      5: ["引语配署名"],
+      1: ["手稿标题呈现"],
+      2: ["随笔开篇配注解", "正文段落揭示"],
+      3: ["命题一", "命题二", "命题三"],
+      4: ["思想建筑视觉", "数据栏揭示"],
+      5: ["页边引语配署名"],
     },
   };
 
@@ -231,26 +231,26 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
     colors: {
-      bg: "#f5f5f0",
-      ink: "#1a1a1a",
-      panel: "#ffffff",
+      bg: "#1c1f2e",
+      ink: "#f0e6c8",
+      panel: "#252838",
     },
     typography: {
-      header: "Georgia 900",
+      header: "Source Serif Pro Italic",
       body: "Inter 300",
     },
     tags: [
-      "photography",
-      "nature",
-      "documentary",
-      "yellow-accent",
-      "exploration",
-      "serif",
-      "conservation",
-      "visual",
-      "geographic",
+      "scholarly",
+      "vellum",
+      "warm-dark",
+      "italic-serif",
+      "candlelight",
+      "manuscript",
+      "contemplative",
+      "mono-annotation",
+      "library-quiet",
     ],
-    fonts: ["Georgia", "Inter", "cjk:Noto Serif SC"],
+    fonts: ["Source Serif Pro", "Inter", "IBM Plex Mono", "cjk:Noto Serif SC"],
     scenes,
   };
 }
@@ -273,9 +273,45 @@ export default function NationalGeographic({
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // Font injection
   useLayoutEffect(() => {
@@ -285,25 +321,9 @@ export default function NationalGeographic({
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;700;900&display=swap";
+      "https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;700&display=swap";
     document.head.appendChild(link);
   }, []);
-
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
-    }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
 
   // Beat-level enter animation
   useEffect(() => {

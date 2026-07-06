@@ -40,70 +40,66 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      title: "The Reading Room",
-      subtitle: "A Quarterly Review of Contemporary Literature",
+      title: "MERIDIAN",
+      subtitle: "The Quarterly Review of Culture & Ideas",
     },
     zh: {
-      title: "阅读之室",
-      subtitle: "当代文学季评",
+      title: "MERIDIAN 子午线",
+      subtitle: "文化与思想季评",
     },
   },
   2: {
     en: {
-      label: "Fiction Excerpt",
-      text: "The city had not changed so much as it had learned to keep its secrets better. Every morning she walked the same route past the same buildings, yet each day they seemed to reveal a different face — a window newly opened, a door painted a colour she could not name.",
-      attribution: "— from 'The Cartographer's Dream' by Elena Vasquez",
+      label: "Cover Story",
+      text: "After the Algorithm",
+      attribution: "How creative intelligence survives in an age of synthetic everything",
     },
     zh: {
-      label: "小说节选",
-      text: "这座城市并没有太大变化，只是更善于保守自己的秘密了。每天早晨她走过同样的路线，经过同样的建筑，然而每一天它们似乎都展现出不同的面孔——一扇新打开的窗户，一扇漆成她说不出名字的颜色的门。",
-      attribution: "—— 摘自埃莱娜·巴斯克斯《制图师之梦》",
+      label: "封面故事",
+      text: "算法之后",
+      attribution: "在合成一切的时代，创造智能如何存续",
     },
   },
   3: {
     en: {
-      poemTitle: "Urban Elegy",
-      poemAuthor: "Marcus Chen",
+      poemTitle: "Manifesto",
+      poemAuthor: "From the Editor",
       stanzas: [
-        "Between the glass and steel we walk,\nour shadows stretched like thread.\nThe city hums its ancient song,\nof lives already led.",
-        "And in the quiet hours between,\nwhen neon starts to fade,\nwe find the spaces we have lost,\nin every choice we made.",
+        "We publish not to inform but to provoke. Not to fill space but to claim it. Every issue is a position taken, a line drawn, a flag planted in the shifting soil of contemporary thought.",
       ],
     },
     zh: {
-      poemTitle: "城市挽歌",
-      poemAuthor: "马库斯·陈",
+      poemTitle: "宣言",
+      poemAuthor: "来自主编",
       stanzas: [
-        "在玻璃与钢铁之间我们行走，\n影子如线般延展。\n城市低吟它古老的歌，\n关于那些已经走过的人生。",
-        "而在那些静谧的间隙，\n当霓虹开始褪色，\n我们找回了失去的空间，\n在每一个我们做出的选择中。",
+        "我们出版不是为了告知，而是为了激发。不是为了填充空间，而是为了占据它。每一期都是一次立场的宣示，一条划定的界线，一面插在当代思想变迁土壤中的旗帜。",
       ],
     },
   },
   4: {
     en: {
-      kicker: "Critical Essay",
-      headline: "The Return of the Unreliable Narrator",
+      kicker: "Profile",
+      headline: "The Quiet Revolutionary",
       body: [
-        "In recent fiction, we witness a striking resurgence of the unreliable narrator — a device once thought exhausted by postmodern playfulness. Today's writers deploy it not as a formal experiment but as an ethical instrument: to question how memory constructs identity, and how storytelling itself becomes a mode of survival.",
-        "The shift reflects a broader cultural anxiety about truth and authenticity in an age of algorithmic mediation. When every narrative can be synthesized, the unreliable narrator ceases to be a literary gimmick and becomes instead a mirror held up to the reader's own complicity in constructing meaning.",
+        "In a studio overlooking the harbour, an architect is rebuilding the way we think about public space — not through grand gestures but through patient, persistent attention to the places where people actually gather.",
       ],
     },
     zh: {
-      kicker: "评论随笔",
-      headline: "不可靠叙述者的回归",
+      kicker: "人物",
+      headline: "安静的革命者",
       body: [
-        "在近期小说中，我们目睹了不可靠叙述者的惊人复兴——这种手法曾被认为已被后现代的戏谑所耗尽。今天的作家不再将其作为形式实验，而是作为一种伦理工具：质疑记忆如何建构身份，以及叙事本身如何成为一种生存方式。",
-        "这一转变反映了在算法中介时代，人们对真实与本真的更广泛文化焦虑。当每一种叙事都可以被合成时，不可靠叙述者不再是文学噱头，而是一面镜子，映照出读者自身在意义建构中的共谋。",
+        "在一间俯瞰港口的工作室里，一位建筑师正在重建我们思考公共空间的方式——不是通过宏大的姿态，而是通过对人们真正聚集之地的耐心、持久的关注。",
       ],
     },
   },
   5: {
     en: {
-      closing: "Read slowly.\nRead again.",
-      note: "The Reading Room — Vol. XVIII — Summer 2026",
+      closing: "Published quarterly.\nRead deliberately.",
+      note: "Meridian — Vol. XXIV — Summer 2026",
     },
     zh: {
-      closing: "慢慢读。\n再读一遍。",
-      note: "阅读之室 — 第十八卷 — 2026年夏",
+      closing: "每季出版。\n用心阅读。",
+      note: "子午线 — 第二十四卷 — 2026年夏",
     },
   },
 };
@@ -111,10 +107,10 @@ const SCENES: Record<number, SceneContent> = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Literary Review", zh: "文学评论" };
+  const nameMap = { en: "Magazine Masthead", zh: "杂志刊头" };
   const themeMap = {
-    en: "Contemporary literature excerpts — journal typography with ornamental dividers and drop caps",
-    zh: "当代文学节选——期刊排版风格，装饰分隔线与首字下沉",
+    en: "Deck covers and section thresholds with editorial gravitas — saturated color field, theatrical serif, and masthead authority",
+    zh: "封面与章节门槛——饱和色域、戏剧化衬线字体与刊头式出版权威感",
   };
   const densityLabelMap = { en: "Reading-First", zh: "阅读优先" };
 
@@ -197,26 +193,26 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 2,
     colors: {
-      bg: "#faf6ee",
-      ink: "#1a1a1a",
-      panel: "#f0ead6",
+      bg: "#1a3a2a",
+      ink: "#f5f0e6",
+      panel: "#2d5a3d",
     },
     typography: {
-      header: "Playfair Display Italic",
-      body: "Lora 400",
+      header: "Playfair Display 900",
+      body: "Inter 400",
     },
     tags: [
-      "literary",
-      "journal",
-      "serif",
-      "ornamental",
-      "cream",
-      "poetry",
-      "drop-cap",
+      "magazine",
+      "masthead",
       "editorial",
-      "belles-lettres",
+      "fashion-serif",
+      "saturated-field",
+      "cover-page",
+      "theatrical",
+      "uppercase-chrome",
+      "print-authority",
     ],
-    fonts: ["Playfair Display", "Lora", "cjk:Noto Serif SC"],
+    fonts: ["Playfair Display", "Inter", "cjk:Noto Serif SC"],
     scenes,
   };
 }
@@ -239,9 +235,45 @@ export default function LiteraryReview({
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // Font injection
   useLayoutEffect(() => {
@@ -251,25 +283,9 @@ export default function LiteraryReview({
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;700&display=swap";
+      "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@400;700&display=swap";
     document.head.appendChild(link);
   }, []);
-
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
-    }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
 
   // Beat-level enter animation
   useEffect(() => {

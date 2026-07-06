@@ -1,4 +1,4 @@
-/* ── Style 22: Academic Journal ────────────────────────────────────────── */
+/* ── Style 22: Duotone Session ────────────────────────────────────────── */
 
 .root {
   width: 100%;
@@ -6,451 +6,450 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-22-bg, #ffffff);
-  color: var(--style-22-ink, #1a1a1a);
-  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+  background: var(--style-22-bg, #1c1c20);
+  color: var(--style-22-ink, #f0ece4);
+  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
 }
 
-/* ── Scene-to-scene transition: vertical scroll (PDF paper feel) ─────────
-   Outgoing: translateY(0) → translateY(-30%) + opacity 1 → 0.2
-   Incoming: translateY(30%) → translateY(0) + opacity 0.2 → 1
-   Duration: 500ms
+/* ── Scene-to-scene transition: percussive snap ─────────────────────────
+   Outgoing: quick fade + slight scale-down
+   Incoming: sharp slide-up, decisive easing
+   Duration: 500ms total
    ──────────────────────────────────────────────────────────────────────── */
 
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   will-change: transform, opacity;
 }
 
 .enterAnim {
-  animation: journalEnter 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: sessionEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   z-index: 2;
 }
 
-@keyframes journalEnter {
+@keyframes sessionEnter {
   from {
-    transform: translateY(30%);
-    opacity: 0.2;
+    transform: translateY(4%);
+    opacity: 0;
   }
   to {
     transform: translateY(0);
     opacity: 1;
   }
-}
-
-/* Page edge shadow at top of incoming scene (coming from below) */
-.enterAnim::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3cqh;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.12),
-    rgba(0, 0, 0, 0.04) 50%,
-    transparent
-  );
-  pointer-events: none;
-  z-index: 3;
 }
 
 .exitAnim {
-  animation: journalExit 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: sessionExit 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
   z-index: 1;
 }
 
-@keyframes journalExit {
+@keyframes sessionExit {
   from {
     transform: translateY(0);
     opacity: 1;
   }
   to {
-    transform: translateY(-30%);
-    opacity: 0.2;
+    transform: translateY(-3%);
+    opacity: 0;
   }
 }
 
-/* Page edge shadow at bottom of outgoing scene (moving up) */
-.exitAnim::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3cqh;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.1),
-    rgba(0, 0, 0, 0.03) 50%,
-    transparent
-  );
-  pointer-events: none;
-  z-index: 3;
-}
-
-/* ── Beat-level: equation/data display fade-in with scale ────────────────
-   scale(0.95) → scale(1) + opacity fade for equation displays and data.
-   ──────────────────────────────────────────────────────────────────────── */
-
-.eqReveal {
-  animation: eqRevealIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes eqRevealIn {
-  from {
-    transform: scale(0.95);
-    opacity: 0.7;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* ── Scene 1: Title Page ───────────────────────────────────────────────── */
+/* ── Scene 1: Session Title (LP Sleeve) ────────────────────────────────── */
 
 .journalTitlePage {
   width: 100%;
   height: 100%;
-  padding: 5cqh 8cqw;
-  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Duotone photo area — occupies left 55% of canvas */
+.duotonePhotoArea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55%;
+  height: 100%;
+  /* Simulated duotone: B&W photo + ember tint overlay */
+  background:
+    linear-gradient(
+      135deg,
+      rgba(212, 100, 74, 0.35) 0%,
+      rgba(212, 100, 74, 0.15) 50%,
+      rgba(28, 28, 32, 0.6) 100%
+    ),
+    linear-gradient(
+      160deg,
+      #3a3a40 0%,
+      #2a2a30 30%,
+      #1e1e22 60%,
+      #28282e 100%
+    );
+}
+
+.duotonePhotoArea::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Ember tint wash — the duotone identity */
+  background: rgba(212, 100, 74, 0.12);
+  mix-blend-mode: multiply;
+}
+
+.sessionContent {
+  position: relative;
+  z-index: 2;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  justify-content: flex-end;
+  padding: 5cqh 5cqw 5cqh 5cqw;
+  margin-left: 50%;
 }
 
-.journalHeader {
-  font-family: "Source Serif Pro", Georgia, serif;
-  font-size: 1.8cqh;
-  color: var(--style-22-ink, #1a1a1a);
+.sessionLabel {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.4cqh;
+  color: #d4644a;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-weight: 500;
+  margin-bottom: 2cqh;
+}
+
+.sessionTitle {
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
+  font-size: 11cqh;
+  font-weight: 700;
+  line-height: 0.92;
+  color: var(--style-22-ink, #f0ece4);
+  margin: 0 0 2.5cqh 0;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.sessionSubtitle {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 2.2cqh;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--style-22-ink, #f0ece4);
+  opacity: 0.6;
+  margin: 0 0 3cqh 0;
+}
+
+.sessionCatalog {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.3cqh;
+  color: var(--style-22-ink, #f0ece4);
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  margin-bottom: 4cqh;
-  opacity: 0.5;
-  font-variant: small-caps;
+  opacity: 0.35;
+  font-weight: 400;
+  border-top: 0.04cqh solid rgba(240, 236, 228, 0.15);
+  padding-top: 1.5cqh;
 }
 
-.journalPaperTitle {
-  font-family: Georgia, "Source Serif Pro", "cjk:Noto Serif SC", serif;
-  font-size: 7cqh;
-  font-weight: 700;
-  line-height: 1.12;
-  color: var(--style-22-ink, #1a1a1a);
-  margin: 0 0 3cqh 0;
-  max-width: 70cqw;
-}
-
-.journalAuthors {
-  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
-  font-size: 2.4cqh;
-  color: var(--style-22-ink, #1a1a1a);
-  margin-bottom: 1cqh;
-  opacity: 0.8;
-}
-
-.journalAffiliation {
-  font-family: "Source Serif Pro", Georgia, serif;
-  font-size: 1.8cqh;
-  color: var(--style-22-ink, #1a1a1a);
-  font-style: italic;
-  opacity: 0.5;
-  margin-bottom: 4cqh;
-}
-
-.journalDateLine {
-  font-family: "Source Serif Pro", Georgia, serif;
-  font-size: 1.6cqh;
-  color: var(--style-22-ink, #1a1a1a);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-variant: small-caps;
-  opacity: 0.4;
-  border-top: 0.04cqh solid rgba(26, 26, 26, 0.2);
-  padding-top: 2cqh;
-}
-
-/* ── Scene 2: Abstract ─────────────────────────────────────────────────── */
+/* ── Scene 2: Featured Artist ─────────────────────────────────────────── */
 
 .abstractScene {
   width: 100%;
   height: 100%;
-  padding: 4cqh 8cqw;
-  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.artistPhoto {
+  position: relative;
+  /* Duotone photo simulation */
+  background:
+    linear-gradient(
+      170deg,
+      rgba(212, 100, 74, 0.3) 0%,
+      rgba(212, 100, 74, 0.1) 40%,
+      rgba(28, 28, 32, 0.5) 100%
+    ),
+    linear-gradient(
+      150deg,
+      #353538 0%,
+      #28282e 35%,
+      #1e1e22 70%,
+      #2a2a30 100%
+    );
+}
+
+.artistPhoto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(212, 100, 74, 0.1);
+  mix-blend-mode: multiply;
+}
+
+.artistInfo {
+  padding: 5cqh 5cqw;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
-.abstractBox {
-  background: var(--style-22-panel, #f5f5f5);
-  border-left: 0.3cqh solid var(--style-22-ink, #1a1a1a);
-  padding: 3cqh 4cqw;
-  margin-bottom: 3cqh;
-  transform-origin: top center;
-}
-
-.abstractLabel {
-  font-family: "Source Serif Pro", Georgia, serif;
-  font-size: 1.8cqh;
-  font-weight: 700;
+.artistLabel {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.3cqh;
+  color: #d4644a;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-variant: small-caps;
-  color: var(--style-22-ink, #1a1a1a);
-  margin-bottom: 1.5cqh;
+  letter-spacing: 0.35em;
+  font-weight: 500;
+  margin-bottom: 2.5cqh;
 }
 
-.abstractText {
-  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
+.artistName {
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
+  font-size: 8cqh;
+  font-weight: 700;
+  line-height: 0.95;
+  color: var(--style-22-ink, #f0ece4);
+  margin: 0 0 1.5cqh 0;
+  text-transform: uppercase;
+}
+
+.artistCredit {
+  font-family: "Playfair Display", Georgia, serif;
   font-size: 2.2cqh;
-  line-height: 1.65;
-  color: var(--style-22-ink, #1a1a1a);
-  text-align: justify;
-  margin: 0;
-}
-
-.keywordsRow {
-  display: flex;
-  align-items: baseline;
-  gap: 1.5cqw;
-  flex-wrap: wrap;
-}
-
-.keywordsLabel {
-  font-family: "Source Serif Pro", Georgia, serif;
-  font-size: 1.8cqh;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-variant: small-caps;
-  color: var(--style-22-ink, #1a1a1a);
-  opacity: 0.6;
-}
-
-.keywordTag {
-  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
-  font-size: 1.8cqh;
-  color: var(--style-22-ink, #1a1a1a);
+  font-weight: 400;
   font-style: italic;
-  opacity: 0.7;
+  color: var(--style-22-ink, #f0ece4);
+  opacity: 0.65;
+  margin: 0 0 3cqh 0;
 }
 
-/* ── Scene 3: Methodology ──────────────────────────────────────────────── */
+.artistBio {
+  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
+  font-size: 2cqh;
+  line-height: 1.65;
+  color: var(--style-22-ink, #f0ece4);
+  font-weight: 300;
+  max-width: 38cqw;
+}
+
+/* ── Scene 3: Track Listing ───────────────────────────────────────────── */
 
 .methodScene {
   width: 100%;
   height: 100%;
-  padding: 4cqh 6cqw;
+  padding: 5cqh 6cqw;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
 
 .methodSectionHead {
-  border-bottom: 0.1cqh solid var(--style-22-ink, #1a1a1a);
-  padding-bottom: 1cqh;
+  border-bottom: 0.06cqh solid rgba(240, 236, 228, 0.12);
+  padding-bottom: 1.5cqh;
   margin-bottom: 3cqh;
 }
 
-.methodSectionNum {
-  font-family: "Source Serif Pro", Georgia, serif;
-  font-size: 1.8cqh;
-  color: var(--style-22-ink, #1a1a1a);
+.lineupLabel {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.3cqh;
+  color: #d4644a;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-variant: small-caps;
-  opacity: 0.5;
-  margin-bottom: 0.5cqh;
+  letter-spacing: 0.35em;
+  font-weight: 500;
+  margin-bottom: 0.8cqh;
 }
 
-.methodSectionTitle {
-  font-family: Georgia, "Source Serif Pro", "cjk:Noto Serif SC", serif;
-  font-size: 5cqh;
+.lineupTitle {
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
+  font-size: 6cqh;
   font-weight: 700;
-  line-height: 1.15;
-  color: var(--style-22-ink, #1a1a1a);
+  line-height: 1;
+  color: var(--style-22-ink, #f0ece4);
   margin: 0;
+  text-transform: uppercase;
 }
 
-.methodBody {
+.trackList {
   flex: 1;
-  column-count: 2;
-  column-gap: 4cqw;
-  column-rule: 0.04cqh solid rgba(26, 26, 26, 0.12);
-  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
-  font-size: 2.1cqh;
-  line-height: 1.6;
-  color: var(--style-22-ink, #1a1a1a);
-  text-align: justify;
-  transform-origin: top center;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-.methodBody p {
-  margin: 0 0 1.5cqh 0;
+.trackItem {
+  display: flex;
+  align-items: baseline;
+  gap: 2.5cqw;
+  padding: 1.8cqh 0;
+  border-bottom: 0.04cqh solid rgba(240, 236, 228, 0.08);
 }
 
-.citation {
-  font-size: 1.6cqh;
-  vertical-align: super;
-  color: var(--style-22-ink, #1a1a1a);
-  opacity: 0.6;
-  font-weight: 600;
+.trackItem:first-child {
+  border-top: 0.04cqh solid rgba(240, 236, 228, 0.08);
 }
 
-/* ── Scene 4: Results / Data Table ─────────────────────────────────────── */
+.trackNum {
+  font-family: "Oswald", "Impact", sans-serif;
+  font-size: 2.8cqh;
+  font-weight: 700;
+  color: #d4644a;
+  min-width: 4cqw;
+  line-height: 1;
+}
+
+.trackTitle {
+  flex: 1;
+  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
+  font-size: 2.4cqh;
+  font-weight: 400;
+  color: var(--style-22-ink, #f0ece4);
+}
+
+.trackDuration {
+  font-family: "Inter", "Courier New", monospace;
+  font-size: 1.8cqh;
+  color: var(--style-22-ink, #f0ece4);
+  opacity: 0.4;
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+}
+
+/* ── Scene 4: Technical Specs ─────────────────────────────────────────── */
 
 .resultsScene {
   width: 100%;
   height: 100%;
-  padding: 4cqh 6cqw;
+  padding: 5cqh 6cqw;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
 
 .resultsHeader {
-  border-bottom: 0.1cqh solid var(--style-22-ink, #1a1a1a);
-  padding-bottom: 1cqh;
+  border-bottom: 0.06cqh solid rgba(240, 236, 228, 0.12);
+  padding-bottom: 1.5cqh;
   margin-bottom: 3cqh;
 }
 
-.resultsLabel {
-  font-family: "Source Serif Pro", Georgia, serif;
-  font-size: 1.8cqh;
+.specsLabel {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.3cqh;
+  color: #d4644a;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-weight: 500;
+  margin-bottom: 0.8cqh;
+}
+
+.specsTitle {
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
+  font-size: 5.5cqh;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--style-22-ink, #f0ece4);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.specsList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--style-22-panel, #252530);
+  padding: 2cqh 3cqw;
+}
+
+.specItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1.5cqh 0;
+  border-bottom: 0.04cqh solid rgba(240, 236, 228, 0.06);
+}
+
+.specItem:last-child {
+  border-bottom: none;
+}
+
+.specItemLabel {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.6cqh;
+  color: var(--style-22-ink, #f0ece4);
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  font-variant: small-caps;
-  opacity: 0.5;
-  margin-bottom: 0.5cqh;
+  opacity: 0.45;
+  font-weight: 500;
 }
 
-.resultsTitle {
-  font-family: Georgia, "Source Serif Pro", "cjk:Noto Serif SC", serif;
-  font-size: 5cqh;
-  font-weight: 700;
-  line-height: 1.15;
-  color: var(--style-22-ink, #1a1a1a);
-  margin: 0;
+.specItemValue {
+  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
+  font-size: 2.2cqh;
+  color: var(--style-22-ink, #f0ece4);
+  font-weight: 400;
 }
 
-.resultsTable {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: "Source Serif Pro", Georgia, serif;
-  font-size: 2cqh;
-}
-
-.resultsTable th {
-  text-align: left;
-  padding: 1cqh 1.5cqw;
-  border-bottom: 0.1cqh solid var(--style-22-ink, #1a1a1a);
-  border-top: 0.1cqh solid var(--style-22-ink, #1a1a1a);
-  font-weight: 700;
-  font-size: 1.8cqh;
-  font-variant: small-caps;
-  letter-spacing: 0.05em;
-}
-
-.resultsTable th:not(:first-child) {
-  text-align: center;
-}
-
-.resultsTable td {
-  padding: 0.8cqh 1.5cqw;
-  border-bottom: 0.04cqh solid rgba(26, 26, 26, 0.12);
-}
-
-.resultsTable td:not(:first-child) {
-  text-align: center;
-  font-variant-numeric: tabular-nums;
-}
-
-.resultsTable tr:last-child td {
-  border-bottom: 0.1cqh solid var(--style-22-ink, #1a1a1a);
-}
-
-.resultsTable .tableHighlight {
-  font-weight: 700;
-  color: #1a5a3a;
-}
-
-.tableNote {
-  font-family: "Source Serif Pro", Georgia, serif;
-  font-size: 1.6cqh;
-  color: var(--style-22-ink, #1a1a1a);
-  font-style: italic;
-  opacity: 0.5;
-  margin-top: 1.5cqh;
-}
-
-/* ── Scene 5: Conclusion / References ──────────────────────────────────── */
+/* ── Scene 5: Closing Manifesto ───────────────────────────────────────── */
 
 .conclusionScene {
   width: 100%;
   height: 100%;
-  padding: 4cqh 8cqw;
-  box-sizing: border-box;
+  position: relative;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
-.conclusionHead {
-  font-family: "Source Serif Pro", Georgia, serif;
-  font-size: 1.8cqh;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-variant: small-caps;
-  opacity: 0.5;
-  margin-bottom: 2cqh;
+/* Full-bleed duotone background for closing */
+.closingDuotoneBg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(212, 100, 74, 0.2) 0%,
+      rgba(212, 100, 74, 0.05) 50%,
+      transparent 100%
+    ),
+    linear-gradient(
+      160deg,
+      #2e2e34 0%,
+      #222228 40%,
+      #1a1a1e 100%
+    );
 }
 
-.conclusionTitle {
-  font-family: Georgia, "Source Serif Pro", "cjk:Noto Serif SC", serif;
-  font-size: 5.5cqh;
+.closingContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 8cqw;
+}
+
+.closingStatement {
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
+  font-size: 9cqh;
   font-weight: 700;
-  line-height: 1.15;
-  color: var(--style-22-ink, #1a1a1a);
-  margin: 0 0 3cqh 0;
-}
-
-.conclusionBody {
-  font-family: "Source Serif Pro", "cjk:Noto Serif SC", Georgia, serif;
-  font-size: 2.4cqh;
-  line-height: 1.65;
-  color: var(--style-22-ink, #1a1a1a);
-  max-width: 60cqw;
-  text-align: justify;
-  margin: 0 0 3cqh 0;
-}
-
-.referencesBox {
-  border-top: 0.08cqh solid rgba(26, 26, 26, 0.2);
-  padding-top: 2cqh;
-  transform-origin: top center;
-}
-
-.referencesLabel {
-  font-family: "Source Serif Pro", Georgia, serif;
-  font-size: 1.6cqh;
+  line-height: 0.95;
+  color: var(--style-22-ink, #f0ece4);
+  margin: 0 0 4cqh 0;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-variant: small-caps;
-  opacity: 0.4;
-  margin-bottom: 1cqh;
+  letter-spacing: -0.01em;
 }
 
-.referenceItem {
-  font-family: "Source Serif Pro", Georgia, serif;
-  font-size: 1.6cqh;
-  color: var(--style-22-ink, #1a1a1a);
-  line-height: 1.5;
-  opacity: 0.55;
-  margin-bottom: 0.5cqh;
+.closingCredit {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 2cqh;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--style-22-ink, #f0ece4);
+  opacity: 0.5;
+  margin: 0;
 }
 
 /* ── Navigation indicators ─────────────────────────────────────────────── */
@@ -469,20 +468,20 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  opacity: 0.08;
+  opacity: 0.12;
   transition: opacity 0.3s ease;
 }
 
 .navIndicator:hover {
-  opacity: 0.3;
+  opacity: 0.35;
 }
 
 .navIndicatorActive {
-  opacity: 0.2;
+  opacity: 0.25;
 }
 
 .navIndicatorActive:hover {
-  opacity: 0.45;
+  opacity: 0.5;
 }
 
 .navIndicator:nth-child(1) {
@@ -513,16 +512,15 @@
 
 .navIndicatorNum {
   display: block;
-  font-family: "Source Serif Pro", Georgia, serif;
-  font-size: 2cqh;
+  font-family: "Oswald", "Impact", sans-serif;
+  font-size: 2.2cqh;
   font-weight: 700;
-  color: var(--style-22-ink, #1a1a1a);
-  font-variant-numeric: tabular-nums;
+  color: var(--style-22-ink, #f0ece4);
+  text-transform: uppercase;
 }
 
 .navIndicatorActive .navIndicatorNum {
-  text-decoration: underline;
-  text-underline-offset: 0.3cqh;
+  color: #d4644a;
 }
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
@@ -533,8 +531,7 @@
 }
 
 .reducedMotion .enterAnim,
-.reducedMotion .exitAnim,
-.reducedMotion .eqReveal {
+.reducedMotion .exitAnim {
   animation-duration: 0s !important;
   animation-delay: 0s !important;
 }
@@ -547,11 +544,6 @@
 .reducedMotion .exitAnim {
   transform: none !important;
   opacity: 0 !important;
-}
-
-.reducedMotion .enterAnim::before,
-.reducedMotion .exitAnim::after {
-  display: none !important;
 }
 
 /* ── Thumbnail mode ─────────────────────────────────────────────────────── */

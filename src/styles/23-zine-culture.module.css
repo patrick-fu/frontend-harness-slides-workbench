@@ -1,4 +1,4 @@
-/* ── Style 23: Zine Culture ────────────────────────────────────────────── */
+/* ── Style 23: Riso Print Zine ────────────────────────────────────────── */
 
 .root {
   width: 100%;
@@ -6,8 +6,8 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-23-bg, #f0ebe0);
-  color: var(--style-23-ink, #1a1a1a);
+  background: var(--style-23-bg, #f2ead8);
+  color: var(--style-23-ink, #1a1a2e);
   font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
 }
 
@@ -28,6 +28,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .track {
@@ -118,20 +119,21 @@
 }
 
 .zineCoverTitle {
-  font-family: "Permanent Marker", "cjk:Noto Serif SC", cursive;
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
   font-size: 14cqh;
+  font-weight: 700;
   line-height: 0.95;
-  color: var(--style-23-ink, #1a1a1a);
+  color: var(--style-23-ink, #1a1a2e);
   margin: 0;
   transform: rotate(-2deg);
-  letter-spacing: -0.02em;
-  text-shadow: 0.3cqh 0.3cqh 0 rgba(196, 30, 58, 0.3);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
 }
 
 .zineCoverSub {
   font-family: "Caveat", "cjk:Noto Serif SC", cursive;
   font-size: 5cqh;
-  color: #c41e3a;
+  color: #d4644a;
   margin-top: 2cqh;
   transform: rotate(1deg);
   display: inline-block;
@@ -140,7 +142,7 @@
 .zineCoverIssue {
   font-family: "Inter", system-ui, sans-serif;
   font-size: 2cqh;
-  color: var(--style-23-ink, #1a1a1a);
+  color: var(--style-23-ink, #1a1a2e);
   text-transform: uppercase;
   letter-spacing: 0.2em;
   margin-top: 4cqh;
@@ -153,14 +155,16 @@
   position: absolute;
   top: -3cqh;
   right: 5cqw;
-  font-family: "Permanent Marker", cursive;
+  font-family: "Oswald", "Impact", sans-serif;
   font-size: 3cqh;
-  color: #c41e3a;
-  border: 0.3cqh solid #c41e3a;
+  font-weight: 700;
+  color: #d4644a;
+  border: 0.3cqh solid #d4644a;
   padding: 0.5cqh 1.5cqw;
   transform: rotate(12deg);
   opacity: 0.7;
-  border-radius: 0.3cqw;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* ── Scene 2: Collage Feature ──────────────────────────────────────────── */
@@ -174,16 +178,18 @@
 }
 
 .zineCollageTitle {
-  font-family: "Permanent Marker", "cjk:Noto Serif SC", cursive;
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
   font-size: 6cqh;
+  font-weight: 700;
   line-height: 1;
-  color: var(--style-23-ink, #1a1a1a);
+  color: var(--style-23-ink, #1a1a2e);
   margin: 0 0 2cqh 0;
   transform: rotate(-1deg);
+  text-transform: uppercase;
 }
 
 .zineCollageTitle span {
-  color: #c41e3a;
+  color: #d4644a;
 }
 
 .zineCutout1 {
@@ -192,10 +198,10 @@
   left: 8cqw;
   width: 30cqw;
   height: 35cqh;
-  background: linear-gradient(135deg, #d4a574, #c4956a, #b8865c);
+  background: #d4a574;
   transform: rotate(-3deg);
-  border: 0.2cqh solid var(--style-23-ink, #1a1a1a);
-  box-shadow: 0.5cqh 0.5cqh 0 rgba(26, 26, 26, 0.15);
+  border: 0.2cqh solid var(--style-23-ink, #1a1a2e);
+  box-shadow: 0.5cqh 0.5cqh 0 rgba(26, 26, 46, 0.15);
 }
 
 .zineCutout1::after {
@@ -206,8 +212,8 @@
     45deg,
     transparent,
     transparent 1cqh,
-    rgba(26, 26, 26, 0.03) 1cqh,
-    rgba(26, 26, 26, 0.03) 2cqh
+    rgba(26, 26, 46, 0.03) 1cqh,
+    rgba(26, 26, 46, 0.03) 2cqh
   );
 }
 
@@ -217,10 +223,10 @@
   right: 10cqw;
   width: 25cqw;
   height: 30cqh;
-  background: linear-gradient(160deg, #2a2a2a, #3a3a3a, #4a4a4a);
+  background: #3a3a42;
   transform: rotate(2.5deg);
-  border: 0.2cqh solid var(--style-23-ink, #1a1a1a);
-  box-shadow: 0.5cqh 0.5cqh 0 rgba(26, 26, 26, 0.15);
+  border: 0.2cqh solid var(--style-23-ink, #1a1a2e);
+  box-shadow: 0.5cqh 0.5cqh 0 rgba(26, 26, 46, 0.15);
 }
 
 .zineCutout3 {
@@ -229,10 +235,10 @@
   left: 20cqw;
   width: 20cqw;
   height: 20cqh;
-  background: linear-gradient(135deg, #e85d75, #d44a62, #c41e3a);
+  background: #d4644a;
   transform: rotate(4deg);
-  border: 0.2cqh solid var(--style-23-ink, #1a1a1a);
-  box-shadow: 0.4cqh 0.4cqh 0 rgba(26, 26, 26, 0.15);
+  border: 0.2cqh solid var(--style-23-ink, #1a1a2e);
+  box-shadow: 0.4cqh 0.4cqh 0 rgba(26, 26, 46, 0.15);
 }
 
 .zineHandwritten {
@@ -241,7 +247,7 @@
   right: 12cqw;
   font-family: "Caveat", "cjk:Noto Serif SC", cursive;
   font-size: 4cqh;
-  color: var(--style-23-ink, #1a1a1a);
+  color: var(--style-23-ink, #1a1a2e);
   transform: rotate(-2deg);
   line-height: 1.2;
 }
@@ -250,9 +256,10 @@
   position: absolute;
   bottom: 18cqh;
   right: 28cqw;
-  font-family: "Permanent Marker", cursive;
+  font-family: "Oswald", "Impact", sans-serif;
   font-size: 5cqh;
-  color: #c41e3a;
+  font-weight: 700;
+  color: #d4644a;
   transform: rotate(-30deg);
 }
 
@@ -265,21 +272,26 @@
 }
 
 .zineListLabel {
-  font-family: "Permanent Marker", "cjk:Noto Serif SC", cursive;
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
   font-size: 3cqh;
-  color: #c41e3a;
+  font-weight: 700;
+  color: #d4644a;
   transform: rotate(-1deg);
   display: inline-block;
   margin-bottom: 2cqh;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .zineListTitle {
-  font-family: "Permanent Marker", "cjk:Noto Serif SC", cursive;
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
   font-size: 5.5cqh;
+  font-weight: 700;
   line-height: 1.1;
-  color: var(--style-23-ink, #1a1a1a);
+  color: var(--style-23-ink, #1a1a2e);
   margin: 0 0 3cqh 0;
   transform: rotate(-0.5deg);
+  text-transform: uppercase;
 }
 
 .zineBandItems {
@@ -293,7 +305,7 @@
   align-items: baseline;
   gap: 2cqw;
   padding: 1.2cqh 0;
-  border-bottom: 0.1cqh dashed rgba(26, 26, 26, 0.25);
+  border-bottom: 0.1cqh dashed rgba(26, 26, 46, 0.25);
   transform: rotate(-0.3deg);
 }
 
@@ -303,9 +315,10 @@
 }
 
 .zineBandNum {
-  font-family: "Permanent Marker", cursive;
+  font-family: "Oswald", "Impact", sans-serif;
   font-size: 3cqh;
-  color: #c41e3a;
+  font-weight: 700;
+  color: #d4644a;
   min-width: 3cqw;
 }
 
@@ -313,7 +326,7 @@
   font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
   font-size: 2.8cqh;
   font-weight: 700;
-  color: var(--style-23-ink, #1a1a1a);
+  color: var(--style-23-ink, #1a1a2e);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -321,7 +334,7 @@
 .zineBandGenre {
   font-family: "Caveat", "cjk:Noto Serif SC", cursive;
   font-size: 2.4cqh;
-  color: var(--style-23-ink, #1a1a1a);
+  color: var(--style-23-ink, #1a1a2e);
   opacity: 0.5;
 }
 
@@ -332,10 +345,10 @@
   max-width: 75cqw;
   position: relative;
   padding: 3cqh 4cqw;
-  border: 0.25cqh solid var(--style-23-ink, #1a1a1a);
-  background: var(--style-23-panel, #e8e0d0);
+  border: 0.25cqh solid var(--style-23-ink, #1a1a2e);
+  background: var(--style-23-panel, #e8dfc8);
   transform: rotate(-0.5deg);
-  box-shadow: 0.6cqh 0.6cqh 0 rgba(26, 26, 26, 0.12);
+  box-shadow: 0.6cqh 0.6cqh 0 rgba(26, 26, 46, 0.12);
 }
 
 .zineInterview::before {
@@ -351,19 +364,22 @@
 }
 
 .zineInterviewLabel {
-  font-family: "Permanent Marker", "cjk:Noto Serif SC", cursive;
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
   font-size: 2.5cqh;
-  color: #c41e3a;
+  font-weight: 700;
+  color: #d4644a;
   margin-bottom: 1.5cqh;
   transform: rotate(-1deg);
   display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .zineInterviewQ {
   font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
   font-size: 2.2cqh;
   font-weight: 700;
-  color: var(--style-23-ink, #1a1a1a);
+  color: var(--style-23-ink, #1a1a2e);
   margin-bottom: 1cqh;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -373,7 +389,7 @@
   font-family: "Caveat", "cjk:Noto Serif SC", cursive;
   font-size: 3cqh;
   line-height: 1.4;
-  color: var(--style-23-ink, #1a1a1a);
+  color: var(--style-23-ink, #1a1a2e);
   margin: 0 0 2.5cqh 0;
 }
 
@@ -388,29 +404,31 @@
 .zineBackBox {
   display: inline-block;
   padding: 4cqh 6cqw;
-  border: 0.3cqh solid var(--style-23-ink, #1a1a1a);
+  border: 0.3cqh solid var(--style-23-ink, #1a1a2e);
   transform: rotate(-1deg);
-  background: var(--style-23-panel, #e8e0d0);
-  box-shadow: 0.8cqh 0.8cqh 0 rgba(26, 26, 26, 0.1);
+  background: var(--style-23-panel, #e8dfc8);
+  box-shadow: 0.8cqh 0.8cqh 0 rgba(26, 26, 46, 0.1);
 }
 
 .zineBackText {
-  font-family: "Permanent Marker", "cjk:Noto Serif SC", cursive;
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
   font-size: 7cqh;
+  font-weight: 700;
   line-height: 1.05;
-  color: var(--style-23-ink, #1a1a1a);
+  color: var(--style-23-ink, #1a1a2e);
   margin: 0;
+  text-transform: uppercase;
 }
 
 .zineBackText em {
-  color: #c41e3a;
+  color: #d4644a;
   font-style: normal;
 }
 
 .zineBackSub {
   font-family: "Caveat", "cjk:Noto Serif SC", cursive;
   font-size: 3.5cqh;
-  color: var(--style-23-ink, #1a1a1a);
+  color: var(--style-23-ink, #1a1a2e);
   margin-top: 2cqh;
   opacity: 0.6;
 }
@@ -419,9 +437,10 @@
   position: absolute;
   bottom: -2cqh;
   right: -2cqw;
-  font-family: "Permanent Marker", cursive;
+  font-family: "Oswald", "Impact", sans-serif;
   font-size: 6cqh;
-  color: #c41e3a;
+  font-weight: 700;
+  color: #d4644a;
   transform: rotate(15deg);
   opacity: 0.5;
 }
@@ -490,9 +509,10 @@
 
 .navIndicatorStar {
   display: block;
-  font-family: "Permanent Marker", cursive;
+  font-family: "Oswald", "Impact", sans-serif;
   font-size: 3cqh;
-  color: #c41e3a;
+  font-weight: 700;
+  color: #d4644a;
   line-height: 1;
 }
 

@@ -1,9 +1,9 @@
 /* ── Style 17: Editorial Broadsheet ─────────────────────────────────────── */
 
 :root {
-  --style-17-paper: #faf8f3;
+  --style-17-paper: #f5f0e6;
   --style-17-ink: #1a1a1a;
-  --style-17-accent: #c41e3a;
+  --style-17-accent: #b82028;
 }
 
 /* ── Scene-to-Scene: Page Turn (3D flip around Y-axis, left edge) ─────── */
@@ -23,6 +23,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   backface-visibility: hidden;
 }
 
@@ -44,7 +45,7 @@
 
 /* Incoming page: flip in from behind, starting from right */
 .enterAnim {
-  animation: pageFlipEnter 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: pageFlipEnter 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
   transform-origin: left center;
   z-index: 1;
 }
