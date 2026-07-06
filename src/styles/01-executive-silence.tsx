@@ -419,7 +419,7 @@ export default function ExecutiveSilence({
       <SpatialSceneTrack
         scene={scene}
         beat={beat}
-        axis="x"
+        transitionKind="scale-fade"
         reducedMotion={reducedMotion || isThumbnail}
         renderScene={(sceneId, sceneBeat, isActive) => (
           <div className={styles.track}>

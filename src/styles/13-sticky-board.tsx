@@ -516,7 +516,7 @@ export default function StickyBoard({
             <SpatialSceneTrack
         scene={scene}
         beat={beat}
-        axis="x"
+        transitionKind="slide-y"
         reducedMotion={reducedMotion || isThumbnail}
         beatLayoutModes={BEAT_LAYOUT_MODES}
         renderScene={(sceneId, sceneBeat, isActive) => (

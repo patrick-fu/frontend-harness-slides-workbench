@@ -510,7 +510,7 @@ export default function OrgChart({
             <SpatialSceneTrack
         scene={scene}
         beat={beat}
-        axis="x"
+        transitionKind="scale-fade"
         reducedMotion={reducedMotion || isThumbnail}
         beatLayoutModes={BEAT_LAYOUT_MODES}
         renderScene={(sceneId, sceneBeat, isActive) => (

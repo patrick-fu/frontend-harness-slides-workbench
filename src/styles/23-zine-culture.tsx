@@ -513,7 +513,7 @@ export default function ZineCulture({
             <SpatialSceneTrack
         scene={scene}
         beat={beat}
-        axis="x"
+        transitionKind="glitch"
         reducedMotion={reducedMotion || isThumbnail}
         beatLayoutModes={BEAT_LAYOUT_MODES}
         renderScene={(sceneId, sceneBeat) => (

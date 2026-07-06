@@ -149,7 +149,7 @@ export default function ExecutiveSilenceDecisionArt({
       <SpatialSceneTrack
         scene={scene}
         beat={beat}
-        axis="x"
+        transitionKind="scale-fade"
         reducedMotion={reducedMotion || isThumbnail}
         renderScene={(sceneId, sceneBeat, isActive) => (
           <ScenePanel scene={sceneId} beat={sceneBeat} isActive={isActive} />
@@ -206,16 +206,18 @@ interface StyleVersion {
 ### 5.2 场景转场
 
 - 默认使用 `SpatialSceneTrack` 管理 scene 生命周期。
-- `SpatialSceneTrack` 会渲染稳定相邻 panels，并通过整条 track 的 `translate3d(...)` 做空间移动。
+- `SpatialSceneTrack` 会渲染稳定 scene panels，并通过 `transitionKind` 选择视觉转场。
 - 不要在 Style 内维护 `outgoingScene`、不要渲染 full-screen outgoing clone、不要读取 `isTransitionClone`。
 - `reducedMotion` 或 thumbnail/frozen 场景下传入 `reducedMotion={true}`，track 会关闭 transition。
+- 每个 Style 必须显式声明 `transitionKind`，避免全仓库退化成同一种横向滑动。
+- 当前支持：`slide-x`、`slide-y`、`fade`、`scale-fade`、`hard-cut`、`wipe`、`page-flip`、`glitch`。
 
 ```tsx
 // ✅ 正确
 <SpatialSceneTrack
   scene={scene}
   beat={beat}
-  axis="x"
+  transitionKind="scale-fade"
   reducedMotion={reducedMotion || isThumbnail}
   renderScene={(sceneId, sceneBeat, isActive) => (
     <ScenePanel scene={sceneId} beat={sceneBeat} isActive={isActive} />

@@ -559,7 +559,7 @@ export default function EditorialBroadsheet({
             <SpatialSceneTrack
         scene={scene}
         beat={beat}
-        axis="x"
+        transitionKind="page-flip"
         reducedMotion={reducedMotion || isThumbnail}
         beatLayoutModes={BEAT_LAYOUT_MODES}
         renderScene={(sceneId, sceneBeat) => (

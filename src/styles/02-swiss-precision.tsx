@@ -453,7 +453,7 @@ export default function SwissPrecision({
             <SpatialSceneTrack
         scene={scene}
         beat={beat}
-        axis="x"
+        transitionKind="wipe"
         reducedMotion={reducedMotion || isThumbnail}
         beatLayoutModes={BEAT_LAYOUT_MODES}
         renderScene={(sceneId, sceneBeat, isActive) => (

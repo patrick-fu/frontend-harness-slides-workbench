@@ -8,6 +8,7 @@ function renderTrack(props: Partial<React.ComponentProps<typeof SpatialSceneTrac
       scene={2}
       beat={0}
       axis="x"
+      transitionKind="slide-x"
       sceneIds={[1, 2, 3]}
       reducedMotion={false}
       renderScene={(sceneId) => (
@@ -19,36 +20,48 @@ function renderTrack(props: Partial<React.ComponentProps<typeof SpatialSceneTrac
 }
 
 describe("SpatialSceneTrack", () => {
-  it("keeps five horizontal panels one viewport wide and moves one panel per scene", () => {
+  it("marks the selected scene transition kind on the track", () => {
+    renderTrack({ transitionKind: "fade" });
+
+    const track = screen.getByTestId("spatial-scene-track");
+    const strip = screen.getByTestId("spatial-scene-strip");
+    const panels = screen.getAllByTestId("spatial-scene-panel");
+
+    expect(track).toHaveAttribute("data-scene-transition-kind", "fade");
+    expect(strip).toHaveAttribute("data-scene-transition-kind", "fade");
+    expect(panels.map((panel) => panel.dataset.transitionState)).toEqual([
+      "idle",
+      "active",
+      "idle",
+    ]);
+  });
+
+  it("keeps five slide-x panels mounted without transition clones", () => {
     renderTrack({ sceneIds: [1, 2, 3, 4, 5], scene: 2 });
 
     const strip = screen.getByTestId("spatial-scene-strip");
     const panels = screen.getAllByTestId("spatial-scene-panel");
 
-    expect(strip.style.width).toBe("500%");
-    expect(strip.style.transform).toBe("translate3d(-20%, 0, 0)");
+    expect(strip).toHaveAttribute("data-scene-transition-kind", "slide-x");
+    expect(strip).toHaveAttribute("data-transition-direction", "forward");
     expect(panels).toHaveLength(5);
-    expect(panels.map((panel) => panel.style.flex)).toEqual(
-      Array(5).fill("0 0 20%"),
+    expect(panels.map((panel) => panel.style.position)).toEqual(
+      Array(5).fill("absolute"),
     );
-    expect(panels.map((panel) => panel.style.width)).toEqual(
-      Array(5).fill("20%"),
-    );
+    expect(strip.querySelector("[data-transition-clone='true']")).toBeNull();
   });
 
-  it("keeps five vertical panels one viewport tall and moves one panel per scene", () => {
-    renderTrack({ sceneIds: [1, 2, 3, 4, 5], scene: 3, axis: "y" });
+  it("keeps five slide-y panels mounted without transition clones", () => {
+    renderTrack({ sceneIds: [1, 2, 3, 4, 5], scene: 3, transitionKind: "slide-y" });
 
     const strip = screen.getByTestId("spatial-scene-strip");
     const panels = screen.getAllByTestId("spatial-scene-panel");
 
-    expect(strip.style.height).toBe("500%");
-    expect(strip.style.transform).toBe("translate3d(0, -40%, 0)");
-    expect(panels.map((panel) => panel.style.flex)).toEqual(
-      Array(5).fill("0 0 20%"),
-    );
-    expect(panels.map((panel) => panel.style.height)).toEqual(
-      Array(5).fill("20%"),
+    expect(strip).toHaveAttribute("data-scene-transition-kind", "slide-y");
+    expect(strip).toHaveAttribute("data-transition-direction", "forward");
+    expect(panels).toHaveLength(5);
+    expect(panels.map((panel) => panel.style.inset)).toEqual(
+      Array(5).fill("0px"),
     );
   });
 
@@ -92,7 +105,7 @@ describe("SpatialSceneTrack", () => {
     expect(panels[2]).toHaveAttribute("data-beat-layout-mode", "reserved");
   });
 
-  it("renders adjacent scene panels inside one clipped spatial track instead of outgoing clones", () => {
+  it("renders mounted scene panels inside one clipped spatial track instead of outgoing clones", () => {
     renderTrack();
 
     const track = screen.getByTestId("spatial-scene-track");
@@ -101,32 +114,69 @@ describe("SpatialSceneTrack", () => {
 
     expect(track).toHaveAttribute("data-axis", "x");
     expect(track).toHaveStyle({ overflow: "hidden" });
-    expect(strip.style.transform).toBe("translate3d(-33.333333333333336%, 0, 0)");
+    expect(strip).toHaveAttribute("data-scene-transition-kind", "slide-x");
     expect(panels).toHaveLength(3);
     expect(panels.map((panel) => panel.dataset.sceneId)).toEqual(["1", "2", "3"]);
     expect(panels.map((panel) => panel.dataset.active)).toEqual(["false", "true", "false"]);
-    expect(panels.map((panel) => panel.style.flex)).toEqual(
-      Array(3).fill("0 0 33.333333333333336%"),
-    );
-    expect(panels.map((panel) => panel.style.width)).toEqual(
-      Array(3).fill("33.333333333333336%"),
-    );
+    expect(panels.map((panel) => panel.dataset.transitionState)).toEqual([
+      "idle",
+      "active",
+      "idle",
+    ]);
     expect(track.querySelector("[data-transition-clone='true']")).toBeNull();
   });
 
   it("supports vertical tracks with reduced-motion transitions disabled", () => {
-    renderTrack({ scene: 3, axis: "y", reducedMotion: true });
+    renderTrack({ scene: 3, transitionKind: "slide-y", reducedMotion: true });
 
     const track = screen.getByTestId("spatial-scene-track");
     const strip = screen.getByTestId("spatial-scene-strip");
 
     expect(track).toHaveAttribute("data-axis", "y");
-    expect(strip.style.transform).toBe("translate3d(0, -66.66666666666667%, 0)");
-    expect(strip.style.transition).toBe("none");
+    expect(track).toHaveAttribute("data-scene-transition-kind", "slide-y");
+    expect(strip).toHaveAttribute("data-reduced-motion", "true");
     expect(
       screen
         .getAllByTestId("spatial-scene-panel")
-        .map((panel) => panel.style.height),
-    ).toEqual(Array(3).fill("33.333333333333336%"));
+        .map((panel) => panel.dataset.transitionState),
+    ).toEqual(["idle", "idle", "active"]);
+  });
+
+  it("keeps the outgoing panel mounted with its previous beat during a scene change", () => {
+    const { rerender } = render(
+      <SpatialSceneTrack
+        scene={2}
+        beat={1}
+        transitionKind="fade"
+        sceneIds={[1, 2, 3]}
+        reducedMotion={false}
+        renderScene={(sceneId, beat) => (
+          <section data-testid={`scene-${sceneId}`}>Scene {sceneId} beat {beat}</section>
+        )}
+      />,
+    );
+
+    rerender(
+      <SpatialSceneTrack
+        scene={3}
+        beat={0}
+        transitionKind="fade"
+        sceneIds={[1, 2, 3]}
+        reducedMotion={false}
+        renderScene={(sceneId, beat) => (
+          <section data-testid={`scene-${sceneId}`}>Scene {sceneId} beat {beat}</section>
+        )}
+      />,
+    );
+
+    const panels = screen.getAllByTestId("spatial-scene-panel");
+
+    expect(panels.map((panel) => panel.dataset.transitionState)).toEqual([
+      "idle",
+      "outgoing",
+      "active",
+    ]);
+    expect(screen.getByTestId("scene-2")).toHaveTextContent("Scene 2 beat 1");
+    expect(screen.getByTestId("scene-3")).toHaveTextContent("Scene 3 beat 0");
   });
 });

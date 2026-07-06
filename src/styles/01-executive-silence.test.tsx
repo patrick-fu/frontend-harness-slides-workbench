@@ -335,13 +335,20 @@ describe("Style 01: Executive Silence — root element contract", () => {
   it("scene transition track has the track CSS class", () => {
     const { stage } = renderStage({ scene: 1, beat: 0 });
     const root = stage.firstElementChild as HTMLElement;
-    expect(root.querySelector('[data-testid="spatial-scene-track"]')).not.toBeNull();
-    const track = root.querySelector<HTMLElement>("[class*='track']");
+    const sceneTrack = root.querySelector<HTMLElement>(
+      '[data-testid="spatial-scene-track"]',
+    );
+    expect(sceneTrack).not.toBeNull();
+    expect(sceneTrack).toHaveAttribute("data-scene-transition-kind", "scale-fade");
+    const activePanel = root.querySelector<HTMLElement>(
+      '[data-testid="spatial-scene-panel"][data-active="true"]',
+    );
+    const track = activePanel?.querySelector<HTMLElement>(`.${styles.track}`);
     expect(track).not.toBeNull();
     expect(Array.from(track!.classList)).toContain(styles.track);
   });
 
-  it("uses adjacent spatial panels without outgoing transition clones", () => {
+  it("uses mounted spatial panels without outgoing transition clones", () => {
     const { stage } = renderStage({ scene: 2, beat: 0 });
     const root = stage.firstElementChild as HTMLElement;
 

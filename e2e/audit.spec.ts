@@ -59,6 +59,16 @@ const STYLE_BEATS: StyleBeatInfo[] = [
 ];
 
 const ALL_STYLE_IDS = STYLE_BEATS.map((s) => s.id);
+const SCENE_TRANSITION_KINDS = [
+  "slide-x",
+  "slide-y",
+  "fade",
+  "scale-fade",
+  "hard-cut",
+  "wipe",
+  "page-flip",
+  "glitch",
+];
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -219,10 +229,14 @@ test.describe.parallel("Style audit — all 48 styles", () => {
           '[data-testid="spatial-scene-panel"][data-active="true"]',
         );
         return {
+          transitionKind: document.querySelector<HTMLElement>(
+            '[data-testid="spatial-scene-track"]',
+          )?.dataset.sceneTransitionKind,
           panelCount: document.querySelectorAll(
             '[data-testid="spatial-scene-panel"]',
           ).length,
           activeScene: activePanel?.dataset.sceneId,
+          activeState: activePanel?.dataset.transitionState,
           cloneCount: document.querySelectorAll('[data-transition-clone="true"]')
             .length,
         };
@@ -230,9 +244,14 @@ test.describe.parallel("Style audit — all 48 styles", () => {
 
       expect(
         transitionState.panelCount,
-        `Style ${style.id} must render adjacent spatial panels`,
+        `Style ${style.id} must keep spatial scene panels mounted`,
       ).toBeGreaterThanOrEqual(5);
+      expect(
+        SCENE_TRANSITION_KINDS,
+        `Style ${style.id} must expose a supported scene transition kind`,
+      ).toContain(transitionState.transitionKind);
       expect(transitionState.activeScene, `Style ${style.id}`).toBe("1");
+      expect(transitionState.activeState, `Style ${style.id}`).toBe("active");
       expect(
         transitionState.cloneCount,
         `Style ${style.id} must not render outgoing transition clones`,
@@ -376,7 +395,7 @@ test.describe("Style 01 v1 transition contract", () => {
     5: 1,
   };
 
-  test("non-frozen scene advance uses adjacent panels instead of outgoing clones", async ({
+  test("non-frozen scene advance uses transition states instead of outgoing clones", async ({
     page,
   }) => {
     await openLab(page, "01", 1, 0, {
@@ -408,9 +427,11 @@ test.describe("Style 01 v1 transition contract", () => {
       return {
         activeScene: track?.dataset.activeScene,
         axis: track?.dataset.axis,
-        transform: strip?.style.transform,
+        transitionKind: track?.dataset.sceneTransitionKind,
+        stripKind: strip?.dataset.sceneTransitionKind,
         panelSceneIds: panels.map((panel) => panel.dataset.sceneId),
         activeFlags: panels.map((panel) => panel.dataset.active),
+        transitionStates: panels.map((panel) => panel.dataset.transitionState),
         activePanelVisible:
           !!stageRect &&
           !!activeRect &&
@@ -424,8 +445,9 @@ test.describe("Style 01 v1 transition contract", () => {
     });
 
     expect(trackState.axis).toBe("x");
+    expect(trackState.transitionKind).toBe("scale-fade");
+    expect(trackState.stripKind).toBe("scale-fade");
     expect(trackState.activeScene).toBe("2");
-    expect(trackState.transform).toMatch(/^translate3d\(-20%, 0(px)?, 0(px)?\)$/);
     expect(trackState.panelSceneIds).toEqual(["1", "2", "3", "4", "5"]);
     expect(trackState.activeFlags).toEqual([
       "false",
@@ -433,6 +455,13 @@ test.describe("Style 01 v1 transition contract", () => {
       "false",
       "false",
       "false",
+    ]);
+    expect(trackState.transitionStates).toEqual([
+      "outgoing",
+      "active",
+      "idle",
+      "idle",
+      "idle",
     ]);
     expect(trackState.activePanelVisible).toBe(true);
     expect(trackState.cloneCount).toBe(0);

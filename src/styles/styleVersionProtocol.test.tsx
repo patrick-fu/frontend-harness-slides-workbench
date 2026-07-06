@@ -41,6 +41,17 @@ const styleSources = import.meta.glob("./[0-9][0-9]-*.tsx", {
   eager: true,
 }) as Record<string, string>;
 
+const SCENE_TRANSITION_KINDS = [
+  "slide-x",
+  "slide-y",
+  "fade",
+  "scale-fade",
+  "hard-cut",
+  "wipe",
+  "page-flip",
+  "glitch",
+] as const;
+
 describe("style version protocol", () => {
   it("requires every version to use the spatial scene lifecycle", () => {
     for (const { styleId, version } of allVersions) {
@@ -58,7 +69,7 @@ describe("style version protocol", () => {
       ).not.toBeNull();
       expect(
         panels.length,
-        `${styleId}/${version.id} must render adjacent scene panels instead of transition clones`,
+        `${styleId}/${version.id} must render mounted scene panels instead of transition clones`,
       ).toBeGreaterThanOrEqual(5);
       expect(
         container.querySelector("[data-transition-clone='true']"),
@@ -67,6 +78,46 @@ describe("style version protocol", () => {
 
       unmount();
     }
+  });
+
+  it("requires every style source to explicitly choose a scene transition kind", () => {
+    for (const [sourcePath, source] of Object.entries(styleSources)) {
+      if (sourcePath.includes(".test.")) continue;
+
+      expect(
+        source,
+        `${sourcePath} must pass transitionKind to SpatialSceneTrack so scene motion is not silently homogenized`,
+      ).toMatch(/\btransitionKind=/);
+    }
+  });
+
+  it("keeps scene transition kinds diverse across the full style set", () => {
+    const usedKinds = new Set<string>();
+
+    for (const { styleId, version } of allVersions) {
+      const { container, unmount } = renderVersion(version);
+      const track = container.querySelector(
+        '[data-testid="spatial-scene-track"]',
+      ) as HTMLElement | null;
+      const transitionKind = track?.dataset.sceneTransitionKind;
+
+      expect(
+        transitionKind,
+        `${styleId}/${version.id} must expose data-scene-transition-kind`,
+      ).toBeDefined();
+      expect(
+        SCENE_TRANSITION_KINDS,
+        `${styleId}/${version.id} uses unsupported transition kind ${transitionKind}`,
+      ).toContain(transitionKind as (typeof SCENE_TRANSITION_KINDS)[number]);
+      usedKinds.add(transitionKind as string);
+      unmount();
+    }
+
+    expect(
+      usedKinds.size,
+      `The style set should keep a varied transition vocabulary, not collapse into ${Array.from(usedKinds).join(", ")}`,
+    ).toBeGreaterThanOrEqual(6);
+    expect(usedKinds).not.toEqual(new Set(["slide-x"]));
   });
 
   it("keeps style sources off legacy outgoing-clone lifecycle hooks", () => {

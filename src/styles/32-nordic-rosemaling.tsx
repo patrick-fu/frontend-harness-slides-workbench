@@ -333,7 +333,7 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
             <SpatialSceneTrack
         scene={scene}
         beat={beat}
-        axis="x"
+        transitionKind="wipe"
         reducedMotion={reducedMotion || isThumbnail}
         beatLayoutModes={BEAT_LAYOUT_MODES}
         renderScene={(sceneId, sceneBeat) => (
