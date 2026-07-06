@@ -21,13 +21,13 @@ jobs:
         run: npm ci
 
       - name: Type check
-        run: npx tsc --noEmit
+        run: npm run typecheck
 
       - name: Build
         run: npm run build
 
       - name: Unit tests (Vitest)
-        run: npm test
+        run: npm run test:unit
 
   deploy:
     needs: build-and-test

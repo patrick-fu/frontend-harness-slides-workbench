@@ -2,14 +2,26 @@
   "name": "frontend-harness-slides-workbench",
   "private": true,
   "version": "0.1.0",
+  "license": "MIT",
   "type": "module",
+  "homepage": "https://frontend-harness-slides-workbench.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrick-fu/frontend-harness-slides-workbench.git"
+  },
+  "bugs": {
+    "url": "https://github.com/patrick-fu/frontend-harness-slides-workbench/issues"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:unit": "vitest run",
     "test:watch": "vitest",
-    "test:audit": "playwright test"
+    "test:audit": "playwright test",
+    "typecheck": "tsc --noEmit",
+    "ci": "npm run typecheck && npm run build && npm run test:unit"
   },
   "dependencies": {
     "react": "^19.1.0",
