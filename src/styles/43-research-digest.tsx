@@ -14,308 +14,280 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      digestTitle: "AI Research Survey",
-      subtitle: "Quarterly Digest of Key Advances in Artificial Intelligence",
-      edition: "Vol. 3, No. 2 — Q2 2026",
-      scope: "Covering 47 papers from NeurIPS, ICML, ICLR, and ACL",
-      compiledBy: "Compiled by the Research Intelligence Team",
-      topics: ["Language Models", "Computer Vision", "Robotics", "Theory"],
+      digestTitle: "Maintainer Issue Brief",
+      subtitle: "Fix: Auth Token Refresh Race Condition Causes Intermittent 401",
+      edition: "ISS-4827 · Priority: High",
+      scope: "platform/auth-service · Type: Bug · Component: token-refresh",
+      compiledBy: "Assignee: Jordan Lee · Reported by: QA Automation",
+      topics: ["bug", "auth", "race-condition", "high-priority", "needs-review"],
     },
     zh: {
-      digestTitle: "人工智能研究综述",
-      subtitle: "人工智能关键进展季度文摘",
-      edition: "第3卷 第2期 — 2026年第二季度",
-      scope: "涵盖 NeurIPS、ICML、ICLR 和 ACL 的 47 篇论文",
-      compiledBy: "研究情报团队 编制",
-      topics: ["语言模型", "计算机视觉", "机器人学", "理论"],
+      digestTitle: "维护者问题简报",
+      subtitle: "修复：认证令牌刷新竞态条件导致间歇性 401 错误",
+      edition: "ISS-4827 · 优先级：高",
+      scope: "platform/auth-service · 类型：缺陷 · 组件：token-refresh",
+      compiledBy: "负责人：李乔丹 · 报告方：QA 自动化",
+      topics: ["缺陷", "认证", "竞态条件", "高优先级", "待评审"],
     },
   },
   2: {
     en: {
-      title: "Featured Paper",
+      title: "Problem Description",
       paper: {
         title:
-          "Scaling Laws for Neural Language Models: A Comprehensive Empirical Study",
-        authors: "Zhang, L., Chen, H., Park, J., & Williams, R.T.",
-        affiliation: "Stanford University / DeepMind",
-        venue: "NeurIPS 2025",
-        track: "Oral Presentation",
-        citations: 847,
-        tags: ["LLMs", "Scaling Laws", "Empirical Study", "Transformers"],
+          "Concurrent token refresh requests from multiple browser tabs cause invalid token cascade",
+        authors: "Reported by: QA Automation Suite",
+        affiliation: "End-to-end test regression — Auth flow E2E-034",
+        venue: "Affected Component: auth-service v2.14.3",
+        track: "Severity: High — blocks 3 downstream services",
+        citations: 12,
+        tags: ["race-condition", "token-refresh", "concurrent-requests", "401-error"],
         abstract:
-          "We present a comprehensive empirical study of scaling laws across 200+ language model configurations ranging from 10M to 500B parameters, trained on a curated corpus of 15 trillion tokens. Our findings challenge several prevailing assumptions in the field: (1) the relationship between compute and performance is sublinear beyond 100B parameters, with diminishing returns setting in at approximately 70B; (2) data quality, measured by perplexity on a held-out evaluation suite, exhibits a stronger correlation with downstream performance than data quantity for models above 10B parameters; and (3) architectural choices, particularly attention mechanism design and positional encoding schemes, account for 15-20% of performance variance at equivalent compute budgets. We introduce a revised scaling law formulation that incorporates data quality metrics and architectural factors, achieving R²=0.94 on held-out configurations.",
-        pages: "pp. 1–18",
-        references: 67,
+          "When a user has multiple browser tabs open and the auth token expires, each tab independently detects the 401 and triggers a refresh request. The refresh endpoint issues a new token and invalidates the previous one. Tab A's refresh succeeds, but Tab B's in-flight refresh arrives after the token rotation, causing the refresh handler to reject with 'token_not_found'. This cascades into a full logout for the user session. Reproduction: open 3+ tabs, wait for token expiry (15min TTL), observe 60% failure rate on at least one tab. Expected: first refresh succeeds, subsequent refresh requests return the same new token idempotently. Actual: only the first refresh succeeds, others trigger logout.",
+        pages: "Est. effort: 2-3 days",
+        references: 7,
       },
     },
     zh: {
-      title: "精选论文",
+      title: "问题描述",
       paper: {
-        title: "神经语言模型的缩放定律：综合实证研究",
-        authors: "张丽、陈浩、朴俊浩、R.T. 威廉姆斯",
-        affiliation: "斯坦福大学 / DeepMind",
-        venue: "NeurIPS 2025",
-        track: "口头报告",
-        citations: 847,
-        tags: ["大语言模型", "缩放定律", "实证研究", "Transformer"],
+        title: "多个浏览器标签页的并发令牌刷新请求导致无效令牌级联",
+        authors: "报告方：QA 自动化测试套件",
+        affiliation: "端到端测试回归——认证流程 E2E-034",
+        venue: "受影响组件：auth-service v2.14.3",
+        track: "严重程度：高——阻塞 3 个下游服务",
+        citations: 12,
+        tags: ["竞态条件", "令牌刷新", "并发请求", "401错误"],
         abstract:
-          "我们对 200 多种语言模型配置（从 10M 到 500B 参数，在 15 万亿 token 的精选语料库上训练）进行了缩放定律的综合实证研究。我们的发现挑战了该领域几个普遍假设：(1) 在超过 100B 参数后，计算量与性能之间的关系呈次线性，收益递减大约始于 70B；(2) 对于超过 10B 参数的模型，以留出评估套件上的困惑度衡量的数据质量与下游性能的相关性强于数据数量；(3) 架构选择，特别是注意力机制设计和位置编码方案，在等效计算预算下占性能方差的 15-20%。我们引入了一个修订的缩放定律公式，纳入数据质量指标和架构因素，在留出配置上达到 R²=0.94。",
-        pages: "第1-18页",
-        references: 67,
+          "当用户打开多个浏览器标签页且认证令牌过期时，每个标签页独立检测到 401 并触发刷新请求。刷新端点颁发新令牌并使前一个令牌失效。标签页 A 的刷新成功，但标签页 B 的在途刷新在令牌轮换后到达，导致刷新处理器以 'token_not_found' 拒绝。这级联为用户会话的完全登出。复现步骤：打开 3 个以上标签页，等待令牌过期（15 分钟 TTL），观察至少一个标签页 60% 的失败率。预期：第一次刷新成功，后续刷新请求幂等地返回相同的新令牌。实际：只有第一次刷新成功，其余触发登出。",
+        pages: "预计工作量：2-3 天",
+        references: 7,
       },
     },
   },
   3: {
     en: {
-      title: "Citation Network",
-      subtitle: "Interconnected research landscape across 47 surveyed papers",
+      title: "Proposed Solution",
+      subtitle: "Idempotent refresh with request deduplication and token versioning",
       papers: [
         {
           id: 1,
-          short: "Zhang et al.",
-          title: "Scaling Laws for Neural LMs",
-          year: 2025,
-          citations: 847,
-          cluster: "LLM",
-          x: 35,
-          y: 30,
+          short: "refresh.ts",
+          title: "Add distributed lock on refresh endpoint",
+          year: 2026,
+          citations: 45,
+          cluster: "Core",
+          x: 30,
+          y: 35,
         },
         {
           id: 2,
-          short: "Park & Kim",
-          title: "Efficient Attention Mechanisms",
-          year: 2025,
-          citations: 412,
-          cluster: "LLM",
-          x: 22,
-          y: 52,
+          short: "tokenStore.ts",
+          title: "Token versioning with atomic compare-and-swap",
+          year: 2026,
+          citations: 38,
+          cluster: "Core",
+          x: 55,
+          y: 28,
         },
         {
           id: 3,
-          short: "Liu et al.",
-          title: "Vision-Language Pretraining",
-          year: 2025,
-          citations: 623,
-          cluster: "Vision",
-          x: 65,
-          y: 25,
+          short: "redis.lock",
+          title: "SETNX-based refresh mutex (5s TTL)",
+          year: 2026,
+          citations: 22,
+          cluster: "Infra",
+          x: 25,
+          y: 58,
         },
         {
           id: 4,
-          short: "Garcia et al.",
-          title: "Robotic Manipulation Benchmarks",
-          year: 2024,
-          citations: 298,
-          cluster: "Robotics",
-          x: 75,
-          y: 60,
-        },
-        {
-          id: 5,
-          short: "Wang & Jordan",
-          title: "Theoretical Limits of SGD",
-          year: 2025,
-          citations: 156,
-          cluster: "Theory",
-          x: 50,
-          y: 72,
-        },
-        {
-          id: 6,
-          short: "Chen et al.",
-          title: "Retrieval-Augmented Generation",
-          year: 2024,
-          citations: 1089,
-          cluster: "LLM",
-          x: 45,
+          short: "client.ts",
+          title: "Client-side request coalescing per tab",
+          year: 2026,
+          citations: 31,
+          cluster: "Client",
+          x: 70,
           y: 45,
         },
         {
-          id: 7,
-          short: "Nakamura et al.",
-          title: "Diffusion Model Analysis",
-          year: 2025,
-          citations: 534,
-          cluster: "Vision",
+          id: 5,
+          short: "tests/",
+          title: "Concurrent refresh integration test suite",
+          year: 2026,
+          citations: 18,
+          cluster: "Tests",
+          x: 48,
+          y: 65,
+        },
+        {
+          id: 6,
+          short: "docs/",
+          title: "Refresh protocol specification update",
+          year: 2026,
+          citations: 8,
+          cluster: "Docs",
           x: 78,
-          y: 38,
+          y: 62,
         },
       ],
       connections: [
         [1, 2],
-        [1, 6],
-        [2, 6],
-        [3, 7],
-        [3, 1],
-        [4, 2],
+        [1, 3],
+        [2, 3],
+        [4, 1],
         [5, 1],
-        [5, 6],
-        [7, 6],
-        [3, 6],
+        [5, 2],
+        [6, 1],
+        [6, 2],
       ],
     },
     zh: {
-      title: "引用网络",
-      subtitle: "47 篇调研论文的互联研究图谱",
+      title: "提议方案",
+      subtitle: "基于请求去重和令牌版本控制的幂等刷新",
       papers: [
         {
           id: 1,
-          short: "张等",
-          title: "神经语言模型缩放定律",
-          year: 2025,
-          citations: 847,
-          cluster: "LLM",
-          x: 35,
-          y: 30,
+          short: "refresh.ts",
+          title: "在刷新端点添加分布式锁",
+          year: 2026,
+          citations: 45,
+          cluster: "核心",
+          x: 30,
+          y: 35,
         },
         {
           id: 2,
-          short: "朴、金",
-          title: "高效注意力机制",
-          year: 2025,
-          citations: 412,
-          cluster: "LLM",
-          x: 22,
-          y: 52,
+          short: "tokenStore.ts",
+          title: "基于原子比较交换的令牌版本控制",
+          year: 2026,
+          citations: 38,
+          cluster: "核心",
+          x: 55,
+          y: 28,
         },
         {
           id: 3,
-          short: "刘等",
-          title: "视觉-语言预训练",
-          year: 2025,
-          citations: 623,
-          cluster: "Vision",
-          x: 65,
-          y: 25,
+          short: "redis.lock",
+          title: "基于 SETNX 的刷新互斥锁（5 秒 TTL）",
+          year: 2026,
+          citations: 22,
+          cluster: "基础设施",
+          x: 25,
+          y: 58,
         },
         {
           id: 4,
-          short: "加西亚等",
-          title: "机器人操作基准测试",
-          year: 2024,
-          citations: 298,
-          cluster: "Robotics",
-          x: 75,
-          y: 60,
-        },
-        {
-          id: 5,
-          short: "王、乔丹",
-          title: "SGD 的理论极限",
-          year: 2025,
-          citations: 156,
-          cluster: "Theory",
-          x: 50,
-          y: 72,
-        },
-        {
-          id: 6,
-          short: "陈等",
-          title: "检索增强生成",
-          year: 2024,
-          citations: 1089,
-          cluster: "LLM",
-          x: 45,
+          short: "client.ts",
+          title: "客户端按标签页合并请求",
+          year: 2026,
+          citations: 31,
+          cluster: "客户端",
+          x: 70,
           y: 45,
         },
         {
-          id: 7,
-          short: "中村等",
-          title: "扩散模型分析",
-          year: 2025,
-          citations: 534,
-          cluster: "Vision",
+          id: 5,
+          short: "tests/",
+          title: "并发刷新集成测试套件",
+          year: 2026,
+          citations: 18,
+          cluster: "测试",
+          x: 48,
+          y: 65,
+        },
+        {
+          id: 6,
+          short: "docs/",
+          title: "刷新协议规范更新",
+          year: 2026,
+          citations: 8,
+          cluster: "文档",
           x: 78,
-          y: 38,
+          y: 62,
         },
       ],
       connections: [
         [1, 2],
-        [1, 6],
-        [2, 6],
-        [3, 7],
-        [3, 1],
-        [4, 2],
+        [1, 3],
+        [2, 3],
+        [4, 1],
         [5, 1],
-        [5, 6],
-        [7, 6],
-        [3, 6],
+        [5, 2],
+        [6, 1],
+        [6, 2],
       ],
     },
   },
   4: {
     en: {
-      title: "Keyword Analysis",
-      subtitle: "Most frequent research topics across the survey",
+      title: "Impact Analysis",
+      subtitle: "Risk assessment across affected systems",
       keywords: [
-        { term: "Large Language Models", count: 23, size: "xl" },
-        { term: "Transformers", count: 19, size: "xl" },
-        { term: "Reinforcement Learning", count: 15, size: "lg" },
-        { term: "Diffusion Models", count: 12, size: "lg" },
-        { term: "Vision-Language", count: 11, size: "lg" },
-        { term: "Scaling Laws", count: 9, size: "md" },
-        { term: "Robotics", count: 8, size: "md" },
-        { term: "Optimization", count: 7, size: "md" },
-        { term: "Retrieval", count: 6, size: "sm" },
-        { term: "Alignment", count: 6, size: "sm" },
-        { term: "Few-shot Learning", count: 5, size: "sm" },
-        { term: "Graph Neural Networks", count: 4, size: "sm" },
-        { term: "Causality", count: 3, size: "xs" },
-        { term: "Neuro-Symbolic", count: 2, size: "xs" },
+        { term: "Auth Service", count: 23, size: "xl" },
+        { term: "API Gateway", count: 19, size: "xl" },
+        { term: "User Sessions", count: 15, size: "lg" },
+        { term: "Downstream APIs", count: 12, size: "lg" },
+        { term: "Mobile Clients", count: 11, size: "lg" },
+        { term: "Web Dashboard", count: 9, size: "md" },
+        { term: "Admin Panel", count: 8, size: "md" },
+        { term: "Analytics", count: 7, size: "md" },
+        { term: "Billing", count: 6, size: "sm" },
+        { term: "Notifications", count: 6, size: "sm" },
+        { term: "Search Index", count: 5, size: "sm" },
+        { term: "CDN Cache", count: 4, size: "sm" },
+        { term: "Audit Log", count: 3, size: "xs" },
+        { term: "Rate Limiter", count: 2, size: "xs" },
       ],
     },
     zh: {
-      title: "关键词分析",
-      subtitle: "调研中最频繁的研究主题",
+      title: "影响分析",
+      subtitle: "跨受影响系统的风险评估",
       keywords: [
-        { term: "大语言模型", count: 23, size: "xl" },
-        { term: "Transformer", count: 19, size: "xl" },
-        { term: "强化学习", count: 15, size: "lg" },
-        { term: "扩散模型", count: 12, size: "lg" },
-        { term: "视觉-语言", count: 11, size: "lg" },
-        { term: "缩放定律", count: 9, size: "md" },
-        { term: "机器人学", count: 8, size: "md" },
-        { term: "优化", count: 7, size: "md" },
-        { term: "检索", count: 6, size: "sm" },
-        { term: "对齐", count: 6, size: "sm" },
-        { term: "少样本学习", count: 5, size: "sm" },
-        { term: "图神经网络", count: 4, size: "sm" },
-        { term: "因果推断", count: 3, size: "xs" },
-        { term: "神经符号", count: 2, size: "xs" },
+        { term: "认证服务", count: 23, size: "xl" },
+        { term: "API 网关", count: 19, size: "xl" },
+        { term: "用户会话", count: 15, size: "lg" },
+        { term: "下游 API", count: 12, size: "lg" },
+        { term: "移动客户端", count: 11, size: "lg" },
+        { term: "Web 仪表板", count: 9, size: "md" },
+        { term: "管理面板", count: 8, size: "md" },
+        { term: "数据分析", count: 7, size: "md" },
+        { term: "计费", count: 6, size: "sm" },
+        { term: "通知", count: 6, size: "sm" },
+        { term: "搜索索引", count: 5, size: "sm" },
+        { term: "CDN 缓存", count: 4, size: "sm" },
+        { term: "审计日志", count: 3, size: "xs" },
+        { term: "限流器", count: 2, size: "xs" },
       ],
     },
   },
   5: {
     en: {
-      title: "Survey Statistics",
-      subtitle: "Q2 2026 Research Landscape at a Glance",
+      title: "Action Items & Status",
+      subtitle: "Implementation checklist and timeline",
       stats: [
-        { label: "Papers Surveyed", value: "47", sub: "across 4 major venues" },
-        { label: "Total Citations", value: "12,847", sub: "cumulative impact" },
+        { label: "Status", value: "In Progress", sub: "PR #4831 opened" },
+        { label: "Tests Passing", value: "18/22", sub: "4 integration tests pending" },
+        { label: "Code Review", value: "2/3", sub: "1 reviewer pending" },
+        { label: "Affected Files", value: "8", sub: "across 3 packages" },
+        { label: "Target Merge", value: "Jul 10", sub: "before sprint close" },
         {
-          label: "Avg. Citations/Paper",
-          value: "273",
-          sub: "weighted by recency",
-        },
-        { label: "Institutions", value: "89", sub: "from 24 countries" },
-        { label: "Top Venue", value: "NeurIPS", sub: "18 papers (38%)" },
-        {
-          label: "Emerging Topic",
-          value: "Alignment",
-          sub: "+340% YoY growth",
+          label: "Rollback Plan",
+          value: "Ready",
+          sub: "feature flag: auth.refresh.v2",
         },
       ],
     },
     zh: {
-      title: "综述统计",
-      subtitle: "2026年第二季度研究格局一览",
+      title: "行动项与状态",
+      subtitle: "实施清单和时间线",
       stats: [
-        { label: "调研论文", value: "47", sub: "覆盖 4 大会议" },
-        { label: "总引用数", value: "12,847", sub: "累计影响力" },
-        { label: "篇均引用", value: "273", sub: "按时间加权" },
-        { label: "参与机构", value: "89", sub: "来自 24 个国家" },
-        { label: "最多会议", value: "NeurIPS", sub: "18 篇 (38%)" },
-        { label: "新兴方向", value: "对齐", sub: "同比增长 +340%" },
+        { label: "状态", value: "进行中", sub: "PR #4831 已创建" },
+        { label: "测试通过", value: "18/22", sub: "4 个集成测试待完成" },
+        { label: "代码评审", value: "2/3", sub: "1 名评审人待确认" },
+        { label: "受影响文件", value: "8", sub: "跨 3 个包" },
+        { label: "目标合并", value: "7月10日", sub: "冲刺结束前" },
+        { label: "回滚方案", value: "就绪", sub: "功能开关: auth.refresh.v2" },
       ],
     },
   },
@@ -324,32 +296,32 @@ const SCENES: Record<number, SceneContent> = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Research Digest", zh: "研究文摘" };
+  const nameMap = { en: "Maintainer Issue Brief", zh: "维护者问题简报" };
   const themeMap = {
-    en: "AI Research Survey — academic abstract compilation with citation network and keyword analysis",
-    zh: "AI 研究综述——学术文摘汇编，含引用网络和关键词分析",
+    en: "Engineering task handoff — developer ticket sensibility with status colors, sharp headings, and action-oriented structure",
+    zh: "工程任务交接——开发者工单风格，状态色彩、清晰标题、行动导向结构",
   };
   const densityLabelMap = { en: "Reading-First", zh: "阅读优先" };
 
   const sceneTitles = {
-    en: ["Cover", "Featured Paper", "Citation Network", "Keywords", "Statistics"],
-    zh: ["封面", "精选论文", "引用网络", "关键词", "统计"],
+    en: ["Issue", "Problem", "Solution", "Impact", "Checklist"],
+    zh: ["工单", "问题", "方案", "影响", "清单"],
   };
 
   const beatActions = {
     en: {
-      1: ["Digest cover revealed"],
-      2: ["Paper metadata appears", "Full abstract revealed"],
-      3: ["Network nodes appear", "Connections drawn", "Labels and details"],
-      4: ["Keyword cloud forms", "Tag sizes differentiated"],
-      5: ["Statistics panel"],
+      1: ["Issue header revealed"],
+      2: ["Problem metadata appears", "Full description revealed"],
+      3: ["Solution components appear", "Dependencies drawn", "Labels and details"],
+      4: ["Impact areas form", "Risk levels differentiated"],
+      5: ["Checklist status panel"],
     },
     zh: {
-      1: ["文摘封面呈现"],
-      2: ["论文元数据出现", "完整摘要揭示"],
-      3: ["网络节点出现", "连线绘制", "标签和详情"],
-      4: ["关键词云形成", "标签大小区分"],
-      5: ["统计面板"],
+      1: ["问题标题呈现"],
+      2: ["问题元数据出现", "完整描述揭示"],
+      3: ["方案组件出现", "依赖关系绘制", "标签和详情"],
+      4: ["影响区域形成", "风险等级区分"],
+      5: ["清单状态面板"],
     },
   };
 
@@ -409,19 +381,19 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
-    colors: { bg: "#fafaf7", ink: "#2d2d2d", panel: "#f0ede8" },
-    typography: { header: "Georgia 700", body: "Inter 400" },
+    colors: { bg: "#f6f8fa", ink: "#24292f", panel: "#eef1f4" },
+    typography: { header: "Inter 700", body: "JetBrains Mono 400" },
     tags: [
-      "research",
-      "academic",
-      "digest",
-      "abstract",
-      "citations",
-      "ai",
-      "survey",
-      "scholarly",
+      "issue",
+      "brief",
+      "maintainer",
+      "developer",
+      "ticket",
+      "technical",
+      "action-items",
+      "handoff",
     ],
-    fonts: ["Georgia", "Inter"],
+    fonts: ["Inter", "JetBrains Mono"],
     scenes,
   };
 }
@@ -429,10 +401,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 // ─── Component ──────────────────────────────────────────────────────────────
 
 const CLUSTER_COLORS: Record<string, string> = {
-  LLM: "#6366f1",
-  Vision: "#10b981",
-  Robotics: "#f59e0b",
-  Theory: "#ef4444",
+  Core: "#0969da",
+  Infra: "#1a7f37",
+  Client: "#8250df",
+  Tests: "#bf3989",
+  Docs: "#6e7781",
 };
 
 export default function ResearchDigest({
@@ -445,9 +418,46 @@ export default function ResearchDigest({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef(scene);
+
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   useEffect(() => {
     const inject = (id: string, href: string) => {
@@ -475,25 +485,6 @@ export default function ResearchDigest({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
-
-  /* Scene-to-scene transition detection */
-  useLayoutEffect(() => {
-    if (reducedMotion) {
-      prevSceneRef.current = scene;
-      return;
-    }
-    if (prevSceneRef.current !== scene) {
-      const prev = prevSceneRef.current;
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
-    }
-  }, [scene, reducedMotion]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -891,8 +882,8 @@ export default function ResearchDigest({
   const renderNav = () => {
     if (isThumbnail) return null;
     const tabLabels = {
-      en: ["Cover", "Paper", "Network", "Keywords", "Stats"],
-      zh: ["封面", "论文", "网络", "关键词", "统计"],
+      en: ["Issue", "Problem", "Solution", "Impact", "Checklist"],
+      zh: ["工单", "问题", "方案", "影响", "清单"],
     };
     return (
       <nav className={styles.nav} aria-label="Section navigation">

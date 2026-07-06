@@ -1,14 +1,14 @@
-/* ── Style 43: Research Digest ────────────────────────────────────────── */
+/* ── Style 43: Maintainer Issue Brief ─────────────────────────────────── */
 
 :root {
-  --style-43-bg: #fafaf7;
-  --style-43-ink: #2d2d2d;
-  --style-43-panel: #f0ede8;
-  --style-43-accent: #374151;
-  --style-43-rule: #d4d0c8;
-  --style-43-muted: #6b7280;
-  --style-43-link: #4f46e5;
-  --style-43-tag-bg: #e8e4dc;
+  --style-43-bg: #f6f8fa;
+  --style-43-ink: #24292f;
+  --style-43-panel: #eef1f4;
+  --style-43-accent: #0969da;
+  --style-43-rule: #d0d7de;
+  --style-43-muted: #656d76;
+  --style-43-link: #0969da;
+  --style-43-tag-bg: #e6eff8;
 }
 
 .root {
@@ -18,7 +18,7 @@
   overflow: hidden;
   background: var(--style-43-bg);
   color: var(--style-43-ink);
-  font-family: "Inter", Georgia, "Noto Serif SC", sans-serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   user-select: none;
 }
 
@@ -44,12 +44,13 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   width: 100%;
   height: 100%;
 }
 
 .enterAnim {
-  animation: lineReveal 0.5s linear forwards;
+  animation: lineReveal 0.5s linear both;
 }
 
 @keyframes lineReveal {
@@ -387,7 +388,7 @@
   font-size: 1.5cqh;
   font-weight: 600;
   color: var(--style-43-ink);
-  background: rgba(250, 250, 247, 0.9);
+  background: rgba(246, 248, 250, 0.9);
   padding: 0.2cqh 0.6cqw;
   border-radius: 0.3cqh;
 }
@@ -596,7 +597,7 @@
   left: 0;
   right: 0;
   z-index: 10;
-  background: rgba(250, 250, 247, 0.95);
+  background: rgba(246, 248, 250, 0.95);
   backdrop-filter: blur(8px);
   border-bottom: 0.05cqh solid var(--style-43-rule);
   padding: 1cqh 6cqw;

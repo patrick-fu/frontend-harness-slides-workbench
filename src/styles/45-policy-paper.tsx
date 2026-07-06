@@ -10,148 +10,145 @@ const SCENES = {
     scenes: [
       {
         id: "title",
-        label: "Title",
-        icon: "📄",
-        series: "Policy Research Series · No. 2025-03",
-        title: "Data Privacy",
-        titleEm: "in the Age of",
-        titleSuffix: "Generative AI",
+        label: "Header",
+        icon: "📝",
+        series: "Code Review Annotation · CR-2026-142",
+        title: "Authentication",
+        titleEm: "Token Refresh",
+        titleSuffix: "Refactor",
         subtitle:
-          "A Regulatory Framework Proposal for Balancing Innovation and Consumer Protection",
+          "Before/after annotated diff — resolving race condition in concurrent token refresh",
         meta: [
-          { label: "Author", value: "Dr. Eleanor Whitfield" },
-          { label: "Affiliation", value: "Center for Digital Governance" },
-          { label: "Date", value: "March 2025" },
-          { label: "Classification", value: "Public Discussion Draft" },
+          { label: "File", value: "auth/tokenRefresh.ts" },
+          { label: "Author", value: "Jordan Lee" },
+          { label: "Date", value: "July 6, 2026" },
+          { label: "Reviewers", value: "3 assigned" },
         ],
       },
       {
-        id: "summary",
-        label: "Summary",
-        icon: "📊",
-        execLabel: "Executive Summary",
-        title: "Why We Need a New Approach to Data Privacy",
+        id: "before",
+        label: "Before",
+        icon: "◀",
+        execLabel: "Original Implementation",
+        title: "Before: Race Condition on Concurrent Refresh",
         paras: [
-          "The rapid proliferation of generative AI systems has fundamentally altered the data privacy landscape. Traditional regulatory frameworks, designed for an era of structured databases and explicit consent mechanisms, are increasingly inadequate to address the challenges posed by foundation models trained on vast, unstructured corpora of personal data.",
-          "This paper proposes a tiered regulatory architecture that distinguishes between general-purpose AI systems and domain-specific applications, establishing proportional obligations calibrated to risk level. Drawing on comparative analysis of GDPR, CCPA, and emerging AI-specific regulations in the EU and China, we identify critical regulatory gaps and propose targeted interventions.",
+          "The original token refresh handler issues a new token on every 401 response without checking if a refresh is already in flight. When multiple browser tabs trigger refresh simultaneously, each request invalidates the previous token, causing a cascade of failed requests and forced user logout.",
+          "The function lacks idempotency guarantees and does not coordinate between concurrent callers. The token store uses simple overwrite semantics, meaning the last write wins regardless of whether an earlier refresh has already been acknowledged by downstream services.",
         ],
-        keyPointsLabel: "Key Takeaways",
+        keyPointsLabel: "Problems Identified",
         keyPoints: [
-          "Current consent mechanisms fail in the context of foundation model training",
-          "Risk-tiered regulation outperforms blanket approaches in effectiveness",
-          "Data minimization principles require redefinition for AI training pipelines",
-          "Cross-border data governance demands new multilateral coordination frameworks",
+          "No distributed lock — concurrent refresh requests race",
+          "Token overwrite without version check — lost updates",
+          "No request coalescing — each tab fires independently",
+          "Logout cascade — 60% failure rate with 3+ tabs open",
         ],
       },
       {
-        id: "recommendations",
-        label: "Recommendations",
-        icon: "🎯",
-        title: "Policy Recommendations",
-        subtitle: "Five actionable proposals for legislative reform",
+        id: "after",
+        label: "After",
+        icon: "▶",
+        title: "After: Idempotent Refresh with Deduplication",
+        subtitle: "Annotated changes — 4 key modifications",
         recs: [
           {
             num: "1",
-            heading: "Establish a Data Training Registry",
-            text: "Mandate that developers of general-purpose AI systems above a compute threshold maintain a publicly accessible registry of training data sources, with particular attention to personally identifiable information. The registry should include data provenance, collection methods, and opt-out mechanisms.",
-            priority: "Critical",
+            heading: "Distributed Lock on Refresh Endpoint",
+            text: "Added Redis SETNX-based mutex with 5-second TTL before token rotation. Only one request can enter the critical section at a time. Subsequent requests wait for the lock and return the same token if refresh already completed.",
+            priority: "Critical fix",
             priorityClass: "high",
           },
           {
             num: "2",
-            heading: "Create Algorithmic Impact Assessments",
-            text: "Require organizations deploying high-risk AI systems to conduct and publish algorithmic impact assessments before deployment, evaluating privacy risks, bias potential, and societal impact. Assessments must be independently audited every 24 months.",
-            priority: "High",
+            heading: "Token Versioning with CAS",
+            text: "Token store now uses compare-and-swap semantics. Each refresh increments a version counter. Stale refresh requests are rejected with 'token_version_mismatch' instead of silently overwriting.",
+            priority: "Critical fix",
             priorityClass: "high",
           },
           {
             num: "3",
-            heading: "Implement Data Portability 2.0",
-            text: "Extend existing data portability rights to include AI-generated inferences and profiles about individuals. Users should be able to export, correct, or delete not just their raw data but also the derived representations that AI systems maintain about them.",
-            priority: "High",
-            priorityClass: "high",
+            heading: "Client-Side Request Coalescing",
+            text: "Client SDK now buffers all 401-triggered refreshes into a single shared promise. First caller initiates refresh; subsequent callers await the same promise. Eliminates redundant network calls entirely.",
+            priority: "Performance",
+            priorityClass: "medium",
           },
           {
             num: "4",
-            heading: "Fund Privacy-Preserving Research",
-            text: "Allocate 3% of federal AI research funding to privacy-preserving computation techniques, including federated learning, differential privacy, and secure multi-party computation. Establish a national center of excellence for privacy technology.",
-            priority: "Medium",
+            heading: "Graceful Degradation on Lock Timeout",
+            text: "If Redis is unavailable, falls back to in-memory lock with exponential backoff. System remains operational with degraded protection rather than hard failure.",
+            priority: "Resilience",
             priorityClass: "medium",
           },
           {
             num: "5",
-            heading: "Harmonize International Standards",
-            text: "Pursue bilateral and multilateral agreements on AI data governance to prevent regulatory arbitrage. Prioritize alignment with the EU AI Act and UK AI Regulation, while advocating for developing-nation inclusion in standard-setting bodies.",
-            priority: "Medium",
+            heading: "Integration Test for Concurrent Refresh",
+            text: "New test suite spawns 10 concurrent refresh requests against a test server. Validates that only one token rotation occurs and all callers receive the same valid token.",
+            priority: "Coverage",
             priorityClass: "medium",
           },
         ],
       },
       {
-        id: "evidence",
-        label: "Evidence",
-        icon: "🔬",
-        title: "Evidence Base",
-        subtitle: "Research foundations and supporting analysis",
+        id: "diff",
+        label: "Diff",
+        icon: "⇄",
+        title: "Line-by-Line Diff Summary",
+        subtitle: "42 lines added, 18 removed across 3 files",
         paras: [
-          'Our analysis draws on a comprehensive review of 147 regulatory filings, 42 academic studies, and interviews with 23 privacy professionals across 11 jurisdictions. The empirical foundation is anchored in the FTC\'s 2024 Privacy Report¹, which documented a 340% increase in consumer complaints related to AI-driven data practices since 2021.',
-          "Econometric modeling² indicates that risk-tiered regulation could reduce compliance costs for small and medium enterprises by an estimated 42% compared to a uniform framework, while maintaining equivalent consumer protection outcomes. This finding is robust across three regulatory cost scenarios.",
-          "Comparative analysis of the EU AI Act³ and sector-specific approaches in financial services and healthcare reveals that horizontal frameworks with vertical carve-outs achieve the best balance of regulatory clarity and adaptive capacity. Our proposed architecture synthesizes insights from both paradigms.",
+          "tokenRefresh.ts: Added acquireLock() call at line 47 before token rotation. Wrapped refresh logic in try/finally to ensure lock release. Added version parameter to store.update() call at line 89. Total: +24 lines, -6 lines.",
+          "tokenStore.ts: Refactored update() to accept expectedVersion parameter. Implements atomic compare-and-swap using Redis WATCH/MULTI. Returns { success, newToken, version } tuple. Total: +14 lines, -8 lines.",
+          "client.ts: Added refreshPromise singleton at module scope. All 401 handlers check and share this promise. Clears on successful refresh or after 30s timeout. Total: +4 lines, -4 lines.",
         ],
-        footnotesLabel: "References",
+        footnotesLabel: "Test Results",
         footnotes: [
           {
-            mark: "1",
-            text: "Federal Trade Commission, \"Annual Privacy Report 2024,\" FTC Bureau of Consumer Protection, Washington DC, 2024.",
+            mark: "✓",
+            text: "Concurrent refresh test: 10/10 requests receive same valid token (previously 4/10 success)",
           },
           {
-            mark: "2",
-            text: "Chen, L. & Whitfield, E., \"The Cost of Privacy Regulation: A Heterogeneous Analysis,\" Journal of Law and Economics, vol. 67, no. 1, 2025.",
+            mark: "✓",
+            text: "Load test: 3x peak traffic, 0 token conflicts (previously 180/day at this station)",
           },
           {
-            mark: "3",
-            text: "European Commission, \"Regulation on Artificial Intelligence (AI Act),\" COM(2024) 265 final, Brussels, 2024.",
+            mark: "✓",
+            text: "Redis failover test: graceful fallback to in-memory lock within 200ms",
           },
         ],
       },
       {
-        id: "roadmap",
-        label: "Roadmap",
-        icon: "🗺️",
-        title: "Implementation Roadmap",
-        subtitle: "Phased approach over 36 months",
+        id: "rationale",
+        label: "Rationale",
+        icon: "💭",
+        title: "Why This Approach",
+        subtitle: "Design decisions and trade-offs",
         phases: [
           {
-            label: "Phase 1",
-            title: "Foundation & Consultation",
-            timeline: "Months 1–12",
+            label: "Why Redis Lock",
+            title: "Distributed coordination requirement",
+            timeline: "vs. in-memory only",
             items: [
-              "Establish inter-agency working group",
-              "Public consultation on white paper",
-              "Draft regulatory framework v1.0",
-              "Pilot registry with 5 major AI labs",
+              "Service runs on 4 instances — in-memory lock insufficient",
+              "SETNX provides O(1) atomic acquire with TTL safety",
+              "Alternative: database row lock — 10x higher latency",
             ],
           },
           {
-            label: "Phase 2",
-            title: "Legislation & Pilots",
-            timeline: "Months 13–24",
+            label: "Why Versioning",
+            title: "Detecting stale writes",
+            timeline: "vs. timestamp comparison",
             items: [
-              "Introduce legislation in Congress",
-              "Launch full data training registry",
-              "Pilot impact assessment program",
-              "Fund privacy research centers",
+              "Monotonic version avoids clock skew issues",
+              "CAS pattern familiar to all team members",
+              "Enables idempotent retry on version mismatch",
             ],
           },
           {
-            label: "Phase 3",
-            title: "Full Implementation",
-            timeline: "Months 25–36",
+            label: "Why Client Coalescing",
+            title: "Reducing redundant work",
+            timeline: "vs. server-side dedup only",
             items: [
-              "Enforcement authority activated",
-              "International agreements in force",
-              "First compliance cycle complete",
-              "Post-implementation review",
+              "Eliminates 90%+ of redundant refresh calls",
+              "Reduces server load during token expiry windows",
+              "Zero additional server infrastructure required",
             ],
           },
         ],
@@ -163,146 +160,143 @@ const SCENES = {
       {
         id: "title",
         label: "标题",
-        icon: "📄",
-        series: "政策研究系列 · 第2025-03号",
-        title: "生成式AI时代的",
-        titleEm: "数据隐私",
-        titleSuffix: "监管框架",
-        subtitle: "平衡创新与消费者保护的监管框架提案",
+        icon: "📝",
+        series: "代码评审注解 · CR-2026-142",
+        title: "认证令牌刷新",
+        titleEm: "重构",
+        titleSuffix: "注解",
+        subtitle: "前后对比注解差异——解决并发令牌刷新中的竞态条件",
         meta: [
-          { label: "作者", value: "埃莉诺·惠特菲尔德博士" },
-          { label: "机构", value: "数字治理研究中心" },
-          { label: "日期", value: "2025年3月" },
-          { label: "分类", value: "公开讨论稿" },
+          { label: "文件", value: "auth/tokenRefresh.ts" },
+          { label: "作者", value: "李乔丹" },
+          { label: "日期", value: "2026年7月6日" },
+          { label: "评审人", value: "已指派 3 人" },
         ],
       },
       {
-        id: "summary",
-        label: "摘要",
-        icon: "📊",
-        execLabel: "执行摘要",
-        title: "为何我们需要新的数据隐私方案",
+        id: "before",
+        label: "之前",
+        icon: "◀",
+        execLabel: "原始实现",
+        title: "之前：并发刷新竞态条件",
         paras: [
-          "生成式AI系统的快速普及从根本上改变了数据隐私格局。为结构化数据库和明确同意机制设计的传统监管框架，越来越难以应对基于海量非结构化个人数据训练的基础模型所带来的挑战。",
-          "本文提出一种分层监管架构，区分通用AI系统和特定领域应用，建立与风险水平相匹配的比例义务。通过对GDPR、CCPA以及欧盟和中国新兴AI专项法规的比较分析，我们识别出关键监管缺口并提出针对性干预措施。",
+          "原始令牌刷新处理器在每次 401 响应时颁发新令牌，不检查是否已有刷新正在进行。当多个浏览器标签页同时触发刷新时，每个请求都会使前一个令牌失效，导致一连串失败请求和强制用户登出。",
+          "该函数缺乏幂等性保证，不在并发调用者之间进行协调。令牌存储使用简单的覆盖语义，意味着最后一次写入获胜，无论早期刷新是否已被下游服务确认。",
         ],
-        keyPointsLabel: "核心要点",
+        keyPointsLabel: "已识别问题",
         keyPoints: [
-          "当前同意机制在基础模型训练场景下失效",
-          "风险分层监管优于一刀切方案",
-          "数据最小化原则需针对AI训练重新定义",
-          "跨境数据治理需要新的多边协调框架",
+          "无分布式锁——并发刷新请求竞态",
+          "无版本检查的令牌覆盖——丢失更新",
+          "无请求合并——每个标签页独立触发",
+          "登出级联——3 个以上标签页打开时 60% 失败率",
         ],
       },
       {
-        id: "recommendations",
-        label: "建议",
-        icon: "🎯",
-        title: "政策建议",
-        subtitle: "五项立法改革行动方案",
+        id: "after",
+        label: "之后",
+        icon: "▶",
+        title: "之后：带去重的幂等刷新",
+        subtitle: "注解变更——4 项关键修改",
         recs: [
           {
             num: "1",
-            heading: "建立数据训练登记制度",
-            text: "要求超过计算阈值的通用AI系统开发者维护公开可查的训练数据来源登记册，特别关注个人可识别信息。登记册应包括数据来源、收集方式和选择退出机制。",
-            priority: "关键",
+            heading: "刷新端点分布式锁",
+            text: "在令牌轮换前添加基于 Redis SETNX 的互斥锁，TTL 为 5 秒。一次只有一个请求可以进入临界区。后续请求等待锁，如果刷新已完成则返回相同令牌。",
+            priority: "关键修复",
             priorityClass: "high",
           },
           {
             num: "2",
-            heading: "推行算法影响评估",
-            text: "要求部署高风险AI系统的组织在部署前完成并公开算法影响评估，评估隐私风险、偏见可能性和社会影响。评估必须每24个月独立审计一次。",
-            priority: "高",
+            heading: "带 CAS 的令牌版本控制",
+            text: "令牌存储现使用比较交换语义。每次刷新递增版本计数器。过期的刷新请求被以 'token_version_mismatch' 拒绝，而非静默覆盖。",
+            priority: "关键修复",
             priorityClass: "high",
           },
           {
             num: "3",
-            heading: "实施数据可携带权2.0",
-            text: "将现有数据可携带权扩展至包括AI生成的关于个人的推断和画像。用户应能够导出、更正或删除的不仅是原始数据，还包括AI系统维护的关于他们的衍生表征。",
-            priority: "高",
-            priorityClass: "high",
+            heading: "客户端请求合并",
+            text: "客户端 SDK 现将所有 401 触发的刷新缓冲到单个共享 Promise。第一个调用者发起刷新；后续调用者等待同一 Promise。完全消除冗余网络调用。",
+            priority: "性能",
+            priorityClass: "medium",
           },
           {
             num: "4",
-            heading: "资助隐私保护研究",
-            text: "将联邦AI研究经费的3%分配给隐私保护计算技术，包括联邦学习、差分隐私和安全多方计算。建立国家隐私技术卓越中心。",
-            priority: "中",
+            heading: "锁超时时优雅降级",
+            text: "如果 Redis 不可用，回退到内存锁并使用指数退避。系统在保护降级的情况下仍可运行，而非硬故障。",
+            priority: "弹性",
             priorityClass: "medium",
           },
           {
             num: "5",
-            heading: "协调国际标准",
-            text: "推动AI数据治理的双边和多边协议，防止监管套利。优先与欧盟AI法案和英国AI法规对齐，同时倡导发展中国家参与标准制定。",
-            priority: "中",
+            heading: "并发刷新集成测试",
+            text: "新测试套件针对测试服务器生成 10 个并发刷新请求。验证只发生一次令牌轮换且所有调用者接收相同的有效令牌。",
+            priority: "覆盖",
             priorityClass: "medium",
           },
         ],
       },
       {
-        id: "evidence",
-        label: "依据",
-        icon: "🔬",
-        title: "证据基础",
-        subtitle: "研究基础和支撑分析",
+        id: "diff",
+        label: "差异",
+        icon: "⇄",
+        title: "逐行差异摘要",
+        subtitle: "跨 3 个文件，新增 42 行，删除 18 行",
         paras: [
-          "我们的分析基于对147份监管文件、42项学术研究的全面审查，以及对11个司法管辖区23位隐私专业人士的访谈。实证基础锚定FTC 2024年隐私报告¹，该报告记录了自2021年以来与AI驱动数据实践相关的消费者投诉增长340%。",
-          "计量经济学建模²表明，与统一框架相比，风险分层监管可将中小企业合规成本降低约42%，同时保持等效的消费者保护效果。这一发现在三种监管成本情景下均稳健。",
-          "对欧盟AI法案³和金融服务、医疗行业特定方法的比较分析表明，含纵向豁免的横向框架在监管清晰度和适应能力之间取得最佳平衡。",
+          "tokenRefresh.ts：在第 47 行令牌轮换前添加 acquireLock() 调用。将刷新逻辑包装在 try/finally 中以确保锁释放。在第 89 行向 store.update() 调用添加 version 参数。合计：+24 行，-6 行。",
+          "tokenStore.ts：重构 update() 以接受 expectedVersion 参数。使用 Redis WATCH/MULTI 实现原子比较交换。返回 { success, newToken, version } 元组。合计：+14 行，-8 行。",
+          "client.ts：在模块作用域添加 refreshPromise 单例。所有 401 处理器检查并共享此 Promise。在成功刷新或 30 秒超时后清除。合计：+4 行，-4 行。",
         ],
-        footnotesLabel: "参考文献",
+        footnotesLabel: "测试结果",
         footnotes: [
           {
-            mark: "1",
-            text: "联邦贸易委员会，《2024年度隐私报告》，FTC消费者保护局，华盛顿，2024年。",
+            mark: "✓",
+            text: "并发刷新测试：10/10 请求接收相同有效令牌（此前为 4/10 成功率）",
           },
           {
-            mark: "2",
-            text: "陈立、惠特菲尔德，《隐私监管的成本：异质性分析》，《法与经济学杂志》第67卷第1期，2025年。",
+            mark: "✓",
+            text: "负载测试：3 倍峰值流量，0 令牌冲突（此前此站每天 180 次）",
           },
           {
-            mark: "3",
-            text: "欧盟委员会，《人工智能法规（AI法案）》，COM(2024)265终稿，布鲁塞尔，2024年。",
+            mark: "✓",
+            text: "Redis 故障转移测试：200ms 内优雅回退到内存锁",
           },
         ],
       },
       {
-        id: "roadmap",
-        label: "路线图",
-        icon: "🗺️",
-        title: "实施路线图",
-        subtitle: "36个月分阶段方案",
+        id: "rationale",
+        label: "理由",
+        icon: "💭",
+        title: "为何选择此方案",
+        subtitle: "设计决策和权衡",
         phases: [
           {
-            label: "第一阶段",
-            title: "基础与咨询",
-            timeline: "第1–12个月",
+            label: "为何用 Redis 锁",
+            title: "分布式协调需求",
+            timeline: "对比仅内存锁",
             items: [
-              "成立跨部门工作组",
-              "白皮书公开咨询",
-              "起草监管框架v1.0",
-              "5家主要AI实验室试点登记",
+              "服务运行在 4 个实例上——内存锁不足",
+              "SETNX 提供 O(1) 原子获取和 TTL 安全",
+              "替代方案：数据库行锁——延迟高 10 倍",
             ],
           },
           {
-            label: "第二阶段",
-            title: "立法与试点",
-            timeline: "第13–24个月",
+            label: "为何用版本控制",
+            title: "检测过期写入",
+            timeline: "对比时间戳比较",
             items: [
-              "向国会提交立法",
-              "全面启动数据训练登记",
-              "试点影响评估项目",
-              "资助隐私研究中心",
+              "单调版本避免时钟偏差问题",
+              "CAS 模式为所有团队成员熟悉",
+              "支持版本不匹配时的幂等重试",
             ],
           },
           {
-            label: "第三阶段",
-            title: "全面实施",
-            timeline: "第25–36个月",
+            label: "为何用客户端合并",
+            title: "减少冗余工作",
+            timeline: "对比仅服务端去重",
             items: [
-              "执法权启动",
-              "国际协议生效",
-              "首个合规周期完成",
-              "实施后审查",
+              "消除 90%+ 的冗余刷新调用",
+              "降低令牌过期窗口期的服务器负载",
+              "无需额外服务器基础设施",
             ],
           },
         ],
@@ -328,9 +322,46 @@ export default function PolicyPaper({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   useLayoutEffect(() => {
     const id = "style-45-fonts";
@@ -342,22 +373,6 @@ export default function PolicyPaper({
       "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap";
     document.head.appendChild(link);
   }, []);
-
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
-    }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
 
   useEffect(() => {
     setEntered(false);
@@ -697,53 +712,53 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       panel: "#ffffff",
     },
     typography: {
-      header: "Inter, sans-serif",
-      body: "Inter, Georgia, serif",
+      header: "Inter 700",
+      body: "JetBrains Mono 400",
     },
     tags: lang === "zh"
-      ? ["政策文件", "数据隐私", "监管", "AI治理"]
-      : ["policy-paper", "data-privacy", "regulation", "AI-governance"],
-    fonts: ["Inter", "cjk:Noto Serif SC"],
+      ? ["注解", "差异", "源码", "前后对比", "代码"]
+      : ["annotated", "diff", "source", "before-after", "comparison", "code", "annotation"],
+    fonts: ["Inter", "JetBrains Mono", "cjk:Noto Sans SC"],
     scenes: [
       {
         id: 1,
-        title: lang === "zh" ? "标题页" : "Title Page",
+        title: lang === "zh" ? "标题" : "Header",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "完整标题" : "Full title page" , body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "完整标题" : "Full header" , body: "" },
         ],
       },
       {
         id: 2,
-        title: lang === "zh" ? "执行摘要" : "Executive Summary",
+        title: lang === "zh" ? "之前" : "Before",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "首段正文" : "First paragraph" , body: "" },
-          { id: 1, action: "beat-1", title: lang === "zh" ? "全部要点" : "All key points" , body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "首段代码" : "First code block" , body: "" },
+          { id: 1, action: "beat-1", title: lang === "zh" ? "全部问题" : "All problems" , body: "" },
         ],
       },
       {
         id: 3,
-        title: lang === "zh" ? "政策建议" : "Recommendations",
+        title: lang === "zh" ? "之后" : "After",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "前两项建议" : "First two recommendations" , body: "" },
-          { id: 1, action: "beat-1", title: lang === "zh" ? "前四项建议" : "First four recommendations" , body: "" },
-          { id: 2, action: "beat-2", title: lang === "zh" ? "全部五项建议" : "All five recommendations" , body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "前两项变更" : "First two changes" , body: "" },
+          { id: 1, action: "beat-1", title: lang === "zh" ? "前四项变更" : "First four changes" , body: "" },
+          { id: 2, action: "beat-2", title: lang === "zh" ? "全部五项变更" : "All five changes" , body: "" },
         ],
       },
       {
         id: 4,
-        title: lang === "zh" ? "证据基础" : "Evidence Base",
+        title: lang === "zh" ? "差异" : "Diff",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "首段分析" : "First analysis paragraph" , body: "" },
-          { id: 1, action: "beat-1", title: lang === "zh" ? "全部段落和脚注" : "All paragraphs and footnotes" , body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "首段差异" : "First diff section" , body: "" },
+          { id: 1, action: "beat-1", title: lang === "zh" ? "全部差异和测试" : "All diffs and tests" , body: "" },
         ],
       },
       {
         id: 5,
-        title: lang === "zh" ? "实施路线图" : "Implementation Roadmap",
+        title: lang === "zh" ? "理由" : "Rationale",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "第一阶段" : "Phase 1" , body: "" },
-          { id: 1, action: "beat-1", title: lang === "zh" ? "前两阶段" : "Phases 1-2" , body: "" },
-          { id: 2, action: "beat-2", title: lang === "zh" ? "全部三阶段" : "All three phases" , body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "第一个理由" : "First rationale" , body: "" },
+          { id: 1, action: "beat-1", title: lang === "zh" ? "前两个理由" : "First two rationales" , body: "" },
+          { id: 2, action: "beat-2", title: lang === "zh" ? "全部三个理由" : "All three rationales" , body: "" },
         ],
       },
     ],
@@ -751,13 +766,13 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 }
 
 const enMeta = {
-  name: "Policy Paper",
-  theme: "Formal policy proposal with recommendations and evidence base",
+  name: "Annotated Source & Diff",
+  theme: "Before/after code transformations with annotated explanations and line-by-line diff",
   densityLabel: "Dense",
 };
 
 const zhMeta = {
-  name: "政策文件",
-  theme: "含建议和证据基础的正式政策提案",
+  name: "注解源码与差异",
+  theme: "前后代码变换，含注解说明和逐行差异对比",
   densityLabel: "密集",
 };

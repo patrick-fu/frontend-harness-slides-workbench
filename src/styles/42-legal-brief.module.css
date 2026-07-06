@@ -1,13 +1,13 @@
-/* ── Style 42: Legal Brief ────────────────────────────────────────────── */
+/* ── Style 42: Decision Record ──────────────────────────────────────── */
 
 :root {
-  --style-42-paper: #fdfdf8;
-  --style-42-ink: #1a1a1a;
-  --style-42-panel: #f0ede4;
-  --style-42-accent: #8b0000;
-  --style-42-rule: #b8b0a0;
-  --style-42-muted: #5a5a5a;
-  --style-42-cite: #4a4a6a;
+  --style-42-paper: #f4f6f8;
+  --style-42-ink: #1a1a2e;
+  --style-42-panel: #e8ecf0;
+  --style-42-accent: #1e3a5f;
+  --style-42-rule: #c0c8d0;
+  --style-42-muted: #5a6070;
+  --style-42-cite: #3a4a60;
 }
 
 .root {
@@ -17,11 +17,11 @@
   overflow: hidden;
   background: var(--style-42-paper);
   color: var(--style-42-ink);
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   user-select: none;
 }
 
-/* Paper texture hint */
+/* Subtle grid texture for technical feel */
 .root::before {
   content: "";
   position: absolute;
@@ -31,8 +31,8 @@
       0deg,
       transparent,
       transparent 4cqh,
-      rgba(0, 0, 0, 0.008) 4cqh,
-      rgba(0, 0, 0, 0.008) 4.02cqh
+      rgba(0, 0, 0, 0.012) 4cqh,
+      rgba(0, 0, 0, 0.012) 4.02cqh
     );
   pointer-events: none;
 }
@@ -42,6 +42,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 /* Outgoing: show only above divider (top 45%), fade in last 100ms of 350ms */
@@ -67,7 +68,7 @@
 
 /* Incoming: revealed below divider progressively, then full screen */
 .enterAnim {
-  animation: sectionDividerEnter 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: sectionDividerEnter 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
   z-index: 1;
 }
 
@@ -136,7 +137,7 @@
 }
 
 .captionCourt {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.6cqh;
   font-weight: 600;
   color: var(--style-42-ink);
@@ -171,7 +172,7 @@
 }
 
 .captionPartyName {
-  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 4cqh;
   font-weight: 700;
   color: var(--style-42-ink);
@@ -179,14 +180,14 @@
 }
 
 .captionParty {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2cqh;
   color: var(--style-42-muted);
   font-style: italic;
 }
 
 .captionVersus {
-  font-family: Georgia, "Source Serif Pro", serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 3cqh;
   font-weight: 700;
   color: var(--style-42-accent);
@@ -203,7 +204,7 @@
 }
 
 .captionDocket {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.4cqh;
   font-weight: 600;
   color: var(--style-42-ink);
@@ -213,7 +214,7 @@
 .captionDates {
   display: flex;
   gap: 3cqw;
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.8cqh;
   color: var(--style-42-muted);
 }
@@ -225,7 +226,7 @@
 }
 
 .captionCounselTitle {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.8cqh;
   color: var(--style-42-muted);
   margin: 0 0 0.3cqh 0;
@@ -233,7 +234,7 @@
 }
 
 .captionCounselName {
-  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.2cqh;
   font-weight: 700;
   color: var(--style-42-ink);
@@ -241,14 +242,14 @@
 }
 
 .captionCounselFirm {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.9cqh;
   color: var(--style-42-ink);
   margin: 0.2cqh 0 0 0;
 }
 
 .captionCounselAddr {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.7cqh;
   color: var(--style-42-muted);
   margin: 0.2cqh 0 0 0;
@@ -271,7 +272,7 @@
 }
 
 .factsTitle {
-  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 4.5cqh;
   font-weight: 700;
   color: var(--style-42-accent);
@@ -302,7 +303,7 @@
 }
 
 .factNum {
-  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.4cqh;
   font-weight: 700;
   color: var(--style-42-accent);
@@ -312,7 +313,7 @@
 }
 
 .factText {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.1cqh;
   line-height: 1.6;
   color: var(--style-42-ink);
@@ -337,7 +338,7 @@
 }
 
 .argTitle {
-  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 4.5cqh;
   font-weight: 700;
   color: var(--style-42-accent);
@@ -360,7 +361,7 @@
 }
 
 .argSectionNum {
-  font-family: Georgia, "Source Serif Pro", serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 3.5cqh;
   font-weight: 700;
   color: var(--style-42-accent);
@@ -368,7 +369,7 @@
 }
 
 .argSectionTitle {
-  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.8cqh;
   font-weight: 700;
   color: var(--style-42-ink);
@@ -377,7 +378,7 @@
 }
 
 .argText {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.1cqh;
   line-height: 1.65;
   color: var(--style-42-ink);
@@ -393,7 +394,7 @@
 }
 
 .argCitationsLabel {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.8cqh;
   font-weight: 600;
   color: var(--style-42-muted);
@@ -410,7 +411,7 @@
 }
 
 .argCiteText {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.9cqh;
   font-style: italic;
   color: var(--style-42-cite);
@@ -418,7 +419,7 @@
 }
 
 .argCiteRel {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.7cqh;
   color: var(--style-42-muted);
 }
@@ -439,7 +440,7 @@
 }
 
 .reliefTitle {
-  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 4.5cqh;
   font-weight: 700;
   color: var(--style-42-accent);
@@ -455,7 +456,7 @@
 }
 
 .reliefWherefore {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.3cqh;
   font-weight: 600;
   color: var(--style-42-ink);
@@ -474,7 +475,7 @@
 }
 
 .reliefItem {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.1cqh;
   line-height: 1.55;
   color: var(--style-42-ink);
@@ -482,7 +483,7 @@
 }
 
 .reliefItem::marker {
-  font-family: Georgia, "Source Serif Pro", serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-weight: 700;
   color: var(--style-42-accent);
 }
@@ -503,7 +504,7 @@
 }
 
 .concTitle {
-  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 4.5cqh;
   font-weight: 700;
   color: var(--style-42-accent);
@@ -519,7 +520,7 @@
 }
 
 .concText {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.3cqh;
   line-height: 1.65;
   color: var(--style-42-ink);
@@ -528,7 +529,7 @@
 }
 
 .concDate {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2cqh;
   color: var(--style-42-muted);
   margin: 0 0 3cqh 0;
@@ -541,14 +542,14 @@
 }
 
 .concSigRespect {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2cqh;
   color: var(--style-42-ink);
   margin: 0 0 1.5cqh 0;
 }
 
 .concSigName {
-  font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.6cqh;
   font-weight: 700;
   color: var(--style-42-ink);
@@ -556,14 +557,14 @@
 }
 
 .concSigBar {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.8cqh;
   color: var(--style-42-muted);
   margin: 0.2cqh 0;
 }
 
 .concSigFirm {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2cqh;
   color: var(--style-42-ink);
   margin: 0.3cqh 0 0 0;
@@ -571,7 +572,7 @@
 }
 
 .concSigAddr {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.7cqh;
   color: var(--style-42-muted);
   margin: 0.3cqh 0 0 0;
@@ -579,7 +580,7 @@
 }
 
 .concSigContact {
-  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.6cqh;
   color: var(--style-42-muted);
   margin: 0.5cqh 0 0 0;
@@ -595,7 +596,7 @@
   left: 0;
   right: 0;
   z-index: 10;
-  background: rgba(253, 253, 248, 0.95);
+  background: rgba(244, 246, 248, 0.95);
   backdrop-filter: blur(8px);
   border-top: 0.05cqh solid var(--style-42-rule);
   padding: 1cqh 6cqw 1.2cqh;
@@ -618,7 +619,7 @@
   padding: 0.7cqh 2.5cqw;
   border-radius: 0.6cqh;
   transition: background 0.2s ease, color 0.2s ease;
-  font-family: "Source Serif Pro", Georgia, serif;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
 .navItem:hover {
@@ -626,7 +627,7 @@
 }
 
 .navRoman {
-  font-family: Georgia, "Source Serif Pro", serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 2.2cqh;
   font-weight: 700;
   color: var(--style-42-muted);

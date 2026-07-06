@@ -12,177 +12,175 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      court: "United States Court of Appeals\nFOR THE FEDERAL CIRCUIT",
-      caseName: "ACME TECHNOLOGIES, INC.,\nPlaintiff-Appellant,\n\nv.\n\nGLOBAL DISTRIBUTION CORP.,\nDefendant-Appellee.",
-      docket: "No. 2024-1567",
-      dateSubmitted: "Submitted: January 15, 2026",
-      dateArgued: "Argued: March 8, 2026",
-      counselTitle: "Counsel for Appellant:",
-      counselName: "Michael Chen, Esq.",
-      counselFirm: "Chen & Partners LLP",
-      counselAddr: "450 Market Street, Suite 2200\nSan Francisco, CA 94105",
+      court: "ARCHITECTURAL DECISION RECORD\nADR-2026-007",
+      caseName: "Decision: Adopt Event-Driven\nArchitecture for Order Processing\n\nreplacing\nsynchronous request-response pipeline",
+      docket: "Status: Accepted · July 2026",
+      dateSubmitted: "Context: Platform scalability initiative",
+      dateArgued: "Decision Date: July 3, 2026",
+      counselTitle: "Decision Lead:",
+      counselName: "Alex Rivera, Staff Engineer",
+      counselFirm: "Platform Architecture Team",
+      counselAddr: "Reviewers: 8 engineers across 4 teams\nImpact scope: Order service, Payment, Inventory",
     },
     zh: {
-      court: "美国联邦巡回上诉法院",
-      caseName: "ACME 科技有限公司\n原告-上诉人\n\n诉\n\n全球分销集团\n被告-被上诉人",
-      docket: "案号：2024-1567",
-      dateSubmitted: "提交：2026年1月15日",
-      dateArgued: "辩论：2026年3月8日",
-      counselTitle: "上诉人律师：",
-      counselName: "陈迈克 律师",
-      counselFirm: "陈氏合伙律师事务所",
-      counselAddr: "市场街450号2200室\n旧金山，CA 94105",
+      court: "架构决策记录\nADR-2026-007",
+      caseName: "决策：订单处理采用事件驱动架构\n\n替代\n同步请求-响应管道",
+      docket: "状态：已采纳 · 2026年7月",
+      dateSubmitted: "背景：平台可扩展性计划",
+      dateArgued: "决策日期：2026年7月3日",
+      counselTitle: "决策负责人：",
+      counselName: "亚历克斯·里维拉，资深工程师",
+      counselFirm: "平台架构组",
+      counselAddr: "审阅人：跨4个团队的8名工程师\n影响范围：订单服务、支付、库存",
     },
   },
   2: {
     en: {
-      title: "Statement of Facts",
+      title: "Context",
       paragraphs: [
         {
           num: "1.",
-          text: "This action arises from a dispute concerning the alleged infringement of U.S. Patent No. 9,847,231 (the \"'231 Patent\"), entitled \"Adaptive Data Compression System and Method,\" issued to ACME Technologies, Inc. (\"ACME\") on December 19, 2017. The '231 Patent claims 24 methods and 12 system claims directed to lossless compression of structured data streams.",
+          text: "The current synchronous order processing pipeline handles 12,000 orders/day with p99 latency of 840ms. During peak hours (10am-2pm), latency degrades to 2.4s and we observe a 3.2% timeout rate exceeding our SLO of <1%. The pipeline couples order validation, payment processing, inventory reservation, and notification dispatch into a single blocking call chain.",
         },
         {
           num: "2.",
-          text: "ACME is a Delaware corporation with its principal place of business in San Jose, California. Founded in 2008, ACME develops and licenses proprietary data compression technologies used in enterprise storage systems and cloud computing infrastructure. ACME holds a portfolio of 47 patents in the field of data encoding and transmission optimization.",
+          text: "Business growth projections indicate a 3x increase in order volume over the next 18 months following the launch of mobile ordering and expansion into three new geographic regions. The current architecture cannot scale horizontally without full database sharding, estimated at 6 months of engineering effort.",
         },
         {
           num: "3.",
-          text: "Global Distribution Corp. (\"Global\") is a New York corporation headquartered in New York City. Global operates a large-scale content delivery network that serves approximately 40% of all internet traffic in North America, with 214 edge locations across 38 countries. Global reported $8.7 billion in revenue for fiscal year 2024.",
+          text: "Three prior attempts to optimize the synchronous pipeline (connection pooling, read replicas, query optimization) yielded combined latency improvements of only 12%, insufficient to meet projected demand. Fundamental architectural change is required.",
         },
         {
           num: "4.",
-          text: "On or about March 15, 2023, ACME's engineering team, led by Dr. Patricia Reeves, discovered that Global's CDN infrastructure was utilizing a compression algorithm substantially similar to the methods claimed in the '231 Patent. ACME subsequently commissioned an independent technical analysis by Dr. Sarah Williams of MIT, who confirmed the structural and functional similarities in a 47-page report dated May 28, 2023.",
+          text: "The platform team evaluated three candidate architectures over a 4-week spike: (a) optimized synchronous with circuit breakers, (b) event-driven with Apache Kafka, (c) hybrid approach with async only for non-critical paths. Each was prototyped against production traffic patterns.",
         },
         {
           num: "5.",
-          text: "ACME sent a formal cease-and-desist letter to Global on June 1, 2023, followed by a detailed infringement analysis on August 14, 2023. Global responded on September 30, 2023, denying infringement and asserting that the '231 Patent claims were invalid for indefiniteness and obviousness in view of U.S. Patent No. 8,234,102 (the \"'102 Patent\") and the textbook \"Data Compression: The Complete Reference\" (Salomon, 4th ed. 2009).",
+          text: "Stakeholder alignment was achieved through two architecture review boards and a production risk assessment. The security team flagged event schema evolution as requiring governance, and the data team requested idempotency guarantees for downstream analytics.",
         },
       ],
     },
     zh: {
-      title: "事实陈述",
+      title: "背景",
       paragraphs: [
         {
           num: "一、",
-          text: "本诉讼源于关于美国专利号 9,847,231（以下简称\"'231 专利\"）的侵权争议。该专利题为\"自适应数据压缩系统及方法\"，于 2017 年 12 月 19 日授予 ACME 科技有限公司（以下简称\"ACME\"）。'231 专利包含 24 项方法权利要求和 12 项系统权利要求，涉及结构化数据流的无损压缩。",
+          text: "当前同步订单处理管道日均处理 12,000 单，p99 延迟 840ms。高峰时段（上午10点-下午2点）延迟降至 2.4s，观察到 3.2% 的超时率，超出我们 <1% 的 SLO。该管道将订单验证、支付处理、库存预留和通知分发耦合为单一阻塞调用链。",
         },
         {
           num: "二、",
-          text: "ACME 是一家特拉华州公司，主要营业地位于加利福尼亚州圣何塞。ACME 成立于 2008 年，开发并授权专有的数据压缩技术，应用于企业存储系统和云计算基础设施。ACME 在数据编码和传输优化领域拥有 47 项专利组合。",
+          text: "业务增长预测显示，随着移动点餐上线和三个新地区扩张，未来 18 个月订单量将增长 3 倍。当前架构无法水平扩展，除非进行完整的数据库分片，预计需要 6 个月工程投入。",
         },
         {
           num: "三、",
-          text: "全球分销集团（以下简称\"全球\"）是一家纽约州公司，总部位于纽约市。全球运营着一个大规模的内容分发网络，服务于北美约 40% 的互联网流量，在 38 个国家设有 214 个边缘节点。全球 2024 财年报告收入为 87 亿美元。",
+          text: "此前三次优化同步管道的尝试（连接池、读副本、查询优化）合计仅带来 12% 的延迟改善，不足以满足预期需求。需要进行根本性架构变更。",
         },
         {
           num: "四、",
-          text: "2023 年 3 月 15 日前后，由 Patricia Reeves 博士领导的 ACME 工程团队发现全球的 CDN 基础设施使用了一种与 '231 专利所主张方法实质相似的压缩算法。ACME 随后委托麻省理工学院 Sarah Williams 博士进行独立技术分析，后者在 2023 年 5 月 28 日的 47 页报告中确认了结构和功能上的相似性。",
+          text: "平台团队在为期 4 周的技术预研中评估了三种候选架构：(a) 带熔断器的优化同步方案，(b) 基于 Apache Kafka 的事件驱动方案，(c) 仅非关键路径异步的混合方案。每种均基于生产流量模式进行了原型验证。",
         },
         {
           num: "五、",
-          text: "ACME 于 2023 年 6 月 1 日向全球发出正式停止侵权函，并于 2023 年 8 月 14 日提供了详细的侵权分析。全球于 2023 年 9 月 30 日回复，否认侵权，并主张 '231 专利权利要求因不确定性以及相对于美国专利号 8,234,102（\"'102 专利\"）和教科书《数据压缩：完整参考》（Salomon，第4版，2009年）的显而易见性而无效。",
+          text: "通过两次架构评审会和一次生产风险评估，达成了利益相关者对齐。安全团队指出事件模式演进需要治理机制，数据团队要求下游分析具备幂等性保证。",
         },
       ],
     },
   },
   3: {
     en: {
-      title: "Legal Argument",
-      sectionHeading: "I.",
+      title: "The Decision",
+      sectionHeading: "DECISION",
       sectionTitle:
-        "The District Court Erred in Granting Summary Judgment of Non-Infringement",
+        "Adopt event-driven architecture for all order processing workflows",
       argument:
-        "The district court's construction of claim 12 of the '231 Patent was unduly narrow. The court improperly imported limitations from the specification into the claims, contrary to the principles articulated in Phillips v. AWH Corp., 415 F.3d 1303 (Fed. Cir. 2005) (en banc). Specifically, the district court read the requirement that the compression engine operate \"in real-time\" into claim 12, when no such limitation appears in the claim language itself.",
+        "We will migrate the order processing pipeline to an event-driven architecture using Apache Kafka as the event backbone. Each domain (orders, payments, inventory, notifications) will become an independent service emitting and consuming domain events. The initial implementation will use choreography rather than orchestration, with a saga pattern for distributed transaction management across payment and inventory services.",
       argument2:
-        "Under the proper claim construction — one that gives full effect to the ordinary meaning of claim terms as understood by a person of ordinary skill in the art of data compression — the accused system meets every limitation of claim 12. Global's CDN employs an adaptive dictionary-based compression scheme that dynamically adjusts codeword lengths based on input statistics, precisely as claimed.",
+        "This decision is supported by evidence from the spike: event-driven approach reduced p99 latency by 68% (840ms to 268ms) under simulated 3x load, while improving system availability from 99.7% to 99.95% through decoupled failure domains. The team's existing familiarity with Kafka (used in 3 production pipelines) reduces adoption risk.",
       citations: [
         {
-          text: "Phillips v. AWH Corp., 415 F.3d 1303 (Fed. Cir. 2005)",
-          relevance: "Claim construction standard — intrinsic evidence priority",
+          text: "Spike Report PLT-2026-042: Event-Driven Architecture Prototype Results",
+          relevance: "Latency and throughput benchmarks under 3x load simulation",
         },
         {
-          text: "Markman v. Westview Instruments, 517 U.S. 370 (1996)",
-          relevance: "Judicial construction of patent claims",
+          text: "Architecture Review Board Minutes, June 14 2026",
+          relevance: "Stakeholder alignment and risk assessment",
         },
         {
-          text: "Vitronics Corp. v. Conceptronic, 90 F.3d 1576 (Fed. Cir. 1996)",
-          relevance: "Proper use of specification in claim construction",
+          text: "AWS Well-Architected Framework — Reliability Pillar",
+          relevance: "Decoupled failure domains and horizontal scaling best practices",
         },
       ],
     },
     zh: {
-      title: "法律论证",
-      sectionHeading: "一、",
-      sectionTitle: "地区法院在授予不侵权的简易判决方面存在错误",
+      title: "决策内容",
+      sectionHeading: "决策",
+      sectionTitle: "所有订单处理工作流采用事件驱动架构",
       argument:
-        "地区法院对 '231 专利第 12 项权利要求的解释过于狭窄。法院不当地将说明书中的限制条件引入权利要求，这与 Phillips v. AWH Corp., 415 F.3d 1303 (Fed. Cir. 2005)（全院庭审）所阐明的原则相悖。具体而言，地区法院将压缩引擎\"实时\"运行的要求写入第 12 项权利要求，而该权利要求语言本身并无此限制。",
+        "我们将把订单处理管道迁移至事件驱动架构，使用 Apache Kafka 作为事件骨干。每个领域（订单、支付、库存、通知）将成为独立服务，发出和消费领域事件。初期实现将使用编排模式而非集中协调，通过 saga 模式管理支付和库存服务之间的分布式事务。",
       argument2:
-        "根据正确的权利要求解释——即对数据压缩领域普通技术人员所理解的权利要求术语的通常含义给予充分效力——被诉系统满足第 12 项权利要求的每一项限制。全球的 CDN 采用了一种基于自适应字典的压缩方案，该方案根据输入统计动态调整码字长度，与权利要求所主张的完全一致。",
+        "这一决策得到技术预研证据的支持：在模拟 3 倍负载下，事件驱动方案将 p99 延迟降低 68%（从 840ms 降至 268ms），同时通过解耦故障域将系统可用性从 99.7% 提升至 99.95%。团队对 Kafka 的现有使用经验（已用于 3 条生产管道）降低了采用风险。",
       citations: [
         {
-          text: "Phillips v. AWH Corp., 415 F.3d 1303 (Fed. Cir. 2005)",
-          relevance: "权利要求解释标准——内在证据优先",
+          text: "预研报告 PLT-2026-042：事件驱动架构原型测试结果",
+          relevance: "3 倍负载模拟下的延迟和吞吐量基准",
         },
         {
-          text: "Markman v. Westview Instruments, 517 U.S. 370 (1996)",
-          relevance: "专利权利要求的司法解释",
+          text: "架构评审会议纪要，2026年6月14日",
+          relevance: "利益相关者对齐与风险评估",
         },
         {
-          text: "Vitronics Corp. v. Conceptronic, 90 F.3d 1576 (Fed. Cir. 1996)",
-          relevance: "说明书在权利要求解释中的适当使用",
+          text: "AWS 架构完善框架——可靠性支柱",
+          relevance: "解耦故障域和水平扩展最佳实践",
         },
       ],
     },
   },
   4: {
     en: {
-      title: "Prayer for Relief",
-      wherefore: "WHEREFORE, Plaintiff-Appellant ACME Technologies, Inc. respectfully requests that this Court:",
+      title: "Trade-offs Evaluated",
+      wherefore: "Alternatives considered and reasons for rejection:",
       remedies: [
-        "Reverse the district court's grant of summary judgment of non-infringement entered on November 15, 2024, in Case No. 23-cv-04172-WHO;",
-        "Construe the claims of the '231 Patent in accordance with the principles set forth in Phillips v. AWH Corp. and consistent with the ordinary meaning of claim terms to a person of ordinary skill in the art;",
-        "Remand this action to the United States District Court for the Northern District of California for further proceedings consistent with this Court's opinion, including a trial on the merits of ACME's infringement claims;",
-        "Award ACME its reasonable attorneys' fees and costs pursuant to 35 U.S.C. § 285, on the grounds that this is an exceptional case given Global's continued willful infringement despite actual knowledge of the '231 Patent;",
-        "Grant such other and further relief as the Court deems just and proper in the premises.",
+        "Optimized Synchronous Pipeline — Rejected: Only 12% latency improvement, does not address the fundamental coupling that prevents independent scaling of domain services. Estimated 4 months of work for insufficient gain.",
+        "Hybrid Approach (async non-critical only) — Rejected: Maintains the core coupling problem, creates two architectural paradigms to maintain, and only partially solves the scalability constraint. Complexity without proportional benefit.",
+        "Event-Driven with Orchestration (Zeebe/Camunda) — Deferred: While orchestration provides better observability for complex workflows, it introduces a new infrastructure dependency and a single point of failure. We will revisit this if choreography proves insufficient for 5+ service sagas.",
+        "Full Microservices Refactor — Rejected: Scope too large for the immediate problem. Event-driven migration provides 80% of the benefit at 30% of the cost, with a clear path to full microservices if needed.",
       ],
     },
     zh: {
-      title: "救济请求",
-      wherefore: "据此，原告-上诉人 ACME 科技有限公司恭请本院：",
+      title: "权衡分析",
+      wherefore: "已考虑的替代方案及拒绝理由：",
       remedies: [
-        "撤销地区法院于 2024 年 11 月 15 日在案号 23-cv-04172-WHO 中作出的不侵权简易判决；",
-        "按照 Phillips v. AWH Corp. 案所确立的原则，并以本领域普通技术人员对权利要求术语的通常理解为准，解释 '231 专利的权利要求；",
-        "将本案发回美国加利福尼亚州北区地区法院，依照本院意见进行进一步程序，包括就 ACME 的侵权主张进行实体审理；",
-        "鉴于全球在实际知悉 '231 专利的情况下持续故意侵权，本案属例外案件，依据《美国法典》第35编第285条，判令被告承担 ACME 合理的律师费和诉讼费用；",
-        "授予本院认为在本案中公正适当的其他及进一步救济。",
+        "优化同步管道——拒绝：仅 12% 延迟改善，未解决阻碍领域服务独立扩展的根本性耦合问题。预计 4 个月工作量，收益不足。",
+        "混合方案（仅非关键路径异步）——拒绝：维持了核心耦合问题，需要维护两套架构范式，且仅部分解决可扩展性约束。复杂度与收益不成比例。",
+        "带编排的事件驱动（Zeebe/Camunda）——暂缓：虽然编排为复杂工作流提供更好的可观测性，但引入了新的基础设施依赖和单点故障。如果编排模式在 5+ 服务 saga 中证明不足，我们将重新评估。",
+        "完整微服务重构——拒绝：对当前问题范围过大。事件驱动迁移以 30% 的成本提供 80% 的收益，且如有需要有通往完整微服务的清晰路径。",
       ],
     },
   },
   5: {
     en: {
-      title: "Conclusion",
+      title: "Verification & Status",
       closing:
-        "For the foregoing reasons, ACME respectfully submits that the judgment of the United States District Court for the Northern District of California should be reversed and the case remanded for trial on the merits. ACME's patent claims are valid, enforceable, and infringed by Global's CDN infrastructure. The record contains substantial evidence of infringement, and the district court's claim construction constituted reversible error.",
-      dateLine: "Dated: April 1, 2026",
-      respectSubmitted: "Respectfully submitted,",
-      sigName: "Michael Chen, Esq.",
-      sigBar: "Bar No. 234567",
-      sigFirm: "Chen & Partners LLP",
-      sigAddr: "450 Market Street, Suite 2200\nSan Francisco, CA 94105",
-      sigContact: "Tel: (415) 555-0192\nEmail: m.chen@chenpartners.com",
+        "The decision will be validated through a phased rollout: Phase 1 (Weeks 1-4) — Shadow mode deployment with dual-write to validate event schema correctness. Phase 2 (Weeks 5-8) — 10% traffic cutover with automated rollback on error rate >0.5%. Phase 3 (Weeks 9-12) — Full traffic cutover with 2-week observation period. Success criteria: p99 latency <300ms, availability >99.9%, zero data consistency incidents.",
+      dateLine: "Last Updated: July 6, 2026",
+      respectSubmitted: "Status:",
+      sigName: "ACCEPTED — Implementation in progress",
+      sigBar: "Phase 1 target: Complete by Aug 1, 2026",
+      sigFirm: "Owner: Alex Rivera, Staff Engineer",
+      sigAddr: "Next review: Architecture Board, Aug 15 2026",
+      sigContact: "Escalation: VP Engineering within 24h on SLO breach",
     },
     zh: {
-      title: "结论",
+      title: "验证与状态",
       closing:
-        "基于上述理由，ACME 恭请本院撤销美国加利福尼亚州北区地区法院的判决，并将本案发回就实体问题进行审理。ACME 的专利权利要求有效、可执行，且被全球的 CDN 基础设施所侵犯。案卷中包含大量侵权证据，地区法院的权利要求解释构成可撤销的错误。",
-      dateLine: "日期：2026年4月1日",
-      respectSubmitted: "此致",
-      sigName: "陈迈克 律师",
-      sigBar: "律师号：234567",
-      sigFirm: "陈氏合伙律师事务所",
-      sigAddr: "市场街450号2200室\n旧金山，CA 94105",
-      sigContact: "电话：(415) 555-0192\n邮箱：m.chen@chenpartners.com",
+        "该决策将通过分阶段上线进行验证：第一阶段（第1-4周）——影子模式部署，双写验证事件模式正确性。第二阶段（第5-8周）——10%流量切换，错误率 >0.5% 时自动回滚。第三阶段（第9-12周）——全量切换，为期 2 周观察期。成功标准：p99 延迟 <300ms，可用性 >99.9%，零数据一致性事故。",
+      dateLine: "最后更新：2026年7月6日",
+      respectSubmitted: "状态：",
+      sigName: "已采纳——实施进行中",
+      sigBar: "第一阶段目标：2026年8月1日前完成",
+      sigFirm: "负责人：亚历克斯·里维拉，资深工程师",
+      sigAddr: "下次评审：架构委员会，2026年8月15日",
+      sigContact: "升级路径：SLO 违规时 24 小时内上报工程副总裁",
     },
   },
 };
@@ -190,32 +188,32 @@ const SCENES: Record<number, SceneContent> = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Legal Brief", zh: "法律文书" };
+  const nameMap = { en: "Decision Record", zh: "决策记录" };
   const themeMap = {
-    en: "IP Case — legal brief with numbered paragraphs, citations, and formal court structure",
-    zh: "知识产权案件——含编号段落、引用和正式法院结构的法律文书",
+    en: "Technical decisions, trade-offs, and architectural boundaries — structured reasoning blocks with procedural formality",
+    zh: "技术决策、权衡分析与架构边界——结构化推理块，程序化工整风格",
   };
   const densityLabelMap = { en: "Document-Dense", zh: "文档密集" };
 
   const sceneTitles = {
-    en: ["Caption", "Facts", "Argument", "Relief", "Conclusion"],
-    zh: ["案首", "事实", "论证", "救济", "结论"],
+    en: ["Header", "Context", "Decision", "Trade-offs", "Verification"],
+    zh: ["标题", "背景", "决策", "权衡", "验证"],
   };
 
   const beatActions = {
     en: {
-      1: ["Caption page revealed"],
-      2: ["Paragraphs 1-3 appear", "Paragraphs 4-5 appear"],
-      3: ["Argument section I", "Case citations appear", "Full argument text"],
-      4: ["Remedies 1-3 listed", "Remedies 4-5 listed"],
-      5: ["Conclusion and signature"],
+      1: ["Decision record header"],
+      2: ["Context paragraphs 1-3", "Context paragraphs 4-5"],
+      3: ["Decision statement", "Supporting citations", "Full reasoning"],
+      4: ["Alternatives 1-2 evaluated", "Alternatives 3-4 evaluated"],
+      5: ["Verification plan and status"],
     },
     zh: {
-      1: ["案首呈现"],
-      2: ["第 1-3 段出现", "第 4-5 段出现"],
-      3: ["论证第一节", "案例引用出现", "完整论证文本"],
-      4: ["救济 1-3 列出", "救济 4-5 列出"],
-      5: ["结论和签名"],
+      1: ["决策记录标题"],
+      2: ["背景第 1-3 段", "背景第 4-5 段"],
+      3: ["决策声明", "支撑引用", "完整推理"],
+      4: ["替代方案 1-2 评估", "替代方案 3-4 评估"],
+      5: ["验证计划与状态"],
     },
   };
 
@@ -274,10 +272,10 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
-    colors: { bg: "#fdfdf8", ink: "#1a1a1a", panel: "#f0ede4" },
-    typography: { header: "Georgia 700", body: "Source Serif Pro 400" },
-    tags: ["legal", "brief", "formal", "citations", "numbered", "serif", "dense", "court"],
-    fonts: ["Georgia", "Source Serif Pro"],
+    colors: { bg: "#f4f6f8", ink: "#1a1a2e", panel: "#e8ecf0" },
+    typography: { header: "Inter 700", body: "Inter 400" },
+    tags: ["decision", "record", "technical", "trade-offs", "architectural", "procedural", "documentation"],
+    fonts: ["Inter"],
     scenes,
   };
 }
@@ -299,10 +297,55 @@ export default function LegalBrief({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [showDivider, setShowDivider] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    showDivider: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return {
+            outgoingScene: null,
+            isTransitioning: false,
+            showDivider: false,
+            lastScene: prev.lastScene,
+          };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        showDivider: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        showDivider: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
+  var showDivider = transitionInfo.showDivider;
 
   useLayoutEffect(() => {
     const inject = (id: string, href: string) => {
@@ -322,24 +365,6 @@ export default function LegalBrief({
       "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap",
     );
   }, []);
-
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      setShowDivider(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-        setShowDivider(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
-    }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
 
   // Beat-level entered animation (for incoming scene reveals)
   useEffect(() => {
@@ -677,8 +702,8 @@ export default function LegalBrief({
   const renderNav = () => {
     if (isThumbnail) return null;
     const sectionLabels = {
-      en: ["Caption", "Facts", "Argument", "Relief", "Conclusion"],
-      zh: ["案首", "事实", "论证", "救济", "结论"],
+      en: ["Header", "Context", "Decision", "Trade-offs", "Verification"],
+      zh: ["标题", "背景", "决策", "权衡", "验证"],
     };
     const romanNumerals = ["I", "II", "III", "IV", "V"];
     return (

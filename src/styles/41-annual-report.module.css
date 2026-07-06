@@ -1,9 +1,9 @@
-/* ── Style 41: Annual Report ──────────────────────────────────────────── */
+/* ── Style 41: Research Memo ─────────────────────────────────────────── */
 
 :root {
-  --style-41-paper: #ffffff;
+  --style-41-paper: #fafaf7;
   --style-41-ink: #1a1a1a;
-  --style-41-panel: #f5f5f5;
+  --style-41-panel: #f0ede8;
   --style-41-accent: #1a3a5c;
   --style-41-rule: #c8c8c8;
   --style-41-muted: #666666;
@@ -25,6 +25,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 /* Hard cut: outgoing disappears instantly */
@@ -577,7 +578,7 @@
   left: 0;
   right: 0;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(250, 250, 247, 0.95);
   backdrop-filter: blur(8px);
   border-top: 0.05cqh solid var(--style-41-rule);
   padding: 1.2cqh 6cqw 1.5cqh;

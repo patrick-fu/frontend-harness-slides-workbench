@@ -13,192 +13,192 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      companyName: "ACME Corporation",
-      reportYear: "Annual Report 2025",
-      tagline: "Building Tomorrow, Today",
-      fiscalNote: "Fiscal Year Ended December 31, 2025",
-      established: "Est. 1987",
-      employees: "12,400 employees worldwide",
+      companyName: "Cognitive Systems Lab",
+      reportYear: "Research Memo — RM-2026-014",
+      tagline: "Evidence-first findings for decision support",
+      fiscalNote: "Distributed: July 6, 2026",
+      established: "Principal Investigator: Dr. Sarah Chen",
+      employees: "12 researchers · 3 institutions",
     },
     zh: {
-      companyName: "ACME 集团",
-      reportYear: "2025 年度报告",
-      tagline: "铸就未来，始于今日",
-      fiscalNote: "财年截至 2025 年 12 月 31 日",
-      established: "创立于 1987",
-      employees: "全球 12,400 名员工",
+      companyName: "认知系统实验室",
+      reportYear: "研究备忘录 — RM-2026-014",
+      tagline: "以证据为先的决策支持研究成果",
+      fiscalNote: "分发日期：2026 年 7 月 6 日",
+      established: "首席研究员：陈莎拉博士",
+      employees: "12 名研究员 · 3 所机构",
     },
   },
   2: {
     en: {
-      title: "Letter from the Chairman",
-      salutation: "Dear Shareholders,",
+      title: "Executive Summary",
+      salutation: "Key Takeaways",
       paragraphs: [
-        "As we close another transformative year, I am pleased to report that ACME Corporation delivered strong financial performance across all business segments. Our consolidated revenue reached $4.2 billion, representing a 23% increase over the prior year, driven by robust demand in our technology solutions and sustainable energy divisions.",
-        "Throughout the year, we made significant strategic investments in research and development, allocating $680 million to innovation initiatives that position us for long-term growth. Our expansion into emerging markets yielded particularly encouraging results, with Asia-Pacific revenue growing 41% year-over-year.",
-        "None of this would be possible without the dedication of our 12,400 employees worldwide. Their commitment to excellence and our customers' success remains our greatest competitive advantage. We remain focused on delivering sustainable value to all stakeholders while maintaining the highest standards of corporate governance.",
-        "As we look ahead, the board and management team are confident in our strategic direction. The global transition to clean energy, digital transformation across industries, and the growing demand for intelligent infrastructure present unprecedented opportunities for ACME.",
+        "This memo presents evidence from a six-month controlled study on model performance degradation under distribution shift. Our primary finding: fine-tuned models exhibit 38% greater robustness to out-of-distribution inputs compared to zero-shot baselines, with statistical significance at p < 0.01 across all three evaluation domains.",
+        "Calibration error analysis reveals that temperature scaling alone is insufficient for maintaining reliable uncertainty estimates in production. We recommend combining temperature scaling with Monte Carlo dropout to achieve expected calibration error below 2% across the full operating range.",
+        "Data quality proved to be the dominant factor in downstream performance. Models trained on de-duplicated, quality-filtered corpora consistently outperformed those trained on raw web-scale data by 11-17% on held-out evaluation suites, even at equivalent parameter counts.",
+        "Based on these findings, we recommend immediate adoption of the proposed quality-filtering pipeline for all production deployments, with phased rollout of Monte Carlo dropout calibration over the next quarter.",
       ],
-      signatureName: "James R. Harrington",
-      signatureTitle: "Chairman of the Board",
+      signatureName: "Dr. Sarah Chen",
+      signatureTitle: "Lead Researcher",
     },
     zh: {
-      title: "董事长致辞",
-      salutation: "尊敬的股东：",
+      title: "执行摘要",
+      salutation: "核心结论",
       paragraphs: [
-        "在又一个变革之年结束之际，我很高兴地向大家报告，ACME 集团在所有业务板块均取得了强劲的财务业绩。我们的综合收入达到 42 亿美元，同比增长 23%，这得益于技术解决方案和可持续能源部门的强劲需求。",
-        "全年，我们在研发方面进行了重大战略投资，投入 6.8 亿美元用于创新项目，为我们的长期增长奠定基础。我们在新兴市场的扩张取得了特别令人鼓舞的成果，亚太地区收入同比增长 41%。",
-        "这一切成就的取得，离不开我们全球 12,400 名员工的奉献。他们对卓越的追求和对客户成功的承诺，始终是我们最大的竞争优势。我们将继续专注于为所有利益相关者创造可持续价值，同时保持最高标准的公司治理。",
-        "展望未来，董事会和管理团队对我们的战略方向充满信心。全球清洁能源转型、各行业的数字化变革以及对智能基础设施日益增长的需求，为 ACME 带来了前所未有的机遇。",
+        "本备忘录呈现了一项为期六个月的关于分布偏移下模型性能退化的对照研究证据。我们的主要发现：与零样本基线相比，微调模型对分布外输入表现出 38% 更强的鲁棒性，在所有三个评估领域均达到 p < 0.01 的统计显著性。",
+        "校准误差分析表明，仅靠温度缩放不足以在生产环境中维持可靠的不确定性估计。我们建议将温度缩放与蒙特卡洛 dropout 结合使用，以在整个运行范围内实现低于 2% 的预期校准误差。",
+        "数据质量被证明是下游性能的主导因素。在去重、质量过滤的语料库上训练的模型，在留出评估套件上始终优于在原始网络规模数据上训练的模型 11-17%，即使在相同参数数量下也是如此。",
+        "基于这些发现，我们建议立即在所有生产部署中采用所提议的质量过滤管道，并在下一季度分阶段推出蒙特卡洛 dropout 校准。",
       ],
-      signatureName: "詹姆斯·R·哈灵顿",
-      signatureTitle: "董事长",
+      signatureName: "陈莎拉博士",
+      signatureTitle: "首席研究员",
     },
   },
   3: {
     en: {
-      title: "Financial Highlights",
-      subtitle: "Consolidated Results for Fiscal Year 2025",
-      note: "(In millions of US dollars, except per share amounts)",
-      tableHeaders: ["Metric", "2025", "2024", "Change"],
+      title: "Key Findings",
+      subtitle: "Quantitative Results Across Evaluation Domains",
+      note: "(Mean scores across 5 runs · 95% confidence intervals)",
+      tableHeaders: ["Metric", "Fine-tuned", "Zero-shot", "Delta"],
       tableRows: [
-        ["Revenue", "$4,200", "$3,414", "+23.0%"],
-        ["Gross Profit", "$1,890", "$1,502", "+25.8%"],
-        ["Operating Income", "$840", "$672", "+25.0%"],
-        ["Net Income", "$630", "$504", "+25.0%"],
-        ["EPS (Diluted)", "$4.82", "$3.86", "+24.9%"],
-        ["Free Cash Flow", "$720", "$580", "+24.1%"],
-        ["Total Assets", "$8,900", "$7,200", "+23.6%"],
-        ["Shareholders' Equity", "$3,400", "$2,850", "+19.3%"],
+        ["OOD Robustness", "84.2%", "61.0%", "+23.2pp"],
+        ["Calibration Error", "1.8%", "5.4%", "-3.6pp"],
+        ["F1 (Domain A)", "91.3", "78.6", "+12.7"],
+        ["F1 (Domain B)", "87.9", "72.1", "+15.8"],
+        ["F1 (Domain C)", "89.5", "75.3", "+14.2"],
+        ["Latency p99", "42ms", "38ms", "+4ms"],
+        ["Throughput", "2.4k/s", "2.6k/s", "-0.2k/s"],
+        ["Training Cost", "$18.4k", "$0", "—"],
       ],
       footnote:
-        "Note: Financial statements prepared in accordance with IFRS. Comparative figures have been restated for the adoption of new accounting standards effective January 1, 2024.",
+        "Note: OOD = Out-of-Distribution. Fine-tuned models evaluated at checkpoint step 42,000. Zero-shot baselines use the base 70B model with task-specific prompting.",
     },
     zh: {
-      title: "财务摘要",
-      subtitle: "2025 财年综合业绩",
-      note: "（除每股金额外，单位为百万美元）",
-      tableHeaders: ["指标", "2025", "2024", "变动"],
+      title: "核心研究成果",
+      subtitle: "各评估领域的量化结果",
+      note: "（5 次运行均值 · 95% 置信区间）",
+      tableHeaders: ["指标", "微调模型", "零样本", "差值"],
       tableRows: [
-        ["营业收入", "4,200", "3,414", "+23.0%"],
-        ["毛利润", "1,890", "1,502", "+25.8%"],
-        ["营业利润", "840", "672", "+25.0%"],
-        ["净利润", "630", "504", "+25.0%"],
-        ["每股收益（稀释）", "$4.82", "$3.86", "+24.9%"],
-        ["自由现金流", "720", "580", "+24.1%"],
-        ["总资产", "8,900", "7,200", "+23.6%"],
-        ["股东权益", "3,400", "2,850", "+19.3%"],
+        ["分布外鲁棒性", "84.2%", "61.0%", "+23.2pp"],
+        ["校准误差", "1.8%", "5.4%", "-3.6pp"],
+        ["F1（领域 A）", "91.3", "78.6", "+12.7"],
+        ["F1（领域 B）", "87.9", "72.1", "+15.8"],
+        ["F1（领域 C）", "89.5", "75.3", "+14.2"],
+        ["延迟 p99", "42ms", "38ms", "+4ms"],
+        ["吞吐量", "2.4k/s", "2.6k/s", "-0.2k/s"],
+        ["训练成本", "$18.4k", "$0", "—"],
       ],
       footnote:
-        "注：财务报表按照国际财务报告准则编制。比较数字已因 2024 年 1 月 1 日生效的新会计准则采用而重述。",
+        "注：OOD = 分布外。微调模型在检查点步骤 42,000 处评估。零样本基线使用基础 70B 模型配合任务特定提示。",
     },
   },
   4: {
     en: {
-      title: "Segment Performance",
+      title: "Methodology",
       intro:
-        "Our four business segments each delivered year-over-year growth, reflecting the strength of our diversified portfolio and the successful execution of our multi-year strategy.",
+        "Three complementary evaluation approaches were employed to triangulate findings, each designed to isolate a specific dimension of model behavior under distributional stress.",
       segments: [
         {
-          name: "Technology Solutions",
-          revenue: "$1,680M",
+          name: "Controlled Benchmark Suite",
+          revenue: "n=2,400",
           pct: 40,
-          growth: "+28%",
+          growth: "3 domains",
           detail:
-            "Cloud infrastructure and enterprise software led growth, with new contract value up 35% driven by AI platform adoption.",
+            "Standardized evaluation across three domains with controlled distribution shift intensity. Each domain contains 800 test examples stratified by shift magnitude.",
         },
         {
-          name: "Sustainable Energy",
-          revenue: "$1,260M",
+          name: "Production Shadow Traffic",
+          revenue: "n=18.2k",
           pct: 30,
-          growth: "+31%",
+          growth: "14 days",
           detail:
-            "Solar and wind project deployments accelerated. Battery storage division achieved profitability for the first time.",
+            "Real-world evaluation via shadow deployment alongside production system. Collected 18,247 labeled queries over a 14-day window with ground truth from human review.",
         },
         {
-          name: "Industrial Products",
-          revenue: "$840M",
+          name: "Calibration Analysis",
+          revenue: "ECE 1.8%",
           pct: 20,
-          growth: "+15%",
+          growth: "p < 0.01",
           detail:
-            "Steady demand from manufacturing clients. New smart sensor product line contributed 8% of segment revenue.",
+            "Expected Calibration Error measured across confidence deciles. Statistical significance verified via paired bootstrap resampling (10,000 iterations).",
         },
         {
-          name: "Services & Consulting",
-          revenue: "$420M",
+          name: "Ablation Studies",
+          revenue: "7 variants",
           pct: 10,
-          growth: "+18%",
+          growth: "controlled",
           detail:
-            "Digital transformation consulting engagements grew 22%. Expansion into sustainability advisory services.",
+            "Systematic ablation of data quality filters, calibration methods, and fine-tuning hyperparameters to isolate individual contribution factors.",
         },
       ],
     },
     zh: {
-      title: "板块业绩",
+      title: "研究方法",
       intro:
-        "我们四大业务板块均实现同比增长，彰显了我们多元化投资组合的实力和多年战略的成功执行。",
+        "采用三种互补的评估方法对研究结果进行三角验证，每种方法旨在隔离分布压力下模型行为的特定维度。",
       segments: [
         {
-          name: "技术解决方案",
-          revenue: "16.8亿",
+          name: "受控基准测试套件",
+          revenue: "n=2,400",
           pct: 40,
-          growth: "+28%",
+          growth: "3 个领域",
           detail:
-            "云基础设施和企业软件引领增长，AI 平台应用推动新合同价值增长 35%。",
+            "跨三个领域的标准化评估，含受控分布偏移强度。每个领域包含 800 个测试样本，按偏移幅度分层。",
         },
         {
-          name: "可持续能源",
-          revenue: "12.6亿",
+          name: "生产影子流量",
+          revenue: "n=18.2k",
           pct: 30,
-          growth: "+31%",
+          growth: "14 天",
           detail:
-            "太阳能和风能项目部署加速。电池储能部门首次实现盈利。",
+            "通过与生产系统并行的影子部署进行真实评估。在 14 天窗口内收集了 18,247 条带人工审核真值的标注查询。",
         },
         {
-          name: "工业产品",
-          revenue: "8.4亿",
+          name: "校准分析",
+          revenue: "ECE 1.8%",
           pct: 20,
-          growth: "+15%",
+          growth: "p < 0.01",
           detail:
-            "制造业客户需求稳定。新型智能传感器产品线贡献板块收入的 8%。",
+            "跨置信度十分位测量预期校准误差。通过配对自助重采样（10,000 次迭代）验证统计显著性。",
         },
         {
-          name: "服务与咨询",
-          revenue: "4.2亿",
+          name: "消融研究",
+          revenue: "7 种变体",
           pct: 10,
-          growth: "+18%",
+          growth: "受控",
           detail:
-            "数字化转型咨询业务增长 22%。拓展至可持续发展咨询服务。",
+            "系统性消融数据质量过滤器、校准方法和微调超参数，以隔离各贡献因素。",
         },
       ],
     },
   },
   5: {
     en: {
-      title: "Independent Auditor's Report",
-      toTheBoard: "To the Board of Directors and Shareholders of ACME Corporation:",
-      body: "We have audited the accompanying consolidated financial statements of ACME Corporation and its subsidiaries (the \"Company\") for the year ended December 31, 2025, comprising the consolidated statement of financial position, the consolidated statement of comprehensive income, the consolidated statement of changes in equity, and the consolidated statement of cash flows.",
+      title: "Conclusions & Recommendations",
+      toTheBoard: "Summary for Stakeholders",
+      body: "The evidence strongly supports adoption of fine-tuned models with quality-filtered training data for production deployment. The robustness gains (38% improvement in OOD performance) and calibration improvements (ECE reduced from 5.4% to 1.8%) represent material enhancements in both reliability and trustworthiness.",
       opinion:
-        "In our opinion, the financial statements present fairly, in all material respects, the financial position of the Company as at December 31, 2025, and its financial performance and its cash flows for the year then ended in accordance with International Financial Reporting Standards. Our audit was conducted in accordance with International Standards on Auditing (ISAs).",
+        "Recommendation 1: Deploy fine-tuned model variant to all production traffic within 30 days. Recommendation 2: Implement Monte Carlo dropout calibration pipeline as a post-processing step. Recommendation 3: Establish ongoing model monitoring with weekly OOD drift detection. All three recommendations are supported by statistically significant evidence with clear cost-benefit justification.",
       emphasis:
-        "Emphasis of Matter — Without modifying our opinion, we draw attention to Note 14 of the financial statements, which describes the uncertainty related to the outcome of the ongoing regulatory review in the European Union regarding data localization requirements.",
-      firm: "PricewaterhouseCoopers LLP",
-      location: "New York, NY",
-      date: "February 14, 2026",
-      partner: "Michael Torres, CPA — Lead Engagement Partner",
+        "Caveat: Fine-tuning adds approximately $18.4k in training cost per iteration and 4ms to p99 latency. These trade-offs were deemed acceptable given the 23 percentage-point improvement in OOD robustness and the reduction in calibration-related error incidents.",
+      firm: "Reviewed by: Dr. Marcus Webb",
+      location: "Independent Statistical Reviewer",
+      date: "Approved: July 6, 2026",
+      partner: "Distribution: Engineering Leadership, Product, ML Platform",
     },
     zh: {
-      title: "独立审计师报告",
-      toTheBoard: "致 ACME 集团董事会及全体股东：",
-      body: "我们已审计了 ACME 集团及其子公司（以下简称「公司」）截至 2025 年 12 月 31 日的合并财务报表，包括合并财务状况表、合并综合收益表、合并权益变动表和合并现金流量表。",
+      title: "结论与建议",
+      toTheBoard: "致相关方摘要",
+      body: "证据强有力地支持在生产部署中采用经过质量过滤数据训练的微调模型。鲁棒性提升（分布外性能改善 38%）和校准改进（ECE 从 5.4% 降至 1.8%）代表了可靠性和可信度的实质性增强。",
       opinion:
-        "我们认为，上述财务报表在所有重大方面均按照国际财务报告准则的规定，公允反映了公司截至 2025 年 12 月 31 日的财务状况以及该年度的经营成果和现金流量。我们的审计是按照国际审计准则（ISAs）执行的。",
+        "建议一：在 30 天内将微调模型变体部署到所有生产流量。建议二：实施蒙特卡洛 dropout 校准管道作为后处理步骤。建议三：建立持续模型监控机制，每周进行分布外漂移检测。三项建议均有统计显著证据支持，且成本效益论证清晰。",
       emphasis:
-        "强调事项——在不修改审计意见的前提下，我们提请关注财务报表附注 14，其中描述了与欧盟正在进行的关于数据本地化要求的监管审查结果相关的不确定性。",
-      firm: "普华永道会计师事务所",
-      location: "纽约",
-      date: "2026 年 2 月 14 日",
-      partner: "迈克尔·托雷斯，注册会计师——首席审计合伙人",
+        "注意事项：微调每次迭代增加约 18.4k 美元训练成本和 4ms p99 延迟。鉴于分布外鲁棒性提升 23 个百分点以及校准相关错误事件的减少，这些权衡被认为是可接受的。",
+      firm: "审阅人：马库斯·韦伯博士",
+      location: "独立统计审阅人",
+      date: "批准日期：2026 年 7 月 6 日",
+      partner: "分发范围：工程领导层、产品部、ML 平台团队",
     },
   },
 };
@@ -206,32 +206,32 @@ const SCENES: Record<number, SceneContent> = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Annual Report", zh: "年度报告" };
+  const nameMap = { en: "Research Memo", zh: "研究备忘录" };
   const themeMap = {
-    en: "Fiscal Year Summary — corporate annual report with financial tables and chairman's letter",
-    zh: "财年摘要——企业年度报告，含财务表格和董事长致辞",
+    en: "Research findings, executive summaries, evidence-led readouts — calm authoritative evidence-first",
+    zh: "研究成果、执行摘要、证据导向的汇报——冷静权威、证据为先",
   };
   const densityLabelMap = { en: "Document-Dense", zh: "文档密集" };
 
   const sceneTitles = {
-    en: ["Cover", "Chairman's Letter", "Financials", "Segments", "Auditor's Report"],
-    zh: ["封面", "董事长致辞", "财务摘要", "板块业绩", "审计报告"],
+    en: ["Cover", "Executive Summary", "Findings", "Methodology", "Conclusions"],
+    zh: ["封面", "执行摘要", "研究成果", "研究方法", "结论建议"],
   };
 
   const beatActions = {
     en: {
       1: ["Cover page revealed"],
-      2: ["Letter header and salutation", "Body paragraphs appear"],
+      2: ["Summary header", "Key findings appear"],
       3: ["Table header and first 4 rows", "Rows 5-8 appear", "Footnote revealed"],
-      4: ["Segment bars animate in", "Detail text appears"],
-      5: ["Auditor statement"],
+      4: ["Methodology bars animate in", "Detail text appears"],
+      5: ["Conclusions and recommendations"],
     },
     zh: {
       1: ["封面呈现"],
-      2: ["信头和称呼", "正文段落出现"],
+      2: ["摘要标题", "核心结论出现"],
       3: ["表头和前 4 行", "第 5-8 行出现", "脚注揭示"],
-      4: ["板块条形图动画", "详情文字出现"],
-      5: ["审计师陈述"],
+      4: ["方法条形图动画", "详情文字出现"],
+      5: ["结论与建议"],
     },
   };
 
@@ -291,9 +291,9 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
-    colors: { bg: "#ffffff", ink: "#1a1a1a", panel: "#f5f5f5" },
+    colors: { bg: "#fafaf7", ink: "#1a1a1a", panel: "#f0ede8" },
     typography: { header: "Georgia 700", body: "Source Serif Pro 400" },
-    tags: ["annual", "report", "corporate", "financial", "formal", "dense", "table", "serif"],
+    tags: ["research", "memo", "evidence", "editorial", "authoritative", "clean", "serif", "findings"],
     fonts: ["Georgia", "Source Serif Pro"],
     scenes,
   };
@@ -317,10 +317,55 @@ export default function AnnualReport({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [showPageFlash, setShowPageFlash] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    showPageFlash: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return {
+            outgoingScene: null,
+            isTransitioning: false,
+            showPageFlash: false,
+            lastScene: prev.lastScene,
+          };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        showPageFlash: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        showPageFlash: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
+  var showPageFlash = transitionInfo.showPageFlash;
 
   useLayoutEffect(() => {
     const inject = (id: string, href: string) => {
@@ -340,24 +385,6 @@ export default function AnnualReport({
       "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap",
     );
   }, []);
-
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      setShowPageFlash(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-        setShowPageFlash(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
-    }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
 
   // Beat-level entered animation (for incoming scene reveals)
   useEffect(() => {
@@ -739,8 +766,8 @@ export default function AnnualReport({
   const renderNav = () => {
     if (isThumbnail) return null;
     const pageLabels = {
-      en: ["Cover", "Letter", "Financials", "Segments", "Auditor"],
-      zh: ["封面", "致辞", "财务", "板块", "审计"],
+      en: ["Cover", "Summary", "Findings", "Methodology", "Conclusions"],
+      zh: ["封面", "摘要", "成果", "方法", "结论"],
     };
     return (
       <nav className={styles.nav} aria-label="Page navigation">

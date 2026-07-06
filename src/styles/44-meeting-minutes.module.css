@@ -1,14 +1,14 @@
-/* ── Style 44: Meeting Minutes ────────────────────────────────────────── */
+/* ── Style 44: Field Notes Report ─────────────────────────────────────── */
 
 :root {
-  --style-44-bg: #ffffff;
-  --style-44-ink: #1f2937;
-  --style-44-panel: #f3f4f6;
-  --style-44-accent: #2563eb;
-  --style-44-rule: #e5e7eb;
-  --style-44-muted: #6b7280;
-  --style-44-green: #16a34a;
-  --style-44-amber: #d97706;
+  --style-44-bg: #faf5eb;
+  --style-44-ink: #2c2416;
+  --style-44-panel: #f0e8d8;
+  --style-44-accent: #b85c38;
+  --style-44-rule: #d4c9b0;
+  --style-44-muted: #6b5d4a;
+  --style-44-green: #5a7a3a;
+  --style-44-amber: #c4813a;
 }
 
 .root {
@@ -18,8 +18,24 @@
   overflow: hidden;
   background: var(--style-44-bg);
   color: var(--style-44-ink);
-  font-family: "Inter", system-ui, -apple-system, "Noto Sans SC", sans-serif;
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   user-select: none;
+}
+
+/* Notebook paper texture */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 4.5cqh,
+      rgba(139, 90, 43, 0.04) 4.5cqh,
+      rgba(139, 90, 43, 0.04) 4.52cqh
+    );
+  pointer-events: none;
 }
 
 /* ── Transition Track ──────────────────────────────────────────────────── */
@@ -44,6 +60,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   width: 100%;
   height: 100%;
 }
@@ -115,7 +132,7 @@
 }
 
 .timestampText {
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   font-size: 2.2cqh;
   font-weight: 600;
   color: #ffffff;
@@ -646,7 +663,7 @@
   left: 0;
   right: 0;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(250, 245, 235, 0.95);
   backdrop-filter: blur(8px);
   border-top: 0.05cqh solid var(--style-44-rule);
   padding: 1cqh 6cqw 1.2cqh;
@@ -669,7 +686,7 @@
   padding: 0.7cqh 2.5cqw;
   border-radius: 0.6cqh;
   transition: background 0.2s ease, color 0.2s ease;
-  font-family: "Inter", sans-serif;
+  font-family: "Source Serif Pro", Georgia, serif;
 }
 
 .navItem:hover {

@@ -1,16 +1,16 @@
-/* ── Style 47: White Paper ───────────────────────────────────────────── */
+/* ── Style 47: Context Bento Box ─────────────────────────────────────── */
 
 :root {
-  --style-47-bg: #fafbfc;
-  --style-47-ink: #1e293b;
-  --style-47-panel: #ffffff;
-  --style-47-accent: #0369a1;
-  --style-47-accent2: #7c3aed;
-  --style-47-rule: #e2e8f0;
-  --style-47-muted: #64748b;
-  --style-47-code-bg: #0f172a;
-  --style-47-code-text: #e2e8f0;
-  --style-47-diagram-bg: #f1f5f9;
+  --style-47-bg: #1a1410;
+  --style-47-ink: #f5f0eb;
+  --style-47-panel: #2a221c;
+  --style-47-accent: #d4a853;
+  --style-47-accent2: #b85c38;
+  --style-47-rule: #3d332a;
+  --style-47-muted: #9a8e80;
+  --style-47-code-bg: #2a221c;
+  --style-47-code-text: #e8ddd0;
+  --style-47-diagram-bg: #221a14;
 }
 
 .root {
@@ -29,6 +29,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .transitionTrack {
@@ -65,7 +66,7 @@
 }
 
 .enterAnim {
-  animation: peelEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: peelEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   z-index: 2;
 }
 
@@ -584,7 +585,7 @@
   left: 0;
   right: 0;
   z-index: 10;
-  background: rgba(250, 251, 252, 0.95);
+  background: rgba(26, 20, 16, 0.95);
   backdrop-filter: blur(8px);
   border-top: 0.05cqh solid var(--style-47-rule);
   padding: 1cqh 6cqw 1.2cqh;

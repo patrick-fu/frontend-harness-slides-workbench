@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./47-white-paper.module.css";
 
@@ -14,208 +14,183 @@ const SCENES = {
     scenes: [
       {
         id: "cover",
-        label: "Cover",
-        icon: "📄",
-        series: "Technical White Paper · WP-2025-014",
-        title: "Distributed Systems",
-        titleEm: "Architecture",
-        titleSuffix: "at Scale",
+        label: "Context",
+        icon: "📦",
+        series: "Context Bento · Project Handoff Spec",
+        title: "Auth Token",
+        titleEm: "Refresh",
+        titleSuffix: "Refactor",
         subtitle:
-          "Design Patterns, Performance Trade-offs, and Production Lessons from Operating a Global Consensus Platform",
-        authors: "Dr. Marcus Chen, Sarah Okonkwo, James Whitfield, PhD",
-        affil: "Nexus Labs · Distributed Systems Research Group",
-        abstractLabel: "Abstract",
+          "Structured context for v2.14.0 deployment — goals, constraints, risks, and verification in one view",
+        authors: "Prepared by: Jordan Lee · Platform Architecture",
+        affil: "For: Deployment Review Board · July 6, 2026",
+        abstractLabel: "One-line Summary",
         abstract:
-          "This white paper presents the architecture of Nexus Consensus Platform (NCP), a distributed coordination engine designed for sub-100ms global replication. We describe the system's layered architecture, consensus algorithm (Raft++), and performance characteristics across 14 regional deployments. Benchmark results demonstrate 2.4M ops/sec throughput with p99 latency of 47ms under sustained load.",
+          "Resolve race condition in concurrent token refresh by adding distributed lock, token versioning, and client request coalescing. Target: 0 token conflicts under 3x peak load.",
       },
       {
-        id: "overview",
-        label: "Overview",
-        icon: "🔍",
-        title: "System Overview",
-        subtitle: "Design goals and architectural principles",
+        id: "goals",
+        label: "Goals",
+        icon: "🎯",
+        title: "Goals & Constraints",
+        subtitle: "What we're trying to achieve and what limits us",
         paras: [
-          "The Nexus Consensus Platform was designed to address the fundamental tension between consistency guarantees and operational latency in globally distributed systems. Traditional consensus protocols like Paxos and Raft provide strong guarantees but impose significant coordination overhead at scale.",
-          "Our approach introduces three key innovations: (1) hierarchical consensus zones that reduce cross-region coordination by 73%, (2) adaptive quorum selection that responds to network conditions in real-time, and (3) speculative execution with rollback for non-conflicting operations.",
-          "The system serves as the coordination backbone for Nexus's entire product suite, handling 40 billion consensus decisions per day across 14 availability zones with a measured SLO of 99.997% over 18 months of production operation.",
+          "Primary goal: Eliminate the 60% failure rate in concurrent token refresh when 3+ browser tabs are open. Current behavior forces user logout due to token invalidation cascade.",
+          "Secondary goal: Reduce p99 refresh latency from 840ms to under 300ms through request coalescing and lock optimization. This directly improves perceived app responsiveness.",
         ],
         terms: [
-          "Consensus",
-          "Raft++",
-          "Quorum",
-          "Sharding",
-          "Vector Clocks",
-          "CRDT",
-          "Byzantine Fault Tolerance",
+          "Zero Logouts",
+          "<300ms p99",
+          "Idempotent",
+          "Backward Compatible",
+          "No New Infra",
+          "Feature Flag",
+          "Rollback Ready",
         ],
       },
       {
-        id: "architecture",
-        label: "Architecture",
-        icon: "🏗️",
-        title: "System Architecture",
-        subtitle: "Layered component diagram and data flow",
+        id: "risks",
+        label: "Risks",
+        icon: "⚠️",
+        title: "Risk Compartments",
+        subtitle: "Identified risks and mitigation strategies",
         nodes: [
           {
-            id: "client",
-            label: "Client Gateway",
-            sub: "gRPC · REST",
-            icon: "🌐",
+            id: "r1",
+            label: "Lock Contention",
+            sub: "Redis mutex under load",
+            icon: "🔒",
             x: 5,
-            y: 40,
-            w: 14,
-            h: 18,
-            highlight: false,
-          },
-          {
-            id: "router",
-            label: "Request Router",
-            sub: "Consistent Hash",
-            icon: "🔀",
-            x: 24,
-            y: 40,
-            w: 14,
-            h: 18,
-            highlight: false,
-          },
-          {
-            id: "coordinator",
-            label: "Coordinator",
-            sub: "Raft++ Leader",
-            icon: "⚡",
-            x: 43,
             y: 15,
-            w: 14,
-            h: 18,
+            w: 20,
+            h: 28,
+            highlight: false,
+          },
+          {
+            id: "r2",
+            label: "Redis Unavailable",
+            sub: "Failover path needed",
+            icon: "🔴",
+            x: 28,
+            y: 15,
+            w: 20,
+            h: 28,
             highlight: true,
           },
           {
-            id: "log",
-            label: "Replicated Log",
-            sub: "Segmented · WAL",
-            icon: "📋",
-            x: 43,
-            y: 65,
-            w: 14,
-            h: 18,
+            id: "r3",
+            label: "Version Skew",
+            sub: "Stale token writes",
+            icon: "🔢",
+            x: 51,
+            y: 15,
+            w: 20,
+            h: 28,
             highlight: false,
           },
           {
-            id: "storage",
-            label: "Storage Engine",
-            sub: "LSM-Tree · SSTable",
-            icon: "💾",
-            x: 62,
-            y: 40,
-            w: 14,
-            h: 18,
-            highlight: false,
-          },
-          {
-            id: "observer",
-            label: "Observer Nodes",
-            sub: "Read Replicas ×42",
-            icon: "👁️",
-            x: 81,
-            y: 40,
-            w: 14,
-            h: 18,
+            id: "r4",
+            label: "Client Memory",
+            sub: "Promise leak risk",
+            icon: "💧",
+            x: 74,
+            y: 15,
+            w: 20,
+            h: 28,
             highlight: false,
           },
         ],
         connections: [
-          { from: "client", to: "router", label: "requests" },
-          { from: "router", to: "coordinator", label: "writes" },
-          { from: "router", to: "observer", label: "reads" },
-          { from: "coordinator", to: "log", label: "append" },
-          { from: "log", to: "storage", label: "commit" },
-          { from: "storage", to: "observer", label: "replicate" },
+          { from: "r1", to: "r2", label: "triggers" },
+          { from: "r3", to: "r1", label: "detected by" },
+          { from: "r4", to: "r1", label: "mitigated by" },
         ],
         legend: [
-          { label: "Data Flow", color: "#0369a1" },
-          { label: "Replication", color: "#7c3aed" },
-          { label: "Read Path", color: "#64748b" },
+          { label: "Goal", color: "#d4a853" },
+          { label: "Constraint", color: "#8b6f4e" },
+          { label: "Risk", color: "#b85c38" },
+          { label: "Test", color: "#6b8e5a" },
         ],
       },
       {
-        id: "benchmarks",
-        label: "Benchmarks",
-        icon: "📈",
-        title: "Performance Benchmarks",
-        subtitle: "Comparative analysis across consensus implementations",
+        id: "tests",
+        label: "Tests",
+        icon: "🧪",
+        title: "Test Coverage Matrix",
+        subtitle: "Verification compartments — what's tested and how",
         rows: [
           {
-            system: "Nexus NCP",
-            sub: "Raft++ · Hierarchical",
-            throughput: 2400,
+            system: "Concurrent Refresh",
+            sub: "10 parallel requests",
+            throughput: 10,
             pct: 100,
-            latency: "47ms",
+            latency: "All pass",
             best: true,
           },
           {
-            system: "Apache ZooKeeper",
-            sub: "ZAB · Single Leader",
-            throughput: 890,
-            pct: 37,
-            latency: "124ms",
+            system: "Lock Acquisition",
+            sub: "p99 under 50ms",
+            throughput: 12,
+            pct: 100,
+            latency: "12ms p99",
+            best: true,
+          },
+          {
+            system: "Redis Failover",
+            sub: "Graceful fallback",
+            throughput: 8,
+            pct: 80,
+            latency: "200ms",
             best: false,
           },
           {
-            system: "etcd",
-            sub: "Raft · Standard",
-            throughput: 1340,
-            pct: 56,
-            latency: "89ms",
-            best: false,
+            system: "Token Version CAS",
+            sub: "Stale write rejected",
+            throughput: 15,
+            pct: 100,
+            latency: "All pass",
+            best: true,
           },
           {
-            system: "Consul",
-            sub: "Raft · Gossip",
-            throughput: 1050,
-            pct: 44,
-            latency: "103ms",
-            best: false,
+            system: "Client Coalescing",
+            sub: "1 request per batch",
+            throughput: 10,
+            pct: 100,
+            latency: "1 req/10 tabs",
+            best: true,
           },
           {
-            system: "CockroachDB",
-            sub: "Multi-Raft",
-            throughput: 1780,
-            pct: 74,
-            latency: "68ms",
-            best: false,
-          },
-          {
-            system: "Spanner (est.)",
-            sub: "TrueTime · Paxos",
-            throughput: 2100,
-            pct: 88,
-            latency: "54ms",
-            best: false,
+            system: "Load 3x Peak",
+            sub: "0 token conflicts",
+            throughput: 6,
+            pct: 100,
+            latency: "0 conflicts",
+            best: true,
           },
         ],
       },
       {
-        id: "conclusion",
-        label: "Conclusion",
-        icon: "🎯",
-        title: "Conclusion & Future Work",
-        subtitle: "Key findings and research roadmap",
+        id: "summary",
+        label: "Summary",
+        icon: "✅",
+        title: "Readiness Summary",
+        subtitle: "Overall assessment and next steps",
         paras: [
-          "The Nexus Consensus Platform demonstrates that strong consistency guarantees need not come at the cost of operational latency. Through hierarchical consensus zones, adaptive quorum selection, and speculative execution, we achieve throughput levels previously associated only with eventually consistent systems.",
-          "Production deployment across 14 regions over 18 months validates the architecture's resilience. The system survived three regional network partitions without data loss or SLO violation, confirming the correctness of our Raft++ implementation.",
+          "All critical acceptance criteria met. Token refresh race condition resolved with distributed lock, versioning CAS, and client coalescing. Load testing shows 0 conflicts at 3x peak traffic. p99 latency reduced from 840ms to 268ms.",
+          "Two items remain at partial status: integration test coverage (82% vs 90% target) and monitoring runbook review. Both are non-blocking for deployment with 48-hour post-deployment remediation commitment.",
         ],
-        contribLabel: "Key Contributions",
+        contribLabel: "Key Decisions",
         contributions: [
-          "Hierarchical consensus zones reduce cross-region traffic by 73%",
-          "Adaptive quorum selection improves tail latency by 41% under degraded network",
-          "Speculative execution achieves 1.8x throughput for read-heavy workloads",
-          "Open-source benchmark suite released for reproducible consensus comparison",
+          "Redis SETNX lock chosen over DB row lock for O(1) performance",
+          "Token versioning over timestamp to avoid clock skew",
+          "Client-side coalescing eliminates 90%+ redundant calls",
+          "Feature flag auth.refresh.v2 enables instant rollback",
         ],
-        refsLabel: "Selected References",
+        refsLabel: "References",
         refs: [
-          "[1] Ongaro, D. & Ousterhout, J. \"In Search of an Understandable Consensus Algorithm.\" USENIX ATC, 2014.",
-          "[2] Corbett, J. et al. \"Spanner: Google's Globally-Distributed Database.\" OSDI, 2012.",
-          "[3] Chen, M. et al. \"Raft++: Adaptive Quorum for Geo-Distributed Consensus.\" SOSP, 2024.",
+          "[1] ISS-4827: Token refresh race condition — full issue brief",
+          "[2] ADR-2026-007: Event-driven architecture decision record",
+          "[3] Redis SETNX pattern — distributed lock best practices",
         ],
       },
     ],
@@ -224,207 +199,183 @@ const SCENES = {
     scenes: [
       {
         id: "cover",
-        label: "封面",
-        icon: "📄",
-        series: "技术白皮书 · WP-2025-014",
-        title: "大规模分布式系统",
-        titleEm: "架构",
-        titleSuffix: "设计",
-        subtitle: "全球共识平台的设计模式、性能权衡与生产实践经验",
-        authors: "陈马可博士、奥孔科沃、惠特菲尔德博士",
-        affil: "Nexus实验室 · 分布式系统研究组",
-        abstractLabel: "摘要",
+        label: "上下文",
+        icon: "📦",
+        series: "上下文便当盒 · 项目交接规格",
+        title: "认证令牌",
+        titleEm: "刷新",
+        titleSuffix: "重构",
+        subtitle:
+          "v2.14.0 部署结构化上下文——目标、约束、风险和验证一览",
+        authors: "编制人：李乔丹 · 平台架构组",
+        affil: "呈交：部署评审委员会 · 2026年7月6日",
+        abstractLabel: "一句话摘要",
         abstract:
-          "本白皮书介绍Nexus共识平台（NCP）的架构，这是一个为亚100毫秒全球复制设计的分布式协调引擎。我们描述了系统的分层架构、共识算法（Raft++）和14个区域部署的性能特征。基准测试结果显示，在持续负载下吞吐量达240万操作/秒，p99延迟为47毫秒。",
+          "通过添加分布式锁、令牌版本控制和客户端请求合并解决并发令牌刷新中的竞态条件。目标：3 倍峰值负载下 0 令牌冲突。",
       },
       {
-        id: "overview",
-        label: "概述",
-        icon: "🔍",
-        title: "系统概述",
-        subtitle: "设计目标和架构原则",
+        id: "goals",
+        label: "目标",
+        icon: "🎯",
+        title: "目标与约束",
+        subtitle: "我们要实现什么以及什么限制了我们",
         paras: [
-          "Nexus共识平台旨在解决全球分布式系统中一致性保证与操作延迟之间的根本矛盾。传统的Paxos和Raft等共识协议提供强保证，但在大规模下施加显著的协调开销。",
-          "我们的方案引入三项关键创新：（1）分层共识区域将跨区域协调减少73%；（2）自适应仲裁选择实时响应网络状况；（3）非冲突操作的推测执行与回滚。",
-          "该系统作为Nexus整个产品套件的协调骨干，每天处理400亿次共识决策，覆盖14个可用区，18个月生产运行的SLO为99.997%。",
+          "主要目标：消除打开 3 个以上浏览器标签页时并发令牌刷新 60% 的失败率。当前行为因令牌失效级联导致用户登出。",
+          "次要目标：通过请求合并和锁优化将 p99 刷新延迟从 840ms 降至 300ms 以下。这直接提升应用感知响应速度。",
         ],
         terms: [
-          "共识",
-          "Raft++",
-          "仲裁",
-          "分片",
-          "向量时钟",
-          "CRDT",
-          "拜占庭容错",
+          "零登出",
+          "<300ms p99",
+          "幂等",
+          "向后兼容",
+          "无新基础设施",
+          "功能开关",
+          "回滚就绪",
         ],
       },
       {
-        id: "architecture",
-        label: "架构",
-        icon: "🏗️",
-        title: "系统架构",
-        subtitle: "分层组件图和数据流",
+        id: "risks",
+        label: "风险",
+        icon: "⚠️",
+        title: "风险隔间",
+        subtitle: "已识别风险和缓解策略",
         nodes: [
           {
-            id: "client",
-            label: "客户端网关",
-            sub: "gRPC · REST",
-            icon: "🌐",
+            id: "r1",
+            label: "锁竞争",
+            sub: "负载下 Redis 互斥",
+            icon: "🔒",
             x: 5,
-            y: 40,
-            w: 14,
-            h: 18,
-            highlight: false,
-          },
-          {
-            id: "router",
-            label: "请求路由器",
-            sub: "一致性哈希",
-            icon: "🔀",
-            x: 24,
-            y: 40,
-            w: 14,
-            h: 18,
-            highlight: false,
-          },
-          {
-            id: "coordinator",
-            label: "协调器",
-            sub: "Raft++ 领导者",
-            icon: "⚡",
-            x: 43,
             y: 15,
-            w: 14,
-            h: 18,
+            w: 20,
+            h: 28,
+            highlight: false,
+          },
+          {
+            id: "r2",
+            label: "Redis 不可用",
+            sub: "需要故障转移路径",
+            icon: "🔴",
+            x: 28,
+            y: 15,
+            w: 20,
+            h: 28,
             highlight: true,
           },
           {
-            id: "log",
-            label: "复制日志",
-            sub: "分段 · WAL",
-            icon: "📋",
-            x: 43,
-            y: 65,
-            w: 14,
-            h: 18,
+            id: "r3",
+            label: "版本偏差",
+            sub: "过期令牌写入",
+            icon: "🔢",
+            x: 51,
+            y: 15,
+            w: 20,
+            h: 28,
             highlight: false,
           },
           {
-            id: "storage",
-            label: "存储引擎",
-            sub: "LSM-Tree · SSTable",
-            icon: "💾",
-            x: 62,
-            y: 40,
-            w: 14,
-            h: 18,
-            highlight: false,
-          },
-          {
-            id: "observer",
-            label: "观察者节点",
-            sub: "读副本 ×42",
-            icon: "👁️",
-            x: 81,
-            y: 40,
-            w: 14,
-            h: 18,
+            id: "r4",
+            label: "客户端内存",
+            sub: "Promise 泄漏风险",
+            icon: "💧",
+            x: 74,
+            y: 15,
+            w: 20,
+            h: 28,
             highlight: false,
           },
         ],
         connections: [
-          { from: "client", to: "router", label: "请求" },
-          { from: "router", to: "coordinator", label: "写入" },
-          { from: "router", to: "observer", label: "读取" },
-          { from: "coordinator", to: "log", label: "追加" },
-          { from: "log", to: "storage", label: "提交" },
-          { from: "storage", to: "observer", label: "复制" },
+          { from: "r1", to: "r2", label: "触发" },
+          { from: "r3", to: "r1", label: "被检测" },
+          { from: "r4", to: "r1", label: "被缓解" },
         ],
         legend: [
-          { label: "数据流", color: "#0369a1" },
-          { label: "复制流", color: "#7c3aed" },
-          { label: "读取路径", color: "#64748b" },
+          { label: "目标", color: "#d4a853" },
+          { label: "约束", color: "#8b6f4e" },
+          { label: "风险", color: "#b85c38" },
+          { label: "测试", color: "#6b8e5a" },
         ],
       },
       {
-        id: "benchmarks",
-        label: "基准",
-        icon: "📈",
-        title: "性能基准测试",
-        subtitle: "共识实现的对比分析",
+        id: "tests",
+        label: "测试",
+        icon: "🧪",
+        title: "测试覆盖矩阵",
+        subtitle: "验证隔间——测试了什么和如何测试",
         rows: [
           {
-            system: "Nexus NCP",
-            sub: "Raft++ · 分层",
-            throughput: 2400,
+            system: "并发刷新",
+            sub: "10 个并行请求",
+            throughput: 10,
             pct: 100,
-            latency: "47ms",
+            latency: "全部通过",
             best: true,
           },
           {
-            system: "Apache ZooKeeper",
-            sub: "ZAB · 单领导者",
-            throughput: 890,
-            pct: 37,
-            latency: "124ms",
+            system: "锁获取",
+            sub: "p99 低于 50ms",
+            throughput: 12,
+            pct: 100,
+            latency: "12ms p99",
+            best: true,
+          },
+          {
+            system: "Redis 故障转移",
+            sub: "优雅降级",
+            throughput: 8,
+            pct: 80,
+            latency: "200ms",
             best: false,
           },
           {
-            system: "etcd",
-            sub: "Raft · 标准",
-            throughput: 1340,
-            pct: 56,
-            latency: "89ms",
-            best: false,
+            system: "令牌版本 CAS",
+            sub: "过期写入被拒绝",
+            throughput: 15,
+            pct: 100,
+            latency: "全部通过",
+            best: true,
           },
           {
-            system: "Consul",
-            sub: "Raft · Gossip",
-            throughput: 1050,
-            pct: 44,
-            latency: "103ms",
-            best: false,
+            system: "客户端合并",
+            sub: "每批 1 次请求",
+            throughput: 10,
+            pct: 100,
+            latency: "10标签页/1请求",
+            best: true,
           },
           {
-            system: "CockroachDB",
-            sub: "Multi-Raft",
-            throughput: 1780,
-            pct: 74,
-            latency: "68ms",
-            best: false,
-          },
-          {
-            system: "Spanner (估)",
-            sub: "TrueTime · Paxos",
-            throughput: 2100,
-            pct: 88,
-            latency: "54ms",
-            best: false,
+            system: "3 倍峰值负载",
+            sub: "0 令牌冲突",
+            throughput: 6,
+            pct: 100,
+            latency: "0 冲突",
+            best: true,
           },
         ],
       },
       {
-        id: "conclusion",
-        label: "结论",
-        icon: "🎯",
-        title: "结论与未来工作",
-        subtitle: "关键发现和研究路线图",
+        id: "summary",
+        label: "总结",
+        icon: "✅",
+        title: "就绪总结",
+        subtitle: "总体评估和后续步骤",
         paras: [
-          "Nexus共识平台证明强一致性保证不必以操作延迟为代价。通过分层共识区域、自适应仲裁选择和推测执行，我们实现了此前仅与最终一致性系统关联的吞吐量水平。",
-          "14个区域18个月的生产部署验证了架构的韧性。系统在三次区域网络分区中幸存，无数据丢失或SLO违规，确认了Raft++实现的正确性。",
+          "所有关键验收标准已满足。令牌刷新竞态条件通过分布式锁、版本控制 CAS 和客户端合并解决。负载测试显示 3 倍峰值流量下 0 冲突。p99 延迟从 840ms 降至 268ms。",
+          "两项仍为部分状态：集成测试覆盖率（82% vs 90% 目标）和监控运行手册审查。两者均不阻塞部署，承诺部署后 48 小时内整改。",
         ],
-        contribLabel: "核心贡献",
+        contribLabel: "关键决策",
         contributions: [
-          "分层共识区域将跨区域流量减少73%",
-          "自适应仲裁选择在网络降级时将尾部延迟改善41%",
-          "推测执行在读密集工作负载下实现1.8倍吞吐量",
-          "发布开源基准测试套件用于可复现的共识比较",
+          "选择 Redis SETNX 锁而非数据库行锁以获得 O(1) 性能",
+          "令牌版本控制优于时间戳以避免时钟偏差",
+          "客户端合并消除 90%+ 冗余调用",
+          "功能开关 auth.refresh.v2 支持即时回滚",
         ],
         refsLabel: "参考文献",
         refs: [
-          "[1] Ongaro, D. & Ousterhout, J.《寻求可理解的共识算法》USENIX ATC, 2014.",
-          "[2] Corbett, J. 等《Spanner: Google的全球分布式数据库》OSDI, 2012.",
-          "[3] Chen, M. 等《Raft++: 地理分布式共识的自适应仲裁》SOSP, 2024.",
+          "[1] ISS-4827：令牌刷新竞态条件——完整问题简报",
+          "[2] ADR-2026-007：事件驱动架构决策记录",
+          "[3] Redis SETNX 模式——分布式锁最佳实践",
         ],
       },
     ],
@@ -443,25 +394,46 @@ export default function WhitePaper({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   useEffect(() => {
     const id = "style-47-fonts";
@@ -586,14 +558,15 @@ export default function WhitePaper({
               const y1 = fromNode.y + fromNode.h / 2;
               const x2 = toNode.x + toNode.w / 2;
               const y2 = toNode.y + toNode.h / 2;
-              const isReplication =
-                conn.label === "replicate" || conn.label === "复制";
-              const isRead = conn.label === "reads" || conn.label === "读取";
-              const stroke = isReplication
-                ? "#7c3aed"
-                : isRead
-                  ? "#64748b"
-                  : "#0369a1";
+              const isMitigated =
+                conn.label === "mitigated by" || conn.label === "被缓解";
+              const isDetected =
+                conn.label === "detected by" || conn.label === "被检测";
+              const stroke = isMitigated
+                ? "#d4a853"
+                : isDetected
+                  ? "#5a8a6a"
+                  : "#b85c38";
               return (
                 <line
                   key={i}
@@ -603,7 +576,7 @@ export default function WhitePaper({
                   y2={y2}
                   stroke={stroke}
                   strokeWidth="0.3"
-                  strokeDasharray={isRead ? "1.5,0.8" : "none"}
+                  strokeDasharray={isDetected ? "1.5,0.8" : "none"}
                   markerEnd={`url(#arrow-${stroke.replace("#", "")})`}
                 />
               );
@@ -878,58 +851,58 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: t.densityLabel,
     heroScene: 3,
     colors: {
-      bg: "#fafbfc",
-      ink: "#1e293b",
-      panel: "#ffffff",
+      bg: "#1a1410",
+      ink: "#f5f0eb",
+      panel: "#2a221c",
     },
     typography: {
-      header: "Inter, system-ui, sans-serif",
-      body: "Inter, system-ui, sans-serif",
+      header: "Georgia 700",
+      body: "Inter 400",
     },
     tags: lang === "zh"
-      ? ["白皮书", "分布式系统", "架构", "技术"]
-      : ["white-paper", "distributed-systems", "architecture", "technical"],
-    fonts: ["Inter", "JetBrains Mono", "cjk:Noto Sans SC"],
+      ? ["便当盒", "上下文", "概览", "交接", "深色"]
+      : ["bento", "context", "overview", "handoff", "specification", "compartments", "structured", "dark"],
+    fonts: ["Georgia", "Inter", "JetBrains Mono", "cjk:Noto Serif SC"],
     scenes: [
       {
         id: 1,
-        title: lang === "zh" ? "封面与摘要" : "Cover & Abstract",
+        title: lang === "zh" ? "上下文" : "Context",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "完整封面" : "Full cover page" , body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "完整上下文" : "Full context" , body: "" },
         ],
       },
       {
         id: 2,
-        title: lang === "zh" ? "系统概述" : "System Overview",
+        title: lang === "zh" ? "目标与约束" : "Goals & Constraints",
         beats: [
           { id: 0, action: "beat-0", title: lang === "zh" ? "首段" : "First paragraph" , body: "" },
-          { id: 1, action: "beat-1", title: lang === "zh" ? "全部段落和术语" : "All paragraphs and terms" , body: "" },
+          { id: 1, action: "beat-1", title: lang === "zh" ? "全部段落和条件" : "All paragraphs and constraints" , body: "" },
         ],
       },
       {
         id: 3,
-        title: lang === "zh" ? "架构图" : "Architecture Diagram",
+        title: lang === "zh" ? "风险隔间" : "Risk Compartments",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "前三个组件" : "First three components" , body: "" },
-          { id: 1, action: "beat-1", title: lang === "zh" ? "前五个组件" : "First five components" , body: "" },
-          { id: 2, action: "beat-2", title: lang === "zh" ? "全部组件和连接" : "All components and connections" , body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "前两个隔间" : "First two compartments" , body: "" },
+          { id: 1, action: "beat-1", title: lang === "zh" ? "前四个隔间" : "First four compartments" , body: "" },
+          { id: 2, action: "beat-2", title: lang === "zh" ? "全部隔间和连接" : "All compartments and connections" , body: "" },
         ],
       },
       {
         id: 4,
-        title: lang === "zh" ? "性能基准" : "Benchmarks",
+        title: lang === "zh" ? "测试矩阵" : "Test Matrix",
         beats: [
           { id: 0, action: "beat-0", title: lang === "zh" ? "前三行" : "First three rows" , body: "" },
           { id: 1, action: "beat-1", title: lang === "zh" ? "前五行" : "First five rows" , body: "" },
-          { id: 2, action: "beat-2", title: lang === "zh" ? "全部系统" : "All systems" , body: "" },
+          { id: 2, action: "beat-2", title: lang === "zh" ? "全部测试" : "All tests" , body: "" },
         ],
       },
       {
         id: 5,
-        title: lang === "zh" ? "结论" : "Conclusion",
+        title: lang === "zh" ? "总结" : "Summary",
         beats: [
           { id: 0, action: "beat-0", title: lang === "zh" ? "首段" : "First paragraph" , body: "" },
-          { id: 1, action: "beat-1", title: lang === "zh" ? "全部内容和参考文献" : "All content and references" , body: "" },
+          { id: 1, action: "beat-1", title: lang === "zh" ? "全部内容和参考" : "All content and references" , body: "" },
         ],
       },
     ],
@@ -937,13 +910,13 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 }
 
 const enMeta = {
-  name: "White Paper",
-  theme: "Technical white paper with architecture diagrams and benchmarks",
+  name: "Context Bento Box",
+  theme: "Structured context with distinct compartments — goals, constraints, risks, and tests on deep warm lacquer-black ground",
   densityLabel: "Technical",
 };
 
 const zhMeta = {
-  name: "技术白皮书",
-  theme: "含架构图和基准测试的技术白皮书",
+  name: "上下文便当盒",
+  theme: "独立隔间的结构化上下文——深暖漆黑色调上的目标、约束、风险和测试",
   densityLabel: "技术性",
 };

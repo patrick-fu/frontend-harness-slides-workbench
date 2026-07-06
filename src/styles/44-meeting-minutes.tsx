@@ -12,168 +12,168 @@ const SCENES = {
     scenes: [
       {
         id: "header",
-        label: "Header",
-        icon: "📋",
-        org: "Nexus Technologies Inc.",
-        orgSub: "Board of Directors",
-        title: "Quarterly Board",
-        titleAccent: "Meeting",
-        titleSuffix: "Minutes",
+        label: "Cover",
+        icon: "📓",
+        org: "Field Research Division",
+        orgSub: "Urban Mobility Study",
+        title: "Field Notes",
+        titleAccent: "Volume",
+        titleSuffix: "III",
         meta: [
-          { label: "Date", value: "March 14, 2025" },
-          { label: "Time", value: "10:00 AM – 12:30 PM EST" },
-          { label: "Location", value: "HQ Boardroom / Hybrid" },
-          { label: "Minutes By", value: "S. Chen, Corp. Sec." },
+          { label: "Date", value: "July 2–4, 2026" },
+          { label: "Location", value: "Downtown Transit Hub, Sector 7" },
+          { label: "Researcher", value: "Dr. Elena Vasquez" },
+          { label: "Notebook", value: "FN-2026-041" },
         ],
       },
       {
-        id: "attendance",
-        label: "Attendance",
-        icon: "👥",
-        title: "Attendance",
-        subtitle: "Roll call and quorum verification",
+        id: "observations",
+        label: "Observations",
+        icon: "👁",
+        title: "Field Observations",
+        subtitle: "Timestamped entries from three days in the field",
         present: [
-          { name: "James R. Thornton", role: "Chairman & CEO" },
-          { name: "Maria S. Alvarez", role: "Lead Independent Director" },
-          { name: "David K. Chen", role: "CFO" },
-          { name: "Priya N. Raman", role: "CTO" },
-          { name: "Robert T. Hayes", role: "Director, Audit Chair" },
-          { name: "Linda M. Okafor", role: "Director, Comp. Chair" },
+          { name: "09:14 — Morning rush", role: "Commuter flow peaks at 2,400/hr. 68% use mobile payment at turnstiles." },
+          { name: "10:47 — Platform B", role: "Elderly passenger struggles with ticket machine. 3min assistance required." },
+          { name: "12:30 — Concourse", role: "Wayfinding signage partially obscured by construction hoarding." },
+          { name: "14:05 — Exit C", role: "Ride-share pickup zone overcrowded. No designated waiting area." },
+          { name: "16:22 — Platform A", role: "Peak reverse commute observed. 40% of passengers traveling outbound." },
+          { name: "18:50 — Evening", role: "Security presence increases. Passenger behavior shifts noticeably." },
         ],
         absent: [
-          { name: "Thomas W. Park", role: "Director, Governance Chair" },
+          { name: "Staffed info desk", role: "Unmanned during observed hours" },
         ],
         guests: [
-          { name: "External Auditor (PwC)", role: "Invited" },
-          { name: "General Counsel", role: "Advisory" },
+          { name: "Transit Police patrol", role: "Every 45 min" },
+          { name: "Cleaning crew", role: "11:00 and 15:30" },
         ],
-        quorum: "Quorum confirmed: 6 of 7 directors present.",
+        quorum: "Total observation time: 14 hours across 3 days. 47 discrete events logged.",
       },
       {
-        id: "discussion",
-        label: "Discussion",
-        icon: "💬",
-        title: "Discussion Items",
-        subtitle: "Key topics from the agenda",
+        id: "findings",
+        label: "Findings",
+        icon: "💡",
+        title: "Key Findings",
+        subtitle: "Patterns identified across observation sessions",
         items: [
           {
-            num: "Agenda Item 4.1",
-            topic: "Q4 Financial Results Review",
+            num: "Finding 1",
+            topic: "Payment Friction at Peak Hours",
             notes:
-              "CFO presented Q4 results: revenue $842M (+18% YoY), operating margin 23.4%. Board discussed margin compression in EMEA segment. Management to present cost optimization plan at next meeting.",
+              "Mobile payment success rate drops to 71% during morning rush (vs 94% off-peak). NFC reader latency increases 3x under load. Several passengers observed abandoning attempt and using cash lane instead. Estimated 180 passengers/day affected at this station alone.",
           },
           {
-            num: "Agenda Item 4.2",
-            topic: "AI Product Strategy Update",
+            num: "Finding 2",
+            topic: "Accessibility Gaps",
             notes:
-              "CTO demonstrated new AI assistant platform. Beta adoption exceeded projections at 34K enterprise users. Board questioned go-to-market timeline and competitive positioning vs. major cloud providers.",
+              "Ticket machine interface requires 20/40 vision to read at 40cm. No audio guidance available. Elevator to Platform B is out of service 12% of observed time. Ramp at Exit C has 8-degree slope exceeding ADA guidelines.",
           },
           {
-            num: "Agenda Item 4.3",
-            topic: "Cybersecurity Posture",
+            num: "Finding 3",
+            topic: "Wayfinding Breakdown",
             notes:
-              "CISO presented SOC 2 Type II results. Three findings identified, all rated Low. Remediation plan approved. Board requested quarterly security briefings going forward.",
+              "Construction hoarding blocks 3 of 7 directional signs. 22% of observed passengers paused or backtracked at the concourse level. Temporary signage exists but is 40% smaller than permanent signs and placed 1.5m lower.",
           },
           {
-            num: "Agenda Item 4.4",
-            topic: "Executive Compensation Review",
+            num: "Finding 4",
+            topic: "Intermodal Connection Pain",
             notes:
-              "Compensation Committee recommended 8% base salary adjustment for named executives. Performance equity pool set at $45M. Shareholder advisory vote scheduled for AGM.",
+              "Average walk time from train platform to ride-share pickup: 7.2 minutes. No shelter or seating at pickup zone. 34% of passengers observed using rideshare during rain events despite 2x surge pricing.",
           },
         ],
       },
       {
-        id: "actions",
-        label: "Action Items",
-        icon: "✅",
-        title: "Action Items",
-        badge: "6 Open",
+        id: "setup",
+        label: "Setup",
+        icon: "🎒",
+        title: "Research Setup",
+        badge: "Equipment Log",
         actions: [
           {
-            id: "A-01",
-            desc: "Prepare EMEA cost optimization analysis with 3 scenarios",
-            owner: "D. Chen",
-            dept: "Finance",
-            deadline: "Apr 11, 2025",
-            status: "Open",
+            id: "EQ-01",
+            desc: "Sony A7 IV with 24-70mm lens — environmental documentation",
+            owner: "E. Vasquez",
+            dept: "Field Research",
+            deadline: "Day 1–3",
+            status: "Used",
             urgent: false,
           },
           {
-            id: "A-02",
-            desc: "Draft AI platform competitive positioning whitepaper for board review",
-            owner: "P. Raman",
-            dept: "Engineering",
-            deadline: "Apr 4, 2025",
-            status: "In Progress",
-            urgent: true,
-          },
-          {
-            id: "A-03",
-            desc: "Implement quarterly cybersecurity briefing cadence",
-            owner: "CISO Office",
-            dept: "Security",
-            deadline: "Apr 30, 2025",
-            status: "Open",
+            id: "EQ-02",
+            desc: "Audio recorder (Zoom H6) — ambient sound and interview capture",
+            owner: "E. Vasquez",
+            dept: "Field Research",
+            deadline: "Day 1–3",
+            status: "Used",
             urgent: false,
           },
           {
-            id: "A-04",
-            desc: "File executive compensation proxy statement with SEC",
-            owner: "S. Chen",
-            dept: "Legal",
-            deadline: "Mar 28, 2025",
-            status: "In Progress",
-            urgent: true,
+            id: "EQ-03",
+            desc: "Tally counter — passenger flow counting at 5-min intervals",
+            owner: "E. Vasquez",
+            dept: "Field Research",
+            deadline: "Peak hours only",
+            status: "Used",
+            urgent: false,
           },
           {
-            id: "A-05",
-            desc: "Schedule governance committee meeting to fill Park's absence",
-            owner: "M. Alvarez",
-            dept: "Board",
-            deadline: "Mar 21, 2025",
-            status: "Open",
-            urgent: true,
+            id: "EQ-04",
+            desc: "Laser distance meter — wayfinding and accessibility measurements",
+            owner: "E. Vasquez",
+            dept: "Field Research",
+            deadline: "Day 2 afternoon",
+            status: "Used",
+            urgent: false,
           },
           {
-            id: "A-06",
-            desc: "Distribute updated board materials calendar for Q2",
-            owner: "S. Chen",
-            dept: "Corp. Sec.",
-            deadline: "Apr 1, 2025",
-            status: "Open",
+            id: "EQ-05",
+            desc: "Field notebook (Moleskine A4) — handwritten observation entries",
+            owner: "E. Vasquez",
+            dept: "Field Research",
+            deadline: "Continuous",
+            status: "Used",
+            urgent: false,
+          },
+          {
+            id: "EQ-06",
+            desc: "GoPro Hero 12 — time-lapse of concourse flow patterns",
+            owner: "E. Vasquez",
+            dept: "Field Research",
+            deadline: "Day 1 full day",
+            status: "Used",
             urgent: false,
           },
         ],
       },
       {
-        id: "decisions",
-        label: "Decisions",
-        icon: "📌",
-        title: "Decisions & Next Steps",
-        subtitle: "Formal resolutions and upcoming schedule",
+        id: "reflections",
+        label: "Reflections",
+        icon: "📝",
+        title: "Reflections & Next Steps",
+        subtitle: "Synthesis and follow-up questions",
         decisions: [
           {
             num: "1",
-            topic: "Q4 Financial Results",
-            text: "RESOLVED: The Board accepts the Q4 2024 financial statements as presented by the CFO. Management directed to address EMEA margin trends.",
-            vote: "Unanimous (6-0, 1 absent)",
+            topic: "Payment Infrastructure",
+            text: "RECOMMENDED: Deploy additional NFC readers during peak hours and conduct load testing with 3x baseline traffic. Coordinate with payment processor to identify latency bottleneck.",
+            vote: "Priority: High — Impact: 180+ passengers/day",
           },
           {
             num: "2",
-            topic: "AI Platform Investment",
-            text: "RESOLVED: The Board approves additional $25M investment in AI platform development, contingent on revised go-to-market plan review.",
-            vote: "Passed (5-1, Thornton abstained)",
+            topic: "Accessibility Remediation",
+            text: "RECOMMENDED: Install audio guidance on all ticket machines within 30 days. Commission engineering review of Exit C ramp. Schedule elevator reliability audit.",
+            vote: "Priority: High — Regulatory: ADA compliance",
           },
           {
             num: "3",
-            topic: "Executive Compensation",
-            text: "RESOLVED: The Board approves the 2025 executive compensation program as recommended by the Compensation Committee.",
-            vote: "Unanimous (6-0, 1 absent)",
+            topic: "Intermodal Zone Redesign",
+            text: "RECOMMENDED: Propose covered waiting area at ride-share pickup zone. Explore partnership with transit authority for dedicated micro-transit shuttle between station and business district.",
+            vote: "Priority: Medium — Timeline: Q4 2026",
           },
         ],
-        nextLabel: "Next Meeting",
-        nextDate: "June 13, 2025",
-        nextTime: "10:00 AM EST",
+        nextLabel: "Next Site Visit",
+        nextDate: "August 12, 2026",
+        nextTime: "Full day, Sector 12 Hub",
       },
     ],
   },
@@ -181,168 +181,168 @@ const SCENES = {
     scenes: [
       {
         id: "header",
-        label: "标题",
-        icon: "📋",
-        org: "联科科技股份有限公司",
-        orgSub: "董事会",
-        title: "季度董事会议",
-        titleAccent: "纪要",
-        titleSuffix: "",
+        label: "封面",
+        icon: "📓",
+        org: "田野研究部",
+        orgSub: "城市出行研究",
+        title: "田野笔记",
+        titleAccent: "第",
+        titleSuffix: "三卷",
         meta: [
-          { label: "日期", value: "2025年3月14日" },
-          { label: "时间", value: "上午10:00 – 12:30" },
-          { label: "地点", value: "总部会议室 / 线上" },
-          { label: "记录人", value: "陈思明 董事会秘书" },
+          { label: "日期", value: "2026年7月2—4日" },
+          { label: "地点", value: "市中心交通枢纽，第7区" },
+          { label: "研究员", value: "埃琳娜·瓦斯奎兹博士" },
+          { label: "笔记编号", value: "FN-2026-041" },
         ],
       },
       {
-        id: "attendance",
-        label: "出席",
-        icon: "👥",
-        title: "出席情况",
-        subtitle: "点名与法定人数确认",
+        id: "observations",
+        label: "观察",
+        icon: "👁",
+        title: "田野观察",
+        subtitle: "三天田野调查的时间戳记录",
         present: [
-          { name: "詹姆斯·桑顿", role: "董事长兼CEO" },
-          { name: "玛丽亚·阿尔瓦雷斯", role: "首席独立董事" },
-          { name: "陈大伟", role: "首席财务官" },
-          { name: "普里亚·拉曼", role: "首席技术官" },
-          { name: "罗伯特·海斯", role: "董事、审计委员会主席" },
-          { name: "琳达·奥卡福", role: "董事、薪酬委员会主席" },
+          { name: "09:14 — 早高峰", role: "通勤客流峰值 2,400人/小时。68%在闸机使用移动支付。" },
+          { name: "10:47 — B站台", role: "老年乘客操作售票机困难。需要3分钟协助。" },
+          { name: "12:30 — 中央大厅", role: "导视牌被施工围挡部分遮挡。" },
+          { name: "14:05 — C出口", role: "网约车接客区过度拥挤。无指定等候区。" },
+          { name: "16:22 — A站台", role: "观察到反向通勤高峰。40%乘客出站方向。" },
+          { name: "18:50 — 晚间", role: "安保力量增加。乘客行为明显变化。" },
         ],
         absent: [
-          { name: "托马斯·朴", role: "董事、治理委员会主席" },
+          { name: "人工咨询台", role: "观察时段无人值守" },
         ],
         guests: [
-          { name: "外部审计师（普华永道）", role: "受邀" },
-          { name: "法务总监", role: "顾问" },
+          { name: "交通警察巡逻", role: "每45分钟一次" },
+          { name: "清洁人员", role: "11:00 和 15:30" },
         ],
-        quorum: "法定人数确认：7名董事中6名出席。",
+        quorum: "总观察时长：14小时，跨3天。记录47个独立事件。",
       },
       {
-        id: "discussion",
-        label: "讨论",
-        icon: "💬",
-        title: "讨论事项",
-        subtitle: "议程中的关键议题",
+        id: "findings",
+        label: "发现",
+        icon: "💡",
+        title: "关键发现",
+        subtitle: "跨观察会话识别的模式",
         items: [
           {
-            num: "议程 4.1",
-            topic: "第四季度财务业绩审查",
+            num: "发现 1",
+            topic: "高峰时段支付摩擦",
             notes:
-              "CFO汇报Q4业绩：营收8.42亿美元（同比+18%），营业利润率23.4%。董事会讨论了EMEA地区利润率压缩问题。管理层将在下次会议提交成本优化方案。",
+              "早高峰期间移动支付成功率降至 71%（非高峰为 94%）。NFC 读卡器延迟在负载下增加 3 倍。观察到数名乘客放弃尝试改用现金通道。估计仅此站每天影响 180 名乘客。",
           },
           {
-            num: "议程 4.2",
-            topic: "AI产品战略更新",
+            num: "发现 2",
+            topic: "无障碍设施缺口",
             notes:
-              "CTO演示了新AI助手平台。Beta版采用率超出预期，达3.4万企业用户。董事会质疑了上市时间表和与主要云厂商的竞争定位。",
+              "售票机界面需要 20/40 视力在 40 厘米处阅读。无音频引导。B 站台电梯在观察时间内有 12% 的时间停用。C 出口坡道坡度 8 度，超出 ADA 准则。",
           },
           {
-            num: "议程 4.3",
-            topic: "网络安全态势",
+            num: "发现 3",
+            topic: "导视系统故障",
             notes:
-              "CISO汇报SOC 2 Type II审计结果。发现三项问题，均为低风险。整改方案已批准。董事会要求今后每季度进行安全简报。",
+              "施工围挡遮挡了 7 个方向标志中的 3 个。观察到 22% 的乘客在中央大厅层暂停或折返。临时标志存在但比永久标志小 40%，放置位置低 1.5 米。",
           },
           {
-            num: "议程 4.4",
-            topic: "高管薪酬审查",
+            num: "发现 4",
+            topic: "多式联运连接痛点",
             notes:
-              "薪酬委员会建议高管基本工资调整8%。绩效股权激励池设定为4500万美元。股东咨询投票定于年度股东大会进行。",
+              "从火车站台到网约车接客区平均步行时间：7.2 分钟。接客区无遮蔽或座椅。尽管有 2 倍动态加价，34% 的乘客在雨天使用网约车。",
           },
         ],
       },
       {
-        id: "actions",
-        label: "行动项",
-        icon: "✅",
-        title: "行动项",
-        badge: "6 项待办",
+        id: "setup",
+        label: "设备",
+        icon: "🎒",
+        title: "研究设备",
+        badge: "设备日志",
         actions: [
           {
-            id: "A-01",
-            desc: "准备EMEA成本优化分析，含3种情景",
-            owner: "陈大伟",
-            dept: "财务部",
-            deadline: "2025-04-11",
-            status: "待办",
+            id: "EQ-01",
+            desc: "Sony A7 IV 配 24-70mm 镜头——环境记录",
+            owner: "瓦斯奎兹",
+            dept: "田野研究",
+            deadline: "第1—3天",
+            status: "已使用",
             urgent: false,
           },
           {
-            id: "A-02",
-            desc: "起草AI平台竞争定位白皮书供董事会审阅",
-            owner: "普里亚·拉曼",
-            dept: "工程部",
-            deadline: "2025-04-04",
-            status: "进行中",
-            urgent: true,
-          },
-          {
-            id: "A-03",
-            desc: "落实季度网络安全简报机制",
-            owner: "CISO办公室",
-            dept: "安全部",
-            deadline: "2025-04-30",
-            status: "待办",
+            id: "EQ-02",
+            desc: "录音笔（Zoom H6）——环境音和访谈采集",
+            owner: "瓦斯奎兹",
+            dept: "田野研究",
+            deadline: "第1—3天",
+            status: "已使用",
             urgent: false,
           },
           {
-            id: "A-04",
-            desc: "向SEC提交高管薪酬代理声明",
-            owner: "陈思明",
-            dept: "法务部",
-            deadline: "2025-03-28",
-            status: "进行中",
-            urgent: true,
+            id: "EQ-03",
+            desc: "计数器——每5分钟间隔客流计数",
+            owner: "瓦斯奎兹",
+            dept: "田野研究",
+            deadline: "仅高峰时段",
+            status: "已使用",
+            urgent: false,
           },
           {
-            id: "A-05",
-            desc: "安排治理委员会会议以补朴董事缺席",
-            owner: "玛丽亚·阿尔瓦雷斯",
-            dept: "董事会",
-            deadline: "2025-03-21",
-            status: "待办",
-            urgent: true,
+            id: "EQ-04",
+            desc: "激光测距仪——导视和无障碍测量",
+            owner: "瓦斯奎兹",
+            dept: "田野研究",
+            deadline: "第2天下午",
+            status: "已使用",
+            urgent: false,
           },
           {
-            id: "A-06",
-            desc: "分发Q2更新后的董事会议程日历",
-            owner: "陈思明",
-            dept: "董秘办",
-            deadline: "2025-04-01",
-            status: "待办",
+            id: "EQ-05",
+            desc: "田野笔记本（Moleskine A4）——手写观察记录",
+            owner: "瓦斯奎兹",
+            dept: "田野研究",
+            deadline: "持续",
+            status: "已使用",
+            urgent: false,
+          },
+          {
+            id: "EQ-06",
+            desc: "GoPro Hero 12——中央大厅客流延时摄影",
+            owner: "瓦斯奎兹",
+            dept: "田野研究",
+            deadline: "第1天全天",
+            status: "已使用",
             urgent: false,
           },
         ],
       },
       {
-        id: "decisions",
-        label: "决议",
-        icon: "📌",
-        title: "决议与后续安排",
-        subtitle: "正式决议和即将到来的日程",
+        id: "reflections",
+        label: "反思",
+        icon: "📝",
+        title: "反思与后续",
+        subtitle: "综合分析和后续问题",
         decisions: [
           {
             num: "1",
-            topic: "Q4财务业绩",
-            text: "决议：董事会接受CFO提交的2024年Q4财务报表。指示管理层关注EMEA利润率趋势。",
-            vote: "一致通过（6-0，1人缺席）",
+            topic: "支付基础设施",
+            text: "建议：高峰时段部署额外 NFC 读卡器，并以 3 倍基准流量进行负载测试。与支付处理商协调识别延迟瓶颈。",
+            vote: "优先级：高——影响：每天 180+ 乘客",
           },
           {
             num: "2",
-            topic: "AI平台投资",
-            text: "决议：董事会批准追加2500万美元投资AI平台开发，以修订后的上市计划审查为条件。",
-            vote: "通过（5-1，桑顿弃权）",
+            topic: "无障碍整改",
+            text: "建议：30 天内为所有售票机安装音频引导。委托工程部门审查 C 出口坡道。安排电梯可靠性审计。",
+            vote: "优先级：高——合规：ADA 法规",
           },
           {
             num: "3",
-            topic: "高管薪酬",
-            text: "决议：董事会批准薪酬委员会建议的2025年高管薪酬方案。",
-            vote: "一致通过（6-0，1人缺席）",
+            topic: "多式联运区重新设计",
+            text: "建议：提议在网约车接客区设置有遮蔽等候区。探索与交通管理局合作，在车站和商业区之间开通专线微循环公交。",
+            vote: "优先级：中——时间线：2026年第四季度",
           },
         ],
-        nextLabel: "下次会议",
-        nextDate: "2025年6月13日",
-        nextTime: "上午10:00",
+        nextLabel: "下次实地考察",
+        nextDate: "2026年8月12日",
+        nextTime: "全天，第12区枢纽",
       },
     ],
   },
@@ -360,11 +360,49 @@ export default function MeetingMinutes({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [showTimestamp, setShowTimestamp] = useState(false);
-  const prevSceneRef = useRef(scene);
-  const timestampTimer = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+        setShowTimestamp(false);
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+      setShowTimestamp(true);
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   /* Font injection */
   useEffect(() => {
@@ -386,38 +424,6 @@ export default function MeetingMinutes({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
-
-  /* Scene-to-scene transition: timestamp banner + cross-fade */
-  useLayoutEffect(() => {
-    if (reducedMotion) {
-      prevSceneRef.current = scene;
-      return;
-    }
-    if (prevSceneRef.current !== scene) {
-      const prev = prevSceneRef.current;
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      setShowTimestamp(true);
-
-      // Clear timestamp banner after its full animation: slide(200) + hold(150) + fade(100) = 450ms
-      const t1 = setTimeout(() => {
-        setShowTimestamp(false);
-      }, 450);
-
-      // Clear outgoing scene after transition duration
-      const t2 = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-
-      timestampTimer.current = [t1, t2];
-      prevSceneRef.current = scene;
-
-      return () => {
-        timestampTimer.current.forEach(clearTimeout);
-      };
-    }
-  }, [scene, reducedMotion]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, target: number) => {
@@ -663,7 +669,7 @@ export default function MeetingMinutes({
                 <td>
                   <span
                     className={`${styles.actionStatus} ${
-                      a.status === "In Progress" || a.status === "进行中"
+                      a.status === "Used" || a.status === "已使用"
                         ? styles.actionStatusInProgress
                         : styles.actionStatusOpen
                     }`}
@@ -672,9 +678,9 @@ export default function MeetingMinutes({
                       className={styles.actionStatusDot}
                       style={{
                         background:
-                          a.status === "In Progress" || a.status === "进行中"
-                            ? "#2563eb"
-                            : "#d97706",
+                          a.status === "Used" || a.status === "已使用"
+                            ? "#5a7a3a"
+                            : "#b85c38",
                       }}
                     />
                     {a.status}
@@ -832,55 +838,55 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: t.densityLabel,
     heroScene: 4,
     colors: {
-      bg: "#ffffff",
-      ink: "#1f2937",
-      panel: "#f3f4f6",
+      bg: "#faf5eb",
+      ink: "#2c2416",
+      panel: "#f0e8d8",
     },
     typography: {
-      header: "Inter, system-ui, sans-serif",
-      body: "Inter, system-ui, sans-serif",
+      header: "Georgia 700",
+      body: "Source Serif Pro 400",
     },
     tags: lang === "zh"
-      ? ["会议纪要", "行动项", "董事会", "企业"]
-      : ["meeting-minutes", "action-items", "board", "corporate"],
-    fonts: ["Inter", "cjk:Noto Sans SC"],
+      ? ["田野笔记", "观察", "用户研究", "笔记本"]
+      : ["field-notes", "observations", "user-research", "notebook", "qualitative", "case-study"],
+    fonts: ["Georgia", "Source Serif Pro", "cjk:Noto Serif SC"],
     scenes: [
       {
         id: 1,
-        title: lang === "zh" ? "会议标题" : "Meeting Header",
+        title: lang === "zh" ? "封面" : "Cover",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "完整标题页" : "Full header page", body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "完整封面页" : "Full cover page", body: "" },
         ],
       },
       {
         id: 2,
-        title: lang === "zh" ? "出席情况" : "Attendance",
+        title: lang === "zh" ? "观察" : "Observations",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "第一批出席者" : "First batch of attendees", body: "" },
-          { id: 1, action: "beat-1", title: lang === "zh" ? "全部出席者显示" : "All attendees shown", body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "第一批观察记录" : "First batch of observations", body: "" },
+          { id: 1, action: "beat-1", title: lang === "zh" ? "全部观察显示" : "All observations shown", body: "" },
         ],
       },
       {
         id: 3,
-        title: lang === "zh" ? "讨论事项" : "Discussion Items",
+        title: lang === "zh" ? "发现" : "Findings",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "前两项议题" : "First two topics", body: "" },
-          { id: 1, action: "beat-1", title: lang === "zh" ? "全部议题" : "All topics", body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "前两项发现" : "First two findings", body: "" },
+          { id: 1, action: "beat-1", title: lang === "zh" ? "全部发现" : "All findings", body: "" },
         ],
       },
       {
         id: 4,
-        title: lang === "zh" ? "行动项" : "Action Items",
+        title: lang === "zh" ? "设备" : "Setup",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "前三项行动" : "First three actions", body: "" },
-          { id: 1, action: "beat-1", title: lang === "zh" ? "全部行动项" : "All action items", body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "前三项设备" : "First three equipment", body: "" },
+          { id: 1, action: "beat-1", title: lang === "zh" ? "全部设备清单" : "All equipment listed", body: "" },
         ],
       },
       {
         id: 5,
-        title: lang === "zh" ? "决议" : "Decisions",
+        title: lang === "zh" ? "反思" : "Reflections",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "决议与下次会议" : "Decisions and next meeting", body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "反思与下次考察" : "Reflections and next visit", body: "" },
         ],
       },
     ],
@@ -888,13 +894,13 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 }
 
 const enMeta = {
-  name: "Meeting Minutes",
-  theme: "Board meeting minutes with action items and attendance tracking",
+  name: "Field Notes Report",
+  theme: "User-research observations and physical setup notes — notebook sensibility with warm aged-paper tone",
   densityLabel: "Structured",
 };
 
 const zhMeta = {
-  name: "会议纪要",
-  theme: "董事会议纪要，含行动项和出席追踪",
+  name: "田野笔记报告",
+  theme: "用户研究观察和物理环境记录——温暖陈年纸张色调的笔记本风格",
   densityLabel: "结构化",
 };

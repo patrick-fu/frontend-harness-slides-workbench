@@ -1,16 +1,16 @@
-/* ── Style 46: Audit Report ──────────────────────────────────────────── */
+/* ── Style 46: Checklist Ledger ──────────────────────────────────────── */
 
 :root {
-  --style-46-bg: #ffffff;
+  --style-46-bg: #fbfbfb;
   --style-46-ink: #111827;
-  --style-46-panel: #f9fafb;
-  --style-46-accent: #0f172a;
+  --style-46-panel: #f3f4f6;
+  --style-46-accent: #16a34a;
   --style-46-rule: #e5e7eb;
   --style-46-muted: #6b7280;
-  --style-46-critical: #dc2626;
-  --style-46-high: #f97316;
-  --style-46-medium: #eab308;
-  --style-46-low: #22c55e;
+  --style-46-critical: #16a34a;
+  --style-46-high: #eab308;
+  --style-46-medium: #dc2626;
+  --style-46-low: #6b7280;
   --style-46-info: #3b82f6;
 }
 
@@ -25,11 +25,28 @@
   user-select: none;
 }
 
+/* Ledger line texture */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 4.5cqh,
+      rgba(0, 0, 0, 0.015) 4.5cqh,
+      rgba(0, 0, 0, 0.015) 4.52cqh
+    );
+  pointer-events: none;
+}
+
 /* ── Scene-to-Scene Transition ─────────────────────────────────────────── */
 
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .exitAnim {
@@ -827,7 +844,7 @@
   left: 0;
   right: 0;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(251, 251, 251, 0.95);
   backdrop-filter: blur(8px);
   border-top: 0.05cqh solid var(--style-46-rule);
   padding: 1cqh 6cqw 1.2cqh;

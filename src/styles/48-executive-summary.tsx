@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./48-executive-summary.module.css";
 
@@ -14,182 +14,182 @@ const SCENES = {
     scenes: [
       {
         id: "header",
-        label: "Header",
-        icon: "📋",
-        company: "Nexus Technologies Inc.",
-        companySub: "NASDAQ: NEXS",
-        date: "Q3 FY2025\nBusiness Review",
-        type: "Executive Summary · One-Pager",
-        title: "Q3 Business",
-        titleEm: "Review",
-        tagline: "Accelerated growth, disciplined execution, and strategic clarity",
-        prepared: "Prepared for the Board of Directors",
-        author: "by the Office of the CEO",
+        label: "Hero",
+        icon: "🔑",
+        company: "The Key Cutting Shop",
+        companySub: "A Physical Metaphor for Token Refresh",
+        date: "Object Metaphor\nHero Display",
+        type: "Concept Visualization · v2.14.0",
+        title: "Auth Token",
+        titleEm: "Refresh",
+        tagline: "Understanding distributed lock, versioning, and request coalescing through a tangible analogy",
+        prepared: "Auth tokens are like physical keys",
+        author: "— when they wear out, you need a new one cut",
       },
       {
         id: "metrics",
-        label: "Metrics",
-        icon: "📊",
-        title: "Key Performance Metrics",
-        subtitle: "Q3 FY2025 vs. Q3 FY2024",
+        label: "Components",
+        icon: "🔧",
+        title: "The Key Cutting Station",
+        subtitle: "Each component maps to a real system part",
         metrics: [
           {
-            label: "Revenue",
-            value: "$842",
-            unit: "M",
-            change: "+18.4%",
+            label: "Key Blanks",
+            value: "Raw",
+            unit: "Tokens",
+            change: "Uncut",
             changeDir: "up",
-            sub: "YoY growth",
+            sub: "Fresh token templates",
           },
           {
-            label: "Operating Margin",
-            value: "23.4",
-            unit: "%",
-            change: "+2.1pp",
+            label: "Cutting Machine",
+            value: "Redis",
+            unit: "Lock",
+            change: "1 at a time",
             changeDir: "up",
-            sub: "vs. 21.3% prior year",
+            sub: "SETNX mutex — one customer",
           },
           {
-            label: "ARR",
-            value: "$3.42",
-            unit: "B",
-            change: "+27%",
-            changeDir: "up",
-            sub: "Annual Recurring Revenue",
-          },
-          {
-            label: "Customers",
-            value: "14,800",
+            label: "Serial Stamper",
+            value: "v2.14",
             unit: "",
-            change: "+1,240",
+            change: "CAS",
             changeDir: "up",
-            sub: "net new in Q3",
+            sub: "Token versioning — no duplicates",
           },
           {
-            label: "NDR",
-            value: "118",
+            label: "Queue Board",
+            value: "Shared",
+            unit: "Promise",
+            change: "Coalesced",
+            changeDir: "up",
+            sub: "Client request merging",
+          },
+          {
+            label: "Workbench",
+            value: "268",
+            unit: "ms",
+            change: "−68%",
+            changeDir: "up",
+            sub: "p99 refresh latency",
+          },
+          {
+            label: "Success Rate",
+            value: "100",
             unit: "%",
-            change: "+3pp",
+            change: "0 conflicts",
             changeDir: "up",
-            sub: "Net Dollar Retention",
-          },
-          {
-            label: "Headcount",
-            value: "3,842",
-            unit: "",
-            change: "+218",
-            changeDir: "up",
-            sub: "Q3 net additions",
+            sub: "at 3x peak load",
           },
         ],
       },
       {
         id: "priorities",
-        label: "Priorities",
-        icon: "🎯",
-        title: "Strategic Priorities",
-        subtitle: "Four pillars driving Q4 and FY2026 planning",
+        label: "How It Works",
+        icon: "⚙️",
+        title: "The Refresh Process",
+        subtitle: "Step by step, like getting a key cut",
         items: [
           {
-            icon: "🤖",
-            title: "AI Platform Leadership",
-            desc: "Launch Nexus AI Platform v2.0 with multi-modal support. Target 50,000 enterprise developers by end of FY26. $45M incremental R&D investment approved.",
-            owner: "Owner: P. Raman, CTO",
-          },
-          {
-            icon: "🌍",
-            title: "International Expansion",
-            desc: "Enter 3 new markets (Japan, Brazil, UAE) with localized product offerings. Establish regional HQ in Tokyo. Target 35% international revenue mix by FY26.",
-            owner: "Owner: M. Alvarez, COO",
+            icon: "🚶",
+            title: "1. Customer Arrives",
+            desc: "A browser tab detects its key (token) is worn out (401 response). It heads to the key shop (refresh endpoint) to get a new one cut.",
+            owner: "Analogy: Tab detects expired token",
           },
           {
             icon: "🔒",
-            title: "Security & Trust",
-            desc: "Achieve SOC 2 Type II and ISO 27001 certification. Complete zero-trust architecture rollout. Security investment increased 40% YoY.",
-            owner: "Owner: CISO Office",
+            title: "2. Take a Number",
+            desc: "The shop has one cutting station. First customer takes the lock (SETNX). Others wait — no two keys get cut simultaneously.",
+            owner: "Analogy: Distributed mutex ensures one refresher",
           },
           {
-            icon: "💎",
-            title: "Customer Experience",
-            desc: "Reduce onboarding time by 60% through self-service automation. Launch customer success program for top 200 accounts. CSAT target: 4.6/5.0.",
-            owner: "Owner: J. Thornton, CEO",
+            icon: "✂️",
+            title: "3. Key Gets Cut",
+            desc: "The locksmith cuts a new key and stamps it with a serial number (version increment). Old keys are now invalid — they don't fit the new lock.",
+            owner: "Analogy: Token rotation with versioning",
+          },
+          {
+            icon: "📋",
+            title: "4. Everyone Gets a Copy",
+            desc: "Waiting customers see the new key on display and take a copy instead of waiting for their own cut. Everyone leaves with the same working key.",
+            owner: "Analogy: Client coalescing — shared promise",
           },
         ],
       },
       {
         id: "risks",
-        label: "Risks",
-        icon: "⚠️",
-        title: "Risk Overview",
-        subtitle: "Key risks and mitigation status",
+        label: "Mapping",
+        icon: "🗺️",
+        title: "System Mapping",
+        subtitle: "Physical metaphor to actual implementation",
         risks: [
           {
-            name: "Competitive Pressure",
-            level: "High",
+            name: "Key Cutting Machine",
+            level: "Redis Lock",
             levelClass: "high",
-            desc: "Major cloud providers accelerating AI platform investments. Pricing pressure in mid-market segment observed since Q2.",
-            mitigation: "Differentiation via developer experience and open ecosystem. Enterprise security features.",
+            desc: "The single cutting station represents our Redis SETNX mutex with 5-second TTL. It ensures only one refresh happens at a time, preventing the race condition where multiple tabs invalidate each other's tokens.",
+            mitigation: "Implementation: acquireLock() before token rotation, release in finally block",
           },
           {
-            name: "Talent Retention",
-            level: "Medium",
+            name: "Serial Number Stamper",
+            level: "Token Versioning",
             levelClass: "medium",
-            desc: "AI/ML engineering talent market remains highly competitive. Attrition in research team reached 12% annualized in Q3.",
-            mitigation: "Enhanced equity refresh program. Research sabbatical policy. Internal mobility framework.",
+            desc: "Each new key gets a unique serial. If someone tries to use an old stamp (stale write), it's rejected. This is our compare-and-swap pattern.",
+            mitigation: "Implementation: tokenStore.update() with expectedVersion, returns version_mismatch on stale",
           },
           {
-            name: "Regulatory Uncertainty",
-            level: "Medium",
+            name: "Queue Board",
+            level: "Client Coalescing",
             levelClass: "medium",
-            desc: "Evolving AI regulation across US, EU, and APAC. Data sovereignty requirements expanding in key markets.",
-            mitigation: "Regulatory affairs team expanded. Active engagement in standards bodies. Modular architecture for compliance.",
+            desc: "Instead of each customer demanding their own key, they check the board first. If a key is being cut, they wait for it rather than starting a new order.",
+            mitigation: "Implementation: module-scope refreshPromise, all 401 handlers share same promise",
           },
           {
-            name: "Supply Chain",
-            level: "Low",
+            name: "Backup Workbench",
+            level: "Graceful Fallback",
             levelClass: "low",
-            desc: "GPU availability improving but lead times remain extended. Diversification across three chip vendors in progress.",
-            mitigation: "Multi-vendor strategy. Reserved capacity agreements. Software optimization for heterogeneous compute.",
+            desc: "If the main cutting machine breaks (Redis down), there's a manual workbench. Slower but keeps the shop open. Exponential backoff prevents thrashing.",
+            mitigation: "Implementation: in-memory lock fallback with jittered retry on Redis unavailability",
           },
         ],
       },
       {
         id: "next",
-        label: "Next Steps",
-        icon: "🚀",
-        title: "Next Steps & Milestones",
-        subtitle: "Immediate actions for Q4 FY2025",
+        label: "Takeaways",
+        icon: "💡",
+        title: "Key Takeaways",
+        subtitle: "What the metaphor teaches us about distributed systems",
         items: [
           {
             num: "1",
-            action: "Launch AI Platform v2.0",
-            detail: "GA release scheduled for October 15 with multi-modal inference, fine-tuning API, and enterprise SLA guarantees. Marketing campaign budget: $8M.",
+            action: "One at a Time is Simple",
+            detail: "A single lock is easy to reason about. The complexity isn't in the lock itself — it's in what happens when the lock holder fails, or when the lock service itself is unavailable.",
             meta: [
-              { label: "Owner", value: "P. Raman" },
-              { label: "Date", value: "Oct 15" },
+              { label: "Pattern", value: "Mutual Exclusion" },
+              { label: "Tool", value: "Redis SETNX" },
             ],
           },
           {
             num: "2",
-            action: "Close FY2025 Budget Planning",
-            detail: "Finalize departmental budgets and headcount plans. Board approval targeted for October 30 meeting. Revenue guidance: $3.8B (+22%).",
+            action: "Versioning Prevents Stale Writes",
+            detail: "Without version numbers, two concurrent refreshers could each cut a valid key, and neither would know the other exists. The last write would silently win.",
             meta: [
-              { label: "Owner", value: "D. Chen" },
-              { label: "Date", value: "Oct 30" },
+              { label: "Pattern", value: "Compare-and-Swap" },
+              { label: "Tool", value: "Redis WATCH/MULTI" },
             ],
           },
           {
             num: "3",
-            action: "Tokyo Office Opening",
-            detail: "Ribbon-cutting ceremony November 5. Initial team of 45 across engineering, sales, and customer success. Japan market entry plan approved.",
+            action: "Coalescing Saves Work",
+            detail: "9 out of 10 tabs don't need to make the trip to the shop. They just wait for the first one's result. This eliminates 90%+ of redundant network calls.",
             meta: [
-              { label: "Owner", value: "M. Alvarez" },
-              { label: "Date", value: "Nov 5" },
+              { label: "Pattern", value: "Promise Sharing" },
+              { label: "Tool", value: "Module Singleton" },
             ],
           },
         ],
-        footerText: "Full Q3 report and data room available on request.",
-        footerContact: "Questions? ir@nexustech.com",
+        footerText: "The best distributed systems are the ones you can hold in your hand.",
+        footerContact: "v2.14.0 — Ready for canary deployment",
       },
     ],
   },
@@ -197,182 +197,182 @@ const SCENES = {
     scenes: [
       {
         id: "header",
-        label: "标题",
-        icon: "📋",
-        company: "联科科技股份有限公司",
-        companySub: "纳斯达克: NEXS",
-        date: "2025财年Q3\n业务回顾",
-        type: "执行摘要 · 单页概览",
-        title: "Q3业务",
-        titleEm: "回顾",
-        tagline: "加速增长、精准执行、战略清晰",
-        prepared: "呈交董事会",
-        author: "CEO办公室编制",
+        label: "主视觉",
+        icon: "🔑",
+        company: "配钥匙铺",
+        companySub: "令牌刷新的物理隐喻",
+        date: "物体隐喻\n主视觉展示",
+        type: "概念可视化 · v2.14.0",
+        title: "认证令牌",
+        titleEm: "刷新",
+        tagline: "通过有形类比理解分布式锁、版本控制和请求合并",
+        prepared: "认证令牌就像物理钥匙",
+        author: "—— 用旧了，你需要配一把新的",
       },
       {
         id: "metrics",
-        label: "指标",
-        icon: "📊",
-        title: "关键绩效指标",
-        subtitle: "FY2025 Q3 对比 FY2024 Q3",
+        label: "组件",
+        icon: "🔧",
+        title: "配钥匙工作台",
+        subtitle: "每个组件对应一个真实系统部分",
         metrics: [
           {
-            label: "营收",
-            value: "$8.42",
-            unit: "亿",
-            change: "+18.4%",
+            label: "钥匙坯",
+            value: "原始",
+            unit: "令牌",
+            change: "未切割",
             changeDir: "up",
-            sub: "同比增长",
+            sub: "新鲜令牌模板",
           },
           {
-            label: "营业利润率",
-            value: "23.4",
-            unit: "%",
-            change: "+2.1pp",
+            label: "配钥机",
+            value: "Redis",
+            unit: "锁",
+            change: "一次一人",
             changeDir: "up",
-            sub: "去年同期21.3%",
+            sub: "SETNX 互斥锁——一位顾客",
           },
           {
-            label: "ARR",
-            value: "$34.2",
-            unit: "亿",
-            change: "+27%",
-            changeDir: "up",
-            sub: "年度经常性收入",
-          },
-          {
-            label: "客户数",
-            value: "14,800",
+            label: "序列号章",
+            value: "v2.14",
             unit: "",
-            change: "+1,240",
+            change: "CAS",
             changeDir: "up",
-            sub: "Q3净增",
+            sub: "令牌版本控制——无重复",
           },
           {
-            label: "NDR",
-            value: "118",
+            label: "排队板",
+            value: "共享",
+            unit: "Promise",
+            change: "合并",
+            changeDir: "up",
+            sub: "客户端请求合并",
+          },
+          {
+            label: "工作台",
+            value: "268",
+            unit: "ms",
+            change: "−68%",
+            changeDir: "up",
+            sub: "p99 刷新延迟",
+          },
+          {
+            label: "成功率",
+            value: "100",
             unit: "%",
-            change: "+3pp",
+            change: "0 冲突",
             changeDir: "up",
-            sub: "净美元留存率",
-          },
-          {
-            label: "员工数",
-            value: "3,842",
-            unit: "",
-            change: "+218",
-            changeDir: "up",
-            sub: "Q3净增",
+            sub: "在 3 倍峰值负载下",
           },
         ],
       },
       {
         id: "priorities",
-        label: "战略",
-        icon: "🎯",
-        title: "战略重点",
-        subtitle: "驱动Q4和FY2026规划的四大支柱",
+        label: "流程",
+        icon: "⚙️",
+        title: "刷新流程",
+        subtitle: "一步步来，就像配钥匙",
         items: [
           {
-            icon: "🤖",
-            title: "AI平台领先",
-            desc: "推出Nexus AI Platform v2.0，支持多模态。目标FY26年底企业开发者达5万。已批准4500万美元增量研发投资。",
-            owner: "负责人：CTO 普里亚·拉曼",
-          },
-          {
-            icon: "🌍",
-            title: "国际扩张",
-            desc: "进入3个新市场（日本、巴西、阿联酋），推出本地化产品。在东京设立区域总部。目标FY26国际收入占比35%。",
-            owner: "负责人：COO 玛丽亚·阿尔瓦雷斯",
+            icon: "🚶",
+            title: "1. 顾客到来",
+            desc: "一个浏览器标签页发现它的钥匙（令牌）用旧了（401 响应）。它前往配钥匙铺（刷新端点）配一把新的。",
+            owner: "类比：标签页检测到过期令牌",
           },
           {
             icon: "🔒",
-            title: "安全与信任",
-            desc: "获得SOC 2 Type II和ISO 27001认证。完成零信任架构部署。安全投资同比增长40%。",
-            owner: "负责人：CISO办公室",
+            title: "2. 取号排队",
+            desc: "店铺只有一个配钥台。第一位顾客取锁（SETNX）。其他人等待——不会同时配两把钥匙。",
+            owner: "类比：分布式互斥确保唯一刷新者",
           },
           {
-            icon: "💎",
-            title: "客户体验",
-            desc: "通过自助服务自动化将上线时间减少60%。为前200大客户推出客户成功计划。CSAT目标：4.6/5.0。",
-            owner: "负责人：CEO 詹姆斯·桑顿",
+            icon: "✂️",
+            title: "3. 配出新钥匙",
+            desc: "锁匠配出新钥匙并盖上序列号（版本递增）。旧钥匙现在无效——它们插不进新锁。",
+            owner: "类比：带版本控制的令牌轮换",
+          },
+          {
+            icon: "📋",
+            title: "4. 每人拿一把",
+            desc: "等待的顾客看到展示台上的新钥匙，直接拿一把而不是等自己的。每个人都带着相同的有效钥匙离开。",
+            owner: "类比：客户端合并——共享 Promise",
           },
         ],
       },
       {
         id: "risks",
-        label: "风险",
-        icon: "⚠️",
-        title: "风险概览",
-        subtitle: "关键风险和缓解状态",
+        label: "映射",
+        icon: "🗺️",
+        title: "系统映射",
+        subtitle: "物理隐喻到实际实现",
         risks: [
           {
-            name: "竞争压力",
-            level: "高",
+            name: "配钥机",
+            level: "Redis 锁",
             levelClass: "high",
-            desc: "主要云厂商加速AI平台投资。自Q2以来中端市场定价压力显现。",
-            mitigation: "通过开发者体验和开放生态差异化。企业级安全功能。",
+            desc: "单一配钥台代表我们 5 秒 TTL 的 Redis SETNX 互斥锁。它确保一次只发生一次刷新，防止多个标签页互相使对方令牌失效的竞态条件。",
+            mitigation: "实现：令牌轮换前 acquireLock()，finally 块中释放",
           },
           {
-            name: "人才保留",
-            level: "中",
+            name: "序列号章",
+            level: "令牌版本控制",
             levelClass: "medium",
-            desc: "AI/ML工程人才市场竞争激烈。Q3研究团队年化流失率达12%。",
-            mitigation: "增强股权刷新计划。研究学术休假政策。内部流动框架。",
+            desc: "每把新钥匙获得唯一序列号。如果有人试图使用旧印章（过期写入），会被拒绝。这就是我们的比较交换模式。",
+            mitigation: "实现：tokenStore.update() 带 expectedVersion，过期时返回 version_mismatch",
           },
           {
-            name: "监管不确定性",
-            level: "中",
+            name: "排队板",
+            level: "客户端合并",
             levelClass: "medium",
-            desc: "美国、欧盟和亚太AI法规持续演变。主要市场数据主权要求不断扩展。",
-            mitigation: "扩大监管事务团队。积极参与标准制定。合规模块化架构。",
+            desc: "顾客不是各自要求配自己的钥匙，而是先看板子。如果有钥匙正在配制，他们等待而不是发起新订单。",
+            mitigation: "实现：模块作用域 refreshPromise，所有 401 处理器共享同一 Promise",
           },
           {
-            name: "供应链",
-            level: "低",
+            name: "备用工作台",
+            level: "优雅降级",
             levelClass: "low",
-            desc: "GPU供应改善但交付周期仍较长。三家芯片厂商多元化进行中。",
-            mitigation: "多厂商策略。预留产能协议。异构计算软件优化。",
+            desc: "如果主配钥机坏了（Redis 宕机），还有一个手动工作台。慢一点但店铺照常营业。指数退避防止抖动。",
+            mitigation: "实现：Redis 不可用时回退到内存锁，带抖动重试",
           },
         ],
       },
       {
         id: "next",
-        label: "行动",
-        icon: "🚀",
-        title: "下一步与里程碑",
-        subtitle: "FY2025 Q4立即行动",
+        label: "要点",
+        icon: "💡",
+        title: "关键要点",
+        subtitle: "这个隐喻教会我们关于分布式系统的什么",
         items: [
           {
             num: "1",
-            action: "发布AI Platform v2.0",
-            detail: "GA发布定于10月15日，含多模态推理、微调API和企业SLA保障。营销预算：800万美元。",
+            action: "一次一个很简单",
+            detail: "单一锁很容易理解。复杂性不在于锁本身——而在于当锁持有者失败时，或当锁服务本身不可用时会发生什么。",
             meta: [
-              { label: "负责人", value: "拉曼" },
-              { label: "日期", value: "10月15日" },
+              { label: "模式", value: "互斥" },
+              { label: "工具", value: "Redis SETNX" },
             ],
           },
           {
             num: "2",
-            action: "完成FY2025预算规划",
-            detail: "最终确定部门预算和人员计划。目标10月30日董事会批准。营收指引：38亿美元（+22%）。",
+            action: "版本防止过期写入",
+            detail: "没有版本号，两个并发刷新者各配一把有效钥匙，谁也不知道对方的存在。最后一次写入会静默获胜。",
             meta: [
-              { label: "负责人", value: "陈大伟" },
-              { label: "日期", value: "10月30日" },
+              { label: "模式", value: "比较交换" },
+              { label: "工具", value: "Redis WATCH/MULTI" },
             ],
           },
           {
             num: "3",
-            action: "东京办公室开业",
-            detail: "11月5日剪彩仪式。初期45人团队，涵盖工程、销售和客户成功。日本市场进入计划已批准。",
+            action: "合并节省工作量",
+            detail: "10 个标签页中有 9 个不需要跑一趟店铺。它们只等第一个的结果。这消除了 90%+ 的冗余网络调用。",
             meta: [
-              { label: "负责人", value: "阿尔瓦雷斯" },
-              { label: "日期", value: "11月5日" },
+              { label: "模式", value: "Promise 共享" },
+              { label: "工具", value: "模块单例" },
             ],
           },
         ],
-        footerText: "完整Q3报告和数据室备索。",
-        footerContact: "垂询请至：ir@nexustech.com",
+        footerText: "最好的分布式系统是你能握在手里的那些。",
+        footerContact: "v2.14.0 — 金丝雀部署就绪",
       },
     ],
   },
@@ -390,25 +390,46 @@ export default function ExecutiveSummary({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   useEffect(() => {
     const id = "style-48-fonts";
@@ -735,56 +756,56 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: t.densityLabel,
     heroScene: 2,
     colors: {
-      bg: "#ffffff",
-      ink: "#0f172a",
-      panel: "#f8fafc",
+      bg: "#f5ede0",
+      ink: "#3d2b1a",
+      panel: "#ebe0cc",
     },
     typography: {
-      header: "Inter, system-ui, sans-serif",
+      header: "Georgia, 'Times New Roman', serif",
       body: "Inter, system-ui, sans-serif",
     },
     tags: lang === "zh"
-      ? ["执行摘要", "KPI", "业务回顾", "一页纸"]
-      : ["executive-summary", "KPI", "business-review", "one-pager"],
-    fonts: ["Inter", "cjk:Noto Sans SC"],
+      ? ["物体隐喻", "主视觉", "类比", "分布式系统", "温暖材质"]
+      : ["object-metaphor", "hero", "analogy", "distributed-systems", "warm-materials"],
+    fonts: ["Inter", "Georgia", "cjk:Noto Sans SC"],
     scenes: [
       {
         id: 1,
-        title: lang === "zh" ? "标题页" : "Title Page",
+        title: lang === "zh" ? "主视觉展示" : "Hero Display",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "完整标题" : "Full title page" , body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "完整主视觉" : "Full hero display" , body: "" },
         ],
       },
       {
         id: 2,
-        title: lang === "zh" ? "关键指标" : "Key Metrics",
+        title: lang === "zh" ? "组件拆解" : "Component Breakdown",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "前两项指标" : "First two metrics" , body: "" },
-          { id: 1, action: "beat-1", title: lang === "zh" ? "前四项指标" : "First four metrics" , body: "" },
-          { id: 2, action: "beat-2", title: lang === "zh" ? "全部六项指标" : "All six metrics" , body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "前两项组件" : "First two components" , body: "" },
+          { id: 1, action: "beat-1", title: lang === "zh" ? "前四项组件" : "First four components" , body: "" },
+          { id: 2, action: "beat-2", title: lang === "zh" ? "全部六项组件" : "All six components" , body: "" },
         ],
       },
       {
         id: 3,
-        title: lang === "zh" ? "战略重点" : "Strategic Priorities",
+        title: lang === "zh" ? "工作流程" : "How It Works",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "前两项" : "First two priorities" , body: "" },
-          { id: 1, action: "beat-1", title: lang === "zh" ? "全部四项" : "All four priorities" , body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "前两步" : "First two steps" , body: "" },
+          { id: 1, action: "beat-1", title: lang === "zh" ? "全部四步" : "All four steps" , body: "" },
         ],
       },
       {
         id: 4,
-        title: lang === "zh" ? "风险概览" : "Risk Overview",
+        title: lang === "zh" ? "系统映射" : "System Mapping",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "前两项风险" : "First two risks" , body: "" },
-          { id: 1, action: "beat-1", title: lang === "zh" ? "全部四项风险" : "All four risks" , body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "前两项映射" : "First two mappings" , body: "" },
+          { id: 1, action: "beat-1", title: lang === "zh" ? "全部四项映射" : "All four mappings" , body: "" },
         ],
       },
       {
         id: 5,
-        title: lang === "zh" ? "下一步" : "Next Steps",
+        title: lang === "zh" ? "关键要点" : "Key Takeaways",
         beats: [
-          { id: 0, action: "beat-0", title: lang === "zh" ? "首项行动" : "First action item" , body: "" },
+          { id: 0, action: "beat-0", title: lang === "zh" ? "首项要点" : "First takeaway" , body: "" },
           { id: 1, action: "beat-1", title: lang === "zh" ? "全部行动项" : "All action items" , body: "" },
         ],
       },
@@ -793,13 +814,13 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 }
 
 const enMeta = {
-  name: "Executive Summary",
-  theme: "One-pager business review with KPIs and strategic priorities",
-  densityLabel: "Scannable",
+  name: "Object Metaphor Hero",
+  theme: "Tangible physical object as anchor for abstract system concept",
+  densityLabel: "Visual",
 };
 
 const zhMeta = {
-  name: "执行摘要",
-  theme: "含KPI和战略重点的单页业务回顾",
-  densityLabel: "易读",
+  name: "物体隐喻主视觉",
+  theme: "以有形物理物体为锚点呈现抽象系统概念",
+  densityLabel: "视觉",
 };

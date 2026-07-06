@@ -1,16 +1,16 @@
-/* ── Style 48: Executive Summary ─────────────────────────────────────── */
+/* ── Style 48: Object Metaphor Hero ─────────────────────────────────────── */
 
 :root {
-  --style-48-bg: #ffffff;
-  --style-48-ink: #0f172a;
-  --style-48-panel: #f8fafc;
-  --style-48-accent: #1e40af;
-  --style-48-accent2: #0891b2;
-  --style-48-rule: #e2e8f0;
-  --style-48-muted: #64748b;
-  --style-48-green: #16a34a;
-  --style-48-red: #dc2626;
-  --style-48-amber: #d97706;
+  --style-48-bg: #f5ede0;
+  --style-48-ink: #3d2b1a;
+  --style-48-panel: #ebe0cc;
+  --style-48-accent: #c4813a;
+  --style-48-accent2: #8b5e3c;
+  --style-48-rule: #d9c9a8;
+  --style-48-muted: #7a6850;
+  --style-48-green: #5a7a3a;
+  --style-48-red: #a04030;
+  --style-48-amber: #c4813a;
 }
 
 .root {
@@ -24,11 +24,23 @@
   user-select: none;
 }
 
+/* Warm paper texture */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(196, 129, 58, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(139, 94, 60, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
 /* ── Transition Track ──────────────────────────────────────────────────── */
 
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .transitionTrack {
@@ -110,8 +122,9 @@
   align-items: center;
   justify-content: center;
   font-size: 3cqh;
-  font-weight: 800;
+  font-weight: 700;
   color: #fff;
+  box-shadow: 0 0.4cqh 1.2cqh rgba(61, 43, 26, 0.15);
 }
 
 .pageHeaderCompanyName {
@@ -144,11 +157,12 @@
 
 .pageHeaderTitle {
   font-size: 6.5cqh;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--style-48-ink);
   margin: 0;
   line-height: 1.05;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+  font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
 }
 
 .pageHeaderTitle em {
@@ -164,6 +178,7 @@
   font-weight: 400;
   color: var(--style-48-muted);
   margin: 1cqh 0 0 0;
+  font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
 }
 
 .pageHeaderRule {
@@ -203,6 +218,7 @@
   font-weight: 700;
   color: var(--style-48-ink);
   margin: 0;
+  font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
 }
 
 .metricsSubtitle {
@@ -229,6 +245,7 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 0.3cqh 1cqh rgba(61, 43, 26, 0.08), inset 0 0.05cqh 0 rgba(255, 255, 255, 0.5);
 }
 
 .metricCard::before {
@@ -302,6 +319,7 @@
   font-weight: 700;
   color: var(--style-48-ink);
   margin: 0;
+  font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
 }
 
 .prioritiesSubtitle {
@@ -325,6 +343,7 @@
   border: 0.05cqh solid var(--style-48-rule);
   border-radius: 1cqh;
   align-items: flex-start;
+  box-shadow: 0 0.25cqh 0.8cqh rgba(61, 43, 26, 0.06);
 }
 
 .priorityIcon {
@@ -336,7 +355,8 @@
   justify-content: center;
   font-size: 2.2cqh;
   flex-shrink: 0;
-  background: rgba(30, 64, 175, 0.08);
+  background: rgba(196, 129, 58, 0.1);
+  box-shadow: 0 0.2cqh 0.6cqh rgba(61, 43, 26, 0.08);
 }
 
 .priorityBody {
@@ -384,6 +404,7 @@
   font-weight: 700;
   color: var(--style-48-ink);
   margin: 0;
+  font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
 }
 
 .risksSubtitle {
@@ -407,6 +428,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.8cqh;
+  box-shadow: 0 0.25cqh 0.8cqh rgba(61, 43, 26, 0.06);
 }
 
 .riskCardHeader {
@@ -433,17 +455,17 @@
 
 .riskLevelHigh {
   color: var(--style-48-red);
-  background: rgba(220, 38, 38, 0.08);
+  background: rgba(160, 64, 48, 0.08);
 }
 
 .riskLevelMedium {
   color: var(--style-48-amber);
-  background: rgba(217, 119, 6, 0.08);
+  background: rgba(196, 129, 58, 0.08);
 }
 
 .riskLevelLow {
   color: var(--style-48-green);
-  background: rgba(22, 163, 74, 0.08);
+  background: rgba(90, 122, 58, 0.08);
 }
 
 .riskDesc {
@@ -485,6 +507,7 @@
   font-weight: 700;
   color: var(--style-48-ink);
   margin: 0;
+  font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
 }
 
 .nextSubtitle {
@@ -508,6 +531,7 @@
   border: 0.05cqh solid var(--style-48-rule);
   border-radius: 1cqh;
   border-left: 0.4cqh solid var(--style-48-accent);
+  box-shadow: 0 0.25cqh 0.8cqh rgba(61, 43, 26, 0.06);
 }
 
 .nextNumber {
@@ -582,7 +606,7 @@
   left: 0;
   right: 0;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(245, 237, 224, 0.95);
   backdrop-filter: blur(8px);
   border-top: 0.05cqh solid var(--style-48-rule);
   padding: 1cqh 6cqw 1.2cqh;

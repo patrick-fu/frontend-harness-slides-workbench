@@ -1,14 +1,16 @@
-/* ── Style 45: Policy Paper ──────────────────────────────────────────── */
+/* ── Style 45: Annotated Source & Diff ─────────────────────────────────── */
 
 :root {
   --style-45-bg: #f8f9fa;
   --style-45-ink: #1a1a2e;
   --style-45-panel: #ffffff;
-  --style-45-accent: #1e3a5f;
-  --style-45-accent2: #c9a227;
+  --style-45-accent: #1a7a3a;
+  --style-45-accent2: #b91c1c;
   --style-45-rule: #d1d5db;
   --style-45-muted: #6b7280;
   --style-45-highlight: #eef2f7;
+  --style-45-addition: #dcfce7;
+  --style-45-removal: #fee2e2;
 }
 
 .root {
@@ -18,7 +20,7 @@
   overflow: hidden;
   background: var(--style-45-bg);
   color: var(--style-45-ink);
-  font-family: "Inter", Georgia, "Noto Serif SC", sans-serif;
+  font-family: "JetBrains Mono", "Fira Code", "SF Mono", "Noto Sans SC", monospace;
   user-select: none;
 }
 
@@ -27,6 +29,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .exitAnim {
@@ -138,7 +141,7 @@
   color: var(--style-45-muted);
   margin: 1.5cqh 0 0 0;
   line-height: 1.35;
-  font-family: Georgia, "Noto Serif SC", serif;
+  font-family: "JetBrains Mono", "Fira Code", "SF Mono", "Noto Sans SC", monospace;
 }
 
 .titleRule {
@@ -310,7 +313,7 @@
   color: var(--style-45-accent);
   min-width: 4cqw;
   line-height: 1;
-  font-family: Georgia, serif;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
   flex-shrink: 0;
 }
 
@@ -578,7 +581,7 @@
   padding: 0.7cqh 2.5cqw;
   border-radius: 0.6cqh;
   transition: background 0.2s ease, color 0.2s ease;
-  font-family: "Inter", sans-serif;
+  font-family: "JetBrains Mono", "Fira Code", "Noto Sans SC", monospace;
 }
 
 .navItem:hover {
