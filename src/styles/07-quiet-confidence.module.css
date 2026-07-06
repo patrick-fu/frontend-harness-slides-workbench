@@ -1,5 +1,6 @@
-/* ─── Style 07: Quiet Confidence ──────────────────────────────────────────
-   Muted earth tones. Cream background. Serif headlines. Premium report feel.
+/* ─── Style 07: Sketch Board Emoji ────────────────────────────────────────
+   Warm workshop whiteboard. Aged cream paper. Handwriting + clean voice.
+   Sticky notes, tape, emoji actors. Hand-arranged pinned-up feel.
    All sizing in cqw/cqh. No px/vw/vh.
    ──────────────────────────────────────────────────────────────────────── */
 
@@ -9,9 +10,31 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-07-bg, #f5f0e8);
-  color: var(--style-07-ink, #3d3529);
+  background: var(--style-07-bg, #f7f2e8);
+  color: var(--style-07-ink, #4a4540);
+  --style-07-highlight-yellow: #f5e6a8;
+  --style-07-highlight-blue: #b8d8f0;
+  --style-07-highlight-red: #f0b8b0;
   font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* ── Paper texture overlay ────────────────────────────────────────────── */
+
+.paperTexture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(74, 69, 64, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(74, 69, 64, 0.025) 0%, transparent 45%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2cqh,
+      rgba(74, 69, 64, 0.015) 2cqh,
+      rgba(74, 69, 64, 0.015) calc(2cqh + 1px)
+    );
 }
 
 /* ── Transition track ──────────────────────────────────────────────────── */
@@ -19,6 +42,8 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .track {
@@ -27,6 +52,7 @@
   display: flex;
   flex-direction: column;
   padding: 6cqh 9cqw;
+  z-index: 1;
 }
 
 .animateSceneEnter {
@@ -44,46 +70,26 @@
   }
 }
 
-/* ── Scene-to-scene transition: breath-pause dissolve ─────────────────── */
+/* ── Scene-to-scene transition: settle-in like sticking a note ────────── */
 
 .exitAnim {
-  animation: breathExit 0.6s ease-in-out forwards;
+  animation: noteExit 0.5s ease-in forwards;
   z-index: 1;
 }
 
-@keyframes breathExit {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.3;
-  }
-  66.7% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 0;
-  }
+@keyframes noteExit {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.97); }
 }
 
 .enterAnim {
-  animation: breathEnter 0.7s ease-in-out 0.1s both;
+  animation: noteEnter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
   z-index: 2;
 }
 
-@keyframes breathEnter {
-  0% {
-    opacity: 0;
-  }
-  28.6% {
-    opacity: 0.3;
-  }
-  42.9% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 1;
-  }
+@keyframes noteEnter {
+  0% { opacity: 0; transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 /* ── Decorative hairline ───────────────────────────────────────────────── */
@@ -91,8 +97,41 @@
 .hairline {
   width: 100%;
   height: 1px;
-  background: var(--style-07-ink, #3d3529);
+  background: var(--style-07-ink, #4a4540);
   opacity: 0.12;
+}
+
+/* ── Sticky note base styles ──────────────────────────────────────────── */
+
+.stickyYellow {
+  background: var(--style-07-highlight-yellow);
+  position: relative;
+}
+
+.stickyBlue {
+  background: var(--style-07-highlight-blue);
+  position: relative;
+}
+
+.stickyRed {
+  background: var(--style-07-highlight-red);
+  position: relative;
+}
+
+/* Tape strip at top of sticky notes */
+.stickyYellow::before,
+.stickyBlue::before,
+.stickyRed::before {
+  content: "";
+  position: absolute;
+  top: -1.2cqh;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: 6cqw;
+  height: 2.5cqh;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(74, 69, 64, 0.06);
+  opacity: 0.7;
 }
 
 /* ── Scene 1: Title ────────────────────────────────────────────────────── */
@@ -107,46 +146,48 @@
 }
 
 .qcEyebrow {
-  font-size: 1.1cqw;
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 2cqw;
   font-weight: 500;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--style-07-ink, #3d3529);
-  opacity: 0.45;
+  letter-spacing: 0.02em;
+  color: var(--style-07-ink, #4a4540);
+  opacity: 0.55;
   margin-bottom: 3cqh;
 }
 
 .qcTitle {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  font-size: 8cqw;
-  font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 10cqw;
+  font-weight: 700;
+  line-height: 1.0;
   margin: 0;
-  color: var(--style-07-ink, #3d3529);
+  color: var(--style-07-ink, #4a4540);
 }
 
 .qcTitle em {
-  font-style: italic;
-  font-weight: 400;
+  font-style: normal;
+  font-weight: 600;
+  color: #c47a5a;
 }
 
 .qcTitleRule {
-  width: 6cqw;
+  width: 8cqw;
   height: 2px;
-  background: var(--style-07-ink, #3d3529);
-  margin: 4cqh 0;
-  opacity: 0.3;
+  background: var(--style-07-ink, #4a4540);
+  margin: 3cqh 0;
+  opacity: 0.25;
+  border-radius: 2px;
+  transform: rotate(-0.5deg);
 }
 
 .qcSubtitle {
   font-size: 2.2cqw;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
-  color: var(--style-07-ink, #3d3529);
-  opacity: 0.6;
+  color: var(--style-07-ink, #4a4540);
+  opacity: 0.65;
   margin: 0;
-  max-width: 48cqw;
+  max-width: 50cqw;
 }
 
 .qcMeta {
@@ -155,15 +196,14 @@
   left: 0;
   display: flex;
   gap: 5cqw;
-  font-size: 1cqw;
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 1.6cqw;
   font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--style-07-ink, #3d3529);
-  opacity: 0.35;
+  color: var(--style-07-ink, #4a4540);
+  opacity: 0.45;
 }
 
-/* ── Scene 2: Thesis Statement ─────────────────────────────────────────── */
+/* ── Scene 2: Framing Question ────────────────────────────────────────── */
 
 .scene2 {
   display: flex;
@@ -173,52 +213,50 @@
 }
 
 .qcChapter {
-  font-size: 1cqw;
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 1.8cqw;
   font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--style-07-ink, #3d3529);
-  opacity: 0.35;
+  letter-spacing: 0.02em;
+  color: var(--style-07-ink, #4a4540);
+  opacity: 0.45;
   margin-bottom: 4cqh;
 }
 
 .qcThesis {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  font-size: 5.5cqw;
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  color: var(--style-07-ink, #3d3529);
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 6cqw;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--style-07-ink, #4a4540);
   margin: 0;
   max-width: 70cqw;
 }
 
 .qcThesis em {
-  font-style: italic;
+  font-style: normal;
+  font-weight: 700;
+  color: #c47a5a;
 }
 
 .qcThesisNote {
   font-size: 1.8cqw;
-  font-weight: 300;
-  line-height: 1.5;
-  color: var(--style-07-ink, #3d3529);
-  opacity: 0.5;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--style-07-ink, #4a4540);
+  opacity: 0.55;
   margin-top: 4cqh;
-  max-width: 45cqw;
-  font-style: italic;
+  max-width: 48cqw;
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 2.2cqw;
   animation: thesisNoteReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
 }
 
 @keyframes thesisNoteReveal {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 0.5;
-  }
+  from { opacity: 0; }
+  to { opacity: 0.55; }
 }
 
-/* ── Scene 3: Investment Principles (Hero) ─────────────────────────────── */
+/* ── Scene 3: Collaboration Principles (Hero) ─────────────────────────── */
 
 .scene3 {
   display: flex;
@@ -235,63 +273,63 @@
 }
 
 .qcPrinciplesTitle {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  font-size: 2.8cqw;
-  font-weight: 400;
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 3.5cqw;
+  font-weight: 600;
   line-height: 1.15;
   margin: 0;
-  color: var(--style-07-ink, #3d3529);
+  color: var(--style-07-ink, #4a4540);
 }
 
 .qcPrinciplesYear {
-  font-size: 1.2cqw;
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 1.8cqw;
   font-weight: 400;
-  letter-spacing: 0.15em;
-  color: var(--style-07-ink, #3d3529);
-  opacity: 0.35;
-  text-transform: uppercase;
+  color: var(--style-07-ink, #4a4540);
+  opacity: 0.45;
 }
 
 .qcPrinciples {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 1.5cqh;
   flex: 1;
   min-height: 0;
+  padding-top: 2cqh;
 }
 
 .qcPrinciple {
   display: flex;
   align-items: flex-start;
-  gap: 3cqw;
-  padding: 1.5cqh 0;
-  flex: 1;
-  min-height: 0;
-  border-bottom: 1px solid rgba(61, 53, 41, 0.08);
+  gap: 2cqw;
+  padding: 2cqh 2.5cqw;
+  border-radius: 0.3cqw;
   opacity: 0;
-  transform: translateY(0.5cqh);
+  transform: translateY(0.5cqh) rotate(-0.3deg);
   transition:
-    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 2px 3px 8px rgba(74, 69, 64, 0.08);
 }
 
-.qcPrinciple:first-child {
-  border-top: 1px solid rgba(61, 53, 41, 0.08);
+.qcPrinciple:nth-child(even) {
+  transform: translateY(0.5cqh) rotate(0.4deg);
 }
 
 .qcPrincipleVisible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) rotate(-0.3deg);
 }
 
-.qcPrincipleNum {
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: 2.5cqw;
-  font-weight: 400;
-  color: var(--style-07-ink, #3d3529);
-  opacity: 0.25;
-  min-width: 4cqw;
-  font-style: italic;
+.qcPrinciple:nth-child(even).qcPrincipleVisible {
+  transform: translateY(0) rotate(0.4deg);
+}
+
+.stickyEmoji {
+  font-size: 3cqw;
+  line-height: 1;
+  flex-shrink: 0;
+  padding-top: 0.3cqh;
 }
 
 .qcPrincipleBody {
@@ -299,25 +337,25 @@
 }
 
 .qcPrincipleTitle {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  font-size: 2.2cqw;
-  font-weight: 400;
-  line-height: 1.2;
-  color: var(--style-07-ink, #3d3529);
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 2.8cqw;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--style-07-ink, #4a4540);
   margin: 0 0 0.5cqh 0;
 }
 
 .qcPrincipleDesc {
-  font-size: 1.3cqw;
-  font-weight: 300;
+  font-size: 1.4cqw;
+  font-weight: 400;
   line-height: 1.5;
-  color: var(--style-07-ink, #3d3529);
-  opacity: 0.55;
+  color: var(--style-07-ink, #4a4540);
+  opacity: 0.7;
   margin: 0;
-  max-width: 55cqw;
+  max-width: 50cqw;
 }
 
-/* ── Scene 4: Performance Data ─────────────────────────────────────────── */
+/* ── Scene 4: Session Output ──────────────────────────────────────────── */
 
 .scene4 {
   display: flex;
@@ -327,83 +365,102 @@
 }
 
 .qcDataLabel {
-  font-size: 1cqw;
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 1.8cqw;
   font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--style-07-ink, #3d3529);
-  opacity: 0.35;
+  color: var(--style-07-ink, #4a4540);
+  opacity: 0.5;
   margin-bottom: 3cqh;
 }
 
 .qcDataRow {
   display: flex;
-  gap: 6cqw;
+  gap: 5cqw;
   align-items: flex-end;
 }
 
 .qcDataPoint {
   opacity: 0;
-  transform: translateY(1cqh);
+  transform: translateY(1cqh) rotate(-1deg);
   transition:
-    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  padding: 2.5cqh 3cqw;
+  border-radius: 0.3cqw;
+  text-align: center;
+  box-shadow: 2px 3px 8px rgba(74, 69, 64, 0.08);
+  position: relative;
+}
+
+.qcDataPoint:nth-child(2) {
+  transform: translateY(1cqh) rotate(0.8deg);
+}
+
+.qcDataPoint:nth-child(3) {
+  transform: translateY(1cqh) rotate(-0.5deg);
 }
 
 .qcDataPointVisible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) rotate(-1deg);
+}
+
+.qcDataPoint:nth-child(2).qcDataPointVisible {
+  transform: translateY(0) rotate(0.8deg);
+}
+
+.qcDataPoint:nth-child(3).qcDataPointVisible {
+  transform: translateY(0) rotate(-0.5deg);
+}
+
+.dataEmoji {
+  font-size: 3cqw;
+  display: block;
+  margin-bottom: 0.5cqh;
 }
 
 .qcDataValue {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  font-size: 7cqw;
-  font-weight: 400;
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 6cqw;
+  font-weight: 700;
   line-height: 1;
-  color: var(--style-07-ink, #3d3529);
-  letter-spacing: -0.02em;
+  color: var(--style-07-ink, #4a4540);
 }
 
 .qcDataValue sup {
-  font-size: 3cqw;
+  font-size: 2.5cqw;
   vertical-align: super;
 }
 
 .qcDataLabel2 {
-  font-size: 1.4cqw;
+  font-size: 1.3cqw;
   font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--style-07-ink, #3d3529);
-  opacity: 0.4;
-  margin-top: 1.5cqh;
+  color: var(--style-07-ink, #4a4540);
+  opacity: 0.6;
+  margin-top: 1cqh;
 }
 
 .qcDataDivider {
   width: 1px;
-  height: 10cqh;
-  background: var(--style-07-ink, #3d3529);
+  height: 8cqh;
+  background: var(--style-07-ink, #4a4540);
   opacity: 0.1;
   align-self: center;
 }
 
 .qcDataFootnote {
-  font-size: 1.2cqw;
-  font-weight: 300;
-  color: var(--style-07-ink, #3d3529);
-  opacity: 0.35;
-  margin-top: 5cqh;
-  font-style: italic;
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 1.8cqw;
+  font-weight: 400;
+  color: var(--style-07-ink, #4a4540);
+  opacity: 0.45;
+  margin-top: 4cqh;
   animation: footnoteReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
 }
 
 @keyframes footnoteReveal {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 0.35;
-  }
+  from { opacity: 0; }
+  to { opacity: 0.45; }
 }
 
 /* ── Scene 5: Closing ──────────────────────────────────────────────────── */
@@ -418,47 +475,50 @@
 }
 
 .qcClosingMark {
-  font-size: 1cqw;
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 1.6cqw;
   font-weight: 500;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--style-07-ink, #3d3529);
-  opacity: 0.3;
+  letter-spacing: 0.02em;
+  color: var(--style-07-ink, #4a4540);
+  opacity: 0.4;
   margin-bottom: 4cqh;
 }
 
 .qcClosing {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  font-size: 6cqw;
-  font-weight: 400;
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 6.5cqw;
+  font-weight: 600;
   line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: var(--style-07-ink, #3d3529);
+  color: var(--style-07-ink, #4a4540);
   margin: 0;
   max-width: 65cqw;
 }
 
 .qcClosing em {
-  font-style: italic;
+  font-style: normal;
+  font-weight: 700;
+  color: #c47a5a;
 }
 
 .qcClosingRule {
-  width: 4cqw;
-  height: 1px;
-  background: var(--style-07-ink, #3d3529);
-  margin: 4cqh auto;
+  width: 6cqw;
+  height: 2px;
+  background: var(--style-07-ink, #4a4540);
+  margin: 3.5cqh auto;
   opacity: 0.25;
+  border-radius: 2px;
+  transform: rotate(0.5deg);
 }
 
 .qcClosingSig {
-  font-size: 1.4cqw;
-  font-weight: 300;
-  color: var(--style-07-ink, #3d3529);
-  opacity: 0.4;
-  letter-spacing: 0.08em;
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 1.8cqw;
+  font-weight: 400;
+  color: var(--style-07-ink, #4a4540);
+  opacity: 0.45;
 }
 
-/* ── Navigation: left-side serif markers ───────────────────────────────── */
+/* ── Navigation: hand-drawn side markers ──────────────────────────────── */
 
 .sideNav {
   position: absolute;
@@ -484,45 +544,44 @@
 
 .sideNavTick {
   width: 1.5cqw;
-  height: 1px;
-  background: var(--style-07-ink, #3d3529);
-  opacity: 0.15;
+  height: 2px;
+  background: var(--style-07-ink, #4a4540);
+  opacity: 0.2;
   transition:
     opacity 0.3s ease,
     width 0.3s ease;
   flex-shrink: 0;
+  border-radius: 2px;
 }
 
 .sideNavItemActive .sideNavTick {
-  opacity: 0.5;
+  opacity: 0.6;
   width: 2.5cqw;
 }
 
 .sideNavNum {
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: 1.2cqw;
-  font-weight: 400;
-  font-style: italic;
-  color: var(--style-07-ink, #3d3529);
-  opacity: 0.15;
+  font-family: "Caveat", "Inter", cursive;
+  font-size: 1.8cqw;
+  font-weight: 500;
+  color: var(--style-07-ink, #4a4540);
+  opacity: 0.2;
   transition: opacity 0.3s ease;
-  letter-spacing: 0.02em;
 }
 
 .sideNavItem:hover .sideNavNum {
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 .sideNavItem:hover .sideNavTick {
-  opacity: 0.3;
+  opacity: 0.35;
 }
 
 .sideNavItemActive .sideNavNum {
-  opacity: 0.65;
+  opacity: 0.7;
 }
 
 .sideNavItemActive:hover .sideNavNum {
-  opacity: 0.65;
+  opacity: 0.7;
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */
@@ -550,4 +609,8 @@
 
 .thumbnail .qcMeta {
   display: none;
+}
+
+.thumbnail .paperTexture {
+  opacity: 0.5;
 }

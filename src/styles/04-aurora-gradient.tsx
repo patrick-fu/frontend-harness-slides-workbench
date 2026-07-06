@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useCallback, useRef, useState } from "react";
+import React, { useEffect, useCallback, useRef, useState } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./04-aurora-gradient.module.css";
@@ -12,7 +12,7 @@ function useFonts() {
     const link = document.createElement("link");
     link.id = id;
     link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap";
     document.head.appendChild(link);
   }, []);
 }
@@ -23,122 +23,129 @@ interface SceneContent {
   en: {
     title?: string;
     subtitle?: string;
-    headline?: string;
-    dataPoints?: Array<{ label: string; value: string; trend: string; color: string }>;
-    chartTitle?: string;
-    chartData?: number[];
-    chartLabels?: string[];
-    regionTitle?: string;
-    regions?: Array<{ name: string; temp: string; co2: string; status: string }>;
-    forecast?: string;
-    forecastSub?: string;
-    forecastMetrics?: Array<{ label: string; value: string; icon: string }>;
-    callToAction?: string;
-    callSub?: string;
+    question?: string;
+    response?: string;
+    reasoningTitle?: string;
+    reasoningSteps?: string[];
+    dialogueLabel?: string;
+    exchanges?: Array<{ speaker: string; role: string; text: string; warm: boolean }>;
+    closing?: string;
+    closingSub?: string;
+    principles?: Array<{ label: string; value: string; icon: string }>;
   };
   zh: {
     title?: string;
     subtitle?: string;
-    headline?: string;
-    dataPoints?: Array<{ label: string; value: string; trend: string; color: string }>;
-    chartTitle?: string;
-    chartData?: number[];
-    chartLabels?: string[];
-    regionTitle?: string;
-    regions?: Array<{ name: string; temp: string; co2: string; status: string }>;
-    forecast?: string;
-    forecastSub?: string;
-    forecastMetrics?: Array<{ label: string; value: string; icon: string }>;
-    callToAction?: string;
-    callSub?: string;
+    question?: string;
+    response?: string;
+    reasoningTitle?: string;
+    reasoningSteps?: string[];
+    dialogueLabel?: string;
+    exchanges?: Array<{ speaker: string; role: string; text: string; warm: boolean }>;
+    closing?: string;
+    closingSub?: string;
+    principles?: Array<{ label: string; value: string; icon: string }>;
   };
 }
 
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      title: "Climate Pulse",
-      subtitle: "Real-time Environmental Data Visualization",
+      title: "Dialogue",
+      subtitle: "Human & Machine, Thinking Together",
     },
     zh: {
-      title: "气候脉搏",
-      subtitle: "实时环境数据可视化",
+      title: "对话",
+      subtitle: "人与机器，共同思考",
     },
   },
   2: {
     en: {
-      headline: "The atmosphere is telling us something.",
-      dataPoints: [
-        { label: "Global Avg Temp", value: "+1.52°C", trend: "↑ 0.18°C/decade", color: "#ff6b6b" },
-        { label: "CO₂ Concentration", value: "424 ppm", trend: "↑ 2.4 ppm/year", color: "#a78bfa" },
-        { label: "Arctic Ice Extent", value: "4.2M km²", trend: "↓ -13.1%/decade", color: "#38bdf8" },
-        { label: "Sea Level Rise", value: "+3.6 mm/yr", trend: "Accelerating", color: "#4ade80" },
-      ],
+      question: "How do we decide when data runs out?",
+      response:
+        "I surface what the data says. You bring judgment and context. The gap between us is where the best decisions live.",
     },
     zh: {
-      headline: "大气正在向我们传递信息。",
-      dataPoints: [
-        { label: "全球平均温度", value: "+1.52°C", trend: "↑ 0.18°C/十年", color: "#ff6b6b" },
-        { label: "CO₂ 浓度", value: "424 ppm", trend: "↑ 2.4 ppm/年", color: "#a78bfa" },
-        { label: "北极冰盖面积", value: "420万 km²", trend: "↓ -13.1%/十年", color: "#38bdf8" },
-        { label: "海平面上升", value: "+3.6 毫米/年", trend: "加速中", color: "#4ade80" },
-      ],
+      question: "当数据不足时，我们如何做决策？",
+      response: "我呈现数据所说的。你带来判断和上下文。我们之间的间隙，正是最佳决策诞生之处。",
     },
   },
   3: {
     en: {
-      chartTitle: "Global Temperature Anomaly (vs 1850-1900 baseline)",
-      chartData: [0.2, 0.3, 0.25, 0.4, 0.5, 0.6, 0.8, 0.95, 1.1, 1.2, 1.35, 1.52],
-      chartLabels: ["1920", "1940", "1960", "1980", "1990", "2000", "2005", "2010", "2015", "2018", "2021", "2024"],
+      reasoningTitle: "Clarifying before acting",
+      reasoningSteps: [
+        "Frame the question precisely — what are we actually deciding?",
+        "Surface relevant patterns and constraints from available data",
+        "Identify what the data cannot answer — where judgment is needed",
+      ],
     },
     zh: {
-      chartTitle: "全球温度异常（相对于 1850-1900 基准）",
-      chartData: [0.2, 0.3, 0.25, 0.4, 0.5, 0.6, 0.8, 0.95, 1.1, 1.2, 1.35, 1.52],
-      chartLabels: ["1920", "1940", "1960", "1980", "1990", "2000", "2005", "2010", "2015", "2018", "2021", "2024"],
+      reasoningTitle: "先澄清，再行动",
+      reasoningSteps: [
+        "精确框定问题——我们究竟在决定什么？",
+        "从可用数据中呈现相关模式和约束",
+        "识别数据无法回答的部分——哪里需要判断",
+      ],
     },
   },
   4: {
     en: {
-      regionTitle: "Regional Impact Snapshot",
-      regions: [
-        { name: "Arctic Circle", temp: "+3.8°C", co2: "418 ppm", status: "Critical" },
-        { name: "Amazon Basin", temp: "+1.2°C", co2: "422 ppm", status: "Warning" },
-        { name: "Sahara Desert", temp: "+2.1°C", co2: "425 ppm", status: "Severe" },
-        { name: "Great Barrier Reef", temp: "+1.8°C", co2: "421 ppm", status: "Critical" },
+      dialogueLabel: "A Working Exchange",
+      exchanges: [
+        {
+          speaker: "Human",
+          role: "Product Lead",
+          text: "The model is confident but the edge cases concern me.",
+          warm: true,
+        },
+        {
+          speaker: "AI",
+          role: "Assistant",
+          text: "Three edge cases account for 12% of failures. Want me to surface them?",
+          warm: false,
+        },
+        {
+          speaker: "Human",
+          role: "Product Lead",
+          text: "Yes, and flag which ones need domain expertise to resolve.",
+          warm: true,
+        },
+        {
+          speaker: "AI",
+          role: "Assistant",
+          text: "Marked. Two need regulatory context I don't have. Over to you.",
+          warm: false,
+        },
       ],
     },
     zh: {
-      regionTitle: "区域影响快照",
-      regions: [
-        { name: "北极圈", temp: "+3.8°C", co2: "418 ppm", status: "危急" },
-        { name: "亚马逊盆地", temp: "+1.2°C", co2: "422 ppm", status: "警告" },
-        { name: "撒哈拉沙漠", temp: "+2.1°C", co2: "425 ppm", status: "严重" },
-        { name: "大堡礁", temp: "+1.8°C", co2: "421 ppm", status: "危急" },
+      dialogueLabel: "一次工作对话",
+      exchanges: [
+        { speaker: "人", role: "产品负责人", text: "模型很自信，但边缘案例让我担心。", warm: true },
+        { speaker: "AI", role: "助手", text: "三个边缘案例占失败的 12%。要我呈现它们吗？", warm: false },
+        { speaker: "人", role: "产品负责人", text: "好的，标出哪些需要领域专长才能解决。", warm: true },
+        { speaker: "AI", role: "助手", text: "已标记。两个需要我没有的监管上下文。交给你了。", warm: false },
       ],
     },
   },
   5: {
     en: {
-      forecast: "The next decade is decisive.",
-      forecastSub: "Projected 2030-2040 trajectory under current policies",
-      forecastMetrics: [
-        { label: "Warming Limit", value: "1.5°C", icon: "🌡" },
-        { label: "Renewable Share", value: "47%", icon: "⚡" },
-        { label: "Reforestation", value: "1.2B ha", icon: "🌳" },
+      closing: "Better together than either alone.",
+      closingSub: "A dialogue, not a monologue.",
+      principles: [
+        { label: "Clarity First", value: "Ask before answer", icon: "◇" },
+        { label: "Human Judgment", value: "Context matters most", icon: "◈" },
+        { label: "Machine Speed", value: "Patterns at scale", icon: "◆" },
       ],
-      callToAction: "Every fraction of a degree matters.",
-      callSub: "Data source: IPCC AR6 · NOAA · NASA GISS",
     },
     zh: {
-      forecast: "未来十年是决定性的。",
-      forecastSub: "当前政策下 2030-2040 年预测轨迹",
-      forecastMetrics: [
-        { label: "升温上限", value: "1.5°C", icon: "🌡" },
-        { label: "可再生能源占比", value: "47%", icon: "⚡" },
-        { label: "再造林面积", value: "12亿公顷", icon: "🌳" },
+      closing: "同行，胜于独行。",
+      closingSub: "是对话，不是独白。",
+      principles: [
+        { label: "清晰为先", value: "先提问，再回答", icon: "◇" },
+        { label: "人类判断", value: "上下文最重要", icon: "◈" },
+        { label: "机器速度", value: "规模化发现模式", icon: "◆" },
       ],
-      callToAction: "每一分之一度都至关重要。",
-      callSub: "数据来源：IPCC AR6 · NOAA · NASA GISS",
     },
   },
 };
@@ -156,32 +163,32 @@ const TRANSITION_DURATION = 900;
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Aurora Gradient", zh: "极光渐变" };
+  const nameMap = { en: "Interactive Dialogue Stage", zh: "互动对话舞台" };
   const themeMap = {
-    en: "Climate Data Visualization — dark background with aurora gradients and glowing data elements",
-    zh: "气候数据可视化——深色背景配极光渐变和发光数据元素",
+    en: "A small dim theater where two voices take turns — human-AI collaboration, Q&A exchanges, and conversational storytelling where the back-and-forth itself is the point",
+    zh: "一座小型昏暗剧场，两个声音轮流登场——人机协作、问答交流、对话式叙事，来回本身即是意义",
   };
-  const densityLabelMap = { en: "Atmospheric", zh: "大气感" };
+  const densityLabelMap = { en: "Conversational", zh: "对话式" };
 
   const sceneTitles = {
-    en: ["Title", "Key Indicators", "Temperature Chart", "Regional Impact", "Forecast"],
-    zh: ["标题", "核心指标", "温度图表", "区域影响", "预测"],
+    en: ["Title", "Opening Exchange", "Reasoning Steps", "Working Dialogue", "Closing"],
+    zh: ["标题", "开场对话", "推理步骤", "工作对话", "结语"],
   };
 
   const beatActions = {
     en: {
-      1: ["Title with aurora glow"],
-      2: ["Headline appears", "Data cards illuminate"],
-      3: ["Chart axes appear", "Data line draws across"],
-      4: ["Region cards appear sequentially"],
-      5: ["Forecast statement", "Metrics reveal"],
+      1: ["Title with stage glow"],
+      2: ["Human question posed", "AI response illuminates"],
+      3: ["Reasoning title appears", "Steps reveal sequentially"],
+      4: ["Exchange label + first two turns", "Third turn appears", "Fourth turn appears"],
+      5: ["Closing statement", "Principles reveal"],
     },
     zh: {
-      1: ["标题配极光光晕"],
-      2: ["标题呈现", "数据卡片点亮"],
-      3: ["图表坐标轴呈现", "数据线绘制"],
-      4: ["区域卡片依次呈现"],
-      5: ["预测陈述", "指标揭示"],
+      1: ["标题配舞台光晕"],
+      2: ["人类提出问题", "AI 回应点亮"],
+      3: ["推理标题呈现", "步骤依次揭示"],
+      4: ["对话标签 + 前两轮", "第三轮呈现", "第四轮呈现"],
+      5: ["结语陈述", "原则揭示"],
     },
   };
 
@@ -206,18 +213,20 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
         beatTitle = c.title || "";
         beatBody = c.subtitle || "";
       } else if (id === 2) {
-        beatTitle = c.headline || "";
-        beatBody = beatIdx >= 1 ? (c.dataPoints || []).map((d) => `${d.label}: ${d.value}`).join(" / ") : "";
+        beatTitle = beatIdx >= 1 ? c.response || "" : c.question || "";
+        beatBody = "";
       } else if (id === 3) {
-        beatTitle = c.chartTitle || "";
-        beatBody = beatIdx >= 1 ? `Latest: +${(c.chartData || [])[(c.chartData || []).length - 1]}°C` : "";
+        beatTitle = c.reasoningTitle || "";
+        const visibleSteps = (c.reasoningSteps || []).slice(0, Math.min((beatIdx + 1) * 2, 3));
+        beatBody = visibleSteps.join(" / ");
       } else if (id === 4) {
-        beatTitle = c.regionTitle || "";
-        const visibleRegions = (c.regions || []).slice(0, beatIdx + 1);
-        beatBody = visibleRegions.map((r) => `${r.name}: ${r.temp}`).join(" / ");
+        beatTitle = c.dialogueLabel || "";
+        const visibleCount = Math.min(beatIdx + 2, 4);
+        const visibleEx = (c.exchanges || []).slice(0, visibleCount);
+        beatBody = visibleEx.map((e) => `${e.speaker}: ${e.text.slice(0, 30)}`).join(" / ");
       } else if (id === 5) {
-        beatTitle = c.forecast || "";
-        beatBody = beatIdx >= 1 ? (c.forecastMetrics || []).map((m) => `${m.label}: ${m.value}`).join(" / ") : c.forecastSub || "";
+        beatTitle = c.closing || "";
+        beatBody = beatIdx >= 1 ? (c.principles || []).map((p) => p.label).join(" / ") : c.closingSub || "";
       }
 
       return { id: beatIdx, action: actions[beatIdx], title: beatTitle, body: beatBody };
@@ -232,11 +241,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     name: nameMap[lang],
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
-    heroScene: 3,
-    colors: { bg: "#0c0a1a", ink: "#e8e4f0", panel: "#161228" },
-    typography: { header: "Inter 600", body: "Inter 300" },
-    tags: ["aurora", "gradient", "dark", "glow", "climate", "data-viz", "atmospheric", "cosmic", "environmental"],
-    fonts: ["Inter"],
+    heroScene: 4,
+    colors: { bg: "#0e1116", ink: "#e4e8ed", panel: "#161b22" },
+    typography: { header: "JetBrains Mono 500", body: "Inter 400" },
+    tags: ["dialogue", "conversational", "turn-taking", "two-voice", "stage", "console", "human-AI", "interactive", "exchange"],
+    fonts: ["Inter", "JetBrains Mono"],
     scenes,
   };
 }
@@ -255,38 +264,52 @@ export default function AuroraGradient({
   useFonts();
 
   // ── Transition state ────────────────────────────────────────────────────
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef(scene);
   const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useLayoutEffect(() => {
-    if (reducedMotion) {
-      prevSceneRef.current = scene;
-      return;
-    }
-    if (prevSceneRef.current !== scene) {
-      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
-      setOutgoingScene(prevSceneRef.current);
-      setIsTransitioning(true);
-      transitionTimerRef.current = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-        transitionTimerRef.current = null;
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-    }
-    return () => {
-      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
-    };
-  }, [scene, reducedMotion]);
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
 
-  // ── FLIP for scene 4 region grid ────────────────────────────────────────
-  const { ref: regionFlipRef } = useFLIP<HTMLDivElement>({
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  const outgoingScene = transitionInfo.outgoingScene;
+  const isTransitioning = transitionInfo.isTransitioning;
+
+  // ── FLIP for scene 4 exchange list ──────────────────────────────────────
+  const { ref: exchangeFlipRef } = useFLIP<HTMLDivElement>({
     watch: [beat],
     duration: 450,
     easing: "cubic-bezier(0.16, 1, 0.3, 1)",
-    selector: `.${styles.regionCard}`,
+    selector: `.${styles.exchangeCard}`,
   });
 
   const handleNavClick = useCallback(
@@ -303,8 +326,8 @@ export default function AuroraGradient({
     isThumbnail ? styles.thumbnail : "",
   ].filter(Boolean).join(" ");
 
-  // ── Persistent aurora background (shared across all scenes) ─────────────
-  const renderAuroraBg = () => (
+  // ── Persistent stage lighting background (shared across all scenes) ─────
+  const renderStageBg = () => (
     <div className={styles.auroraBg} aria-hidden="true">
       <div className={`${styles.auroraBlob} ${styles.auroraBlob1}`} />
       <div className={`${styles.auroraBlob} ${styles.auroraBlob2}`} />
@@ -331,28 +354,28 @@ export default function AuroraGradient({
 
   const renderScene2 = (beatNum: number) => {
     const c = SCENES[2][language];
+    const humanLabel = language === "zh" ? "人类" : "HUMAN";
+    const aiLabel = language === "zh" ? "机器" : "AI";
     return (
       <div className={styles.scene2}>
-        <h2 className={styles.headline}>{c.headline}</h2>
-        <div className={styles.dataGrid}>
-          {(c.dataPoints || []).map((d, i) => (
-            <div
-              key={i}
-              className={styles.dataCard}
-              style={{
-                opacity: beatNum >= 1 ? 1 : 0,
-                transform: beatNum >= 1 ? "none" : "translateY(2cqh)",
-                transition: reducedMotion ? "none" : `opacity 0.6s ease ${0.1 + i * 0.1}s, transform 0.6s ease ${0.1 + i * 0.1}s`,
-                boxShadow: beatNum >= 1 ? `0 0 30cqw ${d.color}15, inset 0 1px 0 rgba(255,255,255,0.05)` : "none",
-              }}
-            >
-              <span className={styles.dataLabel}>{d.label}</span>
-              <span className={styles.dataValue} style={{ color: d.color, textShadow: `0 0 20cqw ${d.color}60` }}>
-                {d.value}
-              </span>
-              <span className={styles.dataTrend}>{d.trend}</span>
-            </div>
-          ))}
+        <div className={styles.exchangePair}>
+          {/* Human question — warm side */}
+          <div className={styles.turnBlock} style={{ opacity: 1 }}>
+            <span className={`${styles.turnLabel} ${styles.turnWarm}`}>{humanLabel}</span>
+            <p className={styles.turnText}>{c.question}</p>
+          </div>
+          {/* AI response — cool side */}
+          <div
+            className={`${styles.turnBlock} ${styles.turnResponse}`}
+            style={{
+              opacity: beatNum >= 1 ? 1 : 0,
+              transform: beatNum >= 1 ? "none" : "translateY(2cqh)",
+              transition: reducedMotion ? "none" : "opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s",
+            }}
+          >
+            <span className={`${styles.turnLabel} ${styles.turnCool}`}>{aiLabel}</span>
+            <p className={styles.turnText}>{c.response}</p>
+          </div>
         </div>
       </div>
     );
@@ -360,127 +383,37 @@ export default function AuroraGradient({
 
   const renderScene3 = (beatNum: number) => {
     const c = SCENES[3][language];
-    const data = c.chartData || [];
-    const labels = c.chartLabels || [];
-    const maxVal = Math.max(...data);
-    const chartW = 70;
-    const chartH = 30;
-
-    const points = data.map((v, i) => {
-      const x = (i / (data.length - 1)) * chartW;
-      const y = chartH - (v / maxVal) * chartH;
-      return `${x},${y}`;
-    }).join(" ");
-
-    const areaPoints = `0,${chartH} ${points} ${chartW},${chartH}`;
-
+    const steps = c.reasoningSteps || [];
     return (
       <div className={styles.scene3}>
-        <h3 className={styles.chartTitle}>{c.chartTitle}</h3>
-        <div className={styles.chartContainer}>
-          <svg
-            viewBox={`0 0 ${chartW} ${chartH + 5}`}
-            className={styles.chartSvg}
-            preserveAspectRatio="none"
-          >
-            <defs>
-              <linearGradient id="auroraGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#a78bfa" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="#38bdf8" stopOpacity="0" />
-              </linearGradient>
-              <linearGradient id="auroraLine" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#38bdf8" />
-                <stop offset="50%" stopColor="#a78bfa" />
-                <stop offset="100%" stopColor="#ff6b6b" />
-              </linearGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="0.8" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-            {/* Grid lines */}
-            {[0.25, 0.5, 0.75].map((frac, i) => (
-              <line
+        <h3 className={styles.chartTitle}>{c.reasoningTitle}</h3>
+        <div className={styles.reasoningContainer}>
+          {steps.map((step, i) => {
+            const visible = i < Math.min((beatNum + 1) * 2, 3);
+            return (
+              <div
                 key={i}
-                x1="0" y1={chartH * frac} x2={chartW} y2={chartH * frac}
-                stroke="rgba(255,255,255,0.06)"
-                strokeWidth="0.15"
-              />
-            ))}
-            {/* Area fill */}
-            {beatNum >= 1 && (
-              <polygon
-                points={areaPoints}
-                fill="url(#auroraGrad)"
+                className={styles.reasoningStep}
                 style={{
-                  opacity: 1,
-                  transition: reducedMotion ? "none" : "opacity 1s ease 0.3s",
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? "none" : "translateX(-2cqw)",
+                  transition: reducedMotion ? "none" : `opacity 0.5s ease ${0.1 + i * 0.12}s, transform 0.5s ease ${0.1 + i * 0.12}s`,
                 }}
-              />
-            )}
-            {/* Line */}
-            {beatNum >= 1 && (
-              <polyline
-                points={points}
-                fill="none"
-                stroke="url(#auroraLine)"
-                strokeWidth="0.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                filter="url(#glow)"
-                style={{
-                  strokeDasharray: 200,
-                  strokeDashoffset: beatNum >= 1 ? 0 : 200,
-                  transition: reducedMotion ? "none" : "stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s",
-                }}
-              />
-            )}
-            {/* Data points */}
-            {beatNum >= 1 && data.map((v, i) => {
-              const cx = (i / (data.length - 1)) * chartW;
-              const cy = chartH - (v / maxVal) * chartH;
-              return (
-                <circle
-                  key={i}
-                  cx={cx} cy={cy} r="0.4"
-                  fill="#e8e4f0"
-                  style={{
-                    opacity: beatNum >= 1 ? 0.8 : 0,
-                    transition: reducedMotion ? "none" : `opacity 0.4s ease ${0.5 + i * 0.08}s`,
-                  }}
-                />
-              );
-            })}
-            {/* X-axis labels */}
-            {labels.map((l, i) => {
-              if (i % 3 !== 0 && i !== labels.length - 1) return null;
-              const x = (i / (labels.length - 1)) * chartW;
-              return (
-                <text
-                  key={i}
-                  x={x} y={chartH + 3}
-                  fill="rgba(232,228,240,0.4)"
-                  fontSize="2"
-                  textAnchor="middle"
-                  fontFamily="Inter, sans-serif"
-                >
-                  {l}
-                </text>
-              );
-            })}
-          </svg>
+              >
+                <span className={styles.stepNumber}>{String(i + 1).padStart(2, "0")}</span>
+                <p className={styles.stepText}>{step}</p>
+              </div>
+            );
+          })}
         </div>
         <div className={styles.chartLegend}>
           <span className={styles.legendItem}>
-            <span className={styles.legendDot} style={{ background: "#ff6b6b" }} />
-            {language === "zh" ? "当前值" : "Current"}
+            <span className={styles.legendDot} style={{ background: "var(--style-04-warm, #d4a574)" }} />
+            {language === "zh" ? "人类判断" : "Human judgment"}
           </span>
           <span className={styles.legendItem}>
-            <span className={styles.legendDot} style={{ background: "#38bdf8" }} />
-            {language === "zh" ? "历史基线" : "Historical"}
+            <span className={styles.legendDot} style={{ background: "var(--style-04-cool, #58a6ff)" }} />
+            {language === "zh" ? "机器推理" : "Machine reasoning"}
           </span>
         </div>
       </div>
@@ -489,52 +422,32 @@ export default function AuroraGradient({
 
   const renderScene4 = (beatNum: number, applyFlip: boolean) => {
     const c = SCENES[4][language];
-    const regions = c.regions || [];
+    const exchanges = c.exchanges || [];
+    const visibleCount = Math.min(beatNum + 2, 4);
     return (
       <div className={styles.scene4}>
-        <h3 className={styles.regionTitle}>{c.regionTitle}</h3>
+        <h3 className={styles.regionTitle}>{c.dialogueLabel}</h3>
         <div
-          ref={applyFlip ? regionFlipRef : undefined}
+          ref={applyFlip ? exchangeFlipRef : undefined}
           className={styles.regionGrid}
         >
-          {regions.map((r, i) => {
-            const visible = i <= beatNum + 1;
-            const statusColor = r.status === "Critical" || r.status === "危急" ? "#ff6b6b"
-              : r.status === "Severe" || r.status === "严重" ? "#fbbf24"
-              : "#a78bfa";
+          {exchanges.map((ex, i) => {
+            const visible = i < visibleCount;
             return (
               <div
                 key={i}
-                className={styles.regionCard}
+                className={`${styles.regionCard} ${styles.exchangeCard} ${ex.warm ? styles.exchangeWarm : styles.exchangeCool}`}
                 style={{
                   opacity: visible ? 1 : 0,
                   transform: visible ? "none" : "scale(0.95)",
                   transition: reducedMotion ? "none" : `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s`,
-                  borderColor: `${statusColor}30`,
                 }}
               >
                 <div className={styles.regionHeader}>
-                  <span className={styles.regionName}>{r.name}</span>
-                  <span
-                    className={styles.regionStatus}
-                    style={{
-                      background: `${statusColor}20`,
-                      color: statusColor,
-                    }}
-                  >
-                    {r.status}
-                  </span>
+                  <span className={styles.regionName}>{ex.speaker}</span>
+                  <span className={styles.regionStatus}>{ex.role}</span>
                 </div>
-                <div className={styles.regionMetrics}>
-                  <div className={styles.regionMetric}>
-                    <span className={styles.regionMetricLabel}>{language === "zh" ? "温度异常" : "Temp Δ"}</span>
-                    <span className={styles.regionMetricValue} style={{ color: "#ff6b6b" }}>{r.temp}</span>
-                  </div>
-                  <div className={styles.regionMetric}>
-                    <span className={styles.regionMetricLabel}>CO₂</span>
-                    <span className={styles.regionMetricValue} style={{ color: "#a78bfa" }}>{r.co2}</span>
-                  </div>
-                </div>
+                <p className={styles.exchangeText}>{ex.text}</p>
               </div>
             );
           })}
@@ -547,10 +460,10 @@ export default function AuroraGradient({
     const c = SCENES[5][language];
     return (
       <div className={styles.scene5}>
-        <h2 className={styles.forecast}>{c.forecast}</h2>
-        <p className={styles.forecastSub}>{c.forecastSub}</p>
+        <h2 className={styles.forecast}>{c.closing}</h2>
+        <p className={styles.forecastSub}>{c.closingSub}</p>
         <div className={styles.forecastMetrics}>
-          {(c.forecastMetrics || []).map((m, i) => (
+          {(c.principles || []).map((p, i) => (
             <div
               key={i}
               className={styles.forecastMetric}
@@ -560,14 +473,12 @@ export default function AuroraGradient({
                 transition: reducedMotion ? "none" : `opacity 0.5s ease ${0.1 + i * 0.12}s, transform 0.5s ease ${0.1 + i * 0.12}s`,
               }}
             >
-              <span className={styles.forecastIcon}>{m.icon}</span>
-              <span className={styles.forecastValue}>{m.value}</span>
-              <span className={styles.forecastLabel}>{m.label}</span>
+              <span className={styles.forecastIcon}>{p.icon}</span>
+              <span className={styles.forecastValue}>{p.value}</span>
+              <span className={styles.forecastLabel}>{p.label}</span>
             </div>
           ))}
         </div>
-        <p className={styles.callToAction}>{c.callToAction}</p>
-        <p className={styles.callSub}>{c.callSub}</p>
       </div>
     );
   };
@@ -586,7 +497,8 @@ export default function AuroraGradient({
   const renderNav = () => {
     if (isThumbnail) return null;
 
-    const sceneColors = ["#a78bfa", "#38bdf8", "#4ade80", "#fbbf24", "#ff6b6b"];
+    // Dialogue palette: warm amber, cool blue, muted slate, soft teal, pale rose
+    const sceneColors = ["#d4a574", "#58a6ff", "#8b949e", "#7dc4a8", "#c9a0c4"];
     const radius = 3.5;
     const total = 5;
 
@@ -639,8 +551,8 @@ export default function AuroraGradient({
 
   return (
     <div className={rootClasses}>
-      {/* Persistent aurora background (shared, not part of transition) */}
-      {renderAuroraBg()}
+      {/* Persistent stage lighting background (shared, not part of transition) */}
+      {renderStageBg()}
 
       {/* Outgoing scene (transitioning out) */}
       {outgoingScene !== null && !reducedMotion && (

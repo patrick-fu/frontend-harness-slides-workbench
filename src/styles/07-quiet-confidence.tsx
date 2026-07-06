@@ -1,10 +1,10 @@
-import React, { useLayoutEffect, useEffect, useCallback, useState, useRef } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./07-quiet-confidence.module.css";
 
 // ─── Transition constants ─────────────────────────────────────────────────
 
-const TRANSITION_DURATION = 800; // ms — breath-pause dissolve total
+const TRANSITION_DURATION = 800;
 const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 };
 
 // ─── Font Injection ────────────────────────────────────────────────────────
@@ -17,7 +17,7 @@ function useFonts() {
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap";
+      "https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap";
     document.head.appendChild(link);
   }, []);
 }
@@ -37,9 +37,9 @@ interface SceneContent {
     thesisNote?: string;
     principlesTitle?: string;
     principlesYear?: string;
-    principles?: Array<{ num: string; title: string; desc: string }>;
+    principles?: Array<{ num: string; title: string; desc: string; emoji: string; color: string }>;
     dataLabel?: string;
-    dataPoints?: Array<{ value: string; sup?: string; label: string }>;
+    dataPoints?: Array<{ value: string; sup?: string; label: string; emoji: string }>;
     dataFootnote?: string;
     closingMark?: string;
     closing?: string;
@@ -58,9 +58,9 @@ interface SceneContent {
     thesisNote?: string;
     principlesTitle?: string;
     principlesYear?: string;
-    principles?: Array<{ num: string; title: string; desc: string }>;
+    principles?: Array<{ num: string; title: string; desc: string; emoji: string; color: string }>;
     dataLabel?: string;
-    dataPoints?: Array<{ value: string; sup?: string; label: string }>;
+    dataPoints?: Array<{ value: string; sup?: string; label: string; emoji: string }>;
     dataFootnote?: string;
     closingMark?: string;
     closing?: string;
@@ -72,133 +72,148 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      eyebrow: "Investment Strategy Report / Q3 2026",
-      title: "Quiet",
-      titleItalic: "Confidence",
+      eyebrow: "Workshop Session  /  Sprint 14",
+      title: "Let’s",
+      titleItalic: "Figure This Out",
       subtitle:
-        "A disciplined approach to capital allocation in uncertain markets — where patience compounds and conviction rewards",
+        "A collaborative whiteboard session — where messy ideas become clear plans and everyone gets a marker",
       meta: [
-        { label: "Fund", value: "Meridian Capital" },
-        { label: "AUM", value: "$4.2B" },
-        { label: "Vintage", value: "2026" },
+        { label: "Room", value: "Studio B" },
+        { label: "People", value: "7" },
+        { label: "Time", value: "90 min" },
       ],
     },
     zh: {
-      eyebrow: "投资策略报告 / 2026 年第三季度",
-      title: "沉静的",
-      titleItalic: "信心",
+      eyebrow: "工作坊  /  第 14 次冲刺",
+      title: "一起",
+      titleItalic: "想清楚",
       subtitle:
-        "在不确定市场中进行资本配置的纪律性方法——耐心产生复利，信念获得回报",
+        "一次协作白板会议——混乱的想法如何变成清晰的计划，每个人都有一支笔",
       meta: [
-        { label: "基金", value: "Meridian Capital" },
-        { label: "管理规模", value: "$42亿" },
-        { label: "年份", value: "2026" },
+        { label: "房间", value: "B 工作室" },
+        { label: "人数", value: "7" },
+        { label: "时长", value: "90 分钟" },
       ],
     },
   },
   2: {
     en: {
-      chapter: "Chapter I",
-      thesis: "The best returns are born not from noise,",
-      thesisItalic: "but from patience.",
+      chapter: "Question",
+      thesis: "What if we stopped planning,",
+      thesisItalic: "and started making?",
       thesisNote:
-        "Over a twenty-year study, conviction-weighted positions outperformed benchmark rebalancing by 340 basis points annually.",
+        "The best solutions emerge from doing, not from debating. Every sketch on this board is a hypothesis waiting to be tested.",
     },
     zh: {
-      chapter: "第一章",
-      thesis: "最好的回报不来自喧嚣，",
-      thesisItalic: "而来自耐心。",
+      chapter: "问题",
+      thesis: "如果我们停止计划，",
+      thesisItalic: "开始动手呢？",
       thesisNote:
-        "一项为期二十年的研究表明，信念加权的持仓每年比基准再平衡高出 340 个基点。",
+        "最好的解决方案来自行动，而非辩论。这块板上的每一张草图都是等待检验的假设。",
     },
   },
   3: {
     en: {
-      principlesTitle: "Four Principles of Enduring Capital",
-      principlesYear: "Est. 2014",
+      principlesTitle: "How We Work Together",
+      principlesYear: "Sprint 14",
       principles: [
         {
-          num: "I",
-          title: "Margin of Safety",
-          desc: "We require a minimum 30% discount to intrinsic value before initiating any position. This discipline has protected capital through three market corrections.",
+          num: "01",
+          title: "Build Out Loud",
+          desc: "Think by sketching. Say it, draw it, pin it up. If it’s not on the board, it doesn’t exist yet.",
+          emoji: "✍️",
+          color: "yellow",
         },
         {
-          num: "II",
-          title: "Concentration, Not Diversification",
-          desc: "Our highest conviction ideas receive meaningful allocation. We would rather own five excellent businesses than twenty adequate ones.",
+          num: "02",
+          title: "Embrace Mess",
+          desc: "The first idea is rarely the best. Fill the board before editing. Quantity reveals quality.",
+          emoji: "\U0001f9ea",
+          color: "blue",
         },
         {
-          num: "III",
-          title: "Time as an Ally",
-          desc: "We measure holding periods in years, not quarters. Compounding requires time, and turnover destroys more value than it creates.",
+          num: "03",
+          title: "Connect, Don’t Collect",
+          desc: "Draw lines between ideas. The space between notes is where insight lives.",
+          emoji: "\U0001f517",
+          color: "red",
         },
         {
-          num: "IV",
-          title: "Intellectual Honesty",
-          desc: "We write down our thesis before we invest. When the facts change, we change our mind — without ego, without delay.",
+          num: "04",
+          title: "Everyone Writes",
+          desc: "Hierarchy has no place at the whiteboard. The best idea can come from anywhere.",
+          emoji: "\U0001f465",
+          color: "yellow",
         },
       ],
     },
     zh: {
-      principlesTitle: "持久资本的四项原则",
-      principlesYear: "创立于 2014",
+      principlesTitle: "我们如何协作",
+      principlesYear: "第 14 次冲刺",
       principles: [
         {
-          num: "一",
-          title: "安全边际",
-          desc: "我们要求在内在价值至少 30% 的折扣时才建仓。这一纪律在三次市场调整中保护了资本。",
+          num: "01",
+          title: "大声构建",
+          desc: "通过草图思考。说出来，画出来，贴上去。不在板上的东西就不存在。",
+          emoji: "✍️",
+          color: "yellow",
         },
         {
-          num: "二",
-          title: "集中，而非分散",
-          desc: "我们最有信心的想法获得有意义的配置。我们宁愿拥有五家优秀的企业，也不愿拥有二十家尚可的企业。",
+          num: "02",
+          title: "拥抱混乱",
+          desc: "第一个想法很少是最好的。先填满板子再编辑。数量揭示质量。",
+          emoji: "\U0001f9ea",
+          color: "blue",
         },
         {
-          num: "三",
-          title: "时间即盟友",
-          desc: "我们以年而非季度衡量持有期。复利需要时间，换手摧毁的价值多于它创造的。",
+          num: "03",
+          title: "连接，而非收集",
+          desc: "在想法之间画线。笔记之间的空间是洞察所在。",
+          emoji: "\U0001f517",
+          color: "red",
         },
         {
-          num: "四",
-          title: "理智诚实",
-          desc: "我们在投资前写下论点。当事实改变时，我们改变主意——不带自我，不拖延。",
+          num: "04",
+          title: "人人动笔",
+          desc: "白板面前没有层级。最好的想法可以来自任何地方。",
+          emoji: "\U0001f465",
+          color: "yellow",
         },
       ],
     },
   },
   4: {
     en: {
-      dataLabel: "Performance Summary",
+      dataLabel: "Session Output",
       dataPoints: [
-        { value: "17.3", sup: "%", label: "Annualized Return (10yr)" },
-        { value: "1.42", label: "Sharpe Ratio" },
-        { value: "0.68", label: "Max Drawdown Recovery" },
+        { value: "47", label: "Ideas Generated", emoji: "\U0001f4a1" },
+        { value: "23", label: "Connections Made", emoji: "\U0001f517" },
+        { value: "8", label: "Action Items", emoji: "✅" },
       ],
-      dataFootnote:
-        "Net of fees. Past performance is not indicative of future results.",
+      dataFootnote: "Not bad for 90 minutes.",
     },
     zh: {
-      dataLabel: "业绩摘要",
+      dataLabel: "会议产出",
       dataPoints: [
-        { value: "17.3", sup: "%", label: "年化收益率（10年）" },
-        { value: "1.42", label: "夏普比率" },
-        { value: "0.68", label: "最大回撤恢复系数" },
+        { value: "47", label: "产生的想法", emoji: "\U0001f4a1" },
+        { value: "23", label: "建立的连接", emoji: "\U0001f517" },
+        { value: "8", label: "行动项", emoji: "✅" },
       ],
-      dataFootnote: "已扣除费用。过往业绩不代表未来表现。",
+      dataFootnote: "90 分钟，还不错。",
     },
   },
   5: {
     en: {
-      closingMark: "Meridian Capital Partners",
-      closing: "In the end,",
-      closingItalic: "character is the only alpha.",
-      closingSig: "Investment Strategy Report  ·  Q3 2026  ·  Confidential",
+      closingMark: "End of Session",
+      closing: "The board doesn’t lie.",
+      closingItalic: "It just shows what we’re thinking.",
+      closingSig: "Workshop Series  ·  Sprint 14  ·  Open",
     },
     zh: {
-      closingMark: "Meridian Capital Partners",
-      closing: "归根结底，",
-      closingItalic: "品格是唯一的阿尔法。",
-      closingSig: "投资策略报告  ·  2026 年第三季度  ·  机密",
+      closingMark: "会议结束",
+      closing: "白板不会说谎。",
+      closingItalic: "它只是展示我们在想什么。",
+      closingSig: "工作坊系列  ·  第 14 次冲刺  ·  开放",
     },
   },
 };
@@ -206,36 +221,36 @@ const SCENES: Record<number, SceneContent> = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Quiet Confidence", zh: "沉静信心" };
+  const nameMap = { en: "Sketch Board Emoji", zh: "草图白板表情" };
   const themeMap = {
-    en: "Investment Strategy Thesis — muted earth tones, serif headlines, premium financial report aesthetic",
-    zh: "投资策略论点——柔和大地色调、衬线标题、高端财经报告美学",
+    en: "A warm in-progress workshop whiteboard — hand-drawn marks, sticky notes, and emoji actors making collaboration feel human and unfinished in the best way",
+    zh: "一块温暖的进行中工作坊白板——手绘标记、便利贴和表情角色，让协作以最好的方式感觉人性化和未完成",
   };
-  const densityLabelMap = { en: "Spacious", zh: "宽松" };
+  const densityLabelMap = { en: "Workshop", zh: "工作坊" };
 
   const sceneTitles = {
-    en: ["Cover", "Thesis", "Principles", "Performance", "Closing"],
-    zh: ["封面", "论点", "原则", "业绩", "结语"],
+    en: ["Title", "Framing Question", "Collab Principles", "Session Output", "Closing"],
+    zh: ["标题", "框架问题", "协作原则", "会议产出", "结语"],
   };
 
   const beatActions = {
     en: {
-      1: ["Title and metadata appear"],
-      2: ["Thesis statement", "Supporting note fades in"],
-      3: ["Principles I-II appear", "Principles III-IV appear"],
-      4: ["Data label appears", "Performance metrics populate"],
-      5: ["Closing statement revealed"],
+      1: ["Title and session meta appear"],
+      2: ["Question posed", "Supporting note sketches in"],
+      3: ["Principles 1-2 pinned up", "Principles 3-4 pinned up"],
+      4: ["Label appears", "Output metrics stick on"],
+      5: ["Closing takeaway"],
     },
     zh: {
-      1: ["标题和元数据呈现"],
-      2: ["论点陈述", "支撑说明淡入"],
-      3: ["原则一至二呈现", "原则三至四呈现"],
-      4: ["数据标签呈现", "业绩指标填充"],
-      5: ["结语揭示"],
+      1: ["标题和会议元数据呈现"],
+      2: ["问题提出", "支撑说明手绘入"],
+      3: ["原则 1-2 贴上", "原则 3-4 贴上"],
+      4: ["标签呈现", "产出指标贴上"],
+      5: ["结语收获"],
     },
   };
 
-  const BEAT_COUNTS: Record<number, number> = {
+  const BEAT_COUNTS_META: Record<number, number> = {
     1: 1,
     2: 2,
     3: 2,
@@ -244,7 +259,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 
   const scenes = [1, 2, 3, 4, 5].map((id) => {
-    const beatCount = BEAT_COUNTS[id];
+    const beatCount = BEAT_COUNTS_META[id];
     const actions = beatActions[lang][id as keyof (typeof beatActions)["en"]];
     const c = SCENES[id][lang];
 
@@ -261,11 +276,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       } else if (id === 3) {
         beatTitle = c.principlesTitle || "";
         const visible = (c.principles || []).slice(0, Math.min((beatIdx + 1) * 2, 4));
-        beatBody = visible.map((p) => p.title).join(" / ");
+        beatBody = visible.map((p) => `${p.emoji} ${p.title}`).join(" / ");
       } else if (id === 4) {
         beatTitle = c.dataLabel || "";
         if (beatIdx >= 1) {
-          beatBody = (c.dataPoints || []).map((d) => `${d.value} ${d.label}`).join(" / ");
+          beatBody = (c.dataPoints || []).map((d) => `${d.emoji} ${d.value} ${d.label}`).join(" / ");
         }
       } else if (id === 5) {
         beatTitle = `${c.closing || ""}${c.closingItalic || ""}`;
@@ -286,26 +301,26 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
     colors: {
-      bg: "#f5f0e8",
-      ink: "#3d3529",
-      panel: "#ebe5d8",
+      bg: "#f7f2e8",
+      ink: "#4a4540",
+      panel: "#ede7d9",
     },
     typography: {
-      header: "Playfair Display 400",
-      body: "Inter 300",
+      header: "Caveat 600",
+      body: "Inter 400",
     },
     tags: [
-      "earthy",
-      "cream",
-      "serif",
-      "premium",
-      "financial",
-      "spacious",
-      "elegant",
-      "investment",
-      "editorial",
+      "sketch-board",
+      "whiteboard",
+      "workshop",
+      "hand-drawn",
+      "sticky-notes",
+      "collaborative",
+      "emoji",
+      "warm-paper",
+      "informal",
     ],
-    fonts: ["Playfair Display", "Inter"],
+    fonts: ["Caveat", "Inter"],
     scenes,
   };
 }
@@ -323,25 +338,42 @@ export default function QuietConfidence({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  const outgoingScene = transitionInfo.outgoingScene;
+  const isTransitioning = transitionInfo.isTransitioning;
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -359,7 +391,7 @@ export default function QuietConfidence({
     .filter(Boolean)
     .join(" ");
 
-  // ── Scene renderers (parameterized by beatNum) ──────────────────────────
+  // ── Scene renderers ─────────────────────────────────────────────────────
 
   const renderScene1 = (_beatNum: number) => {
     const c = SCENES[1][language];
@@ -416,6 +448,7 @@ export default function QuietConfidence({
             const visible = i < visibleCount;
             const pClasses = [
               styles.qcPrinciple,
+              styles[`sticky${p.color.charAt(0).toUpperCase() + p.color.slice(1)}`],
               visible ? styles.qcPrincipleVisible : "",
             ]
               .filter(Boolean)
@@ -430,7 +463,7 @@ export default function QuietConfidence({
                     : { transitionDelay: `${i * 0.12}s` }
                 }
               >
-                <span className={styles.qcPrincipleNum}>{p.num}</span>
+                <span className={styles.stickyEmoji}>{p.emoji}</span>
                 <div className={styles.qcPrincipleBody}>
                   <h3 className={styles.qcPrincipleTitle}>{p.title}</h3>
                   <p className={styles.qcPrincipleDesc}>{p.desc}</p>
@@ -454,6 +487,7 @@ export default function QuietConfidence({
             const visible = beatNum >= 1;
             const dpClasses = [
               styles.qcDataPoint,
+              styles.stickyYellow,
               visible ? styles.qcDataPointVisible : "",
             ]
               .filter(Boolean)
@@ -468,6 +502,7 @@ export default function QuietConfidence({
                       : { transitionDelay: `${i * 0.15}s` }
                   }
                 >
+                  <span className={styles.dataEmoji}>{dp.emoji}</span>
                   <div className={styles.qcDataValue}>
                     {dp.value}
                     {dp.sup && <sup>{dp.sup}</sup>}
@@ -568,6 +603,9 @@ export default function QuietConfidence({
 
   return (
     <div className={rootClasses}>
+      {/* Paper texture overlay */}
+      <div className={styles.paperTexture} aria-hidden="true" />
+
       {/* Outgoing scene (exit animation) */}
       {outgoingScene !== null && (
         <div className={outgoingLayerClasses}>

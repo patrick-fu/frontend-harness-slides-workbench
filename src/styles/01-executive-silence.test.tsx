@@ -145,32 +145,32 @@ describe("Style 01: Executive Silence — reduced motion", () => {
 describe("Style 01: Executive Silence — Chinese language", () => {
   it("renders Chinese title on scene 1", () => {
     renderStage({ scene: 1, beat: 0, language: "zh" });
-    expect(screen.getByText("决策的艺术")).toBeInTheDocument();
+    expect(screen.getByText("Nova 全新登场")).toBeInTheDocument();
   });
 
   it("renders Chinese statement on scene 2", () => {
     renderStage({ scene: 2, beat: 0, language: "zh" });
-    expect(screen.getByText("不选择本身就是一种选择")).toBeInTheDocument();
+    expect(screen.getByText("更少，却更好。")).toBeInTheDocument();
   });
 
   it("renders Chinese questions on scene 3 beat 2 (all 3 visible)", () => {
     renderStage({ scene: 3, beat: 2, language: "zh" });
     // At beat 2, all three questions should be in the DOM
-    expect(screen.getByText("做了会怎样？")).toBeInTheDocument();
-    expect(screen.getByText("不做会怎样？")).toBeInTheDocument();
-    expect(screen.getByText("直觉怎么说？")).toBeInTheDocument();
+    expect(screen.getByText("它是否服务于用户？")).toBeInTheDocument();
+    expect(screen.getByText("它是否消除了摩擦？")).toBeInTheDocument();
+    expect(screen.getByText("它是否经得起时间？")).toBeInTheDocument();
   });
 
   it("renders Chinese closing on scene 5", () => {
     renderStage({ scene: 5, beat: 0, language: "zh" });
-    // Closing text is split: "做决定，" + <span>然后使之正确。</span>
+    // Closing text is split: "Nova。" + <span>于无声处听惊雷。</span>
     // Verify both parts are present in the DOM
-    expect(screen.getByText("做决定，")).toBeInTheDocument();
-    expect(screen.getByText("然后使之正确。")).toBeInTheDocument();
+    expect(screen.getByText("Nova。")).toBeInTheDocument();
+    expect(screen.getByText("于无声处听惊雷。")).toBeInTheDocument();
     // Verify they are in the same heading
     const heading = screen.getByRole("heading", { level: 2 });
-    expect(heading).toHaveTextContent(/做决定/);
-    expect(heading).toHaveTextContent(/使之正确/);
+    expect(heading).toHaveTextContent(/Nova/);
+    expect(heading).toHaveTextContent(/于无声处/);
   });
 });
 
@@ -179,25 +179,25 @@ describe("Style 01: Executive Silence — Chinese language", () => {
 describe("Style 01: Executive Silence — English language", () => {
   it("renders English title on scene 1", () => {
     renderStage({ scene: 1, beat: 0, language: "en" });
-    expect(screen.getByText("The Art of Decision")).toBeInTheDocument();
+    expect(screen.getByText("Introducing Nova")).toBeInTheDocument();
   });
 
   it("renders English statement on scene 2", () => {
     renderStage({ scene: 2, beat: 0, language: "en" });
     expect(
-      screen.getByText("Not choosing is also a choice"),
+      screen.getByText("Less, but better."),
     ).toBeInTheDocument();
   });
 
   it("renders English closing on scene 5", () => {
     renderStage({ scene: 5, beat: 0, language: "en" });
-    // Closing text is split: "Decide." + <span>Then make it right.</span>
-    expect(screen.getByText("Decide.")).toBeInTheDocument();
-    expect(screen.getByText("Then make it right.")).toBeInTheDocument();
+    // Closing text is split: "Nova." + <span>Quietly extraordinary.</span>
+    expect(screen.getByText("Nova.")).toBeInTheDocument();
+    expect(screen.getByText("Quietly extraordinary.")).toBeInTheDocument();
     // Verify they are in the same heading
     const heading = screen.getByRole("heading", { level: 2 });
-    expect(heading).toHaveTextContent(/Decide/);
-    expect(heading).toHaveTextContent(/make it right/);
+    expect(heading).toHaveTextContent(/Nova/);
+    expect(heading).toHaveTextContent(/Quietly extraordinary/);
   });
 });
 
@@ -280,13 +280,13 @@ describe("Style 01: Executive Silence — metadata structure", () => {
     const expectedTags = [
       "minimal",
       "premium",
-      "executive",
+      "product",
+      "keynote",
       "sparse",
-      "dark",
-      "serene",
-      "corporate",
-      "decision",
-      "leadership",
+      "restrained",
+      "luxury",
+      "emptiness",
+      "composed",
     ];
     expectedTags.forEach((tag) => {
       expect(meta.tags).toContain(tag);

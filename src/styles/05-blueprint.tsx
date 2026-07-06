@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useCallback, useState, useRef } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./05-blueprint.module.css";
@@ -213,9 +213,9 @@ function RegMark({ className }: { className: string }) {
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      <circle cx="20" cy="20" r="12" stroke="#4fc3f7" strokeWidth="1" opacity="0.3" />
-      <line x1="20" y1="4" x2="20" y2="36" stroke="#4fc3f7" strokeWidth="1" opacity="0.3" />
-      <line x1="4" y1="20" x2="36" y2="20" stroke="#4fc3f7" strokeWidth="1" opacity="0.3" />
+      <circle cx="20" cy="20" r="12" stroke="#8ecae6" strokeWidth="1" opacity="0.3" />
+      <line x1="20" y1="4" x2="20" y2="36" stroke="#8ecae6" strokeWidth="1" opacity="0.3" />
+      <line x1="4" y1="20" x2="36" y2="20" stroke="#8ecae6" strokeWidth="1" opacity="0.3" />
     </svg>
   );
 }
@@ -235,7 +235,7 @@ function ArchDiagram() {
           y1="0"
           x2={(i + 1) * 50}
           y2="200"
-          stroke="#4fc3f7"
+          stroke="#8ecae6"
           strokeWidth="0.5"
           opacity="0.1"
         />
@@ -247,31 +247,31 @@ function ArchDiagram() {
           y1={(i + 1) * 50}
           x2="800"
           y2={(i + 1) * 50}
-          stroke="#4fc3f7"
+          stroke="#8ecae6"
           strokeWidth="0.5"
           opacity="0.1"
         />
       ))}
       {/* Main system box */}
-      <rect x="40" y="30" width="720" height="140" stroke="#4fc3f7" strokeWidth="1" opacity="0.4" fill="none" />
+      <rect x="40" y="30" width="720" height="140" stroke="#8ecae6" strokeWidth="1" opacity="0.4" fill="none" />
       {/* Inner boxes */}
-      <rect x="60" y="50" width="160" height="100" stroke="#4fc3f7" strokeWidth="1" opacity="0.6" fill="rgba(79,195,247,0.05)" />
-      <text x="140" y="105" textAnchor="middle" fill="#4fc3f7" fontSize="14" fontFamily="JetBrains Mono, monospace" opacity="0.8">GATEWAY</text>
-      <rect x="250" y="50" width="160" height="100" stroke="#4fc3f7" strokeWidth="1" opacity="0.6" fill="rgba(79,195,247,0.05)" />
-      <text x="330" y="105" textAnchor="middle" fill="#4fc3f7" fontSize="14" fontFamily="JetBrains Mono, monospace" opacity="0.8">SERVICES</text>
-      <rect x="440" y="50" width="140" height="100" stroke="#4fc3f7" strokeWidth="1" opacity="0.6" fill="rgba(79,195,247,0.05)" />
-      <text x="510" y="105" textAnchor="middle" fill="#4fc3f7" fontSize="14" fontFamily="JetBrains Mono, monospace" opacity="0.8">CACHE</text>
-      <rect x="610" y="50" width="130" height="100" stroke="#4fc3f7" strokeWidth="1" opacity="0.6" fill="rgba(79,195,247,0.05)" />
-      <text x="675" y="105" textAnchor="middle" fill="#4fc3f7" fontSize="14" fontFamily="JetBrains Mono, monospace" opacity="0.8">DATA</text>
+      <rect x="60" y="50" width="160" height="100" stroke="#8ecae6" strokeWidth="1" opacity="0.6" fill="rgba(79,195,247,0.05)" />
+      <text x="140" y="105" textAnchor="middle" fill="#8ecae6" fontSize="14" fontFamily="JetBrains Mono, monospace" opacity="0.8">GATEWAY</text>
+      <rect x="250" y="50" width="160" height="100" stroke="#8ecae6" strokeWidth="1" opacity="0.6" fill="rgba(79,195,247,0.05)" />
+      <text x="330" y="105" textAnchor="middle" fill="#8ecae6" fontSize="14" fontFamily="JetBrains Mono, monospace" opacity="0.8">SERVICES</text>
+      <rect x="440" y="50" width="140" height="100" stroke="#8ecae6" strokeWidth="1" opacity="0.6" fill="rgba(79,195,247,0.05)" />
+      <text x="510" y="105" textAnchor="middle" fill="#8ecae6" fontSize="14" fontFamily="JetBrains Mono, monospace" opacity="0.8">CACHE</text>
+      <rect x="610" y="50" width="130" height="100" stroke="#8ecae6" strokeWidth="1" opacity="0.6" fill="rgba(79,195,247,0.05)" />
+      <text x="675" y="105" textAnchor="middle" fill="#8ecae6" fontSize="14" fontFamily="JetBrains Mono, monospace" opacity="0.8">DATA</text>
       {/* Connectors */}
-      <line x1="220" y1="100" x2="250" y2="100" stroke="#4fc3f7" strokeWidth="1" opacity="0.4" />
-      <line x1="410" y1="100" x2="440" y2="100" stroke="#4fc3f7" strokeWidth="1" opacity="0.4" />
-      <line x1="580" y1="100" x2="610" y2="100" stroke="#4fc3f7" strokeWidth="1" opacity="0.4" />
+      <line x1="220" y1="100" x2="250" y2="100" stroke="#8ecae6" strokeWidth="1" opacity="0.4" />
+      <line x1="410" y1="100" x2="440" y2="100" stroke="#8ecae6" strokeWidth="1" opacity="0.4" />
+      <line x1="580" y1="100" x2="610" y2="100" stroke="#8ecae6" strokeWidth="1" opacity="0.4" />
       {/* Dimension lines */}
-      <line x1="40" y1="185" x2="760" y2="185" stroke="#4fc3f7" strokeWidth="0.5" opacity="0.25" />
-      <line x1="40" y1="180" x2="40" y2="190" stroke="#4fc3f7" strokeWidth="0.5" opacity="0.25" />
-      <line x1="760" y1="180" x2="760" y2="190" stroke="#4fc3f7" strokeWidth="0.5" opacity="0.25" />
-      <text x="400" y="196" textAnchor="middle" fill="#4fc3f7" fontSize="10" fontFamily="JetBrains Mono, monospace" opacity="0.4">720 UNITS</text>
+      <line x1="40" y1="185" x2="760" y2="185" stroke="#8ecae6" strokeWidth="0.5" opacity="0.25" />
+      <line x1="40" y1="180" x2="40" y2="190" stroke="#8ecae6" strokeWidth="0.5" opacity="0.25" />
+      <line x1="760" y1="180" x2="760" y2="190" stroke="#8ecae6" strokeWidth="0.5" opacity="0.25" />
+      <text x="400" y="196" textAnchor="middle" fill="#8ecae6" fontSize="10" fontFamily="JetBrains Mono, monospace" opacity="0.4">720 UNITS</text>
     </svg>
   );
 }
@@ -279,10 +279,10 @@ function ArchDiagram() {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Blueprint", zh: "蓝图" };
+  const nameMap = { en: "Cyanotype Drafting Table", zh: "蓝图制图台" };
   const themeMap = {
-    en: "System Architecture Diagrams — technical drawing aesthetic with cyan line art on dark blue grid",
-    zh: "系统架构图——深蓝网格背景上的青色线条技术制图美学",
+    en: "Blueprint paper laid flat on a drafting table — deep Prussian-blue ground, chalk-white linework, pale cyan construction guides, and one scarce warm annotation for system schematics and architectural diagrams",
+    zh: "平铺在制图台上的蓝图纸张——深普鲁士蓝底色、粉笔白线条、浅蓝构造辅助线、一抹稀缺的暖色标注，适用于系统原理图和架构图",
   };
   const densityLabelMap = { en: "Technical", zh: "技术型" };
 
@@ -360,24 +360,24 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 4,
     colors: {
-      bg: "#0d2847",
-      ink: "#ffffff",
-      panel: "#1a3a5c",
+      bg: "#0a1929",
+      ink: "#f0ede6",
+      panel: "#132f4c",
     },
     typography: {
-      header: "Inter 300",
-      body: "JetBrains Mono 400",
+      header: "JetBrains Mono 400",
+      body: "JetBrains Mono 300",
     },
     tags: [
+      "cyanotype",
       "blueprint",
+      "drafting",
+      "prussian-blue",
+      "chalk-white",
+      "construction-lines",
       "technical",
-      "dark-blue",
-      "cyan",
-      "architecture",
-      "engineering",
-      "grid",
-      "line-art",
       "diagram",
+      "stencil",
     ],
     fonts: ["Inter", "JetBrains Mono"],
     scenes,
@@ -404,25 +404,45 @@ export default function Blueprint({
   useFonts();
 
   // ── Transition state ────────────────────────────────────────────────────
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevScene = useRef(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useLayoutEffect(() => {
-    if (prevScene.current !== scene) {
-      if (!reducedMotion && !isThumbnail) {
-        setOutgoingScene(prevScene.current);
-        setIsTransitioning(true);
-        const timer = setTimeout(() => {
-          setOutgoingScene(null);
-          setIsTransitioning(false);
-        }, TRANSITION_DURATION);
-        prevScene.current = scene;
-        return () => clearTimeout(timer);
-      }
-      prevScene.current = scene;
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-  }, [scene, reducedMotion, isThumbnail]);
+
+    if (!reducedMotion && !isThumbnail) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  const outgoingScene = transitionInfo.outgoingScene;
+  const isTransitioning = transitionInfo.isTransitioning;
 
   // ── FLIP for list reflows ───────────────────────────────────────────────
   const { ref: layersFlipRef } = useFLIP<HTMLDivElement>({
@@ -553,11 +573,11 @@ export default function Blueprint({
                         y1="8"
                         x2="34"
                         y2="8"
-                        stroke="#4fc3f7"
+                        stroke="#8ecae6"
                         strokeWidth="1"
                         opacity="0.3"
                       />
-                      <polygon points="34,4 40,8 34,12" fill="#4fc3f7" opacity="0.3" />
+                      <polygon points="34,4 40,8 34,12" fill="#8ecae6" opacity="0.3" />
                     </svg>
                   </div>
                 )}

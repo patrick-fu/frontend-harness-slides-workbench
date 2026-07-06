@@ -1,6 +1,6 @@
-/* ─── Style 06: Monochrome Study ───────────────────────────────────────────
-   Pure black & white. High contrast. Dramatic typography. No color.
-   All sizing in cqw/cqh. No px/vw/vh.
+/* ─── Style 06: Kinetic Type Punchline ────────────────────────────────────
+   Loud graphic poster. Words are the image. Extreme contrast + one electric accent.
+   Heaviest condensed bold. Percussive snappy motion. All sizing in cqw/cqh.
    ──────────────────────────────────────────────────────────────────────── */
 
 .root {
@@ -11,7 +11,8 @@
   user-select: none;
   background: var(--style-06-bg, #000000);
   color: var(--style-06-ink, #ffffff);
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  --style-06-accent: #ffd600;
+  font-family: "Oswald", "Inter", system-ui, -apple-system, sans-serif;
 }
 
 /* ── Transition track ──────────────────────────────────────────────────── */
@@ -27,6 +28,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .animateSceneEnter {
@@ -100,25 +102,27 @@
 }
 
 .bwHero {
-  font-size: 16cqw;
-  font-weight: 900;
+  font-size: 17cqw;
+  font-weight: 700;
+  font-family: "Oswald", "Inter", sans-serif;
   line-height: 0.85;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.02em;
   margin: 0;
   color: var(--style-06-ink, #ffffff);
   text-transform: uppercase;
 }
 
 .bwHeroOutline {
-  font-size: 16cqw;
-  font-weight: 900;
+  font-size: 17cqw;
+  font-weight: 700;
+  font-family: "Oswald", "Inter", sans-serif;
   line-height: 0.85;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.02em;
   margin: 0;
   color: transparent;
   -webkit-text-stroke: 1px var(--style-06-ink, #ffffff);
   text-transform: uppercase;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .bwRule {
@@ -156,10 +160,11 @@
 }
 
 .bwStatement {
-  font-size: 11cqw;
-  font-weight: 900;
+  font-size: 12cqw;
+  font-weight: 700;
+  font-family: "Oswald", "Inter", sans-serif;
   line-height: 0.95;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.01em;
   margin: 0;
   color: var(--style-06-ink, #ffffff);
   text-transform: uppercase;
@@ -167,7 +172,7 @@
 
 .bwStatement em {
   font-style: normal;
-  background: var(--style-06-ink, #ffffff);
+  background: var(--style-06-accent, #ffd600);
   color: var(--style-06-bg, #000000);
   padding: 0 0.5cqw;
 }
@@ -236,12 +241,14 @@
 }
 
 .bwContrastText {
-  font-size: 4cqw;
+  font-size: 4.5cqw;
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-family: "Oswald", "Inter", sans-serif;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
   color: var(--style-06-ink, #ffffff);
   margin: 0;
+  text-transform: uppercase;
 }
 
 .bwContrastDesc {
@@ -291,12 +298,14 @@
 }
 
 .bwScaleText {
-  font-size: 3.5cqw;
+  font-size: 3.8cqw;
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-family: "Oswald", "Inter", sans-serif;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
   color: var(--style-06-ink, #ffffff);
   margin: 0;
+  text-transform: uppercase;
 }
 
 .bwScaleNote {
@@ -331,10 +340,11 @@
 }
 
 .bwClosing {
-  font-size: 12cqw;
-  font-weight: 900;
+  font-size: 13cqw;
+  font-weight: 700;
+  font-family: "Oswald", "Inter", sans-serif;
   line-height: 0.9;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.01em;
   color: var(--style-06-ink, #ffffff);
   margin: 0;
   text-transform: uppercase;

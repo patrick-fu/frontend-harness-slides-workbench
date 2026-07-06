@@ -33,14 +33,14 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      kanji: "禅",
-      word: "Zen",
-      subtitle: "Technology & Mindfulness",
+      kanji: "器",
+      word: "Vessel",
+      subtitle: "Craft & Contemplation",
     },
     zh: {
-      kanji: "禅",
-      word: "Zen",
-      subtitle: "科技与正念",
+      kanji: "器",
+      word: "器",
+      subtitle: "工艺与沉思",
     },
   },
   2: {
@@ -48,13 +48,13 @@ const SCENES: Record<number, SceneContent> = {
       kanji: "間",
       word: "Ma — The Space Between",
       concept: "Silence is not empty. It is full of meaning.",
-      body: "In the pause between notifications, in the breath between responses, lies the quality of attention that defines great work.",
+      body: "In the pause between making and using, in the breath between response and reaction, lies the quality of attention that defines great craft.",
     },
     zh: {
       kanji: "間",
       word: "間——之间的空间",
       concept: "静默并非空洞，而是充满意义。",
-      body: "在通知的间隙，在回应之间的呼吸里，蕴藏着定义卓越工作的专注品质。",
+      body: "在制作与使用之间的停顿，在回应与反应之间的呼吸，蕴藏着定义卓越工艺的专注品质。",
     },
   },
   3: {
@@ -73,21 +73,21 @@ const SCENES: Record<number, SceneContent> = {
   },
   4: {
     en: {
-      practice: "Daily Practice",
+      practice: "The Craft Practice",
       practiceSteps: [
         "Begin each session with three conscious breaths",
-        "Close one tab before opening another",
-        "Schedule 25 minutes of uninterrupted focus",
-        "End the day by writing one thing you learned",
+        "Make one thing at a time, with full attention",
+        "Leave space for the work to reveal itself",
+        "End by cleaning your tools and your space",
       ],
     },
     zh: {
-      practice: "日常修习",
+      practice: "工艺修习",
       practiceSteps: [
         "每次开始前做三次有意识的呼吸",
-        "关闭一个标签页再打开另一个",
-        "安排 25 分钟的不间断专注",
-        "每天结束写下一件学到的事",
+        "一次只做一件事，全神贯注",
+        "留出空间，让作品自己显现",
+        "结束时清洁工具和空间",
       ],
     },
   },
@@ -118,10 +118,10 @@ const TRANSITION_DURATION = 900;
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Zen Void", zh: "禅空" };
+  const nameMap = { en: "Wabi-Sabi Ceramic", zh: "侘寂陶器" };
   const themeMap = {
-    en: "Tech Mindfulness — Japanese wabi-sabi aesthetics with massive negative space and brush stroke accents",
-    zh: "科技正念——日本侘寂美学，大量留白与笔触点缀",
+    en: "An unglazed ceramic bowl on a worn wooden table — reflective openings, philosophical framing, and craft-led storytelling where silence is honored",
+    zh: "磨损木桌上的一只素陶碗——反思性开场、哲学性叙事、工艺导向的故事讲述，静默被尊崇",
   };
   const densityLabelMap = { en: "Ultra-Sparse", zh: "极疏" };
 
@@ -192,9 +192,9 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 2,
-    colors: { bg: "#1a1a1a", ink: "#f0ece4", panel: "#242424" },
+    colors: { bg: "#f5f0e8", ink: "#3d3529", panel: "#ebe5d8" },
     typography: { header: "Noto Serif JP 400", body: "Inter 300" },
-    tags: ["zen", "wabi-sabi", "japanese", "minimal", "sparse", "dark", "mindfulness", "brush-stroke", "serene"],
+    tags: ["wabi-sabi", "earthen", "ceramic", "handmade", "contemplative", "warm", "asymmetric", "ma", "craft"],
     fonts: ["Inter", "cjk:Noto Serif SC", "cjk:Noto Serif JP"],
     scenes,
   };
@@ -222,31 +222,45 @@ export default function ZenVoid({
   }, []);
 
   // ── Transition state ────────────────────────────────────────────────────
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef(scene);
   const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useLayoutEffect(() => {
-    if (reducedMotion) {
-      prevSceneRef.current = scene;
-      return;
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    if (prevSceneRef.current !== scene) {
-      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
-      setOutgoingScene(prevSceneRef.current);
-      setIsTransitioning(true);
+
+    if (!reducedMotion) {
       transitionTimerRef.current = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-        transitionTimerRef.current = null;
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
       }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
     }
-    return () => {
-      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
-    };
-  }, [scene, reducedMotion]);
+  }
+
+  const outgoingScene = transitionInfo.outgoingScene;
+  const isTransitioning = transitionInfo.isTransitioning;
 
   // ── FLIP for scene 4 practice list ──────────────────────────────────────
   const { ref: practiceFlipRef } = useFLIP<HTMLUListElement>({

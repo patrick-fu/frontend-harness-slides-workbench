@@ -1,6 +1,6 @@
-/* ─── Style 04: Aurora Gradient ────────────────────────────────────────────
-   Dark background with aurora gradient overlays. Glowing data elements.
-   All sizing in cqw/cqh.
+/* ─── Style 04: Interactive Dialogue Stage ────────────────────────────────
+   Small dim theater. Two voices take turns. Dark cool stage, lit speakers.
+   Warm human accent + cool digital accent. All sizing in cqw/cqh.
    ──────────────────────────────────────────────────────────────────────── */
 
 .root {
@@ -9,12 +9,14 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-04-bg, #0c0a1a);
-  color: var(--style-04-ink, #e8e4f0);
-  font-family: "Inter", system-ui, sans-serif;
+  background: var(--style-04-bg, #0e1116);
+  color: var(--style-04-ink, #e4e8ed);
+  --style-04-warm: #d4a574;
+  --style-04-cool: #58a6ff;
+  font-family: "Inter", "JetBrains Mono", system-ui, sans-serif;
 }
 
-/* ── Aurora Background ─────────────────────────────────────────────────── */
+/* ── Stage Lighting Background ────────────────────────────────────────── */
 
 .auroraBg {
   position: absolute;
@@ -27,53 +29,56 @@
 .auroraBlob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(15cqw);
-  opacity: 0.15;
+  filter: blur(18cqw);
+  opacity: 0.12;
 }
 
 .auroraBlob1 {
-  width: 60cqw;
-  height: 60cqw;
-  background: radial-gradient(circle, #a78bfa 0%, transparent 70%);
-  top: -10cqh;
-  left: -10cqw;
+  width: 55cqw;
+  height: 55cqw;
+  /* Warm human accent — left side of stage */
+  background: radial-gradient(circle, #d4a574 0%, transparent 70%);
+  top: -8cqh;
+  left: -8cqw;
   animation: auroraFloat1 20s ease-in-out infinite;
 }
 
 .auroraBlob2 {
   width: 50cqw;
   height: 50cqw;
-  background: radial-gradient(circle, #38bdf8 0%, transparent 70%);
-  top: 20cqh;
-  right: -5cqw;
+  /* Cool digital accent — right side of stage */
+  background: radial-gradient(circle, #58a6ff 0%, transparent 70%);
+  top: 25cqh;
+  right: -6cqw;
   animation: auroraFloat2 25s ease-in-out infinite;
 }
 
 .auroraBlob3 {
-  width: 45cqw;
-  height: 45cqw;
-  background: radial-gradient(circle, #ff6b6b 0%, transparent 70%);
-  bottom: -10cqh;
-  left: 20cqw;
+  width: 40cqw;
+  height: 40cqw;
+  /* Subtle neutral fill — center bottom */
+  background: radial-gradient(circle, #8b949e 0%, transparent 70%);
+  bottom: -12cqh;
+  left: 25cqw;
   animation: auroraFloat3 22s ease-in-out infinite;
-  opacity: 0.08;
+  opacity: 0.06;
 }
 
 @keyframes auroraFloat1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(5cqw, 3cqh) scale(1.1); }
-  66% { transform: translate(-3cqw, 5cqh) scale(0.95); }
+  33% { transform: translate(4cqw, 3cqh) scale(1.08); }
+  66% { transform: translate(-3cqw, 4cqh) scale(0.95); }
 }
 
 @keyframes auroraFloat2 {
   0%, 100% { transform: translate(0, 0) scale(1); }
   33% { transform: translate(-4cqw, -3cqh) scale(1.05); }
-  66% { transform: translate(3cqw, 4cqh) scale(1.1); }
+  66% { transform: translate(3cqw, 3cqh) scale(1.08); }
 }
 
 @keyframes auroraFloat3 {
   0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(5cqw, -3cqh); }
+  50% { transform: translate(4cqw, -3cqh); }
 }
 
 /* ── Scene layer (dual-scene transition) ──────────────────────────────── */
@@ -85,12 +90,11 @@
   pointer-events: none;
 }
 
-/* The current (incoming) scene layer should receive pointer events */
 .sceneLayer:last-of-type {
   pointer-events: auto;
 }
 
-/* ── Aurora curtain diagonal wipe ─────────────────────────────────────── */
+/* ── Curtain diagonal wipe ────────────────────────────────────────────── */
 
 @keyframes sceneEnterAurora {
   from {
@@ -113,7 +117,7 @@
 }
 
 .enterAnim {
-  animation: sceneEnterAurora 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: sceneEnterAurora 0.9s cubic-bezier(0.4, 0, 0.2, 1) both;
   z-index: 3;
 }
 
@@ -148,16 +152,6 @@
   }
 }
 
-.trackEnter {
-  opacity: 0;
-  transform: translateY(2cqh);
-}
-
-.trackActive {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 /* ── Scene 1: Title ────────────────────────────────────────────────────── */
 
 .scene1 {
@@ -174,7 +168,7 @@
   position: absolute;
   width: 50cqw;
   height: 30cqh;
-  background: radial-gradient(ellipse, rgba(167, 139, 250, 0.15) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(212, 165, 116, 0.12) 0%, rgba(88, 166, 255, 0.06) 50%, transparent 70%);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -182,12 +176,13 @@
 }
 
 .heroTitle {
-  font-size: 10cqw;
-  font-weight: 600;
+  font-size: 11cqw;
+  font-weight: 500;
   line-height: 1.05;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   margin: 0;
-  background: linear-gradient(135deg, #e8e4f0 0%, #a78bfa 50%, #38bdf8 100%);
+  font-family: "JetBrains Mono", "Inter", monospace;
+  background: linear-gradient(135deg, #e4e8ed 0%, #d4a574 45%, #58a6ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -197,8 +192,8 @@
   font-size: 2.5cqw;
   font-weight: 300;
   margin: 2cqh 0 0 0;
-  color: var(--style-04-ink, #e8e4f0);
-  opacity: 0.5;
+  color: var(--style-04-ink, #e4e8ed);
+  opacity: 0.45;
   letter-spacing: 0.05em;
 }
 
@@ -213,83 +208,76 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: #4ade80;
-  box-shadow: 0 0 2cqw #4ade80;
+  background: #d4a574;
+  box-shadow: 0 0 2cqw #d4a574;
 }
 
 .pulseRing {
   position: absolute;
   inset: -1cqw;
   border-radius: 50%;
-  border: 1px solid #4ade80;
-  opacity: 0.4;
-  animation: pulseRing 2s ease-out infinite;
+  border: 1px solid #d4a574;
+  opacity: 0.35;
+  animation: pulseRing 2.5s ease-out infinite;
 }
 
 @keyframes pulseRing {
-  0% { transform: scale(1); opacity: 0.4; }
+  0% { transform: scale(1); opacity: 0.35; }
   100% { transform: scale(3); opacity: 0; }
 }
 
-/* ── Scene 2: Data Cards ───────────────────────────────────────────────── */
+/* ── Scene 2: Opening Exchange ────────────────────────────────────────── */
 
 .scene2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  gap: 5cqh;
 }
 
-.headline {
-  font-size: 4.5cqw;
-  font-weight: 300;
-  line-height: 1.25;
-  margin: 0;
-  color: var(--style-04-ink, #e8e4f0);
-  max-width: 70cqw;
+.exchangePair {
+  display: flex;
+  flex-direction: column;
+  gap: 4cqh;
+  max-width: 65cqw;
 }
 
-.dataGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2cqw;
-}
-
-.dataCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 1cqw;
-  padding: 3cqh 2cqw;
+.turnBlock {
   display: flex;
   flex-direction: column;
   gap: 1cqh;
-  backdrop-filter: blur(10px);
 }
 
-.dataLabel {
-  font-size: 1.3cqw;
-  font-weight: 400;
-  color: var(--style-04-ink, #e8e4f0);
-  opacity: 0.4;
-  letter-spacing: 0.05em;
-}
-
-.dataValue {
-  font-size: 3.5cqw;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-
-.dataTrend {
+.turnLabel {
+  font-family: "JetBrains Mono", monospace;
   font-size: 1.2cqw;
-  font-weight: 300;
-  color: var(--style-04-ink, #e8e4f0);
-  opacity: 0.35;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 
-/* ── Scene 3: Chart ────────────────────────────────────────────────────── */
+.turnWarm {
+  color: var(--style-04-warm, #d4a574);
+}
+
+.turnCool {
+  color: var(--style-04-cool, #58a6ff);
+}
+
+.turnText {
+  font-size: 3.5cqw;
+  font-weight: 300;
+  line-height: 1.35;
+  margin: 0;
+  color: var(--style-04-ink, #e4e8ed);
+}
+
+.turnResponse {
+  padding-left: 6cqw;
+  border-left: 2px solid rgba(88, 166, 255, 0.2);
+}
+
+/* ── Scene 3: Reasoning Steps ─────────────────────────────────────────── */
 
 .scene3 {
   display: flex;
@@ -303,20 +291,42 @@
   font-size: 2cqw;
   font-weight: 400;
   margin: 0;
-  color: var(--style-04-ink, #e8e4f0);
-  opacity: 0.6;
+  color: var(--style-04-ink, #e4e8ed);
+  opacity: 0.55;
   letter-spacing: 0.02em;
+  font-family: "JetBrains Mono", monospace;
 }
 
-.chartContainer {
-  width: 100%;
-  height: 45cqh;
-  position: relative;
+.reasoningContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5cqh;
+  padding: 3cqh 0;
 }
 
-.chartSvg {
-  width: 100%;
-  height: 100%;
+.reasoningStep {
+  display: flex;
+  align-items: flex-start;
+  gap: 2cqw;
+}
+
+.stepNumber {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.4cqw;
+  font-weight: 500;
+  color: var(--style-04-cool, #58a6ff);
+  opacity: 0.7;
+  min-width: 3cqw;
+  padding-top: 0.3cqh;
+}
+
+.stepText {
+  font-size: 2.5cqw;
+  font-weight: 300;
+  line-height: 1.4;
+  margin: 0;
+  color: var(--style-04-ink, #e4e8ed);
+  opacity: 0.85;
 }
 
 .chartLegend {
@@ -329,8 +339,8 @@
   align-items: center;
   gap: 0.8cqw;
   font-size: 1.3cqw;
-  color: var(--style-04-ink, #e8e4f0);
-  opacity: 0.4;
+  color: var(--style-04-ink, #e4e8ed);
+  opacity: 0.35;
 }
 
 .legendDot {
@@ -339,7 +349,7 @@
   border-radius: 50%;
 }
 
-/* ── Scene 4: Regions ──────────────────────────────────────────────────── */
+/* ── Scene 4: Dialogue Exchanges ──────────────────────────────────────── */
 
 .scene4 {
   display: flex;
@@ -350,11 +360,13 @@
 }
 
 .regionTitle {
-  font-size: 2.5cqw;
+  font-size: 2cqw;
   font-weight: 400;
   margin: 0;
-  color: var(--style-04-ink, #e8e4f0);
-  opacity: 0.7;
+  color: var(--style-04-ink, #e4e8ed);
+  opacity: 0.55;
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.05em;
 }
 
 .regionGrid {
@@ -364,57 +376,67 @@
 }
 
 .regionCard {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 0.8cqw;
   padding: 2.5cqh 2cqw;
   backdrop-filter: blur(8px);
 }
 
+.exchangeWarm {
+  border-color: rgba(212, 165, 116, 0.2);
+  background: rgba(212, 165, 116, 0.04);
+}
+
+.exchangeCool {
+  border-color: rgba(88, 166, 255, 0.2);
+  background: rgba(88, 166, 255, 0.04);
+}
+
 .regionHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 2cqh;
+  margin-bottom: 1.5cqh;
 }
 
 .regionName {
-  font-size: 2cqw;
+  font-size: 1.6cqw;
   font-weight: 500;
-  color: var(--style-04-ink, #e8e4f0);
+  color: var(--style-04-ink, #e4e8ed);
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.05em;
+}
+
+.exchangeWarm .regionName {
+  color: var(--style-04-warm, #d4a574);
+}
+
+.exchangeCool .regionName {
+  color: var(--style-04-cool, #58a6ff);
 }
 
 .regionStatus {
-  font-size: 1.2cqw;
-  font-weight: 500;
-  padding: 0.4cqh 1cqw;
+  font-size: 1.1cqw;
+  font-weight: 400;
+  padding: 0.3cqh 0.8cqw;
   border-radius: 2cqw;
   letter-spacing: 0.03em;
+  color: var(--style-04-ink, #e4e8ed);
+  opacity: 0.4;
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.regionMetrics {
-  display: flex;
-  gap: 3cqw;
+.exchangeText {
+  font-size: 1.8cqw;
+  font-weight: 300;
+  line-height: 1.45;
+  margin: 0;
+  color: var(--style-04-ink, #e4e8ed);
+  opacity: 0.8;
 }
 
-.regionMetric {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5cqh;
-}
-
-.regionMetricLabel {
-  font-size: 1.1cqw;
-  color: var(--style-04-ink, #e8e4f0);
-  opacity: 0.35;
-}
-
-.regionMetricValue {
-  font-size: 2.5cqw;
-  font-weight: 600;
-}
-
-/* ── Scene 5: Forecast ─────────────────────────────────────────────────── */
+/* ── Scene 5: Closing ─────────────────────────────────────────────────── */
 
 .scene5 {
   display: flex;
@@ -429,11 +451,11 @@
 .forecast {
   font-size: 6cqw;
   font-weight: 300;
-  line-height: 1.15;
+  line-height: 1.2;
   margin: 0;
-  color: var(--style-04-ink, #e8e4f0);
+  color: var(--style-04-ink, #e4e8ed);
   max-width: 70cqw;
-  background: linear-gradient(135deg, #e8e4f0, #a78bfa);
+  background: linear-gradient(135deg, #e4e8ed, #d4a574);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -443,8 +465,9 @@
   font-size: 2cqw;
   font-weight: 300;
   margin: 0;
-  color: var(--style-04-ink, #e8e4f0);
+  color: var(--style-04-ink, #e4e8ed);
   opacity: 0.4;
+  font-family: "JetBrains Mono", monospace;
 }
 
 .forecastMetrics {
@@ -462,37 +485,25 @@
 
 .forecastIcon {
   font-size: 3cqw;
+  color: var(--style-04-cool, #58a6ff);
+  opacity: 0.6;
 }
 
 .forecastValue {
-  font-size: 3.5cqw;
-  font-weight: 600;
-  color: var(--style-04-ink, #e8e4f0);
+  font-size: 2.5cqw;
+  font-weight: 400;
+  color: var(--style-04-ink, #e4e8ed);
 }
 
 .forecastLabel {
-  font-size: 1.3cqw;
-  color: var(--style-04-ink, #e8e4f0);
-  opacity: 0.4;
+  font-size: 1.2cqw;
+  color: var(--style-04-ink, #e4e8ed);
+  opacity: 0.35;
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.05em;
 }
 
-.callToAction {
-  font-size: 2.5cqw;
-  font-weight: 400;
-  margin: 2cqh 0 0 0;
-  color: var(--style-04-ink, #e8e4f0);
-  opacity: 0.7;
-}
-
-.callSub {
-  font-size: 1.3cqw;
-  font-weight: 300;
-  margin: 0;
-  color: var(--style-04-ink, #e8e4f0);
-  opacity: 0.25;
-}
-
-/* ── Navigation: Aurora Color Wheel ────────────────────────────────────── */
+/* ── Navigation: Dialogue Color Wheel ─────────────────────────────────── */
 
 .nav {
   position: absolute;
@@ -556,7 +567,7 @@
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
 .reducedMotion .animateSceneEnter,
-.reducedMotion .dataCard,
+.reducedMotion .reasoningStep,
 .reducedMotion .regionCard,
 .reducedMotion .forecastMetric,
 .reducedMotion .wheelSegment,

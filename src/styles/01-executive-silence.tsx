@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useCallback, useState, useRef } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./01-executive-silence.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -12,7 +12,7 @@ function useFonts() {
     const link = document.createElement("link");
     link.id = id;
     link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap";
     document.head.appendChild(link);
   }, []);
 }
@@ -45,66 +45,66 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      title: "The Art of Decision",
+      title: "Introducing Nova",
     },
     zh: {
-      title: "决策的艺术",
+      title: "Nova 全新登场",
     },
   },
   2: {
     en: {
       title: "",
-      statement: "Not choosing is also a choice",
-      attribution: "— Executive proverb",
+      statement: "Less, but better.",
+      attribution: "— Dieter Rams",
     },
     zh: {
       title: "",
-      statement: "不选择本身就是一种选择",
-      attribution: "—— 管理者箴言",
+      statement: "更少，却更好。",
+      attribution: "—— 迪特·拉姆斯",
     },
   },
   3: {
     en: {
       title: "",
-      heading: "Before every decision",
+      heading: "Three principles guide us",
       questions: [
-        "What happens if we do this?",
-        "What happens if we don't?",
-        "What does our intuition say?",
+        "Does it serve the user?",
+        "Does it remove friction?",
+        "Does it endure?",
       ],
     },
     zh: {
       title: "",
-      heading: "每个决策之前",
+      heading: "我们遵循的三条原则",
       questions: [
-        "做了会怎样？",
-        "不做会怎样？",
-        "直觉怎么说？",
+        "它是否服务于用户？",
+        "它是否消除了摩擦？",
+        "它是否经得起时间？",
       ],
     },
   },
   4: {
     en: {
       title: "",
-      statement: "Speed of decision matters more than perfection",
-      dataPoint: "78% of successful executives cite decisiveness as their top strength",
+      statement: "Crafted down to the last detail",
+      dataPoint: "Every element considered. Nothing included by default.",
     },
     zh: {
       title: "",
-      statement: "决策速度比完美更重要",
-      dataPoint: "78% 的成功高管将决断力列为首要优势",
+      statement: "精雕细琢至最后一个细节",
+      dataPoint: "每个元素都经过深思熟虑。没有任何东西是默认加入的。",
     },
   },
   5: {
     en: {
       title: "",
-      closing: "Decide.",
-      closingAccent: "Then make it right.",
+      closing: "Nova.",
+      closingAccent: "Quietly extraordinary.",
     },
     zh: {
       title: "",
-      closing: "做决定，",
-      closingAccent: "然后使之正确。",
+      closing: "Nova。",
+      closingAccent: "于无声处听惊雷。",
     },
   },
 };
@@ -113,12 +113,12 @@ const SCENES: Record<number, SceneContent> = {
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   const nameMap = {
-    en: "Executive Silence",
-    zh: "高管静默",
+    en: "Minimal Product Keynote",
+    zh: "极简产品主题演讲",
   };
   const themeMap = {
-    en: "The Art of Decision — executive leadership wisdom in sparse, premium typography",
-    zh: "决策的艺术——以极简、高端的排版呈现高管领导智慧",
+    en: "One idea, enormous, alone in emptiness — premium product reveals, opening theses, and single big claims where restraint is the luxury",
+    zh: "一个想法，巨大，独处于虚空——高端产品发布、开篇主题、单一重大主张，克制即是奢华",
   };
   const densityLabelMap = {
     en: "Sparse",
@@ -211,26 +211,26 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 1,
     colors: {
-      bg: "#0a0a0a",
-      ink: "#f5f5f0",
-      panel: "#141414",
+      bg: "#0d0d0c",
+      ink: "#f2efe9",
+      panel: "#161614",
     },
     typography: {
-      header: "Inter 500",
+      header: "Playfair Display 500",
       body: "Inter 300",
     },
     tags: [
       "minimal",
       "premium",
-      "executive",
+      "product",
+      "keynote",
       "sparse",
-      "dark",
-      "serene",
-      "corporate",
-      "decision",
-      "leadership",
+      "restrained",
+      "luxury",
+      "emptiness",
+      "composed",
     ],
-    fonts: ["Inter"],
+    fonts: ["Playfair Display", "Inter"],
     scenes,
   };
 }
@@ -253,25 +253,45 @@ export default function ExecutiveSilence({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  const outgoingScene = transitionInfo.outgoingScene;
+  const isTransitioning = transitionInfo.isTransitioning;
 
   // FLIP for scene 3 question list
   const { ref: questionListRef } = useFLIP<HTMLUListElement>({

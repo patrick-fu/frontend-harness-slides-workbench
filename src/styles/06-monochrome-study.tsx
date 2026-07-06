@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useCallback, useState, useRef } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./06-monochrome-study.module.css";
 
@@ -12,7 +12,7 @@ function useFonts() {
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap";
+      "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;700;900&display=swap";
     document.head.appendChild(link);
   }, []);
 }
@@ -57,94 +57,94 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      label: "Monochrome Study / 2026",
-      title: "BLACK",
-      titleOutline: "WHITE",
-      subtitle: "Visual storytelling through pure contrast — where every frame is a study in tension and restraint",
+      label: "Punchline Series / 2026",
+      title: "PUNCH",
+      titleOutline: "LINE",
+      subtitle: "One idea. Hit hard. No explanation needed.",
     },
     zh: {
-      label: "单色研究 / 2026",
-      title: "黑",
-      titleOutline: "白",
-      subtitle: "通过纯粹对比的视觉叙事——每一帧都是张力与克制的研究",
+      label: "金句系列 / 2026",
+      title: "金",
+      titleOutline: "句",
+      subtitle: "一个想法。重重一击。无需解释。",
     },
   },
   2: {
     en: {
-      statement: "SEE IN",
-      statementHighlight: "BLACK",
-      statementTail: "& WHITE",
-      statementSub: "The world is not gray. It is decisive.",
+      statement: "MOVE FAST",
+      statementHighlight: "AND BREAK",
+      statementTail: "THINGS",
+      statementSub: "The cost of inaction exceeds the cost of mistakes.",
     },
     zh: {
-      statement: "用",
-      statementHighlight: "黑与白",
-      statementTail: "去看",
-      statementSub: "世界不是灰色的，它是果断的。",
+      statement: "快速行动，",
+      statementHighlight: "打破常规",
+      statementTail: "",
+      statementSub: "不作为的代价超过犯错的代价。",
     },
   },
   3: {
     en: {
-      sectionLabel: "Study in Contrast",
+      sectionLabel: "Before / After",
       contrast: [
         {
-          label: "Light",
-          text: "Clarity",
-          desc: "Every element earns its place through purpose and precision.",
+          label: "Before",
+          text: "Comfortable",
+          desc: "Safe. Predictable. Forgotten by Tuesday.",
         },
         {
-          label: "Shadow",
-          text: "Depth",
-          desc: "Absence creates form. Silence speaks louder than noise.",
+          label: "After",
+          text: "Unforgettable",
+          desc: "Bold. Disruptive. Still talked about Friday.",
         },
       ],
     },
     zh: {
-      sectionLabel: "对比研究",
+      sectionLabel: "之前 / 之后",
       contrast: [
         {
-          label: "明",
-          text: "清晰",
-          desc: "每个元素都通过目的和精确赢得它的位置。",
+          label: "之前",
+          text: "舒适",
+          desc: "安全。可预测。周二就被遗忘。",
         },
         {
-          label: "暗",
-          text: "深度",
-          desc: "缺席创造形式。沉默比喧嚣更有力量。",
+          label: "之后",
+          text: "难忘",
+          desc: "大胆。颠覆性。周五还在被讨论。",
         },
       ],
     },
   },
   4: {
     en: {
-      sectionLabel: "Visual Grammar",
+      sectionLabel: "Punchline Rules",
       scaleItems: [
-        { num: "01", text: "Scale dominates attention", note: "Hierarchy" },
-        { num: "02", text: "Space breathes meaning", note: "Rhythm" },
-        { num: "03", text: "Weight creates tension", note: "Balance" },
-        { num: "04", text: "Silence amplifies voice", note: "Restraint" },
+        { num: "01", text: "Say it loud", note: "Volume" },
+        { num: "02", text: "Say it once", note: "Restraint" },
+        { num: "03", text: "Leave no room", note: "Density" },
+        { num: "04", text: "Walk off stage", note: "Exit" },
       ],
     },
     zh: {
-      sectionLabel: "视觉语法",
+      sectionLabel: "金句法则",
       scaleItems: [
-        { num: "01", text: "尺度主导注意力", note: "层级" },
-        { num: "02", text: "空间赋予意义呼吸", note: "节奏" },
-        { num: "03", text: "重量创造张力", note: "平衡" },
-        { num: "04", text: "沉默放大声音", note: "克制" },
+        { num: "01", text: "大声说", note: "音量" },
+        { num: "02", text: "只说一次", note: "克制" },
+        { num: "03", text: "不留余地", note: "密度" },
+        { num: "04", text: "转身下台", note: "退场" },
       ],
     },
   },
   5: {
     en: {
-      closingMark: "End of Study",
-      closing: "SEE CLEARLY.",
-      closingSub: "Monochrome Study Series  ·  2026",
+      closingMark: "Mic Drop",
+      closing: "NO EXPLANATION.",
+      closingSub: "Kinetic Type Punchline Series  ·  2026",
     },
     zh: {
-      closingMark: "研究结束",
-      closing: "看得清楚。",
-      closingSub: "单色研究系列  ·  2026",
+      closingMark: "扔麦结束",
+      closing: "无需解释。",
+      closingSub: "动感字体金句系列  ·  2026",
     },
   },
 };
@@ -152,32 +152,32 @@ const SCENES: Record<number, SceneContent> = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Monochrome Study", zh: "单色研究" };
+  const nameMap = { en: "Kinetic Type Punchline", zh: "动感字体金句" };
   const themeMap = {
-    en: "Visual Storytelling in B&W — pure black and white with dramatic high-contrast typography",
-    zh: "黑白视觉叙事——纯黑白高对比度戏剧性排版",
+    en: "A loud graphic poster where words are the image — massive stacked phrases hit like a mic-drop, delivering one punch the audience cannot miss",
+    zh: "一张响亮的图形海报，文字即是图像——巨大的堆叠短语如扔麦般击中观众，传递一个无法忽视的重击",
   };
-  const densityLabelMap = { en: "Bold", zh: "强烈" };
+  const densityLabelMap = { en: "Impact", zh: "冲击" };
 
   const sceneTitles = {
-    en: ["Title", "Bold Statement", "Contrast Study", "Visual Grammar", "Closing"],
-    zh: ["标题", "强烈陈述", "对比研究", "视觉语法", "结语"],
+    en: ["Title", "The Punch", "Before / After", "Rules of Impact", "Mic Drop"],
+    zh: ["标题", "重击", "之前 / 之后", "冲击法则", "扔麦结束"],
   };
 
   const beatActions = {
     en: {
-      1: ["Title and subtitle appear"],
-      2: ["Statement revealed", "Highlight word inverts"],
-      3: ["Section label", "Both contrast panels appear"],
-      4: ["Items 1-2 appear", "Items 3-4 appear"],
-      5: ["Closing statement"],
+      1: ["Title slams in"],
+      2: ["Statement hits", "Highlight word strikes through"],
+      3: ["Section label", "Both panels slam in"],
+      4: ["Rules 1-2 hit", "Rules 3-4 hit"],
+      5: ["Closing punchline"],
     },
     zh: {
-      1: ["标题和副标题呈现"],
-      2: ["陈述揭示", "高亮词反色"],
-      3: ["分组标签", "两个对比面板呈现"],
-      4: ["第 1-2 项呈现", "第 3-4 项呈现"],
-      5: ["结语陈述"],
+      1: ["标题砸入"],
+      2: ["陈述击中", "高亮词穿透"],
+      3: ["分组标签", "两个面板砸入"],
+      4: ["法则 1-2 击中", "法则 3-4 击中"],
+      5: ["结语金句"],
     },
   };
 
@@ -237,21 +237,21 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       panel: "#1a1a1a",
     },
     typography: {
-      header: "Inter 900",
+      header: "Oswald 700",
       body: "Inter 300",
     },
     tags: [
-      "monochrome",
-      "black-white",
-      "high-contrast",
-      "dramatic",
-      "bold",
-      "typographic",
-      "minimal",
-      "stark",
-      "editorial",
+      "kinetic-type",
+      "punchline",
+      "mic-drop",
+      "poster",
+      "condensed",
+      "ultra-bold",
+      "percussive",
+      "strike-replace",
+      "high-impact",
     ],
-    fonts: ["Inter"],
+    fonts: ["Oswald", "Inter"],
     scenes,
   };
 }
@@ -277,38 +277,58 @@ export default function MonochromeStudy({
   useFonts();
 
   // ── Transition state ────────────────────────────────────────────────────
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [showFlash, setShowFlash] = useState(false);
-  const prevScene = useRef(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const flashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useLayoutEffect(() => {
-    if (prevScene.current !== scene) {
-      if (!reducedMotion && !isThumbnail) {
-        setOutgoingScene(prevScene.current);
-        setIsTransitioning(true);
-        setShowFlash(true);
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    showFlash: false,
+    lastScene: scene,
+  });
 
-        // Flash fades out after FLASH_DURATION
-        const flashTimer = setTimeout(() => {
-          setShowFlash(false);
-        }, FLASH_DURATION);
-
-        // Clean up outgoing scene after total transition duration
-        const transitionTimer = setTimeout(() => {
-          setOutgoingScene(null);
-          setIsTransitioning(false);
-        }, TRANSITION_DURATION);
-
-        prevScene.current = scene;
-        return () => {
-          clearTimeout(flashTimer);
-          clearTimeout(transitionTimer);
-        };
-      }
-      prevScene.current = scene;
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-  }, [scene, reducedMotion, isThumbnail]);
+    if (flashTimerRef.current) {
+      clearTimeout(flashTimerRef.current);
+    }
+
+    if (!reducedMotion && !isThumbnail) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, showFlash: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      flashTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { ...prev, showFlash: false };
+        });
+      }, FLASH_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        showFlash: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        showFlash: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  const outgoingScene = transitionInfo.outgoingScene;
+  const isTransitioning = transitionInfo.isTransitioning;
+  const showFlash = transitionInfo.showFlash;
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -383,7 +403,7 @@ export default function MonochromeStudy({
                 style={
                   reducedMotion
                     ? { animationDuration: "0s" }
-                    : { animationDelay: `${i * 0.15}s` }
+                    : { animationDelay: `${i * 0.1}s` }
                 }
               >
                 <div className={styles.bwContrastLabel}>{item.label}</div>
@@ -420,7 +440,7 @@ export default function MonochromeStudy({
                 style={
                   reducedMotion
                     ? { animationDuration: "0s" }
-                    : { animationDelay: `${i * 0.08}s` }
+                    : { animationDelay: `${i * 0.06}s` }
                 }
               >
                 <span className={styles.bwScaleNum}>{item.num}</span>

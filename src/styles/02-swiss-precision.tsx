@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useCallback, useState, useRef } from "react";
+import React, { useEffect, useCallback, useRef, useState } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./02-swiss-precision.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -51,90 +51,90 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      title: "Precision",
-      subtitle: "Manufacturing Quality Control System",
-      label: "SWISS MADE / 2026",
+      title: "Systematic",
+      subtitle: "Technical Roadmap & Comparative Analysis Framework",
+      label: "GRID SYSTEM / 2026",
     },
     zh: {
-      title: "精密",
-      subtitle: "制造质量控制系统",
-      label: "瑞士制造 / 2026",
+      title: "系统化",
+      subtitle: "技术路线图与比较分析框架",
+      label: "网格系统 / 2026",
     },
   },
   2: {
     en: {
       label: "KEY METRICS",
-      statement: "Every micron counts.",
+      statement: "Every variable accounted for.",
       metrics: [
-        { value: "0.003", unit: "mm", label: "Tolerance" },
-        { value: "99.97", unit: "%", label: "First-pass yield" },
-        { value: "2.4", unit: "σ", label: "Process capability" },
+        { value: "0.003", unit: "ms", label: "Latency p99" },
+        { value: "99.97", unit: "%", label: "Uptime SLA" },
+        { value: "2.4", unit: "M", label: "Requests/sec" },
       ],
     },
     zh: {
       label: "核心指标",
-      statement: "每一微米都至关重要。",
+      statement: "每个变量都已计入。",
       metrics: [
-        { value: "0.003", unit: "毫米", label: "公差" },
-        { value: "99.97", unit: "%", label: "一次通过率" },
-        { value: "2.4", unit: "σ", label: "过程能力" },
+        { value: "0.003", unit: "毫秒", label: "p99 延迟" },
+        { value: "99.97", unit: "%", label: "可用性 SLA" },
+        { value: "2.4", unit: "M", label: "请求/秒" },
       ],
     },
   },
   3: {
     en: {
-      label: "INSPECTION PROTOCOL",
-      statement: "Five-gate verification process",
+      label: "MIGRATION SEQUENCE",
+      statement: "Five-phase rollout plan",
       processSteps: [
-        { id: "01", title: "Incoming Material", desc: "Spectrometer alloy verification + dimensional sampling" },
-        { id: "02", title: "In-Process CMM", desc: "Coordinate measuring machine probes 47 reference points" },
-        { id: "03", title: "Surface Finish", desc: "Ra < 0.4 μm verified via white-light interferometry" },
-        { id: "04", title: "Functional Test", desc: "Full load-cycle simulation at 150% rated capacity" },
-        { id: "05", title: "Final Audit", desc: "ISO 9001:2015 compliance documentation review" },
+        { id: "01", title: "Baseline Capture", desc: "Full system snapshot + dependency graph + traffic baseline" },
+        { id: "02", title: "Dual-Write Phase", desc: "Shadow traffic to new stack; validate parity across 47 endpoints" },
+        { id: "03", title: "Canary Release", desc: "5% traffic shift with automated rollback on 1% error threshold" },
+        { id: "04", title: "Progressive Ramp", desc: "25% → 50% → 75% over 14 days; SLO gates at each step" },
+        { id: "05", title: "Cutover & Decommission", desc: "DNS flip + old stack drain + 30-day observability watch" },
       ],
     },
     zh: {
-      label: "检验流程",
-      statement: "五关验证流程",
+      label: "迁移序列",
+      statement: "五阶段上线计划",
       processSteps: [
-        { id: "01", title: "来料检验", desc: "光谱仪合金验证 + 尺寸抽样" },
-        { id: "02", title: "过程三坐标", desc: "三坐标测量机探测 47 个基准点" },
-        { id: "03", title: "表面光洁度", desc: "白光干涉仪验证 Ra < 0.4 μm" },
-        { id: "04", title: "功能测试", desc: "150% 额定负载全循环模拟" },
-        { id: "05", title: "最终审核", desc: "ISO 9001:2015 合规文件审查" },
+        { id: "01", title: "基线捕获", desc: "完整系统快照 + 依赖图 + 流量基线" },
+        { id: "02", title: "双写阶段", desc: "影子流量导入新栈；47 个端点逐一验证一致性" },
+        { id: "03", title: "金丝雀发布", desc: "5% 流量切换，错误率超 1% 自动回滚" },
+        { id: "04", title: "渐进放量", desc: "14 天内 25% → 50% → 75%；每步设 SLO 闸门" },
+        { id: "05", title: "切换与下线", desc: "DNS 翻转 + 旧栈排空 + 30 天可观测性值守" },
       ],
     },
   },
   4: {
     en: {
-      qualityLabel: "LIVE QUALITY DASHBOARD",
-      qualityTitle: "Shift Report — Line A",
+      qualityLabel: "COMPARATIVE ANALYSIS",
+      qualityTitle: "Architecture Options — Evaluation Matrix",
       criteria: [
-        { name: "Dimensional Accuracy", score: 99.8, threshold: 99.5 },
-        { name: "Surface Integrity", score: 99.4, threshold: 99.0 },
-        { name: "Assembly Tolerance", score: 99.9, threshold: 99.5 },
-        { name: "Material Hardness", score: 98.7, threshold: 98.0 },
+        { name: "Maintainability", score: 94, threshold: 85 },
+        { name: "Performance", score: 97, threshold: 90 },
+        { name: "Cost Efficiency", score: 89, threshold: 80 },
+        { name: "Team Velocity", score: 92, threshold: 85 },
       ],
     },
     zh: {
-      qualityLabel: "实时质量仪表",
-      qualityTitle: "班次报告 — A 线",
+      qualityLabel: "比较分析",
+      qualityTitle: "架构方案——评估矩阵",
       criteria: [
-        { name: "尺寸精度", score: 99.8, threshold: 99.5 },
-        { name: "表面完整性", score: 99.4, threshold: 99.0 },
-        { name: "装配公差", score: 99.9, threshold: 99.5 },
-        { name: "材料硬度", score: 98.7, threshold: 98.0 },
+        { name: "可维护性", score: 94, threshold: 85 },
+        { name: "性能表现", score: 97, threshold: 90 },
+        { name: "成本效率", score: 89, threshold: 80 },
+        { name: "团队速度", score: 92, threshold: 85 },
       ],
     },
   },
   5: {
     en: {
-      closing: "Perfection is not optional.",
-      closingSub: "ISO 9001:2015 Certified · Since 1962",
+      closing: "Clarity is a system.",
+      closingSub: "Grid-aligned · Data-grounded · Since 2019",
     },
     zh: {
-      closing: "完美，不容妥协。",
-      closingSub: "ISO 9001:2015 认证 · 始于 1962",
+      closing: "清晰，是一种系统。",
+      closingSub: "网格对齐 · 数据为据 · 始于 2019",
     },
   },
 };
@@ -142,10 +142,10 @@ const SCENES: Record<number, SceneContent> = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Swiss Precision", zh: "瑞士精密" };
+  const nameMap = { en: "Objective Swiss Grid", zh: "客观瑞士网格" };
   const themeMap = {
-    en: "Manufacturing Quality Control — Swiss International Style grid system with monochrome discipline",
-    zh: "制造质量控制——瑞士国际风格网格系统，单色纪律",
+    en: "A precision instrument — every element locked to a visible mathematical grid; for data-dense decks, technical roadmaps, and comparative analyses where systematic clarity matters",
+    zh: "精密仪器——每个元素锁定于可见的数学网格；适用于数据密集型演示、技术路线图和比较分析",
   };
   const densityLabelMap = { en: "Structured", zh: "结构化" };
 
@@ -219,9 +219,9 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
-    colors: { bg: "#f5f5f5", ink: "#1a1a1a", panel: "#e8e8e8" },
-    typography: { header: "Helvetica Neue 75", body: "Inter 400" },
-    tags: ["swiss", "grid", "monochrome", "red-accent", "manufacturing", "precise", "structured", "technical", "helvetica"],
+    colors: { bg: "#fafafa", ink: "#111111", panel: "#eeeeee" },
+    typography: { header: "Inter 700", body: "Inter 400" },
+    tags: ["swiss", "grid", "achromatic", "objective", "systematic", "data-dense", "technical", "flush-left", "grotesque"],
     fonts: ["Inter"],
     scenes,
   };
@@ -245,25 +245,45 @@ export default function SwissPrecision({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  const outgoingScene = transitionInfo.outgoingScene;
+  const isTransitioning = transitionInfo.isTransitioning;
 
   // FLIP for scene 3 process step list
   const { ref: processListRef } = useFLIP<HTMLDivElement>({

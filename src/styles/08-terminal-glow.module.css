@@ -1,5 +1,6 @@
-/* ─── Style 08: Terminal Glow ─────────────────────────────────────────────
-   Terminal/hacker aesthetic. Dark bg, monospace, green/amber accents.
+/* ─── Style 08: Spotlight Quote Poster ───────────────────────────────────
+   Darkened stage. Single soft spotlight. Luminous literary serif text.
+   One statement held in dominant darkness. Slow atmospheric motion.
    All sizing in cqw/cqh. No px/vw/vh.
    ──────────────────────────────────────────────────────────────────────── */
 
@@ -9,39 +10,24 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-08-bg, #0d1117);
-  color: var(--style-08-ink, #c9d1d9);
-  font-family: "JetBrains Mono", "Fira Code", "SF Mono", Consolas, monospace;
+  background: var(--style-08-bg, #121212);
+  color: var(--style-08-ink, #f0ebe3);
+  --style-08-accent: #c4a882;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
 }
 
-/* ── CRT scanline overlay ──────────────────────────────────────────────── */
+/* ── Stage vignette ─────────────────────────────────────────────────────── */
 
-.scanlines {
+.stageVignette {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 5;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.08) 2px,
-    rgba(0, 0, 0, 0.08) 4px
-  );
-  opacity: 0.4;
-}
-
-/* ── Subtle vignette ───────────────────────────────────────────────────── */
-
-.vignette {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 4;
+  z-index: 0;
   background: radial-gradient(
-    ellipse at center,
-    transparent 50%,
-    rgba(0, 0, 0, 0.3) 100%
+    ellipse at 50% 48%,
+    transparent 30%,
+    rgba(0, 0, 0, 0.35) 70%,
+    rgba(0, 0, 0, 0.6) 100%
   );
 }
 
@@ -50,6 +36,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .track {
@@ -57,12 +44,12 @@
   inset: 0;
   display: flex;
   flex-direction: column;
-  padding: 4cqh 5cqw;
+  padding: 6cqh 10cqw;
   z-index: 1;
 }
 
 .animateSceneEnter {
-  animation: sceneEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: sceneEnter 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 @keyframes sceneEnter {
@@ -76,526 +63,394 @@
   }
 }
 
-/* ── Scene-to-scene transition: CRT scan-out / scan-in ────────────────── */
+/* ── Scene-to-scene transition: slow light swell ───────────────────────── */
 
 .exitAnim {
-  animation: crtScanOut 0.3s ease-in forwards;
+  animation: lightFadeOut 0.7s ease-in forwards;
   z-index: 2;
 }
 
-@keyframes crtScanOut {
+@keyframes lightFadeOut {
   from {
-    clip-path: inset(0% 0 0% 0);
+    opacity: 1;
     filter: brightness(1);
   }
   to {
-    clip-path: inset(50% 0 50% 0);
-    filter: brightness(0.4);
+    opacity: 0;
+    filter: brightness(0.3);
   }
 }
 
 .enterAnim {
-  animation: crtScanIn 0.3s ease-out 0.38s both;
+  animation: lightFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both;
   z-index: 1;
 }
 
-@keyframes crtScanIn {
+@keyframes lightFadeIn {
   from {
-    clip-path: inset(50% 0 50% 0);
-    filter: brightness(1.3) drop-shadow(0 0 6px rgba(63, 185, 80, 0.4));
+    opacity: 0;
+    filter: brightness(1.4);
   }
   to {
-    clip-path: inset(0% 0 0% 0);
-    filter: brightness(1) drop-shadow(0 0 0 transparent);
+    opacity: 1;
+    filter: brightness(1);
   }
 }
 
-/* ── Terminal window chrome ────────────────────────────────────────────── */
+/* ── Spotlight pool ────────────────────────────────────────────────────── */
 
-.termChrome {
-  display: flex;
-  align-items: center;
-  gap: 1cqw;
-  padding-bottom: 1.5cqh;
-  margin-bottom: 2cqh;
-  border-bottom: 1px solid rgba(63, 185, 80, 0.15);
-}
-
-.termDots {
-  display: flex;
-  gap: 0.6cqw;
-}
-
-.termDot {
-  width: 1.2cqw;
-  height: 1.2cqw;
+.spotlightPool {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70cqw;
+  height: 65cqh;
   border-radius: 50%;
-  min-width: 6px;
-  min-height: 6px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(240, 235, 227, 0.06) 0%,
+    rgba(240, 235, 227, 0.03) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: spotlightSwell 3s ease-in-out infinite alternate;
 }
 
-.termDotRed {
-  background: #ff5f57;
-  opacity: 0.7;
+.spotlightQuote {
+  width: 75cqw;
+  height: 70cqh;
 }
 
-.termDotYellow {
-  background: #febc2e;
-  opacity: 0.7;
+.spotlightClosing {
+  width: 65cqw;
+  height: 55cqh;
 }
 
-.termDotGreen {
-  background: #28c840;
-  opacity: 0.7;
+@keyframes spotlightSwell {
+  0% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
 }
 
-.termTitle {
-  font-size: 1.2cqw;
-  color: var(--style-08-ink, #c9d1d9);
-  opacity: 0.35;
-  letter-spacing: 0.05em;
-}
-
-.termPath {
-  font-size: 1.1cqw;
-  color: var(--style-08-green, #3fb950);
-  opacity: 0.5;
-  margin-left: auto;
-}
-
-/* ── Cursor blink ──────────────────────────────────────────────────────── */
-
-@keyframes cursor-blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-
-.cursor {
-  display: inline-block;
-  width: 0.8cqw;
-  height: 1em;
-  background: var(--style-08-green, #3fb950);
-  vertical-align: text-bottom;
-  animation: cursor-blink 1s step-end infinite;
-  min-width: 6px;
-}
-
-/* ── Scene 1: Boot / Title ─────────────────────────────────────────────── */
+/* ── Scene 1: Opening Title ────────────────────────────────────────────── */
 
 .scene1 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-}
-
-.bootLines {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8cqh;
-}
-
-.bootLine {
-  font-size: 1.4cqw;
-  line-height: 1.4;
-  color: var(--style-08-ink, #c9d1d9);
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}
-
-.bootLineVisible {
-  opacity: 0.7;
-}
-
-.bootLineOk {
-  color: var(--style-08-green, #3fb950);
-}
-
-.bootLineWarn {
-  color: var(--style-08-amber, #d29922);
-}
-
-.bootLineAccent {
-  color: var(--style-08-green, #3fb950);
-}
-
-.termTitleMain {
-  font-size: 7cqw;
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  margin: 3cqh 0 1cqh 0;
-  color: var(--style-08-green, #3fb950);
-  text-shadow: 0 0 20cqw rgba(63, 185, 80, 0.15);
-}
-
-.termTitleSub {
-  font-size: 2cqw;
-  font-weight: 400;
-  color: var(--style-08-ink, #c9d1d9);
-  opacity: 0.5;
-  margin: 0;
-}
-
-/* ── Scene 2: Command Output ───────────────────────────────────────────── */
-
-.scene2 {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.promptLine {
-  display: flex;
-  align-items: baseline;
-  gap: 0.8cqw;
-  font-size: 1.8cqw;
-  margin-bottom: 2cqh;
-}
-
-.promptSymbol {
-  color: var(--style-08-green, #3fb950);
-  font-weight: 500;
-}
-
-.promptCmd {
-  color: var(--style-08-ink, #c9d1d9);
-  font-weight: 400;
-}
-
-.outputBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6cqh;
-  flex: 1;
-}
-
-.outputLine {
-  font-size: 1.5cqw;
-  line-height: 1.45;
-  color: var(--style-08-ink, #c9d1d9);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.outputLineVisible {
-  opacity: 0.75;
-}
-
-.outputLineDim {
-  opacity: 0.4;
-}
-
-.outputLineGreen {
-  color: var(--style-08-green, #3fb950);
-}
-
-.outputLineAmber {
-  color: var(--style-08-amber, #d29922);
-}
-
-.outputIndent {
-  padding-left: 3cqw;
-}
-
-/* ── Scene 3: Code Editor View ─────────────────────────────────────────── */
-
-.scene3 {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.codeEditor {
-  flex: 1;
-  display: flex;
-  border: 1px solid rgba(63, 185, 80, 0.12);
-  background: rgba(22, 27, 34, 0.5);
-  overflow: hidden;
-}
-
-.lineNumbers {
-  display: flex;
-  flex-direction: column;
-  padding: 2cqh 1.5cqw;
-  border-right: 1px solid rgba(63, 185, 80, 0.08);
-  user-select: none;
-  min-width: 4cqw;
-}
-
-.lineNum {
-  font-size: 1.3cqw;
-  line-height: 1.6;
-  color: var(--style-08-ink, #c9d1d9);
-  opacity: 0.2;
-  text-align: right;
-}
-
-.codeContent {
-  flex: 1;
-  padding: 2cqh 2.5cqw;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.codeLine {
-  font-size: 1.4cqw;
-  line-height: 1.6;
-  white-space: pre;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}
-
-.codeLineVisible {
-  opacity: 1;
-}
-
-.codeKeyword {
-  color: var(--style-08-amber, #d29922);
-}
-
-.codeString {
-  color: var(--style-08-green, #3fb950);
-}
-
-.codeComment {
-  color: var(--style-08-ink, #c9d1d9);
-  opacity: 0.35;
-  font-style: italic;
-}
-
-.codeFunc {
-  color: #d2a8ff;
-}
-
-.codeVar {
-  color: #79c0ff;
-}
-
-/* ── Scene 4: Dashboard / Metrics (Hero) ───────────────────────────────── */
-
-.scene4 {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.dashHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 3cqh;
-}
-
-.dashTitle {
-  font-size: 2cqw;
-  font-weight: 500;
-  color: var(--style-08-green, #3fb950);
-  margin: 0;
-  letter-spacing: 0.02em;
-}
-
-.dashStatus {
-  display: flex;
-  align-items: center;
-  gap: 0.8cqw;
-  font-size: 1.2cqw;
-  color: var(--style-08-green, #3fb950);
-  opacity: 0.7;
-}
-
-.dashStatusDot {
-  width: 0.8cqw;
-  height: 0.8cqw;
-  min-width: 4px;
-  min-height: 4px;
-  border-radius: 50%;
-  background: var(--style-08-green, #3fb950);
-  box-shadow: 0 0 1cqw rgba(63, 185, 80, 0.5);
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-.dashGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2cqh 2cqw;
-  flex: 1;
-}
-
-.dashCard {
-  border: 1px solid rgba(63, 185, 80, 0.12);
-  background: rgba(22, 27, 34, 0.4);
-  padding: 2.5cqh 2cqw;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8cqh;
-  opacity: 0;
-  transform: translateY(0.5cqh);
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease,
-    border-color 0.3s ease;
-}
-
-.dashCard:hover {
-  border-color: rgba(63, 185, 80, 0.3);
-}
-
-.dashCardVisible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.dashCardLabel {
-  font-size: 1cqw;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--style-08-ink, #c9d1d9);
-  opacity: 0.35;
-}
-
-.dashCardValue {
-  font-size: 4cqw;
-  font-weight: 500;
-  line-height: 1;
-  color: var(--style-08-green, #3fb950);
-  letter-spacing: -0.02em;
-}
-
-.dashCardValueAmber {
-  color: var(--style-08-amber, #d29922);
-}
-
-.dashCardSub {
-  font-size: 1.1cqw;
-  color: var(--style-08-ink, #c9d1d9);
-  opacity: 0.4;
-}
-
-.dashCardBar {
-  height: 0.6cqh;
-  background: rgba(63, 185, 80, 0.1);
-  margin-top: auto;
   position: relative;
-  overflow: hidden;
-}
-
-.dashCardBarFill {
+  width: 100%;
   height: 100%;
-  background: var(--style-08-green, #3fb950);
-  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.dashCardBarFillAmber {
-  background: var(--style-08-amber, #d29922);
-}
-
-/* ── Scene 5: Closing / Shutdown ───────────────────────────────────────── */
-
-.scene5 {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
   text-align: center;
 }
 
-.closingPrompt {
-  font-size: 1.5cqw;
-  color: var(--style-08-green, #3fb950);
-  opacity: 0.6;
-  margin-bottom: 2cqh;
-}
-
-.closingBig {
-  font-size: 8cqw;
-  font-weight: 500;
-  line-height: 1;
-  color: var(--style-08-green, #3fb950);
-  margin: 0;
-  text-shadow: 0 0 30cqw rgba(63, 185, 80, 0.2);
-  letter-spacing: -0.02em;
-}
-
-.closingBig span {
-  color: var(--style-08-amber, #d29922);
-}
-
-.closingSub {
-  font-size: 1.8cqw;
-  color: var(--style-08-ink, #c9d1d9);
+.seriesLabel {
+  font-family: "Inter", sans-serif;
+  font-size: 1.1cqw;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--style-08-ink, #f0ebe3);
   opacity: 0.4;
-  margin-top: 3cqh;
+  margin-bottom: 5cqh;
+  animation: labelFade 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-.closingCursor {
-  display: inline-block;
-  width: 1.2cqw;
-  height: 2.2cqh;
-  background: var(--style-08-green, #3fb950);
-  vertical-align: middle;
-  margin-left: 0.5cqw;
-  animation: cursor-blink 1s step-end infinite;
-  min-width: 8px;
+@keyframes labelFade {
+  from { opacity: 0; letter-spacing: 0.5em; }
+  to { opacity: 0.4; letter-spacing: 0.35em; }
 }
 
-/* ── Navigation: command prompt ────────────────────────────────────────── */
+.labelVisible {
+  opacity: 0.4;
+}
 
-.cmdNav {
-  position: absolute;
-  bottom: 2.5cqh;
-  left: 5cqw;
-  right: 5cqw;
+.heroTitle {
+  font-family: "Playfair Display", "Georgia", serif;
+  font-size: 9cqw;
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0;
+  color: var(--style-08-ink, #f0ebe3);
+  animation: titleRise 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+}
+
+.heroTitle em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+@keyframes titleRise {
+  from {
+    opacity: 0;
+    transform: translateY(2cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.heroSubtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 2cqw;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--style-08-ink, #f0ebe3);
+  opacity: 0.5;
+  margin: 4cqh 0 0 0;
+  max-width: 45cqw;
+  animation: subtitleFade 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s both;
+}
+
+@keyframes subtitleFade {
+  from { opacity: 0; }
+  to { opacity: 0.5; }
+}
+
+/* ── Scene 2 & 3: Mission / Philosophy Statement ──────────────────────── */
+
+.sceneStatement {
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 1.2cqw;
-  z-index: 10;
-  font-family: "JetBrains Mono", "Fira Code", "SF Mono", Consolas, monospace;
-  padding: 1cqh 1.5cqw;
-  border-top: 1px solid rgba(63, 185, 80, 0.08);
+  text-align: center;
 }
 
-.cmdPrompt {
+.chapterLabel {
+  font-family: "Inter", sans-serif;
+  font-size: 1cqw;
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--style-08-accent, #c4a882);
+  opacity: 0.6;
+  margin-bottom: 5cqh;
+  animation: chapterFade 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes chapterFade {
+  from { opacity: 0; }
+  to { opacity: 0.6; }
+}
+
+.statementBlock {
+  margin: 0;
+  padding: 0;
+  max-width: 65cqw;
+  animation: statementRise 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
+}
+
+@keyframes statementRise {
+  from {
+    opacity: 0;
+    transform: translateY(1.5cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.statementText {
+  font-family: "Playfair Display", "Georgia", serif;
+  font-size: 5.5cqw;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--style-08-ink, #f0ebe3);
+  margin: 0;
+}
+
+.statementEm {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--style-08-ink, #f0ebe3);
+  opacity: 0.85;
+}
+
+/* ── Scene 4: Hero Quote ───────────────────────────────────────────────── */
+
+.sceneQuote {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.quoteBlock {
+  margin: 0;
+  padding: 0;
+  max-width: 70cqw;
+}
+
+.quoteLine {
+  font-family: "Playfair Display", "Georgia", serif;
+  font-size: 6.5cqw;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--style-08-ink, #f0ebe3);
+  margin: 0;
+  opacity: 0;
+}
+
+.quoteLine em {
+  font-style: italic;
+}
+
+.quoteLineVisible {
+  animation: quoteLineIn 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.quoteBlock .quoteLine:nth-child(2) {
+  margin-top: 1cqh;
+}
+
+@keyframes quoteLineIn {
+  from {
+    opacity: 0;
+    transform: translateY(1cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.attributionBlock {
+  margin-top: 6cqh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8cqh;
+  animation: attributionFade 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
+}
+
+@keyframes attributionFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.attributionName {
+  font-family: "Inter", sans-serif;
   font-size: 1.4cqw;
-  color: var(--style-08-green, #3fb950);
   font-weight: 500;
-  opacity: 0.7;
+  letter-spacing: 0.15em;
+  color: var(--style-08-accent, #c4a882);
 }
 
-.cmdCmd {
-  font-size: 1.3cqw;
-  color: var(--style-08-ink, #c9d1d9);
-  opacity: 0.35;
-  letter-spacing: 0.02em;
+.attributionRole {
+  font-family: "Inter", sans-serif;
+  font-size: 1.1cqw;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: var(--style-08-ink, #f0ebe3);
+  opacity: 0.4;
 }
 
-.cmdScene {
-  font-size: 1.3cqw;
-  color: var(--style-08-ink, #c9d1d9);
+/* ── Scene 5: Closing ──────────────────────────────────────────────────── */
+
+.sceneClosing {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.closingText {
+  font-family: "Playfair Display", "Georgia", serif;
+  font-size: 5cqw;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--style-08-ink, #f0ebe3);
+  margin: 0;
+  max-width: 60cqw;
+  animation: closingRise 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+}
+
+.closingText em {
+  font-style: italic;
+}
+
+.closingEm {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--style-08-accent, #c4a882);
+}
+
+@keyframes closingRise {
+  from {
+    opacity: 0;
+    transform: translateY(1cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Navigation: quiet bottom dots ─────────────────────────────────────── */
+
+.quietNav {
+  position: absolute;
+  bottom: 4cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  gap: 1.5cqw;
+  z-index: 10;
+}
+
+.quietNavItem {
   background: none;
   border: none;
+  padding: 0.5cqh;
   cursor: pointer;
-  padding: 0.3cqh 0.4cqw;
-  font-family: inherit;
-  opacity: 0.2;
-  letter-spacing: 0.02em;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.cmdScene:hover {
-  opacity: 0.5;
+.quietNavDot {
+  width: 0.4cqw;
+  height: 0.4cqw;
+  min-width: 4px;
+  min-height: 4px;
+  border-radius: 50%;
+  background: var(--style-08-ink, #f0ebe3);
+  opacity: 0.15;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
 }
 
-.cmdSceneActive {
-  color: var(--style-08-green, #3fb950);
-  opacity: 0.75;
+.quietNavItem:hover .quietNavDot {
+  opacity: 0.4;
+}
+
+.quietNavItemActive .quietNavDot {
+  opacity: 0.7;
+  transform: scale(1.5);
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */
@@ -603,44 +458,44 @@
 .reducedMotion .animateSceneEnter,
 .reducedMotion .enterAnim,
 .reducedMotion .exitAnim,
-.reducedMotion .bootLine,
-.reducedMotion .outputLine,
-.reducedMotion .codeLine,
-.reducedMotion .dashCard,
-.reducedMotion .cursor,
-.reducedMotion .closingCursor,
-.reducedMotion .dashStatusDot,
-.reducedMotion .cmdScene {
-  transition-duration: 0s !important;
+.reducedMotion .seriesLabel,
+.reducedMotion .heroTitle,
+.reducedMotion .heroSubtitle,
+.reducedMotion .chapterLabel,
+.reducedMotion .statementBlock,
+.reducedMotion .quoteLineVisible,
+.reducedMotion .attributionBlock,
+.reducedMotion .closingText,
+.reducedMotion .spotlightPool {
   animation-duration: 0s !important;
+  transition-duration: 0s !important;
 }
 
-.reducedMotion .enterAnim,
-.reducedMotion .exitAnim {
-  clip-path: inset(0% 0 0% 0) !important;
-  filter: none !important;
-}
-
-.reducedMotion .cursor,
-.reducedMotion .closingCursor {
-  opacity: 1 !important;
+.reducedMotion .spotlightPool {
   animation: none !important;
+  opacity: 1 !important;
+}
+
+.reducedMotion .quietNavDot {
+  transition-duration: 0s !important;
 }
 
 /* ── Thumbnail ─────────────────────────────────────────────────────────── */
 
-.thumbnail .scanlines {
+.thumbnail .quietNav {
   display: none;
 }
 
-.thumbnail .vignette {
-  display: none;
+.thumbnail .spotlightPool {
+  opacity: 0.5;
+  animation: none;
 }
 
-.thumbnail .cmdNav {
-  display: none;
+.thumbnail .heroTitle {
+  font-size: 12cqw;
 }
 
-.thumbnail .termChrome {
-  display: none;
+.thumbnail .seriesLabel {
+  font-size: 1.8cqw;
+  margin-bottom: 2cqh;
 }
