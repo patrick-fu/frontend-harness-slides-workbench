@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./16-case-study.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -13,7 +13,7 @@ function useFonts() {
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap";
+      "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap";
     document.head.appendChild(link);
   }, []);
 }
@@ -23,122 +23,122 @@ function useFonts() {
 const SCENES = {
   1: {
     en: {
-      industry: "E-commerce / Retail",
-      customer: "Globex Corporation",
-      logo: "G",
-      eyebrow: "Case Study",
-      title: "How Globex",
-      titleAccent: "tripled",
-      title2: "conversion in 90 days",
-      sub: "A deep dive into the challenges, solutions, and measurable outcomes of our partnership with one of the fastest-growing retailers in APAC.",
+      industry: "SYS-0x4F2A",
+      customer: "frontend-harness",
+      logo: ">_",
+      eyebrow: "Diagnostic Report",
+      title: "Debug Reaction",
+      titleAccent: "Board",
+      title2: "Status Overview",
+      sub: "Real-time diagnostic dashboard tracking system health, open incidents, and remediation progress. Every signal color-coded for instant triage.",
     },
     zh: {
-      industry: "电商 / 零售",
-      customer: "Globex 公司",
-      logo: "G",
-      eyebrow: "案例研究",
-      title: "Globex 如何在",
-      titleAccent: "90 天内",
-      title2: "转化率翻三倍",
-      sub: "深入探讨我们与亚太地区增长最快零售商之一合作中面临的挑战、解决方案和可衡量成果。",
+      industry: "系统 SYS-0x4F2A",
+      customer: "frontend-harness",
+      logo: ">_",
+      eyebrow: "诊断报告",
+      title: "调试反应",
+      titleAccent: "面板",
+      title2: "状态总览",
+      sub: "实时诊断仪表板，追踪系统健康度、未解决事件和修复进度。每个信号按颜色编码，可即时分类处理。",
     },
   },
   2: {
     en: {
-      label: "The Challenge",
-      title: "The Problem",
-      quote: "Our checkout was losing us millions. Every extra second cost us customers, and we couldn't figure out why.",
-      authorName: "Sarah Chen",
-      authorRole: "VP of Engineering, Globex",
-      authorInitials: "SC",
+      label: "Active Signals",
+      title: "Diagnostic Items",
+      quote: "[WARN] cpu_spike detected on render-worker-3 — sustained 94% for 120s, threshold 75%. Investigating root cause.",
+      authorName: "system.log",
+      authorRole: "diagnostic daemon v2.4.1",
+      authorInitials: "$_",
       points: [
-        { icon: "⚠️", title: "Slow Checkout", desc: "Average 8.2s load time on mobile, 43% abandonment rate" },
-        { icon: "🔍", title: "Poor Discoverability", desc: "Users couldn't find products — search returned irrelevant results" },
-        { icon: "📱", title: "Fragmented Experience", desc: "Desktop and mobile felt like completely different products" },
+        { status: "critical", title: "Render Worker Crash", desc: "worker-3 OOM at 94% CPU, 120s sustained — auto-restart triggered" },
+        { status: "warning", title: "Bundle Size Regressions", desc: "main.js +18% above baseline, tree-shaking audit pending" },
+        { status: "info", title: "Accessibility Score", desc: "Lighthouse a11y: 92/100, 3 contrast issues flagged" },
       ],
     },
     zh: {
-      label: "挑战",
-      title: "问题所在",
-      quote: "我们的结账流程让我们损失了数百万。每多一秒都在流失客户，而我们找不到原因。",
-      authorName: "陈莎拉",
-      authorRole: "Globex 工程副总裁",
-      authorInitials: "SC",
+      label: "活跃信号",
+      title: "诊断项",
+      quote: "[警告] render-worker-3 检测到 CPU 飙升——持续 94% 达 120 秒，阈值 75%。正在调查根本原因。",
+      authorName: "system.log",
+      authorRole: "诊断守护进程 v2.4.1",
+      authorInitials: "$_",
       points: [
-        { icon: "⚠️", title: "结账缓慢", desc: "移动端平均加载 8.2 秒，放弃率 43%" },
-        { icon: "🔍", title: "可发现性差", desc: "用户找不到产品——搜索返回不相关结果" },
-        { icon: "📱", title: "体验碎片化", desc: "桌面端和移动端感觉像完全不同的产品" },
+        { status: "critical", title: "渲染进程崩溃", desc: "worker-3 内存溢出 94% CPU，持续 120 秒——已触发自动重启" },
+        { status: "warning", title: "包体积回归", desc: "main.js 超出基线 +18%，tree-shaking 审计待处理" },
+        { status: "info", title: "无障碍评分", desc: "Lighthouse 无障碍: 92/100，标记 3 个对比度问题" },
       ],
     },
   },
   3: {
     en: {
-      label: "Our Approach",
-      title: "The Solution",
+      label: "Remediation",
+      title: "Before / After",
       before: [
-        { icon: "✕", text: "Monolithic checkout flow" },
-        { icon: "✕", text: "Keyword-only search" },
-        { icon: "✕", text: "Separate codebases per platform" },
-        { icon: "✕", text: "No personalization" },
+        { icon: "✕", text: "Uncaught promise rejections" },
+        { icon: "✕", text: "Memory leak in list virtualization" },
+        { icon: "✕", text: "Race condition on theme toggle" },
+        { icon: "✕", text: "Missing error boundaries" },
       ],
       after: [
-        { icon: "✓", text: "Headless commerce with edge rendering" },
-        { icon: "✓", text: "Semantic search with AI embeddings" },
-        { icon: "✓", text: "Unified design system, responsive" },
-        { icon: "✓", text: "Real-time personalization engine" },
+        { icon: "✓", text: "Global unhandled rejection handler" },
+        { icon: "✓", text: "IntersectionObserver unmount fix" },
+        { icon: "✓", text: "Atomic CSS-in-JS theme swap" },
+        { icon: "✓", text: "Route-level error fallback UI" },
       ],
     },
     zh: {
-      label: "我们的方案",
-      title: "解决方案",
+      label: "修复方案",
+      title: "之前 / 之后",
       before: [
-        { icon: "✕", text: "单体式结账流程" },
-        { icon: "✕", text: "仅关键词搜索" },
-        { icon: "✕", text: "每个平台独立代码库" },
-        { icon: "✕", text: "无个性化" },
+        { icon: "✕", text: "未捕获的 Promise 拒绝" },
+        { icon: "✕", text: "列表虚拟化内存泄漏" },
+        { icon: "✕", text: "主题切换竞态条件" },
+        { icon: "✕", text: "缺少错误边界" },
       ],
       after: [
-        { icon: "✓", text: "边缘渲染的无头商务" },
-        { icon: "✓", text: "AI 嵌入语义搜索" },
-        { icon: "✓", text: "统一设计系统，响应式" },
-        { icon: "✓", text: "实时个性化引擎" },
+        { icon: "✓", text: "全局未处理拒绝处理器" },
+        { icon: "✓", text: "IntersectionObserver 卸载修复" },
+        { icon: "✓", text: "原子化 CSS-in-JS 主题切换" },
+        { icon: "✓", text: "路由级错误回退界面" },
       ],
     },
   },
   4: {
     en: {
-      label: "Measurable Impact",
-      title: "The Results",
+      label: "Resolution Summary",
+      title: "System Health",
       metrics: [
-        { value: "312", unit: "%", label: "Conversion Lift", desc: "from 1.8% to 7.4%" },
-        { value: "68", unit: "%", label: "Faster Checkout", desc: "8.2s → 2.6s average" },
-        { value: "2.4", unit: "M", label: "Revenue Added", desc: "in first 90 days post-launch" },
+        { value: "47", unit: "", label: "Issues Resolved", desc: "this sprint, 12 critical" },
+        { value: "2.4", unit: "m", label: "Avg Response", desc: "MTTR from alert to fix" },
+        { value: "98.7", unit: "%", label: "Uptime SLA", desc: "30-day rolling window" },
       ],
-      quote: "The team didn't just deliver features — they fundamentally changed how our customers experience our brand.",
-      quoteAttr: "— Sarah Chen, VP of Engineering",
+      quote: "[INFO] All diagnostic checks passed. 0 blocking issues. System health indicator: GREEN. Next scheduled scan in 06:00:00.",
+      quoteAttr: "— diagnostic-daemon, auto-generated",
     },
     zh: {
-      label: "可衡量的影响",
-      title: "成果",
+      label: "解决摘要",
+      title: "系统健康度",
       metrics: [
-        { value: "312", unit: "%", label: "转化率提升", desc: "从 1.8% 到 7.4%" },
-        { value: "68", unit: "%", label: "结账提速", desc: "平均 8.2s → 2.6s" },
-        { value: "240", unit: "万", label: "新增收入", desc: "上线后前 90 天" },
+        { value: "47", unit: "", label: "已解决问题", desc: "本迭代，含 12 个严重项" },
+        { value: "2.4", unit: "分", label: "平均响应", desc: "从告警到修复的 MTTR" },
+        { value: "98.7", unit: "%", label: "可用性 SLA", desc: "30 天滚动窗口" },
       ],
-      quote: "团队不只是交付功能——他们从根本上改变了客户体验我们品牌的方式。",
-      quoteAttr: "——陈莎拉，工程副总裁",
+      quote: "[信息] 所有诊断检查通过。0 个阻塞问题。系统健康指标：绿色。下次计划扫描在 06:00:00。",
+      quoteAttr: "—— diagnostic-daemon，自动生成",
     },
   },
   5: {
     en: {
-      text: "Results that <em>speak</em> for themselves.",
-      sub: "Ready to write your own success story? Let's talk about what's possible.",
-      cta: "Start a Conversation",
+      text: "All systems <em>nominal</em>.",
+      sub: "Diagnostic cycle complete. Run another check anytime to verify current state.",
+      cta: "Run Diagnostic",
     },
     zh: {
-      text: "成果<em>不言自明</em>。",
-      sub: "准备好书写你自己的成功故事了吗？让我们聊聊可能性。",
-      cta: "开启对话",
+      text: "所有系统<em>正常</em>。",
+      sub: "诊断周期完成。随时运行另一次检查以验证当前状态。",
+      cta: "运行诊断",
     },
   },
 };
@@ -146,32 +146,32 @@ const SCENES = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Case Study", zh: "案例研究" };
+  const nameMap = { en: "Debug Reaction Board", zh: "调试反应面板" };
   const themeMap = {
-    en: "Customer success story — Problem → Solution → Results with before/after panels, big metric callouts, and Playfair Display quote blocks",
-    zh: "客户成功案例——问题 → 解决方案 → 成果，前后对比面板、大数字指标和 Playfair Display 引言块",
+    en: "Dark IDE diagnostic dashboard — traffic-light status vocabulary, monospaced throughout, color-coded diagnostic items with explicit state indicators",
+    zh: "深色 IDE 诊断仪表板——红绿灯状态词汇、全程等宽字体、带明确状态指示的彩色诊断项",
   };
-  const densityLabelMap = { en: "Narrative", zh: "叙事型" };
+  const densityLabelMap = { en: "Diagnostic", zh: "诊断型" };
 
   const sceneTitles = {
-    en: ["Title", "Problem", "Solution", "Results", "Closing"],
-    zh: ["标题", "问题", "解决方案", "成果", "结语"],
+    en: ["Status", "Signals", "Remediation", "Health", "Nominal"],
+    zh: ["状态", "信号", "修复", "健康度", "正常"],
   };
 
   const beatActions = {
     en: {
-      1: ["Customer logo and title appear"],
-      2: ["Quote and author appear", "Problem points 1-2 reveal", "Problem point 3 reveals"],
-      3: ["Title appears", "Before/after panels reveal"],
-      4: ["Title appears", "Metric cards animate in", "Quote fades in"],
-      5: ["Closing statement and CTA appear"],
+      1: ["System ID and diagnostic title appear"],
+      2: ["Log excerpt and daemon appear", "Critical + warning signals reveal", "Info signal reveals"],
+      3: ["Title appears", "Before/after remediation panels reveal"],
+      4: ["Title appears", "Health metric cards animate in", "System log confirmation fades in"],
+      5: ["All-systems-nominal statement and run-diagnostic CTA appear"],
     },
     zh: {
-      1: ["客户 Logo 和标题呈现"],
-      2: ["引言和作者呈现", "问题点 1-2 揭示", "问题点 3 揭示"],
-      3: ["标题呈现", "前后对比面板揭示"],
-      4: ["标题呈现", "指标卡片动画进入", "引言淡入"],
-      5: ["结语和 CTA 呈现"],
+      1: ["系统 ID 和诊断标题呈现"],
+      2: ["日志摘要和守护进程呈现", "严重 + 警告信号揭示", "信息信号揭示"],
+      3: ["标题呈现", "前后修复对比面板揭示"],
+      4: ["标题呈现", "健康指标卡片动画进入", "系统日志确认淡入"],
+      5: ["全部系统正常声明和运行诊断 CTA 呈现"],
     },
   };
 
@@ -200,7 +200,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       } else if (id === 3) {
         beatTitle = c.title;
         if (beatIdx >= 1) {
-          beatBody = lang === "en" ? "Before vs After comparison shown" : "展示前后对比";
+          beatBody = lang === "en" ? "Before vs After remediation shown" : "展示修复前后对比";
         }
       } else if (id === 4) {
         beatTitle = c.title;
@@ -227,10 +227,10 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 4,
-    colors: { bg: "#ffffff", ink: "#1a202c", panel: "#f7fafc" },
-    typography: { header: "Playfair Display 700", body: "Inter 400" },
-    tags: ["case-study", "customer", "results", "before-after", "metrics", "quote", "narrative", "serif", "testimonial", "success"],
-    fonts: ["Inter", "Playfair Display"],
+    colors: { bg: "#0d1117", ink: "#c9d1d9", panel: "#161b22" },
+    typography: { header: "JetBrains Mono 500", body: "JetBrains Mono 400" },
+    tags: ["debug", "diagnostic", "status-board", "risk-assessment", "self-check", "developer"],
+    fonts: ["JetBrains Mono"],
     scenes,
   };
 }
@@ -247,26 +247,46 @@ export default function CaseStudy({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
-  const [entered, setEntered] = useState(false);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
+  const [entered, setEntered] = useState(false);
 
   // Beat-level "entered" state for current scene — triggers CSS reveals
   useEffect(() => {
@@ -321,7 +341,7 @@ export default function CaseStudy({
 
     if (sceneNum === 2) {
       const c = SCENES[2][langKey];
-      const points = c.points as Array<{ icon: string; title: string; desc: string }>;
+      const points = c.points as Array<{ status: string; title: string; desc: string }>;
       return (
         <div className={styles.scene2}>
           <span className={styles.sectionLabel}>{c.label}</span>
@@ -341,13 +361,16 @@ export default function CaseStudy({
               {points.map((p, i) => {
                 const visible = beatNum >= i;
                 const cls = [styles.problemPoint, visible && isEntered ? styles.problemPointVisible : ""].filter(Boolean).join(" ");
+                const statusCls = p.status === "critical" ? styles.statusCritical : p.status === "warning" ? styles.statusWarning : styles.statusInfo;
                 return (
                   <div
                     key={i}
                     className={cls}
                     style={reducedMotion ? { opacity: visible ? 1 : 0, transform: "none" } : { transitionDelay: `${i * 0.12}s` }}
                   >
-                    <div className={styles.problemIcon}>{p.icon}</div>
+                    <div className={[styles.problemIcon, statusCls].filter(Boolean).join(" ")}>
+                      <span className={styles.statusDot} />
+                    </div>
                     <div className={styles.problemText}>
                       <span className={styles.problemPointTitle}>{p.title}</span>
                       <span className={styles.problemPointDesc}>{p.desc}</span>

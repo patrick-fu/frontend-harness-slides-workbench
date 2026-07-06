@@ -1,5 +1,5 @@
-/* ─── Style 10: Matrix Grid ──────────────────────────────────────────────
-   Competitive landscape analysis. Grid-based layouts, comparison tables.
+/* ─── Style 10: Benchmark Matrix ─────────────────────────────────────────
+   Analytical evaluation matrix. Clean comparative evidence, scannable rows.
    All sizing in cqw/cqh. No px/vw/vh.
    ──────────────────────────────────────────────────────────────────────── */
 
@@ -9,7 +9,7 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-10-bg, #ffffff);
+  background: var(--style-10-bg, #fafbfc);
   color: var(--style-10-ink, #1a1a2e);
   font-family: "Inter", system-ui, -apple-system, sans-serif;
 }
@@ -20,6 +20,14 @@
   display: flex;
   flex-direction: column;
   padding: 5cqh 7cqw;
+}
+
+/* ── Scene-to-scene transition layers ──────────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
 .animateSceneEnter {
@@ -34,6 +42,40 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Grid cell cascade exit (quick fade out) */
+.exitAnim {
+  animation: gridExit 0.4s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes gridExit {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Grid cell cascade enter (fade + scale + brightness flash) */
+.enterAnim {
+  animation: gridEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+  z-index: 2;
+}
+
+@keyframes gridEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+    filter: brightness(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
   }
 }
 
@@ -428,7 +470,9 @@
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 
-.reducedMotion .animateSceneEnter {
+.reducedMotion .animateSceneEnter,
+.reducedMotion .enterAnim,
+.reducedMotion .exitAnim {
   animation-duration: 0s !important;
 }
 

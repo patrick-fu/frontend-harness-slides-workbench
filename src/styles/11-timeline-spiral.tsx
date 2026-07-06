@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useCallback, useState, useRef } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./11-timeline-spiral.module.css";
 
@@ -17,7 +17,7 @@ function useFonts() {
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap";
+      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap";
     document.head.appendChild(link);
   }, []);
 }
@@ -27,108 +27,108 @@ function useFonts() {
 const SCENES = {
   1: {
     en: {
-      brand: "Acme Corp",
-      title: "A Decade of",
-      titleAccent: "Innovation",
-      subtitle: "From a three-person startup to a global platform serving millions",
+      brand: "Data Platform",
+      title: "Signal",
+      titleAccent: "Pipeline",
+      subtitle: "Trace exactly how raw events become clean, actionable insight — from ingestion to activation",
       years: [
-        { num: "2016", lbl: "Founded" },
-        { num: "50M+", lbl: "Users Worldwide" },
-        { num: "12", lbl: "Global Offices" },
+        { num: "6", lbl: "Pipeline Stages" },
+        { num: "12M+", lbl: "Events / Day" },
+        { num: "99.7%", lbl: "Delivery Rate" },
       ],
     },
     zh: {
-      brand: "Acme 公司",
-      title: "十年",
-      titleAccent: "创新之路",
-      subtitle: "从三人创业团队到服务数百万用户的全球平台",
+      brand: "数据平台",
+      title: "信号",
+      titleAccent: "管道",
+      subtitle: "精确追踪原始事件如何从摄取到激活，变成干净、可操作的洞察",
       years: [
-        { num: "2016", lbl: "成立" },
-        { num: "5000万+", lbl: "全球用户" },
-        { num: "12", lbl: "全球办公室" },
+        { num: "6", lbl: "管道阶段" },
+        { num: "1200万+", lbl: "事件 / 天" },
+        { num: "99.7%", lbl: "交付率" },
       ],
     },
   },
   2: {
     en: {
-      label: "Our Journey",
-      title: "Key milestones along the way",
+      label: "Pipeline Stages",
+      title: "From raw to ready",
       nodes: [
-        { year: "2016", event: "Company Founded", desc: "Three co-founders in a garage" },
-        { year: "2018", event: "Series A", desc: "$12M raised from Sequoia" },
-        { year: "2020", event: "Global Expansion", desc: "Launched in 15 countries" },
-        { year: "2023", event: "Platform v3", desc: "Complete architecture rebuild" },
-        { year: "2026", event: "Industry Leader", desc: "#1 in market share" },
+        { year: "01", event: "Ingestion", desc: "Raw events from all sources" },
+        { year: "02", event: "Validation", desc: "Schema checks and dedup" },
+        { year: "03", event: "Enrichment", desc: "User context and metadata" },
+        { year: "04", event: "Transformation", desc: "Normalize and aggregate" },
+        { year: "05", event: "Activation", desc: "Push to downstream tools" },
       ],
     },
     zh: {
-      label: "我们的旅程",
-      title: "关键里程碑",
+      label: "管道阶段",
+      title: "从原始到就绪",
       nodes: [
-        { year: "2016", event: "公司成立", desc: "三位联合创始人在车库创业" },
-        { year: "2018", event: "A 轮融资", desc: "红杉资本领投 1200 万美元" },
-        { year: "2020", event: "全球扩张", desc: "进入 15 个国家市场" },
-        { year: "2023", event: "平台 v3", desc: "全面架构重构" },
-        { year: "2026", event: "行业领先", desc: "市场份额第一" },
+        { year: "01", event: "摄取", desc: "来自所有来源的原始事件" },
+        { year: "02", event: "验证", desc: "模式检查和去重" },
+        { year: "03", event: "丰富", desc: "用户上下文和元数据" },
+        { year: "04", event: "转换", desc: "规范化和聚合" },
+        { year: "05", event: "激活", desc: "推送到下游工具" },
       ],
     },
   },
   3: {
     en: {
-      label: "Pivotal Moment",
-      title: "2020: Global Expansion",
-      eventTitle: "Breaking through international markets",
-      desc: "We localized our platform for 12 languages, established regional hubs, and tripled our user base in 18 months. This was the inflection point that defined our trajectory.",
+      label: "Stage Detail",
+      title: "Transformation Engine",
+      eventTitle: "Where raw data becomes structured signal",
+      desc: "Our transformation engine applies 47 normalization rules, resolves identity across sessions, and aggregates events into user-level timelines — all under 200ms per event.",
       stats: [
-        { val: "3x", lbl: "User Growth" },
-        { val: "15", lbl: "New Markets" },
-        { val: "12", lbl: "Languages" },
+        { val: "47", lbl: "Rules Applied" },
+        { val: "200ms", lbl: "Avg. Latency" },
+        { val: "100%", lbl: "Idempotent" },
       ],
     },
     zh: {
-      label: "关键时刻",
-      title: "2020：全球扩张",
-      eventTitle: "突破国际市场",
-      desc: "我们将平台本地化为 12 种语言，建立区域中心，在 18 个月内将用户群扩大了两倍。这是定义我们发展轨迹的转折点。",
+      label: "阶段详情",
+      title: "转换引擎",
+      eventTitle: "原始数据变为结构化信号之处",
+      desc: "我们的转换引擎应用 47 条规范化规则，跨会话解析身份，并将事件聚合为用户级时间线——每个事件均在 200 毫秒内完成。",
       stats: [
-        { val: "3倍", lbl: "用户增长" },
-        { val: "15", lbl: "新市场" },
-        { val: "12", lbl: "语言版本" },
+        { val: "47", lbl: "规则数" },
+        { val: "200ms", lbl: "平均延迟" },
+        { val: "100%", lbl: "幂等性" },
       ],
     },
   },
   4: {
     en: {
-      label: "By the Numbers",
-      title: "A decade of growth",
+      label: "Pipeline Health",
+      title: "System status at a glance",
       metrics: [
-        { value: "50M+", unit: "users", desc: "Active across 80+ countries" },
-        { value: "$1.2B", unit: "revenue", desc: "Annual recurring revenue (ARR)" },
-        { value: "4,200", unit: "employees", desc: "Team members worldwide" },
-        { value: "99.99%", unit: "uptime", desc: "Platform reliability SLA" },
+        { value: "99.7", unit: "%", desc: "Event delivery success rate" },
+        { value: "180", unit: "ms", desc: "P95 end-to-end latency" },
+        { value: "12.4", unit: "M", desc: "Events processed daily" },
+        { value: "0", unit: "hrs", desc: "Data loss this quarter" },
       ],
     },
     zh: {
-      label: "数据说话",
-      title: "十年增长",
+      label: "管道健康",
+      title: "系统状态一览",
       metrics: [
-        { value: "5000万+", unit: "用户", desc: "覆盖 80+ 个国家和地区" },
-        { value: "12亿$", unit: "营收", desc: "年度经常性收入 (ARR)" },
-        { value: "4,200", unit: "员工", desc: "遍布全球的团队成员" },
-        { value: "99.99%", unit: "可用性", desc: "平台可靠性 SLA" },
+        { value: "99.7", unit: "%", desc: "事件交付成功率" },
+        { value: "180", unit: "ms", desc: "P95 端到端延迟" },
+        { value: "1240", unit: "万", desc: "每日处理事件数" },
+        { value: "0", unit: "小时", desc: "本季度数据丢失" },
       ],
     },
   },
   5: {
     en: {
-      quote: "The best way to <em>predict the future</em> is to build it.",
-      author: "— Jane Chen, CEO & Co-Founder",
-      vision: "Looking ahead to the next decade of building, learning, and growing together.",
+      quote: "A pipeline is only as good as its <em>weakest stage</em>.",
+      author: "— Platform Engineering Team",
+      vision: "Every signal traced, every stage observable, every output trusted.",
     },
     zh: {
-      quote: "<em>预测未来</em>最好的方式就是去创造它。",
-      author: "—— 陈珍，CEO 兼联合创始人",
-      vision: "展望下一个十年，共同建设、学习和成长。",
+      quote: "管道的好坏取决于它<em>最薄弱的阶段</em>。",
+      author: "——平台工程团队",
+      vision: "每个信号都可追踪，每个阶段都可观测，每个输出都可信。",
     },
   },
 };
@@ -136,16 +136,16 @@ const SCENES = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Timeline Spiral", zh: "时间线螺旋" };
+  const nameMap = { en: "Signal Pipeline Flow", zh: "信号管道流" };
   const themeMap = {
-    en: "Company Evolution History — horizontal timeline with milestone markers, connecting lines, and progress visualization",
-    zh: "公司发展历程——水平时间线，里程碑标记、连接线和进度可视化",
+    en: "Dark Technical Pipeline Map — precise system diagram with near-black slate ground, luminous signal colors, and routed node-to-connector flow. Best for architecture, data flow, and process mapping where showing the routing is the explanation.",
+    zh: "深色技术管道图——近黑色板岩底色上的精确系统图，发光信号色彩，路由节点到连接器的流动。最适合架构、数据流和流程映射，展示路由即解释。",
   };
-  const densityLabelMap = { en: "Medium", zh: "中等" };
+  const densityLabelMap = { en: "Technical", zh: "技术型" };
 
   const sceneTitles = {
-    en: ["Title", "Milestone Timeline", "Pivotal Moment", "By the Numbers", "Vision"],
-    zh: ["标题", "里程碑时间线", "关键时刻", "数据说话", "愿景"],
+    en: ["Title", "Pipeline Stages", "Stage Detail", "Health Metrics", "Vision"],
+    zh: ["标题", "管道阶段", "阶段详情", "健康指标", "愿景"],
   };
 
   const beatActions = {
@@ -212,10 +212,10 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 2,
-    colors: { bg: "#fafbfc", ink: "#24292e", panel: "#ffffff" },
-    typography: { header: "Inter 700", body: "Inter 400" },
-    tags: ["timeline", "history", "milestone", "evolution", "journey", "progress", "chronological", "company", "growth"],
-    fonts: ["Inter"],
+    colors: { bg: "#0d1117", ink: "#e6edf3", panel: "#161b22" },
+    typography: { header: "JetBrains Mono 500", body: "Inter 400" },
+    tags: ["pipeline", "signal-flow", "technical", "dark", "system-diagram", "nodes", "routing", "instrument-panel", "glow"],
+    fonts: ["Inter", "JetBrains Mono"],
     scenes,
   };
 }
@@ -227,25 +227,45 @@ export default function TimelineSpiral({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {

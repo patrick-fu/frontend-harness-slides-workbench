@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./15-roadmap.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -23,147 +23,147 @@ function useFonts() {
 const SCENES = {
   1: {
     en: {
-      label: "Product Roadmap",
-      title: "The Year",
-      titleAccent: "Ahead",
-      sub: "A 12-month journey from vision to shipped value across four focused quarters",
+      label: "Studio Console",
+      title: "Mixing",
+      titleAccent: "Parameters",
+      sub: "Every channel tuned, every fader set — balancing inputs for the perfect output",
       meta: [
-        { val: "12", lbl: "Months" },
-        { val: "4", lbl: "Quarters" },
-        { val: "24", lbl: "Milestones" },
+        { val: "12", lbl: "Channels" },
+        { val: "4", lbl: "Busses" },
+        { val: "0dB", lbl: "Headroom" },
       ],
     },
     zh: {
-      label: "产品路线图",
-      title: "未来",
-      titleAccent: "一年",
-      sub: "12 个月的旅程，从愿景到交付价值，跨越四个聚焦季度",
+      label: "录音控制台",
+      title: "参数",
+      titleAccent: "混音",
+      sub: "每个通道都调好，每个推子都到位——平衡输入以获得完美输出",
       meta: [
-        { val: "12", lbl: "个月" },
-        { val: "4", lbl: "季度" },
-        { val: "24", lbl: "里程碑" },
+        { val: "12", lbl: "通道" },
+        { val: "4", lbl: "总线" },
+        { val: "0dB", lbl: "余量" },
       ],
     },
   },
   2: {
     en: {
-      label: "Timeline",
-      title: "Gantt Overview",
-      months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      label: "Channel Strips",
+      title: "Fader Levels",
+      months: ["Ch 1", "Ch 2", "Ch 3", "Ch 4", "Ch 5", "Ch 6", "Ch 7", "Ch 8", "Ch 9", "Ch 10", "Ch 11", "Ch 12"],
       currentMonth: 3,
       tasks: [
-        { name: "Platform Foundation", start: 0, width: 25, phase: "Q1", label: "Q1" },
-        { name: "Core Features", start: 15, width: 30, phase: "Q2", label: "Q2" },
-        { name: "Integration Layer", start: 35, width: 25, phase: "Q2", label: "Q2" },
-        { name: "Scale & Perf", start: 55, width: 25, phase: "Q3", label: "Q3" },
-        { name: "AI Capabilities", start: 65, width: 20, phase: "Q3", label: "Q3" },
-        { name: "Launch Prep", start: 80, width: 20, phase: "Q4", label: "Q4" },
+        { name: "Input Gain", start: 0, width: 25, phase: "Q1", label: "+6dB" },
+        { name: "EQ Low", start: 15, width: 30, phase: "Q2", label: "-3dB" },
+        { name: "EQ Mid", start: 35, width: 25, phase: "Q2", label: "+2dB" },
+        { name: "Compression", start: 55, width: 25, phase: "Q3", label: "4:1" },
+        { name: "Reverb Send", start: 65, width: 20, phase: "Q3", label: "15%" },
+        { name: "Master Out", start: 80, width: 20, phase: "Q4", label: "0dB" },
       ],
     },
     zh: {
-      label: "时间线",
-      title: "甘特总览",
-      months: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+      label: "通道条",
+      title: "推子电平",
+      months: ["通道1", "通道2", "通道3", "通道4", "通道5", "通道6", "通道7", "通道8", "通道9", "通道10", "通道11", "通道12"],
       currentMonth: 3,
       tasks: [
-        { name: "平台基础", start: 0, width: 25, phase: "Q1", label: "Q1" },
-        { name: "核心功能", start: 15, width: 30, phase: "Q2", label: "Q2" },
-        { name: "集成层", start: 35, width: 25, phase: "Q2", label: "Q2" },
-        { name: "扩展与性能", start: 55, width: 25, phase: "Q3", label: "Q3" },
-        { name: "AI 能力", start: 65, width: 20, phase: "Q3", label: "Q3" },
-        { name: "发布准备", start: 80, width: 20, phase: "Q4", label: "Q4" },
+        { name: "输入增益", start: 0, width: 25, phase: "Q1", label: "+6dB" },
+        { name: "低频 EQ", start: 15, width: 30, phase: "Q2", label: "-3dB" },
+        { name: "中频 EQ", start: 35, width: 25, phase: "Q2", label: "+2dB" },
+        { name: "压缩", start: 55, width: 25, phase: "Q3", label: "4:1" },
+        { name: "混响发送", start: 65, width: 20, phase: "Q3", label: "15%" },
+        { name: "主输出", start: 80, width: 20, phase: "Q4", label: "0dB" },
       ],
     },
   },
   3: {
     en: {
-      label: "Phase Detail",
-      title: "Quarter Breakdown",
+      label: "Channel Detail",
+      title: "Parameter Tweaks",
       phases: [
         {
-          q: "Q1",
-          name: "Foundation",
-          period: "January — March",
+          q: "CH 01",
+          name: "Input Stage",
+          period: "Gain & Trim",
           items: [
-            { icon: "🏗️", title: "Architecture Setup", desc: "Microservices, CI/CD pipelines, infra-as-code" },
-            { icon: "🔐", title: "Auth & Security", desc: "OAuth2, RBAC, audit logging, data encryption" },
-            { icon: "📊", title: "Observability", desc: "Metrics, tracing, alerting, dashboards" },
+            { icon: "🎚️", title: "Preamp Gain", desc: "+6dB pad engaged, phantom power on" },
+            { icon: "🔗", title: "Input Routing", desc: "Direct in from stage box, no insert" },
+            { icon: "📊", title: "Metering", desc: "Peak hold, VU mode, -18dBFS ref" },
           ],
         },
         {
-          q: "Q2",
-          name: "Core Build",
-          period: "April — June",
+          q: "CH 02",
+          name: "EQ Section",
+          period: "4-Band Parametric",
           items: [
-            { icon: "⚡", title: "API Gateway", desc: "Rate limiting, caching, request routing" },
-            { icon: "💾", title: "Data Layer", desc: "PostgreSQL, Redis, event streaming" },
-            { icon: "🎨", title: "Design System", desc: "Component library, tokens, documentation" },
+            { icon: "⚡", title: "High Shelf", desc: "8kHz, +2dB, gentle Q" },
+            { icon: "💾", title: "Mid Parametric", desc: "2.5kHz, -1dB, Q=1.4" },
+            { icon: "🎨", title: "Low Cut", desc: "80Hz, 12dB/octave slope" },
           ],
         },
         {
-          q: "Q3",
-          name: "Scale & Intelligence",
-          period: "July — September",
+          q: "CH 03",
+          name: "Dynamics",
+          period: "Compressor & Gate",
           items: [
-            { icon: "🚀", title: "Performance", desc: "Query optimization, CDN, lazy loading" },
-            { icon: "🤖", title: "ML Pipeline", desc: "Model training, inference endpoints, A/B testing" },
-            { icon: "📈", title: "Analytics", desc: "Funnel analysis, cohort tracking, retention" },
+            { icon: "🚀", title: "Compressor", desc: "4:1 ratio, -20dB threshold, fast attack" },
+            { icon: "🤖", title: "Noise Gate", desc: "-40dB threshold, 50ms release" },
+            { icon: "📈", title: "Limiter", desc: "Brickwall at -0.3dBFS" },
           ],
         },
         {
-          q: "Q4",
-          name: "Launch",
-          period: "October — December",
+          q: "CH 04",
+          name: "Output Bus",
+          period: "Master & Sends",
           items: [
-            { icon: "🎯", title: "Beta Program", desc: "Closed beta, feedback loops, bug fixes" },
-            { icon: "📣", title: "Go-to-Market", desc: "Landing page, docs, tutorials, press kit" },
-            { icon: "🏁", title: "GA Release", desc: "Full launch, monitoring, on-call rotation" },
+            { icon: "🎯", title: "Main Out", desc: "Stereo bus, -0.5dB peak, 0dB average" },
+            { icon: "📣", title: "Aux Sends", desc: "Reverb 15%, Delay 8%, Headphone mix" },
+            { icon: "🏁", title: "Meter Bridge", desc: "All channels green, no clipping" },
           ],
         },
       ],
     },
     zh: {
-      label: "阶段详情",
-      title: "季度分解",
+      label: "通道详情",
+      title: "参数微调",
       phases: [
         {
-          q: "Q1",
-          name: "基础建设",
-          period: "1月 — 3月",
+          q: "通道 01",
+          name: "输入级",
+          period: "增益与微调",
           items: [
-            { icon: "🏗️", title: "架构搭建", desc: "微服务、CI/CD 流水线、基础设施即代码" },
-            { icon: "🔐", title: "认证与安全", desc: "OAuth2、RBAC、审计日志、数据加密" },
-            { icon: "📊", title: "可观测性", desc: "指标、链路追踪、告警、仪表盘" },
+            { icon: "🎚️", title: "前置放大增益", desc: "+6dB 衰减启用，幻象电源开启" },
+            { icon: "🔗", title: "输入路由", desc: "舞台盒直入，无插入" },
+            { icon: "📊", title: "计量", desc: "峰值保持，VU 模式，-18dBFS 参考" },
           ],
         },
         {
-          q: "Q2",
-          name: "核心构建",
-          period: "4月 — 6月",
+          q: "通道 02",
+          name: "EQ 段",
+          period: "4 段参数均衡",
           items: [
-            { icon: "⚡", title: "API 网关", desc: "限流、缓存、请求路由" },
-            { icon: "💾", title: "数据层", desc: "PostgreSQL、Redis、事件流" },
-            { icon: "🎨", title: "设计系统", desc: "组件库、设计令牌、文档" },
+            { icon: "⚡", title: "高频搁架", desc: "8kHz，+2dB，柔和 Q 值" },
+            { icon: "💾", title: "中频参数", desc: "2.5kHz，-1dB，Q=1.4" },
+            { icon: "🎨", title: "低切", desc: "80Hz，12dB/倍频程斜率" },
           ],
         },
         {
-          q: "Q3",
-          name: "扩展与智能",
-          period: "7月 — 9月",
+          q: "通道 03",
+          name: "动态",
+          period: "压缩与门限",
           items: [
-            { icon: "🚀", title: "性能优化", desc: "查询优化、CDN、懒加载" },
-            { icon: "🤖", title: "ML 流水线", desc: "模型训练、推理端点、A/B 测试" },
-            { icon: "📈", title: "数据分析", desc: "漏斗分析、队列追踪、留存" },
+            { icon: "🚀", title: "压缩器", desc: "4:1 比率，-20dB 阈值，快速启动" },
+            { icon: "🤖", title: "噪声门", desc: "-40dB 阈值，50ms 释放" },
+            { icon: "📈", title: "限制器", desc: "砖墙限制在 -0.3dBFS" },
           ],
         },
         {
-          q: "Q4",
-          name: "发布",
-          period: "10月 — 12月",
+          q: "通道 04",
+          name: "输出总线",
+          period: "主输出与发送",
           items: [
-            { icon: "🎯", title: "Beta 计划", desc: "封闭测试、反馈循环、Bug 修复" },
-            { icon: "📣", title: "市场推广", desc: "落地页、文档、教程、新闻资料" },
-            { icon: "🏁", title: "正式发布", desc: "全面上线、监控、值班轮换" },
+            { icon: "🎯", title: "主输出", desc: "立体声总线，-0.5dB 峰值，0dB 平均" },
+            { icon: "📣", title: "辅助发送", desc: "混响 15%，延迟 8%，耳机混音" },
+            { icon: "🏁", title: "电平表桥", desc: "所有通道绿色，无削波" },
           ],
         },
       ],
@@ -171,61 +171,61 @@ const SCENES = {
   },
   4: {
     en: {
-      label: "Dependencies",
-      title: "Critical Path",
+      label: "Signal Flow",
+      title: "Routing Path",
       chains: [
         { nodes: [
-          { key: "Q1", name: "Platform Ready" },
-          { key: "Q2", name: "API Gateway" },
-          { key: "Q2", name: "Data Layer" },
-          { key: "Q3", name: "ML Pipeline" },
+          { key: "IN", name: "Stage Input" },
+          { key: "PRE", name: "Preamp" },
+          { key: "EQ", name: "Equalizer" },
+          { key: "DYN", name: "Dynamics" },
         ]},
         { nodes: [
-          { key: "Q2", name: "Design System" },
-          { key: "Q3", name: "UI Components" },
-          { key: "Q4", name: "Beta Program" },
-          { key: "Q4", name: "GA Launch" },
+          { key: "BUS", name: "Aux Bus" },
+          { key: "FX", name: "Effects Send" },
+          { key: "RET", name: "Return" },
+          { key: "OUT", name: "Master Output" },
         ]},
       ],
     },
     zh: {
-      label: "依赖关系",
-      title: "关键路径",
+      label: "信号流",
+      title: "路由路径",
       chains: [
         { nodes: [
-          { key: "Q1", name: "平台就绪" },
-          { key: "Q2", name: "API 网关" },
-          { key: "Q2", name: "数据层" },
-          { key: "Q3", name: "ML 流水线" },
+          { key: "IN", name: "舞台输入" },
+          { key: "PRE", name: "前置放大" },
+          { key: "EQ", name: "均衡器" },
+          { key: "DYN", name: "动态处理" },
         ]},
         { nodes: [
-          { key: "Q2", name: "设计系统" },
-          { key: "Q3", name: "UI 组件" },
-          { key: "Q4", name: "Beta 计划" },
-          { key: "Q4", name: "正式发布" },
+          { key: "BUS", name: "辅助总线" },
+          { key: "FX", name: "效果发送" },
+          { key: "RET", name: "返回" },
+          { key: "OUT", name: "主输出" },
         ]},
       ],
     },
   },
   5: {
     en: {
-      text: "Ship value, <em>quarter by quarter</em>.",
-      sub: "Every milestone builds on the last. Steady progress compounds into breakthrough results.",
+      text: "A great mix is <em>every channel in balance</em>.",
+      sub: "When each fader is set with intention, the whole sounds greater than the sum of its parts.",
       progress: [
-        { val: "Q1", lbl: "Foundation" },
-        { val: "Q2", lbl: "Core Build" },
-        { val: "Q3", lbl: "Intelligence" },
-        { val: "Q4", lbl: "Launch" },
+        { val: "GRN", lbl: "Healthy" },
+        { val: "YEL", lbl: "Watch" },
+        { val: "RED", lbl: "Clipping" },
+        { val: "MTR", lbl: "Metered" },
       ],
     },
     zh: {
-      text: "<em>逐季</em>交付价值。",
-      sub: "每个里程碑都在前一个基础上构建。稳步前进，终获突破。",
+      text: "好的混音是<em>每个通道都平衡</em>。",
+      sub: "当每个推子都用心调好，整体效果胜过各部分之和。",
       progress: [
-        { val: "Q1", lbl: "基础建设" },
-        { val: "Q2", lbl: "核心构建" },
-        { val: "Q3", lbl: "智能化" },
-        { val: "Q4", lbl: "发布" },
+        { val: "GRN", lbl: "健康" },
+        { val: "YEL", lbl: "注意" },
+        { val: "RED", lbl: "削波" },
+        { val: "MTR", lbl: "已计量" },
       ],
     },
   },
@@ -246,10 +246,10 @@ function phaseBarClass(phase: string) {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Roadmap", zh: "路线图" };
+  const nameMap = { en: "Studio Mixing Console", zh: "录音混音控制台" };
   const themeMap = {
-    en: "12-month product roadmap — Gantt-style timeline with Q1-Q4 color-coded phases, dependency chains, and progress tracking on dark navy",
-    zh: "12 个月产品路线图——甘特式时间线，Q1-Q4 彩色阶段、依赖链和进度追踪，深海军蓝背景",
+    en: "Deep studio-dark background with metallic hardware-feel panels. Vivid meter colors (green/yellow/red) appear only on fader indicators — never as floods. Compact technical/monospace labels give pro-audio gear feel. Best for parameter tuning, balancing multiple inputs, and showing levels.",
+    zh: "深色录音棚背景配金属质感硬件面板。鲜明的电平颜色（绿/黄/红）仅出现在推子指示器上——从不泛滥。紧凑的技术/等宽标签营造专业音频设备感。最适合参数调优、平衡多路输入和显示电平。",
   };
   const densityLabelMap = { en: "Technical", zh: "技术型" };
 
@@ -325,9 +325,9 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 4,
-    colors: { bg: "#1a2332", ink: "#e2e8f0", panel: "#2d3748" },
-    typography: { header: "Inter 800", body: "Inter 400" },
-    tags: ["roadmap", "gantt", "timeline", "phases", "dark", "technical", "planning", "quarters", "dependencies", "product"],
+    colors: { bg: "#121212", ink: "#e8e8e8", panel: "#1e1e1e" },
+    typography: { header: "JetBrains Mono 500", body: "Inter 400" },
+    tags: ["mixing-console", "faders", "metering", "parameter-tuning", "balancing", "studio", "dark", "hardware", "audio", "levels"],
     fonts: ["Inter", "JetBrains Mono"],
     scenes,
   };
@@ -345,26 +345,46 @@ export default function Roadmap({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
-  const [entered, setEntered] = useState(false);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
+  const [entered, setEntered] = useState(false);
 
   // Beat-level "entered" state for current scene — triggers CSS reveals
   useEffect(() => {

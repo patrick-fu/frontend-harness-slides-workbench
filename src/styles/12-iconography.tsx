@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useRef, useCallback, useState } from "react";
+import React, { useEffect, useRef, useCallback, useState } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./12-iconography.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -18,14 +18,14 @@ function useFonts() {
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap";
+      "https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap";
     document.head.appendChild(link);
   }, []);
 }
 
 // ─── SVG Icons ──────────────────────────────────────────────────────────────
 
-const ACCENT = "#4299e1";
+const ACCENT = "#b8a4d4";
 
 function IconRocket() {
   return (
@@ -132,106 +132,106 @@ function IconMobile() {
 const SCENES = {
   1: {
     en: {
-      title: "Built for",
-      titleAccent: "teams that ship",
-      subtitle: "Discover the powerful features that make your workflow effortless",
+      title: "Welcome to",
+      titleAccent: "your new workspace",
+      subtitle: "Everything you need to feel at home — friendly, simple, and built for real people",
     },
     zh: {
-      title: "为高效团队",
-      titleAccent: "而生",
-      subtitle: "探索让工作流程变得轻松的强大功能",
+      title: "欢迎来到",
+      titleAccent: "你的新工作空间",
+      subtitle: "让你感到宾至如归的一切——友好、简单，为真实的人而构建",
     },
   },
   2: {
     en: {
-      label: "Core Features",
-      title: "Everything you need",
+      label: "Getting Started",
+      title: "Simple as one, two, three",
       features: [
-        { icon: "bolt", name: "Lightning Fast", desc: "Sub-50ms response times across all operations" },
-        { icon: "shield", name: "Enterprise Secure", desc: "SOC 2 Type II certified with end-to-end encryption" },
-        { icon: "chart", name: "Smart Analytics", desc: "Real-time insights with customizable dashboards" },
-        { icon: "users", name: "Team Collaboration", desc: "Work together seamlessly with real-time co-editing" },
-        { icon: "puzzle", name: "Extensible Platform", desc: "200+ integrations and open API for custom workflows" },
-        { icon: "globe", name: "Global Scale", desc: "Deployed in 14 regions with 99.99% uptime SLA" },
+        { icon: "bolt", name: "Quick Setup", desc: "Be up and running in under five minutes" },
+        { icon: "shield", name: "Safe & Secure", desc: "Your data is always protected and private" },
+        { icon: "chart", name: "Gentle Learning", desc: "Helpful tips appear when you need them" },
+        { icon: "users", name: "Team Friendly", desc: "Invite colleagues with a single link" },
+        { icon: "puzzle", name: "Fits Your Flow", desc: "Works with tools you already love" },
+        { icon: "globe", name: "Always Available", desc: "On any device, anywhere you are" },
       ],
     },
     zh: {
-      label: "核心功能",
-      title: "你需要的一切",
+      label: "入门指南",
+      title: "就像一、二、三一样简单",
       features: [
-        { icon: "bolt", name: "极速体验", desc: "所有操作响应时间低于 50 毫秒" },
-        { icon: "shield", name: "企业级安全", desc: "SOC 2 Type II 认证，端到端加密" },
-        { icon: "chart", name: "智能分析", desc: "实时洞察，可自定义仪表盘" },
-        { icon: "users", name: "团队协作", desc: "实时协同编辑，无缝团队合作" },
-        { icon: "puzzle", name: "可扩展平台", desc: "200+ 集成和开放 API 支持自定义工作流" },
-        { icon: "globe", name: "全球部署", desc: "14 个区域部署，99.99% 可用性 SLA" },
+        { icon: "bolt", name: "快速设置", desc: "五分钟内即可开始使用" },
+        { icon: "shield", name: "安全可靠", desc: "你的数据始终受保护和保密" },
+        { icon: "chart", name: "轻松学习", desc: "在你需要时出现有用提示" },
+        { icon: "users", name: "团队友好", desc: "一个链接就能邀请同事" },
+        { icon: "puzzle", name: "适配你的流程", desc: "与你已在使用的工具配合" },
+        { icon: "globe", name: "随时可用", desc: "在任何设备上，无论你在哪里" },
       ],
     },
   },
   3: {
     en: {
       label: "Spotlight",
-      badge: "Featured",
-      name: "Smart Workflow Engine",
-      desc: "Our AI-powered workflow engine learns from your team's patterns to automate repetitive tasks and surface the right information at the right time.",
+      badge: "Loved by teams",
+      name: "Smart Daily Briefing",
+      desc: "Every morning, your dashboard greets you with what matters most — today's priorities, pending approvals, and team updates — organized gently so nothing feels overwhelming.",
       bullets: [
-        "Automated task routing based on team capacity",
-        "Smart suggestions for next-best actions",
-        "Custom rule builder with visual editor",
-        "Natural language command interface",
+        "Wake up to a calm, prioritized view",
+        "Gentle nudges, not urgent pings",
+        "Celebrate small wins together",
+        "End-of-day summary that feels good",
       ],
     },
     zh: {
       label: "焦点功能",
-      badge: "推荐",
-      name: "智能工作流引擎",
-      desc: "我们的 AI 驱动工作流引擎从团队模式中学习，自动执行重复性任务，在正确的时间呈现正确的信息。",
+      badge: "团队最爱",
+      name: "智能每日简报",
+      desc: "每天早上，你的仪表盘向你展示最重要的事情——今天的优先事项、待审批和团队更新——温和地组织好，不让任何事情感到压力。",
       bullets: [
-        "基于团队容量的自动任务分配",
-        "智能建议下一步最佳操作",
-        "可视化编辑器构建自定义规则",
-        "自然语言命令界面",
+        "醒来看到平静的优先级视图",
+        "温柔的提醒，而非紧急催促",
+        "一起庆祝小小的胜利",
+        "让人愉悦的每日总结",
       ],
     },
   },
   4: {
     en: {
-      label: "Integrations",
-      title: "Plays well with others",
+      label: "Plays Well With",
+      title: "Friends with your favorite tools",
       integrations: [
         { icon: "code", label: "GitHub" },
-        { icon: "cloud", label: "AWS" },
+        { icon: "cloud", label: "Drive" },
         { icon: "mobile", label: "Slack" },
-        { icon: "chart", label: "Jira" },
-        { icon: "users", label: "Notion" },
+        { icon: "chart", label: "Notion" },
+        { icon: "users", label: "Teams" },
         { icon: "globe", label: "Figma" },
-        { icon: "shield", label: "Okta" },
+        { icon: "shield", label: "Calendar" },
         { icon: "puzzle", label: "Zapier" },
       ],
     },
     zh: {
-      label: "集成生态",
-      title: "与你喜爱的工具无缝配合",
+      label: "好伙伴",
+      title: "和你喜爱的工具做朋友",
       integrations: [
         { icon: "code", label: "GitHub" },
-        { icon: "cloud", label: "AWS" },
+        { icon: "cloud", label: "云盘" },
         { icon: "mobile", label: "Slack" },
-        { icon: "chart", label: "Jira" },
-        { icon: "users", label: "Notion" },
+        { icon: "chart", label: "Notion" },
+        { icon: "users", label: "Teams" },
         { icon: "globe", label: "Figma" },
-        { icon: "shield", label: "Okta" },
+        { icon: "shield", label: "日历" },
         { icon: "puzzle", label: "Zapier" },
       ],
     },
   },
   5: {
     en: {
-      headline: "Start building <em>better</em>, today.",
-      cta: "Try Free for 30 Days",
+      headline: "Start your <em>happier</em> workday, today.",
+      cta: "Try It Free — No Credit Card",
     },
     zh: {
-      headline: "从今天开始，<em>更好地</em>构建。",
-      cta: "免费试用 30 天",
+      headline: "从今天开始，<em>更愉快地</em>工作。",
+      cta: "免费试用 — 无需信用卡",
     },
   },
 };
@@ -257,12 +257,12 @@ function renderIcon(type: string) {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Iconography", zh: "图标展示" };
+  const nameMap = { en: "Soft Pastel Friendly", zh: "柔和粉彩友好" };
   const themeMap = {
-    en: "Product Feature Tour — icon-driven showcase with clean icon + label + description pattern and light airy feel",
-    zh: "产品功能导览——图标驱动的展示，简洁的图标加标签加描述模式，轻盈通透的感觉",
+    en: "Warm bone-and-peach ground with low-saturation pastels, rounded pill and squircle geometry, and a rounded display voice. Best for onboarding, community, and educational content where approachability is the message.",
+    zh: "温暖的骨色和桃色底色，低饱和度粉彩，圆润的药丸和圆角矩形几何，圆润的展示字体。最适合入门、社区和教育内容，亲和力即信息。",
   };
-  const densityLabelMap = { en: "Light", zh: "轻盈" };
+  const densityLabelMap = { en: "Approachable", zh: "亲和" };
 
   const sceneTitles = {
     en: ["Title", "Feature Grid", "Spotlight Feature", "Integrations", "CTA"],
@@ -335,10 +335,10 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
-    colors: { bg: "#f0f4f8", ink: "#1a202c", panel: "#ffffff" },
-    typography: { header: "Inter 700", body: "Inter 400" },
-    tags: ["iconography", "icons", "product", "features", "showcase", "light", "airy", "clean", "tour"],
-    fonts: ["Inter"],
+    colors: { bg: "#fef7f0", ink: "#4a3f35", panel: "#fff5eb" },
+    typography: { header: "Nunito 700", body: "Nunito 400" },
+    tags: ["pastel", "friendly", "warm", "approachable", "rounded", "soft", "onboarding", "community", "educational"],
+    fonts: ["Nunito"],
     scenes,
   };
 }
@@ -351,25 +351,45 @@ export default function Iconography({
   useFonts();
   const trackRef = useRef<HTMLDivElement>(null);
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // FLIP for icon grids where new icons push the layout
   const { ref: featureGridRef } = useFLIP<HTMLDivElement>({

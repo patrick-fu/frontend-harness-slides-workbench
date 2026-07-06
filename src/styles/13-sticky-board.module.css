@@ -1,5 +1,6 @@
-/* ─── Style 13: Sticky Board ─────────────────────────────────────────────
-   Design thinking workshop. Sticky note aesthetic on cork board background.
+/* ─── Style 13: Kitchen Prep Station ─────────────────────────────────────
+   Warm orange-tinted cream counter. Earthy kitchen accents — terracotta,
+   wood browns, herb greens. Hands-on prep station feel.
    All sizing in cqw/cqh. No px/vw/vh.
    ──────────────────────────────────────────────────────────────────────── */
 
@@ -9,23 +10,19 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-13-bg, #d4a574);
-  color: var(--style-13-ink, #2d2d2d);
-  font-family: "Caveat", "Inter", cursive, system-ui, sans-serif;
+  background: var(--style-13-bg, #fdf2e5);
+  color: var(--style-13-ink, #3d2b1f);
+  font-family: "Nunito", "Inter", system-ui, -apple-system, sans-serif;
 }
 
-/* Cork board texture */
+/* Subtle warm counter texture — faint wood grain suggestion */
 .root::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle at 20% 30%, rgba(139, 90, 43, 0.3) 0.5cqw, transparent 0.5cqw),
-    radial-gradient(circle at 70% 60%, rgba(160, 100, 50, 0.25) 0.4cqw, transparent 0.4cqw),
-    radial-gradient(circle at 40% 80%, rgba(120, 75, 35, 0.3) 0.3cqw, transparent 0.3cqw),
-    radial-gradient(circle at 85% 20%, rgba(150, 95, 45, 0.2) 0.45cqw, transparent 0.45cqw),
-    radial-gradient(circle at 10% 70%, rgba(130, 80, 40, 0.25) 0.35cqw, transparent 0.35cqw);
-  background-size: 8cqw 8cqh, 6cqw 6cqh, 10cqw 10cqh, 7cqw 7cqh, 9cqw 9cqh;
+    radial-gradient(ellipse at 30% 20%, rgba(193, 98, 47, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(90, 130, 70, 0.04) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
 }
@@ -35,6 +32,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .track {
@@ -108,42 +106,40 @@
 
 .boardTitle {
   font-size: 9cqw;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.0;
   margin: 0;
-  color: #fff9c4;
-  text-shadow: 0.3cqw 0.3cqh 0 rgba(0, 0, 0, 0.15);
+  color: var(--style-13-ink, #3d2b1f);
   transform: rotate(-2deg);
 }
 
 .boardTitle em {
   font-style: normal;
-  color: #ff8a65;
+  color: var(--style-13-accent, #c1622f);
 }
 
 .boardSub {
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Nunito", "Inter", system-ui, sans-serif;
   font-size: 2.2cqw;
   font-weight: 400;
   line-height: 1.4;
   margin-top: 3cqh;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--style-13-muted, #7a6655);
   max-width: 55cqw;
 }
 
 .boardTag {
   display: inline-block;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Nunito", "Inter", system-ui, sans-serif;
   font-size: 1.4cqw;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   margin-top: 4cqh;
   padding: 0.8cqh 2.5cqw;
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  background: rgba(193, 98, 47, 0.12);
+  color: var(--style-13-accent, #c1622f);
   border-radius: 3cqw;
-  backdrop-filter: blur(0.5cqw);
 }
 
 /* ── Scene 2: Brainstorm Notes ─────────────────────────────────────────── */
@@ -160,20 +156,19 @@
 }
 
 .boardLabel {
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Nunito", "Inter", system-ui, sans-serif;
   font-size: 1.3cqw;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--style-13-accent, #c1622f);
 }
 
 .boardHeading {
   font-size: 5cqw;
-  font-weight: 700;
-  color: #fff9c4;
+  font-weight: 800;
+  color: var(--style-13-ink, #3d2b1f);
   margin: 0.5cqh 0 0 0;
-  text-shadow: 0.2cqw 0.2cqh 0 rgba(0, 0, 0, 0.12);
 }
 
 .notesArea {
@@ -196,7 +191,8 @@
   justify-content: center;
   text-align: center;
   position: relative;
-  box-shadow: 0.3cqw 0.5cqh 1.5cqh rgba(0, 0, 0, 0.2);
+  box-shadow: 0.3cqw 0.5cqh 1.5cqh rgba(61, 43, 31, 0.12);
+  border-radius: 0.8cqw;
   opacity: 0;
   transform: scale(0.7) rotate(-5deg);
   transition:
@@ -217,9 +213,9 @@
   transform: translateX(-50%);
   width: 3cqw;
   height: 1.6cqh;
-  background: rgba(200, 50, 50, 0.7);
+  background: rgba(193, 98, 47, 0.5);
   border-radius: 0.2cqw;
-  box-shadow: 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.2cqh 0.5cqh rgba(61, 43, 31, 0.15);
 }
 
 .pinDot {
@@ -230,33 +226,33 @@
   width: 1.2cqw;
   height: 1.2cqw;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #ff6b6b, #c92a2a);
-  box-shadow: 0 0.15cqh 0.4cqh rgba(0, 0, 0, 0.3);
+  background: radial-gradient(circle at 35% 35%, #d4a07a, #8b5e3c);
+  box-shadow: 0 0.15cqh 0.4cqh rgba(61, 43, 31, 0.2);
   z-index: 2;
 }
 
 .noteText {
-  font-size: 2.8cqw;
-  font-weight: 600;
+  font-size: 2.6cqw;
+  font-weight: 800;
   line-height: 1.15;
-  color: var(--style-13-ink, #2d2d2d);
+  color: var(--style-13-ink, #3d2b1f);
 }
 
 .noteSub {
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Nunito", "Inter", system-ui, sans-serif;
   font-size: 1.2cqw;
   font-weight: 400;
-  color: rgba(45, 45, 45, 0.6);
+  color: rgba(61, 43, 31, 0.6);
   margin-top: 1cqh;
 }
 
-/* Note colors */
-.noteYellow { background: #fff9c4; --note-rotate: -3deg; }
-.notePink { background: #f8bbd9; --note-rotate: 2deg; }
-.noteBlue { background: #b3e5fc; --note-rotate: -1deg; }
-.noteGreen { background: #c8e6c9; --note-rotate: 3deg; }
-.noteOrange { background: #ffe0b2; --note-rotate: -2deg; }
-.notePurple { background: #e1bee7; --note-rotate: 1deg; }
+/* Kitchen prep note colors — earthy palette */
+.noteYellow { background: #f5e6c8; --note-rotate: -3deg; }
+.notePink { background: #f0d5c8; --note-rotate: 2deg; }
+.noteTerracotta { background: #e8c4a8; --note-rotate: -1deg; }
+.noteGreen { background: #d4e5c8; --note-rotate: 3deg; }
+.noteOrange { background: #f5dcc0; --note-rotate: -2deg; }
+.noteCream { background: #faf0e0; --note-rotate: 1deg; }
 
 /* ── Scene 3: Columns (Empathize/Define/Ideate) ───────────────────────── */
 
@@ -284,13 +280,13 @@
   text-align: center;
   padding: 1.5cqh 1cqw;
   border-radius: 1cqw;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Nunito", "Inter", system-ui, sans-serif;
 }
 
 .dtColNum {
   font-size: 1.2cqw;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0.7;
   display: block;
@@ -298,23 +294,23 @@
 
 .dtColTitle {
   font-size: 2.2cqw;
-  font-weight: 700;
+  font-weight: 800;
   margin-top: 0.3cqh;
   display: block;
 }
 
-.dtColHeader.empathize { background: #b3e5fc; color: #01579b; }
-.dtColHeader.define { background: #c8e6c9; color: #1b5e20; }
-.dtColHeader.ideate { background: #ffe0b2; color: #e65100; }
+.dtColHeader.empathize { background: #d4e5c8; color: #3a5a2a; }
+.dtColHeader.define { background: #f5e6c8; color: #7a5a20; }
+.dtColHeader.ideate { background: #e8c4a8; color: #7a3a1a; }
 
 .dtMiniNote {
   padding: 1.5cqh 1.5cqw;
-  border-radius: 0.6cqw;
-  font-size: 1.8cqw;
-  font-weight: 600;
+  border-radius: 0.8cqw;
+  font-size: 1.7cqw;
+  font-weight: 700;
   line-height: 1.2;
   text-align: center;
-  box-shadow: 0.15cqw 0.25cqh 0.8cqh rgba(0, 0, 0, 0.12);
+  box-shadow: 0.15cqw 0.25cqh 0.8cqh rgba(61, 43, 31, 0.1);
   opacity: 0;
   transform: translateY(1cqh) rotate(-1deg);
   transition:
@@ -327,12 +323,13 @@
   transform: translateY(0) rotate(var(--mini-rotate, 0deg));
 }
 
-.miniYellow { background: #fff9c4; --mini-rotate: -2deg; }
-.miniPink { background: #f8bbd9; --mini-rotate: 1deg; }
-.miniBlue { background: #b3e5fc; --mini-rotate: -1deg; }
-.miniGreen { background: #c8e6c9; --mini-rotate: 2deg; }
-.miniOrange { background: #ffe0b2; --mini-rotate: -1.5deg; }
-.miniPurple { background: #e1bee7; --mini-rotate: 1.5deg; }
+/* Kitchen mini note colors */
+.miniYellow { background: #f5e6c8; --mini-rotate: -2deg; }
+.miniPink { background: #f0d5c8; --mini-rotate: 1deg; }
+.miniTerracotta { background: #e8c4a8; --mini-rotate: -1deg; }
+.miniGreen { background: #d4e5c8; --mini-rotate: 2deg; }
+.miniOrange { background: #f5dcc0; --mini-rotate: -1.5deg; }
+.miniCream { background: #faf0e0; --mini-rotate: 1.5deg; }
 
 /* ── Scene 4: Voting / Prioritize ──────────────────────────────────────── */
 
@@ -376,9 +373,10 @@
   justify-content: center;
   text-align: center;
   font-size: 2.2cqw;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.15;
-  box-shadow: 0.2cqw 0.3cqh 1cqh rgba(0, 0, 0, 0.15);
+  box-shadow: 0.2cqw 0.3cqh 1cqh rgba(61, 43, 31, 0.12);
+  border-radius: 0.6cqw;
   position: relative;
   flex-shrink: 0;
 }
@@ -392,22 +390,22 @@
   width: 2.5cqw;
   height: 2.5cqw;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #ff6b6b, #c92a2a);
-  box-shadow: 0 0.15cqh 0.4cqh rgba(0, 0, 0, 0.25);
+  background: radial-gradient(circle at 35% 35%, #d4a07a, #8b5e3c);
+  box-shadow: 0 0.15cqh 0.4cqh rgba(61, 43, 31, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Nunito", "Inter", system-ui, sans-serif;
   font-size: 1.2cqw;
   font-weight: 700;
   color: #fff;
 }
 
 .voteCount {
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Nunito", "Inter", system-ui, sans-serif;
   font-size: 2cqw;
-  font-weight: 700;
-  color: #fff9c4;
+  font-weight: 800;
+  color: var(--style-13-accent, #c1622f);
   min-width: 5cqw;
 }
 
@@ -425,13 +423,14 @@
 .closingNote {
   width: 40cqw;
   height: 30cqh;
-  background: #fff9c4;
+  background: var(--style-13-panel, #fff8ee);
   padding: 4cqh 4cqw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0.5cqw 0.8cqh 3cqh rgba(0, 0, 0, 0.25);
+  box-shadow: 0.5cqw 0.8cqh 3cqh rgba(61, 43, 31, 0.15);
+  border-radius: 1.2cqw;
   position: relative;
   transform: rotate(-2deg);
 }
@@ -444,7 +443,7 @@
   transform: translateX(-50%);
   width: 5cqw;
   height: 2cqh;
-  background: rgba(200, 50, 50, 0.7);
+  background: rgba(193, 98, 47, 0.45);
   border-radius: 0.3cqw;
 }
 
@@ -456,29 +455,29 @@
   width: 1.8cqw;
   height: 1.8cqw;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #ff6b6b, #c92a2a);
-  box-shadow: 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.3);
+  background: radial-gradient(circle at 35% 35%, #d4a07a, #8b5e3c);
+  box-shadow: 0 0.2cqh 0.5cqh rgba(61, 43, 31, 0.2);
   z-index: 2;
 }
 
 .closingNoteText {
   font-size: 5cqw;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.1;
-  color: var(--style-13-ink, #2d2d2d);
+  color: var(--style-13-ink, #3d2b1f);
   margin: 0;
 }
 
 .closingNoteText em {
   font-style: normal;
-  color: #e65100;
+  color: var(--style-13-accent, #c1622f);
 }
 
 .closingNoteSub {
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Nunito", "Inter", system-ui, sans-serif;
   font-size: 1.6cqw;
   font-weight: 400;
-  color: rgba(45, 45, 45, 0.6);
+  color: var(--style-13-muted, #7a6655);
   margin-top: 2cqh;
 }
 
@@ -500,23 +499,23 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  background: #fff9c4;
-  opacity: 0.15;
+  background: var(--style-13-ink, #3d2b1f);
+  opacity: 0.2;
   transition:
     opacity 0.3s ease,
     transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 0.15cqh 0.4cqh rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.15cqh 0.4cqh rgba(61, 43, 31, 0.1);
 }
 
 .navDot:hover {
-  opacity: 0.4;
+  opacity: 0.45;
   transform: scale(1.3);
 }
 
 .navDotActive {
   opacity: 0.7;
   transform: scale(1.3);
-  background: #ff8a65;
+  background: var(--style-13-accent, #c1622f);
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */

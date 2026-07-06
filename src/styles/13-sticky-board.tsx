@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useCallback, useState, useRef } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./13-sticky-board.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -13,7 +13,7 @@ function useFonts() {
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap";
+      "https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap";
     document.head.appendChild(link);
   }, []);
 }
@@ -23,115 +23,115 @@ function useFonts() {
 const SCENES = {
   1: {
     en: {
-      title: "Design",
-      titleAccent: "Thinking",
-      title2: "Workshop",
-      sub: "Where great ideas take shape through collaboration and empathy",
-      tag: "Workshop in Progress",
+      title: "Kitchen",
+      titleAccent: "Prep",
+      title2: "Station",
+      sub: "Where raw ingredients become something delicious — organized, hands-on, and ready to go",
+      tag: "Prep in Progress",
     },
     zh: {
-      title: "设计",
-      titleAccent: "思维",
-      title2: "工作坊",
-      sub: "通过协作和共情，伟大创意在此成型",
-      tag: "工作坊进行中",
+      title: "厨房",
+      titleAccent: "备料",
+      title2: "工作台",
+      sub: "原始食材在此变成美味——有条理、亲自动手、随时就绪",
+      tag: "备料进行中",
     },
   },
   2: {
     en: {
-      label: "Brainstorm",
-      heading: "Ideas on the wall",
+      label: "Ingredients",
+      heading: "Everything laid out",
       notes: [
-        { text: "Mobile-first onboarding", sub: "Reduce friction", color: "yellow" },
-        { text: "AI-powered search", sub: "Natural language", color: "blue" },
-        { text: "Gamification", sub: "Achievement badges", color: "pink" },
-        { text: "Dark mode", sub: "User requested", color: "green" },
-        { text: "Offline support", sub: "PWA capabilities", color: "orange" },
-        { text: "Voice commands", sub: "Accessibility win", color: "purple" },
+        { text: "Fresh Vegetables", sub: "Washed and trimmed", color: "yellow" },
+        { text: "Quality Proteins", sub: "Sourced this morning", color: "terracotta" },
+        { text: "Aromatic Herbs", sub: "Basil, thyme, rosemary", color: "green" },
+        { text: "Rich Spices", sub: "Ground to order", color: "orange" },
+        { text: "Creamy Dairy", sub: "From local farms", color: "cream" },
+        { text: "Citrus Zest", sub: "Bright finishing touch", color: "pink" },
       ],
     },
     zh: {
-      label: "头脑风暴",
-      heading: "墙上的创意",
+      label: "食材",
+      heading: "一切就绪",
       notes: [
-        { text: "移动优先引导", sub: "减少摩擦", color: "yellow" },
-        { text: "AI 驱动搜索", sub: "自然语言", color: "blue" },
-        { text: "游戏化", sub: "成就徽章", color: "pink" },
-        { text: "深色模式", sub: "用户呼声", color: "green" },
-        { text: "离线支持", sub: "PWA 能力", color: "orange" },
-        { text: "语音指令", sub: "无障碍增强", color: "purple" },
+        { text: "新鲜蔬菜", sub: "清洗并修剪", color: "yellow" },
+        { text: "优质蛋白", sub: "今早采购", color: "terracotta" },
+        { text: "芳香香草", sub: "罗勒、百里香、迷迭香", color: "green" },
+        { text: "浓郁香料", sub: "现磨现用", color: "orange" },
+        { text: "醇厚乳品", sub: "来自本地农场", color: "cream" },
+        { text: "柑橘皮屑", sub: "明亮的收尾", color: "pink" },
       ],
     },
   },
   3: {
     en: {
-      label: "Process",
-      heading: "Three pillars of discovery",
+      label: "Prep Stations",
+      heading: "Three stages of readiness",
       columns: [
         {
-          phase: "Phase 01",
-          title: "Empathize",
+          phase: "Station 01",
+          title: "Wash & Sort",
           color: "empathize",
           notes: [
-            { text: "User interviews", color: "miniBlue" },
-            { text: "Journey mapping", color: "miniYellow" },
-            { text: "Persona building", color: "miniPink" },
+            { text: "Rinse greens", color: "miniGreen" },
+            { text: "Sort by ripeness", color: "miniYellow" },
+            { text: "Pat dry", color: "miniCream" },
           ],
         },
         {
-          phase: "Phase 02",
-          title: "Define",
+          phase: "Station 02",
+          title: "Chop & Measure",
           color: "define",
           notes: [
-            { text: "Problem statement", color: "miniGreen" },
-            { text: "How might we...", color: "miniOrange" },
-            { text: "Insight synthesis", color: "miniPurple" },
+            { text: "Uniform dice", color: "miniTerracotta" },
+            { text: "Weigh portions", color: "miniOrange" },
+            { text: "Mise en place", color: "miniPink" },
           ],
         },
         {
-          phase: "Phase 03",
-          title: "Ideate",
+          phase: "Station 03",
+          title: "Cook & Finish",
           color: "ideate",
           notes: [
-            { text: "Crazy 8s", color: "miniYellow" },
-            { text: "Dot voting", color: "miniBlue" },
-            { text: "Storyboarding", color: "miniGreen" },
+            { text: "Heat to temp", color: "miniOrange" },
+            { text: "Layer flavors", color: "miniGreen" },
+            { text: "Plate with care", color: "miniYellow" },
           ],
         },
       ],
     },
     zh: {
-      label: "流程",
-      heading: "探索的三大支柱",
+      label: "备料台",
+      heading: "就绪的三个阶段",
       columns: [
         {
-          phase: "第一阶段",
-          title: "共情",
+          phase: "一号台",
+          title: "清洗与分类",
           color: "empathize",
           notes: [
-            { text: "用户访谈", color: "miniBlue" },
-            { text: "旅程地图", color: "miniYellow" },
-            { text: "人物画像", color: "miniPink" },
+            { text: "冲洗绿叶菜", color: "miniGreen" },
+            { text: "按成熟度分类", color: "miniYellow" },
+            { text: "轻轻拍干", color: "miniCream" },
           ],
         },
         {
-          phase: "第二阶段",
-          title: "定义",
+          phase: "二号台",
+          title: "切配与称量",
           color: "define",
           notes: [
-            { text: "问题陈述", color: "miniGreen" },
-            { text: "我们如何...", color: "miniOrange" },
-            { text: "洞察综合", color: "miniPurple" },
+            { text: "均匀切丁", color: "miniTerracotta" },
+            { text: "称量分量", color: "miniOrange" },
+            { text: "备料就位", color: "miniPink" },
           ],
         },
         {
-          phase: "第三阶段",
-          title: "构思",
+          phase: "三号台",
+          title: "烹饪与装盘",
           color: "ideate",
           notes: [
-            { text: "疯狂 8 分钟", color: "miniYellow" },
-            { text: "圆点投票", color: "miniBlue" },
-            { text: "故事板", color: "miniGreen" },
+            { text: "加热至适宜温度", color: "miniOrange" },
+            { text: "分层调味", color: "miniGreen" },
+            { text: "用心装盘", color: "miniYellow" },
           ],
         },
       ],
@@ -139,34 +139,34 @@ const SCENES = {
   },
   4: {
     en: {
-      label: "Prioritize",
-      heading: "Team voting results",
+      label: "Taste Test",
+      heading: "Quality check results",
       votes: [
-        { text: "AI-powered search", votes: 12, color: "yellow" },
-        { text: "Mobile-first onboarding", votes: 9, color: "blue" },
-        { text: "Offline support", votes: 7, color: "orange" },
-        { text: "Dark mode", votes: 5, color: "green" },
+        { text: "Flavor Balance", votes: 12, color: "terracotta" },
+        { text: "Texture & Mouthfeel", votes: 9, color: "green" },
+        { text: "Presentation", votes: 7, color: "cream" },
+        { text: "Aroma", votes: 5, color: "orange" },
       ],
     },
     zh: {
-      label: "优先级",
-      heading: "团队投票结果",
+      label: "品鉴",
+      heading: "质量检查结果",
       votes: [
-        { text: "AI 驱动搜索", votes: 12, color: "yellow" },
-        { text: "移动优先引导", votes: 9, color: "blue" },
-        { text: "离线支持", votes: 7, color: "orange" },
-        { text: "深色模式", votes: 5, color: "green" },
+        { text: "风味平衡", votes: 12, color: "terracotta" },
+        { text: "口感质地", votes: 9, color: "green" },
+        { text: "呈现摆盘", votes: 7, color: "cream" },
+        { text: "香气", votes: 5, color: "orange" },
       ],
     },
   },
   5: {
     en: {
-      text: "Great ideas <em>deserve</em> great execution.",
-      sub: "From whiteboard to production — let's build.",
+      text: "Good ingredients <em>deserve</em> good preparation.",
+      sub: "From raw to ready — let's serve.",
     },
     zh: {
-      text: "好创意<em>值得</em>好执行。",
-      sub: "从白板到产品——让我们开始构建。",
+      text: "好食材<em>值得</em>好备料。",
+      sub: "从原始到就绪——让我们上菜。",
     },
   },
 };
@@ -177,10 +177,10 @@ function noteColorClass(color: string) {
   const map: Record<string, string> = {
     yellow: styles.noteYellow,
     pink: styles.notePink,
-    blue: styles.noteBlue,
+    terracotta: styles.noteTerracotta,
     green: styles.noteGreen,
     orange: styles.noteOrange,
-    purple: styles.notePurple,
+    cream: styles.noteCream,
   };
   return map[color] || styles.noteYellow;
 }
@@ -189,10 +189,10 @@ function miniColorClass(color: string) {
   const map: Record<string, string> = {
     miniYellow: styles.miniYellow,
     miniPink: styles.miniPink,
-    miniBlue: styles.miniBlue,
+    miniTerracotta: styles.miniTerracotta,
     miniGreen: styles.miniGreen,
     miniOrange: styles.miniOrange,
-    miniPurple: styles.miniPurple,
+    miniCream: styles.miniCream,
   };
   return map[color] || styles.miniYellow;
 }
@@ -200,12 +200,12 @@ function miniColorClass(color: string) {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Sticky Board", zh: "便签板" };
+  const nameMap = { en: "Kitchen Prep Station", zh: "厨房备料台" };
   const themeMap = {
-    en: "Design Thinking Workshop — sticky note aesthetic on cork board with handwritten font, slight rotations, and pin dots",
-    zh: "设计思维工作坊——软木板上的便签美学，手写字体、轻微旋转和图钉点缀",
+    en: "Warm orange-tinted cream counter with earthy kitchen accents — terracotta, wood browns, and herb greens. Shows raw-to-clean transformation through hands-on prep stations. Best for process, ingredient-to-outcome, and craft narratives.",
+    zh: "暖橙色奶油台面配大地色厨房点缀——陶土红、木棕色和香草绿。通过亲自动手的备料台展示从原始到精致的转变。最适合流程、食材到成品和工艺叙事。",
   };
-  const densityLabelMap = { en: "Playful", zh: "趣味型" };
+  const densityLabelMap = { en: "Hands-on", zh: "动手型" };
 
   const sceneTitles = {
     en: ["Title", "Brainstorm", "Process Pillars", "Voting", "Closing"],
@@ -278,10 +278,10 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 2,
-    colors: { bg: "#d4a574", ink: "#2d2d2d", panel: "#fff9c4" },
-    typography: { header: "Caveat 700", body: "Inter 400" },
-    tags: ["sticky", "workshop", "brainstorm", "design-thinking", "playful", "handwritten", "cork", "collaborative", "creative"],
-    fonts: ["Caveat", "Inter"],
+    colors: { bg: "#fdf2e5", ink: "#3d2b1f", panel: "#fff8ee" },
+    typography: { header: "Nunito 700", body: "Nunito 400" },
+    tags: ["kitchen", "prep", "transformation", "raw-to-clean", "warm", "hands-on", "ingredients", "process", "craft"],
+    fonts: ["Nunito"],
     scenes,
   };
 }
@@ -298,25 +298,45 @@ export default function StickyBoard({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // FLIP for sticky notes board (scene 2) — notes reposition as new ones appear
   const { ref: notesBoardRef } = useFLIP<HTMLDivElement>({
@@ -497,7 +517,7 @@ export default function StickyBoard({
 
   const renderNav = () => {
     if (isThumbnail) return null;
-    const tabColors = ["yellow", "pink", "blue", "green", "orange"];
+    const tabColors = ["yellow", "terracotta", "cream", "green", "orange"];
     const rotations = [-2, 1.5, -1, 2, -1.5];
     return (
       <nav className={styles.sideNav} aria-label="Scene navigation">

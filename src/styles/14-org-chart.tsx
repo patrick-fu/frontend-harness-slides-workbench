@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useCallback, useState, useRef } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./14-org-chart.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -23,123 +23,123 @@ function useFonts() {
 const SCENES = {
   1: {
     en: {
-      eyebrow: "Organization",
-      title: "Scaling",
-      titleAccent: "with purpose",
-      sub: "How we structure teams for velocity, ownership, and cross-functional collaboration",
+      eyebrow: "Collaboration",
+      title: "Better",
+      titleAccent: "together",
+      sub: "How pairing across disciplines creates better outcomes than any single team alone",
       stats: [
-        { val: "420", lbl: "Team Members" },
-        { val: "12", lbl: "Departments" },
-        { val: "6", lbl: "Countries" },
+        { val: "2.4x", lbl: "Faster Handoffs" },
+        { val: "67%", lbl: "Fewer Reworks" },
+        { val: "12", lbl: "Active Pairs" },
       ],
     },
     zh: {
-      eyebrow: "组织架构",
-      title: "有目标地",
-      titleAccent: "规模化",
-      sub: "我们如何构建团队以实现速度、归属感和跨职能协作",
+      eyebrow: "协作",
+      title: "一起",
+      titleAccent: "更出色",
+      sub: "跨学科配对如何创造比任何单一团队更好的成果",
       stats: [
-        { val: "420", lbl: "团队成员" },
-        { val: "12", lbl: "部门" },
-        { val: "6", lbl: "国家" },
+        { val: "2.4倍", lbl: "更快的交接" },
+        { val: "67%", lbl: "更少返工" },
+        { val: "12", lbl: "活跃配对" },
       ],
     },
   },
   2: {
     en: {
-      label: "Leadership Structure",
-      title: "Our organization at a glance",
-      ceo: { name: "Sarah Chen", role: "Chief Executive Officer", initials: "SC", count: "420 total" },
+      label: "Pairing Structure",
+      title: "Who works with whom",
+      ceo: { name: "Product Council", role: "Steering & Alignment", initials: "PC", count: "12 pairs" },
       vps: [
-        { name: "James Park", role: "VP of Engineering", initials: "JP", count: "180", color: "Blue" },
-        { name: "Maria Lopez", role: "VP of Product", initials: "ML", count: "65", color: "Green" },
-        { name: "David Kim", role: "VP of Design", initials: "DK", count: "45", color: "Purple" },
-        { name: "Anna Wu", role: "VP of Operations", initials: "AW", count: "80", color: "Orange" },
-        { name: "Tom Baker", role: "VP of Sales", initials: "TB", count: "50", color: "Pink" },
+        { name: "Design ↔ Eng", role: "Feature Delivery", initials: "DE", count: "5 pairs", color: "Blue" },
+        { name: "PM ↔ Research", role: "Discovery & Validation", initials: "PR", count: "3 pairs", color: "Green" },
+        { name: "Eng ↔ QA", role: "Quality & Release", initials: "EQ", count: "2 pairs", color: "Purple" },
+        { name: "Ops ↔ Eng", role: "Reliability & Scale", initials: "OE", count: "1 pair", color: "Orange" },
+        { name: "Marketing ↔ PM", role: "Go-to-Market", initials: "MP", count: "1 pair", color: "Pink" },
       ],
     },
     zh: {
-      label: "领导架构",
-      title: "组织一览",
-      ceo: { name: "陈莎拉", role: "首席执行官", initials: "SC", count: "共 420 人" },
+      label: "配对结构",
+      title: "谁和谁合作",
+      ceo: { name: "产品委员会", role: "指导与对齐", initials: "PC", count: "12 对" },
       vps: [
-        { name: "朴詹姆斯", role: "工程副总裁", initials: "JP", count: "180", color: "Blue" },
-        { name: "洛佩兹玛丽亚", role: "产品副总裁", initials: "ML", count: "65", color: "Green" },
-        { name: "金大卫", role: "设计副总裁", initials: "DK", count: "45", color: "Purple" },
-        { name: "吴安娜", role: "运营副总裁", initials: "AW", count: "80", color: "Orange" },
-        { name: "贝克汤姆", role: "销售副总裁", initials: "TB", count: "50", color: "Pink" },
+        { name: "设计 ↔ 工程", role: "功能交付", initials: "DE", count: "5 对", color: "Blue" },
+        { name: "产品 ↔ 研究", role: "探索与验证", initials: "PR", count: "3 对", color: "Green" },
+        { name: "工程 ↔ 测试", role: "质量与发布", initials: "EQ", count: "2 对", color: "Purple" },
+        { name: "运营 ↔ 工程", role: "可靠性与扩展", initials: "OE", count: "1 对", color: "Orange" },
+        { name: "市场 ↔ 产品", role: "市场进入", initials: "MP", count: "1 对", color: "Pink" },
       ],
     },
   },
   3: {
     en: {
-      label: "Team Spotlight",
-      lead: { name: "James Park", role: "VP of Engineering", initials: "JP", color: "Blue" },
-      membersLabel: "Direct Reports",
+      label: "Pair Spotlight",
+      lead: { name: "Design ↔ Engineering", role: "Core Delivery Pair", initials: "DE", color: "Blue" },
+      membersLabel: "How They Work",
       members: [
-        { name: "Alex Rivera", role: "Platform Lead", initials: "AR", color: "Blue" },
-        { name: "Priya Shah", role: "Infra Lead", initials: "PS", color: "Teal" },
-        { name: "Mike Chen", role: "Mobile Lead", initials: "MC", color: "Green" },
-        { name: "Lisa Wang", role: "Data Lead", initials: "LW", color: "Purple" },
-        { name: "Ryan Lee", role: "Security Lead", initials: "RL", color: "Orange" },
-        { name: "Emma Davis", role: "QA Lead", initials: "ED", color: "Pink" },
+        { name: "Daily Sync", role: "15 min standup", initials: "DS", color: "Blue" },
+        { name: "Figma ↔ PR", role: "Design to code", initials: "FP", color: "Teal" },
+        { name: "Shared Spec", role: "Living document", initials: "SS", color: "Green" },
+        { name: "Joint Review", role: "Weekly demo", initials: "JR", color: "Purple" },
+        { name: "Pair Rotation", role: "Monthly swap", initials: "PR", color: "Orange" },
+        { name: "Retro Together", role: "Bi-weekly", initials: "RT", color: "Pink" },
       ],
     },
     zh: {
-      label: "团队聚焦",
-      lead: { name: "朴詹姆斯", role: "工程副总裁", initials: "JP", color: "Blue" },
-      membersLabel: "直接下属",
+      label: "配对聚焦",
+      lead: { name: "设计 ↔ 工程", role: "核心交付配对", initials: "DE", color: "Blue" },
+      membersLabel: "他们如何合作",
       members: [
-        { name: "里维拉亚历克斯", role: "平台负责人", initials: "AR", color: "Blue" },
-        { name: "沙普里亚", role: "基建负责人", initials: "PS", color: "Teal" },
-        { name: "陈迈克", role: "移动端负责人", initials: "MC", color: "Green" },
-        { name: "王丽莎", role: "数据负责人", initials: "LW", color: "Purple" },
-        { name: "李瑞安", role: "安全负责人", initials: "RL", color: "Orange" },
-        { name: "戴维斯艾玛", role: "测试负责人", initials: "ED", color: "Pink" },
+        { name: "每日同步", role: "15 分钟站会", initials: "DS", color: "Blue" },
+        { name: "Figma ↔ PR", role: "设计到代码", initials: "FP", color: "Teal" },
+        { name: "共享规格", role: "活文档", initials: "SS", color: "Green" },
+        { name: "联合评审", role: "每周演示", initials: "JR", color: "Purple" },
+        { name: "配对轮换", role: "每月交换", initials: "PR", color: "Orange" },
+        { name: "一起复盘", role: "双周一次", initials: "RT", color: "Pink" },
       ],
     },
   },
   4: {
     en: {
-      label: "Growth Trajectory",
-      title: "Team expansion over time",
+      label: "Handoff Flow",
+      title: "Smooth collaboration over time",
       growth: [
-        { year: "2022", count: "85 people", desc: "Seed stage, core team" },
-        { year: "2023", count: "180 people", desc: "Series A, first hires" },
-        { year: "2024", count: "290 people", desc: "Series B, international" },
-        { year: "2025", count: "380 people", desc: "Series C, scale phase" },
-        { year: "2026", count: "420 people", desc: "Current headcount" },
+        { year: "Q1", count: "42 handoffs", desc: "Manual, slow, errors" },
+        { year: "Q2", count: "68 handoffs", desc: "Shared templates" },
+        { year: "Q3", count: "95 handoffs", desc: "Automated checks" },
+        { year: "Q4", count: "120 handoffs", desc: "Pairing protocol" },
+        { year: "Now", count: "156 handoffs", desc: "Seamless, trusted" },
       ],
     },
     zh: {
-      label: "增长轨迹",
-      title: "团队扩张历程",
+      label: "交接流程",
+      title: "随时间推移的顺畅协作",
       growth: [
-        { year: "2022", count: "85 人", desc: "种子阶段，核心团队" },
-        { year: "2023", count: "180 人", desc: "A 轮融资，首批招聘" },
-        { year: "2024", count: "290 人", desc: "B 轮融资，国际化" },
-        { year: "2025", count: "380 人", desc: "C 轮融资，规模化" },
-        { year: "2026", count: "420 人", desc: "当前人数" },
+        { year: "Q1", count: "42 次交接", desc: "手动、缓慢、易出错" },
+        { year: "Q2", count: "68 次交接", desc: "共享模板" },
+        { year: "Q3", count: "95 次交接", desc: "自动化检查" },
+        { year: "Q4", count: "120 次交接", desc: "配对协议" },
+        { year: "现在", count: "156 次交接", desc: "无缝、可信" },
       ],
     },
   },
   5: {
     en: {
-      headline: "Great teams build <em>great products</em>",
-      sub: "We invest in people because they are our greatest competitive advantage.",
+      headline: "Aligned pairs build <em>aligned products</em>",
+      sub: "When disciplines pair well, the result speaks for itself.",
       values: [
-        { icon: "🎯", text: "Ownership" },
-        { icon: "🤝", text: "Collaboration" },
-        { icon: "📈", text: "Growth" },
+        { icon: "🔄", text: "Shared Context" },
+        { icon: "🤝", text: "Mutual Respect" },
+        { icon: "⚡", text: "Fast Feedback" },
       ],
     },
     zh: {
-      headline: "优秀的团队打造<em>优秀的产品</em>",
-      sub: "我们投资于人，因为人是最大的竞争优势。",
+      headline: "对齐的配对打造<em>对齐的产品</em>",
+      sub: "当各学科配合默契时，结果不言自明。",
       values: [
-        { icon: "🎯", text: "主人翁精神" },
-        { icon: "🤝", text: "协作" },
-        { icon: "📈", text: "成长" },
+        { icon: "🔄", text: "共享上下文" },
+        { icon: "🤝", text: "相互尊重" },
+        { icon: "⚡", text: "快速反馈" },
       ],
     },
   },
@@ -162,12 +162,12 @@ function avatarColorClass(color: string) {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Org Chart", zh: "组织架构图" };
+  const nameMap = { en: "Collaborative Pairing Board", zh: "协作配对板" };
   const themeMap = {
-    en: "Team Scaling Structure — organizational diagram with node-based layouts, SVG connection lines, hierarchy visualization, and team cards with avatar circles",
-    zh: "团队规模化结构——节点式布局的组织图、SVG 连接线、层级可视化和带头像圆圈的团队卡片",
+    en: "Clean light neutral ground with calm professional accent. Shows two-party collaboration structures, cross-discipline pairing, and handoff workflows. Even-handed neutral typography lets the partnerships be the message.",
+    zh: "干净的浅中性底色配冷静专业的点缀。展示双方协作结构、跨学科配对和交接工作流。公正的中性字体让伙伴关系成为信息本身。",
   };
-  const densityLabelMap = { en: "Structured", zh: "结构化" };
+  const densityLabelMap = { en: "Balanced", zh: "均衡" };
 
   const sceneTitles = {
     en: ["Title", "Org Tree", "Team Detail", "Growth", "Values"],
@@ -247,9 +247,9 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
-    colors: { bg: "#f7fafc", ink: "#2d3748", panel: "#ffffff" },
-    typography: { header: "Inter 700", body: "Inter 400" },
-    tags: ["org-chart", "organization", "team", "hierarchy", "structure", "diagram", "nodes", "corporate", "scaling"],
+    colors: { bg: "#f8f9fa", ink: "#212529", panel: "#ffffff" },
+    typography: { header: "Inter 600", body: "Inter 400" },
+    tags: ["pairing", "collaboration", "two-party", "workflow", "handoff", "sync", "cross-discipline", "partnership", "alignment"],
     fonts: ["Inter"],
     scenes,
   };
@@ -267,25 +267,45 @@ export default function OrgChart({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // FLIP for org chart nodes (scene 2) — nodes reposition when new members appear
   const { ref: orgChartRef } = useFLIP<HTMLDivElement>({

@@ -1,6 +1,11 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./09-process-flow.module.css";
+
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 550; // 500ms animation + 50ms buffer
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 };
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -27,100 +32,100 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      eyebrow: "Agile Methodology",
-      title: "Ship",
-      titleAccent: "Faster.",
-      titleAccent2: "Learn Continuously.",
-      subtitle: "A modern approach to iterative delivery and continuous improvement",
+      eyebrow: "Product Strategy",
+      title: "Parallel",
+      titleAccent: "Tracks.",
+      titleAccent2: "One Destination.",
+      subtitle: "How engineering, design, and product streams converge at key milestones to ship value together",
     },
     zh: {
-      eyebrow: "敏捷方法论",
-      title: "快速",
-      titleAccent: "交付，",
-      titleAccent2: "持续学习。",
-      subtitle: "迭代交付与持续改进的现代方法",
+      eyebrow: "产品策略",
+      title: "多条轨道，",
+      titleAccent: "一个终点。",
+      titleAccent2: "",
+      subtitle: "工程、设计和产品三条线如何在关键里程碑交汇，共同交付价值",
     },
   },
   2: {
     en: {
-      heading: "The Sprint Cycle",
-      title: "Plan. Build. Review. Retrospect.",
+      heading: "Transit Lines",
+      title: "Four tracks running in parallel",
       steps: [
-        { icon: "plan", label: "Plan", desc: "Backlog grooming & sprint planning" },
-        { icon: "build", label: "Build", desc: "Daily standups & development" },
-        { icon: "review", label: "Review", desc: "Demo & stakeholder feedback" },
-        { icon: "retro", label: "Retro", desc: "Team reflection & improvements" },
+        { icon: "plan", label: "Engineering", desc: "Core platform, API, infrastructure" },
+        { icon: "build", label: "Design", desc: "Design system, UX research, prototyping" },
+        { icon: "review", label: "Product", desc: "Roadmap, prioritization, go-to-market" },
+        { icon: "retro", label: "Operations", desc: "DevOps, security, compliance" },
       ],
     },
     zh: {
-      heading: "冲刺循环",
-      title: "计划、构建、评审、回顾。",
+      heading: "地铁线路",
+      title: "四条并行轨道",
       steps: [
-        { icon: "plan", label: "计划", desc: "需求梳理与冲刺规划" },
-        { icon: "build", label: "构建", desc: "每日站会与开发" },
-        { icon: "review", label: "评审", desc: "演示与利益相关者反馈" },
-        { icon: "retro", label: "回顾", desc: "团队反思与改进" },
+        { icon: "plan", label: "工程", desc: "核心平台、API、基础设施" },
+        { icon: "build", label: "设计", desc: "设计系统、用户研究、原型" },
+        { icon: "review", label: "产品", desc: "路线图、优先级、市场推广" },
+        { icon: "retro", label: "运营", desc: "DevOps、安全、合规" },
       ],
     },
   },
   3: {
     en: {
-      heading: "Implementation Workflow",
-      title: "Five steps to delivery",
+      heading: "Transfer Stations",
+      title: "Where tracks converge",
       steps: [
-        { num: "01", title: "Discovery", body: "Stakeholder interviews, user research, and problem framing", badge: "Week 1" },
-        { num: "02", title: "Design", body: "Wireframes, prototypes, and design system alignment", badge: "Week 2" },
-        { num: "03", title: "Development", body: "Feature implementation with TDD and code review", badge: "Weeks 3-4" },
-        { num: "04", title: "Testing", body: "QA validation, performance audits, accessibility checks", badge: "Week 5" },
-        { num: "05", title: "Launch", body: "Phased rollout, monitoring, and feedback collection", badge: "Week 6" },
+        { num: "01", title: "Discovery Sync", body: "All three tracks align on user problems and success metrics before any code is written", badge: "Milestone" },
+        { num: "02", title: "Design Handoff", body: "Design system components are production-ready and engineering integrates them", badge: "Milestone" },
+        { num: "03", title: "Beta Gate", body: "Product validates market fit, engineering confirms scalability, design polishes UX", badge: "Milestone" },
+        { num: "04", title: "Launch Readiness", body: "Operations signs off on reliability, security, and monitoring before GA", badge: "Milestone" },
+        { num: "05", title: "Post-Launch Review", body: "All tracks converge to measure outcomes and plan the next iteration cycle", badge: "Milestone" },
       ],
     },
     zh: {
-      heading: "实施流程",
-      title: "交付的五个步骤",
+      heading: "换乘站点",
+      title: "轨道交汇之处",
       steps: [
-        { num: "01", title: "调研", body: "利益相关者访谈、用户研究、问题定义", badge: "第 1 周" },
-        { num: "02", title: "设计", body: "线框图、原型、设计系统对齐", badge: "第 2 周" },
-        { num: "03", title: "开发", body: "功能实现，配合 TDD 和代码审查", badge: "第 3-4 周" },
-        { num: "04", title: "测试", body: "QA 验证、性能审计、无障碍检查", badge: "第 5 周" },
-        { num: "05", title: "发布", body: "分阶段上线、监控、反馈收集", badge: "第 6 周" },
+        { num: "01", title: "调研同步", body: "三条线在写代码前就用户问题和成功指标达成一致", badge: "里程碑" },
+        { num: "02", title: "设计交接", body: "设计系统组件达到生产就绪，工程团队开始集成", badge: "里程碑" },
+        { num: "03", title: "Beta 关卡", body: "产品验证市场适配，工程确认可扩展性，设计打磨体验", badge: "里程碑" },
+        { num: "04", title: "发布就绪", body: "运营团队在正式发布前确认可靠性、安全性和监控", badge: "里程碑" },
+        { num: "05", title: "上线复盘", body: "所有轨道汇聚，衡量成果并规划下一轮迭代", badge: "里程碑" },
       ],
     },
   },
   4: {
     en: {
-      heading: "Measurable Outcomes",
-      title: "Results that matter",
+      heading: "Convergence Metrics",
+      title: "Alignment across tracks",
       metrics: [
-        { value: "47%", label: "Faster Delivery", desc: "Average cycle time reduction" },
-        { value: "3.2x", label: "Team Velocity", desc: "Story points per sprint" },
-        { value: "94%", label: "Stakeholder Sat.", desc: "Quarterly satisfaction score" },
+        { value: "94%", label: "Milestone On-Time", desc: "Transfer stations hit on schedule" },
+        { value: "3.1d", label: "Avg. Handoff Time", desc: "Design-to-engineering transfer speed" },
+        { value: "87%", label: "Cross-Track Sync", desc: "Teams aligned at each checkpoint" },
       ],
     },
     zh: {
-      heading: "可衡量的成果",
-      title: "有意义的结果",
+      heading: "汇聚指标",
+      title: "跨轨道对齐度",
       metrics: [
-        { value: "47%", label: "交付提速", desc: "平均周期时间缩短" },
-        { value: "3.2x", label: "团队速率", desc: "每冲刺故事点数" },
-        { value: "94%", label: "相关方满意度", desc: "季度满意度评分" },
+        { value: "94%", label: "里程碑准时率", desc: "换乘站按时到达" },
+        { value: "3.1天", label: "平均交接时间", desc: "设计到工程的传递速度" },
+        { value: "87%", label: "跨轨同步率", desc: "团队在每个检查点保持对齐" },
       ],
     },
   },
   5: {
     en: {
-      big: "Iterate. ",
-      bigAccent: "Improve. ",
-      big2: "Repeat.",
-      sub: "Continuous improvement is not a destination — it is a discipline.",
-      tag: "Start Your Next Sprint",
+      big: "Converge. ",
+      bigAccent: "Align. ",
+      big2: "Deliver.",
+      sub: "Parallel tracks only work when everyone knows the transfer stations.",
+      tag: "Map Your Convergence Points",
     },
     zh: {
-      big: "迭代，",
-      bigAccent: "改进，",
-      big2: "重复。",
-      sub: "持续改进不是终点，而是一种纪律。",
-      tag: "开始你的下一个冲刺",
+      big: "汇聚，",
+      bigAccent: "对齐，",
+      big2: "交付。",
+      sub: "只有当每个人都知道换乘站在哪里，并行轨道才能发挥作用。",
+      tag: "绘制你的汇聚点",
     },
   },
 };
@@ -128,7 +133,7 @@ const SCENES: Record<number, SceneContent> = {
 // ─── SVG Icons ──────────────────────────────────────────────────────────────
 
 function StepIcon({ type }: { type: string }) {
-  const color = "#4a90d9";
+  const color = "#e63946";
   switch (type) {
     case "plan":
       return (
@@ -186,31 +191,31 @@ function ArrowIcon() {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Process Flow", zh: "流程步骤" };
+  const nameMap = { en: "Subway Map of Intent", zh: "意图地铁图" };
   const themeMap = {
-    en: "Agile Methodology Walkthrough — step-by-step visual flow with icon + text pairs and clear section dividers",
-    zh: "敏捷方法论演练——图标加文本配对的逐步视觉流程，清晰的分区结构",
+    en: "Multi-track Convergence Map — independent streams of intent shown as transit lines that meet at deliberate transfer stations. Best for converging workflows, milestone mapping, and showing how parallel tracks join.",
+    zh: "多轨汇聚地图——将独立的意图流展示为在刻意换乘站交汇的地铁线路。最适合展示收敛型工作流、里程碑映射，以及平行轨道如何汇合。",
   };
-  const densityLabelMap = { en: "Medium", zh: "中等" };
+  const densityLabelMap = { en: "Systematic", zh: "系统化" };
 
   const sceneTitles = {
-    en: ["Title", "Sprint Cycle", "Delivery Steps", "Outcomes", "Closing"],
-    zh: ["标题", "冲刺循环", "交付步骤", "成果指标", "结语"],
+    en: ["Title", "Transit Lines", "Transfer Stations", "Milestone Map", "Closing"],
+    zh: ["标题", "地铁线路", "换乘站点", "里程碑地图", "结语"],
   };
 
   const beatActions = {
     en: {
       1: ["Title and subtitle appear"],
-      2: ["Heading and title appear", "Steps 1-2 populate", "Steps 3-4 populate"],
-      3: ["Heading appears", "Steps 1-3 appear", "Steps 4-5 appear"],
-      4: ["Title appears", "Metrics populate"],
+      2: ["Heading and title appear", "Lines 1-2 populate", "Lines 3-4 populate"],
+      3: ["Heading appears", "Stations 1-3 appear", "Stations 4-5 appear"],
+      4: ["Title appears", "Milestones populate"],
       5: ["Closing statement revealed"],
     },
     zh: {
       1: ["标题和副标题呈现"],
-      2: ["标题呈现", "第 1-2 步填充", "第 3-4 步填充"],
-      3: ["标题呈现", "第 1-3 步呈现", "第 4-5 步呈现"],
-      4: ["标题呈现", "指标填充"],
+      2: ["标题呈现", "第 1-2 条线路填充", "第 3-4 条线路填充"],
+      3: ["标题呈现", "第 1-3 站点呈现", "第 4-5 站点呈现"],
+      4: ["标题呈现", "里程碑填充"],
       5: ["结语揭示"],
     },
   };
@@ -239,7 +244,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
         beatTitle = (c.title as string) || "";
         const steps = (c.steps as Array<{ label: string }>) || [];
         const visibleCount = Math.min((beatIdx + 1) * 2, 4);
-        beatBody = steps.slice(0, visibleCount).map((s) => s.label).join(" -> ");
+        beatBody = steps.slice(0, visibleCount).map((s) => s.label).join(" | ");
       } else if (id === 3) {
         beatTitle = (c.title as string) || "";
         const steps = (c.steps as Array<{ title: string }>) || [];
@@ -270,24 +275,24 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
     colors: {
-      bg: "#f8f9fa",
-      ink: "#212529",
+      bg: "#f5f5f0",
+      ink: "#1a1a1a",
       panel: "#ffffff",
     },
     typography: {
-      header: "Inter 700",
+      header: "Inter 600",
       body: "Inter 400",
     },
     tags: [
-      "process",
-      "flow",
-      "agile",
-      "methodology",
-      "steps",
-      "workflow",
-      "structured",
-      "medium-density",
-      "clean",
+      "transit-map",
+      "subway",
+      "multi-track",
+      "convergence",
+      "systematic",
+      "milestone",
+      "route",
+      "junction",
+      "signage",
     ],
     fonts: ["Inter"],
     scenes,
@@ -307,6 +312,46 @@ export default function ProcessFlow({
 }: BespokeStyleProps) {
   useFonts();
 
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
+
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -319,13 +364,6 @@ export default function ProcessFlow({
     styles.root,
     reducedMotion ? styles.reducedMotion : "",
     isThumbnail ? styles.thumbnail : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  const trackClasses = [
-    styles.track,
-    !isTransitionClone && styles.animateSceneEnter,
   ]
     .filter(Boolean)
     .join(" ");
@@ -347,10 +385,10 @@ export default function ProcessFlow({
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number) => {
     const c = SCENES[2][language];
     const steps = (c.steps as Array<{ icon: string; label: string; desc: string }>) || [];
-    const visibleCount = Math.min(beat * 2, 4);
+    const visibleCount = Math.min(beatNum * 2, 4);
     return (
       <div className={styles.scene2}>
         <span className={styles.sceneHeading}>{c.heading as string}</span>
@@ -387,10 +425,10 @@ export default function ProcessFlow({
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number) => {
     const c = SCENES[3][language];
     const steps = (c.steps as Array<{ num: string; title: string; body: string; badge: string }>) || [];
-    const visibleCount = Math.min(beat * 3, steps.length);
+    const visibleCount = Math.min(beatNum * 3, steps.length);
     return (
       <div className={styles.scene3}>
         <span className={styles.sceneHeading}>{c.heading as string}</span>
@@ -426,7 +464,7 @@ export default function ProcessFlow({
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number) => {
     const c = SCENES[4][language];
     const metrics = (c.metrics as Array<{ value: string; label: string; desc: string }>) || [];
     return (
@@ -435,7 +473,7 @@ export default function ProcessFlow({
         <h2 className={styles.sceneTitle}>{c.title as string}</h2>
         <div className={styles.metricsGrid}>
           {metrics.map((m, i) => {
-            const visible = beat >= 1;
+            const visible = beatNum >= 1;
             const cls = [
               styles.metricCard,
               visible ? styles.metricCardVisible : "",
@@ -476,12 +514,12 @@ export default function ProcessFlow({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+    switch (sceneNum) {
       case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
+      case 2: return renderScene2(beatNum);
+      case 3: return renderScene3(beatNum);
+      case 4: return renderScene4(beatNum);
       case 5: return renderScene5();
       default: return null;
     }
@@ -527,15 +565,27 @@ export default function ProcessFlow({
     );
   };
 
+  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim].filter(Boolean).join(" ");
+  const incomingLayerClasses = [styles.sceneLayer, isTransitioning && !isTransitionClone ? styles.enterAnim : ""].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`09-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (horizontal slide left) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene (horizontal slide from right) */}
+      <div className={incomingLayerClasses}>
+        <div key={`09-${scene}`} className={styles.track}>
+          {renderSceneFor(scene, beat)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );

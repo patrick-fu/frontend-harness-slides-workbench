@@ -1,5 +1,6 @@
-/* ─── Style 15: Roadmap ─────────────────────────────────────────────────
-   12-month product roadmap. Gantt-style timeline, phased milestones.
+/* ─── Style 15: Studio Mixing Console ───────────────────────────────────
+   Deep studio-dark. Metallic hardware-feel panels. Vivid meter colors
+   appear only on fader indicators. Compact technical/monospace labels.
    All sizing in cqw/cqh. No px/vw/vh.
    ──────────────────────────────────────────────────────────────────────── */
 
@@ -9,20 +10,20 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-15-bg, #1a2332);
-  color: var(--style-15-ink, #e2e8f0);
+  background: var(--style-15-bg, #121212);
+  color: var(--style-15-ink, #e8e8e8);
   font-family: "Inter", system-ui, -apple-system, sans-serif;
 }
 
-/* Subtle grid pattern */
+/* Subtle console grid — fine hairline */
 .root::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.02) 0.1cqh, transparent 0.1cqh),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0.1cqw, transparent 0.1cqw);
-  background-size: 5cqw 5cqh;
+    linear-gradient(rgba(255, 255, 255, 0.015) 0.1cqh, transparent 0.1cqh),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 0.1cqw, transparent 0.1cqw);
+  background-size: 4cqw 4cqh;
   pointer-events: none;
 }
 
@@ -61,11 +62,11 @@
 
 .roadmapLabel {
   font-family: "JetBrains Mono", monospace;
-  font-size: 1.4cqw;
+  font-size: 1.3cqw;
   font-weight: 500;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--style-15-accent, #64b5f6);
+  color: var(--style-15-accent, #4ade80);
   margin-bottom: 2cqh;
 }
 
@@ -75,12 +76,12 @@
   line-height: 0.95;
   letter-spacing: -0.04em;
   margin: 0;
-  color: var(--style-15-ink, #e2e8f0);
+  color: var(--style-15-ink, #e8e8e8);
 }
 
 .roadmapTitle em {
   font-style: normal;
-  color: var(--style-15-accent, #64b5f6);
+  color: var(--style-15-accent, #4ade80);
 }
 
 .roadmapSub {
@@ -88,7 +89,7 @@
   font-weight: 400;
   line-height: 1.4;
   margin-top: 3cqh;
-  color: var(--style-15-muted, #94a3b8);
+  color: var(--style-15-muted, #8a8a8a);
   max-width: 55cqw;
 }
 
@@ -107,14 +108,14 @@
   font-family: "JetBrains Mono", monospace;
   font-size: 3cqw;
   font-weight: 700;
-  color: var(--style-15-accent, #64b5f6);
+  color: var(--style-15-accent, #4ade80);
   line-height: 1;
 }
 
 .roadmapMetaLbl {
   font-size: 1.3cqw;
   font-weight: 500;
-  color: var(--style-15-muted, #94a3b8);
+  color: var(--style-15-muted, #8a8a8a);
   margin-top: 0.5cqh;
 }
 
@@ -132,11 +133,11 @@
 
 .ganttLabel {
   font-family: "JetBrains Mono", monospace;
-  font-size: 1.2cqw;
+  font-size: 1.1cqw;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--style-15-accent, #64b5f6);
+  color: var(--style-15-accent, #4ade80);
 }
 
 .ganttTitle {
@@ -145,17 +146,18 @@
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0.3cqh 0 0 0;
-  color: var(--style-15-ink, #e2e8f0);
+  color: var(--style-15-ink, #e8e8e8);
 }
 
 .ganttChart {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: var(--style-15-panel, #2d3748);
+  background: var(--style-15-panel, #1e1e1e);
   border-radius: 1cqw;
   padding: 2.5cqh 2.5cqw;
   border: 0.1cqw solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.3);
   min-height: 0;
 }
 
@@ -169,15 +171,15 @@
   flex: 1;
   text-align: center;
   font-family: "JetBrains Mono", monospace;
-  font-size: 1.1cqw;
+  font-size: 1cqw;
   font-weight: 500;
-  color: var(--style-15-muted, #94a3b8);
+  color: var(--style-15-muted, #8a8a8a);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .ganttMonth.current {
-  color: var(--style-15-accent, #64b5f6);
+  color: var(--style-15-accent, #4ade80);
   font-weight: 700;
 }
 
@@ -209,11 +211,12 @@
   width: 16.5cqw;
   font-size: 1.3cqw;
   font-weight: 500;
-  color: var(--style-15-ink, #e2e8f0);
+  color: var(--style-15-ink, #e8e8e8);
   flex-shrink: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: "JetBrains Mono", monospace;
 }
 
 .ganttTrack {
@@ -222,6 +225,7 @@
   background: rgba(255, 255, 255, 0.04);
   border-radius: 0.5cqh;
   position: relative;
+  box-shadow: inset 0 0.1cqh 0.3cqh rgba(0, 0, 0, 0.4);
 }
 
 .ganttBar {
@@ -234,21 +238,22 @@
   align-items: center;
   padding: 0 1cqw;
   overflow: hidden;
+  box-shadow: 0 0.15cqh 0.4cqh rgba(0, 0, 0, 0.3);
 }
 
 .ganttBarLabel {
   font-family: "JetBrains Mono", monospace;
-  font-size: 1cqw;
+  font-size: 0.9cqw;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.7);
   white-space: nowrap;
 }
 
-/* Phase colors */
-.barQ1 { background: linear-gradient(135deg, #64b5f6, #42a5f5); }
-.barQ2 { background: linear-gradient(135deg, #81c784, #66bb6a); }
-.barQ3 { background: linear-gradient(135deg, #ffb74d, #ffa726); }
-.barQ4 { background: linear-gradient(135deg, #ba68c8, #ab47bc); }
+/* Fader/meter colors — vivid only on indicators */
+.barQ1 { background: linear-gradient(135deg, #4ade80, #22c55e); }
+.barQ2 { background: linear-gradient(135deg, #facc15, #eab308); }
+.barQ3 { background: linear-gradient(135deg, #fb923c, #f97316); }
+.barQ4 { background: linear-gradient(135deg, #f87171, #ef4444); }
 
 /* ── Scene 3: Phase Detail ────────────────────────────────────────────── */
 
@@ -281,32 +286,35 @@
   font-weight: 600;
   border: 0.1cqw solid transparent;
   transition: all 0.3s ease;
-  color: var(--style-15-muted, #94a3b8);
+  color: var(--style-15-muted, #8a8a8a);
   background: transparent;
   text-align: left;
+  font-family: "JetBrains Mono", monospace;
 }
 
 .phaseTab.active {
-  background: var(--style-15-panel, #2d3748);
-  border-color: rgba(100, 181, 246, 0.3);
-  color: var(--style-15-ink, #e2e8f0);
+  background: var(--style-15-panel, #1e1e1e);
+  border-color: rgba(74, 222, 128, 0.25);
+  color: var(--style-15-ink, #e8e8e8);
+  box-shadow: inset 0 0.1cqh 0.3cqh rgba(0, 0, 0, 0.3);
 }
 
 .phaseTabQ {
   font-family: "JetBrains Mono", monospace;
-  font-size: 1.1cqw;
+  font-size: 1cqw;
   font-weight: 500;
   display: block;
   margin-bottom: 0.3cqh;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 .phaseContent {
   flex: 1;
-  background: var(--style-15-panel, #2d3748);
+  background: var(--style-15-panel, #1e1e1e);
   border-radius: 1cqw;
   padding: 3cqh 3cqw;
   border: 0.1cqw solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.3);
 }
 
 .phaseHeader {
@@ -316,16 +324,16 @@
 .phaseName {
   font-size: 3cqw;
   font-weight: 700;
-  color: var(--style-15-ink, #e2e8f0);
+  color: var(--style-15-ink, #e8e8e8);
   margin: 0;
   line-height: 1.1;
 }
 
 .phasePeriod {
   font-family: "JetBrains Mono", monospace;
-  font-size: 1.3cqw;
+  font-size: 1.2cqw;
   font-weight: 500;
-  color: var(--style-15-accent, #64b5f6);
+  color: var(--style-15-accent, #4ade80);
   margin-top: 0.5cqh;
   display: block;
 }
@@ -343,7 +351,7 @@
   padding: 1.2cqh 1.5cqw;
   background: rgba(255, 255, 255, 0.03);
   border-radius: 0.6cqw;
-  border-left: 0.3cqw solid var(--style-15-accent, #64b5f6);
+  border-left: 0.3cqw solid var(--style-15-accent, #4ade80);
   opacity: 0;
   transform: translateX(1cqw);
   transition:
@@ -360,7 +368,7 @@
   width: 3cqw;
   height: 3cqw;
   border-radius: 0.6cqw;
-  background: rgba(100, 181, 246, 0.15);
+  background: rgba(74, 222, 128, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -375,7 +383,7 @@
 .phaseItemTitle {
   font-size: 1.5cqw;
   font-weight: 600;
-  color: var(--style-15-ink, #e2e8f0);
+  color: var(--style-15-ink, #e8e8e8);
   display: block;
   margin-bottom: 0.3cqh;
 }
@@ -383,7 +391,7 @@
 .phaseItemDesc {
   font-size: 1.2cqw;
   font-weight: 400;
-  color: var(--style-15-muted, #94a3b8);
+  color: var(--style-15-muted, #8a8a8a);
   line-height: 1.3;
 }
 
@@ -423,18 +431,19 @@
 
 .depNode {
   padding: 1.5cqh 2.5cqw;
-  background: var(--style-15-panel, #2d3748);
+  background: var(--style-15-panel, #1e1e1e);
   border-radius: 1cqw;
-  border: 0.15cqw solid rgba(100, 181, 246, 0.25);
+  border: 0.15cqw solid rgba(74, 222, 128, 0.2);
   text-align: center;
   min-width: 14cqw;
+  box-shadow: inset 0 0.15cqh 0.4cqh rgba(0, 0, 0, 0.3);
 }
 
 .depNodeKey {
   font-family: "JetBrains Mono", monospace;
   font-size: 1cqw;
   font-weight: 500;
-  color: var(--style-15-accent, #64b5f6);
+  color: var(--style-15-accent, #4ade80);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   display: block;
@@ -444,14 +453,14 @@
 .depNodeName {
   font-size: 1.5cqw;
   font-weight: 600;
-  color: var(--style-15-ink, #e2e8f0);
+  color: var(--style-15-ink, #e8e8e8);
 }
 
 .depArrow {
   width: 3cqw;
   height: 2cqh;
-  color: var(--style-15-accent, #64b5f6);
-  opacity: 0.5;
+  color: var(--style-15-accent, #4ade80);
+  opacity: 0.4;
   flex-shrink: 0;
 }
 
@@ -472,19 +481,19 @@
   line-height: 1.1;
   letter-spacing: -0.03em;
   margin: 0;
-  color: var(--style-15-ink, #e2e8f0);
+  color: var(--style-15-ink, #e8e8e8);
   max-width: 70cqw;
 }
 
 .closingRoadmap em {
   font-style: normal;
-  color: var(--style-15-accent, #64b5f6);
+  color: var(--style-15-accent, #4ade80);
 }
 
 .closingRoadmapSub {
   font-size: 2.2cqw;
   font-weight: 400;
-  color: var(--style-15-muted, #94a3b8);
+  color: var(--style-15-muted, #8a8a8a);
   margin-top: 3cqh;
   max-width: 55cqw;
   line-height: 1.4;
@@ -502,19 +511,20 @@
 
 .closingProgVal {
   font-family: "JetBrains Mono", monospace;
-  font-size: 3.5cqw;
+  font-size: 3cqw;
   font-weight: 700;
-  color: var(--style-15-accent, #64b5f6);
+  color: var(--style-15-accent, #4ade80);
   display: block;
   line-height: 1;
 }
 
 .closingProgLbl {
-  font-size: 1.3cqw;
+  font-size: 1.2cqw;
   font-weight: 500;
-  color: var(--style-15-muted, #94a3b8);
+  color: var(--style-15-muted, #8a8a8a);
   margin-top: 0.5cqh;
   display: block;
+  font-family: "JetBrains Mono", monospace;
 }
 
 /* ── Navigation ────────────────────────────────────────────────────────── */
@@ -533,7 +543,7 @@
   width: 0.6cqw;
   height: 0.6cqw;
   border-radius: 50%;
-  border: 0.1cqw solid var(--style-15-accent, #64b5f6);
+  border: 0.1cqw solid var(--style-15-accent, #4ade80);
   padding: 0;
   cursor: pointer;
   background: transparent;
@@ -550,9 +560,10 @@
 }
 
 .navDotActive {
-  opacity: 0.7;
-  background: var(--style-15-accent, #64b5f6);
+  opacity: 0.8;
+  background: var(--style-15-accent, #4ade80);
   transform: scale(1.3);
+  box-shadow: 0 0 0.5cqw rgba(74, 222, 128, 0.4);
 }
 
 /* ── Scene-to-scene transition layers ──────────────────────────────────── */
@@ -560,6 +571,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   z-index: 1;
 }
 
@@ -569,7 +581,7 @@
 }
 
 .enterAnim {
-  animation: roadmapEnter 550ms ease-out forwards;
+  animation: roadmapEnter 550ms ease-out both;
   z-index: 3;
 }
 

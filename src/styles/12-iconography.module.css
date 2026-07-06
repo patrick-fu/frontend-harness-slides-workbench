@@ -1,6 +1,6 @@
-/* ─── Style 12: Iconography ──────────────────────────────────────────────
-   Product feature tour. Icon-driven showcase with clean icon + label pattern.
-   All sizing in cqw/cqh. No px/vw/vh.
+/* ─── Style 12: Soft Pastel Friendly ─────────────────────────────────────
+   Warm bone/peach ground, low-saturation pastels, rounded pill/squircle
+   geometry, rounded display voice. All sizing in cqw/cqh. No px/vw/vh.
    ──────────────────────────────────────────────────────────────────────── */
 
 .root {
@@ -9,9 +9,21 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-12-bg, #f0f4f8);
-  color: var(--style-12-ink, #1a202c);
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background: var(--style-12-bg, #fef7f0);
+  color: var(--style-12-ink, #4a3f35);
+  font-family: "Nunito", "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* Subtle warm grain texture */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(184, 164, 212, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255, 182, 193, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .track {
@@ -27,6 +39,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 @keyframes sceneEnter {
@@ -114,14 +127,14 @@
   font-size: 7cqw;
   font-weight: 800;
   line-height: 1.0;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   margin: 0;
-  color: var(--style-12-ink, #1a202c);
+  color: var(--style-12-ink, #4a3f35);
 }
 
 .heroTitle em {
   font-style: normal;
-  color: var(--style-12-accent, #4299e1);
+  color: var(--style-12-accent, #b8a4d4);
 }
 
 .heroSub {
@@ -129,7 +142,7 @@
   font-weight: 400;
   line-height: 1.4;
   margin-top: 2.5cqh;
-  color: var(--style-12-muted, #718096);
+  color: var(--style-12-muted, #8a7e72);
   max-width: 55cqw;
 }
 
@@ -143,20 +156,20 @@
 
 .secLabel {
   font-size: 1.4cqw;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--style-12-accent, #4299e1);
+  color: var(--style-12-accent, #b8a4d4);
   margin-bottom: 0.5cqh;
 }
 
 .secTitle {
   font-size: 4cqw;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0 0 3cqh 0;
-  color: var(--style-12-ink, #1a202c);
+  color: var(--style-12-ink, #4a3f35);
 }
 
 .featureGrid {
@@ -167,14 +180,14 @@
 }
 
 .featureCard {
-  background: var(--style-12-panel, #ffffff);
-  border-radius: 1.5cqw;
+  background: var(--style-12-panel, #fff5eb);
+  border-radius: 2.5cqw;
   padding: 3cqh 2.5cqw;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 1.5cqh;
-  box-shadow: 0 0.3cqh 1.5cqh rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0.3cqh 1.5cqh rgba(74, 63, 53, 0.06);
   opacity: 0;
   transform: translateY(2cqh);
   transition:
@@ -190,8 +203,8 @@
 .featureIcon {
   width: 6cqw;
   height: 6cqw;
-  border-radius: 1.2cqw;
-  background: rgba(66, 153, 225, 0.1);
+  border-radius: 2cqw;
+  background: rgba(184, 164, 212, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -204,15 +217,15 @@
 
 .featureName {
   font-size: 2.2cqw;
-  font-weight: 700;
-  color: var(--style-12-ink, #1a202c);
+  font-weight: 800;
+  color: var(--style-12-ink, #4a3f35);
   line-height: 1.2;
 }
 
 .featureDesc {
   font-size: 1.4cqw;
   font-weight: 400;
-  color: var(--style-12-muted, #718096);
+  color: var(--style-12-muted, #8a7e72);
   line-height: 1.4;
 }
 
@@ -235,9 +248,9 @@
   flex-shrink: 0;
   width: 28cqw;
   height: 28cqw;
-  border-radius: 3cqw;
-  background: var(--style-12-panel, #ffffff);
-  box-shadow: 0 1cqh 4cqh rgba(66, 153, 225, 0.15);
+  border-radius: 4cqw;
+  background: var(--style-12-panel, #fff5eb);
+  box-shadow: 0 1cqh 4cqh rgba(184, 164, 212, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -265,13 +278,13 @@
 .spotlightBadge {
   display: inline-block;
   font-size: 1.2cqw;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--style-12-accent, #4299e1);
-  background: rgba(66, 153, 225, 0.1);
-  padding: 0.5cqh 1.5cqw;
-  border-radius: 2cqw;
+  color: #8a6dab;
+  background: rgba(184, 164, 212, 0.2);
+  padding: 0.6cqh 1.8cqw;
+  border-radius: 3cqw;
   margin-bottom: 2cqh;
 }
 
@@ -279,16 +292,16 @@
   font-size: 5cqw;
   font-weight: 800;
   line-height: 1.05;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   margin: 0 0 2cqh 0;
-  color: var(--style-12-ink, #1a202c);
+  color: var(--style-12-ink, #4a3f35);
 }
 
 .spotlightDesc {
   font-size: 2cqw;
   font-weight: 400;
   line-height: 1.5;
-  color: var(--style-12-muted, #718096);
+  color: var(--style-12-muted, #8a7e72);
   margin: 0 0 3cqh 0;
 }
 
@@ -303,8 +316,8 @@
   align-items: center;
   gap: 1cqw;
   font-size: 1.5cqw;
-  font-weight: 500;
-  color: var(--style-12-ink, #1a202c);
+  font-weight: 600;
+  color: var(--style-12-ink, #4a3f35);
   opacity: 0;
   transform: translateX(-1cqw);
   transition:
@@ -318,10 +331,10 @@
 }
 
 .bulletCheck {
-  width: 2.5cqw;
-  height: 2.5cqw;
+  width: 2.8cqw;
+  height: 2.8cqw;
   border-radius: 50%;
-  background: var(--style-12-accent, #4299e1);
+  background: var(--style-12-accent, #b8a4d4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -369,9 +382,9 @@
 .intIcon {
   width: 8cqw;
   height: 8cqw;
-  border-radius: 2cqw;
-  background: var(--style-12-panel, #ffffff);
-  box-shadow: 0 0.4cqh 2cqh rgba(0, 0, 0, 0.06);
+  border-radius: 2.8cqw;
+  background: var(--style-12-panel, #fff5eb);
+  box-shadow: 0 0.4cqh 2cqh rgba(74, 63, 53, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -384,8 +397,8 @@
 
 .intLabel {
   font-size: 1.4cqw;
-  font-weight: 600;
-  color: var(--style-12-ink, #1a202c);
+  font-weight: 700;
+  color: var(--style-12-ink, #4a3f35);
   text-align: center;
 }
 
@@ -425,27 +438,27 @@
   font-size: 6cqw;
   font-weight: 800;
   line-height: 1.05;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   margin: 0;
-  color: var(--style-12-ink, #1a202c);
+  color: var(--style-12-ink, #4a3f35);
   max-width: 70cqw;
 }
 
 .closingHeadline em {
   font-style: normal;
-  color: var(--style-12-accent, #4299e1);
+  color: var(--style-12-accent, #b8a4d4);
 }
 
 .closingCta {
   display: inline-block;
   font-size: 1.8cqw;
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 4cqh;
   padding: 1.5cqh 4cqw;
-  background: var(--style-12-accent, #4299e1);
+  background: var(--style-12-accent, #b8a4d4);
   color: #fff;
-  border-radius: 3cqw;
-  letter-spacing: 0.02em;
+  border-radius: 4cqw;
+  letter-spacing: 0.01em;
 }
 
 /* ── Navigation ────────────────────────────────────────────────────────── */
@@ -463,12 +476,12 @@
 .navIcon {
   width: 4.5cqw;
   height: 4.5cqw;
-  border-radius: 1.2cqw;
+  border-radius: 1.8cqw;
   border: none;
   padding: 0;
   cursor: pointer;
-  background: var(--style-12-panel, #ffffff);
-  box-shadow: 0 0.2cqh 1cqh rgba(0, 0, 0, 0.06);
+  background: var(--style-12-panel, #fff5eb);
+  box-shadow: 0 0.2cqh 1cqh rgba(74, 63, 53, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -487,13 +500,13 @@
 .navIcon:hover {
   opacity: 0.8;
   transform: scale(1.12);
-  box-shadow: 0 0.4cqh 1.5cqh rgba(66, 153, 225, 0.2);
+  box-shadow: 0 0.4cqh 1.5cqh rgba(184, 164, 212, 0.25);
 }
 
 .navIconActive {
   opacity: 1;
   transform: scale(1.15);
-  box-shadow: 0 0.4cqh 1.5cqh rgba(66, 153, 225, 0.25);
+  box-shadow: 0 0.4cqh 1.5cqh rgba(184, 164, 212, 0.3);
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */

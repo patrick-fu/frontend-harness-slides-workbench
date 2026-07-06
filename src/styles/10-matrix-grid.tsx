@@ -1,6 +1,11 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./10-matrix-grid.module.css";
+
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 550; // 500ms enter + 50ms buffer
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 };
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -141,12 +146,12 @@ function renderMark(val: string, lang: "en" | "zh") {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Matrix Grid", zh: "矩阵网格" };
+  const nameMap = { en: "Benchmark Matrix", zh: "基准矩阵" };
   const themeMap = {
-    en: "Competitive Landscape Analysis — grid-based layouts with comparison tables and feature matrices for systematic information display",
-    zh: "竞争格局分析——基于网格的布局，对比表格和功能矩阵，系统化信息展示",
+    en: "Analytical Evaluation Matrix — clean comparative evidence with bright neutral ground, positive/negative result marks, and scannable like-against-like comparison. Best for tool comparisons, evaluation criteria, and data-heavy benchmarks.",
+    zh: "分析评估矩阵——明亮中性底色、正负结果标记、可扫描的同类对比。最适合工具比较、评估标准和数据密集型基准测试。",
   };
-  const densityLabelMap = { en: "Information-Dense", zh: "信息密集" };
+  const densityLabelMap = { en: "Analytical", zh: "分析型" };
 
   const sceneTitles = {
     en: ["Title", "Market Quadrant", "Comparison Table", "Capability Matrix", "Closing"],
@@ -219,9 +224,9 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
-    colors: { bg: "#ffffff", ink: "#1a1a2e", panel: "#f5f5f5" },
-    typography: { header: "Inter 700", body: "Inter 400" },
-    tags: ["matrix", "grid", "comparison", "competitive", "table", "systematic", "data", "structured", "analysis"],
+    colors: { bg: "#fafbfc", ink: "#1a1a2e", panel: "#f0f2f5" },
+    typography: { header: "Inter 600", body: "Inter 400" },
+    tags: ["benchmark", "matrix", "comparison", "evaluation", "analytical", "scannable", "criteria", "evidence", "structured"],
     fonts: ["Inter"],
     scenes,
   };
@@ -234,6 +239,46 @@ export default function MatrixGrid({
 }: BespokeStyleProps) {
   useFonts();
 
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
+
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
       e.stopPropagation();
@@ -243,7 +288,6 @@ export default function MatrixGrid({
   );
 
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : "", isThumbnail ? styles.thumbnail : ""].filter(Boolean).join(" ");
-  const trackClasses = [styles.track, !isTransitionClone && styles.animateSceneEnter].filter(Boolean).join(" ");
 
   const renderScene1 = () => {
     const c = SCENES[1][language as keyof typeof SCENES[1]];
@@ -258,10 +302,10 @@ export default function MatrixGrid({
     );
   };
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number) => {
     const c = SCENES[2][language as keyof typeof SCENES[2]];
     const quads = c.quads as Array<{ label: string; name: string; desc: string; count: string; highlight?: boolean }>;
-    const visibleCount = Math.min(beat * 2, 4);
+    const visibleCount = Math.min(beatNum * 2, 4);
     return (
       <div className={styles.scene2}>
         <span className={styles.secHeader}>{c.header}</span>
@@ -292,11 +336,11 @@ export default function MatrixGrid({
     );
   };
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number) => {
     const c = SCENES[3][language as keyof typeof SCENES[3]];
     const headers = c.headers as string[];
     const rows = c.rows as Array<{ feature: string; vals: string[]; our: boolean }>;
-    const visibleCount = beat === 0 ? 0 : beat === 1 ? 4 : 7;
+    const visibleCount = beatNum === 0 ? 0 : beatNum === 1 ? 4 : 7;
     return (
       <div className={styles.scene3}>
         <span className={styles.secHeader}>{c.header}</span>
@@ -339,7 +383,7 @@ export default function MatrixGrid({
     );
   };
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number) => {
     const c = SCENES[4][language as keyof typeof SCENES[4]];
     const categories = c.categories as string[];
     const features = c.features as Array<{ name: string; vals: string[] }>;
@@ -354,7 +398,7 @@ export default function MatrixGrid({
             <span className={styles.matrixFeature}>&nbsp;</span>
           </div>
           {categories.map((cat, ci) => {
-            const visible = beat >= 1;
+            const visible = beatNum >= 1;
             const cls = [
               styles.matrixCell,
               visible ? styles.matrixCellVisible : "",
@@ -375,14 +419,14 @@ export default function MatrixGrid({
             <React.Fragment key={`feat-${fi}`}>
               <div
                 className={[styles.matrixCell, styles.matrixCellVisible].join(" ")}
-                style={{ opacity: beat >= 1 ? 1 : 0, transition: reducedMotion ? "none" : `opacity 0.4s ease ${fi * 0.1}s` }}
+                style={{ opacity: beatNum >= 1 ? 1 : 0, transition: reducedMotion ? "none" : `opacity 0.4s ease ${fi * 0.1}s` }}
               >
                 <span className={styles.matrixFeature} style={{ fontWeight: 600, textAlign: "left", width: "100%" }}>{feat.name}</span>
               </div>
               {feat.vals.map((val, vi) => {
                 const numVal = parseFloat(val);
                 const valCls = numVal >= 9 ? styles.good : numVal >= 7.5 ? styles.mid : styles.bad;
-                const visible = beat >= 1;
+                const visible = beatNum >= 1;
                 return (
                   <div
                     key={`val-${fi}-${vi}`}
@@ -418,12 +462,12 @@ export default function MatrixGrid({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
+  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+    switch (sceneNum) {
       case 1: return renderScene1();
-      case 2: return renderScene2();
-      case 3: return renderScene3();
-      case 4: return renderScene4();
+      case 2: return renderScene2(beatNum);
+      case 3: return renderScene3(beatNum);
+      case 4: return renderScene4(beatNum);
       case 5: return renderScene5();
       default: return null;
     }
@@ -449,15 +493,27 @@ export default function MatrixGrid({
     );
   };
 
+  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim].filter(Boolean).join(" ");
+  const incomingLayerClasses = [styles.sceneLayer, isTransitioning && !isTransitionClone ? styles.enterAnim : ""].filter(Boolean).join(" ");
+
   return (
     <div className={rootClasses}>
-      <div
-        key={`10-${scene}`}
-        className={trackClasses}
-        style={reducedMotion ? { animationDuration: "0s" } : undefined}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (quick fade) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          <div className={styles.track}>
+            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+          </div>
+        </div>
+      )}
+
+      {/* Incoming / current scene (fade + scale + brightness flash) */}
+      <div className={incomingLayerClasses}>
+        <div key={`10-${scene}`} className={styles.track}>
+          {renderSceneFor(scene, beat)}
+        </div>
       </div>
+
       {renderNav()}
     </div>
   );
