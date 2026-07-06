@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./39-notion-doc.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -57,136 +57,136 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      title: "Engineering Team Wiki",
-      subtitle: "Central knowledge hub for our team",
-      icon: "📚",
-      coverGradient: "linear-gradient(135deg, #e8e4df 0%, #d4cfc7 40%, #c9c4bb 100%)",
+      title: "The Caching Principle",
+      subtitle: "Why remembering faster changes everything",
+      icon: "📐",
+      coverGradient: "linear-gradient(135deg, #1e3328 0%, #24382d 40%, #1a2d23 100%)",
     },
     zh: {
-      title: "工程团队知识库",
-      subtitle: "团队核心知识中心",
-      icon: "📚",
-      coverGradient: "linear-gradient(135deg, #e8e4df 0%, #d4cfc7 40%, #c9c4bb 100%)",
+      title: "缓存原理",
+      subtitle: "为什么更快的记忆改变一切",
+      icon: "📐",
+      coverGradient: "linear-gradient(135deg, #1e3328 0%, #24382d 40%, #1a2d23 100%)",
     },
   },
   2: {
     en: {
-      pageTitle: "Onboarding Guide",
-      h2: "Getting Started",
+      pageTitle: "Cache Hit Rate",
+      h2: "The Fundamental Formula",
       paragraph:
-        "Welcome to the engineering team. This guide walks you through setting up your development environment, understanding our codebase conventions, and getting your first PR merged. We follow a trunk-based development workflow with short-lived feature branches and mandatory code review.",
-      h3: "Development Environment",
+        "Every caching decision boils down to one number: the hit rate. It tells us what fraction of requests find the data already in memory, versus the fraction that must travel to the source. Deriving this live on the board reveals why small improvements compound dramatically.",
+      h3: "Key Variables",
       bullets: [
-        "Node.js 18+ and pnpm 8 required for all services",
-        "Clone the monorepo and run `pnpm install` at root",
-        "Configure your .env.local from the .env.template file",
-        "Run `pnpm dev` to start the local development server on port 3000",
+        "hits — requests served from the cache layer",
+        "misses — requests that fall through to origin",
+        "total = hits + misses — the denominator",
+        "latency_delta = origin_latency − cache_latency",
       ],
       numbered: [
-        "Set up SSH keys and add them to your GitHub account",
-        "Install the recommended VS Code extensions listed in .vscode/extensions.json",
-        "Request access to staging and production environments via IT",
-        "Complete the mandatory security training module in Lattice",
+        "Measure baseline requests per second at origin",
+        "Introduce cache and instrument hit/miss counters",
+        "Compute hit_rate = hits / total over a window",
+        "Multiply by latency_delta to get time saved",
       ],
-      codeBlock: "pnpm install && pnpm dev",
+      codeBlock: "hit_rate = hits / (hits + misses)\ntime_saved = hit_rate * latency_delta",
     },
     zh: {
-      pageTitle: "入职指南",
-      h2: "快速开始",
+      pageTitle: "缓存命中率",
+      h2: "基本公式",
       paragraph:
-        "欢迎加入工程团队。本指南将帮助你配置开发环境、了解代码库规范，并完成你的第一个 PR 合并。我们采用基于主干的开发工作流，使用短生命周期特性分支和强制代码审查制度。",
-      h3: "开发环境",
+        "每一个缓存决策最终都归结为一个数字：命中率。它告诉我们有多少比例的请求在内存中找到了数据，而有多少比例必须回源获取。在黑板上实时推导这个公式，可以揭示为什么微小的改进会产生巨大的复合效应。",
+      h3: "关键变量",
       bullets: [
-        "所有服务需要 Node.js 18+ 和 pnpm 8",
-        "克隆 monorepo 并在根目录运行 `pnpm install`",
-        "从 .env.template 配置你的 .env.local 文件",
-        "运行 `pnpm dev` 在 3000 端口启动本地开发服务器",
+        "命中次数 — 从缓存层提供服务的请求",
+        "未命中次数 — 穿透到源站的请求",
+        "总量 = 命中 + 未命中 — 分母",
+        "延迟差 = 源站延迟 − 缓存延迟",
       ],
       numbered: [
-        "配置 SSH 密钥并添加到 GitHub 账户",
-        "安装 .vscode/extensions.json 中列出的推荐 VS Code 扩展",
-        "通过 IT 部门申请预发布和生产环境访问权限",
-        "在 Lattice 系统完成必修的安全培训模块",
+        "测量源站的基准每秒请求数",
+        "引入缓存并埋点命中/未命中计数器",
+        "在时间窗口内计算 命中率 = 命中 / 总量",
+        "乘以延迟差得到节省的时间",
       ],
-      codeBlock: "pnpm install && pnpm dev",
+      codeBlock: "命中率 = 命中 / (命中 + 未命中)\n节省时间 = 命中率 × 延迟差",
     },
   },
   3: {
     en: {
-      pageTitle: "Architecture Decisions",
+      pageTitle: "Eviction Strategies",
       toggles: [
         {
-          title: "Why we chose PostgreSQL",
-          body: "After evaluating MySQL, PostgreSQL, and CockroachDB over a six-week spike, we settled on PostgreSQL for its superior JSONB support, strong consistency guarantees, and mature extension ecosystem. Our workload benefits from Postgres' advanced indexing capabilities (GIN, GiST) and the ability to run complex analytical queries alongside transactional workloads. The managed RDS offering also integrates well with our AWS infrastructure.",
+          title: "LRU: Least Recently Used",
+          body: "When the cache fills, evict the entry that has gone untouched the longest. Intuition: if you have not looked at it recently, you probably will not need it soon. Works well for temporal locality workloads — think user sessions, recently viewed items. Cost: O(1) lookup with a doubly-linked list plus hash map.",
         },
         {
-          title: "API Design Principles",
-          body: "Our APIs follow REST conventions for resource-oriented endpoints, with GraphQL available for complex query scenarios. Versioning is handled through URL prefixes (/v1/, /v2/). All responses use camelCase JSON with a consistent envelope format: { data, error, meta }. Rate limiting is enforced at 1000 req/min per API key. Webhooks use HMAC-SHA256 signatures for payload verification.",
+          title: "When to use what",
+          body: "LRU shines when access patterns have recency bias. LFU (Least Frequently Used) wins when popularity matters more than recency — a trending article, for example. FIFO is simplest but ignores access history entirely. Choose by your dominant access pattern, not by what is easiest to implement.",
         },
       ],
     },
     zh: {
-      pageTitle: "架构决策",
+      pageTitle: "驱逐策略",
       toggles: [
         {
-          title: "为什么选择 PostgreSQL",
-          body: "经过六周的技术调研，我们评估了 MySQL、PostgreSQL 和 CockroachDB，最终选择了 PostgreSQL，因为它出色的 JSONB 支持、强一致性保证以及成熟的扩展生态。我们的业务场景受益于 Postgres 高级索引能力（GIN、GiST）以及在事务负载上运行复杂分析查询的能力。托管 RDS 服务也与我们的 AWS 基础设施良好集成。",
+          title: "LRU：最近最少使用",
+          body: "当缓存满时，驱逐最久未被访问的条目。直觉：如果你最近没看过它，你可能也不会很快需要它。对时间局部性工作负载效果很好——比如用户会话、最近查看的项目。成本：通过双向链表加哈希表实现 O(1) 查找。",
         },
         {
-          title: "API 设计原则",
-          body: "我们的 API 遵循 REST 规范设计面向资源的端点，同时提供 GraphQL 以支持复杂查询场景。版本控制通过 URL 前缀（/v1/、/v2/）管理。所有响应使用 camelCase JSON 和统一的信封格式：{ data, error, meta }。速率限制为每个 API 密钥 1000 次请求/分钟。Webhook 使用 HMAC-SHA256 签名进行载荷验证。",
+          title: "何时使用何种策略",
+          body: "当访问模式存在近因偏差时，LRU 表现出色。当流行度比近因更重要时——例如热门文章——LFU（最不经常使用）胜出。FIFO 最简单但完全忽略访问历史。根据你的主导访问模式选择，而不是根据什么最容易实现。",
         },
       ],
     },
   },
   4: {
     en: {
-      pageTitle: "Sprint Planning",
+      pageTitle: "Key Insight",
       callout:
-        "Reminder: All PRs need 2 approvals before merge. Use the 'ready-for-review' label to signal your PR is ready for the team to look at.",
+        "Caching trades memory for latency. The hit rate is your leverage ratio — at 95% hits, you only pay origin cost for 1 request in 20.",
       todos: [
-        { checked: true, text: "Complete authentication service refactor (JWT rotation)" },
-        { checked: true, text: "Write migration scripts for user preferences table" },
-        { checked: false, text: "Implement webhook retry mechanism with exponential backoff" },
-        { checked: false, text: "Update API documentation for v2 endpoints in ReadMe" },
-        { checked: false, text: "Load testing for the new Elasticsearch index (target 5k QPS)" },
+        { checked: true, text: "Define what counts as a 'hit' in your system" },
+        { checked: true, text: "Instrument hit/miss counters at the cache layer" },
+        { checked: false, text: "Measure latency_delta between cache and origin" },
+        { checked: false, text: "Plot hit rate over time to detect drift" },
+        { checked: false, text: "Choose eviction strategy matching access pattern" },
       ],
     },
     zh: {
-      pageTitle: "迭代规划",
-      callout: "提醒：所有 PR 需要 2 人审批才能合并。使用 'ready-for-review' 标签标记你的 PR 已就绪，等待团队审查。",
+      pageTitle: "核心洞察",
+      callout: "缓存用内存换取延迟。命中率就是你的杠杆率——在 95% 命中率下，每 20 个请求中只有 1 个需要支付源站成本。",
       todos: [
-        { checked: true, text: "完成认证服务重构（JWT 轮换）" },
-        { checked: true, text: "编写用户偏好表的迁移脚本" },
-        { checked: false, text: "实现带指数退避的 webhook 重试机制" },
-        { checked: false, text: "在 ReadMe 中更新 v2 端点的 API 文档" },
-        { checked: false, text: "新 Elasticsearch 索引的负载测试（目标 5k QPS）" },
+        { checked: true, text: "定义系统中什么算作'命中'" },
+        { checked: true, text: "在缓存层埋点命中/未命中计数器" },
+        { checked: false, text: "测量缓存和源站之间的延迟差" },
+        { checked: false, text: "绘制命中率随时间变化曲线以检测漂移" },
+        { checked: false, text: "选择匹配访问模式的驱逐策略" },
       ],
     },
   },
   5: {
     en: {
-      pageTitle: "Team Roster",
-      tableColumns: ["Name", "Role", "Team", "Status"],
+      pageTitle: "Strategy Comparison",
+      tableColumns: ["Strategy", "Best For", "Hit Rate", "Complexity"],
       tableRows: [
-        ["Sarah Chen", "Staff Engineer", "Platform", "Active"],
-        ["Marcus Johnson", "Senior Engineer", "Backend", "Active"],
-        ["Yuki Tanaka", "Engineering Manager", "Platform", "Active"],
-        ["Alex Rivera", "Frontend Engineer", "Growth", "OOO"],
-        ["Priya Patel", "Data Engineer", "Analytics", "Active"],
-        ["James Wilson", "DevOps Engineer", "Infrastructure", "Active"],
+        ["LRU", "Temporal locality", "High", "O(1)"],
+        ["LFU", "Popularity-driven", "Very High", "O(log n)"],
+        ["FIFO", "Simple queues", "Medium", "O(1)"],
+        ["Random", "No pattern", "Low", "O(1)"],
+        ["ARC", "Mixed patterns", "Adaptive", "O(1)"],
+        ["TTL-based", "Time-sensitive", "Medium", "O(1)"],
       ],
     },
     zh: {
-      pageTitle: "团队名册",
-      tableColumns: ["姓名", "角色", "团队", "状态"],
+      pageTitle: "策略对比",
+      tableColumns: ["策略", "适用场景", "命中率", "复杂度"],
       tableRows: [
-        ["陈思远", "资深工程师", "平台组", "在职"],
-        ["马库斯·约翰逊", "高级工程师", "后端组", "在职"],
-        ["田中由纪", "工程经理", "平台组", "在职"],
-        ["亚历克斯·里维拉", "前端工程师", "增长组", "休假"],
-        ["普里亚·帕特尔", "数据工程师", "分析组", "在职"],
-        ["詹姆斯·威尔逊", "运维工程师", "基础架构组", "在职"],
+        ["LRU", "时间局部性", "高", "O(1)"],
+        ["LFU", "流行度驱动", "极高", "O(log n)"],
+        ["FIFO", "简单队列", "中等", "O(1)"],
+        ["随机", "无规律", "低", "O(1)"],
+        ["ARC", "混合模式", "自适应", "O(1)"],
+        ["TTL 过期", "时间敏感", "中等", "O(1)"],
       ],
     },
   },
@@ -203,43 +203,43 @@ interface SidebarItem {
 }
 
 const SIDEBAR_ITEMS: SidebarItem[] = [
-  { icon: "📚", label: { en: "Engineering Wiki", zh: "工程知识库" }, scene: 1, indent: 0 },
-  { icon: "📄", label: { en: "Onboarding Guide", zh: "入职指南" }, scene: 2, indent: 1 },
-  { icon: "📄", label: { en: "Architecture Decisions", zh: "架构决策" }, scene: 3, indent: 1 },
-  { icon: "📄", label: { en: "Sprint Planning", zh: "迭代规划" }, scene: 4, indent: 1 },
-  { icon: "📄", label: { en: "Team Roster", zh: "团队名册" }, scene: 5, indent: 1 },
-  { icon: "📂", label: { en: "Product Team", zh: "产品团队" }, scene: null, indent: 0, isFolder: true },
-  { icon: "📂", label: { en: "Design Team", zh: "设计团队" }, scene: null, indent: 0, isFolder: true },
+  { icon: "📐", label: { en: "Caching Principle", zh: "缓存原理" }, scene: 1, indent: 0 },
+  { icon: "📄", label: { en: "Hit Rate Formula", zh: "命中率公式" }, scene: 2, indent: 1 },
+  { icon: "📄", label: { en: "Eviction Strategies", zh: "驱逐策略" }, scene: 3, indent: 1 },
+  { icon: "📄", label: { en: "Key Insight", zh: "核心洞察" }, scene: 4, indent: 1 },
+  { icon: "📄", label: { en: "Strategy Comparison", zh: "策略对比" }, scene: 5, indent: 1 },
+  { icon: "📂", label: { en: "Data Structures", zh: "数据结构" }, scene: null, indent: 0, isFolder: true },
+  { icon: "📂", label: { en: "Distributed Systems", zh: "分布式系统" }, scene: null, indent: 0, isFolder: true },
 ];
 
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Notion Doc", zh: "Notion 文档" };
+  const nameMap = { en: "Blackboard Chalk Talk", zh: "黑板粉笔演讲" };
   const themeMap = {
-    en: "Team Wiki — Notion-style document viewer with block-level content, toggles, callouts, and table views",
-    zh: "团队知识库——Notion 风格文档查看器，支持块级内容、折叠块、标注框和表格视图",
+    en: "Live Derivation — dark matte chalkboard with soft off-white marks, hand-drawn diagrams and worked formulas, reasoning built up stroke by stroke",
+    zh: "实时推导——深色哑光黑板配柔和粉白粉笔痕迹，手绘图表和推导公式，逐笔构建推理过程",
   };
   const densityLabelMap = { en: "Reading-First", zh: "阅读优先" };
 
   const sceneTitles = {
-    en: ["Cover Page", "Content Blocks", "Toggle Sections", "Callout & Todo", "Table View"],
-    zh: ["封面页", "内容块", "折叠区块", "标注与待办", "表格视图"],
+    en: ["Title Board", "Formula Derivation", "Strategy Expansions", "Key Insight", "Comparison Table"],
+    zh: ["标题板", "公式推导", "策略展开", "核心洞察", "对比表格"],
   };
 
   const beatActions = {
     en: {
-      1: ["Page loads with cover"],
-      2: ["Headings and paragraph appear", "Lists and code block fill in"],
-      3: ["First toggle expands", "Second toggle expands"],
-      4: ["Callout and todos render"],
+      1: ["Board title appears"],
+      2: ["Formula heading and setup", "Variables and steps fill in"],
+      3: ["First strategy expands", "Second strategy expands"],
+      4: ["Insight and checklist render"],
       5: ["Table header and first rows", "More rows appear", "Full table visible"],
     },
     zh: {
-      1: ["页面加载封面"],
-      2: ["标题和段落出现", "列表和代码块填充"],
-      3: ["第一个折叠展开", "第二个折叠展开"],
-      4: ["标注和待办渲染"],
+      1: ["板书标题出现"],
+      2: ["公式标题和设定", "变量和步骤填充"],
+      3: ["第一个策略展开", "第二个策略展开"],
+      4: ["洞察和清单渲染"],
       5: ["表头和首行出现", "更多行出现", "完整表格显示"],
     },
   };
@@ -307,16 +307,16 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 2,
     colors: {
-      bg: "#ffffff",
-      ink: "#37352f",
-      panel: "#f7f6f3",
+      bg: "#1e3328",
+      ink: "#f0ebe0",
+      panel: "#24382d",
     },
     typography: {
-      header: "Inter 600",
-      body: "Inter 400",
+      header: "Caveat 400 (hand) / Inter 300 (notation)",
+      body: "Inter 300",
     },
-    tags: ["notion", "document", "wiki", "blocks", "collaborative", "clean", "minimal", "productivity"],
-    fonts: ["Inter"],
+    tags: ["chalk", "blackboard", "hand-drawn", "teaching", "derivation", "formula", "educational", "matte", "live-reasoning", "chalk-dust"],
+    fonts: ["Inter", "Caveat"],
     scenes,
   };
 }
@@ -338,25 +338,46 @@ export default function NotionDoc({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // FLIP for blocks container — when new blocks appear, existing ones shift
   const { ref: blocksRef } = useFLIP<HTMLDivElement>({
@@ -368,12 +389,12 @@ export default function NotionDoc({
 
   // Font injection
   useEffect(() => {
-    const FONT_ID = "style-39-fonts-inter";
+    const FONT_ID = "style-39-fonts-inter-caveat";
     if (document.getElementById(FONT_ID)) return;
     const link = document.createElement("link");
     link.id = FONT_ID;
     link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Caveat:wght@400;500;600&display=swap";
     document.head.appendChild(link);
   }, []);
 
@@ -417,7 +438,7 @@ export default function NotionDoc({
         <div className={styles.sidebarHeader}>
           <span className={styles.sidebarWorkspaceIcon}>⬡</span>
           <span className={styles.sidebarWorkspaceName}>
-            {language === "zh" ? "团队工作区" : "Team Workspace"}
+            {language === "zh" ? "板书讲堂" : "Board Sessions"}
           </span>
         </div>
         <div className={styles.sidebarSearch}>
@@ -514,16 +535,16 @@ export default function NotionDoc({
             }}
           >
             <span className={styles.coverMetaItem}>
-              <span className={styles.coverMetaIcon}>👥</span>
-              {language === "zh" ? "12 位成员" : "12 members"}
+              <span className={styles.coverMetaIcon}>📝</span>
+              {language === "zh" ? "5 个推导" : "5 derivations"}
             </span>
             <span className={styles.coverMetaItem}>
-              <span className={styles.coverMetaIcon}>📄</span>
-              {language === "zh" ? "47 个页面" : "47 pages"}
+              <span className={styles.coverMetaIcon}>📐</span>
+              {language === "zh" ? "12 个公式" : "12 formulas"}
             </span>
             <span className={styles.coverMetaItem}>
               <span className={styles.coverMetaIcon}>🕐</span>
-              {language === "zh" ? "最近编辑 2 小时前" : "Last edited 2h ago"}
+              {language === "zh" ? "最近更新 今天" : "Last updated today"}
             </span>
           </div>
         </div>
@@ -650,7 +671,9 @@ export default function NotionDoc({
               }}
             >
               <div className={styles.codeHeader}>
-                <span className={styles.codeLang}>bash</span>
+                <span className={styles.codeLang}>
+                  {language === "zh" ? "公式" : "formula"}
+                </span>
                 <span className={styles.codeCopy}>
                   {language === "zh" ? "复制" : "Copy"}
                 </span>
@@ -773,7 +796,7 @@ export default function NotionDoc({
                 transition: reducedMotion ? "none" : "opacity 0.4s ease 0.3s",
               }}
             >
-              {language === "zh" ? "待办事项" : "Tasks"}
+              {language === "zh" ? "理解清单" : "Checklist"}
             </h3>
             {(c.todos || []).map((todo, i) => (
               <div
@@ -843,7 +866,7 @@ export default function NotionDoc({
           >
             <div className={styles.tableToolbar}>
               <span className={styles.tableCount}>
-                {rows.length} {language === "zh" ? "条记录" : "records"}
+                {rows.length} {language === "zh" ? "种策略" : "strategies"}
               </span>
               <div className={styles.tableActions}>
                 <span className={styles.tableActionBtn}>🔍</span>

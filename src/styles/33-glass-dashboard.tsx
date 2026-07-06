@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./33-glass-dashboard.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -65,131 +65,129 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      title: "Operations Dashboard",
-      subtitle: "Real-time system health overview",
+      title: "The Collection",
+      subtitle: "Curated artifacts revealed through layered glass",
       kpis: [
-        { label: "Active Users", value: "24.8K", delta: "+12.4%", up: true },
-        { label: "Requests/s", value: "1.2M", delta: "+8.2%", up: true },
-        { label: "Error Rate", value: "0.03%", delta: "-0.01%", up: true },
-        { label: "Latency p99", value: "42ms", delta: "+3ms", up: false },
+        { label: "Artifacts", value: "47", delta: "+3 this month", up: true },
+        { label: "Collections", value: "12", delta: "+2 new", up: true },
+        { label: "Acquisitions", value: "8", delta: "Q2 intake", up: true },
+        { label: "On Display", value: "35", delta: "74% of total", up: false },
       ],
       chartBars: [45, 62, 38, 78, 55, 90, 72, 68, 85, 95, 70, 88],
       chartLabels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       activities: [
-        { text: "Deploy v2.14.0 completed", time: "2m ago", color: "#4ade80" },
-        { text: "Auto-scaling triggered: +3 nodes", time: "8m ago", color: "#38bdf8" },
-        { text: "Cache hit ratio dropped to 94%", time: "15m ago", color: "#fbbf24" },
-        { text: "New API key created: prod-***", time: "1h ago", color: "#a78bfa" },
-        { text: "Database backup completed", time: "2h ago", color: "#4ade80" },
-        { text: "SSL certificate renewed", time: "5h ago", color: "#38bdf8" },
+        { text: "New acquisition: Murano vase", time: "2 days ago", color: "#c9a96e" },
+        { text: "Collection rotation: Modernism wing", time: "5 days ago", color: "#8b9d8b" },
+        { text: "Conservation report filed", time: "1 week ago", color: "#b8a088" },
+        { text: "Donor visit scheduled", time: "2 weeks ago", color: "#a0b0a0" },
+        { text: "Spring catalog published", time: "3 weeks ago", color: "#c9a96e" },
+        { text: "Gallery lighting upgraded", time: "1 month ago", color: "#8b9d8b" },
       ],
     },
     zh: {
-      title: "运营仪表盘",
-      subtitle: "实时系统健康概览",
+      title: "藏品展示",
+      subtitle: "透过分层玻璃揭示精选展品",
       kpis: [
-        { label: "活跃用户", value: "24.8K", delta: "+12.4%", up: true },
-        { label: "请求/秒", value: "1.2M", delta: "+8.2%", up: true },
-        { label: "错误率", value: "0.03%", delta: "-0.01%", up: true },
-        { label: "延迟 p99", value: "42ms", delta: "+3ms", up: false },
+        { label: "展品数", value: "47", delta: "本月 +3", up: true },
+        { label: "系列数", value: "12", delta: "+2 新系列", up: true },
+        { label: "新入藏", value: "8", delta: "Q2 入藏", up: true },
+        { label: "在展数", value: "35", delta: "占总量 74%", up: false },
       ],
       chartBars: [45, 62, 38, 78, 55, 90, 72, 68, 85, 95, 70, 88],
       chartLabels: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
       activities: [
-        { text: "部署 v2.14.0 完成", time: "2分钟前", color: "#4ade80" },
-        { text: "自动扩缩容触发：+3 节点", time: "8分钟前", color: "#38bdf8" },
-        { text: "缓存命中率降至 94%", time: "15分钟前", color: "#fbbf24" },
-        { text: "新 API 密钥已创建：prod-***", time: "1小时前", color: "#a78bfa" },
-        { text: "数据库备份完成", time: "2小时前", color: "#4ade80" },
-        { text: "SSL 证书已续期", time: "5小时前", color: "#38bdf8" },
+        { text: "新入藏：Murano 玻璃花瓶", time: "2 天前", color: "#c9a96e" },
+        { text: "展品轮换：现代主义展厅", time: "5 天前", color: "#8b9d8b" },
+        { text: "保护报告已归档", time: "1 周前", color: "#b8a088" },
+        { text: "捐赠者参观已安排", time: "2 周前", color: "#a0b0a0" },
+        { text: "春季图录已发布", time: "3 周前", color: "#c9a96e" },
+        { text: "展厅照明系统升级", time: "1 个月前", color: "#8b9d8b" },
       ],
     },
   },
   2: {
     en: {
-      title: "Performance Detail",
-      detailTitle: "API Gateway Throughput",
-      detailMeta: "Last 24 hours · Region: us-east-1",
+      title: "Artifact Detail",
+      detailTitle: "Hand-Blown Glass Vessel",
+      detailMeta: "Murano, Italy · circa 1962 · Accession #A-2047",
       metrics: [
-        { label: "Requests", value: "28.4M", trend: "+18% vs yesterday" },
-        { label: "Avg Response", value: "23ms", trend: "-12% faster" },
-        { label: "Success Rate", value: "99.97%", trend: "Stable" },
-        { label: "Bandwidth", value: "142 GB", trend: "+5% vs yesterday" },
+        { label: "Height", value: "32 cm", trend: "Display case: North Gallery" },
+        { label: "Weight", value: "1.8 kg", trend: "Lead crystal, hand-formed" },
+        { label: "Condition", value: "Excellent", trend: "Last conservation: Mar 2026" },
+        { label: "Value", value: "Est. $4,200", trend: "Appraised by Sotheby's" },
       ],
     },
     zh: {
-      title: "性能详情",
-      detailTitle: "API 网关吞吐量",
-      detailMeta: "过去 24 小时 · 区域：us-east-1",
+      title: "展品详情",
+      detailTitle: "手工吹制玻璃容器",
+      detailMeta: "意大利 Murano · 约 1962 年 · 入藏号 #A-2047",
       metrics: [
-        { label: "请求数", value: "28.4M", trend: "较昨日 +18%" },
-        { label: "平均响应", value: "23ms", trend: "快 12%" },
-        { label: "成功率", value: "99.97%", trend: "稳定" },
-        { label: "带宽", value: "142 GB", trend: "较昨日 +5%" },
+        { label: "高度", value: "32 cm", trend: "展柜：北展厅" },
+        { label: "重量", value: "1.8 kg", trend: "铅水晶，手工成型" },
+        { label: "品相", value: "极佳", trend: "上次维护：2026 年 3 月" },
+        { label: "估值", value: "约 ¥30,000", trend: "苏富比鉴定" },
       ],
     },
   },
   3: {
     en: {
-      title: "Service Overview",
-      gridTitle: "All Systems Operational",
+      title: "Layered Vessels",
+      gridTitle: "Featured Collections",
       cards: [
-        { icon: "⚡", title: "API Gateway", desc: "Handles all inbound traffic with rate limiting", value: "99.97%", color: "#38bdf8" },
-        { icon: "🗄️", title: "Database", desc: "Primary PostgreSQL cluster with read replicas", value: "99.99%", color: "#a78bfa" },
-        { icon: "🔍", title: "Search", desc: "Elasticsearch cluster powering full-text queries", value: "99.95%", color: "#4ade80" },
-        { icon: "📨", title: "Message Queue", desc: "Async job processing and event streaming", value: "100%", color: "#fbbf24" },
-        { icon: "🖼️", title: "CDN", desc: "Edge caching across 42 global PoPs", value: "99.98%", color: "#f472b6" },
-        { icon: "🔒", title: "Auth Service", desc: "OAuth2 / OIDC identity and session management", value: "99.99%", color: "#34d399" },
+        { icon: "🏺", title: "Ancient Pottery", desc: "Neolithic to Han dynasty ceramic vessels from the Liangzhu collection", value: "14 pieces", color: "#c9a96e" },
+        { icon: "💎", title: "Crystal Artifacts", desc: "Hand-cut crystal and glass objects from the Art Nouveau period", value: "9 pieces", color: "#8b9d8b" },
+        { icon: "🪞", title: "Enamel & Silver", desc: "Guilloche enamel and sterling silver decorative arts", value: "11 pieces", color: "#b8a088" },
+        { icon: "📜", title: "Illuminated Manuscripts", desc: "Medieval European and Persian manuscript pages on vellum", value: "7 pieces", color: "#a0b0a0" },
+        { icon: "🗿", title: "Stone Carvings", desc: "Soapstone and alabaster carvings from the Arts and Crafts movement", value: "6 pieces", color: "#d4c5a9" },
       ],
     },
     zh: {
-      title: "服务概览",
-      gridTitle: "所有系统运行正常",
+      title: "分层容器",
+      gridTitle: "精选系列",
       cards: [
-        { icon: "⚡", title: "API 网关", desc: "处理所有入站流量并限速", value: "99.97%", color: "#38bdf8" },
-        { icon: "🗄️", title: "数据库", desc: "主 PostgreSQL 集群和只读副本", value: "99.99%", color: "#a78bfa" },
-        { icon: "🔍", title: "搜索", desc: "Elasticsearch 集群驱动全文搜索", value: "99.95%", color: "#4ade80" },
-        { icon: "📨", title: "消息队列", desc: "异步任务处理和事件流", value: "100%", color: "#fbbf24" },
-        { icon: "🖼️", title: "CDN", desc: "覆盖 42 个全球节点的边缘缓存", value: "99.98%", color: "#f472b6" },
-        { icon: "🔒", title: "认证服务", desc: "OAuth2 / OIDC 身份和会话管理", value: "99.99%", color: "#34d399" },
+        { icon: "🏺", title: "古代陶器", desc: "良渚文化新石器时代至汉代陶瓷器", value: "14 件", color: "#c9a96e" },
+        { icon: "💎", title: "水晶制品", desc: "新艺术运动时期手工切割水晶及玻璃器物", value: "9 件", color: "#8b9d8b" },
+        { icon: "🪞", title: "珐琅银器", desc: "扭索纹珐琅与纯银装饰艺术品", value: "11 件", color: "#b8a088" },
+        { icon: "📜", title: "泥金手抄本", desc: "中世纪欧洲与波斯羊皮纸手稿页", value: "7 件", color: "#a0b0a0" },
+        { icon: "🗿", title: "石雕作品", desc: "工艺美术运动时期皂石与雪花石膏雕刻", value: "6 件", color: "#d4c5a9" },
       ],
     },
   },
   4: {
     en: {
-      title: "The Big Number",
-      bigLabel: "Total Requests Today",
-      bigValue: "1.2",
-      bigUnit: "Million",
-      bigCaption: "Served across 142 edge locations with sub-50ms median response time worldwide.",
+      title: "Featured Piece",
+      bigLabel: "Acquisition of the Quarter",
+      bigValue: "A-2047",
+      bigUnit: "Murano Glass",
+      bigCaption: "A masterwork of mid-century Venetian glassblowing, acquired through the generous support of the Patrons' Circle. On view in the North Gallery from July 14.",
     },
     zh: {
-      title: "核心指标",
-      bigLabel: "今日总请求数",
-      bigValue: "120",
-      bigUnit: "万",
-      bigCaption: "在 142 个边缘节点提供服务，全球中位响应时间低于 50 毫秒。",
+      title: "焦点展品",
+      bigLabel: "本季入藏精品",
+      bigValue: "A-2047",
+      bigUnit: "Murano 玻璃",
+      bigCaption: "一件中世纪威尼斯玻璃吹制杰作，由赞助人协会慷慨支持获得。7 月 14 日起在北展厅展出。",
     },
   },
   5: {
     en: {
       title: "Summary",
-      summaryHeadline: "Everything is under control.",
-      summarySub: "Your infrastructure is healthy, responsive, and scaling efficiently.",
+      summaryHeadline: "Every artifact tells a story.",
+      summarySub: "Our collection bridges centuries of craftsmanship, preserved and presented with the clarity it deserves.",
       summaryStats: [
-        { value: "99.97%", label: "Uptime" },
-        { value: "23ms", label: "Avg Latency" },
-        { value: "1.2M/s", label: "Peak RPS" },
+        { value: "47", label: "Artifacts" },
+        { value: "12", label: "Collections" },
+        { value: "3", label: "Galleries" },
       ],
     },
     zh: {
       title: "总结",
-      summaryHeadline: "一切尽在掌控。",
-      summarySub: "您的基础设施健康、响应迅速，并且高效扩展。",
+      summaryHeadline: "每件展品都讲述一个故事。",
+      summarySub: "我们的藏品跨越数百年的工艺传承，以其应有的清晰度被保存和呈现。",
       summaryStats: [
-        { value: "99.97%", label: "可用性" },
-        { value: "23ms", label: "平均延迟" },
-        { value: "120万/秒", label: "峰值 RPS" },
+        { value: "47", label: "展品" },
+        { value: "12", label: "系列" },
+        { value: "3", label: "展厅" },
       ],
     },
   },
@@ -198,16 +196,16 @@ const SCENES: Record<number, SceneContent> = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Glass Dashboard", zh: "玻璃仪表盘" };
+  const nameMap = { en: "Liquid Glass", zh: "液态玻璃" };
   const themeMap = {
-    en: "Operations Dashboard — real-time system health with glassmorphism panels and live data",
-    zh: "运营仪表盘——实时系统健康状态，玻璃拟态面板和实时数据",
+    en: "Product Showcase — museum vitrine glass panels revealing layered content with spatial depth and refined confidence",
+    zh: "产品展示——博物馆展柜玻璃面板，以空间深度和精致质感揭示分层内容",
   };
-  const densityLabelMap = { en: "Information-Dense", zh: "信息密集" };
+  const densityLabelMap = { en: "Layered Spatial", zh: "分层空间" };
 
   const sceneTitles = {
-    en: ["Overview", "Detail View", "Service Grid", "Key Metric", "Summary"],
-    zh: ["总览", "详情视图", "服务网格", "关键指标", "总结"],
+    en: ["Collection", "Artifact Detail", "Layered Vessels", "Featured Piece", "Summary"],
+    zh: ["藏品展示", "展品详情", "分层容器", "焦点展品", "总结"],
   };
 
   const beatActions = {
@@ -285,27 +283,27 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 1,
     colors: {
-      bg: "#0f172a",
-      ink: "#f1f5f9",
-      panel: "#1e293b",
+      bg: "#e8e4df",
+      ink: "#2a2520",
+      panel: "rgba(255,255,255,0.6)",
     },
     typography: {
-      header: "Inter 700",
+      header: "Display Serif 600 (behind-glass) / Inter 500 (on-glass)",
       body: "Inter 400",
     },
     tags: [
-      "dashboard",
       "glass",
-      "digital",
-      "modern",
-      "data",
-      "dark",
-      "kpi",
-      "monitoring",
-      "tech",
-      "grid",
+      "liquid",
+      "vitrine",
+      "layered",
+      "spatial",
+      "museum",
+      "translucent",
+      "depth",
+      "refined",
+      "showcase",
     ],
-    fonts: ["Inter"],
+    fonts: ["Inter", "Playfair Display"],
     scenes,
   };
 }
@@ -328,26 +326,47 @@ export default function GlassDashboard({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
   const [entered, setEntered] = useState(false);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // Beat-level entered animation (for internal element reveals)
   useEffect(() => {

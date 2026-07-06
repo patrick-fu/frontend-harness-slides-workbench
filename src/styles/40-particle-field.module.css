@@ -1,12 +1,19 @@
-/* ── Style 40: Particle Field ──────────────────────────────────────────── */
+/* ── Style 40: Arcade Boss Fight ────────────────────────────────────────────
+   Retro arcade screen reframing technical challenge as boss fight.
+   Deep near-black field. Bright pixel neons (green/red/yellow).
+   Pixel/bitmap display type. HUD sensibility with health/progress meters.
+   Scanline hints. Flat pixel-honest surfaces. All sizing in cqw/cqh.
+   ──────────────────────────────────────────────────────────────────────── */
 
 :root {
-  --style-40-bg: #050510;
-  --style-40-ink: #e0e0ff;
-  --style-40-panel: #0a0a20;
-  --style-40-accent: #6366f1;
-  --style-40-accent2: #818cf8;
-  --style-40-border: rgba(99, 102, 241, 0.2);
+  --style-40-bg: #0a0a0f;
+  --style-40-ink: #e8e8e8;
+  --style-40-panel: #12121a;
+  --style-40-neon-green: #39ff14;
+  --style-40-hot-red: #ff3030;
+  --style-40-arcade-yellow: #ffd700;
+  --style-40-neon-cyan: #00e5ff;
+  --style-40-border: rgba(57, 255, 20, 0.2);
 }
 
 .root {
@@ -16,19 +23,38 @@
   overflow: hidden;
   background: var(--style-40-bg);
   color: var(--style-40-ink);
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Press Start 2P", "VT323", "Courier New", monospace;
   user-select: none;
+  image-rendering: pixelated;
 }
 
-/* Ambient glow */
+/* CRT scanline overlay */
 .root::before {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 70% 50% at 30% 40%, rgba(99, 102, 241, 0.08), transparent),
-    radial-gradient(ellipse 50% 70% at 70% 60%, rgba(129, 140, 248, 0.06), transparent);
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 0.4cqh,
+    rgba(0, 0, 0, 0.15) 0.4cqh,
+    rgba(0, 0, 0, 0.15) 0.5cqh
+  );
   pointer-events: none;
+  z-index: 100;
+}
+
+/* Ambient arcade glow */
+.root::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 30% 35%, rgba(57, 255, 20, 0.04), transparent),
+    radial-gradient(ellipse 50% 60% at 70% 65%, rgba(255, 48, 48, 0.03), transparent),
+    radial-gradient(ellipse 40% 30% at 50% 80%, rgba(255, 215, 0, 0.03), transparent);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ── Transition Track ──────────────────────────────────────────────────── */
@@ -53,6 +79,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .exitAnim {
@@ -127,16 +154,17 @@
 .nodeLabel {
   position: absolute;
   transform: translate(-50%, -50%);
-  font-size: 1.8cqh;
-  font-weight: 500;
+  font-size: 1.6cqh;
+  font-weight: 400;
   color: var(--style-40-ink);
-  background: rgba(10, 10, 32, 0.85);
-  backdrop-filter: blur(8px);
+  background: rgba(10, 10, 15, 0.9);
   border: 1px solid var(--style-40-border);
-  border-radius: 0.8cqh;
+  border-radius: 0.4cqh;
   padding: 0.6cqh 1.2cqw;
   white-space: nowrap;
   pointer-events: none;
+  font-family: "Press Start 2P", "VT323", "Courier New", monospace;
+  letter-spacing: 0.05em;
 }
 
 /* ── Scene 1: Title Overlay ────────────────────────────────────────────── */
@@ -155,14 +183,16 @@
 
 .mainTitle {
   font-size: 8cqh;
-  font-weight: 300;
-  letter-spacing: 0.15em;
+  font-weight: 400;
+  letter-spacing: 0.08em;
   margin: 0;
   text-transform: uppercase;
-  background: linear-gradient(135deg, var(--style-40-ink), var(--style-40-accent2));
+  background: linear-gradient(135deg, var(--style-40-neon-green), var(--style-40-arcade-yellow));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 0 0.8cqh rgba(57, 255, 20, 0.3));
 }
 
 .mainSubtitle {
@@ -217,14 +247,14 @@
   width: 1.2cqh;
   height: 1.2cqh;
   border-radius: 50%;
-  background: rgba(99, 102, 241, 0.25);
+  background: rgba(57, 255, 20, 0.15);
   border: 1px solid var(--style-40-border);
   transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
 .phaseDotActive {
-  background: var(--style-40-accent);
-  box-shadow: 0 0 1.5cqh rgba(99, 102, 241, 0.5);
+  background: var(--style-40-neon-green);
+  box-shadow: 0 0 1.5cqh rgba(57, 255, 20, 0.6);
 }
 
 /* ── Cluster Legend (Scene 4) ──────────────────────────────────────────── */
@@ -237,10 +267,10 @@
   flex-direction: column;
   gap: 1.2cqh;
   z-index: 5;
-  background: rgba(10, 10, 32, 0.75);
+  background: rgba(10, 10, 15, 0.85);
   backdrop-filter: blur(12px);
   border: 1px solid var(--style-40-border);
-  border-radius: 1.5cqh;
+  border-radius: 0.5cqh;
   padding: 2cqh 2cqw;
 }
 
@@ -307,10 +337,10 @@
 }
 
 .statCard {
-  background: rgba(10, 10, 32, 0.6);
+  background: rgba(10, 10, 15, 0.7);
   backdrop-filter: blur(16px);
   border: 1px solid var(--style-40-border);
-  border-radius: 2cqh;
+  border-radius: 0.5cqh;
   padding: 3cqh 2cqw;
   display: flex;
   flex-direction: column;
@@ -321,14 +351,15 @@
 
 .statValue {
   font-size: 7cqh;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;
   font-variant-numeric: tabular-nums;
-  background: linear-gradient(135deg, var(--style-40-accent2), var(--style-40-ink));
+  background: linear-gradient(135deg, var(--style-40-arcade-yellow), var(--style-40-neon-green));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  filter: drop-shadow(0 0 0.5cqh rgba(57, 255, 20, 0.2));
 }
 
 .statLabel {
@@ -350,7 +381,7 @@
 .bgParticle {
   position: absolute;
   border-radius: 50%;
-  background: var(--style-40-accent);
+  background: var(--style-40-neon-green);
   transform: translate(-50%, -50%);
 }
 
@@ -370,17 +401,17 @@
   width: 1cqh;
   height: 1cqh;
   border-radius: 50%;
-  border: 1px solid rgba(99, 102, 241, 0.3);
+  border: 1px solid rgba(57, 255, 20, 0.3);
   cursor: pointer;
-  background: rgba(99, 102, 241, 0.15);
+  background: rgba(57, 255, 20, 0.1);
   transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   padding: 0;
 }
 
 .navDotActive {
-  background: var(--style-40-accent);
+  background: var(--style-40-neon-green);
   transform: scale(1.4);
-  box-shadow: 0 0 1.2cqh rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 1.2cqh rgba(57, 255, 20, 0.6);
 }
 
 /* ── Reduced Motion ────────────────────────────────────────────────────── */

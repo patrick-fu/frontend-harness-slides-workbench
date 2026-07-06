@@ -1,12 +1,15 @@
-/* ── Style 33: Glass Dashboard ──────────────────────────────────────────── */
+/* ── Style 33: Liquid Glass (Museum Vitrine) ───────────────────────────── */
 
 :root {
-  --style-33-bg: #0f172a;
-  --style-33-ink: #f1f5f9;
-  --style-33-accent: #38bdf8;
-  --style-33-accent2: #a78bfa;
-  --style-33-panel: rgba(255, 255, 255, 0.06);
-  --style-33-border: rgba(255, 255, 255, 0.1);
+  --style-33-bg: #e8e4df;
+  --style-33-ink: #2a2520;
+  --style-33-accent: #c9a96e;
+  --style-33-accent2: #8b9d8b;
+  --style-33-panel: rgba(255, 255, 255, 0.6);
+  --style-33-border: rgba(255, 255, 255, 0.8);
+  --style-33-edge: rgba(255, 255, 255, 0.95);
+  --style-33-shadow: rgba(42, 37, 32, 0.08);
+  --style-33-dim: rgba(42, 37, 32, 0.5);
 }
 
 .root {
@@ -20,15 +23,31 @@
   user-select: none;
 }
 
-/* Ambient gradient background */
+/* Ambient depth — soft warm-cool atmospheric layers */
 .root::before {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(56, 189, 248, 0.15), transparent),
-    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(167, 139, 250, 0.12), transparent);
+    radial-gradient(ellipse 70% 50% at 30% 25%, rgba(201, 169, 110, 0.12), transparent),
+    radial-gradient(ellipse 50% 70% at 75% 80%, rgba(139, 157, 139, 0.1), transparent);
   pointer-events: none;
+}
+
+/* Glass edge highlight overlay */
+.root::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    transparent 8%,
+    transparent 92%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* ── Scene-to-Scene Transition: Glass panel shuffle ────────────────────── */
@@ -36,6 +55,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   display: flex;
   flex-direction: column;
 }
@@ -112,16 +132,13 @@
   font-weight: 700;
   letter-spacing: -0.02em;
   margin: 0;
-  background: linear-gradient(135deg, var(--style-33-ink), var(--style-33-accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--style-33-ink);
 }
 
 .dashboardSubtitle {
   font-size: 2cqh;
   color: var(--style-33-ink);
-  opacity: 0.5;
+  opacity: 0.6;
   margin: 0;
 }
 
@@ -133,6 +150,7 @@
   border-radius: 1cqh;
   font-size: 1.8cqh;
   font-weight: 500;
+  box-shadow: 0 0.2cqh 1cqh var(--style-33-shadow);
 }
 
 .kpiRow {
@@ -150,6 +168,21 @@
   display: flex;
   flex-direction: column;
   gap: 0.8cqh;
+  position: relative;
+  box-shadow: 0 0.4cqh 2cqh var(--style-33-shadow);
+}
+
+/* Glass top-edge highlight */
+.kpiCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1cqw;
+  right: 1cqw;
+  height: 0.25cqh;
+  background: linear-gradient(90deg, transparent, var(--style-33-edge), transparent);
+  border-radius: 1.5cqh 1.5cqh 0 0;
+  pointer-events: none;
 }
 
 .kpiLabel {
@@ -202,6 +235,20 @@
   flex-direction: column;
   gap: 1.5cqh;
   min-height: 0;
+  position: relative;
+  box-shadow: 0 0.4cqh 2cqh var(--style-33-shadow);
+}
+
+.chartPanel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.5cqw;
+  right: 1.5cqw;
+  height: 0.25cqh;
+  background: linear-gradient(90deg, transparent, var(--style-33-edge), transparent);
+  border-radius: 1.5cqh 1.5cqh 0 0;
+  pointer-events: none;
 }
 
 .panelHeader {
@@ -228,7 +275,7 @@
 .chartBar {
   flex: 1;
   border-radius: 0.6cqh 0.6cqh 0 0;
-  background: linear-gradient(180deg, var(--style-33-accent), rgba(56, 189, 248, 0.3));
+  background: linear-gradient(180deg, var(--style-33-accent), rgba(201, 169, 110, 0.4));
   transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   min-height: 1cqh;
   position: relative;
@@ -264,6 +311,20 @@
   gap: 1.2cqh;
   min-height: 0;
   overflow: hidden;
+  position: relative;
+  box-shadow: 0 0.4cqh 2cqh var(--style-33-shadow);
+}
+
+.activityPanel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.5cqw;
+  right: 1.5cqw;
+  height: 0.25cqh;
+  background: linear-gradient(90deg, transparent, var(--style-33-edge), transparent);
+  border-radius: 1.5cqh 1.5cqh 0 0;
+  pointer-events: none;
 }
 
 .activityList {
@@ -378,6 +439,20 @@
   display: flex;
   flex-direction: column;
   gap: 1cqh;
+  position: relative;
+  box-shadow: 0 0.4cqh 2cqh var(--style-33-shadow);
+}
+
+.metricCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 2cqw;
+  right: 2cqw;
+  height: 0.25cqh;
+  background: linear-gradient(90deg, transparent, var(--style-33-edge), transparent);
+  border-radius: 1.5cqh 1.5cqh 0 0;
+  pointer-events: none;
 }
 
 .metricLabel {
@@ -392,10 +467,7 @@
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.03em;
-  background: linear-gradient(135deg, var(--style-33-accent), var(--style-33-accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--style-33-ink);
 }
 
 .metricTrend {
@@ -440,12 +512,27 @@
   display: flex;
   flex-direction: column;
   gap: 1cqh;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  box-shadow: 0 0.4cqh 2cqh var(--style-33-shadow);
+}
+
+.glassCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.5cqw;
+  right: 1.5cqw;
+  height: 0.25cqh;
+  background: linear-gradient(90deg, transparent, var(--style-33-edge), transparent);
+  border-radius: 1.5cqh 1.5cqh 0 0;
+  pointer-events: none;
 }
 
 .glassCard:hover {
   transform: translateY(-0.5cqh);
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0.8cqh 3cqh var(--style-33-shadow);
 }
 
 .cardIcon {
@@ -504,10 +591,7 @@
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
-  background: linear-gradient(135deg, var(--style-33-accent), var(--style-33-accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--style-33-ink);
   margin: 0;
 }
 
@@ -546,15 +630,12 @@
   font-weight: 800;
   letter-spacing: -0.03em;
   margin: 0;
-  background: linear-gradient(135deg, var(--style-33-ink), var(--style-33-accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--style-33-ink);
 }
 
 .summarySub {
   font-size: 2.8cqh;
-  opacity: 0.5;
+  opacity: 0.6;
   margin: 0;
   max-width: 60cqw;
   line-height: 1.5;
@@ -604,7 +685,7 @@
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(42, 37, 32, 0.2);
   transition: background 0.2s ease, transform 0.2s ease;
   padding: 0;
 }

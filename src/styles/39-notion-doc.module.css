@@ -1,27 +1,31 @@
-/* ── Style 39: Notion Doc ──────────────────────────────────────────────── */
+/* ── Style 39: Blackboard Chalk Talk ────────────────────────────────────────
+   Dark matte chalkboard. Soft off-white chalk marks. Pastel chalk accents.
+   Handwritten + technical notation mix. Near-flat board plane depth.
+   Chalk dust texture overlay. All sizing in cqw/cqh. No px/vw/vh.
+   ──────────────────────────────────────────────────────────────────────── */
 
 :root {
-  --style-39-bg: #ffffff;
-  --style-39-ink: #37352f;
-  --style-39-panel: #f7f6f3;
-  --style-39-sidebar-bg: #f7f6f3;
-  --style-39-sidebar-hover: #ebeae6;
-  --style-39-sidebar-active: #e8e7e3;
-  --style-39-border: #e9e9e7;
-  --style-39-text-secondary: #787774;
-  --style-39-text-tertiary: #9b9a97;
-  --style-39-code-bg: #f4f4f2;
-  --style-39-callout-bg: #f1f1ef;
-  --style-39-callout-border: #d3d3cf;
-  --style-39-table-border: #e9e9e7;
-  --style-39-table-alt: #fafaf9;
-  --style-39-status-green-bg: #e6f4ea;
-  --style-39-status-green-ink: #1e7d32;
-  --style-39-status-orange-bg: #fef3e2;
-  --style-39-status-orange-ink: #b06000;
-  --style-39-toggle-hover: #f1f1ef;
-  --style-39-accent: #2383e2;
-  --style-39-cover-overlay: rgba(255, 255, 255, 0.6);
+  --style-39-bg: #1e3328;
+  --style-39-ink: #f0ebe0;
+  --style-39-panel: #24382d;
+  --style-39-sidebar-bg: #1a2d23;
+  --style-39-sidebar-hover: #2a4035;
+  --style-39-sidebar-active: #2e4638;
+  --style-39-border: rgba(240, 235, 224, 0.1);
+  --style-39-text-secondary: rgba(240, 235, 224, 0.6);
+  --style-39-text-tertiary: rgba(240, 235, 224, 0.4);
+  --style-39-code-bg: #1a2d23;
+  --style-39-callout-bg: #24382d;
+  --style-39-callout-border: rgba(240, 235, 224, 0.15);
+  --style-39-table-border: rgba(240, 235, 224, 0.08);
+  --style-39-table-alt: #1e3328;
+  --style-39-status-green-bg: rgba(120, 200, 140, 0.15);
+  --style-39-status-green-ink: #8fd8a0;
+  --style-39-status-orange-bg: rgba(255, 200, 100, 0.12);
+  --style-39-status-orange-ink: #ffd080;
+  --style-39-toggle-hover: #2a4035;
+  --style-39-accent: #f5e6a8;
+  --style-39-cover-overlay: rgba(30, 51, 40, 0.6);
 }
 
 .root {
@@ -32,7 +36,33 @@
   background: var(--style-39-bg);
   color: var(--style-39-ink);
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-weight: 300;
   user-select: none;
+}
+
+/* Chalk dust / eraser smear texture overlay */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Subtle chalk smudge streaks */
+.root::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 30% 15% at 20% 30%, rgba(240, 235, 224, 0.02), transparent),
+    radial-gradient(ellipse 25% 10% at 75% 65%, rgba(240, 235, 224, 0.015), transparent),
+    radial-gradient(ellipse 20% 12% at 50% 85%, rgba(240, 235, 224, 0.018), transparent);
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* ── Transition Track ──────────────────────────────────────────────────── */
@@ -57,6 +87,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .contentWrapper {
@@ -742,13 +773,13 @@
   width: 3.2cqh;
   height: 3.2cqh;
   border-radius: 50%;
-  background: linear-gradient(135deg, #d3d3cf, #b8b8b4);
+  background: linear-gradient(135deg, #3a5040, #2a3a30);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.4cqh;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--style-39-ink);
   flex-shrink: 0;
 }
 
@@ -790,14 +821,15 @@
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  background: rgba(55, 53, 47, 0.2);
+  background: rgba(240, 235, 224, 0.2);
   transition: background 0.2s ease, transform 0.2s ease;
   padding: 0;
 }
 
 .navDotActive {
-  background: var(--style-39-ink);
+  background: var(--style-39-accent);
   transform: scale(1.3);
+  box-shadow: 0 0 0.8cqh rgba(245, 230, 168, 0.3);
 }
 
 /* ── Reduced Motion ────────────────────────────────────────────────────── */

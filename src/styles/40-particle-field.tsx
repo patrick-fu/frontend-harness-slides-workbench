@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, useCallback, useMemo, useRef } from "react";
+import React, { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./40-particle-field.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -27,79 +27,83 @@ interface SceneContent {
 const SCENES: Record<number, SceneContent> = {
   1: {
     en: {
-      title: "Network Analysis",
-      subtitle: "Understanding connection patterns in complex systems",
+      title: "BOSS RUSH",
+      subtitle: "Defeat the legacy monolith before time runs out",
     },
     zh: {
-      title: "网络分析",
-      subtitle: "理解复杂系统中的连接模式",
+      title: "BOSS 冲锋",
+      subtitle: "在时间耗尽之前击败遗留巨石",
     },
   },
   2: {
     en: {
-      title: "Node Topology",
-      subtitle: "64 nodes · 128 edges · 4 communities detected",
-      nodeLabels: ["Gateway", "Auth", "API", "DB", "Cache", "CDN"],
+      title: "ENCOUNTER: LegacySys-9000",
+      subtitle: "HP 100%  ·  ATK 85  ·  DEF 60  ·  Weakness: Documentation",
+      nodeLabels: ["BOSS", "PLAYER", "HP_BAR", "ATK", "DEF", "SPD"],
     },
     zh: {
-      title: "节点拓扑",
-      subtitle: "64 节点 · 128 边 · 检测到 4 个社区",
-      nodeLabels: ["网关", "认证", "API", "数据库", "缓存", "CDN"],
+      title: "遭遇战：LegacySys-9000",
+      subtitle: "HP 100%  ·  攻击 85  ·  防御 60  ·  弱点：文档",
+      nodeLabels: ["BOSS", "玩家", "血条", "攻击", "防御", "速度"],
     },
   },
   3: {
     en: {
-      title: "Force-Directed Layout",
+      title: "POWER-UP COLLECTION",
       beatSubtitles: [
-        "Initial random placement",
-        "Repulsion forces applied",
-        "Communities stabilized",
+        "Phase 1: Gathered unit tests +20 ATK",
+        "Phase 2: Found CI pipeline +15 DEF",
+        "Phase 3: Unlocked observability +30 SPD",
       ],
     },
     zh: {
-      title: "力导向布局",
-      beatSubtitles: ["初始随机分布", "斥力作用中", "社区稳定"],
+      title: "道具收集",
+      beatSubtitles: [
+        "阶段 1：收集单元测试 +20 攻击",
+        "阶段 2：找到 CI 流水线 +15 防御",
+        "阶段 3：解锁可观测性 +30 速度",
+      ],
     },
   },
   4: {
     en: {
-      title: "Cluster Analysis",
-      subtitle: "Four distinct communities identified by modularity optimization",
+      title: "BATTLE STATUS",
+      subtitle: "Boss HP draining fast — inventory fully stocked",
       clusterData: [
-        { name: "Core Services", count: 18, color: "#818cf8" },
-        { name: "Data Layer", count: 15, color: "#34d399" },
-        { name: "Edge Nodes", count: 22, color: "#f472b6" },
-        { name: "Monitoring", count: 9, color: "#fbbf24" },
+        { name: "Player HP", count: 78, color: "#39ff14" },
+        { name: "Boss HP", count: 34, color: "#ff3030" },
+        { name: "Power-Ups", count: 12, color: "#ffd700" },
+        { name: "Combo x", count: 5, color: "#00e5ff" },
       ],
     },
     zh: {
-      title: "聚类分析",
-      subtitle: "通过模块度优化识别出四个不同社区",
+      title: "战斗状态",
+      subtitle: "Boss 血量快速流失——道具栏已满",
       clusterData: [
-        { name: "核心服务", count: 18, color: "#818cf8" },
-        { name: "数据层", count: 15, color: "#34d399" },
-        { name: "边缘节点", count: 22, color: "#f472b6" },
-        { name: "监控", count: 9, color: "#fbbf24" },
+        { name: "玩家 HP", count: 78, color: "#39ff14" },
+        { name: "Boss HP", count: 34, color: "#ff3030" },
+        { name: "道具数", count: 12, color: "#ffd700" },
+        { name: "连击 x", count: 5, color: "#00e5ff" },
       ],
     },
   },
   5: {
     en: {
-      title: "Network Summary",
+      title: "VICTORY!",
       stats: [
-        { label: "Total Nodes", value: "64" },
-        { label: "Connections", value: "128" },
-        { label: "Communities", value: "4" },
-        { label: "Avg Degree", value: "4.0" },
+        { label: "Damage Dealt", value: "9.2K" },
+        { label: "Items Used", value: "12" },
+        { label: "Turns", value: "47" },
+        { label: "Rank", value: "S" },
       ],
     },
     zh: {
-      title: "网络概览",
+      title: "胜利！",
       stats: [
-        { label: "节点总数", value: "64" },
-        { label: "连接数", value: "128" },
-        { label: "社区数", value: "4" },
-        { label: "平均度", value: "4.0" },
+        { label: "造成伤害", value: "9.2K" },
+        { label: "使用道具", value: "12" },
+        { label: "回合数", value: "47" },
+        { label: "评级", value: "S" },
       ],
     },
   },
@@ -201,32 +205,32 @@ function generateConnections(
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Particle Field", zh: "粒子场" };
+  const nameMap = { en: "Arcade Boss Fight", zh: "街机 Boss 战" };
   const themeMap = {
-    en: "Network Analysis — particle systems and force-directed graph visualization of complex networks",
-    zh: "网络分析——粒子系统和力导向图可视化复杂网络",
+    en: "Risk Framing — retro arcade screen reframing technical challenge as boss battle, power-ups as goals, HUD-style status readouts with pixel neon colors",
+    zh: "风险框架——复古街机屏幕将技术挑战重新演绎为 Boss 战，道具即目标，HUD 风格状态读数配像素霓虹色彩",
   };
   const densityLabelMap = { en: "Visual-Intensive", zh: "视觉密集" };
 
   const sceneTitles = {
-    en: ["Particle Cloud", "Node Topology", "Force Layout", "Clusters", "Summary"],
-    zh: ["粒子云", "节点拓扑", "力导向布局", "聚类分析", "网络概览"],
+    en: ["Title Screen", "Boss Encounter", "Power-Up Phases", "Battle HUD", "Victory Screen"],
+    zh: ["标题画面", "Boss 遭遇", "道具阶段", "战斗 HUD", "胜利画面"],
   };
 
   const beatActions = {
     en: {
-      1: ["Particles appear"],
-      2: ["Network lines form", "Node labels appear"],
-      3: ["Random placement", "Repulsion phase", "Communities settle"],
-      4: ["Clusters revealed", "Stats overlay"],
-      5: ["Summary stats shown"],
+      1: ["Game title appears"],
+      2: ["Boss sprite and stats", "Player HUD overlays"],
+      3: ["First power-up collected", "Second power-up collected", "All power-ups gathered"],
+      4: ["Battle status revealed", "Inventory panel shows"],
+      5: ["Victory stats displayed"],
     },
     zh: {
-      1: ["粒子呈现"],
-      2: ["网络连线形成", "节点标签出现"],
-      3: ["随机分布", "斥力阶段", "社区稳定"],
-      4: ["聚类揭示", "统计叠加"],
-      5: ["摘要数据展示"],
+      1: ["游戏标题出现"],
+      2: ["Boss 精灵和属性", "玩家 HUD 叠加"],
+      3: ["收集第一个道具", "收集第二个道具", "全部道具收集完毕"],
+      4: ["战斗状态揭示", "道具栏显示"],
+      5: ["胜利数据展示"],
     },
   };
 
@@ -286,26 +290,28 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
-    colors: { bg: "#050510", ink: "#e0e0ff", panel: "#0a0a20" },
-    typography: { header: "Inter 600", body: "Inter 400" },
+    colors: { bg: "#0a0a0f", ink: "#e8e8e8", panel: "#12121a" },
+    typography: { header: "Press Start 2P", body: "VT323" },
     tags: [
-      "particles",
-      "network",
-      "data-viz",
-      "graph",
-      "nodes",
-      "scientific",
-      "animation",
-      "dark",
+      "arcade",
+      "retro-game",
+      "pixel",
+      "boss-fight",
+      "HUD",
+      "neon",
+      "8-bit",
+      "game-ui",
+      "playful",
+      "energizing",
     ],
-    fonts: ["Inter"],
+    fonts: ["Press Start 2P", "VT323"],
     scenes,
   };
 }
 
 // ─── Component ──────────────────────────────────────────────────────────────
 
-const CLUSTER_COLORS = ["#818cf8", "#34d399", "#f472b6", "#fbbf24"];
+const CLUSTER_COLORS = ["#39ff14", "#ff3030", "#ffd700", "#00e5ff"];
 const TRANSITION_DURATION = 800; // ms — outgoing 500ms + incoming 500ms w/ 200ms delay
 
 function computeParticles(sceneNum: number, beatNum: number) {
@@ -348,25 +354,46 @@ export default function ParticleField({
   isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // FLIP for particle container — particles animate between positions on beat changes
   const { ref: particleFieldRef } = useFLIP<HTMLDivElement>({
@@ -377,13 +404,13 @@ export default function ParticleField({
   });
 
   useEffect(() => {
-    const FONT_ID = "style-40-fonts-inter";
+    const FONT_ID = "style-40-fonts-arcade";
     if (!document.getElementById(FONT_ID)) {
       const link = document.createElement("link");
       link.id = FONT_ID;
       link.rel = "stylesheet";
       link.href =
-        "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";
+        "https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap";
       document.head.appendChild(link);
     }
   }, []);
@@ -455,7 +482,7 @@ export default function ParticleField({
               const color =
                 effScene === 4
                   ? CLUSTER_COLORS[p1.cluster] + "40"
-                  : "rgba(99, 102, 241, 0.15)";
+                  : "rgba(57, 255, 20, 0.12)";
               return (
                 <line
                   key={idx}
@@ -481,7 +508,7 @@ export default function ParticleField({
           const color =
             effScene === 4 || effScene === 3
               ? CLUSTER_COLORS[p.cluster]
-              : "#6366f1";
+              : "#39ff14";
           return (
             <div
               key={i}

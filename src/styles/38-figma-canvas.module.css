@@ -1,25 +1,22 @@
-/* ─── Style 38: Figma Canvas ───────────────────────────────────────────────
-   Figma-like canvas. Frames as rounded rectangles. SVG bezier connections.
-   Design tokens panel. Zoom indicator. Selection handles.
-   Light canvas with subtle grid.
+/* ─── Style 38: Widescreen Title Card ──────────────────────────────────────
+   Cinema curtain lifting. Deep warm-black letterbox bars framing.
+   Graded photographic/painted still as ground layer.
+   Film-poster title treatment with dramatic presence.
+   Supporting text recessive/credit-like.
+   Slow cinematic motion (gentle fade-in, Ken Burns-like push).
    All sizing in cqw/cqh. No px/vw/vh.
    ──────────────────────────────────────────────────────────────────────── */
 
 :root {
-  --style-38-bg: #f5f5f5;
-  --style-38-ink: #2c2c2c;
-  --style-38-panel: #ffffff;
-  --style-38-accent: #0d99ff;
-  --style-38-accent-light: rgba(13, 153, 255, 0.1);
-  --style-38-border: #e5e5e5;
-  --style-38-border-dark: #d0d0d0;
-  --style-38-grid: rgba(0, 0, 0, 0.04);
-  --style-38-selection: #0d99ff;
-  --style-38-purple: #a855f7;
-  --style-38-green: #22c55e;
-  --style-38-orange: #f97316;
-  --style-38-pink: #ec4899;
-  --style-38-gray: #6b7280;
+  --style-38-bg: #0a0808;
+  --style-38-ink: #f0ebe3;
+  --style-38-pearl: #f0ebe3;
+  --style-38-panel: rgba(240, 235, 227, 0.06);
+  --style-38-border: rgba(240, 235, 227, 0.1);
+  --style-38-dim: rgba(240, 235, 227, 0.5);
+  --style-38-accent: #c9a96e;
+  --style-38-warm: #1a1410;
+  --style-38-letterbox: #050404;
 }
 
 .root {
@@ -30,748 +27,490 @@
   user-select: none;
   background: var(--style-38-bg);
   color: var(--style-38-ink);
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 300;
 }
 
-/* Canvas grid */
-.root::before {
-  content: "";
+/* ── Letterbox bars (persistent, framing the cinematic aspect) ─────────── */
+
+.letterboxTop {
   position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--style-38-grid) 0.1cqh, transparent 0.1cqh),
-    linear-gradient(90deg, var(--style-38-grid) 0.1cqh, transparent 0.1cqh);
-  background-size: 3cqw 3cqh;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8cqh;
+  background: var(--style-38-letterbox);
+  z-index: 30;
   pointer-events: none;
 }
 
-/* ── Scene-to-scene transition: frame pan + zoom (Figma canvas nav) ───── */
+.letterboxBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8cqh;
+  background: var(--style-38-letterbox);
+  z-index: 30;
+  pointer-events: none;
+}
+
+/* ── Graded still / painted ground layer ───────────────────────────────── */
+
+.groundLayer {
+  position: absolute;
+  inset: 8cqh 0;
+  background:
+    radial-gradient(
+      ellipse 70% 50% at 50% 45%,
+      rgba(26, 20, 16, 0.6) 0%,
+      rgba(10, 8, 8, 0.9) 70%
+    ),
+    linear-gradient(
+      180deg,
+      #12100e 0%,
+      #0d0b09 40%,
+      #0a0808 100%
+    );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Subtle film grain */
+.groundLayer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ── Scene-to-scene transition: gentle cinematic dissolve ─────────────── */
 
 .sceneLayer {
   position: absolute;
-  inset: 0;
-  will-change: transform, opacity;
+  inset: 8cqh 0;
+  pointer-events: none;
+  z-index: 10;
 }
 
 .exitAnim {
-  animation: figmaZoomOut 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: cinematicFadeOut 0.8s ease-in forwards;
   z-index: 1;
 }
 
-@keyframes figmaZoomOut {
+@keyframes cinematicFadeOut {
   from {
     opacity: 1;
-    transform: scale(1) translate(0, 0);
   }
   to {
-    opacity: 0.2;
-    transform: scale(0.4) translate(-20cqw, -10cqh);
+    opacity: 0;
   }
 }
 
 .enterAnim {
-  animation: figmaZoomIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: cinematicFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
   z-index: 2;
 }
 
-@keyframes figmaZoomIn {
+@keyframes cinematicFadeIn {
   from {
-    opacity: 0.2;
-    transform: scale(0.4) translate(20cqw, 10cqh);
+    opacity: 0;
   }
   to {
     opacity: 1;
-    transform: scale(1) translate(0, 0);
   }
 }
 
-/* ── Figma Toolbar ─────────────────────────────────────────────────────── */
+/* ── Scene 1: Title Card ──────────────────────────────────────────────── */
 
-.figmaToolbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 6cqh;
-  background: var(--style-38-panel);
-  border-bottom: 0.15cqh solid var(--style-38-border);
-  display: flex;
-  align-items: center;
-  padding: 0 2cqw;
-  gap: 1.5cqw;
-  z-index: 20;
-}
-
-.toolbarLogo {
-  display: flex;
-  align-items: center;
-  gap: 0.8cqw;
-  font-weight: 700;
-  font-size: 2.2cqh;
-}
-
-.logoShapes {
-  display: flex;
-  width: 4cqh;
-  height: 2.5cqh;
-  position: relative;
-}
-
-.logoShape {
-  width: 2cqh;
-  height: 2cqh;
-  position: absolute;
-}
-
-.logoShape1 {
-  background: #f24e1e;
-  border-radius: 50% 0 0 50%;
-  top: 0;
-  left: 0;
-}
-
-.logoShape2 {
-  background: #a259ff;
-  border-radius: 50%;
-  top: 0;
-  left: 1.2cqh;
-}
-
-.logoShape3 {
-  background: #1abcfe;
-  border-radius: 0 50% 50% 0;
-  top: 0;
-  left: 2.4cqh;
-}
-
-.toolbarDivider {
-  width: 0.15cqh;
-  height: 3cqh;
-  background: var(--style-38-border);
-}
-
-.toolbarTools {
-  display: flex;
-  gap: 0.3cqw;
-}
-
-.toolbarTool {
-  width: 4.5cqh;
-  height: 4.5cqh;
+.titleCardScene {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.8cqh;
-  cursor: pointer;
-  font-size: 2.2cqh;
-  transition: background 0.15s ease;
-}
-
-.toolbarTool:hover {
-  background: var(--style-38-accent-light);
-}
-
-.toolbarToolActive {
-  background: var(--style-38-accent-light);
-  color: var(--style-38-accent);
-}
-
-.toolbarZoom {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 0.5cqw;
-  font-size: 1.8cqh;
-  color: var(--style-38-gray);
-  background: var(--style-38-bg);
-  padding: 0.6cqh 1.2cqw;
-  border-radius: 0.8cqh;
-  border: 0.1cqh solid var(--style-38-border);
-}
-
-/* ── Canvas Area ───────────────────────────────────────────────────────── */
-
-.canvasArea {
-  position: absolute;
-  top: 6cqh;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-}
-
-/* ── Frame (Figma-style) ───────────────────────────────────────────────── */
-
-.figmaFrame {
-  position: absolute;
-  background: var(--style-38-panel);
-  border-radius: 1.2cqh;
-  box-shadow: 0 0.4cqh 2.4cqh rgba(0, 0, 0, 0.08), 0 0.1cqh 0.4cqh rgba(0, 0, 0, 0.04);
-  overflow: hidden;
-  transition: box-shadow 0.2s ease;
-}
-
-.figmaFrameSelected {
-  box-shadow: 0 0 0 0.3cqh var(--style-38-selection), 0 0.4cqh 2.4cqh rgba(0, 0, 0, 0.12);
-}
-
-.frameLabel {
-  position: absolute;
-  top: -3.5cqh;
-  left: 0;
-  font-size: 1.6cqh;
-  font-weight: 600;
-  color: var(--style-38-ink);
-  white-space: nowrap;
-}
-
-.frameLabelSelected {
-  color: var(--style-38-selection);
-}
-
-/* Selection handles */
-.selectionHandle {
-  position: absolute;
-  width: 1.2cqh;
-  height: 1.2cqh;
-  min-width: 6px;
-  min-height: 6px;
-  background: var(--style-38-panel);
-  border: 0.2cqh solid var(--style-38-selection);
-  border-radius: 0.2cqh;
-  z-index: 5;
-}
-
-/* ── Scene 1: Canvas Overview ──────────────────────────────────────────── */
-
-.canvasOverview {
-  width: 100%;
-  height: 100%;
   position: relative;
 }
 
-.canvasTitle {
-  position: absolute;
-  top: 3cqh;
-  left: 4cqw;
-  font-size: 3.5cqh;
-  font-weight: 700;
+.titleCardInner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2cqh;
+}
+
+.studioCredit {
+  font-size: 1.6cqh;
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--style-38-pearl);
   margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.filmTitle {
+  font-size: 14cqw;
+  font-weight: 900;
+  line-height: 0.95;
   letter-spacing: -0.02em;
-}
-
-.canvasSubtitle {
-  position: absolute;
-  top: 8cqh;
-  left: 4cqw;
-  font-size: 2cqh;
-  color: var(--style-38-gray);
   margin: 0;
+  color: var(--style-38-pearl);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  text-align: center;
 }
 
-.overviewFrames {
-  position: absolute;
-  top: 14cqh;
-  left: 4cqw;
-  right: 4cqw;
-  bottom: 4cqh;
-}
-
-/* ── Scene 2: Design Tokens ────────────────────────────────────────────── */
-
-.tokensScene {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  padding: 3cqh 4cqw;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 2cqh;
-}
-
-.tokensTitle {
-  font-size: 3.5cqh;
-  font-weight: 700;
-  margin: 0;
-}
-
-.tokensSubtitle {
-  font-size: 2cqh;
-  color: var(--style-38-gray);
-  margin: 0;
-}
-
-.tokensGrid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto auto;
-  gap: 1.5cqw;
-  min-height: 0;
-}
-
-.tokenCard {
-  background: var(--style-38-panel);
-  border: 0.15cqh solid var(--style-38-border);
-  border-radius: 1.5cqh;
-  padding: 2cqh 1.5cqw;
-  display: flex;
-  flex-direction: column;
-  gap: 1cqh;
-  opacity: 0;
-  transform: translateY(1cqh);
-  transition:
-    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.2s ease;
-}
-
-.tokenCard:hover {
-  box-shadow: 0 0.4cqh 1.6cqh rgba(0, 0, 0, 0.08);
-}
-
-.tokenCardVisible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.tokenSwatch {
-  width: 100%;
-  height: 8cqh;
-  border-radius: 1cqh;
-  position: relative;
-  overflow: hidden;
-}
-
-.tokenName {
-  font-size: 2cqh;
-  font-weight: 600;
-  margin: 0;
-}
-
-.tokenValue {
-  font-size: 1.6cqh;
-  color: var(--style-38-gray);
-  font-family: "JetBrains Mono", monospace;
-}
-
-.tokenCategory {
-  font-size: 1.4cqh;
+.filmTitleSecond {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.75em;
   color: var(--style-38-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 600;
 }
 
-/* Typography token card */
-.typoCard {
-  grid-column: span 2;
-  background: var(--style-38-panel);
-  border: 0.15cqh solid var(--style-38-border);
-  border-radius: 1.5cqh;
-  padding: 2cqh 2cqw;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5cqh;
-}
-
-.typoPreview {
-  font-size: 4cqh;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-}
-
-.typoDetails {
-  display: flex;
-  gap: 3cqw;
-  font-size: 1.6cqh;
-  color: var(--style-38-gray);
-}
-
-.typoDetailItem {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3cqh;
-}
-
-.typoDetailLabel {
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 1.3cqh;
-}
-
-.typoDetailValue {
-  font-weight: 600;
-  color: var(--style-38-ink);
-  font-family: "JetBrains Mono", monospace;
-}
-
-/* ── Scene 3: Component Flow ───────────────────────────────────────────── */
-
-.flowScene {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  padding: 3cqh 3cqw;
-  box-sizing: border-box;
-}
-
-.flowTitle {
-  font-size: 3cqh;
-  font-weight: 700;
-  margin: 0 0 0.5cqh 0;
-}
-
-.flowSubtitle {
-  font-size: 1.8cqh;
-  color: var(--style-38-gray);
-  margin: 0 0 2cqh 0;
-}
-
-.flowCanvas {
-  position: relative;
-  width: 100%;
-  height: calc(100% - 8cqh);
-}
-
-.flowConnections {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.flowNode {
-  position: absolute;
-  background: var(--style-38-panel);
-  border: 0.2cqh solid var(--style-38-border);
-  border-radius: 1.5cqh;
-  padding: 1.5cqh 1.5cqw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.8cqh;
-  min-width: 14cqw;
-  box-shadow: 0 0.3cqh 1.2cqh rgba(0, 0, 0, 0.06);
-  opacity: 0;
-  transform: scale(0.9);
-  transition:
-    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.2s ease;
-}
-
-.flowNode:hover {
-  border-color: var(--style-38-accent);
-}
-
-.flowNodeVisible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.flowNodeIcon {
-  width: 5cqh;
-  height: 5cqh;
-  border-radius: 1.2cqh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.filmSubtitle {
   font-size: 2.5cqh;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: var(--style-38-pearl);
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
-.flowNodeTitle {
-  font-size: 1.8cqh;
-  font-weight: 600;
-  text-align: center;
-}
+/* ── Scene 2: Chapter ─────────────────────────────────────────────────── */
 
-.flowNodeDesc {
-  font-size: 1.4cqh;
-  color: var(--style-38-gray);
-  text-align: center;
-}
-
-/* ── Scene 4: Detail Frame ─────────────────────────────────────────────── */
-
-.detailScene {
+.chapterScene {
   width: 100%;
   height: 100%;
-  position: relative;
-  padding: 3cqh 3cqw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5cqh 8cqw;
   box-sizing: border-box;
-  display: flex;
-  gap: 2cqw;
 }
 
-.detailMainFrame {
-  flex: 1;
-  background: var(--style-38-panel);
-  border: 0.2cqh solid var(--style-38-selection);
-  border-radius: 2cqh;
-  box-shadow: 0 0.6cqh 3cqh rgba(0, 0, 0, 0.1);
-  padding: 3cqh 3cqw;
+.chapterInner {
+  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 2cqh;
-  min-width: 0;
-  position: relative;
+  align-items: center;
+  gap: 3cqh;
 }
 
-.detailFrameLabel {
-  position: absolute;
-  top: -3.5cqh;
-  left: 0;
-  font-size: 1.6cqh;
-  font-weight: 600;
-  color: var(--style-38-selection);
-}
-
-.detailSidebar {
-  width: 28cqw;
-  background: var(--style-38-panel);
-  border: 0.15cqh solid var(--style-38-border);
-  border-radius: 1.5cqh;
-  padding: 2cqh 1.5cqw;
-  display: flex;
-  flex-direction: column;
-  gap: 2cqh;
-  flex-shrink: 0;
-  overflow-y: auto;
-}
-
-.sidebarSection {
-  border-bottom: 0.15cqh solid var(--style-38-border);
-  padding-bottom: 1.5cqh;
-}
-
-.sidebarSection:last-child {
-  border-bottom: none;
-}
-
-.sidebarSectionTitle {
-  font-size: 1.5cqh;
-  font-weight: 600;
+.chapterLabel {
+  font-size: 1.8cqh;
+  font-weight: 300;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--style-38-gray);
-  margin: 0 0 1cqh 0;
-}
-
-.sidebarRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.6cqh 0;
-  font-size: 1.7cqh;
-}
-
-.sidebarLabel {
-  color: var(--style-38-gray);
-}
-
-.sidebarValue {
-  font-weight: 600;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 1.5cqh;
-}
-
-.sidebarColorRow {
-  display: flex;
-  align-items: center;
-  gap: 0.8cqw;
-  padding: 0.6cqh 0;
-}
-
-.sidebarColorSwatch {
-  width: 3cqh;
-  height: 3cqh;
-  border-radius: 0.6cqh;
-  border: 0.1cqh solid var(--style-38-border);
-  flex-shrink: 0;
-}
-
-/* Frame content mockup */
-.frameMockup {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5cqh;
-}
-
-.mockupHeader {
-  display: flex;
-  align-items: center;
-  gap: 1.5cqw;
-}
-
-.mockupAvatar {
-  width: 7cqh;
-  height: 7cqh;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--style-38-accent), var(--style-38-purple));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  font-size: 3cqh;
-  font-weight: 700;
-}
-
-.mockupHeaderInfo {
-  flex: 1;
-}
-
-.mockupName {
-  font-size: 3cqh;
-  font-weight: 700;
-  margin: 0;
-}
-
-.mockupRole {
-  font-size: 1.8cqh;
-  color: var(--style-38-gray);
-  margin: 0;
-}
-
-.mockupStats {
-  display: flex;
-  gap: 2cqw;
-}
-
-.mockupStat {
-  flex: 1;
-  background: var(--style-38-bg);
-  border-radius: 1.2cqh;
-  padding: 1.5cqh 1.2cqw;
-  text-align: center;
-}
-
-.mockupStatValue {
-  font-size: 3.5cqh;
-  font-weight: 800;
-  display: block;
-}
-
-.mockupStatLabel {
-  font-size: 1.4cqh;
-  color: var(--style-38-gray);
-}
-
-.mockupButton {
-  background: var(--style-38-accent);
-  color: #ffffff;
-  border: none;
-  border-radius: 1.2cqh;
-  padding: 1.5cqh;
-  font-size: 2cqh;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  text-align: center;
-}
-
-/* ── Scene 5: Handoff / Closing ────────────────────────────────────────── */
-
-.handoffScene {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 4cqh;
-  box-sizing: border-box;
-  text-align: center;
-  gap: 2cqh;
-}
-
-.handoffBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8cqw;
-  padding: 1cqh 2.5cqw;
-  background: var(--style-38-accent-light);
   color: var(--style-38-accent);
-  border-radius: 3cqh;
-  font-size: 1.8cqh;
-  font-weight: 600;
-}
-
-.handoffTitle {
-  font-size: 6cqh;
-  font-weight: 800;
-  letter-spacing: -0.03em;
   margin: 0;
-  max-width: 70cqw;
-  line-height: 1.1;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
-.handoffSub {
-  font-size: 2.5cqh;
-  color: var(--style-38-gray);
+.chapterTitle {
+  font-size: 10cqw;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
   margin: 0;
-  max-width: 55cqw;
-  line-height: 1.5;
+  color: var(--style-38-pearl);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
 }
 
-.handoffStats {
+.creditList {
   display: flex;
-  gap: 5cqw;
+  flex-direction: column;
+  gap: 1.2cqh;
   margin-top: 2cqh;
 }
 
-.handoffStat {
+.creditItem {
+  display: flex;
+  gap: 3cqw;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.creditRole {
+  font-size: 1.5cqh;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--style-38-dim);
+  min-width: 18cqw;
+  text-align: right;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.creditName {
+  font-size: 2cqh;
+  font-weight: 400;
+  color: var(--style-38-pearl);
+  min-width: 18cqw;
+  text-align: left;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+/* ── Scene 3: Three Moments ───────────────────────────────────────────── */
+
+.momentsScene {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5cqh;
+}
+
+.momentsTitle {
+  font-size: 5cqh;
+  font-weight: 700;
+  margin: 0;
+  color: var(--style-38-pearl);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  letter-spacing: -0.01em;
+}
+
+.momentsSub {
+  font-size: 2cqh;
+  font-weight: 300;
+  color: var(--style-38-dim);
+  margin: 0;
+  font-style: italic;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+.momentsCards {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2cqw;
+  width: 100%;
+  min-height: 0;
+  margin-top: 2cqh;
+}
+
+.momentCard {
+  background: rgba(240, 235, 227, 0.04);
+  border: 0.05cqh solid var(--style-38-border);
+  border-radius: 0.4cqh;
+  padding: 3cqh 2.5cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 1cqh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top hairline accent */
+.momentCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 2cqw;
+  right: 2cqw;
+  height: 0.08cqh;
+  background: var(--style-38-accent);
+  opacity: 0.4;
+}
+
+.momentNum {
+  font-size: 3.5cqh;
+  font-weight: 700;
+  color: var(--style-38-accent);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  line-height: 1;
+  opacity: 0.6;
+}
+
+.momentCardTitle {
+  font-size: 3cqh;
+  font-weight: 600;
+  margin: 0;
+  color: var(--style-38-pearl);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  line-height: 1.2;
+}
+
+.momentTime {
+  font-size: 1.5cqh;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--style-38-dim);
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.momentDesc {
+  font-size: 1.8cqh;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--style-38-dim);
+  margin: 0;
+  flex: 1;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ── Scene 4: Narration ───────────────────────────────────────────────── */
+
+.narrationScene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5cqh 10cqw;
+  box-sizing: border-box;
+}
+
+.narrationInner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3cqh;
+  max-width: 70cqw;
+}
+
+.narrationQuote {
+  font-size: 4.5cqh;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--style-38-pearl);
+  margin: 0;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+.narrationAttribution {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5cqh;
 }
 
-.handoffStatValue {
-  font-size: 5cqh;
-  font-weight: 800;
+.narrationAttrText {
+  font-size: 1.8cqh;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--style-38-accent);
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
-.handoffStatLabel {
-  font-size: 1.6cqh;
-  color: var(--style-38-gray);
+.narrationRole {
+  font-size: 1.5cqh;
+  font-weight: 300;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  color: var(--style-38-dim);
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.narrationActor {
+  color: var(--style-38-pearl);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  font-size: 1.1em;
+}
+
+/* ── Scene 5: Fin. ────────────────────────────────────────────────────── */
+
+.finScene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.finInner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5cqh;
+}
+
+.finText {
+  font-size: 16cqw;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--style-38-pearl);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+.finSub {
+  font-size: 2.5cqh;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: var(--style-38-pearl);
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.finComing {
+  font-size: 1.8cqh;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--style-38-accent);
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.finStudio {
+  font-size: 1.4cqh;
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--style-38-pearl);
+  margin: 2cqh 0 0 0;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
 /* ── Navigation Indicators ─────────────────────────────────────────────── */
 
 .navIndicators {
   position: absolute;
-  bottom: 2.5cqh;
+  bottom: 11cqh;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 0.6cqw;
+  gap: 0.8cqw;
   z-index: 50;
 }
 
 .navIndicator {
-  width: 3.5cqh;
-  height: 0.5cqh;
+  width: 4cqh;
+  height: 0.4cqh;
   min-width: 16px;
   border: none;
   padding: 0;
   cursor: pointer;
-  background: var(--style-38-border-dark);
-  border-radius: 0.3cqh;
-  opacity: 0.12;
-  transition: opacity 0.2s ease, background 0.2s ease;
+  background: rgba(240, 235, 227, 0.15);
+  border-radius: 0.2cqh;
+  transition: background 0.4s ease;
 }
 
 .navIndicator:hover {
-  opacity: 0.4;
+  background: rgba(240, 235, 227, 0.3);
 }
 
 .navIndicatorActive {
-  opacity: 0.5;
   background: var(--style-38-accent);
 }
 

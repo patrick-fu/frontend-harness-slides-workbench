@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./37-terminal-ui.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -40,133 +40,133 @@ const SCENES = {
     en: {
       ascii: BOOT_ASCII_EN,
       bootLines: [
-        { text: "Initializing kernel modules...", status: "OK", ok: true },
-        { text: "Mounting /dev/sda1 on /", status: "OK", ok: true },
-        { text: "Starting network daemon", status: "OK", ok: true },
-        { text: "Loading CLI toolkit v3.14.2", status: "OK", ok: true },
-        { text: "Checking filesystem integrity", status: "OK", ok: true },
+        { text: "Loading runbook engine v4.2.1...", status: "OK", ok: true },
+        { text: "Verifying safety interlocks...", status: "OK", ok: true },
+        { text: "Calibrating sensor array...", status: "OK", ok: true },
+        { text: "Establishing control bus link...", status: "OK", ok: true },
+        { text: "Operator authentication...", status: "OK", ok: true },
       ],
-      prompt: "user@devcli:~$ _",
+      prompt: "ops@control:~$ _",
     },
     zh: {
       ascii: BOOT_ASCII_ZH,
       bootLines: [
-        { text: "正在初始化内核模块...", status: "OK", ok: true },
-        { text: "挂载 /dev/sda1 到 /", status: "OK", ok: true },
-        { text: "启动网络守护进程", status: "OK", ok: true },
-        { text: "加载 CLI 工具包 v3.14.2", status: "OK", ok: true },
-        { text: "检查文件系统完整性", status: "OK", ok: true },
+        { text: "正在加载操作手册引擎 v4.2.1...", status: "OK", ok: true },
+        { text: "正在验证安全联锁...", status: "OK", ok: true },
+        { text: "正在校准传感器阵列...", status: "OK", ok: true },
+        { text: "正在建立控制总线连接...", status: "OK", ok: true },
+        { text: "操作员身份验证...", status: "OK", ok: true },
       ],
-      prompt: "user@devcli:~$ _",
+      prompt: "ops@control:~$ _",
     },
   },
   2: {
     en: {
-      title: "devcli — bash — 120x36",
+      title: "opsrun — ops manual — 120x36",
       lines: [
-        { type: "cmd", text: "devcli status" },
-        { type: "out", text: "Checking system status...", cls: "dim" },
-        { type: "out", text: "[OK] API server running on :8080", cls: "success" },
-        { type: "out", text: "[OK] Database connected (12ms)", cls: "success" },
-        { type: "out", text: "[OK] Redis cache hit rate: 94.2%", cls: "success" },
-        { type: "out", text: "[WARN] Disk usage at 78%", cls: "warning" },
-        { type: "out", text: "[INFO] 3 background jobs active", cls: "info" },
+        { type: "cmd", text: "opsrun status --system" },
+        { type: "out", text: "Querying subsystem status...", cls: "dim" },
+        { type: "out", text: "[OK] Primary coolant loop: nominal", cls: "success" },
+        { type: "out", text: "[OK] Power bus A: 480V / 60Hz", cls: "success" },
+        { type: "out", text: "[OK] Ventilation: 94% efficiency", cls: "success" },
+        { type: "out", text: "[WARN] Filter bank B: 78% capacity", cls: "warning" },
+        { type: "out", text: "[INFO] 2 scheduled maintenance tasks pending", cls: "info" },
         { type: "blank" },
-        { type: "cmd", text: "devcli deploy --env=production" },
-        { type: "out", text: "Deploying to production cluster...", cls: "dim" },
-        { type: "out", text: "  -> Building Docker image...", cls: "info" },
-        { type: "out", text: "  -> Pushing to registry: devcli/app:v2.14", cls: "info" },
-        { type: "out", text: "  -> Rolling update (3 replicas)...", cls: "info" },
-        { type: "out", text: "[SUCCESS] Deployment complete. v2.14.0 live.", cls: "success" },
+        { type: "cmd", text: "opsrun execute --procedure=shutdown" },
+        { type: "out", text: "Executing controlled shutdown sequence...", cls: "dim" },
+        { type: "out", text: "  -> Phase 1: Load shedding...", cls: "info" },
+        { type: "out", text: "  -> Phase 2: Coolant ramp-down...", cls: "info" },
+        { type: "out", text: "  -> Phase 3: System isolation...", cls: "info" },
+        { type: "out", text: "[COMPLETE] Shutdown procedure finished safely.", cls: "success" },
       ],
     },
     zh: {
-      title: "devcli — bash — 120x36",
+      title: "opsrun — 操作手册 — 120x36",
       lines: [
-        { type: "cmd", text: "devcli status" },
-        { type: "out", text: "正在检查系统状态...", cls: "dim" },
-        { type: "out", text: "[OK] API 服务器运行于 :8080", cls: "success" },
-        { type: "out", text: "[OK] 数据库已连接 (12ms)", cls: "success" },
-        { type: "out", text: "[OK] Redis 缓存命中率: 94.2%", cls: "success" },
-        { type: "out", text: "[WARN] 磁盘使用率 78%", cls: "warning" },
-        { type: "out", text: "[INFO] 3 个后台任务运行中", cls: "info" },
+        { type: "cmd", text: "opsrun status --system" },
+        { type: "out", text: "正在查询子系统状态...", cls: "dim" },
+        { type: "out", text: "[OK] 主冷却回路：正常", cls: "success" },
+        { type: "out", text: "[OK] 电源总线 A：480V / 60Hz", cls: "success" },
+        { type: "out", text: "[OK] 通风系统：94% 效率", cls: "success" },
+        { type: "out", text: "[WARN] 过滤组 B：78% 容量", cls: "warning" },
+        { type: "out", text: "[INFO] 2 项计划维护任务待处理", cls: "info" },
         { type: "blank" },
-        { type: "cmd", text: "devcli deploy --env=production" },
-        { type: "out", text: "正在部署到生产集群...", cls: "dim" },
-        { type: "out", text: "  -> 构建 Docker 镜像...", cls: "info" },
-        { type: "out", text: "  -> 推送到仓库: devcli/app:v2.14", cls: "info" },
-        { type: "out", text: "  -> 滚动更新 (3 副本)...", cls: "info" },
-        { type: "out", text: "[成功] 部署完成。v2.14.0 已上线。", cls: "success" },
+        { type: "cmd", text: "opsrun execute --procedure=shutdown" },
+        { type: "out", text: "正在执行受控停机程序...", cls: "dim" },
+        { type: "out", text: "  -> 阶段 1：负载卸载...", cls: "info" },
+        { type: "out", text: "  -> 阶段 2：冷却剂降速...", cls: "info" },
+        { type: "out", text: "  -> 阶段 3：系统隔离...", cls: "info" },
+        { type: "out", text: "[完成] 停机程序已安全结束。", cls: "success" },
       ],
     },
   },
   3: {
     en: {
-      title: "devcli help — man page",
-      header: "DEVCLI(1)                    User Manual                    DEVCLI(1)",
+      title: "opsrun help — procedure manual",
+      header: "OPSRUN(1)              Operating Manual              OPSRUN(1)",
       sections: [
         {
           title: "NAME",
-          items: [{ flag: "", desc: "devcli — the command-line developer toolkit" }],
+          items: [{ flag: "", desc: "opsrun — industrial operations runbook executor" }],
         },
         {
           title: "SYNOPSIS",
-          items: [{ flag: "", desc: "devcli <command> [options] [args...]" }],
+          items: [{ flag: "", desc: "opsrun <command> [--procedure=NAME] [--force]" }],
         },
         {
           title: "COMMANDS",
           items: [
-            { flag: "init", desc: "Initialize a new project workspace" },
-            { flag: "dev", desc: "Start development server with hot reload" },
-            { flag: "build", desc: "Compile and bundle for production" },
-            { flag: "test", desc: "Run test suite with coverage report" },
-            { flag: "deploy", desc: "Deploy to specified environment" },
-            { flag: "status", desc: "Show system and service status" },
-            { flag: "logs", desc: "Stream real-time application logs" },
+            { flag: "status", desc: "Report all subsystem health indicators" },
+            { flag: "execute", desc: "Run a named procedure from the runbook" },
+            { flag: "abort", desc: "Emergency halt — requires supervisor override" },
+            { flag: "calibrate", desc: "Recalibrate sensor array (offline only)" },
+            { flag: "logs", desc: "Stream audit trail with severity filtering" },
+            { flag: "checklist", desc: "Display pre-operation verification steps" },
+            { flag: "handover", desc: "Transfer control to next shift operator" },
           ],
         },
         {
-          title: "OPTIONS",
+          title: "SAFETY",
           items: [
-            { flag: "--env, -e", desc: "Target environment (dev/staging/prod)" },
-            { flag: "--verbose, -v", desc: "Enable verbose output" },
-            { flag: "--json, -j", desc: "Output in JSON format" },
-            { flag: "--help, -h", desc: "Show this help message" },
+            { flag: "--lockout", desc: "Apply LOTO before maintenance procedure" },
+            { flag: "--verify", desc: "Require two-person confirmation on critical ops" },
+            { flag: "--dry-run", desc: "Simulate procedure without hardware changes" },
+            { flag: "--help, -h", desc: "Display this manual page" },
           ],
         },
       ],
     },
     zh: {
-      title: "devcli 帮助 — 手册页",
-      header: "DEVCLI(1)                   用户手册                    DEVCLI(1)",
+      title: "opsrun 帮助 — 操作手册",
+      header: "OPSRUN(1)                操作手册                OPSRUN(1)",
       sections: [
         {
           title: "名称",
-          items: [{ flag: "", desc: "devcli — 命令行开发者工具包" }],
+          items: [{ flag: "", desc: "opsrun — 工业操作运行手册执行器" }],
         },
         {
           title: "概要",
-          items: [{ flag: "", desc: "devcli <命令> [选项] [参数...]" }],
+          items: [{ flag: "", desc: "opsrun <命令> [--procedure=名称] [--force]" }],
         },
         {
           title: "命令",
           items: [
-            { flag: "init", desc: "初始化新的项目工作区" },
-            { flag: "dev", desc: "启动带热重载的开发服务器" },
-            { flag: "build", desc: "编译并打包用于生产" },
-            { flag: "test", desc: "运行测试套件并生成覆盖率报告" },
-            { flag: "deploy", desc: "部署到指定环境" },
-            { flag: "status", desc: "显示系统和服务状态" },
-            { flag: "logs", desc: "流式传输实时应用日志" },
+            { flag: "status", desc: "报告所有子系统健康指标" },
+            { flag: "execute", desc: "运行手册中指定的程序" },
+            { flag: "abort", desc: "紧急停止——需主管授权" },
+            { flag: "calibrate", desc: "重新校准传感器阵列（仅限离线）" },
+            { flag: "logs", desc: "按严重程度过滤审计日志" },
+            { flag: "checklist", desc: "显示操作前验证步骤" },
+            { flag: "handover", desc: "将控制权移交下一班操作员" },
           ],
         },
         {
-          title: "选项",
+          title: "安全",
           items: [
-            { flag: "--env, -e", desc: "目标环境 (dev/staging/prod)" },
-            { flag: "--verbose, -v", desc: "启用详细输出" },
-            { flag: "--json, -j", desc: "以 JSON 格式输出" },
-            { flag: "--help, -h", desc: "显示此帮助信息" },
+            { flag: "--lockout", desc: "维护程序前应用 LOTO 锁定" },
+            { flag: "--verify", desc: "关键操作需双人确认" },
+            { flag: "--dry-run", desc: "模拟程序不改变硬件状态" },
+            { flag: "--help, -h", desc: "显示此手册页面" },
           ],
         },
       ],
@@ -174,66 +174,66 @@ const SCENES = {
   },
   4: {
     en: {
-      header: "Installing dependencies...",
-      sub: "Resolving packages from npm registry",
+      header: "Executing: Startup Sequence 7-B...",
+      sub: "Verifying prerequisites before ignition",
       progress: 73,
       logs: [
-        { time: "14:32:01", msg: "Resolving dependency tree..." },
-        { time: "14:32:02", msg: "Found 248 packages to install" },
-        { time: "14:32:03", msg: "Downloading react@18.3.1" },
-        { time: "14:32:04", msg: "Downloading typescript@5.4.2" },
-        { time: "14:32:05", msg: "Downloading vite@5.2.0" },
-        { time: "14:32:06", msg: "Linking packages..." },
-        { time: "14:32:07", msg: "Building native modules..." },
-        { time: "14:32:08", msg: "Post-install scripts running..." },
+        { time: "14:32:01", msg: "Pre-operation checklist: PASS" },
+        { time: "14:32:02", msg: "Safety interlocks: ENGAGED" },
+        { time: "14:32:03", msg: "Coolant pressure: 2.4 bar (nominal)" },
+        { time: "14:32:04", msg: "Fuel line purge: COMPLETE" },
+        { time: "14:32:05", msg: "Ignition system: ARMED" },
+        { time: "14:32:06", msg: "Ramp-up phase 1 of 3..." },
+        { time: "14:32:07", msg: "Temperature gradient: NOMINAL" },
+        { time: "14:32:08", msg: "All subsystems reporting GREEN" },
       ],
     },
     zh: {
-      header: "正在安装依赖...",
-      sub: "从 npm 仓库解析软件包",
+      header: "正在执行：启动程序 7-B...",
+      sub: "点火前验证前提条件",
       progress: 73,
       logs: [
-        { time: "14:32:01", msg: "正在解析依赖树..." },
-        { time: "14:32:02", msg: "发现 248 个待安装包" },
-        { time: "14:32:03", msg: "下载 react@18.3.1" },
-        { time: "14:32:04", msg: "下载 typescript@5.4.2" },
-        { time: "14:32:05", msg: "下载 vite@5.2.0" },
-        { time: "14:32:06", msg: "正在链接软件包..." },
-        { time: "14:32:07", msg: "正在构建原生模块..." },
-        { time: "14:32:08", msg: "正在运行安装后脚本..." },
+        { time: "14:32:01", msg: "操作前检查清单：通过" },
+        { time: "14:32:02", msg: "安全联锁装置：已接合" },
+        { time: "14:32:03", msg: "冷却剂压力：2.4 bar（正常）" },
+        { time: "14:32:04", msg: "燃料管路吹扫：完成" },
+        { time: "14:32:05", msg: "点火系统：待命中" },
+        { time: "14:32:06", msg: "加速阶段 1 / 3..." },
+        { time: "14:32:07", msg: "温度梯度：正常" },
+        { time: "14:32:08", msg: "所有子系统报告正常" },
       ],
     },
   },
   5: {
     en: {
-      title: "SYSTEM SUMMARY",
-      subtitle: "Session complete — all operations successful",
+      title: "OPERATIONS SUMMARY",
+      subtitle: "Shift complete — all procedures within tolerance",
       info: [
-        { label: "Commands Executed", value: "47" },
-        { label: "Uptime", value: "02:34:17" },
-        { label: "Memory Used", value: "1.2 GB" },
-        { label: "Packages", value: "248" },
-        { label: "Build Time", value: "3.4s" },
-        { label: "Test Coverage", value: "94.2%" },
-        { label: "Deployments", value: "3" },
-        { label: "Errors", value: "0" },
+        { label: "Procedures Run", value: "12" },
+        { label: "Shift Duration", value: "08:42:00" },
+        { label: "Alarms Resolved", value: "3" },
+        { label: "Checklists", value: "24" },
+        { label: "Avg Response", value: "2.1s" },
+        { label: "Safety Events", value: "0" },
+        { label: "Handover", value: "Complete" },
+        { label: "Next Review", value: "06:00" },
       ],
-      goodbye: "Goodbye. See you in the terminal.",
+      goodbye: "System standby. Log out when ready.",
     },
     zh: {
-      title: "系统摘要",
-      subtitle: "会话结束——所有操作成功",
+      title: "操作摘要",
+      subtitle: "班次结束——所有程序在容差范围内",
       info: [
-        { label: "执行命令数", value: "47" },
-        { label: "运行时长", value: "02:34:17" },
-        { label: "内存使用", value: "1.2 GB" },
-        { label: "软件包", value: "248" },
-        { label: "构建时间", value: "3.4秒" },
-        { label: "测试覆盖率", value: "94.2%" },
-        { label: "部署次数", value: "3" },
-        { label: "错误数", value: "0" },
+        { label: "执行程序", value: "12" },
+        { label: "班次时长", value: "08:42:00" },
+        { label: "已解警报", value: "3" },
+        { label: "检查清单", value: "24" },
+        { label: "平均响应", value: "2.1秒" },
+        { label: "安全事件", value: "0" },
+        { label: "交接状态", value: "完成" },
+        { label: "下次审查", value: "06:00" },
       ],
-      goodbye: "再见。终端见。",
+      goodbye: "系统待机。准备好后请注销。",
     },
   },
 };
@@ -241,32 +241,32 @@ const SCENES = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Terminal UI", zh: "终端界面" };
+  const nameMap = { en: "Operating Manual", zh: "操作手册" };
   const themeMap = {
-    en: "CLI Developer Tools — terminal/tui aesthetic with ASCII borders, color-coded output and blinking cursor",
-    zh: "CLI 开发者工具——终端/TUI 美学，ASCII 边框、彩色输出和闪烁光标",
+    en: "Runbook & Procedure Guides — industrial terminal aesthetic with monospace throughout, warning-amber accent and crisp sequential output",
+    zh: "运行手册与程序指南——工业终端美学，全程等宽字体，警示琥珀色点缀，清晰顺序输出",
   };
-  const densityLabelMap = { en: "Text-Dense", zh: "文本密集" };
+  const densityLabelMap = { en: "Procedure-Dense", zh: "流程密集" };
 
   const sceneTitles = {
-    en: ["Boot", "Commands", "Help", "Install", "Summary"],
-    zh: ["启动", "命令", "帮助", "安装", "摘要"],
+    en: ["Boot", "Status Check", "Manual", "Procedure", "Summary"],
+    zh: ["启动", "状态检查", "操作手册", "执行程序", "摘要"],
   };
 
   const beatActions = {
     en: {
-      1: ["Boot sequence"],
-      2: ["Commands type out"],
-      3: ["Help page renders"],
-      4: ["Progress bar animates", "Log output streams"],
-      5: ["System info reveals"],
+      1: ["System boot sequence"],
+      2: ["Status command outputs", "Shutdown procedure executes"],
+      3: ["Manual page renders", "Commands section", "Safety section"],
+      4: ["Progress animates", "Audit log streams"],
+      5: ["Operations summary reveals"],
     },
     zh: {
-      1: ["启动序列"],
-      2: ["命令逐字打出"],
-      3: ["帮助页面渲染"],
-      4: ["进度条动画", "日志输出流"],
-      5: ["系统信息揭示"],
+      1: ["系统启动序列"],
+      2: ["状态命令输出", "停机程序执行"],
+      3: ["手册页面渲染", "命令章节", "安全章节"],
+      4: ["进度动画", "审计日志流"],
+      5: ["操作摘要揭示"],
     },
   };
 
@@ -289,12 +289,12 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 
       if (id === 1) {
         beatTitle = "Boot Sequence";
-        beatBody = "System initialization complete";
+        beatBody = "Runbook engine initialized";
       } else if (id === 2) {
         const c2 = c as unknown as { lines: Array<{ text: string }> };
-        beatTitle = "devcli status";
+        beatTitle = "opsrun status";
         if (beatIdx >= 1) {
-          beatTitle = "devcli deploy";
+          beatTitle = "opsrun execute";
           beatBody = c2.lines.slice(-4).map((l) => l.text).join(" / ");
         } else {
           beatBody = c2.lines.slice(0, 7).map((l) => l.text).join(" / ");
@@ -307,7 +307,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       } else if (id === 4) {
         const c4 = c as unknown as { header: string; progress: number };
         beatTitle = c4.header;
-        beatBody = beatIdx >= 1 ? `Progress: ${c4.progress}% — packages linked` : `Progress: ${c4.progress}%`;
+        beatBody = beatIdx >= 1 ? `Progress: ${c4.progress}% — all systems nominal` : `Progress: ${c4.progress}%`;
       } else if (id === 5) {
         const c5 = c as unknown as { title: string; subtitle: string; goodbye: string };
         beatTitle = c5.title;
@@ -337,8 +337,8 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
     colors: {
-      bg: "#0a0a0a",
-      ink: "#00ff00",
+      bg: "#0d0d0d",
+      ink: "#e8e8e8",
       panel: "#1a1a1a",
     },
     typography: {
@@ -346,16 +346,16 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       body: "JetBrains Mono 400",
     },
     tags: [
+      "runbook",
       "terminal",
-      "cli",
       "monospace",
-      "developer",
-      "tui",
-      "ascii",
-      "green",
-      "retro",
-      "hacker",
-      "code",
+      "industrial",
+      "procedure",
+      "warning",
+      "amber",
+      "ops",
+      "manual",
+      "sequential",
     ],
     fonts: ["JetBrains Mono"],
     scenes,
@@ -381,25 +381,46 @@ export default function TerminalUI({
   useFonts();
 
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // Beat-level entered state — controls reveal animations
   useEffect(() => {

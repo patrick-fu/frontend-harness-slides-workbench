@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./34-retro-os-95.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -156,12 +156,12 @@ const SCENES: Record<number, SceneContent> = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Retro OS 95", zh: "复古 OS 95" };
+  const nameMap = { en: "Retro Windows", zh: "复古 Windows" };
   const themeMap = {
-    en: "Computing Nostalgia — Windows 95 / classic Mac OS aesthetic with beveled panels and pixel-era charm",
-    zh: "计算怀旧——Windows 95 / 经典 Mac OS 美学，斜面面板和像素时代魅力",
+    en: "Nostalgic Computing — Win9x desktop costume with bevel depth, navy sole accent, CRT scanlines and dense application-UI body",
+    zh: "怀旧计算——Windows 9x 桌面装扮，斜面深度、海军蓝主色、CRT 扫描线和密集应用界面",
   };
-  const densityLabelMap = { en: "Retro UI", zh: "复古界面" };
+  const densityLabelMap = { en: "Application-Dense", zh: "应用密集" };
 
   const sceneTitles = {
     en: ["Desktop", "File Explorer", "System Dialog", "System Info", "Shutdown"],
@@ -247,7 +247,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
     colors: {
-      bg: "#008080",
+      bg: "#808080",
       ink: "#000000",
       panel: "#c0c0c0",
     },
@@ -257,14 +257,15 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     },
     tags: [
       "retro",
-      "windows95",
+      "windows",
       "nostalgia",
       "beveled",
       "pixel",
       "classic",
-      "os",
-      "vintage",
+      "desktop",
+      "crt",
       "computing",
+      "navy",
     ],
     fonts: ["MS Sans Serif", "Tahoma", "Inter"],
     scenes,
@@ -289,26 +290,47 @@ export default function RetroOS95({
 }: BespokeStyleProps) {
   useFonts();
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
   const [entered, setEntered] = useState(false);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // Beat-level entered animation (for internal element reveals)
   useEffect(() => {

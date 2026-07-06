@@ -4,7 +4,7 @@
    ──────────────────────────────────────────────────────────────────────── */
 
 :root {
-  --style-34-bg: #008080;
+  --style-34-bg: #808080;
   --style-34-ink: #000000;
   --style-34-panel: #c0c0c0;
   --style-34-panel-light: #ffffff;
@@ -34,6 +34,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .exitAnim {

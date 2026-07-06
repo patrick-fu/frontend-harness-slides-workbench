@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./35-neon-grid.module.css";
 
@@ -11,7 +11,7 @@ function useFonts() {
     const link = document.createElement("link");
     link.id = id;
     link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;700&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap";
     document.head.appendChild(link);
   }, []);
 }
@@ -21,60 +21,60 @@ function useFonts() {
 const SCENES = {
   1: {
     en: {
-      title: "Neon Dreams",
-      subtitle: "Retro-Futurism Revived",
+      title: "The Grove",
+      subtitle: "A brand retrospective rooted in organic craft",
     },
     zh: {
-      title: "霓虹之梦",
-      subtitle: "复古未来主义的复兴",
+      title: "林间",
+      subtitle: "植根于有机工艺的品牌回顾",
     },
   },
   2: {
     en: {
-      label: "Chapter 01",
-      heading: "The Culture",
+      label: "Chapter I",
+      heading: "Foundations",
       cards: [
         {
-          icon: "🎵",
-          title: "Synthwave Music",
-          desc: "Daft Punk, Kavinsky, and The Midnight define the sound of a generation that never was.",
-          tag: "Audio",
+          icon: "🌿",
+          title: "Botanical Identity",
+          desc: "Our visual language draws from the quiet geometry of fern fronds, leaf venation, and the slow unfurling of new growth.",
+          tag: "Origins",
         },
         {
-          icon: "🎮",
-          title: "Arcade Gaming",
-          desc: "Pixel art and chiptune soundtracks. Street Fighter, Out Run, and the golden age of arcades.",
-          tag: "Gaming",
+          icon: "🪵",
+          title: "Material Honesty",
+          desc: "Solid walnut, hand-thrown ceramic, and unbleached linen — chosen for the way they age and patina with use.",
+          tag: "Craft",
         },
         {
-          icon: "🎬",
-          title: "Cinema Aesthetic",
-          desc: "Blade Runner, Drive, and Stranger Things brought neon-noir into the mainstream.",
-          tag: "Visual",
+          icon: "🍂",
+          title: "Seasonal Rhythm",
+          desc: "We design for the long arc: collections that shift with the seasons rather than chasing every trend.",
+          tag: "Philosophy",
         },
       ],
     },
     zh: {
       label: "第一章",
-      heading: "文化浪潮",
+      heading: "根基",
       cards: [
         {
-          icon: "🎵",
-          title: "合成波音乐",
-          desc: "Daft Punk、Kavinsky 和 The Midnight 定义了一个从未存在的时代之声。",
-          tag: "音乐",
+          icon: "🌿",
+          title: "植物身份",
+          desc: "我们的视觉语言取自蕨类叶片的静谧几何、叶脉纹理，以及新芽舒展的缓慢节奏。",
+          tag: "起源",
         },
         {
-          icon: "🎮",
-          title: "街机游戏",
-          desc: "像素艺术和芯片音乐。街头霸王、Out Run 和街机的黄金时代。",
-          tag: "游戏",
+          icon: "🪵",
+          title: "材料真诚",
+          desc: "实心胡桃木、手工拉坯陶瓷、未漂白亚麻——因岁月沉淀和使用痕迹而被选择。",
+          tag: "工艺",
         },
         {
-          icon: "🎬",
-          title: "电影美学",
-          desc: "银翼杀手、亡命驾驶和怪奇物语将霓虹黑色带入主流。",
-          tag: "视觉",
+          icon: "🍂",
+          title: "季节节律",
+          desc: "我们为长远而设计：系列随四季更迭，而非追逐每一个潮流。",
+          tag: "理念",
         },
       ],
     },
@@ -82,55 +82,55 @@ const SCENES = {
   3: {
     en: {
       label: "Timeline",
-      heading: "Through the Decades",
+      heading: "Through the Years",
       nodes: [
-        { year: "1982", label: "Tron releases, defining the grid aesthetic" },
-        { year: "1984", label: "Neon signs dominate city skylines" },
-        { year: "1989", label: "Game Boy launches portable gaming" },
-        { year: "1995", label: "Windows 95 ships with cloud wallpaper" },
-        { year: "2011", label: "Drive soundtrack ignites synthwave revival" },
+        { year: "2011", label: "Studio founded in a converted greenhouse" },
+        { year: "2014", label: "First furniture collection: Canopy series" },
+        { year: "2017", label: "Textile line launched with natural dyes" },
+        { year: "2020", label: "Expanded to ceramics and tableware" },
+        { year: "2024", label: "Flagship gallery opens in the Grove District" },
       ],
     },
     zh: {
-      label: "时间线",
-      heading: "穿越年代",
+      label: "年表",
+      heading: "岁月流转",
       nodes: [
-        { year: "1982", label: "《电子世界争霸战》定义网格美学" },
-        { year: "1984", label: "霓虹灯主导城市天际线" },
-        { year: "1989", label: "Game Boy 开启掌机游戏时代" },
-        { year: "1995", label: "Windows 95 发布蓝天白云壁纸" },
-        { year: "2011", label: "《亡命驾驶》原声点燃合成波复兴" },
+        { year: "2011", label: "工作室成立于一间改造的花房" },
+        { year: "2014", label: "首个家具系列：Canopy 系列" },
+        { year: "2017", label: "天然染料纺织线发布" },
+        { year: "2020", label: "扩展至陶瓷和餐具" },
+        { year: "2024", label: "旗舰展厅在林间区开业" },
       ],
     },
   },
   4: {
     en: {
-      quote: "The future we were promised, delivered in neon.",
-      author: "— Retro-Futurist Manifesto",
+      quote: "We make things that grow more beautiful with every year of use.",
+      author: "— Founders' Letter, 2011",
       stats: [
-        { value: "80s", label: "Inspiration Era" },
-        { value: "∞", label: "Nostalgia Index" },
-        { value: "24/7", label: "Neon Always On" },
+        { value: "14", label: "Years of Craft" },
+        { value: "47", label: "Artisans" },
+        { value: "100%", label: "Natural Materials" },
       ],
     },
     zh: {
-      quote: "我们被承诺的未来，以霓虹交付。",
-      author: "—— 复古未来主义宣言",
+      quote: "我们创造的事物，每使用一年便愈加美丽。",
+      author: "——创始人寄语，2011",
       stats: [
-        { value: "80年代", label: "灵感时代" },
-        { value: "∞", label: "怀旧指数" },
-        { value: "24/7", label: "霓虹常亮" },
+        { value: "14", label: "年工艺传承" },
+        { value: "47", label: "位匠人" },
+        { value: "100%", label: "天然材料" },
       ],
     },
   },
   5: {
     en: {
-      big: "Stay Retro",
-      sub: "The future looks bright in pink and cyan",
+      big: "Stay Rooted",
+      sub: "The grove grows slowly, and so do we.",
     },
     zh: {
-      big: "保持复古",
-      sub: "粉色与青色中的未来一片光明",
+      big: "保持根基",
+      sub: "林间生长缓慢，我们亦是如此。",
     },
   },
 };
@@ -138,16 +138,16 @@ const SCENES = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Neon Grid", zh: "霓虹网格" };
+  const nameMap = { en: "Mid-Century Grove", zh: "中世纪林间" };
   const themeMap = {
-    en: "Retro-Futurism Culture — 80s synthwave aesthetic with neon pink and cyan on a perspective grid",
-    zh: "复古未来主义文化——80 年代合成波美学，霓虹粉和青色透视网格",
+    en: "Brand Storytelling — botanical specimen card aesthetic with deep forest ground, warm cream text, rust-orange accent and classical serif",
+    zh: "品牌叙事——植物标本卡美学，深森林底色、温暖奶油文字、铁锈橙点缀和古典衬线体",
   };
-  const densityLabelMap = { en: "Visual-Immersive", zh: "视觉沉浸" };
+  const densityLabelMap = { en: "Editorial-Organic", zh: "编辑有机" };
 
   const sceneTitles = {
-    en: ["Title", "Culture", "Timeline", "Hero Quote", "Closing"],
-    zh: ["标题", "文化", "时间线", "核心引语", "结语"],
+    en: ["Title", "Foundations", "Timeline", "Hero Quote", "Closing"],
+    zh: ["标题", "根基", "年表", "核心引语", "结语"],
   };
 
   const beatActions = {
@@ -231,30 +231,35 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 4,
     colors: {
-      bg: "#0a0a0f",
-      ink: "#ffffff",
-      panel: "#1a1a2e",
+      bg: "#1a2e1f",
+      ink: "#f5efe0",
+      panel: "#243828",
     },
     typography: {
-      header: "Inter 900",
+      header: "Playfair Display 600",
       body: "Inter 400",
     },
     tags: [
-      "neon",
-      "synthwave",
-      "retro",
-      "80s",
-      "futuristic",
-      "pink",
-      "cyan",
-      "grid",
-      "immersive",
-      "culture",
+      "botanical",
+      "organic",
+      "mid-century",
+      "forest",
+      "cream",
+      "rust",
+      "serif",
+      "linen",
+      "craft",
+      "editorial",
     ],
-    fonts: ["Inter", "JetBrains Mono"],
+    fonts: ["Playfair Display", "Inter"],
     scenes,
   };
 }
+
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 600; // ms — outgoing 400ms + incoming 500ms w/ 50ms delay
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 };
 
 // ─── Component ──────────────────────────────────────────────────────────────
 
@@ -268,6 +273,49 @@ export default function NeonGrid({
   isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
+
+  // ── Dual-scene transition state ────────────────────────────────────────
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
+
+  // Per-scene element enter animation
   const [entered, setEntered] = useState(false);
 
   useEffect(() => {
@@ -308,7 +356,7 @@ export default function NeonGrid({
 
   // ── Scene 1: Title ──────────────────────────────────────────────────────
 
-  const renderScene1 = () => {
+  const renderScene1 = (isEntered: boolean) => {
     const c = SCENES[1][language];
     return (
       <>
@@ -317,8 +365,8 @@ export default function NeonGrid({
           <h1
             className={styles.neonTitle}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "scale(1)" : "scale(0.9)",
+              opacity: isEntered ? 1 : 0,
+              transform: isEntered ? "scale(1)" : "scale(0.9)",
               transition: reducedMotion
                 ? "none"
                 : "opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
@@ -329,7 +377,7 @@ export default function NeonGrid({
           <p
             className={styles.neonSubtitle}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion
                 ? "none"
                 : "opacity 0.8s ease 0.3s",
@@ -344,7 +392,7 @@ export default function NeonGrid({
 
   // ── Scene 2: Culture Cards ──────────────────────────────────────────────
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number, isEntered: boolean) => {
     const c = SCENES[2][language];
     return (
       <>
@@ -354,8 +402,8 @@ export default function NeonGrid({
           <h2
             className={styles.sceneHeading}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "translateX(0)" : "translateX(-2cqw)",
+              opacity: isEntered ? 1 : 0,
+              transform: isEntered ? "translateX(0)" : "translateX(-2cqw)",
               transition: reducedMotion
                 ? "none"
                 : "opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
@@ -365,7 +413,7 @@ export default function NeonGrid({
           </h2>
           <div className={styles.cultureGrid}>
             {c.cards.map((card, i) => {
-              const visible = entered && i <= beat;
+              const visible = isEntered && i <= beatNum;
               return (
                 <div
                   key={i}
@@ -389,7 +437,7 @@ export default function NeonGrid({
 
   // ── Scene 3: Timeline ───────────────────────────────────────────────────
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number, isEntered: boolean) => {
     const c = SCENES[3][language];
     return (
       <>
@@ -399,7 +447,7 @@ export default function NeonGrid({
           <h2
             className={styles.sceneHeading}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.5s ease",
             }}
           >
@@ -409,8 +457,8 @@ export default function NeonGrid({
             <div
               className={styles.timelineLine}
               style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "translateY(-50%) scaleX(1)" : "translateY(-50%) scaleX(0)",
+                opacity: isEntered ? 1 : 0,
+                transform: isEntered ? "translateY(-50%) scaleX(1)" : "translateY(-50%) scaleX(0)",
                 transition: reducedMotion
                   ? "none"
                   : "opacity 0.5s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
@@ -418,7 +466,7 @@ export default function NeonGrid({
             />
             <div className={styles.timelineNodes}>
               {c.nodes.map((node, i) => {
-                const visible = entered && beat >= (i < 3 ? 0 : 1);
+                const visible = isEntered && beatNum >= (i < 3 ? 0 : 1);
                 return (
                   <div
                     key={i}
@@ -442,7 +490,7 @@ export default function NeonGrid({
 
   // ── Scene 4: Hero Quote ─────────────────────────────────────────────────
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number, isEntered: boolean) => {
     const c = SCENES[4][language];
     return (
       <>
@@ -451,7 +499,7 @@ export default function NeonGrid({
           <div
             className={styles.heroQuoteMark}
             style={{
-              opacity: entered ? 0.6 : 0,
+              opacity: isEntered ? 0.6 : 0,
               transition: reducedMotion ? "none" : "opacity 0.6s ease",
             }}
           >
@@ -460,8 +508,8 @@ export default function NeonGrid({
           <blockquote
             className={styles.heroQuote}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "translateY(0)" : "translateY(1.5cqh)",
+              opacity: isEntered ? 1 : 0,
+              transform: isEntered ? "translateY(0)" : "translateY(1.5cqh)",
               transition: reducedMotion
                 ? "none"
                 : "opacity 0.7s ease 0.1s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s",
@@ -472,18 +520,18 @@ export default function NeonGrid({
           <cite
             className={styles.heroAuthor}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.5s ease 0.4s",
               fontStyle: "normal",
             }}
           >
             {c.author}
           </cite>
-          {beat >= 1 && (
+          {beatNum >= 1 && (
             <div
               className={styles.heroStats}
               style={{
-                opacity: entered ? 1 : 0,
+                opacity: isEntered ? 1 : 0,
                 transition: reducedMotion ? "none" : "opacity 0.5s ease 0.5s",
               }}
             >
@@ -502,7 +550,7 @@ export default function NeonGrid({
 
   // ── Scene 5: Closing ────────────────────────────────────────────────────
 
-  const renderScene5 = () => {
+  const renderScene5 = (isEntered: boolean) => {
     const c = SCENES[5][language];
     return (
       <>
@@ -511,8 +559,8 @@ export default function NeonGrid({
           <h1
             className={styles.closingBig}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "scale(1)" : "scale(0.85)",
+              opacity: isEntered ? 1 : 0,
+              transform: isEntered ? "scale(1)" : "scale(0.85)",
               transition: reducedMotion
                 ? "none"
                 : "opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
@@ -523,7 +571,7 @@ export default function NeonGrid({
           <p
             className={styles.closingSub}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.6s ease 0.3s",
             }}
           >
@@ -532,6 +580,25 @@ export default function NeonGrid({
         </div>
       </>
     );
+  };
+
+  // ── Render scene content for a given scene number ────────────────────────
+
+  const renderSceneFor = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    switch (sceneNum) {
+      case 1:
+        return renderScene1(isEntered);
+      case 2:
+        return renderScene2(beatNum, isEntered);
+      case 3:
+        return renderScene3(beatNum, isEntered);
+      case 4:
+        return renderScene4(beatNum, isEntered);
+      case 5:
+        return renderScene5(isEntered);
+      default:
+        return null;
+    }
   };
 
   // ── Navigation Indicators ───────────────────────────────────────────────
@@ -556,31 +623,32 @@ export default function NeonGrid({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1:
-        return renderScene1();
-      case 2:
-        return renderScene2();
-      case 3:
-        return renderScene3();
-      case 4:
-        return renderScene4();
-      case 5:
-        return renderScene5();
-      default:
-        return null;
-    }
-  };
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
 
   return (
     <div className={rootClasses}>
-      <div
-        key={`35-${scene}`}
-        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat, entered)}
       </div>
+
       {renderNavIndicators()}
     </div>
   );

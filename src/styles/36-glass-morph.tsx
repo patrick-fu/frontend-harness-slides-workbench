@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./36-glass-morph.module.css";
 
@@ -11,7 +11,7 @@ function useFonts() {
     const link = document.createElement("link");
     link.id = id;
     link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap";
     document.head.appendChild(link);
   }, []);
 }
@@ -21,210 +21,220 @@ function useFonts() {
 const SCENES = {
   1: {
     en: {
-      hello: "Good morning",
-      userName: "Alex Chen",
-      userInitial: "A",
-      searchPlaceholder: "Search apps, contacts, files...",
+      kicker: "EST. 2024  —  PRIVATE REVEAL",
+      hello: "After Hours",
+      userName: "Maison Lune",
+      userInitial: "ML",
+      searchPlaceholder: "Explore the collection...",
       quickActions: [
-        { icon: "📷", label: "Camera", color: "rgba(244, 114, 182, 0.2)" },
-        { icon: "🎵", label: "Music", color: "rgba(167, 139, 250, 0.2)" },
-        { icon: "📝", label: "Notes", color: "rgba(56, 189, 248, 0.2)" },
-        { icon: "⚙️", label: "Settings", color: "rgba(74, 222, 128, 0.2)" },
+        { icon: "◈", label: "Archive", color: "rgba(255, 82, 140, 0.12)" },
+        { icon: "◇", label: "Reserve", color: "rgba(255, 82, 140, 0.08)" },
+        { icon: "◉", label: "Atelier", color: "rgba(255, 82, 140, 0.08)" },
+        { icon: "◎", label: "Concierge", color: "rgba(255, 82, 140, 0.08)" },
       ],
     },
     zh: {
-      hello: "早上好",
-      userName: "陈亚历",
-      userInitial: "陈",
-      searchPlaceholder: "搜索应用、联系人、文件...",
+      kicker: "创立于 2024  —  私人鉴赏",
+      hello: "深夜时分",
+      userName: "月舍",
+      userInitial: "月",
+      searchPlaceholder: "探索典藏系列...",
       quickActions: [
-        { icon: "📷", label: "相机", color: "rgba(244, 114, 182, 0.2)" },
-        { icon: "🎵", label: "音乐", color: "rgba(167, 139, 250, 0.2)" },
-        { icon: "📝", label: "备忘录", color: "rgba(56, 189, 248, 0.2)" },
-        { icon: "⚙️", label: "设置", color: "rgba(74, 222, 128, 0.2)" },
+        { icon: "◈", label: "档案", color: "rgba(255, 82, 140, 0.12)" },
+        { icon: "◇", label: "预约", color: "rgba(255, 82, 140, 0.08)" },
+        { icon: "◉", label: "工坊", color: "rgba(255, 82, 140, 0.08)" },
+        { icon: "◎", label: "礼宾", color: "rgba(255, 82, 140, 0.08)" },
       ],
     },
   },
   2: {
     en: {
-      title: "What's New",
-      subtitle: "Fresh features just landed",
+      kicker: "THE COLLECTION",
+      title: "Quiet Luxury,",
+      subtitle: "crafted for those who notice the details.",
       features: [
         {
-          icon: "✨",
-          title: "Smart Suggestions",
-          desc: "AI-powered recommendations that learn from your usage patterns",
+          icon: "◈",
+          title: "Nocturne Series",
+          desc: "Hand-finished in our atelier. Each piece bears the mark of the artisan who shaped it.",
+          badge: "Limited",
+          badgeColor: "#ff528c",
+          iconBg: "rgba(255, 82, 140, 0.1)",
+        },
+        {
+          icon: "◇",
+          title: "Velvet Hours",
+          desc: "Materials sourced from the last remaining mills in Como and Lyon.",
           badge: "New",
-          badgeColor: "#a78bfa",
-          iconBg: "rgba(167, 139, 250, 0.2)",
+          badgeColor: "#ff528c",
+          iconBg: "rgba(255, 82, 140, 0.08)",
         },
         {
-          icon: "🔒",
-          title: "Enhanced Privacy",
-          desc: "End-to-end encryption for all your personal data and messages",
-          badge: "Security",
-          badgeColor: "#38bdf8",
-          iconBg: "rgba(56, 189, 248, 0.2)",
+          icon: "◉",
+          title: "Private Reserve",
+          desc: "Available only to members of our inner circle. By invitation.",
+          badge: "Exclusive",
+          badgeColor: "#ff528c",
+          iconBg: "rgba(255, 82, 140, 0.08)",
         },
         {
-          icon: "🎨",
-          title: "Custom Themes",
-          desc: "Personalize your interface with dynamic glassmorphism effects",
-          badge: "Beta",
-          badgeColor: "#f472b6",
-          iconBg: "rgba(244, 114, 182, 0.2)",
-        },
-        {
-          icon: "⚡",
-          title: "Instant Sync",
-          desc: "Real-time collaboration across all your devices, zero latency",
-          badge: "Pro",
-          badgeColor: "#4ade80",
-          iconBg: "rgba(74, 222, 128, 0.2)",
+          icon: "◎",
+          title: "Midnight Edit",
+          desc: "A capsule released once per season. Never reissued.",
+          badge: "Rare",
+          badgeColor: "#ff528c",
+          iconBg: "rgba(255, 82, 140, 0.08)",
         },
       ],
     },
     zh: {
-      title: "新功能速递",
-      subtitle: "全新功能刚刚上线",
+      kicker: "典藏系列",
+      title: "静谧奢华，",
+      subtitle: "为懂得细节的人而造。",
       features: [
         {
-          icon: "✨",
-          title: "智能推荐",
-          desc: "基于使用习惯学习的 AI 驱动推荐系统",
-          badge: "新功能",
-          badgeColor: "#a78bfa",
-          iconBg: "rgba(167, 139, 250, 0.2)",
+          icon: "◈",
+          title: "夜曲系列",
+          desc: "工坊手工打磨，每件都承载着匠人的印记。",
+          badge: "限量",
+          badgeColor: "#ff528c",
+          iconBg: "rgba(255, 82, 140, 0.1)",
         },
         {
-          icon: "🔒",
-          title: "增强隐私",
-          desc: "所有个人数据和消息均采用端到端加密",
-          badge: "安全",
-          badgeColor: "#38bdf8",
-          iconBg: "rgba(56, 189, 248, 0.2)",
+          icon: "◇",
+          title: "丝绒时光",
+          desc: "面料来自科莫和里昂仅存的古老织坊。",
+          badge: "新品",
+          badgeColor: "#ff528c",
+          iconBg: "rgba(255, 82, 140, 0.08)",
         },
         {
-          icon: "🎨",
-          title: "自定义主题",
-          desc: "通过动态玻璃拟态效果个性化您的界面",
-          badge: "测试版",
-          badgeColor: "#f472b6",
-          iconBg: "rgba(244, 114, 182, 0.2)",
+          icon: "◉",
+          title: "私人珍藏",
+          desc: "仅限核心圈层会员，邀请制获取。",
+          badge: "专属",
+          badgeColor: "#ff528c",
+          iconBg: "rgba(255, 82, 140, 0.08)",
         },
         {
-          icon: "⚡",
-          title: "即时同步",
-          desc: "所有设备实时协作，零延迟",
-          badge: "专业版",
-          badgeColor: "#4ade80",
-          iconBg: "rgba(74, 222, 128, 0.2)",
+          icon: "◎",
+          title: "午夜精选",
+          desc: "每季发布一次，永不再版。",
+          badge: "稀有",
+          badgeColor: "#ff528c",
+          iconBg: "rgba(255, 82, 140, 0.08)",
         },
       ],
     },
   },
   3: {
     en: {
-      title: "Today's Overview",
-      dateLabel: "Mon, Jun 30",
+      kicker: "THIS EVENING",
+      title: "Tonight's Selection",
+      dateLabel: "Private Viewing",
       panels: [
         {
-          title: "Active Users",
-          bigNumber: "24.8K",
-          trend: "+12.4%",
+          title: "Pieces Viewed",
+          bigNumber: "248",
+          trend: "+32",
           trendUp: true,
-          bars: [30, 45, 38, 62, 55, 78, 85],
+          bars: [25, 40, 35, 58, 50, 72, 80],
         },
         {
-          title: "Revenue",
-          bigNumber: "$184K",
-          trend: "+8.2%",
+          title: "Reservations",
+          bigNumber: "47",
+          trend: "+18%",
           trendUp: true,
-          bars: [40, 52, 48, 70, 65, 82, 90],
+          bars: [35, 48, 42, 65, 60, 78, 88],
         },
       ],
       activity: [
-        { dot: "#a78bfa", text: "New user signup from Tokyo", value: "+1" },
-        { dot: "#38bdf8", text: "Payment received: Enterprise plan", value: "$4.2K" },
-        { dot: "#4ade80", text: "Server deployment completed", value: "OK" },
-        { dot: "#f472b6", text: "Feature request: Dark mode", value: "New" },
-        { dot: "#fbbf24", text: "API rate limit warning", value: "85%" },
+        { dot: "#ff528c", text: "Nocturne Cufflinks — reserved by Member 0412", value: "Hold" },
+        { dot: "#f5efe0", text: "Private viewing request confirmed", value: "21:00" },
+        { dot: "#ff528c", text: "Velvet Hours trunk show — Milan", value: "Invite" },
+        { dot: "#f5efe0", text: "New piece added to Midnight Edit", value: "New" },
+        { dot: "#ff528c", text: "Atelier availability — Friday evening", value: "Open" },
       ],
     },
     zh: {
-      title: "今日概览",
-      dateLabel: "6月30日 周一",
+      kicker: "今夜精选",
+      title: "今晚的选择",
+      dateLabel: "私人鉴赏",
       panels: [
         {
-          title: "活跃用户",
-          bigNumber: "2.48万",
-          trend: "+12.4%",
+          title: "浏览作品",
+          bigNumber: "248",
+          trend: "+32",
           trendUp: true,
-          bars: [30, 45, 38, 62, 55, 78, 85],
+          bars: [25, 40, 35, 58, 50, 72, 80],
         },
         {
-          title: "营收",
-          bigNumber: "¥128万",
-          trend: "+8.2%",
+          title: "预约数量",
+          bigNumber: "47",
+          trend: "+18%",
           trendUp: true,
-          bars: [40, 52, 48, 70, 65, 82, 90],
+          bars: [35, 48, 42, 65, 60, 78, 88],
         },
       ],
       activity: [
-        { dot: "#a78bfa", text: "新用户注册：东京", value: "+1" },
-        { dot: "#38bdf8", text: "收款到账：企业版", value: "¥2.9万" },
-        { dot: "#4ade80", text: "服务器部署完成", value: "正常" },
-        { dot: "#f472b6", text: "功能建议：深色模式", value: "新" },
-        { dot: "#fbbf24", text: "API 速率限制预警", value: "85%" },
+        { dot: "#ff528c", text: "夜曲袖扣 — 会员 0412 已预留", value: "保留" },
+        { dot: "#f5efe0", text: "私人鉴赏请求已确认", value: "21:00" },
+        { dot: "#ff528c", text: "丝绒时光 trunk show — 米兰", value: "邀请" },
+        { dot: "#f5efe0", text: "午夜精选新增作品", value: "新" },
+        { dot: "#ff528c", text: "工坊可用时段 — 周五晚", value: "开放" },
       ],
     },
   },
   4: {
     en: {
-      name: "Alex Chen",
-      role: "Product Designer",
-      initial: "A",
+      kicker: "FEATURED PIECE",
+      name: "Nocturne No. 7",
+      role: "Hand-crafted in our atelier",
+      initial: "N7",
       stats: [
-        { value: "142", label: "Projects" },
-        { value: "8.9K", label: "Followers" },
-        { value: "36", label: "Awards" },
+        { value: "1 of 12", label: "Edition" },
+        { value: "18K", label: "Gold Weight" },
+        { value: "42", label: "Components" },
       ],
       settings: [
-        { icon: "🔔", label: "Notifications", desc: "Push, email, in-app", on: true },
-        { icon: "🌙", label: "Dark Mode", desc: "Auto from sunset to sunrise", on: true },
-        { icon: "📍", label: "Location", desc: "Used for weather and maps", on: false },
-        { icon: "🔐", label: "Biometric Lock", desc: "Face ID / Touch ID", on: true },
+        { icon: "◈", label: "Private Viewing", desc: "Schedule an in-person viewing", on: true },
+        { icon: "◇", label: "Digital Certificate", desc: "Blockchain-authenticated provenance", on: true },
+        { icon: "◉", label: "Atelier Visit", desc: "Meet the artisan behind the piece", on: false },
+        { icon: "◎", label: "Insurance Included", desc: "Complimentary first-year coverage", on: true },
       ],
     },
     zh: {
-      name: "陈亚历",
-      role: "产品设计师",
-      initial: "陈",
+      kicker: "精选作品",
+      name: "夜曲 第七号",
+      role: "工坊手工打造",
+      initial: "夜7",
       stats: [
-        { value: "142", label: "项目" },
-        { value: "8.9K", label: "关注者" },
-        { value: "36", label: "获奖" },
+        { value: "12 之 1", label: "限量编号" },
+        { value: "18K", label: "金重" },
+        { value: "42", label: "组件数" },
       ],
       settings: [
-        { icon: "🔔", label: "通知", desc: "推送、邮件、应用内", on: true },
-        { icon: "🌙", label: "深色模式", desc: "日落到日出自动切换", on: true },
-        { icon: "📍", label: "定位服务", desc: "用于天气和地图", on: false },
-        { icon: "🔐", label: "生物识别锁", desc: "面容 ID / 触控 ID", on: true },
+        { icon: "◈", label: "私人鉴赏", desc: "预约亲身体验", on: true },
+        { icon: "◇", label: "数字证书", desc: "区块链认证来源", on: true },
+        { icon: "◉", label: "工坊参观", desc: "与匠人面对面", on: false },
+        { icon: "◎", label: "附赠保险", desc: "首年保障免费", on: true },
       ],
     },
   },
   5: {
     en: {
-      badge: "Available Now",
-      headline: "Designed for the way you work.",
-      sub: "Experience the future of mobile interfaces with fluid glass panels and intuitive interactions.",
-      cta: "Get Started Free",
+      kicker: "BY INVITATION",
+      badge: "Members Only",
+      headline: "The door is always open.",
+      sub: "Join our inner circle. Private previews, atelier access, and pieces that never reach the public.",
+      cta: "Request Invitation",
     },
     zh: {
-      badge: "现已上线",
-      headline: "为你的工作方式而生。",
-      sub: "体验流动玻璃面板和直觉交互带来的移动界面未来。",
-      cta: "免费开始",
+      kicker: "邀请制",
+      badge: "仅限会员",
+      headline: "门，永远为你敞开。",
+      sub: "加入我们的核心圈层。私人预览、工坊探访，以及从未公开发布的作品。",
+      cta: "申请邀请",
     },
   },
 };
@@ -232,32 +242,32 @@ const SCENES = {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Glass Morph", zh: "玻璃拟态" };
+  const nameMap = { en: "After-Hours Luxe", zh: "深夜奢华" };
   const themeMap = {
-    en: "Mobile App UI Design — advanced glassmorphism with layered blur panels on a dark gradient",
-    zh: "移动应用 UI 设计——深色渐变上的分层模糊面板高级玻璃拟态",
+    en: "Brand Reveal & Premium Launch — late-night hotel bar atmosphere with warm black ground, pearl-cream insets and single hot-magenta accent",
+    zh: "品牌发布与高端揭幕——深夜酒店酒吧氛围，暖黑底色、珍珠奶油内嵌、单一热洋红点缀",
   };
-  const densityLabelMap = { en: "Layered Visual", zh: "分层视觉" };
+  const densityLabelMap = { en: "Editorial-Sparse", zh: "编辑留白" };
 
   const sceneTitles = {
-    en: ["Home Screen", "Features", "Dashboard", "Profile", "CTA"],
-    zh: ["主屏幕", "功能特性", "仪表盘", "个人资料", "行动号召"],
+    en: ["Brand Title", "Collection", "Tonight's Selection", "Featured Piece", "Invitation"],
+    zh: ["品牌标题", "典藏系列", "今夜精选", "精选作品", "邀请加入"],
   };
 
   const beatActions = {
     en: {
-      1: ["Home screen loads"],
-      2: ["Feature cards appear"],
-      3: ["Panels populate", "Activity list fills"],
-      4: ["Profile reveals", "Settings appear"],
-      5: ["CTA appears"],
+      1: ["Brand identity settles"],
+      2: ["Collection headline appears", "Cards reveal in sequence"],
+      3: ["Metric panels populate", "Activity list fills"],
+      4: ["Featured piece reveals", "Details appear"],
+      5: ["Invitation CTA appears"],
     },
     zh: {
-      1: ["主屏幕加载"],
-      2: ["功能卡片呈现"],
-      3: ["面板填充", "活动列表填充"],
-      4: ["资料揭示", "设置出现"],
-      5: ["CTA 呈现"],
+      1: ["品牌身份落定"],
+      2: ["系列标题呈现", "卡片依次揭示"],
+      3: ["指标面板填充", "活动列表出现"],
+      4: ["精选作品揭示", "细节呈现"],
+      5: ["邀请 CTA 出现"],
     },
   };
 
@@ -280,8 +290,8 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 
       if (id === 1) {
         const c1 = c as unknown as { userName: string; hello: string };
-        beatTitle = `${c1.hello}, ${c1.userName}`;
-        beatBody = "Home screen with quick actions";
+        beatTitle = `${c1.hello} — ${c1.userName}`;
+        beatBody = "Brand identity with private collection access";
       } else if (id === 2) {
         const c2 = c as unknown as { title: string; subtitle: string; features: Array<{ title: string }> };
         beatTitle = c2.title;
@@ -333,30 +343,35 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
     colors: {
-      bg: "#0f0c29",
-      ink: "#ffffff",
-      panel: "rgba(255,255,255,0.08)",
+      bg: "#0d0a0a",
+      ink: "#f5efe0",
+      panel: "rgba(245, 239, 224, 0.06)",
     },
     typography: {
-      header: "Inter 700",
-      body: "Inter 400",
+      header: "Playfair Display 600",
+      body: "Inter 300",
     },
     tags: [
-      "glassmorphism",
-      "mobile",
-      "modern",
-      "blur",
-      "dark",
-      "gradient",
-      "app",
-      "ui",
-      "layered",
+      "luxe",
+      "editorial",
+      "warm-black",
+      "pearl-cream",
+      "magenta",
+      "serif",
+      "asymmetric",
+      "film-grain",
       "premium",
+      "reveal",
     ],
-    fonts: ["Inter"],
+    fonts: ["Playfair Display", "Inter", "JetBrains Mono"],
     scenes,
   };
 }
+
+// ─── Transition constants ─────────────────────────────────────────────────
+
+const TRANSITION_DURATION = 700; // ms — outgoing 500ms + incoming 600ms w/ 80ms delay
+const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 };
 
 // ─── Component ──────────────────────────────────────────────────────────────
 
@@ -370,6 +385,49 @@ export default function GlassMorph({
   isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
+
+  // ── Dual-scene transition state ────────────────────────────────────────
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
+
+  // Per-scene element enter animation
   const [entered, setEntered] = useState(false);
 
   useEffect(() => {
@@ -399,10 +457,19 @@ export default function GlassMorph({
 
   // ── Scene 1: App Home ───────────────────────────────────────────────────
 
-  const renderScene1 = () => {
+  const renderScene1 = (isEntered: boolean) => {
     const c = SCENES[1][language];
     return (
       <div className={styles.appHome}>
+        <p
+          className={styles.kicker}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transition: reducedMotion ? "none" : "opacity 0.5s ease",
+          }}
+        >
+          {c.kicker}
+        </p>
         <div className={styles.appHeader}>
           <div className={styles.appGreeting}>
             <p className={styles.appHello}>{c.hello}</p>
@@ -411,8 +478,8 @@ export default function GlassMorph({
           <div
             className={styles.appAvatar}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "scale(1)" : "scale(0.8)",
+              opacity: isEntered ? 1 : 0,
+              transform: isEntered ? "scale(1)" : "scale(0.8)",
               transition: reducedMotion
                 ? "none"
                 : "opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
@@ -425,14 +492,14 @@ export default function GlassMorph({
         <div
           className={styles.appSearch}
           style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "translateY(0)" : "translateY(1cqh)",
+            opacity: isEntered ? 1 : 0,
+            transform: isEntered ? "translateY(0)" : "translateY(1cqh)",
             transition: reducedMotion
               ? "none"
               : "opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s",
           }}
         >
-          <span className={styles.searchIcon}>🔍</span>
+          <span className={styles.searchIcon}>◇</span>
           <span className={styles.searchInput}>{c.searchPlaceholder}</span>
         </div>
 
@@ -442,8 +509,8 @@ export default function GlassMorph({
               key={i}
               className={styles.quickAction}
               style={{
-                opacity: entered ? 1 : 0,
-                transform: entered ? "translateY(0)" : "translateY(1.5cqh)",
+                opacity: isEntered ? 1 : 0,
+                transform: isEntered ? "translateY(0)" : "translateY(1.5cqh)",
                 transition: reducedMotion
                   ? "none"
                   : `opacity 0.4s ease ${0.2 + i * 0.08}s, transform 0.4s ease ${0.2 + i * 0.08}s`,
@@ -465,15 +532,24 @@ export default function GlassMorph({
 
   // ── Scene 2: Feature Cards ──────────────────────────────────────────────
 
-  const renderScene2 = () => {
+  const renderScene2 = (beatNum: number, isEntered: boolean) => {
     const c = SCENES[2][language];
     return (
       <div className={styles.featureScene}>
-        <h2
-          className={styles.featureTitle}
+        <p
+          className={styles.kicker}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.5s ease",
+          }}
+        >
+          {c.kicker}
+        </p>
+        <h2
+          className={`${styles.featureTitle} ${styles.haloHeadline}`}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transition: reducedMotion ? "none" : "opacity 0.5s ease 0.05s",
           }}
         >
           {c.title}
@@ -481,7 +557,7 @@ export default function GlassMorph({
         <p
           className={styles.featureSubtitle}
           style={{
-            opacity: entered ? 0.5 : 0,
+            opacity: isEntered ? 0.5 : 0,
             transition: reducedMotion ? "none" : "opacity 0.5s ease 0.1s",
           }}
         >
@@ -489,7 +565,7 @@ export default function GlassMorph({
         </p>
         <div className={styles.featureStack}>
           {c.features.map((feature, i) => {
-            const visible = entered && beat >= 1;
+            const visible = isEntered && beatNum >= 1;
             return (
               <div
                 key={i}
@@ -527,15 +603,26 @@ export default function GlassMorph({
 
   // ── Scene 3: Dashboard ──────────────────────────────────────────────────
 
-  const renderScene3 = () => {
+  const renderScene3 = (beatNum: number, isEntered: boolean) => {
     const c = SCENES[3][language];
     return (
       <div className={styles.dashboardScene}>
+        <p
+          className={styles.kicker}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transition: reducedMotion ? "none" : "opacity 0.5s ease",
+            gridColumn: "1 / -1",
+            marginBottom: "-1cqh",
+          }}
+        >
+          {c.kicker}
+        </p>
         <div className={styles.dashHeader}>
           <h2
             className={styles.dashTitle}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.5s ease",
             }}
           >
@@ -549,8 +636,8 @@ export default function GlassMorph({
             key={i}
             className={styles.dashPanel}
             style={{
-              opacity: entered ? 1 : 0,
-              transform: entered ? "translateY(0)" : "translateY(1.5cqh)",
+              opacity: isEntered ? 1 : 0,
+              transform: isEntered ? "translateY(0)" : "translateY(1.5cqh)",
               transition: reducedMotion
                 ? "none"
                 : `opacity 0.5s ease ${i * 0.1}s, transform 0.5s ease ${i * 0.1}s`,
@@ -571,7 +658,7 @@ export default function GlassMorph({
                   key={j}
                   className={styles.dashBar}
                   style={{
-                    height: entered ? `${h}%` : "0%",
+                    height: isEntered ? `${h}%` : "0%",
                     transitionDelay: reducedMotion ? "0s" : `${j * 0.05}s`,
                   }}
                 />
@@ -584,8 +671,8 @@ export default function GlassMorph({
           className={styles.dashPanel}
           style={{
             gridColumn: "1 / -1",
-            opacity: entered && beat >= 1 ? 1 : 0,
-            transform: entered && beat >= 1 ? "translateY(0)" : "translateY(1cqh)",
+            opacity: isEntered && beatNum >= 1 ? 1 : 0,
+            transform: isEntered && beatNum >= 1 ? "translateY(0)" : "translateY(1cqh)",
             transition: reducedMotion
               ? "none"
               : "opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s",
@@ -616,15 +703,24 @@ export default function GlassMorph({
 
   // ── Scene 4: Profile / Settings ─────────────────────────────────────────
 
-  const renderScene4 = () => {
+  const renderScene4 = (beatNum: number, isEntered: boolean) => {
     const c = SCENES[4][language];
     return (
       <div className={styles.profileScene}>
+        <p
+          className={styles.kicker}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transition: reducedMotion ? "none" : "opacity 0.5s ease",
+          }}
+        >
+          {c.kicker}
+        </p>
         <div
           className={`${styles.glass} ${styles.profileCard}`}
           style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "translateY(0)" : "translateY(2cqh)",
+            opacity: isEntered ? 1 : 0,
+            transform: isEntered ? "translateY(0)" : "translateY(2cqh)",
             transition: reducedMotion
               ? "none"
               : "opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
@@ -643,11 +739,11 @@ export default function GlassMorph({
           </div>
         </div>
 
-        {beat >= 1 && (
+        {beatNum >= 1 && (
           <div
             className={styles.profileSettings}
             style={{
-              opacity: entered ? 1 : 0,
+              opacity: isEntered ? 1 : 0,
               transition: reducedMotion ? "none" : "opacity 0.5s ease 0.2s",
             }}
           >
@@ -656,8 +752,8 @@ export default function GlassMorph({
                 key={i}
                 className={styles.settingRow}
                 style={{
-                  opacity: entered ? 1 : 0,
-                  transform: entered ? "translateX(0)" : "translateX(2cqw)",
+                  opacity: isEntered ? 1 : 0,
+                  transform: isEntered ? "translateX(0)" : "translateX(2cqw)",
                   transition: reducedMotion
                     ? "none"
                     : `opacity 0.4s ease ${0.3 + i * 0.08}s, transform 0.4s ease ${0.3 + i * 0.08}s`,
@@ -685,15 +781,24 @@ export default function GlassMorph({
 
   // ── Scene 5: CTA ────────────────────────────────────────────────────────
 
-  const renderScene5 = () => {
+  const renderScene5 = (isEntered: boolean) => {
     const c = SCENES[5][language];
     return (
       <div className={styles.ctaScene}>
+        <p
+          className={styles.kicker}
+          style={{
+            opacity: isEntered ? 1 : 0,
+            transition: reducedMotion ? "none" : "opacity 0.5s ease",
+          }}
+        >
+          {c.kicker}
+        </p>
         <span
           className={styles.ctaBadge}
           style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "translateY(0)" : "translateY(1cqh)",
+            opacity: isEntered ? 1 : 0,
+            transform: isEntered ? "translateY(0)" : "translateY(1cqh)",
             transition: reducedMotion
               ? "none"
               : "opacity 0.5s ease, transform 0.5s ease",
@@ -704,8 +809,8 @@ export default function GlassMorph({
         <h1
           className={styles.ctaHeadline}
           style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "translateY(0)" : "translateY(1.5cqh)",
+            opacity: isEntered ? 1 : 0,
+            transform: isEntered ? "translateY(0)" : "translateY(1.5cqh)",
             transition: reducedMotion
               ? "none"
               : "opacity 0.6s ease 0.1s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s",
@@ -716,7 +821,7 @@ export default function GlassMorph({
         <p
           className={styles.ctaSub}
           style={{
-            opacity: entered ? 1 : 0,
+            opacity: isEntered ? 1 : 0,
             transition: reducedMotion ? "none" : "opacity 0.5s ease 0.3s",
           }}
         >
@@ -725,8 +830,8 @@ export default function GlassMorph({
         <button
           className={styles.ctaButton}
           style={{
-            opacity: entered ? 1 : 0,
-            transform: entered ? "translateY(0) scale(1)" : "translateY(1cqh) scale(0.95)",
+            opacity: isEntered ? 1 : 0,
+            transform: isEntered ? "translateY(0) scale(1)" : "translateY(1cqh) scale(0.95)",
             transition: reducedMotion
               ? "none"
               : "opacity 0.5s ease 0.4s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s",
@@ -736,6 +841,25 @@ export default function GlassMorph({
         </button>
       </div>
     );
+  };
+
+  // ── Render scene content for a given scene number ────────────────────────
+
+  const renderSceneFor = (sceneNum: number, beatNum: number, isEntered: boolean) => {
+    switch (sceneNum) {
+      case 1:
+        return renderScene1(isEntered);
+      case 2:
+        return renderScene2(beatNum, isEntered);
+      case 3:
+        return renderScene3(beatNum, isEntered);
+      case 4:
+        return renderScene4(beatNum, isEntered);
+      case 5:
+        return renderScene5(isEntered);
+      default:
+        return null;
+    }
   };
 
   // ── Navigation Indicators ───────────────────────────────────────────────
@@ -760,31 +884,32 @@ export default function GlassMorph({
     );
   };
 
-  const renderSceneContent = () => {
-    switch (scene) {
-      case 1:
-        return renderScene1();
-      case 2:
-        return renderScene2();
-      case 3:
-        return renderScene3();
-      case 4:
-        return renderScene4();
-      case 5:
-        return renderScene5();
-      default:
-        return null;
-    }
-  };
+  // ── Build layer classes ─────────────────────────────────────────────────
+
+  const outgoingLayerClasses = [
+    styles.sceneLayer,
+    styles.exitAnim,
+  ].filter(Boolean).join(" ");
+
+  const incomingLayerClasses = [
+    styles.sceneLayer,
+    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
+  ].filter(Boolean).join(" ");
 
   return (
     <div className={rootClasses}>
-      <div
-        key={`36-${scene}`}
-        className={`${styles.transitionTrack} ${!isTransitionClone ? styles.animateSceneEnter : ""}`}
-      >
-        {renderSceneContent()}
+      {/* Outgoing scene (exit animation) */}
+      {outgoingScene !== null && (
+        <div className={outgoingLayerClasses}>
+          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
+        </div>
+      )}
+
+      {/* Incoming / current scene */}
+      <div className={incomingLayerClasses}>
+        {renderSceneFor(scene, beat, entered)}
       </div>
+
       {renderNavIndicators()}
     </div>
   );
