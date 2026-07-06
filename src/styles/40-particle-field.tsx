@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useCallback, useMemo, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import styles from "./40-particle-field.module.css";
 import { useFLIP } from "../hooks/useFLIP";
 
@@ -312,7 +313,6 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 // ─── Component ──────────────────────────────────────────────────────────────
 
 const CLUSTER_COLORS = ["#39ff14", "#ff3030", "#ffd700", "#00e5ff"];
-const TRANSITION_DURATION = 800; // ms — outgoing 500ms + incoming 500ms w/ 200ms delay
 
 function computeParticles(sceneNum: number, beatNum: number) {
   if (sceneNum === 1) {
@@ -344,6 +344,12 @@ function computeParticles(sceneNum: number, beatNum: number) {
   return { particles: [] as Particle[], connections: [] as Array<[number, number]> };
 }
 
+const BEAT_LAYOUT_MODES = {
+  2: "motion",
+  3: "motion",
+  4: "motion",
+} satisfies Record<number, "motion" | "reserved">;
+
 export default function ParticleField({
   scene,
   beat,
@@ -351,49 +357,8 @@ export default function ParticleField({
   isThumbnail,
   reducedMotion,
   onNavigate,
-  isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    lastScene: scene,
-  });
-
-  // Synchronous derivation — sets transition state in the SAME render cycle
-  // as the scene prop change. Eliminates the 1-frame gap where the incoming
-  // scene is visible without its enter animation class.
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-
-    if (!reducedMotion) {
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
-        });
-      }, TRANSITION_DURATION);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        lastScene: scene,
-      });
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        lastScene: scene,
-      });
-    }
-  }
-
-  var outgoingScene = transitionInfo.outgoingScene;
-  var isTransitioning = transitionInfo.isTransitioning;
 
   // FLIP for particle container — particles animate between positions on beat changes
   const { ref: particleFieldRef } = useFLIP<HTMLDivElement>({
@@ -438,18 +403,6 @@ export default function ParticleField({
     .filter(Boolean)
     .join(" ");
 
-  // Generate particles based on scene
-  const { particles, connections } = useMemo(() => {
-    return computeParticles(scene, beat);
-  }, [scene, beat]);
-
-  // Generate particles for outgoing scene (always at max beat state)
-  const outgoingParticles = useMemo(() => {
-    if (outgoingScene === null) return { particles: [] as Particle[], connections: [] as Array<[number, number]> };
-    const maxBeat = ({ 1: 0, 2: 1, 3: 2, 4: 1, 5: 0 } as Record<number, number>)[outgoingScene] ?? 0;
-    return computeParticles(outgoingScene, maxBeat);
-  }, [outgoingScene]);
-
   // ── Render scene content ────────────────────────────────────────────────
 
   const renderParticleField = (
@@ -464,11 +417,13 @@ export default function ParticleField({
     const effEntered = forceEntered || entered;
     const c = SCENES[effScene][language];
     const labels = c.nodeLabels || [];
-    const useParticles = overrideScene !== undefined ? outgoingParticles.particles : particles;
-    const useConnections = overrideScene !== undefined ? outgoingParticles.connections : connections;
+    const {
+      particles: useParticles,
+      connections: useConnections,
+    } = computeParticles(effScene, effBeat);
 
     return (
-      <div ref={overrideScene === undefined ? particleFieldRef : undefined} className={styles.particleContainer}>
+      <div ref={particleFieldRef} className={styles.particleContainer}>
         {showConnections && useConnections.length > 0 && (
           <svg
             className={styles.connectionSvg}
@@ -783,8 +738,6 @@ export default function ParticleField({
     }
   };
 
-  const renderSceneContent = () => renderSceneFor(scene, beat);
-
   // ── Navigation Dots ─────────────────────────────────────────────────────
 
   const renderNavDots = () => {
@@ -815,37 +768,20 @@ export default function ParticleField({
 
   // ── Layer classes ────────────────────────────────────────────────────────
 
-  const outgoingLayerClasses = [
-    styles.sceneLayer,
-    styles.exitAnim,
-  ].filter(Boolean).join(" ");
-
-  const incomingLayerClasses = [
-    styles.sceneLayer,
-    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
-  ].filter(Boolean).join(" ");
-
-  const OUTGOING_MAX_BEAT: Record<number, number> = {
-    1: 0, 2: 1, 3: 2, 4: 1, 5: 0,
-  };
-
   return (
     <div data-testid="style-40-root" className={rootClasses}>
-      {/* Outgoing scene (particle scatter exit) */}
-      {outgoingScene !== null && (
-        <div className={outgoingLayerClasses}>
-          {renderSceneFor(
-            outgoingScene,
-            OUTGOING_MAX_BEAT[outgoingScene] ?? 0,
-            true,
-          )}
-        </div>
-      )}
-
-      {/* Incoming / current scene (particle coalesce enter) */}
-      <div className={incomingLayerClasses}>
-        {renderSceneContent()}
-      </div>
+            <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        beatLayoutModes={BEAT_LAYOUT_MODES}
+        renderScene={(sceneId, sceneBeat, isActive) => (
+          <div className={styles.sceneLayer}>
+            {renderSceneFor(sceneId, sceneBeat, isActive ? entered : true)}
+          </div>
+        )}
+      />
 
       {renderNavDots()}
     </div>

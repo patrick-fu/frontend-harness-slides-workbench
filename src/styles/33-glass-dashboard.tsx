@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import styles from "./33-glass-dashboard.module.css";
 import { useFLIP } from "../hooks/useFLIP";
 
@@ -310,10 +311,12 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 
 // ─── Transition constants ──────────────────────────────────────────────────
 
-const TRANSITION_DURATION = 450;
-const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 1, 5: 1 };
-
 // ─── Component ──────────────────────────────────────────────────────────────
+
+const BEAT_LAYOUT_MODES = {
+  2: "motion",
+  3: "motion",
+} satisfies Record<number, "motion" | "reserved">;
 
 export default function GlassDashboard({
   scene,
@@ -322,51 +325,10 @@ export default function GlassDashboard({
   isThumbnail,
   reducedMotion,
   onNavigate,
-  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
 
   const [entered, setEntered] = useState(false);
-
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    lastScene: scene,
-  });
-
-  // Synchronous derivation — sets transition state in the SAME render cycle
-  // as the scene prop change. Eliminates the 1-frame gap where the incoming
-  // scene is visible without its enter animation class.
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-
-    if (!reducedMotion) {
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
-        });
-      }, TRANSITION_DURATION);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        lastScene: scene,
-      });
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        lastScene: scene,
-      });
-    }
-  }
-
-  var outgoingScene = transitionInfo.outgoingScene;
-  var isTransitioning = transitionInfo.isTransitioning;
 
   // Beat-level entered animation (for internal element reveals)
   useEffect(() => {
@@ -670,36 +632,23 @@ export default function GlassDashboard({
 
   // ── Build layer classes ─────────────────────────────────────────────────
 
-  const outgoingLayerClasses = [
-    styles.sceneLayer,
-    styles.exitAnim,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  const incomingLayerClasses = [
-    styles.sceneLayer,
-    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
     <div
       data-testid="style-33-root"
       className={rootClasses}
     >
-      {/* Outgoing scene (exit animation) */}
-      {outgoingScene !== null && (
-        <div className={outgoingLayerClasses}>
-          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
-        </div>
-      )}
-
-      {/* Incoming / current scene */}
-      <div className={incomingLayerClasses}>
-        {renderSceneFor(scene, beat, entered)}
-      </div>
+            <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        beatLayoutModes={BEAT_LAYOUT_MODES}
+        renderScene={(sceneId, sceneBeat, isActive) => (
+          <div className={styles.sceneLayer}>
+            {renderSceneFor(sceneId, sceneBeat, isActive ? entered : true)}
+          </div>
+        )}
+      />
 
       {renderNavDots()}
     </div>

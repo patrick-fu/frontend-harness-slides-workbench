@@ -1,11 +1,9 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import styles from "./47-white-paper.module.css";
 
 /* ── Transition constants ──────────────────────────────────────────────── */
-
-const TRANSITION_DURATION = 600; // ms — page edge peel
-const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 3, 5: 2 };
 
 /* ── Content ─────────────────────────────────────────────────────────────── */
 
@@ -384,6 +382,13 @@ const SCENES = {
 
 /* ── Component ───────────────────────────────────────────────────────────── */
 
+const BEAT_LAYOUT_MODES = {
+  2: "motion",
+  3: "motion",
+  4: "motion",
+  5: "motion",
+} satisfies Record<number, "motion" | "reserved">;
+
 export default function WhitePaper({
   scene,
   beat,
@@ -391,49 +396,8 @@ export default function WhitePaper({
   isThumbnail,
   reducedMotion,
   onNavigate,
-  isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    lastScene: scene,
-  });
-
-  // Synchronous derivation — sets transition state in the SAME render cycle
-  // as the scene prop change. Eliminates the 1-frame gap where the incoming
-  // scene is visible without its enter animation class.
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-
-    if (!reducedMotion) {
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
-        });
-      }, TRANSITION_DURATION);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        lastScene: scene,
-      });
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        lastScene: scene,
-      });
-    }
-  }
-
-  var outgoingScene = transitionInfo.outgoingScene;
-  var isTransitioning = transitionInfo.isTransitioning;
 
   useEffect(() => {
     const id = "style-47-fonts";
@@ -809,30 +773,21 @@ export default function WhitePaper({
   };
 
   /* Layer classes */
-  const outgoingLayerClasses = [styles.sceneLayer, styles.exitAnim]
-    .filter(Boolean)
-    .join(" ");
-
-  const incomingLayerClasses = [
-    styles.sceneLayer,
-    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
 
   return (
     <div className={rootClasses}>
-      {/* Outgoing scene (page edge peel exit) */}
-      {outgoingScene !== null && (
-        <div className={outgoingLayerClasses}>
-          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
-        </div>
-      )}
-
-      {/* Incoming / current scene */}
-      <div className={incomingLayerClasses}>
-        {renderSceneFor(scene, beat, entered)}
-      </div>
+            <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        beatLayoutModes={BEAT_LAYOUT_MODES}
+        renderScene={(sceneId, sceneBeat, isActive) => (
+          <div className={styles.sceneLayer}>
+            {renderSceneFor(sceneId, sceneBeat, isActive ? entered : true)}
+          </div>
+        )}
+      />
 
       {renderNav()}
     </div>

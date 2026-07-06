@@ -1,5 +1,6 @@
-import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import styles from "./41-annual-report.module.css";
 import { useFLIP } from "../hooks/useFLIP";
 
@@ -301,11 +302,13 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 
 // ─── Transition constants ─────────────────────────────────────────────────
 
-const TRANSITION_DURATION = 200; // ms — page flash duration for hard cut
-const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 };
-const TOTAL_SCENES = 5;
-
 // ─── Component ──────────────────────────────────────────────────────────────
+
+const BEAT_LAYOUT_MODES = {
+  2: "motion",
+  3: "motion",
+  4: "motion",
+} satisfies Record<number, "motion" | "reserved">;
 
 export default function AnnualReport({
   scene,
@@ -314,58 +317,8 @@ export default function AnnualReport({
   isThumbnail,
   reducedMotion,
   onNavigate,
-  isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    showPageFlash: false,
-    lastScene: scene,
-  });
-
-  // Synchronous derivation — sets transition state in the SAME render cycle
-  // as the scene prop change. Eliminates the 1-frame gap where the incoming
-  // scene is visible without its enter animation class.
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-
-    if (!reducedMotion) {
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return {
-            outgoingScene: null,
-            isTransitioning: false,
-            showPageFlash: false,
-            lastScene: prev.lastScene,
-          };
-        });
-      }, TRANSITION_DURATION);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        showPageFlash: true,
-        lastScene: scene,
-      });
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        showPageFlash: false,
-        lastScene: scene,
-      });
-    }
-  }
-
-  var outgoingScene = transitionInfo.outgoingScene;
-  var isTransitioning = transitionInfo.isTransitioning;
-  var showPageFlash = transitionInfo.showPageFlash;
 
   useLayoutEffect(() => {
     const inject = (id: string, href: string) => {
@@ -806,38 +759,22 @@ export default function AnnualReport({
 
   // ── Build layer classes ─────────────────────────────────────────────────
 
-  const outgoingLayerClasses = [
-    styles.sceneLayer,
-    styles.exitAnim,
-  ].filter(Boolean).join(" ");
-
-  const incomingLayerClasses = [
-    styles.sceneLayer,
-    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
-  ].filter(Boolean).join(" ");
-
   return (
     <div data-testid="style-41-root" className={rootClasses}>
-      {/* Outgoing scene (hard cut: instant exit) */}
-      {outgoingScene !== null && (
-        <div className={outgoingLayerClasses}>
-          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, true)}
-        </div>
-      )}
-
-      {/* Incoming / current scene (hard cut: instant enter) */}
-      <div className={incomingLayerClasses}>
-        {renderSceneFor(scene, beat, entered, true)}
-      </div>
+            <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        beatLayoutModes={BEAT_LAYOUT_MODES}
+        renderScene={(sceneId, sceneBeat, isActive) => (
+          <div className={styles.sceneLayer}>
+            {renderSceneFor(sceneId, sceneBeat, isActive ? entered : true, isActive)}
+          </div>
+        )}
+      />
 
       {/* Page number flash overlay */}
-      {showPageFlash && !reducedMotion && (
-        <div className={styles.pageFlash}>
-          {language === "zh"
-            ? `第 ${scene} 页，共 ${TOTAL_SCENES} 页`
-            : `PAGE ${scene} OF ${TOTAL_SCENES}`}
-        </div>
-      )}
 
       {renderNav()}
     </div>

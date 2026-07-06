@@ -1,8 +1,7 @@
-import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useState, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import styles from "./43-research-digest.module.css";
-
-const TRANSITION_DURATION = 500;
 
 // ─── Content ────────────────────────────────────────────────────────────────
 
@@ -408,6 +407,12 @@ const CLUSTER_COLORS: Record<string, string> = {
   Docs: "#6e7781",
 };
 
+const BEAT_LAYOUT_MODES = {
+  2: "motion",
+  3: "motion",
+  4: "motion",
+} satisfies Record<number, "motion" | "reserved">;
+
 export default function ResearchDigest({
   scene,
   beat,
@@ -415,49 +420,8 @@ export default function ResearchDigest({
   isThumbnail,
   reducedMotion,
   onNavigate,
-  isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    lastScene: scene,
-  });
-
-  // Synchronous derivation — sets transition state in the SAME render cycle
-  // as the scene prop change. Eliminates the 1-frame gap where the incoming
-  // scene is visible without its enter animation class.
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-
-    if (!reducedMotion) {
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
-        });
-      }, TRANSITION_DURATION);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        lastScene: scene,
-      });
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        lastScene: scene,
-      });
-    }
-  }
-
-  var outgoingScene = transitionInfo.outgoingScene;
-  var isTransitioning = transitionInfo.isTransitioning;
 
   useEffect(() => {
     const inject = (id: string, href: string) => {
@@ -874,9 +838,6 @@ export default function ResearchDigest({
     }
   };
 
-  const currentOpts = { entered, beat, reducedMotion };
-  const outgoingOpts = { entered: true, beat: 99, reducedMotion };
-
   // ── Navigation (Filter Tabs) ──────────────────────────────────────────
 
   const renderNav = () => {
@@ -915,21 +876,18 @@ export default function ResearchDigest({
 
   return (
     <div data-testid="style-43-root" className={rootClasses}>
-      {/* Outgoing scene (exit animation) */}
-      {outgoingScene !== null && !reducedMotion && (
-        <div className={`${styles.sceneLayer} ${styles.exitAnim}`}>
-          {renderSceneByNumber(outgoingScene, outgoingOpts)}
-        </div>
-      )}
-
-      {/* Incoming / current scene (enter animation) */}
-      <div
-        className={`${styles.sceneLayer} ${
-          isTransitioning && !isTransitionClone ? styles.enterAnim : ""
-        }`}
-      >
-        {renderSceneByNumber(scene, currentOpts)}
-      </div>
+            <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        beatLayoutModes={BEAT_LAYOUT_MODES}
+        renderScene={(sceneId, sceneBeat, isActive) => (
+          <div className={styles.sceneLayer}>
+            {renderSceneByNumber(sceneId, { entered: isActive ? entered : true, beat: sceneBeat, reducedMotion })}
+          </div>
+        )}
+      />
 
       {renderNav()}
     </div>

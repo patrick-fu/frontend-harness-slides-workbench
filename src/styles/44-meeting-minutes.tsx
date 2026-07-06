@@ -1,9 +1,8 @@
-import { useState, useLayoutEffect, useEffect, useCallback, useRef } from "react";
+import { useState, useLayoutEffect, useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./44-meeting-minutes.module.css";
-
-const TRANSITION_DURATION = 450;
 
 /* ── Content ─────────────────────────────────────────────────────────────── */
 
@@ -350,6 +349,12 @@ const SCENES = {
 
 /* ── Component ───────────────────────────────────────────────────────────── */
 
+const BEAT_LAYOUT_MODES = {
+  2: "motion",
+  3: "motion",
+  4: "motion",
+} satisfies Record<number, "motion" | "reserved">;
+
 export default function MeetingMinutes({
   scene,
   beat,
@@ -357,52 +362,8 @@ export default function MeetingMinutes({
   isThumbnail,
   reducedMotion,
   onNavigate,
-  isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const [showTimestamp, setShowTimestamp] = useState(false);
-
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    lastScene: scene,
-  });
-
-  // Synchronous derivation — sets transition state in the SAME render cycle
-  // as the scene prop change. Eliminates the 1-frame gap where the incoming
-  // scene is visible without its enter animation class.
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-
-    if (!reducedMotion) {
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
-        });
-        setShowTimestamp(false);
-      }, TRANSITION_DURATION);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        lastScene: scene,
-      });
-      setShowTimestamp(true);
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        lastScene: scene,
-      });
-    }
-  }
-
-  var outgoingScene = transitionInfo.outgoingScene;
-  var isTransitioning = transitionInfo.isTransitioning;
 
   /* Font injection */
   useEffect(() => {
@@ -441,7 +402,6 @@ export default function MeetingMinutes({
   });
 
   const data = SCENES[language];
-  const sceneData = data.scenes[scene - 1];
   const rootClasses = [styles.root, reducedMotion ? styles.reducedMotion : ""]
     .filter(Boolean)
     .join(" ");
@@ -788,38 +748,22 @@ export default function MeetingMinutes({
     }
   };
 
-  const currentOpts = { entered, beat };
-  const outgoingOpts = { entered: true, beat: 99 };
-
   return (
     <div className={rootClasses}>
-      {/* Outgoing scene (exit animation) */}
-      {outgoingScene !== null && !reducedMotion && (
-        <div className={`${styles.sceneLayer} ${styles.exitAnim}`}>
-          {renderSceneByNumber(outgoingScene, outgoingOpts)}
-        </div>
-      )}
-
-      {/* Incoming / current scene (enter animation) */}
-      <div
-        className={`${styles.sceneLayer} ${
-          isTransitioning && !isTransitionClone ? styles.enterAnim : ""
-        }`}
-      >
-        {renderSceneByNumber(scene, currentOpts)}
-      </div>
+            <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        beatLayoutModes={BEAT_LAYOUT_MODES}
+        renderScene={(sceneId, sceneBeat, isActive) => (
+          <div className={styles.sceneLayer}>
+            {renderSceneByNumber(sceneId, { entered: isActive ? entered : true, beat: sceneBeat })}
+          </div>
+        )}
+      />
 
       {/* Timestamp banner overlay */}
-      {showTimestamp && !reducedMotion && (
-        <div className={styles.timestampBanner}>
-          <div className={styles.timestampInner}>
-            <span className={styles.timestampIcon}>📋</span>
-            <span className={styles.timestampText}>
-              {sceneData?.label || `Scene ${scene}`}
-            </span>
-          </div>
-        </div>
-      )}
 
       {renderNav()}
     </div>

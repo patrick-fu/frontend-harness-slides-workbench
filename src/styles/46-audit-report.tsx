@@ -1,5 +1,6 @@
-import { useState, useLayoutEffect, useEffect, useCallback, useRef } from "react";
+import { useState, useLayoutEffect, useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import styles from "./46-audit-report.module.css";
 import { useFLIP } from "../hooks/useFLIP";
 
@@ -560,10 +561,14 @@ const SCENES = {
 
 /* ── Transition constants ────────────────────────────────────────────────── */
 
-const TRANSITION_DURATION = 500; // ms — stamp 200ms + hold 100ms + fade 200ms
-const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 3, 5: 2 };
-
 /* ── Component ───────────────────────────────────────────────────────────── */
+
+const BEAT_LAYOUT_MODES = {
+  2: "motion",
+  3: "motion",
+  4: "motion",
+  5: "motion",
+} satisfies Record<number, "motion" | "reserved">;
 
 export default function AuditReport({
   scene,
@@ -572,60 +577,8 @@ export default function AuditReport({
   isThumbnail,
   reducedMotion,
   onNavigate,
-  isTransitionClone,
 }: BespokeStyleProps) {
   const [entered, setEntered] = useState(false);
-  const [showStamp, setShowStamp] = useState(false);
-
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const stampTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    lastScene: scene,
-  });
-
-  // Synchronous derivation — sets transition state in the SAME render cycle
-  // as the scene prop change. Eliminates the 1-frame gap where the incoming
-  // scene is visible without its enter animation class.
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-    if (stampTimerRef.current) {
-      clearTimeout(stampTimerRef.current);
-    }
-
-    if (!reducedMotion) {
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
-        });
-      }, TRANSITION_DURATION);
-
-      // Hide stamp after slam + hold phase (300ms)
-      stampTimerRef.current = setTimeout(() => {
-        setShowStamp(false);
-      }, 300);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        lastScene: scene,
-      });
-      setShowStamp(true);
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        lastScene: scene,
-      });
-    }
-  }
-
-  var outgoingScene = transitionInfo.outgoingScene;
-  var isTransitioning = transitionInfo.isTransitioning;
 
   useLayoutEffect(() => {
     const id = "style-46-fonts";
@@ -990,43 +943,22 @@ export default function AuditReport({
 
   // ── Build layer classes ─────────────────────────────────────────────────
 
-  const outgoingLayerClasses = [
-    styles.sceneLayer,
-    styles.exitAnim,
-  ].filter(Boolean).join(" ");
-
-  const incomingLayerClasses = [
-    styles.sceneLayer,
-    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
-  ].filter(Boolean).join(" ");
-
   return (
     <div className={rootClasses}>
-      {/* Outgoing scene (exit animation) */}
-      {outgoingScene !== null && (
-        <div className={outgoingLayerClasses}>
-          {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1, false)}
-        </div>
-      )}
-
-      {/* Incoming / current scene */}
-      <div className={incomingLayerClasses}>
-        {renderSceneFor(scene, beat, true)}
-      </div>
+            <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        beatLayoutModes={BEAT_LAYOUT_MODES}
+        renderScene={(sceneId, sceneBeat, isActive) => (
+          <div className={styles.sceneLayer}>
+            {renderSceneFor(sceneId, sceneBeat, isActive)}
+          </div>
+        )}
+      />
 
       {/* Audit finding stamp overlay */}
-      {showStamp && !isTransitionClone && (
-        <div className={styles.stampOverlay} aria-hidden="true">
-          <div className={styles.stampCircle}>
-            <div className={styles.stampText}>
-              {language === "zh" ? "审计发现" : "AUDIT FINDING"}
-            </div>
-            <div className={styles.stampSubtext}>
-              {language === "zh" ? "已核实" : "VERIFIED"}
-            </div>
-          </div>
-        </div>
-      )}
 
       {renderNav()}
     </div>
