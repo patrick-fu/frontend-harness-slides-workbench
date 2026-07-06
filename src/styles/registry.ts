@@ -24,6 +24,14 @@ import QuietConfidence07, {
 import TerminalGlow08, {
   getMetadata as getMetadata08,
 } from "./08-terminal-glow";
+import { quietLaunchWindowV2Version } from "./01-quiet-launch-window-v2";
+import { metricsWithoutNoiseV2Version } from "./02-metrics-without-noise-v2";
+import { repairAsStrategyV2Version } from "./03-repair-as-strategy-v2";
+import { betterQuestionV2Version } from "./04-better-question-v2";
+import { resilienceBlueprintV2Version } from "./05-resilience-blueprint-v2";
+import { oneConstraintWinsV2Version } from "./06-one-constraint-wins-v2";
+import { humanLoopRetrofitV2Version } from "./07-human-loop-retrofit-v2";
+import { sentenceWeKeepV2Version } from "./08-sentence-we-keep-v2";
 import ProcessFlow09, {
   getMetadata as getMetadata09,
 } from "./09-process-flow";
@@ -159,14 +167,38 @@ const buildEntry = buildStyleRegistryEntry;
  */
 export const STYLE_REGISTRY: StyleRegistryEntry[] = [
   // Minimal Keynote: 01-08
-  buildEntry("01", [{ component: ExecutiveSilence01, getMetadata: getMetadata01 }]),
-  buildEntry("02", [{ component: SwissPrecision02, getMetadata: getMetadata02 }]),
-  buildEntry("03", [{ component: ZenVoid03, getMetadata: getMetadata03 }]),
-  buildEntry("04", [{ component: AuroraGradient04, getMetadata: getMetadata04 }]),
-  buildEntry("05", [{ component: Blueprint05, getMetadata: getMetadata05 }]),
-  buildEntry("06", [{ component: MonochromeStudy06, getMetadata: getMetadata06 }]),
-  buildEntry("07", [{ component: QuietConfidence07, getMetadata: getMetadata07 }]),
-  buildEntry("08", [{ component: TerminalGlow08, getMetadata: getMetadata08 }]),
+  buildEntry("01", [
+    { component: ExecutiveSilence01, getMetadata: getMetadata01 },
+    quietLaunchWindowV2Version,
+  ]),
+  buildEntry("02", [
+    { component: SwissPrecision02, getMetadata: getMetadata02 },
+    metricsWithoutNoiseV2Version,
+  ]),
+  buildEntry("03", [
+    { component: ZenVoid03, getMetadata: getMetadata03 },
+    repairAsStrategyV2Version,
+  ]),
+  buildEntry("04", [
+    { component: AuroraGradient04, getMetadata: getMetadata04 },
+    betterQuestionV2Version,
+  ]),
+  buildEntry("05", [
+    { component: Blueprint05, getMetadata: getMetadata05 },
+    resilienceBlueprintV2Version,
+  ]),
+  buildEntry("06", [
+    { component: MonochromeStudy06, getMetadata: getMetadata06 },
+    oneConstraintWinsV2Version,
+  ]),
+  buildEntry("07", [
+    { component: QuietConfidence07, getMetadata: getMetadata07 },
+    humanLoopRetrofitV2Version,
+  ]),
+  buildEntry("08", [
+    { component: TerminalGlow08, getMetadata: getMetadata08 },
+    sentenceWeKeepV2Version,
+  ]),
   // Balanced Hybrid: 09-16
   buildEntry("09", [{ component: ProcessFlow09, getMetadata: getMetadata09 }]),
   buildEntry("10", [{ component: MatrixGrid10, getMetadata: getMetadata10 }]),

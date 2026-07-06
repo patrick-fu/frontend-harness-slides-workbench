@@ -1,0 +1,472 @@
+.root {
+  --blueprint-bg: #092b48;
+  --blueprint-paper: #0d3556;
+  --blueprint-paper-deep: #082844;
+  --blueprint-ink: #e8f8ff;
+  --blueprint-cyan: #9ed7e2;
+  --blueprint-cyan-dim: rgba(158, 215, 226, 0.34);
+  --blueprint-warm: #d48b55;
+  --blueprint-muted: rgba(232, 248, 255, 0.68);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: size;
+  color: var(--blueprint-ink);
+  background:
+    radial-gradient(circle at 18% 12%, rgba(232, 248, 255, 0.06), transparent 24%),
+    repeating-linear-gradient(0deg, transparent 0 4.3cqh, rgba(158, 215, 226, 0.12) 4.3cqh 4.42cqh),
+    repeating-linear-gradient(90deg, transparent 0 2.45cqw, rgba(158, 215, 226, 0.12) 2.45cqw 2.56cqw),
+    var(--blueprint-bg);
+  font-family: "SFMono-Regular", Menlo, Consolas, "PingFang SC", "Microsoft YaHei", monospace;
+  letter-spacing: 0;
+}
+
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.08), transparent 28%),
+    radial-gradient(circle at 72% 78%, rgba(0, 0, 0, 0.18), transparent 38%);
+  mix-blend-mode: screen;
+  opacity: 0.42;
+  z-index: 0;
+}
+
+.root::after {
+  content: "";
+  position: absolute;
+  inset: 2.4cqh 2cqw;
+  border: 0.08cqw solid rgba(232, 248, 255, 0.78);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 23cqw 1fr 21cqw;
+  grid-template-rows: 21cqh 1fr 17cqh;
+  grid-template-areas:
+    "header diagram callouts"
+    "legend diagram callouts"
+    "block diagram callouts";
+  column-gap: 2.4cqw;
+  row-gap: 2cqh;
+  padding: 8cqh 4.6cqw 5.6cqh;
+  box-sizing: border-box;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025), transparent 20%, transparent 80%, rgba(0, 0, 0, 0.12)),
+    var(--blueprint-paper);
+}
+
+.sheetChrome {
+  position: absolute;
+  inset: 5.2cqh 3.8cqw 4.2cqh;
+  border: 0.06cqw solid rgba(158, 215, 226, 0.42);
+  pointer-events: none;
+}
+
+.sheetChrome::before,
+.sheetChrome::after {
+  content: "";
+  position: absolute;
+  border: 0 solid rgba(158, 215, 226, 0.52);
+}
+
+.sheetChrome::before {
+  inset: 3.4cqh 3cqw;
+  border-top-width: 0.06cqw;
+  border-bottom-width: 0.06cqw;
+}
+
+.sheetChrome::after {
+  inset: 2.4cqh 2.2cqw;
+  border-left-width: 0.06cqw;
+  border-right-width: 0.06cqw;
+}
+
+.sceneHeader {
+  grid-area: header;
+  align-self: start;
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  margin: 0 0 1.2cqh;
+  color: var(--blueprint-cyan);
+  font-size: 0.82cqw;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.sceneHeader h1 {
+  margin: 0;
+  color: var(--blueprint-ink);
+  font-size: 2.62cqw;
+  line-height: 1.04;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.kicker {
+  margin: 1.4cqh 0 0;
+  max-width: 21cqw;
+  color: var(--blueprint-muted);
+  font-size: 0.9cqw;
+  line-height: 1.45;
+}
+
+.beatNote {
+  margin: 1.6cqh 0 0;
+  max-width: 21cqw;
+  color: var(--blueprint-ink);
+  font-size: 0.78cqw;
+  line-height: 1.45;
+}
+
+.diagramFrame {
+  grid-area: diagram;
+  position: relative;
+  align-self: stretch;
+  min-width: 0;
+  min-height: 0;
+  border: 0.1cqw solid rgba(232, 248, 255, 0.82);
+  background:
+    repeating-linear-gradient(0deg, transparent 0 5.8cqh, rgba(158, 215, 226, 0.12) 5.8cqh 5.92cqh),
+    repeating-linear-gradient(90deg, transparent 0 3.3cqw, rgba(158, 215, 226, 0.12) 3.3cqw 3.42cqw),
+    rgba(8, 40, 68, 0.42);
+  overflow: hidden;
+}
+
+.diagramFrame::before,
+.diagramFrame::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border-color: var(--blueprint-cyan);
+  border-style: solid;
+  opacity: 0.48;
+}
+
+.diagramFrame::before {
+  inset: 3cqh 2.2cqw;
+  border-width: 0.06cqw 0;
+}
+
+.diagramFrame::after {
+  inset: 2cqh 3cqw;
+  border-width: 0 0.06cqw;
+}
+
+.diagramSvg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.constructionLine {
+  fill: none;
+  stroke: var(--blueprint-cyan);
+  stroke-width: 0.09cqw;
+  opacity: 0.42;
+}
+
+.dimensionLine {
+  fill: none;
+  stroke: var(--blueprint-ink);
+  stroke-width: 0.14cqw;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+.drawLine {
+  fill: none;
+  stroke: var(--blueprint-ink);
+  stroke-width: 0.13cqw;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0.18;
+  transition:
+    stroke-dashoffset 560ms linear,
+    opacity 320ms linear;
+}
+
+.warmLine {
+  fill: none;
+  stroke: var(--blueprint-warm);
+  stroke-width: 0.22cqw;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0.18;
+  transition:
+    stroke-dashoffset 620ms linear,
+    opacity 320ms linear;
+}
+
+.layerFace {
+  fill: rgba(158, 215, 226, 0.08);
+  stroke: var(--blueprint-ink);
+  stroke-width: 0.13cqw;
+  stroke-linejoin: miter;
+}
+
+.nodeBox,
+.stampBox {
+  fill: rgba(232, 248, 255, 0.045);
+  stroke: var(--blueprint-ink);
+  stroke-width: 0.13cqw;
+}
+
+.svgText,
+.svgLabel text {
+  fill: var(--blueprint-ink);
+  font-family: "SFMono-Regular", Menlo, Consolas, "PingFang SC", "Microsoft YaHei", monospace;
+  font-size: 1.08cqw;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+.svgLabel text {
+  fill: var(--blueprint-cyan);
+  font-size: 0.86cqw;
+}
+
+.diagramSvg [data-visible="false"] {
+  opacity: 0.14;
+}
+
+.diagramSvg [data-visible="true"] {
+  opacity: 1;
+}
+
+.drawLine[data-visible="true"],
+.warmLine[data-visible="true"],
+[data-visible="true"] .drawLine,
+[data-visible="true"] .warmLine {
+  stroke-dashoffset: 0;
+  opacity: 1;
+}
+
+.legendRail {
+  grid-area: legend;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: start;
+  gap: 1.2cqh 0.7cqw;
+  position: relative;
+  z-index: 1;
+}
+
+.legendItem {
+  min-height: 5.4cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.08cqw solid rgba(158, 215, 226, 0.52);
+  color: var(--blueprint-ink);
+  background: rgba(232, 248, 255, 0.035);
+  font-size: 0.76cqw;
+  line-height: 1.1;
+  text-align: center;
+  text-transform: uppercase;
+  transition:
+    opacity 320ms linear,
+    transform 320ms linear;
+}
+
+.calloutRail {
+  grid-area: callouts;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1.6cqh;
+  position: relative;
+  z-index: 1;
+  align-self: stretch;
+}
+
+.callout {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 3.7cqw 1fr;
+  gap: 0.8cqw;
+  align-items: start;
+  padding: 1.6cqh 1cqw;
+  border: 0.08cqw solid rgba(232, 248, 255, 0.72);
+  background: rgba(7, 34, 58, 0.58);
+  color: var(--blueprint-muted);
+  font-size: 0.78cqw;
+  line-height: 1.35;
+  transition:
+    opacity 320ms linear,
+    transform 320ms linear,
+    border-color 320ms linear;
+}
+
+.calloutIndex {
+  color: var(--blueprint-cyan);
+  font-size: 0.68cqw;
+}
+
+.legendItem[data-visible="false"],
+.callout[data-visible="false"] {
+  opacity: 0.28;
+  transform: translateY(0.8cqh);
+}
+
+.legendItem[data-visible="true"],
+.callout[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.callout[data-visible="true"] {
+  border-color: rgba(232, 248, 255, 0.92);
+}
+
+.titleBlock {
+  grid-area: block;
+  align-self: end;
+  position: relative;
+  z-index: 1;
+  border: 0.08cqw solid rgba(232, 248, 255, 0.78);
+  background: rgba(7, 34, 58, 0.5);
+  color: var(--blueprint-ink);
+}
+
+.titleBlockTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 1cqw;
+  padding: 0.8cqh 0.8cqw;
+  border-bottom: 0.06cqw solid rgba(158, 215, 226, 0.5);
+  color: var(--blueprint-cyan);
+  font-size: 0.68cqw;
+}
+
+.titleBlockName {
+  padding: 1.1cqh 0.8cqw;
+  border-bottom: 0.06cqw solid rgba(158, 215, 226, 0.5);
+  font-size: 0.88cqw;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.titleBlockGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.titleBlockGrid span {
+  min-height: 3.4cqh;
+  display: flex;
+  align-items: center;
+  padding: 0 0.7cqw;
+  border-right: 0.06cqw solid rgba(158, 215, 226, 0.42);
+  border-bottom: 0.06cqw solid rgba(158, 215, 226, 0.42);
+  color: var(--blueprint-muted);
+  font-size: 0.58cqw;
+  line-height: 1.15;
+}
+
+.sheetTabs {
+  position: absolute;
+  top: 3.35cqh;
+  right: 4.4cqw;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 48cqw;
+  height: 5.2cqh;
+}
+
+.sheetTab {
+  appearance: none;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0.55cqh 0.55cqw;
+  border: 0.08cqw solid rgba(158, 215, 226, 0.58);
+  border-right-width: 0;
+  border-radius: 0;
+  background: rgba(7, 34, 58, 0.82);
+  color: var(--blueprint-cyan);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 220ms linear,
+    color 220ms linear,
+    opacity 220ms linear;
+}
+
+.sheetTab:last-child {
+  border-right-width: 0.08cqw;
+}
+
+.sheetTab span,
+.sheetTab small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sheetTab span {
+  font-size: 0.58cqw;
+  line-height: 1.1;
+}
+
+.sheetTab small {
+  margin-top: 0.34cqh;
+  font-size: 0.72cqw;
+  line-height: 1.1;
+  color: var(--blueprint-muted);
+}
+
+.sheetTab[data-active="true"] {
+  background: rgba(232, 248, 255, 0.1);
+  color: var(--blueprint-ink);
+}
+
+.sheetTab:focus-visible {
+  outline: 0.12cqw solid var(--blueprint-warm);
+  outline-offset: 0.22cqw;
+}
+
+.root[data-thumbnail="true"] .scene {
+  grid-template-columns: 25cqw 1fr 20cqw;
+  padding: 7cqh 4cqw 5cqh;
+}
+
+.root[data-thumbnail="true"] .sceneHeader h1 {
+  font-size: 2.15cqw;
+}
+
+.root[data-thumbnail="true"] .kicker,
+.root[data-thumbnail="true"] .beatNote {
+  font-size: 0.66cqw;
+}
+
+.root[data-reduced-motion="true"] *,
+.root[data-reduced-motion="true"] *::before,
+.root[data-reduced-motion="true"] *::after {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}

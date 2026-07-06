@@ -34,6 +34,20 @@ function renderVersion(
 const allVersions = STYLE_REGISTRY.flatMap((style) =>
   style.versions.map((version) => ({ styleId: style.id, version })),
 );
+const curatedV2Versions = STYLE_REGISTRY.map((style) => ({
+  styleId: style.id,
+  version: style.versions.find((version) => version.id === "v2"),
+}));
+const REQUIRED_CURATED_V2_STYLE_IDS = [
+  "01",
+  "02",
+  "03",
+  "04",
+  "05",
+  "06",
+  "07",
+  "08",
+];
 
 const styleSources = import.meta.glob("./[0-9][0-9]-*.tsx", {
   query: "?raw",
@@ -183,5 +197,91 @@ describe("style version protocol", () => {
         unmount();
       }
     }
+  });
+
+  it("requires completed style batches to expose the curated v2 version without removing v1", () => {
+    expect(STYLE_REGISTRY).toHaveLength(48);
+
+    for (const style of STYLE_REGISTRY.filter((entry) =>
+      REQUIRED_CURATED_V2_STYLE_IDS.includes(entry.id),
+    )) {
+      const versionIds = style.versions.map((version) => version.id);
+
+      expect(versionIds, `style ${style.id} must keep legacy v1`).toContain("v1");
+      expect(versionIds, `style ${style.id} must expose curated v2`).toContain("v2");
+    }
+  });
+
+  it("requires every curated v2 version to render a per-edge transition map", () => {
+    const usedKinds = new Set<string>();
+
+    for (const { styleId, version } of curatedV2Versions.filter((entry) =>
+      REQUIRED_CURATED_V2_STYLE_IDS.includes(entry.styleId),
+    )) {
+      expect(version, `${styleId} must register a v2 version`).toBeDefined();
+      if (!version) continue;
+
+      const Component = version.component;
+      const { container, rerender, unmount } = render(
+        <div
+          data-testid="stage"
+          style={{
+            width: 1920,
+            height: 1080,
+            containerType: "size",
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <Component
+            scene={1}
+            beat={0}
+            language="en"
+            isThumbnail={false}
+            reducedMotion={false}
+          />
+        </div>,
+      );
+
+      for (let targetScene = 2; targetScene <= 5; targetScene++) {
+        rerender(
+          <div
+            data-testid="stage"
+            style={{
+              width: 1920,
+              height: 1080,
+              containerType: "size",
+              overflow: "hidden",
+              position: "relative",
+            }}
+          >
+            <Component
+              scene={targetScene}
+              beat={0}
+              language="en"
+              isThumbnail={false}
+              reducedMotion={false}
+            />
+          </div>,
+        );
+
+        const transitionKind = container.querySelector<HTMLElement>(
+          '[data-testid="spatial-scene-track"]',
+        )?.dataset.sceneTransitionKind;
+
+        expect(
+          SCENE_TRANSITION_KINDS,
+          `${styleId}/v2 edge ${targetScene - 1}->${targetScene} must expose a supported transition kind`,
+        ).toContain(transitionKind as (typeof SCENE_TRANSITION_KINDS)[number]);
+        usedKinds.add(transitionKind as string);
+      }
+
+      unmount();
+    }
+
+    expect(
+      usedKinds.size,
+      `curated v2 transitions must remain varied, not collapse into ${Array.from(usedKinds).join(", ")}`,
+    ).toBeGreaterThanOrEqual(6);
   });
 });

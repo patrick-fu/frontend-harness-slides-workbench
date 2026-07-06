@@ -1,0 +1,426 @@
+.root {
+  --paper: #f4e8cf;
+  --paper-deep: #e8d4ac;
+  --ink: #2f2a24;
+  --muted: #685b4e;
+  --yellow: #ffe38e;
+  --blue: #9dd5dc;
+  --red: #ef8f83;
+  --green: #b8d59c;
+  --cream: #fff3c6;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: size;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255, 227, 142, 0.28), transparent 22%),
+    radial-gradient(circle at 84% 74%, rgba(157, 213, 220, 0.2), transparent 25%),
+    linear-gradient(135deg, #f8edda 0%, var(--paper) 54%, #ecd8b3 100%);
+  font-family: Inter, "Noto Sans SC", sans-serif;
+}
+
+.paperGrain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.42;
+  background-image:
+    linear-gradient(rgba(47, 42, 36, 0.045) 0.08cqh, transparent 0.08cqh),
+    linear-gradient(90deg, rgba(47, 42, 36, 0.035) 0.06cqw, transparent 0.06cqw);
+  background-size: 4.8cqw 4.8cqh, 5.6cqw 5.6cqh;
+  mix-blend-mode: multiply;
+}
+
+.track {
+  position: relative;
+  z-index: 1;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 31cqw 1fr;
+  gap: 3.6cqw;
+  padding: 7cqh 6cqw 8cqh;
+}
+
+.scene2 {
+  grid-template-columns: 28cqw 1fr;
+}
+
+.scene3 {
+  grid-template-columns: 34cqw 1fr;
+}
+
+.scene4,
+.scene5 {
+  grid-template-columns: 30cqw 1fr;
+}
+
+.header {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.7cqh;
+  transform: rotate(-0.6deg);
+}
+
+.sceneNumber {
+  width: 6.2cqw;
+  height: 6.2cqw;
+  display: grid;
+  place-items: center;
+  border: 0.16cqw solid rgba(47, 42, 36, 0.75);
+  border-radius: 45% 55% 48% 52%;
+  background: rgba(255, 243, 198, 0.72);
+  color: rgba(47, 42, 36, 0.82);
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 2.8cqw;
+  line-height: 1;
+  box-shadow: 0.35cqw 0.45cqh 0 rgba(47, 42, 36, 0.08);
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--muted);
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 1.65cqw;
+  line-height: 1.05;
+}
+
+.header h1 {
+  margin: 0;
+  max-width: 27cqw;
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 4.65cqw;
+  line-height: 0.96;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.body {
+  margin: 0;
+  max-width: 27cqw;
+  color: rgba(47, 42, 36, 0.82);
+  font-size: 1.28cqw;
+  line-height: 1.42;
+  font-weight: 600;
+}
+
+.board {
+  position: relative;
+  align-self: stretch;
+  min-height: 74cqh;
+  border: 0.18cqw solid rgba(47, 42, 36, 0.58);
+  border-radius: 2.4cqw 1.7cqw 2.1cqw 1.8cqw;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.04)),
+    var(--paper);
+  box-shadow:
+    0.8cqw 1.2cqh 0 rgba(47, 42, 36, 0.1),
+    inset 0 0 0 0.34cqw rgba(255, 255, 255, 0.24);
+  overflow: hidden;
+}
+
+.board::before {
+  content: "";
+  position: absolute;
+  inset: 2.4cqh 2.1cqw;
+  border: 0.12cqw dashed rgba(47, 42, 36, 0.2);
+  border-radius: 2cqw 1.6cqw 1.8cqw 1.5cqw;
+  pointer-events: none;
+}
+
+.boardTitle {
+  position: absolute;
+  left: 3.4cqw;
+  top: 2.9cqh;
+  z-index: 4;
+  padding: 0.5cqh 1.3cqw 0.8cqh;
+  border: 0.13cqw solid rgba(47, 42, 36, 0.5);
+  border-radius: 44% 56% 52% 48%;
+  background: rgba(255, 255, 255, 0.42);
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 2cqw;
+  line-height: 1;
+  transform: rotate(-2deg);
+}
+
+.caption {
+  position: absolute;
+  right: 3cqw;
+  bottom: 3.2cqh;
+  z-index: 5;
+  max-width: 30cqw;
+  color: rgba(47, 42, 36, 0.76);
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 1.72cqw;
+  line-height: 1.08;
+  transform: rotate(1.2deg);
+}
+
+.connectorLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.sketchPath,
+.redCircle,
+.blueTapeLine,
+.loopPath {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 170;
+  stroke-dashoffset: 170;
+  animation: drawLine 780ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.sketchPath {
+  stroke: rgba(47, 42, 36, 0.68);
+  stroke-width: 0.72;
+}
+
+.redCircle {
+  stroke: rgba(202, 71, 62, 0.8);
+  stroke-width: 1.15;
+}
+
+.blueTapeLine {
+  stroke: rgba(45, 123, 136, 0.72);
+  stroke-width: 1.1;
+}
+
+.loopPath {
+  stroke: rgba(47, 42, 36, 0.62);
+  stroke-width: 0.85;
+}
+
+.note {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  z-index: 3;
+  width: 16cqw;
+  min-height: 8.8cqh;
+  padding: 2.2cqh 1.2cqw 1.5cqh;
+  border: 0.12cqw solid rgba(47, 42, 36, 0.3);
+  border-radius: 0.45cqw 0.7cqw 0.52cqw 0.62cqw;
+  color: rgba(47, 42, 36, 0.92);
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 1.58cqw;
+  line-height: 1.02;
+  box-shadow:
+    0.45cqw 0.65cqh 0 rgba(47, 42, 36, 0.13),
+    inset 0 -1.3cqh 0 rgba(47, 42, 36, 0.04);
+  transform: rotate(var(--r));
+  transform-origin: 48% 16%;
+  transition:
+    opacity 420ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.note::after {
+  content: "";
+  position: absolute;
+  left: 1.1cqw;
+  right: 1.3cqw;
+  bottom: 1.1cqh;
+  height: 0.13cqh;
+  background: rgba(47, 42, 36, 0.22);
+  box-shadow:
+    0 1.3cqh 0 rgba(47, 42, 36, 0.12),
+    0 2.6cqh 0 rgba(47, 42, 36, 0.09);
+}
+
+.small {
+  width: 13.8cqw;
+}
+
+.medium {
+  width: 17.2cqw;
+}
+
+.large {
+  width: 22.5cqw;
+}
+
+.yellow {
+  background: var(--yellow);
+}
+
+.blue {
+  background: var(--blue);
+}
+
+.red {
+  background: var(--red);
+}
+
+.green {
+  background: var(--green);
+}
+
+.cream {
+  background: var(--cream);
+}
+
+.tape {
+  position: absolute;
+  left: 50%;
+  top: -1.2cqh;
+  width: 4.5cqw;
+  height: 1.7cqh;
+  background: rgba(107, 161, 181, 0.38);
+  border: 0.08cqw solid rgba(47, 42, 36, 0.18);
+  transform: translateX(-50%) rotate(-2deg);
+}
+
+.actor {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  z-index: 4;
+  display: grid;
+  justify-items: center;
+  gap: 0.4cqh;
+  min-width: 7cqw;
+  padding: 0.8cqh 0.7cqw 0.9cqh;
+  border: 0.12cqw solid rgba(47, 42, 36, 0.42);
+  border-radius: 42% 58% 47% 53%;
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: 0.32cqw 0.48cqh 0 rgba(47, 42, 36, 0.1);
+  transform: rotate(-1.5deg);
+  transition:
+    opacity 360ms ease,
+    transform 480ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.actorEmoji {
+  font-size: 2.65cqw;
+  line-height: 1;
+}
+
+.actorLabel {
+  color: rgba(47, 42, 36, 0.8);
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 1.04cqw;
+  line-height: 1;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(2.2cqh) rotate(var(--r, -1deg));
+}
+
+.actor.hidden {
+  transform: translateY(2.2cqh) scale(0.88) rotate(-5deg);
+}
+
+.scene2 .board {
+  transform: rotate(0.4deg);
+}
+
+.scene3 .board {
+  transform: rotate(-0.35deg);
+}
+
+.scene4 .board {
+  transform: rotate(0.25deg);
+}
+
+.scene5 .board {
+  transform: rotate(-0.2deg);
+}
+
+.stickerNav {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 2.5cqh;
+  display: flex;
+  gap: 1.1cqw;
+  transform: translateX(-50%) rotate(-0.6deg);
+}
+
+.navDot {
+  width: 5.4cqw;
+  height: 3.8cqh;
+  display: grid;
+  place-items: center;
+  border: 0.13cqw solid rgba(47, 42, 36, 0.45);
+  border-radius: 52% 48% 55% 45%;
+  background: var(--cream);
+  color: rgba(47, 42, 36, 0.74);
+  cursor: pointer;
+  box-shadow: 0.28cqw 0.35cqh 0 rgba(47, 42, 36, 0.11);
+  transform: rotate(var(--dot-r, -2deg));
+  transition:
+    transform 200ms ease,
+    background 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.navDot:nth-child(2) {
+  --dot-r: 2deg;
+  background: var(--yellow);
+}
+
+.navDot:nth-child(3) {
+  --dot-r: -1deg;
+  background: var(--blue);
+}
+
+.navDot:nth-child(4) {
+  --dot-r: 1.5deg;
+  background: var(--green);
+}
+
+.navDot:nth-child(5) {
+  --dot-r: -2.5deg;
+  background: var(--red);
+}
+
+.navDot span {
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 1.14cqw;
+  line-height: 1;
+}
+
+.navDot:hover,
+.navDot:focus-visible {
+  transform: translateY(-0.45cqh) rotate(var(--dot-r, -2deg));
+}
+
+.activeDot {
+  box-shadow:
+    0.28cqw 0.35cqh 0 rgba(47, 42, 36, 0.12),
+    0 0 0 0.36cqw rgba(47, 42, 36, 0.12);
+  color: var(--ink);
+}
+
+.motionOff *,
+.motionOff *::before,
+.motionOff *::after {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
