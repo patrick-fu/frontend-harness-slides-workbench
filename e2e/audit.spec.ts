@@ -59,6 +59,15 @@ const STYLE_BEATS: StyleBeatInfo[] = [
 ];
 
 const ALL_STYLE_IDS = STYLE_BEATS.map((s) => s.id);
+const V2_SCENE_5_LAST_BEAT: Record<string, number> = {
+  "01": 1,
+  "08": 2,
+  "16": 2,
+  "24": 2,
+  "32": 2,
+  "40": 3,
+  "48": 0,
+};
 const SCENE_TRANSITION_KINDS = [
   "slide-x",
   "slide-y",
@@ -173,8 +182,16 @@ async function measureOverflow(
   });
 }
 
-/** Get the last beat index (0-based) for a given style and scene. */
-function getLastBeat(styleId: string, scene: number): number {
+/** Get the last beat index (0-based) for a given style/version and scene. */
+function getLastBeat(
+  styleId: string,
+  scene: number,
+  version: "v1" | "v2" = "v1",
+): number {
+  if (version === "v2" && scene === 5 && styleId in V2_SCENE_5_LAST_BEAT) {
+    return V2_SCENE_5_LAST_BEAT[styleId];
+  }
+
   const info = STYLE_BEATS.find((s) => s.id === styleId);
   if (!info) return 0;
   const count = info.beats[scene] ?? 1;
@@ -338,19 +355,18 @@ test.describe("Navigation", () => {
     expect(Number(hash.beat)).toBe(1);
   });
 
-  test("ArrowLeft at scene 1 beat 0 wraps to previous style", async ({ page }) => {
-    // At style 02 scene 1 beat 0, ArrowLeft should go to style 01 last position
-    await openLab(page, "02", 1, 0, { frozen: true });
+  test("ArrowLeft at scene 1 beat 0 wraps to previous version", async ({ page }) => {
+    // At style 02 v1 scene 1 beat 0, ArrowLeft should go to style 01 v2 last position.
+    await openLab(page, "02", 1, 0, { version: "v1", frozen: true });
 
     await page.keyboard.press("ArrowLeft");
     await page.waitForTimeout(300);
 
     const hash = parseHashFromUrl(page.url());
     expect(hash.style).toBe("01");
-    // Should be at the last scene (5) and last beat of style 01
-    // Style 01 scene 5 has 1 beat → last beat = 0
+    expect(hash.version).toBe("v2");
     expect(Number(hash.scene)).toBe(5);
-    expect(Number(hash.beat)).toBe(getLastBeat("01", 5));
+    expect(Number(hash.beat)).toBe(getLastBeat("01", 5, "v2"));
   });
 
   test("ArrowRight advances through multiple scenes within same style", async ({
@@ -786,38 +802,62 @@ test.describe("URL hash persistence", () => {
 // ─── 8: Cross-style cycling ────────────────────────────────────────────────
 
 test.describe("Cross-style cycling", () => {
-  test("ArrowRight from last style last position wraps to first style", async ({
+  test("ArrowRight from last style v1 advances to its v2", async ({
     page,
   }) => {
-    // Style 48 is the last. Scene 5 has 2 beats (ids 0, 1). Last beat = 1.
     const lastStyleId = ALL_STYLE_IDS[ALL_STYLE_IDS.length - 1]; // "48"
     const lastScene = 5;
-    const lastBeat = getLastBeat(lastStyleId, lastScene);
+    const lastBeat = getLastBeat(lastStyleId, lastScene, "v1");
 
-    await openLab(page, lastStyleId, lastScene, lastBeat, { frozen: true });
+    await openLab(page, lastStyleId, lastScene, lastBeat, {
+      version: "v1",
+      frozen: true,
+    });
 
-    // Verify we're at the last position
     const hashBefore = parseHashFromUrl(page.url());
     expect(hashBefore.style).toBe(lastStyleId);
+    expect(hashBefore.version).toBe("v1");
     expect(Number(hashBefore.scene)).toBe(lastScene);
     expect(Number(hashBefore.beat)).toBe(lastBeat);
 
-    // Press ArrowRight — should cross to first style
+    // Version-aware navigation enters v2 before wrapping to the first style.
     await page.keyboard.press("ArrowRight");
     await page.waitForTimeout(400); // cross-style flash may take a beat
 
     const hashAfter = parseHashFromUrl(page.url());
-    expect(hashAfter.style).toBe("01");
+    expect(hashAfter.style).toBe(lastStyleId);
+    expect(hashAfter.version).toBe("v2");
     expect(Number(hashAfter.scene)).toBe(1);
     expect(Number(hashAfter.beat)).toBe(0);
   });
 
-  test("ArrowLeft from first style scene 1 beat 0 wraps to last style", async ({
+  test("ArrowRight from last style v2 wraps to first style v1", async ({
+    page,
+  }) => {
+    const lastStyleId = ALL_STYLE_IDS[ALL_STYLE_IDS.length - 1]; // "48"
+    const lastBeat = getLastBeat(lastStyleId, 5, "v2");
+
+    await openLab(page, lastStyleId, 5, lastBeat, {
+      version: "v2",
+      frozen: true,
+    });
+
+    await page.keyboard.press("ArrowRight");
+    await page.waitForTimeout(400);
+
+    const hashAfter = parseHashFromUrl(page.url());
+    expect(hashAfter.style).toBe("01");
+    expect(hashAfter.version).toBe("v1");
+    expect(Number(hashAfter.scene)).toBe(1);
+    expect(Number(hashAfter.beat)).toBe(0);
+  });
+
+  test("ArrowLeft from first style scene 1 beat 0 wraps to last style v2", async ({
     page,
   }) => {
     const firstStyleId = ALL_STYLE_IDS[0]; // "01"
 
-    await openLab(page, firstStyleId, 1, 0, { frozen: true });
+    await openLab(page, firstStyleId, 1, 0, { version: "v1", frozen: true });
 
     // Press ArrowLeft — should wrap to last style
     await page.keyboard.press("ArrowLeft");
@@ -826,15 +866,14 @@ test.describe("Cross-style cycling", () => {
     const hash = parseHashFromUrl(page.url());
     const lastStyleId = ALL_STYLE_IDS[ALL_STYLE_IDS.length - 1];
     expect(hash.style).toBe(lastStyleId);
+    expect(hash.version).toBe("v2");
 
-    // Should be at the last scene and last beat of the last style
-    // Style 48 scene 5 has 2 beats → last beat = 1
-    const expectedLastBeat = getLastBeat(lastStyleId, 5);
+    const expectedLastBeat = getLastBeat(lastStyleId, 5, "v2");
     expect(Number(hash.scene)).toBe(5);
     expect(Number(hash.beat)).toBe(expectedLastBeat);
   });
 
-  test("cycling through all 48 styles returns to start", async ({ page }) => {
+  test("cycling across band boundaries is version-aware", async ({ page }) => {
     // Test cross-style cycling at band boundaries (most likely to break).
     // Each transition: openLab to the "from" style's last position, then
     // ArrowRight to advance. openLab does a full page goto + waitForSelector
@@ -849,21 +888,40 @@ test.describe("Cross-style cycling", () => {
     ];
 
     for (const { from, to } of boundaryTransitions) {
-      const lastBeat = getLastBeat(from, 5);
-      await openLab(page, from, 5, lastBeat, { frozen: true });
+      const v1LastBeat = getLastBeat(from, 5, "v1");
+      await openLab(page, from, 5, v1LastBeat, {
+        version: "v1",
+        frozen: true,
+      });
 
-      // Verify we landed at the right position
+      await page.keyboard.press("ArrowRight");
+      await page.waitForTimeout(400);
+
+      const v2Hash = parseHashFromUrl(page.url());
+      expect(v2Hash.style).toBe(from);
+      expect(v2Hash.version).toBe("v2");
+      expect(Number(v2Hash.scene)).toBe(1);
+      expect(Number(v2Hash.beat)).toBe(0);
+
+      const v2LastBeat = getLastBeat(from, 5, "v2");
+      await openLab(page, from, 5, v2LastBeat, {
+        version: "v2",
+        frozen: true,
+      });
+
       const hashBefore = parseHashFromUrl(page.url());
       expect(hashBefore.style).toBe(from);
+      expect(hashBefore.version).toBe("v2");
       expect(Number(hashBefore.scene)).toBe(5);
-      expect(Number(hashBefore.beat)).toBe(lastBeat);
+      expect(Number(hashBefore.beat)).toBe(v2LastBeat);
 
-      // ArrowRight should cross to the next style
+      // After the last version, ArrowRight should cross to the next style's first version.
       await page.keyboard.press("ArrowRight");
       await page.waitForTimeout(400);
 
       const hashAfter = parseHashFromUrl(page.url());
       expect(hashAfter.style).toBe(to);
+      expect(hashAfter.version).toBe("v1");
       expect(Number(hashAfter.scene)).toBe(1);
       expect(Number(hashAfter.beat)).toBe(0);
     }

@@ -184,6 +184,14 @@ import WhitePaper47, {
 import ExecutiveSummary48, {
   getMetadata as getMetadata48,
 } from "./48-executive-summary";
+import { evidenceSmallerTeamV2Version } from "./41-evidence-smaller-team-v2";
+import { chooseBoundaryV2Version } from "./42-choose-boundary-v2";
+import { readyAgentPickupV2Version } from "./43-ready-agent-pickup-v2";
+import { stationPlatformStudyV2Version } from "./44-station-platform-study-v2";
+import { rewriteBrokenFlowV2Version } from "./45-rewrite-broken-flow-v2";
+import { launchGateLedgerV2Version } from "./46-launch-gate-ledger-v2";
+import { handoffCompartmentsV2Version } from "./47-handoff-compartments-v2";
+import { recoveryKitV2Version } from "./48-recovery-kit-v2";
 
 const buildEntry = buildStyleRegistryEntry;
 
@@ -364,14 +372,38 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
     latencyBossFightV2Version,
   ]),
   // Text Report: 41-48
-  buildEntry("41", [{ component: AnnualReport41, getMetadata: getMetadata41 }]),
-  buildEntry("42", [{ component: LegalBrief42, getMetadata: getMetadata42 }]),
-  buildEntry("43", [{ component: ResearchDigest43, getMetadata: getMetadata43 }]),
-  buildEntry("44", [{ component: MeetingMinutes44, getMetadata: getMetadata44 }]),
-  buildEntry("45", [{ component: PolicyPaper45, getMetadata: getMetadata45 }]),
-  buildEntry("46", [{ component: AuditReport46, getMetadata: getMetadata46 }]),
-  buildEntry("47", [{ component: WhitePaper47, getMetadata: getMetadata47 }]),
-  buildEntry("48", [{ component: ExecutiveSummary48, getMetadata: getMetadata48 }]),
+  buildEntry("41", [
+    { component: AnnualReport41, getMetadata: getMetadata41 },
+    evidenceSmallerTeamV2Version,
+  ]),
+  buildEntry("42", [
+    { component: LegalBrief42, getMetadata: getMetadata42 },
+    chooseBoundaryV2Version,
+  ]),
+  buildEntry("43", [
+    { component: ResearchDigest43, getMetadata: getMetadata43 },
+    readyAgentPickupV2Version,
+  ]),
+  buildEntry("44", [
+    { component: MeetingMinutes44, getMetadata: getMetadata44 },
+    stationPlatformStudyV2Version,
+  ]),
+  buildEntry("45", [
+    { component: PolicyPaper45, getMetadata: getMetadata45 },
+    rewriteBrokenFlowV2Version,
+  ]),
+  buildEntry("46", [
+    { component: AuditReport46, getMetadata: getMetadata46 },
+    launchGateLedgerV2Version,
+  ]),
+  buildEntry("47", [
+    { component: WhitePaper47, getMetadata: getMetadata47 },
+    handoffCompartmentsV2Version,
+  ]),
+  buildEntry("48", [
+    { component: ExecutiveSummary48, getMetadata: getMetadata48 },
+    recoveryKitV2Version,
+  ]),
 ];
 
 // ─── Utility functions for version-aware navigation ─────────────────────────
