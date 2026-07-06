@@ -13,83 +13,83 @@ function useFonts() {
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap";
+      "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap";
     document.head.appendChild(link);
   }, []);
 }
 
 const SCENES = {
   1: {
-    en: { title: "ART", titleSub: "DECO", sub: "The Jazz Age Elegance — 1920s Modernism" },
-    zh: { title: "装饰", titleSub: "艺术", sub: "爵士时代的优雅——1920 年代现代主义" },
+    en: { title: "FLAGSHIP", titleSub: "LAUNCH", sub: "A New Era of Engineered Excellence — 2026 Collection" },
+    zh: { title: "旗舰", titleSub: "发布", sub: "工程卓越的新纪元——2026 系列" },
   },
   2: {
     en: {
-      label: "Design Language",
-      heading: "Geometry of luxury",
+      label: "Design Pillars",
+      heading: "Geometry of excellence",
       elements: [
-        { icon: "◆", name: "Chevrons", desc: "Sharp zigzag patterns" },
-        { icon: "◈", name: "Sunbursts", desc: "Radiating symmetry" },
-        { icon: "◇", name: "Fountains", desc: "Stepped setbacks" },
-        { icon: "◊", name: "Floral", desc: "Stylized botanical" },
+        { icon: "◆", name: "Symmetry", desc: "Engineered bilateral balance" },
+        { icon: "◈", name: "Radiance", desc: "Stepped geometric frames" },
+        { icon: "◇", name: "Structure", desc: "Every line a load-bearing beam" },
+        { icon: "◊", name: "Finish", desc: "Polished lacquer depth" },
       ],
     },
     zh: {
-      label: "设计语言",
-      heading: "奢华的几何",
+      label: "设计支柱",
+      heading: "卓越的几何",
       elements: [
-        { icon: "◆", name: "锯齿纹", desc: "锐利的之字图案" },
-        { icon: "◈", name: "旭日纹", desc: "放射状对称" },
-        { icon: "◇", name: "阶梯纹", desc: "退台式造型" },
-        { icon: "◊", name: "花卉纹", desc: "风格化植物" },
+        { icon: "◆", name: "对称", desc: "工程级双侧平衡" },
+        { icon: "◈", name: "辐射", desc: "阶梯式几何框架" },
+        { icon: "◇", name: "结构", desc: "每根线条都是承重梁" },
+        { icon: "◊", name: "漆面", desc: "抛光深邃质感" },
       ],
     },
   },
   3: {
     en: {
-      label: "Iconic Buildings",
-      heading: "Temples to progress",
+      label: "Collection",
+      heading: "Flagship products",
       buildings: [
-        { name: "Chrysler Building", year: "1930", city: "New York", height: "319m" },
-        { name: "Empire State Building", year: "1931", city: "New York", height: "381m" },
-        { name: "Radio City Music Hall", year: "1932", city: "New York", height: "—" },
+        { name: "Aurora Series", year: "2026", city: "Premiere", height: "Gen 3" },
+        { name: "Meridian Line", year: "2026", city: "Flagship", height: "Gen 2" },
+        { name: "Zenith Pro", year: "2026", city: "Signature", height: "Gen 1" },
       ],
     },
     zh: {
-      label: "标志性建筑",
-      heading: "进步的殿堂",
+      label: "产品系列",
+      heading: "旗舰产品",
       buildings: [
-        { name: "克莱斯勒大厦", year: "1930", city: "纽约", height: "319m" },
-        { name: "帝国大厦", year: "1931", city: "纽约", height: "381m" },
-        { name: "无线电城音乐厅", year: "1932", city: "纽约", height: "—" },
+        { name: "极光系列", year: "2026", city: "首发", height: "第三代" },
+        { name: "子午线", year: "2026", city: "旗舰", height: "第二代" },
+        { name: "天顶 Pro", year: "2026", city: "签名", height: "第一代" },
       ],
     },
   },
   4: {
     en: {
       label: "Materials",
-      heading: "Chrome, marble, and lacquer",
+      heading: "Crafted to endure",
       materials: [
-        { name: "Stainless Steel", use: "Cladding & ornament" },
-        { name: "Ebony", use: "Furniture inlay" },
-        { name: "Ivory", use: "Decorative accents" },
-        { name: "Shagreen", use: "Luxury surfaces" },
+        { name: "Brushed Aluminum", use: "Chassis & frame" },
+        { name: "Obsidian Glass", use: "Display surface" },
+        { name: "Brass Inlay", use: "Accent detailing" },
+        { name: "Ceramic Composite", use: "Heat dissipation" },
       ],
     },
     zh: {
       label: "材料",
-      heading: "铬合金、大理石与漆",
+      heading: "经久之选",
       materials: [
-        { name: "不锈钢", use: "外立面与装饰" },
-        { name: "乌木", use: "家具镶嵌" },
-        { name: "象牙", use: "装饰点缀" },
-        { name: "鲨鱼皮", use: "奢华表面" },
+        { name: "拉丝铝", use: "机身与框架" },
+        { name: "曜石玻璃", use: "显示表面" },
+        { name: "黄铜镶嵌", use: "点缀装饰" },
+        { name: "陶瓷复合", use: "散热系统" },
       ],
     },
   },
   5: {
-    en: { closing: "Elegance", accent: "is eternal", sub: "— Modernism's golden age" },
-    zh: { closing: "优雅", accent: "永恒", sub: "—— 现代主义的黄金时代" },
+    en: { closing: "Built for", accent: "the ages", sub: "— Engineered elegance, timeless performance" },
+    zh: { closing: "为时代", accent: "而生", sub: "—— 工程之优雅，永恒之性能" },
   },
 };
 
@@ -139,31 +139,31 @@ function DecoBorderSVG({ className }: { className?: string }) {
 }
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Art Deco", zh: "装饰艺术" };
+  const nameMap = { en: "Machine-Age Deco", zh: "机器时代装饰艺术" };
   const themeMap = {
-    en: "1920s Art Deco — geometric luxury, gold on midnight blue, sunburst motifs, and stepped forms",
-    zh: "1920 年代装饰艺术——几何奢华，金色配午夜蓝，旭日纹样与阶梯造型",
+    en: "Ocean liner dining saloon — engineered symmetry, lacquered depth, metallic precision. Best for flagship product launches, brand manifestos, award ceremonies, and moments demanding ceremony and scale.",
+    zh: "远洋邮轮餐厅——工程对称、漆面深邃、金属精密。最适合旗舰产品发布、品牌宣言、颁奖典礼，以及需要仪式感与宏大尺度的时刻。",
   };
-  const densityLabelMap = { en: "Ornate", zh: "华丽" };
+  const densityLabelMap = { en: "Monumental", zh: "纪念性" };
 
   const sceneTitles = {
-    en: ["Title", "Design Language", "Buildings", "Materials", "Closing"],
-    zh: ["标题", "设计语言", "建筑", "材料", "结语"],
+    en: ["Title", "Design Pillars", "Collection", "Materials", "Closing"],
+    zh: ["标题", "设计支柱", "产品系列", "材料", "结语"],
   };
 
   const beatActions = {
     en: {
       1: ["Title and subtitle appear"],
-      2: ["Heading appears", "Elements 1-2 reveal", "Elements 3-4 reveal"],
-      3: ["Heading appears", "Buildings 1-2 appear", "Building 3 appears"],
+      2: ["Heading appears", "Pillars 1-2 reveal", "Pillars 3-4 reveal"],
+      3: ["Heading appears", "Products 1-2 appear", "Product 3 appears"],
       4: ["Heading appears", "Materials 1-2 reveal", "Materials 3-4 reveal"],
       5: ["Closing statement"],
     },
     zh: {
       1: ["标题和副标题呈现"],
-      2: ["标题呈现", "第 1-2 元素揭示", "第 3-4 元素揭示"],
-      3: ["标题呈现", "第 1-2 栋建筑呈现", "第 3 栋建筑呈现"],
-      4: ["标题呈现", "第 1-2 种材料揭示", "第 3-4 种材料揭示"],
+      2: ["标题呈现", "第 1-2 支柱揭示", "第 3-4 支柱揭示"],
+      3: ["标题呈现", "第 1-2 产品呈现", "第 3 产品呈现"],
+      4: ["标题呈现", "第 1-2 材料揭示", "第 3-4 材料揭示"],
       5: ["结语呈现"],
     },
   };
@@ -216,9 +216,9 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
     colors: { bg: "#0a1628", ink: "#d4a843", panel: "#122040" },
-    typography: { header: "Playfair Display 700", body: "Inter 400" },
-    tags: ["art-deco", "1920s", "geometric", "gold", "luxury", "jazz-age", "modernism", "ornate", "symmetrical"],
-    fonts: ["Playfair Display", "Inter"],
+    typography: { header: "Oswald 700", body: "Inter 400" },
+    tags: ["machine-age", "deco", "geometric", "lacquer", "gold", "symmetrical", "monumental", "ocean-liner", "ceremonial", "flagship"],
+    fonts: ["Oswald", "Inter"],
     scenes,
   };
 }
@@ -228,9 +228,45 @@ export default function ArtDeco({
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   useLayoutEffect(() => {
     setEntered(false);
@@ -239,22 +275,6 @@ export default function ArtDeco({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
-
-  // Detect scene changes for transition
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
-    }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {

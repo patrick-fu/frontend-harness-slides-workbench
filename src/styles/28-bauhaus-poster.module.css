@@ -1,20 +1,20 @@
-/* Style 28: Bauhaus Poster — Craft & Cultural Traditions */
-/* Primary colors, geometric shapes, bold typography, grid composition */
+/* Style 28: Expedition Screenprint — Craft & Cultural */
+/* WPA poster aesthetic: flat warm inks, visible grain, landscape horizon */
 
 .root {
-  --style-28-bg: #f0e6d2;
-  --style-28-ink: #1a1a1a;
-  --style-28-red: #e63946;
-  --style-28-blue: #1d3557;
-  --style-28-yellow: #f4a261;
-  --style-28-panel: #e6d9c0;
+  --style-28-bg: #ede0cc;
+  --style-28-ink: #2a3a2a;
+  --style-28-dusk: #d4692a;
+  --style-28-forest: #2a5a4a;
+  --style-28-sky: #3a6a8a;
+  --style-28-panel: #e0d4bc;
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
   background: var(--style-28-bg);
   color: var(--style-28-ink);
-  font-family: "Archivo Black", "Inter", system-ui, sans-serif;
+  font-family: "Oswald", "Inter", system-ui, sans-serif;
 }
 
 .root.thumbnail { font-size: 0.6em; }
@@ -24,15 +24,15 @@
   transition-duration: 0s !important;
 }
 
-/* Grid overlay */
+/* Screenprint grain texture — ink misfit feel */
 .root::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(90deg, rgba(26, 26, 26, 0.04) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(26, 26, 26, 0.04) 1px, transparent 1px);
-  background-size: 8cqw 8cqh;
+    radial-gradient(circle at 20% 30%, rgba(42, 58, 42, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 80% 70%, rgba(212, 105, 42, 0.03) 1px, transparent 1px);
+  background-size: 4px 4px, 6px 6px;
   pointer-events: none;
   z-index: 0;
 }
@@ -49,6 +49,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .animateSceneEnter {
@@ -72,7 +73,7 @@
 }
 
 .enterAnim {
-  animation: bauhausEnter 0.6s ease-out forwards;
+  animation: bauhausEnter 0.6s ease-out both;
   z-index: 2;
 }
 
@@ -166,7 +167,7 @@
 .titleBar {
   width: 30cqw;
   height: 1.2cqh;
-  background: var(--style-28-red);
+  background: var(--style-28-dusk);
   margin: 2cqh auto;
 }
 
@@ -195,7 +196,7 @@
   font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--style-28-red);
+  color: var(--style-28-dusk);
   font-family: "Inter", system-ui, sans-serif;
   margin-bottom: 1cqh;
 }
@@ -279,7 +280,7 @@
   grid-template-rows: auto auto auto;
   column-gap: 2cqw;
   align-items: baseline;
-  border-left: 0.6cqh solid var(--style-28-blue);
+  border-left: 0.6cqh solid var(--style-28-forest);
   opacity: 0;
   transform: translateX(-2cqw);
   transition: opacity 0.5s ease, transform 0.5s ease;
@@ -294,9 +295,9 @@
   grid-row: 1 / 4;
   font-size: 5cqh;
   font-weight: 400;
-  color: var(--style-28-red);
+  color: var(--style-28-dusk);
   line-height: 1;
-  font-family: "Archivo Black", sans-serif;
+  font-family: "Oswald", sans-serif;
 }
 
 .masterName {
@@ -307,7 +308,7 @@
 
 .masterRole {
   font-size: 2.2cqh;
-  color: var(--style-28-blue);
+  color: var(--style-28-forest);
   font-family: "Inter", system-ui, sans-serif;
   font-weight: 600;
 }
@@ -352,9 +353,9 @@
   display: block;
   font-size: 8cqh;
   font-weight: 400;
-  color: var(--style-28-red);
+  color: var(--style-28-dusk);
   line-height: 1;
-  font-family: "Archivo Black", sans-serif;
+  font-family: "Oswald", sans-serif;
 }
 
 .statLabel {
@@ -467,7 +468,7 @@
 }
 
 .closingAccent {
-  color: var(--style-28-red);
+  color: var(--style-28-dusk);
 }
 
 .closingSub {
@@ -516,13 +517,13 @@
 .navItem:hover { background: var(--style-28-ink); }
 .navItem:hover .navNum { color: var(--style-28-bg); }
 
-.navItemActive { background: var(--style-28-red); border-color: var(--style-28-red); }
+.navItemActive { background: var(--style-28-dusk); border-color: var(--style-28-dusk); }
 .navItemActive .navNum { color: var(--style-28-bg); }
 
 .navNum {
   font-size: 2.2cqh;
   font-weight: 400;
   color: var(--style-28-ink);
-  font-family: "Archivo Black", sans-serif;
+  font-family: "Oswald", sans-serif;
   transition: color 0.2s ease;
 }

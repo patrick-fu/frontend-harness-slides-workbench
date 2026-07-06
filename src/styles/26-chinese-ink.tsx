@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./26-chinese-ink.module.css";
 
@@ -10,143 +10,148 @@ function useFonts() {
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap";
+      "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@300;400;500&display=swap";
     document.head.appendChild(link);
   }, []);
 }
 
 const SCENES = {
   1: {
-    en: { title: "水墨", titleEn: "Ink Wash", sub: "Chinese Literati Painting Aesthetic" },
-    zh: { title: "水墨", titleEn: "Ink Wash", sub: "中国文人画美学" },
+    en: { title: "Specimen", titleEn: "Plate", sub: "Herbarium Sheet — Botanical Observation Under Glass" },
+    zh: { title: "标本", titleEn: "板", sub: "植物标本室——玻璃下的植物观察" },
   },
   2: {
     en: {
-      label: "Four Treasures",
-      heading: "Tools of the scholar",
+      label: "Anatomy",
+      heading: "Parts of the specimen",
       items: [
-        { char: "筆", name: "Brush", desc: "Wolf or goat hair, bamboo handle" },
-        { char: "墨", name: "Ink", desc: "Pine soot or oil soot cake" },
-        { char: "紙", name: "Paper", desc: "Xuan rice paper, aged for decades" },
-        { char: "硯", name: "Inkstone", desc: "Duan or She stone, carved reservoir" },
+        { char: "R", name: "Radix", desc: "Root system — anchorage and nutrient uptake" },
+        { char: "S", name: "Caulis", desc: "Stem — vascular transport and support" },
+        { char: "L", name: "Folium", desc: "Leaf — photosynthesis and transpiration" },
+        { char: "F", name: "Flos", desc: "Flower — reproductive structure" },
       ],
     },
     zh: {
-      label: "文房四宝",
-      heading: "文人之器",
+      label: "解剖",
+      heading: "标本的结构",
       items: [
-        { char: "筆", name: "笔", desc: "狼毫或羊毫，竹制笔杆" },
-        { char: "墨", name: "墨", desc: "松烟或油烟墨锭" },
-        { char: "紙", name: "纸", desc: "宣纸，陈年为佳" },
-        { char: "硯", name: "砚", desc: "端砚或歙砚，雕刻砚池" },
+        { char: "根", name: "Radix", desc: "根系——固定与养分吸收" },
+        { char: "茎", name: "Caulis", desc: "茎——维管输导与支撑" },
+        { char: "叶", name: "Folium", desc: "叶——光合作用与蒸腾" },
+        { char: "花", name: "Flos", desc: "花——生殖结构" },
       ],
     },
   },
   3: {
     en: {
-      label: "Mountains",
-      heading: "Distant peaks emerge from mist",
-      poem: "千山鸟飞绝，万径人踪灭",
-      poemEn: "A thousand mountains, no bird in flight. Ten thousand paths, no human trace.",
+      label: "Catalog",
+      heading: "Three species from the collection",
+      poem: "Quercus robur",
+      poemEn: "Pedunculate Oak — collected by J. Banks, 1771",
     },
     zh: {
-      label: "山水",
-      heading: "远山从雾中浮现",
-      poem: "千山鸟飞绝，万径人踪灭",
-      poemEn: "千山鸟飞绝，万径人踪灭",
+      label: "目录",
+      heading: "馆藏三种",
+      poem: "Quercus robur",
+      poemEn: "夏栎——J. 班克斯采集，1771",
     },
   },
   4: {
     en: {
-      label: "Masters",
-      heading: "Great ink painters",
+      label: "Collectors",
+      heading: "Those who recorded nature",
       masters: [
-        { name: "Fan Kuan", era: "c. 990–1030", work: "Travelers Among Mountains and Streams" },
-        { name: "Ni Zan", era: "1301–1374", work: "Six Gentlemen" },
-        { name: "Bada Shanren", era: "1626–1705", work: "Lotus and Birds" },
+        { name: "Carl Linnaeus", era: "1707–1778", work: "Species Plantarum, 1753" },
+        { name: "Joseph Banks", era: "1743–1820", work: "Florilegium, Endeavour voyage" },
+        { name: "Maria Sibylla Merian", era: "1647–1717", work: "Metamorphosis insectorum" },
       ],
     },
     zh: {
-      label: "大家",
-      heading: "水墨大家",
+      label: "采集者",
+      heading: "记录自然的人们",
       masters: [
-        { name: "范宽", era: "约 990–1030", work: "溪山行旅图" },
-        { name: "倪瓒", era: "1301–1374", work: "六君子图" },
-        { name: "八大山人", era: "1626–1705", work: "荷鸟图" },
+        { name: "卡尔·林奈", era: "1707–1778", work: "《植物种志》，1753" },
+        { name: "约瑟夫·班克斯", era: "1743–1820", work: "《植物图谱》，奋进号航行" },
+        { name: "玛丽亚·西比拉·梅里安", era: "1647–1717", work: "《昆虫变态》" },
       ],
     },
   },
   5: {
-    en: { closing: "留白", accent: "处皆有天地", sub: "— Empty space holds infinite meaning" },
-    zh: { closing: "留白", accent: "处皆有天地", sub: "—— 空白处蕴含无限" },
+    en: { closing: "Patient", accent: "observation", sub: "— Every vein recorded, every contour traced" },
+    zh: { closing: "耐心", accent: "观察", sub: "—— 每道叶脉都被记录，每条轮廓都被描绘" },
   },
 };
 
-function InkMountainSVG({ className }: { className?: string }) {
+function BotanicalSpecimenSVG({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 800 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <defs>
-        <linearGradient id="inkGrad26" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#1a1a1a" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="#1a1a1a" stopOpacity="0.05" />
-        </linearGradient>
-      </defs>
-      {/* Far mountains */}
-      <path d="M0 200 Q80 140 160 170 Q240 120 320 155 Q400 100 480 145 Q560 110 640 140 Q720 120 800 160 L800 300 L0 300Z" fill="url(#inkGrad26)" opacity="0.3" />
-      {/* Mid mountains */}
-      <path d="M0 230 Q100 180 200 210 Q300 160 400 200 Q500 170 600 195 Q700 175 800 210 L800 300 L0 300Z" fill="url(#inkGrad26)" opacity="0.5" />
-      {/* Near mountain */}
-      <path d="M100 280 Q200 200 280 240 Q340 180 420 230 Q500 190 580 250 Q650 220 720 260 L720 300 L100 300Z" fill="#1a1a1a" opacity="0.7" />
-      {/* Ink splatters */}
-      <circle cx="150" cy="260" r="8" fill="#1a1a1a" opacity="0.4" />
-      <circle cx="450" cy="270" r="5" fill="#1a1a1a" opacity="0.3" />
-      <circle cx="650" cy="255" r="10" fill="#1a1a1a" opacity="0.25" />
+    <svg className={className} viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {/* Main stem */}
+      <path d="M400 380 Q395 280 400 180 Q405 100 398 40" stroke="#3d2b1f" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+      {/* Left leaves */}
+      <path d="M400 300 Q320 270 280 220 Q260 190 280 170 Q310 180 340 210 Q370 240 400 260" fill="#5a7a4a" opacity="0.7" stroke="#3d2b1f" strokeWidth="1" />
+      <path d="M400 220 Q340 200 310 160 Q295 135 310 120 Q335 130 360 155 Q385 180 400 195" fill="#5a7a4a" opacity="0.6" stroke="#3d2b1f" strokeWidth="1" />
+      {/* Right leaves */}
+      <path d="M400 280 Q480 250 520 200 Q540 170 520 150 Q490 160 460 190 Q430 220 400 240" fill="#5a7a4a" opacity="0.65" stroke="#3d2b1f" strokeWidth="1" />
+      <path d="M400 200 Q460 180 490 140 Q505 115 490 100 Q465 110 440 135 Q415 160 400 175" fill="#5a7a4a" opacity="0.55" stroke="#3d2b1f" strokeWidth="1" />
+      {/* Flower at top */}
+      <ellipse cx="398" cy="38" rx="18" ry="22" fill="#8a6a5a" opacity="0.4" stroke="#3d2b1f" strokeWidth="1.5" />
+      <ellipse cx="385" cy="32" rx="10" ry="14" fill="#8a6a5a" opacity="0.35" stroke="#3d2b1f" strokeWidth="1" transform="rotate(-25 385 32)" />
+      <ellipse cx="412" cy="32" rx="10" ry="14" fill="#8a6a5a" opacity="0.35" stroke="#3d2b1f" strokeWidth="1" transform="rotate(25 412 32)" />
+      {/* Leaf veins */}
+      <path d="M340 210 Q370 230 400 260" stroke="#3d2b1f" strokeWidth="0.8" fill="none" opacity="0.5" />
+      <path d="M460 190 Q430 215 400 240" stroke="#3d2b1f" strokeWidth="0.8" fill="none" opacity="0.5" />
+      {/* Collector label area */}
+      <rect x="580" y="320" width="180" height="60" rx="2" fill="none" stroke="#3d2b1f" strokeWidth="1" opacity="0.4" strokeDasharray="4 2" />
     </svg>
   );
 }
 
-function BambooSVG({ className }: { className?: string }) {
+function SpecimenBorderSVG({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 120 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <line x1="60" y1="20" x2="60" y2="380" stroke="#1a1a1a" strokeWidth="4" opacity="0.7" />
-      {[60, 120, 180, 240, 300, 360].map((y, i) => (
-        <ellipse key={i} cx="60" cy={y} rx="8" ry="3" stroke="#1a1a1a" strokeWidth="2" fill="none" opacity="0.6" />
+      {/* Plate number circle */}
+      <circle cx="60" cy="30" r="20" fill="none" stroke="#3d2b1f" strokeWidth="1.5" opacity="0.4" />
+      <text x="60" y="35" textAnchor="middle" fontSize="14" fill="#3d2b1f" opacity="0.5" fontFamily="serif">III</text>
+      {/* Decorative botanical line */}
+      <line x1="60" y1="55" x2="60" y2="380" stroke="#3d2b1f" strokeWidth="1" opacity="0.25" />
+      {/* Small leaf motifs */}
+      {[80, 160, 240, 320].map((y, i) => (
+        <g key={i} transform={`translate(60, ${y})`} opacity="0.3">
+          <ellipse cx="0" cy="0" rx="12" ry="6" fill="#5a7a4a" opacity="0.5" transform="rotate(-20)" />
+          <ellipse cx="0" cy="0" rx="12" ry="6" fill="#5a7a4a" opacity="0.4" transform="rotate(20)" />
+          <line x1="-15" y1="0" x2="15" y2="0" stroke="#3d2b1f" strokeWidth="0.8" />
+        </g>
       ))}
-      {/* Leaves */}
-      <path d="M60 80 Q30 60 10 70 Q35 75 60 85" fill="#1a1a1a" opacity="0.6" />
-      <path d="M60 140 Q90 115 110 125 Q85 135 60 145" fill="#1a1a1a" opacity="0.5" />
-      <path d="M60 200 Q25 175 5 190 Q30 195 60 205" fill="#1a1a1a" opacity="0.55" />
-      <path d="M60 260 Q95 240 115 250 Q88 258 60 265" fill="#1a1a1a" opacity="0.5" />
     </svg>
   );
 }
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Chinese Ink", zh: "水墨画" };
+  const nameMap = { en: "Botanical Specimen Plate", zh: "植物标本板" };
   const themeMap = {
-    en: "Chinese literati painting — ink wash on rice paper, misty mountains, bamboo, and calligraphic brushwork",
-    zh: "中国文人画——宣纸水墨，烟雨山水，竹影与书法笔意",
+    en: "Pressed herbarium sheet under north light — aged paper, iron-gall ink, muted naturalist palette. Best for taxonomy, classification, species catalogs, and systematic comparison.",
+    zh: "北窗下的压制植物标本——陈年纸张、铁胆墨水、柔和自然色。最适合分类学、物种编目和系统比较。",
   };
-  const densityLabelMap = { en: "Sparse", zh: "留白" };
+  const densityLabelMap = { en: "Scholarly", zh: "学术" };
 
   const sceneTitles = {
-    en: ["Title", "Four Treasures", "Mountains", "Masters", "Closing"],
-    zh: ["标题", "文房四宝", "山水", "大家", "结语"],
+    en: ["Title", "Anatomy", "Catalog", "Collectors", "Closing"],
+    zh: ["标题", "解剖", "目录", "采集者", "结语"],
   };
 
   const beatActions = {
     en: {
       1: ["Title and subtitle appear"],
-      2: ["Heading appears", "Treasures 1-2 reveal", "Treasures 3-4 reveal"],
-      3: ["Mountains emerge from mist", "Poem calligraphy appears"],
-      4: ["Heading appears", "Masters 1-2 appear", "Master 3 appears"],
+      2: ["Heading appears", "Parts 1-2 reveal", "Parts 3-4 reveal"],
+      3: ["Specimen appears", "Species label appears"],
+      4: ["Heading appears", "Collectors 1-2 appear", "Collector 3 appears"],
       5: ["Closing statement"],
     },
     zh: {
       1: ["标题和副标题呈现"],
-      2: ["标题呈现", "第 1-2 宝揭示", "第 3-4 宝揭示"],
-      3: ["山水从雾中浮现", "诗句书法呈现"],
-      4: ["标题呈现", "第 1-2 位大家呈现", "第 3 位大家呈现"],
+      2: ["标题呈现", "第 1-2 部分揭示", "第 3-4 部分揭示"],
+      3: ["标本呈现", "物种标签呈现"],
+      4: ["标题呈现", "第 1-2 位采集者呈现", "第 3 位呈现"],
       5: ["结语呈现"],
     },
   };
@@ -196,10 +201,10 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
-    colors: { bg: "#f5f0e8", ink: "#1a1a1a", panel: "#ebe5d9" },
-    typography: { header: "Noto Serif SC 700", body: "Inter 400" },
-    tags: ["ink", "chinese", "shan-shui", "literati", "bamboo", "calligraphy", "xuan-paper", "traditional", "minimal"],
-    fonts: ["cjk:Noto Serif SC", "Inter"],
+    colors: { bg: "#f0e6d2", ink: "#3d2b1f", panel: "#e8dcc4" },
+    typography: { header: "Cormorant Garamond 700", body: "Noto Serif SC 400" },
+    tags: ["botanical", "specimen", "herbarium", "scientific-illustration", "aged-paper", "sepia", "taxonomy", "naturalist", "plate", "observational"],
+    fonts: ["Cormorant Garamond", "Noto Serif SC", "Inter"],
     scenes,
   };
 }
@@ -216,25 +221,45 @@ export default function ChineseInk({
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // Beat-level entered animation trigger
   useEffect(() => {
@@ -258,7 +283,7 @@ export default function ChineseInk({
   const renderScene1 = (c: any) => {
     return (
       <div className={styles.scene1}>
-        <InkMountainSVG className={styles.mountainBg} />
+        <BotanicalSpecimenSVG className={styles.mountainBg} />
         <div className={styles.scene1Content}>
           <h1 className={styles.titleChar}>{c.title}</h1>
           <p className={styles.titleEn}>{c.titleEn}</p>
@@ -300,7 +325,7 @@ export default function ChineseInk({
         <span className={styles.sceneLabel}>{c.label}</span>
         <h2 className={styles.sceneHeading}>{c.heading}</h2>
         <div className={styles.mountainScene}>
-          <InkMountainSVG className={styles.mountainLarge} />
+          <BotanicalSpecimenSVG className={styles.mountainLarge} />
           <div className={styles.mistOverlay} />
           {beatNum >= 1 && (
             <div className={styles.poemBox}>
@@ -321,7 +346,7 @@ export default function ChineseInk({
       <div className={styles.scene4}>
         <span className={styles.sceneLabel}>{c.label}</span>
         <h2 className={styles.sceneHeading}>{c.heading}</h2>
-        <BambooSVG className={styles.bambooLeft} />
+        <SpecimenBorderSVG className={styles.bambooLeft} />
         <div className={styles.mastersList}>
           {masters.map((m, i) => {
             const visible = i < visibleCount;
@@ -347,7 +372,7 @@ export default function ChineseInk({
           {c.closing}<span className={styles.closingAccent}>{c.accent}</span>
         </h2>
         <p className={styles.closingSub}>{c.sub}</p>
-        <div className={styles.sealStamp} aria-hidden="true">印</div>
+        <div className={styles.sealStamp} aria-hidden="true">Pl. VII</div>
       </div>
     );
   };

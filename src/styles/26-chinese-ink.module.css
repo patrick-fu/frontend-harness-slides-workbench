@@ -1,18 +1,19 @@
-/* Style 26: Chinese Ink — Craft & Cultural Traditions */
-/* Ink wash painting: rice paper tones, brushstroke effects, misty mountains */
+/* Style 26: Botanical Specimen Plate — Craft & Cultural */
+/* Herbarium sheet: aged paper, iron-gall sepia ink, muted naturalist palette */
 
 .root {
-  --style-26-bg: #f5f0e8;
-  --style-26-ink: #1a1a1a;
-  --style-26-panel: #ebe5d9;
-  --style-26-seal: #c0392b;
+  --style-26-bg: #f0e6d2;
+  --style-26-ink: #3d2b1f;
+  --style-26-panel: #e8dcc4;
+  --style-26-seal: #8a3a2a;
+  --style-26-green: #5a7a4a;
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
   background: var(--style-26-bg);
   color: var(--style-26-ink);
-  font-family: "Noto Serif SC", "Inter", system-ui, sans-serif;
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Inter", system-ui, serif;
 }
 
 .root.thumbnail { font-size: 0.6em; }
@@ -22,14 +23,15 @@
   transition-duration: 0s !important;
 }
 
-/* Paper texture overlay */
+/* Aged paper texture — fibrous, warm, slightly uneven */
 .root::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(ellipse at 30% 40%, rgba(180, 160, 130, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 60%, rgba(160, 140, 110, 0.06) 0%, transparent 40%);
+    radial-gradient(ellipse at 25% 30%, rgba(180, 150, 100, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 70%, rgba(160, 130, 90, 0.07) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, rgba(200, 170, 120, 0.04) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
@@ -46,6 +48,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .animateSceneEnter {
@@ -65,7 +68,7 @@
 
 /* Ink wash bleed: content emerges from ink diffusion */
 .enterAnim {
-  animation: inkWashIn 0.9s ease-out forwards;
+  animation: inkWashIn 0.9s ease-out both;
   z-index: 2;
 }
 
@@ -420,18 +423,20 @@
   position: absolute;
   bottom: 8cqh;
   right: 10cqw;
-  width: 8cqh;
-  height: 8cqh;
-  background: var(--style-26-seal);
-  color: #fff;
+  padding: 1.2cqh 1.8cqw;
+  background: transparent;
+  color: var(--style-26-seal);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 4.5cqh;
-  font-weight: 900;
-  font-family: "Noto Serif SC", serif;
-  border-radius: 0.5cqh;
-  opacity: 0.85;
+  font-size: 3.2cqh;
+  font-weight: 600;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  border: 0.15cqh solid var(--style-26-seal);
+  border-radius: 0.3cqh;
+  opacity: 0.7;
+  letter-spacing: 0.05em;
 }
 
 /* ─── Navigation ─── */

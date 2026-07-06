@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./32-nordic-rosemaling.module.css";
 
@@ -9,122 +9,117 @@ function useFonts() {
     const link = document.createElement("link");
     link.id = id;
     link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap";
     document.head.appendChild(link);
   }, []);
 }
 
 const SCENES = {
   1: {
-    en: { title: "Rosemaling", sub: "Norwegian Folk Painting — Flowers, Scrolls, and Stories" },
-    zh: { title: "玫瑰彩绘", sub: "挪威民间绘画——花卉、卷草与故事" },
+    en: { title: "SCORE", sub: "Multi-Stage Evaluation Funnel — Inputs, Lanes, Results" },
+    zh: { title: "评分", sub: "多阶段评估漏斗——输入、通道、结果" },
   },
   2: {
     en: {
-      label: "Styles",
-      heading: "Regional traditions",
+      label: "Inputs",
+      heading: "Candidates entering the funnel",
       items: [
-        { name: "Telemark", desc: "Bold, symmetrical, large flowers" },
-        { name: "Rogaland", desc: "Delicate, flowing, soft colors" },
-        { name: "Hallingdal", desc: "Geometric, dark backgrounds" },
-        { name: "Valdres", desc: "Rich detail, warm palette" },
+        { name: "Alpha", desc: "High signal, low noise", color: "#4ade80" },
+        { name: "Beta", desc: "Medium signal, steady", color: "#60a5fa" },
+        { name: "Gamma", desc: "Variable, needs review", color: "#fbbf24" },
+        { name: "Delta", desc: "Low signal, high noise", color: "#f472b6" },
       ],
     },
     zh: {
-      label: "流派",
-      heading: "地域传统",
+      label: "输入",
+      heading: "进入漏斗的候选",
       items: [
-        { name: "泰勒马克", desc: "大胆、对称、大花" },
-        { name: "罗加兰", desc: "精致、流畅、柔和色彩" },
-        { name: "哈灵达尔", desc: "几何、深色背景" },
-        { name: "瓦尔德雷斯", desc: "细节丰富、暖色调" },
+        { name: "阿尔法", desc: "高信号，低噪声", color: "#4ade80" },
+        { name: "贝塔", desc: "中等信号，稳定", color: "#60a5fa" },
+        { name: "伽马", desc: "波动大，需审查", color: "#fbbf24" },
+        { name: "德尔塔", desc: "低信号，高噪声", color: "#f472b6" },
       ],
     },
   },
   3: {
     en: {
-      label: "Motifs",
-      heading: "Nature in paint",
+      label: "Lanes",
+      heading: "Filter categories at work",
       items: [
-        { name: "Lotus", meaning: "Purity and beauty" },
-        { name: "Scroll vine", meaning: "Growth and continuity" },
-        { name: "Bird", meaning: "Freedom and spirit" },
-        { name: "Heart", meaning: "Love and home" },
+        { name: "Quality", meaning: "Signal-to-noise ratio", color: "#4ade80" },
+        { name: "Velocity", meaning: "Response time under load", color: "#60a5fa" },
+        { name: "Impact", meaning: "Expected outcome weight", color: "#fbbf24" },
+        { name: "Risk", meaning: "Failure probability", color: "#f472b6" },
       ],
     },
     zh: {
-      label: "图案",
-      heading: "画中的自然",
+      label: "通道",
+      heading: "运行中的过滤类别",
       items: [
-        { name: "莲花", meaning: "纯洁与美丽" },
-        { name: "卷草藤", meaning: "生长与延续" },
-        { name: "鸟", meaning: "自由与灵魂" },
-        { name: "心", meaning: "爱与家园" },
+        { name: "质量", meaning: "信噪比评估", color: "#4ade80" },
+        { name: "速度", meaning: "负载下响应时间", color: "#60a5fa" },
+        { name: "影响", meaning: "预期结果权重", color: "#fbbf24" },
+        { name: "风险", meaning: "失败概率", color: "#f472b6" },
       ],
     },
   },
   4: {
     en: {
-      label: "Colors",
-      heading: "The painter's palette",
+      label: "Scores",
+      heading: "Weighted results",
       items: [
-        { name: "Cobalt Blue", hex: "#2c5aa0" },
-        { name: "Rose Pink", hex: "#d4667a" },
-        { name: "Leaf Green", hex: "#4a8c3f" },
-        { name: "Cream", hex: "#f5e6c8" },
+        { name: "Alpha", score: "94", tier: "S" },
+        { name: "Beta", score: "78", tier: "A" },
+        { name: "Gamma", score: "61", tier: "B" },
+        { name: "Delta", score: "33", tier: "C" },
       ],
     },
     zh: {
-      label: "色彩",
-      heading: "画家的调色板",
+      label: "得分",
+      heading: "加权结果",
       items: [
-        { name: "钴蓝", hex: "#2c5aa0" },
-        { name: "玫瑰粉", hex: "#d4667a" },
-        { name: "叶绿", hex: "#4a8c3f" },
-        { name: "奶油", hex: "#f5e6c8" },
+        { name: "阿尔法", score: "94", tier: "S" },
+        { name: "贝塔", score: "78", tier: "A" },
+        { name: "伽马", score: "61", tier: "B" },
+        { name: "德尔塔", score: "33", tier: "C" },
       ],
     },
   },
   5: {
-    en: { closing: "Every stroke", accent: "tells a story", sub: "— Painted with love, passed through generations" },
-    zh: { closing: "每一笔", accent: "都讲述故事", sub: "—— 以爱绘制，代代相传" },
+    en: { closing: "Top pick", accent: "confirmed", sub: "— Alpha leads with 94 composite score" },
+    zh: { closing: "首选", accent: "已确认", sub: "—— 阿尔法以 94 综合分领先" },
   },
 };
 
 const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
-const TRANSITION_DURATION = 900; // 600ms vine-draw + 300ms fade
+const TRANSITION_DURATION = 600;
 
-function RosemalingFlower({ className, color = "#d4667a" }: { className?: string; color?: string }) {
+function FunnelMachineSVG({ className }: { className?: string }) {
+  const laneColors = ["#4ade80", "#60a5fa", "#fbbf24", "#f472b6"];
   return (
-    <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      {[0, 60, 120, 180, 240, 300].map((angle, i) => {
-        const rad = (angle * Math.PI) / 180;
-        const cx = 50 + 18 * Math.cos(rad);
-        const cy = 50 + 18 * Math.sin(rad);
-        return <ellipse key={i} cx={cx} cy={cy} rx="14" ry="20" fill={color} opacity="0.85" transform={`rotate(${angle} ${cx} ${cy})`} />;
-      })}
-      <circle cx="50" cy="50" r="10" fill="#f5e6c8" />
-      <circle cx="50" cy="50" r="5" fill="#d4a843" />
-    </svg>
-  );
-}
-
-function ScrollVine({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M5 20 Q 30 5, 55 20 Q 80 35, 105 20 Q 130 5, 155 20 Q 180 35, 195 20" stroke="#4a8c3f" strokeWidth="2.5" fill="none" opacity="0.7" />
-      {[25, 65, 105, 145, 180].map((x, i) => (
-        <circle key={i} cx={x} cy={i % 2 === 0 ? 12 : 28} r="4" fill="#d4667a" opacity="0.6" />
+    <svg className={className} viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {/* Funnel outline */}
+      <path d="M20 10 L280 10 L220 100 L80 100 Z" stroke="rgba(226,232,240,0.3)" strokeWidth="2" fill="rgba(226,232,240,0.05)" />
+      {/* Lanes inside funnel */}
+      {laneColors.map((c, i) => (
+        <line key={i} x1={30 + i * 60} y1="10" x2={85 + i * 35} y2="100" stroke={c} strokeWidth="3" opacity="0.6" />
       ))}
+      {/* Output slots */}
+      {laneColors.map((c, i) => (
+        <rect key={`slot-${i}`} x={50 + i * 50} y="120" width="35" height="50" rx="4" stroke={c} strokeWidth="2" fill={`${c}15`} opacity="0.8" />
+      ))}
+      {/* Pin dots */}
+      {[...Array(8)].map((_, i) => (
+        <circle key={`pin-${i}`} cx={40 + i * 30} cy={55 + (i % 3) * 12} r="3" fill="rgba(226,232,240,0.4)" />
+      ))}
+      {/* Score display */}
+      <rect x="110" y="175" width="80" height="20" rx="3" fill="rgba(226,232,240,0.1)" stroke="rgba(226,232,240,0.3)" strokeWidth="1" />
+      <text x="150" y="189" textAnchor="middle" fill="#4ade80" fontFamily="JetBrains Mono, monospace" fontSize="12" fontWeight="600">SCORE</text>
     </svg>
   );
 }
 
-/**
- * Full-screen overlay with SVG vines that "draw" across the stage
- * during scene transitions, then fade out to reveal the incoming scene.
- */
-function VineOverlay({ phase }: { phase: "draw" | "fade" }) {
+function GearSpinOverlay({ phase }: { phase: "spin" | "fade" }) {
   const overlayClass = [
     styles.vineOverlay,
     phase === "fade" ? styles.vineOverlayFade : "",
@@ -133,68 +128,28 @@ function VineOverlay({ phase }: { phase: "draw" | "fade" }) {
   return (
     <div className={overlayClass} aria-hidden="true">
       <svg className={styles.vineSvg} viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        {/* Main curling vine from top-left */}
-        <path
-          className={styles.vinePath}
-          d="M-50 80 Q 200 200, 400 120 Q 600 40, 800 180 Q 1000 320, 1200 200 Q 1400 80, 1600 220 Q 1800 360, 1970 280"
-          stroke="#4a8c3f"
-          strokeWidth="4"
-          fill="none"
-        />
-        {/* Secondary vine from bottom-right */}
-        <path
-          className={`${styles.vinePath} ${styles.vinePath2}`}
-          d="M1970 1000 Q 1750 880, 1550 960 Q 1350 1040, 1150 900 Q 950 760, 750 880 Q 550 1000, 350 860 Q 150 720, -50 820"
-          stroke="#4a8c3f"
-          strokeWidth="3.5"
-          fill="none"
-        />
-        {/* Third vine from top-right */}
-        <path
-          className={`${styles.vinePath} ${styles.vinePath3}`}
-          d="M1970 60 Q 1700 180, 1500 100 Q 1300 20, 1100 160 Q 900 300, 700 180 Q 500 60, 300 160"
-          stroke="#d4667a"
-          strokeWidth="3"
-          fill="none"
-          opacity="0.7"
-        />
-        {/* Flower accents along vine 1 */}
-        {[300, 700, 1100, 1500].map((cx, i) => (
-          <circle
-            key={`f1-${i}`}
-            className={`${styles.vineFlower} ${styles[`vineFlowerDelay${i}`]}`}
-            cx={cx}
-            cy={i % 2 === 0 ? 140 : 240}
-            r="12"
-            fill="#d4667a"
-            opacity="0.8"
-          />
-        ))}
-        {/* Flower accents along vine 2 */}
-        {[400, 800, 1200, 1600].map((cx, i) => (
-          <circle
-            key={`f2-${i}`}
-            className={`${styles.vineFlower} ${styles[`vineFlowerDelay${i + 1}`]}`}
-            cx={cx}
-            cy={i % 2 === 0 ? 920 : 840}
-            r="10"
-            fill="#d4a843"
-            opacity="0.7"
-          />
-        ))}
-        {/* Leaf shapes */}
-        {[500, 900, 1300].map((cx, i) => (
-          <ellipse
-            key={`l-${i}`}
-            className={`${styles.vineLeaf} ${styles[`vineLeafDelay${i}`]}`}
-            cx={cx}
-            cy={160 + i * 30}
-            rx="20"
-            ry="8"
-            fill="#4a8c3f"
-            opacity="0.6"
-            transform={`rotate(${i * 25 - 20} ${cx} ${160 + i * 30})`}
-          />
+        {/* Rotating gear arcs */}
+        {[...Array(6)].map((_, i) => {
+          const cx = 200 + i * 300;
+          const cy = 540;
+          const r = 80 + (i % 3) * 30;
+          const color = ["#4ade80", "#60a5fa", "#fbbf24", "#f472b6", "#4ade80", "#60a5fa"][i];
+          return (
+            <g key={i} className={styles.gearGroup} style={{ transformOrigin: `${cx}px ${cy}px`, animationDelay: `${i * 0.05}s` }}>
+              <circle cx={cx} cy={cy} r={r} stroke={color} strokeWidth="3" fill="none" opacity="0.4" strokeDasharray="20 10" />
+              <circle cx={cx} cy={cy} r={r * 0.6} stroke={color} strokeWidth="2" fill="none" opacity="0.25" />
+              {[0, 90, 180, 270].map((deg, j) => {
+                const rad = (deg * Math.PI) / 180;
+                const tx = cx + r * Math.cos(rad);
+                const ty = cy + r * Math.sin(rad);
+                return <rect key={j} x={tx - 6} y={ty - 6} width="12" height="12" rx="2" fill={color} opacity="0.5" transform={`rotate(${deg} ${tx} ${ty})`} />;
+              })}
+            </g>
+          );
+        })}
+        {/* Horizontal scan lines */}
+        {[...Array(12)].map((_, i) => (
+          <line key={`scan-${i}`} x1="0" y1={90 + i * 80} x2="1920" y2={90 + i * 80} stroke="rgba(74,222,128,0.15)" strokeWidth="1" className={styles.scanLine} style={{ animationDelay: `${i * 0.03}s` }} />
         ))}
       </svg>
     </div>
@@ -202,27 +157,27 @@ function VineOverlay({ phase }: { phase: "draw" | "fade" }) {
 }
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Nordic Rosemaling", zh: "北欧玫瑰彩绘" };
+  const nameMap = { en: "Mechanical Scoring Funnel", zh: "机械评分漏斗" };
   const themeMap = {
-    en: "Norwegian rosemaling folk art — floral scrolls, cobalt blue and rose pink, warm Scandinavian craft heritage",
-    zh: "挪威玫瑰彩绘民间艺术——花卉卷草、钴蓝与玫瑰粉、温暖的斯堪的纳维亚工艺遗产",
+    en: "Colorful pinball machine — dark playfield, saturated coded lanes, scoreboard numbers ticking. Best for categorization, multi-stage filtering, scoring, and prioritization where making the sorting feel active beats a static list.",
+    zh: "彩色弹球机——深色赛场、饱和编码通道、记分牌数字跳动。最适合分类、多阶段过滤、评分和优先级排序，让排序过程动起来胜过静态列表。",
   };
-  const densityLabelMap = { en: "Ornate", zh: "华丽" };
-  const sceneTitles = { en: ["Title", "Styles", "Motifs", "Colors", "Closing"], zh: ["标题", "流派", "图案", "色彩", "结语"] };
+  const densityLabelMap = { en: "Playful", zh: "趣味" };
+  const sceneTitles = { en: ["Title", "Inputs", "Lanes", "Scores", "Closing"], zh: ["标题", "输入", "通道", "得分", "结语"] };
   const beatActions = {
     en: {
-      1: ["Title and flowers appear"],
-      2: ["Heading appears", "Styles 1-2 reveal", "Styles 3-4 reveal"],
-      3: ["Heading appears", "Motifs 1-2 appear", "Motifs 3-4 appear"],
-      4: ["Heading appears", "Colors 1-2 reveal", "Colors 3-4 reveal"],
-      5: ["Closing statement"],
+      1: ["Title and machine appear"],
+      2: ["Heading appears", "Candidates 1-2 drop in", "Candidates 3-4 drop in"],
+      3: ["Heading appears", "Lanes 1-2 activate", "Lanes 3-4 activate"],
+      4: ["Heading appears", "Scores 1-2 tick up", "Scores 3-4 tick up"],
+      5: ["Top pick confirmed"],
     },
     zh: {
-      1: ["标题和花朵呈现"],
-      2: ["标题呈现", "第 1-2 流派揭示", "第 3-4 流派揭示"],
-      3: ["标题呈现", "第 1-2 图案呈现", "第 3-4 图案呈现"],
-      4: ["标题呈现", "第 1-2 色揭示", "第 3-4 色揭示"],
-      5: ["结语呈现"],
+      1: ["标题和机器呈现"],
+      2: ["标题呈现", "第 1-2 候选落入", "第 3-4 候选落入"],
+      3: ["标题呈现", "第 1-2 通道激活", "第 3-4 通道激活"],
+      4: ["标题呈现", "第 1-2 分数跳动", "第 3-4 分数跳动"],
+      5: ["首选确认"],
     },
   };
   const scenes = [1, 2, 3, 4, 5].map((id) => {
@@ -246,46 +201,67 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   return {
     id: "32", band: "craft-cultural", name: nameMap[lang], theme: themeMap[lang],
     densityLabel: densityLabelMap[lang], heroScene: 3,
-    colors: { bg: "#1e3a5f", ink: "#f5e6c8", panel: "#2c5aa0" },
-    typography: { header: "Playfair Display 700", body: "Inter 400" },
-    tags: ["rosemaling", "nordic", "norwegian", "folk-art", "floral", "scandinavian", "traditional", "craft", "painting"],
-    fonts: ["Playfair Display", "Inter"], scenes,
+    colors: { bg: "#0d1117", ink: "#e2e8f0", panel: "#161b22" },
+    typography: { header: "Oswald 700", body: "Inter 400" },
+    tags: ["mechanical", "scoring-funnel", "pinball", "playfield", "scoreboard", "monospace", "filtering", "categorization", "arcade", "kinetic"],
+    fonts: ["Oswald", "JetBrains Mono", "Inter"], scenes,
   };
 }
 
 export default function NordicRosemaling({ scene, beat, language, isThumbnail, reducedMotion, onNavigate, isTransitionClone }: BespokeStyleProps) {
   useFonts();
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [vinePhase, setVinePhase] = useState<"draw" | "fade" | null>(null);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      setVinePhase("draw");
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    vinePhase: null as "spin" | "fade" | null,
+    lastScene: scene,
+  });
 
-      const fadeTimer = setTimeout(() => {
-        setVinePhase("fade");
-      }, 600);
+  // Synchronous derivation
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+    if (fadeTimerRef.current) {
+      clearTimeout(fadeTimerRef.current);
+    }
 
-      const doneTimer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-        setVinePhase(null);
+    if (!reducedMotion) {
+      fadeTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { ...prev, vinePhase: "fade" };
+        });
+      }, 400);
+
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, vinePhase: null, lastScene: prev.lastScene };
+        });
       }, TRANSITION_DURATION);
 
-      prevSceneRef.current = scene;
-      return () => {
-        clearTimeout(fadeTimer);
-        clearTimeout(doneTimer);
-      };
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        vinePhase: "spin",
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        vinePhase: null,
+        lastScene: scene,
+      });
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
+  var vinePhase = transitionInfo.vinePhase;
 
   const [entered, setEntered] = useState(false);
   useEffect(() => {
@@ -301,22 +277,20 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
     const c = SCENES[1][language as keyof typeof SCENES[1]];
     return (
       <div className={styles.scene1}>
-        <RosemalingFlower className={styles.flowerTL} color="#d4667a" />
-        <RosemalingFlower className={styles.flowerBR} color="#d4a843" />
+        <FunnelMachineSVG className={styles.flowerTL} />
         <div className={styles.scene1Content}>
-          <ScrollVine className={styles.vineTop} />
           <h1 className={styles.titleText}>{c.title}</h1>
           <div className={styles.titleBar} />
           <p className={styles.titleSub}>{c.sub}</p>
-          <ScrollVine className={styles.vineBottom} />
         </div>
+        <FunnelMachineSVG className={styles.flowerBR} />
       </div>
     );
   };
 
   const renderScene2 = (currentBeat: number) => {
     const c = SCENES[2][language as keyof typeof SCENES[2]];
-    const items = c.items as Array<{ name: string; desc: string }>;
+    const items = c.items as Array<{ name: string; desc: string; color: string }>;
     const visibleCount = currentBeat === 0 ? 0 : currentBeat === 1 ? 2 : 4;
     return (
       <div className={styles.scene2}>
@@ -327,8 +301,8 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
             const visible = i < visibleCount;
             const cls = [styles.card, visible && entered ? styles.cardVisible : ""].filter(Boolean).join(" ");
             return (
-              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s` }}>
-                <RosemalingFlower className={styles.cardFlower} color={i % 2 === 0 ? "#d4667a" : "#d4a843"} />
+              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.12}s`, borderColor: item.color }}>
+                <div className={styles.cardFlower} style={{ background: item.color, boxShadow: `0 0 2cqh ${item.color}40` }} />
                 <span className={styles.cardName}>{item.name}</span>
                 <p className={styles.cardDesc}>{item.desc}</p>
               </div>
@@ -341,9 +315,8 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
 
   const renderScene3 = (currentBeat: number) => {
     const c = SCENES[3][language as keyof typeof SCENES[3]];
-    const items = c.items as Array<{ name: string; meaning: string }>;
+    const items = c.items as Array<{ name: string; meaning: string; color: string }>;
     const visibleCount = currentBeat === 0 ? 0 : currentBeat === 1 ? 2 : 4;
-    const icons = ["✿", "❦", "♪", "♥"];
     return (
       <div className={styles.scene3}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -353,9 +326,14 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
             const visible = i < visibleCount;
             const cls = [styles.motifCard, visible && entered ? styles.cardVisible : ""].filter(Boolean).join(" ");
             return (
-              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s` }}>
-                <span className={styles.motifIcon}>{icons[i]}</span>
-                <span className={styles.motifName}>{item.name}</span>
+              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.12}s`, borderColor: item.color }}>
+                <div className={styles.motifIcon} style={{ background: `${item.color}20`, borderColor: item.color, color: item.color }}>
+                  <svg viewBox="0 0 24 24" fill="none" width="100%" height="100%">
+                    <path d="M12 2 L12 22 M4 12 L20 12" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                    <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" fill="none" />
+                  </svg>
+                </div>
+                <span className={styles.motifName} style={{ color: item.color }}>{item.name}</span>
                 <p className={styles.motifMeaning}>{item.meaning}</p>
               </div>
             );
@@ -367,8 +345,9 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
 
   const renderScene4 = (currentBeat: number) => {
     const c = SCENES[4][language as keyof typeof SCENES[4]];
-    const items = c.items as Array<{ name: string; hex: string }>;
+    const items = c.items as Array<{ name: string; score: string; tier: string }>;
     const visibleCount = currentBeat === 0 ? 0 : currentBeat === 1 ? 2 : 4;
+    const tierColors: Record<string, string> = { S: "#4ade80", A: "#60a5fa", B: "#fbbf24", C: "#f472b6" };
     return (
       <div className={styles.scene4}>
         <span className={styles.sceneLabel}>{c.label}</span>
@@ -377,16 +356,18 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
           {items.map((item, i) => {
             const visible = i < visibleCount;
             const cls = [styles.swatchCard, visible && entered ? styles.cardVisible : ""].filter(Boolean).join(" ");
+            const tierColor = tierColors[item.tier] || "#e2e8f0";
             return (
-              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.2}s` }}>
-                <div className={styles.swatchCircle} style={{ background: item.hex }} />
+              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s`, borderColor: tierColor }}>
+                <div className={styles.swatchCircle} style={{ background: `${tierColor}15`, borderColor: tierColor, color: tierColor, boxShadow: `0 0 3cqh ${tierColor}30` }}>
+                  <span className={styles.scoreValue}>{item.score}</span>
+                </div>
                 <span className={styles.swatchName}>{item.name}</span>
-                <span className={styles.swatchHex}>{item.hex}</span>
+                <span className={styles.swatchHex} style={{ color: tierColor }}>TIER {item.tier}</span>
               </div>
             );
           })}
         </div>
-        <ScrollVine className={styles.vineDecor} />
       </div>
     );
   };
@@ -395,7 +376,7 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
     const c = SCENES[5][language as keyof typeof SCENES[5]];
     return (
       <div className={styles.scene5}>
-        <RosemalingFlower className={styles.flowerCenter} color="#d4667a" />
+        <FunnelMachineSVG className={styles.flowerCenter} />
         <h2 className={styles.closingText}>{c.closing} <span className={styles.closingAccent}>{c.accent}</span></h2>
         <p className={styles.closingSub}>{c.sub}</p>
       </div>
@@ -422,7 +403,7 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
           const itemClasses = [styles.navItem, isActive ? styles.navItemActive : ""].filter(Boolean).join(" ");
           return (
             <button key={s} type="button" className={itemClasses} aria-label={`Jump to scene ${s}`} onClick={(e) => handleNavClick(e, s)}>
-              <span className={styles.navDot} />
+              <span className={styles.navDot}>{s}</span>
             </button>
           );
         })}
@@ -451,8 +432,8 @@ export default function NordicRosemaling({ scene, beat, language, isThumbnail, r
         </div>
       </div>
 
-      {/* Vine overlay during transition */}
-      {vinePhase && <VineOverlay phase={vinePhase} />}
+      {/* Gear spin overlay during transition */}
+      {vinePhase && <GearSpinOverlay phase={vinePhase} />}
 
       {renderNav()}
     </div>

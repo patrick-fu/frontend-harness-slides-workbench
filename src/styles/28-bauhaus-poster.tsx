@@ -13,81 +13,81 @@ function useFonts() {
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600;700&display=swap";
+      "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap";
     document.head.appendChild(link);
   }, []);
 }
 
 const SCENES = {
   1: {
-    en: { title: "BAUHAUS", sub: "Form Follows Function — Dessau 1919" },
-    zh: { title: "包豪斯", sub: "形式追随功能——德绍 1919" },
+    en: { title: "EXPEDITION", sub: "Public Lands Initiative — Explore, Protect, Restore" },
+    zh: { title: "探险", sub: "公共土地倡议——探索、保护、修复" },
   },
   2: {
     en: {
-      label: "Principles",
-      heading: "Three pillars of modern design",
+      label: "Landscapes",
+      heading: "Three regions to protect",
       pillars: [
-        { shape: "circle", color: "#e63946", title: "Red", desc: "Primary emotion" },
-        { shape: "square", color: "#1d3557", title: "Blue", desc: "Spiritual depth" },
-        { shape: "triangle", color: "#f4a261", title: "Yellow", desc: "Intellectual clarity" },
+        { shape: "circle", color: "#d4692a", title: "Desert", desc: "Arid lands and canyon country" },
+        { shape: "square", color: "#2a5a4a", title: "Forest", desc: "Old growth and watershed" },
+        { shape: "triangle", color: "#3a6a8a", title: "Coast", desc: "Tidal zones and headlands" },
       ],
     },
     zh: {
-      label: "原则",
-      heading: "现代设计三大支柱",
+      label: "地貌",
+      heading: "三个待保护的区域",
       pillars: [
-        { shape: "circle", color: "#e63946", title: "红", desc: "原始情感" },
-        { shape: "square", color: "#1d3557", title: "蓝", desc: "精神深度" },
-        { shape: "triangle", color: "#f4a261", title: "黄", desc: "智性清晰" },
+        { shape: "circle", color: "#d4692a", title: "沙漠", desc: "干旱土地与峡谷" },
+        { shape: "square", color: "#2a5a4a", title: "森林", desc: "原始林与水源地" },
+        { shape: "triangle", color: "#3a6a8a", title: "海岸", desc: "潮间带与海岬" },
       ],
     },
   },
   3: {
     en: {
-      label: "Masters",
-      heading: "Teachers of the Bauhaus",
+      label: "Rangers",
+      heading: "Voices of the land",
       masters: [
-        { name: "Walter Gropius", role: "Founder", years: "1919–1928" },
-        { name: "Wassily Kandinsky", role: "Painter", years: "1922–1933" },
-        { name: "Paul Klee", role: "Painter", years: "1921–1931" },
-        { name: "László Moholy-Nagy", role: "Typography", years: "1923–1928" },
+        { name: "Elena Marquez", role: "Field Lead", years: "12 seasons" },
+        { name: "Thomas Chen", role: "Botanist", years: "8 seasons" },
+        { name: "Sarah Whitfield", role: "Geologist", years: "15 seasons" },
+        { name: "Marcus Okafor", role: "Wildlife", years: "6 seasons" },
       ],
     },
     zh: {
-      label: "大师",
-      heading: "包豪斯的教师们",
+      label: "护林员",
+      heading: "土地的声音",
       masters: [
-        { name: "瓦尔特·格罗皮乌斯", role: "创始人", years: "1919–1928" },
-        { name: "瓦西里·康定斯基", role: "画家", years: "1922–1933" },
-        { name: "保罗·克利", role: "画家", years: "1921–1931" },
-        { name: "莫霍利-纳吉", role: "字体设计", years: "1923–1928" },
+        { name: "埃莱娜·马尔克斯", role: "野外领队", years: "12 季" },
+        { name: "陈托马斯", role: "植物学家", years: "8 季" },
+        { name: "莎拉·惠特菲尔德", role: "地质学家", years: "15 季" },
+        { name: "马库斯·奥卡福", role: "野生动物", years: "6 季" },
       ],
     },
   },
   4: {
     en: {
-      label: "Legacy",
-      heading: "Design for the machine age",
+      label: "Impact",
+      heading: "What we've protected together",
       stats: [
-        { value: "14", label: "Years active" },
-        { value: "3", label: "Cities" },
-        { value: "1250+", label: "Students" },
+        { value: "2.4M", label: "Acres preserved" },
+        { value: "184", label: "Species recorded" },
+        { value: "36K", label: "Volunteer hours" },
       ],
     },
     zh: {
-      label: "遗产",
-      heading: "为机器时代而设计",
+      label: "影响",
+      heading: "我们共同保护的成果",
       stats: [
-        { value: "14", label: "活跃年份" },
-        { value: "3", label: "座城市" },
-        { value: "1250+", label: "名学生" },
+        { value: "240万", label: "英亩受保护" },
+        { value: "184", label: "记录物种" },
+        { value: "3.6万", label: "志愿小时" },
       ],
     },
   },
   5: {
-    en: { closing: "Form", accent: "follows function", sub: "— The Bauhaus manifesto" },
-    zh: { closing: "形式", accent: "追随功能", sub: "—— 包豪斯宣言" },
+    en: { closing: "The land", accent: "needs us", sub: "— A public invitation to explore and protect" },
+    zh: { closing: "土地", accent: "需要我们", sub: "—— 探索与保护的公共邀请" },
   },
 };
 
@@ -114,30 +114,30 @@ function BauhausShape({ type, color, size, className }: { type: string; color: s
 }
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Bauhaus Poster", zh: "包豪斯海报" };
+  const nameMap = { en: "Expedition Screenprint", zh: "探险丝网印" };
   const themeMap = {
-    en: "Bauhaus 1919 — primary colors, geometric shapes, bold typography, and grid-based composition",
-    zh: "1919 包豪斯——原色、几何形状、粗体字体与网格构图",
+    en: "WPA poster fresh off the silkscreen — flat warm ink planes, visible grain, a horizon you can feel. Best for product launches with public-good angle, geographic themes, and community initiatives.",
+    zh: "刚从丝网印机取下的 WPA 海报——温暖平面墨色、可见油墨颗粒、可感知的地平线。最适合公益角度的产品发布、地理主题和社区倡议。",
   };
-  const densityLabelMap = { en: "Graphic", zh: "图形化" };
+  const densityLabelMap = { en: "Civic", zh: "公共" };
 
   const sceneTitles = {
-    en: ["Title", "Principles", "Masters", "Legacy", "Closing"],
-    zh: ["标题", "原则", "大师", "遗产", "结语"],
+    en: ["Title", "Landscapes", "Rangers", "Impact", "Closing"],
+    zh: ["标题", "地貌", "护林员", "影响", "结语"],
   };
 
   const beatActions = {
     en: {
-      1: ["Title and shapes appear"],
-      2: ["Heading appears", "Pillars 1-2 reveal", "Pillar 3 reveals"],
-      3: ["Heading appears", "Masters 1-2 appear", "Masters 3-4 appear"],
+      1: ["Title and horizon appear"],
+      2: ["Heading appears", "Regions 1-2 reveal", "Region 3 reveals"],
+      3: ["Heading appears", "Rangers 1-2 appear", "Rangers 3-4 appear"],
       4: ["Stats populate"],
       5: ["Closing statement"],
     },
     zh: {
-      1: ["标题和形状呈现"],
-      2: ["标题呈现", "第 1-2 支柱揭示", "第 3 支柱揭示"],
-      3: ["标题呈现", "第 1-2 位大师呈现", "第 3-4 位大师呈现"],
+      1: ["标题和地平线呈现"],
+      2: ["标题呈现", "第 1-2 区域揭示", "第 3 区域揭示"],
+      3: ["标题呈现", "第 1-2 位护林员呈现", "第 3-4 位呈现"],
       4: ["数据填充"],
       5: ["结语呈现"],
     },
@@ -188,10 +188,10 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 2,
-    colors: { bg: "#f0e6d2", ink: "#1a1a1a", panel: "#e6d9c0" },
-    typography: { header: "Archivo Black 400", body: "Inter 400" },
-    tags: ["bauhaus", "geometric", "primary-colors", "grid", "modernism", "typography", "1919", "dessau", "poster"],
-    fonts: ["Archivo Black", "Inter"],
+    colors: { bg: "#ede0cc", ink: "#2a3a2a", panel: "#e0d4bc" },
+    typography: { header: "Oswald 700", body: "Inter 400" },
+    tags: ["screenprint", "wpa", "civic", "landscape", "warm-ink", "horizon", "grain", "public-good", "exploratory", "poster"],
+    fonts: ["Oswald", "Inter"],
     scenes,
   };
 }
@@ -201,9 +201,45 @@ export default function BauhausPoster({
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   useLayoutEffect(() => {
     setEntered(false);
@@ -212,22 +248,6 @@ export default function BauhausPoster({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
-
-  // Detect scene changes for transition
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
-    }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -244,9 +264,9 @@ export default function BauhausPoster({
     return (
       <div className={styles.scene1}>
         <div className={styles.shapesArea}>
-          <BauhausShape type="circle" color="#e63946" size={120} className={styles.shapeCircle} />
-          <BauhausShape type="square" color="#1d3557" size={100} className={styles.shapeSquare} />
-          <BauhausShape type="triangle" color="#f4a261" size={110} className={styles.shapeTriangle} />
+          <BauhausShape type="circle" color="#d4692a" size={120} className={styles.shapeCircle} />
+          <BauhausShape type="square" color="#2a5a4a" size={100} className={styles.shapeSquare} />
+          <BauhausShape type="triangle" color="#3a6a8a" size={110} className={styles.shapeTriangle} />
         </div>
         <div className={styles.scene1Content}>
           <h1 className={styles.titleText}>{c.title}</h1>
@@ -326,9 +346,9 @@ export default function BauhausPoster({
           </div>
         )}
         <div className={styles.compositionArea}>
-          <BauhausShape type="circle" color="#e63946" size={60} className={styles.compCircle} />
-          <BauhausShape type="square" color="#1d3557" size={50} className={styles.compSquare} />
-          <BauhausShape type="triangle" color="#f4a261" size={55} className={styles.compTriangle} />
+          <BauhausShape type="circle" color="#d4692a" size={60} className={styles.compCircle} />
+          <BauhausShape type="square" color="#2a5a4a" size={50} className={styles.compSquare} />
+          <BauhausShape type="triangle" color="#3a6a8a" size={55} className={styles.compTriangle} />
         </div>
       </div>
     );
@@ -348,7 +368,7 @@ export default function BauhausPoster({
           {c.closing} <span className={styles.closingAccent}>{c.accent}</span>
         </h2>
         <p className={styles.closingSub}>{c.sub}</p>
-        <BauhausShape type="circle" color="#e63946" size={30} className={styles.closingDot} />
+        <BauhausShape type="circle" color="#d4692a" size={30} className={styles.closingDot} />
       </div>
     );
   };
@@ -412,7 +432,7 @@ export default function BauhausPoster({
       {/* Shape wipe overlay */}
       {isTransitioning && !reducedMotion && (
         <div className={styles.shapeOverlay} aria-hidden="true">
-          <BauhausShape type="circle" color="#e63946" size={400} className={styles.shapeWipe} />
+          <BauhausShape type="circle" color="#d4692a" size={400} className={styles.shapeWipe} />
         </div>
       )}
 

@@ -10,149 +10,148 @@ function useFonts() {
     link.id = id;
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap";
+      "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap";
     document.head.appendChild(link);
   }, []);
 }
 
 const SCENES = {
   1: {
-    en: { title: "CELTIC", titleEn: "Knotwork", sub: "Eternal Interlace — The Book of Kells Tradition" },
-    zh: { title: "凯尔特", titleEn: "结饰", sub: "永恒交织——凯尔经传统" },
+    en: { title: "CASSETTE", titleEn: "SYSTEM 77", sub: "Audio Products Catalogue — Model No. CR-7700" },
+    zh: { title: "卡带", titleEn: "系统 77", sub: "音响产品目录——型号 CR-7700" },
   },
   2: {
     en: {
-      label: "Motifs",
-      heading: "Sacred patterns of the Celts",
+      label: "Specifications",
+      heading: "Technical parameters",
       motifs: [
-        { name: "Triskele", meaning: "Three realms — land, sea, sky" },
-        { name: "Dara Knot", meaning: "Strength of the oak tree" },
-        { name: "Celtic Cross", meaning: "Four directions, infinite cycle" },
-        { name: "Shamrock", meaning: "Holy trinity in nature" },
+        { name: "Frequency", meaning: "20 Hz – 20 kHz ± 1 dB" },
+        { name: "Wow & Flutter", meaning: "Below 0.04% WRMS" },
+        { name: "Signal/Noise", meaning: "62 dB Dolby NR" },
+        { name: "Tape Speed", meaning: "4.76 cm/s (1⅞ ips)" },
       ],
     },
     zh: {
-      label: "纹样",
-      heading: "凯尔特的神圣图案",
+      label: "规格",
+      heading: "技术参数",
       motifs: [
-        { name: "三螺旋", meaning: "三界——陆、海、天" },
-        { name: "达拉结", meaning: "橡树的力量" },
-        { name: "凯尔特十字", meaning: "四方与无限循环" },
-        { name: "三叶草", meaning: "自然中的三位一体" },
+        { name: "频率响应", meaning: "20 Hz – 20 kHz ± 1 dB" },
+        { name: "抖晃率", meaning: "低于 0.04% WRMS" },
+        { name: "信噪比", meaning: "62 dB 杜比降噪" },
+        { name: "走带速度", meaning: "4.76 厘米/秒" },
       ],
     },
   },
   3: {
     en: {
-      label: "Manuscripts",
-      heading: "Illuminated treasures",
+      label: "Features",
+      heading: "Built for fidelity",
       manuscripts: [
-        { name: "Book of Kells", year: "c. 800", origin: "Iona / Kells" },
-        { name: "Book of Durrow", year: "c. 700", origin: "Durrow Abbey" },
-        { name: "Lindisfarne Gospels", year: "c. 700", origin: "Holy Island" },
+        { name: "Auto Reverse", year: "SYSTEM", origin: "Continuous play" },
+        { name: "Dolby B/C", year: "NOISE", origin: "Dual NR system" },
+        { name: "Metal Tape", year: "COMPAT", origin: "Type IV ready" },
       ],
     },
     zh: {
-      label: "手抄本",
-      heading: "泥金装饰珍宝",
+      label: "特性",
+      heading: "为保真而生",
       manuscripts: [
-        { name: "凯尔经", year: "约 800", origin: "艾奥纳 / 凯尔" },
-        { name: "达罗书", year: "约 700", origin: "达罗修道院" },
-        { name: "林迪斯法恩福音书", year: "约 700", origin: "圣岛" },
+        { name: "自动翻面", year: "系统", origin: "连续播放" },
+        { name: "杜比 B/C", year: "降噪", origin: "双降噪系统" },
+        { name: "金属带", year: "兼容", origin: "支持四类磁带" },
       ],
     },
   },
   4: {
     en: {
-      label: "Materials",
-      heading: "Tools of the illuminator",
+      label: "Controls",
+      heading: "Interface layout",
       materials: [
-        { name: "Vellum", desc: "Calfskin parchment" },
-        { name: "Iron Gall Ink", desc: "Oak gall + iron sulfate" },
-        { name: "Gold Leaf", desc: "24k gold on gesso" },
-        { name: "Mineral Pigments", desc: "Azurite, malachite, vermilion" },
+        { name: "Transport", desc: "Soft-touch logic keys" },
+        { name: "VU Meters", desc: "Analog peak display" },
+        { name: "Tuning", desc: "Flywheel dial control" },
+        { name: "Output", desc: "RCA + headphone amp" },
       ],
     },
     zh: {
-      label: "材料",
-      heading: "泥金装饰师的工具",
+      label: "控制",
+      heading: "界面布局",
       materials: [
-        { name: "犊皮纸", desc: "小牛皮羊皮纸" },
-        { name: "铁胆墨水", desc: "橡果瘿 + 硫酸铁" },
-        { name: "金箔", desc: "24K 金贴于石膏底" },
-        { name: "矿物颜料", desc: "石青、孔雀石、朱砂" },
+        { name: "走带机构", desc: "轻触逻辑按键" },
+        { name: "VU 电平表", desc: "模拟峰值显示" },
+        { name: "调谐", desc: "飞轮旋钮控制" },
+        { name: "输出", desc: "RCA + 耳放" },
       ],
     },
   },
   5: {
-    en: { closing: "The thread", accent: "never breaks", sub: "— Eternal interlace" },
-    zh: { closing: "线", accent: "永不断裂", sub: "—— 永恒的交织" },
+    en: { closing: "Press", accent: "play", sub: "— Model CR-7700, serial no. 004271" },
+    zh: { closing: "按下", accent: "播放", sub: "—— 型号 CR-7700，序列号 004271" },
   },
 };
 
 const TRANSITION_DURATION = 650;
 const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
 
-function CelticKnotSVG({ className }: { className?: string }) {
+function RainbowRibbonSVG({ className }: { className?: string }) {
+  const colors = ["#d4692a", "#d4a02a", "#5a8a3a", "#3a6a8a", "#6a4a8a", "#d4692a"];
   return (
-    <svg className={className} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <g stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round">
-        {/* Central interlace */}
-        <path d="M100 30 Q60 30 60 70 Q60 100 100 100 Q140 100 140 70 Q140 30 100 30" />
-        <path d="M100 170 Q60 170 60 130 Q60 100 100 100 Q140 100 140 130 Q140 170 100 170" />
-        <path d="M30 100 Q30 60 70 60 Q100 60 100 100 Q100 140 70 140 Q30 140 30 100" />
-        <path d="M170 100 Q170 60 130 60 Q100 60 100 100 Q100 140 130 140 Q170 140 170 100" />
-        {/* Corner flourishes */}
-        <path d="M40 40 Q55 55 70 40" opacity="0.5" />
-        <path d="M160 40 Q145 55 130 40" opacity="0.5" />
-        <path d="M40 160 Q55 145 70 160" opacity="0.5" />
-        <path d="M160 160 Q145 145 130 160" opacity="0.5" />
-      </g>
-      <circle cx="100" cy="100" r="8" fill="currentColor" opacity="0.3" />
+    <svg className={className} viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {colors.map((c, i) => (
+        <path
+          key={i}
+          d={`M-20 ${30 + i * 28} Q100 ${10 + i * 28} 200 ${40 + i * 28} Q300 ${70 + i * 28} 420 ${40 + i * 28}`}
+          stroke={c}
+          strokeWidth="22"
+          fill="none"
+          strokeLinecap="round"
+          opacity="0.85"
+        />
+      ))}
     </svg>
   );
 }
 
-function TriskeleSVG({ className }: { className?: string }) {
+function CassetteIconSVG({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <g stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round">
-        <path d="M50 50 Q50 20 70 15 Q85 12 80 30 Q75 45 50 50" />
-        <path d="M50 50 Q76 65 85 80 Q90 92 72 88 Q55 82 50 50" />
-        <path d="M50 50 Q24 65 15 80 Q10 92 28 88 Q45 82 50 50" />
-        <path d="M50 50 Q50 20 30 15 Q15 12 20 30 Q25 45 50 50" />
-      </g>
-      <circle cx="50" cy="50" r="5" fill="currentColor" />
+    <svg className={className} viewBox="0 0 100 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="4" y="8" width="92" height="48" rx="4" stroke="currentColor" strokeWidth="2.5" fill="none" />
+      <rect x="12" y="16" width="30" height="22" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.6" />
+      <rect x="58" y="16" width="30" height="22" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.6" />
+      <circle cx="27" cy="27" r="6" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.5" />
+      <circle cx="73" cy="27" r="6" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.5" />
+      <line x1="42" y1="44" x2="58" y2="44" stroke="currentColor" strokeWidth="1.5" opacity="0.4" />
+      <rect x="20" y="48" width="60" height="4" rx="1" fill="currentColor" opacity="0.3" />
     </svg>
   );
 }
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Celtic Knot", zh: "凯尔特结" };
+  const nameMap = { en: "Cassette-Era Packaging", zh: "卡带时代包装" };
   const themeMap = {
-    en: "Celtic knotwork — eternal interlace patterns, illuminated manuscript colors, and spiral motifs",
-    zh: "凯尔特结饰——永恒交织图案、泥金手抄本色彩与螺旋纹样",
+    en: "1970s Japanese audio catalogue — warm cream paper, diagonal rainbow ribbon, dense spec-sheet. Best for product launches with retro-tech nostalgia and indie tool releases.",
+    zh: "1970 年代日本音响产品目录——暖奶油纸、对角彩虹带、密集规格表。最适合复古科技怀旧的产品发布和独立工具发布。",
   };
-  const densityLabelMap = { en: "Intricate", zh: "繁复" };
+  const densityLabelMap = { en: "Dense", zh: "密集" };
 
   const sceneTitles = {
-    en: ["Title", "Motifs", "Manuscripts", "Materials", "Closing"],
-    zh: ["标题", "纹样", "手抄本", "材料", "结语"],
+    en: ["Title", "Specifications", "Features", "Controls", "Closing"],
+    zh: ["标题", "规格", "特性", "控制", "结语"],
   };
 
   const beatActions = {
     en: {
-      1: ["Title and knot appear"],
-      2: ["Heading appears", "Motifs 1-2 reveal", "Motifs 3-4 reveal"],
-      3: ["Heading appears", "Manuscripts 1-2 appear", "Manuscript 3 appears"],
-      4: ["Heading appears", "Materials 1-2 reveal", "Materials 3-4 reveal"],
+      1: ["Title and ribbon appear"],
+      2: ["Heading appears", "Specs 1-2 reveal", "Specs 3-4 reveal"],
+      3: ["Heading appears", "Features 1-2 appear", "Feature 3 appears"],
+      4: ["Heading appears", "Controls 1-2 reveal", "Controls 3-4 reveal"],
       5: ["Closing statement"],
     },
     zh: {
-      1: ["标题和结饰呈现"],
-      2: ["标题呈现", "第 1-2 纹样揭示", "第 3-4 纹样揭示"],
-      3: ["标题呈现", "第 1-2 本手抄本呈现", "第 3 本呈现"],
-      4: ["标题呈现", "第 1-2 种材料揭示", "第 3-4 种揭示"],
+      1: ["标题和彩虹带呈现"],
+      2: ["标题呈现", "第 1-2 规格揭示", "第 3-4 规格揭示"],
+      3: ["标题呈现", "第 1-2 特性呈现", "第 3 特性呈现"],
+      4: ["标题呈现", "第 1-2 控制揭示", "第 3-4 控制揭示"],
       5: ["结语呈现"],
     },
   };
@@ -202,10 +201,10 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 1,
-    colors: { bg: "#1a3a2a", ink: "#d4a843", panel: "#0f2818" },
-    typography: { header: "Cinzel 700", body: "Inter 400" },
-    tags: ["celtic", "knotwork", "irish", "illuminated", "manuscript", "interlace", "triskele", "medieval", "traditional"],
-    fonts: ["Cinzel", "Inter"],
+    colors: { bg: "#f5ead0", ink: "#3d2b1f", panel: "#ede0c4" },
+    typography: { header: "Oswald 700", body: "Inter 400" },
+    tags: ["cassette", "retro-tech", "j-cards", "spec-sheet", "warm-cream", "rainbow-ribbon", "1970s", "product-catalogue", "industrial-sans", "halftone"],
+    fonts: ["Oswald", "Inter", "JetBrains Mono"],
     scenes,
   };
 }
@@ -215,9 +214,45 @@ export default function CelticKnot({
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   useLayoutEffect(() => {
     setEntered(false);
@@ -226,22 +261,6 @@ export default function CelticKnot({
     });
     return () => cancelAnimationFrame(id);
   }, [scene]);
-
-  // Detect scene changes for transition
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
-    }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -257,7 +276,7 @@ export default function CelticKnot({
     const c = SCENES[1][language as keyof typeof SCENES[1]];
     return (
       <div className={styles.scene1}>
-        <CelticKnotSVG className={styles.knotCenter} />
+        <RainbowRibbonSVG className={styles.knotCenter} />
         <div className={styles.scene1Content}>
           <h1 className={styles.titleMain}>{c.title}</h1>
           <p className={styles.titleEn}>{c.titleEn}</p>
@@ -283,7 +302,7 @@ export default function CelticKnot({
             const cls = [styles.motifCard, visible && showEntered ? styles.motifVisible : ""].filter(Boolean).join(" ");
             return (
               <div key={i} className={cls} style={reducedMotion || forceEntered ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s` }}>
-                <TriskeleSVG className={styles.motifIcon} />
+                <CassetteIconSVG className={styles.motifIcon} />
                 <span className={styles.motifName}>{m.name}</span>
                 <p className={styles.motifMeaning}>{m.meaning}</p>
               </div>
@@ -359,7 +378,7 @@ export default function CelticKnot({
     const c = SCENES[5][language as keyof typeof SCENES[5]];
     return (
       <div className={styles.scene5}>
-        <CelticKnotSVG className={styles.knotLarge} />
+        <CassetteIconSVG className={styles.knotLarge} />
         <h2 className={styles.closingText}>
           {c.closing} <span className={styles.closingAccent}>{c.accent}</span>
         </h2>
@@ -394,7 +413,7 @@ export default function CelticKnot({
               aria-label={`Jump to scene ${s}`}
               onClick={(e) => handleNavClick(e, s)}
             >
-              <TriskeleSVG className={styles.navIcon} />
+              <CassetteIconSVG className={styles.navIcon} />
             </button>
           );
         })}
@@ -416,7 +435,7 @@ export default function CelticKnot({
         </div>
       )}
 
-      {/* Interlace weave strands overlay during transition */}
+      {/* Rainbow ribbon strands overlay during transition */}
       {isTransitioning && !reducedMotion && (
         <div className={styles.strandOverlay} aria-hidden="true">
           <div className={`${styles.strand} ${styles.strand1}`} />

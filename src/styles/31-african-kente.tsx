@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./31-african-kente.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -10,113 +10,114 @@ function useFonts() {
     const link = document.createElement("link");
     link.id = id;
     link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap";
     document.head.appendChild(link);
   }, []);
 }
 
 const SCENES = {
   1: {
-    en: { title: "KENTE", sub: "Cloth of Kings — Asante Weaving Tradition" },
-    zh: { title: "肯特布", sub: "王者之布——阿散蒂编织传统" },
+    en: { title: "RALLY", sub: "A Call to Action — Movement Building for 2026" },
+    zh: { title: "集结", sub: "行动号召——2026 年运动建设" },
   },
   2: {
     en: {
-      label: "Symbolism",
-      heading: "Colors that speak",
+      label: "Demands",
+      heading: "What we stand for",
       items: [
-        { name: "Gold", meaning: "Royalty, wealth, glory", color: "#d4a843" },
-        { name: "Green", meaning: "Growth, harvest, renewal", color: "#2d7a3a" },
-        { name: "Red", meaning: "Sacrifice, blood, courage", color: "#c0392b" },
-        { name: "Black", meaning: "Ancestors, spirit, maturity", color: "#1a1a1a" },
+        { name: "Access", meaning: "Open to all, barriers removed", color: "#d42a2a" },
+        { name: "Justice", meaning: "Fair process, clear rules", color: "#111111" },
+        { name: "Velocity", meaning: "Move fast, ship faster", color: "#d42a2a" },
+        { name: "Solidarity", meaning: "No one left behind", color: "#111111" },
       ],
     },
     zh: {
-      label: "象征",
-      heading: "会说话的颜色",
+      label: "主张",
+      heading: "我们的立场",
       items: [
-        { name: "金", meaning: "王权、财富、荣耀", color: "#d4a843" },
-        { name: "绿", meaning: "生长、丰收、新生", color: "#2d7a3a" },
-        { name: "红", meaning: "牺牲、血脉、勇气", color: "#c0392b" },
-        { name: "黑", meaning: "祖先、灵魂、成熟", color: "#1a1a1a" },
+        { name: "开放", meaning: "面向所有人，移除障碍", color: "#d42a2a" },
+        { name: "公正", meaning: "公平流程，清晰规则", color: "#111111" },
+        { name: "速度", meaning: "快速行动，更快交付", color: "#d42a2a" },
+        { name: "团结", meaning: "不让任何人掉队", color: "#111111" },
       ],
     },
   },
   3: {
     en: {
-      label: "Patterns",
-      heading: "Weaves with meaning",
+      label: "Voices",
+      heading: "Who is with us",
       items: [
-        { name: "Adwinasa", meaning: "Excellence of craftsmanship" },
-        { name: "Nkate Nkwan", meaning: "Path of the spider — wisdom" },
-        { name: "Emaa Da", meaning: "Knowledge of the community" },
+        { name: "Builders", meaning: "4,200+ active contributors" },
+        { name: "Organizations", meaning: "180+ groups aligned" },
+        { name: "Cities", meaning: "34 countries represented" },
       ],
     },
     zh: {
-      label: "图案",
-      heading: "有意义的编织",
+      label: "声音",
+      heading: "谁与我们同行",
       items: [
-        { name: "阿德维纳萨", meaning: "工艺之卓越" },
-        { name: "恩卡特恩宽", meaning: "蜘蛛之路——智慧" },
-        { name: "埃玛达", meaning: "社群之知识" },
+        { name: "建设者", meaning: "4200+ 活跃贡献者" },
+        { name: "组织", meaning: "180+ 团体结盟" },
+        { name: "城市", meaning: "覆盖 34 个国家" },
       ],
     },
   },
   4: {
     en: {
-      label: "Process",
-      heading: "From thread to throne",
+      label: "Momentum",
+      heading: "The timeline of action",
       items: [
-        { num: "01", title: "Spinning", desc: "Cotton thread spun by hand" },
-        { num: "02", title: "Dyeing", desc: "Natural indigo and bark dyes" },
-        { num: "03", title: "Weaving", desc: "Loom strips, 10cm wide" },
-        { num: "04", title: "Assembly", desc: "Strips sewn into full cloth" },
+        { num: "01", title: "Signal", desc: "First call goes out" },
+        { num: "02", title: "Gather", desc: "Coalition forms" },
+        { num: "03", title: "Mobilize", desc: "Resources deployed" },
+        { num: "04", title: "Deliver", desc: "Results made public" },
       ],
     },
     zh: {
-      label: "工艺",
-      heading: "从线到王座",
+      label: "势头",
+      heading: "行动时间表",
       items: [
-        { num: "01", title: "纺线", desc: "手工纺制棉线" },
-        { num: "02", title: "染色", desc: "天然靛蓝与树皮染料" },
-        { num: "03", title: "编织", desc: "织机条带，宽 10 厘米" },
-        { num: "04", title: "拼接", desc: "条带缝合成整布" },
+        { num: "01", title: "信号", desc: "发出第一声号召" },
+        { num: "02", title: "集结", desc: "联盟形成" },
+        { num: "03", title: "动员", desc: "资源部署" },
+        { num: "04", title: "交付", desc: "成果公开" },
       ],
     },
   },
   5: {
-    en: { closing: "The cloth", accent: "tells the story", sub: "— Woven into every thread" },
-    zh: { closing: "布", accent: "讲述故事", sub: "—— 织入每根线中" },
+    en: { closing: "Rise", accent: "together", sub: "— The movement starts now" },
+    zh: { closing: "共同", accent: "崛起", sub: "—— 运动从现在开始" },
   },
 };
 
 const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 };
-const TRANSITION_DURATION = 700;
+const TRANSITION_DURATION = 500;
 
-const WEFT_COLORS = ["#d4a843", "#2d7a3a", "#c0392b", "#1a1a1a", "#003DA5", "#d4a843", "#2d7a3a", "#c0392b"];
+const WEDGE_COLORS = ["#d42a2a", "#111111", "#d42a2a", "#111111", "#f0e8d8", "#d42a2a", "#111111", "#d42a2a"];
 
-function KenteStrip({ className }: { className?: string }) {
-  const colors = ["#d4a843", "#2d7a3a", "#c0392b", "#1a1a1a", "#d4a843", "#2d7a3a", "#c0392b", "#1a1a1a"];
+function RedWedgeSVG({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 400 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      {colors.map((c, i) => (
-        <rect key={i} x={i * 50} y="0" width="50" height="30" fill={c} opacity="0.9" />
-      ))}
-      {[...Array(15)].map((_, i) => (
-        <line key={i} x1={i * 27} y1="0" x2={i * 27} y2="30" stroke="#1a1a1a" strokeWidth="0.5" opacity="0.3" />
-      ))}
+    <svg className={className} viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {/* Main red wedge driving diagonally */}
+      <polygon points="0,280 400,20 400,80 60,300" fill="#d42a2a" opacity="0.9" />
+      {/* Black counter-wedge */}
+      <polygon points="0,200 350,0 400,0 400,40 50,240" fill="#111111" opacity="0.15" />
+      {/* Fragment rectangles suggesting photomontage */}
+      <rect x="280" y="180" width="80" height="60" fill="#111111" opacity="0.7" transform="rotate(-15 320 210)" />
+      <rect x="60" y="60" width="50" height="70" fill="#d42a2a" opacity="0.5" transform="rotate(10 85 95)" />
+      <line x1="0" y1="150" x2="400" y2="50" stroke="#111111" strokeWidth="3" opacity="0.3" />
     </svg>
   );
 }
 
-function WeftBars({ phase }: { phase: "enter" | "fade" }) {
-  const barPositions = [8, 20, 33, 46, 58, 71, 84, 94];
+function WedgeBars({ phase }: { phase: "enter" | "fade" }) {
+  const barPositions = [10, 22, 35, 48, 60, 72, 84, 92];
   return (
     <div className={`${styles.weftOverlay} ${phase === "fade" ? styles.weftOverlayFade : ""}`} aria-hidden="true">
       {barPositions.map((top, i) => {
         const fromLeft = i % 2 === 0;
-        const color = WEFT_COLORS[i % WEFT_COLORS.length];
-        const delay = fromLeft ? i * 50 : i * 50 + 25;
+        const color = WEDGE_COLORS[i % WEDGE_COLORS.length];
+        const delay = fromLeft ? i * 40 : i * 40 + 20;
         const barClass = [
           styles.weftBar,
           fromLeft ? styles.weftBarLeft : styles.weftBarRight,
@@ -130,6 +131,7 @@ function WeftBars({ phase }: { phase: "enter" | "fade" }) {
               top: `${top}%`,
               background: color,
               animationDelay: `${delay}ms`,
+              transform: `rotate(${-3 + (i % 3)}deg)`,
             }}
           />
         );
@@ -139,27 +141,27 @@ function WeftBars({ phase }: { phase: "enter" | "fade" }) {
 }
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "African Kente", zh: "肯特布" };
+  const nameMap = { en: "Red-Wedge Agitprop", zh: "红楔宣传画" };
   const themeMap = {
-    en: "Asante Kente cloth — vibrant woven stripes, symbolic colors, and West African textile heritage",
-    zh: "阿散蒂肯特布——鲜艳编织条纹、象征色彩与西非纺织遗产",
+    en: "Political poster at dawn — red wedge driving into black, type as structural beams, diagonal thrust. Best for launches, calls to action, movement-building, and content that needs to galvanize rather than persuade.",
+    zh: "黎明时分的政治海报——红楔切入黑暗、字体即结构梁、对角线冲击力。最适合发布、行动号召、运动建设，以及需要激励而非说服的内容。",
   };
-  const densityLabelMap = { en: "Vibrant", zh: "鲜艳" };
-  const sceneTitles = { en: ["Title", "Symbolism", "Patterns", "Process", "Closing"], zh: ["标题", "象征", "图案", "工艺", "结语"] };
+  const densityLabelMap = { en: "Urgent", zh: "紧迫" };
+  const sceneTitles = { en: ["Title", "Demands", "Voices", "Momentum", "Closing"], zh: ["标题", "主张", "声音", "势头", "结语"] };
   const beatActions = {
     en: {
-      1: ["Title and pattern appear"],
-      2: ["Heading appears", "Colors 1-2 reveal", "Colors 3-4 reveal"],
-      3: ["Heading appears", "Patterns 1-2 appear", "Pattern 3 appears"],
-      4: ["Heading appears", "Steps 1-2 reveal", "Steps 3-4 reveal"],
-      5: ["Closing statement"],
+      1: ["Title and wedge appear"],
+      2: ["Heading appears", "Demands 1-2 slam in", "Demands 3-4 slam in"],
+      3: ["Heading appears", "Voices 1-2 assemble", "Voice 3 joins"],
+      4: ["Heading appears", "Steps 1-2 lock in", "Steps 3-4 lock in"],
+      5: ["Closing manifesto"],
     },
     zh: {
-      1: ["标题和图案呈现"],
-      2: ["标题呈现", "第 1-2 色揭示", "第 3-4 色揭示"],
-      3: ["标题呈现", "第 1-2 图案呈现", "第 3 图案呈现"],
-      4: ["标题呈现", "第 1-2 步揭示", "第 3-4 步揭示"],
-      5: ["结语呈现"],
+      1: ["标题和红楔呈现"],
+      2: ["标题呈现", "第 1-2 主张砸入", "第 3-4 主张砸入"],
+      3: ["标题呈现", "第 1-2 声音集结", "第 3 声音加入"],
+      4: ["标题呈现", "第 1-2 步锁定", "第 3-4 步锁定"],
+      5: ["结语宣言"],
     },
   };
   const scenes = [1, 2, 3, 4, 5].map((id) => {
@@ -193,9 +195,9 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   return {
     id: "31", band: "craft-cultural", name: nameMap[lang], theme: themeMap[lang],
     densityLabel: densityLabelMap[lang], heroScene: 2,
-    colors: { bg: "#1a1a1a", ink: "#d4a843", panel: "#2a2a2a" },
+    colors: { bg: "#f0e8d8", ink: "#111111", panel: "#e8dfc8" },
     typography: { header: "Oswald 700", body: "Inter 400" },
-    tags: ["kente", "african", "weaving", "asante", "textile", "symbolic", "west-africa", "royal", "traditional"],
+    tags: ["agitprop", "red-wedge", "political-poster", "diagonal", "manifesto", "raw-paper", "type-as-structure", "photomontage", "rally", "urgent"],
     fonts: ["Oswald", "Inter"], scenes,
   };
 }
@@ -203,36 +205,58 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export default function AfricanKente({ scene, beat, language, isThumbnail, reducedMotion, onNavigate, isTransitionClone }: BespokeStyleProps) {
   useFonts();
 
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [weftPhase, setWeftPhase] = useState<"enter" | "fade" | null>(null);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      setWeftPhase("enter");
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    weftPhase: null as "enter" | "fade" | null,
+    lastScene: scene,
+  });
 
-      const fadeTimer = setTimeout(() => {
-        setWeftPhase("fade");
-      }, 420);
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
+    }
+    if (fadeTimerRef.current) {
+      clearTimeout(fadeTimerRef.current);
+    }
 
-      const doneTimer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-        setWeftPhase(null);
+    if (!reducedMotion) {
+      fadeTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { ...prev, weftPhase: "fade" };
+        });
+      }, 300);
+
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, weftPhase: null, lastScene: prev.lastScene };
+        });
       }, TRANSITION_DURATION);
 
-      prevSceneRef.current = scene;
-      return () => {
-        clearTimeout(fadeTimer);
-        clearTimeout(doneTimer);
-      };
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        weftPhase: "enter",
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        weftPhase: null,
+        lastScene: scene,
+      });
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
+  var weftPhase = transitionInfo.weftPhase;
 
   const [entered, setEntered] = useState(false);
   useEffect(() => {
@@ -241,21 +265,21 @@ export default function AfricanKente({ scene, beat, language, isThumbnail, reduc
     return () => cancelAnimationFrame(id);
   }, [scene]);
 
-  // FLIP for scene 3 pattern list
+  // FLIP for scene 3 list
   const { ref: patternListRef } = useFLIP<HTMLDivElement>({
     watch: [beat],
-    duration: 400,
+    duration: 350,
     easing: "cubic-bezier(0.16, 1, 0.3, 1)",
   });
 
-  // FLIP for scene 2 color grid and scene 4 process grid
+  // FLIP for scene 2 and scene 4 grids
   const { ref: grid2Ref } = useFLIP<HTMLDivElement>({
     watch: [beat],
-    duration: 400,
+    duration: 350,
   });
   const { ref: grid4Ref } = useFLIP<HTMLDivElement>({
     watch: [beat],
-    duration: 400,
+    duration: 350,
   });
 
   const handleNavClick = useCallback((e: React.MouseEvent, targetScene: number) => { e.stopPropagation(); onNavigate?.(targetScene, 0); }, [onNavigate]);
@@ -265,7 +289,7 @@ export default function AfricanKente({ scene, beat, language, isThumbnail, reduc
     const c = SCENES[1][language as keyof typeof SCENES[1]];
     return (
       <div className={styles.scene1}>
-        <KenteStrip className={styles.stripTop} />
+        <RedWedgeSVG className={styles.stripTop} />
         <div className={styles.scene1Content}>
           <h1 className={styles.titleText}>{c.title}</h1>
           <div className={styles.titleDivider}>
@@ -273,7 +297,6 @@ export default function AfricanKente({ scene, beat, language, isThumbnail, reduc
           </div>
           <p className={styles.titleSub}>{c.sub}</p>
         </div>
-        <KenteStrip className={styles.stripBottom} />
       </div>
     );
   };
@@ -291,7 +314,7 @@ export default function AfricanKente({ scene, beat, language, isThumbnail, reduc
             const visible = i < visibleCount;
             const cls = [styles.card, visible && entered ? styles.cardVisible : ""].filter(Boolean).join(" ");
             return (
-              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s` }}>
+              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.1}s` }}>
                 <div className={styles.swatch} style={{ background: item.color }} />
                 <span className={styles.cardName}>{item.name}</span>
                 <p className={styles.cardDesc}>{item.meaning}</p>
@@ -316,8 +339,10 @@ export default function AfricanKente({ scene, beat, language, isThumbnail, reduc
             const visible = i < visibleCount;
             const cls = [styles.listRow, visible && entered ? styles.listVisible : ""].filter(Boolean).join(" ");
             return (
-              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.2}s` }}>
-                <KenteStrip className={styles.stripMini} />
+              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s` }}>
+                <div className={styles.stripMiniWrap}>
+                  <div className={styles.stripMini} />
+                </div>
                 <span className={styles.listName}>{item.name}</span>
                 <span className={styles.listMeaning}>{item.meaning}</span>
               </div>
@@ -341,7 +366,7 @@ export default function AfricanKente({ scene, beat, language, isThumbnail, reduc
             const visible = i < visibleCount;
             const cls = [styles.stepCard, visible && entered ? styles.cardVisible : ""].filter(Boolean).join(" ");
             return (
-              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.15}s` }}>
+              <div key={i} className={cls} style={reducedMotion ? { opacity: visible ? 1 : 0 } : { transitionDelay: `${i * 0.1}s` }}>
                 <span className={styles.stepNum}>{item.num}</span>
                 <span className={styles.stepTitle}>{item.title}</span>
                 <p className={styles.stepDesc}>{item.desc}</p>
@@ -357,7 +382,7 @@ export default function AfricanKente({ scene, beat, language, isThumbnail, reduc
     const c = SCENES[5][language as keyof typeof SCENES[5]];
     return (
       <div className={styles.scene5}>
-        <KenteStrip className={styles.stripCenter} />
+        <RedWedgeSVG className={styles.stripCenter} />
         <h2 className={styles.closingText}>{c.closing} <span className={styles.closingAccent}>{c.accent}</span></h2>
         <p className={styles.closingSub}>{c.sub}</p>
       </div>
@@ -413,8 +438,8 @@ export default function AfricanKente({ scene, beat, language, isThumbnail, reduc
         </div>
       </div>
 
-      {/* Weft bars overlay during transition */}
-      {weftPhase && <WeftBars phase={weftPhase} />}
+      {/* Wedge bars overlay during transition */}
+      {weftPhase && <WedgeBars phase={weftPhase} />}
 
       {renderNav()}
     </div>

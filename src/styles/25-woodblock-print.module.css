@@ -1,10 +1,10 @@
-/* Style 25: Woodblock Print — Craft & Cultural Traditions */
-/* Ukiyo-e aesthetic: indigo on beige, wave motifs, Fuji silhouettes */
+/* Style 25: Woodblock Floating-World — Craft & Cultural */
+/* Hand-pressed woodblock print on warm paper: indigo, vermilion seal, bokashi sky */
 
 .root {
-  --style-25-bg: #e8dcc8;
+  --style-25-bg: #ead9c0;
   --style-25-ink: #1a3a5c;
-  --style-25-panel: #f0e8d8;
+  --style-25-panel: #f0e6d2;
   --style-25-accent: #c75b3a;
   --style-25-gold: #b8956a;
   width: 100%;
@@ -14,6 +14,18 @@
   background: var(--style-25-bg);
   color: var(--style-25-ink);
   font-family: "Noto Serif JP", "Inter", system-ui, sans-serif;
+}
+
+/* Warm paper texture — fibrous, slightly uneven */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse at 30% 35%, rgba(184, 149, 106, 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 65%, rgba(184, 149, 106, 0.05) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .root.thumbnail {
@@ -38,6 +50,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .animateSceneEnter {
@@ -57,7 +70,7 @@
 
 /* Woodblock press: stamp-down from above */
 .enterAnim {
-  animation: woodblockPressIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: woodblockPressIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   z-index: 2;
 }
 

@@ -1,5 +1,5 @@
-/* Style 27: Art Deco — Craft & Cultural Traditions */
-/* 1920s geometric luxury: gold on midnight blue, sunbursts, stepped forms */
+/* Style 27: Machine-Age Deco — Craft & Cultural */
+/* Ocean liner saloon: engineered symmetry, lacquered depth, metallic precision */
 
 .root {
   --style-27-bg: #0a1628;
@@ -13,7 +13,7 @@
   overflow: hidden;
   background: var(--style-27-bg);
   color: var(--style-27-cream);
-  font-family: "Playfair Display", "Inter", system-ui, serif;
+  font-family: "Oswald", "Inter", system-ui, sans-serif;
 }
 
 .root.thumbnail { font-size: 0.6em; }
@@ -47,6 +47,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .animateSceneEnter {
@@ -70,7 +71,7 @@
 }
 
 .enterAnim {
-  animation: decoEnter 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: decoEnter 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
   z-index: 2;
 }
 

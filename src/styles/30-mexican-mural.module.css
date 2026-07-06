@@ -1,19 +1,18 @@
-/* Style 30: Mexican Mural — Craft & Cultural Traditions */
-/* Earth tones, revolutionary boldness, monumental fresco wall aesthetic */
+/* Style 30: Neo-Brutalist Bulletin — Craft & Cultural */
+/* Protest poster on concrete — thick black rules, hard offset shadows, electric accent */
 
 .root {
-  --style-30-bg: #2d1810;
-  --style-30-terra: #c0392b;
-  --style-30-sun: #f4a261;
-  --style-30-cream: #f0e0c8;
-  --style-30-olive: #4a6741;
-  --style-30-panel: #3d2418;
+  --style-30-bg: #f5f0e8;
+  --style-30-ink: #1a1a1a;
+  --style-30-panel: #ebe5da;
+  --style-30-accent: #d43a2a;
+  --style-30-shadow: #1a1a1a;
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
   background: var(--style-30-bg);
-  color: var(--style-30-cream);
+  color: var(--style-30-ink);
   font-family: "Bebas Neue", "Inter", system-ui, sans-serif;
 }
 
@@ -24,14 +23,15 @@
   transition-duration: 0s !important;
 }
 
-/* Wall texture overlay */
+/* Subtle paper grain */
 .root::before {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse at 30% 20%, rgba(244, 162, 97, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 80%, rgba(192, 57, 43, 0.06) 0%, transparent 40%);
+  background-image:
+    radial-gradient(circle at 25% 35%, rgba(26, 26, 26, 0.025) 1px, transparent 1px),
+    radial-gradient(circle at 75% 65%, rgba(26, 26, 26, 0.02) 1px, transparent 1px);
+  background-size: 4px 4px, 6px 6px;
   pointer-events: none;
   z-index: 0;
 }
@@ -41,6 +41,7 @@
 .sceneLayer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .track {
@@ -59,63 +60,49 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Scene-to-scene: Fresco Reveal ──────────────────────────────────── */
+/* ── Scene-to-scene: Brutalist Snap ──────────────────────────────────── */
 
 .exitAnim {
-  animation: frescoExit 0.75s ease-in-out forwards;
+  animation: brutalistExit 0.4s steps(3, end) forwards;
   z-index: 1;
 }
 
-@keyframes frescoExit {
-  from { opacity: 1; }
-  to { opacity: 0; }
+@keyframes brutalistExit {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(-3cqw); }
 }
 
 .enterAnim {
-  animation: frescoReveal 0.75s ease-in-out both;
+  animation: brutalistEnter 0.4s steps(3, end) both;
   z-index: 2;
 }
 
-@keyframes frescoReveal {
-  0% {
-    clip-path: polygon(0% 100%, 0% 100%, 0% 100%);
-    opacity: 0.85;
-  }
-  100% {
-    clip-path: polygon(-50% 100%, 100% -50%, 100% 150%);
-    opacity: 1;
-  }
+@keyframes brutalistEnter {
+  from { opacity: 0; transform: translateX(3cqw); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-/* ── Plaster edge overlay ───────────────────────────────────────────── */
+/* ── Tape strip overlay ─────────────────────────────────────────────── */
 
 .plasterOverlay {
   position: absolute;
   inset: 0;
   z-index: 4;
   pointer-events: none;
-  background: linear-gradient(
-    135deg,
-    transparent 0%,
-    rgba(244, 162, 97, 0.12) 45%,
-    rgba(231, 111, 81, 0.18) 50%,
-    rgba(244, 162, 97, 0.12) 55%,
-    transparent 100%
-  );
-  animation: plasterSweep 0.75s ease-in-out forwards;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 1.5cqh,
+      rgba(212, 58, 42, 0.08) 1.5cqh,
+      rgba(212, 58, 42, 0.08) 3cqh
+    );
+  animation: tapeFlash 0.4s steps(2, end) forwards;
 }
 
-@keyframes plasterSweep {
-  0% {
-    clip-path: polygon(0% 100%, 0% 100%, 0% 100%);
-    opacity: 0;
-  }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% {
-    clip-path: polygon(-50% 100%, 100% -50%, 100% 150%);
-    opacity: 0;
-  }
+@keyframes tapeFlash {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* ─── Scene 1: Title ─── */
@@ -132,12 +119,13 @@
 
 .sunBg {
   position: absolute;
-  width: 60cqh;
-  height: 60cqh;
-  right: -10cqw;
+  width: 35cqh;
+  height: 35cqh;
+  right: 5cqw;
   top: 50%;
   transform: translateY(-50%);
-  opacity: 0.5;
+  color: var(--style-30-ink);
+  opacity: 0.12;
   pointer-events: none;
 }
 
@@ -149,33 +137,34 @@
 }
 
 .titleText {
-  font-size: 16cqh;
+  font-size: 18cqh;
   font-weight: 400;
-  line-height: 0.9;
+  line-height: 0.85;
   margin: 0;
-  letter-spacing: 0.05em;
-  color: var(--style-30-sun);
+  letter-spacing: 0.04em;
+  color: var(--style-30-ink);
   text-transform: uppercase;
 }
 
 .titleBar {
   width: 25cqw;
-  height: 1.5cqh;
-  background: var(--style-30-terra);
-  margin: 2cqh 0;
+  height: 1.2cqh;
+  background: var(--style-30-accent);
+  margin: 2.5cqh 0;
+  box-shadow: 0.4cqh 0.4cqh 0 0 var(--style-30-shadow);
 }
 
 .titleSub {
   font-size: 3.2cqh;
   font-weight: 400;
   margin: 0;
-  color: var(--style-30-cream);
-  opacity: 0.75;
+  color: var(--style-30-ink);
+  opacity: 0.7;
   font-family: "Inter", system-ui, sans-serif;
   line-height: 1.4;
 }
 
-/* ─── Scene 2: Artists ─── */
+/* ─── Scene 2: Rollout Steps ─── */
 
 .scene2 {
   width: 100%;
@@ -186,57 +175,61 @@
 }
 
 .sceneLabel {
-  font-size: 2.2cqh;
+  display: inline-block;
+  font-size: 1.8cqh;
   font-weight: 600;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--style-30-sun);
-  font-family: "Inter", system-ui, sans-serif;
-  margin-bottom: 1cqh;
+  color: var(--style-30-bg);
+  background: var(--style-30-ink);
+  font-family: "JetBrains Mono", "Inter", system-ui, monospace;
+  padding: 0.6cqh 1.5cqw;
+  margin-bottom: 2cqh;
+  align-self: flex-start;
 }
 
 .sceneHeading {
   font-size: 6cqh;
   font-weight: 400;
   margin: 0 0 3cqh;
-  color: var(--style-30-cream);
+  color: var(--style-30-ink);
   line-height: 1;
+  letter-spacing: 0.02em;
 }
 
 .artistList {
   display: flex;
   flex-direction: column;
-  gap: 2.5cqh;
+  gap: 2cqh;
   flex: 1;
 }
 
 .artistRow {
   display: grid;
-  grid-template-columns: 0.8fr 3fr 2fr;
+  grid-template-columns: 0.8fr 3fr 1fr;
   gap: 2cqw;
   align-items: center;
   padding: 2cqh 2cqw;
   background: var(--style-30-panel);
-  border-left: 0.8cqh solid var(--style-30-terra);
+  border: 0.3cqh solid var(--style-30-ink);
+  box-shadow: 0.5cqh 0.5cqh 0 0 var(--style-30-shadow);
   opacity: 0;
-  transform: translateX(-3cqw);
-  filter: saturate(0.5);
-  transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+  transform: translateX(-2cqw);
+  transition: opacity 0.3s steps(2, end), transform 0.3s steps(2, end);
 }
 
 .artistVisible {
   opacity: 1;
   transform: translateX(0);
-  filter: saturate(1.2);
 }
 
 .artistPortrait {
-  width: 7cqh;
-  height: 7cqh;
-  color: var(--style-30-sun);
+  font-size: 5cqh;
+  font-weight: 400;
+  color: var(--style-30-accent);
+  font-family: "Bebas Neue", sans-serif;
+  text-align: center;
 }
-
-.artistPortrait svg { width: 100%; height: 100%; }
 
 .artistInfo {
   display: flex;
@@ -246,26 +239,32 @@
 .artistName {
   font-size: 3.8cqh;
   font-weight: 400;
-  color: var(--style-30-cream);
+  color: var(--style-30-ink);
   line-height: 1.1;
+  letter-spacing: 0.04em;
 }
 
 .artistYears {
   font-size: 2.2cqh;
-  color: var(--style-30-sun);
+  color: var(--style-30-ink);
   font-family: "Inter", system-ui, sans-serif;
   margin-top: 0.3cqh;
+  opacity: 0.6;
 }
 
 .artistStyle {
-  font-size: 2.4cqh;
-  color: var(--style-30-cream);
-  opacity: 0.6;
-  font-family: "Inter", system-ui, sans-serif;
-  font-style: italic;
+  font-size: 1.8cqh;
+  color: var(--style-30-bg);
+  background: var(--style-30-ink);
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 600;
+  padding: 0.5cqh 1cqw;
+  text-align: center;
+  letter-spacing: 0.15em;
+  justify-self: end;
 }
 
-/* ─── Scene 3: Themes ─── */
+/* ─── Scene 3: Comparison ─── */
 
 .scene3 {
   width: 100%;
@@ -277,55 +276,78 @@
 
 .themeGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2cqw;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5cqw;
   flex: 1;
 }
 
 .themeCard {
   background: var(--style-30-panel);
-  padding: 3cqh 1.5cqw;
+  border: 0.3cqh solid var(--style-30-ink);
+  box-shadow: 0.5cqh 0.5cqh 0 0 var(--style-30-shadow);
+  padding: 2.5cqh 2cqw;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  border-top: 0.6cqh solid var(--style-30-olive);
+  justify-content: space-between;
   opacity: 0;
-  transform: translateY(2cqh);
-  filter: saturate(0.5);
-  transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+  transform: translateY(1.5cqh);
+  transition: opacity 0.3s steps(2, end), transform 0.3s steps(2, end);
 }
 
 .themeVisible {
   opacity: 1;
   transform: translateY(0);
-  filter: saturate(1.2);
-}
-
-.themeIcon {
-  font-size: 6cqh;
-  margin-bottom: 1.5cqh;
 }
 
 .themeTitle {
-  font-size: 3.2cqh;
+  font-size: 2.8cqh;
   font-weight: 400;
-  color: var(--style-30-sun);
-  margin-bottom: 0.8cqh;
+  color: var(--style-30-ink);
+  margin-bottom: 1.5cqh;
   font-family: "Bebas Neue", sans-serif;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.themeDesc {
-  font-size: 2cqh;
-  line-height: 1.5;
-  color: var(--style-30-cream);
-  opacity: 0.65;
-  margin: 0;
-  font-family: "Inter", system-ui, sans-serif;
+.comparisonRow {
+  display: flex;
+  gap: 2cqw;
+  align-items: baseline;
+  margin-bottom: 1.5cqh;
 }
 
-/* ─── Scene 4: Legacy ─── */
+.compUs {
+  font-size: 4.5cqh;
+  font-weight: 400;
+  color: var(--style-30-accent);
+  font-family: "Bebas Neue", sans-serif;
+  line-height: 1;
+}
+
+.compThem {
+  font-size: 2.8cqh;
+  font-weight: 400;
+  color: var(--style-30-ink);
+  font-family: "Bebas Neue", sans-serif;
+  opacity: 0.4;
+  line-height: 1;
+  text-decoration: line-through;
+}
+
+.comparisonPill {
+  display: inline-block;
+  font-size: 1.6cqh;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--style-30-bg);
+  background: var(--style-30-accent);
+  font-family: "JetBrains Mono", monospace;
+  padding: 0.5cqh 1.2cqw;
+  align-self: flex-start;
+}
+
+/* ─── Scene 4: Stats ─── */
 
 .scene4 {
   width: 100%;
@@ -344,33 +366,34 @@
 
 .statBlock {
   text-align: left;
-  border-left: 0.5cqh solid var(--style-30-sun);
-  padding-left: 2cqw;
+  border: 0.3cqh solid var(--style-30-ink);
+  padding: 2cqh 2.5cqw;
+  background: var(--style-30-panel);
+  box-shadow: 0.5cqh 0.5cqh 0 0 var(--style-30-shadow);
   opacity: 0;
-  filter: saturate(0.5);
-  transition: opacity 0.5s ease, filter 0.5s ease;
+  transition: opacity 0.3s steps(2, end);
 }
 
 .statVisible {
   opacity: 1;
-  filter: saturate(1.2);
 }
 
 .statValue {
   display: block;
-  font-size: 9cqh;
+  font-size: 8cqh;
   font-weight: 400;
-  color: var(--style-30-sun);
+  color: var(--style-30-ink);
   line-height: 1;
   font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 0.02em;
 }
 
 .statLabel {
   display: block;
-  font-size: 2.4cqh;
-  color: var(--style-30-cream);
-  opacity: 0.65;
-  margin-top: 0.5cqh;
+  font-size: 2cqh;
+  color: var(--style-30-ink);
+  opacity: 0.6;
+  margin-top: 0.8cqh;
   font-family: "Inter", system-ui, sans-serif;
 }
 
@@ -379,11 +402,11 @@
   margin-top: 3cqh;
   background:
     repeating-linear-gradient(
-      0deg,
+      90deg,
       transparent,
-      transparent 4cqh,
-      rgba(244, 162, 97, 0.03) 4cqh,
-      rgba(244, 162, 97, 0.03) 4.2cqh
+      transparent 5cqw,
+      rgba(26, 26, 26, 0.04) 5cqw,
+      rgba(26, 26, 26, 0.04) 5.2cqw
     );
 }
 
@@ -401,39 +424,34 @@
 }
 
 .sunSmall {
-  width: 20cqh;
-  height: 20cqh;
+  width: 15cqh;
+  height: 15cqh;
+  color: var(--style-30-ink);
   margin-bottom: 3cqh;
-  opacity: 0.6;
+  opacity: 0.15;
 }
 
 .closingText {
-  font-size: 8cqh;
+  font-size: 9cqh;
   font-weight: 400;
   margin: 0;
-  color: var(--style-30-cream);
+  color: var(--style-30-ink);
   text-align: center;
-  line-height: 1.1;
+  line-height: 1;
   font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 0.04em;
 }
 
 .closingAccent {
-  color: var(--style-30-terra);
+  color: var(--style-30-accent);
 }
 
 .closingSub {
-  font-size: 2.8cqh;
-  color: var(--style-30-cream);
+  font-size: 2.6cqh;
+  color: var(--style-30-ink);
   opacity: 0.6;
-  margin-top: 2cqh;
+  margin-top: 2.5cqh;
   font-family: "Inter", system-ui, sans-serif;
-  font-style: italic;
-}
-
-.fistIcon {
-  font-size: 6cqh;
-  margin-top: 3cqh;
-  opacity: 0.7;
 }
 
 /* ─── Navigation ─── */
@@ -451,25 +469,27 @@
 .navItem {
   width: 5cqh;
   height: 5cqh;
-  border: 0.2cqh solid var(--style-30-sun);
-  background: transparent;
+  border: 0.3cqh solid var(--style-30-ink);
+  background: var(--style-30-bg);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  transition: background 0.2s ease;
+  box-shadow: 0.3cqh 0.3cqh 0 0 var(--style-30-shadow);
+  transition: background 0.15s steps(2, end), transform 0.15s steps(2, end);
 }
 
-.navItem:hover { background: var(--style-30-sun); }
-.navItem:hover .navBar { background: var(--style-30-bg); }
+.navItem:hover { background: var(--style-30-ink); transform: translate(0.15cqh, 0.15cqh); box-shadow: 0.15cqh 0.15cqh 0 0 var(--style-30-shadow); }
+.navItem:hover .navBar { color: var(--style-30-bg); }
 
-.navItemActive { background: var(--style-30-terra); border-color: var(--style-30-terra); }
-.navItemActive .navBar { background: var(--style-30-cream); }
+.navItemActive { background: var(--style-30-accent); border-color: var(--style-30-ink); }
+.navItemActive .navBar { color: var(--style-30-bg); }
 
 .navBar {
-  width: 2.5cqh;
-  height: 0.8cqh;
-  background: var(--style-30-sun);
-  transition: background 0.2s ease;
+  font-size: 2.4cqh;
+  font-weight: 400;
+  color: var(--style-30-ink);
+  font-family: "Bebas Neue", sans-serif;
+  transition: color 0.15s steps(2, end);
 }

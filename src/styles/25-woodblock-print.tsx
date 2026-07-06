@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./25-woodblock-print.module.css";
 import { useFLIP } from "../hooks/useFLIP";
@@ -212,10 +212,10 @@ function WavePatternSVG({ className }: { className?: string }) {
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Woodblock Print", zh: "浮世绘" };
+  const nameMap = { en: "Woodblock Floating-World", zh: "木版浮世绘" };
   const themeMap = {
-    en: "Traditional Japanese Arts — ukiyo-e woodblock aesthetic with indigo on beige, wave motifs, and Mt. Fuji silhouettes",
-    zh: "日本传统艺术——浮世绘木刻美学，靛蓝色配米色，波浪纹样与富士山剪影",
+    en: "Hand-pressed woodblock print on warm paper — flat indigo planes, vermilion seal, one graded sky. Best for cultural storytelling, craft heritage narratives, and decks that need human, hand-made calm.",
+    zh: "暖纸上的手工木版画——靛蓝平面、朱砂印章、一抹晕染天空。最适合文化叙事、工艺传承故事，以及需要人手沉静温度的演示。",
   };
   const densityLabelMap = { en: "Graphic", zh: "图形化" };
 
@@ -290,9 +290,9 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
-    colors: { bg: "#e8dcc8", ink: "#1a3a5c", panel: "#f0e8d8" },
+    colors: { bg: "#ead9c0", ink: "#1a3a5c", panel: "#f0e6d2" },
     typography: { header: "Noto Serif JP 700", body: "Inter 400" },
-    tags: ["ukiyo-e", "woodblock", "japanese", "indigo", "wave", "fuji", "edo", "traditional", "printmaking"],
+    tags: ["woodblock", "floating-world", "ukiyo-e", "indigo", "vermilion", "warm-paper", "red-seal", "bokashi", "contemplative", "craft-heritage"],
     fonts: ["cjk:Noto Serif JP", "Inter"],
     scenes,
   };
@@ -310,25 +310,45 @@ export default function WoodblockPrint({
 }: BespokeStyleProps) {
   useFonts();
   const [entered, setEntered] = useState(false);
-  const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevSceneRef = useRef<number>(scene);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Detect scene changes and manage transition lifecycle
-  useLayoutEffect(() => {
-    const prev = prevSceneRef.current;
-    if (prev !== scene && !reducedMotion) {
-      setOutgoingScene(prev);
-      setIsTransitioning(true);
-      const timer = setTimeout(() => {
-        setOutgoingScene(null);
-        setIsTransitioning(false);
-      }, TRANSITION_DURATION);
-      prevSceneRef.current = scene;
-      return () => clearTimeout(timer);
+  const [transitionInfo, setTransitionInfo] = useState({
+    outgoingScene: null as number | null,
+    isTransitioning: false,
+    lastScene: scene,
+  });
+
+  // Synchronous derivation — sets transition state in the SAME render cycle
+  // as the scene prop change. Eliminates the 1-frame gap where the incoming
+  // scene is visible without its enter animation class.
+  if (transitionInfo.lastScene !== scene) {
+    if (transitionTimerRef.current) {
+      clearTimeout(transitionTimerRef.current);
     }
-    prevSceneRef.current = scene;
-  }, [scene, reducedMotion]);
+
+    if (!reducedMotion) {
+      transitionTimerRef.current = setTimeout(() => {
+        setTransitionInfo(function(prev) {
+          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
+        });
+      }, TRANSITION_DURATION);
+
+      setTransitionInfo({
+        outgoingScene: transitionInfo.lastScene,
+        isTransitioning: true,
+        lastScene: scene,
+      });
+    } else {
+      setTransitionInfo({
+        outgoingScene: null,
+        isTransitioning: false,
+        lastScene: scene,
+      });
+    }
+  }
+
+  var outgoingScene = transitionInfo.outgoingScene;
+  var isTransitioning = transitionInfo.isTransitioning;
 
   // Beat-level entered animation trigger
   useEffect(() => {
