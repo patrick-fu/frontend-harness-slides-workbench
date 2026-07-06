@@ -4,8 +4,8 @@
 > clones. That model has been superseded. Existing v1 styles now use
 > `SpatialSceneTrack` for scene lifecycle and must not maintain `outgoingScene`,
 > render full-screen transition clones, or read `isTransitionClone`. The visual
-> vocabulary below is implemented through explicit `transitionKind` choices and
-> may be refined per style without reintroducing clone lifecycle state.
+> vocabulary below is implemented through explicit `transitionKind` choices or
+> per-edge `transitionMap` choices without reintroducing clone lifecycle state.
 
 ## Principles
 
@@ -18,7 +18,8 @@ The style must:
 1. Render scene content through `SpatialSceneTrack`.
 2. Keep persistent background/nav chrome outside scene-specific content when needed.
 3. Pass `reducedMotion || isThumbnail` into the shared track.
-4. Explicitly pass `transitionKind` so visual motion does not collapse to one default.
+4. Explicitly pass `transitionKind`, or pass `transitionMap` for per-edge scene
+   motion, so visual motion does not collapse to one default.
 5. Declare `data-beat-layout-mode="motion"` or `"reserved"` for every multi-beat scene.
 
 The previous outgoing-clone pattern caused full-screen duplicate scenes during
@@ -31,6 +32,12 @@ transitions and is no longer accepted.
   scene={scene}
   beat={beat}
   transitionKind="scale-fade"
+  transitionMap={{
+    "1->2": "scale-fade",
+    "2->3": "wipe",
+    "3->4": "fade",
+    "4->5": "hard-cut",
+  }}
   reducedMotion={reducedMotion || isThumbnail}
   beatLayoutModes={BEAT_LAYOUT_MODES}
   renderScene={(sceneId, sceneBeat, isActive) => (

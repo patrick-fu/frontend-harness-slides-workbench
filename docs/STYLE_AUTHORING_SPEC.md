@@ -206,10 +206,10 @@ interface StyleVersion {
 ### 5.2 场景转场
 
 - 默认使用 `SpatialSceneTrack` 管理 scene 生命周期。
-- `SpatialSceneTrack` 会渲染稳定 scene panels，并通过 `transitionKind` 选择视觉转场。
+- `SpatialSceneTrack` 会渲染稳定 scene panels，并通过 `transitionKind` 或 `transitionMap` 选择视觉转场。
 - 不要在 Style 内维护 `outgoingScene`、不要渲染 full-screen outgoing clone、不要读取 `isTransitionClone`。
 - `reducedMotion` 或 thumbnail/frozen 场景下传入 `reducedMotion={true}`，track 会关闭 transition。
-- 每个 Style 必须显式声明 `transitionKind`，避免全仓库退化成同一种横向滑动。
+- 每个 Style 必须显式声明 `transitionKind`，或为每条 scene edge 声明 `transitionMap`，避免全仓库退化成同一种横向滑动。
 - 当前支持：`slide-x`、`slide-y`、`fade`、`scale-fade`、`hard-cut`、`wipe`、`page-flip`、`glitch`。
 
 ```tsx
@@ -218,6 +218,12 @@ interface StyleVersion {
   scene={scene}
   beat={beat}
   transitionKind="scale-fade"
+  transitionMap={{
+    "1->2": "scale-fade",
+    "2->3": "wipe",
+    "3->4": "fade",
+    "4->5": "hard-cut",
+  }}
   reducedMotion={reducedMotion || isThumbnail}
   renderScene={(sceneId, sceneBeat, isActive) => (
     <ScenePanel scene={sceneId} beat={sceneBeat} isActive={isActive} />

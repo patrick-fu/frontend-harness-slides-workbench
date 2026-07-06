@@ -179,4 +179,66 @@ describe("SpatialSceneTrack", () => {
     expect(screen.getByTestId("scene-2")).toHaveTextContent("Scene 2 beat 1");
     expect(screen.getByTestId("scene-3")).toHaveTextContent("Scene 3 beat 0");
   });
+
+  it("uses the transition kind assigned to the current scene edge", () => {
+    const { rerender } = render(
+      <SpatialSceneTrack
+        scene={1}
+        beat={0}
+        transitionKind="fade"
+        transitionMap={{
+          "1->2": "wipe",
+          "2->3": "page-flip",
+        }}
+        sceneIds={[1, 2, 3]}
+        reducedMotion={false}
+        renderScene={(sceneId) => <section>Scene {sceneId}</section>}
+      />,
+    );
+
+    rerender(
+      <SpatialSceneTrack
+        scene={2}
+        beat={0}
+        transitionKind="fade"
+        transitionMap={{
+          "1->2": "wipe",
+          "2->3": "page-flip",
+        }}
+        sceneIds={[1, 2, 3]}
+        reducedMotion={false}
+        renderScene={(sceneId) => <section>Scene {sceneId}</section>}
+      />,
+    );
+
+    expect(screen.getByTestId("spatial-scene-track")).toHaveAttribute(
+      "data-scene-transition-kind",
+      "wipe",
+    );
+    expect(
+      screen
+        .getAllByTestId("spatial-scene-panel")
+        .map((panel) => panel.dataset.sceneTransitionKind),
+    ).toEqual(["wipe", "wipe", "wipe"]);
+
+    rerender(
+      <SpatialSceneTrack
+        scene={3}
+        beat={0}
+        transitionKind="fade"
+        transitionMap={{
+          "1->2": "wipe",
+          "2->3": "page-flip",
+        }}
+        sceneIds={[1, 2, 3]}
+        reducedMotion={false}
+        renderScene={(sceneId) => <section>Scene {sceneId}</section>}
+      />,
+    );
+
+    expect(screen.getByTestId("spatial-scene-track")).toHaveAttribute(
+      "data-scene-transition-kind",
+      "page-flip",
+    );
+  });
 });

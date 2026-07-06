@@ -12,6 +12,10 @@ export type SceneTransitionKind =
   | "wipe"
   | "page-flip"
   | "glitch";
+export type SceneTransitionEdge = `${number}->${number}`;
+export type SceneTransitionMap = Partial<
+  Record<SceneTransitionEdge, SceneTransitionKind>
+>;
 
 type TransitionDirection = "forward" | "backward";
 
@@ -20,6 +24,7 @@ interface ActiveTransition {
   outgoingScene: number;
   outgoingBeat: number;
   direction: TransitionDirection;
+  transitionKind: SceneTransitionKind;
 }
 
 export interface SpatialSceneTrackProps {
@@ -28,6 +33,7 @@ export interface SpatialSceneTrackProps {
   sceneIds?: number[];
   axis?: "x" | "y";
   transitionKind?: SceneTransitionKind;
+  transitionMap?: SceneTransitionMap;
   transitionDurationMs?: number;
   reducedMotion: boolean;
   beatLayoutModes?: Partial<Record<number, BeatLayoutMode>>;
@@ -44,21 +50,33 @@ export default function SpatialSceneTrack({
   sceneIds = DEFAULT_SCENE_IDS,
   axis,
   transitionKind,
+  transitionMap,
   transitionDurationMs = DEFAULT_TRANSITION_DURATION_MS,
   reducedMotion,
   beatLayoutModes,
   className,
   renderScene,
 }: SpatialSceneTrackProps) {
-  const effectiveTransitionKind =
+  const fallbackTransitionKind =
     transitionKind ?? (axis === "y" ? "slide-y" : "slide-x");
-  const effectiveAxis = effectiveTransitionKind === "slide-y" ? "y" : "x";
   const sceneIdsKey = sceneIds.join(":");
   const lastSceneRef = useRef(scene);
   const lastBeatRef = useRef(beat);
   const transitionKeyRef = useRef(0);
   const [activeTransition, setActiveTransition] =
     useState<ActiveTransition | null>(null);
+  const resolveTransitionKind = (
+    fromScene: number,
+    toScene: number,
+  ): SceneTransitionKind =>
+    transitionMap?.[`${fromScene}->${toScene}`] ?? fallbackTransitionKind;
+  const pendingTransitionKind =
+    lastSceneRef.current !== scene
+      ? resolveTransitionKind(lastSceneRef.current, scene)
+      : fallbackTransitionKind;
+  const effectiveTransitionKind =
+    activeTransition?.transitionKind ?? pendingTransitionKind;
+  const effectiveAxis = effectiveTransitionKind === "slide-y" ? "y" : "x";
 
   useLayoutEffect(() => {
     const lastScene = lastSceneRef.current;
@@ -71,8 +89,9 @@ export default function SpatialSceneTrack({
         fromIndex >= 0 && toIndex >= 0 && toIndex < fromIndex
           ? "backward"
           : "forward";
+      const nextTransitionKind = resolveTransitionKind(lastScene, scene);
 
-      if (reducedMotion || effectiveTransitionKind === "hard-cut") {
+      if (reducedMotion || nextTransitionKind === "hard-cut") {
         setActiveTransition(null);
       } else {
         transitionKeyRef.current += 1;
@@ -81,13 +100,22 @@ export default function SpatialSceneTrack({
           outgoingScene: lastScene,
           outgoingBeat: lastBeat,
           direction,
+          transitionKind: nextTransitionKind,
         });
       }
     }
 
     lastSceneRef.current = scene;
     lastBeatRef.current = beat;
-  }, [scene, beat, sceneIds, sceneIdsKey, reducedMotion, effectiveTransitionKind]);
+  }, [
+    scene,
+    beat,
+    sceneIds,
+    sceneIdsKey,
+    reducedMotion,
+    transitionMap,
+    fallbackTransitionKind,
+  ]);
 
   useLayoutEffect(() => {
     if (!activeTransition || reducedMotion || effectiveTransitionKind === "hard-cut") {
