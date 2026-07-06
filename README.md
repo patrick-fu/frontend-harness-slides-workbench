@@ -1,16 +1,34 @@
 # Frontend Harness Slides Workbench
 
-Public demo workbench for the Frontend Harness Slides style system.
+🎬 Companion live demo for
+[frontend-harness-slides](https://github.com/patrick-fu/frontend-harness-slides).
 
-The app is a gallery and presenter shell for 48 independent slide styles. Each
-style is a self-contained React component with its own scenes, beats, metadata,
-fonts, navigation, animation, and visual language. The Workbench provides the
-outer chrome: overview, filtering, sidebar navigation, stage scaling, keyboard
-navigation, pure mode, frozen mode, and visual audit coverage.
+This project turns the `frontend-harness-slides` style catalog into a live,
+browsable, presenter-ready experience. It is the place to inspect the styles,
+compare their visual DNA, and capture deterministic slide frames.
 
-Production:
+🚀 Live demo:
 
 https://frontend-harness-slides-workbench.vercel.app
+
+## What It Shows
+
+✨ 48 independent slide styles  
+Each style is a self-contained React component with its own scenes, beats,
+metadata, fonts, navigation, animation, and visual language.
+
+🧭 Gallery + presenter shell  
+Browse styles in the overview, filter by band or tag, then open a full presenter
+view with sidebar navigation, scene controls, keyboard navigation, and touch
+navigation.
+
+🖼️ Stable 16:9 stage  
+Every style renders inside a fixed `1920x1080` stage and scales predictably for
+desktop, mobile, screenshots, and PDF-oriented capture flows.
+
+🧪 Capture-friendly modes  
+Use pure mode to hide Workbench chrome and frozen mode to disable animation for
+deterministic visual review.
 
 ## Architecture
 
