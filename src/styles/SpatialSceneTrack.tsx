@@ -1,11 +1,14 @@
 import type React from "react";
 
+export type BeatLayoutMode = "motion" | "reserved";
+
 export interface SpatialSceneTrackProps {
   scene: number;
   beat: number;
   sceneIds?: number[];
   axis?: "x" | "y";
   reducedMotion: boolean;
+  beatLayoutModes?: Partial<Record<number, BeatLayoutMode>>;
   className?: string;
   renderScene: (scene: number, beat: number, isActive: boolean) => React.ReactNode;
 }
@@ -16,6 +19,7 @@ export default function SpatialSceneTrack({
   sceneIds = [1, 2, 3, 4, 5],
   axis = "x",
   reducedMotion,
+  beatLayoutModes,
   className,
   renderScene,
 }: SpatialSceneTrackProps) {
@@ -58,6 +62,7 @@ export default function SpatialSceneTrack({
       >
         {sceneIds.map((sceneId) => {
           const isActive = sceneId === scene;
+          const beatLayoutMode = beatLayoutModes?.[sceneId];
           return (
             <div
               key={sceneId}
@@ -65,6 +70,8 @@ export default function SpatialSceneTrack({
               data-spatial-scene-panel="true"
               data-scene-id={sceneId}
               data-active={isActive ? "true" : "false"}
+              data-beat-layout-container={beatLayoutMode ? "true" : undefined}
+              data-beat-layout-mode={beatLayoutMode}
               aria-hidden={isActive ? undefined : true}
               style={{
                 position: "relative",

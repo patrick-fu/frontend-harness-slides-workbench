@@ -1,11 +1,9 @@
-import React, { useEffect, useCallback, useState, useRef } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import styles from "./07-quiet-confidence.module.css";
 
 // ─── Transition constants ─────────────────────────────────────────────────
-
-const TRANSITION_DURATION = 800;
-const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 };
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
@@ -327,6 +325,12 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 
 // ─── Component ──────────────────────────────────────────────────────────────
 
+const BEAT_LAYOUT_MODES = {
+  2: "motion",
+  3: "motion",
+  4: "motion",
+} satisfies Record<number, "motion" | "reserved">;
+
 export default function QuietConfidence({
   scene,
   beat,
@@ -334,46 +338,8 @@ export default function QuietConfidence({
   isThumbnail,
   reducedMotion,
   onNavigate,
-  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
-
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    lastScene: scene,
-  });
-
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-
-    if (!reducedMotion) {
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
-        });
-      }, TRANSITION_DURATION);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        lastScene: scene,
-      });
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        lastScene: scene,
-      });
-    }
-  }
-
-  const outgoingScene = transitionInfo.outgoingScene;
-  const isTransitioning = transitionInfo.isTransitioning;
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, targetScene: number) => {
@@ -591,39 +557,25 @@ export default function QuietConfidence({
 
   // ── Build layer classes ─────────────────────────────────────────────────
 
-  const outgoingLayerClasses = [
-    styles.sceneLayer,
-    styles.exitAnim,
-  ].filter(Boolean).join(" ");
-
-  const incomingLayerClasses = [
-    styles.sceneLayer,
-    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
-  ].filter(Boolean).join(" ");
-
   return (
     <div className={rootClasses}>
       {/* Paper texture overlay */}
       <div className={styles.paperTexture} aria-hidden="true" />
 
-      {/* Outgoing scene (exit animation) */}
-      {outgoingScene !== null && (
-        <div className={outgoingLayerClasses}>
-          <div className={styles.track}>
-            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+            <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        beatLayoutModes={BEAT_LAYOUT_MODES}
+        renderScene={(sceneId, sceneBeat) => (
+          <div className={styles.sceneLayer}>
+            <div className={styles.track}>
+              {renderSceneFor(sceneId, sceneBeat)}
+            </div>
           </div>
-        </div>
-      )}
-
-      {/* Incoming / current scene */}
-      <div className={incomingLayerClasses}>
-        <div
-          key={`07-${scene}`}
-          className={styles.track}
-        >
-          {renderSceneFor(scene, beat)}
-        </div>
-      </div>
+        )}
+      />
 
       {renderNav()}
     </div>

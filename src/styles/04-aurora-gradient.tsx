@@ -1,5 +1,6 @@
-import React, { useEffect, useCallback, useRef, useState } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./04-aurora-gradient.module.css";
 
@@ -150,16 +151,6 @@ const SCENES: Record<number, SceneContent> = {
   },
 };
 
-const MAX_BEAT: Record<number, number> = {
-  1: 0,
-  2: 1,
-  3: 1,
-  4: 2,
-  5: 1,
-};
-
-const TRANSITION_DURATION = 900;
-
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
@@ -252,6 +243,13 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 
 // ─── Component ──────────────────────────────────────────────────────────────
 
+const BEAT_LAYOUT_MODES = {
+  2: "motion",
+  3: "motion",
+  4: "motion",
+  5: "motion",
+} satisfies Record<number, "motion" | "reserved">;
+
 export default function AuroraGradient({
   scene,
   beat,
@@ -259,50 +257,10 @@ export default function AuroraGradient({
   isThumbnail,
   reducedMotion,
   onNavigate,
-  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
 
   // ── Transition state ────────────────────────────────────────────────────
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    lastScene: scene,
-  });
-
-  // Synchronous derivation — sets transition state in the SAME render cycle
-  // as the scene prop change. Eliminates the 1-frame gap where the incoming
-  // scene is visible without its enter animation class.
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-
-    if (!reducedMotion) {
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
-        });
-      }, TRANSITION_DURATION);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        lastScene: scene,
-      });
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        lastScene: scene,
-      });
-    }
-  }
-
-  const outgoingScene = transitionInfo.outgoingScene;
-  const isTransitioning = transitionInfo.isTransitioning;
 
   // ── FLIP for scene 4 exchange list ──────────────────────────────────────
   const { ref: exchangeFlipRef } = useFLIP<HTMLDivElement>({
@@ -539,42 +497,26 @@ export default function AuroraGradient({
   };
 
   // ── Build layer classes ─────────────────────────────────────────────────
-  const outgoingLayerClasses = [
-    styles.sceneLayer,
-    styles.exitAnim,
-  ].filter(Boolean).join(" ");
-
-  const incomingLayerClasses = [
-    styles.sceneLayer,
-    isTransitioning && !isTransitionClone && !reducedMotion ? styles.enterAnim : "",
-  ].filter(Boolean).join(" ");
 
   return (
     <div className={rootClasses}>
       {/* Persistent stage lighting background (shared, not part of transition) */}
       {renderStageBg()}
 
-      {/* Outgoing scene (transitioning out) */}
-      {outgoingScene !== null && !reducedMotion && (
-        <div className={outgoingLayerClasses} aria-hidden="true">
-          <div className={styles.track}>
-            {renderSceneFor(outgoingScene, MAX_BEAT[outgoingScene] ?? 0, false)}
+            <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        beatLayoutModes={BEAT_LAYOUT_MODES}
+        renderScene={(sceneId, sceneBeat, isActive) => (
+          <div className={styles.sceneLayer}>
+            <div className={styles.track}>
+              {renderSceneFor(sceneId, sceneBeat, isActive)}
+            </div>
           </div>
-        </div>
-      )}
-
-      {/* Incoming / current scene */}
-      <div className={incomingLayerClasses}>
-        <div
-          className={[
-            styles.track,
-            !isTransitionClone && !reducedMotion && !isTransitioning ? styles.animateSceneEnter : "",
-          ].filter(Boolean).join(" ")}
-          style={reducedMotion ? { animationDuration: "0s" } : undefined}
-        >
-          {renderSceneFor(scene, beat, true)}
-        </div>
-      </div>
+        )}
+      />
 
       {renderNav()}
     </div>

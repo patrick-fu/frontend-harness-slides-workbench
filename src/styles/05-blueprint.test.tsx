@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import Blueprint, { getMetadata } from "./05-blueprint";
 import type { BespokeStyleProps } from "../types";
 
@@ -34,6 +34,14 @@ function renderStage(props: Partial<BespokeStyleProps> = {}) {
     onNavigate: defaultProps.onNavigate as ReturnType<typeof vi.fn>,
     ...rest,
   };
+}
+
+function getActivePanel() {
+  const activePanel = document.querySelector(
+    '[data-testid="spatial-scene-panel"][data-active="true"]',
+  );
+  expect(activePanel).toBeInstanceOf(HTMLElement);
+  return activePanel as HTMLElement;
 }
 
 const BEAT_COUNTS: Record<number, number> = {
@@ -98,16 +106,18 @@ describe("Style 05: Blueprint — navigation behavior", () => {
 describe("Style 05: Blueprint — Chinese language", () => {
   it("renders Chinese title on scene 1", () => {
     renderStage({ scene: 1, beat: 0, language: "zh" });
-    expect(screen.getByText(/系统/)).toBeInTheDocument();
-    expect(screen.getByText(/架构/)).toBeInTheDocument();
+    const activePanel = within(getActivePanel());
+    expect(activePanel.getByText(/系统/)).toBeInTheDocument();
+    expect(activePanel.getByText(/架构/)).toBeInTheDocument();
   });
 });
 
 describe("Style 05: Blueprint — English language", () => {
   it("renders English title on scene 1", () => {
     renderStage({ scene: 1, beat: 0, language: "en" });
-    expect(screen.getByText(/System/)).toBeInTheDocument();
-    expect(screen.getByText(/Architecture/)).toBeInTheDocument();
+    const activePanel = within(getActivePanel());
+    expect(activePanel.getByText(/System/)).toBeInTheDocument();
+    expect(activePanel.getByText(/Architecture/)).toBeInTheDocument();
   });
 });
 

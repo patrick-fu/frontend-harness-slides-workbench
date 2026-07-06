@@ -1,5 +1,6 @@
-import React, { useEffect, useCallback, useState, useRef } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./05-blueprint.module.css";
 
@@ -386,11 +387,13 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 
 // ─── Transition constants ───────────────────────────────────────────────────
 
-const TRANSITION_DURATION = 800;
-const BEAT_COUNTS_FOR_SCENE: Record<number, number> = { 1: 1, 2: 3, 3: 2, 4: 3, 5: 1 };
-const getMaxBeat = (sceneNum: number): number => (BEAT_COUNTS_FOR_SCENE[sceneNum] || 1) - 1;
-
 // ─── Component ──────────────────────────────────────────────────────────────
+
+const BEAT_LAYOUT_MODES = {
+  2: "motion",
+  3: "motion",
+  4: "motion",
+} satisfies Record<number, "motion" | "reserved">;
 
 export default function Blueprint({
   scene,
@@ -399,50 +402,10 @@ export default function Blueprint({
   isThumbnail,
   reducedMotion,
   onNavigate,
-  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
 
   // ── Transition state ────────────────────────────────────────────────────
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    lastScene: scene,
-  });
-
-  // Synchronous derivation — sets transition state in the SAME render cycle
-  // as the scene prop change. Eliminates the 1-frame gap where the incoming
-  // scene is visible without its enter animation class.
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-
-    if (!reducedMotion && !isThumbnail) {
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
-        });
-      }, TRANSITION_DURATION);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        lastScene: scene,
-      });
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        lastScene: scene,
-      });
-    }
-  }
-
-  const outgoingScene = transitionInfo.outgoingScene;
-  const isTransitioning = transitionInfo.isTransitioning;
 
   // ── FLIP for list reflows ───────────────────────────────────────────────
   const { ref: layersFlipRef } = useFLIP<HTMLDivElement>({
@@ -468,7 +431,6 @@ export default function Blueprint({
     styles.root,
     reducedMotion ? styles.reducedMotion : "",
     isThumbnail ? styles.thumbnail : "",
-    isTransitioning ? styles.transitioning : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -713,33 +675,20 @@ export default function Blueprint({
       <RegMark className={`${styles.regMark} ${styles.regMarkBL}`} />
       <RegMark className={`${styles.regMark} ${styles.regMarkBR}`} />
 
-      {/* Outgoing scene (during transition) */}
-      {outgoingScene !== null && (
-        <div
-          className={`${styles.sceneLayer} ${styles.exitAnim}`}
-          style={{ zIndex: 2, pointerEvents: "none" }}
-        >
-          <div className={styles.track}>
-            {renderSceneFor(outgoingScene, getMaxBeat(outgoingScene))}
+            <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        beatLayoutModes={BEAT_LAYOUT_MODES}
+        renderScene={(sceneId, sceneBeat) => (
+          <div className={styles.sceneLayer}>
+            <div className={styles.track}>
+              {renderSceneFor(sceneId, sceneBeat)}
+            </div>
           </div>
-        </div>
-      )}
-
-      {/* Current/incoming scene */}
-      <div
-        className={[
-          styles.sceneLayer,
-          isTransitioning && !isTransitionClone ? styles.enterAnim : "",
-          !isTransitioning && !isTransitionClone ? styles.animateSceneEnter : "",
-        ]
-          .filter(Boolean)
-          .join(" ")}
-        style={{ zIndex: isTransitioning ? 3 : 1 }}
-      >
-        <div className={styles.track}>
-          {renderSceneFor(scene, beat)}
-        </div>
-      </div>
+        )}
+      />
 
       {renderNav()}
     </div>
