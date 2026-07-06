@@ -406,7 +406,6 @@ TBD — 建议手动审查 Playwright 截图
 | 环境 | URL | 状态 |
 |------|-----|------|
 | Vercel Production | https://frontend-harness-slides-workbench.vercel.app | ✅ 在线 |
-| 部署 ID | `[redacted]` | — |
 | 构建时间 | 14s (含缓存恢复) | — |
 
 ---
