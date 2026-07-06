@@ -83,7 +83,7 @@ export interface StyleMetadata {
 
 /** A single version of a Style, produced by one Agent/model. */
 export interface StyleVersion {
-  /** Stable version ID, e.g. "v1" for legacy entries or "spatial-track" for explicit protocol modules. */
+  /** Stable version ID, e.g. "v1" for legacy entries or "decision-art" for explicit protocol modules. */
   id: string;
   /** Topic name (human-readable), e.g. "决策的艺术", "Product Launch". */
   topic: string;

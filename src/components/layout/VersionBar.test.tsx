@@ -35,9 +35,9 @@ function renderVersionBar(
   const defaultProps = {
     style: makeStyle([
       { id: "v1", topic: "Original Launch", model: "GPT-4.1" },
-      { id: "spatial-track", topic: "Quiet Launch", model: "GPT-5" },
+      { id: "decision-art", topic: "Decision Art", model: "GPT-5" },
     ]),
-    currentVersionId: "spatial-track",
+    currentVersionId: "decision-art",
     language: "en" as const,
     onGoOverview: vi.fn(),
     onSelectVersion: vi.fn(),
@@ -61,7 +61,7 @@ describe("VersionBar", () => {
     expect(screen.queryByRole("menu")).not.toBeInTheDocument();
     expect(screen.queryByTestId("version-option-v1")).not.toBeInTheDocument();
     expect(
-      screen.queryByTestId("version-option-spatial-track"),
+      screen.queryByTestId("version-option-decision-art"),
     ).not.toBeInTheDocument();
   });
 
@@ -75,11 +75,11 @@ describe("VersionBar", () => {
     expect(screen.getByTestId("version-option-v1")).toHaveTextContent(
       "Original Launch",
     );
-    expect(screen.getByTestId("version-option-spatial-track")).toHaveTextContent(
-      "spatial-track",
+    expect(screen.getByTestId("version-option-decision-art")).toHaveTextContent(
+      "decision-art",
     );
-    expect(screen.getByTestId("version-option-spatial-track")).toHaveTextContent(
-      "Quiet Launch",
+    expect(screen.getByTestId("version-option-decision-art")).toHaveTextContent(
+      "Decision Art",
     );
   });
 
@@ -97,11 +97,11 @@ describe("VersionBar", () => {
 
     fireEvent.click(screen.getByTestId("version-switcher"));
 
-    expect(screen.getByTestId("version-option-spatial-track")).toHaveAttribute(
+    expect(screen.getByTestId("version-option-decision-art")).toHaveAttribute(
       "aria-current",
       "true",
     );
-    expect(screen.getByTestId("version-option-spatial-track")).toHaveAttribute(
+    expect(screen.getByTestId("version-option-decision-art")).toHaveAttribute(
       "aria-pressed",
       "true",
     );
@@ -125,7 +125,7 @@ describe("VersionBar", () => {
     const { onSelectVersion } = renderVersionBar();
 
     fireEvent.click(screen.getByTestId("version-switcher"));
-    fireEvent.click(screen.getByTestId("version-option-spatial-track"));
+    fireEvent.click(screen.getByTestId("version-option-decision-art"));
 
     expect(onSelectVersion).not.toHaveBeenCalled();
   });

@@ -303,8 +303,8 @@ test.describe("Navigation", () => {
   });
 });
 
-test.describe("Style 01 protocol spatial track", () => {
-  const SPATIAL_TRACK_BEATS: Record<number, number> = {
+test.describe("Style 01 v1 transition contract", () => {
+  const STYLE_01_V1_BEATS: Record<number, number> = {
     1: 1,
     2: 2,
     3: 3,
@@ -312,85 +312,10 @@ test.describe("Style 01 protocol spatial track", () => {
     5: 1,
   };
 
-  test("top bar exposes compact version dropdown without losing the current frame", async ({
-    page,
-  }) => {
-    await openLab(page, "01", 3, 2, {
-      version: "spatial-track",
-      frozen: true,
-    });
-
-    await expect(page.locator('[data-testid="version-switcher"]')).toBeVisible();
-    await expect(page.locator('[data-testid="version-switcher"]')).toContainText("v2/2");
-    await expect(page.locator('[data-testid="version-option-v1"]')).toHaveCount(0);
-    await expect(page.locator('[data-testid="version-card-stack-left"]')).toHaveCount(0);
-    await expect(page.locator('[data-testid="version-card-stack-right"]')).toHaveCount(0);
-    expect(await page.locator('[role="menu"]').count()).toBe(0);
-
-    await page.locator('[data-testid="version-switcher"]').click();
-    await expect(page.locator('[data-testid="version-menu"]')).toBeVisible();
-    await expect(page.locator('[data-testid="version-option-v1"]')).toBeVisible();
-    await expect(
-      page.locator('[data-testid="version-option-spatial-track"]'),
-    ).toHaveAttribute("aria-current", "true");
-
-    await page.locator('[data-testid="version-option-v1"]').click();
-    await page.waitForTimeout(200);
-
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.style).toBe("01");
-    expect(hash.version).toBe("v1");
-    expect(Number(hash.scene)).toBe(3);
-    expect(Number(hash.beat)).toBe(2);
-  });
-
-  test("version dropdown stays open while hovering from trigger to menu", async ({
-    page,
-  }) => {
-    await openLab(page, "01", 3, 2, {
-      version: "spatial-track",
-      frozen: true,
-    });
-
-    const trigger = page.locator('[data-testid="version-switcher"]');
-    await expect(trigger).toBeVisible();
-
-    const triggerBox = await trigger.boundingBox();
-    expect(triggerBox).not.toBeNull();
-    await page.mouse.move(
-      triggerBox!.x + triggerBox!.width / 2,
-      triggerBox!.y + triggerBox!.height / 2,
-    );
-
-    const menu = page.locator('[data-testid="version-menu"]');
-    const option = page.locator('[data-testid="version-option-v1"]');
-    await expect(menu).toBeVisible();
-    await expect(option).toBeVisible();
-
-    const optionBox = await option.boundingBox();
-    expect(optionBox).not.toBeNull();
-    await page.mouse.move(
-      optionBox!.x + optionBox!.width / 2,
-      optionBox!.y + optionBox!.height / 2,
-      { steps: 10 },
-    );
-
-    await expect(menu).toBeVisible();
-    await expect(option).toBeVisible();
-    await option.click();
-    await page.waitForTimeout(200);
-
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.version).toBe("v1");
-    expect(Number(hash.scene)).toBe(3);
-    expect(Number(hash.beat)).toBe(2);
-  });
-
   test("non-frozen scene advance uses adjacent panels instead of outgoing clones", async ({
     page,
   }) => {
     await openLab(page, "01", 1, 0, {
-      version: "spatial-track",
       frozen: false,
     });
 
@@ -449,14 +374,13 @@ test.describe("Style 01 protocol spatial track", () => {
     expect(trackState.cloneCount).toBe(0);
   });
 
-  test("every spatial-track frame keeps active content inside the stage", async ({
+  test("every style 01 v1 frame keeps active content inside the stage", async ({
     page,
   }) => {
-    for (const [sceneText, beatCount] of Object.entries(SPATIAL_TRACK_BEATS)) {
+    for (const [sceneText, beatCount] of Object.entries(STYLE_01_V1_BEATS)) {
       const scene = Number(sceneText);
       for (let beat = 0; beat < beatCount; beat++) {
         await openLab(page, "01", scene, beat, {
-          version: "spatial-track",
           frozen: false,
         });
 
@@ -467,10 +391,12 @@ test.describe("Style 01 protocol spatial track", () => {
           const activePanel = document.querySelector<HTMLElement>(
             '[data-testid="spatial-scene-panel"][data-active="true"]',
           );
-          const activeTitle = activePanel?.querySelector<HTMLElement>("h1");
+          const activeContent = activePanel?.querySelector<HTMLElement>(
+            "h1, h2, [data-beat-layout-item='true']",
+          );
           const stageRect = stage?.getBoundingClientRect();
           const panelRect = activePanel?.getBoundingClientRect();
-          const titleRect = activeTitle?.getBoundingClientRect();
+          const contentRect = activeContent?.getBoundingClientRect();
 
           const intersectsStage = (rect: DOMRect | undefined) =>
             !!stageRect &&
@@ -484,13 +410,13 @@ test.describe("Style 01 protocol spatial track", () => {
             activeScene: activePanel?.dataset.sceneId,
             activeText: activePanel?.textContent?.trim().slice(0, 80) ?? "",
             activePanelVisible: intersectsStage(panelRect),
-            activeTitleVisible: intersectsStage(titleRect),
             panelWidthDelta:
               stageRect && panelRect ? Math.abs(stageRect.width - panelRect.width) : null,
             panelHeightDelta:
               stageRect && panelRect ? Math.abs(stageRect.height - panelRect.height) : null,
             cloneCount: document.querySelectorAll('[data-transition-clone="true"]')
               .length,
+            activeContentVisible: intersectsStage(contentRect),
           };
         });
 
@@ -501,7 +427,7 @@ test.describe("Style 01 protocol spatial track", () => {
         expect(state.activePanelVisible, `scene ${scene} beat ${beat}`).toBe(
           true,
         );
-        expect(state.activeTitleVisible, `scene ${scene} beat ${beat}`).toBe(
+        expect(state.activeContentVisible, `scene ${scene} beat ${beat}`).toBe(
           true,
         );
         expect(state.panelWidthDelta, `scene ${scene} beat ${beat}`).not.toBeNull();
@@ -511,6 +437,64 @@ test.describe("Style 01 protocol spatial track", () => {
         expect(state.cloneCount, `scene ${scene} beat ${beat}`).toBe(0);
       }
     }
+  });
+
+  test("beat reveal animates existing layout items in v1 motion scenes", async ({
+    page,
+  }) => {
+    for (const scene of [2, 4]) {
+      await openLab(page, "01", scene, 0, {
+        frozen: false,
+      });
+
+      await page.keyboard.press("ArrowRight");
+
+      const titleStartedLayoutMotion = await page.waitForFunction(
+        () => {
+          const title = document.querySelector<HTMLElement>(
+            '[data-testid="spatial-scene-panel"][data-active="true"] [data-beat-layout-mode="motion"] [data-beat-layout-item="true"]',
+          );
+          if (!title) return false;
+          const computed = window.getComputedStyle(title);
+          return computed.transform !== "none" || title.style.transition.includes("transform");
+        },
+        undefined,
+        { timeout: 2000 },
+      );
+
+      expect(titleStartedLayoutMotion, `scene ${scene}`).toBeTruthy();
+    }
+  });
+
+  test("reserved beat layout keeps scene 3 question slots mounted before reveal", async ({
+    page,
+  }) => {
+    await openLab(page, "01", 3, 0, {
+      frozen: false,
+    });
+
+    const reservedState = await page.evaluate(() => {
+      const activePanel = document.querySelector<HTMLElement>(
+        '[data-testid="spatial-scene-panel"][data-active="true"]',
+      );
+      const reserved = activePanel?.querySelector<HTMLElement>(
+        '[data-beat-layout-mode="reserved"]',
+      );
+      const questions = Array.from(
+        reserved?.querySelectorAll<HTMLElement>("li") ?? [],
+      );
+      return {
+        hasReservedLayout: !!reserved,
+        questionCount: questions.length,
+        visibleCount: questions.filter(
+          (item) => getComputedStyle(item).opacity === "1",
+        ).length,
+      };
+    });
+
+    expect(reservedState.hasReservedLayout).toBe(true);
+    expect(reservedState.questionCount).toBe(3);
+    expect(reservedState.visibleCount).toBe(1);
   });
 });
 

@@ -3,7 +3,6 @@ import { buildStyleRegistryEntry } from "./version";
 import ExecutiveSilence01, {
   getMetadata as getMetadata01,
 } from "./01-executive-silence";
-import { executiveSilenceSpatialVersion } from "./01-executive-silence-spatial";
 import SwissPrecision02, {
   getMetadata as getMetadata02,
 } from "./02-swiss-precision";
@@ -160,10 +159,7 @@ const buildEntry = buildStyleRegistryEntry;
  */
 export const STYLE_REGISTRY: StyleRegistryEntry[] = [
   // Minimal Keynote: 01-08
-  buildEntry("01", [
-    { component: ExecutiveSilence01, getMetadata: getMetadata01 },
-    executiveSilenceSpatialVersion,
-  ]),
+  buildEntry("01", [{ component: ExecutiveSilence01, getMetadata: getMetadata01 }]),
   buildEntry("02", [{ component: SwissPrecision02, getMetadata: getMetadata02 }]),
   buildEntry("03", [{ component: ZenVoid03, getMetadata: getMetadata03 }]),
   buildEntry("04", [{ component: AuroraGradient04, getMetadata: getMetadata04 }]),

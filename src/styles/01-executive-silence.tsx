@@ -1,5 +1,6 @@
-import React, { useEffect, useCallback, useState, useRef } from "react";
+import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
+import SpatialSceneTrack from "./SpatialSceneTrack";
 import styles from "./01-executive-silence.module.css";
 import { useFLIP } from "../hooks/useFLIP";
 
@@ -235,11 +236,6 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
-// ─── Transition constants ─────────────────────────────────────────────────
-
-const TRANSITION_DURATION = 650; // ms — outgoing 500ms + incoming 600ms w/ 50ms delay
-const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 };
-
 // ─── Component ──────────────────────────────────────────────────────────────
 
 export default function ExecutiveSilence({
@@ -249,55 +245,15 @@ export default function ExecutiveSilence({
   isThumbnail,
   reducedMotion,
   onNavigate,
-  isTransitionClone,
 }: BespokeStyleProps) {
   useFonts();
 
-  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const [transitionInfo, setTransitionInfo] = useState({
-    outgoingScene: null as number | null,
-    isTransitioning: false,
-    lastScene: scene,
-  });
-
-  // Synchronous derivation — sets transition state in the SAME render cycle
-  // as the scene prop change. Eliminates the 1-frame gap where the incoming
-  // scene is visible without its enter animation class.
-  if (transitionInfo.lastScene !== scene) {
-    if (transitionTimerRef.current) {
-      clearTimeout(transitionTimerRef.current);
-    }
-
-    if (!reducedMotion) {
-      transitionTimerRef.current = setTimeout(() => {
-        setTransitionInfo(function(prev) {
-          return { outgoingScene: null, isTransitioning: false, lastScene: prev.lastScene };
-        });
-      }, TRANSITION_DURATION);
-
-      setTransitionInfo({
-        outgoingScene: transitionInfo.lastScene,
-        isTransitioning: true,
-        lastScene: scene,
-      });
-    } else {
-      setTransitionInfo({
-        outgoingScene: null,
-        isTransitioning: false,
-        lastScene: scene,
-      });
-    }
-  }
-
-  const outgoingScene = transitionInfo.outgoingScene;
-  const isTransitioning = transitionInfo.isTransitioning;
-
-  // FLIP for scene 3 question list
-  const { ref: questionListRef } = useFLIP<HTMLUListElement>({
-    watch: [beat],
-    duration: 400,
-    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  const { ref: motionContentRef } = useFLIP<HTMLDivElement>({
+    watch: [scene, beat],
+    disabled: reducedMotion || isThumbnail || (scene !== 2 && scene !== 4),
+    duration: 520,
+    easing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+    selector: '[data-beat-layout-item="true"]',
   });
 
   const handleNavClick = useCallback(
@@ -318,7 +274,11 @@ export default function ExecutiveSilence({
 
   // ── Render scene content for a given scene number ────────────────────────
 
-  const renderSceneFor = (sceneNum: number, beatNum: number) => {
+  const renderSceneFor = (
+    sceneNum: number,
+    beatNum: number,
+    isCurrent: boolean,
+  ) => {
     const content = SCENES[sceneNum]?.[language] || SCENES[1][language];
 
     if (sceneNum === 1) {
@@ -327,27 +287,38 @@ export default function ExecutiveSilence({
 
     if (sceneNum === 2) {
       return (
-        <>
-          <p className={styles.statement}>{content.statement}</p>
+        <div
+          ref={isCurrent ? motionContentRef : undefined}
+          data-beat-layout-container="true"
+          data-beat-layout-mode="motion"
+        >
+          <p className={styles.statement} data-beat-layout-item="true">
+            {content.statement}
+          </p>
           {beatNum >= 1 && (
-            <p className={styles.attribution}>
+            <p className={styles.attribution} data-beat-layout-item="true">
               {content.attribution}
             </p>
           )}
-        </>
+        </div>
       );
     }
 
     if (sceneNum === 3) {
       const questions = content.questions || [];
       return (
-        <>
+        <div
+          data-beat-layout-container="true"
+          data-beat-layout-mode="reserved"
+        >
           {content.heading && (
-            <p className={styles.sceneHeading}>{content.heading}</p>
+            <p className={styles.sceneHeading} data-beat-layout-item="true">
+              {content.heading}
+            </p>
           )}
           <ul
-            ref={sceneNum === scene ? questionListRef : undefined}
             className={styles.questionList}
+            data-beat-layout-item="true"
           >
             {questions.map((q, i) => {
               const visible = i <= beatNum;
@@ -372,20 +343,26 @@ export default function ExecutiveSilence({
               );
             })}
           </ul>
-        </>
+        </div>
       );
     }
 
     if (sceneNum === 4) {
       return (
-        <>
-          <p className={styles.statement}>{content.statement}</p>
+        <div
+          ref={isCurrent ? motionContentRef : undefined}
+          data-beat-layout-container="true"
+          data-beat-layout-mode="motion"
+        >
+          <p className={styles.statement} data-beat-layout-item="true">
+            {content.statement}
+          </p>
           {beatNum >= 1 && (
-            <p className={styles.dataPoint}>
+            <p className={styles.dataPoint} data-beat-layout-item="true">
               {content.dataPoint}
             </p>
           )}
-        </>
+        </div>
       );
     }
 
@@ -437,38 +414,19 @@ export default function ExecutiveSilence({
     );
   };
 
-  // ── Build layer classes ─────────────────────────────────────────────────
-
-  const outgoingLayerClasses = [
-    styles.sceneLayer,
-    styles.exitAnim,
-  ].filter(Boolean).join(" ");
-
-  const incomingLayerClasses = [
-    styles.sceneLayer,
-    isTransitioning && !isTransitionClone ? styles.enterAnim : "",
-  ].filter(Boolean).join(" ");
-
   return (
     <div className={rootClasses}>
-      {/* Outgoing scene (exit animation) */}
-      {outgoingScene !== null && (
-        <div className={outgoingLayerClasses}>
+      <SpatialSceneTrack
+        scene={scene}
+        beat={beat}
+        axis="x"
+        reducedMotion={reducedMotion || isThumbnail}
+        renderScene={(sceneId, sceneBeat, isActive) => (
           <div className={styles.track}>
-            {renderSceneFor(outgoingScene, BEAT_COUNTS[outgoingScene] - 1)}
+            {renderSceneFor(sceneId, sceneBeat, isActive)}
           </div>
-        </div>
-      )}
-
-      {/* Incoming / current scene */}
-      <div className={incomingLayerClasses}>
-        <div
-          key={scene}
-          className={styles.track}
-        >
-          {renderSceneFor(scene, beat)}
-        </div>
-      </div>
+        )}
+      />
 
       {renderRulerNav()}
     </div>

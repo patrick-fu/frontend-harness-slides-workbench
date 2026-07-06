@@ -30,8 +30,8 @@ const TestComponent = () => <div>test</div>;
 describe("style version protocol", () => {
   it("accepts stable explicit version IDs for protocol modules", () => {
     const protocolVersion = defineStyleVersion({
-      id: "spatial-track",
-      topic: "Spatial Track",
+      id: "decision-art",
+      topic: "Decision Art",
       model: "protocol-test",
       component: TestComponent,
       getMetadata: () => makeMetadata("99"),
@@ -40,8 +40,8 @@ describe("style version protocol", () => {
     const entry = buildStyleRegistryEntry("99", [protocolVersion]);
 
     expect(entry.versions).toHaveLength(1);
-    expect(entry.versions[0].id).toBe("spatial-track");
-    expect(entry.versions[0].topic).toBe("Spatial Track");
+    expect(entry.versions[0].id).toBe("decision-art");
+    expect(entry.versions[0].topic).toBe("Decision Art");
     expect(entry.versions[0].model).toBe("protocol-test");
   });
 

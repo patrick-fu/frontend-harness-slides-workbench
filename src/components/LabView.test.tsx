@@ -200,18 +200,17 @@ describe("LabView — stage centering regression tests", () => {
   });
 });
 
-describe("LabView — protocol style versions", () => {
-  it("renders style 01 spatial-track version through the normal lab UI", () => {
+describe("LabView — style rendering", () => {
+  it("renders style 01 v1 through the normal lab UI", () => {
     renderLabView({
       registry: STYLE_REGISTRY,
       styleId: "01",
-      versionId: "spatial-track",
+      versionId: "v1",
       scene: 1,
       beat: 0,
     });
 
-    expect(screen.getByTestId("version-bar")).toHaveTextContent("Quiet Launch");
-    expect(screen.getByText("Quiet signals move first.")).toBeInTheDocument();
+    expect(screen.getByText("Introducing Nova")).toBeInTheDocument();
     expect(screen.getByTestId("spatial-scene-track")).toBeInTheDocument();
   });
 });

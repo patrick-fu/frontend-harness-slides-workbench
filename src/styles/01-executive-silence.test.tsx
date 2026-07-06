@@ -335,17 +335,49 @@ describe("Style 01: Executive Silence — root element contract", () => {
   it("scene transition track has the track CSS class", () => {
     const { stage } = renderStage({ scene: 1, beat: 0 });
     const root = stage.firstElementChild as HTMLElement;
+    expect(root.querySelector('[data-testid="spatial-scene-track"]')).not.toBeNull();
     const track = root.querySelector<HTMLElement>("[class*='track']");
     expect(track).not.toBeNull();
     expect(Array.from(track!.classList)).toContain(styles.track);
   });
 
-  it("scene transition track remounts on scene change (key pattern)", () => {
-    // The key={`01-${scene}`} pattern forces remount on scene change
-    // We verify by checking that the track element exists and content changes
+  it("uses adjacent spatial panels without outgoing transition clones", () => {
+    const { stage } = renderStage({ scene: 2, beat: 0 });
+    const root = stage.firstElementChild as HTMLElement;
+
+    expect(root.querySelectorAll('[data-testid="spatial-scene-panel"]')).toHaveLength(5);
+    expect(root.querySelector("[data-transition-clone='true']")).toBeNull();
+  });
+
+  it("scene transition track updates on scene change without throwing", () => {
     const { unmount } = renderStage({ scene: 1, beat: 0 });
     unmount();
-    // Re-render with different scene — should work without errors
     expect(() => renderStage({ scene: 3, beat: 1 })).not.toThrow();
+  });
+
+  it("declares beat layout strategies for multi-beat scenes", () => {
+    for (const [scene, mode] of [
+      [2, "motion"],
+      [3, "reserved"],
+      [4, "motion"],
+    ] as const) {
+      const { stage, unmount } = renderStage({
+        scene,
+        beat: mode === "motion" ? 1 : 0,
+      });
+      const activePanel = stage.querySelector<HTMLElement>(
+        '[data-testid="spatial-scene-panel"][data-active="true"]',
+      );
+      const layout = activePanel?.querySelector<HTMLElement>(
+        '[data-beat-layout-container="true"]',
+      );
+
+      expect(layout).not.toBeNull();
+      expect(layout).toHaveAttribute("data-beat-layout-mode", mode);
+      expect(
+        layout?.querySelectorAll('[data-beat-layout-item="true"]').length,
+      ).toBeGreaterThanOrEqual(2);
+      unmount();
+    }
   });
 });

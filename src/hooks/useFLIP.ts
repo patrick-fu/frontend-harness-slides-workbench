@@ -15,6 +15,8 @@ export interface UseFlipOptions {
    * If omitted, all direct children of the ref'd container are FLIP'd.
    */
   selector?: string;
+  /** Disable measurement and animation. Use for reducedMotion, thumbnails, and inactive panels. */
+  disabled?: boolean;
 }
 
 export interface UseFlipReturn<T extends HTMLElement> {
@@ -48,6 +50,7 @@ export function useFLIP<T extends HTMLElement>({
   duration = 400,
   easing = "cubic-bezier(0.16, 1, 0.3, 1)",
   selector,
+  disabled = false,
 }: UseFlipOptions): UseFlipReturn<T> {
   const containerRef = useRef<T>(null);
   const firstPositions = useRef<Map<Element, { left: number; top: number }>>(
@@ -56,15 +59,20 @@ export function useFLIP<T extends HTMLElement>({
   const isAnimating = useRef(false);
 
   const getElements = useCallback((): Element[] => {
+    if (disabled) return [];
     const el = containerRef.current;
     if (!el) return [];
     if (selector) {
       return Array.from(el.querySelectorAll(selector));
     }
     return Array.from(el.children);
-  }, [selector]);
+  }, [disabled, selector]);
 
   const snapshot = useCallback(() => {
+    if (disabled) {
+      firstPositions.current = new Map();
+      return;
+    }
     const elements = getElements();
     const map = new Map<Element, { left: number; top: number }>();
     for (const el of elements) {
@@ -72,7 +80,7 @@ export function useFLIP<T extends HTMLElement>({
       map.set(el, { left: rect.left, top: rect.top });
     }
     firstPositions.current = map;
-  }, [getElements]);
+  }, [disabled, getElements]);
 
   // Auto-snapshot before the watched state causes a re-render
   // We use a ref to track previous watch values
@@ -85,7 +93,7 @@ export function useFLIP<T extends HTMLElement>({
     return a.every((val, i) => val === b[i]);
   };
 
-  if (!depsEqual(prevWatch.current, watch)) {
+  if (!disabled && !depsEqual(prevWatch.current, watch)) {
     watchChanged.current = true;
     // Snapshot immediately when we detect a change (synchronous)
     snapshot();
@@ -94,6 +102,11 @@ export function useFLIP<T extends HTMLElement>({
 
   // After render, apply the FLIP inversion and play animation
   useEffect(() => {
+    if (disabled) {
+      watchChanged.current = false;
+      firstPositions.current = new Map();
+      return;
+    }
     if (!watchChanged.current) return;
     watchChanged.current = false;
 
@@ -157,7 +170,7 @@ export function useFLIP<T extends HTMLElement>({
       isAnimating.current = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watch, duration, easing, getElements]);
+  }, [watch, duration, easing, getElements, disabled]);
 
   return { ref: containerRef as React.RefObject<T>, snapshot };
 }
