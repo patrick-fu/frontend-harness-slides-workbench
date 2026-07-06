@@ -1,38 +1,44 @@
 # Style Transition Plan
 
+> Historical note: this document originally specified per-style outgoing scene
+> clones. That model has been superseded. Existing v1 styles now use
+> `SpatialSceneTrack` for scene lifecycle and must not maintain `outgoingScene`,
+> render full-screen transition clones, or read `isTransitionClone`. Keep the
+> per-style motion vocabulary below as visual reference only, not as an
+> implementation pattern.
+
 ## Principles
 
 ### Core Architecture Decision
 
-Each style component owns its scene transitions completely. The framework only changes the `scene` prop. The style must:
+Scene lifecycle is owned by `SpatialSceneTrack`. The framework changes the
+`scene` prop, and each style renders adjacent panels through the shared track.
+The style must:
 
-1. Detect the scene change (via `useEffect` watching `scene`).
-2. Render BOTH the outgoing and incoming scenes simultaneously, absolutely positioned within the 1920×1080 stage.
-3. Apply CSS transitions/animations to create the effect.
-4. After the transition completes (e.g., via `setTimeout`), unmount the outgoing scene to free resources.
+1. Render scene content through `SpatialSceneTrack`.
+2. Keep persistent background/nav chrome outside scene-specific content when needed.
+3. Pass `reducedMotion || isThumbnail` into the shared track.
+4. Declare `data-beat-layout-mode="motion"` or `"reserved"` for every multi-beat scene.
 
-The current `key={scene}` pattern causes a hard unmount/remount with a simple fade-in animation. To create proper scene-to-scene transitions, styles must maintain an "outgoing scene" reference in state and render both during the animation window.
+The previous outgoing-clone pattern caused full-screen duplicate scenes during
+transitions and is no longer accepted.
 
 **Recommended pattern for all styles:**
 
 ```tsx
-const [outgoingScene, setOutgoingScene] = useState<number | null>(null);
-const [isTransitioning, setIsTransitioning] = useState(false);
-
-useEffect(() => {
-  if (outgoingScene === null && /* scene changed */) {
-    setOutgoingScene(prevScene);
-    setIsTransitioning(true);
-    const timer = setTimeout(() => {
-      setOutgoingScene(null);
-      setIsTransitioning(false);
-    }, TRANSITION_DURATION);
-    return () => clearTimeout(timer);
-  }
-}, [scene]);
+<SpatialSceneTrack
+  scene={scene}
+  beat={beat}
+  axis="x"
+  reducedMotion={reducedMotion || isThumbnail}
+  beatLayoutModes={BEAT_LAYOUT_MODES}
+  renderScene={(sceneId, sceneBeat, isActive) => (
+    <div className={styles.sceneLayer}>
+      {renderSceneFor(sceneId, sceneBeat, isActive)}
+    </div>
+  )}
+/>
 ```
-
-Then in the render, conditionally render both `outgoingScene` content (with exit animation classes) and `scene` content (with enter animation classes).
 
 ### Band-Based Guidance
 

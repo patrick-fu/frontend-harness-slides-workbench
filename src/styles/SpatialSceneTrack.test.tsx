@@ -74,6 +74,24 @@ describe("SpatialSceneTrack", () => {
     ]);
   });
 
+  it("marks panel-level beat layout strategy when provided", () => {
+    renderTrack({
+      scene: 2,
+      beatLayoutModes: {
+        2: "motion",
+        3: "reserved",
+      },
+    });
+
+    const panels = screen.getAllByTestId("spatial-scene-panel");
+
+    expect(panels[0]).not.toHaveAttribute("data-beat-layout-container");
+    expect(panels[1]).toHaveAttribute("data-beat-layout-container", "true");
+    expect(panels[1]).toHaveAttribute("data-beat-layout-mode", "motion");
+    expect(panels[2]).toHaveAttribute("data-beat-layout-container", "true");
+    expect(panels[2]).toHaveAttribute("data-beat-layout-mode", "reserved");
+  });
+
   it("renders adjacent scene panels inside one clipped spatial track instead of outgoing clones", () => {
     renderTrack();
 

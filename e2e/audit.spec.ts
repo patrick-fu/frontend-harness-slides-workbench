@@ -171,6 +171,12 @@ function getLastBeat(styleId: string, scene: number): number {
   return count - 1; // convert count to 0-based index
 }
 
+/** Get the first scene with multiple beats for a given style. */
+function getFirstMultiBeatScene(style: StyleBeatInfo): number {
+  const entry = Object.entries(style.beats).find(([, count]) => count > 1);
+  return entry ? Number(entry[0]) : 1;
+}
+
 // ── Tests ──────────────────────────────────────────────────────────────────
 
 // ─── 1 & 2: All 48 styles — console errors + overflow (parallel) ───────────
@@ -186,6 +192,7 @@ test.describe.parallel("Style audit — all 48 styles", () => {
 
       // Verify stage is rendered
       await expect(page.locator('[data-testid="stage"]')).toBeVisible();
+      await expect(page.locator('[data-testid="spatial-scene-track"]')).toBeVisible();
 
       // Give lazy-loaded assets a beat to finish
       await page.waitForTimeout(800);
@@ -206,6 +213,63 @@ test.describe.parallel("Style audit — all 48 styles", () => {
         overflowY,
         `Style ${style.id} scene 1 overflows vertically by ${overflowY}px`,
       ).toBeLessThanOrEqual(2);
+
+      const transitionState = await page.evaluate(() => {
+        const activePanel = document.querySelector<HTMLElement>(
+          '[data-testid="spatial-scene-panel"][data-active="true"]',
+        );
+        return {
+          panelCount: document.querySelectorAll(
+            '[data-testid="spatial-scene-panel"]',
+          ).length,
+          activeScene: activePanel?.dataset.sceneId,
+          cloneCount: document.querySelectorAll('[data-transition-clone="true"]')
+            .length,
+        };
+      });
+
+      expect(
+        transitionState.panelCount,
+        `Style ${style.id} must render adjacent spatial panels`,
+      ).toBeGreaterThanOrEqual(5);
+      expect(transitionState.activeScene, `Style ${style.id}`).toBe("1");
+      expect(
+        transitionState.cloneCount,
+        `Style ${style.id} must not render outgoing transition clones`,
+      ).toBe(0);
+    });
+
+    test(`style ${style.id} first multi-beat scene declares beat layout mode`, async ({
+      page,
+    }) => {
+      const scene = getFirstMultiBeatScene(style);
+
+      await openLab(page, style.id, scene, 0, { frozen: true });
+      await expect(page.locator('[data-testid="spatial-scene-track"]')).toBeVisible();
+
+      const layoutState = await page.evaluate(() => {
+        const activePanel = document.querySelector<HTMLElement>(
+          '[data-testid="spatial-scene-panel"][data-active="true"]',
+        );
+        const layout = activePanel?.matches(
+          '[data-beat-layout-container="true"]',
+        )
+          ? activePanel
+          : activePanel?.querySelector<HTMLElement>(
+            '[data-beat-layout-container="true"]',
+          );
+
+        return {
+          activeScene: activePanel?.dataset.sceneId,
+          layoutMode: layout?.dataset.beatLayoutMode,
+        };
+      });
+
+      expect(layoutState.activeScene, `Style ${style.id}`).toBe(String(scene));
+      expect(
+        layoutState.layoutMode,
+        `Style ${style.id} scene ${scene} must declare a beat layout mode`,
+      ).toMatch(/^(motion|reserved)$/);
     });
   }
 });

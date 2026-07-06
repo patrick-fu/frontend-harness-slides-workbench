@@ -230,7 +230,7 @@ return <>
 </>;
 ```
 
-旧版本中仍可能存在 `key={scene}` 或 `outgoingScene`，这属于兼容层，不是新增版本模板。
+旧实现中的 `key={scene}` / `outgoingScene` / `isTransitionClone` clone-lifecycle 已迁移出 v1 style；不要重新引入。
 
 ### 5.3 Beat 动态揭示
 
