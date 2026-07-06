@@ -3,6 +3,7 @@ import type { StyleRegistryEntry, StyleMetadata } from "../types";
 import { applyFilters, aggregateTags } from "../utils/filter";
 import FilterPanel from "./FilterPanel";
 import { translateBand, type BandId } from "../i18n/translations";
+import { scene3Thumbnails } from "../data/showcase-thumbnails";
 
 export interface OverviewViewProps {
   registry: StyleRegistryEntry[];
@@ -143,15 +144,19 @@ export default function OverviewView({
                 {translateBand(band as BandId, language)}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {styles.map((meta) => (
-                  <StyleCard
-                    key={meta.id}
-                    meta={meta}
-                    registry={registry}
-                    language={language}
-                    onSelect={onSelectStyle}
-                  />
-                ))}
+                {styles.map((meta) => {
+                  const versionCount =
+                    registry.find((e) => e.id === meta.id)?.versions.length ??
+                    0;
+                  return (
+                    <StyleCard
+                      key={meta.id}
+                      meta={meta}
+                      versionCount={versionCount}
+                      onSelect={onSelectStyle}
+                    />
+                  );
+                })}
               </div>
             </section>
           );
@@ -165,17 +170,12 @@ export default function OverviewView({
 
 interface StyleCardProps {
   meta: StyleMetadata;
-  registry: StyleRegistryEntry[];
-  language: "en" | "zh";
+  versionCount: number;
   onSelect: (styleId: string) => void;
 }
 
-function StyleCard({ meta, registry, language, onSelect }: StyleCardProps) {
-  // Find the registry entry to get the component (first version)
-  const entry = registry.find((e) => e.id === meta.id);
-  const StyleComponent = entry?.versions[0]?.component;
-  const styleName = entry?.name[language] || meta.name;
-  const versionCount = entry?.versions.length ?? 0;
+function StyleCard({ meta, versionCount, onSelect }: StyleCardProps) {
+  const scene3Filename = scene3Thumbnails[meta.id];
 
   const handleClick = useCallback(() => {
     onSelect(meta.id);
@@ -194,25 +194,13 @@ function StyleCard({ meta, registry, language, onSelect }: StyleCardProps) {
         className="aspect-video w-full relative overflow-hidden"
         style={{ background: meta.colors.bg }}
       >
-        {StyleComponent && (
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              containerType: "size",
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <StyleComponent
-              scene={meta.heroScene}
-              beat={0}
-              language={language}
-              isThumbnail={true}
-              reducedMotion={true}
-              onNavigate={undefined}
-            />
-          </div>
+        {scene3Filename && (
+          <img
+            src={`/showcase/${scene3Filename}`}
+            alt={`${meta.name} thumbnail`}
+            loading="lazy"
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+          />
         )}
         {/* Version count badge */}
         {versionCount > 1 && (
@@ -240,7 +228,7 @@ function StyleCard({ meta, registry, language, onSelect }: StyleCardProps) {
           className="text-sm font-semibold truncate"
           style={{ color: meta.colors.ink }}
         >
-          {styleName}
+          {meta.name}
         </h3>
         <p
           className="text-xs opacity-50 mt-0.5 line-clamp-2"
