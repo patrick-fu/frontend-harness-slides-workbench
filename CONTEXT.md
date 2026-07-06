@@ -1353,6 +1353,186 @@ Workbench 的 48 个风格名称已完全对齐 Skill 的 `frontend-harness-slid
 
 ---
 
+## Local Issue Queue — Curated v2 Style Versions
+
+Status: ready for local execution. These issues are tracked in this context
+document instead of GitHub Issues.
+
+### Issue 1 — Establish v2 slide protocol and assignment matrix
+
+## What to build
+
+Define the end-to-end protocol for adding a curated `v2` version to every
+style. The slice must make one generated v2 style mechanically possible without
+letting agents copy existing v1 implementations: per-edge scene transition
+support, v2 authoring constraints, a 48-style assignment matrix, and a repeatable
+sub-agent brief template.
+
+## Acceptance criteria
+
+- [ ] `SpatialSceneTrack` supports per-edge scene transition choices without reintroducing outgoing scene clones.
+- [ ] The v2 authoring rules state that sub-agents may read only protocol, shared infrastructure, and their assigned brief, not existing v1 style implementations.
+- [ ] The assignment matrix fixes each style's topic, five-scene narrative, transition edges, beat layout strategy, internal navigation concept, and visual constraints.
+- [ ] Tests fail if registered v2 versions omit supported transition data, beat layout markers, bilingual metadata, or the no-clone lifecycle.
+- [ ] The design-board workflow is documented as temporary GPT-Image-2 reference only; generated images are not committed or used as runtime assets.
+
+## Blocked by
+
+None - can start immediately.
+
+### Issue 2 — Build minimal-keynote v2 styles 01-08
+
+## What to build
+
+Create curated `v2` versions for styles 01-08. Each style is built by an
+independent sub-agent from the assignment brief and style guide only. The band
+must demonstrate restrained, premium keynote design while keeping topics,
+navigation treatments, beat strategies, and per-edge transitions visibly varied.
+
+## Acceptance criteria
+
+- [ ] Styles 01-08 each register exactly one additional version with `id: "v2"` while preserving `v1`.
+- [ ] Each v2 has bilingual content, five scenes, complete beat metadata, reduced-motion behavior, and thumbnail-safe rendering.
+- [ ] Each sub-agent creates a temporary five-scene design board before implementation and uses it only as a reference.
+- [ ] The band passes unit, protocol, audit, and visual spot checks in both English and Chinese.
+- [ ] None of the v2 implementations copy v1 layout, content, CSS structure, or transition lifecycle patterns.
+
+## Blocked by
+
+- Issue 1 — Establish v2 slide protocol and assignment matrix.
+
+### Issue 3 — Build balanced-hybrid v2 styles 09-16
+
+## What to build
+
+Create curated `v2` versions for styles 09-16. Each style is built by an
+independent sub-agent from the assignment brief and style guide only. The band
+must cover process, systems, roadmap, organization, and case-study narratives
+with strong information structure and non-repetitive navigation.
+
+## Acceptance criteria
+
+- [ ] Styles 09-16 each register exactly one additional version with `id: "v2"` while preserving `v1`.
+- [ ] Each v2 has bilingual content, five scenes, complete beat metadata, reduced-motion behavior, and thumbnail-safe rendering.
+- [ ] Each multi-beat scene explicitly chooses `motion` or `reserved` layout and animates or reserves layout changes accordingly.
+- [ ] Per-edge transitions match the assignment matrix and do not collapse into a single slide/fade pattern.
+- [ ] The band passes unit, protocol, audit, and visual spot checks in both English and Chinese.
+
+## Blocked by
+
+- Issue 1 — Establish v2 slide protocol and assignment matrix.
+
+### Issue 4 — Build editorial-print v2 styles 17-24
+
+## What to build
+
+Create curated `v2` versions for styles 17-24. Each style is built by an
+independent sub-agent from the assignment brief and style guide only. The band
+must feel publication-led: editorial hierarchy, print artifacts, reading rhythm,
+and scene transitions that behave like pages, columns, frames, or scrolls.
+
+## Acceptance criteria
+
+- [ ] Styles 17-24 each register exactly one additional version with `id: "v2"` while preserving `v1`.
+- [ ] Each v2 has bilingual content, five scenes, complete beat metadata, reduced-motion behavior, and thumbnail-safe rendering.
+- [ ] Typography, columns, captions, and image-like composition are code-rendered, not baked into generated image assets.
+- [ ] Internal navigation matches the print/editorial metaphor assigned to each style.
+- [ ] The band passes unit, protocol, audit, and visual spot checks in both English and Chinese.
+
+## Blocked by
+
+- Issue 1 — Establish v2 slide protocol and assignment matrix.
+
+### Issue 5 — Build craft-cultural v2 styles 25-32
+
+## What to build
+
+Create curated `v2` versions for styles 25-32. Each style is built by an
+independent sub-agent from the assignment brief and style guide only. The band
+must show material and cultural specificity through coded texture, ornament,
+layout, motion, and navigation rather than generic decorative themes.
+
+## Acceptance criteria
+
+- [ ] Styles 25-32 each register exactly one additional version with `id: "v2"` while preserving `v1`.
+- [ ] Each v2 has bilingual content, five scenes, complete beat metadata, reduced-motion behavior, and thumbnail-safe rendering.
+- [ ] Cultural motifs are used as structural design language, not superficial background decoration.
+- [ ] Per-edge transitions and beat reveals reflect each assigned material metaphor.
+- [ ] The band passes unit, protocol, audit, and visual spot checks in both English and Chinese.
+
+## Blocked by
+
+- Issue 1 — Establish v2 slide protocol and assignment matrix.
+
+### Issue 6 — Build contemporary-digital v2 styles 33-40
+
+## What to build
+
+Create curated `v2` versions for styles 33-40. Each style is built by an
+independent sub-agent from the assignment brief and style guide only. The band
+must use digital-native surfaces, dashboards, canvases, terminals, particles,
+and interface metaphors without collapsing into the same glass-card layout.
+
+## Acceptance criteria
+
+- [ ] Styles 33-40 each register exactly one additional version with `id: "v2"` while preserving `v1`.
+- [ ] Each v2 has bilingual content, five scenes, complete beat metadata, reduced-motion behavior, and thumbnail-safe rendering.
+- [ ] Navigation patterns differ across the band and match each interface metaphor.
+- [ ] Animated digital effects are deterministic enough for tests and disabled for reduced motion and thumbnails.
+- [ ] The band passes unit, protocol, audit, and visual spot checks in both English and Chinese.
+
+## Blocked by
+
+- Issue 1 — Establish v2 slide protocol and assignment matrix.
+
+### Issue 7 — Build text-report v2 styles 41-48
+
+## What to build
+
+Create curated `v2` versions for styles 41-48. Each style is built by an
+independent sub-agent from the assignment brief and style guide only. The band
+must be dense, evidence-first, and document-like while still making scene and
+beat state changes polished and legible.
+
+## Acceptance criteria
+
+- [ ] Styles 41-48 each register exactly one additional version with `id: "v2"` while preserving `v1`.
+- [ ] Each v2 has bilingual content, five scenes, complete beat metadata, reduced-motion behavior, and thumbnail-safe rendering.
+- [ ] Dense tables, briefs, footnotes, exhibits, and report sections remain readable without overflow in English or Chinese.
+- [ ] Most transitions are restrained but still follow the assigned per-edge vocabulary.
+- [ ] The band passes unit, protocol, audit, and visual spot checks in both English and Chinese.
+
+## Blocked by
+
+- Issue 1 — Establish v2 slide protocol and assignment matrix.
+
+### Issue 8 — Run full v2 acceptance pass and polish regressions
+
+## What to build
+
+Run the final acceptance pass after all six v2 bands are integrated. This slice
+must verify that `v2` works as a coherent Workbench-wide release while `v1`
+continues to behave as before.
+
+## Acceptance criteria
+
+- [ ] All 48 styles expose both `v1` and `v2`, and version switching works from Lab View and URL hash state.
+- [ ] Full unit, typecheck, build, and audit validation pass.
+- [ ] English and Chinese spot checks cover every band and catch overflow, missing content, broken metadata, or unreadable layouts.
+- [ ] Transition diversity is verified across v2 styles and per-edge transitions.
+- [ ] v1 regression checks confirm existing styles still render, navigate, and transition correctly.
+
+## Blocked by
+
+- Issue 2 — Build minimal-keynote v2 styles 01-08.
+- Issue 3 — Build balanced-hybrid v2 styles 09-16.
+- Issue 4 — Build editorial-print v2 styles 17-24.
+- Issue 5 — Build craft-cultural v2 styles 25-32.
+- Issue 6 — Build contemporary-digital v2 styles 33-40.
+- Issue 7 — Build text-report v2 styles 41-48.
+
+---
+
 ## Open Questions
 
 _(None currently)_
