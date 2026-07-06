@@ -1,0 +1,686 @@
+.root {
+  --riso-paper: #eadba8;
+  --riso-paper-deep: #d8c78f;
+  --riso-ink: #211d18;
+  --riso-cyan: #0b6870;
+  --riso-red: #e84b3f;
+  --riso-overprint: #69564a;
+  --riso-tape: #f2e8bd;
+  --riso-display: "Bebas Neue", "Impact", "Arial Narrow", sans-serif;
+  --riso-body: "IBM Plex Mono", "Noto Sans SC", monospace;
+  --riso-hand: "Caveat", "Noto Sans SC", cursive;
+  position: relative;
+  container-type: size;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--riso-paper);
+  color: var(--riso-ink);
+  font-family: var(--riso-body);
+  isolation: isolate;
+}
+
+.root * {
+  box-sizing: border-box;
+}
+
+.paperNoise {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.28;
+  z-index: 8;
+}
+
+.printBed {
+  position: absolute;
+  inset: 0;
+  background-color: var(--riso-paper);
+  overflow: hidden;
+}
+
+.printBed::before,
+.printBed::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+}
+
+.printBed::before {
+  inset: 2.4cqh 2.1cqw;
+  border: 0.16cqw solid var(--riso-cyan);
+  transform: rotate(-0.45deg);
+}
+
+.printBed::after {
+  inset: 3.2cqh 2.9cqw 1.8cqh 1.4cqw;
+  border: 0.14cqw solid var(--riso-red);
+  transform: rotate(0.55deg);
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 11cqh 1fr 9cqh;
+  padding: 5.4cqh 5.6cqw 5cqh;
+  gap: 2cqh;
+}
+
+.scene::before {
+  content: "";
+  position: absolute;
+  inset: 6.5cqh 4.8cqw 4.4cqh;
+  background-color: rgba(232, 75, 63, 0.08);
+  transform: rotate(-0.3deg);
+  pointer-events: none;
+}
+
+.chrome {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 3cqw;
+  position: relative;
+  z-index: 2;
+}
+
+.issue {
+  display: inline-flex;
+  align-items: center;
+  gap: 1cqw;
+  color: var(--riso-ink);
+  font-family: var(--riso-body);
+  font-size: 1.12cqw;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.issueMark {
+  display: inline-block;
+  width: 4.1cqw;
+  height: 2.4cqh;
+  background-color: var(--riso-cyan);
+  opacity: 0.9;
+  transform: rotate(-3deg);
+}
+
+.sceneNumber {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 7cqw;
+  height: 5.4cqh;
+  color: var(--riso-paper);
+  background-color: var(--riso-red);
+  font-family: var(--riso-display);
+  font-size: 2.7cqw;
+  line-height: 1;
+  transform: rotate(2deg);
+}
+
+.sceneNumber::after {
+  content: attr(data-shadow);
+  position: absolute;
+  color: var(--riso-cyan);
+  transform: translate(0.35cqw, 0.35cqh);
+  opacity: 0.58;
+  z-index: -1;
+}
+
+.canvas {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 2.5cqw;
+  min-height: 0;
+}
+
+.coverCanvas {
+  position: relative;
+  grid-template-columns: 1.08fr 0.74fr;
+  align-items: center;
+}
+
+.listCanvas {
+  grid-template-columns: 0.62fr 1fr;
+  align-items: stretch;
+}
+
+.spreadCanvas {
+  position: relative;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+
+.overprintCanvas {
+  grid-template-columns: 0.82fr 1fr;
+  align-items: center;
+}
+
+.foldCanvas {
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+.titleStack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2cqh;
+  min-width: 0;
+}
+
+.kicker {
+  width: fit-content;
+  padding: 1.1cqh 1.2cqw 0.8cqh;
+  background-color: var(--riso-cyan);
+  color: var(--riso-paper);
+  font-family: var(--riso-body);
+  font-size: 1.28cqw;
+  line-height: 1;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+
+.title {
+  position: relative;
+  max-width: 54cqw;
+  margin: 0;
+  color: var(--riso-ink);
+  font-family: var(--riso-display);
+  font-size: min(8.6cqw, 15.3cqh);
+  line-height: 0.82;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.title::before,
+.title::after {
+  content: attr(data-title);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+.title::before {
+  color: var(--riso-cyan);
+  transform: translate(-0.34cqw, 0.28cqh);
+  opacity: 0.62;
+  z-index: -1;
+}
+
+.title::after {
+  color: var(--riso-red);
+  transform: translate(0.3cqw, -0.2cqh);
+  opacity: 0.45;
+  z-index: -2;
+}
+
+.dek {
+  max-width: 37cqw;
+  margin: 0;
+  color: var(--riso-ink);
+  font-size: 1.42cqw;
+  line-height: 1.42;
+}
+
+.handNote {
+  width: fit-content;
+  color: var(--riso-red);
+  font-family: var(--riso-hand);
+  font-size: 2.3cqw;
+  line-height: 0.95;
+  transform: rotate(-4deg);
+}
+
+.posterBlock {
+  position: relative;
+  min-height: 45cqh;
+  border: 0.22cqw solid var(--riso-ink);
+  background-color: rgba(11, 104, 112, 0.13);
+  transform: rotate(1.7deg);
+  overflow: hidden;
+}
+
+.posterBlock::before,
+.posterBlock::after {
+  content: "";
+  position: absolute;
+  width: 19cqw;
+  height: 19cqw;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+}
+
+.posterBlock::before {
+  right: 4cqw;
+  top: 5cqh;
+  background-color: var(--riso-cyan);
+  opacity: 0.78;
+  transform: translate(-0.45cqw, 0.6cqh);
+}
+
+.posterBlock::after {
+  right: 1.5cqw;
+  top: 8cqh;
+  background-color: var(--riso-red);
+  opacity: 0.66;
+}
+
+.posterLabel {
+  position: absolute;
+  left: 2.4cqw;
+  bottom: 2.2cqh;
+  width: 16cqw;
+  color: var(--riso-paper);
+  background-color: var(--riso-ink);
+  padding: 1.2cqh 1.2cqw;
+  font-family: var(--riso-display);
+  font-size: 2.5cqw;
+  line-height: 0.9;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+
+.columnStamp {
+  position: relative;
+  border: 0.18cqw solid var(--riso-ink);
+  background-color: var(--riso-red);
+  color: var(--riso-paper);
+  padding: 2.2cqh 1.6cqw;
+  transform: rotate(-3deg);
+}
+
+.columnStamp strong {
+  display: block;
+  font-family: var(--riso-display);
+  font-size: 4.1cqw;
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+
+.columnStamp span {
+  display: block;
+  margin-top: 1.5cqh;
+  font-size: 1.18cqw;
+  line-height: 1.28;
+}
+
+.cutGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: center;
+  gap: 2cqw;
+}
+
+.cutCard {
+  position: relative;
+  min-height: 20cqh;
+  padding: 2.1cqh 1.5cqw;
+  border: 0.18cqw solid var(--riso-ink);
+  background-color: rgba(234, 219, 168, 0.82);
+  transform: rotate(var(--tilt));
+}
+
+.coverSlip {
+  position: absolute;
+  right: 1cqw;
+  width: 18cqw;
+  min-height: 14cqh;
+  z-index: 3;
+}
+
+.coverSlipOne {
+  top: 5cqh;
+}
+
+.coverSlipTwo {
+  bottom: 3cqh;
+  right: 6cqw;
+}
+
+.marginSlip {
+  position: absolute;
+  left: 35cqw;
+  bottom: 1cqh;
+  width: 28cqw;
+  min-height: 14cqh;
+  z-index: 3;
+}
+
+.cutCard:nth-child(2n) {
+  background-color: rgba(11, 104, 112, 0.2);
+}
+
+.cutCard::after {
+  content: "";
+  position: absolute;
+  right: 1.1cqw;
+  top: -1.2cqh;
+  width: 6.4cqw;
+  height: 2.4cqh;
+  background-color: rgba(242, 232, 189, 0.74);
+  border-left: 0.12cqw solid rgba(33, 29, 24, 0.2);
+  border-right: 0.12cqw solid rgba(33, 29, 24, 0.2);
+  transform: rotate(5deg);
+}
+
+.cardIndex {
+  display: inline-block;
+  margin-bottom: 1.5cqh;
+  color: var(--riso-red);
+  font-family: var(--riso-display);
+  font-size: 2.5cqw;
+  line-height: 1;
+}
+
+.cardTitle {
+  margin: 0 0 1cqh;
+  font-family: var(--riso-display);
+  font-size: 3cqw;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.cardBody {
+  margin: 0;
+  font-size: 1.14cqw;
+  line-height: 1.35;
+}
+
+.zinePage {
+  position: relative;
+  min-height: 56cqh;
+  padding: 3cqh 2.1cqw;
+  border: 0.18cqw solid var(--riso-ink);
+  background-color: rgba(234, 219, 168, 0.84);
+  overflow: hidden;
+}
+
+.zinePage:nth-child(1) {
+  transform: rotate(-0.9deg);
+}
+
+.zinePage:nth-child(2) {
+  transform: rotate(0.8deg);
+}
+
+.pageHead {
+  margin: 0 0 2.4cqh;
+  font-family: var(--riso-display);
+  font-size: 4.2cqw;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.pageText {
+  margin: 0;
+  max-width: 34cqw;
+  font-size: 1.17cqw;
+  line-height: 1.45;
+}
+
+.pullQuote {
+  margin-top: 3cqh;
+  padding: 1.6cqh 1.4cqw;
+  color: var(--riso-paper);
+  background-color: var(--riso-cyan);
+  font-family: var(--riso-hand);
+  font-size: 2.2cqw;
+  line-height: 0.95;
+  transform: rotate(-2deg);
+}
+
+.overprintStack {
+  position: relative;
+  min-height: 58cqh;
+}
+
+.inkLayer {
+  position: absolute;
+  border: 0.18cqw solid var(--riso-ink);
+  mix-blend-mode: multiply;
+}
+
+.inkLayerOne {
+  inset: 3cqh 8cqw 14cqh 1cqw;
+  background-color: var(--riso-cyan);
+  opacity: 0.78;
+  transform: rotate(-3deg);
+}
+
+.inkLayerTwo {
+  inset: 13cqh 3cqw 3cqh 7cqw;
+  background-color: var(--riso-red);
+  opacity: 0.68;
+  transform: rotate(2deg);
+}
+
+.inkLayerThree {
+  inset: 21cqh 12cqw 10cqh 5cqw;
+  border-style: dashed;
+  border-color: var(--riso-overprint);
+  background-color: rgba(105, 86, 74, 0.42);
+  transform: rotate(-1deg);
+}
+
+.overprintCopy {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  padding: 3cqh 1cqw;
+}
+
+.overprintCopy h3 {
+  margin: 0 0 2cqh;
+  font-family: var(--riso-display);
+  font-size: 5.5cqw;
+  line-height: 0.85;
+  text-transform: uppercase;
+}
+
+.overprintCopy p {
+  margin: 0;
+  max-width: 36cqw;
+  font-size: 1.35cqw;
+  line-height: 1.38;
+}
+
+.foldout {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr 0.9fr;
+  min-height: 58cqh;
+  border: 0.22cqw solid var(--riso-ink);
+  background-color: rgba(234, 219, 168, 0.85);
+  transform: rotate(-0.45deg);
+}
+
+.foldPanel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3.2cqh 2cqw;
+  border-right: 0.14cqw dashed var(--riso-ink);
+}
+
+.foldPanel:last-child {
+  border-right: 0;
+}
+
+.foldPanel h3 {
+  margin: 0;
+  font-family: var(--riso-display);
+  font-size: 4.4cqw;
+  line-height: 0.84;
+  text-transform: uppercase;
+}
+
+.foldPanel p {
+  margin: 2cqh 0 0;
+  font-size: 1.22cqw;
+  line-height: 1.36;
+}
+
+.foldPanel strong {
+  display: block;
+  margin-top: 2cqh;
+  color: var(--riso-red);
+  font-family: var(--riso-hand);
+  font-size: 2.35cqw;
+  line-height: 0.95;
+  transform: rotate(-2deg);
+}
+
+.footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2cqw;
+}
+
+.beatMarks {
+  display: flex;
+  align-items: center;
+  gap: 0.7cqw;
+  min-height: 3cqh;
+}
+
+.beatMark {
+  width: 3.8cqw;
+  height: 0.78cqh;
+  border: 0;
+  background-color: rgba(33, 29, 24, 0.24);
+  transform: rotate(var(--tilt));
+}
+
+.beatMarkActive {
+  background-color: var(--riso-red);
+}
+
+.beatMarkPassed {
+  background-color: var(--riso-cyan);
+}
+
+.caption {
+  max-width: 36cqw;
+  margin: 0;
+  font-family: var(--riso-hand);
+  font-size: 2.05cqw;
+  line-height: 0.95;
+  color: var(--riso-cyan);
+  transform: rotate(1.8deg);
+  text-align: right;
+}
+
+.nav {
+  position: absolute;
+  left: 2.4cqw;
+  top: 50%;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6cqh;
+  transform: translateY(-50%);
+}
+
+.stapleButton {
+  position: relative;
+  width: 2.1cqw;
+  height: 2.1cqw;
+  border: 0;
+  padding: 0;
+  border-radius: 50%;
+  background-color: var(--riso-cyan);
+  cursor: pointer;
+  transform: rotate(var(--tilt));
+}
+
+.stapleButton::before {
+  content: "";
+  position: absolute;
+  inset: -0.22cqw 0.18cqw 0.18cqw -0.18cqw;
+  border-radius: 50%;
+  background-color: var(--riso-red);
+  opacity: 0.64;
+  mix-blend-mode: multiply;
+}
+
+.stapleButton::after {
+  content: "";
+  position: absolute;
+  inset: 0.53cqw;
+  border-radius: 50%;
+  background-color: var(--riso-paper);
+  border: 0.12cqw solid var(--riso-ink);
+}
+
+.stapleButtonActive {
+  background-color: var(--riso-ink);
+}
+
+.stapleButtonActive::before {
+  opacity: 0.95;
+}
+
+.visible {
+  opacity: 1;
+  transform: translate(0, 0) rotate(var(--tilt, 0deg)) scale(1);
+  transition:
+    opacity 360ms steps(2, end),
+    transform 460ms cubic-bezier(0.2, 0.9, 0.24, 1.18);
+}
+
+.hidden {
+  opacity: 0;
+  transform: translate(var(--x, 0cqw), var(--y, 0cqh)) rotate(var(--tilt, 0deg)) scale(0.92);
+  pointer-events: none;
+}
+
+.muted {
+  opacity: 0.24;
+}
+
+.isStatic .visible,
+.isStatic .hidden,
+.isStatic * {
+  transition-duration: 0s;
+  animation-duration: 0s;
+}
+
+@keyframes risoJitter {
+  0% {
+    transform: translate(0, 0) rotate(var(--tilt, 0deg));
+  }
+  46% {
+    transform: translate(0.22cqw, -0.16cqh) rotate(var(--tilt, 0deg));
+  }
+  100% {
+    transform: translate(0, 0) rotate(var(--tilt, 0deg));
+  }
+}
+
+.root:not(.isStatic) .posterBlock,
+.root:not(.isStatic) .columnStamp,
+.root:not(.isStatic) .zinePage,
+.root:not(.isStatic) .foldout {
+  animation: risoJitter 980ms steps(3, end);
+}

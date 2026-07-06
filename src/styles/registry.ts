@@ -88,6 +88,14 @@ import ZineCulture23, {
 import ManuscriptScroll24, {
   getMetadata as getMetadata24,
 } from "./24-manuscript-scroll";
+import { morningAfterLaunchV2Version } from "./17-morning-after-launch-v2";
+import { productGetsCoverV2Version } from "./18-product-gets-cover-v2";
+import { usefulWeekNotesV2Version } from "./19-useful-week-notes-v2";
+import { argumentInMarginsV2Version } from "./20-argument-in-margins-v2";
+import { publicLightProgramV2Version } from "./21-public-light-program-v2";
+import { fiveTakesRoomV2Version } from "./22-five-takes-room-v2";
+import { communityPrintsItselfV2Version } from "./23-community-prints-itself-v2";
+import { archiveReassembledV2Version } from "./24-archive-reassembled-v2";
 import WoodblockPrint25, {
   getMetadata as getMetadata25,
 } from "./25-woodblock-print";
@@ -241,14 +249,38 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
     incidentLearnsV2Version,
   ]),
   // Editorial & Print: 17-24
-  buildEntry("17", [{ component: EditorialBroadsheet17, getMetadata: getMetadata17 }]),
-  buildEntry("18", [{ component: LiteraryReview18, getMetadata: getMetadata18 }]),
-  buildEntry("19", [{ component: FinancialTimes19, getMetadata: getMetadata19 }]),
-  buildEntry("20", [{ component: NationalGeographic20, getMetadata: getMetadata20 }]),
-  buildEntry("21", [{ component: VogueEditorial21, getMetadata: getMetadata21 }]),
-  buildEntry("22", [{ component: AcademicJournal22, getMetadata: getMetadata22 }]),
-  buildEntry("23", [{ component: ZineCulture23, getMetadata: getMetadata23 }]),
-  buildEntry("24", [{ component: ManuscriptScroll24, getMetadata: getMetadata24 }]),
+  buildEntry("17", [
+    { component: EditorialBroadsheet17, getMetadata: getMetadata17 },
+    morningAfterLaunchV2Version,
+  ]),
+  buildEntry("18", [
+    { component: LiteraryReview18, getMetadata: getMetadata18 },
+    productGetsCoverV2Version,
+  ]),
+  buildEntry("19", [
+    { component: FinancialTimes19, getMetadata: getMetadata19 },
+    usefulWeekNotesV2Version,
+  ]),
+  buildEntry("20", [
+    { component: NationalGeographic20, getMetadata: getMetadata20 },
+    argumentInMarginsV2Version,
+  ]),
+  buildEntry("21", [
+    { component: VogueEditorial21, getMetadata: getMetadata21 },
+    publicLightProgramV2Version,
+  ]),
+  buildEntry("22", [
+    { component: AcademicJournal22, getMetadata: getMetadata22 },
+    fiveTakesRoomV2Version,
+  ]),
+  buildEntry("23", [
+    { component: ZineCulture23, getMetadata: getMetadata23 },
+    communityPrintsItselfV2Version,
+  ]),
+  buildEntry("24", [
+    { component: ManuscriptScroll24, getMetadata: getMetadata24 },
+    archiveReassembledV2Version,
+  ]),
   // Craft & Cultural Traditions: 25-32
   buildEntry("25", [{ component: WoodblockPrint25, getMetadata: getMetadata25 }]),
   buildEntry("26", [{ component: ChineseInk26, getMetadata: getMetadata26 }]),

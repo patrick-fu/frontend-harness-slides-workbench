@@ -1,0 +1,632 @@
+.root {
+  --style-18-field: #00623f;
+  --style-18-paper: #f3e5c6;
+  --style-18-ink: #071010;
+  --style-18-muted: #d7c9aa;
+  --style-18-inverse: #fbf0d3;
+  container-type: size;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--style-18-field);
+  color: var(--style-18-ink);
+  font-family: "Inter", "Noto Serif SC", sans-serif;
+}
+
+.root * {
+  box-sizing: border-box;
+  letter-spacing: 0;
+}
+
+.root[data-motion="reduced"] *,
+.root[data-thumbnail="true"] * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}
+
+.masthead {
+  position: absolute;
+  top: 1.4cqh;
+  left: 1.6cqw;
+  right: 1.6cqw;
+  height: 15.2cqh;
+  z-index: 6;
+  display: grid;
+  grid-template-columns: 11.5cqw 1fr 22cqw;
+  border: 0.14cqw solid var(--style-18-ink);
+  background: var(--style-18-paper);
+}
+
+.issueBadge,
+.topicBadge,
+.mastheadCenter {
+  min-width: 0;
+}
+
+.issueBadge {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  border-right: 0.14cqw solid var(--style-18-ink);
+  text-transform: uppercase;
+}
+
+.issueBadge span {
+  font-family: "Playfair Display", "Noto Serif SC", serif;
+  font-size: 5.7cqw;
+  font-weight: 900;
+  line-height: 0.78;
+}
+
+.issueBadge small {
+  width: 7.6cqw;
+  margin-top: 0.9cqh;
+  font-size: 0.72cqw;
+  font-weight: 900;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.mastheadCenter {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: 0.7cqh 1.3cqw;
+}
+
+.mastheadTitle {
+  display: block;
+  font-family: "Playfair Display", "Noto Serif SC", serif;
+  font-size: min(11.8cqw, 16cqh);
+  font-weight: 900;
+  line-height: 0.74;
+  text-transform: uppercase;
+}
+
+.mastheadMeta {
+  display: grid;
+  grid-template-columns: max-content 10cqw max-content;
+  align-items: center;
+  gap: 0.8cqw;
+  width: 100%;
+  margin-top: 0.4cqh;
+  font-size: 0.74cqw;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.topicBadge {
+  display: grid;
+  align-content: center;
+  gap: 1.2cqh;
+  padding: 1.4cqh 1.6cqw;
+  border-left: 0.14cqw solid var(--style-18-ink);
+  text-transform: uppercase;
+}
+
+.topicBadge span,
+.sectionLabel,
+.coverTopline,
+.sceneFootline,
+.issueStripLabel,
+.issueButton,
+.quoteOrnament,
+.captionBlock {
+  font-size: 0.82cqw;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.topicBadge strong {
+  max-width: 17cqw;
+  font-size: 2.2cqw;
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.doubleRule {
+  display: grid;
+  gap: 0.38cqh;
+  align-content: center;
+  width: 100%;
+}
+
+.doubleRule span {
+  display: block;
+  height: 0.16cqh;
+  background: currentColor;
+}
+
+.trackShell {
+  position: absolute;
+  top: 18.2cqh;
+  right: 1.6cqw;
+  bottom: 14.2cqh;
+  left: 1.6cqw;
+  z-index: 2;
+  border-left: 0.14cqw solid var(--style-18-ink);
+  border-right: 0.14cqw solid var(--style-18-ink);
+  background: var(--style-18-paper);
+}
+
+.trackShellThumbnail {
+  bottom: 1.8cqh;
+}
+
+.spatialTrack {
+  background: transparent;
+}
+
+.sceneMotionRoot {
+  width: 100%;
+  height: 100%;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.coverScene,
+.quoteScene,
+.detailScene,
+.backPageScene {
+  background: var(--style-18-field);
+  color: var(--style-18-inverse);
+}
+
+.spreadScene {
+  background: var(--style-18-paper);
+  color: var(--style-18-ink);
+}
+
+.coverFrame {
+  position: absolute;
+  inset: 2.6cqh 3.2cqw 4.4cqh;
+  border: 0.16cqw solid currentColor;
+  padding: 2.2cqh 2.4cqw;
+}
+
+.coverTopline {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  align-items: center;
+  gap: 1.2cqw;
+}
+
+.coverTitle {
+  width: 52cqw;
+  margin: 2.4cqh 0 0;
+  font-family: "Playfair Display", "Noto Serif SC", serif;
+  font-size: min(6.8cqw, 12.5cqh);
+  font-weight: 900;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.coverSubtitle {
+  width: 28cqw;
+  margin: 1.6cqh 0 0;
+  font-size: 1.34cqw;
+  font-weight: 900;
+  line-height: 1.08;
+}
+
+.coverLines {
+  position: absolute;
+  right: 3.2cqw;
+  bottom: 8.4cqh;
+  width: 22cqw;
+}
+
+.beatList {
+  display: grid;
+  gap: 0.8cqh;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.beatItem {
+  position: relative;
+  padding: 0.85cqh 0 0.85cqh 1.4cqw;
+  border-top: 0.12cqw solid currentColor;
+  font-size: 1.05cqw;
+  font-weight: 900;
+  line-height: 1.12;
+  text-transform: uppercase;
+  animation: itemReveal 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--reveal-index) * 70ms);
+}
+
+.beatItem::before {
+  content: "";
+  position: absolute;
+  top: 1.1cqh;
+  left: 0;
+  width: 0.72cqw;
+  height: 0.72cqw;
+  background: currentColor;
+}
+
+.productMark {
+  position: absolute;
+  right: 18cqw;
+  bottom: 10cqh;
+  width: 12cqw;
+  height: 35cqh;
+}
+
+.productMarkCompact {
+  position: relative;
+  right: auto;
+  bottom: auto;
+  width: 7.5cqw;
+  height: 23cqh;
+}
+
+.productCap {
+  position: absolute;
+  top: 0;
+  left: 27%;
+  width: 46%;
+  height: 6.2cqh;
+  background: var(--style-18-ink);
+}
+
+.productBottle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 28cqh;
+  border: 0.18cqw solid currentColor;
+  background: var(--style-18-paper);
+}
+
+.productMarkCompact .productBottle {
+  height: 18.5cqh;
+}
+
+.productLabel {
+  position: absolute;
+  top: 8cqh;
+  left: 2.3cqw;
+  width: 7.4cqw;
+  height: 11cqh;
+  background: var(--style-18-ink);
+}
+
+.productMarkCompact .productLabel {
+  top: 5.1cqh;
+  left: 1.45cqw;
+  width: 4.6cqw;
+  height: 7cqh;
+}
+
+.barcode {
+  position: absolute;
+  bottom: 2.4cqh;
+  left: 2.4cqw;
+  display: grid;
+  grid-template-columns: 0.35cqw 0.7cqw 0.22cqw 0.5cqw 0.95cqw 0.28cqw;
+  gap: 0.24cqw;
+  height: 6.5cqh;
+  align-items: stretch;
+}
+
+.barcode span {
+  background: currentColor;
+}
+
+.sceneFootline {
+  position: absolute;
+  right: 3.2cqw;
+  bottom: 1.8cqh;
+  left: 3.2cqw;
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
+  gap: 1.1cqw;
+  align-items: center;
+  margin: 0;
+}
+
+.sceneFootline::before,
+.sceneFootline::after {
+  content: "";
+  height: 0.14cqh;
+  background: currentColor;
+}
+
+.quoteScene {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: 4cqh 7cqw 7cqh;
+}
+
+.quoteOrnament {
+  display: grid;
+  grid-template-columns: 15cqw max-content 15cqw;
+  gap: 1.4cqw;
+  align-items: center;
+  margin-bottom: 2.2cqh;
+}
+
+.featureQuote {
+  max-width: 74cqw;
+  margin: 0;
+  font-family: "Playfair Display", "Noto Serif SC", serif;
+  font-size: min(6.8cqw, 10.4cqh);
+  font-weight: 900;
+  line-height: 0.9;
+  text-align: center;
+}
+
+.featureQuote span {
+  font-size: min(4.8cqw, 7cqh);
+}
+
+.quoteBody {
+  width: 48cqw;
+  margin: 2.2cqh 0 0;
+  font-size: 1.4cqw;
+  font-weight: 900;
+  line-height: 1.18;
+  text-align: center;
+}
+
+.quoteFooter {
+  display: grid;
+  grid-template-columns: 18cqw 28cqw;
+  gap: 2.6cqw;
+  align-items: start;
+  margin-top: 2.4cqh;
+  border-top: 0.14cqw solid currentColor;
+  padding-top: 1.8cqh;
+}
+
+.quoteFooter strong {
+  font-size: 1.2cqw;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.spreadBook {
+  position: absolute;
+  inset: 3.2cqh 5cqw 5cqh;
+  display: grid;
+  grid-template-columns: 1fr 0.18cqw 1fr;
+  border: 0.16cqw solid var(--style-18-ink);
+  background: var(--style-18-paper);
+}
+
+.leftPage,
+.rightPage {
+  position: relative;
+  min-width: 0;
+  padding: 3.2cqh 3cqw;
+}
+
+.spine {
+  background: var(--style-18-ink);
+}
+
+.dropCap {
+  float: left;
+  margin-right: 1.2cqw;
+  font-family: "Playfair Display", "Noto Serif SC", serif;
+  font-size: 10cqw;
+  font-weight: 900;
+  line-height: 0.7;
+}
+
+.leftPage h2 {
+  margin: 0;
+  font-family: "Playfair Display", "Noto Serif SC", serif;
+  font-size: 3.5cqw;
+  font-weight: 900;
+  line-height: 0.94;
+}
+
+.leftPage p {
+  clear: both;
+  margin: 2.4cqh 0 2.2cqh;
+  font-size: 1.25cqw;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.rightPage {
+  display: grid;
+  grid-template-rows: 1fr min-content min-content;
+  gap: 1.6cqh;
+}
+
+.imageBlock {
+  display: grid;
+  place-items: center;
+  min-height: 28cqh;
+  background: var(--style-18-field);
+  color: var(--style-18-inverse);
+}
+
+.captionBlock {
+  border-top: 0.14cqw solid var(--style-18-ink);
+  border-bottom: 0.14cqw solid var(--style-18-ink);
+  padding: 0.8cqh 0;
+}
+
+.textColumns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7cqw;
+}
+
+.textColumns span {
+  height: 5.2cqh;
+  background: var(--style-18-ink);
+}
+
+.detailScene {
+  display: grid;
+  grid-template-columns: 1.14fr 0.86fr;
+}
+
+.detailCrop {
+  position: relative;
+  overflow: hidden;
+  border-right: 0.16cqw solid currentColor;
+}
+
+.detailLetter {
+  position: absolute;
+  top: -9cqh;
+  left: 2cqw;
+  font-family: "Playfair Display", "Noto Serif SC", serif;
+  font-size: 44cqw;
+  font-weight: 900;
+  line-height: 0.78;
+}
+
+.detailCrop .productMark {
+  right: 7cqw;
+  bottom: -4cqh;
+  transform: rotate(-12deg);
+  color: var(--style-18-inverse);
+}
+
+.detailCopy {
+  display: grid;
+  align-content: center;
+  gap: 2cqh;
+  padding: 5cqh 4cqw;
+}
+
+.detailCopy h2 {
+  margin: 0;
+  font-family: "Playfair Display", "Noto Serif SC", serif;
+  font-size: min(5.5cqw, 9cqh);
+  font-weight: 900;
+  line-height: 0.9;
+}
+
+.detailCopy p {
+  margin: 0;
+  font-size: 1.35cqw;
+  font-weight: 900;
+  line-height: 1.18;
+}
+
+.backPageScene {
+  display: grid;
+  place-items: center;
+}
+
+.backPageCard {
+  display: grid;
+  justify-items: center;
+  gap: 1.8cqh;
+  width: 54cqw;
+  text-align: center;
+}
+
+.backPageCard h2 {
+  margin: 0;
+  font-family: "Playfair Display", "Noto Serif SC", serif;
+  font-size: min(6.4cqw, 10cqh);
+  font-weight: 900;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.backPageCard p {
+  width: 34cqw;
+  margin: 0;
+  font-size: 1.35cqw;
+  font-weight: 900;
+  line-height: 1.18;
+}
+
+.backPageCard .doubleRule {
+  width: 24cqw;
+}
+
+.issueStrip {
+  position: absolute;
+  right: 1.6cqw;
+  bottom: 1.4cqh;
+  left: 1.6cqw;
+  z-index: 7;
+  display: grid;
+  grid-template-columns: 9.6cqw repeat(5, 1fr);
+  gap: 0.5cqw;
+  height: 10.6cqh;
+  padding: 0.8cqh 0.7cqw;
+  border: 0.14cqw solid var(--style-18-ink);
+  background: var(--style-18-paper);
+  color: var(--style-18-ink);
+}
+
+.issueStripLabel {
+  display: grid;
+  place-items: center;
+  background: var(--style-18-ink);
+  color: var(--style-18-paper);
+  text-align: center;
+}
+
+.issueButton {
+  display: grid;
+  grid-template-columns: 3.2cqw 1fr;
+  gap: 0.8cqw;
+  align-items: center;
+  min-width: 0;
+  padding: 0.7cqh 0.8cqw;
+  border: 0;
+  border-left: 0.1cqw solid var(--style-18-ink);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background-color 220ms ease,
+    color 220ms ease;
+}
+
+.issueButton span {
+  font-family: "Playfair Display", "Noto Serif SC", serif;
+  font-size: 2cqw;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.issueButton strong {
+  overflow: hidden;
+  font-size: 0.78cqw;
+  font-weight: 900;
+  line-height: 1.05;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+}
+
+.issueButtonActive {
+  background: var(--style-18-ink);
+  color: var(--style-18-paper);
+}
+
+@keyframes itemReveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.2cqh);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
