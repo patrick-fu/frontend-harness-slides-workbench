@@ -32,7 +32,7 @@ function makeEntry(id: string, fonts: string[]): StyleRegistryEntry {
     versions: [
       {
         id: "v1",
-        topic: "Test Topic",
+        topic: { en: "Test Topic", zh: "测试题材" },
         model: "test-model",
         component: () => null,
         getMetadata: (_lang: "en" | "zh") => makeMetadata(id, fonts),

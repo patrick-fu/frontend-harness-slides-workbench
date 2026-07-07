@@ -922,8 +922,11 @@ export default function BetterQuestionV2({
 
 export const betterQuestionV2Version = defineStyleVersion({
   id: "v2",
-  topic: "The Better Question",
-  model: "GPT-5",
+  topic: {
+    en: "Better Question",
+    zh: "更好问题",
+  },
+  model: "GPT-5.5",
   component: BetterQuestionV2,
   getMetadata,
 });

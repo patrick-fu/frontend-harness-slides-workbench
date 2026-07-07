@@ -1023,8 +1023,11 @@ export { getMetadata };
 
 export const durableToolV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Choosing the Durable Tool",
-  model: "GPT-5",
+  topic: {
+    en: "Durable Tool",
+    zh: "耐用工具",
+  },
+  model: "GPT-5.5",
   component: DurableToolBenchmarkMatrixV2,
   getMetadata,
 });

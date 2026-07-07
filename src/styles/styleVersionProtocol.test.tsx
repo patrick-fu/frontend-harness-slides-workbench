@@ -252,6 +252,38 @@ describe("style version protocol", () => {
     }
   });
 
+  it("requires every version topic to be localized and concise", () => {
+    for (const { styleId, version } of allVersions) {
+      expect(
+        version.topic.en.trim(),
+        `${styleId}/${version.id} must define an English topic`,
+      ).not.toHaveLength(0);
+      expect(
+        version.topic.zh.trim(),
+        `${styleId}/${version.id} must define a Chinese topic`,
+      ).not.toHaveLength(0);
+      expect(
+        version.topic.en.length,
+        `${styleId}/${version.id} English topic should stay compact for the version switcher`,
+      ).toBeLessThanOrEqual(32);
+      expect(
+        version.topic.zh.length,
+        `${styleId}/${version.id} Chinese topic should stay compact for the version switcher`,
+      ).toBeLessThanOrEqual(8);
+    }
+  });
+
+  it("requires every curated v2 version to identify GPT-5.5 as the model", () => {
+    for (const { styleId, version } of curatedV2Versions.filter((entry) =>
+      REQUIRED_CURATED_V2_STYLE_IDS.includes(entry.styleId),
+    )) {
+      expect(version, `${styleId} must register a v2 version`).toBeDefined();
+      expect(version?.model, `${styleId}/v2 must use the assigned model`).toBe(
+        "GPT-5.5",
+      );
+    }
+  });
+
   it("requires every curated v2 version to render a per-edge transition map", () => {
     const usedKinds = new Set<string>();
 

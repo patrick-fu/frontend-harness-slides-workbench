@@ -1151,8 +1151,11 @@ export default function ToolchainDesktopV2({
 
 export const toolchainDesktopV2Version = defineStyleVersion({
   id: "v2",
-  topic: "The Toolchain Desktop",
-  model: "GPT-5",
+  topic: {
+    en: "Toolchain Desk",
+    zh: "工具桌面",
+  },
+  model: "GPT-5.5",
   component: ToolchainDesktopV2,
   getMetadata,
 });

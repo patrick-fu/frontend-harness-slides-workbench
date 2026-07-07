@@ -794,8 +794,11 @@ export default function FieldRouteSignalV2({
 
 export const fieldRouteSignalV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Field Route to the Signal",
-  model: "GPT-5",
+  topic: {
+    en: "Field Route",
+    zh: "现场路线",
+  },
+  model: "GPT-5.5",
   component: FieldRouteSignalV2,
   getMetadata,
 });

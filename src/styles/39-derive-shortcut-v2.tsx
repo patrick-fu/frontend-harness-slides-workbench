@@ -1035,8 +1035,11 @@ export default function DeriveShortcutV2({
 
 export const deriveShortcutV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Derive the Shortcut",
-  model: "GPT-5",
+  topic: {
+    en: "Shortcut",
+    zh: "快捷路径",
+  },
+  model: "GPT-5.5",
   component: DeriveShortcutV2,
   getMetadata,
 });

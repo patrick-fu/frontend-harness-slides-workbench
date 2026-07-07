@@ -1403,8 +1403,11 @@ export default function HumanLoopRetrofitV2({
 
 export const humanLoopRetrofitV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Human Loop Retrofit",
-  model: "GPT-5",
+  topic: {
+    en: "Human Loop",
+    zh: "人机回路",
+  },
+  model: "GPT-5.5",
   component: HumanLoopRetrofitV2,
   getMetadata,
 });

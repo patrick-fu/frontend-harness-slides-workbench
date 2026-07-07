@@ -42,7 +42,7 @@ const mockRegistry = [
     versions: [
       {
         id: "v1",
-        topic: "Test Topic",
+        topic: { en: "Test Topic", zh: "测试题材" },
         model: "test-model",
         component: MockStyleComponent,
         getMetadata: (lang: "en" | "zh") => ({
@@ -71,7 +71,7 @@ const mockRegistry = [
 
 function makeVersion(
   id: string,
-  topic: string,
+  topic: { en: string; zh: string },
   beatCounts: number[],
   component: React.ComponentType<BespokeStyleProps> = MockStyleComponent,
 ): StyleVersion {
@@ -110,9 +110,9 @@ const multiVersionRegistry: StyleRegistryEntry[] = [
     id: "01",
     name: { en: "Test Style", zh: "测试风格" },
     versions: [
-      makeVersion("v1", "Original", [1, 2, 3, 2, 1]),
-      makeVersion("v2", "Comparable", [1, 2, 2, 2, 1]),
-      makeVersion("compact", "Compact", [1, 1, 1, 1, 1]),
+      makeVersion("v1", { en: "Original", zh: "原始版" }, [1, 2, 3, 2, 1]),
+      makeVersion("v2", { en: "Comparable", zh: "对照版" }, [1, 2, 2, 2, 1]),
+      makeVersion("compact", { en: "Compact", zh: "紧凑版" }, [1, 1, 1, 1, 1]),
     ],
   },
 ];

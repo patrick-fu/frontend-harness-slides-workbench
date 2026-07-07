@@ -55,7 +55,7 @@ function makeMockEntry(
     versions: [
       {
         id: "v1",
-        topic: nameEn,
+        topic: { en: `${nameEn} Topic`, zh: `${nameZh}题材` },
         model: "test-model",
         component: () => null,
         getMetadata: (lang: "en" | "zh") => {
@@ -145,6 +145,27 @@ describe("Sidebar — band sections", () => {
   it("shows Chinese style names when language='zh'", () => {
     renderSidebar({ language: "zh" });
     expect(screen.getByText("静默主旨")).toBeInTheDocument();
+  });
+
+  it("shows localized version topics inside expanded multi-version styles", () => {
+    const registry = makeMockRegistry();
+    registry[0] = {
+      ...registry[0],
+      versions: [
+        registry[0].versions[0],
+        {
+          ...registry[0].versions[0],
+          id: "v2",
+          topic: { en: "Quiet Launch", zh: "安静发布" },
+          model: "GPT-5.5",
+        },
+      ],
+    };
+
+    renderSidebar({ registry, language: "zh" });
+
+    expect(screen.getByText("静默主旨题材")).toBeInTheDocument();
+    expect(screen.getByText("安静发布")).toBeInTheDocument();
   });
 });
 

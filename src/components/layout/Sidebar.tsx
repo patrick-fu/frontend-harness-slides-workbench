@@ -319,7 +319,7 @@ export default function Sidebar({
                                       ].join(" ")}
                                     >
                                       <span className="truncate flex-1">
-                                        {v.topic}
+                                        {v.topic[language]}
                                       </span>
                                       <span className="shrink-0 text-[9px] text-ink/30 font-mono">
                                         {v.model}

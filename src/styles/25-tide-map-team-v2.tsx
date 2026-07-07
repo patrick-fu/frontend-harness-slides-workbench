@@ -1048,8 +1048,11 @@ export default function TideMapTeamV2({
 
 export const tideMapTeamV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Tide Map for a Team",
-  model: "GPT-5",
+  topic: {
+    en: "Tide Map",
+    zh: "潮汐地图",
+  },
+  model: "GPT-5.5",
   component: TideMapTeamV2,
   getMetadata,
 });

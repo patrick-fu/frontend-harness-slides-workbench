@@ -1587,8 +1587,11 @@ export default function HandoffCompartmentsV2({
 
 export const handoffCompartmentsV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Handoff in Six Compartments",
-  model: "GPT-5",
+  topic: {
+    en: "Handoff Box",
+    zh: "交接盒",
+  },
+  model: "GPT-5.5",
   component: HandoffCompartmentsV2,
   getMetadata,
 });

@@ -730,8 +730,11 @@ export { getMetadata };
 
 export const fiveTakesRoomV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Five Takes in the Room",
-  model: "GPT-5",
+  topic: {
+    en: "Five Takes",
+    zh: "五个视角",
+  },
+  model: "GPT-5.5",
   component: FiveTakesRoomV2,
   getMetadata,
 });

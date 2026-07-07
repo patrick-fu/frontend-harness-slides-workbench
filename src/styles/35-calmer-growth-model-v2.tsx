@@ -713,8 +713,11 @@ export default function CalmerGrowthModelV2({
 
 export const calmerGrowthModelV2Version = defineStyleVersion({
   id: "v2",
-  topic: "A Calmer Growth Model",
-  model: "GPT-5",
+  topic: {
+    en: "Calm Growth",
+    zh: "冷静增长",
+  },
+  model: "GPT-5.5",
   component: CalmerGrowthModelV2,
   getMetadata,
 });

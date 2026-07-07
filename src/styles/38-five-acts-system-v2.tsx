@@ -655,8 +655,11 @@ export { getMetadata };
 
 export const fiveActsSystemV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Five Acts of a System",
-  model: "GPT-5",
+  topic: {
+    en: "System Acts",
+    zh: "系统五幕",
+  },
+  model: "GPT-5.5",
   component: FiveActsSystemV2,
   getMetadata,
 });

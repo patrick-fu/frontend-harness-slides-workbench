@@ -575,8 +575,11 @@ export default function BotanicalSpecimenGrowthSignals({
 
 export const growthSignalsV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Classifying Growth Signals",
-  model: "GPT-5",
+  topic: {
+    en: "Growth Signals",
+    zh: "增长信号",
+  },
+  model: "GPT-5.5",
   component: BotanicalSpecimenGrowthSignals,
   getMetadata,
 });

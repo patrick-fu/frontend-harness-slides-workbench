@@ -793,8 +793,11 @@ export { getMetadata };
 
 export const threeTracksReleaseV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Three Tracks to One Release",
-  model: "GPT-5",
+  topic: {
+    en: "Release Tracks",
+    zh: "发布轨道",
+  },
+  model: "GPT-5.5",
   component: ThreeTracksReleaseV2,
   getMetadata,
 });

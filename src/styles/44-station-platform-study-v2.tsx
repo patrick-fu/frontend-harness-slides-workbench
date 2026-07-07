@@ -1422,8 +1422,11 @@ export default StationPlatformStudyV2;
 
 export const stationPlatformStudyV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Station Platform Study",
-  model: "GPT-5",
+  topic: {
+    en: "Platform Study",
+    zh: "站台研究",
+  },
+  model: "GPT-5.5",
   component: StationPlatformStudyV2,
   getMetadata,
 });

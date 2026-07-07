@@ -960,8 +960,11 @@ export default function TuningOperatingModelV2({
 
 export const tuningOperatingModelV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Tuning the Operating Model",
-  model: "GPT-5",
+  topic: {
+    en: "Operating Model",
+    zh: "运营模型",
+  },
+  model: "GPT-5.5",
   component: TuningOperatingModelV2,
   getMetadata,
 });

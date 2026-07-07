@@ -1094,8 +1094,11 @@ export default function NewHabitRunbookV2({
 
 export const newHabitRunbookV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Runbook for the New Habit",
-  model: "GPT-5",
+  topic: {
+    en: "Habit Runbook",
+    zh: "习惯手册",
+  },
+  model: "GPT-5.5",
   component: NewHabitRunbookV2,
   getMetadata,
 });

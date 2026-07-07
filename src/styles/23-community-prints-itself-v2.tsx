@@ -1086,8 +1086,11 @@ export default function CommunityPrintsItselfV2({
 
 export const communityPrintsItselfV2Version = defineStyleVersion({
   id: "v2",
-  topic: "A Community Prints Itself",
-  model: "GPT-5",
+  topic: {
+    en: "Community Print",
+    zh: "社群印刷",
+  },
+  model: "GPT-5.5",
   component: CommunityPrintsItselfV2,
   getMetadata,
 });

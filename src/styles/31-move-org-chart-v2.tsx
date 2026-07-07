@@ -765,8 +765,11 @@ export default function MoveOrgChartV2({
 
 export const moveOrgChartV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Move the Org Chart",
-  model: "GPT-5",
+  topic: {
+    en: "Org Move",
+    zh: "组织移动",
+  },
+  model: "GPT-5.5",
   component: MoveOrgChartV2,
   getMetadata,
 });

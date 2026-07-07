@@ -859,8 +859,11 @@ export { getMetadata };
 
 export const publicLightProgramV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Public Light Program",
-  model: "GPT-5",
+  topic: {
+    en: "Public Light",
+    zh: "公共灯光",
+  },
+  model: "GPT-5.5",
   component: PublicLightProgramV2,
   getMetadata,
 });

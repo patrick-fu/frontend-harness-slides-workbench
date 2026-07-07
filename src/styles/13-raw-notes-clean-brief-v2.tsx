@@ -785,8 +785,11 @@ export default function RawNotesCleanBriefV2({
 
 export const rawNotesCleanBriefV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Raw Notes to Clean Brief",
-  model: "GPT-5",
+  topic: {
+    en: "Clean Brief",
+    zh: "清爽简报",
+  },
+  model: "GPT-5.5",
   component: RawNotesCleanBriefV2,
   getMetadata,
 });

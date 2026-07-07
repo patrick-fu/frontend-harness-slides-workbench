@@ -1205,8 +1205,11 @@ export default function InfrastructureGalaV2({
 
 export const infrastructureGalaV2Version = defineStyleVersion({
   id: "v2",
-  topic: "The Infrastructure Gala",
-  model: "GPT-5",
+  topic: {
+    en: "Infrastructure Gala",
+    zh: "基建庆典",
+  },
+  model: "GPT-5.5",
   component: InfrastructureGalaV2,
   getMetadata,
 });

@@ -977,8 +977,11 @@ export default function ReleaseMixtapeV2({
 
 export const releaseMixtapeV2Version = defineStyleVersion({
   id: "v2",
-  topic: "The Release Mixtape",
-  model: "GPT-5",
+  topic: {
+    en: "Release Mixtape",
+    zh: "发布混音",
+  },
+  model: "GPT-5.5",
   component: ReleaseMixtapeV2,
   getMetadata,
 });

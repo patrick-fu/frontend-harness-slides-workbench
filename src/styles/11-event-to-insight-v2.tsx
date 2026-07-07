@@ -1407,8 +1407,11 @@ export default function EventToInsightV2({
 
 export const eventToInsightV2Version = defineStyleVersion({
   id: "v2",
-  topic: "From Event to Insight",
-  model: "GPT-5",
+  topic: {
+    en: "Event Insight",
+    zh: "事件洞察",
+  },
+  model: "GPT-5.5",
   component: EventToInsightV2,
   getMetadata,
 });

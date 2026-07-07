@@ -1415,8 +1415,11 @@ export default function RewriteBrokenFlowV2({
 
 export const rewriteBrokenFlowV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Rewrite the Broken Flow",
-  model: "GPT-5",
+  topic: {
+    en: "Flow Rewrite",
+    zh: "流程重写",
+  },
+  model: "GPT-5.5",
   component: RewriteBrokenFlowV2,
   getMetadata,
 });

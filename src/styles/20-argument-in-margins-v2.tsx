@@ -842,8 +842,11 @@ export default function ArgumentInMarginsV2({
 
 export const argumentInMarginsV2Version = defineStyleVersion({
   id: "v2",
-  topic: "The Argument in the Margins",
-  model: "GPT-5",
+  topic: {
+    en: "Margin Argument",
+    zh: "页边论点",
+  },
+  model: "GPT-5.5",
   component: ArgumentInMarginsV2,
   getMetadata,
 });

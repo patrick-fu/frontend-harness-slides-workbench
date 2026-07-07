@@ -43,7 +43,7 @@ function makeStyle(
   };
   const versions = Array.from({ length: versionCount }, (_, i) => ({
     id: `v${i + 1}`,
-    topic: `Topic ${i + 1}`,
+    topic: { en: `Topic ${i + 1}`, zh: `题材 ${i + 1}` },
     model: "test-model",
     component: () => null,
     getMetadata: () => metadata,

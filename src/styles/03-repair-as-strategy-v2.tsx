@@ -757,8 +757,11 @@ export default function RepairAsStrategyV2({
 
 export const repairAsStrategyV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Repair as Strategy",
-  model: "GPT-5",
+  topic: {
+    en: "Repair Strategy",
+    zh: "修复策略",
+  },
+  model: "GPT-5.5",
   component: RepairAsStrategyV2,
   getMetadata,
 });

@@ -937,8 +937,11 @@ export default function MorningAfterLaunchBroadsheet({
 
 export const morningAfterLaunchV2Version = defineStyleVersion({
   id: "v2",
-  topic: "The Morning After Launch",
-  model: "GPT-5",
+  topic: {
+    en: "After Launch",
+    zh: "发布翌日",
+  },
+  model: "GPT-5.5",
   component: MorningAfterLaunchBroadsheet,
   getMetadata,
 });

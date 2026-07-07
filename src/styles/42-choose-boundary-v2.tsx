@@ -994,8 +994,11 @@ export default function ChooseBoundaryV2({
 
 export const chooseBoundaryV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Choose the Boundary",
-  model: "GPT-5",
+  topic: {
+    en: "Boundary",
+    zh: "边界选择",
+  },
+  model: "GPT-5.5",
   component: ChooseBoundaryV2,
   getMetadata,
 });

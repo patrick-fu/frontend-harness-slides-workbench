@@ -796,8 +796,11 @@ export default function ReadyAgentPickupV2({
 
 export const readyAgentPickupV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Ready for Agent Pickup",
-  model: "GPT-5",
+  topic: {
+    en: "Agent Pickup",
+    zh: "Agent 接手",
+  },
+  model: "GPT-5.5",
   component: ReadyAgentPickupV2,
   getMetadata,
 });

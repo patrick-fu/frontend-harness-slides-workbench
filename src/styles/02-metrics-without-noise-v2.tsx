@@ -1039,8 +1039,11 @@ export default function MetricsWithoutNoiseV2({
 
 export const metricsWithoutNoiseV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Metrics Without Noise",
-  model: "GPT-5",
+  topic: {
+    en: "Clean Metrics",
+    zh: "干净指标",
+  },
+  model: "GPT-5.5",
   component: MetricsWithoutNoiseV2,
   getMetadata,
 });

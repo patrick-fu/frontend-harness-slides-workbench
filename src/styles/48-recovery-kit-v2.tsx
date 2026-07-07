@@ -1407,8 +1407,11 @@ export default function RecoveryKitV2({
 
 export const recoveryKitV2Version = defineStyleVersion({
   id: "v2",
-  topic: "The Recovery Kit",
-  model: "GPT-5",
+  topic: {
+    en: "Recovery Kit",
+    zh: "恢复工具包",
+  },
+  model: "GPT-5.5",
   component: RecoveryKitV2,
   getMetadata,
 });

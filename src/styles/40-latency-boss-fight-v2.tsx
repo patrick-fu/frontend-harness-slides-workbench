@@ -1016,8 +1016,11 @@ export default function LatencyBossFightV2({
 
 export const latencyBossFightV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Defeat the Latency Boss",
-  model: "GPT-5",
+  topic: {
+    en: "Latency Boss",
+    zh: "延迟 Boss",
+  },
+  model: "GPT-5.5",
   component: LatencyBossFightV2,
   getMetadata,
 });

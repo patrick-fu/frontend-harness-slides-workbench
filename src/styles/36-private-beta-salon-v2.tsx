@@ -696,8 +696,11 @@ export default function PrivateBetaSalonV2({
 
 export const privateBetaSalonV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Private Beta Salon",
-  model: "GPT-5",
+  topic: {
+    en: "Beta Salon",
+    zh: "内测沙龙",
+  },
+  model: "GPT-5.5",
   component: PrivateBetaSalonV2,
   getMetadata,
 });

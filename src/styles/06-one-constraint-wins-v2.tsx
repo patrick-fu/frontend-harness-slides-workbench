@@ -711,8 +711,11 @@ export default function OneConstraintWinsV2({
 
 export const oneConstraintWinsV2Version = defineStyleVersion({
   id: "v2",
-  topic: "One Constraint Wins",
-  model: "GPT-5",
+  topic: {
+    en: "One Constraint",
+    zh: "一个约束",
+  },
+  model: "GPT-5.5",
   component: OneConstraintWinsV2,
   getMetadata,
 });

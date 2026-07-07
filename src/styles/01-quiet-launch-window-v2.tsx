@@ -1107,8 +1107,11 @@ const activeNavMarkStyle: React.CSSProperties = {
 
 export const quietLaunchWindowV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Quiet Launch Window",
-  model: "GPT-5",
+  topic: {
+    en: "Quiet Launch",
+    zh: "安静发布",
+  },
+  model: "GPT-5.5",
   component: QuietLaunchWindowV2,
   getMetadata,
 });

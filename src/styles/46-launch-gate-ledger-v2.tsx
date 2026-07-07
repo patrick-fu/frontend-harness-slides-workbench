@@ -1280,8 +1280,11 @@ export default function LaunchGateLedgerV2({
 
 export const launchGateLedgerV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Launch Gate Ledger",
-  model: "GPT-5",
+  topic: {
+    en: "Launch Ledger",
+    zh: "发布台账",
+  },
+  model: "GPT-5.5",
   component: LaunchGateLedgerV2,
   getMetadata,
 });

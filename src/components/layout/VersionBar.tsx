@@ -33,6 +33,7 @@ export default function VersionBar({
   const activeVersionId = currentVersion.id;
   const switcherLabel = language === "zh" ? "版本" : "Versions";
   const currentPosition = `v${activeVersionIndex + 1}/${totalVersions}`;
+  const currentTopic = currentVersion.topic[language];
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -90,7 +91,7 @@ export default function VersionBar({
 
       <div className="hidden sm:flex min-w-0 items-center gap-2">
         <span className="text-ink/80 font-medium truncate max-w-[200px]">
-          {currentVersion.topic}
+          {currentTopic}
         </span>
         <span
           className="text-[10px] px-1.5 py-0.5 rounded bg-ink/[0.06] text-ink/50 font-mono shrink-0"
@@ -184,7 +185,7 @@ export default function VersionBar({
                         {label}
                       </span>
                       <span className="min-w-0 flex-1 truncate text-[11px]">
-                        {version.topic}
+                        {version.topic[language]}
                       </span>
                       <span className="font-mono text-[9px] text-ink/35 shrink-0">
                         {version.model}

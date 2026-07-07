@@ -26,8 +26,8 @@ import { defineStyleVersion } from "./version";
 
 export const executiveSilenceDecisionVersion = defineStyleVersion({
   id: "decision-art",
-  topic: "决策的艺术",
-  model: "GPT-5",
+  topic: { en: "Decision Art", zh: "决策艺术" },
+  model: "GPT-5.5",
   component: ExecutiveSilenceDecision,
   getMetadata,
 });
@@ -36,10 +36,10 @@ export const executiveSilenceDecisionVersion = defineStyleVersion({
 稳定要求：
 
 - `id` 必须显式、稳定、小写，可用数字和 hyphen，例如 `decision-art`。
-- `topic` 是 VersionBar / Sidebar 显示的题材名。
+- `topic` 是 VersionBar / Sidebar 显示的中英文题材名。
 - `component` 是版本组件。
 - `getMetadata(lang)` 返回该版本完整 metadata。
-- legacy tuple 仍会生成 `v1`，但新增版本不要依赖数组顺序生成 ID。
+- 所有版本都必须显式声明完整字段；不允许依赖数组顺序生成 ID。
 
 版本组件接收以下 Props：
 
@@ -161,8 +161,8 @@ export default function ExecutiveSilenceDecisionArt({
 
 export const executiveSilenceDecisionArtVersion = defineStyleVersion({
   id: "decision-art",
-  topic: "决策的艺术",
-  model: "GPT-5",
+  topic: { en: "Decision Art", zh: "决策艺术" },
+  model: "GPT-5.5",
   component: ExecutiveSilenceDecisionArt,
   getMetadata,
 });
@@ -177,7 +177,7 @@ export const executiveSilenceDecisionArtVersion = defineStyleVersion({
 ```ts
 interface StyleVersion {
   id: string;              // 稳定版本 ID，如 "decision-art", "product-launch"
-  topic: string;           // 题材名（几个字），如 "决策的艺术"
+  topic: { en: string; zh: string }; // 题材短名，如 { en: "Decision Art", zh: "决策艺术" }
   model: string;           // 编写模型，如 "Doubao-Seed-Evolving", "GPT-5.5"
   component: React.ComponentType<BespokeStyleProps>;  // 默认导出的组件
   getMetadata: (lang: "en" | "zh") => StyleMetadata;  // metadata 函数

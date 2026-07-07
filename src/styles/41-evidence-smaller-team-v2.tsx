@@ -1437,8 +1437,11 @@ export default function EvidenceSmallerTeamV2({
 
 export const evidenceSmallerTeamV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Evidence for a Smaller Team",
-  model: "GPT-5",
+  topic: {
+    en: "Small Team",
+    zh: "小团队证据",
+  },
+  model: "GPT-5.5",
   component: EvidenceSmallerTeamV2,
   getMetadata,
 });

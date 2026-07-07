@@ -31,7 +31,7 @@ describe("style version protocol", () => {
   it("accepts stable explicit version IDs for protocol modules", () => {
     const protocolVersion = defineStyleVersion({
       id: "decision-art",
-      topic: "Decision Art",
+      topic: { en: "Decision Art", zh: "决策艺术" },
       model: "protocol-test",
       component: TestComponent,
       getMetadata: () => makeMetadata("99"),
@@ -41,13 +41,42 @@ describe("style version protocol", () => {
 
     expect(entry.versions).toHaveLength(1);
     expect(entry.versions[0].id).toBe("decision-art");
-    expect(entry.versions[0].topic).toBe("Decision Art");
+    expect(entry.versions[0].topic).toEqual({
+      en: "Decision Art",
+      zh: "决策艺术",
+    });
     expect(entry.versions[0].model).toBe("protocol-test");
   });
 
-  it("preserves generated v1 IDs for legacy version tuples", () => {
+  it("rejects incomplete version modules instead of generating legacy IDs", () => {
+    expect(() =>
+      buildStyleRegistryEntry("99", [
+        {
+          component: TestComponent,
+          getMetadata: () => makeMetadata("99"),
+        } as any,
+      ]),
+    ).toThrow(/Invalid version id/);
+  });
+
+  it("requires both localized topic labels", () => {
+    expect(() =>
+      defineStyleVersion({
+        id: "missing-zh",
+        topic: { en: "Decision Art", zh: "" },
+        model: "protocol-test",
+        component: TestComponent,
+        getMetadata: () => makeMetadata("99"),
+      }),
+    ).toThrow(/localized en\/zh topic/);
+  });
+
+  it("accepts explicit v1 modules", () => {
     const entry = buildStyleRegistryEntry("99", [
       {
+        id: "v1",
+        topic: { en: "Legacy", zh: "旧版" },
+        model: "Doubao-Seed-Evolving",
         component: TestComponent,
         getMetadata: () => makeMetadata("99"),
       },
@@ -57,10 +86,10 @@ describe("style version protocol", () => {
     expect(entry.versions[0].id).toBe("v1");
   });
 
-  it("rejects duplicate explicit and generated version IDs", () => {
+  it("rejects duplicate explicit version IDs", () => {
     const duplicateV1 = defineStyleVersion({
       id: "v1",
-      topic: "Duplicate",
+      topic: { en: "Duplicate", zh: "重复" },
       model: "protocol-test",
       component: TestComponent,
       getMetadata: () => makeMetadata("99"),
@@ -69,6 +98,9 @@ describe("style version protocol", () => {
     expect(() =>
       buildStyleRegistryEntry("99", [
         {
+          id: "v1",
+          topic: { en: "Legacy", zh: "旧版" },
+          model: "Doubao-Seed-Evolving",
           component: TestComponent,
           getMetadata: () => makeMetadata("99"),
         },

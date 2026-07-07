@@ -801,8 +801,11 @@ export { getMetadata };
 
 export const incidentLearnsV2Version = defineStyleVersion({
   id: "v2",
-  topic: "The Incident Learns",
-  model: "GPT-5",
+  topic: {
+    en: "Learning Incident",
+    zh: "学习事故",
+  },
+  model: "GPT-5.5",
   component: IncidentLearnsV2,
   getMetadata,
 });

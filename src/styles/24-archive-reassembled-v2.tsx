@@ -1552,8 +1552,11 @@ export default function ArchiveReassembledV2({
 
 export const archiveReassembledV2Version = defineStyleVersion({
   id: "v2",
-  topic: "The Archive Reassembled",
-  model: "GPT-5",
+  topic: {
+    en: "Rebuilt Archive",
+    zh: "重组档案",
+  },
+  model: "GPT-5.5",
   component: ArchiveReassembledV2,
   getMetadata,
 });

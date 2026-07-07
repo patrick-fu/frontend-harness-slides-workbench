@@ -4,7 +4,11 @@ import VersionBar from "./VersionBar";
 import type { StyleRegistryEntry } from "../../types";
 
 function makeStyle(
-  versions: Array<{ id: string; topic: string; model: string }>,
+  versions: Array<{
+    id: string;
+    topic: { en: string; zh: string };
+    model: string;
+  }>,
 ): StyleRegistryEntry {
   return {
     id: "01",
@@ -34,8 +38,16 @@ function renderVersionBar(
 ) {
   const defaultProps = {
     style: makeStyle([
-      { id: "v1", topic: "Original Launch", model: "GPT-4.1" },
-      { id: "decision-art", topic: "Decision Art", model: "GPT-5" },
+      {
+        id: "v1",
+        topic: { en: "Original Launch", zh: "原始发布" },
+        model: "GPT-4.1",
+      },
+      {
+        id: "decision-art",
+        topic: { en: "Decision Art", zh: "决策艺术" },
+        model: "GPT-5.5",
+      },
     ]),
     currentVersionId: "decision-art",
     language: "en" as const,
@@ -133,7 +145,11 @@ describe("VersionBar", () => {
   it("does not render the switcher for a single-version style", () => {
     renderVersionBar({
       style: makeStyle([
-        { id: "v1", topic: "Original Launch", model: "GPT-4.1" },
+        {
+          id: "v1",
+          topic: { en: "Original Launch", zh: "原始发布" },
+          model: "GPT-4.1",
+        },
       ]),
       currentVersionId: "v1",
     });
@@ -148,6 +164,21 @@ describe("VersionBar", () => {
     expect(screen.getByTestId("version-switcher")).toHaveAttribute(
       "aria-label",
       "版本",
+    );
+  });
+
+  it("localizes version topics in the bar and menu", () => {
+    renderVersionBar({ language: "zh" });
+
+    expect(screen.getByText("决策艺术")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId("version-switcher"));
+
+    expect(screen.getByTestId("version-option-v1")).toHaveTextContent(
+      "原始发布",
+    );
+    expect(screen.getByTestId("version-option-decision-art")).toHaveTextContent(
+      "决策艺术",
     );
   });
 });

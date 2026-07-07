@@ -1066,8 +1066,11 @@ export default function ShippingHardThingV2({
 
 export const shippingHardThingV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Shipping the Hard Thing",
-  model: "GPT-5",
+  topic: {
+    en: "Hard Thing",
+    zh: "难事发布",
+  },
+  model: "GPT-5.5",
   component: ShippingHardThingV2,
   getMetadata,
 });

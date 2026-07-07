@@ -674,8 +674,11 @@ export default function SpatialProductBriefV2({
 
 export const spatialProductBriefV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Spatial Product Brief",
-  model: "GPT-5",
+  topic: {
+    en: "Spatial Brief",
+    zh: "空间简报",
+  },
+  model: "GPT-5.5",
   component: SpatialProductBriefV2,
   getMetadata,
 });

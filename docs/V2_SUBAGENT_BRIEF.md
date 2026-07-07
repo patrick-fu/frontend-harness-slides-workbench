@@ -49,7 +49,7 @@ Requirements:
 ## Implementation Contract
 
 - Create a new version module and optional CSS module for the assigned style.
-- Export `defineStyleVersion({ id: "v2", ... })`.
+- Export `defineStyleVersion({ id: "v2", topic: { en, zh }, model: "GPT-5.5", ... })`.
 - Keep all visible slide text bilingual through `language: "en" | "zh"`.
 - Render exactly five scenes.
 - Use `SpatialSceneTrack` with `transitionMap`.
@@ -71,4 +71,3 @@ The style is not done until:
 - Edge transitions follow the assignment matrix.
 - Reduced motion and thumbnail mode are stable.
 - Protocol tests and relevant audits pass after integration.
-

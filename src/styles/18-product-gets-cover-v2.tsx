@@ -792,8 +792,11 @@ export default function ProductGetsCoverV2({
 
 export const productGetsCoverV2Version = defineStyleVersion({
   id: "v2",
-  topic: "A Product Gets a Cover",
-  model: "GPT-5",
+  topic: {
+    en: "Product Cover",
+    zh: "产品封面",
+  },
+  model: "GPT-5.5",
   component: ProductGetsCoverV2,
   getMetadata,
 });

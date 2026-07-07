@@ -1654,8 +1654,11 @@ export default function UsefulWeekNotesV2({
 
 export const usefulWeekNotesV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Notes from a Useful Week",
-  model: "GPT-5",
+  topic: {
+    en: "Useful Week",
+    zh: "有用一周",
+  },
+  model: "GPT-5.5",
   component: UsefulWeekNotesV2,
   getMetadata,
 });

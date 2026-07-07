@@ -741,8 +741,11 @@ export default function TwoTeamsOneArtifactV2({
 
 export const twoTeamsOneArtifactV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Two Teams, One Artifact",
-  model: "GPT-5",
+  topic: {
+    en: "Shared Artifact",
+    zh: "共享产物",
+  },
+  model: "GPT-5.5",
   component: TwoTeamsOneArtifactV2,
   getMetadata,
 });

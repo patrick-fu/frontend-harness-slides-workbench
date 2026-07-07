@@ -1466,8 +1466,11 @@ function carouselDotStyle(
 
 export const onboardingThatBreathesV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Onboarding That Breathes",
-  model: "GPT-5",
+  topic: {
+    en: "Breathing Onboard",
+    zh: "呼吸入门",
+  },
+  model: "GPT-5.5",
   component: OnboardingThatBreathesV2,
   getMetadata,
 });

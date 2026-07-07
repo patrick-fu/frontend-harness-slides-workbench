@@ -796,8 +796,11 @@ export default function ResilienceBlueprintV2({
 
 export const resilienceBlueprintV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Resilience Blueprint",
-  model: "GPT-5",
+  topic: {
+    en: "Resilience Plan",
+    zh: "韧性方案",
+  },
+  model: "GPT-5.5",
   component: ResilienceBlueprintV2,
   getMetadata,
 });

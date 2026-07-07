@@ -83,10 +83,10 @@ export interface StyleMetadata {
 
 /** A single version of a Style, produced by one Agent/model. */
 export interface StyleVersion {
-  /** Stable version ID, e.g. "v1" for legacy entries or "decision-art" for explicit protocol modules. */
+  /** Stable version ID, e.g. "v1" or "decision-art". */
   id: string;
-  /** Topic name (human-readable), e.g. "决策的艺术", "Product Launch". */
-  topic: string;
+  /** Localized topic name shown in version navigation. */
+  topic: { en: string; zh: string };
   /** Model that produced this version, e.g. "Doubao-Seed-Evolving". */
   model: string;
   /** The React component that renders this version. */

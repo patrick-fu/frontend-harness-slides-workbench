@@ -1503,8 +1503,11 @@ export default function SentenceWeKeepV2({
 
 export const sentenceWeKeepV2Version = defineStyleVersion({
   id: "v2",
-  topic: "The Sentence We Keep",
-  model: "GPT-5",
+  topic: {
+    en: "Kept Sentence",
+    zh: "留下句子",
+  },
+  model: "GPT-5.5",
   component: SentenceWeKeepV2,
   getMetadata,
 });

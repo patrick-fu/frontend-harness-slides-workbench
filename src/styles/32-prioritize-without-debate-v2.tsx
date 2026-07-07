@@ -1284,8 +1284,11 @@ export { getMetadata };
 
 export const prioritizeWithoutDebateV2Version = defineStyleVersion({
   id: "v2",
-  topic: "Prioritize Without Debate",
-  model: "GPT-5",
+  topic: {
+    en: "Priority Score",
+    zh: "优先评分",
+  },
+  model: "GPT-5.5",
   component: PrioritizeWithoutDebateV2,
   getMetadata,
 });
