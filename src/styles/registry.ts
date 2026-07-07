@@ -209,6 +209,14 @@ import { kitchenPrepStationV3Version } from "./13-raw-logs-to-report-v3";
 import { collaborativePairingBoardV3Version } from "./14-human-reviews-ai-v3";
 import { tuningTheModelV3Version } from "./15-tuning-the-model-v3";
 import { safeToDeployV3Version } from "./16-safe-to-deploy-v3";
+import { dayFeedStoppedV3Version } from "./17-day-feed-stopped-v3";
+import { comebackIssueV3Version } from "./18-comeback-issue-v3";
+import { letterToPastSelfV3Version } from "./19-letter-to-past-self-v3";
+import { whatAncientsKnewV3Version } from "./20-what-ancients-knew-v3";
+import { festivalSlowIdeasV3Version } from "./21-festival-slow-ideas-v3";
+import { cutInOneTakeV3Version } from "./22-cut-in-one-take-v3";
+import { makeSomethingWeeklyV3Version } from "./23-make-something-weekly-v3";
+import { piecingIdeaTogetherV3Version } from "./24-piecing-idea-together-v3";
 
 const buildEntry = buildStyleRegistryEntry;
 
@@ -411,6 +419,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata17,
     },
     morningAfterLaunchV2Version,
+    dayFeedStoppedV3Version,
   ]),
   buildEntry("18", [
     {
@@ -421,6 +430,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata18,
     },
     productGetsCoverV2Version,
+    comebackIssueV3Version,
   ]),
   buildEntry("19", [
     {
@@ -431,6 +441,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata19,
     },
     usefulWeekNotesV2Version,
+    letterToPastSelfV3Version,
   ]),
   buildEntry("20", [
     {
@@ -441,6 +452,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata20,
     },
     argumentInMarginsV2Version,
+    whatAncientsKnewV3Version,
   ]),
   buildEntry("21", [
     {
@@ -451,6 +463,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata21,
     },
     publicLightProgramV2Version,
+    festivalSlowIdeasV3Version,
   ]),
   buildEntry("22", [
     {
@@ -461,6 +474,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata22,
     },
     fiveTakesRoomV2Version,
+    cutInOneTakeV3Version,
   ]),
   buildEntry("23", [
     {
@@ -471,6 +485,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata23,
     },
     communityPrintsItselfV2Version,
+    makeSomethingWeeklyV3Version,
   ]),
   buildEntry("24", [
     {
@@ -481,6 +496,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata24,
     },
     archiveReassembledV2Version,
+    piecingIdeaTogetherV3Version,
   ]),
   // Craft & Cultural Traditions: 25-32
   buildEntry("25", [
