@@ -1,0 +1,300 @@
+/* 03 · Wabi-Sabi Ceramic · v3 · "The Beauty of the Unfinished"
+   Earthen washi ground, ash/stone mid-tones, one faded indigo accent (the
+   kintsugi seam only). All layout in cqw/cqh. */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: #e9e1d2;
+  color: #3d372d;
+  font-family: "Newsreader", Georgia, "Songti SC", serif;
+  -webkit-font-smoothing: antialiased;
+}
+.root[data-lang="zh"] {
+  font-family: "Noto Serif SC", "Newsreader", "Songti SC", serif;
+}
+
+/* soft morning light + fibrous paper grain */
+.paper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 92% at 28% 16%, rgba(255, 252, 244, 0.55), rgba(255, 252, 244, 0) 55%),
+    radial-gradient(130% 130% at 84% 90%, rgba(120, 108, 88, 0.12), rgba(120, 108, 88, 0) 62%);
+}
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 26cqh 26cqh;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* fill tokens for the brush / stone / accent gestures */
+.brushInk { fill: #3d372d; }
+.accentFill { fill: #5e6a8c; }
+.bowlFill { fill: #d9cfbc; }
+
+/* ---------- Scene 1 · Title ---------- */
+.s1 {
+  display: flex;
+  align-items: center;
+}
+.s1inner {
+  margin-left: 14cqw;
+  max-width: 66cqw;
+  transform: translateY(-2cqh);
+}
+.eyebrow {
+  font-size: 2cqh;
+  letter-spacing: 0.6cqh;
+  color: #8c8474;
+  font-weight: 500;
+  margin-bottom: 3.4cqh;
+}
+.title {
+  margin: 0;
+  font-family: "Fraunces", "Noto Serif SC", serif;
+  font-weight: 400;
+  font-size: 8.6cqh;
+  line-height: 1.1;
+  color: #3d372d;
+  max-width: 60cqw;
+}
+.brushWrap {
+  margin: 1.6cqh 0 2.8cqh;
+}
+.brushUnderline {
+  display: block;
+  width: 32cqw;
+  height: 3.6cqh;
+  margin-left: 5cqw;
+  transform: rotate(-1.1deg);
+}
+.sub {
+  margin: 0;
+  font-size: 2.9cqh;
+  line-height: 1.7;
+  color: #6f675a;
+  max-width: 46cqw;
+}
+
+/* ---------- Scene 2 · The crack (motion) ---------- */
+.s2frame {
+  position: absolute;
+  left: 33cqw;
+  top: 17cqh;
+  width: 42cqw;
+  height: 62cqh;
+  box-sizing: border-box;
+  border: 0.16cqw solid #c4baa6;
+  border-radius: 2cqw 5.5cqw 2.4cqw 6cqw;
+}
+.s2stack {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3cqh;
+  padding: 5cqh 4cqw;
+  box-sizing: border-box;
+}
+.s2figure {
+  margin: 0;
+}
+.bowlSvg {
+  display: block;
+  width: 22cqw;
+  height: 24cqh;
+}
+.s2see {
+  margin: 0;
+  font-family: "Fraunces", "Noto Serif SC", serif;
+  font-size: 3.5cqh;
+  line-height: 1.4;
+  color: #3d372d;
+  text-align: center;
+  max-width: 34cqw;
+}
+.s2accept {
+  margin: 0;
+  font-size: 2.7cqh;
+  line-height: 1.6;
+  color: #7c7466;
+  text-align: center;
+  max-width: 34cqw;
+}
+
+/* ---------- Scene 3 · Kintsugi (reserved) ---------- */
+.s3wrap {
+  position: absolute;
+  left: 41cqw;
+  top: 26cqh;
+  display: flex;
+  align-items: stretch;
+  gap: 4.4cqw;
+}
+.seam {
+  display: block;
+  width: 2.2cqw;
+  height: 44cqh;
+  flex: none;
+}
+.seamPath {
+  transition: opacity 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.s3lines {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4.6cqh;
+  max-width: 42cqw;
+}
+.s3line {
+  margin: 0;
+  font-family: "Fraunces", "Noto Serif SC", serif;
+  font-size: 3.6cqh;
+  line-height: 1.45;
+  color: #3d372d;
+  transition: opacity 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Scene 4 · What time adds (motion) ---------- */
+.s4patina {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: background 1400ms ease, opacity 1400ms ease;
+}
+.s4patina[data-patina="0"] {
+  background: radial-gradient(62cqw 62cqh at 30% 46%, rgba(120, 108, 86, 0.05), transparent 60%);
+}
+.s4patina[data-patina="1"] {
+  background: radial-gradient(72cqw 72cqh at 34% 50%, rgba(120, 108, 86, 0.1), transparent 62%);
+}
+.s4patina[data-patina="2"] {
+  background: radial-gradient(82cqw 82cqh at 38% 54%, rgba(110, 96, 72, 0.16), transparent 64%);
+}
+.s4stack {
+  position: absolute;
+  left: 16cqw;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3cqh;
+  max-width: 62cqw;
+}
+.s4dot {
+  display: block;
+  width: 6cqw;
+  height: 3cqh;
+  margin-bottom: 1cqh;
+}
+.s4line {
+  margin: 0;
+  font-family: "Fraunces", "Noto Serif SC", serif;
+  font-size: 3.7cqh;
+  line-height: 1.35;
+  color: #3d372d;
+  max-width: 58cqw;
+}
+
+/* ---------- Scene 5 · Rest ---------- */
+.s5inner {
+  position: absolute;
+  right: 15cqw;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: right;
+  max-width: 58cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.bowlSvgRest {
+  display: block;
+  width: 26cqw;
+  height: 13cqh;
+  margin-bottom: 3.4cqh;
+}
+.s5line {
+  margin: 0;
+  font-family: "Fraunces", "Noto Serif SC", serif;
+  font-weight: 400;
+  font-size: 5.2cqh;
+  line-height: 1.2;
+  color: #3d372d;
+  max-width: 52cqw;
+}
+.s5markWrap {
+  margin: 1.6cqh 0 2.4cqh;
+}
+.restMark {
+  display: block;
+  width: 5cqw;
+  height: 3cqh;
+}
+.s5sub {
+  margin: 0;
+  font-size: 2.8cqh;
+  line-height: 1.6;
+  color: #7c7466;
+  max-width: 40cqw;
+}
+
+/* ---------- Motion · dust settling in sunlight ---------- */
+.enter {
+  animation: settle 1100ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rise {
+  animation: rise 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(2cqh);
+    filter: blur(0.5cqh);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.4cqh);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* reduced motion / thumbnail: everything settles to final, no animation */
+.still *,
+.still *::before,
+.still *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}

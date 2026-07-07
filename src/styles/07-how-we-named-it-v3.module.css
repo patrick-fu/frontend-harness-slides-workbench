@@ -1,0 +1,483 @@
+/* 07 · Sketch Board Emoji · v3 · "How We Named It"
+   Warm aged-cream workshop board. Soft charcoal hand-marks, muted
+   highlighter accent kit, sticky notes + tape, loose connectors, a small
+   cast of emoji actors. All layout sizing in cqw/cqh (stage = 100cqw x
+   100cqh). No container-type here so cqw/cqh resolve against the stage. */
+
+.root {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: #3b352c;
+  font-family: "Inter", system-ui, sans-serif;
+  background:
+    radial-gradient(120cqw 90cqh at 18% -12%, #f8f1de 0%, transparent 58%),
+    radial-gradient(90cqw 80cqh at 96% 108%, #ece0c2 0%, transparent 60%),
+    #f1e8d2;
+}
+
+/* faint hand-ruled grid to read as a physical board */
+.grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  mix-blend-mode: multiply;
+  background-image:
+    linear-gradient(#3b352c14 0.1cqw, transparent 0.1cqw),
+    linear-gradient(90deg, #3b352c12 0.1cqw, transparent 0.1cqw);
+  background-size: 7cqw 12cqh, 7cqw 12cqh;
+}
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 14cqh #4033240f;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* small handwritten margin caption, top-left, never collides with content */
+.sceneTag {
+  position: absolute;
+  top: 5cqh;
+  left: 5cqw;
+  display: flex;
+  align-items: baseline;
+  gap: 1cqw;
+  font-family: "Caveat", "Zhi Mang Xing", cursive;
+  color: #6e6456;
+  font-size: 3.4cqh;
+  transform: rotate(-2deg);
+  z-index: 4;
+}
+.sceneTagNum {
+  font-size: 4.6cqh;
+  font-weight: 700;
+  color: #c25e52;
+}
+
+/* ---------- tape ---------- */
+.tape {
+  position: absolute;
+  width: 9cqw;
+  height: 3.4cqh;
+  background: linear-gradient(180deg, #9dc3d0aa, #9dc3d066);
+  box-shadow: 0 0.4cqh 0.8cqh #40332422;
+  border-radius: 0.2cqw;
+}
+.tapeWarm {
+  background: linear-gradient(180deg, #d67b6f99, #eebab255);
+}
+
+/* ---------- title card (scene 1) ---------- */
+.titleCard {
+  position: relative;
+  width: 62cqw;
+  padding: 7cqh 5cqw 8cqh;
+  background: #fcf7eb;
+  border: 0.18cqw dashed #cabf98;
+  border-radius: 1.2cqw 0.7cqw 1.4cqw 0.6cqw;
+  box-shadow: 0.5cqw 1cqh 2.2cqh #40332426;
+  text-align: center;
+  transform: rotate(-1.2deg);
+}
+.kicker {
+  display: inline-block;
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3cqw;
+  text-transform: uppercase;
+  font-size: 2.4cqh;
+  color: #9a8f76;
+}
+.bigTitle {
+  margin: 1.4cqh 0 0.8cqh;
+  font-family: "Caveat", "Zhi Mang Xing", cursive;
+  font-weight: 700;
+  font-size: 11cqh;
+  line-height: 0.98;
+  color: #3b352c;
+}
+.underline {
+  display: block;
+  margin: 0.4cqh auto 1.6cqh;
+  width: 34cqw;
+  height: 1.4cqh;
+}
+.underline path {
+  fill: none;
+  stroke: #d67b6f;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+.sub {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 3cqh;
+  color: #6e6456;
+}
+.facil {
+  position: absolute;
+  right: -4cqw;
+  bottom: -5cqh;
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+  transform: rotate(4deg);
+}
+.facilFace {
+  font-size: 7cqh;
+  line-height: 1;
+}
+.speech {
+  font-family: "Caveat", "Zhi Mang Xing", cursive;
+  font-size: 3.4cqh;
+  color: #6e6456;
+  background: #f5de8b;
+  padding: 0.6cqh 1.2cqw;
+  border-radius: 1.6cqw 1.6cqw 1.6cqw 0.2cqw;
+  box-shadow: 0.2cqw 0.4cqh 0.8cqh #40332422;
+}
+
+/* ---------- sticky notes ---------- */
+.noteWrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  gap: 4cqh 3cqw;
+  width: 80cqw;
+  max-height: 74cqh;
+  padding-top: 4cqh;
+}
+.noteCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.note {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 19cqw;
+  height: 13cqh;
+  padding: 1cqh 1.2cqw;
+  transform: rotate(var(--rot, 0deg));
+  box-shadow: 0.4cqw 0.7cqh 1.4cqh #40332433;
+  border-radius: 0.6cqw 0.9cqw 0.5cqw 0.8cqw;
+  font-family: "Caveat", "Zhi Mang Xing", cursive;
+  font-weight: 700;
+  font-size: 5.2cqh;
+  line-height: 1.02;
+  color: #3b352c;
+}
+.note::before {
+  /* tape strip pinning the note */
+  content: "";
+  position: absolute;
+  top: -1.4cqh;
+  left: 50%;
+  width: 7cqw;
+  height: 2.8cqh;
+  transform: translateX(-50%) rotate(-3deg);
+  background: linear-gradient(180deg, #f7f0dda8, #f7f0dd66);
+  box-shadow: 0 0.3cqh 0.6cqh #40332420;
+}
+.toneYellow { background: #f5de8b; }
+.toneBlue { background: #c6dde6; }
+.toneRed { background: #f0c4bd; }
+
+.ghost {
+  opacity: 0.42;
+  filter: saturate(0.65);
+}
+.cross {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.cross path {
+  fill: none;
+  stroke: #c25e52;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+/* ---------- debate: connectors + reactions (scene 3) ---------- */
+.board3 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.connSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.connSvg path {
+  fill: none;
+  stroke: #6e6456;
+  stroke-width: 0.6;
+  stroke-linecap: round;
+  stroke-dasharray: 6 3.2;
+  opacity: 0.85;
+}
+.absNote {
+  position: absolute;
+  z-index: 2;
+}
+.react {
+  position: absolute;
+  z-index: 3;
+  font-size: 5.4cqh;
+  line-height: 1;
+  transition: opacity 320ms ease, transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.reactHidden {
+  opacity: 0;
+  transform: scale(0.5);
+}
+.thought {
+  position: absolute;
+  z-index: 3;
+  font-size: 6cqh;
+  line-height: 1;
+  transition: opacity 320ms ease;
+}
+
+/* ---------- shortlist circle + versus (scene 4) ---------- */
+.circle {
+  position: absolute;
+  inset: -3cqh -2cqw;
+  pointer-events: none;
+}
+.circle ellipse {
+  fill: none;
+  stroke: #c25e52;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-dasharray: 340;
+  stroke-dashoffset: 0;
+}
+.vs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  font-family: "Caveat", "Zhi Mang Xing", cursive;
+  font-weight: 700;
+  font-size: 6cqh;
+  color: #c25e52;
+  padding: 0 1cqw;
+  transform: rotate(-4deg);
+}
+
+/* ---------- winner (scene 5) ---------- */
+.winnerWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4cqh;
+}
+.winnerNote {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36cqw;
+  height: 24cqh;
+  background: #f5de8b;
+  border-radius: 0.8cqw 1.2cqw 0.6cqw 1cqw;
+  box-shadow: 0.6cqw 1.2cqh 2.6cqh #40332438;
+  font-family: "Caveat", "Zhi Mang Xing", cursive;
+  font-weight: 700;
+  font-size: 9.6cqh;
+  color: #3b352c;
+  transform: rotate(-2deg);
+}
+.winnerNote::before {
+  content: "";
+  position: absolute;
+  top: -2cqh;
+  left: 50%;
+  width: 12cqw;
+  height: 3.6cqh;
+  transform: translateX(-50%) rotate(-2deg);
+  background: linear-gradient(180deg, #d67b6f99, #eebab255);
+  box-shadow: 0 0.3cqh 0.6cqh #40332426;
+}
+.cheer {
+  position: absolute;
+  top: -9cqh;
+  right: -5cqw;
+  font-size: 9cqh;
+  line-height: 1;
+}
+.winFace {
+  position: absolute;
+  bottom: -3cqh;
+  left: -6cqw;
+  font-size: 8cqh;
+  line-height: 1;
+  transform: rotate(-6deg);
+}
+.winCap {
+  font-family: "Caveat", "Zhi Mang Xing", cursive;
+  font-size: 4.4cqh;
+  color: #6e6456;
+}
+
+/* ---------- bespoke nav: sketched connector trail ---------- */
+.nav {
+  position: absolute;
+  bottom: 4cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6cqh;
+  z-index: 20;
+}
+.navTrail {
+  display: flex;
+  align-items: center;
+  gap: 0.4cqw;
+}
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.4cqw;
+}
+.navNode {
+  position: relative;
+  width: 5cqh;
+  height: 5cqh;
+  border: none;
+  border-radius: 50%;
+  background: #fcf7eb;
+  box-shadow: 0.15cqw 0.3cqh 0.6cqh #40332430;
+  color: #6e6456;
+  font-family: "Caveat", "Zhi Mang Xing", cursive;
+  font-weight: 700;
+  font-size: 3cqh;
+  cursor: pointer;
+  padding: 0;
+}
+.navNodeOn {
+  color: #3b352c;
+  background: #f5de8b;
+}
+.navRing {
+  position: absolute;
+  inset: -1.4cqh -1.2cqw;
+  pointer-events: none;
+}
+.navRing ellipse {
+  fill: none;
+  stroke: #c25e52;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 7 4;
+}
+.navArrow {
+  width: 4cqw;
+  height: 2.4cqh;
+}
+.navArrow path {
+  fill: none;
+  stroke: #9a8f76;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.navLabel {
+  font-family: "Caveat", "Zhi Mang Xing", cursive;
+  font-size: 2.8cqh;
+  color: #9a8f76;
+}
+
+/* ---------- motion (only on active, non-reduced, non-thumbnail) ---------- */
+.motionOn .note {
+  animation: noteSettle 520ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.motionOn .titleCard {
+  animation: cardDrop 560ms cubic-bezier(0.34, 1.5, 0.64, 1) both;
+}
+.motionOn .connSvg path {
+  stroke-dashoffset: 240;
+  animation: drawIn 720ms ease-out forwards;
+}
+.motionOn .circle ellipse {
+  stroke-dashoffset: 340;
+  animation: drawIn 640ms 120ms ease-out forwards;
+}
+.motionOn .winnerNote {
+  animation: popIn 560ms cubic-bezier(0.34, 1.6, 0.6, 1) both;
+}
+.motionOn .cheer {
+  animation: cheerPop 620ms 180ms cubic-bezier(0.3, 1.7, 0.6, 1) both;
+}
+.motionOn .winFace {
+  animation: nudge 700ms 240ms ease both;
+}
+.motionOn .react {
+  animation: reactPop 420ms cubic-bezier(0.3, 1.7, 0.6, 1) both;
+}
+
+@keyframes noteSettle {
+  0% { transform: translateY(-2.4cqh) rotate(var(--rot, 0deg)) scale(0.88); opacity: 0; }
+  62% { transform: translateY(0.5cqh) rotate(var(--rot, 0deg)) scale(1.03); opacity: 1; }
+  100% { transform: translateY(0) rotate(var(--rot, 0deg)) scale(1); opacity: 1; }
+}
+@keyframes cardDrop {
+  0% { transform: translateY(-3cqh) rotate(-4deg); opacity: 0; }
+  100% { transform: translateY(0) rotate(-1.2deg); opacity: 1; }
+}
+@keyframes drawIn {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes popIn {
+  0% { transform: rotate(-2deg) scale(0.6); opacity: 0; }
+  60% { transform: rotate(-2deg) scale(1.06); opacity: 1; }
+  100% { transform: rotate(-2deg) scale(1); opacity: 1; }
+}
+@keyframes cheerPop {
+  0% { transform: scale(0) rotate(-18deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes reactPop {
+  0% { transform: scale(0.4); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes nudge {
+  0% { transform: rotate(-6deg) translateY(1cqh); opacity: 0; }
+  60% { transform: rotate(-6deg) translateY(-0.4cqh); opacity: 1; }
+  100% { transform: rotate(-6deg) translateY(0); opacity: 1; }
+}
+
+/* reduced motion / thumbnail: settle to final, kill all animation */
+.still,
+.still * {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+}
+.still .connSvg path,
+.still .circle ellipse {
+  stroke-dashoffset: 0 !important;
+}

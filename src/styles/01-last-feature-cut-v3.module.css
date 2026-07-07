@@ -1,0 +1,304 @@
+/* 01 · Minimal Product Keynote · v3 — "The Last Feature We Cut"
+   Value-extreme: warmed near-white ground, near-black ink, one scarce accent.
+   Layout units: cqw / cqh only. */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  color: #141210;
+  font-family: "Fraunces", "Noto Serif SC", Georgia, "Songti SC", serif;
+  font-optical-sizing: auto;
+  /* light-based depth: a soft warm bloom, no borders, no hard shadow */
+  background:
+    radial-gradient(130cqw 100cqh at 50% 40%, #FCF9F3 0%, #F4F0E8 52%, #ECE6DB 100%);
+}
+
+/* reduced-motion / thumbnail: kill all motion, settle to final layout */
+.reduced *,
+.reduced *::before,
+.reduced *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+/* recurring maker's mark — quietly signs every slide, far from focal */
+.mark {
+  position: absolute;
+  top: 6cqh;
+  left: 6cqw;
+  z-index: 4;
+  font-size: 1.5cqh;
+  font-weight: 500;
+  letter-spacing: 0.7cqw;
+  text-transform: uppercase;
+  color: #141210;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 10cqh 12cqw;
+}
+
+.centerCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ---- entrance: slow, weighted, never bouncy ---- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(2.6cqh);
+    filter: blur(0.5cqw);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+.rise {
+  opacity: 1;
+}
+.scene[data-active="true"] .rise {
+  animation: rise 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.scene[data-active="true"] .riseDelay {
+  animation: rise 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 260ms;
+}
+
+/* ---- Scene 1 / 5 hero ---- */
+.hero {
+  margin: 0;
+  font-size: 14cqh;
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.3cqw;
+  max-width: 78cqw;
+  text-align: center;
+}
+
+/* ---- Scene 2 · temptation (motion) ---- */
+.temptWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.halo {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: 70cqw;
+  height: 40cqh;
+  transform: translate(-50%, -50%) scale(1.08);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 253, 247, 0.95), rgba(255, 253, 247, 0));
+  opacity: 0.9;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.halo[data-beat="1"] {
+  opacity: 0.25;
+  transform: translate(-50%, -50%) scale(0.9);
+}
+.feature {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: 11.5cqh;
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.2cqw;
+  max-width: 74cqw;
+  transition: font-size 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.temptWrap[data-beat="1"] .feature {
+  font-size: 8cqh;
+}
+.whisper {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: 2.2cqh;
+  font-weight: 500;
+  letter-spacing: 0.6cqw;
+  text-transform: uppercase;
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0;
+  overflow: hidden;
+  transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+    max-height 800ms cubic-bezier(0.16, 1, 0.3, 1),
+    margin-top 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.temptWrap[data-beat="1"] .whisper {
+  opacity: 0.42;
+  max-height: 6cqh;
+  margin-top: 3.4cqh;
+}
+
+/* ---- Scene 3 · cost (reserved slots) ---- */
+.costWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 72cqw;
+  gap: 4.6cqh;
+}
+.costHeading {
+  margin: 0 0 1.8cqh 0;
+  font-size: 2cqh;
+  font-weight: 500;
+  letter-spacing: 0.6cqw;
+  text-transform: uppercase;
+  opacity: 0.34;
+}
+.cost {
+  margin: 0;
+  font-size: 6cqh;
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.15cqw;
+  /* reserved: slot holds space from beat 0; only emphasis changes */
+  opacity: 0.1;
+  transform: translateX(-1.2cqw);
+  transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cost[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- Scene 4 · decision (motion) ---- */
+.decisionWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.lead {
+  margin: 0;
+  font-size: 4cqh;
+  font-weight: 300;
+  letter-spacing: 0.1cqw;
+  opacity: 0.55;
+  transition: font-size 800ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.decisionWrap[data-beat="1"] .lead {
+  font-size: 3cqh;
+  opacity: 0.4;
+}
+.verdict {
+  margin: 0;
+  font-size: 24cqh;
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.5cqw;
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0;
+  overflow: visible;
+  transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    max-height 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    margin-top 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.decisionWrap[data-beat="1"] .verdict {
+  opacity: 1;
+  max-height: 32cqh;
+  margin-top: 2.4cqh;
+}
+/* the single scarce accent — a tiny spark on the period */
+.spark {
+  color: #E4442B;
+}
+
+/* ---- Scene 5 · after ---- */
+.afterWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 3.6cqh;
+}
+.afterHero {
+  margin: 0;
+  font-size: 12cqh;
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.25cqw;
+  max-width: 78cqw;
+}
+.proof {
+  margin: 0;
+  font-size: 2.2cqh;
+  font-weight: 500;
+  letter-spacing: 0.55cqw;
+  text-transform: uppercase;
+  opacity: 0.42;
+}
+
+/* ---- N7 ghost / hover-reveal nav ---- */
+.nav {
+  position: absolute;
+  left: 50%;
+  bottom: 5cqh;
+  transform: translateX(-50%);
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 1.6cqw;
+  opacity: 0;
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav:hover {
+  opacity: 0.6;
+}
+.tick {
+  width: 2.4cqw;
+  height: 0.3cqh;
+  padding: 0;
+  border: none;
+  background: #141210;
+  opacity: 0.32;
+  cursor: pointer;
+  transition: opacity 400ms ease, width 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tick:hover {
+  opacity: 0.7;
+}
+.tickActive {
+  opacity: 0.9;
+  width: 3.8cqw;
+}
+.navNum {
+  font-size: 1.5cqh;
+  font-weight: 500;
+  letter-spacing: 0.4cqw;
+  opacity: 0.5;
+  font-variant-numeric: tabular-nums;
+}

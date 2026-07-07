@@ -1,0 +1,473 @@
+/* 02 — Objective Swiss Grid · v3 · "Anatomy of a Timetable"
+   Achromatic paper/ink system, ONE signal hue for wayfinding only.
+   All layout sizing in cqw/cqh. Flat surface — no shadows, no gradients. */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Archivo", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-variant-numeric: tabular-nums lining-nums;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+}
+
+.frame {
+  position: absolute;
+  top: 5.4cqh;
+  bottom: 5.4cqh;
+  left: 6cqw;
+  right: 6cqw;
+}
+
+/* ---- Visible structural grid (the signature) ---- */
+.scaffold {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.col {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0.06cqw;
+  background: var(--rule);
+  transform-origin: top center;
+  transform: scaleY(1);
+}
+
+.scaffoldDim .col {
+  background: var(--rule-faint);
+}
+
+.play .col {
+  animation: drawCol 420ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+.baseline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0.06cqh;
+  background: var(--rule);
+  transform-origin: left center;
+  transform: scaleX(1);
+}
+
+.play .baseline {
+  animation: drawRow 420ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+/* ---- Running head / foot: thin rules + small caps meta ---- */
+.head {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5cqh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 0.16cqh solid var(--ink);
+  z-index: 2;
+}
+
+.foot {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4.4cqh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-top: 0.1cqh solid var(--rule-strong);
+  z-index: 2;
+}
+
+.metaLabel {
+  font-size: 1.32cqh;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gray2);
+  line-height: 1.2;
+}
+
+.metaLabel b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* ---- Body region ---- */
+.body {
+  position: absolute;
+  top: 8.2cqh;
+  bottom: 6.8cqh;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.eyebrow {
+  font-size: 1.48cqh;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gray2);
+  margin: 0;
+}
+
+/* ---- Scene 1: title ---- */
+.titleWrap {
+  position: absolute;
+  left: 0;
+  bottom: 2cqh;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.title {
+  margin: 1.4cqh 0 0 0;
+  font-size: 9.2cqh;
+  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  max-width: 78cqw;
+}
+
+.rootZh .title {
+  font-size: 9cqh;
+  letter-spacing: 0.01em;
+}
+
+.subtitle {
+  margin: 3cqh 0 0 0;
+  font-size: 2.4cqh;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--ink);
+  max-width: 52cqw;
+}
+
+.titleMeta {
+  margin-top: 4cqh;
+  font-size: 1.5cqh;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gray2);
+}
+
+/* ---- Scene heading block (scenes 2-5) ---- */
+.sceneHead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.h2 {
+  margin: 1.1cqh 0 0 0;
+  font-size: 4.4cqh;
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.lead {
+  margin: 1.6cqh 0 0 0;
+  font-size: 2.05cqh;
+  font-weight: 400;
+  line-height: 1.32;
+  color: var(--ink);
+  max-width: 62cqw;
+}
+
+/* ---- Scene 2: exposed grid labels ---- */
+.gridZone {
+  position: absolute;
+  top: 15cqh;
+  bottom: 0;
+  left: 4cqw;
+  right: 0;
+}
+
+.colLetters {
+  position: absolute;
+  top: -3.4cqh;
+  left: 0;
+  right: 0;
+  height: 3cqh;
+}
+
+.colLetter {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 1.7cqh;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+
+.rowNums {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -4cqw;
+  width: 3cqw;
+}
+
+.rowNum {
+  position: absolute;
+  transform: translateY(-50%);
+  font-size: 1.6cqh;
+  font-weight: 600;
+  color: var(--gray2);
+}
+
+.moduleNote {
+  position: absolute;
+  right: 0;
+  bottom: -3.6cqh;
+  font-size: 1.4cqh;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray2);
+}
+
+/* ---- Timetable ---- */
+.tableWrap {
+  position: absolute;
+  top: 15.5cqh;
+  left: 0;
+  right: 0;
+}
+
+.thead,
+.row {
+  display: grid;
+  grid-template-columns: 13% 13% 9% 41% 24%;
+  align-items: center;
+  column-gap: 1.4cqw;
+  position: relative;
+}
+
+.thead {
+  height: 5cqh;
+  border-bottom: 0.16cqh solid var(--ink);
+}
+
+.th {
+  font-size: 1.42cqh;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gray2);
+}
+
+.row {
+  height: 7cqh;
+  border-bottom: 0.1cqh solid var(--rule);
+}
+
+.cell {
+  font-size: 2.5cqh;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cellNum {
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: 0.01em;
+}
+
+.dest {
+  font-weight: 600;
+}
+
+.status {
+  font-size: 1.9cqh;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--gray2);
+}
+
+.statusDelayed {
+  color: var(--signal);
+  font-weight: 700;
+}
+
+.delayTick {
+  position: absolute;
+  left: -1.7cqw;
+  top: 0.8cqh;
+  bottom: 0.8cqh;
+  width: 0.42cqw;
+  background: var(--signal);
+  transform-origin: top center;
+}
+
+/* ---- Scene 3: NOW marker (single signal line) ---- */
+.nowRow {
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+  height: 3cqh;
+  margin: 0.2cqh 0;
+}
+
+.nowTag {
+  font-size: 1.5cqh;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--signal);
+  white-space: nowrap;
+}
+
+.nowLine {
+  flex: 1;
+  height: 0.26cqh;
+  background: var(--signal);
+  transform-origin: left center;
+}
+
+/* ---- Scene 5: grid credit ---- */
+.credit {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  font-size: 1.5cqh;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gray2);
+}
+
+.credit b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* ---- Navigation prototype: grid-coordinate "you are here" datum ---- */
+.nav {
+  position: absolute;
+  right: 6cqw;
+  bottom: 5.4cqh;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.navLabel {
+  font-size: 1.14cqh;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gray2);
+}
+
+.navCoord {
+  margin-top: 0.4cqh;
+  font-size: 5cqh;
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  color: var(--signal);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.navTicks {
+  margin-top: 1cqh;
+  display: flex;
+  gap: 0.7cqw;
+  pointer-events: auto;
+}
+
+.tick {
+  appearance: none;
+  border: 0.1cqh solid var(--rule-strong);
+  background: transparent;
+  color: var(--gray2);
+  font-family: inherit;
+  font-size: 1.42cqh;
+  font-weight: 600;
+  width: 3cqh;
+  height: 3cqh;
+  padding: 0;
+  cursor: pointer;
+  font-variant-numeric: tabular-nums lining-nums;
+  transition: color 160ms linear, border-color 160ms linear;
+}
+
+.tick:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.tickCurrent {
+  color: var(--paper);
+  background: var(--signal);
+  border-color: var(--signal);
+}
+
+.tickCurrent:hover {
+  color: var(--paper);
+  border-color: var(--signal);
+}
+
+/* ---- Reveal helper: crisp state change, no drift ---- */
+.reveal {
+  transition: opacity 240ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* ---- Keyframes: short mechanical draws only ---- */
+@keyframes drawCol {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes drawRow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ---- Reduced motion / thumbnail: settle to final, no animation ---- */
+.root[data-reduced="true"] *,
+.root[data-reduced="true"] *::before,
+.root[data-reduced="true"] *::after {
+  animation: none !important;
+  transition: none !important;
+}

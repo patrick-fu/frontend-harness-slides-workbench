@@ -192,6 +192,15 @@ import { rewriteBrokenFlowV2Version } from "./45-rewrite-broken-flow-v2";
 import { launchGateLedgerV2Version } from "./46-launch-gate-ledger-v2";
 import { handoffCompartmentsV2Version } from "./47-handoff-compartments-v2";
 import { recoveryKitV2Version } from "./48-recovery-kit-v2";
+// ─── Curated v3 versions (Claude-Opus-4.8) ───────────────────────────────────
+import { lastFeatureCutV3Version } from "./01-last-feature-cut-v3";
+import { objectiveSwissGridV3Version } from "./02-anatomy-timetable-v3";
+import { beautyUnfinishedV3Version } from "./03-beauty-unfinished-v3";
+import { rubberDuckV3Version } from "./04-rubber-duck-v3";
+import { cyanotypeDraftingTableV3Version } from "./05-drawing-a-bridge-v3";
+import { shipItV3Version } from "./06-ship-it-v3";
+import { sketchBoardEmojiV3Version } from "./07-how-we-named-it-v3";
+import { onQuittingWellV3Version } from "./08-on-quitting-well-v3";
 
 const buildEntry = buildStyleRegistryEntry;
 
@@ -216,6 +225,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata01,
     },
     quietLaunchWindowV2Version,
+    lastFeatureCutV3Version,
   ]),
   buildEntry("02", [
     {
@@ -226,6 +236,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata02,
     },
     metricsWithoutNoiseV2Version,
+    objectiveSwissGridV3Version,
   ]),
   buildEntry("03", [
     {
@@ -236,6 +247,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata03,
     },
     repairAsStrategyV2Version,
+    beautyUnfinishedV3Version,
   ]),
   buildEntry("04", [
     {
@@ -246,6 +258,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata04,
     },
     betterQuestionV2Version,
+    rubberDuckV3Version,
   ]),
   buildEntry("05", [
     {
@@ -256,6 +269,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata05,
     },
     resilienceBlueprintV2Version,
+    cyanotypeDraftingTableV3Version,
   ]),
   buildEntry("06", [
     {
@@ -266,6 +280,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata06,
     },
     oneConstraintWinsV2Version,
+    shipItV3Version,
   ]),
   buildEntry("07", [
     {
@@ -276,6 +291,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata07,
     },
     humanLoopRetrofitV2Version,
+    sketchBoardEmojiV3Version,
   ]),
   buildEntry("08", [
     {
@@ -286,6 +302,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata08,
     },
     sentenceWeKeepV2Version,
+    onQuittingWellV3Version,
   ]),
   // Balanced Hybrid: 09-16
   buildEntry("09", [
