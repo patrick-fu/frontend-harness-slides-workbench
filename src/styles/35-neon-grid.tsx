@@ -225,7 +225,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "35",
+    id: "mid-century-grove",
     band: "contemporary-digital",
     name: nameMap[lang],
     theme: themeMap[lang],

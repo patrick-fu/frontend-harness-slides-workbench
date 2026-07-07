@@ -112,7 +112,7 @@ describe("Style 39: Notion Doc — overflow check", () => {
 describe("Style 39: Notion Doc — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("39");
+    expect(meta.id).toBe("blackboard-chalk-talk");
     expect(meta.band).toBe("contemporary-digital");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

@@ -204,7 +204,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "11",
+    id: "signal-pipeline-flow",
     band: "balanced-hybrid",
     name: nameMap[lang],
     theme: themeMap[lang],

@@ -4,7 +4,7 @@ Instructions for coding agents working in this repository.
 
 ## Project Role
 
-This is a public React/Vite demo workbench for 48 independent slide styles.
+This is a public React/Vite demo workbench for 49 independent slide styles.
 Treat it as an app/demo repository, not an npm library package. Keep
 `"private": true` unless the task explicitly changes npm publishing intent.
 
@@ -24,10 +24,10 @@ Priority order:
 4. `docs/adr/0001-mixed-mode-envelope-stage-architecture.md` for architecture.
 5. `PRD.md` and `TASKS.md` as historical intent, not guaranteed current truth.
 
-Known divergence: the app currently uses hash routing, not query-string routing:
+The current URL contract uses query-string routing with style and topic slugs:
 
 ```text
-#view=lab&style=01&version=v1&scene=1&beat=0
+?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=1&beat=0
 ```
 
 ## Architecture Rules
@@ -46,7 +46,7 @@ Respect the Envelope/Stage split.
 Important files:
 
 - `src/types.ts`: style contract.
-- `src/styles/registry.ts`: authoritative style/version registry.
+- `src/styles/registry.ts`: authoritative style/topic registry.
 - `src/components/LabView.tsx`: stage mounting and presenter navigation.
 - `src/components/OverviewView.tsx`: gallery and filtering.
 - `src/data/showcase-thumbnails.ts`: overview thumbnail mapping.
@@ -56,12 +56,17 @@ Important files:
 
 Before adding or editing a style, read `docs/STYLE_AUTHORING_SPEC.md`.
 
-Each style normally has:
+Each style or topic normally has:
 
-- `src/styles/NN-style-name.tsx`
-- `src/styles/NN-style-name.module.css`
-- `src/styles/NN-style-name.test.tsx`
+- A semantic kebab-case style ID and topic ID.
+- A `.tsx` style module under `src/styles/`.
+- Optional `.module.css` beside the style module.
+- A focused `.test.tsx` beside the style module.
 - A registry entry in `src/styles/registry.ts`
+
+Registry array order is the only ordering system. Do not introduce numeric
+sequence IDs or v1/v2 compatibility routing. Existing legacy filenames may keep
+numeric prefixes, but new style IDs and topic IDs should be semantic slugs.
 
 Style requirements:
 
@@ -73,7 +78,7 @@ Style requirements:
 - Update `e2e/audit.spec.ts` hard-coded beat counts if beat counts change.
 
 Overview cards use static images from `public/showcase`; do not reintroduce
-48 live stage thumbnail rendering unless the task explicitly asks for it and
+live stage thumbnail rendering unless the task explicitly asks for it and
 performance is addressed.
 
 ## Commands

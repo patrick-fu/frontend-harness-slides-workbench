@@ -1,5 +1,5 @@
-import type { StyleRegistryEntry, StyleMetadata, StyleVersion } from "../types";
-import { buildStyleRegistryEntry } from "./version";
+import type { StyleRegistryEntry, StyleMetadata, StyleTopic } from "../types";
+import { buildStyleRegistryEntry } from "./topic";
 import ExecutiveSilence01, {
   getMetadata as getMetadata01,
 } from "./01-executive-silence";
@@ -24,14 +24,14 @@ import QuietConfidence07, {
 import TerminalGlow08, {
   getMetadata as getMetadata08,
 } from "./08-terminal-glow";
-import { quietLaunchWindowV2Version } from "./01-quiet-launch-window-v2";
-import { metricsWithoutNoiseV2Version } from "./02-metrics-without-noise-v2";
-import { repairAsStrategyV2Version } from "./03-repair-as-strategy-v2";
-import { betterQuestionV2Version } from "./04-better-question-v2";
-import { resilienceBlueprintV2Version } from "./05-resilience-blueprint-v2";
-import { oneConstraintWinsV2Version } from "./06-one-constraint-wins-v2";
-import { humanLoopRetrofitV2Version } from "./07-human-loop-retrofit-v2";
-import { sentenceWeKeepV2Version } from "./08-sentence-we-keep-v2";
+import { quietLaunchWindowTopic } from "./01-quiet-launch-window";
+import { metricsWithoutNoiseTopic } from "./02-metrics-without-noise";
+import { repairAsStrategyTopic } from "./03-repair-as-strategy";
+import { betterQuestionTopic } from "./04-better-question";
+import { resilienceBlueprintTopic } from "./05-resilience-blueprint";
+import { oneConstraintWinsTopic } from "./06-one-constraint-wins";
+import { humanLoopRetrofitTopic } from "./07-human-loop-retrofit";
+import { sentenceWeKeepTopic } from "./08-sentence-we-keep";
 import ProcessFlow09, {
   getMetadata as getMetadata09,
 } from "./09-process-flow";
@@ -56,14 +56,15 @@ import Roadmap15, {
 import CaseStudy16, {
   getMetadata as getMetadata16,
 } from "./16-case-study";
-import { threeTracksReleaseV2Version } from "./09-three-tracks-release-v2";
-import { durableToolV2Version } from "./10-durable-tool-v2";
-import { eventToInsightV2Version } from "./11-event-to-insight-v2";
-import { onboardingThatBreathesV2Version } from "./12-onboarding-that-breathes-v2";
-import { rawNotesCleanBriefV2Version } from "./13-raw-notes-clean-brief-v2";
-import { twoTeamsOneArtifactV2Version } from "./14-two-teams-one-artifact-v2";
-import { tuningOperatingModelV2Version } from "./15-tuning-operating-model-v2";
-import { incidentLearnsV2Version } from "./16-incident-learns-v2";
+import { threeTracksReleaseTopic } from "./09-three-tracks-release";
+import { durableToolTopic } from "./10-durable-tool";
+import { eventToInsightTopic } from "./11-event-to-insight";
+import { engineeringWhiteboardExplainerTopic } from "./engineering-whiteboard-explainer";
+import { onboardingThatBreathesTopic } from "./12-onboarding-that-breathes";
+import { rawNotesCleanBriefTopic } from "./13-raw-notes-clean-brief";
+import { twoTeamsOneArtifactTopic } from "./14-two-teams-one-artifact";
+import { tuningOperatingModelTopic } from "./15-tuning-operating-model";
+import { incidentLearnsTopic } from "./16-incident-learns";
 import EditorialBroadsheet17, {
   getMetadata as getMetadata17,
 } from "./17-editorial-broadsheet";
@@ -88,14 +89,14 @@ import ZineCulture23, {
 import ManuscriptScroll24, {
   getMetadata as getMetadata24,
 } from "./24-manuscript-scroll";
-import { morningAfterLaunchV2Version } from "./17-morning-after-launch-v2";
-import { productGetsCoverV2Version } from "./18-product-gets-cover-v2";
-import { usefulWeekNotesV2Version } from "./19-useful-week-notes-v2";
-import { argumentInMarginsV2Version } from "./20-argument-in-margins-v2";
-import { publicLightProgramV2Version } from "./21-public-light-program-v2";
-import { fiveTakesRoomV2Version } from "./22-five-takes-room-v2";
-import { communityPrintsItselfV2Version } from "./23-community-prints-itself-v2";
-import { archiveReassembledV2Version } from "./24-archive-reassembled-v2";
+import { morningAfterLaunchTopic } from "./17-morning-after-launch";
+import { productGetsCoverTopic } from "./18-product-gets-cover";
+import { usefulWeekNotesTopic } from "./19-useful-week-notes";
+import { argumentInMarginsTopic } from "./20-argument-in-margins";
+import { publicLightProgramTopic } from "./21-public-light-program";
+import { fiveTakesRoomTopic } from "./22-five-takes-room";
+import { communityPrintsItselfTopic } from "./23-community-prints-itself";
+import { archiveReassembledTopic } from "./24-archive-reassembled";
 import WoodblockPrint25, {
   getMetadata as getMetadata25,
 } from "./25-woodblock-print";
@@ -120,14 +121,14 @@ import AfricanKente31, {
 import NordicRosemaling32, {
   getMetadata as getMetadata32,
 } from "./32-nordic-rosemaling";
-import { tideMapTeamV2Version } from "./25-tide-map-team-v2";
-import { growthSignalsV2Version } from "./26-growth-signals-v2";
-import { infrastructureGalaV2Version } from "./27-infrastructure-gala-v2";
-import { fieldRouteSignalV2Version } from "./28-field-route-signal-v2";
-import { releaseMixtapeV2Version } from "./29-release-mixtape-v2";
-import { shippingHardThingV2Version } from "./30-shipping-hard-thing-v2";
-import { moveOrgChartV2Version } from "./31-move-org-chart-v2";
-import { prioritizeWithoutDebateV2Version } from "./32-prioritize-without-debate-v2";
+import { tideMapTeamTopic } from "./25-tide-map-team";
+import { growthSignalsTopic } from "./26-growth-signals";
+import { infrastructureGalaTopic } from "./27-infrastructure-gala";
+import { fieldRouteSignalTopic } from "./28-field-route-signal";
+import { releaseMixtapeTopic } from "./29-release-mixtape";
+import { shippingHardThingTopic } from "./30-shipping-hard-thing";
+import { moveOrgChartTopic } from "./31-move-org-chart";
+import { prioritizeWithoutDebateTopic } from "./32-prioritize-without-debate";
 import GlassDashboard33, {
   getMetadata as getMetadata33,
 } from "./33-glass-dashboard";
@@ -152,14 +153,14 @@ import NotionDoc39, {
 import ParticleField40, {
   getMetadata as getMetadata40,
 } from "./40-particle-field";
-import { spatialProductBriefV2Version } from "./33-spatial-product-brief-v2";
-import { toolchainDesktopV2Version } from "./34-toolchain-desktop-v2";
-import { calmerGrowthModelV2Version } from "./35-calmer-growth-model-v2";
-import { privateBetaSalonV2Version } from "./36-private-beta-salon-v2";
-import { newHabitRunbookV2Version } from "./37-new-habit-runbook-v2";
-import { fiveActsSystemV2Version } from "./38-five-acts-system-v2";
-import { deriveShortcutV2Version } from "./39-derive-shortcut-v2";
-import { latencyBossFightV2Version } from "./40-latency-boss-fight-v2";
+import { spatialProductBriefTopic } from "./33-spatial-product-brief";
+import { toolchainDesktopTopic } from "./34-toolchain-desktop";
+import { calmerGrowthModelTopic } from "./35-calmer-growth-model";
+import { privateBetaSalonTopic } from "./36-private-beta-salon";
+import { newHabitRunbookTopic } from "./37-new-habit-runbook";
+import { fiveActsSystemTopic } from "./38-five-acts-system";
+import { deriveShortcutTopic } from "./39-derive-shortcut";
+import { latencyBossFightTopic } from "./40-latency-boss-fight";
 import AnnualReport41, {
   getMetadata as getMetadata41,
 } from "./41-annual-report";
@@ -184,548 +185,551 @@ import WhitePaper47, {
 import ExecutiveSummary48, {
   getMetadata as getMetadata48,
 } from "./48-executive-summary";
-import { evidenceSmallerTeamV2Version } from "./41-evidence-smaller-team-v2";
-import { chooseBoundaryV2Version } from "./42-choose-boundary-v2";
-import { readyAgentPickupV2Version } from "./43-ready-agent-pickup-v2";
-import { stationPlatformStudyV2Version } from "./44-station-platform-study-v2";
-import { rewriteBrokenFlowV2Version } from "./45-rewrite-broken-flow-v2";
-import { launchGateLedgerV2Version } from "./46-launch-gate-ledger-v2";
-import { handoffCompartmentsV2Version } from "./47-handoff-compartments-v2";
-import { recoveryKitV2Version } from "./48-recovery-kit-v2";
+import { evidenceSmallerTeamTopic } from "./41-evidence-smaller-team";
+import { chooseBoundaryTopic } from "./42-choose-boundary";
+import { readyAgentPickupTopic } from "./43-ready-agent-pickup";
+import { stationPlatformStudyTopic } from "./44-station-platform-study";
+import { rewriteBrokenFlowTopic } from "./45-rewrite-broken-flow";
+import { launchGateLedgerTopic } from "./46-launch-gate-ledger";
+import { handoffCompartmentsTopic } from "./47-handoff-compartments";
+import { recoveryKitTopic } from "./48-recovery-kit";
 
 const buildEntry = buildStyleRegistryEntry;
 
 // ─── Registry ───────────────────────────────────────────────────────────────
 
 /**
- * The authoritative registry of all Styles and their Versions.
+ * The authoritative registry of all Styles and their Topics.
  *
  * Registry order determines cross-style cycling order (D33: band-grouped).
- * Within each Style, versions are ordered by their index in the versions array.
+ * Within each Style, topics are ordered by their index in the topics array.
  *
- * Navigation cycling: style01v1 → style01v2 → ... → style02v1 → ...
+ * Navigation cycling: first style topic → next topic → next style topic → ...
  */
 export const STYLE_REGISTRY: StyleRegistryEntry[] = [
   // Minimal Keynote: 01-08
-  buildEntry("01", [
+  buildEntry("minimal-product-keynote", [
     {
-      id: "v1",
+      id: "product-keynote",
       topic: { en: "Product Keynote", zh: "产品主题" },
       model: "Doubao-Seed-Evolving",
       component: ExecutiveSilence01,
       getMetadata: getMetadata01,
     },
-    quietLaunchWindowV2Version,
+    quietLaunchWindowTopic,
   ]),
-  buildEntry("02", [
+  buildEntry("objective-swiss-grid", [
     {
-      id: "v1",
+      id: "swiss-grid",
       topic: { en: "Swiss Grid", zh: "瑞士网格" },
       model: "Doubao-Seed-Evolving",
       component: SwissPrecision02,
       getMetadata: getMetadata02,
     },
-    metricsWithoutNoiseV2Version,
+    metricsWithoutNoiseTopic,
   ]),
-  buildEntry("03", [
+  buildEntry("wabi-sabi-ceramic", [
     {
-      id: "v1",
+      id: "ceramic-calm",
       topic: { en: "Ceramic Calm", zh: "陶器静场" },
       model: "Doubao-Seed-Evolving",
       component: ZenVoid03,
       getMetadata: getMetadata03,
     },
-    repairAsStrategyV2Version,
+    repairAsStrategyTopic,
   ]),
-  buildEntry("04", [
+  buildEntry("interactive-dialogue-stage", [
     {
-      id: "v1",
+      id: "dialogue-stage",
       topic: { en: "Dialogue Stage", zh: "对话舞台" },
       model: "Doubao-Seed-Evolving",
       component: AuroraGradient04,
       getMetadata: getMetadata04,
     },
-    betterQuestionV2Version,
+    betterQuestionTopic,
   ]),
-  buildEntry("05", [
+  buildEntry("cyanotype-drafting-table", [
     {
-      id: "v1",
+      id: "blueprint",
       topic: { en: "Blueprint", zh: "蓝图" },
       model: "Doubao-Seed-Evolving",
       component: Blueprint05,
       getMetadata: getMetadata05,
     },
-    resilienceBlueprintV2Version,
+    resilienceBlueprintTopic,
   ]),
-  buildEntry("06", [
+  buildEntry("kinetic-type-punchline", [
     {
-      id: "v1",
+      id: "type-poster",
       topic: { en: "Type Poster", zh: "字体海报" },
       model: "Doubao-Seed-Evolving",
       component: MonochromeStudy06,
       getMetadata: getMetadata06,
     },
-    oneConstraintWinsV2Version,
+    oneConstraintWinsTopic,
   ]),
-  buildEntry("07", [
+  buildEntry("sketch-board-emoji", [
     {
-      id: "v1",
+      id: "workshop-board",
       topic: { en: "Workshop Board", zh: "工作坊" },
       model: "Doubao-Seed-Evolving",
       component: QuietConfidence07,
       getMetadata: getMetadata07,
     },
-    humanLoopRetrofitV2Version,
+    humanLoopRetrofitTopic,
   ]),
-  buildEntry("08", [
+  buildEntry("spotlight-quote-poster", [
     {
-      id: "v1",
+      id: "quote-poster",
       topic: { en: "Quote Poster", zh: "引言海报" },
       model: "Doubao-Seed-Evolving",
       component: TerminalGlow08,
       getMetadata: getMetadata08,
     },
-    sentenceWeKeepV2Version,
+    sentenceWeKeepTopic,
   ]),
   // Balanced Hybrid: 09-16
-  buildEntry("09", [
+  buildEntry("subway-map-of-intent", [
     {
-      id: "v1",
+      id: "subway-flow",
       topic: { en: "Subway Flow", zh: "地铁流程" },
       model: "Doubao-Seed-Evolving",
       component: ProcessFlow09,
       getMetadata: getMetadata09,
     },
-    threeTracksReleaseV2Version,
+    threeTracksReleaseTopic,
   ]),
-  buildEntry("10", [
+  buildEntry("benchmark-matrix", [
     {
-      id: "v1",
+      id: "benchmark",
       topic: { en: "Benchmark", zh: "基准评估" },
       model: "Doubao-Seed-Evolving",
       component: MatrixGrid10,
       getMetadata: getMetadata10,
     },
-    durableToolV2Version,
+    durableToolTopic,
   ]),
-  buildEntry("11", [
+  buildEntry("signal-pipeline-flow", [
     {
-      id: "v1",
+      id: "pipeline",
       topic: { en: "Pipeline", zh: "管道流程" },
       model: "Doubao-Seed-Evolving",
       component: TimelineSpiral11,
       getMetadata: getMetadata11,
     },
-    eventToInsightV2Version,
+    eventToInsightTopic,
   ]),
-  buildEntry("12", [
+  buildEntry("engineering-whiteboard-explainer", [
+    engineeringWhiteboardExplainerTopic,
+  ]),
+  buildEntry("soft-pastel-friendly", [
     {
-      id: "v1",
+      id: "friendly-onboard",
       topic: { en: "Friendly Onboard", zh: "友好入门" },
       model: "Doubao-Seed-Evolving",
       component: Iconography12,
       getMetadata: getMetadata12,
     },
-    onboardingThatBreathesV2Version,
+    onboardingThatBreathesTopic,
   ]),
-  buildEntry("13", [
+  buildEntry("kitchen-prep-station", [
     {
-      id: "v1",
+      id: "prep-station",
       topic: { en: "Prep Station", zh: "备料台" },
       model: "Doubao-Seed-Evolving",
       component: StickyBoard13,
       getMetadata: getMetadata13,
     },
-    rawNotesCleanBriefV2Version,
+    rawNotesCleanBriefTopic,
   ]),
-  buildEntry("14", [
+  buildEntry("collaborative-pairing-board", [
     {
-      id: "v1",
+      id: "pairing-board",
       topic: { en: "Pairing Board", zh: "配对板" },
       model: "Doubao-Seed-Evolving",
       component: OrgChart14,
       getMetadata: getMetadata14,
     },
-    twoTeamsOneArtifactV2Version,
+    twoTeamsOneArtifactTopic,
   ]),
-  buildEntry("15", [
+  buildEntry("studio-mixing-console", [
     {
-      id: "v1",
+      id: "mixing-console",
       topic: { en: "Mixing Console", zh: "混音台" },
       model: "Doubao-Seed-Evolving",
       component: Roadmap15,
       getMetadata: getMetadata15,
     },
-    tuningOperatingModelV2Version,
+    tuningOperatingModelTopic,
   ]),
-  buildEntry("16", [
+  buildEntry("debug-reaction-board", [
     {
-      id: "v1",
+      id: "debug-board",
       topic: { en: "Debug Board", zh: "调试面板" },
       model: "Doubao-Seed-Evolving",
       component: CaseStudy16,
       getMetadata: getMetadata16,
     },
-    incidentLearnsV2Version,
+    incidentLearnsTopic,
   ]),
   // Editorial & Print: 17-24
-  buildEntry("17", [
+  buildEntry("front-page-broadsheet", [
     {
-      id: "v1",
+      id: "broadsheet",
       topic: { en: "Broadsheet", zh: "大报头版" },
       model: "Doubao-Seed-Evolving",
       component: EditorialBroadsheet17,
       getMetadata: getMetadata17,
     },
-    morningAfterLaunchV2Version,
+    morningAfterLaunchTopic,
   ]),
-  buildEntry("18", [
+  buildEntry("magazine-masthead", [
     {
-      id: "v1",
+      id: "masthead",
       topic: { en: "Masthead", zh: "杂志刊头" },
       model: "Doubao-Seed-Evolving",
       component: LiteraryReview18,
       getMetadata: getMetadata18,
     },
-    productGetsCoverV2Version,
+    productGetsCoverTopic,
   ]),
-  buildEntry("19", [
+  buildEntry("warm-editorial-feature", [
     {
-      id: "v1",
+      id: "editorial-feature",
       topic: { en: "Editorial Feature", zh: "专题特稿" },
       model: "Doubao-Seed-Evolving",
       component: FinancialTimes19,
       getMetadata: getMetadata19,
     },
-    usefulWeekNotesV2Version,
+    usefulWeekNotesTopic,
   ]),
-  buildEntry("20", [
+  buildEntry("scholars-vellum", [
     {
-      id: "v1",
+      id: "scholar-notes",
       topic: { en: "Scholar Notes", zh: "学者笔记" },
       model: "Doubao-Seed-Evolving",
       component: NationalGeographic20,
       getMetadata: getMetadata20,
     },
-    argumentInMarginsV2Version,
+    argumentInMarginsTopic,
   ]),
-  buildEntry("21", [
+  buildEntry("solar-biennale-poster", [
     {
-      id: "v1",
+      id: "biennale-poster",
       topic: { en: "Biennale Poster", zh: "双年展" },
       model: "Doubao-Seed-Evolving",
       component: VogueEditorial21,
       getMetadata: getMetadata21,
     },
-    publicLightProgramV2Version,
+    publicLightProgramTopic,
   ]),
-  buildEntry("22", [
+  buildEntry("duotone-session", [
     {
-      id: "v1",
+      id: "session-poster",
       topic: { en: "Session Poster", zh: "录制海报" },
       model: "Doubao-Seed-Evolving",
       component: AcademicJournal22,
       getMetadata: getMetadata22,
     },
-    fiveTakesRoomV2Version,
+    fiveTakesRoomTopic,
   ]),
-  buildEntry("23", [
+  buildEntry("riso-print-zine", [
     {
-      id: "v1",
+      id: "riso-zine",
       topic: { en: "Riso Zine", zh: "孔版杂志" },
       model: "Doubao-Seed-Evolving",
       component: ZineCulture23,
       getMetadata: getMetadata23,
     },
-    communityPrintsItselfV2Version,
+    communityPrintsItselfTopic,
   ]),
-  buildEntry("24", [
+  buildEntry("analog-cutout-collage", [
     {
-      id: "v1",
+      id: "cutout-collage",
       topic: { en: "Cutout Collage", zh: "剪纸拼贴" },
       model: "Doubao-Seed-Evolving",
       component: ManuscriptScroll24,
       getMetadata: getMetadata24,
     },
-    archiveReassembledV2Version,
+    archiveReassembledTopic,
   ]),
   // Craft & Cultural Traditions: 25-32
-  buildEntry("25", [
+  buildEntry("woodblock-floating-world", [
     {
-      id: "v1",
+      id: "woodblock",
       topic: { en: "Woodblock", zh: "木版画" },
       model: "Doubao-Seed-Evolving",
       component: WoodblockPrint25,
       getMetadata: getMetadata25,
     },
-    tideMapTeamV2Version,
+    tideMapTeamTopic,
   ]),
-  buildEntry("26", [
+  buildEntry("botanical-specimen-plate", [
     {
-      id: "v1",
+      id: "specimen-plate",
       topic: { en: "Specimen Plate", zh: "标本板" },
       model: "Doubao-Seed-Evolving",
       component: ChineseInk26,
       getMetadata: getMetadata26,
     },
-    growthSignalsV2Version,
+    growthSignalsTopic,
   ]),
-  buildEntry("27", [
+  buildEntry("machine-age-deco", [
     {
-      id: "v1",
+      id: "deco-gala",
       topic: { en: "Deco Gala", zh: "装饰仪式" },
       model: "Doubao-Seed-Evolving",
       component: ArtDeco27,
       getMetadata: getMetadata27,
     },
-    infrastructureGalaV2Version,
+    infrastructureGalaTopic,
   ]),
-  buildEntry("28", [
+  buildEntry("expedition-screenprint", [
     {
-      id: "v1",
+      id: "expedition-print",
       topic: { en: "Expedition Print", zh: "探险海报" },
       model: "Doubao-Seed-Evolving",
       component: BauhausPoster28,
       getMetadata: getMetadata28,
     },
-    fieldRouteSignalV2Version,
+    fieldRouteSignalTopic,
   ]),
-  buildEntry("29", [
+  buildEntry("cassette-era-packaging", [
     {
-      id: "v1",
+      id: "cassette-pack",
       topic: { en: "Cassette Pack", zh: "卡带包装" },
       model: "Doubao-Seed-Evolving",
       component: CelticKnot29,
       getMetadata: getMetadata29,
     },
-    releaseMixtapeV2Version,
+    releaseMixtapeTopic,
   ]),
-  buildEntry("30", [
+  buildEntry("neo-brutalist-bulletin", [
     {
-      id: "v1",
+      id: "brutalist-bulletin",
       topic: { en: "Brutalist Bulletin", zh: "粗野公告" },
       model: "Doubao-Seed-Evolving",
       component: MexicanMural30,
       getMetadata: getMetadata30,
     },
-    shippingHardThingV2Version,
+    shippingHardThingTopic,
   ]),
-  buildEntry("31", [
+  buildEntry("red-wedge-agitprop", [
     {
-      id: "v1",
+      id: "red-wedge",
       topic: { en: "Red Wedge", zh: "红楔海报" },
       model: "Doubao-Seed-Evolving",
       component: AfricanKente31,
       getMetadata: getMetadata31,
     },
-    moveOrgChartV2Version,
+    moveOrgChartTopic,
   ]),
-  buildEntry("32", [
+  buildEntry("mechanical-scoring-funnel", [
     {
-      id: "v1",
+      id: "scoring-funnel",
       topic: { en: "Scoring Funnel", zh: "评分漏斗" },
       model: "Doubao-Seed-Evolving",
       component: NordicRosemaling32,
       getMetadata: getMetadata32,
     },
-    prioritizeWithoutDebateV2Version,
+    prioritizeWithoutDebateTopic,
   ]),
   // Contemporary Digital: 33-40
-  buildEntry("33", [
+  buildEntry("liquid-glass", [
     {
-      id: "v1",
+      id: "liquid-glass",
       topic: { en: "Liquid Glass", zh: "液态玻璃" },
       model: "Doubao-Seed-Evolving",
       component: GlassDashboard33,
       getMetadata: getMetadata33,
     },
-    spatialProductBriefV2Version,
+    spatialProductBriefTopic,
   ]),
-  buildEntry("34", [
+  buildEntry("retro-windows", [
     {
-      id: "v1",
+      id: "retro-desktop",
       topic: { en: "Retro Desktop", zh: "复古桌面" },
       model: "Doubao-Seed-Evolving",
       component: RetroOs9534,
       getMetadata: getMetadata34,
     },
-    toolchainDesktopV2Version,
+    toolchainDesktopTopic,
   ]),
-  buildEntry("35", [
+  buildEntry("mid-century-grove", [
     {
-      id: "v1",
+      id: "botanical-brand",
       topic: { en: "Botanical Brand", zh: "植物品牌" },
       model: "Doubao-Seed-Evolving",
       component: NeonGrid35,
       getMetadata: getMetadata35,
     },
-    calmerGrowthModelV2Version,
+    calmerGrowthModelTopic,
   ]),
-  buildEntry("36", [
+  buildEntry("after-hours-luxe", [
     {
-      id: "v1",
+      id: "after-hours",
       topic: { en: "Luxe Reveal", zh: "奢华揭幕" },
       model: "Doubao-Seed-Evolving",
       component: GlassMorph36,
       getMetadata: getMetadata36,
     },
-    privateBetaSalonV2Version,
+    privateBetaSalonTopic,
   ]),
-  buildEntry("37", [
+  buildEntry("operating-manual", [
     {
-      id: "v1",
+      id: "manual",
       topic: { en: "Runbook Manual", zh: "运行手册" },
       model: "Doubao-Seed-Evolving",
       component: TerminalUi37,
       getMetadata: getMetadata37,
     },
-    newHabitRunbookV2Version,
+    newHabitRunbookTopic,
   ]),
-  buildEntry("38", [
+  buildEntry("widescreen-title-card", [
     {
-      id: "v1",
+      id: "title-card",
       topic: { en: "Title Card", zh: "宽屏片头" },
       model: "Doubao-Seed-Evolving",
       component: FigmaCanvas38,
       getMetadata: getMetadata38,
     },
-    fiveActsSystemV2Version,
+    fiveActsSystemTopic,
   ]),
-  buildEntry("39", [
+  buildEntry("blackboard-chalk-talk", [
     {
-      id: "v1",
+      id: "chalk-talk",
       topic: { en: "Chalk Talk", zh: "粉笔推导" },
       model: "Doubao-Seed-Evolving",
       component: NotionDoc39,
       getMetadata: getMetadata39,
     },
-    deriveShortcutV2Version,
+    deriveShortcutTopic,
   ]),
-  buildEntry("40", [
+  buildEntry("arcade-boss-fight", [
     {
-      id: "v1",
+      id: "boss-fight",
       topic: { en: "Boss Fight", zh: "Boss 战" },
       model: "Doubao-Seed-Evolving",
       component: ParticleField40,
       getMetadata: getMetadata40,
     },
-    latencyBossFightV2Version,
+    latencyBossFightTopic,
   ]),
   // Text Report: 41-48
-  buildEntry("41", [
+  buildEntry("research-memo", [
     {
-      id: "v1",
+      id: "research-memo",
       topic: { en: "Research Memo", zh: "研究备忘" },
       model: "Doubao-Seed-Evolving",
       component: AnnualReport41,
       getMetadata: getMetadata41,
     },
-    evidenceSmallerTeamV2Version,
+    evidenceSmallerTeamTopic,
   ]),
-  buildEntry("42", [
+  buildEntry("decision-record", [
     {
-      id: "v1",
+      id: "decision-record",
       topic: { en: "Decision Record", zh: "决策记录" },
       model: "Doubao-Seed-Evolving",
       component: LegalBrief42,
       getMetadata: getMetadata42,
     },
-    chooseBoundaryV2Version,
+    chooseBoundaryTopic,
   ]),
-  buildEntry("43", [
+  buildEntry("maintainer-issue-brief", [
     {
-      id: "v1",
+      id: "issue-brief",
       topic: { en: "Issue Brief", zh: "问题简报" },
       model: "Doubao-Seed-Evolving",
       component: ResearchDigest43,
       getMetadata: getMetadata43,
     },
-    readyAgentPickupV2Version,
+    readyAgentPickupTopic,
   ]),
-  buildEntry("44", [
+  buildEntry("field-notes-report", [
     {
-      id: "v1",
+      id: "field-notes",
       topic: { en: "Field Notes", zh: "田野笔记" },
       model: "Doubao-Seed-Evolving",
       component: MeetingMinutes44,
       getMetadata: getMetadata44,
     },
-    stationPlatformStudyV2Version,
+    stationPlatformStudyTopic,
   ]),
-  buildEntry("45", [
+  buildEntry("annotated-source-diff", [
     {
-      id: "v1",
+      id: "source-diff",
       topic: { en: "Source Diff", zh: "源码差异" },
       model: "Doubao-Seed-Evolving",
       component: PolicyPaper45,
       getMetadata: getMetadata45,
     },
-    rewriteBrokenFlowV2Version,
+    rewriteBrokenFlowTopic,
   ]),
-  buildEntry("46", [
+  buildEntry("checklist-ledger", [
     {
-      id: "v1",
+      id: "checklist-ledger",
       topic: { en: "Checklist", zh: "检查清单" },
       model: "Doubao-Seed-Evolving",
       component: AuditReport46,
       getMetadata: getMetadata46,
     },
-    launchGateLedgerV2Version,
+    launchGateLedgerTopic,
   ]),
-  buildEntry("47", [
+  buildEntry("context-bento-box", [
     {
-      id: "v1",
+      id: "context-bento",
       topic: { en: "Context Bento", zh: "上下文盒" },
       model: "Doubao-Seed-Evolving",
       component: WhitePaper47,
       getMetadata: getMetadata47,
     },
-    handoffCompartmentsV2Version,
+    handoffCompartmentsTopic,
   ]),
-  buildEntry("48", [
+  buildEntry("object-metaphor-hero", [
     {
-      id: "v1",
+      id: "object-metaphor",
       topic: { en: "Object Hero", zh: "物体主视觉" },
       model: "Doubao-Seed-Evolving",
       component: ExecutiveSummary48,
       getMetadata: getMetadata48,
     },
-    recoveryKitV2Version,
+    recoveryKitTopic,
   ]),
 ];
 
-// ─── Utility functions for version-aware navigation ─────────────────────────
+// ─── Utility functions for topic-aware navigation ───────────────────────────
 
-/** A flat list of all versions across all styles, in navigation order. */
-export interface FlatVersionEntry {
+/** A flat list of all topics across all styles, in navigation order. */
+export interface FlatTopicEntry {
   styleId: string;
   styleName: { en: string; zh: string };
-  versionId: string;
-  versionIndex: number; // index within the style's versions array
-  topic: StyleVersion["topic"];
+  topicId: string;
+  topicIndex: number; // index within the style's topics array
+  topic: StyleTopic["topic"];
   model: string;
   component: React.ComponentType<any>;
   getMetadata: (lang: "en" | "zh") => StyleMetadata;
 }
 
 /**
- * Returns a flat array of all versions in navigation order.
- * Used for cross-style/version cycling (D81).
+ * Returns a flat array of all topics in navigation order.
+ * Used for cross-style/topic cycling (D81).
  */
-export function getAllVersions(): FlatVersionEntry[] {
-  const result: FlatVersionEntry[] = [];
+export function getAllTopics(): FlatTopicEntry[] {
+  const result: FlatTopicEntry[] = [];
   for (const style of STYLE_REGISTRY) {
-    for (let vi = 0; vi < style.versions.length; vi++) {
-      const v = style.versions[vi];
+    for (let ti = 0; ti < style.topics.length; ti++) {
+      const topic = style.topics[ti];
       result.push({
         styleId: style.id,
         styleName: style.name,
-        versionId: v.id,
-        versionIndex: vi,
-        topic: v.topic,
-        model: v.model,
-        component: v.component,
-        getMetadata: v.getMetadata,
+        topicId: topic.id,
+        topicIndex: ti,
+        topic: topic.topic,
+        model: topic.model,
+        component: topic.component,
+        getMetadata: topic.getMetadata,
       });
     }
   }
@@ -733,64 +737,64 @@ export function getAllVersions(): FlatVersionEntry[] {
 }
 
 /**
- * Find a specific version entry by style ID and version ID.
+ * Find a specific topic entry by style ID and topic ID.
  */
-export function findVersion(
+export function findTopic(
   styleId: string,
-  versionId: string,
-): FlatVersionEntry | null {
+  topicId: string,
+): FlatTopicEntry | null {
   const style = STYLE_REGISTRY.find((s) => s.id === styleId);
   if (!style) return null;
-  const vi = style.versions.findIndex((v) => v.id === versionId);
-  if (vi === -1) return null;
-  const v = style.versions[vi];
+  const ti = style.topics.findIndex((topic) => topic.id === topicId);
+  if (ti === -1) return null;
+  const topic = style.topics[ti];
   return {
     styleId: style.id,
     styleName: style.name,
-    versionId: v.id,
-    versionIndex: vi,
-    topic: v.topic,
-    model: v.model,
-    component: v.component,
-    getMetadata: v.getMetadata,
+    topicId: topic.id,
+    topicIndex: ti,
+    topic: topic.topic,
+    model: topic.model,
+    component: topic.component,
+    getMetadata: topic.getMetadata,
   };
 }
 
 /**
- * Get the next version in navigation order (D81).
- * Wraps from last version of last style back to first version of first style.
+ * Get the next topic in navigation order (D81).
+ * Wraps from last topic of last style back to first topic of first style.
  */
-export function getNextVersion(
+export function getNextTopic(
   styleId: string,
-  versionId: string,
-): FlatVersionEntry {
-  const all = getAllVersions();
+  topicId: string,
+): FlatTopicEntry {
+  const all = getAllTopics();
   const idx = all.findIndex(
-    (v) => v.styleId === styleId && v.versionId === versionId,
+    (topic) => topic.styleId === styleId && topic.topicId === topicId,
   );
   const nextIdx = (idx + 1) % all.length;
   return all[nextIdx];
 }
 
 /**
- * Get the previous version in navigation order (D81).
- * Wraps from first version of first style back to last version of last style.
+ * Get the previous topic in navigation order (D81).
+ * Wraps from first topic of first style back to last topic of last style.
  */
-export function getPrevVersion(
+export function getPrevTopic(
   styleId: string,
-  versionId: string,
-): FlatVersionEntry {
-  const all = getAllVersions();
+  topicId: string,
+): FlatTopicEntry {
+  const all = getAllTopics();
   const idx = all.findIndex(
-    (v) => v.styleId === styleId && v.versionId === versionId,
+    (topic) => topic.styleId === styleId && topic.topicId === topicId,
   );
   const prevIdx = (idx - 1 + all.length) % all.length;
   return all[prevIdx];
 }
 
 /**
- * Total number of versions across all styles.
+ * Total number of topics across all styles.
  */
-export function getTotalVersionCount(): number {
-  return STYLE_REGISTRY.reduce((sum, s) => sum + s.versions.length, 0);
+export function getTotalTopicCount(): number {
+  return STYLE_REGISTRY.reduce((sum, style) => sum + style.topics.length, 0);
 }

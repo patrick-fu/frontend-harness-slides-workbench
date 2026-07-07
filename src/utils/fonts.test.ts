@@ -29,9 +29,9 @@ function makeEntry(id: string, fonts: string[]): StyleRegistryEntry {
   return {
     id,
     name: { en: `Style ${id}`, zh: `风格 ${id}` },
-    versions: [
+    topics: [
       {
-        id: "v1",
+        id: "default-topic",
         topic: { en: "Test Topic", zh: "测试题材" },
         model: "test-model",
         component: () => null,
@@ -78,14 +78,14 @@ describe("collectAllFonts", () => {
   });
 
   it("collects fonts from a single style", () => {
-    const registry = [makeEntry("01", ["Inter", "Roboto"])];
+    const registry = [makeEntry("style-a", ["Inter", "Roboto"])];
     expect(collectAllFonts(registry, "en")).toEqual(["Inter", "Roboto"]);
   });
 
   it("deduplicates fonts across multiple styles", () => {
     const registry = [
-      makeEntry("01", ["Inter", "Roboto"]),
-      makeEntry("02", ["Roboto", "Montserrat"]),
+      makeEntry("style-a", ["Inter", "Roboto"]),
+      makeEntry("style-b", ["Roboto", "Montserrat"]),
     ];
     expect(collectAllFonts(registry, "en")).toEqual([
       "Inter",
@@ -96,14 +96,14 @@ describe("collectAllFonts", () => {
 
   it("filters out cjk: fonts when lang=en", () => {
     const registry = [
-      makeEntry("01", ["Inter", "cjk:Noto Serif SC", "Roboto"]),
+      makeEntry("style-a", ["Inter", "cjk:Noto Serif SC", "Roboto"]),
     ];
     expect(collectAllFonts(registry, "en")).toEqual(["Inter", "Roboto"]);
   });
 
   it("includes all fonts and strips cjk: prefix when lang=zh", () => {
     const registry = [
-      makeEntry("01", ["Inter", "cjk:Noto Serif SC", "Roboto"]),
+      makeEntry("style-a", ["Inter", "cjk:Noto Serif SC", "Roboto"]),
     ];
     expect(collectAllFonts(registry, "zh")).toEqual([
       "Inter",
@@ -114,8 +114,8 @@ describe("collectAllFonts", () => {
 
   it("handles mixed CJK fonts across styles with lang=zh", () => {
     const registry = [
-      makeEntry("01", ["Inter", "cjk:Noto Sans SC"]),
-      makeEntry("02", ["cjk:Noto Serif SC", "Montserrat"]),
+      makeEntry("style-a", ["Inter", "cjk:Noto Sans SC"]),
+      makeEntry("style-b", ["cjk:Noto Serif SC", "Montserrat"]),
     ];
     expect(collectAllFonts(registry, "zh")).toEqual([
       "Inter",
@@ -127,16 +127,16 @@ describe("collectAllFonts", () => {
 
   it("deduplicates after stripping cjk: prefix in zh mode", () => {
     const registry = [
-      makeEntry("01", ["cjk:Noto Serif SC"]),
-      makeEntry("02", ["cjk:Noto Serif SC"]),
+      makeEntry("style-a", ["cjk:Noto Serif SC"]),
+      makeEntry("style-b", ["cjk:Noto Serif SC"]),
     ];
     expect(collectAllFonts(registry, "zh")).toEqual(["Noto Serif SC"]);
   });
 
   it("preserves first-occurrence order after dedup", () => {
     const registry = [
-      makeEntry("01", ["Roboto", "Inter"]),
-      makeEntry("02", ["Inter", "Roboto"]),
+      makeEntry("style-a", ["Roboto", "Inter"]),
+      makeEntry("style-b", ["Inter", "Roboto"]),
     ];
     expect(collectAllFonts(registry, "en")).toEqual(["Roboto", "Inter"]);
   });

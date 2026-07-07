@@ -24,7 +24,7 @@ export const BAND_LABELS: Record<BandId, { en: string; zh: string }> = {
 
 /**
  * Group registry entries by their band, preserving band order.
- * Uses the first version's metadata to determine the band (all versions
+ * Uses the first topic's metadata to determine the band (all topics
  * of a style share the same band).
  *
  * Returns an array of [bandId, entries] tuples in BAND_ORDER sequence.
@@ -37,8 +37,8 @@ export function groupByBand(
     map.set(band, []);
   }
   for (const entry of registry) {
-    if (entry.versions.length === 0) continue;
-    const meta = entry.versions[0].getMetadata("en");
+    if (entry.topics.length === 0) continue;
+    const meta = entry.topics[0].getMetadata("en");
     const band = meta.band as BandId;
     if (map.has(band)) {
       map.get(band)!.push(entry);

@@ -13,7 +13,7 @@ https://frontend-harness-slides-workbench.vercel.app
 
 ## What It Shows
 
-✨ 48 independent slide styles  
+✨ 49 independent slide styles
 Each style is a self-contained React component with its own scenes, beats,
 metadata, fonts, navigation, animation, and visual language.
 
@@ -34,7 +34,7 @@ deterministic visual review.
 
 The project uses a mixed Envelope/Stage architecture.
 
-- Envelope: app chrome such as header, sidebar, version bar, bottom bar, and
+- Envelope: app chrome such as header, sidebar, topic bar, bottom bar, and
   overview cards. It uses responsive browser UI units.
 - Stage: fixed `1920x1080` slide canvas. It is scaled with CSS transforms and
   passes stable container-query units to every style.
@@ -46,18 +46,18 @@ Important source files:
 - `src/App.tsx`: app shell and URL state wiring.
 - `src/components/LabView.tsx`: stage rendering and presenter navigation.
 - `src/components/OverviewView.tsx`: public gallery and filtering.
-- `src/styles/registry.ts`: authoritative list of all styles and versions.
+- `src/styles/registry.ts`: authoritative list of all styles and topics.
 - `src/types.ts`: style props and metadata contract.
 - `docs/STYLE_AUTHORING_SPEC.md`: rules for adding or editing styles.
 
 ## URL Format
 
-The app uses hash routing so static hosting can serve every view from one file.
+The app uses query-string routing so every captured frame has a stable URL.
 
 ```text
-#view=overview
-#view=lab&style=01&version=v1&scene=1&beat=0
-#view=lab&style=33&version=v1&scene=3&beat=1&pure=1&frozen=1
+?view=overview
+?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=1&beat=0
+?view=lab&style=engineering-whiteboard-explainer&topic=from-prompt-to-patch&scene=3&beat=1&pure=1&frozen=1
 ```
 
 Useful flags:

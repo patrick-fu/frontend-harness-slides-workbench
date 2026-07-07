@@ -19,7 +19,7 @@ export interface BespokeStyleProps {
   /** Called by the Style's internal navigation to request a jump. */
   onNavigate?: (scene: number, beat: number) => void;
   /**
-   * @deprecated Legacy outgoing-clone transition hook. New style versions should
+   * @deprecated Legacy outgoing-clone transition hook. New style topics should
    * use framework-owned scene lifecycle helpers such as SpatialSceneTrack instead.
    */
   isTransitionClone?: boolean;
@@ -32,7 +32,7 @@ export interface BespokeStyleProps {
  * font preloading, and the bottom progress bar.
  */
 export interface StyleMetadata {
-  /** Two-digit string ID, e.g. "01" .. "48". */
+  /** Stable style slug, e.g. "minimal-product-keynote". */
   id: string;
   /** Visual family band. */
   band:
@@ -81,28 +81,28 @@ export interface StyleMetadata {
   }>;
 }
 
-/** A single version of a Style, produced by one Agent/model. */
-export interface StyleVersion {
-  /** Stable version ID, e.g. "v1" or "decision-art". */
+/** A single topic implementation of a Style, produced by one Agent/model. */
+export interface StyleTopic {
+  /** Stable topic ID, e.g. "product-keynote" or "quiet-launch". */
   id: string;
-  /** Localized topic name shown in version navigation. */
+  /** Localized topic name shown in topic navigation. */
   topic: { en: string; zh: string };
-  /** Model that produced this version, e.g. "Doubao-Seed-Evolving". */
+  /** Model that produced this topic, e.g. "Doubao-Seed-Evolving". */
   model: string;
-  /** The React component that renders this version. */
+  /** The React component that renders this topic. */
   component: React.ComponentType<BespokeStyleProps>;
-  /** Returns localized metadata for this version. */
+  /** Returns localized metadata for this topic. */
   getMetadata: (lang: "en" | "zh") => StyleMetadata;
 }
 
-/** A single entry in the Style registry — one Style with one or more Versions. */
+/** A single entry in the Style registry — one Style with one or more Topics. */
 export interface StyleRegistryEntry {
-  /** Two-digit string ID, e.g. "01" .. "48". */
+  /** Stable style slug. Registry array order, not this ID, controls sequencing. */
   id: string;
   /** Localized Style name (both languages for quick access without metadata lookup). */
   name: { en: string; zh: string };
-  /** All versions of this Style, ordered by version ID. */
-  versions: StyleVersion[];
+  /** All topics of this Style, ordered by registry position. */
+  topics: StyleTopic[];
 }
 
 /** Metadata for a single scene, used by layout controls. */

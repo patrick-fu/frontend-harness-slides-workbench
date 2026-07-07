@@ -80,7 +80,7 @@ describe("Style 18: literary-review — overflow check", () => {
 describe("Style 18: literary-review — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("18");
+    expect(meta.id).toBe("magazine-masthead");
     expect(meta.band).toBe("editorial-print");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

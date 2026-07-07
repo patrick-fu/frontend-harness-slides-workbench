@@ -112,7 +112,7 @@ describe("Style 12: Iconography — overflow check", () => {
 describe("Style 12: Iconography — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("12");
+    expect(meta.id).toBe("soft-pastel-friendly");
     expect(meta.band).toBe("balanced-hybrid");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

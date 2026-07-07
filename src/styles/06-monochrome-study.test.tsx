@@ -112,7 +112,7 @@ describe("Style 06: Monochrome Study — overflow check", () => {
 describe("Style 06: Monochrome Study — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("06");
+    expect(meta.id).toBe("kinetic-type-punchline");
     expect(meta.band).toBe("minimal-keynote");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

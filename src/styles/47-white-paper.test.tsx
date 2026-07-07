@@ -112,7 +112,7 @@ describe("Style 47: White Paper — overflow check", () => {
 describe("Style 47: White Paper — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("47");
+    expect(meta.id).toBe("context-bento-box");
     expect(meta.band).toBe("text-report");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

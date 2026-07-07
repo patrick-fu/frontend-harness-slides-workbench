@@ -137,13 +137,13 @@ function AppContent() {
 
   const handleSelectStyle = useCallback(
     (styleId: string) => {
-      // Find the style to get its first version
+      // Find the style to get its first topic.
       const style = STYLE_REGISTRY.find((s) => s.id === styleId);
-      const versionId = style?.versions[0]?.id || "v1";
+      const topicId = style?.topics[0]?.id || "product-keynote";
       setUrlState({
         view: "lab",
         styleId,
-        versionId,
+        topicId,
         scene: 1,
         beat: 0,
       });
@@ -152,12 +152,12 @@ function AppContent() {
     [setUrlState],
   );
 
-  const handleSelectVersion = useCallback(
-    (styleId: string, versionId: string) => {
+  const handleSelectTopic = useCallback(
+    (styleId: string, topicId: string) => {
       setUrlState({
         view: "lab",
         styleId,
-        versionId,
+        topicId,
         scene: 1,
         beat: 0,
       });
@@ -169,14 +169,14 @@ function AppContent() {
   const handleNavigate = useCallback(
     (target: {
       styleId: string;
-      versionId: string;
+      topicId: string;
       scene: number;
       beat: number;
       flashStyle?: boolean;
     }) => {
       setUrlState({
         styleId: target.styleId,
-        versionId: target.versionId,
+        topicId: target.topicId,
         scene: target.scene,
         beat: target.beat,
       });
@@ -202,11 +202,11 @@ function AppContent() {
   const contentStyle = useMemo(() => {
     const effectiveSidebarWidth = sidebarCollapsed ? 48 : sidebarWidth;
     const headerHeight = 36; // h-9
-    const versionBarHeight = isLab ? 28 : 0; // h-7, only in lab
+    const topicBarHeight = isLab ? 28 : 0; // h-7, only in lab
     const bottomBarHeight = isLab ? 36 : 0; // h-9
 
     return {
-      paddingTop: headerHeight + versionBarHeight,
+      paddingTop: headerHeight + topicBarHeight,
       paddingLeft: isDesktop ? effectiveSidebarWidth : 0,
       paddingBottom: bottomBarHeight,
     };
@@ -237,12 +237,12 @@ function AppContent() {
       <div
         style={{ display: urlState.pureMode ? "none" : undefined }}
       >
-        <Sidebar
-          registry={STYLE_REGISTRY}
-          currentStyleId={urlState.styleId}
-          currentVersionId={urlState.versionId}
-          onSelectStyle={handleSelectStyle}
-          onSelectVersion={handleSelectVersion}
+          <Sidebar
+            registry={STYLE_REGISTRY}
+            currentStyleId={urlState.styleId}
+            currentTopicId={urlState.topicId}
+            onSelectStyle={handleSelectStyle}
+            onSelectTopic={handleSelectTopic}
           isOpen={sidebarOpen}
           onClose={handleCloseSidebar}
           language={resolvedLanguage}
@@ -288,7 +288,7 @@ function AppContent() {
             <LabView
               registry={STYLE_REGISTRY}
               styleId={urlState.styleId}
-              versionId={urlState.versionId}
+              topicId={urlState.topicId}
               scene={urlState.scene}
               beat={urlState.beat}
               isPureMode={urlState.pureMode}

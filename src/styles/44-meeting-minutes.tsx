@@ -775,7 +775,7 @@ export default function MeetingMinutes({
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   const t = lang === "zh" ? zhMeta : enMeta;
   return {
-    id: "44",
+    id: "field-notes-report",
     band: "text-report",
     name: t.name,
     theme: t.theme,

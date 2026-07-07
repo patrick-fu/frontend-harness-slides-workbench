@@ -216,7 +216,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "10",
+    id: "benchmark-matrix",
     band: "balanced-hybrid",
     name: nameMap[lang],
     theme: themeMap[lang],

@@ -112,7 +112,7 @@ describe("Style 03: Zen Void — overflow check", () => {
 describe("Style 03: Zen Void — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("03");
+    expect(meta.id).toBe("wabi-sabi-ceramic");
     expect(meta.band).toBe("minimal-keynote");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

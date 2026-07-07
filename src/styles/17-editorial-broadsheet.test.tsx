@@ -313,7 +313,7 @@ describe("Style 17 — getMetadata structure", () => {
   });
 
   it("returns all required top-level fields", () => {
-    expect(metaEn.id).toBe("17");
+    expect(metaEn.id).toBe("front-page-broadsheet");
     expect(metaEn.band).toBe("editorial-print");
     expect(typeof metaEn.name).toBe("string");
     expect(metaEn.name.length).toBeGreaterThan(0);

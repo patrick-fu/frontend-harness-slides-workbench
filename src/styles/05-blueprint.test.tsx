@@ -138,7 +138,7 @@ describe("Style 05: Blueprint — overflow check", () => {
 describe("Style 05: Blueprint — metadata structure", () => {
   it("returns complete metadata for English", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("05");
+    expect(meta.id).toBe("cyanotype-drafting-table");
     expect(meta.band).toBe("minimal-keynote");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.theme.length).toBeGreaterThan(0);

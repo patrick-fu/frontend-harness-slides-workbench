@@ -80,7 +80,7 @@ describe("Style 36: 36-glass-morph — overflow check", () => {
 describe("Style 36: 36-glass-morph — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("36");
+    expect(meta.id).toBe("after-hours-luxe");
     expect(meta.band).toBe("contemporary-digital");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

@@ -799,7 +799,7 @@ export default function WhitePaper({
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   const t = lang === "zh" ? zhMeta : enMeta;
   return {
-    id: "47",
+    id: "context-bento-box",
     band: "text-report",
     name: t.name,
     theme: t.theme,

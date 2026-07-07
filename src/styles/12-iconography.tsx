@@ -327,7 +327,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "12",
+    id: "soft-pastel-friendly",
     band: "balanced-hybrid",
     name: nameMap[lang],
     theme: themeMap[lang],

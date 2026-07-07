@@ -80,7 +80,7 @@ describe("Style 19: financial-times — overflow check", () => {
 describe("Style 19: financial-times — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("19");
+    expect(meta.id).toBe("warm-editorial-feature");
     expect(meta.band).toBe("editorial-print");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

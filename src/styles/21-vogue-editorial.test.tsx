@@ -80,7 +80,7 @@ describe("Style 21: vogue-editorial — overflow check", () => {
 describe("Style 21: vogue-editorial — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("21");
+    expect(meta.id).toBe("solar-biennale-poster");
     expect(meta.band).toBe("editorial-print");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

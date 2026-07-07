@@ -1,6 +1,6 @@
 # Style Authoring Specification
 
-> 本文档定义了 Agent 如何为 Frontend Harness Slides Workbench 创建一个风格版本（Style Version）。
+> 本文档定义了 Agent 如何为 Frontend Harness Slides Workbench 创建一个风格题材（Style Topic）。
 > Agent 只需关注自己的单体文件，无需了解 Workbench 整体架构。
 
 ---
@@ -9,26 +9,25 @@
 
 | 术语 | 说明 |
 |------|------|
-| **Style（风格）** | 视觉家族，如 "01 Executive Silence"、"17 Editorial Broadsheet"。由两位数字 ID 标识。 |
-| **Version（版本）** | 某个风格下的一个具体实现。每个 Agent 产出一个版本，包含独立的题材、内容和视觉表现。 |
-| **Topic（题材）** | 版本的主题/内容，如 "决策的艺术"、"产品发布会"。用几个字概括。 |
-| **Scene（场景）** | 一个版本包含 5 个场景（1-5），对应 slides 的 5 页。 |
+| **Style（风格）** | 视觉家族，如 `minimal-product-keynote`、`engineering-whiteboard-explainer`。由语义 slug ID 标识。 |
+| **Topic（题材）** | 某个风格下的一个具体内容实现。每个 Agent 产出一个 Topic，包含独立题材、内容和视觉表现。 |
+| **Scene（场景）** | 一个 Topic 包含 5 个场景（1-5），对应 slides 的 5 页。 |
 | **Beat（节拍）** | 每个场景内的动态步骤。场景 1 可能只有 1 个 beat，场景 3 可能有 3 个 beats。 |
 
 ---
 
-## 2. 协议：版本模块是 Agent 面向接口
+## 2. 协议：Topic 模块是 Agent 面向接口
 
-Agent 产出的单位是一个黑盒 Style Version module。模块内部可以拆分组件和 CSS，但对 Workbench 只暴露一个 `defineStyleVersion(...)` 结果：
+Agent 产出的单位是一个黑盒 Style Topic module。模块内部可以拆分组件和 CSS，但对 Workbench 只暴露一个 `defineStyleTopic(...)` 结果：
 
 ```ts
-import { defineStyleVersion } from "./version";
+import { defineStyleTopic } from "./topic";
 
-export const executiveSilenceDecisionVersion = defineStyleVersion({
-  id: "decision-art",
-  topic: { en: "Decision Art", zh: "决策艺术" },
+export const engineeringWhiteboardExplainerTopic = defineStyleTopic({
+  id: "from-prompt-to-patch",
+  topic: { en: "From Prompt to Patch", zh: "从提示到补丁" },
   model: "GPT-5.5",
-  component: ExecutiveSilenceDecision,
+  component: EngineeringWhiteboardExplainer,
   getMetadata,
 });
 ```
@@ -36,12 +35,13 @@ export const executiveSilenceDecisionVersion = defineStyleVersion({
 稳定要求：
 
 - `id` 必须显式、稳定、小写，可用数字和 hyphen，例如 `decision-art`。
-- `topic` 是 VersionBar / Sidebar 显示的中英文题材名。
-- `component` 是版本组件。
-- `getMetadata(lang)` 返回该版本完整 metadata。
-- 所有版本都必须显式声明完整字段；不允许依赖数组顺序生成 ID。
+- 不允许使用 `v1`、`v2` 这类旧版本 ID。
+- `topic` 是 TopicBar / Sidebar 显示的中英文题材名。
+- `component` 是 Topic 组件。
+- `getMetadata(lang)` 返回该 Topic 完整 metadata。
+- 所有 Topic 都必须显式声明完整字段；不允许依赖数组顺序生成 ID。
 
-版本组件接收以下 Props：
+Topic 组件接收以下 Props：
 
 ```ts
 interface BespokeStyleProps {
@@ -56,31 +56,32 @@ interface BespokeStyleProps {
 
 `isTransitionClone` 是旧 outgoing-clone 模型遗留字段。新增版本不要读取或传递它。
 
-**输出**：一个 `defineStyleVersion(...)` 导出的版本模块；可以同时保留 `export default` 组件和 `getMetadata(lang)` 便于测试。
+**输出**：一个 `defineStyleTopic(...)` 导出的 Topic 模块；可以同时保留 `export default` 组件和 `getMetadata(lang)` 便于测试。
 
 ---
 
 ## 3. 文件结构
 
-每个版本至少包含一个 `.tsx` 模块，放在 `src/styles/` 目录下。复杂样式可配套 CSS Module；不要把转场生命周期写进每一页场景。
+每个 Topic 至少包含一个 `.tsx` 模块，放在 `src/styles/` 目录下。复杂样式可配套 CSS Module；不要把转场生命周期写进每一页场景。
 
 ### 命名规则
 
 ```
-{styleId}-{kebab-topic}-v{n}.tsx
+{style-slug}-{topic-id}.tsx
 ```
 
 示例：
 ```
-01-executive-silence-decision-art.tsx        ← 风格01，题材"决策的艺术"
-01-executive-silence-product-launch.tsx      ← 风格01，题材"产品发布"
-16-case-study-globex-v1.tsx                  ← 风格16，题材"Globex案例"，版本1
+minimal-product-keynote-decision-art.tsx
+engineering-whiteboard-explainer-from-prompt-to-patch.tsx
 ```
 
 如果有配套 CSS Module：
 ```
-01-executive-silence-decision-art.module.css
+engineering-whiteboard-explainer-from-prompt-to-patch.module.css
 ```
+
+已有 legacy 文件名可能保留数字前缀；新增 Style ID、Topic ID 和 URL 均使用语义 slug。最终顺序只由 `STYLE_REGISTRY` 数组维护。
 
 ### 文件内部结构
 
@@ -89,13 +90,13 @@ interface BespokeStyleProps {
 import React, { useEffect, useCallback } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import SpatialSceneTrack from "./SpatialSceneTrack";
-import { defineStyleVersion } from "./version";
-import styles from "./01-executive-silence-decision-art.module.css"; // 可选
+import { defineStyleTopic } from "./topic";
+import styles from "./engineering-whiteboard-explainer-from-prompt-to-patch.module.css"; // 可选
 
 // 2. 字体注入（可选）
 function useFonts() {
   useEffect(() => {
-    const id = "style-01-v2-fonts";
+    const id = "engineering-whiteboard-explainer-fonts";
     if (document.getElementById(id)) return;
     const link = document.createElement("link");
     link.id = id;
@@ -117,22 +118,22 @@ const SCENES = {
 // 4. Metadata 导出
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   return {
-    id: "01",
-    band: "minimal-keynote",
-    name: lang === "zh" ? "高管静默" : "Executive Silence",
-    theme: lang === "zh" ? "决策的艺术" : "The Art of Decision",
-    densityLabel: lang === "zh" ? "稀疏" : "Sparse",
-    heroScene: 1,
-    colors: { bg: "#0a0a0a", ink: "#f5f5f0", panel: "#141414" },
-    typography: { header: "Inter 500", body: "Inter 300" },
-    tags: ["minimal", "premium", "executive"],
-    fonts: ["Inter"],
+    id: "engineering-whiteboard-explainer",
+    band: "balanced-hybrid",
+    name: lang === "zh" ? "工程白板讲解" : "Engineering Whiteboard Explainer",
+    theme: lang === "zh" ? "从提示到补丁" : "From Prompt to Patch",
+    densityLabel: lang === "zh" ? "中密度" : "Medium",
+    heroScene: 3,
+    colors: { bg: "#f8fafc", ink: "#1e293b", panel: "#ffffff" },
+    typography: { header: "Inter 700", body: "Inter 400" },
+    tags: ["engineering", "whiteboard", "explainer"],
+    fonts: ["Inter", "JetBrains Mono"],
     scenes: [/* 5 个场景的 beats 定义 */],
   };
 }
 
 // 5. 组件默认导出
-export default function ExecutiveSilenceDecisionArt({
+export default function EngineeringWhiteboardExplainer({
   scene,
   beat,
   language,
@@ -159,24 +160,24 @@ export default function ExecutiveSilenceDecisionArt({
   );
 }
 
-export const executiveSilenceDecisionArtVersion = defineStyleVersion({
-  id: "decision-art",
-  topic: { en: "Decision Art", zh: "决策艺术" },
+export const engineeringWhiteboardExplainerTopic = defineStyleTopic({
+  id: "from-prompt-to-patch",
+  topic: { en: "From Prompt to Patch", zh: "从提示到补丁" },
   model: "GPT-5.5",
-  component: ExecutiveSilenceDecisionArt,
+  component: EngineeringWhiteboardExplainer,
   getMetadata,
 });
 ```
 
 ---
 
-## 4. 版本元信息
+## 4. Topic 元信息
 
-每个版本需要通过 `defineStyleVersion(...)` 声明以下元信息：
+每个 Topic 需要通过 `defineStyleTopic(...)` 声明以下元信息：
 
 ```ts
-interface StyleVersion {
-  id: string;              // 稳定版本 ID，如 "decision-art", "product-launch"
+interface StyleTopicModule {
+  id: string;              // 稳定 Topic ID，如 "decision-art", "product-launch"
   topic: { en: string; zh: string }; // 题材短名，如 { en: "Decision Art", zh: "决策艺术" }
   model: string;           // 编写模型，如 "Doubao-Seed-Evolving", "GPT-5.5"
   component: React.ComponentType<BespokeStyleProps>;  // 默认导出的组件
@@ -238,7 +239,7 @@ return <>
 </>;
 ```
 
-旧实现中的 `key={scene}` / `outgoingScene` / `isTransitionClone` clone-lifecycle 已迁移出 v1 style；不要重新引入。
+旧实现中的 `key={scene}` / `outgoingScene` / `isTransitionClone` clone-lifecycle 已迁移出 legacy style；不要重新引入。
 
 ### 5.3 Beat 动态揭示
 
@@ -376,7 +377,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 | Band | 说明 | 风格范围 |
 |------|------|----------|
 | `minimal-keynote` | 极简主题演讲 | 01-08 |
-| `balanced-hybrid` | 平衡混合 | 09-16 |
+| `balanced-hybrid` | 平衡混合 | 09-16 + registry 插入项 |
 | `editorial-print` | 编辑/印刷 | 17-24 |
 | `craft-cultural` | 工艺/文化 | 25-32 |
 | `contemporary-digital` | 当代数字 | 33-40 |
@@ -386,24 +387,23 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 
 ## 7. 注册到 Workbench
 
-完成版本模块后，在 `src/styles/registry.ts` 中注册。当前 registry 仍是集中枚举文件，属于已知冲突热点；新增版本应把所有元信息放进自己的版本模块，registry 只做一行 import 和数组追加。
+完成 Topic 模块后，在 `src/styles/registry.ts` 中注册。当前 registry 仍是集中枚举文件，属于已知冲突热点；新增 Topic 应把所有元信息放进自己的 Topic 模块，registry 只做一行 import 和数组追加。
 
 ### 7.1 导入
 
 ```ts
-import { executiveSilenceDecisionArtVersion } from "./01-executive-silence-decision-art";
+import { engineeringWhiteboardExplainerTopic } from "./engineering-whiteboard-explainer";
 ```
 
-### 7.2 注册到版本数组
+### 7.2 注册到 Topic 数组
 
 ```ts
-buildEntry("01", [
-  { component: ExecutiveSilence01, getMetadata: getMetadata01 },
-  executiveSilenceDecisionArtVersion,
+buildEntry("engineering-whiteboard-explainer", [
+  engineeringWhiteboardExplainerTopic,
 ]);
 ```
 
-不要新增手写 `{ id, topic, model, component, getMetadata }` 对象到 registry。用版本模块导出的常量。
+不要新增手写 `{ id, topic, model, component, getMetadata }` 对象到 registry。用 Topic 模块导出的常量。
 
 ---
 
@@ -413,10 +413,10 @@ buildEntry("01", [
 
 - 风格定义视觉约束（如"极简、深色、高管感"）
 - 题材由 Agent 自由选择（可以讲任何故事）
-- 同一个风格下可以有完全不同题材的版本
+- 同一个风格下可以有完全不同题材的 Topic
 
 示例：
-- 风格 01 (Executive Silence) + 题材 "决策的艺术"
+- 风格 `minimal-product-keynote` + 题材 "Product Keynote"
 - 风格 01 (Executive Silence) + 题材 "产品发布会"
 - 风格 16 (Case Study) + 题材 "Globex 转化率翻三倍"
 - 风格 16 (Case Study) + 题材 "Stripe 如何做开发者体验"
@@ -442,9 +442,9 @@ buildEntry("01", [
 
 提交前确认：
 
-- [ ] 文件命名符合 `{styleId}-{topic}.tsx`
-- [ ] 导出 `defineStyleVersion(...)` 版本模块
-- [ ] 版本 `id` 显式稳定，不依赖数组顺序
+- [ ] 文件命名符合 `{style-slug}-{topic-id}.tsx`，legacy 文件除外
+- [ ] 导出 `defineStyleTopic(...)` Topic 模块
+- [ ] Topic `id` 显式稳定，不依赖数组顺序，不使用 `v1` / `v2`
 - [ ] 可选 `export default` 组件
 - [ ] `export function getMetadata(lang)` 导出
 - [ ] 组件接收 `BespokeStyleProps` 所有 props
@@ -457,4 +457,4 @@ buildEntry("01", [
 - [ ] 双语内容（en + zh）
 - [ ] `getMetadata` 包含完整的 5 个场景 beats 定义
 - [ ] 字体在 `getMetadata().fonts` 中声明
-- [ ] 已在 `registry.ts` 中追加版本模块常量
+- [ ] 已在 `registry.ts` 中追加 Topic 模块常量

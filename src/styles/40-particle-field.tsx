@@ -285,7 +285,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "40",
+    id: "arcade-boss-fight",
     band: "contemporary-digital",
     name: nameMap[lang],
     theme: themeMap[lang],

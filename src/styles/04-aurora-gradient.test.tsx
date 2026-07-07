@@ -112,7 +112,7 @@ describe("Style 04: Aurora Gradient — overflow check", () => {
 describe("Style 04: Aurora Gradient — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("04");
+    expect(meta.id).toBe("interactive-dialogue-stage");
     expect(meta.band).toBe("minimal-keynote");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

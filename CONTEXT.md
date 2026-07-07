@@ -4,6 +4,24 @@ Unified glossary, decisions, and progress for frontend-harness-slides-workbench.
 
 ---
 
+## Current State Override
+
+This file is a historical decision log. Source and tests are authoritative when
+older entries differ.
+
+Current routing and registry contract:
+
+- Styles use semantic slug IDs, not numeric sequence IDs.
+- Topics are the unit inside a style; there is no v1/v2 URL or compatibility
+  layer.
+- `STYLE_REGISTRY` array order defines style order, and each entry's `topics`
+  array defines topic order.
+- Stable URLs use query parameters:
+  `?view=lab&style=<style-id>&topic=<topic-id>&scene=<n>&beat=<n>`.
+- The active catalog currently contains 49 registered styles.
+
+---
+
 ## Domain Glossary
 
 ### Style (风格)
@@ -13,7 +31,9 @@ A self-contained slide presentation with its own visual DNA. Each Style is autho
 - A React component that receives `scene`, `beat`, `language`, `isThumbnail`, `onNavigate`
 - A `getMetadata(lang)` function returning localized metadata
 
-Each Style has a unique two-digit string ID (e.g. `"01"`, `"24"`). There are 48 Styles total, organized into 6 Bands.
+Each Style has a unique semantic slug ID (e.g. `"minimal-product-keynote"`,
+`"engineering-whiteboard-explainer"`). There are 49 Styles total, organized
+into 6 Bands.
 
 ### Band (风格族)
 
@@ -68,29 +88,31 @@ Navigation UI rendered **inside** the Stage by a Style component. Each Style des
 
 Internal Navigation communicates with the Envelope via the `onNavigate(scene, beat)` callback.
 
-### Version（版本）
-
-某个风格（Style）下的一个具体实现。每个 Agent/模型产出一个版本，拥有独立的题材、内容和视觉表现。版本由题材名（如"决策的艺术"）标识，而非 v1/v2。一个风格可以有多个版本，它们共享风格 ID 但有不同的 `versionId`。
-
 ### Topic（题材）
 
-版本的主题/内容方向，如 "决策的艺术"、"产品发布会"。用几个字概括，是版本的人类可读标识。同一个风格下可以有完全不同题材的版本（风格定义视觉 DNA，题材定义内容方向）。
+风格内的主题/内容方向，如 "Product Keynote"、"From Prompt to Patch"。
+Topic 使用稳定语义 ID，通过 `topic` query 参数定位。
 
 ### Model Label（模型标签）
 
-每个版本的元信息中包含编写该版本的模型名称，如 "Doubao-Seed-Evolving"、"GPT-5.5"。显示在 VersionBar 和版本信息中。
+每个 Topic 的元信息中包含编写该 Topic 的模型名称，如
+"Doubao-Seed-Evolving"、"GPT-5.5"。显示在 TopicBar 和 Topic 信息中。
 
-### VersionBar（版本条）
+### TopicBar（题材条）
 
-Header 下方的紧凑信息条（h-7），显示当前位置：`风格编号·风格名 › 题材名 [模型] v1/3 ⋮`。点击 ⋮ 可查看版本信息。
+Header 下方的紧凑信息条，显示当前位置：`风格名 › 题材名 [模型]`。
 
 ### Registry (注册表)
 
-The authoritative array of all available Styles. Each entry contains the Style's ID, localized name, and a `versions` array. This is the single source of truth for enumeration.
+The authoritative array of all available Styles. Each entry contains the
+Style's ID, localized name, and a `topics` array. This is the single source of
+truth for enumeration.
 
 ### Active Styles List (活跃风格列表)
 
-The full set of all 48 Styles. This is the list used for cross-style Next/Prev cycling. Filtering does **not** change the Active Styles List — it only affects Overview View visibility.
+The full set of all 49 Styles. This is the list used for cross-style Next/Prev
+cycling. Filtering does **not** change the Active Styles List — it only affects
+Overview View visibility.
 
 ### Filter (过滤器)
 
@@ -105,7 +127,9 @@ The current position tuple: `(styleId, scene, beat)`. This state is fully reflec
 
 ### Seamless Cycling (无缝循环)
 
-When advancing past the last Beat of Scene 5 of a Style, the system cycles to Scene 1, Beat 0 of the **next Style in the Active Styles List**. Similarly for Prev going backward. This creates an infinite loop across all 48 Styles.
+When advancing past the last Beat of Scene 5 of a Style, the system cycles to
+Scene 1, Beat 0 of the **next Style in the Active Styles List**. Similarly for
+Prev going backward. This creates an infinite loop across all 49 Styles.
 
 ### Theme Mode (深浅色模式)
 

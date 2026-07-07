@@ -112,7 +112,7 @@ describe("Style 02: Swiss Precision — overflow check", () => {
 describe("Style 02: Swiss Precision — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("02");
+    expect(meta.id).toBe("objective-swiss-grid");
     expect(meta.band).toBe("minimal-keynote");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

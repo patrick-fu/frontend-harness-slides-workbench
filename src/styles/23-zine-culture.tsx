@@ -218,7 +218,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "23",
+    id: "riso-print-zine",
     band: "editorial-print",
     name: nameMap[lang],
     theme: themeMap[lang],

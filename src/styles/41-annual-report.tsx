@@ -286,7 +286,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "41",
+    id: "research-memo",
     band: "text-report",
     name: nameMap[lang],
     theme: themeMap[lang],

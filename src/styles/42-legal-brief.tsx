@@ -267,7 +267,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "42",
+    id: "decision-record",
     band: "text-report",
     name: nameMap[lang],
     theme: themeMap[lang],

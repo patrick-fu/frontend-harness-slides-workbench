@@ -80,7 +80,7 @@ describe("Style 34: 34-retro-os-95 — overflow check", () => {
 describe("Style 34: 34-retro-os-95 — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("34");
+    expect(meta.id).toBe("retro-windows");
     expect(meta.band).toBe("contemporary-digital");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

@@ -301,7 +301,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "39",
+    id: "blackboard-chalk-talk",
     band: "contemporary-digital",
     name: nameMap[lang],
     theme: themeMap[lang],

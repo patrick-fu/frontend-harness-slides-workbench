@@ -6,8 +6,7 @@ import App from "./App";
 
 // Mock matchMedia for theme detection
 beforeEach(() => {
-  // Reset URL hash
-  window.location.hash = "";
+  window.history.replaceState(null, "", "/");
 
   // Clear localStorage
   localStorage.clear();
@@ -30,17 +29,15 @@ describe("App", () => {
 
   it("renders registered style cards in Overview", () => {
     render(<App />);
-    // We have 3 pilot styles: 01, 17, 33
-    expect(screen.getByTestId("style-card-01")).toBeInTheDocument();
-    expect(screen.getByTestId("style-card-17")).toBeInTheDocument();
-    expect(screen.getByTestId("style-card-33")).toBeInTheDocument();
+    expect(screen.getByTestId("style-card-minimal-product-keynote")).toBeInTheDocument();
+    expect(screen.getByTestId("style-card-front-page-broadsheet")).toBeInTheDocument();
+    expect(screen.getByTestId("style-card-liquid-glass")).toBeInTheDocument();
   });
 
   it("clicking a style card navigates to Lab view", async () => {
     render(<App />);
 
-    // Click on style 01 card
-    const card = screen.getByTestId("style-card-01");
+    const card = screen.getByTestId("style-card-minimal-product-keynote");
     fireEvent.click(card);
 
     // Lab view should now be visible
@@ -57,7 +54,7 @@ describe("App", () => {
     render(<App />);
 
     // First navigate to lab
-    const card = screen.getByTestId("style-card-01");
+    const card = screen.getByTestId("style-card-minimal-product-keynote");
     fireEvent.click(card);
 
     await waitFor(() => {
@@ -101,18 +98,19 @@ describe("App", () => {
     expect(sidebarWrapper).toBeInTheDocument();
   });
 
-  it("URL hash reflects navigation state", async () => {
+  it("URL query reflects navigation state", async () => {
     render(<App />);
 
-    // Click style 17 card
-    const card = screen.getByTestId("style-card-17");
+    const card = screen.getByTestId("style-card-front-page-broadsheet");
     fireEvent.click(card);
 
     await waitFor(() => {
-      expect(window.location.hash).toContain("view=lab");
-      expect(window.location.hash).toContain("style=17");
-      expect(window.location.hash).toContain("scene=1");
-      expect(window.location.hash).toContain("beat=0");
+      expect(window.location.hash).toBe("");
+      expect(window.location.search).toContain("view=lab");
+      expect(window.location.search).toContain("style=front-page-broadsheet");
+      expect(window.location.search).toContain("topic=broadsheet");
+      expect(window.location.search).toContain("scene=1");
+      expect(window.location.search).toContain("beat=0");
     });
   });
 
@@ -125,7 +123,7 @@ describe("App", () => {
     render(<App />);
 
     // Navigate to lab so sidebar is visible
-    const card = screen.getByTestId("style-card-01");
+    const card = screen.getByTestId("style-card-minimal-product-keynote");
     fireEvent.click(card);
     await waitFor(() => {
       expect(screen.getByTestId("lab-view")).toBeInTheDocument();
@@ -154,7 +152,7 @@ describe("App", () => {
     render(<App />);
 
     // Navigate to lab
-    const card = screen.getByTestId("style-card-01");
+    const card = screen.getByTestId("style-card-minimal-product-keynote");
     fireEvent.click(card);
     await waitFor(() => {
       expect(screen.getByTestId("lab-view")).toBeInTheDocument();

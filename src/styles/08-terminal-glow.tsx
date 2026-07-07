@@ -191,7 +191,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "08",
+    id: "spotlight-quote-poster",
     band: "minimal-keynote",
     name: nameMap[lang],
     theme: themeMap[lang],

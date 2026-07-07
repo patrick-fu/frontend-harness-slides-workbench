@@ -354,7 +354,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "05",
+    id: "cyanotype-drafting-table",
     band: "minimal-keynote",
     name: nameMap[lang],
     theme: themeMap[lang],

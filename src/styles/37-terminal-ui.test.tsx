@@ -80,7 +80,7 @@ describe("Style 37: 37-terminal-ui — overflow check", () => {
 describe("Style 37: 37-terminal-ui — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("37");
+    expect(meta.id).toBe("operating-manual");
     expect(meta.band).toBe("contemporary-digital");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

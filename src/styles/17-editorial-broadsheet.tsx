@@ -270,7 +270,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "17",
+    id: "front-page-broadsheet",
     band: "editorial-print",
     name: nameMap[lang],
     theme: themeMap[lang],

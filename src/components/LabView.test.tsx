@@ -6,7 +6,7 @@ import { STYLE_REGISTRY } from "../styles/registry";
 import type {
   BespokeStyleProps,
   StyleRegistryEntry,
-  StyleVersion,
+  StyleTopic,
 } from "../types";
 
 // ─── Mocks ────────────────────────────────────────────────────────────────────
@@ -37,16 +37,16 @@ const MockStyleComponent = vi.fn((_props: BespokeStyleProps) => (
 
 const mockRegistry = [
   {
-    id: "01",
+    id: "minimal-product-keynote",
     name: { en: "Test Style", zh: "测试风格" },
-    versions: [
+    topics: [
       {
-        id: "v1",
+        id: "product-keynote",
         topic: { en: "Test Topic", zh: "测试题材" },
         model: "test-model",
         component: MockStyleComponent,
         getMetadata: (lang: "en" | "zh") => ({
-          id: "01",
+          id: "minimal-product-keynote",
           name: lang === "en" ? "Test Style" : "测试风格",
           band: "minimal-keynote" as const,
           theme: "test",
@@ -69,19 +69,19 @@ const mockRegistry = [
   },
 ];
 
-function makeVersion(
+function makeTopic(
   id: string,
   topic: { en: string; zh: string },
   beatCounts: number[],
   component: React.ComponentType<BespokeStyleProps> = MockStyleComponent,
-): StyleVersion {
+): StyleTopic {
   return {
     id,
     topic,
     model: `model-${id}`,
     component,
     getMetadata: (lang: "en" | "zh") => ({
-      id: "01",
+      id: "minimal-product-keynote",
       name: lang === "en" ? "Test Style" : "测试风格",
       band: "minimal-keynote" as const,
       theme: "test",
@@ -105,14 +105,14 @@ function makeVersion(
   };
 }
 
-const multiVersionRegistry: StyleRegistryEntry[] = [
+const multiTopicRegistry: StyleRegistryEntry[] = [
   {
-    id: "01",
+    id: "minimal-product-keynote",
     name: { en: "Test Style", zh: "测试风格" },
-    versions: [
-      makeVersion("v1", { en: "Original", zh: "原始版" }, [1, 2, 3, 2, 1]),
-      makeVersion("v2", { en: "Comparable", zh: "对照版" }, [1, 2, 2, 2, 1]),
-      makeVersion("compact", { en: "Compact", zh: "紧凑版" }, [1, 1, 1, 1, 1]),
+    topics: [
+      makeTopic("product-keynote", { en: "Original", zh: "原始" }, [1, 2, 3, 2, 1]),
+      makeTopic("decision-art", { en: "Comparable", zh: "对照" }, [1, 2, 2, 2, 1]),
+      makeTopic("compact", { en: "Compact", zh: "紧凑版" }, [1, 1, 1, 1, 1]),
     ],
   },
 ];
@@ -122,8 +122,8 @@ const multiVersionRegistry: StyleRegistryEntry[] = [
 function renderLabView(props: Partial<React.ComponentProps<typeof LabView>> = {}) {
   const defaultProps = {
     registry: mockRegistry,
-    styleId: "01",
-    versionId: "v1",
+    styleId: "minimal-product-keynote",
+    topicId: "product-keynote",
     scene: 1,
     beat: 0,
     isPureMode: false,
@@ -218,8 +218,8 @@ describe("LabView — stage click navigation", () => {
     fireEvent.click(screen.getByTestId("stage"));
 
     expect(onNavigate).toHaveBeenCalledWith({
-      styleId: "01",
-      versionId: "v1",
+      styleId: "minimal-product-keynote",
+      topicId: "product-keynote",
       scene: 2,
       beat: 0,
       flashStyle: false,
@@ -236,9 +236,9 @@ describe("LabView — stage click navigation", () => {
     const registry: StyleRegistryEntry[] = [
       {
         ...mockRegistry[0],
-        versions: [
+        topics: [
           {
-            ...mockRegistry[0].versions[0],
+            ...mockRegistry[0].topics[0],
             component: InteractiveStyle,
           },
         ],
@@ -254,11 +254,11 @@ describe("LabView — stage click navigation", () => {
 });
 
 describe("LabView — style rendering", () => {
-  it("renders style 01 v1 through the normal lab UI", () => {
+  it("renders the first topic through the normal lab UI", () => {
     renderLabView({
       registry: STYLE_REGISTRY,
-      styleId: "01",
-      versionId: "v1",
+      styleId: "minimal-product-keynote",
+      topicId: "product-keynote",
       scene: 1,
       beat: 0,
     });
@@ -268,44 +268,44 @@ describe("LabView — style rendering", () => {
   });
 });
 
-describe("LabView — version switching", () => {
-  it("top-bar version switching preserves the current scene and beat for comparison", () => {
+describe("LabView — topic switching", () => {
+  it("top-bar topic switching preserves the current scene and beat for comparison", () => {
     const onNavigate = vi.fn();
     renderLabView({
-      registry: multiVersionRegistry,
-      versionId: "v1",
+      registry: multiTopicRegistry,
+      topicId: "product-keynote",
       scene: 3,
       beat: 1,
       onNavigate,
     });
 
-    fireEvent.click(screen.getByTestId("version-switcher"));
-    fireEvent.click(screen.getByTestId("version-option-v2"));
+    fireEvent.click(screen.getByTestId("topic-switcher"));
+    fireEvent.click(screen.getByTestId("topic-option-decision-art"));
 
     expect(onNavigate).toHaveBeenCalledWith({
-      styleId: "01",
-      versionId: "v2",
+      styleId: "minimal-product-keynote",
+      topicId: "decision-art",
       scene: 3,
       beat: 1,
     });
   });
 
-  it("top-bar version switching clamps the beat when the target version has fewer beats", () => {
+  it("top-bar topic switching clamps the beat when the target topic has fewer beats", () => {
     const onNavigate = vi.fn();
     renderLabView({
-      registry: multiVersionRegistry,
-      versionId: "v1",
+      registry: multiTopicRegistry,
+      topicId: "product-keynote",
       scene: 3,
       beat: 2,
       onNavigate,
     });
 
-    fireEvent.click(screen.getByTestId("version-switcher"));
-    fireEvent.click(screen.getByTestId("version-option-compact"));
+    fireEvent.click(screen.getByTestId("topic-switcher"));
+    fireEvent.click(screen.getByTestId("topic-option-compact"));
 
     expect(onNavigate).toHaveBeenCalledWith({
-      styleId: "01",
-      versionId: "compact",
+      styleId: "minimal-product-keynote",
+      topicId: "compact",
       scene: 3,
       beat: 0,
     });

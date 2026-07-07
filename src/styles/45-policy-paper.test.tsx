@@ -112,7 +112,7 @@ describe("Style 45: Policy Paper — overflow check", () => {
 describe("Style 45: Policy Paper — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("45");
+    expect(meta.id).toBe("annotated-source-diff");
     expect(meta.band).toBe("text-report");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

@@ -193,7 +193,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "29",
+    id: "cassette-era-packaging",
     band: "craft-cultural",
     name: nameMap[lang],
     theme: themeMap[lang],

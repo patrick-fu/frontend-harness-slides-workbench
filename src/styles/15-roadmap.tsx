@@ -320,7 +320,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "15",
+    id: "studio-mixing-console",
     band: "balanced-hybrid",
     name: nameMap[lang],
     theme: themeMap[lang],

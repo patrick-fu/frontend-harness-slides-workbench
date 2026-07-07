@@ -374,7 +374,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "43",
+    id: "maintainer-issue-brief",
     band: "text-report",
     name: nameMap[lang],
     theme: themeMap[lang],

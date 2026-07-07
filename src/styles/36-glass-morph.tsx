@@ -337,7 +337,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "36",
+    id: "after-hours-luxe",
     band: "contemporary-digital",
     name: nameMap[lang],
     theme: themeMap[lang],

@@ -170,7 +170,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "30",
+    id: "neo-brutalist-bulletin",
     band: "craft-cultural",
     name: nameMap[lang],
     theme: themeMap[lang],

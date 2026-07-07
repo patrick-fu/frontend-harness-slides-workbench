@@ -112,7 +112,7 @@ describe("Style 08: Terminal Glow — overflow check", () => {
 describe("Style 08: Terminal Glow — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("08");
+    expect(meta.id).toBe("spotlight-quote-poster");
     expect(meta.band).toBe("minimal-keynote");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

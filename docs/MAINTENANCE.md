@@ -39,11 +39,12 @@ coverage.
 
 Read `docs/STYLE_AUTHORING_SPEC.md` before editing a style.
 
-Each style needs:
+Each style or topic needs:
 
-- `src/styles/NN-style-name.tsx`
-- `src/styles/NN-style-name.module.css`
-- `src/styles/NN-style-name.test.tsx`
+- A semantic kebab-case style ID and topic ID.
+- A `.tsx` style module under `src/styles/`.
+- Optional `.module.css` beside the style module.
+- A focused `.test.tsx` beside the style module.
 - A registry entry in `src/styles/registry.ts`
 - Metadata returned by `getMetadata(language)`
 
@@ -68,10 +69,10 @@ After replacing images:
 
 ## URL And Capture Modes
 
-Use hash routes for stable captures:
+Use query routes for stable captures:
 
 ```text
-#view=lab&style=01&version=v1&scene=1&beat=0&pure=1&frozen=1
+?view=lab&style=engineering-whiteboard-explainer&topic=from-prompt-to-patch&scene=1&beat=0&pure=1&frozen=1
 ```
 
 - `pure=1` hides all Workbench chrome.
@@ -91,7 +92,7 @@ The CI workflow runs typecheck, build, and unit tests before deployment.
 
 ## Known Maintenance Risks
 
-- The JavaScript and CSS bundles are large because all 48 styles are imported
+- The JavaScript and CSS bundles are large because all 49 styles are imported
   eagerly. Use dynamic imports or manual chunks before adding many more styles.
 - The PRD is historical and may describe features differently from the current
   implementation. Prefer tests and current source when behavior differs.

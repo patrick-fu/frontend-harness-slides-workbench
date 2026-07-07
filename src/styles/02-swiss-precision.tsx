@@ -87,22 +87,22 @@ const SCENES: Record<number, SceneContent> = {
       label: "MIGRATION SEQUENCE",
       statement: "Five-phase rollout plan",
       processSteps: [
-        { id: "01", title: "Baseline Capture", desc: "Full system snapshot + dependency graph + traffic baseline" },
-        { id: "02", title: "Dual-Write Phase", desc: "Shadow traffic to new stack; validate parity across 47 endpoints" },
-        { id: "03", title: "Canary Release", desc: "5% traffic shift with automated rollback on 1% error threshold" },
-        { id: "04", title: "Progressive Ramp", desc: "25% → 50% → 75% over 14 days; SLO gates at each step" },
-        { id: "05", title: "Cutover & Decommission", desc: "DNS flip + old stack drain + 30-day observability watch" },
+        { id: "minimal-product-keynote", title: "Baseline Capture", desc: "Full system snapshot + dependency graph + traffic baseline" },
+        { id: "objective-swiss-grid", title: "Dual-Write Phase", desc: "Shadow traffic to new stack; validate parity across 47 endpoints" },
+        { id: "wabi-sabi-ceramic", title: "Canary Release", desc: "5% traffic shift with automated rollback on 1% error threshold" },
+        { id: "interactive-dialogue-stage", title: "Progressive Ramp", desc: "25% → 50% → 75% over 14 days; SLO gates at each step" },
+        { id: "cyanotype-drafting-table", title: "Cutover & Decommission", desc: "DNS flip + old stack drain + 30-day observability watch" },
       ],
     },
     zh: {
       label: "迁移序列",
       statement: "五阶段上线计划",
       processSteps: [
-        { id: "01", title: "基线捕获", desc: "完整系统快照 + 依赖图 + 流量基线" },
-        { id: "02", title: "双写阶段", desc: "影子流量导入新栈；47 个端点逐一验证一致性" },
-        { id: "03", title: "金丝雀发布", desc: "5% 流量切换，错误率超 1% 自动回滚" },
-        { id: "04", title: "渐进放量", desc: "14 天内 25% → 50% → 75%；每步设 SLO 闸门" },
-        { id: "05", title: "切换与下线", desc: "DNS 翻转 + 旧栈排空 + 30 天可观测性值守" },
+        { id: "minimal-product-keynote", title: "基线捕获", desc: "完整系统快照 + 依赖图 + 流量基线" },
+        { id: "objective-swiss-grid", title: "双写阶段", desc: "影子流量导入新栈；47 个端点逐一验证一致性" },
+        { id: "wabi-sabi-ceramic", title: "金丝雀发布", desc: "5% 流量切换，错误率超 1% 自动回滚" },
+        { id: "interactive-dialogue-stage", title: "渐进放量", desc: "14 天内 25% → 50% → 75%；每步设 SLO 闸门" },
+        { id: "cyanotype-drafting-table", title: "切换与下线", desc: "DNS 翻转 + 旧栈排空 + 30 天可观测性值守" },
       ],
     },
   },
@@ -214,7 +214,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "02",
+    id: "objective-swiss-grid",
     band: "minimal-keynote",
     name: nameMap[lang],
     theme: themeMap[lang],

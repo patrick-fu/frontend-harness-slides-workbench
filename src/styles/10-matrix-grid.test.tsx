@@ -112,7 +112,7 @@ describe("Style 10: Matrix Grid — overflow check", () => {
 describe("Style 10: Matrix Grid — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("10");
+    expect(meta.id).toBe("benchmark-matrix");
     expect(meta.band).toBe("balanced-hybrid");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

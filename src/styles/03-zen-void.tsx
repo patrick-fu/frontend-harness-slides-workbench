@@ -177,7 +177,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "03",
+    id: "wabi-sabi-ceramic",
     band: "minimal-keynote",
     name: nameMap[lang],
     theme: themeMap[lang],

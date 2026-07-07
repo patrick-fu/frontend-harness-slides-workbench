@@ -80,7 +80,7 @@ describe("Style 22: academic-journal — overflow check", () => {
 describe("Style 22: academic-journal — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("22");
+    expect(meta.id).toBe("duotone-session");
     expect(meta.band).toBe("editorial-print");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

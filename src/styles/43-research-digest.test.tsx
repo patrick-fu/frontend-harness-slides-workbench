@@ -112,7 +112,7 @@ describe("Style 43: Research Digest — overflow check", () => {
 describe("Style 43: Research Digest — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("43");
+    expect(meta.id).toBe("maintainer-issue-brief");
     expect(meta.band).toBe("text-report");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

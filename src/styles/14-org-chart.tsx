@@ -242,7 +242,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "14",
+    id: "collaborative-pairing-board",
     band: "balanced-hybrid",
     name: nameMap[lang],
     theme: themeMap[lang],

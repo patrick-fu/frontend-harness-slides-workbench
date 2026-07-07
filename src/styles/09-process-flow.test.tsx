@@ -112,7 +112,7 @@ describe("Style 09: Process Flow — overflow check", () => {
 describe("Style 09: Process Flow — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("09");
+    expect(meta.id).toBe("subway-map-of-intent");
     expect(meta.band).toBe("balanced-hybrid");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);
