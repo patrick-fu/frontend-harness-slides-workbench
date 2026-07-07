@@ -1,0 +1,403 @@
+/* Soft Pastel Friendly — v3 · Your First Week Here */
+/* All layout dimensions use cqw/cqh only (stage container-query units). */
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--fw-ink);
+  font-family: "Nunito Sans", "Noto Sans SC", system-ui, sans-serif;
+  background:
+    radial-gradient(120% 100% at 26% 16%, #FCF1E6 0%, #F7E9DA 52%, #F2E0CE 100%);
+}
+
+/* soft paper haze overlay — diffused, no hard edges */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(46% 40% at 78% 82%, rgba(216, 201, 236, 0.28), transparent 70%),
+    radial-gradient(40% 34% at 14% 84%, rgba(191, 227, 206, 0.26), transparent 72%);
+}
+
+.scene {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 9cqh 12cqw;
+  gap: 4cqh;
+}
+
+.kicker {
+  font-family: "Quicksand", "Noto Sans SC", sans-serif;
+  font-weight: 600;
+  font-size: 2.3cqh;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fw-accent-deep);
+  display: inline-flex;
+  align-items: center;
+  gap: 1cqw;
+}
+
+/* ---------- Scene 1 · Welcome ---------- */
+.welcomeCard {
+  position: relative;
+  box-sizing: border-box;
+  max-width: 66cqw;
+  padding: 9cqh 8cqw;
+  border-radius: 6.5cqh;
+  background: var(--fw-panel);
+  box-shadow: 0 2.4cqh 5.4cqh rgba(150, 108, 82, 0.16);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 3cqh;
+}
+.welcomeTitle {
+  font-family: "Quicksand", "Noto Sans SC", sans-serif;
+  font-weight: 700;
+  font-size: 7cqh;
+  line-height: 1.06;
+  margin: 0;
+}
+.welcomeSub {
+  font-size: 3cqh;
+  line-height: 1.4;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--fw-ink) 78%, transparent);
+  max-width: 46cqw;
+  margin: 0;
+}
+.welcomeMotif {
+  position: absolute;
+  top: -4cqh;
+  right: -3cqw;
+}
+
+/* ---------- Scene 2 · Day One ---------- */
+.pillCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.8cqh;
+  width: 100%;
+}
+.pill {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 3cqw;
+  width: 52cqw;
+  padding: 3cqh 4cqw;
+  border-radius: 5.2cqh;
+  background: var(--pill-bg, var(--fw-panel));
+  box-shadow: 0 1.6cqh 3.4cqh rgba(150, 108, 82, 0.14);
+}
+.pillIcon {
+  flex: 0 0 auto;
+  width: 9cqh;
+  height: 9cqh;
+  border-radius: 34%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--fw-ink);
+}
+.pillText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6cqh;
+}
+.pillTitle {
+  font-family: "Quicksand", "Noto Sans SC", sans-serif;
+  font-weight: 600;
+  font-size: 3.2cqh;
+}
+.pillNote {
+  font-size: 2.3cqh;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--fw-ink) 72%, transparent);
+}
+
+/* ---------- Scene 3 · The People ---------- */
+.avatarRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 3.4cqw;
+  width: 100%;
+}
+.avatarCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4cqh;
+  width: 13cqw;
+}
+.avatar {
+  width: 13cqh;
+  height: 13cqh;
+  border-radius: 32%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Quicksand", "Noto Sans SC", sans-serif;
+  font-weight: 700;
+  font-size: 4.4cqh;
+  color: var(--fw-ink);
+  background: var(--ava-bg, var(--fw-panel));
+  box-shadow: 0 1.6cqh 3cqh rgba(150, 108, 82, 0.15);
+}
+.avatarName {
+  font-family: "Quicksand", "Noto Sans SC", sans-serif;
+  font-weight: 600;
+  font-size: 2.5cqh;
+  transition: opacity 380ms ease, transform 380ms ease;
+}
+.avatarRole {
+  font-size: 2cqh;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--fw-ink) 66%, transparent);
+  transition: opacity 380ms ease, transform 380ms ease;
+}
+.peopleHi {
+  box-sizing: border-box;
+  margin-top: 1cqh;
+  padding: 2.2cqh 5cqw;
+  border-radius: 4.6cqh;
+  background: var(--fw-accent-soft);
+  font-weight: 700;
+  font-size: 2.6cqh;
+  color: var(--fw-ink);
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+
+/* ---------- Scene 4 · The Tools ---------- */
+.cardRow {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 3cqw;
+  width: 100%;
+}
+.toolCard {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  width: 17cqw;
+  padding: 4cqh 2cqw;
+  border-radius: 4cqh;
+  background: var(--card-bg, var(--fw-panel));
+  box-shadow: 0 1.8cqh 3.6cqh rgba(150, 108, 82, 0.14);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2cqh;
+  text-align: center;
+}
+.toolIcon {
+  width: 9cqh;
+  height: 9cqh;
+  border-radius: 32%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--fw-ink);
+}
+.toolName {
+  font-family: "Quicksand", "Noto Sans SC", sans-serif;
+  font-weight: 600;
+  font-size: 2.9cqh;
+}
+.accentCard {
+  position: relative;
+  background: var(--fw-accent-soft);
+}
+.accentCard .toolIcon {
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--fw-accent-deep);
+}
+.toolMotif {
+  position: absolute;
+  top: -3.2cqh;
+  right: -1.4cqw;
+}
+.toolFav {
+  box-sizing: border-box;
+  margin-top: 1cqh;
+  padding: 2cqh 5cqw;
+  border-radius: 4.4cqh;
+  background: var(--fw-panel);
+  box-shadow: 0 1.4cqh 3cqh rgba(150, 108, 82, 0.12);
+  font-weight: 700;
+  font-size: 2.5cqh;
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+
+/* ---------- Scene 5 · You're All Set ---------- */
+.closingCard {
+  position: relative;
+  box-sizing: border-box;
+  max-width: 60cqw;
+  padding: 8cqh 7cqw;
+  border-radius: 7cqh;
+  background: var(--fw-accent-soft);
+  box-shadow: 0 2.4cqh 5cqh rgba(150, 108, 82, 0.16);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2.6cqh;
+}
+.closingTitle {
+  font-family: "Quicksand", "Noto Sans SC", sans-serif;
+  font-weight: 700;
+  font-size: 6.4cqh;
+  margin: 0;
+}
+.closingSub {
+  font-size: 2.9cqh;
+  font-weight: 600;
+  line-height: 1.4;
+  max-width: 44cqw;
+  color: color-mix(in srgb, var(--fw-ink) 80%, transparent);
+  margin: 0;
+}
+.closingMotif {
+  position: absolute;
+  bottom: -3.4cqh;
+  left: -2.4cqw;
+}
+
+/* ---------- Nav · Day-picker drum (N4) ---------- */
+.drum {
+  position: absolute;
+  z-index: 5;
+  right: 4.4cqw;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4cqh;
+}
+.drumWindow {
+  position: relative;
+  width: 15cqw;
+  height: 18.6cqh;
+  overflow: hidden;
+  border-radius: 4.6cqh;
+  background: color-mix(in srgb, var(--fw-panel) 72%, transparent);
+  box-shadow: inset 0 0 0 0.16cqw rgba(255, 255, 255, 0.5),
+    0 1.8cqh 3.6cqh rgba(150, 108, 82, 0.14);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 26%,
+    #000 74%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 26%,
+    #000 74%,
+    transparent 100%
+  );
+}
+.drumList {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.drumRow {
+  box-sizing: border-box;
+  height: 6.2cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8cqw;
+  font-family: "Quicksand", "Noto Sans SC", sans-serif;
+  font-weight: 600;
+  font-size: 2.6cqh;
+  color: color-mix(in srgb, var(--fw-ink) 70%, transparent);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transform-origin: center;
+}
+.drumRowActive {
+  color: var(--fw-ink);
+}
+.drumRowActive::before {
+  content: "";
+  width: 1.6cqh;
+  height: 1.6cqh;
+  border-radius: 50%;
+  background: var(--fw-accent-deep);
+}
+.drumLabel {
+  font-size: 2cqh;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--fw-ink) 60%, transparent);
+}
+
+/* ---------- Motion ---------- */
+.aCard {
+  animation: fwCardIn 640ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.aPill {
+  animation: fwPillIn 560ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.aPop {
+  animation: fwPop 520ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.floatMotif {
+  animation: fwFloat 4600ms ease-in-out infinite;
+}
+
+@keyframes fwCardIn {
+  0% { opacity: 0; transform: translateY(4.4cqh) scale(0.9); }
+  56% { opacity: 1; transform: translateY(-0.9cqh) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes fwPillIn {
+  0% { opacity: 0; transform: translateY(2.8cqh) scale(0.9); }
+  60% { opacity: 1; transform: translateY(-0.5cqh) scale(1.03); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes fwPop {
+  0% { opacity: 0; transform: scale(0.55); }
+  66% { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes fwFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-0.7cqh) rotate(5deg); }
+}
+
+/* Reduced motion / thumbnail — settle instantly to final readable layout. */
+.root[data-motion="off"] *,
+.root[data-motion="off"] *::before,
+.root[data-motion="off"] *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}

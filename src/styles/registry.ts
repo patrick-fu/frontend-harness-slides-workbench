@@ -201,6 +201,14 @@ import { cyanotypeDraftingTableV3Version } from "./05-drawing-a-bridge-v3";
 import { shipItV3Version } from "./06-ship-it-v3";
 import { sketchBoardEmojiV3Version } from "./07-how-we-named-it-v3";
 import { onQuittingWellV3Version } from "./08-on-quitting-well-v3";
+import { threeTeamsLaunchV3Version } from "./09-three-teams-launch-v3";
+import { benchmarkMatrixV3Version } from "./10-build-buy-borrow-v3";
+import { whereRequestGoesV3Version } from "./11-where-request-goes-v3";
+import { firstWeekHereV3Version } from "./12-first-week-here-v3";
+import { kitchenPrepStationV3Version } from "./13-raw-logs-to-report-v3";
+import { collaborativePairingBoardV3Version } from "./14-human-reviews-ai-v3";
+import { tuningTheModelV3Version } from "./15-tuning-the-model-v3";
+import { safeToDeployV3Version } from "./16-safe-to-deploy-v3";
 
 const buildEntry = buildStyleRegistryEntry;
 
@@ -314,6 +322,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata09,
     },
     threeTracksReleaseV2Version,
+    threeTeamsLaunchV3Version,
   ]),
   buildEntry("10", [
     {
@@ -324,6 +333,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata10,
     },
     durableToolV2Version,
+    benchmarkMatrixV3Version,
   ]),
   buildEntry("11", [
     {
@@ -334,6 +344,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata11,
     },
     eventToInsightV2Version,
+    whereRequestGoesV3Version,
   ]),
   buildEntry("12", [
     {
@@ -344,6 +355,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata12,
     },
     onboardingThatBreathesV2Version,
+    firstWeekHereV3Version,
   ]),
   buildEntry("13", [
     {
@@ -354,6 +366,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata13,
     },
     rawNotesCleanBriefV2Version,
+    kitchenPrepStationV3Version,
   ]),
   buildEntry("14", [
     {
@@ -364,6 +377,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata14,
     },
     twoTeamsOneArtifactV2Version,
+    collaborativePairingBoardV3Version,
   ]),
   buildEntry("15", [
     {
@@ -374,6 +388,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata15,
     },
     tuningOperatingModelV2Version,
+    tuningTheModelV3Version,
   ]),
   buildEntry("16", [
     {
@@ -384,6 +399,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata16,
     },
     incidentLearnsV2Version,
+    safeToDeployV3Version,
   ]),
   // Editorial & Print: 17-24
   buildEntry("17", [

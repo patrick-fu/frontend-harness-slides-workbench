@@ -1,0 +1,529 @@
+/* Kitchen Prep Station — v3 (styleId 13, From Raw Logs to Report)
+   Warm prep-station DNA: appetizing cream ground, earthy kitchen accents,
+   legible raw -> refined transformation. Stage-safe: cqw/cqh only. */
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--ink);
+  font-family: var(--font-body);
+  background:
+    radial-gradient(120cqw 90cqh at 18% -12%, #FCF4E6 0%, rgba(252, 244, 230, 0) 55%),
+    radial-gradient(90cqw 70cqh at 100% 110%, rgba(193, 91, 46, 0.1) 0%, rgba(193, 91, 46, 0) 60%),
+    linear-gradient(180deg, #F8EBD5 0%, #F1E0C2 100%);
+}
+
+/* ---------- scene shell ---------- */
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 6.5cqh 7cqw 13cqh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sceneCenter {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.sceneHead {
+  flex: none;
+  margin-bottom: 3cqh;
+}
+
+.stepTag {
+  display: inline-block;
+  font-size: 2cqh;
+  font-weight: 600;
+  letter-spacing: 0.25cqw;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  background: rgba(193, 91, 46, 0.12);
+  border: 0.2cqw solid rgba(193, 91, 46, 0.28);
+  border-radius: 999px;
+  padding: 0.9cqh 1.8cqw;
+}
+
+.sceneTitle {
+  margin: 1.6cqh 0 1cqh;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 5.4cqh;
+  line-height: 1.04;
+  color: var(--ink);
+}
+
+.sceneBody {
+  margin: 0;
+  font-size: 2.6cqh;
+  line-height: 1.4;
+  color: var(--wood);
+  max-width: 74cqw;
+}
+
+/* ---------- title scene ---------- */
+.kicker {
+  font-size: 2.4cqh;
+  font-weight: 600;
+  letter-spacing: 0.6cqw;
+  text-transform: uppercase;
+  color: var(--terracotta);
+}
+
+.title {
+  margin: 1.8cqh 0 1.6cqh;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 9cqh;
+  line-height: 1.0;
+  color: var(--ink);
+  max-width: 82cqw;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 3cqh;
+  line-height: 1.4;
+  color: var(--wood);
+  max-width: 62cqw;
+}
+
+.prepBoard {
+  position: relative;
+  margin-top: 5.5cqh;
+  width: 54cqw;
+  height: 21cqh;
+  border-radius: 2.6cqw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4cqw;
+  color: var(--wood);
+  background:
+    linear-gradient(180deg, #ECD5AA 0%, #E1C794 100%),
+    repeating-linear-gradient(90deg, rgba(138, 90, 52, 0.06) 0 0.35cqw, rgba(138, 90, 52, 0) 0.35cqw 3.4cqw);
+  box-shadow:
+    inset 0 0.5cqh 1.4cqh rgba(255, 255, 255, 0.4),
+    inset 0 -0.6cqh 1.4cqh rgba(89, 56, 30, 0.18),
+    0 1.6cqh 3.2cqh rgba(59, 36, 24, 0.2);
+  border: 0.2cqw solid rgba(89, 56, 30, 0.25);
+}
+
+.prepBoard::after {
+  content: "";
+  position: absolute;
+  right: 3cqw;
+  top: 50%;
+  width: 1.6cqw;
+  height: 1.6cqw;
+  border-radius: 50%;
+  background: rgba(89, 56, 30, 0.28);
+  transform: translateY(-50%);
+}
+
+.prepKnife {
+  width: 9cqh;
+  height: 9cqh;
+  color: var(--terracotta);
+}
+
+.boardLabel {
+  font-size: 2.2cqh;
+  font-weight: 600;
+  letter-spacing: 0.35cqw;
+  text-transform: uppercase;
+}
+
+/* ---------- board surface (raw + prep scenes) ---------- */
+.board {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border-radius: 2.6cqw;
+  padding: 3cqh 3cqw;
+  box-sizing: border-box;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #ECD5AA 0%, #E2C896 100%),
+    repeating-linear-gradient(90deg, rgba(138, 90, 52, 0.055) 0 0.35cqw, rgba(138, 90, 52, 0) 0.35cqw 3.6cqw);
+  box-shadow:
+    inset 0 0.5cqh 1.4cqh rgba(255, 255, 255, 0.38),
+    inset 0 -0.6cqh 1.4cqh rgba(89, 56, 30, 0.16),
+    0 1.4cqh 3cqh rgba(59, 36, 24, 0.18);
+  border: 0.2cqw solid rgba(89, 56, 30, 0.24);
+}
+
+.logStrip {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2cqh;
+  width: 100%;
+}
+
+.logLine {
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+  font-size: 2.3cqh;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--cream);
+  border-radius: 1cqw;
+  border-left: 0.7cqw solid var(--herb);
+  padding: 1.15cqh 1.8cqw;
+  box-shadow: 0 0.6cqh 1.2cqh rgba(59, 36, 24, 0.12);
+  white-space: nowrap;
+  animation: kp-dump 0.46s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.logDot {
+  flex: none;
+  width: 1.1cqw;
+  height: 1.1cqw;
+  border-radius: 50%;
+  background: var(--herb);
+}
+
+.noise {
+  color: var(--wood);
+  opacity: 0.6;
+  text-decoration: line-through;
+  text-decoration-color: rgba(193, 91, 46, 0.8);
+  text-decoration-thickness: 0.35cqh;
+  border-left-color: var(--terracotta);
+  background: rgba(193, 91, 46, 0.09);
+}
+
+.noise .logDot {
+  background: var(--terracotta);
+}
+
+.cutTag {
+  margin-left: auto;
+  font-size: 1.7cqh;
+  font-weight: 600;
+  letter-spacing: 0.15cqw;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  background: rgba(193, 91, 46, 0.16);
+  border-radius: 999px;
+  padding: 0.4cqh 1.2cqw;
+  text-decoration: none;
+}
+
+.rawStamp {
+  position: absolute;
+  top: 3cqh;
+  right: 3.5cqw;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 5cqh;
+  letter-spacing: 0.4cqw;
+  color: rgba(193, 91, 46, 0.22);
+  border: 0.5cqw solid rgba(193, 91, 46, 0.22);
+  border-radius: 1.4cqw;
+  padding: 0.6cqh 1.6cqw;
+  transform: rotate(-7deg);
+  pointer-events: none;
+}
+
+/* ---------- plating scene (reserved) ---------- */
+.plateWrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plate {
+  position: relative;
+  width: 80cqw;
+  height: 56cqh;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(closest-side, #FCF5E7 0%, #F1E1C6 78%, #E7D2AE 100%);
+  box-shadow:
+    inset 0 0 0 1.4cqw rgba(255, 255, 255, 0.55),
+    inset 0 0 0 1.7cqw rgba(138, 90, 52, 0.16),
+    0 2.4cqh 4.6cqh rgba(59, 36, 24, 0.22);
+}
+
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.6cqh 3cqw;
+  width: 58cqw;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6cqh;
+  background: var(--cream);
+  border-radius: 1.6cqw;
+  border-top: 0.6cqh solid var(--wood);
+  padding: 2.2cqh 2.4cqw;
+  box-shadow: 0 1cqh 2cqh rgba(59, 36, 24, 0.14);
+}
+
+.metric[data-on="false"] {
+  background: rgba(251, 243, 228, 0.55);
+  box-shadow: inset 0 0 0 0.2cqw rgba(138, 90, 52, 0.22);
+}
+
+.metricLabel {
+  font-size: 2.2cqh;
+  font-weight: 600;
+  color: var(--wood);
+}
+
+.metricSlot {
+  position: relative;
+  height: 7cqh;
+  display: flex;
+  align-items: center;
+}
+
+.metricGhost {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 9cqw;
+  height: 0;
+  border-top: 0.4cqh dashed var(--wood);
+  opacity: 0.55;
+  transform: translateY(-50%);
+  transition: opacity 0.4s ease;
+}
+
+.metricValue {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 5.6cqh;
+  line-height: 1;
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(1.2cqh);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.metric[data-on="true"] .metricValue {
+  opacity: 1;
+  transform: none;
+}
+
+.metric[data-on="true"] .metricGhost {
+  opacity: 0;
+}
+
+/* ---------- served scene ---------- */
+.served {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plateUnder {
+  position: absolute;
+  left: 50%;
+  bottom: 6cqh;
+  width: 78cqw;
+  height: 20cqh;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(252, 245, 231, 0.95) 0%, rgba(231, 210, 174, 0.4) 70%, rgba(231, 210, 174, 0) 100%);
+  box-shadow: 0 2cqh 3.6cqh rgba(59, 36, 24, 0.18);
+}
+
+.report {
+  position: relative;
+  width: 66cqw;
+  background: var(--cream);
+  border-radius: 2cqw;
+  border: 0.2cqw solid var(--edge);
+  padding: 4cqh 4cqw;
+  box-shadow: 0 2.4cqh 5cqh rgba(59, 36, 24, 0.24);
+  animation: kp-serve 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.steam {
+  position: absolute;
+  top: -7cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.4cqw;
+  height: 7cqh;
+}
+
+.steam span {
+  width: 0.5cqw;
+  height: 6cqh;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(138, 90, 52, 0.38), rgba(138, 90, 52, 0));
+  animation: kp-steam 2.6s ease-in-out infinite;
+}
+
+.steam span:nth-child(2) { animation-delay: 0.6s; }
+.steam span:nth-child(3) { animation-delay: 1.2s; }
+
+.reportHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0.2cqw dashed var(--edge);
+  padding-bottom: 2cqh;
+  margin-bottom: 2.6cqh;
+}
+
+.reportTitle {
+  margin: 0;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 4.4cqh;
+  color: var(--ink);
+}
+
+.reportBadge {
+  font-size: 2cqh;
+  font-weight: 600;
+  letter-spacing: 0.25cqw;
+  text-transform: uppercase;
+  color: #fdf7ec;
+  background: var(--herb);
+  border-radius: 999px;
+  padding: 0.8cqh 2cqw;
+}
+
+.reportMetrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2cqw;
+}
+
+.rMetric {
+  text-align: center;
+}
+
+.rVal {
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 4.2cqh;
+  color: var(--terracotta);
+}
+
+.rLab {
+  display: block;
+  margin-top: 0.4cqh;
+  font-size: 1.9cqh;
+  color: var(--wood);
+}
+
+.reportSummary {
+  margin: 2.6cqh 0 0;
+  border-top: 0.2cqw dashed var(--edge);
+  padding-top: 2cqh;
+  font-size: 2.5cqh;
+  line-height: 1.4;
+  color: var(--wood);
+}
+
+/* ---------- recipe-step rail (nav) ---------- */
+.rail {
+  position: absolute;
+  left: 50%;
+  bottom: 3.4cqh;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  padding: 1.2cqh 2cqw;
+  border-radius: 999px;
+  background: rgba(251, 243, 228, 0.92);
+  border: 0.2cqw solid var(--edge);
+  box-shadow: 0 1.4cqh 3cqh rgba(59, 36, 24, 0.2);
+  z-index: 6;
+  backdrop-filter: blur(4px);
+}
+
+.railStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5cqh;
+  padding: 0.7cqh 1.5cqw;
+  border-radius: 1.4cqw;
+  border: none;
+  background: transparent;
+  color: var(--wood);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+.railStep.active {
+  color: var(--terracotta);
+  background: rgba(193, 91, 46, 0.14);
+}
+
+.railIcon {
+  width: 3.4cqh;
+  height: 3.4cqh;
+  display: grid;
+  place-items: center;
+}
+
+.railLabel {
+  font-size: 1.7cqh;
+  font-weight: 600;
+  letter-spacing: 0.12cqw;
+}
+
+.railConnector {
+  align-self: flex-start;
+  margin-top: 2.3cqh;
+  width: 2.6cqw;
+  height: 0;
+  border-top: 0.25cqw dashed var(--wood);
+  opacity: 0.5;
+}
+
+/* ---------- motion ---------- */
+@keyframes kp-dump {
+  from { opacity: 0; transform: translateY(-2.4cqh) rotate(-1.2deg); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes kp-serve {
+  from { opacity: 0; transform: translateY(2.4cqh) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes kp-steam {
+  0% { opacity: 0; transform: translateY(0) scaleX(1); }
+  35% { opacity: 0.55; }
+  100% { opacity: 0; transform: translateY(-4.5cqh) scaleX(1.5); }
+}
+
+/* reduced motion / thumbnail: settle to final readable layout */
+.root[data-static="true"] *,
+.root[data-static="true"] *::before,
+.root[data-static="true"] *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+}

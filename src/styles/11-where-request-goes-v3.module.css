@@ -1,0 +1,419 @@
+/* Signal Pipeline Flow — v3 · "Where the Request Goes"
+   Dark control-screen instrument panel. cqw/cqh only. */
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: #e3eef7;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  background:
+    radial-gradient(58cqw 62cqh at 74% 48%, rgba(45, 212, 191, 0.09), transparent 62%),
+    radial-gradient(52cqw 52cqh at 18% 16%, rgba(56, 132, 255, 0.06), transparent 60%),
+    #070b12;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  background-image:
+    linear-gradient(rgba(120, 160, 200, 0.05) 0.05cqh, transparent 0.05cqh),
+    linear-gradient(90deg, rgba(120, 160, 200, 0.05) 0.05cqw, transparent 0.05cqw);
+  background-size: 4cqw 4cqh;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+}
+
+/* ── Sidebar readout ─────────────────────────────────────── */
+.side {
+  position: absolute;
+  left: 4cqw;
+  top: 9cqh;
+  width: 26cqw;
+  z-index: 3;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  gap: 1cqw;
+  border-left: 0.3cqw solid #2dd4bf;
+  padding-left: 1cqw;
+  margin-bottom: 2.6cqh;
+}
+
+.sceneNo {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 2.4cqh;
+  font-weight: 700;
+  color: #2dd4bf;
+  text-shadow: 0 0 1.6cqh rgba(45, 212, 191, 0.5);
+}
+
+.sceneName {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.85cqh;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c7d6e4;
+}
+
+.readout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4cqh;
+}
+
+.readoutPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6cqw;
+  align-self: flex-start;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.15cqh;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: #08130f;
+  background: #2dd4bf;
+  padding: 0.5cqh 0.9cqw;
+  border-radius: 0.6cqh;
+  box-shadow: 0 0 1.6cqh rgba(45, 212, 191, 0.5);
+}
+
+.pillDot {
+  width: 0.8cqh;
+  height: 0.8cqh;
+  border-radius: 50%;
+  background: #08130f;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.logItem {
+  border-left: 0.18cqw solid #2dd4bf;
+  padding-left: 1cqw;
+}
+
+.slot {
+  border-left: 0.18cqw solid #24384b;
+  padding-left: 1cqw;
+  transition: opacity 0.5s ease, border-color 0.5s ease;
+}
+
+.slotOn {
+  opacity: 1;
+  border-color: #2dd4bf;
+}
+
+.slotOff {
+  opacity: 0.32;
+}
+
+.lead {
+  max-width: 26cqw;
+}
+
+.leadTitle {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 4.4cqh;
+  font-weight: 700;
+  line-height: 1.05;
+  color: #f2f8fd;
+  margin: 0.7cqh 0 1.4cqh;
+}
+
+.logAction {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.2cqh;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #2dd4bf;
+}
+
+.logTitle {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 2cqh;
+  font-weight: 600;
+  color: #eaf2f9;
+  margin-top: 0.5cqh;
+}
+
+.logBody {
+  font-size: 1.5cqh;
+  line-height: 1.45;
+  color: #8ea3b8;
+  margin-top: 0.5cqh;
+}
+
+/* ── Diagram ─────────────────────────────────────────────── */
+.diagram {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.wires {
+  position: absolute;
+  inset: 0;
+  width: 100cqw;
+  height: 100cqh;
+  pointer-events: none;
+}
+
+.edge {
+  stroke: #24384b;
+  stroke-width: 2;
+  fill: none;
+  opacity: 0.7;
+  transition: stroke 0.45s ease, opacity 0.45s ease, filter 0.45s ease;
+}
+
+.edgeActive {
+  stroke: #2dd4bf;
+  opacity: 1;
+  stroke-dasharray: 6 9;
+  animation: flow 0.9s linear infinite;
+  filter: drop-shadow(0 0 2px rgba(45, 212, 191, 0.75));
+}
+
+.edgeWarn {
+  stroke: #f6a723;
+  opacity: 1;
+  stroke-dasharray: 4 7;
+  animation: flowSlow 2.6s linear infinite;
+  filter: drop-shadow(0 0 2px rgba(246, 167, 35, 0.75));
+}
+
+@keyframes flow {
+  to { stroke-dashoffset: -15; }
+}
+
+@keyframes flowSlow {
+  to { stroke-dashoffset: -11; }
+}
+
+.node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 10cqw;
+  min-height: 9.4cqh;
+  box-sizing: border-box;
+  padding: 1cqh 0.9cqw;
+  border-radius: 1.1cqh;
+  border: 0.12cqw solid #24384b;
+  background: rgba(16, 29, 43, 0.92);
+  transition: border-color 0.45s ease, box-shadow 0.45s ease, opacity 0.45s ease;
+}
+
+.nodeDormant {
+  opacity: 0.48;
+}
+
+.nodeLive {
+  opacity: 1;
+  border-color: #2dd4bf;
+  box-shadow: 0 0 0.2cqw rgba(45, 212, 191, 0.5), 0 0 2.4cqh rgba(45, 212, 191, 0.26);
+}
+
+.nodeWarn {
+  opacity: 1;
+  border-color: #f6a723;
+  box-shadow: 0 0 0.2cqw rgba(246, 167, 35, 0.55), 0 0 2.4cqh rgba(246, 167, 35, 0.3);
+}
+
+.nodeHead {
+  display: flex;
+  align-items: center;
+  gap: 0.6cqw;
+}
+
+.nodeDot {
+  width: 0.9cqh;
+  height: 0.9cqh;
+  border-radius: 50%;
+  background: #3a4d61;
+  flex: none;
+}
+
+.dotLive {
+  background: #2dd4bf;
+  box-shadow: 0 0 1cqh rgba(45, 212, 191, 0.85);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.dotWarn {
+  background: #f6a723;
+  box-shadow: 0 0 1cqh rgba(246, 167, 35, 0.85);
+  animation: pulse 0.95s ease-in-out infinite;
+}
+
+.nodeKind {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.1cqh;
+  letter-spacing: 0.16em;
+  color: #6b8299;
+}
+
+.nodeLabel {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.85cqh;
+  font-weight: 600;
+  color: #eaf2f9;
+  margin-top: 0.5cqh;
+}
+
+.nodeSub {
+  font-size: 1.2cqh;
+  color: #7f95ab;
+  margin-top: 0.2cqh;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.warnBadge {
+  position: absolute;
+  top: -1.2cqh;
+  right: -0.9cqw;
+  background: #f6a723;
+  color: #1a1204;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.1cqh;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 0.3cqh 0.7cqw;
+  border-radius: 0.5cqh;
+  box-shadow: 0 0 1.4cqh rgba(246, 167, 35, 0.6);
+}
+
+.okBadge {
+  position: absolute;
+  bottom: -1.5cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #34d399;
+  color: #04120b;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.2cqh;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  padding: 0.35cqh 0.8cqw;
+  border-radius: 0.5cqh;
+  box-shadow: 0 0 1.6cqh rgba(52, 211, 153, 0.6);
+}
+
+/* ── N6 stage stepper ────────────────────────────────────── */
+.stepper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 3.6cqh;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+}
+
+.stepTrack {
+  position: relative;
+  display: flex;
+  width: 68cqw;
+}
+
+.stepTrack::before {
+  content: "";
+  position: absolute;
+  top: 1cqh;
+  left: 10%;
+  right: 10%;
+  height: 0.18cqh;
+  background: #24384b;
+}
+
+.stepFill {
+  position: absolute;
+  top: 1cqh;
+  left: 10%;
+  height: 0.18cqh;
+  background: #2dd4bf;
+  box-shadow: 0 0 1cqh rgba(45, 212, 191, 0.7);
+  transition: width 0.55s ease;
+}
+
+.step {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7cqh;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.stepDotNode {
+  width: 2cqh;
+  height: 2cqh;
+  border-radius: 0.4cqh;
+  background: #0e1622;
+  border: 0.14cqw solid #24384b;
+  transform: rotate(45deg);
+  transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.stepDone .stepDotNode {
+  border-color: #2dd4bf;
+  background: #2dd4bf;
+}
+
+.stepOn .stepDotNode {
+  border-color: #2dd4bf;
+  background: #0c1a1c;
+  box-shadow: 0 0 1.5cqh rgba(45, 212, 191, 0.7);
+}
+
+.stepLabel {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.25cqh;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6b8299;
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.stepOn .stepLabel {
+  color: #dff7f2;
+}
+
+.stepDone .stepLabel {
+  color: #9fb4c6;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ── Reduced motion / thumbnail: settle instantly ───────── */
+.reduced *,
+.reduced *::before,
+.reduced *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+}
+
+.reduced .edgeActive,
+.reduced .edgeWarn {
+  stroke-dasharray: none;
+}

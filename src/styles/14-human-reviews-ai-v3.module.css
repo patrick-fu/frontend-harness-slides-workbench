@@ -1,0 +1,721 @@
+/* Collaborative Pairing Board — v3
+ * Clean light neutral board, one calm professional accent, even-handed
+ * neutral type on both sides, a shared center seam and visible sync points.
+ * Stage is 1920x1080 with container-type:size — sizing uses cqw/cqh only.
+ */
+
+.root {
+  --ground: #edf1f6;
+  --ground-2: #e6ebf2;
+  --panel: #ffffff;
+  --ink: #202832;
+  --muted: #57646f;
+  --faint: #8996a4;
+  --line: #d5dde6;
+  --line-soft: #e4eaf1;
+  --accent: #2e6be6;
+  --accent-ink: #1f4fb0;
+  --accent-soft: #e6effc;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--ink);
+  background:
+    radial-gradient(120% 90% at 50% -10%, #f6f9fc 0%, var(--ground) 55%, var(--ground-2) 100%);
+  font-family: "Inter", "Noto Sans SC", system-ui, sans-serif;
+  font-feature-settings: "cv01", "ss01";
+  -webkit-font-smoothing: antialiased;
+}
+
+.root[data-static="true"] *,
+.root[data-static="true"] *::before,
+.root[data-static="true"] *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+/* ---- Frame ---------------------------------------------------------- */
+.frame {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 4.6cqh 5cqw 3.4cqh;
+  box-sizing: border-box;
+}
+
+.topbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3cqw;
+  padding-bottom: 2.4cqh;
+  border-bottom: 0.1cqw solid var(--line);
+}
+
+.deck {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6cqh;
+  text-align: center;
+}
+
+.deckKicker {
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.86cqw;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.deckStep {
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.82cqw;
+  letter-spacing: 0.18em;
+  color: var(--accent-ink);
+}
+
+/* Role chips ---------------------------------------------------------- */
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  padding: 1.1cqh 1.5cqw;
+  border-radius: 2.4cqh;
+  background: var(--panel);
+  border: 0.1cqw solid var(--line);
+  box-shadow: 0 0.5cqh 1.6cqh rgba(24, 38, 58, 0.05);
+  transition: border-color 420ms ease, box-shadow 420ms ease, transform 420ms ease;
+}
+
+.chipAi {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.chip[data-active="true"] {
+  border-color: var(--accent);
+  box-shadow: 0 0.7cqh 2cqh rgba(46, 107, 230, 0.18);
+}
+
+.chipName {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2cqh;
+  line-height: 1.1;
+}
+
+.chipRole {
+  font-size: 1.12cqw;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.chipTag {
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.72cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.avatar {
+  position: relative;
+  width: 3.2cqw;
+  height: 3.2cqw;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ground);
+  border: 0.1cqw solid var(--line);
+  transition: border-color 420ms ease, background 420ms ease;
+}
+
+.chip[data-active="true"] .avatar {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.avatar svg {
+  width: 62%;
+  height: 62%;
+}
+
+/* ---- Body ----------------------------------------------------------- */
+.body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.headline {
+  flex: 0 0 auto;
+  padding: 2.6cqh 0 1.8cqh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1cqh;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7cqw;
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.9cqw;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  padding: 0.6cqh 1.2cqw;
+  border-radius: 2cqh;
+  background: var(--accent-soft);
+}
+
+.headTitle {
+  font-size: 2.5cqw;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  max-width: 74cqw;
+}
+
+.headBody {
+  font-size: 1.18cqw;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 62cqw;
+}
+
+/* Content region — holds the two-party visualization + seam + nav ----- */
+.region {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding-bottom: 1cqh;
+}
+
+/* Center seam --------------------------------------------------------- */
+.seam {
+  position: absolute;
+  top: 0.5cqh;
+  bottom: 0.5cqh;
+  left: 50%;
+  width: 0.14cqw;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--line) 12%,
+    var(--line) 88%,
+    transparent 100%
+  );
+  transition: opacity 620ms ease;
+  z-index: 1;
+}
+
+.seam[data-dissolved="true"] {
+  opacity: 0;
+}
+
+/* Two columns --------------------------------------------------------- */
+.cols {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8cqw;
+}
+
+.col {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.colAi {
+  align-items: stretch;
+}
+
+/* Soft card ----------------------------------------------------------- */
+.card {
+  background: var(--panel);
+  border: 0.1cqw solid var(--line);
+  border-radius: 2cqh;
+  box-shadow: 0 0.8cqh 2.4cqh rgba(24, 38, 58, 0.06);
+  padding: 2.4cqh 1.9cqw;
+  transition: border-color 420ms ease, box-shadow 420ms ease, opacity 420ms ease,
+    transform 420ms ease;
+}
+
+.card[data-active="true"] {
+  border-color: var(--accent);
+  box-shadow: 0 1.1cqh 2.8cqh rgba(46, 107, 230, 0.16);
+}
+
+.card[data-dim="true"] {
+  opacity: 0.45;
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 0.9cqw;
+  margin-bottom: 1.6cqh;
+}
+
+.cardTag {
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.78cqw;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.miniAvatar {
+  width: 2.2cqw;
+  height: 2.2cqw;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ground);
+  border: 0.1cqw solid var(--line);
+}
+
+.miniAvatar svg {
+  width: 60%;
+  height: 60%;
+}
+
+/* Scene 1 — role intro ------------------------------------------------ */
+.introCard {
+  align-items: center;
+  text-align: center;
+  gap: 1.4cqh;
+  display: flex;
+  flex-direction: column;
+  padding: 3.2cqh 1.9cqw;
+}
+
+.introAvatar {
+  width: 6cqw;
+  height: 6cqw;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ground);
+  border: 0.12cqw solid var(--line);
+}
+
+.introAvatar svg {
+  width: 58%;
+  height: 58%;
+}
+
+.introRole {
+  font-size: 1.5cqw;
+  font-weight: 600;
+}
+
+.introTag {
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.82cqw;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.introDesc {
+  font-size: 1.02cqw;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 24cqw;
+}
+
+/* Scene 2 — status + draft ------------------------------------------- */
+.statusLine {
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+  font-size: 1.08cqw;
+  color: var(--muted);
+}
+
+.pulse {
+  width: 0.9cqw;
+  height: 0.9cqw;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(46, 107, 230, 0.4);
+  animation: pulse 2000ms ease-out infinite;
+}
+
+.diff {
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.96cqw;
+  line-height: 1.9;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1cqh;
+}
+
+.diffRow {
+  padding: 0 0.7cqw;
+  border-radius: 0.6cqh;
+  white-space: nowrap;
+}
+
+.diffAdd {
+  background: #eaf4ee;
+  color: #1f7a4d;
+}
+
+.diffDel {
+  background: #f7ecec;
+  color: #b0473f;
+}
+
+.diffCtx {
+  color: var(--faint);
+}
+
+/* Scene 3 — crossing comments ---------------------------------------- */
+.bubble {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9cqh;
+}
+
+.bubbleBody {
+  font-size: 1.12cqw;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.bubbleMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.7cqw;
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.74cqw;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.cross {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.6cqw;
+  padding: 0.7cqh 1.1cqw;
+  border-radius: 2cqh;
+  background: var(--panel);
+  border: 0.1cqw solid var(--accent);
+  color: var(--accent-ink);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.8cqw;
+  letter-spacing: 0.14em;
+  box-shadow: 0 0.7cqh 1.8cqh rgba(46, 107, 230, 0.16);
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+
+.crossToAi {
+  transform: translate(-50%, -50%);
+}
+
+.crossToHuman {
+  transform: translate(-50%, 4.6cqh) scaleX(-1);
+}
+
+.crossToHuman span {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
+/* Scene 4 — sync track + checkpoint ---------------------------------- */
+.syncTrack {
+  position: relative;
+  z-index: 2;
+  width: 78cqw;
+  height: 34cqh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: gap 520ms ease;
+}
+
+.syncTrack[data-aligned="true"] {
+  justify-content: center;
+  gap: 26cqw;
+}
+
+.token {
+  width: 22cqw;
+  background: var(--panel);
+  border: 0.1cqw solid var(--line);
+  border-radius: 2cqh;
+  box-shadow: 0 0.8cqh 2.2cqh rgba(24, 38, 58, 0.07);
+  padding: 2cqh 1.5cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 1cqh;
+  transition: border-color 420ms ease;
+}
+
+.syncTrack[data-aligned="true"] .token {
+  border-color: var(--accent);
+}
+
+.tokenTitle {
+  font-size: 1.14cqw;
+  font-weight: 600;
+}
+
+.tokenBody {
+  font-size: 0.96cqw;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.checkpoint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  width: 8.2cqw;
+  height: 8.2cqw;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--panel);
+  border: 0.16cqw solid var(--line);
+  color: var(--faint);
+  box-shadow: 0 0.8cqh 2cqh rgba(24, 38, 58, 0.08);
+  transition: border-color 520ms ease, color 520ms ease, background 520ms ease,
+    box-shadow 520ms ease, transform 520ms ease;
+}
+
+.checkpoint svg {
+  width: 42%;
+  height: 42%;
+}
+
+.checkpoint[data-lit="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 0 0 1.2cqh rgba(46, 107, 230, 0.16),
+    0 1.2cqh 3cqh rgba(46, 107, 230, 0.3);
+  transform: translate(-50%, -50%) scale(1.04);
+  animation: light 640ms ease-out both;
+}
+
+.checkpointLabel {
+  position: absolute;
+  bottom: -3.6cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.78cqw;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faint);
+  white-space: nowrap;
+  transition: color 520ms ease;
+}
+
+.checkpoint[data-lit="true"] .checkpointLabel {
+  color: var(--accent-ink);
+}
+
+/* Scene 5 — merged artifact ------------------------------------------ */
+.merged {
+  position: relative;
+  z-index: 2;
+  width: 54cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4cqh;
+  padding: 4cqh 3cqw;
+  background: var(--panel);
+  border: 0.12cqw solid var(--accent);
+  border-radius: 2.4cqh;
+  box-shadow: 0 1.4cqh 3.6cqh rgba(46, 107, 230, 0.14);
+  text-align: center;
+}
+
+.mergedFaces {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.mergedFaces .miniAvatar {
+  width: 3.4cqw;
+  height: 3.4cqw;
+  border: 0.14cqw solid var(--panel);
+  box-shadow: 0 0.4cqh 1cqh rgba(24, 38, 58, 0.12);
+}
+
+.mergedFaces .miniAvatar:nth-child(2) {
+  margin-left: -1cqw;
+}
+
+.mergedFaces .checkMini {
+  margin-left: -0.8cqw;
+  width: 3.4cqw;
+  height: 3.4cqw;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  border: 0.14cqw solid var(--panel);
+  color: #fff;
+  box-shadow: 0 0.4cqh 1cqh rgba(46, 107, 230, 0.28);
+  z-index: 2;
+}
+
+.mergedFaces .checkMini svg {
+  width: 52%;
+  height: 52%;
+}
+
+.mergedTag {
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.86cqw;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+.mergedTitle {
+  font-size: 1.7cqw;
+  font-weight: 700;
+}
+
+.mergedBody {
+  font-size: 1.06cqw;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 38cqw;
+}
+
+/* ---- Nav rail — center-seam vertical tab stack --------------------- */
+.nav {
+  position: absolute;
+  left: 50%;
+  bottom: 0.6cqh;
+  transform: translateX(-50%);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.95cqh;
+  padding: 1cqh 0.5cqw;
+}
+
+.navTick {
+  position: relative;
+  width: 1.5cqw;
+  height: 1.5cqw;
+  padding: 0;
+  border: 0.12cqw solid var(--line);
+  border-radius: 50%;
+  background: var(--panel);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 360ms ease, border-color 360ms ease, background 360ms ease;
+}
+
+.navTick::after {
+  content: "";
+  width: 0.5cqw;
+  height: 0.5cqw;
+  border-radius: 50%;
+  background: var(--faint);
+  transition: background 360ms ease, transform 360ms ease;
+}
+
+.navTick:hover {
+  border-color: var(--accent);
+}
+
+.navTick[data-current="true"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  transform: scale(1.28);
+}
+
+.navTick[data-current="true"]::after {
+  background: #ffffff;
+  transform: scale(1.15);
+}
+
+.navCaret {
+  position: absolute;
+  top: 50%;
+  font-size: 1cqw;
+  line-height: 1;
+  color: var(--accent);
+  transform: translateY(-50%);
+  transition: opacity 320ms ease;
+}
+
+.navCaretHuman {
+  right: 2cqw;
+}
+
+.navCaretAi {
+  left: 2cqw;
+}
+
+/* ---- keyframes ------------------------------------------------------ */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(46, 107, 230, 0.35);
+  }
+  70% {
+    box-shadow: 0 0 0 1.1cqw rgba(46, 107, 230, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(46, 107, 230, 0);
+  }
+}
+
+@keyframes light {
+  0% {
+    transform: translate(-50%, -50%) scale(0.86);
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}

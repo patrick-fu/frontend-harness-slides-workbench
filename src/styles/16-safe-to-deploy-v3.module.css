@@ -1,0 +1,316 @@
+/* Debug Reaction Board — v3 "Is It Safe to Deploy?"
+   Deep dark IDE ground, strict traffic-light status vocabulary, monospaced
+   terminal voice. All layout sizing in cqw/cqh. */
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  background:
+    radial-gradient(120cqw 90cqh at 78cqw -10cqh, #12202c 0%, rgba(18, 32, 44, 0) 60%),
+    linear-gradient(180deg, #0b0f14 0%, #0a0d12 100%);
+  color: #c9d1d9;
+  font-family: "JetBrains Mono", "Noto Sans SC", ui-monospace, monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+.root[data-reduced="true"] *,
+.root[data-reduced="true"] *::before,
+.root[data-reduced="true"] *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+}
+
+/* ---- top status bar (HUD) ---- */
+.hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+  padding: 2.6cqh 7cqw 0;
+  font-size: 1.55cqh;
+  letter-spacing: 0.06em;
+  color: #6e7b8a;
+}
+.hudDot {
+  width: 1cqh;
+  height: 1cqh;
+  border-radius: 50%;
+  background: #f85149;
+  box-shadow: 2.2cqh 0 0 #d29922, 4.4cqh 0 0 #3fb950;
+  margin-right: 3.6cqh;
+}
+.hudLabel { color: #8b949e; text-transform: lowercase; }
+.hudRight { margin-left: auto; color: #6e7b8a; }
+.caret {
+  display: inline-block;
+  width: 0.9cqw;
+  height: 1.7cqh;
+  margin-left: 0.4cqw;
+  background: #58a6ff;
+  vertical-align: -0.2cqh;
+  animation: caretBlink 1s steps(1) infinite;
+}
+@keyframes caretBlink { 50% { opacity: 0; } }
+
+/* ---- generic scene shell ---- */
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 13cqh 7cqw 11cqh;
+  display: flex;
+  flex-direction: column;
+}
+.kicker {
+  font-size: 1.7cqh;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #58a6ff;
+  margin: 0 0 1.6cqh;
+}
+.title {
+  font-size: 6.4cqh;
+  line-height: 1.05;
+  font-weight: 700;
+  color: #e6edf3;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.subtitle {
+  font-size: 2.4cqh;
+  line-height: 1.5;
+  color: #8b949e;
+  margin: 2.4cqh 0 0;
+  max-width: 62cqw;
+}
+.sceneHead {
+  font-size: 2.9cqh;
+  font-weight: 700;
+  color: #e6edf3;
+  margin: 0 0 0.6cqh;
+}
+.sceneNote {
+  font-size: 1.9cqh;
+  color: #8b949e;
+  margin: 0 0 3cqh;
+}
+
+/* ---- matte slate panel ---- */
+.panel {
+  background: #12181f;
+  border: 0.12cqw solid #21262d;
+  border-radius: 1.4cqh;
+  box-shadow: inset 0 0 0 0.1cqw rgba(255, 255, 255, 0.02),
+    0 2cqh 5cqh rgba(0, 0, 0, 0.35);
+}
+
+/* ---- terminal block ---- */
+.terminal {
+  margin-top: 4cqh;
+  padding: 2.6cqh 2.8cqw;
+  font-size: 1.9cqh;
+  line-height: 1.9;
+  color: #7d8b99;
+}
+.termLine { white-space: pre; }
+.termPrompt { color: #3fb950; margin-right: 0.8cqw; }
+.termDim { color: #4b5563; }
+
+/* ---- self-check list (scenes 2 & 3) ---- */
+.checkList {
+  margin-top: 1cqh;
+  padding: 2cqh 2.6cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4cqh;
+  flex: 1;
+}
+.checkRow {
+  display: grid;
+  grid-template-columns: 3.4cqw 1fr auto;
+  align-items: center;
+  gap: 1.6cqw;
+  padding: 1.5cqh 1.8cqw;
+  background: #10161d;
+  border: 0.12cqw solid #21262d;
+  border-radius: 0.9cqh;
+  transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.4s ease;
+}
+.checkGutter {
+  font-size: 1.7cqh;
+  color: #4b5563;
+  text-align: right;
+}
+.checkCmd {
+  font-size: 2.1cqh;
+  color: #c9d1d9;
+}
+.checkCmd b {
+  color: #6e7b8a;
+  font-weight: 500;
+  margin-left: 0.8cqw;
+  font-size: 1.7cqh;
+}
+
+/* ---- status badge ---- */
+.badge {
+  justify-self: end;
+  min-width: 11cqw;
+  text-align: center;
+  padding: 0.7cqh 1.2cqw;
+  border-radius: 0.7cqh;
+  font-size: 1.6cqh;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  border: 0.12cqw solid currentColor;
+  transition: color 0.38s ease, background-color 0.38s ease,
+    box-shadow 0.38s ease, border-color 0.38s ease;
+}
+
+/* ---- kanban board (scene 4) ---- */
+.board {
+  margin-top: 1cqh;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr 1fr 1fr;
+  column-gap: 2.4cqw;
+  row-gap: 1.6cqh;
+}
+.colPanel {
+  align-self: stretch;
+  background: #10161d;
+  border: 0.12cqw solid #21262d;
+  border-radius: 1.2cqh;
+}
+.colPanelBlocked {
+  border-color: #4d2222;
+  box-shadow: inset 0 0 8cqh rgba(248, 81, 73, 0.06);
+}
+.colHead {
+  z-index: 2;
+  align-self: center;
+  padding: 0 1.4cqw;
+  font-size: 1.9cqh;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #8b949e;
+}
+.card {
+  z-index: 2;
+  align-self: center;
+  margin: 0 1.2cqw;
+  padding: 1.7cqh 1.6cqw;
+  background: #161d26;
+  border: 0.12cqw solid #2b333d;
+  border-left: 0.5cqw solid currentColor;
+  border-radius: 1cqh;
+  box-shadow: 0 1.4cqh 3.2cqh rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2cqw;
+}
+.cardBody { display: flex; flex-direction: column; gap: 0.5cqh; }
+.cardCmd { font-size: 2cqh; color: #e6edf3; font-weight: 500; }
+.cardLabel { font-size: 1.6cqh; color: #8b949e; }
+
+/* ---- verdict (scene 5) ---- */
+.verdictWrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.verdictKicker {
+  font-size: 1.9cqh;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #6e7b8a;
+  margin: 0 0 2cqh;
+}
+.verdictWord {
+  font-size: 13cqh;
+  line-height: 0.94;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f85149;
+  text-shadow: 0 0 6cqh rgba(248, 81, 73, 0.28);
+  margin: 0;
+  animation: verdictGlow 2.6s ease-in-out infinite;
+}
+@keyframes verdictGlow {
+  50% { text-shadow: 0 0 9cqh rgba(248, 81, 73, 0.5); }
+}
+.verdictSummary {
+  margin-top: 3.2cqh;
+  display: flex;
+  gap: 3cqw;
+  font-size: 2.2cqh;
+}
+.verdictStat { display: flex; align-items: center; gap: 0.9cqw; }
+.verdictSwatch {
+  width: 1.6cqh;
+  height: 1.6cqh;
+  border-radius: 0.3cqh;
+  box-shadow: 0 0 1.4cqh currentColor;
+}
+.verdictTerm {
+  margin-top: 4cqh;
+  font-size: 2cqh;
+  color: #7d8b99;
+}
+
+/* ---- bottom terminal status ticks (nav prototype N2) ---- */
+.nav {
+  position: absolute;
+  bottom: 3.4cqh;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1.8cqw;
+}
+.tick {
+  appearance: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7cqh;
+  color: #3b434d;
+  font-family: inherit;
+  transition: color 0.3s ease;
+}
+.tickMark {
+  width: 3.4cqw;
+  height: 1.1cqh;
+  border-radius: 0.2cqh;
+  background: #2b333d;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+.tickIndex {
+  font-size: 1.4cqh;
+  letter-spacing: 0.08em;
+}
+.tickActive { color: #e6edf3; }
+.tickActive .tickMark {
+  background: #58a6ff;
+  box-shadow: 0 0 2cqh rgba(88, 166, 255, 0.6);
+  transform: scaleY(1.4);
+}
