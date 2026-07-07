@@ -95,6 +95,38 @@ describe("Style 07: Quiet Confidence — navigation behavior", () => {
   });
 });
 
+describe("Style 07: Quiet Confidence — emoji content", () => {
+  it("renders real emoji characters instead of escaped unicode labels", () => {
+    const { stage, unmount } = renderStage({ scene: 3, beat: 1 });
+
+    expect(stage).toHaveTextContent("✍️");
+    expect(stage).toHaveTextContent("🧪");
+    expect(stage).toHaveTextContent("🔗");
+    expect(stage).toHaveTextContent("👥");
+    expect(stage).not.toHaveTextContent(/U000[0-9a-fA-F]{4,}/);
+
+    unmount();
+
+    const { stage: dataStage } = renderStage({ scene: 4, beat: 1 });
+    expect(dataStage).toHaveTextContent("💡");
+    expect(dataStage).toHaveTextContent("🔗");
+    expect(dataStage).toHaveTextContent("✅");
+    expect(dataStage).not.toHaveTextContent(/U000[0-9a-fA-F]{4,}/);
+  });
+
+  it("keeps metadata beat text free of escaped unicode labels", () => {
+    for (const lang of ["en", "zh"] as const) {
+      const serialized = JSON.stringify(getMetadata(lang).scenes);
+
+      expect(serialized).toContain("🧪");
+      expect(serialized).toContain("🔗");
+      expect(serialized).toContain("👥");
+      expect(serialized).toContain("💡");
+      expect(serialized).not.toMatch(/U000[0-9a-fA-F]{4,}/);
+    }
+  });
+});
+
 describe("Style 07: Quiet Confidence — overflow check", () => {
   it("does not overflow the Stage", () => {
     for (let scene = 1; scene <= 5; scene++) {

@@ -326,7 +326,16 @@
 }
 
 .stickyEmoji {
+  font-family:
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Noto Color Emoji",
+    "Twemoji Mozilla",
+    emoji,
+    sans-serif;
   font-size: 3cqw;
+  font-weight: 400;
+  font-style: normal;
   line-height: 1;
   flex-shrink: 0;
   padding-top: 0.3cqh;
@@ -414,7 +423,16 @@
 }
 
 .dataEmoji {
+  font-family:
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Noto Color Emoji",
+    "Twemoji Mozilla",
+    emoji,
+    sans-serif;
   font-size: 3cqw;
+  font-weight: 400;
+  font-style: normal;
   display: block;
   margin-bottom: 0.5cqh;
 }
