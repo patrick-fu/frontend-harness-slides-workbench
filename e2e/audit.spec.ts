@@ -310,7 +310,7 @@ test.describe.parallel("Style audit — all 48 styles", () => {
   }
 });
 
-// ─── 3: Navigation — keyboard arrows advance scenes ────────────────────────
+// ─── 3: Navigation — keyboard and stage inputs advance scenes ───────────────
 
 test.describe("Navigation", () => {
   test("ArrowRight advances beat within scene", async ({ page }) => {
@@ -339,6 +339,53 @@ test.describe("Navigation", () => {
     const hash = parseHashFromUrl(page.url());
     expect(hash.style).toBe("01");
     expect(Number(hash.scene)).toBe(3);
+    expect(Number(hash.beat)).toBe(0);
+  });
+
+  test("Space advances to next scene when at last beat", async ({ page }) => {
+    await openLab(page, "01", 1, 0, { frozen: true });
+
+    await page.keyboard.press("Space");
+    await page.waitForTimeout(200);
+
+    const hash = parseHashFromUrl(page.url());
+    expect(hash.style).toBe("01");
+    expect(Number(hash.scene)).toBe(2);
+    expect(Number(hash.beat)).toBe(0);
+  });
+
+  test("mouse click on the stage advances to next scene", async ({ page }) => {
+    await openLab(page, "01", 1, 0, { frozen: true });
+
+    await page.locator('[data-testid="stage"]').click({ position: { x: 10, y: 10 } });
+    await page.waitForTimeout(200);
+
+    const hash = parseHashFromUrl(page.url());
+    expect(hash.style).toBe("01");
+    expect(Number(hash.scene)).toBe(2);
+    expect(Number(hash.beat)).toBe(0);
+  });
+
+  test("Space with sidebar focus advances the current slide without activating the focused sidebar item", async ({
+    page,
+  }) => {
+    await openLab(page, "01", 1, 0, { frozen: true });
+
+    const bandToggle = page.locator('[data-testid="band-toggle-editorial-print"]');
+    if (await bandToggle.isVisible()) {
+      const expanded = await bandToggle.getAttribute("aria-expanded");
+      if (expanded === "false") await bandToggle.click();
+    }
+
+    const sidebarItem = page.locator('[data-testid="sidebar-style-17"]');
+    await expect(sidebarItem).toBeVisible({ timeout: 5000 });
+    await sidebarItem.focus();
+    await page.keyboard.press("Space");
+    await page.waitForTimeout(200);
+
+    const hash = parseHashFromUrl(page.url());
+    expect(hash.style).toBe("01");
+    expect(Number(hash.scene)).toBe(2);
     expect(Number(hash.beat)).toBe(0);
   });
 

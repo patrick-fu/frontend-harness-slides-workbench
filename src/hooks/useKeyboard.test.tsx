@@ -54,11 +54,75 @@ describe("useKeyboard", () => {
     expect(onArrowLeft).toHaveBeenCalledTimes(1);
   });
 
+  it("calls onSpace when Space is pressed", () => {
+    const onSpace = vi.fn();
+    renderHook(() => useKeyboard({ onSpace }));
+
+    act(() => {
+      window.dispatchEvent(new KeyboardEvent("keydown", { key: " " }));
+    });
+
+    expect(onSpace).toHaveBeenCalledTimes(1);
+  });
+
+  it("prevents default browser behavior for handled navigation keys", () => {
+    const onArrowRight = vi.fn();
+    const onArrowLeft = vi.fn();
+    const onSpace = vi.fn();
+    renderHook(() => useKeyboard({ onArrowRight, onArrowLeft, onSpace }));
+
+    const right = new KeyboardEvent("keydown", {
+      key: "ArrowRight",
+      cancelable: true,
+    });
+    const left = new KeyboardEvent("keydown", {
+      key: "ArrowLeft",
+      cancelable: true,
+    });
+    const space = new KeyboardEvent("keydown", {
+      key: " ",
+      cancelable: true,
+    });
+
+    act(() => {
+      window.dispatchEvent(right);
+      window.dispatchEvent(left);
+      window.dispatchEvent(space);
+    });
+
+    expect(right.defaultPrevented).toBe(true);
+    expect(left.defaultPrevented).toBe(true);
+    expect(space.defaultPrevented).toBe(true);
+  });
+
+  it("does not handle shortcuts when focus is in an editable element", () => {
+    const onArrowRight = vi.fn();
+    const input = document.createElement("input");
+    document.body.appendChild(input);
+    input.focus();
+
+    renderHook(() => useKeyboard({ onArrowRight }));
+
+    act(() => {
+      input.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          key: "ArrowRight",
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+    });
+
+    expect(onArrowRight).not.toHaveBeenCalled();
+    input.remove();
+  });
+
   it("supports all handlers simultaneously", () => {
     const onEsc = vi.fn();
     const onArrowRight = vi.fn();
     const onArrowLeft = vi.fn();
-    renderHook(() => useKeyboard({ onEsc, onArrowRight, onArrowLeft }));
+    const onSpace = vi.fn();
+    renderHook(() => useKeyboard({ onEsc, onArrowRight, onArrowLeft, onSpace }));
 
     act(() => {
       window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
@@ -69,10 +133,14 @@ describe("useKeyboard", () => {
     act(() => {
       window.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowLeft" }));
     });
+    act(() => {
+      window.dispatchEvent(new KeyboardEvent("keydown", { key: " " }));
+    });
 
     expect(onEsc).toHaveBeenCalledTimes(1);
     expect(onArrowRight).toHaveBeenCalledTimes(1);
     expect(onArrowLeft).toHaveBeenCalledTimes(1);
+    expect(onSpace).toHaveBeenCalledTimes(1);
   });
 
   it("removes listener on unmount", () => {

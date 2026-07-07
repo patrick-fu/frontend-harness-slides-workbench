@@ -1,4 +1,4 @@
-import { useRef, useCallback, useMemo, useEffect } from "react";
+import { useRef, useCallback, useMemo, useEffect, type MouseEvent } from "react";
 import type {
   StyleRegistryEntry,
   BespokeStyleProps,
@@ -172,6 +172,40 @@ export default function LabView({
     [styleId, versionId, onNavigate],
   );
 
+  const handleStageClick = useCallback(
+    (event: MouseEvent<HTMLDivElement>) => {
+      if (event.defaultPrevented) return;
+      if (event.button !== 0) return;
+      if (event.metaKey || event.altKey || event.ctrlKey || event.shiftKey) {
+        return;
+      }
+
+      const target = event.target;
+      if (
+        target instanceof Element &&
+        target.closest(
+          [
+            "button",
+            "a",
+            "input",
+            "textarea",
+            "select",
+            "summary",
+            "[role='button']",
+            "[role='link']",
+            "[role='menuitem']",
+            "[contenteditable='true']",
+          ].join(","),
+        )
+      ) {
+        return;
+      }
+
+      handleNext();
+    },
+    [handleNext],
+  );
+
   const handleVersionBarSelect = useCallback(
     (targetVersionId: string) => {
       if (!found) return;
@@ -203,6 +237,7 @@ export default function LabView({
   useKeyboard({
     onArrowRight: handleNext,
     onArrowLeft: handlePrev,
+    onSpace: handleNext,
   });
 
   // ── Touch navigation ────────────────────────────────────────────────────
@@ -211,7 +246,7 @@ export default function LabView({
     elementRef: stageRef,
     onNext: handleNext,
     onPrev: handlePrev,
-    enabled: !isPureMode,
+    enabled: true,
   });
 
   // ── Frozen mode: set data-frozen on html ────────────────────────────────
@@ -300,6 +335,8 @@ export default function LabView({
               ref={stageRef}
               data-testid="stage"
               data-stage="true"
+              tabIndex={-1}
+              onClick={handleStageClick}
               className="absolute top-0 left-0 overflow-hidden select-none"
               style={{
                 width: 1920,

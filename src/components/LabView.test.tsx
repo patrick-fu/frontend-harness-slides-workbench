@@ -198,6 +198,59 @@ describe("LabView — stage centering regression tests", () => {
     const stage = screen.getByTestId("stage");
     expect(stage.style.transform).toBe(`scale(${mockScale})`);
   });
+
+  it("stage can receive focus programmatically without entering tab order", () => {
+    renderLabView();
+    const stage = screen.getByTestId("stage");
+    expect(stage).toHaveAttribute("tabIndex", "-1");
+  });
+});
+
+describe("LabView — stage click navigation", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("clicking the stage advances to the next position", () => {
+    const onNavigate = vi.fn();
+    renderLabView({ onNavigate });
+
+    fireEvent.click(screen.getByTestId("stage"));
+
+    expect(onNavigate).toHaveBeenCalledWith({
+      styleId: "01",
+      versionId: "v1",
+      scene: 2,
+      beat: 0,
+      flashStyle: false,
+    });
+  });
+
+  it("clicking an interactive element inside the stage does not trigger stage next", () => {
+    const onNavigate = vi.fn();
+    const InteractiveStyle = () => (
+      <button type="button" data-testid="internal-button">
+        Internal action
+      </button>
+    );
+    const registry: StyleRegistryEntry[] = [
+      {
+        ...mockRegistry[0],
+        versions: [
+          {
+            ...mockRegistry[0].versions[0],
+            component: InteractiveStyle,
+          },
+        ],
+      },
+    ];
+
+    renderLabView({ registry, onNavigate });
+
+    fireEvent.click(screen.getByTestId("internal-button"));
+
+    expect(onNavigate).not.toHaveBeenCalled();
+  });
 });
 
 describe("LabView — style rendering", () => {

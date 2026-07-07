@@ -124,7 +124,8 @@ export default function Sidebar({
   // ── Style click ──────────────────────────────────────────────────────────
 
   const handleStyleClick = useCallback(
-    (id: string) => {
+    (id: string, e: React.MouseEvent<HTMLButtonElement>) => {
+      e.currentTarget.blur();
       onSelectStyle(id);
       onClose();
     },
@@ -132,8 +133,9 @@ export default function Sidebar({
   );
 
   const handleVersionClick = useCallback(
-    (styleId: string, versionId: string, e: React.MouseEvent) => {
+    (styleId: string, versionId: string, e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
+      e.currentTarget.blur();
       onSelectVersion(styleId, versionId);
       onClose();
     },
@@ -237,7 +239,7 @@ export default function Sidebar({
                             type="button"
                             role="treeitem"
                             data-testid={`sidebar-style-${entry.id}`}
-                            onClick={() => handleStyleClick(entry.id)}
+                            onClick={(e) => handleStyleClick(entry.id, e)}
                             aria-current={isCurrent ? "true" : undefined}
                             aria-expanded={isExpanded}
                             className={[

@@ -161,22 +161,34 @@ describe("useTouchNav", () => {
     expect(onPrev).not.toHaveBeenCalled();
   });
 
-  // ── Tap on left half → onPrev ──────────────────────────────────────────
+  // ── Tap anywhere → onNext ──────────────────────────────────────────────
 
-  it("tap on left half calls onPrev", () => {
+  it("tap on left half calls onNext", () => {
     const { element, onPrev, onNext } = renderWithElement();
-    // Element width = 200, left half = x <= 100
     fireTouchStart(element, 50, 50);
     fireTouchEnd(element, 50, 50); // no movement → tap
-    expect(onPrev).toHaveBeenCalledTimes(1);
-    expect(onNext).not.toHaveBeenCalled();
+    expect(onNext).toHaveBeenCalledTimes(1);
+    expect(onPrev).not.toHaveBeenCalled();
   });
 
-  it("tap exactly at center (x = 100) calls onPrev (left half includes center)", () => {
-    const { element, onPrev } = renderWithElement();
+  it("tap exactly at center calls onNext", () => {
+    const { element, onNext, onPrev } = renderWithElement();
     fireTouchStart(element, 100, 50);
     fireTouchEnd(element, 100, 50);
-    expect(onPrev).toHaveBeenCalledTimes(1);
+    expect(onNext).toHaveBeenCalledTimes(1);
+    expect(onPrev).not.toHaveBeenCalled();
+  });
+
+  it("tap from an interactive element is ignored", () => {
+    const { element, onNext, onPrev } = renderWithElement();
+    const button = document.createElement("button");
+    element.appendChild(button);
+
+    fireTouchStart(button, 150, 50);
+    fireTouchEnd(button, 150, 50);
+
+    expect(onNext).not.toHaveBeenCalled();
+    expect(onPrev).not.toHaveBeenCalled();
   });
 
   // ── Swipe overrides tap ────────────────────────────────────────────────

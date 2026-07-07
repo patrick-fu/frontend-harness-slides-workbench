@@ -4,9 +4,9 @@ import type { RefObject } from "react";
 export interface UseTouchNavOptions {
   /** Reference to the element to attach touch listeners to. */
   elementRef: RefObject<HTMLElement | null>;
-  /** Called when navigating to next (swipe left or tap right half). */
+  /** Called when navigating to next (swipe left or tap). */
   onNext: () => void;
-  /** Called when navigating to previous (swipe right or tap left half). */
+  /** Called when navigating to previous (swipe right). */
   onPrev: () => void;
   /** When false, no listeners are attached. */
   enabled: boolean;
@@ -19,8 +19,7 @@ const SWIPE_THRESHOLD = 50; // pixels
  *
  * - Horizontal swipe left (>= 50px, horizontal > vertical) → onNext
  * - Horizontal swipe right (>= 50px, horizontal > vertical) → onPrev
- * - Tap on right half → onNext (only if not a swipe)
- * - Tap on left half → onPrev (only if not a swipe)
+ * - Tap anywhere on the stage → onNext (only if not a swipe)
  * - Vertical swipe: no-op
  */
 export function useTouchNav({
@@ -42,9 +41,33 @@ export function useTouchNav({
     const el = elementRef.current;
     if (!el) return;
 
+    function isInteractiveTarget(target: EventTarget | null): boolean {
+      if (!(target instanceof Element)) return false;
+      return Boolean(
+        target.closest(
+          [
+            "button",
+            "a",
+            "input",
+            "textarea",
+            "select",
+            "summary",
+            "[role='button']",
+            "[role='link']",
+            "[role='menuitem']",
+            "[contenteditable='true']",
+          ].join(","),
+        ),
+      );
+    }
+
     function handleTouchStart(e: TouchEvent) {
       const touch = e.touches[0];
       if (!touch) return;
+      if (isInteractiveTarget(e.target)) {
+        touchStartRef.current = null;
+        return;
+      }
       touchStartRef.current = { x: touch.clientX, y: touch.clientY };
     }
 
@@ -76,19 +99,8 @@ export function useTouchNav({
         return;
       }
 
-      // Not a swipe → treat as tap, determine half based on start position
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const tapX = start.x - rect.left;
-      const halfWidth = rect.width / 2;
-
-      if (tapX > halfWidth) {
-        // Tap on right half → next
-        onNextRef.current();
-      } else {
-        // Tap on left half (including center) → prev
-        onPrevRef.current();
-      }
+      // Not a swipe → any stage tap advances.
+      onNextRef.current();
     }
 
     el.addEventListener("touchstart", handleTouchStart, { passive: true });

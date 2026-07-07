@@ -202,6 +202,41 @@ describe("Sidebar — style selection", () => {
     fireEvent.click(screen.getByText("Glass UI"));
     expect(onSelectStyle).toHaveBeenCalledWith("33");
   });
+
+  it("blurs the clicked style button after selection", () => {
+    renderSidebar();
+    const styleButton = screen.getByText("System Flow").closest("button");
+    expect(styleButton).not.toBeNull();
+    styleButton!.focus();
+
+    fireEvent.click(styleButton!);
+
+    expect(document.activeElement).not.toBe(styleButton);
+  });
+
+  it("blurs the clicked version button after selection", () => {
+    const registry = makeMockRegistry();
+    registry[0] = {
+      ...registry[0],
+      versions: [
+        registry[0].versions[0],
+        {
+          ...registry[0].versions[0],
+          id: "v2",
+          topic: { en: "Quiet Launch", zh: "安静发布" },
+          model: "GPT-5.5",
+        },
+      ],
+    };
+    renderSidebar({ registry });
+    const versionButton = screen.getByText("Quiet Launch").closest("button");
+    expect(versionButton).not.toBeNull();
+    versionButton!.focus();
+
+    fireEvent.click(versionButton!);
+
+    expect(document.activeElement).not.toBe(versionButton);
+  });
 });
 
 // ─── Collapsed state ────────────────────────────────────────────────────────
