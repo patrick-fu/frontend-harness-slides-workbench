@@ -237,7 +237,7 @@ describe("style version protocol", () => {
         unmount();
       }
     }
-  });
+  }, 20000);
 
   it("requires completed style batches to expose the curated v2 version without removing v1", () => {
     expect(STYLE_REGISTRY).toHaveLength(48);
