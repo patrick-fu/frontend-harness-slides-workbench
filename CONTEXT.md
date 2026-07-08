@@ -1353,7 +1353,41 @@ Workbench 的 48 个风格名称已完全对齐 Skill 的 `frontend-harness-slid
 
 ---
 
-## Local Issue Queue — Curated v2 Style Versions
+### D95 — Curated v3 Style Versions: Claude-Opus-4.8, Orchestrated Diversity
+
+给全部 48 个风格追加第三套 curated 版本 `v3`（`model: "Claude-Opus-4.8"`），与
+v1/v2 并存，作为每个 `buildEntry` 的第三个版本条目；Overview 的 `×N` 版本徽章
+自动更新为 `×3`。
+
+关键决策：
+
+- **单一内容宪法**：所有分配集中在 `docs/V3_ASSIGNMENT_MATRIX.md`（题材、
+  五幕叙事、逐幕 beat 数、逐边转场、导航原型、调色/字体意图）。这些是纯定性
+  的指导原则（guiding intent），不含任何代码。
+- **多样性由编排者预分配**：题材、逐边 `transitionMap`（覆盖 `1->2`…`4->5`）、
+  导航原型（10 种 N1-N10）、beat 节奏（1-5 之间按题材调）都由编排者统一指派，
+  避免 48 个独立 agent 收敛成雷同的 `1/2/3/2/1` + 横滑 + 底部圆点。
+- **子 agent 硬隔离**：每个 v3 由独立 sub-agent 从 `docs/V3_BUILD_BRIEF.md`
+  + 单个 DNA 文件构建，禁止阅读任何现有 style 实现（v1/v2/其他 v3）、
+  `registry.ts`、`showcase-thumbnails.ts` 或其他 DNA。隔离靠 prompt 纪律，
+  非物理沙箱（用户已接受）。
+- **编排者负责集成**：registry 接线、protocol/audit 测试扩展、跨版本导航、
+  分批提交，全部由编排者统一完成。
+- **身份约束**：`id: "v3"`；EN topic ≤32 字符、ZH topic ≤8 字符；
+  `metadata.name` 跨版本一致，`theme` 为 v3 题材。
+- **无独立 Overview 缩略图**：Overview 继续展示 v1 静态截图；v3 仅在 Lab 可看
+  （沿用 v2 惯例）。v3 不加逐风格单测（沿用 v2 惯例）。
+- **每 Band 一次提交**：6 个 Band commit（01-08、09-16、17-24、25-32、33-40、
+  41-48），随后一个测试扩展 commit。
+
+协议硬门（`styleVersionProtocol.test.tsx` 扩展）：每个风格必须暴露 v3 且不删
+v1/v2；每个 v3 `model === "Claude-Opus-4.8"`；v3 子集渲染逐边转场图且跨 48 个
+使用 ≥6 种不同转场类型。`e2e/audit.spec.ts` 扩展：v3 scene-5 last-beat 表、
+`getLastBeat` 支持 `"v3"`、跨版本导航改为 v1→v2→v3→wrap（v3 现在是最后版本）。
+
+---
+
+
 
 Status: ready for local execution. These issues are tracked in this context
 document instead of GitHub Issues.
@@ -1562,6 +1596,7 @@ _(None currently)_
 | Testing setup | ✅ Done | 648 unit tests (Vitest) + Playwright e2e, 0 TS errors |
 | Adversarial review fixes | ✅ Done | 46 high-severity defects fixed across all 48 styles |
 | Deployment | ✅ Done | Vercel: https://frontend-harness-slides-workbench.vercel.app |
+| Curated v3 versions (all 48) | ✅ Done | D95: third version per style, Claude-Opus-4.8, 6-band commits + test gate |
 
 ### Current State (2026-07-06)
 
@@ -1576,3 +1611,27 @@ _(None currently)_
 - Multi-version 骨架（D80-D84）：暂停，优先级低于风格质量
 - Navigation diversity（D86）：48 风格内部导航多样性改造
 - 新增版本（D80）：当前每个风格只有 1 个版本（Doubao-Seed-Evolving），可由其他模型生成更多版本
+
+### Current State (2026-07-08)
+
+**已完成本轮工作**（D95，curated v3）：
+
+- **v3 全量交付**：全部 48 个风格新增第三套版本 `v3`（`Claude-Opus-4.8`），
+  与 v1/v2 并存；每个 `buildEntry` 追加为第三条目，Overview 版本徽章自动 `×3`。
+- **编排式多样性**：题材、逐边转场、导航原型（N1-N10）、beat 节奏（1-5）由
+  编排者在 `docs/V3_ASSIGNMENT_MATRIX.md` 统一预分配；48 个 sub-agent 从
+  `docs/V3_BUILD_BRIEF.md` + 单个 DNA 文件独立施工，禁止参考任何现有实现。
+- **8 次提交**：6 个 Band commit（styles 01-08 / 09-16 / 17-24 / 25-32 /
+  33-40 / 41-48）+ 1 个测试扩展 commit，均以 Patrick Fu 身份提交，未 push。
+- **测试硬门**：`styleVersionProtocol.test.tsx` 新增 v3 exposure 门、v3 model
+  门（`Claude-Opus-4.8`）、v3 逐边转场门（≥6 种）；`e2e/audit.spec.ts` 新增 v3
+  scene-5 last-beat 表、`getLastBeat` v3 支持、跨版本导航改为 v1→v2→v3→wrap。
+- **验收全绿**：`npm run ci` 693 unit tests（70 files）+ `npm run test:audit`
+  135 e2e 全通过；逐 Band smoke（stage/track/panels≥5/scrollWidth 溢出/无
+  console error，EN+ZH 全 beat）0 fail；各 Band 抽检 QA 截图 DNA 吻合。
+
+**待办**：
+- v3 无独立 Overview 缩略图（沿用 v2 惯例，Overview 仍展示 v1 截图）；如需
+  可后续补 v3 静态缩略图。
+- 未 push、未部署（本轮仅本地 worktree + 分支 `p/patrick/curated-v3-slides`）。
+
