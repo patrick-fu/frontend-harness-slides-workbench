@@ -1,0 +1,194 @@
+/* Woodblock Floating-World — v3 · "A River's Journey"
+   Warm paper ground, flat keyline planes, one bokashi sky, a single red seal.
+   Motion is calm drift + ink-settling fades. cqw/cqh only. */
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Zen Kaku Gothic New", "Noto Sans SC", sans-serif;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.svgFill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Ink settling in — a quiet fade + tiny rise, nothing snaps. */
+.inkIn {
+  animation: inkSettle 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes inkSettle {
+  from {
+    opacity: 0;
+    transform: translateY(1.4cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion / thumbnail: settle everything to the final readable state. */
+.root[data-reduced="true"] * {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+}
+
+/* Typography roles */
+.display {
+  font-family: "Shippori Mincho", "Noto Serif SC", serif;
+  color: #1e2c4f;
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: 0.05cqw;
+}
+
+.action {
+  font-family: "Zen Kaku Gothic New", "Noto Sans SC", sans-serif;
+  color: #b4813c;
+  font-size: 1.7cqh;
+  letter-spacing: 0.55cqw;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.bodyLine {
+  font-family: "Zen Kaku Gothic New", "Noto Sans SC", sans-serif;
+  color: #1e2c4f;
+  font-size: 2.2cqh;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 44cqw;
+}
+
+/* Motion copy stack — bottom-anchored so existing lines glide up on new beats. */
+.copyStack {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1.4cqh;
+}
+
+/* Reserved copy grid — three fixed slots that hold space; beats toggle opacity. */
+.reservedStack {
+  position: absolute;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1.2cqh;
+}
+
+.reservedSlot {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6cqh;
+  transition: opacity 700ms ease, color 700ms ease;
+}
+
+/* Vertical title — an asymmetric maker's mark. */
+.verticalTitle {
+  position: absolute;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: "Shippori Mincho", "Noto Serif SC", serif;
+  color: #1e2c4f;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+/* Horizon-pan navigation — a boat drifting along a river line. */
+.nav {
+  position: absolute;
+  left: 50%;
+  bottom: 4.4cqh;
+  transform: translateX(-50%);
+  width: 54cqw;
+  height: 7cqh;
+}
+
+.navRiver {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 0.5cqh;
+  transform: translateY(-50%);
+  background: #1e2c4f;
+  opacity: 0.24;
+  border-radius: 0.5cqh;
+}
+
+.navStop {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 5cqw;
+  height: 5.5cqh;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navTick {
+  width: 0.85cqw;
+  height: 0.85cqw;
+  border-radius: 50%;
+  background: #1e2c4f;
+  opacity: 0.42;
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+.navTick[data-active="true"] {
+  opacity: 0;
+}
+
+.boat {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -74%);
+  width: 4.4cqw;
+  height: 4.4cqw;
+  pointer-events: none;
+  transition: left 950ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* The single red seal — the sole brand mark. */
+.seal {
+  position: absolute;
+  right: 4.4cqw;
+  bottom: 13cqh;
+  width: 8.2cqw;
+  height: 8.2cqw;
+  border: 0.34cqw solid #c33a2b;
+  border-radius: 1cqw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sealChar {
+  font-family: "Shippori Mincho", "Noto Serif SC", serif;
+  color: #c33a2b;
+  font-size: 4.8cqh;
+  line-height: 1;
+  font-weight: 700;
+}

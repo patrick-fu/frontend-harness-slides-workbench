@@ -1,0 +1,66 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0.13;
+  mix-blend-mode: multiply;
+  background-image: radial-gradient(#3a2a19 22%, transparent 23%);
+  background-size: 0.8cqw 0.8cqw;
+}
+
+.frame {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  top: 3.4cqh;
+  left: 2.8cqw;
+  right: 2.8cqw;
+  bottom: 3.4cqh;
+  border: 0.16cqw solid #3f2f1c;
+}
+
+.corner {
+  position: absolute;
+  width: 1.6cqw;
+  height: 1.6cqw;
+  border: 0.16cqw solid #3f2f1c;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.reveal {
+  transition: opacity 200ms steps(3, end), filter 200ms steps(3, end),
+    transform 220ms steps(3, end);
+}
+
+.barFill {
+  transition: width 260ms steps(4, end);
+}
+
+.static .reveal,
+.static .barFill {
+  transition-duration: 0s !important;
+}
+
+.static *,
+.static *::before,
+.static *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+
+.navBtn {
+  cursor: pointer;
+  font: inherit;
+  border: none;
+  background: none;
+  padding: 0;
+}

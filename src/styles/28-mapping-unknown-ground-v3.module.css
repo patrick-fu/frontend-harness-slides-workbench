@@ -1,0 +1,586 @@
+/* Expedition Screenprint · v3 · Mapping Unknown Ground
+   WPA-poster expedition. Flat limited spot inks, felt horizon, screenprint
+   grain and misfit. Poster-static / gentle drift only. cqw/cqh only. */
+
+.root {
+  --paper: #e9d6ab;
+  --paper-deep: #d8bf87;
+  --ink: #1c3a2a;
+  --orange: #d9581f;
+  --orange-deep: #b8461a;
+  --teal: #2d6c7c;
+  --teal-deep: #22596a;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: "Archivo Narrow", "Noto Sans SC", sans-serif;
+}
+
+/* screenprint grain — texture, not light */
+.root::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  background-image: radial-gradient(var(--ink) 0.05cqw, transparent 0.06cqw);
+  background-size: 0.42cqw 0.42cqh;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+}
+
+.static *,
+.static *::before,
+.static *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+/* ---- scene shell + shared horizon anchor ---- */
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56cqh;
+  background-color: var(--teal);
+}
+
+.ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 44cqh;
+  background-color: var(--ink);
+}
+
+.horizonLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 56cqh;
+  height: 0.5cqh;
+  background-color: var(--orange);
+  z-index: 6;
+}
+
+/* felt distant ridge behind the horizon — flat overlapping shape */
+.ridgeBack {
+  position: absolute;
+  left: -4cqw;
+  right: -4cqw;
+  top: 40cqh;
+  height: 18cqh;
+  background-color: var(--teal-deep);
+  clip-path: polygon(0 100%, 14% 40%, 30% 74%, 48% 18%, 66% 66%, 82% 30%, 100% 82%, 100% 100%);
+  z-index: 4;
+  animation: drift 26s ease-in-out infinite alternate;
+}
+
+.sun {
+  position: absolute;
+  top: 9cqh;
+  right: 16cqw;
+  width: 12cqh;
+  height: 12cqh;
+  border-radius: 50%;
+  background-color: var(--orange);
+  z-index: 3;
+  animation: drift 34s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  from { transform: translateX(-1.6cqw); }
+  to { transform: translateX(1.6cqw); }
+}
+
+/* ---- type-as-object headline with ink/orange misfit ---- */
+.headlineStack {
+  position: relative;
+  display: inline-block;
+  z-index: 8;
+}
+
+.headline {
+  position: relative;
+  margin: 0;
+  font-family: "Bebas Neue", "Oswald", "Noto Sans SC", sans-serif;
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: 0.22cqw;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+
+.headlineMisfit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  font-family: "Bebas Neue", "Oswald", "Noto Sans SC", sans-serif;
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: 0.22cqw;
+  text-transform: uppercase;
+  color: var(--orange);
+  transform: translate(0.42cqw, 0.34cqh);
+  z-index: -1;
+}
+
+/* ---- scene 1 · trailhead ---- */
+.s1Headline { font-size: 15.5cqh; }
+
+.s1Sub {
+  position: absolute;
+  left: 9cqw;
+  top: 46cqh;
+  max-width: 52cqw;
+  margin: 0;
+  font-family: "Archivo Narrow", "Noto Sans SC", sans-serif;
+  font-weight: 500;
+  font-size: 3cqh;
+  line-height: 1.25;
+  color: var(--paper);
+  z-index: 8;
+}
+
+.s1Wrap {
+  position: absolute;
+  left: 9cqw;
+  top: 13cqh;
+}
+
+.trailMark {
+  position: absolute;
+  left: 50cqw;
+  top: 50cqh;
+  width: 0;
+  height: 0;
+  border-left: 2.4cqw solid transparent;
+  border-right: 2.4cqw solid transparent;
+  border-bottom: 5cqh solid var(--paper);
+  transform: translateX(-50%);
+  z-index: 7;
+}
+
+/* ---- scene 2 · the route ---- */
+.routeSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+
+.routePath {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 0.9cqh;
+  stroke-linecap: round;
+  stroke-dasharray: 220;
+  transition: stroke-dashoffset 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.routeNode {
+  fill: var(--orange);
+  stroke: var(--paper);
+  stroke-width: 0.4cqh;
+}
+
+.s2Items {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  padding: 8cqh 9cqw;
+  z-index: 9;
+}
+
+.s2Items[data-beat="0"] {
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.s2Items[data-beat="1"] {
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.s2Block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4cqh;
+  max-width: 44cqw;
+}
+
+.s2Title {
+  margin: 0;
+  font-family: "Bebas Neue", "Oswald", "Noto Sans SC", sans-serif;
+  font-weight: 400;
+  font-size: 9.5cqh;
+  line-height: 0.9;
+  letter-spacing: 0.2cqw;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.s2Items[data-beat="1"] .s2Title { color: var(--paper); text-align: right; }
+.s2Items[data-beat="1"] .s2Body { text-align: right; }
+
+.s2Body {
+  margin: 0;
+  font-family: "Archivo Narrow", "Noto Sans SC", sans-serif;
+  font-weight: 500;
+  font-size: 2.7cqh;
+  line-height: 1.28;
+  color: var(--paper);
+}
+
+.routeTag {
+  position: absolute;
+  font-family: "Oswald", "Noto Sans SC", sans-serif;
+  font-weight: 600;
+  font-size: 2.1cqh;
+  letter-spacing: 0.14cqw;
+  text-transform: uppercase;
+  color: var(--paper);
+  z-index: 8;
+}
+
+.routeTagStart { left: 10cqw; top: 70cqh; }
+.routeTagEnd { right: 12cqw; top: 22cqh; }
+
+/* ---- scene 3 · the camps ---- */
+.campsRow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 30cqh;
+  bottom: 6cqh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 0 8cqw;
+  z-index: 9;
+}
+
+.camp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1cqh;
+  width: 22cqw;
+  transform: translateY(2.4cqh);
+  opacity: 0.26;
+  transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.campActive {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.campTent {
+  width: 0;
+  height: 0;
+  border-left: 5cqw solid transparent;
+  border-right: 5cqw solid transparent;
+  border-bottom: 12cqh solid var(--orange);
+  position: relative;
+}
+
+.campTent::after {
+  content: "";
+  position: absolute;
+  left: -1.4cqw;
+  bottom: 0;
+  width: 2.8cqw;
+  height: 6cqh;
+  background-color: var(--ink);
+}
+
+.campNo {
+  font-family: "Bebas Neue", "Oswald", "Noto Sans SC", sans-serif;
+  font-size: 6cqh;
+  line-height: 0.9;
+  letter-spacing: 0.16cqw;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+
+.campSub {
+  font-family: "Archivo Narrow", "Noto Sans SC", sans-serif;
+  font-weight: 500;
+  font-size: 2.4cqh;
+  letter-spacing: 0.1cqw;
+  color: var(--paper);
+}
+
+.s3Kicker {
+  position: absolute;
+  left: 9cqw;
+  top: 10cqh;
+  margin: 0;
+  font-family: "Bebas Neue", "Oswald", "Noto Sans SC", sans-serif;
+  font-size: 8cqh;
+  letter-spacing: 0.2cqw;
+  text-transform: uppercase;
+  color: var(--paper);
+  z-index: 9;
+}
+
+.s3Line {
+  position: absolute;
+  left: 9cqw;
+  right: 9cqw;
+  top: 24cqh;
+  margin: 0;
+  font-family: "Archivo Narrow", "Noto Sans SC", sans-serif;
+  font-weight: 500;
+  font-size: 2.7cqh;
+  line-height: 1.25;
+  color: var(--paper);
+  z-index: 9;
+}
+
+/* ---- scene 4 · the summit ---- */
+.ridge4 {
+  position: absolute;
+  left: -6cqw;
+  right: -6cqw;
+  bottom: 0;
+  top: 26cqh;
+  background-color: var(--ink);
+  clip-path: polygon(0 100%, 40% 0, 62% 34%, 100% 100%);
+  z-index: 5;
+}
+
+.ridge4Front {
+  position: absolute;
+  left: -10cqw;
+  right: 30cqw;
+  bottom: 0;
+  top: 46cqh;
+  background-color: var(--orange-deep);
+  clip-path: polygon(0 100%, 66% 0, 100% 100%);
+  z-index: 6;
+}
+
+.summitWrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 22cqh;
+  bottom: 8cqh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6cqh;
+  z-index: 9;
+}
+
+.summitWrap[data-beat="0"] { justify-content: center; }
+.summitWrap[data-beat="1"] { justify-content: flex-start; }
+
+.summitHead {
+  margin: 0;
+  font-family: "Bebas Neue", "Oswald", "Noto Sans SC", sans-serif;
+  font-weight: 400;
+  font-size: 13cqh;
+  line-height: 0.86;
+  letter-spacing: 0.22cqw;
+  text-transform: uppercase;
+  color: var(--paper);
+  text-align: center;
+}
+
+.summitAlt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4cqh;
+  opacity: 0;
+  transition: opacity 520ms ease;
+}
+
+.summitWrap[data-beat="1"] .summitAlt { opacity: 1; }
+
+.summitAltNo {
+  font-family: "Bebas Neue", "Oswald", "Noto Sans SC", sans-serif;
+  font-size: 8cqh;
+  line-height: 0.9;
+  letter-spacing: 0.3cqw;
+  color: var(--orange);
+}
+
+.summitAltSub {
+  font-family: "Oswald", "Noto Sans SC", sans-serif;
+  font-weight: 600;
+  font-size: 2.3cqh;
+  letter-spacing: 0.36cqw;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+
+/* ---- scene 5 · the marker ---- */
+.markerWrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3cqh;
+  z-index: 9;
+}
+
+.printMark {
+  position: relative;
+  width: 18cqh;
+  height: 18cqh;
+}
+
+.markRing {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 0.7cqh solid var(--ink);
+}
+
+.markCrossV,
+.markCrossH {
+  position: absolute;
+  background-color: var(--ink);
+}
+
+.markCrossV {
+  left: 50%;
+  top: -3cqh;
+  bottom: -3cqh;
+  width: 0.5cqh;
+  transform: translateX(-50%);
+}
+
+.markCrossH {
+  top: 50%;
+  left: -3cqw;
+  right: -3cqw;
+  height: 0.5cqh;
+  transform: translateY(-50%);
+}
+
+.markDot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5cqh;
+  height: 5cqh;
+  border-radius: 50%;
+  background-color: var(--orange);
+  transform: translate(-50%, -50%);
+}
+
+.colophon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8cqh;
+}
+
+.coloMark {
+  margin: 0;
+  font-family: "Bebas Neue", "Oswald", "Noto Sans SC", sans-serif;
+  font-size: 6.4cqh;
+  letter-spacing: 0.4cqw;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.coloLine {
+  font-family: "Oswald", "Noto Sans SC", sans-serif;
+  font-weight: 500;
+  font-size: 2.4cqh;
+  letter-spacing: 0.28cqw;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* ---- N1 · altitude / horizon tick scale ---- */
+.scale {
+  position: absolute;
+  top: 8cqh;
+  bottom: 8cqh;
+  right: 3cqw;
+  width: 8cqw;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.scaleAxis {
+  position: absolute;
+  right: 1.4cqw;
+  top: 0;
+  bottom: 0;
+  width: 0.3cqw;
+  background-color: var(--ink);
+  opacity: 0.6;
+}
+
+.tick {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transform: translateY(50%);
+}
+
+.tickLabel {
+  font-family: "Oswald", "Noto Sans SC", sans-serif;
+  font-weight: 600;
+  font-size: 1.9cqh;
+  letter-spacing: 0.14cqw;
+  color: var(--ink);
+  opacity: 0.55;
+  white-space: nowrap;
+}
+
+.tickMark {
+  width: 2.4cqw;
+  height: 0.3cqh;
+  background-color: var(--ink);
+  opacity: 0.55;
+}
+
+.tickActive .tickLabel { opacity: 1; color: var(--orange-deep); }
+.tickActive .tickMark { opacity: 1; width: 3.4cqw; height: 0.5cqh; background-color: var(--orange); }
+
+.climber {
+  position: absolute;
+  right: 0.4cqw;
+  width: 0;
+  height: 0;
+  border-top: 1.6cqh solid transparent;
+  border-bottom: 1.6cqh solid transparent;
+  border-right: 2.6cqw solid var(--orange);
+  transform: translateY(-50%);
+  transition: top 640ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  z-index: 2;
+}

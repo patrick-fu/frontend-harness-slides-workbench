@@ -1,0 +1,556 @@
+/* Botanical Specimen Plate — v3 "Anatomy of an Idea"
+   Aged herbarium sheet: bone/cream ground, iron-gall/sepia linework,
+   zero-saturation muted palette, oldstyle serif + true italic + small caps.
+   All layout dimensions in cqw/cqh. Motion nearly imperceptible. */
+
+.root {
+  --paper: #e6dcc3;
+  --paper-deep: #dbcfb2;
+  --paper-hi: #f0e8d4;
+  --ink: #3b2f24;
+  --ink-soft: #5a4a38;
+  --ink-faint: rgba(59, 47, 36, 0.28);
+  --green: #6f7a56;
+  --ochre: #9c7a45;
+  --rose: #a98a80;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(118% 82% at 50% 38%, rgba(240, 232, 212, 0.55), rgba(240, 232, 212, 0) 62%),
+    radial-gradient(150% 130% at 50% 55%, rgba(59, 47, 36, 0) 52%, rgba(59, 47, 36, 0.16) 100%),
+    repeating-linear-gradient(91deg, rgba(90, 74, 56, 0.035) 0 0.14cqw, rgba(90, 74, 56, 0) 0.14cqw 0.72cqw),
+    repeating-linear-gradient(2.5deg, rgba(90, 74, 56, 0.028) 0 0.1cqw, rgba(90, 74, 56, 0) 0.1cqw 0.95cqw);
+  font-family: "EB Garamond", "Noto Serif SC", Georgia, "Songti SC", serif;
+  font-weight: 400;
+}
+
+.root * {
+  box-sizing: border-box;
+}
+
+/* faint foxing / age spots */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(2.4cqw 2cqh at 22% 26%, rgba(120, 96, 62, 0.10), transparent 70%),
+    radial-gradient(1.6cqw 1.4cqh at 78% 18%, rgba(120, 96, 62, 0.08), transparent 70%),
+    radial-gradient(3cqw 2.6cqh at 70% 82%, rgba(120, 96, 62, 0.07), transparent 72%),
+    radial-gradient(1.2cqw 1cqh at 34% 74%, rgba(120, 96, 62, 0.09), transparent 70%);
+  mix-blend-mode: multiply;
+}
+
+/* the plate sheet double-rule frame (constant while pages flip) */
+.sheetFrame {
+  position: absolute;
+  inset: 3cqh 3cqw;
+  pointer-events: none;
+  border: 0.14cqw solid rgba(59, 47, 36, 0.36);
+  z-index: 5;
+}
+.sheetFrame::after {
+  content: "";
+  position: absolute;
+  inset: 0.7cqw;
+  border: 0.1cqw solid rgba(59, 47, 36, 0.24);
+}
+
+/* ── typographic furniture ─────────────────────────────────────────── */
+.smallcaps {
+  font-variant: small-caps;
+  font-weight: 500;
+  letter-spacing: 0.14cqw;
+  color: var(--ink-soft);
+}
+.latin,
+.binomial {
+  font-style: italic;
+}
+
+/* ── navigation spine (N5): stacked small-caps PLATE numerals ──────── */
+.spine {
+  position: absolute;
+  top: 50%;
+  right: 4.4cqw;
+  transform: translateY(-50%);
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3cqh;
+  align-items: flex-end;
+  padding-left: 1.1cqw;
+  border-left: 0.12cqw solid rgba(59, 47, 36, 0.3);
+}
+.spineBtn {
+  appearance: none;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0.2cqh 0;
+  cursor: pointer;
+  font-family: inherit;
+  color: rgba(59, 47, 36, 0.45);
+  font-variant: small-caps;
+  letter-spacing: 0.16cqw;
+  font-size: 1.05cqw;
+  line-height: 1;
+  transition: color 700ms ease, opacity 700ms ease;
+  text-align: right;
+}
+.spineBtn:hover {
+  color: var(--ink-soft);
+}
+.spineBtn[data-current="true"] {
+  color: var(--ink);
+}
+.spineBtn[data-current="true"] .spineNum::before {
+  content: "";
+  display: inline-block;
+  width: 1cqw;
+  height: 0.12cqw;
+  margin-right: 0.5cqw;
+  vertical-align: middle;
+  background: var(--ochre);
+}
+
+/* ── scene shell ───────────────────────────────────────────────────── */
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 7cqh 10cqw 6cqh;
+}
+.sceneHeader {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.plateMark {
+  font-variant: small-caps;
+  letter-spacing: 0.34cqw;
+  font-size: 1.5cqw;
+  color: var(--ink-soft);
+}
+.stageCol {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+}
+
+/* ── the specimen stage (hosts specimen + overlays) ────────────────── */
+.specimenStage {
+  position: relative;
+  width: 62cqw;
+  height: 68cqh;
+  opacity: 1;
+}
+.specimenStage[data-active="true"] {
+  animation: focusIn 1700ms ease-out both;
+}
+
+/* ── the drawn specimen (a pressed sprig = the idea) ───────────────── */
+.specimen {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 24cqw;
+  height: 58cqh;
+  transform: translate(-50%, -50%);
+}
+.specimen[data-variant="ghost"] {
+  opacity: 0.16;
+}
+.specimen[data-variant="mini"] {
+  transform: translate(-50%, -50%) scale(0.42);
+  opacity: 0.9;
+}
+
+.bloom {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 13cqw;
+  height: 13cqh;
+  transform: translateX(-50%);
+}
+.petal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3.3cqw;
+  height: 6.6cqh;
+  margin-left: -1.65cqw;
+  margin-top: -6.6cqh;
+  transform-origin: 50% 100%;
+  border: 0.13cqw solid var(--ink);
+  border-radius: 50% 50% 46% 46% / 62% 62% 40% 40%;
+  background-color: rgba(240, 232, 212, 0.4);
+  background-image:
+    linear-gradient(rgba(111, 122, 86, 0.12), rgba(111, 122, 86, 0)),
+    repeating-linear-gradient(38deg, rgba(59, 47, 36, 0.16) 0 0.13cqw, rgba(59, 47, 36, 0) 0.13cqw 0.55cqw);
+}
+.bloomCore {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3.6cqw;
+  height: 3.6cqh;
+  transform: translate(-50%, -50%);
+  border: 0.13cqw solid var(--ink);
+  border-radius: 50%;
+  background-color: var(--paper-deep);
+  background-image: radial-gradient(rgba(59, 47, 36, 0.55) 0.06cqw, transparent 0.08cqw);
+  background-size: 0.5cqw 0.5cqh;
+}
+.stem {
+  position: absolute;
+  left: 50%;
+  top: 10cqh;
+  width: 0.55cqw;
+  height: 40cqh;
+  transform: translateX(-50%);
+  border-radius: 0.3cqw;
+  background: linear-gradient(180deg, var(--ink) 0%, var(--ink-soft) 78%, rgba(90, 74, 56, 0.5) 100%);
+}
+.leaf {
+  position: absolute;
+  width: 9.4cqw;
+  height: 4.6cqh;
+  border: 0.13cqw solid var(--ink);
+  background-image:
+    linear-gradient(rgba(111, 122, 86, 0.1), rgba(111, 122, 86, 0)),
+    repeating-linear-gradient(-42deg, rgba(59, 47, 36, 0.13) 0 0.12cqw, rgba(59, 47, 36, 0) 0.12cqw 0.6cqw);
+}
+.leaf::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 6%;
+  width: 88%;
+  height: 0.1cqw;
+  background: rgba(59, 47, 36, 0.5);
+}
+.leaf[data-side="l"] {
+  right: 50%;
+  border-radius: 100% 0 100% 0;
+  transform-origin: right center;
+  transform: rotate(-19deg);
+  margin-right: 0.2cqw;
+}
+.leaf[data-side="r"] {
+  left: 50%;
+  border-radius: 0 100% 0 100%;
+  transform-origin: left center;
+  transform: rotate(19deg);
+  margin-left: 0.2cqw;
+}
+.leaf[data-row="1"] { top: 17cqh; }
+.leaf[data-row="2"] { top: 27cqh; }
+.leaf[data-row="3"] { top: 37cqh; }
+
+.rootHairs {
+  position: absolute;
+  left: 50%;
+  top: 49cqh;
+  width: 0;
+  height: 9cqh;
+}
+.rootHair {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0.4cqw;
+  height: 8.4cqh;
+  margin-left: -0.2cqw;
+  transform-origin: top center;
+  border-radius: 0.3cqw;
+  background: linear-gradient(180deg, var(--ink-soft), rgba(90, 74, 56, 0.15));
+}
+
+/* ── scene 2: labeled callouts (reserved) ──────────────────────────── */
+.callouts {
+  position: absolute;
+  inset: 0;
+}
+.callout {
+  position: absolute;
+  width: 20cqw;
+  display: flex;
+  gap: 0.8cqw;
+  align-items: flex-start;
+}
+.callout[data-pos="2"] { left: 0.5cqw; top: 3cqh; }
+.callout[data-pos="1"] { right: 0.5cqw; top: 30cqh; flex-direction: row-reverse; text-align: right; }
+.callout[data-pos="0"] { left: 2.5cqw; top: 54cqh; }
+.leader {
+  flex: 0 0 auto;
+  margin-top: 1.1cqh;
+  width: 6.5cqw;
+  height: 0.12cqw;
+  background: rgba(59, 47, 36, 0.55);
+  position: relative;
+}
+.leader::after {
+  content: "";
+  position: absolute;
+  width: 0.5cqw;
+  height: 0.5cqh;
+  border-radius: 50%;
+  background: var(--ochre);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.callout[data-pos="1"] .leader::after { left: -0.25cqw; }
+.callout[data-pos="0"] .leader::after,
+.callout[data-pos="2"] .leader::after { right: -0.25cqw; }
+.calloutText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3cqh;
+}
+.tagMark {
+  font-variant: small-caps;
+  letter-spacing: 0.18cqw;
+  font-size: 0.95cqw;
+  color: var(--green);
+}
+.calloutLatin {
+  font-style: italic;
+  font-size: 1.8cqw;
+  line-height: 1.05;
+  color: var(--ink);
+}
+.calloutBody {
+  font-size: 1.15cqw;
+  line-height: 1.3;
+  color: var(--ink-soft);
+}
+
+/* ── scene 3: magnifier + hatching detail (reserved) ───────────────── */
+.lens {
+  position: absolute;
+  left: 50%;
+  top: 4cqh;
+  width: 22cqw;
+  height: 22cqw;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  border: 0.22cqw solid var(--ink);
+  overflow: hidden;
+  background-color: var(--paper-hi);
+  box-shadow: inset 0 0 3cqw rgba(59, 47, 36, 0.18);
+}
+.lensHatch {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(44deg, rgba(59, 47, 36, 0.3) 0 0.14cqw, transparent 0.14cqw 0.9cqw),
+    repeating-linear-gradient(-44deg, rgba(59, 47, 36, 0.22) 0 0.12cqw, transparent 0.12cqw 1cqw),
+    radial-gradient(rgba(59, 47, 36, 0.4) 0.07cqw, transparent 0.09cqw);
+  background-size: auto, auto, 0.7cqw 0.7cqw;
+}
+.lensVein {
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  width: 0.4cqw;
+  height: 84%;
+  transform: translateX(-50%) rotate(6deg);
+  border-radius: 0.3cqw;
+  background: var(--ink);
+}
+.lensVein::before,
+.lensVein::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 6cqw;
+  height: 0.16cqw;
+  background: rgba(59, 47, 36, 0.7);
+}
+.lensVein::before { top: 30%; transform: rotate(-32deg); transform-origin: left center; }
+.lensVein::after { top: 58%; transform: rotate(28deg); transform-origin: left center; }
+.detailLabel {
+  position: absolute;
+  left: 50%;
+  bottom: 1cqh;
+  transform: translateX(-50%);
+  width: 44cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5cqh;
+  text-align: center;
+}
+.detailLatin {
+  font-style: italic;
+  font-size: 1.9cqw;
+}
+.detailBody {
+  font-size: 1.25cqw;
+  line-height: 1.3;
+  color: var(--ink-soft);
+  max-width: 40cqw;
+}
+
+/* ── scene 4: taxonomy label block (reserved) ──────────────────────── */
+.taxonWrap {
+  position: relative;
+  width: 60cqw;
+  height: 66cqh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4cqh;
+  text-align: center;
+}
+.specimenMini {
+  position: relative;
+  width: 24cqw;
+  height: 16cqh;
+}
+.binomialBig {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6cqh;
+}
+.binomialBig .binomial {
+  font-size: 3.6cqw;
+  line-height: 1;
+  color: var(--ink);
+}
+.family {
+  font-variant: small-caps;
+  letter-spacing: 0.2cqw;
+  font-size: 1.3cqw;
+  color: var(--green);
+}
+.rankTable {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.55cqh 1.6cqw;
+  justify-content: center;
+}
+.rankKey {
+  font-variant: small-caps;
+  letter-spacing: 0.16cqw;
+  font-size: 1.25cqw;
+  color: var(--ink-soft);
+  text-align: right;
+}
+.rankVal {
+  font-style: italic;
+  font-size: 1.35cqw;
+  text-align: left;
+  color: var(--ink);
+}
+.attribution {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35cqh;
+  font-size: 1.2cqw;
+  color: var(--ink-soft);
+}
+.attribution .smallcaps {
+  font-size: 1.1cqw;
+}
+
+/* ── scene footers (captions / catalogued label) ───────────────────── */
+.sceneFooter {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7cqh;
+  text-align: center;
+  padding-top: 1cqh;
+}
+.binomial.caption {
+  font-size: 2.6cqw;
+  line-height: 1;
+}
+.captionRule {
+  width: 9cqw;
+  height: 0.12cqw;
+  background: rgba(59, 47, 36, 0.5);
+}
+.captionText {
+  font-size: 1.35cqw;
+  line-height: 1.35;
+  color: var(--ink-soft);
+  max-width: 52cqw;
+}
+.fullLabel {
+  flex: 0 0 auto;
+  width: 58cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65cqh;
+  text-align: center;
+  padding-top: 1cqh;
+  border-top: 0.1cqw solid rgba(59, 47, 36, 0.25);
+}
+.labelRow {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-variant: small-caps;
+  letter-spacing: 0.16cqw;
+  font-size: 1.15cqw;
+  color: var(--ink-soft);
+}
+.fullLabel .binomial {
+  font-size: 2.5cqw;
+  line-height: 1;
+}
+.metaLine {
+  font-variant: small-caps;
+  letter-spacing: 0.14cqw;
+  font-size: 1cqw;
+  color: rgba(59, 47, 36, 0.55);
+}
+
+/* ── reveal slots (reserved-mode beats) ────────────────────────────── */
+.slot {
+  opacity: 0;
+  transform: translateY(0.7cqh);
+  transition: opacity 1150ms cubic-bezier(0.22, 0.61, 0.24, 1),
+    transform 1150ms cubic-bezier(0.22, 0.61, 0.24, 1);
+}
+.slot[data-on="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── motion: nearly imperceptible focus-pull ───────────────────────── */
+@keyframes focusIn {
+  from { opacity: 0; transform: scale(1.01); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* reduced motion / thumbnail: settle to final readable layout, no motion */
+[data-motion="off"] * {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+}
+[data-motion="off"] .specimenStage {
+  animation: none !important;
+  opacity: 1;
+}

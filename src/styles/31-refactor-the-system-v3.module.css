@@ -1,0 +1,499 @@
+/* Red-Wedge Agitprop — v3 "Refactor the System"
+   RED / BLACK / raw-paper triad. Flat color only. No gradients, no soft shadows.
+   All layout sizing in cqw/cqh. Diagonal tension is mandatory; centered
+   symmetry is forbidden. */
+
+.root {
+  --paper: #eae3d0;
+  --ink: #141210;
+  --red: #e1251b;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Archivo Black", "Noto Sans SC", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* reducedMotion || isThumbnail => snap everything to final readable state */
+.reduced *,
+.reduced *::before,
+.reduced *::after {
+  animation-duration: 1ms !important;
+  animation-delay: 0ms !important;
+  transition-duration: 1ms !important;
+  transition-delay: 0ms !important;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* ---- shared kinetic keyframes (arrive-and-stop, no drift) ---- */
+@keyframes driveInLeft {
+  from { transform: translateX(-125cqw) rotate(0deg); }
+  to { transform: translateX(0) rotate(0deg); }
+}
+@keyframes driveInRight {
+  from { transform: translateX(125cqw); }
+  to { transform: translateX(0); }
+}
+@keyframes snapUp {
+  0% { transform: translateY(26cqh) rotate(-4deg); opacity: 0; }
+  100% { transform: translateY(0) rotate(-4deg); opacity: 1; }
+}
+@keyframes snapUpFlat {
+  0% { transform: translateY(18cqh); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes glitchIn {
+  0% { clip-path: inset(0 0 68% 0); transform: translateX(-2.4cqw); }
+  22% { clip-path: inset(46% 0 0 0); transform: translateX(2cqw); }
+  44% { clip-path: inset(0 0 24% 0); transform: translateX(-1cqw); }
+  70% { clip-path: inset(12% 0 0 0); transform: translateX(0.6cqw); }
+  100% { clip-path: inset(0 0 0 0); transform: translateX(0); }
+}
+
+/* =============================== SCENE 1 =============================== */
+.s1Black {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  clip-path: polygon(0 0, 100% 0, 100% 60%, 0 100%);
+}
+.s1Wedge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 74cqw;
+  height: 100%;
+  background: var(--red);
+  clip-path: polygon(0 0, 40% 0, 18% 100%, 0 100%);
+  z-index: 1;
+  animation: driveInLeft 0.68s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.s1Action {
+  position: absolute;
+  top: 7cqh;
+  left: 8cqw;
+  z-index: 3;
+  color: var(--paper);
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 2.7cqh;
+  letter-spacing: 0.35cqw;
+  text-transform: uppercase;
+}
+.s1Title {
+  position: absolute;
+  left: 25cqw;
+  top: 20cqh;
+  width: 68cqw;
+  margin: 0;
+  z-index: 3;
+  color: var(--paper);
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-weight: 400;
+  font-size: 14cqh;
+  line-height: 0.84;
+  text-transform: uppercase;
+  transform-origin: left top;
+  transform: rotate(-4deg);
+  animation: snapUp 0.6s 0.12s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.s1Body {
+  position: absolute;
+  right: 6cqw;
+  bottom: 8cqh;
+  width: 42cqw;
+  margin: 0;
+  z-index: 3;
+  color: var(--ink);
+  font-family: "Archivo Black", "Noto Sans SC", sans-serif;
+  font-size: 2.9cqh;
+  line-height: 1.12;
+  text-align: right;
+}
+.s1Tag {
+  position: absolute;
+  right: 6cqw;
+  top: 4cqh;
+  z-index: 3;
+  color: var(--red);
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 8cqh;
+  line-height: 1;
+}
+
+/* =============================== SCENE 2 =============================== */
+.s2Bar {
+  position: absolute;
+  top: 6cqh;
+  left: 7cqw;
+  width: 60cqw;
+  z-index: 4;
+  background: var(--red);
+  color: var(--paper);
+  padding: 1.4cqh 2.4cqw;
+  transform: skewX(-9deg);
+  animation: glitchIn 0.42s steps(6, end) both;
+}
+.s2Bar span {
+  display: block;
+  transform: skewX(9deg);
+}
+.s2Action {
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 2.1cqh;
+  letter-spacing: 0.3cqw;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.s2Title {
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 6.4cqh;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+.s2Grid {
+  position: absolute;
+  left: 7cqw;
+  top: 26cqh;
+  width: 86cqw;
+  height: 50cqh;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 2.4cqw 2.6cqw;
+  z-index: 2;
+}
+.s2Grid[data-beat="0"] .frag { flex-basis: 40cqw; }
+.s2Grid[data-beat="1"] .frag { flex-basis: 26cqw; }
+.frag {
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 20cqh;
+  display: flex;
+  align-items: center;
+  padding: 0 2cqw;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 3.6cqh;
+  text-transform: uppercase;
+  clip-path: polygon(0 0, 100% 0, 93% 100%, 5% 100%);
+  transform: rotate(-3deg);
+}
+.frag:nth-child(3n + 2) {
+  background: var(--red);
+  transform: rotate(2.4deg);
+  clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
+}
+.frag:nth-child(3n + 3) {
+  transform: rotate(-1.6deg);
+  clip-path: polygon(0 0, 96% 0, 100% 100%, 4% 100%);
+}
+.s2Body {
+  position: absolute;
+  right: 6cqw;
+  bottom: 9cqh;
+  width: 44cqw;
+  margin: 0;
+  z-index: 4;
+  color: var(--ink);
+  font-family: "Archivo Black", "Noto Sans SC", sans-serif;
+  font-size: 2.8cqh;
+  line-height: 1.12;
+  text-align: right;
+}
+
+/* =============================== SCENE 3 =============================== */
+.s3Action {
+  position: absolute;
+  top: 6cqh;
+  left: 7cqw;
+  z-index: 4;
+  color: var(--red);
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 2.6cqh;
+  letter-spacing: 0.3cqw;
+  text-transform: uppercase;
+}
+.s3Beams {
+  position: absolute;
+  left: 7cqw;
+  top: 18cqh;
+  width: 33cqw;
+  height: 66cqh;
+  display: flex;
+  flex-direction: column;
+  gap: 2.6cqh;
+  transform: skewY(-5deg);
+  z-index: 3;
+}
+.beam {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1.4cqw;
+  padding: 0 2cqw;
+  background: var(--ink);
+  color: var(--paper);
+  opacity: 0.15;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.beamOn { opacity: 1; }
+.beamOn:nth-child(2) { background: var(--red); }
+.beamIndex {
+  color: var(--red);
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 3.4cqh;
+}
+.beamOn:nth-child(2) .beamIndex { color: var(--paper); }
+.beamText {
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 3cqh;
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+.s3Slogan {
+  position: absolute;
+  right: 6cqw;
+  top: 22cqh;
+  width: 52cqw;
+  margin: 0;
+  z-index: 3;
+  color: var(--ink);
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 12cqh;
+  line-height: 0.86;
+  text-align: right;
+  text-transform: uppercase;
+  transform: rotate(-2.4deg);
+}
+.s3Body {
+  position: absolute;
+  right: 6cqw;
+  bottom: 9cqh;
+  width: 46cqw;
+  margin: 0;
+  z-index: 4;
+  color: var(--ink);
+  font-family: "Archivo Black", "Noto Sans SC", sans-serif;
+  font-size: 2.8cqh;
+  line-height: 1.12;
+  text-align: right;
+}
+
+/* =============================== SCENE 4 =============================== */
+.s4Header {
+  position: absolute;
+  top: 6cqh;
+  left: 8cqw;
+  z-index: 4;
+  color: var(--ink);
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 2.6cqh;
+  letter-spacing: 0.3cqw;
+  text-transform: uppercase;
+}
+.s4Vector {
+  position: absolute;
+  left: 5cqw;
+  top: 22cqh;
+  width: 90cqw;
+  height: 52cqh;
+  display: flex;
+  align-items: flex-start;
+  gap: 2cqw;
+  transform: skewX(-9deg);
+  z-index: 3;
+}
+.s4Vector::before {
+  content: "";
+  position: absolute;
+  left: -4cqw;
+  top: 4cqh;
+  width: 96cqw;
+  height: 2.2cqh;
+  background: var(--red);
+  transform: rotate(19deg);
+  transform-origin: left center;
+  z-index: -1;
+}
+.s4Vector[data-beat="0"] { gap: 3cqw; }
+.s4Vector[data-beat="1"] { gap: 2.2cqw; }
+.s4Vector[data-beat="2"] { gap: 1.2cqw; }
+.vfrag {
+  flex: 0 0 auto;
+  padding: 1.2cqh 1.4cqw;
+  background: var(--paper);
+  border: 0.5cqw solid var(--ink);
+  color: var(--ink);
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 3.2cqh;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.vfrag:nth-child(2) { margin-top: 4cqh; }
+.vfrag:nth-child(3) { margin-top: 8cqh; }
+.vfrag:nth-child(4) { margin-top: 12cqh; }
+.vfrag:nth-child(5) { margin-top: 16cqh; }
+.vfrag:nth-child(6) { margin-top: 20cqh; }
+.vfrag:nth-child(7) { margin-top: 24cqh; }
+.vfrag:last-child {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--paper);
+}
+.s4Title {
+  position: absolute;
+  left: 6cqw;
+  bottom: 13cqh;
+  width: 50cqw;
+  margin: 0;
+  z-index: 4;
+  color: var(--ink);
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 5.6cqh;
+  line-height: 0.9;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+.s4Body {
+  position: absolute;
+  right: 6cqw;
+  bottom: 6cqh;
+  width: 34cqw;
+  margin: 0;
+  z-index: 4;
+  color: var(--ink);
+  font-family: "Archivo Black", "Noto Sans SC", sans-serif;
+  font-size: 2.6cqh;
+  line-height: 1.12;
+  text-align: right;
+}
+
+/* =============================== SCENE 5 =============================== */
+.s5Black {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  clip-path: polygon(0 0, 46% 0, 78% 100%, 0 100%);
+}
+.s5Wedge {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 66cqw;
+  height: 100%;
+  background: var(--red);
+  clip-path: polygon(100% 0, 100% 100%, 20% 100%, 62% 0);
+  z-index: 1;
+  animation: driveInRight 0.68s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.s5Action {
+  position: absolute;
+  top: 7cqh;
+  left: 7cqw;
+  z-index: 3;
+  color: var(--paper);
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 2.7cqh;
+  letter-spacing: 0.3cqw;
+  text-transform: uppercase;
+}
+.s5Title {
+  position: absolute;
+  left: 6cqw;
+  top: 22cqh;
+  width: 58cqw;
+  margin: 0;
+  z-index: 3;
+  color: var(--paper);
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 13cqh;
+  line-height: 0.84;
+  text-transform: uppercase;
+  transform: rotate(-3deg);
+  transform-origin: left top;
+  animation: snapUp 0.6s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.s5Body {
+  position: absolute;
+  right: 6cqw;
+  bottom: 9cqh;
+  width: 40cqw;
+  margin: 0;
+  z-index: 3;
+  color: var(--paper);
+  font-family: "Archivo Black", "Noto Sans SC", sans-serif;
+  font-size: 3cqh;
+  line-height: 1.1;
+  text-align: right;
+}
+.s5Tag {
+  position: absolute;
+  right: 6cqw;
+  top: 5cqh;
+  z-index: 3;
+  color: var(--paper);
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 6cqh;
+  line-height: 1;
+}
+
+/* =============================== NAV: diagonal progress wedge ========== */
+.nav {
+  position: absolute;
+  left: 8cqw;
+  right: 8cqw;
+  bottom: 3.4cqh;
+  height: 5cqh;
+  z-index: 30;
+}
+.navTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transform: skewX(-20deg);
+  border: 0.2cqw solid var(--ink);
+  overflow: hidden;
+}
+.navFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: var(--red);
+  z-index: 0;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.navCell {
+  position: relative;
+  flex: 1;
+  z-index: 1;
+  background: transparent;
+  border: none;
+  border-left: 0.2cqw solid var(--ink);
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navCell:first-child { border-left: none; }
+.navNum {
+  transform: skewX(20deg);
+  display: inline-block;
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 2.6cqh;
+}
+.navCellOn .navNum { color: var(--paper); }

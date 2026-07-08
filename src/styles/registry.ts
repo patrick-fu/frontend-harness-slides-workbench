@@ -217,6 +217,14 @@ import { festivalSlowIdeasV3Version } from "./21-festival-slow-ideas-v3";
 import { cutInOneTakeV3Version } from "./22-cut-in-one-take-v3";
 import { makeSomethingWeeklyV3Version } from "./23-make-something-weekly-v3";
 import { piecingIdeaTogetherV3Version } from "./24-piecing-idea-together-v3";
+import { aRiversJourneyV3Version } from "./25-a-rivers-journey-v3";
+import { anatomyOfAnIdeaV3Version } from "./26-anatomy-of-an-idea-v3";
+import { grandUnveilingV3Version } from "./27-grand-unveiling-v3";
+import { mappingUnknownGroundV3Version } from "./28-mapping-unknown-ground-v3";
+import { greatestHitsVol1V3Version } from "./29-greatest-hits-vol1-v3";
+import { readBeforeMergeV3Version } from "./30-read-before-merge-v3";
+import { refactorTheSystemV3Version } from "./31-refactor-the-system-v3";
+import { mechanicalScoringFunnelV3Version } from "./32-triage-the-backlog-v3";
 
 const buildEntry = buildStyleRegistryEntry;
 
@@ -508,6 +516,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata25,
     },
     tideMapTeamV2Version,
+    aRiversJourneyV3Version,
   ]),
   buildEntry("26", [
     {
@@ -518,6 +527,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata26,
     },
     growthSignalsV2Version,
+    anatomyOfAnIdeaV3Version,
   ]),
   buildEntry("27", [
     {
@@ -528,6 +538,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata27,
     },
     infrastructureGalaV2Version,
+    grandUnveilingV3Version,
   ]),
   buildEntry("28", [
     {
@@ -538,6 +549,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata28,
     },
     fieldRouteSignalV2Version,
+    mappingUnknownGroundV3Version,
   ]),
   buildEntry("29", [
     {
@@ -548,6 +560,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata29,
     },
     releaseMixtapeV2Version,
+    greatestHitsVol1V3Version,
   ]),
   buildEntry("30", [
     {
@@ -558,6 +571,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata30,
     },
     shippingHardThingV2Version,
+    readBeforeMergeV3Version,
   ]),
   buildEntry("31", [
     {
@@ -568,6 +582,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata31,
     },
     moveOrgChartV2Version,
+    refactorTheSystemV3Version,
   ]),
   buildEntry("32", [
     {
@@ -578,6 +593,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata32,
     },
     prioritizeWithoutDebateV2Version,
+    mechanicalScoringFunnelV3Version,
   ]),
   // Contemporary Digital: 33-40
   buildEntry("33", [

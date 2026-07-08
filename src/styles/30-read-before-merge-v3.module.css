@@ -1,0 +1,90 @@
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Reduced motion / thumbnail: kill every animation and transition. */
+.killMotion *,
+.killMotion *::before,
+.killMotion *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+}
+
+.scene {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 6.5cqh 5cqw;
+  display: flex;
+  flex-direction: column;
+  font-family: "Space Grotesk", "Noto Sans SC", system-ui, sans-serif;
+  color: var(--ink);
+}
+
+.display {
+  font-family: "Archivo Black", "Noto Sans SC", system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  margin: 0;
+}
+
+.body {
+  font-family: "Space Grotesk", "Noto Sans SC", system-ui, sans-serif;
+  margin: 0;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  border: 0.22cqw solid var(--ink);
+  background: var(--paper);
+  text-transform: uppercase;
+  letter-spacing: 0.28cqw;
+  font-weight: 700;
+  box-shadow: 0.35cqw 0.35cqh 0 var(--ink);
+  font-family: "Space Grotesk", "Noto Sans SC", system-ui, sans-serif;
+}
+
+.pillAccent {
+  background: var(--accent);
+}
+
+.card {
+  background: var(--panel);
+  border: 0.3cqw solid var(--ink);
+  box-shadow: 0.7cqw 0.7cqh 0 var(--ink);
+  box-sizing: border-box;
+}
+
+.accent {
+  background: var(--accent);
+  box-shadow: 0.3cqw 0.3cqh 0 var(--ink);
+  padding: 0 0.5cqw;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+@keyframes nbUp {
+  from { transform: translateY(1.8cqh); opacity: 0; }
+  to   { transform: translateY(0);      opacity: 1; }
+}
+
+@keyframes nbLeft {
+  from { transform: translateX(-2.4cqw); opacity: 0; }
+  to   { transform: translateX(0);       opacity: 1; }
+}
+
+@keyframes nbPop {
+  0%   { transform: scale(1.6) rotate(-7deg); opacity: 0; }
+  100% { transform: scale(1) rotate(-6deg);   opacity: 1; }
+}
+
+.animUp   { animation: nbUp 0.2s steps(3, end) both; }
+.animLeft { animation: nbLeft 0.22s steps(4, end) both; }
+.animPop  { animation: nbPop 0.22s steps(4, end) both; }
