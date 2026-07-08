@@ -1,0 +1,398 @@
+/* Style 39 · Blackboard Chalk Talk · v3 — "Deriving Big-O" */
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--ink);
+  --ink: #f4f1e8;
+  --dim: rgba(244, 241, 232, 0.55);
+  --yellow: #f2e29b;
+  --mint: #bfe8d2;
+  font-family: var(--hand);
+  background:
+    radial-gradient(125% 120% at 50% 26%, #2a463a 0%, #213730 46%, #17281f 100%);
+}
+
+/* chalk dust + streaks + vignette (static, no motion) */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.root::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      98deg,
+      rgba(244, 241, 232, 0.014) 0 0.4cqw,
+      transparent 0.4cqw 2.6cqw
+    ),
+    radial-gradient(140% 130% at 50% 44%, transparent 52%, rgba(0, 0, 0, 0.42) 100%);
+}
+
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8cqh 9cqw;
+  box-sizing: border-box;
+}
+
+.eyebrow {
+  font-family: var(--marker);
+  font-size: 2.5cqh;
+  letter-spacing: 0.5cqw;
+  color: var(--yellow);
+  opacity: 0.82;
+  text-transform: uppercase;
+}
+
+.sceneHead {
+  position: absolute;
+  top: 6.5cqh;
+  left: 9cqw;
+}
+
+/* chalk stroke drawing via normalized pathLength */
+.stroke {
+  fill: none;
+  stroke: var(--ink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  filter: url(#chalkRough);
+}
+.strokeYellow {
+  stroke: var(--yellow);
+}
+.strokeMint {
+  stroke: var(--mint);
+}
+[data-animate="true"] .stroke {
+  stroke-dashoffset: 1;
+  animation: draw 950ms cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* handwritten "writing on" reveal */
+.writeIn {
+  clip-path: inset(0 0 0 0);
+}
+[data-animate="true"] .writeIn {
+  clip-path: inset(0 100% 0 0);
+  animation: writeIn 760ms steps(28, end) forwards;
+}
+@keyframes writeIn {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* chalked-in blocks (nodes, notes) */
+[data-animate="true"] .chalkIn {
+  opacity: 0;
+  animation: chalkIn 560ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes chalkIn {
+  from {
+    opacity: 0;
+    transform: translateY(1.1cqh) rotate(-0.4deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.reveal {
+  transition: opacity 460ms ease, transform 460ms ease;
+}
+[data-reduced="true"] .reveal {
+  transition-duration: 0s !important;
+}
+[data-reduced="true"] .writeIn,
+[data-reduced="true"] .stroke,
+[data-reduced="true"] .chalkIn {
+  animation: none !important;
+  clip-path: inset(0 0 0 0) !important;
+  stroke-dashoffset: 0 !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ---------- Scene 1 ---------- */
+.titleWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4cqh;
+  text-align: center;
+}
+.title {
+  margin: 0;
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 11cqh;
+  line-height: 1.02;
+  letter-spacing: 0.1cqw;
+  text-shadow: 0 0 0.5cqw rgba(244, 241, 232, 0.25);
+}
+.underlineSvg {
+  width: 60cqw;
+  height: 4.4cqh;
+  overflow: visible;
+}
+.subtitle {
+  margin: 0;
+  font-size: 4cqh;
+  color: var(--dim);
+  letter-spacing: 0.15cqw;
+}
+
+/* ---------- Scene 2 ---------- */
+.sceneCaption {
+  margin: 0 0 5cqh 0;
+  font-size: 3.4cqh;
+  color: var(--dim);
+  text-align: center;
+}
+.diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1cqw;
+  flex-wrap: nowrap;
+  max-width: 84cqw;
+}
+.node {
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 3.4cqh;
+  padding: 2.6cqh 2.4cqw;
+  border: 0.22cqw solid rgba(244, 241, 232, 0.72);
+  border-radius: 1.4cqw;
+  background: rgba(244, 241, 232, 0.04);
+  white-space: nowrap;
+  text-shadow: 0 0 0.4cqw rgba(244, 241, 232, 0.2);
+}
+.nodeWork {
+  border-color: var(--mint);
+  color: var(--mint);
+}
+.connector {
+  display: flex;
+  align-items: center;
+  padding: 0 0.4cqw;
+}
+.arrowSvg {
+  width: 8cqw;
+  height: 4cqh;
+  overflow: visible;
+}
+
+/* ---------- Scene 3 ---------- */
+.derivation {
+  display: flex;
+  flex-direction: column;
+  gap: 3.4cqh;
+  width: 72cqw;
+}
+.formulaRow {
+  display: grid;
+  grid-template-columns: 11cqw 40cqw 1fr;
+  align-items: baseline;
+  column-gap: 2cqw;
+}
+.flhs {
+  font-family: var(--mono);
+  font-size: 5cqh;
+  text-align: right;
+  color: var(--ink);
+}
+.frhs {
+  font-family: var(--mono);
+  font-size: 5cqh;
+  text-align: left;
+  white-space: nowrap;
+  text-shadow: 0 0 0.4cqw rgba(244, 241, 232, 0.2);
+}
+.annot {
+  font-family: var(--hand);
+  font-size: 3.2cqh;
+  color: var(--mint);
+  text-align: left;
+  align-self: center;
+}
+
+/* ---------- Scene 4 ---------- */
+.insightRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3cqw;
+  flex-wrap: nowrap;
+  max-width: 86cqw;
+}
+.labelChalk {
+  font-family: var(--hand);
+  font-size: 4.4cqh;
+  color: var(--dim);
+  white-space: nowrap;
+}
+.resultBox {
+  position: relative;
+  padding: 4cqh 4cqw;
+}
+.resultText {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 7.4cqh;
+  color: var(--yellow);
+  text-shadow: 0 0 0.6cqw rgba(242, 226, 155, 0.3);
+  white-space: nowrap;
+}
+.boxSvg {
+  position: absolute;
+  inset: -0.6cqh -0.6cqw;
+  width: calc(100% + 1.2cqw);
+  height: calc(100% + 1.2cqh);
+  overflow: visible;
+}
+.marginNote {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8cqh;
+  max-width: 30cqw;
+  padding-left: 2.4cqw;
+}
+.bracketSvg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.6cqw;
+  height: 100%;
+  overflow: visible;
+}
+.noteTag {
+  font-family: var(--marker);
+  font-size: 2.4cqh;
+  color: var(--yellow);
+  letter-spacing: 0.3cqw;
+  text-transform: uppercase;
+}
+.noteBody {
+  font-family: var(--hand);
+  font-size: 3.6cqh;
+  color: var(--mint);
+  line-height: 1.15;
+}
+
+/* ---------- Scene 5 ---------- */
+.qedWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.6cqh;
+}
+.bigOWrap {
+  position: relative;
+  padding: 3cqh 5cqw;
+}
+.bigO {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 17cqh;
+  line-height: 1;
+  color: var(--ink);
+  text-shadow: 0 0 0.8cqw rgba(244, 241, 232, 0.28);
+}
+.circleSvg {
+  position: absolute;
+  inset: -2cqh -3cqw;
+  width: calc(100% + 6cqw);
+  height: calc(100% + 4cqh);
+  overflow: visible;
+}
+.caption {
+  margin: 0;
+  font-family: var(--hand);
+  font-size: 4.4cqh;
+  color: var(--dim);
+}
+.qed {
+  font-family: var(--marker);
+  font-size: 3.4cqh;
+  color: var(--yellow);
+  letter-spacing: 0.4cqw;
+}
+
+/* ---------- Nav (N9 chalk step line) ---------- */
+.nav {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 3cqh;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3cqw;
+  padding-top: 1.6cqh;
+  border-top: 0.15cqw dashed rgba(244, 241, 232, 0.16);
+  margin: 0 12cqw;
+}
+.navItem {
+  position: relative;
+  font-family: var(--marker);
+  font-size: 3.2cqh;
+  line-height: 1;
+  color: var(--dim);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.6cqh 0.4cqw;
+  transition: color 240ms ease;
+}
+[data-reduced="true"] .navItem {
+  transition-duration: 0s;
+}
+.navItem:hover {
+  color: var(--ink);
+}
+.current {
+  color: var(--yellow);
+}
+.current::after {
+  content: "";
+  position: absolute;
+  inset: -0.9cqh -0.7cqw;
+  border: 0.22cqw solid var(--yellow);
+  border-radius: 50%;
+  transform: rotate(-5deg);
+  opacity: 0.85;
+  filter: url(#chalkRough);
+}

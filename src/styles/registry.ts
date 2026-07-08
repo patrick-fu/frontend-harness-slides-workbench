@@ -225,6 +225,14 @@ import { greatestHitsVol1V3Version } from "./29-greatest-hits-vol1-v3";
 import { readBeforeMergeV3Version } from "./30-read-before-merge-v3";
 import { refactorTheSystemV3Version } from "./31-refactor-the-system-v3";
 import { mechanicalScoringFunnelV3Version } from "./32-triage-the-backlog-v3";
+import { LayersOfAProductV3Version } from "./33-layers-of-a-product-v3";
+import { SetupExeV3Version } from "./34-setup-exe-v3";
+import { GrowingSlowlyOnPurposeV3Version } from "./35-growing-slowly-on-purpose-v3";
+import { TheMidnightReleaseV3Version } from "./36-the-midnight-release-v3";
+import { RotateTheSecretsV3Version } from "./37-rotate-the-secrets-v3";
+import { ChapterZeroV3Version } from "./38-chapter-zero-v3";
+import { DerivingBigOV3Version } from "./39-deriving-big-o-v3";
+import { DefeatingTechDebtV3Version } from "./40-defeating-tech-debt-v3";
 
 const buildEntry = buildStyleRegistryEntry;
 
@@ -605,6 +613,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata33,
     },
     spatialProductBriefV2Version,
+    LayersOfAProductV3Version,
   ]),
   buildEntry("34", [
     {
@@ -615,6 +624,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata34,
     },
     toolchainDesktopV2Version,
+    SetupExeV3Version,
   ]),
   buildEntry("35", [
     {
@@ -625,6 +635,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata35,
     },
     calmerGrowthModelV2Version,
+    GrowingSlowlyOnPurposeV3Version,
   ]),
   buildEntry("36", [
     {
@@ -635,6 +646,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata36,
     },
     privateBetaSalonV2Version,
+    TheMidnightReleaseV3Version,
   ]),
   buildEntry("37", [
     {
@@ -645,6 +657,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata37,
     },
     newHabitRunbookV2Version,
+    RotateTheSecretsV3Version,
   ]),
   buildEntry("38", [
     {
@@ -655,6 +668,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata38,
     },
     fiveActsSystemV2Version,
+    ChapterZeroV3Version,
   ]),
   buildEntry("39", [
     {
@@ -665,6 +679,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata39,
     },
     deriveShortcutV2Version,
+    DerivingBigOV3Version,
   ]),
   buildEntry("40", [
     {
@@ -675,6 +690,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata40,
     },
     latencyBossFightV2Version,
+    DefeatingTechDebtV3Version,
   ]),
   // Text Report: 41-48
   buildEntry("41", [
