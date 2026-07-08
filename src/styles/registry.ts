@@ -233,6 +233,14 @@ import { RotateTheSecretsV3Version } from "./37-rotate-the-secrets-v3";
 import { ChapterZeroV3Version } from "./38-chapter-zero-v3";
 import { DerivingBigOV3Version } from "./39-deriving-big-o-v3";
 import { DefeatingTechDebtV3Version } from "./40-defeating-tech-debt-v3";
+import { WhyUsersChurnV3Version } from "./41-why-users-churn-v3";
+import { WhyWeChoseMonorepoV3Version } from "./42-why-we-chose-monorepo-v3";
+import { FlakyTestRootCauseV3Version } from "./43-flaky-test-root-cause-v3";
+import { ShadowingSupportV3Version } from "./44-shadowing-support-v3";
+import { KillingAGodObjectV3Version } from "./45-killing-a-god-object-v3";
+import { CloseTheQuarterV3Version } from "./46-close-the-quarter-v3";
+import { EverythingTheInternNeedsV3Version } from "./47-everything-the-intern-needs-v3";
+import { OnboardingToolkitV3Version } from "./48-onboarding-toolkit-v3";
 
 const buildEntry = buildStyleRegistryEntry;
 
@@ -702,6 +710,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata41,
     },
     evidenceSmallerTeamV2Version,
+    WhyUsersChurnV3Version,
   ]),
   buildEntry("42", [
     {
@@ -712,6 +721,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata42,
     },
     chooseBoundaryV2Version,
+    WhyWeChoseMonorepoV3Version,
   ]),
   buildEntry("43", [
     {
@@ -722,6 +732,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata43,
     },
     readyAgentPickupV2Version,
+    FlakyTestRootCauseV3Version,
   ]),
   buildEntry("44", [
     {
@@ -732,6 +743,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata44,
     },
     stationPlatformStudyV2Version,
+    ShadowingSupportV3Version,
   ]),
   buildEntry("45", [
     {
@@ -742,6 +754,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata45,
     },
     rewriteBrokenFlowV2Version,
+    KillingAGodObjectV3Version,
   ]),
   buildEntry("46", [
     {
@@ -752,6 +765,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata46,
     },
     launchGateLedgerV2Version,
+    CloseTheQuarterV3Version,
   ]),
   buildEntry("47", [
     {
@@ -762,6 +776,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata47,
     },
     handoffCompartmentsV2Version,
+    EverythingTheInternNeedsV3Version,
   ]),
   buildEntry("48", [
     {
@@ -772,6 +787,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata48,
     },
     recoveryKitV2Version,
+    OnboardingToolkitV3Version,
   ]),
 ];
 

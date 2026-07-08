@@ -1,0 +1,465 @@
+/* Style 44 — Field Notes Report — v3 "A Day Shadowing Support"
+   Layout units are cqw/cqh only. Time units (ms/s) and unitless SVG
+   coordinates are used for motion; letter-spacing uses em kerning. */
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: #3b342a;
+  background-color: #f2e8cf;
+  background-image:
+    radial-gradient(120cqw 82cqh at 80cqw 8cqh, rgba(214, 154, 60, 0.14), transparent 60%),
+    radial-gradient(96cqw 96cqh at 6cqw 98cqh, rgba(193, 90, 52, 0.1), transparent 55%),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 6.35cqh,
+      rgba(120, 96, 60, 0.09) 6.35cqh 6.5cqh
+    );
+}
+
+.root,
+.root *,
+.root *::before,
+.root *::after {
+  box-sizing: border-box;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 28cqh 28cqh;
+}
+
+/* Faint coffee-ring stain for atmosphere */
+.stain {
+  position: absolute;
+  top: 6cqh;
+  right: 10cqw;
+  width: 14cqh;
+  height: 14cqh;
+  border-radius: 50%;
+  border: 0.5cqh solid rgba(150, 92, 44, 0.14);
+  box-shadow: inset 0 0 2cqh rgba(150, 92, 44, 0.08);
+  pointer-events: none;
+}
+
+.page {
+  position: absolute;
+  inset: 0;
+  padding: 8.5cqh 8cqw 8cqh 13cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.marginRule {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 10cqw;
+  width: 0.2cqw;
+  background: rgba(193, 90, 52, 0.42);
+}
+
+/* ---- shared type ---- */
+.kicker {
+  font-size: 2.2cqh;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #9a7b4a;
+  font-weight: 600;
+}
+
+.place {
+  font-size: 2.2cqh;
+  color: #8b7a5f;
+  margin-top: 0.6cqh;
+  letter-spacing: 0.04em;
+}
+
+/* ---- scene 1 ---- */
+.logHeadRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4cqw;
+}
+
+.titleHand {
+  margin-top: 5cqh;
+  font-size: 12cqh;
+  line-height: 0.98;
+  color: #372f24;
+  max-width: 74cqw;
+}
+
+.subtitle {
+  margin-top: 4cqh;
+  font-size: 3.1cqh;
+  line-height: 1.4;
+  color: #5b4f3c;
+  max-width: 60cqw;
+}
+
+.underline {
+  margin-top: 3.4cqh;
+  width: 34cqw;
+  height: 1.1cqh;
+}
+
+/* ---- section title ---- */
+.sectionTitle {
+  font-size: 6.4cqh;
+  line-height: 1;
+  color: #372f24;
+}
+
+.sectionHint {
+  font-size: 2.2cqh;
+  color: #9a7b4a;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-top: 1cqh;
+}
+
+/* ---- scene 2 observations ---- */
+.obsList {
+  margin-top: 5cqh;
+  display: flex;
+  flex-direction: column;
+  gap: 3.1cqh;
+  max-width: 74cqw;
+}
+
+.obsRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.6cqw;
+}
+
+.obsBullet {
+  flex: 0 0 auto;
+  width: 4cqw;
+  height: 4cqh;
+  margin-top: 0.4cqh;
+  color: #c15a34;
+}
+
+.obsIndex {
+  flex: 0 0 auto;
+  font-size: 2.9cqh;
+  color: #b07d3c;
+  min-width: 4cqw;
+  padding-top: 0.2cqh;
+}
+
+.obsText {
+  font-size: 3cqh;
+  line-height: 1.42;
+  color: #453d2e;
+}
+
+/* ---- scene 3 sketch + findings ---- */
+.sketchWrap {
+  margin-top: 4.4cqh;
+  display: grid;
+  grid-template-columns: 39cqw 1fr;
+  gap: 5cqw;
+  align-items: start;
+}
+
+.sketchCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.sketchSvg {
+  width: 100%;
+  height: 47cqh;
+  overflow: visible;
+}
+
+.sketchCaption {
+  margin-top: 1.6cqh;
+  font-size: 2.7cqh;
+  color: #9a7b4a;
+  transform: rotate(-1.4deg);
+}
+
+.findCol {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1cqh;
+}
+
+.findLabel {
+  font-size: 2.2cqh;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #9a7b4a;
+  margin-bottom: 2.4cqh;
+}
+
+.findList {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6cqh;
+}
+
+.findRow {
+  display: flex;
+  gap: 2cqw;
+  align-items: flex-start;
+  font-size: 2.9cqh;
+  line-height: 1.4;
+  color: #453d2e;
+}
+
+.findDash {
+  color: #c15a34;
+  flex: 0 0 auto;
+}
+
+.findKey {
+  padding: 2cqh 2.4cqw;
+  border-left: 0.5cqw solid #c15a34;
+  background: rgba(214, 154, 60, 0.16);
+  color: #6b3a1f;
+  font-size: 3cqh;
+}
+
+.findKeyTag {
+  display: block;
+  font-size: 2.1cqh;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #b0552b;
+  margin-bottom: 0.6cqh;
+}
+
+/* ---- scene 4 patterns ---- */
+.patternGrid {
+  margin-top: 4.4cqh;
+  display: flex;
+  flex-direction: column;
+  gap: 3.4cqh;
+  max-width: 82cqw;
+}
+
+.behaviorRow {
+  display: grid;
+  grid-template-columns: 1fr 30cqw;
+  gap: 3cqw;
+  align-items: start;
+}
+
+.behMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6cqh;
+}
+
+.behTag {
+  font-size: 4cqh;
+  line-height: 1;
+  color: #372f24;
+}
+
+.behText {
+  font-size: 2.7cqh;
+  line-height: 1.4;
+  color: #574c3a;
+  max-width: 46cqw;
+}
+
+.marginNote {
+  font-size: 3cqh;
+  line-height: 1.28;
+  color: #b0552b;
+  transform: rotate(-2.2deg);
+  padding-left: 1.4cqw;
+  border-left: 0.16cqw dashed rgba(176, 85, 43, 0.5);
+}
+
+/* ---- scene 5 takeaway ---- */
+.takeWrap {
+  margin-top: 3cqh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 78cqw;
+}
+
+.takeBig {
+  font-size: 8cqh;
+  line-height: 1.06;
+  color: #372f24;
+  max-width: 72cqw;
+}
+
+.takeBody {
+  margin-top: 3.6cqh;
+  font-size: 3cqh;
+  line-height: 1.5;
+  color: #554a38;
+  max-width: 58cqw;
+}
+
+.takeSign {
+  margin-top: 4.2cqh;
+  font-size: 3.4cqh;
+  color: #b0552b;
+  transform: rotate(-1.6deg);
+}
+
+/* ---- nav: hand-drawn page folio ---- */
+.folio {
+  position: absolute;
+  right: 5cqw;
+  bottom: 4cqh;
+  z-index: 5;
+  display: flex;
+  align-items: baseline;
+  gap: 1.2cqw;
+}
+
+.folioWord {
+  font-size: 2.6cqh;
+  color: #9a7b4a;
+}
+
+.folioNums {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9cqw;
+}
+
+.folioNum {
+  position: relative;
+  font-size: 3.2cqh;
+  line-height: 1;
+  color: #8b7a5f;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.8cqh 0.8cqw;
+  transform: rotate(-1deg);
+  transition: color 220ms ease;
+}
+
+.folioNum:hover {
+  color: #c15a34;
+}
+
+.folioNum[data-current="true"] {
+  color: #6b3a1f;
+  font-weight: 700;
+}
+
+.folioNum[data-current="true"]::after {
+  content: "";
+  position: absolute;
+  inset: -0.4cqh -0.4cqw -0.6cqh -0.4cqw;
+  border: 0.22cqw solid #c15a34;
+  border-radius: 48% 52% 55% 45% / 60% 45% 55% 40%;
+  transform: rotate(-4deg);
+  pointer-events: none;
+}
+
+.folioMeta {
+  font-size: 2.4cqh;
+  color: #9a7b4a;
+}
+
+/* ---- animations ---- */
+.aWrite {
+  animation: writeIn 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.aRise {
+  animation: inkRise 640ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.aSoft {
+  animation: softIn 620ms ease both;
+}
+
+.sketchSvg .pen {
+  stroke-dashoffset: 0;
+}
+
+.sketchSvg.draw .pen {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: dash 1000ms ease forwards;
+}
+
+.sketchSvg .fillMark {
+  opacity: 1;
+}
+
+.sketchSvg.draw .fillMark {
+  opacity: 0;
+  animation: softIn 520ms ease forwards;
+}
+
+@keyframes writeIn {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.25;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+@keyframes inkRise {
+  from {
+    opacity: 0;
+    transform: translateY(1.4cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes softIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---- reduced motion / thumbnail: settle instantly ---- */
+.root[data-reduced="true"] *,
+.root[data-reduced="true"] *::before,
+.root[data-reduced="true"] *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+.root[data-reduced="true"] .sketchSvg .pen {
+  stroke-dashoffset: 0 !important;
+}
+
+.root[data-reduced="true"] .sketchSvg .fillMark {
+  opacity: 1 !important;
+}
