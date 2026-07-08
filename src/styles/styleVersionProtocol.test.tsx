@@ -38,6 +38,10 @@ const curatedV2Versions = STYLE_REGISTRY.map((style) => ({
   styleId: style.id,
   version: style.versions.find((version) => version.id === "v2"),
 }));
+const curatedV3Versions = STYLE_REGISTRY.map((style) => ({
+  styleId: style.id,
+  version: style.versions.find((version) => version.id === "v3"),
+}));
 const REQUIRED_CURATED_V2_STYLE_IDS = [
   "01",
   "02",
@@ -252,6 +256,20 @@ describe("style version protocol", () => {
     }
   });
 
+  it("requires completed style batches to expose the curated v3 version without removing v1/v2", () => {
+    expect(STYLE_REGISTRY).toHaveLength(48);
+
+    for (const style of STYLE_REGISTRY.filter((entry) =>
+      REQUIRED_CURATED_V2_STYLE_IDS.includes(entry.id),
+    )) {
+      const versionIds = style.versions.map((version) => version.id);
+
+      expect(versionIds, `style ${style.id} must keep legacy v1`).toContain("v1");
+      expect(versionIds, `style ${style.id} must keep curated v2`).toContain("v2");
+      expect(versionIds, `style ${style.id} must expose curated v3`).toContain("v3");
+    }
+  });
+
   it("requires every version topic to be localized and concise", () => {
     for (const { styleId, version } of allVersions) {
       expect(
@@ -354,6 +372,90 @@ describe("style version protocol", () => {
     expect(
       usedKinds.size,
       `curated v2 transitions must remain varied, not collapse into ${Array.from(usedKinds).join(", ")}`,
+    ).toBeGreaterThanOrEqual(6);
+  });
+
+  it("requires every curated v3 version to identify Claude-Opus-4.8 as the model", () => {
+    for (const { styleId, version } of curatedV3Versions.filter((entry) =>
+      REQUIRED_CURATED_V2_STYLE_IDS.includes(entry.styleId),
+    )) {
+      expect(version, `${styleId} must register a v3 version`).toBeDefined();
+      expect(version?.model, `${styleId}/v3 must use the assigned model`).toBe(
+        "Claude-Opus-4.8",
+      );
+    }
+  });
+
+  it("requires every curated v3 version to render a per-edge transition map", () => {
+    const usedKinds = new Set<string>();
+
+    for (const { styleId, version } of curatedV3Versions.filter((entry) =>
+      REQUIRED_CURATED_V2_STYLE_IDS.includes(entry.styleId),
+    )) {
+      expect(version, `${styleId} must register a v3 version`).toBeDefined();
+      if (!version) continue;
+
+      const Component = version.component;
+      const { container, rerender, unmount } = render(
+        <div
+          data-testid="stage"
+          style={{
+            width: 1920,
+            height: 1080,
+            containerType: "size",
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <Component
+            scene={1}
+            beat={0}
+            language="en"
+            isThumbnail={false}
+            reducedMotion={false}
+          />
+        </div>,
+      );
+
+      for (let targetScene = 2; targetScene <= 5; targetScene++) {
+        rerender(
+          <div
+            data-testid="stage"
+            style={{
+              width: 1920,
+              height: 1080,
+              containerType: "size",
+              overflow: "hidden",
+              position: "relative",
+            }}
+          >
+            <Component
+              scene={targetScene}
+              beat={0}
+              language="en"
+              isThumbnail={false}
+              reducedMotion={false}
+            />
+          </div>,
+        );
+
+        const transitionKind = container.querySelector<HTMLElement>(
+          '[data-testid="spatial-scene-track"]',
+        )?.dataset.sceneTransitionKind;
+
+        expect(
+          SCENE_TRANSITION_KINDS,
+          `${styleId}/v3 edge ${targetScene - 1}->${targetScene} must expose a supported transition kind`,
+        ).toContain(transitionKind as (typeof SCENE_TRANSITION_KINDS)[number]);
+        usedKinds.add(transitionKind as string);
+      }
+
+      unmount();
+    }
+
+    expect(
+      usedKinds.size,
+      `curated v3 transitions must remain varied, not collapse into ${Array.from(usedKinds).join(", ")}`,
     ).toBeGreaterThanOrEqual(6);
   });
 });
