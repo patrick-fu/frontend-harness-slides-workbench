@@ -130,8 +130,10 @@ import NordicRosemaling32, {
 } from "./32-nordic-rosemaling";
 import { tideMapTeamTopic } from "./25-tide-map-team";
 import { growthSignalsTopic } from "./26-growth-signals";
+import { leafStomataTopic } from "./27-leaf-stomata";
 import { infrastructureGalaTopic } from "./27-infrastructure-gala";
 import { fieldRouteSignalTopic } from "./28-field-route-signal";
+import { saharanDustTopic } from "./expedition-screenprint-saharan-dust";
 import { releaseMixtapeTopic } from "./29-release-mixtape";
 import { shippingHardThingTopic } from "./30-shipping-hard-thing";
 import { moveOrgChartTopic } from "./31-move-org-chart";
@@ -162,6 +164,7 @@ import ParticleField40, {
   getMetadata as getMetadata40,
 } from "./40-particle-field";
 import { spatialProductBriefTopic } from "./33-spatial-product-brief";
+import { safetyGlassTopic } from "./liquid-glass-safety-glass";
 import { toolchainDesktopTopic } from "./34-toolchain-desktop";
 import { voyagerBoundaryTopic } from "./35-voyager-boundary";
 import { calmerGrowthModelTopic } from "./35-calmer-growth-model";
@@ -495,6 +498,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata26,
     },
     growthSignalsTopic,
+    leafStomataTopic,
   ]),
   buildEntry("machine-age-deco", [
     {
@@ -515,6 +519,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata28,
     },
     fieldRouteSignalTopic,
+    saharanDustTopic,
   ]),
   buildEntry("cassette-era-packaging", [
     {
@@ -567,6 +572,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata33,
     },
     spatialProductBriefTopic,
+    safetyGlassTopic,
   ]),
   buildEntry("retro-windows", [
     {
