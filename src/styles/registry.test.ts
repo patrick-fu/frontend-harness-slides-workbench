@@ -52,12 +52,15 @@ describe("STYLE_REGISTRY topic catalog", () => {
     ]);
   });
 
-  it("registers the first coordinated Topic Set batch", () => {
-    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(100);
+  it("registers the coordinated Topic Set through batch two", () => {
+    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(103);
     expect(findTopic("kinetic-type-punchline", "before-a")).toBeDefined();
     expect(findTopic("sketch-board-emoji", "stadium-wave")).toBeDefined();
     expect(
       findTopic("engineering-whiteboard-explainer", "water-tower"),
     ).toBeDefined();
+    expect(findTopic("front-page-broadsheet", "rogue-wave")).toBeDefined();
+    expect(findTopic("retro-windows", "voyager-boundary")).toBeDefined();
+    expect(findTopic("after-hours-luxe", "urushi-cure")).toBeDefined();
   });
 });

@@ -93,6 +93,7 @@ import ManuscriptScroll24, {
   getMetadata as getMetadata24,
 } from "./24-manuscript-scroll";
 import { morningAfterLaunchTopic } from "./17-morning-after-launch";
+import { rogueWaveTopic } from "./18-rogue-wave";
 import { productGetsCoverTopic } from "./18-product-gets-cover";
 import { usefulWeekNotesTopic } from "./19-useful-week-notes";
 import { argumentInMarginsTopic } from "./20-argument-in-margins";
@@ -158,8 +159,10 @@ import ParticleField40, {
 } from "./40-particle-field";
 import { spatialProductBriefTopic } from "./33-spatial-product-brief";
 import { toolchainDesktopTopic } from "./34-toolchain-desktop";
+import { voyagerBoundaryTopic } from "./35-voyager-boundary";
 import { calmerGrowthModelTopic } from "./35-calmer-growth-model";
 import { privateBetaSalonTopic } from "./36-private-beta-salon";
+import { urushiCureTopic } from "./37-urushi-cure";
 import { newHabitRunbookTopic } from "./37-new-habit-runbook";
 import { fiveActsSystemTopic } from "./38-five-acts-system";
 import { deriveShortcutTopic } from "./39-derive-shortcut";
@@ -388,6 +391,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata17,
     },
     morningAfterLaunchTopic,
+    rogueWaveTopic,
   ]),
   buildEntry("magazine-masthead", [
     {
@@ -560,6 +564,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata34,
     },
     toolchainDesktopTopic,
+    voyagerBoundaryTopic,
   ]),
   buildEntry("mid-century-grove", [
     {
@@ -580,6 +585,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata36,
     },
     privateBetaSalonTopic,
+    urushiCureTopic,
   ]),
   buildEntry("operating-manual", [
     {
