@@ -1,0 +1,1023 @@
+.root {
+  --wt-ink: #20262f;
+  --wt-muted: #667180;
+  --wt-blue: #2779d8;
+  --wt-blue-soft: #dcecff;
+  --wt-yellow: #ffd857;
+  --wt-green: #2c9a6f;
+  --wt-red: #d8514e;
+  --wt-purple: #7862c9;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--wt-ink);
+  background:
+    linear-gradient(90deg, rgb(39 121 216 / 5%) 0.08cqw, transparent 0.08cqw),
+    linear-gradient(rgb(39 121 216 / 4%) 0.08cqh, transparent 0.08cqh),
+    #fbfcff;
+  background-size: 3.8cqw 3.8cqh;
+  font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  isolation: isolate;
+}
+
+.root::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 10% 9%, rgb(255 216 87 / 17%), transparent 15cqw),
+    radial-gradient(circle at 88% 76%, rgb(39 121 216 / 8%), transparent 21cqw);
+  content: "";
+  pointer-events: none;
+}
+
+.root *,
+.root *::before,
+.root *::after {
+  box-sizing: border-box;
+}
+
+.reduced *,
+.reduced *::before,
+.reduced *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+.header {
+  position: absolute;
+  top: 3.5cqh;
+  left: 4.8cqw;
+  right: 4.8cqw;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 6.2cqh;
+  border-bottom: 0.12cqw solid #ced7e2;
+  pointer-events: none;
+}
+
+.deckLabel {
+  padding: 0.55cqh 0.7cqw;
+  border: 0.11cqw solid var(--wt-ink);
+  border-radius: 0.28cqw;
+  background: #fff;
+  box-shadow: 0.2cqw 0.35cqh 0 rgb(32 38 47 / 10%);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.82cqw;
+  font-weight: 700;
+  letter-spacing: 0.04cqw;
+  text-transform: uppercase;
+}
+
+.sceneHeading {
+  display: flex;
+  align-items: center;
+  gap: 0.7cqw;
+  color: #515c69;
+  font-family: "LXGW WenKai", "Kaiti SC", STKaiti, KaiTi, serif;
+  font-size: 1.35cqw;
+  font-weight: 700;
+}
+
+.sceneTick {
+  width: 3.4cqw;
+  height: 0.75cqh;
+  border-radius: 999cqw;
+  background: var(--wt-yellow);
+  transform: rotate(-2deg);
+}
+
+.canvas {
+  position: absolute;
+  inset: 11.5cqh 0 13.4cqh;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.markerKicker {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.8cqh;
+  padding: 0.3cqh 0.6cqw;
+  border-radius: 0.3cqw;
+  color: #344050;
+  background: linear-gradient(transparent 12%, rgb(255 216 87 / 68%) 12% 88%, transparent 88%);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.8cqw;
+  font-weight: 700;
+  letter-spacing: 0.04cqw;
+}
+
+.scene h1,
+.scene h2,
+.scene p {
+  margin: 0;
+}
+
+.scene h1,
+.scene h2 {
+  font-family: "LXGW WenKai", "Kaiti SC", STKaiti, KaiTi, serif;
+  font-weight: 700;
+}
+
+.visible,
+.waiting {
+  transition:
+    opacity 420ms ease,
+    transform 520ms cubic-bezier(0.2, 0.85, 0.28, 1);
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.waiting {
+  opacity: 0;
+  transform: translateY(0.9cqh);
+  pointer-events: none;
+}
+
+.diagramLabel,
+.mapLabel,
+.zoneLabel {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.6cqh;
+  padding: 0.26cqh 0.55cqw;
+  border: 0.1cqw solid #aab5c2;
+  border-radius: 0.32cqw;
+  color: #3c4654;
+  background: rgb(255 255 255 / 94%);
+  box-shadow: 0.14cqw 0.25cqh 0 rgb(32 38 47 / 9%);
+  font-family: "JetBrains Mono", "Noto Sans SC", ui-monospace, monospace;
+  font-size: 0.72cqw;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.blueFill {
+  fill: var(--wt-blue);
+}
+
+.redFill {
+  fill: var(--wt-red);
+}
+
+.sketchInk,
+.towerInk,
+.towerLeg,
+.crossBrace,
+.tankShell,
+.houseInk,
+.hydrantInk,
+.pumpShape,
+.valveShape,
+.boosterInk,
+.prvInk,
+.mapTower,
+.mapGroundTank,
+.mapPump {
+  fill: none;
+  stroke: var(--wt-ink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 5;
+}
+
+.faintGridLine {
+  fill: none;
+  stroke: #b8c4d1;
+  stroke-dasharray: 8 13;
+  stroke-width: 3;
+}
+
+.waterLine,
+.pipeLine,
+.riserLine,
+.controlLine,
+.mapPipe,
+.mapZoneLine,
+.mapZoneLineAlt {
+  fill: none;
+  stroke: var(--wt-blue);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 8;
+  transition:
+    stroke-dashoffset 620ms cubic-bezier(0.2, 0.75, 0.25, 1),
+    opacity 360ms ease;
+}
+
+.waiting.waterLine,
+.waiting.pipeLine,
+.waiting.riserLine,
+.waiting.controlLine,
+.waiting.mapPipe,
+.waiting.mapZoneLine,
+.waiting.mapZoneLineAlt {
+  stroke-dashoffset: 1;
+}
+
+.pipeBranch,
+.pressureBranch {
+  fill: none;
+  stroke: #718197;
+  stroke-linecap: round;
+  stroke-width: 5;
+}
+
+.markerStroke {
+  fill: none;
+  stroke: var(--wt-yellow);
+  stroke-linecap: round;
+  stroke-width: 20;
+  opacity: 0.86;
+}
+
+.pauseMark {
+  fill: none;
+  stroke: var(--wt-red);
+  stroke-linecap: round;
+  stroke-width: 10;
+}
+
+.drop {
+  fill: var(--wt-blue);
+  opacity: 0.9;
+}
+
+.headArrow {
+  fill: none;
+  stroke: var(--wt-blue);
+  stroke-dasharray: 11 9;
+  stroke-linecap: round;
+  stroke-width: 5;
+}
+
+.sceneOne {
+  padding: 2cqh 4.8cqw;
+}
+
+.questionBlock {
+  position: absolute;
+  top: 7cqh;
+  left: 5cqw;
+  z-index: 3;
+  width: 35cqw;
+}
+
+.questionBlock h1 {
+  margin-top: 2cqh;
+  font-size: 4.25cqw;
+  line-height: 1.03;
+  letter-spacing: -0.07cqw;
+}
+
+.tapDiagram {
+  position: absolute;
+  top: 0.5cqh;
+  right: 7cqw;
+  bottom: 0.5cqh;
+  left: 31cqw;
+}
+
+.tapDiagram svg,
+.neighborhoodDiagram svg,
+.cutawayBoard > svg,
+.pressureBoard > svg,
+.networkMap > svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.pumpPaused {
+  top: 58%;
+  left: 18%;
+  border-color: rgb(216 81 78 / 62%);
+  color: #9f3432;
+}
+
+.tapFlow {
+  right: 1%;
+  bottom: 9%;
+  border-color: rgb(39 121 216 / 55%);
+}
+
+.storedHead {
+  top: 10%;
+  right: 13%;
+  border-color: rgb(255 216 87 / 90%);
+}
+
+.sceneTwo {
+  padding: 1cqh 4.8cqw;
+}
+
+.sceneStatement {
+  position: absolute;
+  top: 1.5cqh;
+  left: 5cqw;
+  z-index: 4;
+  width: 56cqw;
+}
+
+.sceneStatement h2 {
+  margin-top: 1.3cqh;
+  font-size: 3.1cqw;
+  line-height: 1.02;
+}
+
+.neighborhoodDiagram {
+  position: absolute;
+  top: 11cqh;
+  right: 7.5cqw;
+  bottom: 0;
+  left: 3.8cqw;
+}
+
+.terrainFill,
+.zoneTerrain {
+  fill: #edf1e8;
+  opacity: 0.92;
+}
+
+.terrainLine {
+  fill: none;
+  stroke: #566450;
+  stroke-linecap: round;
+  stroke-width: 5;
+}
+
+.hglLine {
+  fill: none;
+  stroke: var(--wt-blue);
+  stroke-dasharray: 14 9;
+  stroke-linecap: round;
+  stroke-width: 5;
+}
+
+.towerInk {
+  stroke-width: 6;
+}
+
+.waterFill,
+.waterCutaway {
+  fill: var(--wt-blue-soft);
+  stroke: none;
+}
+
+.demandGraph {
+  fill: none;
+  stroke: var(--wt-purple);
+  stroke-linecap: round;
+  stroke-width: 7;
+}
+
+.waterSurface {
+  top: 13%;
+  left: 18%;
+  border-color: rgb(39 121 216 / 52%);
+}
+
+.terrainLabel {
+  right: 7%;
+  bottom: 7%;
+}
+
+.headDifference {
+  top: 44%;
+  left: 23%;
+  border-color: rgb(39 121 216 / 52%);
+}
+
+.peakDemand {
+  top: 2%;
+  right: 3%;
+  border-color: rgb(120 98 201 / 62%);
+}
+
+.sceneThree {
+  padding: 1cqh 4.8cqw;
+}
+
+.cutawayTitle {
+  position: absolute;
+  top: 1.5cqh;
+  left: 4.8cqw;
+  z-index: 4;
+  width: 61cqw;
+}
+
+.cutawayTitle h2 {
+  margin-top: 1.2cqh;
+  font-size: 2.75cqw;
+  line-height: 1.02;
+}
+
+.cutawayBoard {
+  position: absolute;
+  top: 10.5cqh;
+  bottom: 0.5cqh;
+  left: 3cqw;
+  width: 67cqw;
+}
+
+.tankShell {
+  fill: rgb(255 255 255 / 92%);
+  stroke-width: 7;
+}
+
+.waterLevel {
+  fill: none;
+  stroke: var(--wt-blue);
+  stroke-dasharray: 11 8;
+  stroke-width: 5;
+}
+
+.towerLeg,
+.crossBrace {
+  stroke: #53606f;
+  stroke-width: 6;
+}
+
+.riserLine {
+  stroke-width: 10;
+}
+
+.controlLine {
+  stroke: var(--wt-purple);
+  stroke-dasharray: 1;
+  stroke-width: 5;
+}
+
+.overflowLine {
+  fill: none;
+  stroke: var(--wt-red);
+  stroke-dasharray: 10 8;
+  stroke-linecap: round;
+  stroke-width: 5;
+}
+
+.tankVolume {
+  top: 18%;
+  left: 30%;
+  border-color: rgb(39 121 216 / 52%);
+}
+
+.riserLabel {
+  bottom: 10%;
+  left: 37%;
+  border-color: rgb(39 121 216 / 52%);
+}
+
+.overflowLabel {
+  top: 20%;
+  right: 5%;
+  border-color: rgb(216 81 78 / 55%);
+}
+
+.pumpControl {
+  bottom: 21%;
+  left: 3%;
+  border-color: rgb(120 98 201 / 55%);
+}
+
+.stickerHome {
+  position: absolute;
+  right: -2%;
+  bottom: 4%;
+}
+
+.stickerHydrant {
+  position: absolute;
+  right: -3%;
+  bottom: 24%;
+}
+
+.nodeSticker {
+  display: flex;
+  align-items: center;
+  gap: 0.55cqw;
+  min-width: 11cqw;
+  padding: 0.65cqh 0.7cqw;
+  border: 0.12cqw solid #9eabb9;
+  border-radius: 0.7cqw;
+  background: #fff;
+  box-shadow:
+    0.25cqw 0.45cqh 0 rgb(32 38 47 / 12%),
+    inset 0 0 0 0.2cqw rgb(255 216 87 / 20%);
+  font-family: "LXGW WenKai", "Kaiti SC", STKaiti, KaiTi, serif;
+  font-size: 1cqw;
+  font-weight: 700;
+}
+
+.stickerIcon {
+  width: 2.1cqw;
+  height: 3.7cqh;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: var(--wt-ink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.cutawayNotes {
+  position: absolute;
+  top: 17cqh;
+  right: 11.5cqw;
+  width: 19cqw;
+  min-height: 35cqh;
+}
+
+.cutawayNotes > div {
+  display: grid;
+  grid-template-columns: 2.2cqw 1fr;
+  gap: 0.7cqw;
+  min-height: 14cqh;
+  padding: 1.5cqh 1.1cqw;
+  border-top: 0.12cqw solid #bac5d1;
+}
+
+.cutawayNotes > div > span {
+  display: grid;
+  width: 1.8cqw;
+  height: 3.2cqh;
+  place-items: center;
+  border-radius: 50%;
+  color: #253142;
+  background: var(--wt-yellow);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.7cqw;
+  font-weight: 700;
+}
+
+.cutawayNotes p {
+  color: #53606e;
+  font-size: 0.88cqw;
+  line-height: 1.38;
+}
+
+.sceneFour {
+  padding: 1cqh 4.8cqw;
+}
+
+.pressureTitle {
+  position: absolute;
+  top: 1cqh;
+  left: 4.8cqw;
+  z-index: 4;
+  width: 64cqw;
+}
+
+.pressureTitle h2 {
+  margin-top: 1cqh;
+  font-size: 2.7cqw;
+  line-height: 1.02;
+}
+
+.formulaTag {
+  position: absolute;
+  top: 2cqh;
+  right: 13cqw;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+  padding: 0.8cqh 0.9cqw;
+  border: 0.12cqw solid var(--wt-red);
+  border-radius: 0.35cqw;
+  background: #fff;
+  box-shadow: 0.2cqw 0.35cqh 0 rgb(216 81 78 / 15%);
+  transform: rotate(1.2deg);
+}
+
+.formulaTag strong {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 1.25cqw;
+}
+
+.formulaTag span {
+  color: var(--wt-red);
+  font-family: "JetBrains Mono", "Noto Sans SC", ui-monospace, monospace;
+  font-size: 0.68cqw;
+  font-weight: 700;
+}
+
+.pressureBoard {
+  position: absolute;
+  top: 10cqh;
+  right: 8.5cqw;
+  bottom: 0;
+  left: 3.6cqw;
+}
+
+.zoneTerrain {
+  fill: #eef2eb;
+}
+
+.pressurePipe {
+  fill: none;
+  stroke: #435264;
+  stroke-linecap: round;
+  stroke-width: 9;
+}
+
+.lossLine {
+  fill: none;
+  stroke: var(--wt-red);
+  stroke-dasharray: 14 9;
+  stroke-linecap: round;
+  stroke-width: 6;
+}
+
+.fireBranch {
+  fill: none;
+  stroke: var(--wt-red);
+  stroke-dasharray: 1;
+  stroke-linecap: round;
+  stroke-width: 8;
+}
+
+.zoneDivider {
+  fill: none;
+  stroke: #8592a1;
+  stroke-dasharray: 7 10;
+  stroke-width: 4;
+}
+
+.lossLabel {
+  top: 34%;
+  right: 11%;
+  border-color: rgb(216 81 78 / 55%);
+}
+
+.fireLabel {
+  bottom: 24%;
+  left: 28%;
+  border-color: rgb(216 81 78 / 55%);
+}
+
+.zoneLabel {
+  top: 20%;
+  justify-content: center;
+  min-width: 8cqw;
+  border: 0;
+  box-shadow: none;
+  color: #334054;
+  background: rgb(255 255 255 / 75%);
+}
+
+.lowZone {
+  left: 16%;
+}
+
+.middleZone {
+  left: 49%;
+}
+
+.highZone {
+  left: 79%;
+}
+
+.boosterLabel {
+  right: 35%;
+  bottom: 6%;
+  border-color: rgb(44 154 111 / 50%);
+}
+
+.prvLabel {
+  right: 7%;
+  bottom: 10%;
+  border-color: rgb(120 98 201 / 50%);
+}
+
+.sceneFive {
+  padding: 1cqh 4.8cqw;
+}
+
+.networkTitle {
+  position: absolute;
+  top: 1cqh;
+  left: 4.8cqw;
+  z-index: 5;
+  width: 58cqw;
+}
+
+.networkTitle h2 {
+  margin-top: 1cqh;
+  font-size: 2.65cqw;
+  line-height: 1.02;
+}
+
+.networkMap {
+  position: absolute;
+  top: 8cqh;
+  right: 8.8cqw;
+  bottom: 0;
+  left: 3.8cqw;
+}
+
+.mapContour,
+.mapContourFaint {
+  fill: none;
+  stroke: #b7c2ad;
+  stroke-linecap: round;
+  stroke-width: 7;
+}
+
+.mapContourFaint {
+  stroke: #d0d8ca;
+  stroke-dasharray: 10 12;
+  stroke-width: 4;
+}
+
+.mapPipe {
+  stroke-width: 10;
+}
+
+.mapZoneLine {
+  stroke: var(--wt-purple);
+  stroke-width: 7;
+}
+
+.mapZoneLineAlt {
+  stroke: var(--wt-green);
+  stroke-width: 7;
+}
+
+.mapNodeBlue {
+  fill: var(--wt-blue);
+  stroke: #fff;
+  stroke-width: 6;
+}
+
+.mapNodeGreen {
+  fill: var(--wt-green);
+  stroke: #fff;
+  stroke-width: 6;
+}
+
+.mapNodePurple {
+  fill: var(--wt-purple);
+  stroke: #fff;
+  stroke-width: 6;
+}
+
+.mapNodeYellow {
+  fill: var(--wt-yellow);
+  stroke: var(--wt-ink);
+  stroke-width: 4;
+}
+
+.finalBracket {
+  fill: none;
+  stroke: var(--wt-yellow);
+  stroke-linecap: round;
+  stroke-width: 14;
+}
+
+.mapLabel {
+  font-family: "LXGW WenKai", "Kaiti SC", STKaiti, KaiTi, serif;
+  font-size: 0.86cqw;
+}
+
+.elevatedLabel {
+  top: 54%;
+  left: 7%;
+  border-color: rgb(39 121 216 / 50%);
+}
+
+.groundLabel {
+  bottom: 12%;
+  left: 27%;
+  border-color: rgb(44 154 111 / 50%);
+}
+
+.distributedLabel {
+  right: 6%;
+  bottom: 28%;
+  border-color: rgb(120 98 201 / 50%);
+}
+
+.realityNote {
+  position: absolute;
+  top: 2cqh;
+  right: 1.5cqw;
+  width: 32cqw;
+  min-height: 13cqh;
+  padding: 1.3cqh 1.2cqw;
+  border: 0.13cqw solid var(--wt-red);
+  border-radius: 0.45cqw;
+  background: rgb(255 255 255 / 96%);
+  box-shadow: 0.28cqw 0.5cqh 0 rgb(216 81 78 / 13%);
+  transform: rotate(-0.7deg);
+}
+
+.realityNote strong {
+  font-family: "LXGW WenKai", "Kaiti SC", STKaiti, KaiTi, serif;
+  font-size: 1.25cqw;
+}
+
+.realityNote p {
+  margin-top: 0.9cqh;
+  color: #53606e;
+  font-size: 0.78cqw;
+  line-height: 1.38;
+}
+
+.sourceStrip {
+  position: absolute;
+  right: 1.5cqw;
+  bottom: 2cqh;
+  display: flex;
+  align-items: center;
+  gap: 0.65cqw;
+  padding: 0.55cqh 0.7cqw;
+  border-top: 0.11cqw solid #9faab6;
+  color: #5a6572;
+  font-family: "JetBrains Mono", "Noto Sans SC", ui-monospace, monospace;
+  font-size: 0.65cqw;
+}
+
+.sourceStrip span {
+  color: var(--wt-red);
+  font-weight: 700;
+}
+
+.takeaway {
+  position: absolute;
+  right: 13cqw;
+  bottom: 3cqh;
+  left: 4.8cqw;
+  z-index: 25;
+  display: grid;
+  grid-template-columns: 8.5cqw 1fr;
+  align-items: center;
+  gap: 1cqw;
+  min-height: 7.4cqh;
+  border-top: 0.14cqw solid #c6d0dc;
+  pointer-events: none;
+}
+
+.takeawayLabel {
+  justify-self: start;
+  padding: 0.5cqh 0.65cqw;
+  border: 0.11cqw solid var(--wt-ink);
+  border-radius: 0.28cqw;
+  background: var(--wt-yellow);
+  font-family: "JetBrains Mono", "Noto Sans SC", ui-monospace, monospace;
+  font-size: 0.72cqw;
+  font-weight: 700;
+}
+
+.takeawayText {
+  display: inline;
+  width: fit-content;
+  max-width: 68cqw;
+  padding: 0.2cqh 0;
+  background: linear-gradient(transparent 62%, rgb(255 216 87 / 58%) 62% 91%, transparent 91%);
+  font-family: "LXGW WenKai", "Kaiti SC", STKaiti, KaiTi, serif;
+  font-size: 1.35cqw;
+  font-weight: 700;
+  line-height: 1.14;
+}
+
+.networkNav {
+  position: absolute;
+  top: 22cqh;
+  right: 0.7cqw;
+  z-index: 40;
+  width: 11.5cqw;
+  height: 56cqh;
+  border-radius: 2cqw 0 0 2cqw;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 82%) 30% 100%);
+  touch-action: manipulation;
+}
+
+.navTrail {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.navTrailBase,
+.navTrailHistory {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 5;
+}
+
+.navTrailBase {
+  stroke: #d0d8e1;
+  stroke-dasharray: 8 11;
+}
+
+.navTrailHistory {
+  stroke: #8f9aa7;
+  stroke-dasharray: 1;
+  transition: stroke-dashoffset 520ms cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+.navNode {
+  position: absolute;
+  display: grid;
+  width: 2.8cqw;
+  height: 5cqh;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: var(--wt-ink);
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.navNodeDot {
+  width: 1.1cqw;
+  height: 1.95cqh;
+  border: 0.12cqw solid #8290a1;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0.1cqw 0.2cqh 0 rgb(32 38 47 / 12%);
+  transition:
+    width 240ms ease,
+    height 240ms ease,
+    border-color 240ms ease,
+    background 240ms ease,
+    transform 240ms cubic-bezier(0.2, 0.8, 0.3, 1.25);
+}
+
+.navNode[data-history="true"] .navNodeDot {
+  border-color: #9aa6b3;
+  background: #dbe1e8;
+}
+
+.navNode[data-active="true"] .navNodeDot {
+  width: 1.45cqw;
+  height: 2.55cqh;
+  border-color: var(--wt-blue);
+  background: var(--wt-yellow);
+  transform: scale(1.04);
+}
+
+.navNodeLabel {
+  position: absolute;
+  top: 50%;
+  right: 2.35cqw;
+  width: max-content;
+  max-width: 10cqw;
+  padding: 0.45cqh 0.55cqw;
+  border: 0.1cqw solid #aab5c2;
+  border-radius: 0.28cqw;
+  opacity: 0;
+  background: rgb(255 255 255 / 96%);
+  box-shadow: 0.14cqw 0.25cqh 0 rgb(32 38 47 / 10%);
+  font-family: "LXGW WenKai", "Kaiti SC", STKaiti, KaiTi, serif;
+  font-size: 0.76cqw;
+  font-weight: 700;
+  line-height: 1.12;
+  pointer-events: none;
+  transform: translate(0.7cqw, -50%);
+  transition:
+    opacity 180ms ease,
+    transform 240ms cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+.navNode[data-active="true"] .navNodeLabel,
+.navNode[data-touch-preview="true"] .navNodeLabel,
+.navNode:hover .navNodeLabel,
+.navNode:focus-visible .navNodeLabel {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+.navNode:focus-visible {
+  outline: 0.15cqw solid var(--wt-blue);
+  outline-offset: 0.2cqw;
+}
+
+.navNode:active .navNodeDot {
+  transform: scale(0.86);
+}

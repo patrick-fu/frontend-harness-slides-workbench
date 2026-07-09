@@ -31,6 +31,8 @@ import { betterQuestionTopic } from "./04-better-question";
 import { resilienceBlueprintTopic } from "./05-resilience-blueprint";
 import { oneConstraintWinsTopic } from "./06-one-constraint-wins";
 import { humanLoopRetrofitTopic } from "./07-human-loop-retrofit";
+import { beforeATopic } from "./06-before-a";
+import { stadiumWaveTopic } from "./07-stadium-wave";
 import { sentenceWeKeepTopic } from "./08-sentence-we-keep";
 import ProcessFlow09, {
   getMetadata as getMetadata09,
@@ -60,6 +62,7 @@ import { threeTracksReleaseTopic } from "./09-three-tracks-release";
 import { durableToolTopic } from "./10-durable-tool";
 import { eventToInsightTopic } from "./11-event-to-insight";
 import { engineeringWhiteboardExplainerTopic } from "./engineering-whiteboard-explainer";
+import { waterTowerTopic } from "./engineering-whiteboard-water-tower";
 import { onboardingThatBreathesTopic } from "./12-onboarding-that-breathes";
 import { rawNotesCleanBriefTopic } from "./13-raw-notes-clean-brief";
 import { twoTeamsOneArtifactTopic } from "./14-two-teams-one-artifact";
@@ -267,6 +270,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata06,
     },
     oneConstraintWinsTopic,
+    beforeATopic,
   ]),
   buildEntry("sketch-board-emoji", [
     {
@@ -277,6 +281,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata07,
     },
     humanLoopRetrofitTopic,
+    stadiumWaveTopic,
   ]),
   buildEntry("spotlight-quote-poster", [
     {
@@ -321,6 +326,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
   ]),
   buildEntry("engineering-whiteboard-explainer", [
     engineeringWhiteboardExplainerTopic,
+    waterTowerTopic,
   ]),
   buildEntry("soft-pastel-friendly", [
     {

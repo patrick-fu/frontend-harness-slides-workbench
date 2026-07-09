@@ -1,0 +1,775 @@
+.root {
+  --style-06-before-bg: #070706;
+  --style-06-before-ink: #fff5df;
+  --style-06-before-accent: #ef3f24;
+  --style-06-before-display: "Anton", "Noto Sans SC", sans-serif;
+  --style-06-before-body: "Noto Sans SC", sans-serif;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  overflow: hidden;
+  background: var(--style-06-before-bg);
+  color: var(--style-06-before-ink);
+  font-family: var(--style-06-before-body);
+  user-select: none;
+}
+
+.track {
+  width: 100%;
+  height: 100%;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sceneOne,
+.sceneTwo {
+  background: var(--style-06-before-bg);
+  color: var(--style-06-before-ink);
+}
+
+.sceneThree,
+.sceneFive {
+  background: var(--style-06-before-ink);
+  color: var(--style-06-before-bg);
+}
+
+.sceneFour {
+  background: var(--style-06-before-accent);
+  color: var(--style-06-before-bg);
+}
+
+.sceneOneLayout,
+.sceneTwoLayout,
+.sceneThreeLayout,
+.sceneFourLayout,
+.sceneFiveLayout {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.kicker {
+  margin: 0;
+  font-family: var(--style-06-before-display);
+  font-size: 1.45cqw;
+  line-height: 1;
+  letter-spacing: 0.13cqw;
+  text-transform: uppercase;
+}
+
+.support {
+  max-width: 37cqw;
+  margin: 0;
+  font-family: var(--style-06-before-body);
+  font-size: 1.75cqw;
+  font-weight: 900;
+  line-height: 1.18;
+}
+
+.sourceCue {
+  position: absolute;
+  right: 4cqw;
+  bottom: 2.5cqh;
+  z-index: 8;
+  max-width: 74cqw;
+  margin: 0;
+  font-family: var(--style-06-before-body);
+  font-size: 0.83cqw;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.055cqw;
+  text-align: right;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.glyph {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  color: inherit;
+}
+
+.glyphStroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 12;
+  stroke-linecap: square;
+  stroke-linejoin: bevel;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Scene 1 — the familiar form is a cropped object, not a title card. */
+
+.sceneOneLayout {
+  display: grid;
+  grid-template-columns: 42cqw 1fr;
+  align-items: center;
+  padding: 6cqh 2cqw 6cqh 11cqw;
+}
+
+.sceneOneCopy {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  align-content: center;
+  gap: 3.4cqh;
+}
+
+.beforeTitle {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--style-06-before-display);
+  font-size: 10.8cqw;
+  font-weight: 900;
+  line-height: 0.76;
+  letter-spacing: -0.12cqw;
+  text-transform: uppercase;
+}
+
+.beforeAccent {
+  width: max-content;
+  margin-top: 1cqh;
+  padding: 0.8cqh 1.2cqw 1.5cqh;
+  background: var(--style-06-before-accent);
+  color: var(--style-06-before-bg);
+  transform: rotate(-2deg);
+}
+
+.modernAHero {
+  position: relative;
+  z-index: 1;
+  width: 49cqw;
+  height: 86cqh;
+  color: var(--style-06-before-ink);
+  transform: translateX(1cqw);
+}
+
+.modernAHero > .glyph:first-child {
+  position: relative;
+  z-index: 2;
+}
+
+.modernAGhost {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  color: var(--style-06-before-accent);
+  opacity: 0.64;
+  transform: translate(1.4cqw, 1.2cqh);
+}
+
+.zh .beforeTitle {
+  font-size: 8.8cqw;
+  line-height: 0.88;
+}
+
+/* Scene 2 — the pictorial hypothesis lives in a hard split field. */
+
+.sceneTwoLayout {
+  display: grid;
+  grid-template-columns: 43cqw 1fr;
+  padding-left: 11cqw;
+}
+
+.headCopy {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  align-content: center;
+  gap: 3.6cqh;
+  padding: 6cqh 4cqw 8cqh 0;
+}
+
+.headTitle {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--style-06-before-display);
+  font-size: 8.2cqw;
+  font-weight: 900;
+  line-height: 0.78;
+  letter-spacing: -0.08cqw;
+  text-transform: uppercase;
+}
+
+.headTitle span:nth-child(2) {
+  color: var(--style-06-before-accent);
+  transform: translateX(3cqw);
+}
+
+.headField {
+  position: relative;
+  display: grid;
+  place-items: center;
+  background: var(--style-06-before-accent);
+  color: var(--style-06-before-bg);
+  border-left: 0.45cqw solid var(--style-06-before-ink);
+}
+
+.headField > .glyph {
+  width: 34cqw;
+  height: 66cqh;
+  transform: rotate(88deg);
+}
+
+.headLabelStrip {
+  position: absolute;
+  left: 2.2cqw;
+  right: 2.2cqw;
+  bottom: 8cqh;
+  display: flex;
+  justify-content: space-between;
+  border-top: 0.24cqw solid currentColor;
+  padding-top: 1.5cqh;
+  font-family: var(--style-06-before-display);
+  font-size: 1.15cqw;
+  line-height: 1;
+  letter-spacing: 0.07cqw;
+  text-transform: uppercase;
+}
+
+.zh .headTitle {
+  font-size: 7.4cqw;
+  line-height: 0.94;
+}
+
+/* Scene 3 — two sourced samples, with the historical gap made visible. */
+
+.sceneThreeLayout {
+  display: grid;
+  grid-template-rows: 18cqh 56cqh 9cqh;
+  gap: 2cqh;
+  padding: 5cqh 4cqw 6cqh 11cqw;
+}
+
+.lineageHeader {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 3cqw;
+}
+
+.lineageHeader h2 {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  margin: 0;
+  font-family: var(--style-06-before-display);
+  font-size: 5.8cqw;
+  line-height: 0.78;
+  letter-spacing: -0.06cqw;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.lineageHeader h2 span:last-child {
+  color: var(--style-06-before-accent);
+}
+
+.lineageNodes {
+  display: grid;
+  grid-template-columns: 1fr 6cqw 1fr;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.lineageNode {
+  position: relative;
+  display: grid;
+  grid-template-columns: 16cqw 1fr;
+  grid-template-rows: 1fr auto auto;
+  align-items: center;
+  padding: 2cqh 2cqw;
+  border: 0.38cqw solid currentColor;
+  background: var(--style-06-before-bg);
+  color: var(--style-06-before-ink);
+  transition:
+    opacity 150ms steps(2, end),
+    transform 280ms cubic-bezier(0.2, 0.9, 0.12, 1);
+}
+
+.lineageNode > .glyph {
+  grid-row: 1 / 4;
+  width: 14cqw;
+  height: 38cqh;
+  color: var(--style-06-before-accent);
+}
+
+.lineageNode h3 {
+  align-self: end;
+  margin: 0;
+  font-family: var(--style-06-before-display);
+  font-size: 3cqw;
+  line-height: 0.88;
+  letter-spacing: -0.02cqw;
+  text-transform: uppercase;
+}
+
+.lineageNode p {
+  align-self: start;
+  margin: 1.4cqh 0 0;
+  font-family: var(--style-06-before-body);
+  font-size: 1.25cqw;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.nodeNumber {
+  align-self: start;
+  justify-self: end;
+  padding: 0.8cqh 0.7cqw;
+  background: var(--style-06-before-accent);
+  color: var(--style-06-before-bg);
+  font-family: var(--style-06-before-display);
+  font-size: 1.25cqw;
+  line-height: 1;
+}
+
+.greekNode {
+  background: var(--style-06-before-accent);
+  color: var(--style-06-before-bg);
+}
+
+.greekNode > .glyph {
+  color: var(--style-06-before-bg);
+}
+
+.greekNode .nodeNumber {
+  background: var(--style-06-before-bg);
+  color: var(--style-06-before-ink);
+}
+
+.lineageGap {
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  place-items: center;
+  padding: 1cqh 0;
+}
+
+.lineageGap span {
+  width: 0.25cqw;
+  height: 100%;
+  background: currentColor;
+}
+
+.lineageGap b {
+  font-family: var(--style-06-before-display);
+  font-size: 3.2cqw;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--style-06-before-accent);
+}
+
+.lineageSupport {
+  max-width: 77cqw;
+  margin: 0;
+  font-family: var(--style-06-before-body);
+  font-size: 1.35cqw;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.zh .lineageHeader h2 {
+  font-size: 4.7cqw;
+  line-height: 0.96;
+}
+
+.zh .lineageNode h3 {
+  font-size: 2.4cqw;
+}
+
+/* Scene 4 — the signature comparison keeps every previous outline. */
+
+.sceneFourLayout {
+  display: grid;
+  grid-template-rows: 15cqh 1fr 9cqh;
+  padding: 5cqh 4cqw 6cqh 11cqw;
+}
+
+.morphHeader {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  justify-content: space-between;
+  gap: 2cqw;
+}
+
+.morphHeader h2 {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  margin: 0;
+  font-family: var(--style-06-before-display);
+  font-size: 4.5cqw;
+  line-height: 0.78;
+  letter-spacing: -0.04cqw;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.morphHeader h2 span:nth-child(2) {
+  color: var(--style-06-before-ink);
+}
+
+.morphStage {
+  position: relative;
+  display: grid;
+  min-height: 0;
+  place-items: center;
+  border-top: 0.36cqw solid currentColor;
+  border-bottom: 0.36cqw solid currentColor;
+  overflow: hidden;
+}
+
+.blindBars {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  pointer-events: none;
+}
+
+.blindBars span {
+  border-right: 0.16cqw solid currentColor;
+  opacity: 0.16;
+}
+
+.phaseGlyph {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  width: 34cqw;
+  height: 58cqh;
+  place-items: center;
+  transition:
+    opacity 140ms steps(2, end),
+    transform 360ms cubic-bezier(0.18, 0.88, 0.18, 1);
+}
+
+.phaseGlyph > .glyph {
+  position: absolute;
+  inset: 0;
+}
+
+.phaseGlyph > span {
+  position: absolute;
+  right: -12cqw;
+  bottom: 4cqh;
+  padding: 0.9cqh 0.8cqw;
+  background: var(--style-06-before-bg);
+  color: var(--style-06-before-ink);
+  font-family: var(--style-06-before-display);
+  font-size: 1.4cqw;
+  line-height: 1;
+  letter-spacing: 0.05cqw;
+  text-transform: uppercase;
+}
+
+.phaseCurrent {
+  opacity: 1;
+  color: var(--style-06-before-bg);
+}
+
+.phaseGhost {
+  opacity: 0.22;
+  color: var(--style-06-before-ink);
+  transform: translate(-4cqw, 2cqh) rotate(-8deg) scale(0.92);
+}
+
+.phaseFuture {
+  opacity: 0;
+  color: var(--style-06-before-bg);
+  transform: translate(7cqw, -4cqh) rotate(12deg) scale(1.08);
+}
+
+.phaseGlyph[data-phase="0"].phaseCurrent {
+  transform: rotate(-16deg) scale(1);
+}
+
+.phaseGlyph[data-phase="1"].phaseCurrent {
+  transform: rotate(0) scale(1);
+}
+
+.phaseGlyph[data-phase="2"].phaseCurrent {
+  transform: rotate(0) scale(1.08);
+}
+
+.oldItalicStamp {
+  position: absolute;
+  right: 2cqw;
+  bottom: 2cqh;
+  z-index: 5;
+  display: grid;
+  width: 9cqw;
+  height: 18cqh;
+  place-items: center;
+  border: 0.28cqw solid currentColor;
+  background: var(--style-06-before-accent);
+  transition:
+    opacity 120ms steps(2, end),
+    transform 250ms cubic-bezier(0.2, 0.9, 0.12, 1);
+}
+
+.oldItalicStamp > .glyph {
+  width: 6cqw;
+  height: 12cqh;
+}
+
+.oldItalicStamp > span {
+  position: absolute;
+  left: 0.4cqw;
+  bottom: 0.4cqh;
+  font-family: var(--style-06-before-display);
+  font-size: 0.8cqw;
+  line-height: 1;
+}
+
+.morphSupport {
+  align-self: center;
+  max-width: 72cqw;
+  margin: 0;
+  font-family: var(--style-06-before-body);
+  font-size: 1.35cqw;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.zh .morphHeader h2 {
+  font-size: 3.7cqw;
+  line-height: 0.9;
+}
+
+/* Scene 5 — the modern letter becomes a flat cut-paper evidence field. */
+
+.sceneFiveLayout {
+  display: grid;
+  grid-template-columns: 54cqw 1fr;
+  grid-template-rows: 8cqh 1fr;
+  gap: 2cqh 2cqw;
+  padding: 5cqh 4cqw 6cqh 11cqw;
+}
+
+.sceneFiveLayout > .kicker {
+  grid-column: 1 / -1;
+}
+
+.finalGlyphField {
+  position: relative;
+  align-self: stretch;
+  min-height: 0;
+  border-right: 0.4cqw solid currentColor;
+  overflow: hidden;
+}
+
+.finalA {
+  position: absolute;
+  left: 1cqw;
+  top: -2cqh;
+  width: 46cqw;
+  height: 76cqh;
+  color: var(--style-06-before-accent);
+}
+
+.finalCut {
+  position: absolute;
+  z-index: 3;
+  color: var(--style-06-before-ink);
+  transition:
+    opacity 120ms steps(2, end),
+    transform 300ms cubic-bezier(0.2, 0.9, 0.12, 1);
+}
+
+.headCut {
+  left: 15cqw;
+  top: 4cqh;
+  width: 16cqw;
+  height: 25cqh;
+  transform: rotate(88deg);
+}
+
+.alfCut {
+  left: 4cqw;
+  bottom: 9cqh;
+  width: 15cqw;
+  height: 23cqh;
+  transform: rotate(-12deg);
+}
+
+.alphaCut {
+  right: 5cqw;
+  bottom: 8cqh;
+  width: 14cqw;
+  height: 24cqh;
+}
+
+.headCut.revealed {
+  transform: rotate(88deg) translateY(0) scale(1);
+}
+
+.headCut.concealed {
+  transform: rotate(88deg) translateY(3cqh) scale(1.06);
+}
+
+.alfCut.revealed {
+  transform: rotate(-12deg) translateY(0) scale(1);
+}
+
+.alfCut.concealed {
+  transform: rotate(-12deg) translateY(3cqh) scale(1.06);
+}
+
+.finalPunch {
+  align-self: center;
+  display: grid;
+  gap: 3cqh;
+  padding: 3cqh 2.2cqw;
+  background: var(--style-06-before-bg);
+  color: var(--style-06-before-ink);
+  transform: rotate(1deg);
+  transition:
+    opacity 130ms steps(2, end),
+    transform 330ms cubic-bezier(0.18, 0.88, 0.18, 1);
+}
+
+.finalPunch h2 {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--style-06-before-display);
+  font-size: 6.1cqw;
+  line-height: 0.8;
+  letter-spacing: -0.05cqw;
+  text-transform: uppercase;
+}
+
+.finalPunch h2 span:last-child {
+  color: var(--style-06-before-accent);
+}
+
+.finalPunch p {
+  margin: 0;
+  font-family: var(--style-06-before-body);
+  font-size: 1.45cqw;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.finalPunch.revealed {
+  transform: rotate(1deg) translateY(0) scale(1);
+}
+
+.finalPunch.concealed {
+  transform: rotate(1deg) translateY(3cqh) scale(1.06);
+}
+
+.zh .finalPunch h2 {
+  font-size: 5cqw;
+  line-height: 0.96;
+}
+
+.concealed {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(3cqh) scale(1.06);
+}
+
+.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Persistent typographic index — material color is the feedback. */
+
+.lineageNav {
+  position: absolute;
+  left: 1.2cqw;
+  top: 8cqh;
+  bottom: 8cqh;
+  z-index: 20;
+  display: flex;
+  width: 6.5cqw;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 0.32cqw solid currentColor;
+  color: inherit;
+}
+
+.lightScene .lineageNav {
+  color: var(--style-06-before-bg);
+}
+
+.eraButton {
+  display: grid;
+  width: 6.5cqw;
+  min-height: 7.6cqh;
+  place-items: center start;
+  padding: 1cqh 0.8cqw;
+  border: 0;
+  border-top: 0.22cqw solid currentColor;
+  background: var(--style-06-before-bg);
+  color: var(--style-06-before-ink);
+  font-family: var(--style-06-before-display);
+  font-size: 1.45cqw;
+  line-height: 1;
+  letter-spacing: 0.04cqw;
+  text-align: left;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color 110ms steps(2, end),
+    color 110ms steps(2, end),
+    transform 180ms cubic-bezier(0.2, 0.9, 0.12, 1);
+}
+
+.eraButton:hover,
+.eraButton:focus-visible {
+  outline: 0.28cqw solid currentColor;
+  outline-offset: 0.18cqw;
+  transform: translateX(0.5cqw);
+}
+
+.eraActive {
+  background: var(--style-06-before-accent);
+  color: var(--style-06-before-bg);
+  transform: translateX(0.7cqw);
+}
+
+.thumbnail .lineageNav {
+  display: none;
+}
+
+.thumbnail .sourceCue {
+  opacity: 0.72;
+}
+
+.thumbnail .sceneOneLayout,
+.thumbnail .sceneTwoLayout,
+.thumbnail .sceneThreeLayout,
+.thumbnail .sceneFourLayout,
+.thumbnail .sceneFiveLayout {
+  padding-left: 6cqw;
+}
+
+.reducedMotion *,
+.reducedMotion *::before,
+.reducedMotion *::after {
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  scroll-behavior: auto !important;
+}

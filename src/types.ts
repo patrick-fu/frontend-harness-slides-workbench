@@ -1,3 +1,5 @@
+import type { SceneTransitionKind } from "./styles/SpatialSceneTrack";
+
 /**
  * Props interface for every Style component.
  *
@@ -81,6 +83,61 @@ export interface StyleMetadata {
   }>;
 }
 
+export const TOPIC_NAVIGATION_GEOMETRIES = [
+  "ambient",
+  "edge-scale",
+  "path",
+  "object-controller",
+  "card-miniature",
+  "typographic-index",
+  "spatial-node",
+] as const;
+
+export const TOPIC_NAVIGATION_INVOCATIONS = [
+  "persistent",
+  "auto-hide",
+  "proximity-reveal",
+  "click-expand",
+  "drag-scrub",
+  "keyboard-focus",
+  "gesture-hold",
+] as const;
+
+export const TOPIC_NAVIGATION_FEEDBACK = [
+  "active-glow",
+  "history-trail",
+  "next-state-preview",
+  "mechanical-displacement",
+  "geometry-reflow",
+  "material-color-change",
+  "typographic-emphasis",
+] as const;
+
+/** Three independent axes that keep coordinated topic navigation diverse. */
+export interface TopicNavigationProfile {
+  geometry: (typeof TOPIC_NAVIGATION_GEOMETRIES)[number];
+  /** Stable, topic-specific carrier slug; unique inside a coordinated Topic Set. */
+  carrier: string;
+  invocation: (typeof TOPIC_NAVIGATION_INVOCATIONS)[number];
+  feedback: (typeof TOPIC_NAVIGATION_FEEDBACK)[number];
+}
+
+/** One claim-scoped, traceable source in a coordinated Topic facts packet. */
+export interface TopicSource {
+  authority?: string;
+  title?: string;
+  citation?: string;
+  url: string;
+  supports: string;
+}
+
+export interface TopicTransitionScore {
+  "1->2": SceneTransitionKind;
+  "2->3": SceneTransitionKind;
+  "3->4": SceneTransitionKind;
+  "4->5": SceneTransitionKind;
+}
+
 /** A single topic implementation of a Style, produced by one Agent/model. */
 export interface StyleTopic {
   /** Stable topic ID, e.g. "product-keynote" or "quiet-launch". */
@@ -93,6 +150,12 @@ export interface StyleTopic {
   component: React.ComponentType<BespokeStyleProps>;
   /** Returns localized metadata for this topic. */
   getMetadata: (lang: "en" | "zh") => StyleMetadata;
+  /** Optional for legacy topics; required by coordinated Topic Set protocols. */
+  navigation?: TopicNavigationProfile;
+  /** Optional for legacy topics; coordinated Topic Sets carry at least 3. */
+  sources?: readonly TopicSource[];
+  /** Four authored scene edges; optional for legacy topics. */
+  transitionScore?: Readonly<TopicTransitionScore>;
 }
 
 /** A single entry in the Style registry — one Style with one or more Topics. */

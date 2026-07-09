@@ -48,6 +48,16 @@ describe("STYLE_REGISTRY topic catalog", () => {
     expect(whiteboardIndex).toBe(signalIndex + 1);
     expect(STYLE_REGISTRY[whiteboardIndex].topics.map((topic) => topic.id)).toEqual([
       "from-prompt-to-patch",
+      "water-tower",
     ]);
+  });
+
+  it("registers the first coordinated Topic Set batch", () => {
+    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(100);
+    expect(findTopic("kinetic-type-punchline", "before-a")).toBeDefined();
+    expect(findTopic("sketch-board-emoji", "stadium-wave")).toBeDefined();
+    expect(
+      findTopic("engineering-whiteboard-explainer", "water-tower"),
+    ).toBeDefined();
   });
 });

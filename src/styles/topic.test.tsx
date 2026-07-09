@@ -48,6 +48,52 @@ describe("style topic protocol", () => {
     expect(entry.topics[0].model).toBe("protocol-test");
   });
 
+  it("preserves the three-axis navigation profile for coordinated topic sets", () => {
+    const protocolTopic = defineStyleTopic({
+      id: "navigation-language",
+      topic: { en: "Navigation Language", zh: "导航语言" },
+      model: "protocol-test",
+      component: TestComponent,
+      getMetadata: () => makeMetadata("decision-record"),
+      navigation: {
+        geometry: "path",
+        carrier: "counterweight-cable",
+        invocation: "proximity-reveal",
+        feedback: "geometry-reflow",
+      },
+      sources: [
+        {
+          authority: "Protocol Institute",
+          title: "Navigation evidence",
+          url: "https://example.com/navigation-evidence",
+          supports: "The test protocol preserves a traceable source packet.",
+        },
+      ],
+      transitionScore: {
+        "1->2": "crossfade",
+        "2->3": "push-x",
+        "3->4": "focus-swap",
+        "4->5": "hard-cut",
+      },
+    });
+
+    const entry = buildStyleRegistryEntry("decision-record", [protocolTopic]);
+
+    expect(entry.topics[0].navigation).toEqual({
+      geometry: "path",
+      carrier: "counterweight-cable",
+      invocation: "proximity-reveal",
+      feedback: "geometry-reflow",
+    });
+    expect(entry.topics[0].sources).toHaveLength(1);
+    expect(entry.topics[0].transitionScore).toEqual({
+      "1->2": "crossfade",
+      "2->3": "push-x",
+      "3->4": "focus-swap",
+      "4->5": "hard-cut",
+    });
+  });
+
   it("rejects incomplete topic modules instead of generating legacy IDs", () => {
     expect(() =>
       buildStyleRegistryEntry("decision-record", [
@@ -128,5 +174,23 @@ describe("style topic protocol", () => {
         duplicateTopic,
       ]),
     ).toThrow(/Duplicate topic id "legacy"/);
+  });
+
+  it("rejects a coordinated navigation profile without a stable carrier slug", () => {
+    expect(() =>
+      defineStyleTopic({
+        id: "bad-navigation",
+        topic: { en: "Bad Navigation", zh: "错误导航" },
+        model: "protocol-test",
+        component: TestComponent,
+        getMetadata: () => makeMetadata("decision-record"),
+        navigation: {
+          geometry: "path",
+          carrier: "Counterweight cable",
+          invocation: "persistent",
+          feedback: "active-glow",
+        },
+      }),
+    ).toThrow(/navigation carrier/);
   });
 });

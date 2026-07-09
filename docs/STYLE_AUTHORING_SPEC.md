@@ -316,6 +316,11 @@ const { ref: contentRef } = useFLIP<HTMLDivElement>({
 
 - 如果实现了场景导航条，使用 `onNavigate?.(targetScene, 0)` 跳转
 - 导航元素在 `isThumbnail` 时必须隐藏（`return null`）
+- 新 Topic Set 的导航元素必须标记 `data-topic-navigation="true"`，并把已声明的
+  `geometry`、`carrier`、`invocation`、`feedback` 分别暴露为
+  `data-navigation-geometry`、`data-navigation-carrier`、
+  `data-navigation-invocation`、`data-navigation-feedback`。这些属性只用于协议与
+  可访问性审计，不限制导航的视觉构图。
 - 导航形式自由发挥：底部圆点、侧边标签、时间轴、滚轮选择器等
 
 ### 5.6 字体

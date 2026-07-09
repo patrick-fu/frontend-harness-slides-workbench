@@ -786,6 +786,22 @@ test.describe("Pure mode", () => {
     await expect(page.locator('[data-testid="header"]')).toBeVisible();
     await expect(page.locator('[data-testid="sidebar"]')).toBeVisible();
   });
+
+  test("pure=1 keeps semantic headers inside the active slide visible", async ({
+    page,
+  }) => {
+    await openLab(page, "sketch-board-emoji", 4, 4, {
+      topic: "stadium-wave",
+      pure: true,
+      frozen: true,
+    });
+
+    await expect(
+      page.locator(
+        '[data-testid="spatial-scene-panel"][data-active="true"] header',
+      ),
+    ).toBeVisible();
+  });
 });
 
 // ─── 5: Frozen mode works ──────────────────────────────────────────────────

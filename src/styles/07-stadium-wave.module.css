@@ -1,0 +1,741 @@
+.root {
+  --paper: #f5ead2;
+  --paper-light: #fff7e4;
+  --paper-deep: #e4cca5;
+  --ink: #302a25;
+  --muted: #756759;
+  --yellow: #f4d77f;
+  --blue: #8fc9d5;
+  --red: #db7f72;
+  --green: #9dbb79;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: size;
+  user-select: none;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(244, 215, 127, 0.34), transparent 24%),
+    radial-gradient(circle at 86% 77%, rgba(143, 201, 213, 0.22), transparent 25%),
+    linear-gradient(128deg, var(--paper-light), var(--paper) 57%, #ecd9b8);
+  font-family: "Inter", "Noto Sans SC", sans-serif;
+}
+
+.paperTexture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.52;
+  background-image:
+    linear-gradient(rgba(48, 42, 37, 0.035) 0.07cqh, transparent 0.07cqh),
+    linear-gradient(90deg, rgba(48, 42, 37, 0.025) 0.05cqw, transparent 0.05cqw),
+    radial-gradient(circle, rgba(48, 42, 37, 0.08) 0.05cqw, transparent 0.07cqw);
+  background-size: 5.2cqw 5.2cqh, 5.8cqw 5.8cqh, 1.5cqw 1.5cqh;
+  mix-blend-mode: multiply;
+}
+
+.track {
+  position: relative;
+  z-index: 1;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 30cqw 1fr;
+  gap: 3.7cqw;
+  padding: 6.4cqh 5.5cqw 7.2cqh;
+}
+
+.scene3,
+.scene4 {
+  grid-template-columns: 31cqw 1fr;
+}
+
+.scene5 {
+  grid-template-columns: 40cqw 1fr;
+}
+
+.header {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.7cqh;
+  min-width: 0;
+  transform: rotate(-0.45deg);
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--muted);
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 1.55cqw;
+  line-height: 1;
+  letter-spacing: 0.055cqw;
+}
+
+.header h1 {
+  margin: 0;
+  max-width: 29cqw;
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 4.75cqw;
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.04cqw;
+  text-wrap: balance;
+}
+
+.scene5 .header h1 {
+  max-width: 39cqw;
+  font-size: 4.45cqw;
+}
+
+.root[lang="zh"] .header h1 {
+  font-size: 4.18cqw;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.root[lang="zh"] .scene5 .header h1 {
+  font-size: 4cqw;
+}
+
+.body {
+  max-width: 28cqw;
+  margin: 0;
+  color: rgba(48, 42, 37, 0.8);
+  font-size: 1.24cqw;
+  font-weight: 600;
+  line-height: 1.48;
+}
+
+.scene5 .body {
+  max-width: 36cqw;
+  font-size: 1.28cqw;
+}
+
+.root[lang="zh"] .body {
+  font-size: 1.3cqw;
+  line-height: 1.65;
+}
+
+.board {
+  position: relative;
+  align-self: center;
+  height: 78cqh;
+  min-width: 0;
+  overflow: hidden;
+  border: 0.15cqw solid rgba(48, 42, 37, 0.6);
+  border-radius: 2.5cqw 1.8cqw 2.25cqw 1.65cqw;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.08)),
+    var(--paper);
+  box-shadow:
+    0.7cqw 1cqh 0 rgba(48, 42, 37, 0.1),
+    inset 0 0 0 0.3cqw rgba(255, 255, 255, 0.22);
+  transform: rotate(0.25deg);
+}
+
+.scene2 .board,
+.scene4 .board {
+  transform: rotate(-0.25deg);
+}
+
+.scene5 .board {
+  height: 62cqh;
+  transform: rotate(0.18deg);
+}
+
+.board::before {
+  content: "";
+  position: absolute;
+  inset: 2.3cqh 1.8cqw;
+  border: 0.1cqw dashed rgba(48, 42, 37, 0.17);
+  border-radius: 2cqw 1.5cqw 1.8cqw 1.4cqw;
+  pointer-events: none;
+}
+
+.blueTape,
+.redTape {
+  position: absolute;
+  z-index: 9;
+  width: 7cqw;
+  height: 2.3cqh;
+  border: 0.07cqw solid rgba(48, 42, 37, 0.12);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.blueTape {
+  top: 1.4cqh;
+  left: 9cqw;
+  background: rgba(143, 201, 213, 0.55);
+  transform: rotate(-3deg);
+}
+
+.redTape {
+  right: 8cqw;
+  bottom: 1.3cqh;
+  background: rgba(219, 127, 114, 0.42);
+  transform: rotate(2.5deg);
+}
+
+.boardNote {
+  position: absolute;
+  right: 2.6cqw;
+  bottom: 3cqh;
+  z-index: 8;
+  max-width: 22cqw;
+  padding: 1.1cqh 1.2cqw 1.25cqh;
+  border: 0.11cqw solid rgba(48, 42, 37, 0.34);
+  border-radius: 0.38cqw 0.55cqw 0.44cqw 0.64cqw;
+  color: rgba(48, 42, 37, 0.82);
+  background: rgba(244, 215, 127, 0.88);
+  box-shadow: 0.34cqw 0.5cqh 0 rgba(48, 42, 37, 0.1);
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 1.35cqw;
+  line-height: 1.05;
+  transform: rotate(-1.4deg);
+}
+
+.root[lang="zh"] .boardNote {
+  font-size: 1.26cqw;
+  line-height: 1.25;
+}
+
+.beatTag {
+  position: absolute;
+  left: 2.6cqw;
+  top: 2.6cqh;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+  padding: 0.6cqh 0.9cqw 0.75cqh;
+  border: 0.11cqw solid rgba(48, 42, 37, 0.42);
+  border-radius: 45% 55% 48% 52%;
+  background: rgba(255, 247, 228, 0.78);
+  transform: rotate(1deg);
+}
+
+.beatTag span {
+  display: grid;
+  width: 2.25cqw;
+  height: 2.25cqw;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--paper-light);
+  background: var(--ink);
+  font-family: "Inter", sans-serif;
+  font-size: 0.75cqw;
+  font-weight: 700;
+}
+
+.beatTag strong {
+  max-width: 12cqw;
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 1.25cqw;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.source {
+  position: absolute;
+  left: 5.7cqw;
+  bottom: 3.2cqh;
+  max-width: 48cqw;
+  color: rgba(48, 42, 37, 0.54);
+  font-size: 0.72cqw;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.025cqw;
+}
+
+.stadium {
+  position: absolute;
+  inset: 8.5cqh 4cqw 9cqh;
+  z-index: 2;
+}
+
+.stadiumScene1 {
+  inset: 8.2cqh 2.8cqw 8.4cqh;
+}
+
+.stadiumScene3,
+.stadiumScene4 {
+  inset: 8.7cqh 4.8cqw 8.6cqh;
+}
+
+.stadiumLines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.outerBowl,
+.innerBowl,
+.pitch {
+  fill: none;
+  stroke: rgba(48, 42, 37, 0.58);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.outerBowl {
+  stroke-width: 0.8;
+  stroke-dasharray: 2.7 1.8;
+}
+
+.innerBowl {
+  stroke-width: 0.7;
+  stroke-dasharray: 1.3 1.4;
+}
+
+.pitch {
+  fill: rgba(157, 187, 121, 0.17);
+  stroke-width: 0.55;
+  transform: rotate(-2deg);
+  transform-origin: center;
+}
+
+.waveTrace {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  transition: stroke-dashoffset 680ms cubic-bezier(0.22, 1, 0.36, 1);
+  filter: drop-shadow(0 0 0.45cqw rgba(219, 127, 114, 0.34));
+}
+
+.breakMark {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  animation: breakIn 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.pitchLabel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 13cqw;
+  text-align: center;
+  color: rgba(48, 42, 37, 0.56);
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 1.32cqw;
+  line-height: 1;
+  transform: translate(-50%, -50%) rotate(-1deg);
+}
+
+.actor {
+  position: absolute;
+  left: var(--actor-x);
+  top: var(--actor-y);
+  z-index: 4;
+  width: 5.2cqw;
+  height: 9.3cqh;
+  pointer-events: none;
+  transform: translate(-50%, -50%) rotate(var(--actor-r));
+  transform-origin: center bottom;
+}
+
+.actorCompact {
+  width: 3.65cqw;
+  height: 6.6cqh;
+}
+
+.seat {
+  position: absolute;
+  left: 50%;
+  bottom: 0.25cqh;
+  width: 3.5cqw;
+  height: 3.3cqh;
+  border: 0.11cqw solid rgba(48, 42, 37, 0.66);
+  border-radius: 0.65cqw 0.65cqw 0.45cqw 0.45cqw;
+  background: var(--seat-color);
+  box-shadow: 0.23cqw 0.32cqh 0 rgba(48, 42, 37, 0.1);
+  transform: translateX(-50%);
+  transition:
+    opacity 240ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.seat::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1.4cqh;
+  width: 2.4cqw;
+  height: 1.5cqh;
+  border-right: 0.11cqw solid rgba(48, 42, 37, 0.55);
+  border-bottom: 0.11cqw solid rgba(48, 42, 37, 0.55);
+  border-left: 0.11cqw solid rgba(48, 42, 37, 0.55);
+  transform: translateX(-50%);
+}
+
+.actorCompact .seat {
+  width: 2.45cqw;
+  height: 2.35cqh;
+  border-width: 0.08cqw;
+}
+
+.actorArt {
+  position: absolute;
+  left: 50%;
+  bottom: 0.5cqh;
+  width: 4.7cqw;
+  height: 8.4cqh;
+  object-fit: contain;
+  object-position: center bottom;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+  transition:
+    transform 460ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 320ms ease,
+    opacity 280ms ease;
+}
+
+.actorCompact .actorArt {
+  width: 3.3cqw;
+  height: 5.9cqh;
+}
+
+.actorSeated .actorArt {
+  opacity: 0.84;
+  transform: translate(-50%, 2.05cqh) scaleX(0.86) scaleY(0.62);
+}
+
+.actorCompact.actorSeated .actorArt {
+  transform: translate(-50%, 1.55cqh) scaleX(0.84) scaleY(0.6);
+}
+
+.actorWatching .actorArt {
+  opacity: 0.9;
+  transform: translate(-47%, 1.65cqh) rotate(-9deg) scaleX(0.88) scaleY(0.72);
+  animation: lookNext 440ms cubic-bezier(0.34, 1.56, 0.64, 1) var(--actor-delay) both;
+}
+
+.actorStanding .seat,
+.actorRaised .seat {
+  opacity: 0.32;
+  transform: translateX(-50%) scaleX(0.88);
+}
+
+.actorStanding .actorArt {
+  filter: drop-shadow(0 0.45cqh 0 rgba(48, 42, 37, 0.14));
+  animation: standUp 540ms cubic-bezier(0.34, 1.56, 0.64, 1) var(--actor-delay) both;
+}
+
+.actorRaised .actorArt {
+  width: 5.45cqw;
+  filter: drop-shadow(0 0.5cqh 0 rgba(48, 42, 37, 0.14));
+  animation: raiseHand 620ms cubic-bezier(0.34, 1.56, 0.64, 1) var(--actor-delay) both;
+}
+
+.actorCompact.actorRaised .actorArt {
+  width: 3.85cqw;
+}
+
+.localRule {
+  position: absolute;
+  inset: 8cqh 3cqw 8.5cqh;
+  z-index: 2;
+}
+
+.ruleArrow {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 14%;
+  width: 92%;
+  height: 26%;
+  overflow: visible;
+}
+
+.ruleArrow path {
+  fill: none;
+  stroke: rgba(48, 42, 37, 0.72);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 2.6 1.5;
+}
+
+.ruleLabels {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  top: 4%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1cqw;
+}
+
+.ruleLabels span {
+  min-height: 4.8cqh;
+  display: grid;
+  place-items: center;
+  border: 0.1cqw solid rgba(48, 42, 37, 0.28);
+  border-radius: 0.35cqw 0.6cqw 0.4cqw 0.52cqw;
+  color: rgba(48, 42, 37, 0.45);
+  background: rgba(255, 247, 228, 0.5);
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 1.25cqw;
+  line-height: 1;
+  transform: rotate(-1deg);
+  transition:
+    color 260ms ease,
+    background 260ms ease,
+    transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ruleLabels span:nth-child(even) {
+  transform: rotate(1.2deg);
+}
+
+.ruleLabels .ruleLabelActive {
+  color: var(--ink);
+  background: var(--yellow);
+  transform: translateY(-0.5cqh) rotate(-1.5deg);
+}
+
+.ruleCaption {
+  position: absolute;
+  left: 50%;
+  bottom: 5cqh;
+  min-width: 18cqw;
+  padding: 0.7cqh 1.2cqw;
+  border-bottom: 0.12cqw solid rgba(48, 42, 37, 0.5);
+  text-align: center;
+  color: rgba(48, 42, 37, 0.72);
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 1.35cqw;
+  transform: translateX(-50%) rotate(-0.5deg);
+}
+
+.quietCrowd {
+  position: absolute;
+  inset: 7cqh 3cqw 7cqh;
+  z-index: 2;
+}
+
+.finalWave {
+  position: absolute;
+  left: 5%;
+  top: 8%;
+  width: 90%;
+  height: 46%;
+  overflow: visible;
+}
+
+.finalWave path {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 2.4 1.2;
+  animation: drawFinalWave 950ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.stadiumNav {
+  position: absolute;
+  right: 3.2cqw;
+  bottom: 2.1cqh;
+  z-index: 12;
+  width: 19cqw;
+  height: 11cqh;
+  opacity: 0.26;
+  transform: translateY(1.35cqh) scale(0.9);
+  transform-origin: right bottom;
+  transition:
+    opacity 260ms ease,
+    transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.root:hover .stadiumNav,
+.stadiumNav:hover,
+.stadiumNav:focus-within {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.navArc {
+  position: absolute;
+  left: 1cqw;
+  right: 1cqw;
+  bottom: 0;
+  height: 7cqh;
+  border-top: 0.15cqw dashed rgba(48, 42, 37, 0.42);
+  border-radius: 50% 50% 0 0;
+  transform: rotate(-1deg);
+}
+
+.stadiumNav button {
+  position: absolute;
+  bottom: 0;
+  width: 3.45cqw;
+  height: 3.45cqw;
+  padding: 0.25cqh 0.25cqw;
+  border: 0.11cqw solid rgba(48, 42, 37, 0.58);
+  border-radius: 48% 52% 45% 55%;
+  color: rgba(48, 42, 37, 0.7);
+  background: var(--paper-light);
+  box-shadow: 0.22cqw 0.32cqh 0 rgba(48, 42, 37, 0.1);
+  cursor: pointer;
+  transform: rotate(-3deg);
+  transition:
+    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    color 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.stadiumNav button:nth-of-type(1) {
+  left: 0;
+  bottom: 0;
+}
+
+.stadiumNav button:nth-of-type(2) {
+  left: 3.7cqw;
+  bottom: 3.3cqh;
+  transform: rotate(2deg);
+}
+
+.stadiumNav button:nth-of-type(3) {
+  left: 7.6cqw;
+  bottom: 5.1cqh;
+  transform: rotate(-1deg);
+}
+
+.stadiumNav button:nth-of-type(4) {
+  left: 11.5cqw;
+  bottom: 3.4cqh;
+  transform: rotate(2.4deg);
+}
+
+.stadiumNav button:nth-of-type(5) {
+  left: 15.35cqw;
+  bottom: 0;
+  transform: rotate(-2.5deg);
+}
+
+.stadiumNav button span {
+  display: block;
+  overflow: hidden;
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+  font-size: 0.82cqw;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stadiumNav button:hover,
+.stadiumNav button:focus-visible {
+  color: var(--ink);
+  background: var(--blue);
+  outline: 0.18cqw solid rgba(48, 42, 37, 0.72);
+  outline-offset: 0.18cqw;
+  transform: translateY(-0.55cqh) rotate(-1deg) scale(1.04);
+}
+
+.stadiumNav .navActive {
+  color: var(--ink);
+  background: var(--yellow);
+  box-shadow:
+    0.22cqw 0.32cqh 0 rgba(48, 42, 37, 0.1),
+    0 0 0 0.36cqw rgba(219, 127, 114, 0.24),
+    0 0 1.2cqw rgba(219, 127, 114, 0.46);
+}
+
+.motionOff *,
+.motionOff *::before,
+.motionOff *::after {
+  scroll-behavior: auto !important;
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+
+@media (hover: none) {
+  .stadiumNav {
+    opacity: 0.86;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .actorArt,
+  .waveTrace,
+  .ruleLabels span,
+  .stadiumNav,
+  .stadiumNav button {
+    transition-duration: 0s;
+    animation-duration: 0s;
+  }
+}
+
+@keyframes standUp {
+  0% {
+    transform: translate(-50%, 1.8cqh) scaleY(0.68);
+  }
+  70% {
+    transform: translate(-50%, -0.35cqh) scaleY(1.04);
+  }
+  100% {
+    transform: translate(-50%, 0) scaleY(1);
+  }
+}
+
+@keyframes raiseHand {
+  0% {
+    opacity: 0.65;
+    transform: translate(-50%, 1.5cqh) rotate(-5deg) scale(0.78);
+  }
+  65% {
+    opacity: 1;
+    transform: translate(-50%, -0.55cqh) rotate(3deg) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0) rotate(0) scale(1);
+  }
+}
+
+@keyframes lookNext {
+  0% {
+    transform: translate(-50%, 1.7cqh) rotate(0) scaleX(0.88) scaleY(0.7);
+  }
+  100% {
+    transform: translate(-47%, 1.65cqh) rotate(-9deg) scaleX(0.88) scaleY(0.72);
+  }
+}
+
+@keyframes breakIn {
+  from {
+    opacity: 0;
+    transform: scale(0.65) rotate(-8deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes drawFinalWave {
+  from {
+    opacity: 0;
+    stroke-dashoffset: 100;
+  }
+  to {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}

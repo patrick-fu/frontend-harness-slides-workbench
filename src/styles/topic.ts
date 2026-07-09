@@ -1,7 +1,24 @@
-import type { StyleMetadata, StyleRegistryEntry, StyleTopic } from "../types";
+import type {
+  StyleMetadata,
+  StyleRegistryEntry,
+  StyleTopic,
+  TopicNavigationProfile,
+  TopicSource,
+  TopicTransitionScore,
+} from "../types";
+import {
+  TOPIC_NAVIGATION_FEEDBACK,
+  TOPIC_NAVIGATION_GEOMETRIES,
+  TOPIC_NAVIGATION_INVOCATIONS,
+} from "../types";
 
 const TOPIC_ID_PATTERN = /^[a-z0-9][a-z0-9-]*$/;
 const LEGACY_VERSION_ID_PATTERN = /^v\d+$/;
+const NAVIGATION_VALUES = {
+  geometry: new Set<string>(TOPIC_NAVIGATION_GEOMETRIES),
+  invocation: new Set<string>(TOPIC_NAVIGATION_INVOCATIONS),
+  feedback: new Set<string>(TOPIC_NAVIGATION_FEEDBACK),
+};
 
 export interface StyleTopicModule {
   id: string;
@@ -9,6 +26,9 @@ export interface StyleTopicModule {
   model: string;
   component: StyleTopic["component"];
   getMetadata: StyleTopic["getMetadata"];
+  navigation?: TopicNavigationProfile;
+  sources?: readonly TopicSource[];
+  transitionScore?: Readonly<TopicTransitionScore>;
 }
 
 function validateTopicId(id: string | undefined): void {
@@ -39,9 +59,29 @@ function validateTopic(id: string, topic: StyleTopic["topic"] | undefined): void
   }
 }
 
+function validateNavigation(
+  topicId: string,
+  navigation: TopicNavigationProfile | undefined,
+): void {
+  if (!navigation) return;
+  if (!TOPIC_ID_PATTERN.test(navigation.carrier)) {
+    throw new Error(
+      `Topic "${topicId}" navigation carrier must be a lowercase slug.`,
+    );
+  }
+  for (const key of ["geometry", "invocation", "feedback"] as const) {
+    if (!NAVIGATION_VALUES[key].has(navigation[key])) {
+      throw new Error(
+        `Topic "${topicId}" uses unsupported navigation ${key} "${navigation[key]}".`,
+      );
+    }
+  }
+}
+
 export function defineStyleTopic(module: StyleTopicModule): StyleTopicModule {
   validateTopicId(module.id);
   validateTopic(module.id, module.topic);
+  validateNavigation(module.id, module.navigation);
   if (!module.model.trim()) {
     throw new Error(`Topic "${module.id}" must define a model.`);
   }
@@ -61,6 +101,7 @@ function buildTopic(
   validateMetadata(styleId, metaZh);
   validateTopicId(input.id);
   validateTopic(input.id, input.topic);
+  validateNavigation(input.id, input.navigation);
 
   return {
     topic: {
@@ -69,6 +110,9 @@ function buildTopic(
       model: input.model,
       component: input.component,
       getMetadata: input.getMetadata,
+      navigation: input.navigation,
+      sources: input.sources,
+      transitionScore: input.transitionScore,
     },
     name: { en: metaEn.name, zh: metaZh.name },
   };
