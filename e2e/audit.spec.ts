@@ -161,6 +161,17 @@ const SECONDARY_TOPIC_BY_STYLE: Record<string, string> = {
   "context-bento-box": "handoff-box",
   "object-metaphor-hero": "recovery-kit",
 };
+const COORDINATED_TOPIC_BY_STYLE: Record<string, string> = {
+  "minimal-product-keynote": "presolar-grain",
+  "kinetic-type-punchline": "before-a",
+  "sketch-board-emoji": "stadium-wave",
+  "engineering-whiteboard-explainer": "water-tower",
+  "front-page-broadsheet": "rogue-wave",
+  "mechanical-scoring-funnel": "snowflake-branches",
+  "retro-windows": "voyager-boundary",
+  "after-hours-luxe": "urushi-cure",
+  "research-memo": "impact-evidence",
+};
 const SECONDARY_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
   "minimal-product-keynote": 1,
   "spotlight-quote-poster": 2,
@@ -169,6 +180,17 @@ const SECONDARY_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
   "mechanical-scoring-funnel": 2,
   "arcade-boss-fight": 3,
   "object-metaphor-hero": 0,
+};
+const COORDINATED_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
+  "minimal-product-keynote": 1,
+  "kinetic-type-punchline": 3,
+  "sketch-board-emoji": 0,
+  "engineering-whiteboard-explainer": 3,
+  "front-page-broadsheet": 0,
+  "mechanical-scoring-funnel": 3,
+  "retro-windows": 0,
+  "after-hours-luxe": 1,
+  "research-memo": 0,
 };
 const SCENE_TRANSITION_KINDS = [
   "slide-x",
@@ -289,6 +311,13 @@ function getLastBeat(
   topicId: string = PRIMARY_TOPIC_BY_STYLE[styleId],
 ): number {
   if (
+    topicId === COORDINATED_TOPIC_BY_STYLE[styleId] &&
+    scene === 5 &&
+    styleId in COORDINATED_TOPIC_SCENE_5_LAST_BEAT
+  ) {
+    return COORDINATED_TOPIC_SCENE_5_LAST_BEAT[styleId];
+  }
+  if (
     topicId === SECONDARY_TOPIC_BY_STYLE[styleId] &&
     scene === 5 &&
     styleId in SECONDARY_TOPIC_SCENE_5_LAST_BEAT
@@ -300,6 +329,19 @@ function getLastBeat(
   if (!info) return 0;
   const count = info.beats[scene] ?? 1;
   return count - 1; // convert count to 0-based index
+}
+
+function getTopicSequence(styleId: string): string[] {
+  return [
+    PRIMARY_TOPIC_BY_STYLE[styleId],
+    SECONDARY_TOPIC_BY_STYLE[styleId],
+    COORDINATED_TOPIC_BY_STYLE[styleId],
+  ].filter((topicId): topicId is string => Boolean(topicId));
+}
+
+function getLastTopic(styleId: string): string {
+  const topics = getTopicSequence(styleId);
+  return topics[topics.length - 1];
 }
 
 /** Get the first scene with multiple beats for a given style. */
@@ -517,13 +559,14 @@ test.describe("Navigation", () => {
 
     const query = parseQueryFromUrl(page.url());
     expect(query.style).toBe("minimal-product-keynote");
-    expect(query.topic).toBe(SECONDARY_TOPIC_BY_STYLE["minimal-product-keynote"]);
+    const previousTopic = getLastTopic("minimal-product-keynote");
+    expect(query.topic).toBe(previousTopic);
     expect(Number(query.scene)).toBe(5);
     expect(Number(query.beat)).toBe(
       getLastBeat(
         "minimal-product-keynote",
         5,
-        SECONDARY_TOPIC_BY_STYLE["minimal-product-keynote"],
+        previousTopic,
       ),
     );
   });
@@ -1010,15 +1053,15 @@ test.describe("Cross-style cycling", () => {
     expect(Number(queryAfter.beat)).toBe(0);
   });
 
-  test("ArrowRight from last style secondary topic wraps to first style primary topic", async ({
+  test("ArrowRight from last style final topic wraps to first style primary topic", async ({
     page,
   }) => {
     const lastStyleId = ALL_STYLE_IDS[ALL_STYLE_IDS.length - 1]; // "object-metaphor-hero"
-    const secondaryTopic = SECONDARY_TOPIC_BY_STYLE[lastStyleId];
-    const lastBeat = getLastBeat(lastStyleId, 5, secondaryTopic);
+    const lastTopic = getLastTopic(lastStyleId);
+    const lastBeat = getLastBeat(lastStyleId, 5, lastTopic);
 
     await openLab(page, lastStyleId, 5, lastBeat, {
-      topic: secondaryTopic,
+      topic: lastTopic,
       frozen: true,
     });
 
@@ -1032,7 +1075,7 @@ test.describe("Cross-style cycling", () => {
     expect(Number(queryAfter.beat)).toBe(0);
   });
 
-  test("ArrowLeft from first style primary topic wraps to last style secondary topic", async ({
+  test("ArrowLeft from first style primary topic wraps to last style final topic", async ({
     page,
   }) => {
     const firstStyleId = ALL_STYLE_IDS[0]; // "minimal-product-keynote"
@@ -1048,11 +1091,11 @@ test.describe("Cross-style cycling", () => {
 
     const query = parseQueryFromUrl(page.url());
     const lastStyleId = ALL_STYLE_IDS[ALL_STYLE_IDS.length - 1];
-    const secondaryTopic = SECONDARY_TOPIC_BY_STYLE[lastStyleId];
+    const lastTopic = getLastTopic(lastStyleId);
     expect(query.style).toBe(lastStyleId);
-    expect(query.topic).toBe(secondaryTopic);
+    expect(query.topic).toBe(lastTopic);
 
-    const expectedLastBeat = getLastBeat(lastStyleId, 5, secondaryTopic);
+    const expectedLastBeat = getLastBeat(lastStyleId, 5, lastTopic);
     expect(Number(query.scene)).toBe(5);
     expect(Number(query.beat)).toBe(expectedLastBeat);
   });
@@ -1072,43 +1115,29 @@ test.describe("Cross-style cycling", () => {
     ];
 
     for (const { from, to } of boundaryTransitions) {
-      const primaryTopic = PRIMARY_TOPIC_BY_STYLE[from];
-      const secondaryTopic = SECONDARY_TOPIC_BY_STYLE[from];
-      const primaryLastBeat = getLastBeat(from, 5, primaryTopic);
-      await openLab(page, from, 5, primaryLastBeat, {
-        topic: primaryTopic,
-        frozen: true,
-      });
+      const topics = getTopicSequence(from);
+      for (const [index, topic] of topics.entries()) {
+        const lastBeat = getLastBeat(from, 5, topic);
+        await openLab(page, from, 5, lastBeat, {
+          topic,
+          frozen: true,
+        });
 
-      await page.keyboard.press("ArrowRight");
-      await page.waitForTimeout(400);
+        await page.keyboard.press("ArrowRight");
+        await page.waitForTimeout(400);
 
-      const secondaryQuery = parseQueryFromUrl(page.url());
-      expect(secondaryQuery.style).toBe(from);
-      expect(secondaryQuery.topic).toBe(secondaryTopic);
-      expect(Number(secondaryQuery.scene)).toBe(1);
-      expect(Number(secondaryQuery.beat)).toBe(0);
-
-      const secondaryLastBeat = getLastBeat(from, 5, secondaryTopic);
-      await openLab(page, from, 5, secondaryLastBeat, {
-        topic: secondaryTopic,
-        frozen: true,
-      });
-
-      const queryBefore = parseQueryFromUrl(page.url());
-      expect(queryBefore.style).toBe(from);
-      expect(queryBefore.topic).toBe(secondaryTopic);
-      expect(Number(queryBefore.scene)).toBe(5);
-      expect(Number(queryBefore.beat)).toBe(secondaryLastBeat);
-
-      await page.keyboard.press("ArrowRight");
-      await page.waitForTimeout(400);
-
-      const queryAfter = parseQueryFromUrl(page.url());
-      expect(queryAfter.style).toBe(to);
-      expect(queryAfter.topic).toBe(PRIMARY_TOPIC_BY_STYLE[to]);
-      expect(Number(queryAfter.scene)).toBe(1);
-      expect(Number(queryAfter.beat)).toBe(0);
+        const queryAfter = parseQueryFromUrl(page.url());
+        const nextTopic = topics[index + 1];
+        if (nextTopic) {
+          expect(queryAfter.style).toBe(from);
+          expect(queryAfter.topic).toBe(nextTopic);
+        } else {
+          expect(queryAfter.style).toBe(to);
+          expect(queryAfter.topic).toBe(PRIMARY_TOPIC_BY_STYLE[to]);
+        }
+        expect(Number(queryAfter.scene)).toBe(1);
+        expect(Number(queryAfter.beat)).toBe(0);
+      }
     }
   });
 });

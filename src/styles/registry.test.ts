@@ -17,6 +17,7 @@ describe("STYLE_REGISTRY topic catalog", () => {
     expect(firstStyle?.topics.map((topic) => topic.id)).toEqual([
       "product-keynote",
       "quiet-launch",
+      "presolar-grain",
     ]);
     expect(
       STYLE_REGISTRY.flatMap((style) => style.topics).some((topic) =>
@@ -52,8 +53,8 @@ describe("STYLE_REGISTRY topic catalog", () => {
     ]);
   });
 
-  it("registers the coordinated Topic Set through batch two", () => {
-    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(103);
+  it("registers the coordinated Topic Set through batch three", () => {
+    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(106);
     expect(findTopic("kinetic-type-punchline", "before-a")).toBeDefined();
     expect(findTopic("sketch-board-emoji", "stadium-wave")).toBeDefined();
     expect(
@@ -62,5 +63,10 @@ describe("STYLE_REGISTRY topic catalog", () => {
     expect(findTopic("front-page-broadsheet", "rogue-wave")).toBeDefined();
     expect(findTopic("retro-windows", "voyager-boundary")).toBeDefined();
     expect(findTopic("after-hours-luxe", "urushi-cure")).toBeDefined();
+    expect(findTopic("minimal-product-keynote", "presolar-grain")).toBeDefined();
+    expect(
+      findTopic("mechanical-scoring-funnel", "snowflake-branches"),
+    ).toBeDefined();
+    expect(findTopic("research-memo", "impact-evidence")).toBeDefined();
   });
 });

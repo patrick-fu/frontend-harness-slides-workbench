@@ -25,6 +25,7 @@ import TerminalGlow08, {
   getMetadata as getMetadata08,
 } from "./08-terminal-glow";
 import { quietLaunchWindowTopic } from "./01-quiet-launch-window";
+import { presolarGrainTopic } from "./01-presolar-grain";
 import { metricsWithoutNoiseTopic } from "./02-metrics-without-noise";
 import { repairAsStrategyTopic } from "./03-repair-as-strategy";
 import { betterQuestionTopic } from "./04-better-question";
@@ -133,6 +134,7 @@ import { releaseMixtapeTopic } from "./29-release-mixtape";
 import { shippingHardThingTopic } from "./30-shipping-hard-thing";
 import { moveOrgChartTopic } from "./31-move-org-chart";
 import { prioritizeWithoutDebateTopic } from "./32-prioritize-without-debate";
+import { snowflakeBranchesTopic } from "./33-snowflake-branches";
 import GlassDashboard33, {
   getMetadata as getMetadata33,
 } from "./33-glass-dashboard";
@@ -192,6 +194,7 @@ import ExecutiveSummary48, {
   getMetadata as getMetadata48,
 } from "./48-executive-summary";
 import { evidenceSmallerTeamTopic } from "./41-evidence-smaller-team";
+import { impactEvidenceTopic } from "./42-impact-evidence";
 import { chooseBoundaryTopic } from "./42-choose-boundary";
 import { readyAgentPickupTopic } from "./43-ready-agent-pickup";
 import { stationPlatformStudyTopic } from "./44-station-platform-study";
@@ -223,6 +226,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata01,
     },
     quietLaunchWindowTopic,
+    presolarGrainTopic,
   ]),
   buildEntry("objective-swiss-grid", [
     {
@@ -543,6 +547,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata32,
     },
     prioritizeWithoutDebateTopic,
+    snowflakeBranchesTopic,
   ]),
   // Contemporary Digital: 33-40
   buildEntry("liquid-glass", [
@@ -637,6 +642,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata41,
     },
     evidenceSmallerTeamTopic,
+    impactEvidenceTopic,
   ]),
   buildEntry("decision-record", [
     {

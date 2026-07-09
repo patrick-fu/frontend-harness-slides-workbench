@@ -1,0 +1,1094 @@
+:root {
+  --style-42-bg: #f7f4ed;
+  --style-42-ink: #181a1b;
+  --style-42-panel: #eeebe3;
+  --style-42-paper: #fbf9f4;
+  --style-42-rule: #c9c4b8;
+  --style-42-muted: #6b6b66;
+  --style-42-accent: #193b52;
+}
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  container-type: size;
+  background: var(--style-42-bg);
+  color: var(--style-42-ink);
+  font-family: Aptos, "Segoe UI", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+  user-select: none;
+}
+
+.root * {
+  box-sizing: border-box;
+}
+
+.memoHeader {
+  position: absolute;
+  top: 3.2cqh;
+  left: 4.6cqw;
+  right: 4.6cqw;
+  height: 8.5cqh;
+  display: grid;
+  grid-template-columns: 31cqw 1fr 23cqw;
+  align-items: center;
+  gap: 2cqw;
+  border-top: 0.1cqw solid var(--style-42-accent);
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+}
+
+.memoHeader > div {
+  display: flex;
+  align-items: baseline;
+  gap: 1.2cqw;
+  min-width: 0;
+}
+
+.memoHeader span,
+.memoHeader b {
+  font-size: 0.72cqw;
+  line-height: 1;
+  letter-spacing: 0.08cqw;
+  color: var(--style-42-muted);
+  text-transform: uppercase;
+}
+
+.memoHeader strong {
+  font-family: "Iowan Old Style", Baskerville, "Songti SC", "Noto Serif CJK SC", serif;
+  font-size: 1.75cqw;
+  line-height: 1;
+  color: var(--style-42-accent);
+}
+
+.memoHeader p {
+  margin: 0;
+  font-size: 0.83cqw;
+  line-height: 1.35;
+  color: var(--style-42-muted);
+}
+
+.memoHeader b {
+  text-align: right;
+  font-weight: 600;
+}
+
+.canvas {
+  position: absolute;
+  top: 13.3cqh;
+  left: 4.6cqw;
+  right: 4.6cqw;
+  bottom: 12.2cqh;
+  overflow: hidden;
+  background: var(--style-42-paper);
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  padding: 2.2cqh 2.2cqw 2cqh;
+  background: var(--style-42-paper);
+}
+
+.sceneHeader {
+  flex: 0 0 16.8cqh;
+  display: grid;
+  grid-template-columns: 14cqw 1fr;
+  grid-template-rows: auto 1fr;
+  column-gap: 2.4cqw;
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+  min-width: 0;
+}
+
+.eyebrow {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  padding-top: 0.5cqh;
+  font-size: 0.75cqw;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: 0.08cqw;
+  color: var(--style-42-accent);
+  text-transform: uppercase;
+}
+
+.titleRow {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.titleRow h1 {
+  margin: 0;
+  max-width: 68cqw;
+  font-family: "Iowan Old Style", Baskerville, "Songti SC", "Noto Serif CJK SC", serif;
+  font-size: 2.55cqw;
+  line-height: 1.03;
+  font-weight: 700;
+  letter-spacing: -0.045cqw;
+  color: var(--style-42-ink);
+}
+
+.sceneHeader > p {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  max-width: 66cqw;
+  margin: 1.4cqh 0 0;
+  font-size: 1.03cqw;
+  line-height: 1.42;
+  color: var(--style-42-muted);
+}
+
+.claimRef {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  min-height: 2.8cqh;
+  padding: 0.35cqh 0.55cqw;
+  border: 0.05cqw solid var(--style-42-accent);
+  color: var(--style-42-accent);
+  font-size: 0.68cqw;
+  line-height: 1;
+  font-weight: 750;
+  letter-spacing: 0.04cqw;
+  white-space: nowrap;
+}
+
+/* Scene 1 — research question */
+
+.questionBody {
+  flex: 1;
+  display: grid;
+  grid-template-rows: 7.4cqh 19.8cqh 6.2cqh 4.6cqh;
+  gap: 1.6cqh;
+  min-height: 0;
+  padding-top: 2.1cqh;
+}
+
+.questionPrompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2cqw;
+  padding: 0 1.2cqw;
+  border-left: 0.15cqw solid var(--style-42-rule);
+  color: var(--style-42-muted);
+}
+
+.questionPrompt[data-focused="true"] {
+  border-left-color: var(--style-42-accent);
+  color: var(--style-42-ink);
+}
+
+.questionPrompt > span {
+  font-family: "Iowan Old Style", Baskerville, "Songti SC", "Noto Serif CJK SC", serif;
+  font-size: 1.55cqw;
+  line-height: 1.18;
+}
+
+.questionFrames {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  min-width: 0;
+  border-top: 0.05cqw solid var(--style-42-rule);
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+}
+
+.questionFrame {
+  min-width: 0;
+  padding: 2cqh 1.45cqw;
+  border-right: 0.05cqw solid var(--style-42-rule);
+  background: transparent;
+}
+
+.questionFrame:last-child {
+  border-right: 0;
+}
+
+.questionFrame[data-focused="true"] {
+  background: var(--style-42-panel);
+}
+
+.questionFrame > span {
+  display: block;
+  font-size: 0.7cqw;
+  line-height: 1;
+  font-weight: 750;
+  letter-spacing: 0.07cqw;
+  color: var(--style-42-accent);
+  text-transform: uppercase;
+}
+
+.questionFrame p {
+  margin: 2cqh 0 0;
+  font-size: 1.15cqw;
+  line-height: 1.35;
+}
+
+.testLine {
+  display: flex;
+  align-items: center;
+  padding: 0 1.2cqw;
+  border-top: 0.05cqw solid var(--style-42-rule);
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+  font-size: 0.83cqw;
+  line-height: 1.3;
+  font-weight: 650;
+  color: var(--style-42-ink);
+}
+
+.boundaryNote {
+  margin: 0;
+  align-self: center;
+  padding-left: 1.2cqw;
+  font-size: 0.76cqw;
+  line-height: 1.3;
+  color: var(--style-42-muted);
+}
+
+/* Scene 2 — evidence table */
+
+.tableComposition {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(17cqw, 1fr);
+  gap: 2.2cqw;
+  min-height: 0;
+  padding-top: 2.1cqh;
+}
+
+.tableRegion {
+  display: grid;
+  grid-template-rows: 4.4cqh repeat(3, 7.8cqh) 11.2cqh;
+  min-width: 0;
+  min-height: 0;
+  border-top: 0.1cqw solid var(--style-42-ink);
+}
+
+.tableHead,
+.evidenceRow {
+  display: grid;
+  grid-template-columns: 1.15fr 1.45fr 0.9fr 1.35fr;
+  align-items: center;
+  column-gap: 1cqw;
+  min-width: 0;
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+}
+
+.tableHead span {
+  padding: 0 0.5cqw;
+  font-size: 0.65cqw;
+  line-height: 1.1;
+  font-weight: 750;
+  letter-spacing: 0.045cqw;
+  color: var(--style-42-muted);
+}
+
+.evidenceRow {
+  padding: 0 0.5cqw;
+  color: var(--style-42-muted);
+}
+
+.evidenceRow[data-focused="true"] {
+  background: var(--style-42-panel);
+  color: var(--style-42-ink);
+  box-shadow: inset 0.14cqw 0 0 var(--style-42-accent);
+}
+
+.evidenceRow strong {
+  font-family: "Iowan Old Style", Baskerville, "Songti SC", serif;
+  font-size: 0.95cqw;
+  line-height: 1.2;
+}
+
+.evidenceRow span {
+  font-size: 0.76cqw;
+  line-height: 1.28;
+}
+
+.evidenceRow b {
+  font-family: "Iowan Old Style", Baskerville, "Songti SC", serif;
+  font-size: 1.35cqw;
+  line-height: 1;
+  color: var(--style-42-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.tableReading {
+  display: grid;
+  grid-template-columns: 6.6cqw 1fr;
+  align-items: center;
+  gap: 1cqw;
+  padding: 1.2cqh 0.8cqw;
+  border-bottom: 0.1cqw solid var(--style-42-ink);
+  color: var(--style-42-muted);
+}
+
+.tableReading[data-focused="true"] {
+  color: var(--style-42-ink);
+  background: var(--style-42-panel);
+}
+
+.tableReading p {
+  margin: 0;
+  font-size: 0.85cqw;
+  line-height: 1.38;
+}
+
+.layerFigure {
+  display: grid;
+  grid-template-rows: 4.4cqh 8.4cqh 7cqh 8.4cqh 1fr;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  border-top: 0.1cqw solid var(--style-42-ink);
+  border-bottom: 0.1cqw solid var(--style-42-ink);
+}
+
+.layerFigure figcaption {
+  display: flex;
+  align-items: center;
+  padding: 0 0.8cqw;
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+  font-size: 0.65cqw;
+  font-weight: 750;
+  letter-spacing: 0.05cqw;
+  color: var(--style-42-muted);
+}
+
+.layerUpper,
+.layerBoundary,
+.layerLower {
+  display: flex;
+  align-items: center;
+  padding: 0 1cqw;
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+}
+
+.layerUpper,
+.layerLower {
+  background: repeating-linear-gradient(
+    0deg,
+    var(--style-42-paper) 0,
+    var(--style-42-paper) 1.5cqh,
+    var(--style-42-panel) 1.5cqh,
+    var(--style-42-panel) 1.65cqh
+  );
+}
+
+.layerBoundary {
+  background: var(--style-42-accent);
+  color: var(--style-42-paper);
+}
+
+.layerUpper span,
+.layerBoundary span,
+.layerLower span {
+  font-size: 0.68cqw;
+  line-height: 1;
+  font-weight: 750;
+  letter-spacing: 0.04cqw;
+}
+
+.layerFigure > p {
+  margin: 0;
+  align-self: center;
+  padding: 1.2cqh 1cqw;
+  font-size: 0.75cqw;
+  line-height: 1.38;
+  color: var(--style-42-muted);
+}
+
+/* Scene 3 — specimen plate */
+
+.plateMeta {
+  flex: 0 0 4.5cqh;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr auto;
+  align-items: center;
+  gap: 1cqw;
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+  font-size: 0.67cqw;
+  line-height: 1;
+  letter-spacing: 0.04cqw;
+  color: var(--style-42-muted);
+}
+
+.samplePlate {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  min-height: 0;
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+}
+
+.sampleItem {
+  display: grid;
+  grid-template-rows: 23cqh 1fr;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 1.4cqh 1.4cqw;
+  border-right: 0.05cqw solid var(--style-42-rule);
+}
+
+.sampleItem:last-child {
+  border-right: 0;
+}
+
+.specimen {
+  min-width: 0;
+  min-height: 0;
+  color: var(--style-42-accent);
+}
+
+.specimen svg {
+  width: 100%;
+  height: 100%;
+}
+
+.specimenShape {
+  fill: var(--style-42-panel);
+  stroke: currentColor;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.specimenLine {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.specimenFine {
+  fill: none;
+  stroke: var(--style-42-muted);
+  stroke-width: 1;
+  stroke-dasharray: 5 5;
+  vector-effect: non-scaling-stroke;
+}
+
+.sampleItem figcaption {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  align-content: start;
+  padding-top: 1.2cqh;
+  border-top: 0.05cqw solid var(--style-42-rule);
+}
+
+.sampleItem figcaption strong {
+  font-size: 0.78cqw;
+  line-height: 1;
+  letter-spacing: 0.05cqw;
+  color: var(--style-42-ink);
+}
+
+.sampleItem figcaption span {
+  margin-top: 0.7cqh;
+  font-size: 0.7cqw;
+  line-height: 1.2;
+  color: var(--style-42-accent);
+}
+
+.sampleItem figcaption p {
+  margin: 1cqh 0 0;
+  font-size: 0.76cqw;
+  line-height: 1.32;
+  color: var(--style-42-muted);
+}
+
+.plateReading {
+  flex: 0 0 8.8cqh;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  align-items: center;
+  gap: 2cqw;
+}
+
+.plateReading p,
+.plateReading small {
+  margin: 0;
+  font-size: 0.8cqw;
+  line-height: 1.38;
+}
+
+.plateReading p {
+  color: var(--style-42-ink);
+}
+
+.plateReading small {
+  padding-left: 2cqw;
+  border-left: 0.05cqw solid var(--style-42-rule);
+  color: var(--style-42-muted);
+}
+
+/* Scene 4 — source crater correlation */
+
+.correlationRegisters {
+  flex: 0 0 26cqh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  min-height: 0;
+  padding-top: 2cqh;
+}
+
+.correlationRegister {
+  display: grid;
+  grid-template-columns: 3.2cqw 8.5cqw 1fr;
+  gap: 0.9cqw;
+  min-width: 0;
+  padding: 1.5cqh 1.2cqw;
+  border-top: 0.05cqw solid var(--style-42-rule);
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+  border-right: 0.05cqw solid var(--style-42-rule);
+  color: var(--style-42-muted);
+}
+
+.correlationRegister:first-child {
+  border-left: 0.05cqw solid var(--style-42-rule);
+}
+
+.correlationRegister[data-focused="true"] {
+  color: var(--style-42-ink);
+  background: var(--style-42-panel);
+  box-shadow: inset 0 0.15cqw 0 var(--style-42-accent);
+}
+
+.registerIndex {
+  font-family: "Iowan Old Style", Baskerville, "Songti SC", serif;
+  font-size: 2.2cqw;
+  line-height: 1;
+  color: var(--style-42-accent);
+}
+
+.craterArt,
+.coreArt,
+.layerArt {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 18cqh;
+  overflow: hidden;
+}
+
+.craterArt i,
+.craterArt b {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 0.08cqw solid currentColor;
+  border-radius: 50%;
+}
+
+.craterArt i:nth-child(1) {
+  width: 7cqw;
+  height: 13cqh;
+  margin-left: -3.5cqw;
+  margin-top: -6.5cqh;
+}
+
+.craterArt i:nth-child(2) {
+  width: 5cqw;
+  height: 9cqh;
+  margin-left: -2.5cqw;
+  margin-top: -4.5cqh;
+}
+
+.craterArt i:nth-child(3) {
+  width: 3cqw;
+  height: 5.4cqh;
+  margin-left: -1.5cqw;
+  margin-top: -2.7cqh;
+}
+
+.craterArt b {
+  width: 0.5cqw;
+  height: 0.9cqh;
+  margin-left: -0.25cqw;
+  margin-top: -0.45cqh;
+  border: 0;
+  background: var(--style-42-accent);
+}
+
+.coreArt {
+  display: grid;
+  grid-template-rows: 1.1fr 0.8fr 1.4fr 1fr;
+  gap: 0.35cqh;
+  padding: 0 2.7cqw;
+}
+
+.coreArt i {
+  display: block;
+  border-left: 0.08cqw solid currentColor;
+  border-right: 0.08cqw solid currentColor;
+  background: var(--style-42-panel);
+}
+
+.coreArt i:nth-child(2),
+.coreArt i:nth-child(4) {
+  background: var(--style-42-accent);
+}
+
+.layerArt {
+  display: grid;
+  grid-template-rows: 1fr 0.32fr 1.1fr;
+  align-content: center;
+  padding: 2cqh 0.5cqw;
+}
+
+.layerArt i,
+.layerArt b {
+  display: block;
+  border: 0.08cqw solid currentColor;
+  background: var(--style-42-panel);
+}
+
+.layerArt b {
+  border-color: var(--style-42-accent);
+  background: var(--style-42-accent);
+}
+
+.registerCopy {
+  min-width: 0;
+}
+
+.registerCopy strong,
+.registerCopy b,
+.registerCopy p,
+.registerCopy span {
+  display: block;
+}
+
+.registerCopy strong {
+  font-size: 0.7cqw;
+  line-height: 1;
+  letter-spacing: 0.04cqw;
+  color: var(--style-42-accent);
+}
+
+.registerCopy b {
+  margin-top: 1.2cqh;
+  font-family: "Iowan Old Style", Baskerville, "Songti SC", serif;
+  font-size: 1.05cqw;
+  line-height: 1.18;
+}
+
+.registerCopy p {
+  margin: 1.2cqh 0 0;
+  font-size: 0.7cqw;
+  line-height: 1.34;
+}
+
+.registerCopy span {
+  margin-top: 1.2cqh;
+  font-size: 0.68cqw;
+  line-height: 1;
+  font-weight: 750;
+  color: var(--style-42-accent);
+}
+
+.correlationLineWrap {
+  flex: 0 0 8cqh;
+  display: grid;
+  grid-template-columns: 15cqw 1fr 22cqw;
+  align-items: center;
+  gap: 1.4cqw;
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+}
+
+.correlationLineWrap > span {
+  font-size: 0.68cqw;
+  line-height: 1.2;
+  font-weight: 750;
+  letter-spacing: 0.04cqw;
+  color: var(--style-42-accent);
+}
+
+.correlationLineWrap svg {
+  width: 100%;
+  height: 4cqh;
+}
+
+.correlationBase,
+.correlationPath {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.correlationBase {
+  stroke: var(--style-42-rule);
+  stroke-width: 1;
+}
+
+.correlationPath {
+  stroke: var(--style-42-accent);
+  stroke-width: 3;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 620ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.correlationPath[data-settled="true"] {
+  stroke-dashoffset: 0;
+}
+
+.correlationLineWrap p {
+  margin: 0;
+  font-size: 0.7cqw;
+  line-height: 1.3;
+  color: var(--style-42-muted);
+}
+
+.correlationLimit {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 6.5cqw 6.5cqw 1fr;
+  align-items: center;
+  gap: 0.8cqw;
+  min-height: 0;
+}
+
+.correlationLimit p {
+  margin: 0;
+  padding-left: 1.2cqw;
+  border-left: 0.05cqw solid var(--style-42-rule);
+  font-size: 0.78cqw;
+  line-height: 1.36;
+  color: var(--style-42-muted);
+}
+
+/* Scene 5 — bounded finding */
+
+.findingComposition {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.2fr 1.25fr 1fr;
+  gap: 2cqw;
+  min-height: 0;
+  padding-top: 2.2cqh;
+}
+
+.findingStatement,
+.findingBoundaries {
+  min-width: 0;
+  border-top: 0.1cqw solid var(--style-42-accent);
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+  padding: 2cqh 1.2cqw;
+}
+
+.findingStatement {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.findingStatement p {
+  margin: 2.2cqh 0 0;
+  font-family: "Iowan Old Style", Baskerville, "Songti SC", serif;
+  font-size: 1.48cqw;
+  line-height: 1.22;
+}
+
+.findingStatement > strong {
+  margin-top: auto;
+  padding-top: 2cqh;
+  border-top: 0.05cqw solid var(--style-42-rule);
+  font-size: 0.78cqw;
+  line-height: 1.38;
+  color: var(--style-42-accent);
+}
+
+.historyChain {
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 0.1cqw solid var(--style-42-ink);
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+}
+
+.historyChain::before {
+  content: "";
+  position: absolute;
+  left: 4.4cqw;
+  top: 3.7cqh;
+  bottom: 3.7cqh;
+  width: 0.05cqw;
+  background: var(--style-42-rule);
+}
+
+.historyChain li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4.4cqw 1fr;
+  align-items: center;
+  min-width: 0;
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+}
+
+.historyChain li:last-child {
+  border-bottom: 0;
+}
+
+.historyChain li::before {
+  content: "";
+  position: absolute;
+  left: 4.1cqw;
+  width: 0.58cqw;
+  height: 1cqh;
+  border-radius: 50%;
+  background: var(--style-42-accent);
+}
+
+.historyChain time {
+  font-size: 0.7cqw;
+  line-height: 1;
+  font-weight: 750;
+  color: var(--style-42-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.historyChain span {
+  padding-left: 1.2cqw;
+  font-size: 0.78cqw;
+  line-height: 1.28;
+  color: var(--style-42-ink);
+}
+
+.findingBoundaries {
+  border-top-color: var(--style-42-ink);
+}
+
+.findingBoundaries h2 {
+  margin: 0;
+  font-size: 0.72cqw;
+  line-height: 1.2;
+  letter-spacing: 0.045cqw;
+  color: var(--style-42-accent);
+}
+
+.findingBoundaries ul {
+  margin: 2.2cqh 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.findingBoundaries li {
+  position: relative;
+  margin-top: 2cqh;
+  padding-top: 2cqh;
+  border-top: 0.05cqw solid var(--style-42-rule);
+  font-size: 0.8cqw;
+  line-height: 1.38;
+  color: var(--style-42-muted);
+}
+
+.findingBoundaries li::before {
+  content: "—";
+  margin-right: 0.5cqw;
+  color: var(--style-42-accent);
+}
+
+/* Stage-local typographic citation-chain navigator */
+
+.citationChain {
+  position: absolute;
+  left: 4.6cqw;
+  right: 4.6cqw;
+  bottom: 2.3cqh;
+  z-index: 10;
+  height: 7.1cqh;
+  display: grid;
+  grid-template-columns: 19cqw 1fr;
+  align-items: stretch;
+  border-top: 0.05cqw solid var(--style-42-rule);
+  border-bottom: 0.05cqw solid var(--style-42-rule);
+  background: var(--style-42-bg);
+  outline: none;
+}
+
+.citationChain:focus-visible {
+  outline: 0.1cqw solid var(--style-42-accent);
+  outline-offset: 0.2cqw;
+}
+
+.citationToggle,
+.citationIndices button {
+  appearance: none;
+  border: 0;
+  border-right: 0.05cqw solid var(--style-42-rule);
+  background: transparent;
+  color: var(--style-42-ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.citationToggle {
+  display: grid;
+  grid-template-columns: 2.6cqw 1fr;
+  align-items: center;
+  padding: 0 1cqw 0 0;
+  text-align: left;
+}
+
+.citationToggle span {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  border-right: 0.05cqw solid var(--style-42-rule);
+  font-family: "Iowan Old Style", Baskerville, serif;
+  font-size: 1.4cqw;
+  color: var(--style-42-accent);
+}
+
+.citationToggle b {
+  padding-left: 0.9cqw;
+  font-size: 0.72cqw;
+  line-height: 1.2;
+  letter-spacing: 0.04cqw;
+  text-transform: uppercase;
+}
+
+.citationToggle:focus-visible,
+.citationIndices button:focus-visible {
+  outline: 0.1cqw solid var(--style-42-accent);
+  outline-offset: -0.2cqw;
+}
+
+.citationIndices {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  min-width: 0;
+}
+
+.citationIndices button:last-child {
+  border-right: 0;
+}
+
+.citationIndices button {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.7cqw;
+  padding: 0 1.1cqw;
+  color: var(--style-42-muted);
+}
+
+.citationIndices button::before {
+  content: "";
+  position: absolute;
+  top: -0.05cqw;
+  left: 0;
+  width: 0;
+  height: 0.1cqw;
+  background: var(--style-42-accent);
+}
+
+.citationIndices button[data-visited="true"]::before {
+  width: 100%;
+}
+
+.citationIndices button[data-visited="true"] {
+  color: var(--style-42-ink);
+}
+
+.citationIndices button[data-active="true"] {
+  background: var(--style-42-panel);
+  color: var(--style-42-accent);
+}
+
+.citationIndices span {
+  font-family: "Iowan Old Style", Baskerville, "Songti SC", serif;
+  font-size: 1.05cqw;
+  line-height: 1;
+}
+
+.citationIndices b {
+  font-size: 0.67cqw;
+  line-height: 1;
+  letter-spacing: 0.04cqw;
+}
+
+.sourceDrawer {
+  position: absolute;
+  right: 0;
+  bottom: 7.1cqh;
+  width: 56cqw;
+  min-height: 14cqh;
+  display: grid;
+  grid-template-columns: 11cqw 1fr;
+  align-items: stretch;
+  gap: 1cqw;
+  padding: 1.3cqh 1.2cqw;
+  border: 0.05cqw solid var(--style-42-rule);
+  background: var(--style-42-paper);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 260ms ease;
+}
+
+.citationChain[data-expanded="true"] .sourceDrawer {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sourceDrawerTitle {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0.5cqh;
+  font-size: 0.7cqw;
+  line-height: 1.3;
+  color: var(--style-42-muted);
+}
+
+.sourceDrawer ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0.7cqh 1cqw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sourceDrawer li {
+  display: grid;
+  grid-template-columns: 2.1cqw 1fr;
+  align-items: center;
+  min-width: 0;
+  padding-top: 0.5cqh;
+  border-top: 0.05cqw solid var(--style-42-rule);
+}
+
+.sourceDrawer li b {
+  font-size: 0.66cqw;
+  line-height: 1;
+  color: var(--style-42-accent);
+}
+
+.sourceDrawer li span {
+  font-size: 0.59cqw;
+  line-height: 1.25;
+  color: var(--style-42-ink);
+}
+
+.root[data-motion="off"] *,
+.root[data-motion="off"] *::before,
+.root[data-motion="off"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
