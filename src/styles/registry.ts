@@ -166,7 +166,9 @@ import { calmerGrowthModelTopic } from "./35-calmer-growth-model";
 import { privateBetaSalonTopic } from "./36-private-beta-salon";
 import { urushiCureTopic } from "./37-urushi-cure";
 import { newHabitRunbookTopic } from "./37-new-habit-runbook";
+import { escapementTopic } from "./38-escapement";
 import { fiveActsSystemTopic } from "./38-five-acts-system";
+import { whaleFallTopic } from "./39-whale-fall";
 import { deriveShortcutTopic } from "./39-derive-shortcut";
 import { latencyBossFightTopic } from "./40-latency-boss-fight";
 import AnnualReport41, {
@@ -202,6 +204,7 @@ import { rewriteBrokenFlowTopic } from "./45-rewrite-broken-flow";
 import { launchGateLedgerTopic } from "./46-launch-gate-ledger";
 import { handoffCompartmentsTopic } from "./47-handoff-compartments";
 import { recoveryKitTopic } from "./48-recovery-kit";
+import { cocoonToClothTopic } from "./49-cocoon-to-cloth";
 
 const buildEntry = buildStyleRegistryEntry;
 
@@ -601,6 +604,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata37,
     },
     newHabitRunbookTopic,
+    escapementTopic,
   ]),
   buildEntry("widescreen-title-card", [
     {
@@ -611,6 +615,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata38,
     },
     fiveActsSystemTopic,
+    whaleFallTopic,
   ]),
   buildEntry("blackboard-chalk-talk", [
     {
@@ -713,6 +718,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata48,
     },
     recoveryKitTopic,
+    cocoonToClothTopic,
   ]),
 ];
 

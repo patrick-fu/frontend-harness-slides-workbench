@@ -170,7 +170,10 @@ const COORDINATED_TOPIC_BY_STYLE: Record<string, string> = {
   "mechanical-scoring-funnel": "snowflake-branches",
   "retro-windows": "voyager-boundary",
   "after-hours-luxe": "urushi-cure",
+  "operating-manual": "escapement",
+  "widescreen-title-card": "whale-fall",
   "research-memo": "impact-evidence",
+  "object-metaphor-hero": "cocoon-to-cloth",
 };
 const SECONDARY_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
   "minimal-product-keynote": 1,
@@ -190,7 +193,10 @@ const COORDINATED_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
   "mechanical-scoring-funnel": 3,
   "retro-windows": 0,
   "after-hours-luxe": 1,
+  "operating-manual": 0,
+  "widescreen-title-card": 3,
   "research-memo": 0,
+  "object-metaphor-hero": 1,
 };
 const SCENE_TRANSITION_KINDS = [
   "slide-x",

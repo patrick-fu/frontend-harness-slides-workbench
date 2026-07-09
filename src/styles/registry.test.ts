@@ -53,8 +53,8 @@ describe("STYLE_REGISTRY topic catalog", () => {
     ]);
   });
 
-  it("registers the coordinated Topic Set through batch three", () => {
-    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(106);
+  it("registers the coordinated Topic Set through batch four", () => {
+    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(109);
     expect(findTopic("kinetic-type-punchline", "before-a")).toBeDefined();
     expect(findTopic("sketch-board-emoji", "stadium-wave")).toBeDefined();
     expect(
@@ -68,5 +68,8 @@ describe("STYLE_REGISTRY topic catalog", () => {
       findTopic("mechanical-scoring-funnel", "snowflake-branches"),
     ).toBeDefined();
     expect(findTopic("research-memo", "impact-evidence")).toBeDefined();
+    expect(findTopic("operating-manual", "escapement")).toBeDefined();
+    expect(findTopic("widescreen-title-card", "whale-fall")).toBeDefined();
+    expect(findTopic("object-metaphor-hero", "cocoon-to-cloth")).toBeDefined();
   });
 });
