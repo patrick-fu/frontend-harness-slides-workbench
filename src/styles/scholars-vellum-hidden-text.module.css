@@ -1,0 +1,1181 @@
+.root {
+  --vellum-wall: #171512;
+  --vellum-wall-raised: #211d18;
+  --vellum-ink: #ead9b4;
+  --vellum-ink-muted: #a99b7f;
+  --vellum-paper: #cbbb91;
+  --vellum-paper-dark: #9d8d69;
+  --vellum-script: #4c3828;
+  --vellum-accent: #6f9d92;
+  --vellum-hairline: rgb(234 217 180 / 0.24);
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--vellum-ink);
+  background: var(--vellum-wall);
+  font-family: "Source Sans 3", "Noto Sans SC", sans-serif;
+  box-sizing: border-box;
+}
+
+.root *,
+.root *::before,
+.root *::after {
+  box-sizing: border-box;
+}
+
+.root button {
+  font: inherit;
+}
+
+.caseHeader {
+  position: absolute;
+  z-index: 5;
+  top: 2.1cqh;
+  left: 5.4cqw;
+  right: 7.7cqw;
+  height: 3.7cqh;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: start;
+  gap: 2.1cqw;
+  border-bottom: 0.055cqw solid var(--vellum-hairline);
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.68cqw;
+  line-height: 1;
+  letter-spacing: 0.09cqw;
+  text-transform: uppercase;
+  color: var(--vellum-accent);
+}
+
+.caseHeader b {
+  font-weight: 500;
+  color: var(--vellum-ink-muted);
+}
+
+.caseHeader i {
+  font-style: normal;
+  color: rgb(234 217 180 / 0.48);
+}
+
+.canvas {
+  position: absolute;
+  inset: 6.4cqh 8.4cqw 3.9cqh 4.2cqw;
+  overflow: hidden;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sceneHeader > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1cqw;
+  margin-bottom: 1.5cqh;
+  padding-bottom: 1.1cqh;
+  border-bottom: 0.055cqw solid var(--vellum-hairline);
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.68cqw;
+  line-height: 1;
+  letter-spacing: 0.08cqw;
+  text-transform: uppercase;
+  color: var(--vellum-accent);
+}
+
+.sceneHeader > div b {
+  font-weight: 400;
+  color: var(--vellum-ink-muted);
+}
+
+.sceneHeader h1 {
+  margin: 0;
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 4.35cqw;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.08cqw;
+  color: var(--vellum-ink);
+}
+
+.root:lang(zh) .sceneHeader h1 {
+  font-style: normal;
+  letter-spacing: 0.02cqw;
+  line-height: 1.15;
+}
+
+.sceneHeader p {
+  margin: 2.3cqh 0 0;
+  max-width: 31cqw;
+  font-size: 1.08cqw;
+  line-height: 1.48;
+  letter-spacing: 0.012cqw;
+  color: var(--vellum-ink-muted);
+}
+
+.sourceRef {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.4cqh;
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.62cqw;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.07cqw;
+  color: var(--vellum-accent);
+}
+
+.pinNote {
+  position: absolute;
+  z-index: 5;
+  left: 1.1cqw;
+  bottom: 0.9cqh;
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+  height: 3.3cqh;
+  padding-left: 0.8cqw;
+  border-left: 0.16cqw solid var(--vellum-accent);
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.64cqw;
+  line-height: 1;
+  letter-spacing: 0.07cqw;
+  text-transform: uppercase;
+  color: var(--vellum-accent);
+}
+
+.pinNote b {
+  font-weight: 500;
+  color: var(--vellum-ink);
+}
+
+/* Folio */
+
+.folioLead {
+  position: absolute;
+  top: 11.4cqh;
+  left: 3.3cqw;
+  width: 31cqw;
+}
+
+.folioFacts {
+  display: grid;
+  gap: 1.2cqh;
+  margin-top: 5.1cqh;
+  padding-top: 2.1cqh;
+  border-top: 0.055cqw solid var(--vellum-hairline);
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.72cqw;
+  line-height: 1.32;
+  letter-spacing: 0.035cqw;
+  color: var(--vellum-ink-muted);
+}
+
+.folioPlate {
+  position: absolute;
+  top: 3.6cqh;
+  right: 5.2cqw;
+  width: 33cqw;
+  margin: 0;
+}
+
+.folioPage {
+  position: relative;
+  width: 29cqw;
+  height: 67cqh;
+  margin-left: auto;
+  overflow: hidden;
+  color: var(--vellum-script);
+  background: var(--vellum-paper);
+  border: 0.075cqw solid #6d5d40;
+}
+
+.folioPage::before,
+.folioPage::after {
+  position: absolute;
+  content: "";
+  width: 1.4cqw;
+  height: 1.4cqw;
+  border-color: rgb(76 56 40 / 0.38);
+  border-style: solid;
+}
+
+.folioPage::before {
+  top: 1.2cqh;
+  left: 0.7cqw;
+  border-width: 0.055cqw 0 0 0.055cqw;
+}
+
+.folioPage::after {
+  right: 0.7cqw;
+  bottom: 1.2cqh;
+  border-width: 0 0.055cqw 0.055cqw 0;
+}
+
+.overInk,
+.underInk {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.overInk {
+  top: 8.7cqh;
+  left: 3.1cqw;
+  right: 2.8cqw;
+  gap: 3.35cqh;
+  opacity: 0.74;
+}
+
+.underInk {
+  top: 10.5cqh;
+  left: 4.7cqw;
+  width: 20.2cqw;
+  gap: 3.8cqh;
+  opacity: 0.22;
+  transform: rotate(90deg);
+  transform-origin: center;
+}
+
+.overInk i,
+.underInk i {
+  display: block;
+  width: 100%;
+  height: 0.16cqh;
+  background: currentColor;
+}
+
+.overInk i[data-line="1"],
+.underInk i[data-line="2"] {
+  width: 82%;
+}
+
+.overInk i[data-line="2"],
+.underInk i[data-line="1"] {
+  width: 93%;
+}
+
+.overInk i[data-line="3"],
+.underInk i[data-line="3"] {
+  width: 68%;
+}
+
+.overLabel,
+.underLabel,
+.directionMark {
+  position: absolute;
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.58cqw;
+  line-height: 1;
+  letter-spacing: 0.05cqw;
+  text-transform: uppercase;
+}
+
+.overLabel {
+  top: 3.1cqh;
+  left: 3.1cqw;
+  color: var(--vellum-script);
+}
+
+.underLabel {
+  right: 1.6cqw;
+  bottom: 4.3cqh;
+  writing-mode: vertical-rl;
+  color: rgb(76 56 40 / 0.55);
+}
+
+.directionMark {
+  left: 3.1cqw;
+  bottom: 3.3cqh;
+  color: #426c64;
+}
+
+.folioPlate figcaption {
+  margin-top: 1.7cqh;
+  text-align: right;
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.58cqw;
+  line-height: 1.2;
+  letter-spacing: 0.055cqw;
+  color: rgb(234 217 180 / 0.46);
+}
+
+/* Material cutaway */
+
+.cutawayLead {
+  position: absolute;
+  top: 10.2cqh;
+  left: 3.2cqw;
+  width: 30.5cqw;
+}
+
+.cutawayReading {
+  min-height: 7.6cqh;
+  margin: 4.2cqh 0 0;
+  padding-top: 1.8cqh;
+  border-top: 0.055cqw solid var(--vellum-hairline);
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 1.55cqw;
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--vellum-ink);
+}
+
+.root:lang(zh) .cutawayReading {
+  font-style: normal;
+}
+
+.cutawayFigure {
+  position: absolute;
+  top: 5.7cqh;
+  right: 3cqw;
+  width: 43cqw;
+  margin: 0;
+}
+
+.cutawayFigure > figcaption,
+.cutawayFigure > p {
+  margin: 0 0 1.2cqh;
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.6cqw;
+  line-height: 1.2;
+  letter-spacing: 0.06cqw;
+  color: var(--vellum-accent);
+}
+
+.cutawayFigure > p {
+  margin: 1.2cqh 0 0;
+  text-align: right;
+  color: rgb(234 217 180 / 0.45);
+}
+
+.layerStack {
+  display: grid;
+  border-top: 0.055cqw solid rgb(23 21 18 / 0.9);
+  border-bottom: 0.055cqw solid rgb(23 21 18 / 0.9);
+}
+
+.materialLayer {
+  display: grid;
+  grid-template-columns: 3.1cqw 1fr 14.5cqw;
+  align-items: center;
+  min-height: 9.2cqh;
+  padding: 1.2cqh 1.2cqw;
+  border-bottom: 0.055cqw solid rgb(23 21 18 / 0.34);
+  color: #2f261d;
+  opacity: 0.44;
+  transition:
+    opacity 320ms ease,
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.materialLayer:last-child {
+  border-bottom: 0;
+}
+
+.materialLayer[data-layer="05"] {
+  background: #6e604d;
+  color: #ead9b4;
+}
+
+.materialLayer[data-layer="04"] {
+  background: #a08f68;
+}
+
+.materialLayer[data-layer="03"] {
+  background: #b5a57d;
+}
+
+.materialLayer[data-layer="02"] {
+  background: #cbbb91;
+}
+
+.materialLayer[data-layer="01"] {
+  background: #d2c49f;
+}
+
+.materialLayer[data-focused="true"] {
+  opacity: 1;
+  transform: translateX(-0.65cqw);
+}
+
+.materialLayer b {
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.65cqw;
+  font-weight: 500;
+  color: var(--vellum-accent);
+}
+
+.materialLayer strong {
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 1.3cqw;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.root:lang(zh) .materialLayer strong {
+  font-style: normal;
+}
+
+.materialLayer span {
+  text-align: right;
+  font-size: 0.75cqw;
+  line-height: 1.2;
+}
+
+/* Spectral evidence */
+
+.spectralHeader {
+  position: absolute;
+  top: 1.8cqh;
+  left: 1.2cqw;
+  right: 1.2cqw;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 2cqw;
+}
+
+.spectralHeader .sceneHeader {
+  display: grid;
+  grid-template-columns: 12.4cqw 28cqw 1fr;
+  align-items: end;
+  gap: 1.5cqw;
+}
+
+.spectralHeader .sceneHeader > div {
+  margin: 0;
+}
+
+.spectralHeader .sceneHeader h1 {
+  font-size: 2.85cqw;
+  line-height: 0.95;
+}
+
+.spectralHeader .sceneHeader p {
+  margin: 0;
+  max-width: none;
+  font-size: 0.88cqw;
+  line-height: 1.36;
+}
+
+.spectralHeader > span {
+  padding-bottom: 1.1cqh;
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.58cqw;
+  letter-spacing: 0.05cqw;
+  color: var(--vellum-accent);
+}
+
+.spectralGrid {
+  position: absolute;
+  top: 15.6cqh;
+  left: 1.2cqw;
+  right: 1.2cqw;
+  bottom: 14.1cqh;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 1.1cqh 0.65cqw;
+}
+
+.spectralPanel {
+  display: grid;
+  grid-template-columns: 13.3cqw 1fr;
+  align-items: stretch;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 0.055cqw solid var(--vellum-hairline);
+  background: var(--vellum-wall-raised);
+  opacity: 0.52;
+  transition:
+    opacity 300ms ease,
+    border-color 300ms ease,
+    transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spectralPanel[data-focused="true"] {
+  border-color: var(--vellum-accent);
+  opacity: 1;
+  transform: scale(1.012);
+}
+
+.spectralFigure {
+  display: flex;
+  align-items: center;
+  padding: 1.1cqh 0.6cqw;
+  border-right: 0.055cqw solid var(--vellum-hairline);
+}
+
+.spectralFigure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.spectralPage {
+  fill: #b8a77f;
+  stroke: #6f6048;
+  stroke-width: 1;
+}
+
+.spectralOvertext,
+.spectralUndertext,
+.xrfDots,
+.registrationMark {
+  fill: none;
+  stroke: #493829;
+  stroke-width: 2.2;
+}
+
+.spectralUndertext {
+  stroke: #456f67;
+  stroke-width: 1.6;
+  opacity: 0.15;
+}
+
+.xrfDots {
+  fill: var(--vellum-accent);
+  stroke: none;
+  opacity: 0;
+}
+
+.registrationMark {
+  stroke: var(--vellum-accent);
+  stroke-width: 1;
+  opacity: 0.7;
+}
+
+.spectralPanel[data-method="ultraviolet"] .spectralPage {
+  fill: #79735e;
+}
+
+.spectralPanel[data-method="ultraviolet"] .spectralOvertext {
+  opacity: 0.48;
+}
+
+.spectralPanel[data-method="ultraviolet"] .spectralUndertext {
+  stroke: #d7c89f;
+  opacity: 0.72;
+}
+
+.spectralPanel[data-method="pseudocolor"] .spectralOvertext {
+  stroke: #704b39;
+  opacity: 0.52;
+}
+
+.spectralPanel[data-method="pseudocolor"] .spectralUndertext {
+  stroke: var(--vellum-accent);
+  stroke-width: 2.8;
+  opacity: 0.9;
+}
+
+.spectralPanel[data-method="xrf"] .spectralPage {
+  fill: #29251f;
+  stroke: #76684f;
+}
+
+.spectralPanel[data-method="xrf"] .spectralOvertext,
+.spectralPanel[data-method="xrf"] .spectralUndertext {
+  stroke: #c4b48d;
+  opacity: 0.42;
+}
+
+.spectralPanel[data-method="xrf"] .xrfDots {
+  opacity: 0.92;
+}
+
+.spectralPanel figcaption {
+  display: grid;
+  align-content: center;
+  gap: 0.7cqh;
+  min-width: 0;
+  padding: 1.3cqh 1cqw;
+}
+
+.spectralPanel figcaption span,
+.spectralPanel figcaption small {
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.56cqw;
+  line-height: 1.2;
+  letter-spacing: 0.05cqw;
+  color: var(--vellum-accent);
+}
+
+.spectralPanel figcaption strong {
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.72cqw;
+  font-weight: 500;
+  letter-spacing: 0.04cqw;
+  color: var(--vellum-ink-muted);
+}
+
+.spectralPanel figcaption b {
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 1.18cqw;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.05;
+  color: var(--vellum-ink);
+}
+
+.root:lang(zh) .spectralPanel figcaption b {
+  font-style: normal;
+}
+
+.spectralPanel figcaption small {
+  color: rgb(234 217 180 / 0.45);
+}
+
+.spectralReading {
+  position: absolute;
+  right: 1.2cqw;
+  bottom: 3.5cqh;
+  left: 16.5cqw;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  min-height: 8cqh;
+  gap: 2cqw;
+  padding-top: 1.3cqh;
+  border-top: 0.055cqw solid var(--vellum-hairline);
+}
+
+.spectralReading p {
+  margin: 0;
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 1.28cqw;
+  font-style: italic;
+  line-height: 1.25;
+  color: var(--vellum-ink);
+}
+
+.root:lang(zh) .spectralReading p {
+  font-style: normal;
+}
+
+/* Image / interpretation boundary */
+
+.interpretationHeader {
+  position: absolute;
+  top: 2.4cqh;
+  left: 2.2cqw;
+  right: 2.2cqw;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 2cqw;
+}
+
+.interpretationHeader .sceneHeader {
+  display: grid;
+  grid-template-columns: 12.4cqw 29cqw 1fr;
+  align-items: end;
+  gap: 1.5cqw;
+}
+
+.interpretationHeader .sceneHeader > div {
+  margin: 0;
+}
+
+.interpretationHeader .sceneHeader h1 {
+  font-size: 2.8cqw;
+}
+
+.interpretationHeader .sceneHeader p {
+  margin: 0;
+  max-width: none;
+  font-size: 0.88cqw;
+}
+
+.interpretationSpread {
+  position: absolute;
+  top: 20cqh;
+  right: 2.2cqw;
+  bottom: 18.6cqh;
+  left: 2.2cqw;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 4.2cqw minmax(0, 1fr);
+  align-items: stretch;
+}
+
+.evidenceColumn,
+.readingColumn {
+  min-width: 0;
+  padding: 2.8cqh 2cqw;
+  border-top: 0.055cqw solid var(--vellum-hairline);
+  border-bottom: 0.055cqw solid var(--vellum-hairline);
+  background: var(--vellum-wall-raised);
+  opacity: 0.46;
+  transition:
+    opacity 320ms ease,
+    border-color 320ms ease;
+}
+
+.evidenceColumn[data-focused="true"],
+.readingColumn[data-focused="true"] {
+  border-color: var(--vellum-accent);
+  opacity: 1;
+}
+
+.evidenceColumn > span,
+.readingColumn > span {
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.62cqw;
+  letter-spacing: 0.06cqw;
+  color: var(--vellum-accent);
+}
+
+.evidenceColumn h2,
+.readingColumn h2 {
+  margin: 1.5cqh 0 2.1cqh;
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 2.2cqw;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--vellum-ink);
+}
+
+.root:lang(zh) .evidenceColumn h2,
+.root:lang(zh) .readingColumn h2 {
+  font-style: normal;
+}
+
+.evidenceColumn ol,
+.readingColumn ol {
+  display: grid;
+  gap: 1.2cqh;
+  margin: 2cqh 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: evidence-step;
+}
+
+.evidenceColumn li,
+.readingColumn li {
+  display: grid;
+  grid-template-columns: 2.2cqw 1fr;
+  align-items: start;
+  gap: 0.7cqw;
+  font-size: 0.83cqw;
+  line-height: 1.25;
+  color: var(--vellum-ink-muted);
+  counter-increment: evidence-step;
+}
+
+.evidenceColumn li::before,
+.readingColumn li::before {
+  content: "0" counter(evidence-step);
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.58cqw;
+  color: var(--vellum-accent);
+}
+
+.notEqual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 3cqw;
+  color: var(--vellum-accent);
+}
+
+.evidenceGlyphs,
+.readingProof {
+  position: relative;
+  height: 13cqh;
+  border: 0.055cqw solid var(--vellum-hairline);
+  overflow: hidden;
+}
+
+.evidenceGlyphs i,
+.evidenceGlyphs b {
+  position: absolute;
+  display: block;
+  background: var(--vellum-ink-muted);
+  opacity: 0.54;
+}
+
+.evidenceGlyphs i:nth-child(1) {
+  top: 3cqh;
+  left: 3cqw;
+  width: 25cqw;
+  height: 0.13cqh;
+}
+
+.evidenceGlyphs i:nth-child(2) {
+  top: 6.2cqh;
+  left: 5cqw;
+  width: 22cqw;
+  height: 0.13cqh;
+}
+
+.evidenceGlyphs i:nth-child(3) {
+  top: 9.4cqh;
+  left: 2cqw;
+  width: 26cqw;
+  height: 0.13cqh;
+}
+
+.evidenceGlyphs b:nth-child(4) {
+  top: 1.2cqh;
+  left: 9cqw;
+  width: 0.07cqw;
+  height: 10.5cqh;
+  background: var(--vellum-accent);
+}
+
+.evidenceGlyphs b:nth-child(5) {
+  top: 1.8cqh;
+  left: 15cqw;
+  width: 0.07cqw;
+  height: 9.3cqh;
+  background: var(--vellum-accent);
+}
+
+.evidenceGlyphs b:nth-child(6) {
+  top: 1cqh;
+  left: 21cqw;
+  width: 0.07cqw;
+  height: 10.8cqh;
+  background: var(--vellum-accent);
+}
+
+.evidenceGlyphs span {
+  position: absolute;
+  right: 1cqw;
+  bottom: 0.5cqh;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.3cqw;
+  font-style: italic;
+  color: var(--vellum-accent);
+}
+
+.readingProof {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2cqw;
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 3cqw;
+  color: var(--vellum-ink);
+}
+
+.readingProof i {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8cqw;
+  font-style: normal;
+  color: var(--vellum-accent);
+}
+
+.readingProof b:last-child {
+  color: var(--vellum-ink-muted);
+}
+
+.interpretationBoundary {
+  position: absolute;
+  right: 2.2cqw;
+  bottom: 4.4cqh;
+  left: 15.5cqw;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  min-height: 9cqh;
+  gap: 2cqw;
+  padding: 1.7cqh 1.5cqw;
+  border-left: 0.16cqw solid var(--vellum-accent);
+  background: var(--vellum-wall-raised);
+}
+
+.interpretationBoundary strong {
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 1.45cqw;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--vellum-ink);
+}
+
+.root:lang(zh) .interpretationBoundary strong {
+  font-style: normal;
+}
+
+.interpretationBoundary span {
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.62cqw;
+  letter-spacing: 0.05cqw;
+  color: var(--vellum-accent);
+}
+
+/* Closing record */
+
+.closingHeader {
+  position: absolute;
+  top: 10cqh;
+  left: 3.4cqw;
+  width: 31.5cqw;
+}
+
+.closingHeader .sourceRef {
+  margin-top: 4cqh;
+}
+
+.closingComposition {
+  position: absolute;
+  top: 8.5cqh;
+  right: 3.6cqw;
+  bottom: 8cqh;
+  left: 39cqw;
+  display: grid;
+  grid-template-columns: 17cqw 1fr;
+  align-items: stretch;
+  gap: 2cqw;
+}
+
+.glyphLeaf {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: center;
+  justify-items: center;
+  margin: 0;
+  padding: 2.3cqh 1.2cqw;
+  background: var(--vellum-paper);
+  color: var(--vellum-script);
+  border: 0.075cqw solid #6d5d40;
+}
+
+.glyphLeaf figcaption,
+.glyphLeaf span {
+  width: 100%;
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.55cqw;
+  line-height: 1.3;
+  letter-spacing: 0.045cqw;
+  text-align: center;
+  color: rgb(76 56 40 / 0.72);
+}
+
+.glyphLeaf b {
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 10cqw;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.closingNotes {
+  display: grid;
+  grid-template-rows: 1fr 1fr auto;
+  gap: 1.6cqh;
+}
+
+.closingNotes section {
+  display: grid;
+  align-content: center;
+  gap: 1.1cqh;
+  padding: 2cqh 1.4cqw;
+  border-top: 0.055cqw solid var(--vellum-hairline);
+  border-bottom: 0.055cqw solid var(--vellum-hairline);
+  background: var(--vellum-wall-raised);
+}
+
+.closingNotes section > span {
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.58cqw;
+  line-height: 1;
+  letter-spacing: 0.06cqw;
+  color: var(--vellum-accent);
+}
+
+.closingNotes section p {
+  margin: 0;
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 1.17cqw;
+  font-style: italic;
+  line-height: 1.28;
+  color: var(--vellum-ink);
+}
+
+.root:lang(zh) .closingNotes section p {
+  font-style: normal;
+}
+
+.closingNotes .unresolved {
+  border-color: rgb(111 157 146 / 0.72);
+}
+
+.closingNotes .unresolved p {
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.7cqw;
+  font-style: normal;
+  color: var(--vellum-ink-muted);
+}
+
+.closingNotes > strong {
+  align-self: end;
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 1.55cqw;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--vellum-accent);
+}
+
+.root:lang(zh) .closingNotes > strong {
+  font-style: normal;
+}
+
+/* Edge-scale folio tabs */
+
+.folioTabs {
+  position: absolute;
+  z-index: 20;
+  top: 10.8cqh;
+  right: 1.15cqw;
+  bottom: 6.2cqh;
+  width: 4.2cqw;
+  display: grid;
+  grid-template-rows: 8.2cqh 1fr;
+  overflow: hidden;
+  border-left: 0.055cqw solid var(--vellum-hairline);
+  background: var(--vellum-wall);
+  transition: width 360ms cubic-bezier(0.16, 1, 0.3, 1);
+  touch-action: manipulation;
+}
+
+.folioTabs[data-expanded="true"] {
+  width: 9cqw;
+}
+
+.folioTabs:focus-visible,
+.folioTabs:focus-within {
+  outline: 0.11cqw solid var(--vellum-accent);
+  outline-offset: 0.16cqw;
+}
+
+.folioToggle,
+.folioTab {
+  width: 100%;
+  border: 0;
+  border-bottom: 0.055cqw solid var(--vellum-hairline);
+  color: var(--vellum-ink-muted);
+  background: var(--vellum-wall-raised);
+  cursor: pointer;
+}
+
+.folioToggle {
+  display: grid;
+  grid-template-columns: 2.6cqw 1fr;
+  align-items: center;
+  gap: 0.6cqw;
+  padding: 0 0.8cqw;
+  text-align: left;
+}
+
+.folioToggle span {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.8cqw;
+  line-height: 1;
+  color: var(--vellum-accent);
+}
+
+.folioToggle b {
+  overflow: hidden;
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.52cqw;
+  font-weight: 500;
+  letter-spacing: 0.025cqw;
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity 180ms ease;
+}
+
+.folioTabs[data-expanded="false"] .folioToggle b {
+  opacity: 0;
+}
+
+.folioTabStack {
+  display: grid;
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+  gap: 0.7cqh;
+  padding: 1cqh 0;
+}
+
+.folioTab {
+  display: grid;
+  grid-template-columns: 2.8cqw 1fr;
+  align-items: center;
+  min-height: 0;
+  padding: 0 0.7cqw;
+  text-align: left;
+  border-top: 0.055cqw solid var(--vellum-hairline);
+  transition:
+    transform 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 240ms ease,
+    color 240ms ease;
+}
+
+.folioTab span,
+.folioTab b {
+  font-family: "JetBrains Mono", "Noto Sans SC", monospace;
+  font-size: 0.62cqw;
+  line-height: 1;
+  letter-spacing: 0.035cqw;
+}
+
+.folioTab b {
+  overflow: hidden;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity 180ms ease;
+}
+
+.folioTabs[data-expanded="false"] .folioTab b {
+  opacity: 0;
+}
+
+.folioTabs[data-expanded="false"] .folioTab[data-depth="1"] {
+  transform: translateX(0.45cqw);
+}
+
+.folioTabs[data-expanded="false"] .folioTab[data-depth="2"] {
+  transform: translateX(0.9cqw);
+}
+
+.folioTabs[data-expanded="false"] .folioTab[data-depth="3"],
+.folioTabs[data-expanded="false"] .folioTab[data-depth="4"] {
+  transform: translateX(1.25cqw);
+}
+
+.folioTab[data-active="true"] {
+  color: #1f251f;
+  background: var(--vellum-accent);
+  transform: translateX(-0.65cqw);
+}
+
+.folioTab:hover {
+  color: var(--vellum-ink);
+}
+
+.folioToggle:focus-visible,
+.folioTab:focus-visible {
+  outline: 0.11cqw solid var(--vellum-accent);
+  outline-offset: -0.2cqw;
+}
+
+.motionOff *,
+.motionOff *::before,
+.motionOff *::after {
+  scroll-behavior: auto !important;
+  animation: none !important;
+  transition: none !important;
+}

@@ -30,6 +30,7 @@ import { metricsWithoutNoiseTopic } from "./02-metrics-without-noise";
 import { repairAsStrategyTopic } from "./03-repair-as-strategy";
 import { betterQuestionTopic } from "./04-better-question";
 import { resilienceBlueprintTopic } from "./05-resilience-blueprint";
+import { cometAnatomyTopic } from "./05-comet-anatomy";
 import { oneConstraintWinsTopic } from "./06-one-constraint-wins";
 import { humanLoopRetrofitTopic } from "./07-human-loop-retrofit";
 import { beforeATopic } from "./06-before-a";
@@ -98,6 +99,7 @@ import { rogueWaveTopic } from "./18-rogue-wave";
 import { productGetsCoverTopic } from "./18-product-gets-cover";
 import { usefulWeekNotesTopic } from "./19-useful-week-notes";
 import { argumentInMarginsTopic } from "./20-argument-in-margins";
+import { hiddenTextTopic } from "./scholars-vellum-hidden-text";
 import { publicLightProgramTopic } from "./21-public-light-program";
 import { fiveTakesRoomTopic } from "./22-five-takes-room";
 import { communityPrintsItselfTopic } from "./23-community-prints-itself";
@@ -170,6 +172,7 @@ import { escapementTopic } from "./38-escapement";
 import { fiveActsSystemTopic } from "./38-five-acts-system";
 import { whaleFallTopic } from "./39-whale-fall";
 import { deriveShortcutTopic } from "./39-derive-shortcut";
+import { hearingPathTopic } from "./40-hearing-path";
 import { latencyBossFightTopic } from "./40-latency-boss-fight";
 import AnnualReport41, {
   getMetadata as getMetadata41,
@@ -270,6 +273,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata05,
     },
     resilienceBlueprintTopic,
+    cometAnatomyTopic,
   ]),
   buildEntry("kinetic-type-punchline", [
     {
@@ -429,6 +433,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata20,
     },
     argumentInMarginsTopic,
+    hiddenTextTopic,
   ]),
   buildEntry("solar-biennale-poster", [
     {
@@ -626,6 +631,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata39,
     },
     deriveShortcutTopic,
+    hearingPathTopic,
   ]),
   buildEntry("arcade-boss-fight", [
     {

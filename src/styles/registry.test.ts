@@ -53,14 +53,16 @@ describe("STYLE_REGISTRY topic catalog", () => {
     ]);
   });
 
-  it("registers the coordinated Topic Set through batch four", () => {
-    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(109);
+  it("registers the coordinated Topic Set through batch five", () => {
+    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(112);
+    expect(findTopic("cyanotype-drafting-table", "comet-anatomy")).toBeDefined();
     expect(findTopic("kinetic-type-punchline", "before-a")).toBeDefined();
     expect(findTopic("sketch-board-emoji", "stadium-wave")).toBeDefined();
     expect(
       findTopic("engineering-whiteboard-explainer", "water-tower"),
     ).toBeDefined();
     expect(findTopic("front-page-broadsheet", "rogue-wave")).toBeDefined();
+    expect(findTopic("scholars-vellum", "hidden-text")).toBeDefined();
     expect(findTopic("retro-windows", "voyager-boundary")).toBeDefined();
     expect(findTopic("after-hours-luxe", "urushi-cure")).toBeDefined();
     expect(findTopic("minimal-product-keynote", "presolar-grain")).toBeDefined();
@@ -71,5 +73,6 @@ describe("STYLE_REGISTRY topic catalog", () => {
     expect(findTopic("operating-manual", "escapement")).toBeDefined();
     expect(findTopic("widescreen-title-card", "whale-fall")).toBeDefined();
     expect(findTopic("object-metaphor-hero", "cocoon-to-cloth")).toBeDefined();
+    expect(findTopic("blackboard-chalk-talk", "hearing-path")).toBeDefined();
   });
 });

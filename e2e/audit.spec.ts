@@ -163,10 +163,12 @@ const SECONDARY_TOPIC_BY_STYLE: Record<string, string> = {
 };
 const COORDINATED_TOPIC_BY_STYLE: Record<string, string> = {
   "minimal-product-keynote": "presolar-grain",
+  "cyanotype-drafting-table": "comet-anatomy",
   "kinetic-type-punchline": "before-a",
   "sketch-board-emoji": "stadium-wave",
   "engineering-whiteboard-explainer": "water-tower",
   "front-page-broadsheet": "rogue-wave",
+  "scholars-vellum": "hidden-text",
   "mechanical-scoring-funnel": "snowflake-branches",
   "retro-windows": "voyager-boundary",
   "after-hours-luxe": "urushi-cure",
@@ -174,6 +176,7 @@ const COORDINATED_TOPIC_BY_STYLE: Record<string, string> = {
   "widescreen-title-card": "whale-fall",
   "research-memo": "impact-evidence",
   "object-metaphor-hero": "cocoon-to-cloth",
+  "blackboard-chalk-talk": "hearing-path",
 };
 const SECONDARY_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
   "minimal-product-keynote": 1,
@@ -186,10 +189,12 @@ const SECONDARY_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
 };
 const COORDINATED_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
   "minimal-product-keynote": 1,
+  "cyanotype-drafting-table": 0,
   "kinetic-type-punchline": 3,
   "sketch-board-emoji": 0,
   "engineering-whiteboard-explainer": 3,
   "front-page-broadsheet": 0,
+  "scholars-vellum": 0,
   "mechanical-scoring-funnel": 3,
   "retro-windows": 0,
   "after-hours-luxe": 1,
@@ -197,6 +202,7 @@ const COORDINATED_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
   "widescreen-title-card": 3,
   "research-memo": 0,
   "object-metaphor-hero": 1,
+  "blackboard-chalk-talk": 3,
 };
 const SCENE_TRANSITION_KINDS = [
   "slide-x",
