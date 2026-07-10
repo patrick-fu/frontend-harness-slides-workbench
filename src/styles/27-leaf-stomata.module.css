@@ -1,0 +1,956 @@
+.root {
+  --paper: #e8dfc8;
+  --paper-deep: #d8cba9;
+  --paper-light: #f0ead8;
+  --ink: #352d21;
+  --ink-soft: #71634b;
+  --green: #657253;
+  --green-pale: #aeb396;
+  --ochre: #9a7848;
+  --water: #6f817a;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 24% 17%, rgb(255 255 255 / 23%), transparent 28%),
+    radial-gradient(circle at 78% 82%, rgb(92 68 35 / 8%), transparent 34%),
+    var(--paper);
+  font-family: "Iowan Old Style", Baskerville, "Songti SC", "Noto Serif CJK SC", serif;
+  isolation: isolate;
+}
+
+.paperGrain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.42;
+  background-image:
+    repeating-linear-gradient(7deg, transparent 0 0.38cqh, rgb(65 49 27 / 2.8%) 0.41cqh 0.46cqh),
+    repeating-linear-gradient(93deg, transparent 0 0.74cqw, rgb(255 255 255 / 3.2%) 0.78cqw 0.84cqw);
+  mix-blend-mode: multiply;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 3.4cqh 5.2cqw 3.5cqh;
+  background:
+    linear-gradient(90deg, transparent 0 49.88%, rgb(64 47 27 / 3.5%) 50%, transparent 50.12%),
+    linear-gradient(var(--paper-light), var(--paper));
+}
+
+.scene::before,
+.scene::after {
+  position: absolute;
+  width: 2.2cqw;
+  height: 2.2cqw;
+  border-color: rgb(53 45 33 / 38%);
+  content: "";
+  pointer-events: none;
+}
+
+.scene::before {
+  top: 4.8cqh;
+  left: 2.7cqw;
+  border-top: 0.08cqw solid;
+  border-left: 0.08cqw solid;
+}
+
+.scene::after {
+  right: 2.7cqw;
+  bottom: 5.2cqh;
+  border-right: 0.08cqw solid;
+  border-bottom: 0.08cqw solid;
+}
+
+.plateHeader {
+  position: absolute;
+  top: 3.2cqh;
+  right: 5.2cqw;
+  left: 5.2cqw;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  min-height: 3.4cqh;
+  border-bottom: 0.07cqw solid rgb(53 45 33 / 42%);
+  color: var(--ink-soft);
+  font-size: 0.7cqw;
+  letter-spacing: 0.13cqw;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.plateHeader i {
+  overflow: hidden;
+  font-size: 0.78cqw;
+  letter-spacing: 0.03cqw;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.plateHeader span:last-child {
+  text-align: right;
+}
+
+.titleBlock {
+  position: absolute;
+  z-index: 3;
+  width: 31cqw;
+}
+
+.titleBlock > span {
+  display: block;
+  margin-bottom: 1.2cqh;
+  color: var(--ochre);
+  font-size: 0.68cqw;
+  font-weight: 700;
+  letter-spacing: 0.17cqw;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.titleBlock h1 {
+  max-width: 32cqw;
+  margin: 0;
+  font-size: 3.35cqw;
+  font-weight: 500;
+  letter-spacing: -0.08cqw;
+  line-height: 0.97;
+  text-wrap: balance;
+}
+
+.titleBlock p {
+  max-width: 29cqw;
+  margin: 2cqh 0 0;
+  color: var(--ink-soft);
+  font-size: 1.05cqw;
+  line-height: 1.42;
+}
+
+.figure {
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+}
+
+.figure > svg,
+.figure > div {
+  width: 100%;
+  height: 100%;
+}
+
+.figure figcaption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 2cqw;
+  padding-top: 1cqh;
+  border-top: 0.065cqw solid rgb(53 45 33 / 35%);
+  color: var(--ink-soft);
+  font-size: 0.66cqw;
+  font-style: italic;
+  line-height: 1.25;
+}
+
+.figure figcaption span:first-child {
+  flex: none;
+  color: var(--ink);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.08cqw;
+  text-transform: uppercase;
+}
+
+.figure figcaption span:last-child {
+  text-align: right;
+}
+
+.observations {
+  position: absolute;
+  z-index: 3;
+}
+
+.observationLabel {
+  display: block;
+  margin-bottom: 1.1cqh;
+  color: var(--ink-soft);
+  font-size: 0.62cqw;
+  font-weight: 700;
+  letter-spacing: 0.12cqw;
+  text-transform: uppercase;
+}
+
+.beatRegister {
+  display: grid;
+  gap: 0.95cqh;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.beatRegister li {
+  display: grid;
+  grid-template-columns: 2.1cqw 1fr;
+  gap: 0.75cqw;
+  min-height: 4.6cqh;
+  padding-top: 0.75cqh;
+  border-top: 0.06cqw solid rgb(53 45 33 / 28%);
+  opacity: 0.18;
+  transform: translateY(0.6cqh);
+  transition:
+    opacity 520ms ease,
+    transform 520ms cubic-bezier(0.22, 0.72, 0.18, 1),
+    border-color 520ms ease;
+}
+
+.beatRegister li[data-visible="true"] {
+  opacity: 0.72;
+  transform: translateY(0);
+}
+
+.beatRegister li[data-current="true"] {
+  border-color: rgb(53 45 33 / 72%);
+  opacity: 1;
+}
+
+.beatRegister li > span {
+  padding-top: 0.1cqh;
+  color: var(--ochre);
+  font-size: 0.67cqw;
+  letter-spacing: 0.07cqw;
+}
+
+.beatRegister strong {
+  display: block;
+  font-size: 0.86cqw;
+  font-weight: 600;
+  line-height: 1.12;
+}
+
+.beatRegister p {
+  margin: 0.42cqh 0 0;
+  color: var(--ink-soft);
+  font-size: 0.68cqw;
+  line-height: 1.25;
+}
+
+.plateFooter {
+  position: absolute;
+  right: 5.2cqw;
+  bottom: 2.2cqh;
+  left: 5.2cqw;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.9cqh;
+  border-top: 0.065cqw solid rgb(53 45 33 / 34%);
+  color: var(--ink-soft);
+  font-size: 0.57cqw;
+  letter-spacing: 0.07cqw;
+  text-transform: uppercase;
+}
+
+.scene1 .titleBlock {
+  top: 13.5cqh;
+  left: 7.4cqw;
+}
+
+.scene1 .figure {
+  top: 10.5cqh;
+  left: 34cqw;
+  width: 56cqw;
+  height: 77cqh;
+}
+
+.scene1 .observations {
+  top: 55cqh;
+  left: 7.4cqw;
+  width: 24cqw;
+}
+
+.scene2 .titleBlock {
+  top: 11.5cqh;
+  left: 6.5cqw;
+  width: 29cqw;
+}
+
+.scene2 .figure {
+  top: 11cqh;
+  right: 5.8cqw;
+  width: 57cqw;
+  height: 77cqh;
+}
+
+.scene2 .observations {
+  top: 47cqh;
+  left: 6.5cqw;
+  width: 27cqw;
+}
+
+.scene3 .titleBlock {
+  top: 11.2cqh;
+  left: 6.4cqw;
+  width: 27cqw;
+}
+
+.scene3 .titleBlock h1 {
+  font-size: 3.1cqw;
+}
+
+.scene3 .figure {
+  top: 9.5cqh;
+  right: 4.8cqw;
+  width: 62cqw;
+  height: 78.5cqh;
+}
+
+.scene3 .observations {
+  top: 42cqh;
+  left: 6.4cqw;
+  width: 28cqw;
+}
+
+.scene3 .beatRegister {
+  gap: 0.5cqh;
+}
+
+.scene3 .beatRegister li {
+  min-height: 5cqh;
+  padding-top: 0.6cqh;
+}
+
+.scene3 .beatRegister p {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.scene4 .titleBlock {
+  top: 10.5cqh;
+  left: 6.4cqw;
+  width: 29cqw;
+}
+
+.scene4 .titleBlock h1 {
+  font-size: 3cqw;
+}
+
+.scene4 .figure {
+  top: 9.2cqh;
+  right: 4.6cqw;
+  width: 63cqw;
+  height: 79cqh;
+}
+
+.scene4 .observations {
+  top: 49cqh;
+  left: 6.4cqw;
+  width: 28cqw;
+}
+
+.scene5 .titleBlock {
+  top: 15cqh;
+  left: 7.2cqw;
+  width: 30cqw;
+}
+
+.scene5 .titleBlock h1 {
+  font-size: 3.7cqw;
+}
+
+.scene5 .figure {
+  top: 9.8cqh;
+  right: 5.2cqw;
+  width: 56cqw;
+  height: 78cqh;
+}
+
+.scene5 .observations {
+  top: 58cqh;
+  left: 7.2cqw;
+  width: 27cqw;
+}
+
+.wholeLeaf {
+  overflow: visible;
+}
+
+.leafWash path {
+  fill: rgb(101 114 83 / 24%);
+}
+
+.leafOutline,
+.midrib,
+.veins path,
+.petiole,
+.inspectionWindow path,
+.inspectionWindow circle {
+  fill: none;
+  stroke: var(--ink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.leafOutline {
+  stroke-width: 2.3;
+}
+
+.midrib {
+  stroke-width: 2.5;
+}
+
+.veins path {
+  opacity: 0.58;
+  stroke-width: 1.2;
+}
+
+.petiole {
+  stroke-width: 3;
+}
+
+.inspectionWindow path,
+.inspectionWindow circle {
+  stroke: var(--ochre);
+  stroke-width: 1.7;
+}
+
+.root:not(.frozen) .leafOutline,
+.root:not(.frozen) .midrib,
+.root:not(.frozen) .veins path,
+.root:not(.frozen) .inspectionWindow path {
+  animation: leafLineDraw 680ms cubic-bezier(0.3, 0.72, 0.2, 1) both;
+}
+
+.root:not(.frozen) .veins path:nth-child(2n) {
+  animation-delay: 90ms;
+}
+
+.wholeLeafClosing .inspectionWindow {
+  display: none;
+}
+
+.epidermisField {
+  overflow: visible;
+}
+
+.pavementCells path {
+  fill: none;
+  stroke: rgb(53 45 33 / 49%);
+  stroke-width: 1.45;
+}
+
+.guardCell {
+  fill: rgb(101 114 83 / 28%);
+  stroke: var(--ink);
+  stroke-width: 2.1;
+}
+
+.pore {
+  fill: rgb(53 45 33 / 76%);
+  stroke: var(--ink);
+  stroke-width: 1.3;
+}
+
+.stomatalComplex {
+  opacity: 0.48;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 600ms ease, transform 600ms cubic-bezier(0.22, 0.72, 0.18, 1);
+}
+
+.resolvedComplex {
+  opacity: 1;
+  transform: scale(1.09);
+}
+
+.stomaLeader {
+  fill: none;
+  stroke: var(--ochre);
+  stroke-width: 1.6;
+}
+
+.root:not(.frozen) .pavementCells path,
+.root:not(.frozen) .stomaLeader {
+  animation: leafLineDraw 600ms ease-out both;
+}
+
+.stomataCutaway,
+.conditionsPlate {
+  overflow: visible;
+}
+
+.svgSmallCaps,
+.svgLabel,
+.carbonText,
+.waterText,
+.conditionLabel,
+.conditionNote,
+.centerConditionLabel {
+  font-family: "Iowan Old Style", Baskerville, "Songti SC", serif;
+}
+
+.svgSmallCaps {
+  fill: var(--ink-soft);
+  font-size: 0.88cqw;
+  letter-spacing: 0.16cqw;
+}
+
+.svgLabel {
+  fill: var(--ink-soft);
+  font-size: 0.78cqw;
+  font-style: italic;
+  letter-spacing: 0.05cqw;
+}
+
+.epidermisLine {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.airSpace {
+  fill: rgb(216 203 169 / 32%);
+  stroke: rgb(53 45 33 / 42%);
+  stroke-dasharray: 8 7;
+  stroke-width: 1.5;
+}
+
+.cutawayGuard {
+  fill: rgb(101 114 83 / 29%);
+  stroke: var(--ink);
+  stroke-width: 2.6;
+}
+
+.guardHatch {
+  fill: none;
+  stroke: rgb(53 45 33 / 48%);
+  stroke-width: 1.2;
+}
+
+.cutawayGuardLeft,
+.cutawayGuardRight {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 650ms cubic-bezier(0.22, 0.72, 0.18, 1);
+}
+
+.stomataCutaway[data-aperture="wide"] .cutawayGuardLeft {
+  transform: translateX(-0.63cqw);
+}
+
+.stomataCutaway[data-aperture="wide"] .cutawayGuardRight {
+  transform: translateX(0.63cqw);
+}
+
+.poreMeasure,
+.poreMeasureTicks,
+.labelLeader {
+  fill: none;
+  stroke: var(--ochre);
+  stroke-width: 1.4;
+}
+
+.carbonFlow,
+.waterFlow,
+.conditionSecond {
+  opacity: 0;
+  transition: opacity 520ms ease;
+}
+
+.carbonFlow[data-visible="true"],
+.waterFlow[data-visible="true"],
+.conditionSecond[data-visible="true"] {
+  opacity: 1;
+}
+
+.carbonFlow path,
+.waterFlow path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 3.1;
+}
+
+.carbonFlow path {
+  stroke: var(--ochre);
+}
+
+.waterFlow path {
+  stroke: var(--water);
+}
+
+.arrowHeadCarbon {
+  fill: var(--ochre);
+}
+
+.arrowHeadWater {
+  fill: var(--water);
+}
+
+.carbonText,
+.waterText {
+  font-size: 1.04cqw;
+  font-weight: 700;
+  letter-spacing: 0.08cqw;
+}
+
+.carbonText {
+  fill: var(--ochre);
+}
+
+.waterText {
+  fill: var(--water);
+}
+
+.root:not(.frozen) .carbonFlow[data-visible="true"] path,
+.root:not(.frozen) .waterFlow[data-visible="true"] path {
+  animation: gasLineDraw 560ms cubic-bezier(0.3, 0.72, 0.2, 1) both;
+}
+
+.conditionLeaf {
+  fill: rgb(101 114 83 / 8%);
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.conditionMidrib {
+  fill: none;
+  stroke: rgb(53 45 33 / 36%);
+  stroke-width: 1.3;
+}
+
+.conditionStoma path:not(.conditionPore) {
+  fill: rgb(101 114 83 / 27%);
+  stroke: var(--ink);
+  stroke-width: 2.2;
+}
+
+.conditionPore {
+  fill: rgb(53 45 33 / 78%);
+}
+
+.conditionFirst path,
+.conditionSecond path,
+.conditionFirst circle,
+.conditionSecond circle {
+  fill: none;
+  stroke: var(--ochre);
+  stroke-width: 1.4;
+}
+
+.conditionLabel {
+  fill: var(--ink);
+  font-size: 0.94cqw;
+  font-weight: 700;
+  letter-spacing: 0.07cqw;
+}
+
+.conditionNote {
+  fill: var(--ink-soft);
+  font-size: 0.68cqw;
+  font-style: italic;
+}
+
+.centerConditionLabel {
+  fill: var(--ink-soft);
+  font-size: 0.73cqw;
+  font-style: italic;
+  letter-spacing: 0.05cqw;
+}
+
+.root:not(.frozen) .conditionFirst path,
+.root:not(.frozen) .conditionSecond[data-visible="true"] path {
+  animation: conditionLineDraw 620ms ease-out both;
+}
+
+.conclusionMount {
+  position: relative;
+}
+
+.conclusionMount .wholeLeaf {
+  position: absolute;
+  top: -4cqh;
+  left: -2cqw;
+  width: 38cqw;
+  height: 65cqh;
+}
+
+.conclusionLabel {
+  position: absolute;
+  right: 1.8cqw;
+  bottom: 3.3cqh;
+  display: grid;
+  width: 20cqw;
+  padding: 1.7cqh 1.3cqw;
+  border: 0.07cqw solid rgb(53 45 33 / 56%);
+  background: rgb(240 234 216 / 72%);
+}
+
+.conclusionLabel span {
+  font-size: 0.58cqw;
+  font-weight: 700;
+  letter-spacing: 0.11cqw;
+}
+
+.conclusionLabel strong {
+  margin-top: 0.8cqh;
+  font-size: 0.92cqw;
+  font-weight: 600;
+}
+
+.conclusionLabel i {
+  margin-top: 1.1cqh;
+  color: var(--ink-soft);
+  font-size: 0.67cqw;
+}
+
+.specimenNavigation {
+  --lens-x: 15cqw;
+  --lens-y: 22cqh;
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  touch-action: none;
+}
+
+.magnifierFrame {
+  position: absolute;
+  top: var(--lens-y);
+  left: var(--lens-x);
+  width: 4.4cqw;
+  height: 4.4cqw;
+  border: 0.08cqw solid rgb(154 120 72 / 72%);
+  transform: translate(-50%, -50%);
+  transition:
+    top 560ms cubic-bezier(0.22, 0.72, 0.18, 1),
+    left 560ms cubic-bezier(0.22, 0.72, 0.18, 1),
+    width 560ms ease,
+    height 560ms ease;
+}
+
+.magnifierFrame::before,
+.magnifierFrame::after,
+.magnifierFrame span::before,
+.magnifierFrame span::after {
+  position: absolute;
+  width: 0.75cqw;
+  height: 0.75cqw;
+  border-color: var(--ochre);
+  content: "";
+}
+
+.magnifierFrame::before {
+  top: -0.16cqw;
+  left: -0.16cqw;
+  border-top: 0.1cqw solid;
+  border-left: 0.1cqw solid;
+}
+
+.magnifierFrame::after {
+  top: -0.16cqw;
+  right: -0.16cqw;
+  border-top: 0.1cqw solid;
+  border-right: 0.1cqw solid;
+}
+
+.magnifierFrame span::before {
+  bottom: -0.16cqw;
+  left: -0.16cqw;
+  border-bottom: 0.1cqw solid;
+  border-left: 0.1cqw solid;
+}
+
+.magnifierFrame span::after {
+  right: -0.16cqw;
+  bottom: -0.16cqw;
+  border-right: 0.1cqw solid;
+  border-bottom: 0.1cqw solid;
+}
+
+.specimenNavigation[data-dragging="true"] .magnifierFrame {
+  width: 5.1cqw;
+  height: 5.1cqw;
+}
+
+.scrubRail {
+  position: absolute;
+  right: 33cqw;
+  bottom: 2.7cqh;
+  left: 33cqw;
+  height: 2.2cqh;
+  border-top: 0.06cqw dashed rgb(53 45 33 / 35%);
+  pointer-events: auto;
+  cursor: ew-resize;
+}
+
+.scrubRail::before,
+.scrubRail::after {
+  position: absolute;
+  top: -0.35cqh;
+  width: 0.08cqw;
+  height: 0.7cqh;
+  background: rgb(53 45 33 / 48%);
+  content: "";
+}
+
+.scrubRail::before {
+  left: 0;
+}
+
+.scrubRail::after {
+  right: 0;
+}
+
+.scrubRail span {
+  position: absolute;
+  top: 0.42cqh;
+  left: 50%;
+  color: var(--ink-soft);
+  font-size: 0.46cqw;
+  letter-spacing: 0.08cqw;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.registrationMark {
+  position: absolute;
+  display: grid;
+  width: 3.4cqw;
+  height: 3.4cqw;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--ink-soft);
+  background: transparent;
+  font: inherit;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.registrationMark[data-position="1"] {
+  top: 13.2cqh;
+  left: 1.8cqw;
+}
+
+.registrationMark[data-position="2"] {
+  top: 43.5cqh;
+  left: 1.8cqw;
+}
+
+.registrationMark[data-position="3"] {
+  top: 71.2cqh;
+  left: 1.8cqw;
+}
+
+.registrationMark[data-position="4"] {
+  top: 28.5cqh;
+  right: 1.8cqw;
+}
+
+.registrationMark[data-position="5"] {
+  top: 61cqh;
+  right: 1.8cqw;
+}
+
+.registrationMark > span {
+  position: absolute;
+  width: 1.55cqw;
+  height: 1.55cqw;
+}
+
+.registrationMark > span::before,
+.registrationMark > span::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: currentcolor;
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.registrationMark > span::before {
+  width: 1.55cqw;
+  height: 0.06cqw;
+}
+
+.registrationMark > span::after {
+  width: 0.06cqw;
+  height: 1.55cqw;
+}
+
+.registrationMark b {
+  position: absolute;
+  top: 2.5cqh;
+  font-size: 0.51cqw;
+  font-weight: 600;
+  letter-spacing: 0.06cqw;
+}
+
+.registrationMark[data-active="true"] {
+  color: var(--ochre);
+}
+
+.registrationMark[data-active="true"] > span {
+  transform: rotate(45deg);
+}
+
+.registrationMark:focus-visible {
+  outline: 0.11cqw solid var(--ochre);
+  outline-offset: 0.16cqw;
+}
+
+.frozen *,
+.frozen *::before,
+.frozen *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+}
+
+@keyframes leafLineDraw {
+  from {
+    stroke-dasharray: 920;
+    stroke-dashoffset: 920;
+    opacity: 0.28;
+  }
+  to {
+    stroke-dasharray: 920;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes gasLineDraw {
+  from {
+    stroke-dasharray: 620;
+    stroke-dashoffset: 620;
+  }
+  to {
+    stroke-dasharray: 620;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes conditionLineDraw {
+  from {
+    stroke-dasharray: 380;
+    stroke-dashoffset: 380;
+  }
+  to {
+    stroke-dasharray: 380;
+    stroke-dashoffset: 0;
+  }
+}

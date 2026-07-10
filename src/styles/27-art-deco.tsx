@@ -207,7 +207,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "27",
+    id: "machine-age-deco",
     band: "craft-cultural",
     name: nameMap[lang],
     theme: themeMap[lang],

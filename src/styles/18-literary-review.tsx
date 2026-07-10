@@ -187,7 +187,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "18",
+    id: "magazine-masthead",
     band: "editorial-print",
     name: nameMap[lang],
     theme: themeMap[lang],

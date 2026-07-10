@@ -112,7 +112,7 @@ describe("Style 16: Case Study — overflow check", () => {
 describe("Style 16: Case Study — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("16");
+    expect(meta.id).toBe("debug-reaction-board");
     expect(meta.band).toBe("balanced-hybrid");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

@@ -1,0 +1,1035 @@
+.root {
+  --style-warm-editorial-feature-bg: #f5eedf;
+  --style-warm-editorial-feature-paper: #fbf6ea;
+  --style-warm-editorial-feature-ink: #312922;
+  --style-warm-editorial-feature-muted: #746a5f;
+  --style-warm-editorial-feature-rule: rgba(49, 41, 34, 0.24);
+  --style-warm-editorial-feature-accent: #7f8968;
+  --style-warm-editorial-feature-accent-soft: rgba(127, 137, 104, 0.12);
+  position: relative;
+  width: 100cqw;
+  height: 100cqh;
+  overflow: hidden;
+  container-type: size;
+  background: var(--style-warm-editorial-feature-bg);
+  color: var(--style-warm-editorial-feature-ink);
+  font-family: "Avenir Next", "Noto Sans CJK SC", "PingFang SC", sans-serif;
+}
+
+.root,
+.root * {
+  box-sizing: border-box;
+}
+
+.page {
+  position: absolute;
+  inset: 0;
+  width: 100cqw;
+  height: 100cqh;
+  overflow: hidden;
+  background: var(--style-warm-editorial-feature-bg);
+  color: var(--style-warm-editorial-feature-ink);
+}
+
+.pageFrame {
+  position: absolute;
+  inset: 3.8cqh 4.5cqw;
+  border: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+  pointer-events: none;
+}
+
+.pageHeader {
+  position: absolute;
+  top: 4.7cqh;
+  right: 13cqw;
+  left: 8.2cqw;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  gap: 1.4cqw;
+  align-items: center;
+  min-height: 4cqh;
+}
+
+.chapterName,
+.sourceRef,
+.panelHeading,
+.layerTopline strong,
+.versionTopline span,
+.indexToggleText,
+.chapterLabel {
+  font-family: "Avenir Next", "Noto Sans CJK SC", "PingFang SC", sans-serif;
+  text-transform: uppercase;
+}
+
+.chapterName {
+  color: var(--style-warm-editorial-feature-accent);
+  font-size: 0.92cqw;
+  font-weight: 600;
+  letter-spacing: 0.16cqw;
+  line-height: 1;
+}
+
+.headerRule {
+  width: 100%;
+  height: 0.08cqh;
+  background: var(--style-warm-editorial-feature-accent);
+  opacity: 0.78;
+}
+
+.sourceRef {
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 0.74cqw;
+  font-weight: 500;
+  letter-spacing: 0.05cqw;
+  line-height: 1.2;
+  text-align: right;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--style-warm-editorial-feature-accent);
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 1.22cqw;
+  font-style: italic;
+  line-height: 1.25;
+}
+
+.sectionTitle,
+.heroTitle,
+.epicTitle,
+.closeStatement h2,
+.editorialLayer h3,
+.versionCard h3 {
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 3.85cqw;
+  font-weight: 500;
+  letter-spacing: -0.08cqw;
+  line-height: 1.02;
+}
+
+.sectionDeck {
+  margin: 0;
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 1.12cqw;
+  line-height: 1.46;
+}
+
+.reveal {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity 520ms ease,
+    transform 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0ms linear;
+}
+
+.concealed {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(1.2cqh);
+  transition:
+    opacity 420ms ease,
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0ms linear 520ms;
+}
+
+.revealed {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.settled,
+.motionOff *,
+.motionOff *::before,
+.motionOff *::after {
+  animation-duration: 0ms !important;
+  animation-delay: 0ms !important;
+  transition-duration: 0ms !important;
+  transition-delay: 0ms !important;
+}
+
+/* Scene 1 — performance opener */
+
+.openerLayout {
+  position: absolute;
+  top: 15cqh;
+  right: 13cqw;
+  bottom: 16cqh;
+  left: 8.2cqw;
+  display: grid;
+  grid-template-columns: 50cqw 24cqw;
+  gap: 4cqw;
+  align-items: center;
+}
+
+.openerCopy {
+  align-self: center;
+}
+
+.heroTitle {
+  max-width: 46cqw;
+  margin: 2.4cqh 0 0;
+  font-size: 6.3cqw;
+  font-weight: 500;
+  letter-spacing: -0.16cqw;
+  line-height: 0.92;
+}
+
+.epicTitle {
+  max-width: 43cqw;
+  margin: 3.6cqh 0 0;
+  color: var(--style-warm-editorial-feature-accent);
+  font-size: 2.05cqw;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.18;
+}
+
+.heroDeck {
+  max-width: 43cqw;
+  margin: 3cqh 0 0;
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 1.27cqw;
+  line-height: 1.52;
+}
+
+.voiceColumn {
+  align-self: stretch;
+  display: grid;
+  grid-template-rows: 29cqh 28cqh;
+  gap: 3cqh;
+}
+
+.voiceFigure {
+  position: relative;
+  display: grid;
+  place-items: center;
+  border-top: 0.08cqw solid var(--style-warm-editorial-feature-rule);
+  border-bottom: 0.08cqw solid var(--style-warm-editorial-feature-rule);
+}
+
+.voiceDate,
+.voicePlace {
+  position: absolute;
+  right: 0;
+  left: 0;
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 0.82cqw;
+  font-weight: 600;
+  letter-spacing: 0.12cqw;
+  line-height: 1;
+  text-align: center;
+}
+
+.voiceDate {
+  top: 2.3cqh;
+}
+
+.voicePlace {
+  bottom: 2.3cqh;
+}
+
+.voiceString {
+  position: absolute;
+  top: 7.2cqh;
+  bottom: 7.2cqh;
+  left: 50%;
+  width: 0.1cqw;
+  background: var(--style-warm-editorial-feature-accent);
+}
+
+.voiceString::before,
+.voiceString::after {
+  position: absolute;
+  left: 50%;
+  width: 8.2cqw;
+  height: 4.6cqh;
+  border: 0.08cqw solid var(--style-warm-editorial-feature-accent);
+  border-right: 0;
+  border-left: 0;
+  content: "";
+  transform: translateX(-50%) skewY(-8deg);
+}
+
+.voiceString::before {
+  top: 1.5cqh;
+}
+
+.voiceString::after {
+  bottom: 1.5cqh;
+  transform: translateX(-50%) skewY(8deg);
+}
+
+.creditGrid {
+  display: grid;
+  align-content: start;
+  min-height: 28cqh;
+}
+
+.creditRow {
+  display: grid;
+  grid-template-columns: 7cqw 1fr;
+  gap: 1cqw;
+  align-items: baseline;
+  min-height: 6.5cqh;
+  padding: 1.5cqh 0;
+  border-top: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+}
+
+.creditRow span {
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 0.72cqw;
+  font-weight: 600;
+  letter-spacing: 0.08cqw;
+}
+
+.creditRow strong {
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 1.16cqw;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.openerPullQuote {
+  position: absolute;
+  right: 30cqw;
+  bottom: 6.4cqh;
+  left: 8.2cqw;
+  padding-top: 1.6cqh;
+  border-top: 0.08cqw solid var(--style-warm-editorial-feature-accent);
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 1.55cqw;
+  font-style: italic;
+  line-height: 1.25;
+}
+
+/* Scene 2 — waveform and transcript */
+
+.sceneIntro {
+  position: absolute;
+  top: 14.5cqh;
+  right: 13cqw;
+  left: 8.2cqw;
+  display: grid;
+  grid-template-columns: 17cqw 35cqw 24cqw;
+  gap: 1.6cqw;
+  align-items: start;
+  min-height: 18cqh;
+}
+
+.sceneIntro .sectionDeck {
+  padding-top: 0.6cqh;
+}
+
+.listeningGrid {
+  position: absolute;
+  top: 36cqh;
+  right: 13cqw;
+  bottom: 13cqh;
+  left: 8.2cqw;
+  display: grid;
+  grid-template-columns: 31cqw 28cqw 15cqw;
+  gap: 2.1cqw;
+  align-items: stretch;
+}
+
+.tracePanel,
+.transcriptPanel,
+.listeningMargin {
+  min-height: 48cqh;
+  border-top: 0.1cqw solid var(--style-warm-editorial-feature-accent);
+  background: var(--style-warm-editorial-feature-paper);
+}
+
+.tracePanel,
+.transcriptPanel {
+  padding: 2.3cqh 2cqw;
+}
+
+.listeningMargin {
+  padding: 2.3cqh 1.3cqw;
+  background: transparent;
+}
+
+.panelHeading {
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 0.74cqw;
+  font-weight: 600;
+  letter-spacing: 0.08cqw;
+  line-height: 1.2;
+}
+
+.waveform {
+  margin-top: 5cqh;
+}
+
+.waveBars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.31cqw;
+  height: 18cqh;
+  border-top: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+  border-bottom: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+}
+
+.waveBar {
+  display: block;
+  width: 0.38cqw;
+  min-height: 0.8cqh;
+  background: var(--style-warm-editorial-feature-accent);
+  opacity: 0.72;
+}
+
+.waveLabels {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 1.6cqh;
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 0.72cqw;
+  letter-spacing: 0.04cqw;
+  text-align: center;
+}
+
+.mediaBoundary {
+  margin: 5.2cqh 0 0;
+  padding-top: 1.6cqh;
+  border-top: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 0.88cqw;
+  font-style: italic;
+  line-height: 1.35;
+}
+
+.transcriptRows {
+  display: grid;
+  margin-top: 3.5cqh;
+}
+
+.transcriptRow {
+  display: grid;
+  grid-template-columns: 3.2cqw 1fr;
+  gap: 1cqw;
+  min-height: 8.6cqh;
+  padding: 1.5cqh 0;
+  border-top: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+}
+
+.transcriptRow span {
+  color: var(--style-warm-editorial-feature-accent);
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 1.22cqw;
+  font-style: italic;
+}
+
+.transcriptRow p {
+  margin: 0;
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 1.06cqw;
+  line-height: 1.36;
+}
+
+.listeningMargin ol {
+  display: grid;
+  gap: 2.6cqh;
+  margin: 3.4cqh 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.listeningMargin li {
+  padding-top: 1.4cqh;
+  border-top: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+  color: var(--style-warm-editorial-feature-muted);
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 0.96cqw;
+  line-height: 1.4;
+}
+
+.listeningTakeaway {
+  position: absolute;
+  right: 28cqw;
+  bottom: 6.1cqh;
+  left: 8.2cqw;
+  color: var(--style-warm-editorial-feature-ink);
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 1.42cqw;
+  font-style: italic;
+  line-height: 1.25;
+}
+
+/* Scene 3 — editorial overlays */
+
+.layerLayout {
+  position: absolute;
+  top: 14.5cqh;
+  right: 13cqw;
+  bottom: 8cqh;
+  left: 8.2cqw;
+  display: grid;
+  grid-template-columns: 27cqw 48cqw;
+  gap: 4cqw;
+  align-items: stretch;
+}
+
+.layerIntro {
+  padding-top: 4cqh;
+}
+
+.layerIntro .sectionTitle {
+  margin-top: 3cqh;
+  font-size: 3.55cqw;
+}
+
+.layerIntro .sectionDeck {
+  margin-top: 3.5cqh;
+}
+
+.layerBoundary {
+  margin: 6cqh 0 0;
+  padding: 2cqh 0 0 1.3cqw;
+  border-top: 0.08cqw solid var(--style-warm-editorial-feature-rule);
+  border-left: 0.12cqw solid var(--style-warm-editorial-feature-accent);
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 0.87cqw;
+  line-height: 1.45;
+}
+
+.layerStack {
+  position: relative;
+  height: 73cqh;
+}
+
+.editorialLayer {
+  position: absolute;
+  width: 41.5cqw;
+  min-height: 45cqh;
+  padding: 3cqh 3cqw;
+  border: 0.08cqw solid var(--style-warm-editorial-feature-rule);
+  background: rgba(251, 246, 234, 0.94);
+}
+
+.editorialLayer1 {
+  top: 3cqh;
+  left: 0;
+  z-index: 1;
+}
+
+.editorialLayer2 {
+  top: 12cqh;
+  left: 3cqw;
+  z-index: 2;
+  border-color: rgba(127, 137, 104, 0.48);
+}
+
+.editorialLayer3 {
+  top: 21cqh;
+  left: 6cqw;
+  z-index: 3;
+  border-color: var(--style-warm-editorial-feature-accent);
+}
+
+.layerTopline {
+  display: grid;
+  grid-template-columns: 3.2cqw 1fr;
+  align-items: center;
+  padding-bottom: 1.7cqh;
+  border-bottom: 0.08cqw solid var(--style-warm-editorial-feature-accent);
+}
+
+.layerTopline span {
+  color: var(--style-warm-editorial-feature-accent);
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 1.9cqw;
+  font-style: italic;
+}
+
+.layerTopline strong {
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 0.74cqw;
+  letter-spacing: 0.08cqw;
+}
+
+.editorialLayer h3 {
+  max-width: 34cqw;
+  margin: 3.2cqh 0 0;
+  font-size: 2.65cqw;
+  font-weight: 500;
+  line-height: 1.04;
+}
+
+.editorialLayer p {
+  max-width: 34cqw;
+  margin: 3cqh 0 0;
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 1.06cqw;
+  line-height: 1.48;
+}
+
+.layerMeta {
+  position: absolute;
+  right: 3cqw;
+  bottom: 2.6cqh;
+  left: 3cqw;
+  padding-top: 1.4cqh;
+  border-top: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+  color: var(--style-warm-editorial-feature-accent);
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 0.92cqw;
+  font-style: italic;
+  text-align: right;
+}
+
+.editMarks {
+  position: absolute;
+  top: 4cqh;
+  right: -1cqw;
+  z-index: 4;
+  display: grid;
+  gap: 2.2cqh;
+  color: var(--style-warm-editorial-feature-accent);
+  font-family: "Iowan Old Style", serif;
+  font-size: 1.5cqw;
+  opacity: 0.62;
+}
+
+/* Scene 4 — parallel versions */
+
+.versionIntro {
+  position: absolute;
+  top: 14.5cqh;
+  right: 13cqw;
+  left: 8.2cqw;
+  display: grid;
+  grid-template-columns: 18cqw 1fr;
+  gap: 2.2cqw;
+}
+
+.versionIntro .sectionDeck {
+  max-width: 54cqw;
+  margin-top: 2cqh;
+}
+
+.versionGrid {
+  position: absolute;
+  top: 35cqh;
+  right: 13cqw;
+  bottom: 21cqh;
+  left: 8.2cqw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.4cqw;
+}
+
+.versionCard {
+  min-width: 0;
+  height: 100%;
+}
+
+.versionCard article {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 2.6cqh 2cqw;
+  border-top: 0.12cqw solid var(--style-warm-editorial-feature-accent);
+  border-bottom: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+  background: var(--style-warm-editorial-feature-paper);
+}
+
+.versionTopline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1cqw;
+}
+
+.versionTopline strong {
+  color: var(--style-warm-editorial-feature-accent);
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 3.8cqw;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.versionTopline span {
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 0.7cqw;
+  font-weight: 600;
+  letter-spacing: 0.06cqw;
+}
+
+.versionCard h3 {
+  margin: 2.7cqh 0 0;
+  font-size: 1.8cqw;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.versionCount {
+  margin-top: 2.2cqh;
+  padding: 1.4cqh 0;
+  border-top: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+  border-bottom: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+  color: var(--style-warm-editorial-feature-accent);
+  font-size: 1.02cqw;
+  font-weight: 600;
+  letter-spacing: 0.08cqw;
+}
+
+.versionCard p {
+  margin: 2.4cqh 0 0;
+  color: var(--style-warm-editorial-feature-muted);
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 1.06cqw;
+  line-height: 1.45;
+}
+
+.versionCard footer {
+  position: absolute;
+  right: 2cqw;
+  bottom: 2.1cqh;
+  left: 2cqw;
+  padding-top: 1.3cqh;
+  border-top: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 0.72cqw;
+  letter-spacing: 0.04cqw;
+}
+
+.versionTakeaway {
+  position: absolute;
+  right: 13cqw;
+  bottom: 6.2cqh;
+  left: 8.2cqw;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3cqw;
+  align-items: start;
+  padding-top: 1.8cqh;
+  border-top: 0.1cqw solid var(--style-warm-editorial-feature-accent);
+}
+
+.versionTakeaway strong {
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 1.35cqw;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.28;
+}
+
+.versionTakeaway span {
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 0.82cqw;
+  line-height: 1.45;
+}
+
+/* Scene 5 — return to listening */
+
+.closeLayout {
+  position: absolute;
+  top: 14.5cqh;
+  right: 13cqw;
+  bottom: 11cqh;
+  left: 8.2cqw;
+  display: grid;
+  grid-template-columns: 45cqw 30cqw;
+  gap: 4cqw;
+}
+
+.closeStatement {
+  position: relative;
+  align-self: center;
+  padding-right: 3cqw;
+}
+
+.closeStatement h2 {
+  margin: 3.2cqh 0 0;
+  font-size: 5.2cqw;
+  font-weight: 500;
+  letter-spacing: -0.13cqw;
+  line-height: 0.98;
+}
+
+.closeStatement > p:last-of-type {
+  max-width: 40cqw;
+  margin: 4cqh 0 0;
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 1.23cqw;
+  line-height: 1.52;
+}
+
+.returnMark {
+  position: relative;
+  width: 20cqw;
+  height: 13cqh;
+  margin-top: 5cqh;
+}
+
+.returnMark span {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 0.08cqh;
+  background: var(--style-warm-editorial-feature-accent);
+}
+
+.returnMark span:nth-child(1) {
+  width: 20cqw;
+}
+
+.returnMark span:nth-child(2) {
+  width: 14cqw;
+  transform: translateY(-2.8cqh);
+  opacity: 0.62;
+}
+
+.returnMark span:nth-child(3) {
+  width: 8cqw;
+  transform: translateY(2.8cqh);
+  opacity: 0.36;
+}
+
+.closeNotes {
+  display: grid;
+  align-content: center;
+  gap: 2.4cqh;
+}
+
+.closeNotes section {
+  padding: 2cqh 0 0;
+  border-top: 0.08cqw solid var(--style-warm-editorial-feature-rule);
+}
+
+.closeNotes h3 {
+  margin: 0;
+  color: var(--style-warm-editorial-feature-accent);
+  font-size: 0.76cqw;
+  font-weight: 600;
+  letter-spacing: 0.08cqw;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.closeNotes p {
+  margin: 1.4cqh 0 0;
+  color: var(--style-warm-editorial-feature-muted);
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 0.98cqw;
+  line-height: 1.42;
+}
+
+.closeNotes ol {
+  display: grid;
+  gap: 0.8cqh;
+  margin: 1.4cqh 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.closeNotes li {
+  color: var(--style-warm-editorial-feature-muted);
+  font-size: 0.78cqw;
+  line-height: 1.32;
+}
+
+.closeNotes .rightsBoundary {
+  padding: 2cqh 1.4cqw 1.8cqh;
+  border-top-color: var(--style-warm-editorial-feature-accent);
+  background: var(--style-warm-editorial-feature-accent-soft);
+}
+
+.coda {
+  position: absolute;
+  right: 13cqw;
+  bottom: 5.4cqh;
+  left: 8.2cqw;
+  margin: 0;
+  padding-top: 1.5cqh;
+  border-top: 0.08cqw solid var(--style-warm-editorial-feature-accent);
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 1.18cqw;
+  font-style: italic;
+  line-height: 1.2;
+  text-align: right;
+}
+
+/* Typographic index — proximity reveal with active hairline halo */
+
+.chapterIndex {
+  position: absolute;
+  top: 17.5cqh;
+  right: 1.2cqw;
+  z-index: 20;
+  width: 4.2cqw;
+  height: 65cqh;
+  overflow: hidden;
+  border-top: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+  border-bottom: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+  border-left: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+  background: rgba(245, 238, 223, 0.96);
+  transition: width 360ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chapterIndex[data-open="true"] {
+  width: 11.2cqw;
+}
+
+.indexToggle,
+.chapterButton {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-bottom: 0.06cqw solid var(--style-warm-editorial-feature-rule);
+  background: transparent;
+  color: var(--style-warm-editorial-feature-muted);
+  cursor: pointer;
+}
+
+.indexToggle {
+  display: grid;
+  grid-template-columns: 3.4cqw 1fr;
+  align-items: center;
+  height: 7cqh;
+  padding: 0 0.4cqw;
+  transition: color 220ms ease;
+}
+
+.indexToggle > span:first-child {
+  color: var(--style-warm-editorial-feature-accent);
+  font-family: "Iowan Old Style", serif;
+  font-size: 1.6cqw;
+  font-style: italic;
+}
+
+.indexToggleText {
+  overflow: hidden;
+  font-size: 0.66cqw;
+  font-weight: 600;
+  letter-spacing: 0.08cqw;
+  opacity: 0;
+  text-align: left;
+  transition: opacity 220ms ease;
+}
+
+.chapterIndex[data-open="true"] .indexToggleText {
+  opacity: 1;
+}
+
+.chapterLabels {
+  display: grid;
+  grid-template-rows: repeat(5, 11.5cqh);
+}
+
+.chapterButton {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.4cqw 1fr;
+  align-items: center;
+  height: 11.5cqh;
+  padding: 0 0.4cqw;
+  transition:
+    color 240ms ease,
+    background 240ms ease;
+}
+
+.chapterButton::before {
+  position: absolute;
+  inset: 0.6cqh 0.38cqw;
+  border: 0.08cqw solid transparent;
+  content: "";
+  pointer-events: none;
+}
+
+.chapterButton:hover,
+.chapterButton:focus-visible {
+  color: var(--style-warm-editorial-feature-ink);
+  outline: none;
+}
+
+.chapterButton:focus-visible::before {
+  border-color: var(--style-warm-editorial-feature-accent);
+}
+
+.chapterButtonActive {
+  color: var(--style-warm-editorial-feature-accent);
+  background: var(--style-warm-editorial-feature-accent-soft);
+}
+
+.chapterButtonActive::before {
+  border-color: rgba(127, 137, 104, 0.72);
+}
+
+.chapterRoman {
+  font-family: "Iowan Old Style", "Noto Serif CJK SC", "Songti SC", serif;
+  font-size: 1cqw;
+  font-style: italic;
+  line-height: 1;
+  text-align: center;
+}
+
+.chapterLabel {
+  overflow: hidden;
+  font-size: 0.72cqw;
+  font-weight: 600;
+  letter-spacing: 0.08cqw;
+  opacity: 0;
+  text-align: left;
+  white-space: nowrap;
+  transition: opacity 220ms ease;
+}
+
+.chapterIndex[data-open="true"] .chapterLabel {
+  opacity: 1;
+}
+
+/* Language density compensation */
+
+.page[data-language="zh"] .heroTitle {
+  font-size: 5.6cqw;
+  line-height: 1.02;
+}
+
+.page[data-language="zh"] .epicTitle {
+  font-size: 1.82cqw;
+}
+
+.page[data-language="zh"] .sectionTitle {
+  font-size: 3.45cqw;
+  letter-spacing: 0.01cqw;
+  line-height: 1.08;
+}
+
+.page[data-language="zh"] .sceneIntro {
+  grid-template-columns: 15cqw 35cqw 26cqw;
+}
+
+.page[data-language="zh"] .transcriptRow p,
+.page[data-language="zh"] .listeningMargin li,
+.page[data-language="zh"] .editorialLayer p,
+.page[data-language="zh"] .versionCard p,
+.page[data-language="zh"] .closeNotes p {
+  line-height: 1.58;
+}
+
+.page[data-language="zh"] .editorialLayer h3 {
+  font-size: 2.38cqw;
+  line-height: 1.16;
+}
+
+.page[data-language="zh"] .closeStatement h2 {
+  font-size: 4.65cqw;
+  letter-spacing: 0.01cqw;
+  line-height: 1.08;
+}
+
+.thumbnail .pageFrame {
+  opacity: 0.8;
+}

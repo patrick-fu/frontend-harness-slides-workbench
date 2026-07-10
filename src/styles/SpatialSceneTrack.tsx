@@ -3,18 +3,58 @@ import type React from "react";
 import styles from "./SpatialSceneTrack.module.css";
 
 export type BeatLayoutMode = "motion" | "reserved";
+export const CANONICAL_SCENE_TRANSITION_KINDS = [
+  "hard-cut",
+  "crossfade",
+  "dip-to-color",
+  "push-x",
+  "push-y",
+  "diagonal-pan",
+  "zoom-through",
+  "dolly-pull",
+  "focus-swap",
+  "linear-wipe",
+  "iris-open",
+  "multi-blind",
+  "page-turn",
+  "paper-fold",
+  "ink-spread",
+  "grid-reveal",
+  "split-merge",
+  "card-carousel",
+  "glitch",
+  "scanline",
+  "afterimage",
+] as const;
+export const LEGACY_SCENE_TRANSITION_KINDS = [
+  "slide-x",
+  "slide-y",
+  "fade",
+  "scale-fade",
+  "wipe",
+  "page-flip",
+] as const;
+export type CanonicalSceneTransitionKind =
+  (typeof CANONICAL_SCENE_TRANSITION_KINDS)[number];
+export type LegacySceneTransitionKind =
+  (typeof LEGACY_SCENE_TRANSITION_KINDS)[number];
 export type SceneTransitionKind =
-  | "slide-x"
-  | "slide-y"
-  | "fade"
-  | "scale-fade"
-  | "hard-cut"
-  | "wipe"
-  | "page-flip"
-  | "glitch";
+  | CanonicalSceneTransitionKind
+  | LegacySceneTransitionKind;
 export type SceneTransitionEdge = `${number}->${number}`;
 export type SceneTransitionMap = Partial<
   Record<SceneTransitionEdge, SceneTransitionKind>
+>;
+export type SceneTransitionModifier =
+  | "letterform-lineage"
+  | "stadium-wave"
+  | "ice-core-scrub"
+  | "pneumatic-burst"
+  | "voyager-boundary"
+  | "urushi-sheen"
+  | "egg-mimicry";
+export type SceneTransitionModifierMap = Partial<
+  Record<SceneTransitionEdge, SceneTransitionModifier>
 >;
 
 type TransitionDirection = "forward" | "backward";
@@ -25,6 +65,7 @@ interface ActiveTransition {
   outgoingBeat: number;
   direction: TransitionDirection;
   transitionKind: SceneTransitionKind;
+  transitionModifier?: SceneTransitionModifier;
 }
 
 export interface SpatialSceneTrackProps {
@@ -34,6 +75,8 @@ export interface SpatialSceneTrackProps {
   axis?: "x" | "y";
   transitionKind?: SceneTransitionKind;
   transitionMap?: SceneTransitionMap;
+  transitionModifier?: SceneTransitionModifier;
+  transitionModifierMap?: SceneTransitionModifierMap;
   transitionDurationMs?: number;
   reducedMotion: boolean;
   beatLayoutModes?: Partial<Record<number, BeatLayoutMode>>;
@@ -51,6 +94,8 @@ export default function SpatialSceneTrack({
   axis,
   transitionKind,
   transitionMap,
+  transitionModifier,
+  transitionModifierMap,
   transitionDurationMs = DEFAULT_TRANSITION_DURATION_MS,
   reducedMotion,
   beatLayoutModes,
@@ -70,13 +115,28 @@ export default function SpatialSceneTrack({
     toScene: number,
   ): SceneTransitionKind =>
     transitionMap?.[`${fromScene}->${toScene}`] ?? fallbackTransitionKind;
+  const resolveTransitionModifier = (
+    fromScene: number,
+    toScene: number,
+  ): SceneTransitionModifier | undefined =>
+    transitionModifierMap?.[`${fromScene}->${toScene}`] ?? transitionModifier;
   const pendingTransitionKind =
     lastSceneRef.current !== scene
       ? resolveTransitionKind(lastSceneRef.current, scene)
       : fallbackTransitionKind;
   const effectiveTransitionKind =
     activeTransition?.transitionKind ?? pendingTransitionKind;
-  const effectiveAxis = effectiveTransitionKind === "slide-y" ? "y" : "x";
+  const pendingTransitionModifier =
+    lastSceneRef.current !== scene
+      ? resolveTransitionModifier(lastSceneRef.current, scene)
+      : transitionModifier;
+  const effectiveTransitionModifier =
+    activeTransition?.transitionModifier ?? pendingTransitionModifier;
+  const effectiveAxis =
+    effectiveTransitionKind === "slide-y" ||
+    effectiveTransitionKind === "push-y"
+      ? "y"
+      : "x";
 
   useLayoutEffect(() => {
     const lastScene = lastSceneRef.current;
@@ -90,6 +150,7 @@ export default function SpatialSceneTrack({
           ? "backward"
           : "forward";
       const nextTransitionKind = resolveTransitionKind(lastScene, scene);
+      const nextTransitionModifier = resolveTransitionModifier(lastScene, scene);
 
       if (reducedMotion || nextTransitionKind === "hard-cut") {
         setActiveTransition(null);
@@ -101,6 +162,7 @@ export default function SpatialSceneTrack({
           outgoingBeat: lastBeat,
           direction,
           transitionKind: nextTransitionKind,
+          transitionModifier: nextTransitionModifier,
         });
       }
     }
@@ -114,6 +176,8 @@ export default function SpatialSceneTrack({
     sceneIdsKey,
     reducedMotion,
     transitionMap,
+    transitionModifier,
+    transitionModifierMap,
     fallbackTransitionKind,
   ]);
 
@@ -146,6 +210,7 @@ export default function SpatialSceneTrack({
       data-axis={effectiveAxis}
       data-active-scene={scene}
       data-scene-transition-kind={effectiveTransitionKind}
+      data-scene-transition-modifier={effectiveTransitionModifier}
       data-transition-direction={direction}
       className={[styles.track, className].filter(Boolean).join(" ")}
       style={{
@@ -153,12 +218,14 @@ export default function SpatialSceneTrack({
         width: "100%",
         height: "100%",
         overflow: "hidden",
+        ["--scene-transition-duration" as string]: `${transitionDurationMs}ms`,
       }}
     >
       <div
         data-testid="spatial-scene-strip"
         data-spatial-scene-strip="true"
         data-scene-transition-kind={effectiveTransitionKind}
+        data-scene-transition-modifier={effectiveTransitionModifier}
         data-transition-direction={direction}
         data-transitioning={isTransitioning ? "true" : undefined}
         data-reduced-motion={reducedMotion ? "true" : undefined}
@@ -192,6 +259,7 @@ export default function SpatialSceneTrack({
               data-active={isCurrent ? "true" : "false"}
               data-transition-state={transitionState}
               data-scene-transition-kind={effectiveTransitionKind}
+              data-scene-transition-modifier={effectiveTransitionModifier}
               data-beat-layout-container={beatLayoutMode ? "true" : undefined}
               data-beat-layout-mode={beatLayoutMode}
               aria-hidden={isCurrent ? undefined : true}

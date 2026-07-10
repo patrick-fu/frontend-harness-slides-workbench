@@ -277,7 +277,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "33",
+    id: "liquid-glass",
     band: "contemporary-digital",
     name: nameMap[lang],
     theme: themeMap[lang],

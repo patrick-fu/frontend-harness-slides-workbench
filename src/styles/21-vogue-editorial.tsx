@@ -222,7 +222,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "21",
+    id: "solar-biennale-poster",
     band: "editorial-print",
     name: nameMap[lang],
     theme: themeMap[lang],

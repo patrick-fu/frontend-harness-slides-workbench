@@ -205,7 +205,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "01",
+    id: "minimal-product-keynote",
     band: "minimal-keynote",
     name: nameMap[lang],
     theme: themeMap[lang],

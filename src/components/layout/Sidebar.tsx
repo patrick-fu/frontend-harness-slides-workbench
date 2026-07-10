@@ -9,9 +9,9 @@ import {
 export interface SidebarProps {
   registry: StyleRegistryEntry[];
   currentStyleId: string;
-  currentVersionId: string;
+  currentTopicId: string;
   onSelectStyle: (id: string) => void;
-  onSelectVersion: (styleId: string, versionId: string) => void;
+  onSelectTopic: (styleId: string, topicId: string) => void;
   isOpen: boolean;
   onClose: () => void;
   language: "en" | "zh";
@@ -27,9 +27,9 @@ const COLLAPSED_WIDTH = 48;
 export default function Sidebar({
   registry,
   currentStyleId,
-  currentVersionId,
+  currentTopicId,
   onSelectStyle,
-  onSelectVersion,
+  onSelectTopic,
   isOpen,
   onClose,
   language,
@@ -132,14 +132,14 @@ export default function Sidebar({
     [onSelectStyle, onClose],
   );
 
-  const handleVersionClick = useCallback(
-    (styleId: string, versionId: string, e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleTopicClick = useCallback(
+    (styleId: string, topicId: string, e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
       e.currentTarget.blur();
-      onSelectVersion(styleId, versionId);
+      onSelectTopic(styleId, topicId);
       onClose();
     },
-    [onSelectVersion, onClose],
+    [onSelectTopic, onClose],
   );
 
   // ── Render ───────────────────────────────────────────────────────────────
@@ -230,7 +230,7 @@ export default function Sidebar({
                     {entries.map((entry) => {
                       const isCurrent = entry.id === currentStyleId;
                       const isExpanded = expandedStyles.has(entry.id);
-                      const hasMultipleVersions = entry.versions.length > 1;
+                      const hasMultipleTopics = entry.topics.length > 1;
                       const styleName = entry.name[language];
 
                       return (
@@ -251,23 +251,20 @@ export default function Sidebar({
                             ].join(" ")}
                             title={collapsed ? styleName : undefined}
                           >
-                            <span className="shrink-0 text-xs font-mono text-ink/40 w-6 text-center">
-                              {entry.id}
-                            </span>
                             {!collapsed && (
                               <>
                                 <span className="truncate flex-1">
                                   {styleName}
                                 </span>
-                                {hasMultipleVersions && (
+                                {hasMultipleTopics && (
                                   <span
                                     className="shrink-0 text-[10px] text-ink/40 font-mono"
-                                    title={`${entry.versions.length} versions`}
+                                    title={`${entry.topics.length} topics`}
                                   >
-                                    ×{entry.versions.length}
+                                    ×{entry.topics.length}
                                   </span>
                                 )}
-                                {hasMultipleVersions && (
+                                {hasMultipleTopics && (
                                   <svg
                                     width="12"
                                     height="12"
@@ -295,36 +292,36 @@ export default function Sidebar({
                             )}
                           </button>
 
-                          {/* Version sub-list */}
-                          {!collapsed && isExpanded && hasMultipleVersions && (
+                          {/* Topic sub-list */}
+                          {!collapsed && isExpanded && hasMultipleTopics && (
                             <ul className="mt-0.5 ml-7">
-                              {entry.versions.map((v) => {
-                                const isCurrentVersion =
-                                  isCurrent && v.id === currentVersionId;
+                              {entry.topics.map((topic) => {
+                                const isCurrentTopic =
+                                  isCurrent && topic.id === currentTopicId;
                                 return (
-                                  <li key={v.id}>
+                                  <li key={topic.id}>
                                     <button
                                       type="button"
-                                      data-testid={`sidebar-version-${entry.id}-${v.id}`}
+                                      data-testid={`sidebar-topic-${entry.id}-${topic.id}`}
                                       onClick={(e) =>
-                                        handleVersionClick(
+                                        handleTopicClick(
                                           entry.id,
-                                          v.id,
+                                          topic.id,
                                           e,
                                         )
                                       }
                                       className={[
                                         "w-full flex items-center gap-1.5 px-2 py-1 text-left text-xs transition-colors rounded",
-                                        isCurrentVersion
+                                        isCurrentTopic
                                           ? "bg-ink/[0.07] font-medium text-ink"
                                           : "text-ink/60 hover:bg-ink/5 hover:text-ink/80",
                                       ].join(" ")}
                                     >
                                       <span className="truncate flex-1">
-                                        {v.topic[language]}
+                                        {topic.topic[language]}
                                       </span>
                                       <span className="shrink-0 text-[9px] text-ink/30 font-mono">
-                                        {v.model}
+                                        {topic.model}
                                       </span>
                                     </button>
                                   </li>

@@ -80,7 +80,7 @@ describe("Style 23: zine-culture — overflow check", () => {
 describe("Style 23: zine-culture — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("23");
+    expect(meta.id).toBe("riso-print-zine");
     expect(meta.band).toBe("editorial-print");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

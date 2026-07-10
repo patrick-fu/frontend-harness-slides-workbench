@@ -80,7 +80,7 @@ describe("Style 38: 38-figma-canvas — overflow check", () => {
 describe("Style 38: 38-figma-canvas — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("38");
+    expect(meta.id).toBe("widescreen-title-card");
     expect(meta.band).toBe("contemporary-digital");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

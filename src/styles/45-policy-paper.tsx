@@ -652,7 +652,7 @@ export default function PolicyPaper({
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   const t = lang === "zh" ? zhMeta : enMeta;
   return {
-    id: "45",
+    id: "annotated-source-diff",
     band: "text-report",
     name: t.name,
     theme: t.theme,

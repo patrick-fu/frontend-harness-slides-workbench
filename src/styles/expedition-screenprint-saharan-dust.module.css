@@ -1,0 +1,1020 @@
+.root {
+  --dust-paper: #e9d49a;
+  --dust-cream: #f4e7bf;
+  --dust-sand: #d8a447;
+  --dust-ochre: #c95f31;
+  --dust-teal: #247478;
+  --dust-forest: #183d35;
+  --dust-night: #102b29;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: size;
+  background: var(--dust-paper);
+  color: var(--dust-forest);
+  font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+}
+
+.root,
+.root * {
+  box-sizing: border-box;
+}
+
+.root[data-motion="off"] *,
+.root[data-motion="off"] *::before,
+.root[data-motion="off"] *::after {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  fill: var(--dust-forest);
+  opacity: .09;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+.registration {
+  position: absolute;
+  inset: 2.1cqh 1.2cqw;
+  z-index: 7;
+  border: .16cqw solid color-mix(in srgb, var(--dust-forest) 72%, transparent);
+  pointer-events: none;
+}
+
+.registration span {
+  position: absolute;
+  width: 2.2cqw;
+  height: 2.2cqw;
+}
+
+.registration span::before,
+.registration span::after {
+  content: "";
+  position: absolute;
+  background: var(--dust-ochre);
+}
+
+.registration span::before {
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: .16cqw;
+}
+
+.registration span::after {
+  left: 50%;
+  top: 0;
+  width: .16cqw;
+  height: 100%;
+}
+
+.regTopLeft { left: -1.2cqw; top: -2.1cqh; }
+.regTopRight { right: -1.2cqw; top: -2.1cqh; }
+.regBottomLeft { left: -1.2cqw; bottom: -2.1cqh; }
+.regBottomRight { right: -1.2cqw; bottom: -2.1cqh; }
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 28cqw 42cqw 16cqw;
+  grid-template-rows: 17cqh 47cqh 12cqh;
+  gap: 2cqh 2cqw;
+  padding: 5cqh 5cqw 15cqh;
+  overflow: hidden;
+  background: var(--dust-paper);
+}
+
+.scene::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1.2cqh;
+  background: var(--scene-ink, var(--dust-ochre));
+}
+
+.scene1 { --scene-ink: var(--dust-ochre); }
+.scene2 { --scene-ink: var(--dust-teal); }
+.scene3 { --scene-ink: var(--dust-night); }
+.scene4 { --scene-ink: var(--dust-forest); }
+.scene5 { --scene-ink: var(--dust-ochre); }
+
+.sceneHeader {
+  grid-column: 1 / 3;
+  grid-row: 1;
+  align-self: end;
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+}
+
+.folio {
+  margin: 0 0 1cqh;
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 1.18cqw;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: .18cqw;
+  text-transform: uppercase;
+}
+
+.sceneHeader h1 {
+  margin: 0;
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 5.45cqw;
+  line-height: .8;
+  font-weight: 900;
+  letter-spacing: .035cqw;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  max-width: 63cqw;
+  margin: 1.4cqh 0 0;
+  font-size: 1.17cqw;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.artwork {
+  grid-column: 1 / 3;
+  grid-row: 2;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: .22cqw solid var(--dust-forest);
+  background: var(--dust-cream);
+}
+
+.artwork svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.evidenceCard,
+.boundaryCard {
+  min-width: 0;
+  padding: 1.55cqh 1.05cqw;
+  border: .16cqw solid var(--dust-forest);
+  color: var(--dust-forest);
+}
+
+.evidenceCard {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: end;
+  background: var(--dust-sand);
+}
+
+.boundaryCard {
+  grid-column: 3;
+  grid-row: 2;
+  align-self: start;
+  background: var(--dust-cream);
+}
+
+.evidenceCard p,
+.boundaryCard p {
+  margin: 0;
+  font-size: .93cqw;
+  line-height: 1.28;
+  font-weight: 650;
+}
+
+.evidenceLabel {
+  margin-bottom: .8cqh !important;
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: .86cqw !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  letter-spacing: .1cqw;
+  text-transform: uppercase;
+}
+
+.beatCard {
+  grid-column: 3;
+  grid-row: 2;
+  align-self: end;
+  display: grid;
+  grid-template-columns: 2.8cqw 1fr;
+  gap: .8cqw;
+  min-width: 0;
+  padding: 1.45cqh 1cqw;
+  background: var(--scene-ink);
+  color: var(--dust-cream);
+}
+
+.beatIndex {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2.35cqw;
+  line-height: .8;
+  font-weight: 900;
+}
+
+.beatCard strong {
+  display: block;
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 1.18cqw;
+  line-height: 1;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.beatCard p {
+  margin: .55cqh 0 0;
+  font-size: .78cqw;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.sceneFooter {
+  grid-column: 1 / 3;
+  grid-row: 3;
+  align-self: start;
+  display: flex;
+  justify-content: space-between;
+  gap: 2cqw;
+  padding-top: 1.2cqh;
+  border-top: .18cqw solid var(--dust-forest);
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: .88cqw;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: .08cqw;
+  text-transform: uppercase;
+}
+
+.sceneFooter span:last-child {
+  text-align: right;
+}
+
+/* Source stamp */
+
+.sourceMap {
+  background: var(--dust-sand);
+}
+
+.africaPlate {
+  fill: var(--dust-forest);
+}
+
+.saharaPlate {
+  fill: var(--dust-paper);
+}
+
+.lakeBed {
+  fill: var(--dust-teal);
+}
+
+.windChannel,
+.labelRule {
+  fill: none;
+  stroke: var(--dust-ochre);
+  stroke-linecap: round;
+}
+
+.windChannel {
+  stroke-width: 9;
+}
+
+.labelRule {
+  stroke-width: 3;
+}
+
+.sourceRingOuter,
+.sourceRingInner {
+  fill: none;
+  stroke: var(--dust-ochre);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.sourceRingOuter {
+  stroke-width: 10;
+  stroke-dasharray: 18 10;
+}
+
+.sourceRingInner {
+  stroke-width: 4;
+}
+
+.sourceCore {
+  fill: var(--dust-ochre);
+}
+
+.otherSource {
+  fill: var(--dust-ochre);
+  opacity: .72;
+}
+
+.mapLabel,
+.mapLabelStrong {
+  fill: var(--dust-forest);
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 1.2cqw;
+  font-weight: 700;
+  letter-spacing: .1cqw;
+}
+
+.mapLabelStrong {
+  font-size: 1.62cqw;
+  font-weight: 900;
+}
+
+.coordinateStamp rect {
+  fill: var(--dust-ochre);
+  stroke: var(--dust-forest);
+  stroke-width: 5;
+}
+
+.coordinateStamp text {
+  fill: var(--dust-cream);
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 1.4cqw;
+  font-weight: 900;
+  letter-spacing: .16cqw;
+}
+
+/* Vertical section */
+
+.scene2 {
+  grid-template-columns: 24cqw 49cqw 13cqw;
+}
+
+.scene2 .sceneHeader {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  align-self: start;
+  padding-top: 2cqh;
+}
+
+.scene2 .sceneHeader h1 {
+  font-size: 3.95cqw;
+  line-height: .86;
+}
+
+.scene2 .subtitle {
+  max-width: 21cqw;
+  margin-top: 1.6cqh;
+  font-size: 1.05cqw;
+  line-height: 1.25;
+}
+
+.scene2 .artwork {
+  grid-column: 2 / 4;
+  grid-row: 1 / 3;
+}
+
+.scene2 .evidenceCard {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+  margin-bottom: 14cqh;
+}
+
+.scene2 .boundaryCard {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+}
+
+.scene2 .beatCard {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+.scene2 .sceneFooter {
+  grid-column: 1 / 3;
+}
+
+.sectionSky {
+  fill: var(--dust-cream);
+}
+
+.sectionGround {
+  fill: var(--dust-forest);
+}
+
+.sectionOcean {
+  fill: var(--dust-teal);
+}
+
+.exposedBed {
+  fill: var(--dust-ochre);
+}
+
+.airLayer {
+  fill: var(--dust-sand);
+  opacity: 0;
+  transform: translateX(-4cqw);
+  transition: opacity 620ms cubic-bezier(.16, 1, .3, 1), transform 620ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.particleField {
+  fill: var(--dust-ochre);
+  opacity: 0;
+  transform: translateY(6cqh);
+  transition: opacity 560ms ease, transform 660ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.liftArrows,
+.windField {
+  fill: none;
+  stroke: var(--dust-teal);
+  stroke-width: 8;
+  stroke-linecap: round;
+  opacity: 0;
+  transform: translateY(2cqh);
+  transition: opacity 520ms ease, transform 620ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.windField {
+  stroke: var(--dust-forest);
+  stroke-dasharray: 24 17;
+}
+
+.sectionRule {
+  stroke: var(--dust-cream);
+  stroke-width: 4;
+}
+
+.sectionLabel,
+.sectionLabelStrong {
+  fill: var(--dust-forest);
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 1.25cqw;
+  font-weight: 800;
+  letter-spacing: .1cqw;
+}
+
+.sectionLabelStrong {
+  font-size: 1.62cqw;
+  font-weight: 900;
+}
+
+/* Observed versus schematic */
+
+.scene3 {
+  grid-template-columns: 18cqw 53cqw 15cqw;
+  background: var(--dust-night);
+  color: var(--dust-cream);
+}
+
+.scene3 .sceneHeader {
+  grid-column: 1 / 4;
+}
+
+.scene3 .sceneHeader h1 {
+  font-size: 5cqw;
+}
+
+.scene3 .artwork {
+  grid-column: 1 / 3;
+  background: var(--dust-night);
+  border-color: var(--dust-cream);
+}
+
+.scene3 .evidenceCard,
+.scene3 .boundaryCard {
+  border-color: var(--dust-cream);
+}
+
+.scene3 .evidenceCard {
+  background: var(--dust-teal);
+  color: var(--dust-cream);
+}
+
+.scene3 .boundaryCard {
+  background: var(--dust-cream);
+  color: var(--dust-night);
+}
+
+.scene3 .sceneFooter {
+  border-color: var(--dust-cream);
+}
+
+.observationPair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+}
+
+.observationPanel,
+.schematicPanel {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.observationPanel {
+  border-right: .18cqw solid var(--dust-cream);
+}
+
+.schematicPanel {
+  opacity: 0;
+  transform: translateX(3cqw);
+  transition: opacity 620ms ease, transform 680ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.layerTag {
+  position: absolute;
+  left: 1cqw;
+  top: 1.4cqh;
+  z-index: 2;
+  padding: .6cqh .7cqw;
+  background: var(--dust-ochre);
+  color: var(--dust-cream);
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: .88cqw;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: .09cqw;
+}
+
+.schematicPanel .layerTag {
+  background: var(--dust-teal);
+}
+
+.obsSky {
+  fill: var(--dust-night);
+}
+
+.obsGround {
+  fill: var(--dust-ochre);
+}
+
+.laserBeam,
+.obsAxis {
+  fill: none;
+  stroke: var(--dust-cream);
+}
+
+.laserBeam {
+  stroke-width: 5;
+  stroke-dasharray: 13 9;
+}
+
+.obsAxis {
+  stroke-width: 3;
+  opacity: .65;
+}
+
+.dustReturnA {
+  fill: var(--dust-ochre);
+}
+
+.dustReturnB {
+  fill: var(--dust-sand);
+}
+
+.cloudReturn {
+  fill: var(--dust-teal);
+}
+
+.obsLabel,
+.obsLabelStrong {
+  fill: var(--dust-cream);
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 1.15cqw;
+  font-weight: 700;
+  letter-spacing: .1cqw;
+}
+
+.obsLabelStrong {
+  font-size: 1.52cqw;
+  font-weight: 900;
+}
+
+.africaMini,
+.amazonMini {
+  fill: var(--dust-forest);
+  stroke: var(--dust-cream);
+  stroke-width: 4;
+}
+
+.routeBand {
+  fill: none;
+  stroke: var(--dust-ochre);
+  stroke-width: 30;
+  stroke-linecap: round;
+}
+
+.sliceMark {
+  fill: none;
+  stroke: var(--dust-teal);
+  stroke-width: 6;
+  stroke-dasharray: 10 8;
+}
+
+.routePoint {
+  fill: var(--dust-cream);
+}
+
+/* Deposition peak */
+
+.scene4 {
+  grid-template-columns: 19cqw 50cqw 17cqw;
+  transition: background-color 520ms ease, color 520ms ease;
+}
+
+.scene4:has(.depositionField[data-peak="true"]) {
+  background: var(--dust-forest);
+  color: var(--dust-cream);
+}
+
+.scene4 .sceneHeader {
+  grid-column: 1 / 4;
+}
+
+.scene4 .sceneHeader h1 {
+  font-size: 5.2cqw;
+}
+
+.scene4 .artwork {
+  grid-column: 1 / 4;
+  grid-row: 2;
+  border-color: currentColor;
+}
+
+.scene4 .evidenceCard {
+  grid-column: 1;
+  grid-row: 3;
+  align-self: start;
+}
+
+.scene4 .boundaryCard {
+  grid-column: 2;
+  grid-row: 3;
+  align-self: start;
+  color: var(--dust-forest);
+}
+
+.scene4 .beatCard {
+  grid-column: 3;
+  grid-row: 3;
+  align-self: start;
+}
+
+.scene4 .sceneFooter {
+  display: none;
+}
+
+.depositionField {
+  width: 100%;
+  height: 100%;
+  background: var(--dust-cream);
+  transition: background-color 520ms ease;
+}
+
+.depositionField[data-peak="true"] {
+  background: var(--dust-sand);
+}
+
+.africaWest {
+  fill: var(--dust-ochre);
+}
+
+.southAmericaEast {
+  fill: var(--dust-forest);
+}
+
+.atlanticPlate {
+  fill: var(--dust-teal);
+}
+
+.transAtlanticPlume,
+.plumeCore {
+  fill: none;
+  stroke: var(--dust-sand);
+  stroke-linecap: round;
+}
+
+.transAtlanticPlume {
+  stroke-width: 86;
+  opacity: .92;
+}
+
+.plumeCore {
+  stroke: var(--dust-ochre);
+  stroke-width: 26;
+  stroke-dasharray: 26 18;
+}
+
+.settlingMarks {
+  fill: var(--dust-cream);
+  stroke: var(--dust-cream);
+  stroke-width: 5;
+  stroke-dasharray: 14 12;
+  opacity: 0;
+  transform: translateY(-2cqh);
+  transition: opacity 520ms ease, transform 620ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.amazonField {
+  fill: var(--dust-sand);
+  stroke: var(--dust-cream);
+  stroke-width: 4;
+  opacity: 0;
+  transform: translateX(2cqw);
+  transition: opacity 560ms ease, transform 640ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.budgetStamp {
+  fill: none;
+  stroke: var(--dust-cream);
+  stroke-width: 5;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(.82) rotate(-6deg);
+  transition: opacity 480ms ease, transform 620ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.budgetStamp text {
+  fill: var(--dust-cream);
+  stroke: none;
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 1.2cqw;
+  font-weight: 900;
+  letter-spacing: .1cqw;
+  text-anchor: middle;
+}
+
+.depositionLabel,
+.depositionNote {
+  fill: var(--dust-cream);
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 1.46cqw;
+  font-weight: 900;
+  letter-spacing: .16cqw;
+}
+
+.depositionNote {
+  font-size: 1.15cqw;
+  opacity: 0;
+}
+
+/* Interannual comparison */
+
+.scene5 {
+  grid-template-columns: 21cqw 47cqw 18cqw;
+}
+
+.scene5 .sceneHeader {
+  grid-column: 1 / 4;
+}
+
+.scene5 .sceneHeader h1 {
+  font-size: 5.2cqw;
+}
+
+.scene5 .artwork {
+  grid-column: 1 / 3;
+}
+
+.variationMap {
+  width: 100%;
+  height: 100%;
+  background: var(--dust-cream);
+}
+
+.africaEdge {
+  fill: var(--dust-ochre);
+}
+
+.amazonEdge {
+  fill: var(--dust-forest);
+}
+
+.routeRow path {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.routeRow text,
+.variationRegion,
+.variationNote {
+  fill: var(--dust-forest);
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: 1.2cqw;
+  font-weight: 900;
+  letter-spacing: .1cqw;
+}
+
+.routeRow circle {
+  stroke: var(--dust-forest);
+  stroke-width: 4;
+}
+
+.routeRow[data-route-tone="ochre"] path,
+.routeRow[data-route-tone="ochre"] circle {
+  stroke: var(--dust-ochre);
+  fill: var(--dust-ochre);
+}
+
+.routeRow[data-route-tone="teal"] path,
+.routeRow[data-route-tone="teal"] circle {
+  stroke: var(--dust-teal);
+  fill: var(--dust-teal);
+}
+
+.routeRow[data-route-tone="forest"] path,
+.routeRow[data-route-tone="forest"] circle {
+  stroke: var(--dust-forest);
+  fill: var(--dust-forest);
+}
+
+.routeRow[data-route-weight="wide"] path { stroke-width: 38; }
+.routeRow[data-route-weight="medium"] path { stroke-width: 25; }
+.routeRow[data-route-weight="narrow"] path { stroke-width: 13; }
+
+.variationRegion {
+  font-size: 1.3cqw;
+}
+
+.variationNote {
+  font-size: 1.1cqw;
+  text-anchor: middle;
+}
+
+.visible {
+  opacity: 1 !important;
+  transform: translate(0) scale(1) rotate(0) !important;
+}
+
+/* Click-expanded dust arc */
+
+.dustArcNav {
+  position: absolute;
+  right: 3.2cqw;
+  bottom: 2.8cqh;
+  z-index: 8;
+  width: 10.5cqw;
+  height: 10.5cqh;
+  outline: none;
+  transition: width 420ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.dustArcNav[data-expanded="true"] {
+  width: 42cqw;
+}
+
+.dustArcNav:focus-visible {
+  outline: .18cqw solid var(--dust-ochre);
+  outline-offset: .3cqw;
+}
+
+.arcToggle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: .55cqw;
+  height: 4.7cqh;
+  padding: 0 .8cqw;
+  border: .16cqw solid var(--dust-forest);
+  background: var(--dust-ochre);
+  color: var(--dust-cream);
+  font-family: "Barlow Condensed", "Noto Sans SC", sans-serif;
+  font-size: .9cqw;
+  font-weight: 900;
+  letter-spacing: .07cqw;
+  cursor: pointer;
+}
+
+.dustArcNav[data-ink-state="forest"] .arcToggle {
+  background: var(--dust-forest);
+}
+
+.toggleStamp {
+  display: grid;
+  place-items: center;
+  width: 1.45cqw;
+  height: 1.45cqw;
+  border: .13cqw solid currentColor;
+  font-size: 1.2cqw;
+  line-height: 1;
+}
+
+.arcStops {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: end;
+  width: 32cqw;
+  height: 10.2cqh;
+  opacity: 0;
+  transform: translateX(4cqw);
+  pointer-events: none;
+  transition: opacity 320ms ease, transform 420ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.dustArcNav[data-expanded="true"] .arcStops {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.arcLine {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.arcLine path {
+  fill: none;
+  stroke: var(--dust-ochre);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 16 11;
+  transition: stroke 360ms ease;
+}
+
+.dustArcNav[data-ink-state="forest"] .arcLine path {
+  stroke: var(--dust-forest);
+}
+
+.arcStop {
+  position: relative;
+  z-index: 2;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  width: 2.4cqw;
+  height: 2.4cqw;
+  padding: 0;
+  border: .17cqw solid var(--dust-forest);
+  background: var(--dust-paper);
+  color: var(--dust-forest);
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: .78cqw;
+  font-weight: 900;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+.arcStop:nth-of-type(2),
+.arcStop:nth-of-type(5) {
+  margin-bottom: 1.8cqh;
+}
+
+.arcStop:nth-of-type(3),
+.arcStop:nth-of-type(4) {
+  margin-bottom: 4.3cqh;
+}
+
+.arcStop:nth-of-type(4) {
+  margin-bottom: 4.8cqh;
+}
+
+.arcStop:nth-of-type(6) {
+  margin-bottom: 1.6cqh;
+}
+
+.arcStop span {
+  transform: rotate(-45deg);
+}
+
+.arcStop[data-visited="true"] {
+  background: var(--dust-sand);
+}
+
+.arcStop[data-current="true"] {
+  background: var(--dust-forest);
+  color: var(--dust-cream);
+}
+
+.arcStop:focus-visible {
+  outline: .2cqw solid var(--dust-ochre);
+  outline-offset: .25cqw;
+}
+
+.arcStop:disabled {
+  cursor: default;
+}

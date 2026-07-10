@@ -1,0 +1,1082 @@
+.root {
+  --manual-bg: #101313;
+  --manual-panel: #1a1f1f;
+  --manual-panel-raised: #202626;
+  --manual-ink: #f4f0df;
+  --manual-muted: #a7ada5;
+  --manual-dim: #606a66;
+  --manual-yellow: #f3bd31;
+  --manual-yellow-dark: #80651d;
+  --manual-red: #ff635c;
+  --manual-steel: #82a9aa;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: size;
+  color: var(--manual-ink);
+  background:
+    radial-gradient(circle at 69% 44%, rgb(130 169 170 / 8%), transparent 31%),
+    linear-gradient(150deg, #151919 0%, #0d1010 64%, #111515 100%);
+  font-family: "IBM Plex Mono", "SFMono-Regular", "Roboto Mono", "Noto Sans SC", "PingFang SC", monospace;
+  letter-spacing: 0;
+}
+
+.root,
+.root * {
+  box-sizing: border-box;
+}
+
+.gridField {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.62;
+  background-image:
+    linear-gradient(rgb(243 189 49 / 6%) 0.08cqh, transparent 0.08cqh),
+    linear-gradient(90deg, rgb(243 189 49 / 5%) 0.06cqw, transparent 0.06cqw);
+  background-size: 3.125cqw 5.55cqh;
+  mask-image: linear-gradient(90deg, #000 0%, rgb(0 0 0 / 80%) 72%, transparent 96%);
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 4.6cqh 8.8cqw 4.4cqh 4.8cqw;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 5.2cqh 1fr 3.8cqh;
+  gap: 2.2cqh;
+}
+
+.scene::before {
+  content: "";
+  position: absolute;
+  left: 2.1cqw;
+  top: 4.6cqh;
+  bottom: 4.4cqh;
+  width: 0.13cqw;
+  background: var(--manual-yellow);
+  box-shadow: 0.46cqw 0 var(--manual-yellow-dark);
+}
+
+.sceneHeader {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.5cqw;
+  color: var(--manual-yellow);
+  font-size: 0.82cqw;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.06cqw;
+}
+
+.plateCode,
+.sheetNumber {
+  white-space: nowrap;
+}
+
+.headerRule {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr 0.7cqw 0.7cqw;
+  align-items: center;
+  gap: 0.45cqw;
+}
+
+.headerRule span {
+  height: 0.18cqh;
+  background: var(--manual-yellow-dark);
+}
+
+.headerRule span:nth-child(2),
+.headerRule span:nth-child(3) {
+  height: 0.72cqh;
+  border: 0.08cqw solid var(--manual-yellow);
+  background: transparent;
+}
+
+.sceneBody {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 25cqw minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) 21cqh;
+  column-gap: 2.6cqw;
+  row-gap: 2.2cqh;
+}
+
+.titleBlock {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  align-self: start;
+  padding-top: 1.2cqh;
+}
+
+.sceneIndex {
+  color: var(--manual-yellow);
+  font-size: 1.3cqw;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 2.2cqh;
+}
+
+.titleBlock h1 {
+  margin: 0;
+  max-width: 25cqw;
+  color: var(--manual-ink);
+  font-size: 2.85cqw;
+  line-height: 1.04;
+  font-weight: 700;
+  letter-spacing: -0.08cqw;
+  text-wrap: balance;
+}
+
+.titleBlock p {
+  margin: 2cqh 0 0;
+  max-width: 24cqw;
+  color: var(--manual-muted);
+  font-size: 1.03cqw;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+.annotation {
+  margin-top: 2.5cqh;
+  padding: 1.45cqh 1.15cqw;
+  border-left: 0.26cqw solid var(--manual-yellow);
+  background: rgb(243 189 49 / 8%);
+  color: var(--manual-yellow);
+  font-size: 0.84cqw;
+  line-height: 1.5;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.visualPlate {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 0.08cqw solid var(--manual-dim);
+  background:
+    linear-gradient(90deg, transparent 49.9%, rgb(130 169 170 / 8%) 50%, transparent 50.1%),
+    linear-gradient(transparent 49.9%, rgb(130 169 170 / 8%) 50%, transparent 50.1%),
+    rgb(7 10 10 / 68%);
+}
+
+.visualPlate::before {
+  content: "";
+  position: absolute;
+  inset: 1cqw;
+  z-index: 0;
+  border: 0.06cqw dashed rgb(167 173 165 / 24%);
+  pointer-events: none;
+}
+
+.cropMarkTopLeft,
+.cropMarkBottomRight {
+  position: absolute;
+  z-index: 3;
+  width: 1.6cqw;
+  height: 2.7cqh;
+  pointer-events: none;
+}
+
+.cropMarkTopLeft {
+  left: 0.75cqw;
+  top: 1.3cqh;
+  border-left: 0.12cqw solid var(--manual-yellow);
+  border-top: 0.12cqw solid var(--manual-yellow);
+}
+
+.cropMarkBottomRight {
+  right: 0.75cqw;
+  bottom: 1.3cqh;
+  border-right: 0.12cqw solid var(--manual-yellow);
+  border-bottom: 0.12cqw solid var(--manual-yellow);
+}
+
+.measureCaption {
+  position: absolute;
+  z-index: 4;
+  left: 1.4cqw;
+  bottom: 1.7cqh;
+  max-width: 35cqw;
+  color: var(--manual-steel);
+  font-size: 0.7cqw;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.04cqw;
+  text-transform: uppercase;
+}
+
+.beatNote {
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 0;
+  min-height: 0;
+  padding: 1.8cqh 1.25cqw 1.6cqh;
+  border: 0.08cqw solid var(--manual-yellow-dark);
+  background: linear-gradient(135deg, rgb(243 189 49 / 10%), rgb(16 19 19 / 86%));
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  align-content: start;
+  gap: 0.9cqh;
+}
+
+.beatNoteHead {
+  display: flex;
+  align-items: center;
+  gap: 0.65cqw;
+  color: var(--manual-yellow);
+  font-size: 0.78cqw;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.beatNoteHead span {
+  display: grid;
+  place-items: center;
+  width: 2.15cqw;
+  height: 3.75cqh;
+  background: var(--manual-yellow);
+  color: var(--manual-bg);
+  font-weight: 800;
+}
+
+.beatNoteHead strong {
+  font-weight: 700;
+}
+
+.beatNote h2 {
+  margin: 0.25cqh 0 0;
+  color: var(--manual-ink);
+  font-size: 1.1cqw;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.beatNote p {
+  margin: 0;
+  color: var(--manual-muted);
+  font-size: 0.76cqw;
+  line-height: 1.46;
+}
+
+.beatTicks {
+  align-self: end;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.35cqw;
+  height: 0.65cqh;
+}
+
+.beatTicks i {
+  min-width: 0;
+  background: #37403d;
+}
+
+.beatTicks i[data-state="active"] {
+  background: var(--manual-yellow);
+}
+
+.beatTicks i[data-state="complete"] {
+  background: var(--manual-steel);
+}
+
+.sceneFooter {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: end;
+  gap: 1.7cqw;
+  padding-top: 1.3cqh;
+  border-top: 0.08cqw solid var(--manual-dim);
+  color: var(--manual-muted);
+  font-size: 0.66cqw;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.04cqw;
+}
+
+.clockSvg,
+.clockSvgCompact,
+.explodedSvg,
+.cycleSvg,
+.countingSvg,
+.assembledSvg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.clockSvg {
+  padding: 3.5cqh 3cqw 5cqh;
+}
+
+.clockSvgCompact {
+  padding: 0;
+}
+
+.clockOuter {
+  fill: #151a19;
+  stroke: var(--manual-yellow);
+  stroke-width: 4;
+}
+
+.clockInner {
+  fill: #0d1010;
+  stroke: var(--manual-dim);
+  stroke-width: 2;
+}
+
+.hourMark,
+.minuteMark {
+  stroke: var(--manual-ink);
+  stroke-linecap: square;
+}
+
+.hourMark {
+  stroke-width: 5;
+}
+
+.minuteMark {
+  stroke-width: 2;
+  opacity: 0.52;
+}
+
+.dialNumber {
+  fill: var(--manual-muted);
+  font-size: 1.14cqw;
+  font-family: inherit;
+  font-weight: 700;
+}
+
+.hourHand,
+.minuteHand {
+  stroke: var(--manual-ink);
+  stroke-linecap: square;
+}
+
+.hourHand {
+  stroke-width: 13;
+}
+
+.minuteHand {
+  stroke-width: 8;
+}
+
+.secondHandHeld {
+  stroke: var(--manual-red);
+  fill: var(--manual-red);
+  stroke-width: 4;
+}
+
+.cutawayWindow rect {
+  fill: #181e1d;
+  stroke: var(--manual-steel);
+  stroke-width: 2;
+}
+
+.cutawayTooth {
+  fill: var(--manual-yellow);
+}
+
+.cutawayWheel {
+  fill: none;
+  stroke: var(--manual-yellow);
+  stroke-width: 5;
+}
+
+.cutawayAnchor {
+  fill: none;
+  stroke: var(--manual-ink);
+  stroke-width: 9;
+  stroke-linecap: square;
+  stroke-linejoin: bevel;
+}
+
+.calloutLine {
+  fill: none;
+  stroke: var(--manual-red);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+}
+
+.calloutText {
+  fill: var(--manual-red);
+  font-family: inherit;
+  font-size: 0.94cqw;
+  font-weight: 700;
+}
+
+.explodedWrap,
+.cycleWrap,
+.countingWrap,
+.assembledWrap {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.mechanismName {
+  position: absolute;
+  z-index: 2;
+  right: 1.4cqw;
+  top: 1.7cqh;
+  padding: 0.8cqh 0.7cqw;
+  border: 0.08cqw solid var(--manual-yellow);
+  color: var(--manual-yellow);
+  background: var(--manual-bg);
+  font-size: 0.64cqw;
+  font-weight: 700;
+  letter-spacing: 0.03cqw;
+}
+
+.explodedSvg {
+  padding: 2.5cqh 1.3cqw 4.4cqh;
+}
+
+.powerPath {
+  fill: none;
+  stroke: var(--manual-yellow-dark);
+  stroke-width: 3;
+  stroke-dasharray: 10 9;
+}
+
+.powerArrow {
+  fill: none;
+  stroke: var(--manual-yellow);
+  stroke-width: 4;
+  stroke-linecap: square;
+  stroke-linejoin: bevel;
+}
+
+.explodedPart {
+  opacity: 1;
+}
+
+.partPending {
+  opacity: 0.24;
+}
+
+.partRevealed {
+  opacity: 1;
+}
+
+.reduce .partPending,
+.reduce .partRevealed {
+  transition: none;
+}
+
+.springBarrel {
+  fill: #19201f;
+  stroke: var(--manual-yellow);
+  stroke-width: 5;
+}
+
+.springCoil {
+  fill: none;
+  stroke: var(--manual-ink);
+  stroke-width: 5;
+  stroke-linecap: square;
+}
+
+.partLeader {
+  stroke: var(--manual-dim);
+  stroke-width: 2;
+  stroke-dasharray: 5 5;
+}
+
+.partNumber {
+  fill: var(--manual-yellow);
+  font-size: 1.14cqw;
+  font-family: inherit;
+  font-weight: 800;
+}
+
+.partLabel {
+  fill: var(--manual-ink);
+  font-size: 0.57cqw;
+  font-family: inherit;
+  font-weight: 700;
+}
+
+.partDescription {
+  fill: var(--manual-muted);
+  font-size: 0.63cqw;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.gearTooth {
+  fill: var(--manual-yellow);
+}
+
+.gearRing {
+  fill: #151a19;
+  stroke: var(--manual-yellow);
+  stroke-width: 5;
+}
+
+.gearHub {
+  fill: var(--manual-bg);
+  stroke: var(--manual-steel);
+  stroke-width: 4;
+}
+
+.gearSpoke {
+  stroke: var(--manual-steel);
+  stroke-width: 4;
+}
+
+.escapeGearExploded .gearTooth,
+.escapeGearExploded .gearRing {
+  stroke: var(--manual-red);
+  fill: var(--manual-red);
+}
+
+.escapeGearExploded .gearRing {
+  fill: #151a19;
+}
+
+.anchorPivot,
+.pendulumBob {
+  fill: var(--manual-bg);
+  stroke: var(--manual-steel);
+  stroke-width: 5;
+}
+
+.explodedAnchor {
+  fill: rgb(130 169 170 / 18%);
+  stroke: var(--manual-steel);
+  stroke-width: 7;
+  stroke-linejoin: bevel;
+}
+
+.pendulumRod {
+  stroke: var(--manual-steel);
+  stroke-width: 6;
+}
+
+.cycleSvg {
+  height: calc(100% - 8.6cqh);
+  padding: 1.6cqh 1cqw 0;
+}
+
+.measureLines line {
+  stroke: var(--manual-dim);
+  stroke-width: 2;
+}
+
+.measureLines text {
+  fill: var(--manual-muted);
+  font-family: inherit;
+  font-size: 0.73cqw;
+  font-weight: 700;
+}
+
+.pendulumAxis {
+  stroke: var(--manual-dim);
+  stroke-width: 2;
+  stroke-dasharray: 8 10;
+}
+
+.stepGear {
+  transform-box: view-box;
+}
+
+.escapeTooth {
+  fill: var(--manual-red);
+  stroke: var(--manual-red);
+  stroke-width: 1;
+}
+
+.escapeWheel {
+  fill: #171c1b;
+  stroke: var(--manual-red);
+  stroke-width: 7;
+}
+
+.escapeHub {
+  fill: var(--manual-bg);
+  stroke: var(--manual-steel);
+  stroke-width: 5;
+}
+
+.escapeSpoke {
+  stroke: var(--manual-steel);
+  stroke-width: 4;
+}
+
+.anchorAssembly {
+  transform-box: view-box;
+}
+
+.anchorAxis {
+  fill: var(--manual-bg);
+  stroke: var(--manual-yellow);
+  stroke-width: 6;
+}
+
+.anchorBody {
+  fill: rgb(243 189 49 / 12%);
+  stroke: var(--manual-yellow);
+  stroke-width: 8;
+  stroke-linejoin: bevel;
+}
+
+.palletFace {
+  fill: var(--manual-ink);
+  stroke: var(--manual-yellow);
+  stroke-width: 2;
+}
+
+.pendulumRodDetail {
+  stroke: var(--manual-yellow);
+  stroke-width: 6;
+}
+
+.pendulumBobDetail {
+  fill: var(--manual-panel);
+  stroke: var(--manual-yellow);
+  stroke-width: 6;
+}
+
+.contactPoint {
+  fill: transparent;
+  stroke: var(--manual-dim);
+  stroke-width: 4;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: fill 180ms linear, stroke 180ms linear, transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contactPoint[data-contact-state="engaged"] {
+  fill: var(--manual-red);
+  stroke: var(--manual-ink);
+  transform: scale(1.24);
+  animation: contactSnap 260ms cubic-bezier(0.16, 1, 0.3, 1) 1 both;
+}
+
+.contactLabel {
+  fill: var(--manual-muted);
+  font-family: inherit;
+  font-size: 0.68cqw;
+  font-weight: 700;
+}
+
+.phaseRail {
+  position: absolute;
+  left: 2cqw;
+  right: 2cqw;
+  bottom: 2.7cqh;
+  height: 7.4cqh;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5cqw;
+}
+
+.phaseRail li {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.65cqw;
+  padding: 0.8cqh 0.7cqw;
+  border: 0.08cqw solid #3a4541;
+  color: var(--manual-muted);
+  background: #111616;
+}
+
+.phaseRail li span {
+  color: var(--manual-dim);
+  font-size: 0.65cqw;
+}
+
+.phaseRail li strong {
+  overflow: hidden;
+  font-size: 0.72cqw;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.phaseRail li[data-phase-state="active"] {
+  border-color: var(--manual-yellow);
+  color: var(--manual-bg);
+  background: var(--manual-yellow);
+}
+
+.phaseRail li[data-phase-state="active"] span {
+  color: var(--manual-bg);
+}
+
+.phaseRail li[data-phase-state="complete"] {
+  border-color: var(--manual-steel);
+  color: var(--manual-steel);
+}
+
+.countingSvg {
+  height: calc(100% - 10cqh);
+  padding: 1.7cqh 0.6cqw 0;
+}
+
+.countPath {
+  fill: none;
+  stroke: var(--manual-yellow-dark);
+  stroke-width: 4;
+  stroke-dasharray: 12 10;
+}
+
+.countArrow {
+  fill: none;
+  stroke: var(--manual-yellow);
+  stroke-width: 5;
+  stroke-linejoin: bevel;
+}
+
+.pendulumSymbol circle,
+.pendulumSymbol line,
+.pendulumSymbol path {
+  fill: var(--manual-panel);
+  stroke: var(--manual-steel);
+  stroke-width: 6;
+}
+
+.pendulumSymbol path {
+  fill: none;
+  stroke-dasharray: 6 6;
+  stroke-width: 3;
+}
+
+.countAnchor {
+  fill: none;
+  stroke: var(--manual-ink);
+  stroke-width: 10;
+  stroke-linejoin: bevel;
+}
+
+.dialSymbol circle {
+  fill: var(--manual-panel);
+  stroke: var(--manual-yellow);
+  stroke-width: 6;
+}
+
+.dialSymbol line {
+  stroke: var(--manual-ink);
+  stroke-width: 7;
+  stroke-linecap: square;
+}
+
+.stageLabel text {
+  fill: var(--manual-muted);
+  font-family: inherit;
+  font-size: 0.68cqw;
+  font-weight: 700;
+}
+
+.stageLabel .stageNumber {
+  fill: var(--manual-yellow);
+  font-size: 1.14cqw;
+  font-weight: 800;
+}
+
+.boundaryStrip {
+  position: absolute;
+  left: 1.4cqw;
+  right: 1.4cqw;
+  bottom: 3cqh;
+  height: 8.2cqh;
+  padding: 1.2cqh 1cqw;
+  border: 0.08cqw solid var(--manual-dim);
+  display: grid;
+  grid-template-columns: 1.5fr repeat(5, auto);
+  align-items: center;
+  gap: 0.75cqw;
+  color: var(--manual-dim);
+  background: #0d1111;
+  opacity: 0.28;
+}
+
+.boundaryVisible {
+  color: var(--manual-ink);
+  border-color: var(--manual-yellow-dark);
+  opacity: 1;
+}
+
+.boundaryStrip span {
+  color: var(--manual-yellow);
+  font-size: 0.63cqw;
+  font-weight: 700;
+}
+
+.boundaryStrip strong {
+  padding: 0.65cqh 0.45cqw;
+  border-left: 0.08cqw solid var(--manual-dim);
+  font-size: 0.58cqw;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.assembledSvg {
+  padding: 2.2cqh 3cqw 4.6cqh;
+}
+
+.clockCase {
+  fill: #171d1c;
+  stroke: var(--manual-yellow);
+  stroke-width: 7;
+  stroke-linejoin: bevel;
+}
+
+.clockCaseInset {
+  fill: #0c1010;
+  stroke: var(--manual-dim);
+  stroke-width: 3;
+}
+
+.finalDial {
+  fill: #161b1a;
+  stroke: var(--manual-ink);
+  stroke-width: 5;
+}
+
+.finalDialMark {
+  stroke: var(--manual-yellow);
+  stroke-width: 5;
+}
+
+.finalHourHand,
+.finalMinuteHand {
+  stroke: var(--manual-ink);
+  stroke-linecap: square;
+}
+
+.finalHourHand {
+  stroke-width: 12;
+}
+
+.finalMinuteHand {
+  stroke-width: 8;
+}
+
+.finalSecondHand {
+  stroke: var(--manual-red);
+  fill: var(--manual-red);
+  stroke-width: 4;
+}
+
+.finalCutaway .gearTooth {
+  fill: var(--manual-red);
+}
+
+.finalCutaway .gearRing {
+  stroke: var(--manual-red);
+}
+
+.finalAnchor {
+  fill: none;
+  stroke: var(--manual-yellow);
+  stroke-width: 9;
+  stroke-linejoin: bevel;
+}
+
+.finalPendulum {
+  stroke: var(--manual-steel);
+  stroke-width: 6;
+}
+
+.finalPendulumBob {
+  fill: var(--manual-panel);
+  stroke: var(--manual-steel);
+  stroke-width: 6;
+}
+
+.finalCallout {
+  fill: none;
+  stroke: var(--manual-red);
+  stroke-width: 3;
+  stroke-dasharray: 7 6;
+}
+
+.finalCalloutLabel {
+  fill: var(--manual-red);
+  font-family: inherit;
+  font-size: 0.89cqw;
+  font-weight: 800;
+}
+
+.finalStamp {
+  position: absolute;
+  right: 2.2cqw;
+  top: 4cqh;
+  width: 8.4cqw;
+  height: 14.5cqh;
+  border: 0.13cqw solid var(--manual-yellow);
+  color: var(--manual-yellow);
+  background: rgb(16 19 19 / 92%);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  gap: 0 0.55cqw;
+  padding: 1.2cqh 0.75cqw;
+  transform: rotate(2deg);
+}
+
+.finalStamp span {
+  grid-row: 1 / span 2;
+  font-size: 2.5cqw;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.finalStamp strong {
+  align-self: end;
+  font-size: 0.65cqw;
+  line-height: 1.1;
+}
+
+.finalStamp small {
+  align-self: start;
+  color: var(--manual-ink);
+  font-size: 0.58cqw;
+  line-height: 1.2;
+}
+
+.gearRegister {
+  position: absolute;
+  z-index: 20;
+  right: 1.1cqw;
+  top: 13cqh;
+  bottom: 11cqh;
+  width: 6.7cqw;
+  border-right: 0.22cqw solid var(--manual-yellow);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 2cqh;
+  pointer-events: auto;
+}
+
+.registerLabel {
+  justify-self: end;
+  padding-right: 0.7cqw;
+  color: var(--manual-yellow);
+  font-size: 0.64cqw;
+  font-weight: 800;
+  letter-spacing: 0.06cqw;
+  writing-mode: vertical-rl;
+}
+
+.registerButtons {
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  align-items: center;
+  gap: 0.55cqh;
+}
+
+.registerButtons button {
+  appearance: none;
+  position: relative;
+  justify-self: end;
+  width: 4.6cqw;
+  height: 8.4cqh;
+  padding: 0.7cqh 0.48cqw 0.7cqh 0.9cqw;
+  border: 0;
+  border-left: 0.1cqw solid var(--manual-dim);
+  color: var(--manual-muted);
+  background: var(--manual-panel-raised);
+  clip-path: polygon(0 14%, 76% 14%, 100% 0, 100% 100%, 76% 86%, 0 86%);
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.38cqw;
+  text-align: left;
+  font: inherit;
+  transition: width 180ms cubic-bezier(0.16, 1, 0.3, 1), color 160ms linear, background 160ms linear;
+}
+
+.registerButtons button:hover,
+.registerButtons button:focus-visible {
+  width: 5.4cqw;
+  outline: 0.12cqw solid var(--manual-ink);
+  outline-offset: 0.1cqw;
+  color: var(--manual-ink);
+}
+
+.registerButtons button[data-register-state="active"] {
+  width: 6cqw;
+  color: var(--manual-bg);
+  background: var(--manual-yellow);
+  font-weight: 800;
+}
+
+.registerButtons button span {
+  font-size: 0.9cqw;
+  font-weight: inherit;
+  line-height: 1;
+}
+
+.registerButtons button small {
+  overflow: hidden;
+  font-size: 0.48cqw;
+  font-weight: inherit;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reduce *,
+.thumbnail * {
+  animation: none !important;
+  transition: none !important;
+}
+
+.thumbnail .scene {
+  padding-right: 5cqw;
+}
+
+.thumbnail .titleBlock h1 {
+  font-size: 3.15cqw;
+}
+
+.thumbnail .titleBlock p,
+.thumbnail .annotation,
+.thumbnail .beatNote p {
+  font-size: 0.86cqw;
+}
+
+@keyframes contactSnap {
+  0% {
+    opacity: 0.28;
+    transform: scale(0.72);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.24);
+  }
+}

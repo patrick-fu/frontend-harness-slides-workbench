@@ -331,7 +331,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "37",
+    id: "operating-manual",
     band: "contemporary-digital",
     name: nameMap[lang],
     theme: themeMap[lang],

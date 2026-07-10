@@ -80,7 +80,7 @@ describe("Style 29: 29-celtic-knot — overflow check", () => {
 describe("Style 29: 29-celtic-knot — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("29");
+    expect(meta.id).toBe("cassette-era-packaging");
     expect(meta.band).toBe("craft-cultural");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

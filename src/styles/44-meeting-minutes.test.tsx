@@ -112,7 +112,7 @@ describe("Style 44: Meeting Minutes — overflow check", () => {
 describe("Style 44: Meeting Minutes — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("44");
+    expect(meta.id).toBe("field-notes-report");
     expect(meta.band).toBe("text-report");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

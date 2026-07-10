@@ -1,0 +1,1146 @@
+.root {
+  --dance-bg: #171411;
+  --dance-ink: #f1e7d0;
+  --dance-muted: #a99f8b;
+  --dance-line: #706756;
+  --dance-spot: #1f55b7;
+  --dance-black: #0c0a08;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--dance-bg);
+  color: var(--dance-ink);
+  font-family: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  user-select: none;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--dance-bg);
+}
+
+.composition {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 8.5cqh 4cqw 4cqh;
+}
+
+.takeHeader {
+  position: absolute;
+  top: 2.6cqh;
+  left: 4cqw;
+  right: 4cqw;
+  z-index: 6;
+  height: 3.3cqh;
+  display: grid;
+  grid-template-columns: 4.5cqw 20cqw 1fr minmax(22cqw, auto);
+  gap: 1.2cqw;
+  align-items: center;
+  color: var(--dance-ink);
+  font-family: "Arial Narrow", "Aptos Narrow", "PingFang SC", sans-serif;
+  font-size: 1.05cqw;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.12cqw;
+  text-transform: uppercase;
+}
+
+.takeNumber {
+  color: var(--dance-spot);
+  font-size: 2.2cqw;
+  letter-spacing: 0;
+}
+
+.takeEyebrow,
+.takeSource {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.takeRule {
+  height: 0.1cqh;
+  background: var(--dance-line);
+}
+
+.takeSource {
+  color: var(--dance-muted);
+  text-align: right;
+  font-size: 0.82cqw;
+  letter-spacing: 0.08cqw;
+}
+
+.displayBlock {
+  min-width: 0;
+}
+
+.displayTitle {
+  margin: 0;
+  color: var(--dance-ink);
+  font-family: "Arial Narrow", "Aptos Narrow", "PingFang SC", sans-serif;
+  font-size: 7.2cqw;
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.18cqw;
+  text-transform: uppercase;
+}
+
+.displayTitle span {
+  display: block;
+}
+
+.serifSubtitle {
+  max-width: 34cqw;
+  margin: 2.2cqh 0 0;
+  color: var(--dance-ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.7cqw;
+  font-style: italic;
+  line-height: 1.25;
+}
+
+.bodyCopy {
+  margin: 0;
+  color: var(--dance-muted);
+  font-size: 1.35cqw;
+  line-height: 1.42;
+}
+
+.caption {
+  margin: 0;
+  color: var(--dance-muted);
+  font-family: "Arial Narrow", "Aptos Narrow", "PingFang SC", sans-serif;
+  font-size: 0.85cqw;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.06cqw;
+  text-transform: uppercase;
+}
+
+.poseSilhouette {
+  display: block;
+  color: currentColor;
+  overflow: visible;
+}
+
+.notationScore {
+  display: block;
+  color: var(--dance-black);
+}
+
+.staffLines,
+.measureLines,
+.scoreCursor {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: square;
+}
+
+.staffLines {
+  stroke-width: 2.2;
+  stroke-dasharray: 5 8;
+  opacity: 0.52;
+}
+
+.staffLines .centerLine {
+  stroke-width: 4.2;
+  stroke-dasharray: none;
+  opacity: 0.82;
+}
+
+.measureLines {
+  stroke-width: 3.2;
+  opacity: 0.72;
+}
+
+.scoreGlyph polygon {
+  stroke: currentColor;
+  stroke-width: 4;
+  stroke-linejoin: miter;
+}
+
+.scoreGlyph[data-glyph-tone="open"] polygon {
+  fill: transparent;
+}
+
+.scoreGlyph[data-glyph-tone="middle"] polygon {
+  fill: var(--dance-ink);
+}
+
+.scoreGlyph[data-glyph-tone="solid"] polygon {
+  fill: currentColor;
+}
+
+.hatchLines {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 4;
+}
+
+.scoreInk {
+  transform-origin: center;
+}
+
+.staffLabels {
+  fill: currentColor;
+  font-family: "Arial Narrow", "Aptos Narrow", sans-serif;
+  font-size: 1.05cqw;
+  font-weight: 800;
+}
+
+.scoreCursor {
+  color: var(--dance-spot);
+  stroke: var(--dance-spot);
+  stroke-width: 8;
+  transition: transform 300ms steps(3, end);
+}
+
+.scoreCursor circle {
+  fill: var(--dance-spot);
+  stroke: none;
+}
+
+.posePhoto {
+  display: grid;
+  grid-template-columns: 52cqw minmax(0, 1fr);
+  gap: 3cqw;
+}
+
+.poseField {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--dance-spot);
+  color: var(--dance-black);
+}
+
+.heroPose {
+  position: absolute;
+  left: 5cqw;
+  bottom: -3cqh;
+  width: 25cqw;
+  height: 78cqh;
+}
+
+.introScore {
+  position: absolute;
+  top: 4cqh;
+  right: 2.2cqw;
+  width: 14cqw;
+  height: 74cqh;
+  box-sizing: border-box;
+  padding: 1.1cqh 0.8cqw;
+  background: var(--dance-ink);
+}
+
+.poseFieldLabel {
+  position: absolute;
+  left: 1.4cqw;
+  bottom: 1.4cqh;
+  color: var(--dance-ink);
+  font-family: "Arial Narrow", "Aptos Narrow", sans-serif;
+  font-size: 1.1cqw;
+  font-weight: 900;
+  letter-spacing: 0.13cqw;
+}
+
+.introCopy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.introCopy .displayBlock {
+  margin-top: 2.5cqh;
+}
+
+.introCopy .bodyCopy {
+  max-width: 32cqw;
+  margin-top: 3.3cqh;
+}
+
+.beatStatement {
+  width: 22cqw;
+  min-height: 7.5cqh;
+  margin: 2.8cqh 0 0;
+  padding: 1.5cqh 1.2cqw;
+  border-left: 0.35cqw solid var(--dance-spot);
+  color: var(--dance-ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.15cqw;
+  line-height: 1.32;
+  opacity: 0;
+  transform: translateX(1.3cqw);
+  transition:
+    opacity 260ms steps(3, end),
+    transform 260ms steps(3, end);
+}
+
+.beatStatement[data-visible="true"] {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.introCopy .caption {
+  margin-top: auto;
+  max-width: 27cqw;
+  padding-bottom: 1cqh;
+}
+
+.symbolKey {
+  display: grid;
+  grid-template-columns: 33cqw minmax(0, 1fr);
+  gap: 4cqw;
+}
+
+.keyTitle {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.keyTitle .displayTitle {
+  font-size: 6.2cqw;
+}
+
+.keyTitle .serifSubtitle {
+  font-size: 1.45cqw;
+}
+
+.keyTitle .bodyCopy {
+  max-width: 30cqw;
+  margin-top: 4cqh;
+}
+
+.keyTitle .caption {
+  margin-top: auto;
+  padding-bottom: 1.2cqh;
+}
+
+.legendStack {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 1.3cqh;
+}
+
+.legendDimension {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 4.3cqw 10cqw minmax(0, 1fr);
+  align-items: center;
+  gap: 1.2cqw;
+  padding: 1.25cqh 1.2cqw;
+  box-sizing: border-box;
+  border: 0.1cqw solid var(--dance-line);
+  background: var(--dance-black);
+  opacity: 0.08;
+  transform: translateX(2.4cqw);
+  transition:
+    opacity 300ms steps(4, end),
+    transform 300ms steps(4, end),
+    background-color 300ms steps(4, end);
+}
+
+.legendDimension[data-visible="true"] {
+  background: var(--dance-ink);
+  color: var(--dance-black);
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.legendDimension:last-child {
+  padding-right: 10.5cqw;
+}
+
+.legendIndex {
+  color: var(--dance-spot);
+  font-family: "Arial Narrow", "Aptos Narrow", "PingFang SC", sans-serif;
+  font-size: 3.6cqw;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+}
+
+.legendIcon {
+  min-width: 0;
+  color: var(--dance-black);
+}
+
+.legendIcon svg {
+  display: block;
+  width: 100%;
+  height: 11cqh;
+}
+
+.legendOpen,
+.legendSolid,
+.legendStaff {
+  stroke: currentColor;
+  stroke-width: 5;
+}
+
+.legendOpen {
+  fill: transparent;
+}
+
+.legendSolid {
+  fill: currentColor;
+}
+
+.legendStaff {
+  fill: none;
+}
+
+.legendText {
+  min-width: 0;
+}
+
+.legendText span,
+.legendText strong {
+  display: block;
+  font-family: "Arial Narrow", "Aptos Narrow", "PingFang SC", sans-serif;
+  text-transform: uppercase;
+}
+
+.legendText span {
+  color: var(--dance-spot);
+  font-size: 0.82cqw;
+  font-weight: 900;
+  letter-spacing: 0.1cqw;
+}
+
+.legendText strong {
+  margin-top: 0.45cqh;
+  color: currentColor;
+  font-size: 1.75cqw;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.legendText p {
+  margin: 0.8cqh 0 0;
+  color: currentColor;
+  font-size: 1.02cqw;
+  line-height: 1.28;
+}
+
+.splitScore {
+  display: grid;
+  grid-template-columns: 31cqw minmax(0, 1fr);
+  gap: 3cqw;
+}
+
+.scoreColumn {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: var(--dance-spot);
+}
+
+.motionScore {
+  width: 21cqw;
+  height: 75cqh;
+  box-sizing: border-box;
+  padding: 1.6cqh 1.2cqw;
+  background: var(--dance-ink);
+}
+
+.readDirection {
+  position: absolute;
+  left: 1.2cqw;
+  bottom: 1.2cqh;
+  color: var(--dance-ink);
+  font-family: "Arial Narrow", "Aptos Narrow", sans-serif;
+  font-size: 0.95cqw;
+  font-weight: 900;
+  letter-spacing: 0.1cqw;
+}
+
+.motionColumn {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 23cqh 39cqh minmax(0, 1fr);
+  gap: 1.4cqh;
+}
+
+.motionColumn .displayTitle {
+  font-size: 5.6cqw;
+}
+
+.motionColumn .serifSubtitle {
+  margin-top: 1.2cqh;
+  font-size: 1.25cqw;
+}
+
+.poseSequence {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2cqw;
+}
+
+.poseFrame {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  padding: 1.2cqh 0.8cqw;
+  box-sizing: border-box;
+  border: 0.1cqw solid var(--dance-line);
+  color: var(--dance-muted);
+  opacity: 0.14;
+  transition:
+    opacity 260ms steps(3, end),
+    color 260ms steps(3, end),
+    background-color 260ms steps(3, end),
+    transform 260ms steps(3, end);
+}
+
+.poseFrame[data-visible="true"] {
+  opacity: 0.48;
+}
+
+.poseFrame[data-current="true"] {
+  background: var(--dance-spot);
+  color: var(--dance-black);
+  opacity: 1;
+  transform: translateY(-0.9cqh);
+}
+
+.poseFrame .poseSilhouette {
+  position: absolute;
+  top: 1cqh;
+  right: 0.4cqw;
+  width: 10cqw;
+  height: 29cqh;
+}
+
+.poseFrame > span,
+.poseFrame > strong,
+.poseFrame > p {
+  position: relative;
+  z-index: 1;
+  display: block;
+  max-width: 8cqw;
+}
+
+.poseFrame > span {
+  color: var(--dance-spot);
+  font-family: "Arial Narrow", "Aptos Narrow", sans-serif;
+  font-size: 1.1cqw;
+  font-weight: 900;
+}
+
+.poseFrame[data-current="true"] > span {
+  color: var(--dance-ink);
+}
+
+.poseFrame > strong {
+  margin-top: 1cqh;
+  font-family: "Arial Narrow", "Aptos Narrow", "PingFang SC", sans-serif;
+  font-size: 1.3cqw;
+  font-weight: 900;
+}
+
+.poseFrame > p {
+  margin: 1.1cqh 0 0;
+  font-size: 0.82cqw;
+  line-height: 1.3;
+}
+
+.motionNote {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24cqw;
+  gap: 2cqw;
+  align-items: end;
+  border-top: 0.1cqw solid var(--dance-line);
+  padding: 1.2cqh 10.5cqw 0 0;
+}
+
+.motionNote .bodyCopy {
+  max-width: 32cqw;
+}
+
+.motionNote .caption {
+  text-align: right;
+}
+
+.reconstructionStage {
+  display: grid;
+  grid-template-columns: 58cqw minmax(0, 1fr);
+  gap: 3cqw;
+}
+
+.reconstructionField {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--dance-spot);
+  color: var(--dance-black);
+}
+
+.reconstructionScore {
+  position: absolute;
+  top: 4cqh;
+  left: 22cqw;
+  width: 14cqw;
+  height: 72cqh;
+  box-sizing: border-box;
+  padding: 1cqh 0.8cqw;
+  background: var(--dance-ink);
+  opacity: 0.78;
+}
+
+.reconstruction {
+  position: absolute;
+  width: 25cqw;
+  height: 67cqh;
+  opacity: 0;
+  transform: translateX(3cqw);
+  transition:
+    opacity 300ms steps(4, end),
+    transform 300ms steps(4, end);
+}
+
+.reconstruction[data-visible="true"] {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reconstructionA {
+  left: 2cqw;
+  bottom: 3cqh;
+  color: var(--dance-black);
+}
+
+.reconstructionB {
+  right: 2cqw;
+  top: 3cqh;
+  color: var(--dance-ink);
+  transform: translateX(-3cqw);
+}
+
+.reconstructionB[data-visible="true"] {
+  transform: translateX(0);
+}
+
+.reconstruction .poseSilhouette {
+  position: absolute;
+  inset: 0 0 10cqh;
+  width: 100%;
+  height: 54cqh;
+}
+
+.reconstruction > div {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 10cqh;
+  padding: 1cqh 0.9cqw;
+  box-sizing: border-box;
+  background: var(--dance-bg);
+  color: var(--dance-ink);
+}
+
+.reconstruction > div span,
+.reconstruction > div strong {
+  display: block;
+  font-family: "Arial Narrow", "Aptos Narrow", "PingFang SC", sans-serif;
+  text-transform: uppercase;
+}
+
+.reconstruction > div span {
+  color: var(--dance-spot);
+  font-size: 0.76cqw;
+  font-weight: 900;
+  letter-spacing: 0.07cqw;
+}
+
+.reconstruction > div strong {
+  margin-top: 0.5cqh;
+  font-size: 1.35cqw;
+  line-height: 1;
+}
+
+.reconstruction > div p {
+  margin: 0.8cqh 0 0;
+  color: var(--dance-muted);
+  font-size: 0.82cqw;
+  line-height: 1.2;
+}
+
+.sharedScoreLabel {
+  position: absolute;
+  left: 22.8cqw;
+  top: 1.2cqh;
+  color: var(--dance-ink);
+  font-family: "Arial Narrow", "Aptos Narrow", sans-serif;
+  font-size: 0.9cqw;
+  font-weight: 900;
+  letter-spacing: 0.12cqw;
+}
+
+.reconstructionCopy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.reconstructionCopy .displayTitle {
+  font-size: 4.25cqw;
+  line-height: 0.84;
+}
+
+.reconstructionCopy .serifSubtitle {
+  max-width: 28cqw;
+  margin-top: 1.5cqh;
+  font-size: 1.15cqw;
+}
+
+.reconstructionCopy .bodyCopy {
+  max-width: 27cqw;
+  margin-top: 2.3cqh;
+  font-size: 1.05cqw;
+}
+
+.evidenceBoundary {
+  min-height: 15cqh;
+  margin-top: 2cqh;
+  padding: 1.25cqh 1.1cqw;
+  box-sizing: border-box;
+  border: 0.1cqw solid var(--dance-spot);
+  opacity: 0;
+  transform: translateY(1.5cqh);
+  transition:
+    opacity 300ms steps(4, end),
+    transform 300ms steps(4, end);
+}
+
+.evidenceBoundary[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.evidenceBoundary span {
+  color: var(--dance-spot);
+  font-family: "Arial Narrow", "Aptos Narrow", sans-serif;
+  font-size: 0.8cqw;
+  font-weight: 900;
+  letter-spacing: 0.08cqw;
+}
+
+.evidenceBoundary p {
+  margin: 1cqh 0 0;
+  color: var(--dance-ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 0.95cqw;
+  line-height: 1.35;
+}
+
+.reconstructionCopy .caption {
+  margin-top: auto;
+  max-width: 16cqw;
+  padding-bottom: 1cqh;
+}
+
+.doubleExposure {
+  display: grid;
+  grid-template-columns: 54cqw minmax(0, 1fr);
+  gap: 3cqw;
+}
+
+.exposureField {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--dance-spot);
+}
+
+.exposurePoseA,
+.exposurePoseB {
+  position: absolute;
+  width: 27cqw;
+  height: 77cqh;
+  bottom: -2cqh;
+}
+
+.exposurePoseA {
+  left: 5cqw;
+  color: var(--dance-black);
+  opacity: 0.82;
+}
+
+.exposurePoseB {
+  left: 15cqw;
+  color: var(--dance-ink);
+  opacity: 0.48;
+}
+
+.exposureScore {
+  position: absolute;
+  top: 2.8cqh;
+  right: 2.2cqw;
+  width: 13cqw;
+  height: 74cqh;
+  box-sizing: border-box;
+  padding: 1cqh 0.7cqw;
+  background: var(--dance-ink);
+  opacity: 0.86;
+}
+
+.exposureRoute {
+  position: absolute;
+  left: 1.4cqw;
+  bottom: 1.4cqh;
+  color: var(--dance-ink);
+  font-family: "Arial Narrow", "Aptos Narrow", "PingFang SC", sans-serif;
+  font-size: 1.05cqw;
+  font-weight: 900;
+  letter-spacing: 0.12cqw;
+}
+
+.finalCopy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.finalCopy .displayTitle {
+  margin-top: 2cqh;
+  font-size: 5.25cqw;
+}
+
+.finalCopy .serifSubtitle {
+  max-width: 31cqw;
+  color: var(--dance-spot);
+  font-size: 1.65cqw;
+}
+
+.finalCopy .bodyCopy {
+  max-width: 31cqw;
+  margin-top: 4cqh;
+}
+
+.finalSource {
+  margin: auto 0 0;
+  color: var(--dance-ink);
+  font-family: "Arial Narrow", "Aptos Narrow", sans-serif;
+  font-size: 1.05cqw;
+  font-weight: 900;
+  padding-right: 10.5cqw;
+  letter-spacing: 0.12cqw;
+}
+
+.finalCopy .caption {
+  margin-top: 1.2cqh;
+  padding: 0 10.5cqw 1cqh 0;
+}
+
+.notationTurntable {
+  position: absolute;
+  right: 2.1cqw;
+  bottom: 2.2cqh;
+  z-index: 20;
+  width: 10cqw;
+  height: 10cqw;
+  border: 0.1cqw solid var(--dance-line);
+  border-radius: 50%;
+  background: var(--dance-bg);
+  color: var(--dance-ink);
+  outline: none;
+}
+
+.notationTurntable:focus-visible {
+  outline: 0.18cqw solid var(--dance-spot);
+  outline-offset: 0.35cqw;
+}
+
+.turntableStaff {
+  position: absolute;
+  inset: 0.35cqw;
+  width: calc(100% - 0.7cqw);
+  height: calc(100% - 0.7cqw);
+  fill: none;
+  stroke: var(--dance-line);
+  stroke-width: 2.2;
+  opacity: 0.68;
+}
+
+.turntableStaff line {
+  stroke-dasharray: 4 8;
+}
+
+.turntableLabel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--dance-muted);
+  font-family: "Arial Narrow", "Aptos Narrow", sans-serif;
+  font-size: 0.58cqw;
+  font-weight: 900;
+  letter-spacing: 0.08cqw;
+}
+
+.turntableMarks {
+  position: absolute;
+  inset: 0;
+}
+
+.turntableMark {
+  position: absolute;
+  width: 2.5cqw;
+  height: 2.5cqw;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0.1cqw solid var(--dance-line);
+  border-radius: 50%;
+  background: var(--dance-bg);
+  color: var(--dance-muted);
+  cursor: pointer;
+  transition:
+    color 180ms steps(3, end),
+    background-color 180ms steps(3, end),
+    border-color 180ms steps(3, end),
+    transform 180ms steps(3, end);
+}
+
+.turntableMark:nth-child(1) {
+  left: 3.75cqw;
+  top: -0.4cqw;
+}
+
+.turntableMark:nth-child(2) {
+  right: -0.1cqw;
+  top: 2.45cqw;
+}
+
+.turntableMark:nth-child(3) {
+  right: 1.15cqw;
+  bottom: -0.2cqw;
+}
+
+.turntableMark:nth-child(4) {
+  left: 1.15cqw;
+  bottom: -0.2cqw;
+}
+
+.turntableMark:nth-child(5) {
+  left: -0.1cqw;
+  top: 2.45cqw;
+}
+
+.turntableMark[data-current="true"] {
+  border-color: var(--dance-spot);
+  color: var(--dance-ink);
+  transform: scale(1.12);
+}
+
+.turntableMark[data-expanded="true"] {
+  border-color: var(--dance-spot);
+  background: var(--dance-spot);
+  color: var(--dance-ink);
+  transform: scale(1.2);
+}
+
+.turntableMark:focus-visible {
+  outline: 0.16cqw solid var(--dance-ink);
+  outline-offset: 0.2cqw;
+}
+
+.turntableNumber {
+  position: relative;
+  z-index: 2;
+  font-family: "Arial Narrow", "Aptos Narrow", sans-serif;
+  font-size: 0.82cqw;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.turntableMark[data-current="true"] .turntableNumber,
+.turntableMark[data-expanded="true"] .turntableNumber {
+  font-size: 1.08cqw;
+  font-weight: 900;
+}
+
+.turntableGlyph {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.turntableGlyph i {
+  position: absolute;
+  left: 50%;
+  width: 0.1cqw;
+  height: 0.5cqh;
+  background: currentColor;
+  transform-origin: center;
+}
+
+.turntableGlyph i:first-child {
+  top: 0.35cqh;
+  transform: translateX(-50%) rotate(34deg);
+}
+
+.turntableGlyph i:last-child {
+  bottom: 0.35cqh;
+  transform: translateX(-50%) rotate(-34deg);
+}
+
+.turntableName {
+  position: absolute;
+  right: 3cqw;
+  top: 50%;
+  width: 8cqw;
+  padding: 0.55cqh 0.5cqw;
+  box-sizing: border-box;
+  border-left: 0.25cqw solid var(--dance-spot);
+  background: var(--dance-bg);
+  color: var(--dance-ink);
+  font-family: "Arial Narrow", "Aptos Narrow", "PingFang SC", sans-serif;
+  font-size: 0.65cqw;
+  font-weight: 900;
+  line-height: 1.15;
+  text-align: right;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) translateX(1.2cqw);
+  transition:
+    opacity 180ms steps(3, end),
+    transform 180ms steps(3, end);
+}
+
+.turntableMark[data-current="true"] .turntableName {
+  opacity: 0.72;
+  transform: translateY(-50%) translateX(0);
+}
+
+.turntableMark[data-expanded="true"] .turntableName {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.root:lang(zh) .displayTitle {
+  font-size: 5.6cqw;
+  line-height: 0.94;
+  letter-spacing: 0;
+}
+
+.root:lang(zh) .introCopy .displayTitle {
+  font-size: 5.7cqw;
+}
+
+.root:lang(zh) .keyTitle .displayTitle {
+  font-size: 4.55cqw;
+  line-height: 0.98;
+}
+
+.root:lang(zh) .motionColumn .displayTitle {
+  font-size: 4.2cqw;
+}
+
+.root:lang(zh) .reconstructionCopy .displayTitle {
+  font-size: 3.55cqw;
+}
+
+.root:lang(zh) .finalCopy .displayTitle {
+  font-size: 4.25cqw;
+}
+
+.root:not(.noMotion) .scoreInk {
+  animation: scoreDraw 300ms steps(4, end) both;
+}
+
+.root:not(.noMotion) .poseSilhouette[data-active="true"] {
+  animation: poseSample 333ms steps(4, end) both;
+}
+
+.root:not(.noMotion) .displayTitle span {
+  animation: typeLock 240ms steps(3, end) both;
+}
+
+.root:not(.noMotion) .displayTitle span:nth-child(2) {
+  animation-delay: 45ms;
+}
+
+.root:not(.noMotion) .displayTitle span:nth-child(3) {
+  animation-delay: 90ms;
+}
+
+.noMotion *,
+.noMotion *::before,
+.noMotion *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+}
+
+@keyframes scoreDraw {
+  from {
+    opacity: 0;
+    transform: scaleY(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes poseSample {
+  0% {
+    opacity: 0.22;
+    transform: translateX(-1.4cqw);
+  }
+
+  55% {
+    opacity: 0.7;
+    transform: translateX(0.45cqw);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes typeLock {
+  from {
+    opacity: 0;
+    transform: translateY(2.2cqh);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

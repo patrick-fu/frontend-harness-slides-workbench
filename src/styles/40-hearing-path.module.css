@@ -1,0 +1,823 @@
+.root {
+  --style-blackboard-bg: #102f27;
+  --style-blackboard-deep: #0a211b;
+  --style-blackboard-panel: #173b31;
+  --style-blackboard-ink: #edf4df;
+  --style-blackboard-muted: #b8cbb9;
+  --style-blackboard-yellow: #efd879;
+  --style-blackboard-mint: #9fd8b2;
+  position: relative;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: hidden;
+  container-type: size;
+  color: var(--style-blackboard-ink);
+  background:
+    radial-gradient(circle at 14% 22%, rgba(237, 244, 223, 0.04) 0 0.08cqw, transparent 0.12cqw),
+    radial-gradient(circle at 76% 61%, rgba(237, 244, 223, 0.035) 0 0.06cqw, transparent 0.11cqw),
+    repeating-linear-gradient(1deg, rgba(237, 244, 223, 0.022) 0 0.08cqh, transparent 0.08cqh 3.2cqh),
+    linear-gradient(145deg, var(--style-blackboard-deep), var(--style-blackboard-bg) 48%, #0c261f);
+  font-family: "Patrick Hand", "Noto Sans SC", cursive;
+}
+
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 1.8cqh 1.2cqw;
+  z-index: 1;
+  pointer-events: none;
+  border: 0.1cqw solid rgba(237, 244, 223, 0.2);
+  border-radius: 0.8cqw;
+  box-shadow: inset 0 0 3.8cqw rgba(0, 0, 0, 0.34);
+}
+
+.boardDust {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.5;
+  background:
+    linear-gradient(90deg, transparent 0 18%, rgba(237, 244, 223, 0.018) 23%, transparent 31% 58%, rgba(237, 244, 223, 0.022) 63%, transparent 72%),
+    repeating-linear-gradient(90deg, transparent 0 7cqw, rgba(237, 244, 223, 0.016) 7cqw 7.08cqw);
+}
+
+.trackFrame {
+  position: absolute;
+  inset: 0 0 16cqh;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.track,
+.scene {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.scene {
+  position: relative;
+  overflow: hidden;
+}
+
+.sceneHeader {
+  position: absolute;
+  inset-block-start: 3.6cqh;
+  inset-inline: 4.4cqw;
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  align-items: center;
+  gap: 1.2cqw;
+  min-block-size: 3.6cqh;
+  color: var(--style-blackboard-muted);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.78cqw;
+  letter-spacing: 0.1cqw;
+  text-transform: uppercase;
+}
+
+.boardCode {
+  color: var(--style-blackboard-yellow);
+  font-weight: 600;
+}
+
+.chalkRule {
+  block-size: 0.14cqh;
+  background: repeating-linear-gradient(90deg, rgba(237, 244, 223, 0.4) 0 2cqw, transparent 2cqw 2.35cqw);
+  transform: rotate(-0.15deg);
+}
+
+.boardSeries {
+  opacity: 0.7;
+}
+
+.sceneGrid {
+  position: absolute;
+  inset: 9.2cqh 4.4cqw 4.7cqh;
+  display: grid;
+  grid-template-columns: 21cqw 52cqw 14cqw;
+  grid-template-rows: 1fr 12.5cqh;
+  gap: 1.8cqw 2cqw;
+}
+
+.titleBlock {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  padding-block-start: 1.2cqh;
+}
+
+.sceneIndex {
+  margin: 0 0 1.4cqh;
+  color: var(--style-blackboard-yellow);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 1.1cqw;
+  letter-spacing: 0.06cqw;
+}
+
+.titleBlock h1 {
+  margin: 0;
+  color: var(--style-blackboard-ink);
+  font-size: 3.25cqw;
+  font-weight: 400;
+  line-height: 0.96;
+  text-wrap: balance;
+  text-shadow: 0 0 0.5cqw rgba(237, 244, 223, 0.1);
+}
+
+.subtitle {
+  max-inline-size: 20cqw;
+  margin: 1.8cqh 0 0;
+  color: var(--style-blackboard-muted);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 1.03cqw;
+  line-height: 1.43;
+}
+
+.visualBoard {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  position: relative;
+  overflow: hidden;
+  border: 0.1cqw dashed rgba(237, 244, 223, 0.26);
+  border-radius: 1.1cqw;
+  background:
+    linear-gradient(91deg, rgba(237, 244, 223, 0.018), transparent 12% 88%, rgba(237, 244, 223, 0.018)),
+    rgba(4, 21, 17, 0.2);
+  box-shadow: inset 0 0 2cqw rgba(0, 0, 0, 0.2);
+}
+
+.visualBoard::before,
+.visualBoard::after {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  inline-size: 2.2cqw;
+  block-size: 2.2cqh;
+  pointer-events: none;
+}
+
+.visualBoard::before {
+  inset-block-start: 1.2cqh;
+  inset-inline-start: 0.8cqw;
+  border-block-start: 0.12cqw solid rgba(237, 244, 223, 0.28);
+  border-inline-start: 0.12cqw solid rgba(237, 244, 223, 0.28);
+}
+
+.visualBoard::after {
+  inset-block-end: 1.2cqh;
+  inset-inline-end: 0.8cqw;
+  border-block-end: 0.12cqw solid rgba(237, 244, 223, 0.28);
+  border-inline-end: 0.12cqw solid rgba(237, 244, 223, 0.28);
+}
+
+.derivationNote {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  align-self: center;
+  min-block-size: 49cqh;
+  padding: 2.2cqh 1.15cqw;
+  border-inline-start: 0.18cqw solid rgba(159, 216, 178, 0.55);
+  background: linear-gradient(90deg, rgba(159, 216, 178, 0.06), transparent);
+  transform: rotate(0.5deg);
+}
+
+.beatCount {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35cqw;
+  margin-block-end: 2.4cqh;
+  color: var(--style-blackboard-yellow);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+}
+
+.beatCount span:first-child {
+  font-size: 2.4cqw;
+}
+
+.beatCount span:last-child {
+  font-size: 0.86cqw;
+  opacity: 0.7;
+}
+
+.derivationNote > strong {
+  display: block;
+  color: var(--style-blackboard-mint);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.82cqw;
+  font-weight: 600;
+  letter-spacing: 0.04cqw;
+  text-transform: uppercase;
+}
+
+.derivationNote h2 {
+  margin: 1.2cqh 0 1.3cqh;
+  font-size: 1.62cqw;
+  font-weight: 400;
+  line-height: 1.06;
+}
+
+.derivationNote > p {
+  margin: 0;
+  color: var(--style-blackboard-muted);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.8cqw;
+  line-height: 1.48;
+}
+
+.beatMarks {
+  display: flex;
+  gap: 0.42cqw;
+  margin-block-start: 2.3cqh;
+}
+
+.beatMarks i {
+  inline-size: 1.7cqw;
+  block-size: 0.28cqh;
+  border-radius: 99cqw;
+  background: rgba(237, 244, 223, 0.18);
+  transform: rotate(-7deg);
+}
+
+.beatMarks i[data-state="history"] {
+  background: rgba(239, 216, 121, 0.58);
+}
+
+.beatMarks i[data-state="active"] {
+  background: var(--style-blackboard-mint);
+  box-shadow: 0 0 0.5cqw rgba(159, 216, 178, 0.22);
+}
+
+.marginNote {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+  padding: 1.3cqh 1cqw;
+  border: 0.09cqw dashed rgba(239, 216, 121, 0.38);
+  border-radius: 0.6cqw;
+  color: var(--style-blackboard-yellow);
+  transform: rotate(-0.8deg);
+}
+
+.marginNote span {
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.68cqw;
+  letter-spacing: 0.06cqw;
+}
+
+.marginNote p {
+  margin: 0.6cqh 0 0;
+  font-size: 1.12cqw;
+  line-height: 1.08;
+}
+
+.sceneFooter {
+  position: absolute;
+  inset-inline: 4.4cqw;
+  inset-block-end: 1.6cqh;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(237, 244, 223, 0.48);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.62cqw;
+  letter-spacing: 0.03cqw;
+}
+
+.pressureField,
+.outerEarWrap,
+.ossicleWrap,
+.cochlearWrap,
+.transductionWrap {
+  position: relative;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.pressureSvg,
+.outerEarSvg,
+.ossicleSvg,
+.cochlearSvg,
+.transductionSvg {
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+}
+
+.fieldAxis,
+.fieldArrow,
+.localArrow,
+.pressureBands path,
+.pinna,
+.canal,
+.eardrum,
+.motionArrow,
+.labelLine,
+.conversionArrow,
+.tympanicMembrane,
+.malleus,
+.incus,
+.stapes,
+.ovalWindow,
+.forceArrow,
+.forceArrowAccent,
+.leverGuide,
+.areaBracket,
+.areaRelation,
+.cochlearRoof,
+.basilarMembrane,
+.travelingWave,
+.stapesInput,
+.frequencyBracketHigh,
+.frequencyBracketLow,
+.peakGuide,
+.amplifierBracket,
+.amplifierSpark,
+.tectorialLine,
+.hairCellBody,
+.stereocilium,
+.basilarLineMicro,
+.ionPath,
+.ionArrow,
+.microGuide,
+.nerveFiber,
+.spikeMark {
+  fill: none;
+  stroke: var(--style-blackboard-ink);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 0.1cqw rgba(237, 244, 223, 0.12));
+}
+
+.root:not(.reduced) .pinna,
+.root:not(.reduced) .canal,
+.root:not(.reduced) .eardrum,
+.root:not(.reduced) .malleus,
+.root:not(.reduced) .incus,
+.root:not(.reduced) .stapes,
+.root:not(.reduced) .travelingWave,
+.root:not(.reduced) .hairCellBody,
+.root:not(.reduced) .nerveFiber {
+  stroke-dasharray: 1800;
+  stroke-dashoffset: 1800;
+  animation: chalkDraw 0.62s cubic-bezier(0.24, 0.76, 0.2, 1) forwards;
+}
+
+.compressedParticle,
+.rarefiedParticle {
+  fill: var(--style-blackboard-ink);
+  opacity: 0.82;
+}
+
+.rarefiedParticle {
+  opacity: 0.48;
+}
+
+.root:not(.reduced) .compressedParticle,
+.root:not(.reduced) .rarefiedParticle {
+  animation: chalkDot 0.42s ease-out both;
+  animation-delay: var(--particle-delay);
+}
+
+.fieldAxis,
+.fieldArrow {
+  stroke: var(--style-blackboard-muted);
+  stroke-width: 3;
+}
+
+.localArrow {
+  stroke: var(--style-blackboard-yellow);
+  stroke-width: 3;
+}
+
+.fieldLabel {
+  position: absolute;
+  inset-block-start: 9cqh;
+  padding: 0.45cqh 0.65cqw;
+  border: 0.08cqw solid currentColor;
+  border-radius: 0.4cqw;
+  color: var(--style-blackboard-yellow);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.72cqw;
+  letter-spacing: 0.04cqw;
+  transform: rotate(-1deg);
+}
+
+.compressionLabel {
+  inset-inline-start: 6cqw;
+}
+
+.rarefactionLabel {
+  inset-inline-start: 29.5cqw;
+  color: var(--style-blackboard-mint);
+  transform: rotate(1deg);
+}
+
+.svgLabel,
+.svgLabelAccent,
+.svgNote,
+.svgNoteAccent,
+.svgTravel,
+.svgAmplifier,
+.scaleWarning,
+.microLabel,
+.microLabelAccent {
+  fill: var(--style-blackboard-ink);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.9cqw;
+}
+
+.svgLabelAccent,
+.svgNoteAccent,
+.svgAmplifier,
+.microLabelAccent {
+  fill: var(--style-blackboard-yellow);
+}
+
+.svgNote,
+.svgNoteAccent,
+.svgTravel,
+.scaleWarning,
+.microLabel,
+.microLabelAccent {
+  font-size: 0.75cqw;
+}
+
+.svgTravel,
+.svgAmplifier {
+  fill: var(--style-blackboard-mint);
+}
+
+.pinna,
+.canal,
+.eardrum {
+  stroke-width: 6;
+}
+
+.pressureBands path {
+  stroke: var(--style-blackboard-yellow);
+  stroke-width: 4;
+  opacity: 0.72;
+}
+
+.eardrum,
+.motionArrow,
+.conversionArrow {
+  stroke: var(--style-blackboard-mint);
+}
+
+.labelLine {
+  stroke-width: 2;
+  opacity: 0.54;
+}
+
+.tympanicMembrane,
+.ovalWindow {
+  stroke: var(--style-blackboard-yellow);
+  stroke-width: 6;
+}
+
+.malleus,
+.incus,
+.stapes {
+  stroke-width: 11;
+}
+
+.joint,
+.peakDot,
+.gateNode,
+.vesicle {
+  fill: var(--style-blackboard-mint);
+  stroke: var(--style-blackboard-deep);
+  stroke-width: 4;
+}
+
+.forceArrowAccent,
+.areaBracket,
+.areaRelation {
+  stroke: var(--style-blackboard-yellow);
+}
+
+.leverGuide {
+  stroke: var(--style-blackboard-mint);
+  stroke-dasharray: 10 12;
+}
+
+.scaleWarning {
+  fill: rgba(237, 244, 223, 0.52);
+  letter-spacing: 0.1cqw;
+}
+
+.cochlearRoof,
+.basilarMembrane {
+  stroke-width: 5;
+  opacity: 0.55;
+}
+
+.travelingWave {
+  stroke: var(--style-blackboard-mint);
+  stroke-width: 7;
+}
+
+.stapesInput,
+.frequencyBracketHigh,
+.frequencyBracketLow,
+.peakGuide {
+  stroke: var(--style-blackboard-yellow);
+}
+
+.peakGuide {
+  stroke-dasharray: 9 10;
+  opacity: 0.7;
+}
+
+.amplifierBracket,
+.amplifierSpark {
+  stroke: var(--style-blackboard-yellow);
+  stroke-width: 5;
+}
+
+.tectorialLine,
+.basilarLineMicro {
+  stroke-width: 6;
+  opacity: 0.62;
+}
+
+.hairCellBody {
+  stroke: var(--style-blackboard-mint);
+  stroke-width: 7;
+  fill: rgba(159, 216, 178, 0.06);
+}
+
+.stereocilium {
+  stroke: var(--style-blackboard-yellow);
+  stroke-width: 5;
+}
+
+.ionPath,
+.ionArrow,
+.microGuide {
+  stroke: var(--style-blackboard-yellow);
+  stroke-width: 4;
+}
+
+.gateNode {
+  fill: var(--style-blackboard-yellow);
+}
+
+.vesicle {
+  fill: var(--style-blackboard-yellow);
+  stroke-width: 2;
+}
+
+.nerveFiber,
+.spikeMark {
+  stroke: var(--style-blackboard-mint);
+  stroke-width: 6;
+}
+
+.conversionChain {
+  position: absolute;
+  inset-inline: 2cqw;
+  inset-block-end: 2.1cqh;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.45cqw;
+  padding: 1.1cqh 0.8cqw;
+  border: 0.12cqw solid rgba(159, 216, 178, 0.65);
+  border-radius: 0.65cqw;
+  background: rgba(7, 29, 24, 0.88);
+}
+
+.conversionStage {
+  position: relative;
+  display: grid;
+  gap: 0.35cqh;
+  padding-inline: 0.6cqw;
+  color: var(--style-blackboard-ink);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+}
+
+.conversionStage span {
+  color: var(--style-blackboard-yellow);
+  font-size: 0.58cqw;
+}
+
+.conversionStage strong {
+  font-size: 0.73cqw;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.conversionStage i {
+  position: absolute;
+  inset-inline-end: -0.25cqw;
+  inset-block-start: 1.3cqh;
+  color: var(--style-blackboard-mint);
+  font-size: 1.2cqw;
+  font-style: normal;
+}
+
+.reserved {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(0.8cqh);
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.42s ease,
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 0s;
+}
+
+.auditoryNav {
+  position: absolute;
+  inset-inline: 3.2cqw;
+  inset-block-end: 0.6cqh;
+  z-index: 5;
+  block-size: 15cqh;
+  border-block-start: 0.08cqw solid rgba(237, 244, 223, 0.12);
+}
+
+.navPath {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+}
+
+.navPathGhost,
+.navPathHistory {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.navPathGhost {
+  stroke: rgba(237, 244, 223, 0.16);
+  stroke-width: 0.55;
+  stroke-dasharray: 1.4 1.8;
+}
+
+.navPathHistory {
+  stroke: var(--style-blackboard-yellow);
+  stroke-width: 0.72;
+  stroke-dasharray: var(--history-length) 100%;
+  transition: stroke-dasharray 0.45s ease;
+}
+
+.auditoryNav[data-holding="true"] .navPathHistory {
+  stroke-dasharray: 100% 100%;
+  stroke: var(--style-blackboard-mint);
+}
+
+.navNode {
+  position: absolute;
+  inset-inline-start: var(--nav-x);
+  inset-block-start: var(--nav-y);
+  display: grid;
+  place-items: center;
+  inline-size: 3.7cqw;
+  block-size: 4.8cqh;
+  padding: 0;
+  border: 0;
+  color: rgba(237, 244, 223, 0.45);
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+.navNodeDot {
+  position: absolute;
+  inline-size: 0.8cqw;
+  block-size: 0.8cqw;
+  border: 0.11cqw solid currentColor;
+  border-radius: 50%;
+  background: var(--style-blackboard-bg);
+  box-shadow: 0 0 0.55cqw rgba(0, 0, 0, 0.35);
+  transition: transform 0.26s ease, color 0.26s ease, background 0.26s ease;
+}
+
+.navNodeIndex {
+  position: absolute;
+  color: var(--style-blackboard-bg);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.45cqw;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.24s ease;
+}
+
+.navNodeLabel {
+  position: absolute;
+  inset-block-start: 3.7cqh;
+  inline-size: 7cqw;
+  color: currentColor;
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.58cqw;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-0.4cqh);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.navNode[data-history="true"],
+.navNode[data-active="true"] {
+  color: var(--style-blackboard-yellow);
+}
+
+.navNode[data-active="true"] {
+  color: var(--style-blackboard-mint);
+}
+
+.navNode[data-active="true"] .navNodeDot,
+.navNode:hover .navNodeDot,
+.navNode:focus-visible .navNodeDot {
+  background: currentColor;
+  transform: scale(1.35) rotate(-8deg);
+}
+
+.navNode[data-active="true"] .navNodeIndex,
+.navNode:hover .navNodeIndex,
+.navNode:focus-visible .navNodeIndex {
+  opacity: 1;
+}
+
+.navNode[data-active="true"] .navNodeLabel,
+.navNode[data-history="true"] .navNodeLabel,
+.navNode:hover .navNodeLabel,
+.navNode:focus-visible .navNodeLabel,
+.auditoryNav[data-holding="true"] .navNodeLabel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.auditoryNav[data-holding="true"] .navNode {
+  color: var(--style-blackboard-mint);
+}
+
+.holdControl {
+  position: absolute;
+  inset-inline-end: 1.2cqw;
+  inset-block-start: 0.9cqh;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5cqw;
+  padding: 0.65cqh 0.75cqw;
+  border: 0.08cqw dashed rgba(237, 244, 223, 0.42);
+  border-radius: 0.45cqw;
+  color: var(--style-blackboard-muted);
+  background: rgba(8, 29, 24, 0.6);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.55cqw;
+  cursor: grab;
+}
+
+.holdControl span {
+  color: var(--style-blackboard-yellow);
+  font-size: 0.9cqw;
+}
+
+.holdControl:active,
+.auditoryNav[data-holding="true"] .holdControl {
+  border-color: var(--style-blackboard-mint);
+  color: var(--style-blackboard-mint);
+  cursor: grabbing;
+}
+
+.reduced *,
+.reduced *::before,
+.reduced *::after {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+
+@keyframes chalkDraw {
+  from {
+    stroke-dashoffset: 1800;
+    opacity: 0.25;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes chalkDot {
+  from {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  to {
+    opacity: 0.82;
+    transform: scale(1);
+  }
+}

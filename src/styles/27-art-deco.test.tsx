@@ -80,7 +80,7 @@ describe("Style 27: 27-art-deco — overflow check", () => {
 describe("Style 27: 27-art-deco — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("27");
+    expect(meta.id).toBe("machine-age-deco");
     expect(meta.band).toBe("craft-cultural");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

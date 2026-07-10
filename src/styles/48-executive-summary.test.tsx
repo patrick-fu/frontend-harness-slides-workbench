@@ -112,7 +112,7 @@ describe("Style 48: Executive Summary — overflow check", () => {
 describe("Style 48: Executive Summary — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("48");
+    expect(meta.id).toBe("object-metaphor-hero");
     expect(meta.band).toBe("text-report");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

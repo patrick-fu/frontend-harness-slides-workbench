@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
-import SpatialSceneTrack from "./SpatialSceneTrack";
+import SpatialSceneTrack, {
+  CANONICAL_SCENE_TRANSITION_KINDS,
+} from "./SpatialSceneTrack";
 
 function renderTrack(props: Partial<React.ComponentProps<typeof SpatialSceneTrack>> = {}) {
   return render(
@@ -20,6 +22,19 @@ function renderTrack(props: Partial<React.ComponentProps<typeof SpatialSceneTrac
 }
 
 describe("SpatialSceneTrack", () => {
+  it("accepts the complete canonical transition vocabulary", () => {
+    expect(CANONICAL_SCENE_TRANSITION_KINDS).toHaveLength(21);
+
+    for (const transitionKind of CANONICAL_SCENE_TRANSITION_KINDS) {
+      const { unmount } = renderTrack({ transitionKind });
+      expect(screen.getByTestId("spatial-scene-track")).toHaveAttribute(
+        "data-scene-transition-kind",
+        transitionKind,
+      );
+      unmount();
+    }
+  });
+
   it("marks the selected scene transition kind on the track", () => {
     renderTrack({ transitionKind: "fade" });
 
@@ -240,5 +255,140 @@ describe("SpatialSceneTrack", () => {
       "data-scene-transition-kind",
       "page-flip",
     );
+  });
+
+  it("exposes the controlled signature modifier assigned to a scene edge", () => {
+    const { rerender } = render(
+      <SpatialSceneTrack
+        scene={1}
+        beat={0}
+        transitionKind="crossfade"
+        transitionModifierMap={{ "1->2": "letterform-lineage" }}
+        sceneIds={[1, 2, 3]}
+        reducedMotion={false}
+        renderScene={(sceneId) => <section>Scene {sceneId}</section>}
+      />,
+    );
+
+    rerender(
+      <SpatialSceneTrack
+        scene={2}
+        beat={0}
+        transitionKind="crossfade"
+        transitionModifierMap={{ "1->2": "letterform-lineage" }}
+        sceneIds={[1, 2, 3]}
+        reducedMotion={false}
+        renderScene={(sceneId) => <section>Scene {sceneId}</section>}
+      />,
+    );
+
+    expect(screen.getByTestId("spatial-scene-track")).toHaveAttribute(
+      "data-scene-transition-modifier",
+      "letterform-lineage",
+    );
+    expect(screen.getByTestId("spatial-scene-strip")).toHaveAttribute(
+      "data-scene-transition-modifier",
+      "letterform-lineage",
+    );
+  });
+
+  it("replaces an interrupted transition with the latest scene edge", () => {
+    const renderScene = (sceneId: number, beat: number) => (
+      <section data-testid={`scene-${sceneId}`}>Scene {sceneId} beat {beat}</section>
+    );
+    const { rerender } = render(
+      <SpatialSceneTrack
+        scene={1}
+        beat={0}
+        transitionMap={{ "1->2": "push-x", "2->3": "iris-open" }}
+        sceneIds={[1, 2, 3]}
+        reducedMotion={false}
+        renderScene={renderScene}
+      />,
+    );
+
+    rerender(
+      <SpatialSceneTrack
+        scene={2}
+        beat={1}
+        transitionMap={{ "1->2": "push-x", "2->3": "iris-open" }}
+        sceneIds={[1, 2, 3]}
+        reducedMotion={false}
+        renderScene={renderScene}
+      />,
+    );
+    rerender(
+      <SpatialSceneTrack
+        scene={3}
+        beat={0}
+        transitionMap={{ "1->2": "push-x", "2->3": "iris-open" }}
+        sceneIds={[1, 2, 3]}
+        reducedMotion={false}
+        renderScene={renderScene}
+      />,
+    );
+
+    expect(screen.getByTestId("spatial-scene-track")).toHaveAttribute(
+      "data-scene-transition-kind",
+      "iris-open",
+    );
+    expect(
+      screen
+        .getAllByTestId("spatial-scene-panel")
+        .map((panel) => panel.dataset.transitionState),
+    ).toEqual(["idle", "outgoing", "active"]);
+    expect(screen.getByTestId("scene-2")).toHaveTextContent("beat 1");
+  });
+
+  it("settles immediately for hard-cut and reduced-motion scene changes", () => {
+    const renderScene = (sceneId: number) => <section>Scene {sceneId}</section>;
+    const { rerender } = render(
+      <SpatialSceneTrack
+        scene={1}
+        beat={0}
+        transitionKind="hard-cut"
+        sceneIds={[1, 2, 3]}
+        reducedMotion={false}
+        renderScene={renderScene}
+      />,
+    );
+
+    rerender(
+      <SpatialSceneTrack
+        scene={2}
+        beat={0}
+        transitionKind="hard-cut"
+        sceneIds={[1, 2, 3]}
+        reducedMotion={false}
+        renderScene={renderScene}
+      />,
+    );
+
+    expect(
+      screen
+        .getAllByTestId("spatial-scene-panel")
+        .map((panel) => panel.dataset.transitionState),
+    ).toEqual(["idle", "active", "idle"]);
+
+    rerender(
+      <SpatialSceneTrack
+        scene={3}
+        beat={0}
+        transitionKind="afterimage"
+        sceneIds={[1, 2, 3]}
+        reducedMotion
+        renderScene={renderScene}
+      />,
+    );
+
+    expect(screen.getByTestId("spatial-scene-strip")).toHaveAttribute(
+      "data-reduced-motion",
+      "true",
+    );
+    expect(
+      screen
+        .getAllByTestId("spatial-scene-panel")
+        .map((panel) => panel.dataset.transitionState),
+    ).toEqual(["idle", "idle", "active"]);
   });
 });

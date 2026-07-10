@@ -112,7 +112,7 @@ describe("Style 13: Sticky Board — overflow check", () => {
 describe("Style 13: Sticky Board — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("13");
+    expect(meta.id).toBe("kitchen-prep-station");
     expect(meta.band).toBe("balanced-hybrid");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

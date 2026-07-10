@@ -1,0 +1,915 @@
+/* Style 10 topic: a quiet, source-bounded comparison instrument. */
+.root {
+  --paper: #f3f0e8;
+  --paper-light: #fffdf8;
+  --ink: #19292f;
+  --muted: #647275;
+  --rule: rgba(25, 41, 47, 0.2);
+  --accent: #2c6570;
+  --accent-soft: #dcebed;
+  --clay: #b96d46;
+  --sand: #e8ddca;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, rgba(25, 41, 47, 0.035) 0.08cqw, transparent 0.08cqw) 0 0 / 4cqw 4cqw,
+    linear-gradient(rgba(25, 41, 47, 0.03) 0.08cqh, transparent 0.08cqh) 0 0 / 4cqw 4cqh,
+    var(--paper);
+  font-family: Arial, "PingFang SC", "Hiragino Sans GB", sans-serif;
+  isolation: isolate;
+}
+
+.envelope {
+  position: absolute;
+  z-index: 8;
+  top: 3.5cqh;
+  left: 5cqw;
+  right: 5cqw;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.2cqw;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.envelopeMark {
+  font-size: 0.58cqw;
+  font-weight: 800;
+  letter-spacing: 0.11cqw;
+  text-transform: uppercase;
+}
+
+.envelopeRule {
+  height: 0.1cqh;
+  background: var(--rule);
+}
+
+.sceneTrack {
+  position: absolute !important;
+  inset: 0;
+}
+
+.scenePanel {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: 20.5cqh minmax(0, 1fr) 5.7cqh;
+  width: 100%;
+  height: 100%;
+  padding: 11.4cqh 5cqw 6.4cqh;
+  overflow: hidden;
+}
+
+.sceneHeader {
+  display: grid;
+  grid-template-columns: 7.6cqw minmax(0, 1fr) 29cqw;
+  gap: 1.8cqw;
+  align-items: start;
+  min-width: 0;
+}
+
+.sceneIndex {
+  padding-top: 0.5cqh;
+  color: var(--accent);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 4.3cqw;
+  font-weight: 700;
+  line-height: 0.82;
+  letter-spacing: -0.13cqw;
+}
+
+.sceneHeading {
+  min-width: 0;
+}
+
+.sceneHeading > p {
+  margin: 0 0 0.7cqh;
+  color: var(--accent);
+  font-size: 0.62cqw;
+  font-weight: 900;
+  letter-spacing: 0.12cqw;
+  text-transform: uppercase;
+}
+
+.sceneHeading h1 {
+  max-width: 53cqw;
+  margin: 0;
+  color: var(--ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 3.1cqw;
+  font-weight: 700;
+  line-height: 1.03;
+  letter-spacing: -0.07cqw;
+}
+
+.beatStatement {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.2cqh 0.75cqw;
+  margin-top: 1.25cqh;
+  padding-left: 0.8cqw;
+  border-left: 0.19cqw solid var(--clay);
+}
+
+.beatStatement span {
+  grid-column: 1 / 3;
+  color: var(--muted);
+  font-size: 0.52cqw;
+  font-weight: 800;
+  letter-spacing: 0.065cqw;
+  text-transform: uppercase;
+}
+
+.beatStatement strong {
+  color: var(--ink);
+  font-size: 0.9cqw;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.beatStatement small {
+  align-self: center;
+  color: var(--muted);
+  font-size: 0.62cqw;
+  line-height: 1.24;
+}
+
+.sceneBody {
+  align-self: center;
+  margin: 0;
+  padding: 1.1cqh 0 1.1cqh 1.3cqw;
+  border-left: 0.08cqw solid var(--rule);
+  color: var(--muted);
+  font-size: 0.95cqw;
+  font-weight: 500;
+  line-height: 1.42;
+}
+
+.sceneCanvas {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sceneCaveat {
+  align-self: end;
+  max-width: 88cqw;
+  margin: 0;
+  padding-top: 1.1cqh;
+  border-top: 0.09cqw solid var(--rule);
+  color: var(--muted);
+  font-size: 0.74cqw;
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.chorusScene {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 19.5cqw;
+  gap: 2.5cqw;
+  height: 100%;
+}
+
+.specimenChorus {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 0.95cqw 0.8cqw;
+  min-width: 0;
+}
+
+.specimenCard {
+  display: grid;
+  grid-template-columns: 4.7cqw minmax(0, 1fr);
+  align-items: center;
+  gap: 0.6cqw;
+  min-width: 0;
+  padding: 0.8cqh 0.75cqw;
+  border: 0.09cqw solid var(--rule);
+  background: rgba(255, 253, 248, 0.76);
+  transition:
+    opacity 360ms ease,
+    transform 440ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 360ms ease,
+    background 360ms ease;
+}
+
+.specimenCard[data-emphasis="quiet"] {
+  opacity: 0.42;
+  transform: scale(0.95);
+}
+
+.specimenCard[data-emphasis="active"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0.8cqh 1.4cqw rgba(44, 101, 112, 0.16);
+  transform: scale(1.02);
+}
+
+.specimenCard[data-emphasis="steady"] {
+  opacity: 1;
+}
+
+.specimenIcon {
+  display: grid;
+  place-items: center;
+  width: 4.7cqw;
+  height: 7.4cqh;
+  color: var(--accent);
+}
+
+.specimenIcon svg,
+.formationGlyph svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.specimenText {
+  display: grid;
+  gap: 0.25cqh;
+  min-width: 0;
+}
+
+.specimenText span,
+.formationCard > span {
+  color: var(--clay);
+  font-size: 0.5cqw;
+  font-weight: 900;
+  letter-spacing: 0.07cqw;
+}
+
+.specimenText strong {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 0.86cqw;
+  font-weight: 800;
+  line-height: 1.06;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.specimenText small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.53cqw;
+  line-height: 1.18;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chorusRule {
+  align-self: center;
+  display: grid;
+  gap: 1.15cqh;
+  padding: 2.4cqh 1.7cqw;
+  border-top: 0.35cqw solid var(--ink);
+  border-bottom: 0.09cqw solid var(--rule);
+  background: rgba(232, 221, 202, 0.58);
+}
+
+.chorusRule span,
+.formationLegend span,
+.matrixVerdict span,
+.oneRecordText > span {
+  color: var(--clay);
+  font-size: 0.56cqw;
+  font-weight: 900;
+  letter-spacing: 0.1cqw;
+  text-transform: uppercase;
+}
+
+.chorusRule strong {
+  color: var(--ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.65cqw;
+  line-height: 1.05;
+}
+
+.chorusRule small {
+  color: var(--muted);
+  font-size: 0.68cqw;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.specimenLine,
+.specimenLineSoft,
+.specimenMark,
+.coreLayerStrong,
+.coreLayerSoft,
+.coreSpine {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.specimenLine {
+  stroke-width: 4;
+}
+
+.specimenLineSoft {
+  stroke-width: 3;
+  opacity: 0.38;
+}
+
+.specimenMark {
+  stroke-width: 2;
+  opacity: 0.76;
+}
+
+.specimenFill {
+  fill: currentColor;
+}
+
+.specimenFillSoft,
+.iceBody {
+  fill: currentColor;
+  opacity: 0.16;
+}
+
+.specimenBubble {
+  fill: var(--paper-light);
+  stroke: currentColor;
+  stroke-width: 3;
+}
+
+.formationScene {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 17.5cqw;
+  gap: 2cqw;
+  height: 100%;
+}
+
+.formationGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 0.8cqw;
+}
+
+.formationCard {
+  display: grid;
+  grid-template-columns: 3.6cqw minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr auto;
+  gap: 0.2cqh 0.55cqw;
+  min-width: 0;
+  padding: 0.75cqh 0.7cqw;
+  border: 0.09cqw solid var(--rule);
+  background: rgba(255, 253, 248, 0.76);
+  transition:
+    opacity 350ms ease,
+    transform 460ms cubic-bezier(0.16, 1, 0.3, 1),
+    background 350ms ease;
+}
+
+.formationCard[data-revealed="false"] {
+  opacity: 0.3;
+  transform: translateY(0.8cqh);
+}
+
+.formationGlyph {
+  grid-row: 1 / 5;
+  width: 3.6cqw;
+  height: 6.1cqh;
+  color: var(--accent);
+}
+
+.formationCard > strong {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 0.84cqw;
+  font-weight: 800;
+  line-height: 1.05;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.formationCard > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.58cqw;
+  line-height: 1.22;
+}
+
+.formationCard > small {
+  align-self: end;
+  padding-top: 0.25cqh;
+  border-top: 0.07cqw solid var(--rule);
+  color: var(--accent);
+  font-size: 0.5cqw;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.formationCard > small[data-formation-calibration="false"] {
+  color: var(--muted);
+}
+
+.formationLegend {
+  align-self: stretch;
+  display: grid;
+  align-content: center;
+  gap: 1.1cqh;
+  padding: 1.8cqh 1.3cqw;
+  border-left: 0.12cqw solid var(--accent);
+  background: rgba(220, 235, 237, 0.62);
+}
+
+.formationLegend strong {
+  color: var(--ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.28cqw;
+  line-height: 1.2;
+}
+
+.rangeScene {
+  display: grid;
+  grid-template-rows: 3.8cqh minmax(0, 1fr) 4cqh;
+  height: 100%;
+}
+
+.rangeAxis {
+  display: grid;
+  grid-template-columns: 13cqw minmax(0, 1fr) 24cqw 7cqw;
+  align-items: end;
+  column-gap: 0.8cqw;
+}
+
+.rangeAxis::after {
+  grid-column: 2;
+  display: block;
+  height: 0.09cqh;
+  background: var(--rule);
+  content: "";
+}
+
+.rangeAxis span {
+  grid-row: 1;
+  grid-column: 2;
+  align-self: start;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.53cqw;
+  font-weight: 800;
+  letter-spacing: 0.05cqw;
+  text-transform: uppercase;
+}
+
+.rangeRows {
+  display: grid;
+  grid-template-rows: repeat(7, minmax(0, 1fr));
+  gap: 0.35cqh;
+  min-height: 0;
+}
+
+.rangeRow {
+  display: grid;
+  grid-template-columns: 13cqw minmax(0, 1fr) 24cqw 7cqw;
+  gap: 0.8cqw;
+  align-items: center;
+  min-width: 0;
+  padding: 0.25cqh 0;
+  border-bottom: 0.07cqw solid rgba(25, 41, 47, 0.11);
+  transition: background 320ms ease;
+}
+
+.rangeRow[data-revealed="true"]:hover {
+  background: rgba(220, 235, 237, 0.42);
+}
+
+.rangeName {
+  display: grid;
+  grid-template-columns: 1.7cqw minmax(0, 1fr);
+  align-items: center;
+  gap: 0.45cqw;
+  min-width: 0;
+}
+
+.rangeName span {
+  color: var(--clay);
+  font-size: 0.53cqw;
+  font-weight: 900;
+  letter-spacing: 0.055cqw;
+}
+
+.rangeName strong {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 0.78cqw;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rangeTrack {
+  position: relative;
+  height: 1.55cqh;
+  overflow: hidden;
+  border-left: 0.07cqw solid var(--rule);
+  background: repeating-linear-gradient(90deg, rgba(25, 41, 47, 0.1) 0 0.07cqw, transparent 0.07cqw 4.8cqw);
+}
+
+.rangeBand {
+  position: absolute;
+  top: 0.42cqh;
+  left: var(--range-left);
+  width: var(--range-width);
+  height: 0.67cqh;
+  border-radius: 1cqh;
+  background: var(--accent);
+  box-shadow: 0 0 0 0.12cqh rgba(44, 101, 112, 0.15);
+}
+
+.rangeRow:nth-child(4) .rangeBand {
+  background: repeating-linear-gradient(90deg, var(--clay) 0 0.7cqw, transparent 0.7cqw 1.2cqw);
+}
+
+.rangeRow:nth-child(7) .rangeBand {
+  background: var(--ink);
+}
+
+.rangeFacts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.1cqh 0.45cqw;
+  min-width: 0;
+}
+
+.rangeFacts strong {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 0.74cqw;
+  font-weight: 800;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rangeFacts span {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.63cqw;
+  line-height: 1.15;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rangeFacts small {
+  grid-column: 1 / 3;
+  overflow: hidden;
+  color: var(--clay);
+  font-size: 0.56cqw;
+  font-weight: 700;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rangeRow > em {
+  color: var(--muted);
+  font-size: 0.54cqw;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.035cqw;
+  text-align: right;
+}
+
+.rangeFootnote {
+  align-self: end;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.57cqw;
+  line-height: 1.23;
+}
+
+.matrixScene {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 7.3cqh;
+  gap: 1.1cqh;
+  height: 100%;
+}
+
+.matrixTable {
+  overflow: hidden;
+  border: 0.1cqw solid var(--rule);
+  background: rgba(255, 253, 248, 0.78);
+}
+
+.matrixHeader,
+.matrixRow {
+  display: grid;
+  grid-template-columns: 16cqw 17cqw 17cqw 19cqw minmax(0, 1fr);
+}
+
+.matrixHeader {
+  min-height: 4.1cqh;
+  background: var(--ink);
+  color: var(--paper-light);
+}
+
+.matrixHeader span {
+  display: grid;
+  align-items: center;
+  padding: 0.5cqh 0.65cqw;
+  border-right: 0.07cqw solid rgba(255, 253, 248, 0.26);
+  font-size: 0.62cqw;
+  font-weight: 900;
+  letter-spacing: 0.06cqw;
+  text-transform: uppercase;
+}
+
+.matrixRow {
+  min-height: 5.75cqh;
+  border-top: 0.07cqw solid var(--rule);
+}
+
+.matrixRow:nth-child(odd) {
+  background: rgba(220, 235, 237, 0.36);
+}
+
+.matrixRow > div {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: 0.55cqh 0.65cqw;
+  border-right: 0.07cqw solid var(--rule);
+  color: var(--muted);
+  font-size: 0.68cqw;
+  font-weight: 600;
+  line-height: 1.18;
+}
+
+.matrixRow > div:first-child {
+  gap: 0.48cqw;
+  color: var(--ink);
+}
+
+.matrixRow b {
+  flex: none;
+  color: var(--clay);
+  font-size: 0.55cqw;
+  font-weight: 900;
+  letter-spacing: 0.055cqw;
+}
+
+.matrixRow strong {
+  overflow: hidden;
+  font-size: 0.72cqw;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.matrixVerdict {
+  display: grid;
+  grid-template-columns: 15cqw 21cqw minmax(0, 1fr);
+  align-items: center;
+  gap: 1.1cqw;
+  padding: 0.95cqh 1cqw;
+  border-left: 0.3cqw solid var(--clay);
+  background: rgba(232, 221, 202, 0.72);
+}
+
+.matrixVerdict strong {
+  color: var(--ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.15cqw;
+  line-height: 1.1;
+}
+
+.matrixVerdict p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.62cqw;
+  line-height: 1.28;
+}
+
+.oneRecordScene {
+  display: grid;
+  grid-template-columns: 33cqw minmax(0, 1fr);
+  gap: 5cqw;
+  align-items: center;
+  height: 100%;
+  padding: 0 7cqw;
+}
+
+.oneRecordCore {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--accent);
+}
+
+.oneRecordCore svg {
+  display: block;
+  width: 23cqw;
+  height: 48cqh;
+  filter: drop-shadow(0 1.2cqh 1.4cqw rgba(25, 41, 47, 0.15));
+}
+
+.coreShell {
+  fill: var(--paper-light);
+  stroke: currentColor;
+  stroke-width: 10;
+  stroke-linejoin: round;
+}
+
+.coreLayerStrong {
+  stroke: currentColor;
+  stroke-width: 8;
+}
+
+.coreLayerSoft {
+  stroke: var(--clay);
+  stroke-width: 5;
+  opacity: 0.74;
+}
+
+.coreBubble {
+  fill: var(--paper-light);
+  stroke: var(--clay);
+  stroke-width: 6;
+}
+
+.coreSpine {
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-dasharray: 12 14;
+  opacity: 0.46;
+}
+
+.oneRecordText {
+  display: grid;
+  align-content: center;
+  gap: 1.8cqh;
+  max-width: 48cqw;
+}
+
+.oneRecordText h2 {
+  margin: 0;
+  color: var(--ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 3.25cqw;
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.07cqw;
+}
+
+.oneRecordText > div {
+  display: grid;
+  gap: 0.7cqh;
+}
+
+.oneRecordText p {
+  display: grid;
+  grid-template-columns: 8cqw minmax(0, 1fr);
+  gap: 0.7cqw;
+  margin: 0;
+  padding-top: 0.7cqh;
+  border-top: 0.08cqw solid var(--rule);
+  color: var(--muted);
+  font-size: 0.82cqw;
+  line-height: 1.2;
+}
+
+.oneRecordText p b {
+  color: var(--accent);
+  font-size: 0.55cqw;
+  font-weight: 900;
+  letter-spacing: 0.075cqw;
+}
+
+.taxonomyNav {
+  position: absolute;
+  z-index: 9;
+  right: 5cqw;
+  bottom: 2.3cqh;
+  left: 5cqw;
+  display: grid;
+  grid-template-columns: 13cqw minmax(0, 1fr) 11cqw;
+  align-items: center;
+  gap: 1.1cqw;
+  padding: 0.65cqh 0.8cqw;
+  border-top: 0.08cqw solid var(--rule);
+  background: linear-gradient(90deg, rgba(243, 240, 232, 0.84), rgba(243, 240, 232, 0.5));
+  opacity: 0.34;
+  transform: translateY(0.45cqh);
+  transition:
+    opacity 280ms ease,
+    transform 280ms ease,
+    background 280ms ease;
+}
+
+.taxonomyNav:hover,
+.taxonomyNav:focus-within {
+  background: rgba(243, 240, 232, 0.94);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.navCaption {
+  color: var(--muted);
+  font-size: 0.6cqw;
+  font-weight: 900;
+  letter-spacing: 0.1cqw;
+  text-transform: uppercase;
+}
+
+.navButtons {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.38cqw;
+}
+
+.navButton {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.05cqh 0.35cqw;
+  min-width: 0;
+  padding: 0.3cqh 0.35cqw;
+  border: 0;
+  border-left: 0.08cqw solid transparent;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+}
+
+.navButton:focus-visible {
+  outline: 0.11cqw solid var(--accent);
+  outline-offset: 0.13cqw;
+}
+
+.navButton > span {
+  color: var(--clay);
+  font-size: 0.5cqw;
+  font-weight: 900;
+  letter-spacing: 0.04cqw;
+}
+
+.navButton strong {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 0.65cqw;
+  font-weight: 600;
+  letter-spacing: 0.035cqw;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navButton small {
+  grid-column: 1 / 3;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.52cqw;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navButton[data-nav-state="active"] {
+  border-left-color: var(--accent);
+  background: rgba(220, 235, 237, 0.74);
+}
+
+.navButton[data-nav-state="active"] strong {
+  color: var(--accent);
+  font-weight: 900;
+}
+
+.taxonomyTokens {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.24cqw;
+}
+
+.taxonomyTokens span {
+  color: var(--muted);
+  font-size: 0.5cqw;
+  font-weight: 900;
+  letter-spacing: 0.04cqw;
+}
+
+.root[data-motion="off"] .specimenCard,
+.root[data-motion="off"] .formationCard,
+.root[data-motion="off"] .rangeRow,
+.root[data-motion="off"] .taxonomyNav {
+  transition: none;
+}
+
+.root[data-motion="off"] .specimenCard[data-emphasis="quiet"] {
+  transform: none;
+}
+
+.root[data-motion="off"] .formationCard[data-revealed="false"] {
+  transform: none;
+}

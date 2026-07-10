@@ -112,7 +112,7 @@ describe("Style 46: Audit Report — overflow check", () => {
 describe("Style 46: Audit Report — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("46");
+    expect(meta.id).toBe("checklist-ledger");
     expect(meta.band).toBe("text-report");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

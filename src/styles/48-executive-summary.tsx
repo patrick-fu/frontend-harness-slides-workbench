@@ -704,7 +704,7 @@ export default function ExecutiveSummary({
 export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   const t = lang === "zh" ? zhMeta : enMeta;
   return {
-    id: "48",
+    id: "object-metaphor-hero",
     band: "text-report",
     name: t.name,
     theme: t.theme,

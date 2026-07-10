@@ -224,7 +224,7 @@ describe("Style 01: Executive Silence — overflow check", () => {
 describe("Style 01: Executive Silence — metadata structure", () => {
   it("returns complete metadata for English", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("01");
+    expect(meta.id).toBe("minimal-product-keynote");
     expect(meta.band).toBe("minimal-keynote");
     expect(typeof meta.name).toBe("string");
     expect(meta.name.length).toBeGreaterThan(0);
@@ -249,7 +249,7 @@ describe("Style 01: Executive Silence — metadata structure", () => {
 
   it("returns complete metadata for Chinese", () => {
     const meta = getMetadata("zh");
-    expect(meta.id).toBe("01");
+    expect(meta.id).toBe("minimal-product-keynote");
     expect(meta.band).toBe("minimal-keynote");
     expect(typeof meta.name).toBe("string");
     expect(meta.name.length).toBeGreaterThan(0);

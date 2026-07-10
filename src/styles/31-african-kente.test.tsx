@@ -80,7 +80,7 @@ describe("Style 31: 31-african-kente — overflow check", () => {
 describe("Style 31: 31-african-kente — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("31");
+    expect(meta.id).toBe("red-wedge-agitprop");
     expect(meta.band).toBe("craft-cultural");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

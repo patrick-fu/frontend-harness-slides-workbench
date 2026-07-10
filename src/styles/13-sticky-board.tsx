@@ -273,7 +273,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "13",
+    id: "kitchen-prep-station",
     band: "balanced-hybrid",
     name: nameMap[lang],
     theme: themeMap[lang],

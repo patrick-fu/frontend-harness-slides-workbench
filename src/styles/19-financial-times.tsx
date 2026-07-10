@@ -225,7 +225,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "19",
+    id: "warm-editorial-feature",
     band: "editorial-print",
     name: nameMap[lang],
     theme: themeMap[lang],

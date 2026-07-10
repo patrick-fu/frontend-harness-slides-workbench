@@ -80,7 +80,7 @@ describe("Style 26: 26-chinese-ink — overflow check", () => {
 describe("Style 26: 26-chinese-ink — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("26");
+    expect(meta.id).toBe("botanical-specimen-plate");
     expect(meta.band).toBe("craft-cultural");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

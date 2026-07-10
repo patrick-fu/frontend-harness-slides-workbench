@@ -1,0 +1,823 @@
+.root {
+  --iron-stars-paper: #f3dfac;
+  --iron-stars-paper-light: #faedc9;
+  --iron-stars-solar: #e4b83f;
+  --iron-stars-solar-deep: #c88928;
+  --iron-stars-peach: #cf835e;
+  --iron-stars-ink: #182044;
+  --iron-stars-muted: rgba(24, 32, 68, 0.62);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  overflow: hidden;
+  color: var(--iron-stars-ink);
+  background:
+    radial-gradient(circle at 74% 22%, rgba(228, 184, 63, 0.72) 0 8cqw, rgba(228, 184, 63, 0.26) 22cqw, transparent 44cqw),
+    radial-gradient(circle at 8% 88%, rgba(207, 131, 94, 0.16) 0 9cqw, transparent 30cqw),
+    linear-gradient(142deg, var(--iron-stars-paper-light), var(--iron-stars-paper) 62%, #ecd18c);
+  font-family: "Manrope", "Noto Sans SC", sans-serif;
+}
+
+.paperGrain {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.24;
+  background:
+    repeating-linear-gradient(8deg, rgba(24, 32, 68, 0.055) 0 0.045cqw, transparent 0.045cqw 0.35cqw),
+    repeating-linear-gradient(96deg, rgba(255, 250, 230, 0.3) 0 0.05cqh, transparent 0.05cqh 0.58cqh);
+  mix-blend-mode: multiply;
+}
+
+.ambientBloom {
+  position: absolute;
+  z-index: 0;
+  top: -17cqh;
+  right: -3cqw;
+  width: 42cqw;
+  height: 74.7cqh;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(242, 202, 83, 0.4), rgba(228, 184, 63, 0.08) 56%, transparent 72%);
+  transform-origin: center;
+}
+
+.root::after {
+  position: absolute;
+  z-index: 6;
+  inset: 3.9cqh 3.1cqw;
+  content: "";
+  pointer-events: none;
+  border: 0.05cqw solid rgba(24, 32, 68, 0.3);
+}
+
+.track {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sceneBody {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.posterHeader {
+  position: absolute;
+  z-index: 5;
+  top: 6.2cqh;
+  left: 6cqw;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.4cqw;
+  align-items: center;
+  width: 69cqw;
+}
+
+.eyebrow,
+.sourceLine,
+.folio,
+.reactionMark,
+.boundaryIndex,
+.shellLegend,
+.elementStage small {
+  font-family: "IBM Plex Mono", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.78cqw;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.11cqw;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.headerRule {
+  width: 100%;
+  height: 0.05cqw;
+  background: rgba(24, 32, 68, 0.48);
+}
+
+.sectionTitle,
+.heroTitle,
+.finalTitle {
+  margin: 0;
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.12cqw;
+}
+
+.sectionTitle {
+  font-size: 5.2cqw;
+}
+
+.statement,
+.finalStatement {
+  margin: 0;
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 1.75cqw;
+  font-weight: 500;
+  line-height: 1.18;
+}
+
+.detail {
+  margin: 0;
+  max-width: 36cqw;
+  color: var(--iron-stars-muted);
+  font-size: 0.98cqw;
+  line-height: 1.42;
+}
+
+.sourceLine {
+  position: absolute;
+  z-index: 5;
+  bottom: 5.3cqh;
+  left: 6cqw;
+  max-width: 58cqw;
+  margin: 0;
+  color: rgba(24, 32, 68, 0.54);
+  font-size: 0.62cqw;
+  line-height: 1.25;
+  letter-spacing: 0.025cqw;
+  text-transform: uppercase;
+}
+
+.scene [data-visible="false"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scene [data-visible="true"] {
+  opacity: 1;
+}
+
+.scene [data-visible] {
+  transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scene 1 — one enormous solar disc, sparse type. */
+.solarDisc {
+  position: absolute;
+  top: 17cqh;
+  left: 7.2cqw;
+  display: grid;
+  width: 34cqw;
+  height: 60.45cqh;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 43% 38%, rgba(255, 242, 173, 0.92) 0 7cqw, rgba(232, 186, 58, 0.94) 18cqw, rgba(201, 126, 36, 0.82) 34cqw),
+    var(--iron-stars-solar);
+}
+
+.solarDisc::after {
+  position: absolute;
+  inset: 2.1cqw;
+  content: "";
+  border: 0.06cqw solid rgba(24, 32, 68, 0.34);
+  border-radius: 50%;
+}
+
+.discOrbit {
+  position: absolute;
+  inset: -2.6cqw;
+  border: 0.05cqw solid rgba(24, 32, 68, 0.28);
+  border-radius: 50%;
+}
+
+.hydrogenSymbol {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 15cqw;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.atomicNumber {
+  position: absolute;
+  top: 12cqh;
+  left: 9.1cqw;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.3cqw;
+}
+
+.heliumProduct {
+  position: absolute;
+  top: 5cqh;
+  right: -0.8cqw;
+  display: grid;
+  width: 5.4cqw;
+  height: 9.6cqh;
+  place-items: center;
+  border: 0.06cqw solid var(--iron-stars-ink);
+  border-radius: 50%;
+  background: var(--iron-stars-paper-light);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2cqw;
+}
+
+.heroCopy {
+  position: absolute;
+  top: 25cqh;
+  left: 49cqw;
+  display: grid;
+  gap: 2.2cqh;
+  width: 42cqw;
+}
+
+.heroTitle {
+  max-width: 40cqw;
+  font-size: 8.1cqw;
+}
+
+.reactionMark {
+  position: absolute;
+  left: 50cqw;
+  bottom: 16cqh;
+  display: flex;
+  gap: 1.4cqw;
+  align-items: center;
+  font-size: 1.15cqw;
+}
+
+.reactionArrow {
+  display: inline-grid;
+  width: 4.6cqw;
+  place-items: center;
+  border-bottom: 0.05cqw solid currentColor;
+}
+
+/* Scene 2 — temperature rings. */
+.ringCopy,
+.shellCopy,
+.boundaryCopy {
+  position: absolute;
+  z-index: 3;
+  top: 22cqh;
+  left: 6cqw;
+  display: grid;
+  gap: 2.2cqh;
+  width: 34cqw;
+}
+
+.elementOrbit {
+  position: absolute;
+  top: 13cqh;
+  right: 10cqw;
+  width: 51cqw;
+  height: 76cqh;
+}
+
+.elementOrbit::before,
+.elementOrbit::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  border: 0.05cqw solid rgba(24, 32, 68, 0.24);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.elementOrbit::before {
+  width: 39cqw;
+  height: 69.3cqh;
+}
+
+.elementOrbit::after {
+  width: 28cqw;
+  height: 49.8cqh;
+}
+
+.orbitSun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12cqw;
+  height: 21.3cqh;
+  border-radius: 50%;
+  background: radial-gradient(circle at 42% 38%, #f8dda0, var(--iron-stars-solar) 58%, var(--iron-stars-solar-deep));
+  transform: translate(-50%, -50%);
+}
+
+.elementStage {
+  --ring-radius: 12cqw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 12.4cqw;
+  min-height: 10.7cqh;
+  align-content: center;
+  gap: 0.4cqh;
+  padding: 1.2cqh 1cqw;
+  box-sizing: border-box;
+  border-top: 0.06cqw solid rgba(24, 32, 68, 0.62);
+  background: rgba(243, 223, 172, 0.68);
+  transform: translate(-50%, -50%) rotate(var(--stage-angle)) translateX(var(--ring-radius)) rotate(calc(var(--stage-angle) * -1));
+  transform-origin: center;
+}
+
+.elementStage:nth-of-type(1) { --ring-radius: 12cqw; }
+.elementStage:nth-of-type(2) { --ring-radius: 14.5cqw; }
+.elementStage:nth-of-type(3) { --ring-radius: 17cqw; }
+.elementStage:nth-of-type(4) { --ring-radius: 19.5cqw; }
+.elementStage:nth-of-type(5) { --ring-radius: 21.5cqw; }
+
+.elementStage strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.3cqw;
+  line-height: 0.8;
+}
+
+.elementStage span {
+  font-size: 0.72cqw;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.elementStage small {
+  color: var(--iron-stars-muted);
+  font-size: 0.56cqw;
+  text-transform: uppercase;
+}
+
+.elementStage[data-current="true"] {
+  background: rgba(228, 184, 63, 0.78);
+}
+
+/* Scene 3 — nested onion-shell cutaway. */
+.shellCutaway {
+  position: absolute;
+  top: 12cqh;
+  right: 12cqw;
+  width: 48cqw;
+  height: 79cqh;
+}
+
+.stellarShell {
+  position: absolute;
+  top: 50%;
+  left: 51%;
+  display: block;
+  border: 0.06cqw solid rgba(24, 32, 68, 0.5);
+  border-radius: 50%;
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%, 50% 52%, 0 52%, 0 0);
+  transform: translate(-50%, -50%);
+}
+
+.stellarShell:nth-of-type(1) {
+  width: 42cqw;
+  height: 74.7cqh;
+  background: rgba(228, 184, 63, 0.34);
+}
+
+.stellarShell:nth-of-type(2) {
+  width: 34cqw;
+  height: 60.45cqh;
+  background: rgba(231, 169, 70, 0.48);
+}
+
+.stellarShell:nth-of-type(3) {
+  width: 25.5cqw;
+  height: 45.3cqh;
+  background: rgba(207, 131, 94, 0.56);
+}
+
+.stellarShell:nth-of-type(4) {
+  width: 17cqw;
+  height: 30.2cqh;
+  background: rgba(170, 104, 72, 0.65);
+}
+
+.stellarShell:nth-of-type(5) {
+  width: 8.5cqw;
+  height: 15.1cqh;
+  background: var(--iron-stars-ink);
+  color: var(--iron-stars-paper-light);
+}
+
+.stellarShell[data-current="true"] {
+  border-width: 0.16cqw;
+}
+
+.shellSymbol {
+  position: absolute;
+  top: 10%;
+  right: 12%;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2cqw;
+}
+
+.shellLabel {
+  position: absolute;
+  top: 22%;
+  right: 8%;
+  max-width: 8cqw;
+  font-size: 0.62cqw;
+  line-height: 1.2;
+  text-align: right;
+}
+
+.cutawayAxis {
+  position: absolute;
+  top: 50%;
+  left: 51%;
+  width: 43cqw;
+  height: 0.05cqw;
+  background: rgba(24, 32, 68, 0.55);
+  transform: translate(-50%, -50%);
+}
+
+.shellLegend {
+  position: absolute;
+  right: 18cqw;
+  bottom: 8.2cqh;
+  display: flex;
+  gap: 1.25cqw;
+  width: 42cqw;
+  justify-content: flex-end;
+  color: var(--iron-stars-muted);
+  font-size: 0.55cqw;
+  text-transform: uppercase;
+}
+
+/* Scene 4 — movement collapses into one dark iron block. */
+.boundaryCopy {
+  width: 38cqw;
+}
+
+.boundaryIndex {
+  margin: 0;
+  color: var(--iron-stars-solar-deep);
+  font-size: 1.1cqw;
+}
+
+.energyDiagram {
+  position: absolute;
+  top: 13cqh;
+  right: 7cqw;
+  width: 49cqw;
+  height: 68cqh;
+}
+
+.energyDiagram svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.energyAxis {
+  fill: none;
+  stroke: rgba(24, 32, 68, 0.4);
+  stroke-width: 0.24;
+}
+
+.energyCurve {
+  fill: none;
+  stroke: var(--iron-stars-solar-deep);
+  stroke-width: 1.1;
+}
+
+.ironGuide {
+  stroke: rgba(24, 32, 68, 0.45);
+  stroke-width: 0.22;
+  stroke-dasharray: 1.4 1.4;
+}
+
+.ironPoint {
+  fill: var(--iron-stars-ink);
+}
+
+.diagramLabel {
+  fill: var(--iron-stars-ink);
+  font-family: "Cormorant Garamond", serif;
+}
+
+.diagramNote {
+  fill: var(--iron-stars-muted);
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.ironCore {
+  position: absolute;
+  right: 12cqw;
+  bottom: 5cqh;
+  display: grid;
+  width: 11cqw;
+  height: 19.6cqh;
+  place-items: center;
+  align-content: center;
+  gap: 0.5cqh;
+  background: var(--iron-stars-ink);
+  color: var(--iron-stars-paper-light);
+}
+
+.ironCore span {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 5cqw;
+  line-height: 0.8;
+}
+
+.ironCore small {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.55cqw;
+  text-transform: uppercase;
+}
+
+.boundaryNotes {
+  position: absolute;
+  left: 6cqw;
+  bottom: 9cqh;
+  display: grid;
+  gap: 0.8cqh;
+  width: 43cqw;
+}
+
+.boundaryNotes p {
+  display: grid;
+  grid-template-columns: 2.7cqw 1fr;
+  gap: 0.8cqw;
+  margin: 0;
+  padding-top: 0.7cqh;
+  border-top: 0.05cqw solid rgba(24, 32, 68, 0.32);
+  font-size: 0.68cqw;
+  line-height: 1.3;
+}
+
+.boundaryNotes span {
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.scene4[data-motion-state="quiet"] .ambientBloom,
+.ironCore[data-still="true"] {
+  animation: none;
+}
+
+/* Scene 5 — distant, quiet source sites. */
+.finalCopy {
+  position: absolute;
+  top: 22cqh;
+  left: 6cqw;
+  display: grid;
+  gap: 2.2cqh;
+  width: 41cqw;
+}
+
+.finalTitle {
+  font-size: 6.8cqw;
+}
+
+.finalStatement {
+  max-width: 38cqw;
+  font-size: 2.4cqw;
+}
+
+.originField {
+  position: absolute;
+  top: 15cqh;
+  right: 6cqw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.4cqh 2.2cqw;
+  width: 43cqw;
+  height: 67cqh;
+  align-content: center;
+}
+
+.originSite {
+  display: grid;
+  grid-template-columns: 5.4cqw 1fr;
+  gap: 1.1cqw;
+  align-items: center;
+  min-height: 18cqh;
+  padding-top: 1.3cqh;
+  border-top: 0.06cqw solid rgba(24, 32, 68, 0.44);
+}
+
+.originDisc {
+  display: grid;
+  width: 4.7cqw;
+  height: 8.35cqh;
+  place-items: center;
+  border: 0.06cqw solid var(--iron-stars-ink);
+  border-radius: 50%;
+  background: rgba(228, 184, 63, 0.38);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.65cqw;
+}
+
+.originSite:nth-child(3) .originDisc {
+  background: var(--iron-stars-ink);
+  color: var(--iron-stars-paper-light);
+}
+
+.originSite:nth-child(4) .originDisc {
+  border-style: dashed;
+  background: transparent;
+}
+
+.originSite h2 {
+  margin: 0 0 0.7cqh;
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 1.5cqw;
+  line-height: 1;
+}
+
+.originSite p {
+  margin: 0;
+  color: var(--iron-stars-muted);
+  font-size: 0.67cqw;
+  line-height: 1.35;
+}
+
+/* Ambient orbit-point navigation. A selected point moves by thirteen degrees. */
+.orbitNavigation {
+  position: absolute;
+  z-index: 9;
+  right: 4.2cqw;
+  bottom: 4.8cqh;
+  width: 11cqw;
+  height: 19.55cqh;
+  color: var(--iron-stars-ink);
+  outline: none;
+}
+
+.navOrbitRule {
+  position: absolute;
+  inset: 0;
+  border: 0.05cqw solid rgba(24, 32, 68, 0.34);
+  border-radius: 50%;
+}
+
+.navSun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 2.5cqw;
+  height: 4.45cqh;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--iron-stars-solar);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1cqw;
+  transform: translate(-50%, -50%);
+}
+
+.orbitPoint {
+  --orbit-radius: 4.7cqw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 1.8cqw;
+  height: 3.2cqh;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transform: translate(-50%, -50%) rotate(var(--orbit-angle)) translateX(var(--orbit-radius)) rotate(calc(var(--orbit-angle) * -1));
+  transition: transform 820ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.orbitDot {
+  display: grid;
+  width: 1.65cqw;
+  height: 2.93cqh;
+  place-items: center;
+  border: 0.05cqw solid currentColor;
+  border-radius: 50%;
+  background: rgba(243, 223, 172, 0.86);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.48cqw;
+  transition:
+    background 820ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 820ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.orbitPoint[data-active="true"] .orbitDot {
+  background: var(--iron-stars-solar);
+}
+
+.orbitPoint[data-expanded="true"] .orbitDot,
+.orbitPoint:focus-visible .orbitDot,
+.orbitPoint:hover .orbitDot {
+  background: var(--iron-stars-ink);
+  color: var(--iron-stars-paper-light);
+  transform: scale(1.18);
+}
+
+.orbitLabel {
+  position: absolute;
+  top: 50%;
+  right: 2.25cqw;
+  width: 9.5cqw;
+  opacity: 0;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.52cqw;
+  line-height: 1.2;
+  text-align: right;
+  text-transform: uppercase;
+  transform: translateY(-50%) translateX(1cqw);
+  transition:
+    opacity 700ms ease,
+    transform 820ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.orbitPoint[data-expanded="true"] .orbitLabel,
+.orbitPoint:focus-visible .orbitLabel {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.orbitNavigation:focus-visible .navOrbitRule {
+  border-width: 0.11cqw;
+}
+
+.folio {
+  position: absolute;
+  z-index: 7;
+  top: 5.5cqh;
+  right: 4.3cqw;
+  margin: 0;
+  color: rgba(24, 32, 68, 0.58);
+  font-size: 0.66cqw;
+  letter-spacing: 0.06cqw;
+}
+
+/* Slow atmospheric register: every loop is longer than a scene transition. */
+.root[data-motion="on"] .ambientBloom {
+  animation: bloomDrift 9s ease-in-out infinite alternate;
+}
+
+.root[data-motion="on"] .solarDisc {
+  animation: solarBreath 7s ease-in-out infinite alternate;
+}
+
+.root[data-motion="on"] .stellarShell[data-visible="true"] {
+  animation: shellBreath 6.8s ease-in-out infinite alternate;
+  animation-delay: calc(var(--shell-index) * 280ms);
+}
+
+.root[data-motion="on"] .originSite {
+  animation: originSettle 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--origin-index) * 90ms);
+}
+
+.root[data-motion="off"] *,
+.root[data-thumbnail="true"] * {
+  animation: none !important;
+  transition-duration: 0ms !important;
+  transition-delay: 0ms !important;
+}
+
+@keyframes bloomDrift {
+  from {
+    opacity: 0.72;
+    transform: translate(-1.2cqw, -1.2cqh) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate(1.2cqw, 1.2cqh) scale(1.04);
+  }
+}
+
+@keyframes solarBreath {
+  from { transform: scale(0.992); }
+  to { transform: scale(1.012); }
+}
+
+@keyframes shellBreath {
+  from { filter: saturate(0.92); }
+  to { filter: saturate(1.08); }
+}
+
+@keyframes originSettle {
+  from {
+    opacity: 0;
+    transform: translateY(1.8cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

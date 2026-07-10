@@ -1,0 +1,514 @@
+.root {
+  --lacquer: #0a1010;
+  --ink: #eee6d5;
+  --muted-ink: #b7b4aa;
+  --brass: #d5af68;
+  --deep-brass: #896c3d;
+  --concrete: #9ea39f;
+  --concrete-dark: #444b49;
+  --steel: #b9c4c1;
+  --graphite: #707977;
+  --crack: #d34a37;
+  --active-material: var(--brass);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: size;
+  color: var(--ink);
+  background: var(--lacquer);
+  font-family: Impact, "Arial Narrow", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.root[data-material-state="concrete"] {
+  --active-material: var(--concrete);
+}
+
+.root[data-material-state="steel"] {
+  --active-material: var(--steel);
+}
+
+.root[data-material-state="graphite"] {
+  --active-material: var(--graphite);
+}
+
+.root[data-material-state="stone"] {
+  --active-material: #c2bba9;
+}
+
+.root[data-material-state="brass"] {
+  --active-material: var(--brass);
+}
+
+.outerFrame,
+.centerAxis {
+  position: absolute;
+  pointer-events: none;
+}
+
+.outerFrame {
+  inset: 3.1cqh 3.2cqw;
+  border-top: 0.14cqh solid var(--deep-brass);
+  border-bottom: 0.14cqh solid var(--deep-brass);
+  opacity: 0.76;
+}
+
+.outerFrame::before,
+.outerFrame::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 5.7cqw;
+  content: "";
+  border-top: 0.14cqh solid var(--brass);
+  border-bottom: 0.14cqh solid var(--brass);
+}
+
+.outerFrame::before {
+  left: 0;
+  border-left: 0.14cqh solid var(--brass);
+}
+
+.outerFrame::after {
+  right: 0;
+  border-right: 0.14cqh solid var(--brass);
+}
+
+.centerAxis {
+  top: 7cqh;
+  bottom: 7cqh;
+  left: 50%;
+  width: 0.1cqw;
+  background: var(--deep-brass);
+  opacity: 0.42;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 8.6cqh 15.4cqw 8.2cqh;
+  text-align: center;
+}
+
+.sceneRail,
+.sceneCrown {
+  position: absolute;
+  pointer-events: none;
+}
+
+.sceneRail {
+  top: 15cqh;
+  bottom: 14cqh;
+  left: 13.2cqw;
+  right: 13.2cqw;
+  border-left: 0.12cqw solid var(--deep-brass);
+  border-right: 0.12cqw solid var(--deep-brass);
+  opacity: 0.5;
+}
+
+.sceneCrown {
+  top: 7.6cqh;
+  left: 35cqw;
+  width: 30cqw;
+  height: 5cqh;
+  border-top: 0.18cqh solid var(--brass);
+  border-left: 0.12cqw solid var(--brass);
+  border-right: 0.12cqw solid var(--brass);
+  clip-path: polygon(0 100%, 16% 0, 84% 0, 100% 100%);
+  opacity: 0.78;
+}
+
+.copyBlock {
+  position: relative;
+  z-index: 1;
+  width: 64cqw;
+  min-height: 22cqh;
+  margin: 0 auto;
+}
+
+.eyebrow,
+.diagramLabel,
+.rulerCaption,
+.materialNote,
+.dragNote,
+.notToScale {
+  margin: 0;
+  color: var(--brass);
+  font-family: "Arial Narrow", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.14cqw;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  font-size: 1.2cqw;
+  line-height: 1;
+}
+
+.title {
+  max-width: 64cqw;
+  min-height: 10.2cqh;
+  margin: 1.5cqh auto 0;
+  color: var(--ink);
+  font-size: 5.35cqw;
+  font-weight: 700;
+  letter-spacing: 0.12cqw;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.deck {
+  max-width: 48cqw;
+  min-height: 4.8cqh;
+  margin: 1.8cqh auto 0;
+  color: var(--muted-ink);
+  font-family: "Arial Narrow", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 1.45cqw;
+  font-weight: 500;
+  letter-spacing: 0.02cqw;
+  line-height: 1.16;
+}
+
+.diagramBlock {
+  position: relative;
+  z-index: 1;
+  width: 68cqw;
+  height: 40cqh;
+  margin: 0 auto;
+}
+
+.forceSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.forceSvg path {
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  transition: opacity 420ms ease, transform 420ms ease, stroke-dashoffset 420ms ease;
+}
+
+.forceSvg [data-reveal="false"],
+[data-reveal="false"] {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(1.2cqh);
+}
+
+.forceSvg [data-reveal="true"],
+[data-reveal="true"] {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.svgFrame,
+.svgSupport,
+.sagLine,
+.rebarOutline,
+.concreteGhost,
+.sectionShell,
+.compositeBase {
+  fill: none;
+  stroke: var(--deep-brass);
+  stroke-width: 5;
+}
+
+.svgSupport {
+  fill: var(--concrete-dark);
+  stroke: var(--brass);
+}
+
+.concreteBody,
+.compressionColumn,
+.compressionCap,
+.compressionArch,
+.compositeArch {
+  fill: var(--concrete-dark);
+  stroke: var(--concrete);
+  stroke-width: 7;
+}
+
+.loadArrow,
+.compressionArrow,
+.bondPulse,
+.tensionArrow {
+  fill: none;
+  stroke: var(--brass);
+  stroke-width: 7;
+}
+
+.sagLine {
+  stroke: var(--ink);
+  stroke-width: 6;
+}
+
+.tensionZone {
+  fill: #2b3432;
+  stroke: var(--graphite);
+  stroke-width: 4;
+}
+
+.crackLine {
+  fill: none;
+  stroke: var(--crack);
+  stroke-width: 9;
+}
+
+.rebarTie,
+.rebarMain,
+.rebarHook,
+.sectionRebar,
+.compositeRebar,
+.compositeRib {
+  fill: none;
+  stroke: var(--steel);
+  stroke-width: 9;
+}
+
+.rebarTie,
+.compositeRib {
+  stroke-width: 6;
+}
+
+.bondTick {
+  stroke: var(--brass);
+  stroke-width: 5;
+}
+
+.compressionZone {
+  fill: #707a76;
+  stroke: none;
+}
+
+.neutralAxis {
+  fill: none;
+  stroke: var(--brass);
+  stroke-width: 5;
+  stroke-dasharray: 16 12;
+}
+
+.tensionField {
+  fill: #2e3735;
+  stroke: none;
+}
+
+.sectionLine {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 4;
+  opacity: 0.56;
+}
+
+.sectionCrack {
+  fill: none;
+  stroke: var(--graphite);
+  stroke-width: 5;
+}
+
+.compositeInner {
+  fill: none;
+  stroke: var(--deep-brass);
+  stroke-width: 8;
+}
+
+.statementBlock {
+  position: absolute;
+  z-index: 1;
+  right: 17cqw;
+  bottom: 10.4cqh;
+  left: 17cqw;
+  min-height: 12cqh;
+  border-top: 0.12cqh solid var(--brass);
+  border-bottom: 0.08cqh solid var(--deep-brass);
+  padding: 1.35cqh 2.2cqw 1.1cqh;
+}
+
+.diagramLabel {
+  color: var(--deep-brass);
+  font-size: 0.96cqw;
+  line-height: 1.05;
+}
+
+.principle {
+  max-width: 58cqw;
+  margin: 0.8cqh auto 0;
+  color: var(--ink);
+  font-family: "Arial Narrow", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 1.48cqw;
+  font-weight: 600;
+  line-height: 1.12;
+}
+
+.boundary {
+  max-width: 55cqw;
+  min-height: 2.4cqh;
+  margin: 0.55cqh auto 0;
+  color: var(--muted-ink);
+  font-family: "Arial Narrow", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 1cqw;
+  line-height: 1.08;
+}
+
+.sectionLabels {
+  position: absolute;
+  z-index: 2;
+  top: 10.2cqh;
+  right: 4.7cqw;
+  display: grid;
+  gap: 0.9cqh;
+  width: 12cqw;
+  text-align: left;
+}
+
+.sectionLabel {
+  margin: 0;
+  border-left: 0.15cqw solid var(--brass);
+  padding-left: 0.8cqw;
+  color: var(--ink);
+  font-family: "Arial Narrow", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 0.92cqw;
+  font-weight: 700;
+  letter-spacing: 0.06cqw;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.sectionLabel[data-zone="tension"] {
+  border-color: var(--steel);
+}
+
+.sectionLabel[data-zone="neutral"] {
+  border-color: var(--graphite);
+  color: var(--muted-ink);
+}
+
+.loadRuler {
+  position: absolute;
+  z-index: 6;
+  top: 24cqh;
+  left: 4.5cqw;
+  width: 6.7cqw;
+  height: 53cqh;
+  user-select: none;
+  touch-action: none;
+}
+
+.rulerCaption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--deep-brass);
+  font-size: 0.82cqw;
+  line-height: 1;
+  writing-mode: vertical-rl;
+}
+
+.rulerLine {
+  position: absolute;
+  top: 4.2cqh;
+  bottom: 7.3cqh;
+  left: 2.65cqw;
+  width: 0.12cqw;
+  background: var(--deep-brass);
+}
+
+.rulerStops {
+  position: absolute;
+  top: 3.3cqh;
+  bottom: 6.2cqh;
+  left: 1.55cqw;
+  display: grid;
+  align-content: space-between;
+  width: 4.6cqw;
+}
+
+.rulerStop {
+  width: 4.6cqw;
+  height: 4.2cqh;
+  border: 0.12cqw solid var(--deep-brass);
+  border-radius: 0;
+  padding: 0;
+  color: var(--brass);
+  background: var(--lacquer);
+  cursor: pointer;
+  font-family: Impact, "Arial Narrow", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 1cqw;
+  font-weight: 700;
+  letter-spacing: 0.04cqw;
+  line-height: 1;
+  transition: color 240ms ease, background 240ms ease, border-color 240ms ease, transform 240ms ease;
+}
+
+.rulerStop:hover,
+.rulerStop:focus-visible {
+  border-color: var(--brass);
+  color: var(--ink);
+  outline: 0;
+  transform: translateX(0.35cqw);
+}
+
+.rulerStop[data-active="true"] {
+  border-color: var(--active-material);
+  color: var(--lacquer);
+  background: var(--active-material);
+  transform: translateX(0.7cqw);
+}
+
+.materialNote,
+.dragNote {
+  position: absolute;
+  left: 0;
+  width: 6.7cqw;
+  text-align: center;
+}
+
+.materialNote {
+  bottom: 2.4cqh;
+  color: var(--active-material);
+  font-size: 0.63cqw;
+  line-height: 1.05;
+}
+
+.dragNote {
+  bottom: 0;
+  color: var(--deep-brass);
+  font-size: 0.54cqw;
+  line-height: 1;
+}
+
+.notToScale {
+  position: absolute;
+  z-index: 6;
+  right: 5cqw;
+  bottom: 4.5cqh;
+  color: var(--deep-brass);
+  font-size: 0.76cqw;
+  line-height: 1;
+}
+
+.settled *,
+.settled *::before,
+.settled *::after,
+:global(html[data-frozen="true"]) .root *,
+:global(html[data-frozen="true"]) .root *::before,
+:global(html[data-frozen="true"]) .root *::after {
+  animation: none !important;
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+.root[data-thumbnail="true"] .scene {
+  padding-right: 12.8cqw;
+  padding-left: 12.8cqw;
+}
+
+.root[data-thumbnail="true"] .notToScale {
+  right: 3.5cqw;
+  bottom: 3.3cqh;
+}

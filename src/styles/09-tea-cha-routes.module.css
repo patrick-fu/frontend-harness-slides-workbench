@@ -1,0 +1,1096 @@
+.root {
+  --style-subway-map-of-intent-bg: #f4f0e5;
+  --style-subway-map-of-intent-ink: #18313a;
+  --style-subway-map-of-intent-accent: #087f74;
+  --paper: #f4f0e5;
+  --paper-light: #fffdf6;
+  --ink: #18313a;
+  --muted: #647278;
+  --rule: #cbc5b7;
+  --sea: #087f74;
+  --sea-soft: #b9ded8;
+  --land: #d1722d;
+  --land-soft: #efd1b3;
+  --exception: #b33d3a;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  container-type: size;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 82% 18%, rgba(8, 127, 116, 0.09), transparent 23%),
+    radial-gradient(circle at 16% 72%, rgba(209, 114, 45, 0.08), transparent 27%),
+    linear-gradient(rgba(24, 49, 58, 0.04) 0.08cqw, transparent 0.08cqw),
+    linear-gradient(90deg, rgba(24, 49, 58, 0.04) 0.08cqw, transparent 0.08cqw),
+    var(--paper);
+  background-size: auto, auto, 5cqw 8.9cqh, 5cqw 8.9cqh, auto;
+  font-family: Arial, "PingFang SC", sans-serif;
+}
+
+.root,
+.root * {
+  box-sizing: border-box;
+}
+
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 1.4cqh 0.8cqw;
+  z-index: 4;
+  pointer-events: none;
+  border: 0.08cqw solid rgba(24, 49, 58, 0.2);
+}
+
+.root[data-motion="off"] *,
+.root[data-motion="off"] *::before,
+.root[data-motion="off"] *::after {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+  scroll-behavior: auto !important;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+}
+
+.atlasChrome {
+  position: absolute;
+  left: 2.4cqw;
+  right: 2.4cqw;
+  top: 2.4cqh;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(24, 49, 58, 0.56);
+  font-family: Arial, sans-serif;
+  font-size: 0.58cqw;
+  font-weight: 800;
+  letter-spacing: 0.12cqw;
+  pointer-events: none;
+}
+
+.atlasChrome b {
+  color: rgba(24, 49, 58, 0.72);
+  font-weight: 900;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  width: 100cqw;
+  height: 100cqh;
+  overflow: hidden;
+}
+
+.sceneHeader {
+  position: absolute;
+  left: 5.4cqw;
+  top: 6.4cqh;
+  z-index: 4;
+  width: 63cqw;
+}
+
+.sceneIndex {
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+  color: var(--muted);
+  font-size: 0.66cqw;
+  font-weight: 850;
+  letter-spacing: 0.1cqw;
+}
+
+.sceneIndex span {
+  display: grid;
+  place-items: center;
+  width: 2.8cqw;
+  height: 4.9cqh;
+  border: 0.12cqw solid var(--ink);
+  border-radius: 50%;
+  color: var(--ink);
+  font-size: 0.72cqw;
+  letter-spacing: 0;
+}
+
+.sceneIndex i {
+  width: 4.5cqw;
+  height: 0.14cqh;
+  background: linear-gradient(90deg, var(--sea), var(--land));
+}
+
+.sceneIndex b {
+  font-weight: 850;
+}
+
+.sceneHeader h1 {
+  max-width: 61cqw;
+  margin: 1.2cqh 0 0.9cqh;
+  color: var(--ink);
+  font-size: 3.65cqw;
+  font-weight: 900;
+  letter-spacing: -0.12cqw;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.sceneHeader p {
+  max-width: 56cqw;
+  margin: 0;
+  color: var(--muted);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.02cqw;
+  line-height: 1.4;
+}
+
+.root[data-language="zh"] .sceneHeader h1 {
+  font-size: 3.3cqw;
+  letter-spacing: -0.06cqw;
+  line-height: 1.08;
+}
+
+.root[data-language="zh"] .sceneHeader p {
+  font-size: 0.98cqw;
+  line-height: 1.5;
+}
+
+.scene[data-scene-id="4"] .sceneHeader p {
+  max-width: 63cqw;
+  font-size: 0.94cqw;
+}
+
+.visualBay {
+  position: absolute;
+  left: 5.4cqw;
+  right: 5.4cqw;
+  top: 28.5cqh;
+  z-index: 2;
+  height: 52.5cqh;
+  overflow: hidden;
+  border-top: 0.12cqw solid rgba(24, 49, 58, 0.34);
+  border-bottom: 0.12cqw solid rgba(24, 49, 58, 0.2);
+  background:
+    linear-gradient(90deg, rgba(255, 253, 246, 0.82), rgba(255, 253, 246, 0.42)),
+    repeating-linear-gradient(135deg, transparent 0 2.2cqw, rgba(24, 49, 58, 0.025) 2.2cqw 2.3cqw);
+}
+
+.visualBay::before,
+.visualBay::after {
+  position: absolute;
+  top: 1.1cqh;
+  z-index: 5;
+  color: rgba(24, 49, 58, 0.34);
+  font-size: 0.52cqw;
+  font-weight: 800;
+  letter-spacing: 0.1cqw;
+}
+
+.visualBay::before {
+  content: "LANGUAGE / FORM / CONTACT";
+  left: 1cqw;
+}
+
+.visualBay::after {
+  content: "SCHEMATIC · NO MODERN BORDERS";
+  right: 1cqw;
+}
+
+.beatCaption {
+  position: absolute;
+  left: 58.5cqw;
+  bottom: 3.7cqh;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 2.8cqw 1fr;
+  gap: 0.8cqw;
+  width: 19cqw;
+  min-height: 11.8cqh;
+  padding: 1.25cqh 1cqw;
+  border-left: 0.26cqw solid var(--land);
+  background: rgba(255, 253, 246, 0.82);
+}
+
+.beatCaption > span {
+  color: var(--land);
+  font-size: 0.68cqw;
+  font-weight: 900;
+  letter-spacing: 0.04cqw;
+}
+
+.beatCaption strong {
+  display: block;
+  color: var(--ink);
+  font-size: 0.9cqw;
+  line-height: 1.18;
+}
+
+.beatCaption p {
+  margin: 0.65cqh 0 0;
+  color: var(--muted);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 0.65cqw;
+  line-height: 1.38;
+}
+
+.caveatCard {
+  position: absolute;
+  right: 5.4cqw;
+  bottom: 3.7cqh;
+  z-index: 5;
+  width: 15.5cqw;
+  min-height: 11.8cqh;
+  padding: 1.25cqh 1cqw;
+  border: 0.1cqw solid var(--rule);
+  background: rgba(240, 235, 221, 0.88);
+}
+
+.caveatCard span {
+  display: block;
+  color: var(--exception);
+  font-size: 0.58cqw;
+  font-weight: 900;
+  letter-spacing: 0.06cqw;
+  text-transform: uppercase;
+}
+
+.caveatCard p {
+  margin: 0.8cqh 0 0;
+  color: var(--ink);
+  font-size: 0.65cqw;
+  line-height: 1.4;
+}
+
+.evidenceStrip {
+  position: absolute;
+  left: 5.4cqw;
+  bottom: 3.7cqh;
+  z-index: 5;
+  width: 51.5cqw;
+  min-height: 11.8cqh;
+  padding: 1.05cqh 0.9cqw;
+  border: 0.1cqw solid var(--rule);
+  background: rgba(255, 253, 246, 0.86);
+}
+
+.evidenceHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 0.65cqh;
+  border-bottom: 0.08cqw solid var(--rule);
+}
+
+.evidenceHeader span {
+  color: var(--ink);
+  font-size: 0.58cqw;
+  font-weight: 900;
+  letter-spacing: 0.09cqw;
+}
+
+.evidenceHeader small {
+  color: var(--muted);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 0.52cqw;
+}
+
+.evidenceRows {
+  display: flex;
+  gap: 0.6cqw;
+  margin-top: 0.75cqh;
+}
+
+.evidenceRows > div {
+  flex: 1;
+  min-width: 0;
+  padding-left: 0.7cqw;
+  border-left: 0.16cqw solid var(--rule);
+}
+
+.evidenceRows > div[data-evidence-family="sea"] {
+  border-left-color: var(--sea);
+}
+
+.evidenceRows > div[data-evidence-family="land"] {
+  border-left-color: var(--land);
+}
+
+.evidenceRows > div[data-evidence-family="exception"] {
+  border-left-color: var(--exception);
+}
+
+.evidenceRows span,
+.evidenceRows strong,
+.evidenceRows small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.evidenceRows span {
+  color: var(--muted);
+  font-size: 0.52cqw;
+  font-weight: 750;
+}
+
+.evidenceRows strong {
+  margin: 0.28cqh 0;
+  color: var(--ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 0.92cqw;
+}
+
+.evidenceRows small {
+  color: var(--muted);
+  font-size: 0.48cqw;
+}
+
+/* Scene 1 — the character remains central, with two non-national reading routes. */
+.wordPairVisual,
+.originCluster,
+.seaRouteMap,
+.landRouteMap,
+.exceptionMap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.wordPairRoutes,
+.originRoutes,
+.seaRouteSvg,
+.landRouteSvg,
+.exceptionRoutes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.wordPairRoutes path,
+.originRoutes path,
+.seaRouteSvg path,
+.landRouteSvg path,
+.exceptionRoutes path {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.sourceHalo {
+  stroke: rgba(24, 49, 58, 0.12);
+  stroke-width: 3;
+  stroke-dasharray: 12 16;
+}
+
+.seaWordRoute,
+.seaWordRouteMuted {
+  stroke: var(--sea);
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-dasharray: 1200;
+  animation: routeDraw 820ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.landWordRoute,
+.landWordRouteMuted {
+  stroke: var(--land);
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-dasharray: 1200;
+  animation: routeDraw 820ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.seaWordRouteMuted,
+.landWordRouteMuted {
+  opacity: 0.35;
+  stroke-width: 5;
+  stroke-dasharray: 18 14;
+}
+
+.seaStop {
+  fill: var(--paper-light);
+  stroke: var(--sea);
+  stroke-width: 7;
+}
+
+.landStop {
+  fill: var(--paper-light);
+  stroke: var(--land);
+  stroke-width: 7;
+}
+
+.sourceCharacter {
+  position: absolute;
+  left: 50%;
+  top: 51%;
+  display: grid;
+  place-items: center;
+  width: 15cqw;
+  height: 26.7cqh;
+  border: 0.14cqw solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper-light);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 1.5cqh 2.5cqw rgba(24, 49, 58, 0.11);
+}
+
+.sourceCharacter span,
+.sourceCharacter small {
+  color: var(--muted);
+  font-size: 0.58cqw;
+  font-weight: 800;
+  letter-spacing: 0.06cqw;
+  text-transform: uppercase;
+}
+
+.sourceCharacter strong {
+  color: var(--ink);
+  font-family: "Songti SC", Georgia, serif;
+  font-size: 6.4cqw;
+  font-weight: 800;
+  line-height: 0.8;
+}
+
+.wordFamily {
+  position: absolute;
+  top: 34%;
+  display: grid;
+  gap: 0.45cqh;
+  width: 16cqw;
+  padding: 1.4cqh 1.1cqw;
+  border: 0.1cqw solid var(--rule);
+  background: rgba(255, 253, 246, 0.9);
+}
+
+.wordFamilySea {
+  left: 5%;
+  border-left: 0.32cqw solid var(--sea);
+}
+
+.wordFamilyLand {
+  right: 5%;
+  border-right: 0.32cqw solid var(--land);
+  text-align: right;
+}
+
+.wordFamily span {
+  color: var(--muted);
+  font-size: 0.62cqw;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.wordFamily strong {
+  color: var(--ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 3.6cqw;
+  line-height: 1;
+}
+
+.wordFamily b {
+  color: var(--muted);
+  font-size: 0.66cqw;
+  letter-spacing: 0.07cqw;
+}
+
+/* Scene 2 — a linguistic source cluster, never a political boundary map. */
+.originGuide {
+  position: absolute;
+  left: 2cqw;
+  top: 5.3cqh;
+  display: flex;
+  align-items: center;
+  gap: 0.7cqw;
+  color: var(--muted);
+  font-size: 0.54cqw;
+  font-weight: 800;
+  letter-spacing: 0.05cqw;
+  text-transform: uppercase;
+}
+
+.originGuide i {
+  width: 5cqw;
+  height: 0.12cqh;
+  background: linear-gradient(90deg, var(--ink), var(--sea), var(--land));
+}
+
+.originSpine {
+  stroke: var(--ink);
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.seaOriginBranch {
+  stroke: var(--sea);
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.landOriginBranch {
+  stroke: var(--land);
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.originNode {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto auto;
+  width: 12.2cqw;
+  min-height: 11.4cqh;
+  padding: 1.1cqh 0.9cqw;
+  border: 0.1cqw solid var(--rule);
+  background: rgba(255, 253, 246, 0.96);
+  opacity: 0.18;
+  transform: translate(-50%, -50%) scale(0.94);
+  transition:
+    opacity 360ms ease,
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 360ms ease;
+}
+
+.originNode[data-family="sea"] {
+  border-top: 0.3cqw solid var(--sea);
+}
+
+.originNode[data-family="land"] {
+  border-top: 0.3cqw solid var(--land);
+}
+
+.originNode[data-revealed="true"] {
+  z-index: 2;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  box-shadow: 0 1cqh 1.5cqw rgba(24, 49, 58, 0.1);
+}
+
+.originNode > span {
+  color: var(--muted);
+  font-size: 0.55cqw;
+  font-weight: 800;
+}
+
+.originNode > strong {
+  grid-row: 2 / 4;
+  align-self: center;
+  color: var(--ink);
+  font-family: "Songti SC", Georgia, serif;
+  font-size: 2.5cqw;
+  line-height: 1;
+}
+
+.originNode > b {
+  color: var(--ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.2cqw;
+  text-align: right;
+}
+
+.originNode > small {
+  align-self: end;
+  color: var(--muted);
+  font-size: 0.5cqw;
+  text-align: right;
+}
+
+/* Scene 3 — the sea field is a braid of ports, not a country map. */
+.waveField {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.28;
+}
+
+.waveField i {
+  position: absolute;
+  left: -5%;
+  width: 110%;
+  height: 6cqh;
+  border-top: 0.12cqw solid var(--sea);
+  border-radius: 50%;
+}
+
+.waveField i:nth-child(1) { top: 20%; }
+.waveField i:nth-child(2) { top: 38%; }
+.waveField i:nth-child(3) { top: 57%; }
+.waveField i:nth-child(4) { top: 76%; }
+
+.seaMainLine {
+  stroke: var(--sea);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 1350;
+  animation: routeDraw 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.seaBranchLine {
+  stroke: var(--sea);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-dasharray: 900;
+  opacity: 0.14;
+  transition: opacity 320ms ease;
+}
+
+.seaBranchLine[data-revealed="true"] {
+  opacity: 1;
+  animation: routeDraw 720ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.seaUncertainLine {
+  stroke: var(--exception);
+  stroke-width: 4;
+  stroke-dasharray: 13 12;
+  opacity: 0.72;
+}
+
+.uncertaintyStamp,
+.networkStatement {
+  position: absolute;
+  left: 40%;
+  top: 68%;
+  z-index: 3;
+  display: grid;
+  gap: 0.4cqh;
+  padding: 0.9cqh 0.85cqw;
+  border: 0.1cqw solid var(--exception);
+  background: rgba(255, 253, 246, 0.94);
+  color: var(--exception);
+  transform: rotate(-1.2deg);
+}
+
+.uncertaintyStamp span,
+.networkStatement span {
+  font-size: 0.52cqw;
+  font-weight: 900;
+  letter-spacing: 0.08cqw;
+}
+
+.uncertaintyStamp strong,
+.networkStatement strong {
+  font-size: 0.63cqw;
+  line-height: 1.25;
+}
+
+.routeNode {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  width: 10.8cqw;
+  min-height: 10cqh;
+  padding: 0.85cqh 0.75cqw;
+  border: 0.1cqw solid var(--rule);
+  border-radius: 0.2cqw;
+  background: rgba(255, 253, 246, 0.96);
+  opacity: 0.16;
+  transform: translate(-50%, -50%) scale(0.92);
+  transition:
+    opacity 340ms ease,
+    transform 480ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 340ms ease;
+}
+
+.seaRouteMap .routeNode {
+  border-top: 0.28cqw solid var(--sea);
+}
+
+.landRouteMap .routeNode {
+  border-top: 0.28cqw solid var(--land);
+}
+
+.routeNode[data-revealed="true"] {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  box-shadow: 0 0.8cqh 1.3cqw rgba(24, 49, 58, 0.1);
+}
+
+.routeNode[data-current="true"] {
+  outline: 0.18cqw solid rgba(209, 114, 45, 0.35);
+  outline-offset: 0.18cqw;
+}
+
+.routeNode > span,
+.routeNode > b,
+.routeNode > small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.routeNode > span {
+  color: var(--muted);
+  font-size: 0.48cqw;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.routeNode > strong {
+  grid-row: 1 / 3;
+  grid-column: 2;
+  align-self: center;
+  padding-left: 0.5cqw;
+  color: var(--ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.7cqw;
+  line-height: 1;
+}
+
+.routeNode > b {
+  color: var(--ink);
+  font-size: 0.6cqw;
+}
+
+.routeNode > small {
+  grid-column: 1 / 3;
+  margin-top: 0.55cqh;
+  padding-top: 0.5cqh;
+  border-top: 0.08cqw solid var(--rule);
+  color: var(--muted);
+  font-size: 0.48cqw;
+}
+
+/* Scene 4 — layered contact bands signal a network rather than a single road. */
+.corridorBands {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.26;
+}
+
+.corridorBands i {
+  position: absolute;
+  left: -6%;
+  width: 112%;
+  height: 13cqh;
+  border-top: 0.15cqw solid var(--land);
+  border-radius: 48%;
+  transform: rotate(-7deg);
+}
+
+.corridorBands i:nth-child(1) { top: 20%; }
+.corridorBands i:nth-child(2) { top: 43%; }
+.corridorBands i:nth-child(3) { top: 67%; }
+
+.landMainLine {
+  stroke: var(--land);
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-dasharray: 1400;
+  animation: routeDraw 860ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.landBranchLine {
+  stroke: var(--land);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-dasharray: 900;
+  opacity: 0.12;
+  transition: opacity 340ms ease;
+}
+
+.landBranchLine[data-revealed="true"] {
+  opacity: 1;
+  animation: routeDraw 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.networkStatement {
+  left: 4%;
+  top: 75%;
+  border-color: var(--land);
+  color: var(--land);
+  transform: rotate(0.8deg);
+}
+
+/* Scene 5 — three evidence-backed exceptions circle the claim. */
+.exceptionMap {
+  background: radial-gradient(circle at 50% 51%, rgba(179, 61, 58, 0.08), transparent 25%);
+}
+
+.exceptionSeaLine {
+  stroke: var(--sea);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.exceptionLandLine {
+  stroke: var(--land);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.exceptionMixedLine {
+  stroke: var(--exception);
+  stroke-width: 5;
+  stroke-dasharray: 14 12;
+}
+
+.patternSeal {
+  position: absolute;
+  left: 50%;
+  top: 37%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 15cqw;
+  height: 22cqh;
+  border: 0.18cqw solid var(--exception);
+  border-radius: 50%;
+  background: var(--paper-light);
+  color: var(--exception);
+  transform: translate(-50%, -50%) rotate(-2deg);
+  box-shadow: 0 1.4cqh 2.3cqw rgba(24, 49, 58, 0.12);
+}
+
+.patternSeal span,
+.patternSeal strong {
+  font-size: 0.84cqw;
+  font-weight: 950;
+  letter-spacing: 0.08cqw;
+  text-align: center;
+}
+
+.patternSeal i {
+  width: 7cqw;
+  height: 0.28cqh;
+  background: var(--exception);
+}
+
+.exceptionCards {
+  position: absolute;
+  inset: 5.8cqh 1.8cqw;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: 18cqw 18cqw 18cqw;
+  grid-template-rows: 1fr 1fr;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+
+.exceptionCards article {
+  display: grid;
+  gap: 0.65cqh;
+  min-height: 16.5cqh;
+  padding: 1.25cqh 1cqw;
+  border: 0.1cqw solid var(--rule);
+  background: rgba(255, 253, 246, 0.96);
+  box-shadow: 0 0.8cqh 1.4cqw rgba(24, 49, 58, 0.08);
+}
+
+.exceptionCards article:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1;
+  border-left: 0.32cqw solid var(--sea);
+}
+
+.exceptionCards article:nth-child(2) {
+  grid-column: 3;
+  grid-row: 1;
+  border-right: 0.32cqw solid var(--land);
+}
+
+.exceptionCards article:nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 4cqh;
+  border-bottom: 0.32cqw solid var(--exception);
+}
+
+.exceptionCards span {
+  color: var(--muted);
+  font-size: 0.56cqw;
+  font-weight: 900;
+  letter-spacing: 0.06cqw;
+}
+
+.exceptionCards strong {
+  color: var(--ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.15cqw;
+  line-height: 1.1;
+}
+
+.exceptionCards p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.64cqw;
+  line-height: 1.35;
+}
+
+.exceptionCards b {
+  align-self: end;
+  color: var(--exception);
+  font-size: 0.52cqw;
+  letter-spacing: 0.06cqw;
+}
+
+/* Persistent navigation is a branched mini-map, not a five-step progress bar. */
+.routeNavigator {
+  position: absolute;
+  right: 3.2cqw;
+  top: 4.8cqh;
+  z-index: 10;
+  width: 24cqw;
+  height: 21.5cqh;
+  border: 0.1cqw solid rgba(24, 49, 58, 0.26);
+  background: rgba(255, 253, 246, 0.9);
+  box-shadow: 0 0.8cqh 1.7cqw rgba(24, 49, 58, 0.08);
+}
+
+.navTitle {
+  position: absolute;
+  left: 0.7cqw;
+  right: 0.7cqw;
+  top: 0.65cqh;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.45cqw;
+  font-weight: 850;
+  letter-spacing: 0.04cqw;
+}
+
+.navTitle b {
+  color: var(--sea);
+  font-weight: 900;
+}
+
+.navRouteSvg {
+  position: absolute;
+  inset: 1.6cqh 0.5cqw 0.5cqh;
+  width: 23cqw;
+  height: 19.4cqh;
+  overflow: visible;
+}
+
+.navRouteSvg path {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.navOriginLine {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.navSeaLine {
+  stroke: var(--sea);
+  stroke-width: 2.4;
+}
+
+.navLandLine {
+  stroke: var(--land);
+  stroke-width: 2.4;
+}
+
+.navExceptionLine {
+  stroke: var(--exception);
+  stroke-width: 1.6;
+  stroke-dasharray: 5 4;
+}
+
+.navStop {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  justify-items: center;
+  gap: 0.2cqh;
+  width: 5.7cqw;
+  min-height: 4.7cqh;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+.navStop > span {
+  display: grid;
+  place-items: center;
+  width: 1.65cqw;
+  height: 2.94cqh;
+  border: 0.12cqw solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper-light);
+  color: var(--ink);
+  font-size: 0.54cqw;
+  font-weight: 900;
+  transition:
+    transform 260ms ease,
+    box-shadow 260ms ease,
+    color 260ms ease,
+    background-color 260ms ease;
+}
+
+.navStop > b {
+  max-width: 5.7cqw;
+  overflow: hidden;
+  font-size: 0.43cqw;
+  font-weight: 800;
+  line-height: 1.05;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navStop[data-nav-state="past"] {
+  opacity: 0.5;
+}
+
+.navStop[data-nav-state="active"] > span {
+  background: var(--ink);
+  color: var(--paper-light);
+  transform: scale(1.18);
+}
+
+.navStop[data-nav-state="active"] > b {
+  color: var(--ink);
+}
+
+.navStop[data-nav-state="next"] > span {
+  border-color: var(--sea);
+  color: var(--sea);
+  box-shadow: 0 0 0 0.25cqw rgba(8, 127, 116, 0.14);
+  transform: translateY(-0.35cqh);
+}
+
+.navStop[data-nav-state="next"] > b {
+  color: var(--sea);
+}
+
+.navStop:focus-visible {
+  outline: 0.18cqw solid var(--exception);
+  outline-offset: 0.2cqw;
+}
+
+.root[data-thumbnail="true"] .sceneHeader {
+  top: 5.2cqh;
+}
+
+.root[data-thumbnail="true"] .visualBay {
+  top: 27.5cqh;
+  height: 55.5cqh;
+}
+
+.root[data-thumbnail="true"] .atlasChrome {
+  display: none;
+}
+
+@keyframes routeDraw {
+  from {
+    stroke-dashoffset: 1200;
+    opacity: 0.2;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}

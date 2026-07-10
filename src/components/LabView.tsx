@@ -3,7 +3,7 @@ import type {
   StyleRegistryEntry,
   BespokeStyleProps,
   SceneMetadata,
-  StyleVersion,
+  StyleTopic,
 } from "../types";
 import { useStageScale } from "../hooks/useStageScale";
 import { useKeyboard } from "../hooks/useKeyboard";
@@ -16,12 +16,12 @@ import {
 import PureModeOverlay from "./PureModeOverlay";
 import CrossStyleFlash from "./CrossStyleFlash";
 import BottomBar from "./layout/BottomBar";
-import VersionBar from "./layout/VersionBar";
+import TopicBar from "./layout/TopicBar";
 
 export interface LabViewProps {
   registry: StyleRegistryEntry[];
   styleId: string;
-  versionId: string;
+  topicId: string;
   scene: number;
   beat: number;
   isPureMode: boolean;
@@ -31,7 +31,7 @@ export interface LabViewProps {
   flashStyle: boolean;
   onNavigate: (target: {
     styleId: string;
-    versionId: string;
+    topicId: string;
     scene: number;
     beat: number;
     flashStyle?: boolean;
@@ -42,33 +42,33 @@ export interface LabViewProps {
 }
 
 /**
- * Look up a style + version from the registry.
- * Falls back to first version if the specified versionId is not found.
+ * Look up a style + topic from the registry.
+ * Falls back to first topic if the specified topicId is not found.
  */
-function findStyleAndVersion(
+function findStyleAndTopic(
   registry: StyleRegistryEntry[],
   styleId: string,
-  versionId: string,
+  topicId: string,
 ): {
   style: StyleRegistryEntry;
-  version: StyleVersion;
-  versionIndex: number;
+  topic: StyleTopic;
+  topicIndex: number;
 } | null {
   const style = registry.find((s) => s.id === styleId);
-  if (!style || style.versions.length === 0) return null;
-  let versionIndex = style.versions.findIndex((v) => v.id === versionId);
-  if (versionIndex === -1) versionIndex = 0;
+  if (!style || style.topics.length === 0) return null;
+  let topicIndex = style.topics.findIndex((topic) => topic.id === topicId);
+  if (topicIndex === -1) topicIndex = 0;
   return {
     style,
-    version: style.versions[versionIndex],
-    versionIndex,
+    topic: style.topics[topicIndex],
+    topicIndex,
   };
 }
 
 export default function LabView({
   registry,
   styleId,
-  versionId,
+  topicId,
   scene,
   beat,
   isPureMode,
@@ -86,15 +86,15 @@ export default function LabView({
   const { scale, width: scaledWidth, height: scaledHeight } =
     useStageScale(stageContainerRef);
 
-  // Find current style + version
+  // Find current style + topic
   const found = useMemo(
-    () => findStyleAndVersion(registry, styleId, versionId),
-    [registry, styleId, versionId],
+    () => findStyleAndTopic(registry, styleId, topicId),
+    [registry, styleId, topicId],
   );
 
   const meta = useMemo(() => {
     if (!found) return null;
-    return found.version.getMetadata(language);
+    return found.topic.getMetadata(language);
   }, [found, language]);
 
   // Build scenes metadata for BottomBar
@@ -112,7 +112,7 @@ export default function LabView({
     if (!found) return false;
     const firstStyle = registry[0];
     if (found.style.id !== firstStyle?.id) return false;
-    if (found.versionIndex !== 0) return false;
+    if (found.topicIndex !== 0) return false;
     return scene === 1 && beat === 0;
   }, [found, registry, scene, beat]);
 
@@ -120,7 +120,7 @@ export default function LabView({
     if (!found || !meta) return false;
     const lastStyle = registry[registry.length - 1];
     if (found.style.id !== lastStyle?.id) return false;
-    if (found.versionIndex !== found.style.versions.length - 1) return false;
+    if (found.topicIndex !== found.style.topics.length - 1) return false;
     const lastScene = meta.scenes[meta.scenes.length - 1];
     const lastBeat = lastScene?.beats[lastScene.beats.length - 1]?.id ?? 0;
     return scene === 5 && beat >= lastBeat;
@@ -132,44 +132,44 @@ export default function LabView({
     const target = computeNext(
       registry,
       styleId,
-      versionId,
+      topicId,
       scene,
       beat,
       isPureMode,
     );
     if (target) onNavigate(target);
-  }, [registry, styleId, versionId, scene, beat, isPureMode, onNavigate]);
+  }, [registry, styleId, topicId, scene, beat, isPureMode, onNavigate]);
 
   const handlePrev = useCallback(() => {
     const target = computePrev(
       registry,
       styleId,
-      versionId,
+      topicId,
       scene,
       beat,
       isPureMode,
     );
     if (target) onNavigate(target);
-  }, [registry, styleId, versionId, scene, beat, isPureMode, onNavigate]);
+  }, [registry, styleId, topicId, scene, beat, isPureMode, onNavigate]);
 
   const handleJumpScene = useCallback(
     (targetScene: number) => {
-      const target = jumpScene(registry, styleId, versionId, targetScene);
+      const target = jumpScene(registry, styleId, topicId, targetScene);
       onNavigate(target);
     },
-    [registry, styleId, versionId, onNavigate],
+    [registry, styleId, topicId, onNavigate],
   );
 
   const handleStyleInternalNavigate = useCallback(
     (targetScene: number, targetBeat: number) => {
       onNavigate({
         styleId,
-        versionId,
+        topicId,
         scene: targetScene,
         beat: targetBeat,
       });
     },
-    [styleId, versionId, onNavigate],
+    [styleId, topicId, onNavigate],
   );
 
   const handleStageClick = useCallback(
@@ -206,16 +206,16 @@ export default function LabView({
     [handleNext],
   );
 
-  const handleVersionBarSelect = useCallback(
-    (targetVersionId: string) => {
+  const handleTopicBarSelect = useCallback(
+    (targetTopicId: string) => {
       if (!found) return;
 
-      const targetVersion = found.style.versions.find(
-        (v) => v.id === targetVersionId,
+      const targetTopic = found.style.topics.find(
+        (topic) => topic.id === targetTopicId,
       );
-      if (!targetVersion) return;
+      if (!targetTopic) return;
 
-      const targetMeta = targetVersion.getMetadata(language);
+      const targetMeta = targetTopic.getMetadata(language);
       const targetScene = targetMeta.scenes.find((s) => s.id === scene)
         ?? targetMeta.scenes[0];
       const targetSceneId = targetScene?.id ?? 1;
@@ -224,7 +224,7 @@ export default function LabView({
 
       onNavigate({
         styleId: found.style.id,
-        versionId: targetVersionId,
+        topicId: targetTopicId,
         scene: targetSceneId,
         beat: Math.min(beat, lastBeat),
       });
@@ -279,7 +279,7 @@ export default function LabView({
     );
   }
 
-  const StyleComponent = found.version.component;
+  const StyleComponent = found.topic.component;
 
   const styleProps: BespokeStyleProps = {
     scene,
@@ -304,14 +304,14 @@ export default function LabView({
       data-testid="lab-view"
       className="w-full h-full flex flex-col"
     >
-      {/* VersionBar (hidden in pure mode) */}
+      {/* TopicBar (hidden in pure mode) */}
       {!isPureMode && (
-        <VersionBar
+        <TopicBar
           style={found.style}
-          currentVersionId={versionId}
+          currentTopicId={topicId}
           language={language}
           onGoOverview={onGoOverview}
-          onSelectVersion={handleVersionBarSelect}
+          onSelectTopic={handleTopicBarSelect}
         />
       )}
 

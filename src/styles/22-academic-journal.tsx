@@ -211,7 +211,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "22",
+    id: "duotone-session",
     band: "editorial-print",
     name: nameMap[lang],
     theme: themeMap[lang],

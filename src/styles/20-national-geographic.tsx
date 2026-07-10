@@ -225,7 +225,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "20",
+    id: "scholars-vellum",
     band: "editorial-print",
     name: nameMap[lang],
     theme: themeMap[lang],

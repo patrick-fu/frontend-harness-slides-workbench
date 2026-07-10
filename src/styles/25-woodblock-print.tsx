@@ -285,7 +285,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "25",
+    id: "woodblock-floating-world",
     band: "craft-cultural",
     name: nameMap[lang],
     theme: themeMap[lang],

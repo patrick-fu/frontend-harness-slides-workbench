@@ -80,7 +80,7 @@ describe("Style 25: woodblock-print — overflow check", () => {
 describe("Style 25: woodblock-print — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("25");
+    expect(meta.id).toBe("woodblock-floating-world");
     expect(meta.band).toBe("craft-cultural");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

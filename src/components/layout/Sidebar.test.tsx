@@ -52,9 +52,9 @@ function makeMockEntry(
   return {
     id,
     name: { en: nameEn, zh: nameZh },
-    versions: [
+    topics: [
       {
-        id: "v1",
+        id: "default-topic",
         topic: { en: `${nameEn} Topic`, zh: `${nameZh}题材` },
         model: "test-model",
         component: () => null,
@@ -71,18 +71,18 @@ function makeMockEntry(
 
 function makeMockRegistry(): StyleRegistryEntry[] {
   return [
-    makeMockEntry("01", "minimal-keynote", "Executive Silence", "静默主旨"),
-    makeMockEntry("02", "minimal-keynote", "Pure Focus", "纯粹聚焦"),
-    makeMockEntry("09", "balanced-hybrid", "System Flow", "系统流程"),
-    makeMockEntry("10", "balanced-hybrid", "Process Map", "过程地图"),
-    makeMockEntry("17", "editorial-print", "Broadsheet", "大报版式"),
-    makeMockEntry("18", "editorial-print", "Magazine", "杂志"),
-    makeMockEntry("25", "craft-cultural", "Woodblock", "木刻版画"),
-    makeMockEntry("26", "craft-cultural", "Origami", "折纸"),
-    makeMockEntry("33", "contemporary-digital", "Glass UI", "玻璃界面"),
-    makeMockEntry("34", "contemporary-digital", "Retro OS", "复古系统"),
-    makeMockEntry("41", "text-report", "Evidence First", "证据优先"),
-    makeMockEntry("42", "text-report", "Data Brief", "数据简报"),
+    makeMockEntry("executive-silence", "minimal-keynote", "Executive Silence", "静默主旨"),
+    makeMockEntry("pure-focus", "minimal-keynote", "Pure Focus", "纯粹聚焦"),
+    makeMockEntry("system-flow", "balanced-hybrid", "System Flow", "系统流程"),
+    makeMockEntry("process-map", "balanced-hybrid", "Process Map", "过程地图"),
+    makeMockEntry("broadsheet", "editorial-print", "Broadsheet", "大报版式"),
+    makeMockEntry("magazine", "editorial-print", "Magazine", "杂志"),
+    makeMockEntry("woodblock", "craft-cultural", "Woodblock", "木刻版画"),
+    makeMockEntry("origami", "craft-cultural", "Origami", "折纸"),
+    makeMockEntry("glass-ui", "contemporary-digital", "Glass UI", "玻璃界面"),
+    makeMockEntry("retro-os", "contemporary-digital", "Retro OS", "复古系统"),
+    makeMockEntry("evidence-first", "text-report", "Evidence First", "证据优先"),
+    makeMockEntry("data-brief", "text-report", "Data Brief", "数据简报"),
   ];
 }
 
@@ -91,10 +91,10 @@ function renderSidebar(
 ) {
   const defaultProps = {
     registry: makeMockRegistry(),
-    currentStyleId: "01",
-    currentVersionId: "v1",
+    currentStyleId: "executive-silence",
+    currentTopicId: "default-topic",
     onSelectStyle: vi.fn(),
-    onSelectVersion: vi.fn(),
+    onSelectTopic: vi.fn(),
     isOpen: true,
     onClose: vi.fn(),
     language: "en" as const,
@@ -107,7 +107,7 @@ function renderSidebar(
   return {
     ...result,
     onSelectStyle: defaultProps.onSelectStyle,
-    onSelectVersion: defaultProps.onSelectVersion,
+    onSelectTopic: defaultProps.onSelectTopic,
     onClose: defaultProps.onClose,
     onWidthChange: defaultProps.onWidthChange,
   };
@@ -147,15 +147,15 @@ describe("Sidebar — band sections", () => {
     expect(screen.getByText("静默主旨")).toBeInTheDocument();
   });
 
-  it("shows localized version topics inside expanded multi-version styles", () => {
+  it("shows localized topics inside expanded multi-topic styles", () => {
     const registry = makeMockRegistry();
     registry[0] = {
       ...registry[0],
-      versions: [
-        registry[0].versions[0],
+      topics: [
+        registry[0].topics[0],
         {
-          ...registry[0].versions[0],
-          id: "v2",
+          ...registry[0].topics[0],
+          id: "quiet-launch",
           topic: { en: "Quiet Launch", zh: "安静发布" },
           model: "GPT-5.5",
         },
@@ -173,7 +173,7 @@ describe("Sidebar — band sections", () => {
 
 describe("Sidebar — current style highlight", () => {
   it("marks the current style with aria-current='true'", () => {
-    renderSidebar({ currentStyleId: "01" });
+    renderSidebar({ currentStyleId: "executive-silence" });
     const current = screen.getByText("Executive Silence");
     // The element with aria-current should be an ancestor or the element itself
     const ariaCurrentEl = current.closest('[aria-current="true"]') || (current.getAttribute("aria-current") === "true" ? current : null);
@@ -181,7 +181,7 @@ describe("Sidebar — current style highlight", () => {
   });
 
   it("does not mark non-current styles with aria-current='true'", () => {
-    renderSidebar({ currentStyleId: "01" });
+    renderSidebar({ currentStyleId: "executive-silence" });
     const other = screen.getByText("Pure Focus");
     const ariaCurrentEl = other.closest('[aria-current="true"]');
     expect(ariaCurrentEl).toBeNull();
@@ -194,13 +194,13 @@ describe("Sidebar — style selection", () => {
   it("clicking a style calls onSelectStyle with its id", () => {
     const { onSelectStyle } = renderSidebar();
     fireEvent.click(screen.getByText("System Flow"));
-    expect(onSelectStyle).toHaveBeenCalledWith("09");
+    expect(onSelectStyle).toHaveBeenCalledWith("system-flow");
   });
 
   it("clicking another style calls onSelectStyle with correct id", () => {
     const { onSelectStyle } = renderSidebar();
     fireEvent.click(screen.getByText("Glass UI"));
-    expect(onSelectStyle).toHaveBeenCalledWith("33");
+    expect(onSelectStyle).toHaveBeenCalledWith("glass-ui");
   });
 
   it("blurs the clicked style button after selection", () => {
@@ -214,28 +214,28 @@ describe("Sidebar — style selection", () => {
     expect(document.activeElement).not.toBe(styleButton);
   });
 
-  it("blurs the clicked version button after selection", () => {
+  it("blurs the clicked topic button after selection", () => {
     const registry = makeMockRegistry();
     registry[0] = {
       ...registry[0],
-      versions: [
-        registry[0].versions[0],
+      topics: [
+        registry[0].topics[0],
         {
-          ...registry[0].versions[0],
-          id: "v2",
+          ...registry[0].topics[0],
+          id: "quiet-launch",
           topic: { en: "Quiet Launch", zh: "安静发布" },
           model: "GPT-5.5",
         },
       ],
     };
     renderSidebar({ registry });
-    const versionButton = screen.getByText("Quiet Launch").closest("button");
-    expect(versionButton).not.toBeNull();
-    versionButton!.focus();
+    const topicButton = screen.getByText("Quiet Launch").closest("button");
+    expect(topicButton).not.toBeNull();
+    topicButton!.focus();
 
-    fireEvent.click(versionButton!);
+    fireEvent.click(topicButton!);
 
-    expect(document.activeElement).not.toBe(versionButton);
+    expect(document.activeElement).not.toBe(topicButton);
   });
 });
 
@@ -247,12 +247,10 @@ describe("Sidebar — collapsed state", () => {
     expect(screen.getByText("Executive Silence")).toBeInTheDocument();
   });
 
-  it("hides style names when collapsed (only IDs visible)", () => {
+  it("hides style names when collapsed", () => {
     renderSidebar({ collapsed: true });
-    // Style name spans should not be rendered (collapsed hides them)
     expect(screen.queryByText("Executive Silence")).not.toBeInTheDocument();
-    // But the ID number should still be visible
-    expect(screen.getByText("01")).toBeInTheDocument();
+    expect(screen.getByTestId("sidebar-style-executive-silence")).toBeInTheDocument();
   });
 
   it("does not render a collapse toggle button (controlled by parent hamburger)", () => {

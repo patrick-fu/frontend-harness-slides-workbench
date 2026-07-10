@@ -8,9 +8,9 @@ export function isCJKFont(fontName: string): boolean {
 }
 
 /**
- * Collect all font families used across all versions in the registry.
+ * Collect all font families used across all topics in the registry.
  *
- * - Iterates every style → every version → calls getMetadata(lang).
+ * - Iterates every style → every topic → calls getMetadata(lang).
  * - Deduplicates (first occurrence wins).
  * - When lang="en": drops fonts prefixed with "cjk:".
  * - When lang="zh": keeps all fonts, stripping the "cjk:" prefix.
@@ -23,8 +23,8 @@ export function collectAllFonts(
   const result: string[] = [];
 
   for (const style of registry) {
-    for (const version of style.versions) {
-      const meta = version.getMetadata(lang);
+    for (const topic of style.topics) {
+      const meta = topic.getMetadata(lang);
       for (const font of meta.fonts) {
         if (lang === "en" && isCJKFont(font)) {
           continue;

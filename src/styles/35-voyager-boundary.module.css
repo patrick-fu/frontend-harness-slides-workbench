@@ -1,0 +1,1304 @@
+.root {
+  --desktop: #123f47;
+  --desktop-deep: #082c34;
+  --panel: #c7c8c3;
+  --panel-light: #f4f3ea;
+  --panel-mid: #8a8d8a;
+  --panel-dark: #3c4142;
+  --navy: #051f74;
+  --blue: #0865ad;
+  --crt: #061013;
+  --crt-grid: rgba(94, 225, 208, 0.08);
+  --signal: #5ce1d0;
+  --lime: #c6ef67;
+  --amber: #f6cf62;
+  --danger: #e36a6a;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: size;
+  color: #10151c;
+  background:
+    linear-gradient(128deg, rgba(255, 255, 255, 0.035), transparent 46%),
+    var(--desktop);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  user-select: none;
+}
+
+.root,
+.root * {
+  box-sizing: border-box;
+}
+
+.desktopNoise {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.38;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 0.08cqh, transparent 0.08cqh),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.025) 0.05cqw, transparent 0.05cqw);
+  background-size: 100% 0.55cqh, 0.55cqw 100%;
+}
+
+.sceneTrack {
+  position: relative;
+  z-index: 1;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.header {
+  position: absolute;
+  top: 6.2cqh;
+  left: 4.6cqw;
+  z-index: 5;
+  width: 30.5cqw;
+  color: #edf5ef;
+}
+
+.eyebrow {
+  margin: 0 0 1.7cqh;
+  color: var(--amber);
+  font-size: 0.82cqw;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.08cqw;
+}
+
+.header h1 {
+  margin: 0;
+  max-width: 30cqw;
+  font-size: 3.24cqw;
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.09cqw;
+  text-wrap: balance;
+}
+
+.root[lang="zh-CN"] .header h1 {
+  font-family: "Noto Sans SC", sans-serif;
+  font-size: 2.72cqw;
+  line-height: 1.14;
+  letter-spacing: -0.04cqw;
+}
+
+.body {
+  max-width: 29cqw;
+  margin: 2cqh 0 0;
+  color: rgba(237, 245, 239, 0.82);
+  font-size: 1.02cqw;
+  font-weight: 500;
+  line-height: 1.52;
+}
+
+.root[lang="zh-CN"] .body {
+  font-family: "Noto Sans SC", sans-serif;
+  font-size: 1.08cqw;
+  line-height: 1.7;
+}
+
+.beatReadout {
+  display: grid;
+  grid-template-columns: 3.4cqw 1fr;
+  align-items: stretch;
+  width: 27cqw;
+  min-height: 6.8cqh;
+  margin-top: 3cqh;
+  border-top: 0.16cqw solid var(--panel-light);
+  border-left: 0.16cqw solid var(--panel-light);
+  border-right: 0.16cqw solid var(--panel-dark);
+  border-bottom: 0.16cqw solid var(--panel-dark);
+  color: #10151c;
+  background: var(--panel);
+}
+
+.beatReadout span {
+  display: grid;
+  place-items: center;
+  color: var(--panel-light);
+  background: var(--navy);
+  font-size: 1.18cqw;
+  font-weight: 700;
+}
+
+.beatReadout strong {
+  display: flex;
+  align-items: center;
+  padding: 0.8cqh 0.8cqw;
+  font-size: 0.84cqw;
+  line-height: 1.25;
+}
+
+.root[lang="zh-CN"] .beatReadout strong {
+  font-family: "Noto Sans SC", sans-serif;
+  font-size: 0.9cqw;
+}
+
+.window {
+  position: absolute;
+  overflow: hidden;
+  border-top: 0.24cqw solid var(--panel-light);
+  border-left: 0.24cqw solid var(--panel-light);
+  border-right: 0.24cqw solid var(--panel-dark);
+  border-bottom: 0.24cqw solid var(--panel-dark);
+  background: var(--panel);
+  box-shadow: 0.48cqw 0.75cqh 0 rgba(4, 20, 25, 0.32);
+  transition:
+    transform 120ms steps(2, end),
+    filter 120ms steps(2, end),
+    opacity 120ms linear;
+}
+
+.windowActive {
+  filter: saturate(1.08);
+}
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4.2cqh;
+  padding: 0.45cqh 0.45cqw 0.45cqh 0.7cqw;
+  color: #fff;
+  background: linear-gradient(90deg, var(--navy), var(--blue));
+  font-size: 0.84cqw;
+  font-weight: 700;
+  letter-spacing: 0.025cqw;
+  white-space: nowrap;
+}
+
+.windowControls {
+  display: flex;
+  gap: 0.2cqw;
+}
+
+.windowControls i {
+  display: grid;
+  width: 1.55cqw;
+  height: 2.55cqh;
+  place-items: center;
+  border-top: 0.12cqw solid var(--panel-light);
+  border-left: 0.12cqw solid var(--panel-light);
+  border-right: 0.12cqw solid var(--panel-dark);
+  border-bottom: 0.12cqw solid var(--panel-dark);
+  color: #10151c;
+  background: var(--panel);
+  font-size: 0.72cqw;
+  font-style: normal;
+  line-height: 1;
+}
+
+.windowBody {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 4.2cqh);
+  overflow: hidden;
+}
+
+.sceneFooter {
+  position: absolute;
+  right: 4.2cqw;
+  bottom: 14.2cqh;
+  z-index: 6;
+  display: flex;
+  max-width: 56cqw;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1cqw;
+  color: rgba(237, 245, 239, 0.76);
+  font-size: 0.65cqw;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: right;
+}
+
+.sceneFooter span:first-child {
+  padding: 0.55cqh 0.62cqw;
+  color: #10151c;
+  background: var(--amber);
+}
+
+.sceneFooter span:last-child {
+  max-width: 25cqw;
+}
+
+.bootDesktop {
+  position: absolute;
+  top: 6cqh;
+  right: 4.2cqw;
+  width: 58.5cqw;
+  height: 76cqh;
+}
+
+.clockWindow {
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  width: 28cqw;
+  height: 24cqh;
+}
+
+.clockWindow .windowBody {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  gap: 1cqw;
+  padding: 2.5cqh 1.4cqw 1.3cqh;
+}
+
+.clockValue {
+  font-size: 1.55cqw;
+  font-weight: 700;
+}
+
+.clockTrack {
+  position: relative;
+  height: 1.3cqh;
+  border-top: 0.12cqw solid var(--panel-dark);
+  border-left: 0.12cqw solid var(--panel-dark);
+  border-right: 0.12cqw solid var(--panel-light);
+  border-bottom: 0.12cqw solid var(--panel-light);
+  background: #fff;
+}
+
+.clockTrack span {
+  position: absolute;
+  inset: 0.16cqh 0.15cqw;
+  background: repeating-linear-gradient(90deg, var(--blue) 0 0.35cqw, transparent 0.35cqw 0.55cqw);
+}
+
+.clockWindow p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #3c4142;
+  font-size: 0.72cqw;
+  font-weight: 700;
+}
+
+.bootMapWindow {
+  top: 0;
+  right: 0;
+  z-index: 2;
+  width: 39cqw;
+  height: 68cqh;
+}
+
+.bootMapWindow .windowBody,
+.trajectoryWindow .windowBody,
+.boundaryWindow .windowBody {
+  border-top: 0.17cqw solid var(--panel-dark);
+  border-left: 0.17cqw solid var(--panel-dark);
+  border-right: 0.17cqw solid var(--panel-light);
+  border-bottom: 0.17cqw solid var(--panel-light);
+  background:
+    linear-gradient(var(--crt-grid) 0.08cqh, transparent 0.08cqh),
+    linear-gradient(90deg, var(--crt-grid) 0.05cqw, transparent 0.05cqw),
+    var(--crt);
+  background-size: 100% 1.15cqh, 1.1cqw 100%;
+}
+
+.miniHeliosphere {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sun {
+  position: absolute;
+  top: 43%;
+  left: 16%;
+  width: 3.1cqw;
+  height: 3.1cqw;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 1.6cqw rgba(246, 207, 98, 0.55);
+}
+
+.helioBubble {
+  position: absolute;
+  top: 16%;
+  left: 8%;
+  width: 25cqw;
+  height: 42cqh;
+  border: 0.16cqw dashed rgba(92, 225, 208, 0.68);
+  border-radius: 52% 44% 48% 53%;
+}
+
+.boundaryArc {
+  position: absolute;
+  top: 10%;
+  left: 31.2cqw;
+  width: 0.35cqw;
+  height: 49cqh;
+  background: var(--signal);
+  box-shadow: 0 0 1.2cqw rgba(92, 225, 208, 0.75);
+  transform: rotate(4deg);
+}
+
+.bootRouteOne,
+.bootRouteTwo {
+  position: absolute;
+  left: 18%;
+  width: 22cqw;
+  height: 0.16cqh;
+  border-top: 0.12cqw dashed var(--amber);
+  transform-origin: left center;
+}
+
+.bootRouteOne {
+  top: 44%;
+  transform: rotate(-20deg);
+}
+
+.bootRouteTwo {
+  top: 51%;
+  transform: rotate(17deg);
+}
+
+.solarLabel,
+.interstellarLabel {
+  position: absolute;
+  color: var(--signal);
+  font-size: 0.7cqw;
+  font-weight: 700;
+  letter-spacing: 0.04cqw;
+}
+
+.solarLabel {
+  bottom: 6%;
+  left: 8%;
+}
+
+.interstellarLabel {
+  right: 3%;
+  bottom: 6%;
+}
+
+.probe {
+  position: relative;
+  display: block;
+  width: 7cqw;
+  height: 7cqh;
+  color: var(--panel-light);
+}
+
+.probeCompact {
+  width: 4.4cqw;
+  height: 4.8cqh;
+}
+
+.probeDish {
+  position: absolute;
+  top: 0.5cqh;
+  left: 0.2cqw;
+  width: 2.8cqw;
+  height: 2.8cqw;
+  border: 0.28cqw solid currentColor;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  transform: rotate(45deg);
+}
+
+.probeCompact .probeDish {
+  width: 1.8cqw;
+  height: 1.8cqw;
+  border-width: 0.18cqw;
+}
+
+.probeBus {
+  position: absolute;
+  top: 2.7cqh;
+  left: 2.5cqw;
+  width: 2cqw;
+  height: 2.5cqh;
+  border: 0.14cqw solid currentColor;
+  background: rgba(92, 225, 208, 0.18);
+}
+
+.probeCompact .probeBus {
+  top: 1.9cqh;
+  left: 1.6cqw;
+  width: 1.25cqw;
+  height: 1.6cqh;
+}
+
+.probeBoom {
+  position: absolute;
+  top: 3.8cqh;
+  left: 4.3cqw;
+  width: 2.5cqw;
+  height: 0.1cqh;
+  background: currentColor;
+  transform: rotate(-9deg);
+  transform-origin: left;
+}
+
+.probeCompact .probeBoom {
+  top: 2.6cqh;
+  left: 2.8cqw;
+  width: 1.4cqw;
+}
+
+.probe b {
+  position: absolute;
+  left: 2.35cqw;
+  bottom: 0;
+  font-size: 0.68cqw;
+}
+
+.probeCompact b {
+  left: 1.45cqw;
+  font-size: 0.55cqw;
+}
+
+.miniHeliosphere .probe {
+  position: absolute;
+  color: var(--panel-light);
+}
+
+.miniHeliosphere .probe:nth-child(6) {
+  top: 20%;
+  right: 1%;
+  transform: rotate(-18deg);
+}
+
+.miniHeliosphere .probe:nth-child(7) {
+  right: 0;
+  bottom: 17%;
+  transform: rotate(15deg);
+}
+
+.trajectoryWindow {
+  top: 4.8cqh;
+  right: 3.9cqw;
+  width: 59cqw;
+  height: 77cqh;
+}
+
+.routeLegend {
+  position: absolute;
+  top: 1.7cqh;
+  left: 1cqw;
+  z-index: 3;
+  display: flex;
+  gap: 1.4cqw;
+  color: var(--signal);
+  font-size: 0.7cqw;
+  font-weight: 700;
+}
+
+.routeLegend b {
+  color: var(--amber);
+}
+
+.trajectoryMap {
+  position: absolute;
+  inset: 5cqh 1.2cqw 1.5cqh;
+  width: calc(100% - 2.4cqw);
+  height: calc(100% - 6.5cqh);
+  overflow: visible;
+}
+
+.mapSun {
+  fill: var(--amber);
+  filter: drop-shadow(0 0 0.6cqw rgba(246, 207, 98, 0.65));
+}
+
+.planetOrbit {
+  fill: none;
+  stroke: rgba(92, 225, 208, 0.16);
+  stroke-width: 0.22;
+}
+
+.planetDot {
+  fill: var(--panel-light);
+}
+
+.planetLabel,
+.boundaryLabel,
+.crossingLabel {
+  fill: var(--panel-light);
+  stroke: var(--crt);
+  stroke-width: 0.38;
+  paint-order: stroke;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+}
+
+.boundaryLabel {
+  fill: var(--signal);
+}
+
+.routeBase {
+  fill: none;
+  stroke: rgba(244, 243, 234, 0.16);
+  stroke-width: 0.55;
+}
+
+.routeV1,
+.routeV2 {
+  fill: none;
+  stroke-width: 1.05;
+  stroke-linecap: square;
+  stroke-dasharray: 100;
+  stroke-dashoffset: var(--route-progress);
+  transition: stroke-dashoffset 800ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.routeV1 {
+  stroke: var(--amber);
+}
+
+.routeV2 {
+  stroke: var(--signal);
+}
+
+.mapBoundary {
+  stroke: var(--signal);
+  stroke-width: 0.45;
+  stroke-dasharray: 1.7 1.2;
+}
+
+.crossingDot {
+  fill: var(--signal);
+  stroke: var(--panel-light);
+  stroke-width: 0.55;
+}
+
+.trajectoryMap g {
+  transition: opacity 240ms ease;
+}
+
+.trajectoryMap g[data-visible="false"] {
+  opacity: 0.08;
+}
+
+.trajectoryMap g[data-visible="true"] {
+  opacity: 1;
+}
+
+.evidenceDesktop {
+  position: absolute;
+  top: 5cqh;
+  right: 3.8cqw;
+  width: 59.5cqw;
+  height: 77cqh;
+}
+
+.evidenceWindow {
+  width: 39cqw;
+  height: 41cqh;
+}
+
+.evidenceWindow:first-child {
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.evidenceWindow:last-child {
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+}
+
+.evidenceWindow[data-window-active="false"] {
+  opacity: 0.55;
+  filter: grayscale(0.65) brightness(0.72);
+  transform: translateY(0.8cqh);
+}
+
+.evidenceWindow[data-window-active="true"] {
+  opacity: 1;
+  transform: translateY(0);
+  box-shadow:
+    0.48cqw 0.75cqh 0 rgba(4, 20, 25, 0.32),
+    0 0 1.5cqw rgba(92, 225, 208, 0.36);
+}
+
+.evidenceWindow .windowBody {
+  padding: 1.4cqh 1cqw 1.2cqh;
+  border-top: 0.14cqw solid var(--panel-dark);
+  border-left: 0.14cqw solid var(--panel-dark);
+  border-right: 0.14cqw solid var(--panel-light);
+  border-bottom: 0.14cqw solid var(--panel-light);
+  background: #f3f2e9;
+}
+
+.telemetryRows {
+  display: grid;
+  gap: 0.72cqh;
+}
+
+.telemetryRow {
+  display: grid;
+  grid-template-columns: 8.5cqw 1fr;
+  min-height: 4.6cqh;
+  align-items: center;
+  border: 0.12cqw solid var(--panel-mid);
+  background: #fff;
+}
+
+.telemetryRow b {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  padding: 0 0.7cqw;
+  color: #fff;
+  background: var(--navy);
+  font-size: 0.72cqw;
+}
+
+.telemetryRow span {
+  padding: 0 0.8cqw;
+  font-size: 0.72cqw;
+  font-weight: 700;
+}
+
+.telemetryRow[data-tone="ok"] span {
+  color: #185a44;
+}
+
+.telemetryRow[data-tone="info"] span {
+  color: #124f80;
+}
+
+.telemetryRow[data-tone="missing"] span {
+  color: #8d2929;
+  background: repeating-linear-gradient(135deg, rgba(227, 106, 106, 0.12) 0 0.45cqw, transparent 0.45cqw 0.9cqw);
+}
+
+.evidenceFoot {
+  margin: 1.1cqh 0 0;
+  padding-top: 0.8cqh;
+  border-top: 0.12cqw dotted var(--panel-mid);
+  font-size: 0.68cqw;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.root[lang="zh-CN"] .evidenceFoot {
+  font-family: "Noto Sans SC", sans-serif;
+  font-size: 0.76cqw;
+}
+
+.evidenceLink {
+  position: absolute;
+  top: 36cqh;
+  left: 23cqw;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: auto 9cqw auto;
+  align-items: center;
+  gap: 0.5cqw;
+  padding: 0.7cqh 0.7cqw;
+  border: 0.13cqw solid var(--panel-dark);
+  background: var(--amber);
+  font-size: 0.62cqw;
+  font-weight: 700;
+}
+
+.evidenceLink i {
+  height: 0.18cqh;
+  background: var(--navy);
+}
+
+.boundaryWindow {
+  top: 3.5cqh;
+  right: 3cqw;
+  width: 64cqw;
+  height: 80.5cqh;
+}
+
+.scene4 .header {
+  top: 7.2cqh;
+  width: 27cqw;
+}
+
+.scene4 .header h1 {
+  font-size: 2.95cqw;
+}
+
+.root[lang="zh-CN"] .scene4 .header h1 {
+  font-size: 2.55cqw;
+}
+
+.scene4 .body {
+  max-width: 27cqw;
+  font-size: 0.94cqw;
+}
+
+.scene4 .beatReadout {
+  width: 25cqw;
+}
+
+.boundaryMap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--panel-light);
+  background:
+    linear-gradient(rgba(92, 225, 208, 0.055) 0.08cqh, transparent 0.08cqh),
+    linear-gradient(90deg, rgba(92, 225, 208, 0.035) 0.05cqw, transparent 0.05cqw),
+    var(--crt);
+  background-size: 100% 0.78cqh, 0.8cqw 100%;
+}
+
+.heliosheathField,
+.interstellarField {
+  position: absolute;
+  inset: 0;
+}
+
+.heliosheathField {
+  right: 45%;
+  background:
+    radial-gradient(circle at 30% 50%, rgba(246, 207, 98, 0.18), transparent 50%),
+    repeating-linear-gradient(7deg, transparent 0 1.2cqh, rgba(246, 207, 98, 0.06) 1.2cqh 1.45cqh);
+}
+
+.interstellarField {
+  left: 55%;
+  background: radial-gradient(circle at 62% 45%, rgba(92, 225, 208, 0.12), transparent 52%);
+}
+
+.heliosheathField span,
+.interstellarField span {
+  position: absolute;
+  top: 3cqh;
+  font-size: 0.72cqw;
+  font-weight: 700;
+  letter-spacing: 0.035cqw;
+}
+
+.heliosheathField span {
+  left: 2cqw;
+  color: var(--amber);
+}
+
+.interstellarField span {
+  right: 2cqw;
+  color: var(--signal);
+}
+
+.heliopauseLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 55%;
+  z-index: 4;
+  width: 0.28cqw;
+  background: rgba(92, 225, 208, 0.56);
+  transform: skewY(-8deg);
+  transition:
+    width 240ms ease,
+    box-shadow 240ms ease,
+    background 240ms ease;
+}
+
+.heliopauseLine[data-boundary-highlight="true"] {
+  width: 0.52cqw;
+  background: var(--signal);
+  box-shadow: 0 0 2.3cqw rgba(92, 225, 208, 0.92);
+}
+
+.heliopauseLine b {
+  position: absolute;
+  top: 50%;
+  left: -2.1cqw;
+  padding: 0.45cqh 0.45cqw;
+  color: var(--crt);
+  background: var(--signal);
+  font-size: 0.64cqw;
+  letter-spacing: 0.03cqw;
+  transform: rotate(-90deg) translateX(-50%);
+  transform-origin: left top;
+  white-space: nowrap;
+}
+
+.starField {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.starField i {
+  position: absolute;
+  width: 0.16cqw;
+  height: 0.16cqw;
+  background: rgba(244, 243, 234, 0.76);
+}
+
+.starField i:nth-child(3n) {
+  width: 0.08cqw;
+  height: 0.08cqw;
+  background: var(--signal);
+}
+
+.movingProbe {
+  position: absolute;
+  top: 29%;
+  left: var(--probe-x);
+  z-index: 6;
+  color: var(--panel-light);
+  transform: rotate(-6deg);
+  transition: left 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.crtScan {
+  position: absolute;
+  top: -8%;
+  left: 0;
+  z-index: 8;
+  width: 100%;
+  height: 6.5cqh;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(180deg, transparent, rgba(92, 225, 208, 0.5), transparent);
+  mix-blend-mode: screen;
+  animation: crtScanOnce 720ms cubic-bezier(0.3, 0.6, 0.4, 1) both;
+}
+
+@keyframes crtScanOnce {
+  0% { opacity: 0; transform: translateY(0); }
+  18% { opacity: 0.92; }
+  82% { opacity: 0.72; }
+  100% { opacity: 0; transform: translateY(70cqh); }
+}
+
+.signalReadout {
+  position: absolute;
+  right: 2cqw;
+  bottom: 2.2cqh;
+  z-index: 7;
+  display: grid;
+  width: 25.5cqw;
+  gap: 0.72cqh;
+  padding: 1.3cqh 1cqw;
+  border: 0.11cqw solid rgba(92, 225, 208, 0.6);
+  background: rgba(3, 15, 18, 0.86);
+}
+
+.signalLine {
+  display: grid;
+  grid-template-columns: 8.8cqw 1fr 4.4cqw;
+  align-items: center;
+  gap: 0.55cqw;
+  font-size: 0.61cqw;
+  font-weight: 700;
+}
+
+.signalLine > span {
+  color: var(--panel-light);
+}
+
+.signalLine > i {
+  position: relative;
+  height: 1.05cqh;
+  border: 0.08cqw solid rgba(244, 243, 234, 0.35);
+}
+
+.signalLine > i b {
+  display: block;
+  height: 100%;
+  background: var(--signal);
+  transition: width 520ms ease;
+}
+
+.signalLine[data-signal-index="0"] > i b {
+  background: var(--amber);
+}
+
+.signalLine strong {
+  color: var(--signal);
+  font-size: 0.56cqw;
+  text-align: right;
+}
+
+.reducedBoundary {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 5.5cqw 1fr;
+  width: 100%;
+  height: 100%;
+  color: var(--panel-light);
+  background: var(--crt);
+}
+
+.reducedFrame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at center, rgba(246, 207, 98, 0.11), transparent 55%),
+    repeating-linear-gradient(0deg, rgba(92, 225, 208, 0.035) 0 0.08cqh, transparent 0.08cqh 0.65cqh);
+}
+
+.reducedFrame:last-child {
+  background:
+    radial-gradient(circle at center, rgba(92, 225, 208, 0.13), transparent 55%),
+    repeating-linear-gradient(0deg, rgba(92, 225, 208, 0.035) 0 0.08cqh, transparent 0.08cqh 0.65cqh);
+}
+
+.reducedFrame > span {
+  position: absolute;
+  top: 3cqh;
+  left: 1.5cqw;
+  color: var(--amber);
+  font-size: 0.75cqw;
+  font-weight: 700;
+}
+
+.reducedFrame:last-child > span {
+  color: var(--signal);
+}
+
+.reducedFrame .probe {
+  color: var(--panel-light);
+  transform: scale(1.45) rotate(-5deg);
+}
+
+.reducedSignal {
+  position: absolute;
+  right: 1.4cqw;
+  bottom: 3cqh;
+  left: 1.4cqw;
+  padding: 0.9cqh 0.8cqw;
+  border: 0.1cqw solid currentColor;
+  color: var(--amber);
+  font-size: 0.68cqw;
+  font-weight: 700;
+  text-align: center;
+}
+
+.reducedFrame:last-child .reducedSignal {
+  color: var(--signal);
+}
+
+.reducedDivider {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(90deg, transparent, rgba(92, 225, 208, 0.85), transparent);
+  box-shadow: 0 0 2.2cqw rgba(92, 225, 208, 0.72);
+}
+
+.reducedDivider b {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 0.6cqh 0.7cqw;
+  color: var(--crt);
+  background: var(--signal);
+  font-size: 0.7cqw;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  white-space: nowrap;
+}
+
+.statusDesktop {
+  position: absolute;
+  top: 7.5cqh;
+  right: 4cqw;
+  width: 58cqw;
+  height: 73cqh;
+}
+
+.definitionWindow {
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 39cqw;
+  height: 43cqh;
+}
+
+.definitionWindow .windowBody {
+  padding: 1.6cqh 1.2cqw;
+  background: #f3f2e9;
+}
+
+.definitionDiagram {
+  position: relative;
+  height: 17cqh;
+  margin-bottom: 1.5cqh;
+  border-top: 0.13cqw solid var(--panel-dark);
+  border-left: 0.13cqw solid var(--panel-dark);
+  border-right: 0.13cqw solid var(--panel-light);
+  border-bottom: 0.13cqw solid var(--panel-light);
+  background: #fff;
+}
+
+.definitionDiagram > small {
+  position: absolute;
+  top: 0.7cqh;
+  right: 0.6cqw;
+  color: var(--panel-mid);
+  font-size: 0.5cqw;
+  font-weight: 700;
+}
+
+.definitionSun,
+.definitionHelio,
+.definitionOort {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 0.56cqw;
+  font-weight: 700;
+  transform: translate(-50%, -50%);
+}
+
+.definitionSun {
+  left: 12%;
+  width: 3.2cqw;
+  height: 3.2cqw;
+  background: var(--amber);
+}
+
+.definitionHelio {
+  left: 45%;
+  width: 10cqw;
+  height: 10cqw;
+  border: 0.25cqw solid var(--signal);
+  color: var(--navy);
+}
+
+.definitionOort {
+  left: 84%;
+  width: 7cqw;
+  height: 7cqw;
+  border: 0.18cqw dashed var(--navy);
+  color: var(--navy);
+}
+
+.definitionWindow strong {
+  display: block;
+  color: var(--navy);
+  font-size: 1cqw;
+  line-height: 1.25;
+}
+
+.definitionWindow p {
+  margin: 0.65cqh 0 0;
+  font-size: 0.68cqw;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.statusWindow {
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  width: 38cqw;
+  height: 36cqh;
+}
+
+.statusWindow .windowBody {
+  padding: 1.6cqh 1.2cqw;
+  background: var(--panel);
+}
+
+.snapshot {
+  margin-bottom: 1.1cqh;
+  padding: 0.75cqh 0.7cqw;
+  color: #fff;
+  background: var(--navy);
+  font-size: 0.72cqw;
+  font-weight: 700;
+}
+
+.probeStatus {
+  display: grid;
+  grid-template-columns: 14cqw 1fr;
+  align-items: center;
+  min-height: 5.7cqh;
+  margin-top: 0.8cqh;
+  border-top: 0.12cqw solid var(--panel-light);
+  border-left: 0.12cqw solid var(--panel-light);
+  border-right: 0.12cqw solid var(--panel-dark);
+  border-bottom: 0.12cqw solid var(--panel-dark);
+  background: #e7e7df;
+}
+
+.probeStatus b,
+.probeStatus span {
+  padding: 0.7cqh 0.7cqw;
+  font-size: 0.66cqw;
+}
+
+.probeStatus b {
+  color: #16513f;
+}
+
+.probeStatus span {
+  color: #7c2c2c;
+  text-align: right;
+}
+
+.statusWindow small {
+  display: block;
+  margin-top: 1.1cqh;
+  font-size: 0.62cqw;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.root[lang="zh-CN"] .definitionWindow strong,
+.root[lang="zh-CN"] .definitionWindow p,
+.root[lang="zh-CN"] .statusWindow small {
+  font-family: "Noto Sans SC", sans-serif;
+}
+
+.telemetryNav {
+  position: absolute;
+  right: 6.5cqw;
+  bottom: 5.1cqh;
+  left: 6.5cqw;
+  z-index: 20;
+  height: 8.1cqh;
+}
+
+.navTrail {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.navTrail path {
+  fill: none;
+  stroke: rgba(92, 225, 208, 0.7);
+  stroke-width: 0.48;
+  stroke-dasharray: 2.1 1.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.telemetryNav button {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 2.3cqw auto;
+  min-width: 8.2cqw;
+  height: 4.6cqh;
+  align-items: center;
+  padding: 0;
+  border-top: 0.16cqw solid var(--panel-light);
+  border-left: 0.16cqw solid var(--panel-light);
+  border-right: 0.16cqw solid var(--panel-dark);
+  border-bottom: 0.16cqw solid var(--panel-dark);
+  color: #10151c;
+  background: var(--panel);
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  cursor: pointer;
+  transition:
+    transform 120ms steps(2, end),
+    box-shadow 120ms linear,
+    filter 120ms linear;
+}
+
+.telemetryNav button[data-nav-scene="1"] { top: 3.4cqh; left: 0; }
+.telemetryNav button[data-nav-scene="2"] { top: 0; left: 23%; }
+.telemetryNav button[data-nav-scene="3"] { top: 3.8cqh; left: 46%; }
+.telemetryNav button[data-nav-scene="4"] { top: 0.6cqh; left: 69%; }
+.telemetryNav button[data-nav-scene="5"] { top: 2cqh; right: 0; }
+
+.telemetryNav button > span {
+  display: grid;
+  align-self: stretch;
+  place-items: center;
+  color: #fff;
+  background: var(--navy);
+  font-size: 0.72cqw;
+  font-weight: 700;
+}
+
+.telemetryNav button > b {
+  padding: 0 0.6cqw;
+  font-size: 0.62cqw;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.telemetryNav button:hover,
+.telemetryNav button:focus-visible,
+.telemetryNav .navActive {
+  outline: none;
+  filter: brightness(1.08);
+  transform: translateY(-0.45cqh);
+  box-shadow:
+    0 0 0 0.18cqw var(--signal),
+    0 0 1.35cqw rgba(92, 225, 208, 0.86);
+}
+
+.telemetryNav .navActive > span {
+  color: var(--crt);
+  background: var(--signal);
+}
+
+.taskbar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 21;
+  display: grid;
+  grid-template-columns: 3cqw 1fr auto;
+  height: 4cqh;
+  align-items: center;
+  border-top: 0.18cqw solid var(--panel-light);
+  color: #10151c;
+  background: var(--panel);
+  font-size: 0.7cqw;
+  font-weight: 700;
+}
+
+.taskbar b {
+  display: grid;
+  align-self: stretch;
+  place-items: center;
+  margin: 0.35cqh 0.35cqw;
+  border-top: 0.13cqw solid var(--panel-light);
+  border-left: 0.13cqw solid var(--panel-light);
+  border-right: 0.13cqw solid var(--panel-dark);
+  border-bottom: 0.13cqw solid var(--panel-dark);
+  color: var(--navy);
+  font-size: 1.05cqw;
+}
+
+.taskbar span {
+  padding-left: 0.45cqw;
+}
+
+.taskbar i {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  margin: 0.35cqh 0.35cqw;
+  padding: 0 0.8cqw;
+  border-top: 0.12cqw solid var(--panel-dark);
+  border-left: 0.12cqw solid var(--panel-dark);
+  border-right: 0.12cqw solid var(--panel-light);
+  border-bottom: 0.12cqw solid var(--panel-light);
+  font-style: normal;
+}
+
+.motionOff *,
+.motionOff *::before,
+.motionOff *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}

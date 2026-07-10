@@ -112,7 +112,7 @@ describe("Style 41: Annual Report — overflow check", () => {
 describe("Style 41: Annual Report — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("41");
+    expect(meta.id).toBe("research-memo");
     expect(meta.band).toBe("text-report");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

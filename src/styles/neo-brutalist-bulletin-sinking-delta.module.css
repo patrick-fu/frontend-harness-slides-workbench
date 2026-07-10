@@ -1,0 +1,1031 @@
+.root {
+  --paper: #f5eedb;
+  --ink: #171510;
+  --accent: #ffd429;
+  --rule: 0.24cqw;
+  --shadow-x: 0.76cqw;
+  --shadow-y: 0.88cqh;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Arial Narrow", "PingFang SC", "Noto Sans SC", sans-serif;
+}
+
+.root,
+.root *,
+.root *::before,
+.root *::after {
+  box-sizing: border-box;
+}
+
+.track {
+  width: 100%;
+  height: 100%;
+}
+
+.scene {
+  position: relative;
+  display: grid;
+  grid-template-rows: 9.1cqh minmax(0, 1fr);
+  gap: 1.5cqh;
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 3.8cqw 15.5cqh;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.scene::before,
+.scene::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.scene::before {
+  top: 1.55cqh;
+  left: 1.2cqw;
+  width: 1.5cqw;
+  height: 96.8cqh;
+  background: var(--ink);
+}
+
+.scene::after {
+  right: 1.2cqw;
+  bottom: 1.55cqh;
+  width: 37cqw;
+  height: 1.05cqh;
+  background: var(--accent);
+  border: var(--rule) solid var(--ink);
+}
+
+.sceneHeader,
+.sceneOneLayout,
+.sceneTwoLayout,
+.sceneThreeLayout,
+.sceneFourLayout,
+.sceneFiveLayout {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.sceneHeader {
+  display: grid;
+  grid-template-columns: 10cqw minmax(0, 1fr) 25cqw;
+  border: var(--rule) solid var(--ink);
+  background: var(--paper);
+  box-shadow: var(--shadow-x) var(--shadow-y) 0 var(--ink);
+  overflow: hidden;
+}
+
+.sceneIndex,
+.kicker,
+.sourceKey {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: 0 1.4cqw;
+  font-family: Impact, "Arial Black", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  line-height: 0.94;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.sceneIndex {
+  justify-content: center;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 4cqw;
+}
+
+.kicker {
+  border-right: var(--rule) solid var(--ink);
+  font-size: 2.05cqw;
+}
+
+.sourceKey {
+  justify-content: center;
+  background: var(--accent);
+  font-size: 1.45cqw;
+  text-align: center;
+}
+
+.revealVisible,
+.revealReserved {
+  transition: opacity 220ms steps(2, end), transform 220ms steps(2, end), visibility 220ms steps(2, end);
+}
+
+.revealVisible {
+  visibility: visible;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.revealReserved {
+  visibility: hidden;
+  opacity: 0;
+  transform: translate3d(0, 1.2cqh, 0);
+}
+
+.lossMapCard,
+.lossFact,
+.sedimentNote,
+.ledgerNote,
+.wedgePanel,
+.sedimentLead,
+.sectionLead,
+.sectionDiagram,
+.rateBoundary,
+.routeLead,
+.routePanel,
+.forceLedger,
+.causeBoundary,
+.mosaicLead,
+.mosaicGrid,
+.limitStrip {
+  border: var(--rule) solid var(--ink);
+  box-shadow: var(--shadow-x) var(--shadow-y) 0 var(--ink);
+  overflow: hidden;
+}
+
+.lossMapCard h1,
+.sedimentLead h1,
+.sectionLead h1,
+.routeLead h1,
+.mosaicLead h1 {
+  margin: 0;
+  font-family: Impact, "Arial Black", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  line-height: 0.84;
+  letter-spacing: -0.08cqw;
+  text-transform: uppercase;
+}
+
+.lossMapCard p,
+.sedimentLead p,
+.sectionLead p,
+.routeLead p,
+.mosaicLead p {
+  margin: 0;
+  font-size: 2.05cqw;
+  font-weight: 700;
+  line-height: 1.08;
+}
+
+.sceneOneLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.38fr) minmax(28cqw, 0.72fr);
+  grid-template-rows: minmax(0, 1fr) 16cqh;
+  gap: 1.8cqw;
+}
+
+.lossMapCard {
+  grid-row: span 2;
+  position: relative;
+  display: grid;
+  align-content: end;
+  gap: 2cqh;
+  padding: 3.2cqh 2.8cqw;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.lossMapCard h1 {
+  position: relative;
+  z-index: 2;
+  max-width: 49cqw;
+  font-size: 8.6cqw;
+  text-shadow:
+    0.2cqw 0 var(--ink),
+    -0.2cqw 0 var(--ink),
+    0 0.2cqh var(--ink),
+    0 -0.2cqh var(--ink);
+}
+
+.lossMapCard p {
+  position: relative;
+  z-index: 2;
+  max-width: 29cqw;
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--rule) solid var(--ink);
+  padding: 1.1cqh 1.2cqw;
+}
+
+.mapMeta {
+  position: absolute;
+  z-index: 3;
+  top: 2.1cqh;
+  left: 2.2cqw;
+  right: 2.2cqw;
+  display: flex;
+  justify-content: space-between;
+  gap: 1cqw;
+  font-size: 1.1cqw;
+  font-weight: 900;
+  letter-spacing: 0.04cqw;
+  text-transform: uppercase;
+}
+
+.mapMeta span:last-child {
+  background: var(--accent);
+  color: var(--ink);
+  border: var(--rule) solid var(--ink);
+  padding: 0.45cqh 0.55cqw;
+}
+
+.lossMap {
+  position: absolute;
+  z-index: 1;
+  right: -3cqw;
+  top: 5cqh;
+  width: 57cqw;
+  height: 45cqh;
+  fill: var(--accent);
+  opacity: 1;
+}
+
+.mapWater {
+  fill: var(--ink);
+  stroke: var(--paper);
+  stroke-width: 11;
+}
+
+.mapRoute {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 16;
+  stroke-linecap: square;
+  stroke-linejoin: bevel;
+}
+
+.lossFact {
+  display: grid;
+  align-content: center;
+  gap: 0.9cqh;
+  padding: 2.2cqh 2cqw;
+  background: var(--accent);
+  color: var(--ink);
+}
+
+.lossFact span,
+.lossFact strong,
+.lossFact b,
+.lossFact p,
+.sedimentNote span,
+.sedimentNote p,
+.ledgerNote strong,
+.ledgerNote span {
+  margin: 0;
+  font-family: Impact, "Arial Black", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.lossFact span {
+  font-size: 1.45cqw;
+  letter-spacing: 0.04cqw;
+}
+
+.lossFact strong {
+  font-size: 4.2cqw;
+  line-height: 0.85;
+}
+
+.lossFact b {
+  font-size: 4.85cqw;
+  line-height: 0.85;
+}
+
+.lossFact p {
+  border-top: var(--rule) solid var(--ink);
+  padding-top: 0.9cqh;
+  font-size: 1.15cqw;
+  line-height: 1.1;
+}
+
+.sedimentNote {
+  display: grid;
+  grid-template-columns: 10cqw minmax(0, 1fr);
+  align-items: center;
+  background: var(--paper);
+}
+
+.sedimentNote span {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  background: var(--ink);
+  color: var(--accent);
+  padding: 1cqw;
+  font-size: 2.55cqw;
+  line-height: 0.86;
+}
+
+.sedimentNote p {
+  padding: 0 1.2cqw;
+  font-size: 1.45cqw;
+  line-height: 1.02;
+}
+
+.ledgerNote {
+  position: absolute;
+  z-index: 4;
+  right: 34cqw;
+  bottom: 2.1cqh;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  width: 26cqw;
+  min-height: 10cqh;
+  background: var(--paper);
+}
+
+.ledgerNote strong {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  border-bottom: var(--rule) solid var(--ink);
+  padding: 0 1cqw;
+  font-size: 1.5cqw;
+  text-align: center;
+}
+
+.ledgerNote span {
+  display: flex;
+  align-items: center;
+  padding: 0 1.2cqw;
+  font-size: 1.05cqw;
+  line-height: 1.02;
+}
+
+.sceneTwoLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.46fr) minmax(30cqw, 0.7fr);
+  gap: 1.8cqw;
+}
+
+.wedgePanel {
+  position: relative;
+  display: grid;
+  align-items: center;
+  background: var(--ink);
+}
+
+.wedgeGraphic {
+  width: 100%;
+  height: 47cqh;
+  fill: var(--paper);
+}
+
+.wedgeRiver {
+  fill: var(--paper);
+}
+
+.wedgeSediment {
+  fill: var(--accent);
+  stroke: var(--ink);
+  stroke-width: 15;
+}
+
+.wedgeLine {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 18;
+  stroke-linejoin: bevel;
+}
+
+.wedgeLabels {
+  position: absolute;
+  left: 2cqw;
+  right: 2cqw;
+  bottom: 2cqh;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8cqw;
+}
+
+.wedgeLabels span {
+  border: var(--rule) solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.7cqh 0.8cqw;
+  font-family: Impact, "Arial Black", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-size: 1.12cqw;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.sedimentLead {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2cqh;
+  padding: 3.3cqh 2.5cqw;
+  background: var(--paper);
+}
+
+.sedimentLead h1 {
+  font-size: 7.7cqw;
+}
+
+.sedimentLead p {
+  max-width: 32cqw;
+}
+
+.inputStamp {
+  width: fit-content;
+  border: var(--rule) solid var(--ink);
+  background: var(--accent);
+  box-shadow: 0.5cqw 0.58cqh 0 var(--ink);
+  padding: 1cqh 1.2cqw;
+  font-family: Impact, "Arial Black", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-size: 2.25cqw;
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.sedimentLead small,
+.sectionLead > span,
+.routeLead > span,
+.mosaicLead small {
+  font-size: 1.15cqw;
+  font-weight: 900;
+  letter-spacing: 0.035cqw;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.sceneThreeLayout {
+  display: grid;
+  grid-template-columns: minmax(29cqw, 0.57fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) 10cqh;
+  gap: 1.8cqw;
+}
+
+.sectionLead {
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2cqh;
+  padding: 3.1cqh 2.3cqw;
+  background: var(--accent);
+}
+
+.sectionLead h1 {
+  font-size: 6.3cqw;
+}
+
+.sectionLead p {
+  font-size: 2cqw;
+}
+
+.sectionDiagram {
+  position: relative;
+  background: var(--paper);
+}
+
+.crossSection {
+  position: absolute;
+  inset: 2.2cqh 2.1cqw;
+  overflow: hidden;
+  border: var(--rule) solid var(--ink);
+  background: var(--paper);
+}
+
+.waterBaseline,
+.marshSurface,
+.accretionLayer,
+.compactionStack,
+.subsurfaceLayer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5cqw;
+  font-family: Impact, "Arial Black", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-size: 1.25cqw;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.035cqw;
+  text-transform: uppercase;
+}
+
+.waterBaseline {
+  top: 12cqh;
+  height: 4.5cqh;
+  border-top: var(--rule) solid var(--ink);
+  border-bottom: var(--rule) solid var(--ink);
+  background: var(--accent);
+}
+
+.marshSurface {
+  top: 22cqh;
+  height: 5.2cqh;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.accretionLayer {
+  top: 27.2cqh;
+  height: 7cqh;
+  border-bottom: var(--rule) solid var(--ink);
+  background: var(--paper);
+}
+
+.compactionStack {
+  top: 34.2cqh;
+  bottom: 7.5cqh;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: stretch;
+  gap: 0;
+  padding: 0;
+  background: var(--accent);
+  transform: translate3d(0, 0, 0);
+  transition: transform 300ms steps(3, end);
+}
+
+.compactionStack i {
+  border-right: var(--rule) solid var(--ink);
+  background: var(--paper);
+}
+
+.compactionStack i:nth-of-type(2) {
+  background: var(--accent);
+}
+
+.compactionStack i:nth-of-type(3) {
+  background: var(--ink);
+}
+
+.compactionStack span {
+  position: absolute;
+  left: 1.5cqw;
+  bottom: 1.5cqh;
+  max-width: 20cqw;
+  color: var(--ink);
+}
+
+.compactionOn {
+  transform: translate3d(0, 3.6cqh, 0);
+}
+
+.subsurfaceLayer {
+  bottom: 0;
+  height: 7.5cqh;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.downArrow {
+  position: absolute;
+  right: 3.1cqw;
+  top: 35cqh;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5cqw;
+  height: 7cqh;
+  border: var(--rule) solid var(--ink);
+  background: var(--accent);
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: 4cqw;
+  line-height: 1;
+}
+
+.rateBoundary {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: minmax(20cqw, 0.7fr) minmax(0, 1fr);
+  align-items: center;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.rateBoundary strong,
+.rateBoundary span {
+  padding: 0 1.3cqw;
+  font-family: Impact, "Arial Black", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.rateBoundary strong {
+  color: var(--accent);
+  font-size: 2.4cqw;
+}
+
+.rateBoundary span {
+  border-left: var(--rule) solid var(--paper);
+  font-size: 1.35cqw;
+}
+
+.sceneFourLayout {
+  display: grid;
+  grid-template-columns: minmax(27cqw, 0.55fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) 11cqh;
+  gap: 1.8cqw;
+}
+
+.routeLead {
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2cqh;
+  padding: 3.2cqh 2.3cqw;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.routeLead h1 {
+  font-size: 6.15cqw;
+}
+
+.routeLead > span {
+  color: var(--accent);
+}
+
+.routePanel {
+  position: relative;
+  min-height: 0;
+  background: var(--paper);
+}
+
+.routingDiagram {
+  width: 100%;
+  height: 36cqh;
+}
+
+.routeWetland {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 16;
+}
+
+.routeRiver {
+  fill: var(--accent);
+  stroke: var(--ink);
+  stroke-width: 16;
+}
+
+.routeLevee {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 24;
+  stroke-linecap: square;
+}
+
+.routeBranch {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 16;
+  stroke-linecap: square;
+}
+
+.routeNode {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 14;
+}
+
+.routeLabels {
+  position: absolute;
+  left: 1.6cqw;
+  right: 1.6cqw;
+  bottom: 1.8cqh;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8cqw;
+}
+
+.routeLabels span {
+  border: var(--rule) solid var(--ink);
+  background: var(--paper);
+  padding: 0.7cqh 0.7cqw;
+  font-family: Impact, "Arial Black", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-size: 1.05cqw;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.forceLedger {
+  position: absolute;
+  z-index: 2;
+  right: 2.1cqw;
+  top: 24.7cqh;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 45cqw;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.forceLedger div {
+  display: grid;
+  gap: 0.5cqh;
+  min-height: 8cqh;
+  border-right: var(--rule) solid var(--paper);
+  border-bottom: var(--rule) solid var(--paper);
+  padding: 1cqh 1cqw;
+}
+
+.forceLedger div:nth-child(2n) {
+  border-right: 0;
+}
+
+.forceLedger div:nth-child(n + 3) {
+  border-bottom: 0;
+}
+
+.forceLedger b,
+.forceLedger span {
+  font-family: Impact, "Arial Black", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.forceLedger b {
+  color: var(--accent);
+  font-size: 1.75cqw;
+}
+
+.forceLedger span {
+  font-size: 1.05cqw;
+}
+
+.causeBoundary {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: 17cqw minmax(0, 1fr);
+  align-items: center;
+  background: var(--accent);
+}
+
+.causeBoundary strong,
+.causeBoundary span {
+  padding: 0 1.25cqw;
+  font-family: Impact, "Arial Black", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.causeBoundary strong {
+  font-size: 2.65cqw;
+}
+
+.causeBoundary span {
+  border-left: var(--rule) solid var(--ink);
+  font-size: 1.35cqw;
+}
+
+.sceneFiveLayout {
+  display: grid;
+  grid-template-columns: minmax(31cqw, 0.65fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) 11cqh;
+  gap: 1.8cqw;
+}
+
+.mosaicLead {
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2cqh;
+  padding: 3.15cqh 2.35cqw;
+  background: var(--accent);
+}
+
+.mosaicLead h1 {
+  font-size: 6.3cqw;
+}
+
+.mosaicGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.78fr 1.12fr;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  background: var(--ink);
+}
+
+.mosaicTile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  min-height: 0;
+  border-right: var(--rule) solid var(--ink);
+  border-bottom: var(--rule) solid var(--ink);
+  background: var(--paper);
+  padding: 1.6cqh 1.35cqw;
+}
+
+.mosaicTile:nth-child(1) {
+  grid-row: span 2;
+}
+
+.mosaicTile:nth-child(4) {
+  grid-column: span 2;
+}
+
+.mosaicTile[data-tone="accent"] {
+  background: var(--accent);
+}
+
+.mosaicTile span,
+.mosaicTile b {
+  font-family: Impact, "Arial Black", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+.mosaicTile span {
+  width: fit-content;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.6cqh 0.7cqw;
+  font-size: 1.4cqw;
+}
+
+.mosaicTile b {
+  font-size: 2.45cqw;
+}
+
+.limitStrip {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: minmax(28cqw, 0.9fr) minmax(0, 1fr);
+  align-items: center;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.limitStrip strong,
+.limitStrip span {
+  padding: 0 1.3cqw;
+  font-family: Impact, "Arial Black", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.limitStrip strong {
+  color: var(--accent);
+  font-size: 1.85cqw;
+}
+
+.limitStrip span {
+  border-left: var(--rule) solid var(--paper);
+  font-size: 1.2cqw;
+}
+
+.navigation {
+  position: absolute;
+  z-index: 10;
+  right: 3.8cqw;
+  bottom: 1.8cqh;
+  left: 3.8cqw;
+  height: 11.4cqh;
+  border: var(--rule) solid var(--ink);
+  background: var(--paper);
+  box-shadow: 0.62cqw 0.66cqh 0 var(--ink);
+  outline: none;
+  touch-action: none;
+}
+
+.navigation:focus-visible {
+  outline: 0.42cqw solid var(--accent);
+  outline-offset: 0.42cqw;
+}
+
+.scrubSurface {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: end;
+  height: 7.5cqh;
+  padding: 0.8cqh 1.1cqw 0.45cqh;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.navBranch {
+  position: absolute;
+  z-index: 0;
+  top: 2.6cqh;
+  right: 6cqw;
+  left: 6cqw;
+  height: 1.25cqh;
+  border-top: var(--rule) solid var(--ink);
+  border-bottom: var(--rule) solid var(--ink);
+  background: var(--accent);
+  transform: skewX(-17deg);
+}
+
+.navBlock {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 4cqw minmax(0, 1fr);
+  align-items: center;
+  min-width: 0;
+  height: 5.6cqh;
+  border: var(--rule) solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: Impact, "Arial Black", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  line-height: 0.9;
+  text-align: left;
+  text-transform: uppercase;
+  transform: translate3d(0, 0, 0);
+  transition: transform 180ms steps(2, end), background 180ms steps(2, end), box-shadow 180ms steps(2, end);
+}
+
+.navBlock:nth-of-type(2) {
+  transform: translateY(-0.72cqh);
+}
+
+.navBlock:nth-of-type(3) {
+  transform: translateY(-1.35cqh);
+}
+
+.navBlock:nth-of-type(4) {
+  transform: translateY(-0.72cqh);
+}
+
+.navBlock[data-active="true"] {
+  background: var(--accent);
+  box-shadow: -0.48cqw 0.48cqh 0 var(--ink);
+  transform: translate3d(-0.5cqw, -1.75cqh, 0);
+}
+
+.navBlock i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  border-right: var(--rule) solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 1.5cqw;
+  font-style: normal;
+}
+
+.navBlock span {
+  overflow: hidden;
+  padding: 0 0.7cqw;
+  font-size: 1.1cqw;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navBlock:focus-visible {
+  outline: 0.32cqw solid var(--accent);
+  outline-offset: 0.26cqw;
+}
+
+.navigation > p {
+  margin: 0;
+  padding: 0 1.3cqw;
+  font-family: Impact, "Arial Black", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-size: 1.02cqw;
+  font-weight: 900;
+  letter-spacing: 0.04cqw;
+  line-height: 3cqh;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.root[data-motion="off"] *,
+.root[data-motion="off"] *::before,
+.root[data-motion="off"] *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}

@@ -1,0 +1,980 @@
+.root {
+  --district-bg: #061319;
+  --district-panel: #0a2027;
+  --district-panel-deep: #07171d;
+  --district-ink: #eafcff;
+  --district-muted: #8caeb5;
+  --district-warm: #ff9358;
+  --district-hot: #ff5e64;
+  --district-cool: #4ad7da;
+  --district-electric: #9bf4ff;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: size;
+  color: var(--district-ink);
+  background:
+    radial-gradient(circle at 14% 20%, rgb(255 112 68 / 0.12), transparent 26%),
+    radial-gradient(circle at 84% 76%, rgb(65 220 215 / 0.1), transparent 28%),
+    linear-gradient(142deg, #061319 0%, #091b21 52%, #041015 100%);
+  font-family: "JetBrains Mono", "Noto Sans SC", "PingFang SC", ui-monospace, monospace;
+  user-select: none;
+}
+
+.root,
+.root * {
+  box-sizing: border-box;
+}
+
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(166 227 232 / 0.045) 0.08cqh, transparent 0.08cqh),
+    linear-gradient(90deg, rgb(166 227 232 / 0.04) 0.06cqw, transparent 0.06cqw);
+  background-size: 4cqw 4cqh;
+  mask-image: radial-gradient(circle at 50% 50%, black 22%, transparent 86%);
+}
+
+.root::after {
+  content: "";
+  position: absolute;
+  inset: 1.7cqh 1.1cqw;
+  z-index: 0;
+  pointer-events: none;
+  border: 0.06cqw solid rgb(180 238 242 / 0.11);
+  clip-path: polygon(0 0, 12% 0, 12% 0.3%, 88% 0.3%, 88% 0, 100% 0, 100% 100%, 82% 100%, 82% 99.7%, 18% 99.7%, 18% 100%, 0 100%);
+}
+
+.root[data-motion="off"] *,
+.root[data-motion="off"] *::before,
+.root[data-motion="off"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.track {
+  position: relative;
+  z-index: 1;
+}
+
+.instrumentChrome {
+  position: absolute;
+  top: 2.4cqh;
+  left: 5.8cqw;
+  right: 5.8cqw;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+  color: rgb(202 244 247 / 0.46);
+  font-size: 0.72cqw;
+  letter-spacing: 0.1cqw;
+  text-transform: uppercase;
+}
+
+.instrumentChrome b {
+  color: rgb(255 161 100 / 0.7);
+  font-weight: 600;
+}
+
+.scene {
+  --flow-duration: 2.6s;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 5.5cqh 5.8cqw 13.2cqh;
+  overflow: hidden;
+}
+
+.scene[data-flow-rate="slow"] {
+  --flow-duration: 3.8s;
+}
+
+.scene[data-flow-rate="capture"],
+.scene[data-flow-rate="exchange"] {
+  --flow-duration: 2.2s;
+}
+
+.scene[data-flow-rate="boost"] {
+  --flow-duration: 1.15s;
+}
+
+.scene[data-flow-rate="circulate"] {
+  --flow-duration: 2.9s;
+}
+
+.scene[data-flow-rate="demand"] {
+  --flow-duration: 1.7s;
+}
+
+.scene[data-flow-rate="settled"] {
+  --flow-duration: 0s;
+}
+
+.sceneShell {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 2.1cqh;
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 10.5cqw minmax(0, 1fr) 17.5cqw;
+  gap: 2cqw;
+  align-items: end;
+  min-height: 13.2cqh;
+}
+
+.sceneCode {
+  display: grid;
+  align-content: end;
+  gap: 0.75cqh;
+  min-width: 0;
+}
+
+.sceneCode > span {
+  color: var(--district-warm);
+  font-size: 2.3cqw;
+  font-weight: 700;
+  line-height: 0.9;
+  text-shadow: 0 0 1.4cqw rgb(255 126 76 / 0.4);
+}
+
+.sceneCode > b {
+  color: rgb(215 246 248 / 0.52);
+  font-size: 0.78cqw;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.06cqw;
+  text-transform: uppercase;
+}
+
+.titleBlock {
+  min-width: 0;
+}
+
+.titleBlock p {
+  margin: 0 0 0.7cqh;
+  max-width: 54cqw;
+  color: rgb(188 226 230 / 0.68);
+  font-size: 1.12cqw;
+  line-height: 1.35;
+}
+
+.titleBlock h1 {
+  margin: 0;
+  color: var(--district-ink);
+  font-size: 3.75cqw;
+  font-weight: 650;
+  line-height: 0.98;
+  letter-spacing: -0.08cqw;
+  text-wrap: balance;
+}
+
+.root[data-language="zh"] .titleBlock h1 {
+  font-size: 3.35cqw;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.metricBlock {
+  align-self: stretch;
+  display: grid;
+  align-content: center;
+  gap: 0.8cqh;
+  min-width: 0;
+  padding: 1.1cqh 1.1cqw;
+  border: 0.07cqw solid rgb(178 234 239 / 0.16);
+  border-left-color: rgb(255 147 88 / 0.55);
+  background: linear-gradient(125deg, rgb(255 255 255 / 0.055), rgb(255 255 255 / 0.012));
+  box-shadow: inset 0 0 2.6cqw rgb(64 216 217 / 0.025);
+}
+
+.metricBlock span {
+  color: rgb(187 225 229 / 0.5);
+  font-size: 0.72cqw;
+  line-height: 1.2;
+  letter-spacing: 0.055cqw;
+  text-transform: uppercase;
+}
+
+.metricBlock strong {
+  color: var(--district-warm);
+  font-size: 1.05cqw;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.48fr) minmax(0, 0.62fr);
+  gap: 2.4cqw;
+  min-height: 0;
+}
+
+.visualShell {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 0.07cqw solid rgb(178 234 239 / 0.15);
+  background:
+    radial-gradient(circle at 48% 48%, rgb(255 137 76 / 0.045), transparent 42%),
+    linear-gradient(148deg, rgb(255 255 255 / 0.045), rgb(0 0 0 / 0.12));
+  box-shadow:
+    inset 0 0 5cqw rgb(91 220 221 / 0.03),
+    0 2cqh 4cqw rgb(0 0 0 / 0.2);
+}
+
+.visualPlate {
+  position: absolute;
+  inset: 1.2cqw;
+  pointer-events: none;
+  border: 0.06cqw solid rgb(180 239 243 / 0.08);
+  background-image:
+    linear-gradient(rgb(181 239 243 / 0.03) 0.06cqh, transparent 0.06cqh),
+    linear-gradient(90deg, rgb(181 239 243 / 0.028) 0.05cqw, transparent 0.05cqw);
+  background-size: 5cqw 5cqh;
+}
+
+.visualPlate::before,
+.visualPlate::after {
+  content: "";
+  position: absolute;
+  width: 2.2cqw;
+  height: 2.2cqh;
+  border-color: rgb(255 147 88 / 0.42);
+}
+
+.visualPlate::before {
+  top: -0.06cqh;
+  left: -0.05cqw;
+  border-top: 0.14cqh solid;
+  border-left: 0.1cqw solid;
+}
+
+.visualPlate::after {
+  right: -0.05cqw;
+  bottom: -0.06cqh;
+  border-right: 0.1cqw solid;
+  border-bottom: 0.14cqh solid;
+}
+
+.diagram {
+  position: absolute;
+  inset: 1.4cqw 1.6cqw 3.7cqh;
+  width: calc(100% - 3.2cqw);
+  height: calc(100% - 5.1cqh);
+  overflow: visible;
+}
+
+.diagram path,
+.diagram rect,
+.diagram circle,
+.diagram ellipse {
+  vector-effect: non-scaling-stroke;
+}
+
+.svgLabelStrong,
+.svgLabelMuted {
+  font-family: "JetBrains Mono", "Noto Sans SC", "PingFang SC", ui-monospace, monospace;
+  letter-spacing: 0.055cqw;
+}
+
+.svgLabelStrong {
+  fill: #eafcff;
+  font-size: 1cqw;
+  font-weight: 650;
+}
+
+.svgLabelMuted {
+  fill: #85a9b0;
+  font-size: 0.78cqw;
+  font-weight: 500;
+}
+
+.visualLegend {
+  position: absolute;
+  right: 1.4cqw;
+  bottom: 1.05cqh;
+  display: flex;
+  align-items: center;
+  gap: 0.55cqw;
+  color: rgb(190 228 231 / 0.54);
+  font-size: 0.62cqw;
+  letter-spacing: 0.035cqw;
+}
+
+.visualLegend b {
+  margin-right: 0.6cqw;
+  font-weight: 500;
+}
+
+.warmKey,
+.coolKey {
+  width: 0.62cqw;
+  height: 0.62cqw;
+  border-radius: 50%;
+}
+
+.warmKey {
+  background: var(--district-warm);
+  box-shadow: 0 0 0.7cqw rgb(255 126 76 / 0.48);
+}
+
+.coolKey {
+  background: var(--district-cool);
+  box-shadow: 0 0 0.7cqw rgb(74 215 218 / 0.4);
+}
+
+.readout {
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  align-content: start;
+  gap: 1.3cqh;
+  min-width: 0;
+  min-height: 0;
+}
+
+.bodyCopy {
+  margin: 0;
+  color: rgb(209 239 241 / 0.77);
+  font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+  font-size: 1.05cqw;
+  line-height: 1.48;
+}
+
+.statusPanel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
+  gap: 0.8cqw;
+  align-items: center;
+  padding: 1.05cqh 0.9cqw;
+  border: 0.07cqw solid rgb(74 215 218 / 0.24);
+  background: rgb(6 19 25 / 0.72);
+}
+
+.statusPanel span {
+  color: rgb(184 222 226 / 0.5);
+  font-size: 0.68cqw;
+  letter-spacing: 0.04cqw;
+  text-transform: uppercase;
+}
+
+.statusPanel strong {
+  color: var(--district-cool);
+  font-size: 0.82cqw;
+  line-height: 1.3;
+  text-align: right;
+}
+
+.beatRail {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65cqw;
+  min-height: 2.9cqh;
+}
+
+.beatRail span {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  border-top: 0.14cqh solid rgb(184 224 227 / 0.13);
+  color: rgb(184 224 227 / 0.25);
+  font-size: 0.68cqw;
+  transition:
+    border-color 420ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 420ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.beatRail span[data-beat-state="complete"] {
+  border-color: rgb(74 215 218 / 0.42);
+  color: rgb(74 215 218 / 0.56);
+}
+
+.beatRail span[data-beat-state="active"] {
+  border-color: var(--district-warm);
+  color: var(--district-ink);
+  transform: translateY(-0.28cqh);
+}
+
+.beatReadout {
+  align-self: stretch;
+  display: grid;
+  align-content: center;
+  gap: 0.72cqh;
+  min-height: 0;
+  padding: 1.25cqh 1cqw;
+  border: 0.07cqw solid rgb(255 147 88 / 0.22);
+  background: linear-gradient(132deg, rgb(255 147 88 / 0.08), rgb(255 255 255 / 0.018));
+}
+
+.beatReadout > span {
+  color: rgb(255 165 108 / 0.72);
+  font-size: 0.67cqw;
+  line-height: 1.3;
+  letter-spacing: 0.025cqw;
+  text-transform: uppercase;
+}
+
+.beatReadout strong {
+  color: var(--district-ink);
+  font-size: 1.03cqw;
+  font-weight: 650;
+  line-height: 1.22;
+}
+
+.beatReadout p {
+  margin: 0;
+  color: rgb(198 232 235 / 0.62);
+  font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+  font-size: 0.8cqw;
+  line-height: 1.4;
+}
+
+.boundaryNote {
+  display: grid;
+  grid-template-columns: 18cqw minmax(0, 1fr);
+  gap: 1.5cqw;
+  align-items: center;
+  min-height: 4.5cqh;
+  padding-top: 0.8cqh;
+  border-top: 0.06cqw solid rgb(181 233 237 / 0.12);
+}
+
+.boundaryNote span {
+  color: var(--district-warm);
+  font-size: 0.66cqw;
+  line-height: 1.2;
+  letter-spacing: 0.05cqw;
+}
+
+.boundaryNote p {
+  margin: 0;
+  color: rgb(184 222 226 / 0.48);
+  font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+  font-size: 0.73cqw;
+  line-height: 1.35;
+}
+
+/* Scene 1 — source and diversion gate */
+.machineBody {
+  fill: rgb(8 31 38 / 0.92);
+  stroke: rgb(185 235 238 / 0.34);
+  stroke-width: 3;
+}
+
+.rackBay {
+  fill: rgb(255 255 255 / 0.035);
+  stroke: rgb(183 232 236 / 0.2);
+  stroke-width: 2;
+}
+
+.rackLamp {
+  fill: var(--district-warm);
+  filter: drop-shadow(0 0 0.52cqw rgb(255 126 76 / 0.68));
+}
+
+.rackLine {
+  fill: none;
+  stroke: rgb(176 223 227 / 0.24);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.pipeSleeve,
+.loopSleeve {
+  fill: none;
+  stroke: rgb(170 222 226 / 0.13);
+  stroke-width: 24;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pipeFlow,
+.loopFlow {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 28 22;
+  opacity: 0.08;
+  transition:
+    opacity 460ms cubic-bezier(0.16, 1, 0.3, 1),
+    stroke 460ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.flowWarm {
+  stroke: var(--district-warm);
+}
+
+.flowCool {
+  stroke: var(--district-cool);
+}
+
+.scene[data-panel-active="true"] .pipeFlow[data-active="true"],
+.scene[data-panel-active="true"] .loopFlow[data-active="true"] {
+  opacity: 0.94;
+  animation: districtFlow var(--flow-duration) linear 1 both;
+  filter: drop-shadow(0 0 0.52cqw currentColor);
+}
+
+.routeGate .valveBody {
+  fill: #09232a;
+  stroke: rgb(223 249 250 / 0.68);
+  stroke-width: 5;
+}
+
+.valveHandle {
+  fill: none;
+  stroke: var(--district-warm);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 620ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.valveHandle[data-open="true"] {
+  transform: rotate(45deg);
+}
+
+.ambientVent,
+.recoveryBoundary {
+  fill: none;
+  stroke: var(--district-muted);
+  stroke-width: 5;
+  stroke-linecap: round;
+  opacity: 0.14;
+  transition:
+    opacity 420ms cubic-bezier(0.16, 1, 0.3, 1),
+    stroke 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ambientVent text,
+.heatCrossing text,
+.boundaryGauge text,
+.seasonIcons text {
+  stroke: none;
+}
+
+.ambientVent[data-active="true"] {
+  opacity: 0.75;
+  stroke: var(--district-warm);
+}
+
+.recoveryBoundary[data-active="true"] {
+  opacity: 0.9;
+  stroke: var(--district-cool);
+  filter: drop-shadow(0 0 0.52cqw rgb(74 215 218 / 0.55));
+}
+
+/* Scene 2 — isolated exchanger */
+.exchangerCircuit {
+  fill: none;
+  stroke-width: 15;
+  stroke-linecap: round;
+  stroke-dasharray: 30 20;
+  opacity: 0.12;
+  transition: opacity 460ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sourceCircuit {
+  stroke: var(--district-warm);
+}
+
+.returnCircuit {
+  stroke: var(--district-cool);
+}
+
+.scene[data-panel-active="true"] .exchangerCircuit[data-active="true"] {
+  opacity: 0.9;
+  animation: districtFlow var(--flow-duration) linear 1 both;
+  filter: drop-shadow(0 0 0.52cqw currentColor);
+}
+
+.exchangerPlate {
+  fill: none;
+  stroke: rgb(205 241 243 / 0.28);
+  stroke-width: 8;
+  opacity: 0.42;
+  transition:
+    stroke 420ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.exchangerPlate[data-active="true"] {
+  stroke: rgb(255 185 124 / 0.82);
+  opacity: 0.9;
+}
+
+.exchangerFrame {
+  fill: none;
+  stroke: rgb(210 244 246 / 0.46);
+  stroke-width: 4;
+}
+
+.heatCrossing {
+  fill: none;
+  stroke: var(--district-warm);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transform: translateX(-1.25cqw);
+  transition:
+    opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.heatCrossing[data-active="true"] {
+  opacity: 0.92;
+  transform: translateX(0);
+}
+
+/* Scene 3 — heat pump and explicit energy input */
+.heatPump .machineBody {
+  stroke: rgb(151 231 235 / 0.48);
+}
+
+.compressorRing {
+  fill: rgb(5 18 24 / 0.82);
+  stroke: var(--district-electric);
+  stroke-width: 7;
+}
+
+.compressorBlade {
+  fill: rgb(74 215 218 / 0.14);
+  stroke: rgb(155 244 255 / 0.78);
+  stroke-width: 5;
+}
+
+.compressorHub {
+  fill: var(--district-electric);
+  filter: drop-shadow(0 0 0.62cqw rgb(155 244 255 / 0.68));
+}
+
+.powerCable,
+.powerBolt {
+  fill: none;
+  stroke: var(--district-electric);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.powerBolt {
+  fill: rgb(155 244 255 / 0.18);
+}
+
+.powerFeed {
+  opacity: 0.2;
+  transition: opacity 460ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.powerFeed[data-active="true"] {
+  opacity: 1;
+  filter: drop-shadow(0 0 0.52cqw rgb(155 244 255 / 0.45));
+}
+
+.peakPlant {
+  opacity: 0.16;
+  transition:
+    opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(1.7cqh);
+}
+
+.peakPlant[data-peak-backup="active"] {
+  opacity: 0.92;
+  transform: translateY(0);
+}
+
+.peakBody {
+  fill: rgb(37 23 20 / 0.88);
+  stroke: rgb(255 147 88 / 0.6);
+  stroke-width: 4;
+}
+
+.peakFlame {
+  fill: rgb(255 94 100 / 0.25);
+  stroke: var(--district-hot);
+  stroke-width: 5;
+}
+
+.peakLink {
+  fill: none;
+  stroke: rgb(255 147 88 / 0.58);
+  stroke-width: 7;
+  stroke-dasharray: 14 12;
+}
+
+/* Scene 4 — uneven district demand */
+.buildingBody {
+  fill: rgb(9 31 38 / 0.92);
+  stroke: rgb(184 232 235 / 0.3);
+  stroke-width: 4;
+  transition:
+    fill 460ms cubic-bezier(0.16, 1, 0.3, 1),
+    stroke 460ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.branchPipe,
+.branchReturn {
+  fill: none;
+  stroke: rgb(173 220 224 / 0.16);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition:
+    opacity 460ms cubic-bezier(0.16, 1, 0.3, 1),
+    stroke 460ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.window {
+  fill: rgb(177 226 229 / 0.12);
+  transition: fill 460ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.buildingBranch[data-demand="open"] .buildingBody {
+  fill: rgb(61 32 26 / 0.8);
+  stroke: rgb(255 147 88 / 0.72);
+}
+
+.buildingBranch[data-demand="open"] .branchPipe {
+  stroke: var(--district-warm);
+  filter: drop-shadow(0 0 0.47cqw rgb(255 126 76 / 0.46));
+}
+
+.buildingBranch[data-demand="open"] .branchReturn {
+  stroke: var(--district-cool);
+}
+
+.buildingBranch[data-demand="open"] .window {
+  fill: rgb(255 181 108 / 0.82);
+  filter: drop-shadow(0 0 0.42cqw rgb(255 154 88 / 0.54));
+}
+
+.plantBlock {
+  fill: rgb(8 29 36 / 0.94);
+  stroke: rgb(153 230 234 / 0.48);
+  stroke-width: 4;
+}
+
+/* Scene 5 — practical system boundaries */
+.balanceSource .machineBody {
+  fill: rgb(9 28 34 / 0.78);
+  stroke: rgb(255 147 88 / 0.4);
+}
+
+.boundaryPipe {
+  fill: none;
+  stroke: rgb(255 147 88 / 0.24);
+  stroke-width: 20;
+  stroke-linecap: round;
+}
+
+.lossOverlay {
+  fill: none;
+  stroke: rgb(255 173 112 / 0.58);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 36 28 14 38;
+  opacity: 0.72;
+}
+
+.storeBody {
+  fill: rgb(10 40 46 / 0.88);
+  stroke: rgb(74 215 218 / 0.52);
+  stroke-width: 5;
+}
+
+.storeTop {
+  fill: rgb(74 215 218 / 0.12);
+  stroke: rgb(142 236 237 / 0.64);
+  stroke-width: 4;
+}
+
+.storeLevel {
+  fill: rgb(255 147 88 / 0.16);
+  stroke: rgb(255 147 88 / 0.48);
+  stroke-width: 3;
+}
+
+.boundaryGauge {
+  fill: none;
+  stroke: rgb(190 231 234 / 0.38);
+  stroke-width: 3;
+}
+
+.seasonIcons {
+  fill: none;
+  stroke: rgb(175 228 231 / 0.48);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.seasonIcons circle {
+  fill: rgb(255 147 88 / 0.08);
+  stroke: rgb(255 165 101 / 0.54);
+}
+
+.balanceBuildings {
+  fill: rgb(9 30 37 / 0.82);
+  stroke: rgb(185 232 235 / 0.32);
+  stroke-width: 4;
+}
+
+/* Heat-pipe loop navigation — valve handles, not dots */
+.valveNav {
+  position: absolute;
+  left: 8cqw;
+  right: 8cqw;
+  bottom: 2.2cqh;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.5cqw;
+  align-items: end;
+  padding: 0.7cqh 1.2cqw;
+  opacity: 0.42;
+  transform: translateY(1.4cqh);
+  transition:
+    opacity 460ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 460ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.root:hover .valveNav,
+.root:focus-within .valveNav {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.navPipe {
+  position: absolute;
+  left: 2.4cqw;
+  right: 2.4cqw;
+  top: 2.15cqh;
+  height: 1.05cqh;
+  border: 0.08cqw solid rgb(160 221 225 / 0.22);
+  border-radius: 1cqh;
+  background: rgb(7 24 30 / 0.92);
+  box-shadow: inset 0 0 1.2cqw rgb(74 215 218 / 0.04);
+}
+
+.navPipe > span {
+  position: absolute;
+  inset: 0.25cqh 0.35cqw;
+  border-radius: 0.5cqh;
+  background: linear-gradient(90deg, rgb(255 147 88 / 0.32), rgb(255 94 100 / 0.18) 48%, rgb(74 215 218 / 0.32));
+}
+
+.navValve {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 3.1cqw minmax(0, 1fr);
+  gap: 0.65cqw;
+  align-items: center;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  color: rgb(193 230 233 / 0.44);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.navValve:focus-visible {
+  outline: 0.12cqw solid var(--district-electric);
+  outline-offset: 0.3cqw;
+}
+
+.valveWheel {
+  position: relative;
+  display: block;
+  width: 2.55cqw;
+  height: 2.55cqw;
+  border: 0.16cqw solid rgb(184 231 234 / 0.42);
+  border-radius: 50%;
+  background: #07181e;
+  box-shadow: 0 0 0 0.34cqw rgb(3 13 17 / 0.82);
+  transform: rotate(0deg);
+  transition:
+    transform 620ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 420ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.valveWheel i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 1.8cqw;
+  height: 0.18cqh;
+  border-radius: 0.2cqh;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.valveWheel i + i {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.navValve[data-nav-state="past"] .valveWheel {
+  color: var(--district-cool);
+  border-color: rgb(74 215 218 / 0.34);
+}
+
+.navValve[data-nav-state="active"] {
+  color: var(--district-ink);
+}
+
+.navValve[data-nav-state="active"] .valveWheel {
+  color: var(--district-warm);
+  border-color: var(--district-warm);
+  box-shadow:
+    0 0 0 0.34cqw rgb(3 13 17 / 0.82),
+    0 0 1.5cqw rgb(255 126 76 / 0.52);
+  transform: translateY(-0.7cqh) rotate(45deg);
+}
+
+.valveLabel {
+  display: grid;
+  gap: 0.35cqh;
+  min-width: 0;
+}
+
+.valveLabel b {
+  color: var(--district-warm);
+  font-size: 0.65cqw;
+  line-height: 1;
+}
+
+.valveLabel small {
+  overflow: hidden;
+  color: currentColor;
+  font-size: 0.7cqw;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes districtFlow {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}

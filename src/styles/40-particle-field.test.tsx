@@ -112,7 +112,7 @@ describe("Style 40: Particle Field — overflow check", () => {
 describe("Style 40: Particle Field — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("40");
+    expect(meta.id).toBe("arcade-boss-fight");
     expect(meta.band).toBe("contemporary-digital");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

@@ -112,7 +112,7 @@ describe("Style 33: Glass Dashboard — overflow check", () => {
 describe("Style 33: Glass Dashboard — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("33");
+    expect(meta.id).toBe("liquid-glass");
     expect(meta.band).toBe("contemporary-digital");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

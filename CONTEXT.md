@@ -4,16 +4,41 @@ Unified glossary, decisions, and progress for frontend-harness-slides-workbench.
 
 ---
 
+## Current State Override
+
+This file is a historical decision log. Source and tests are authoritative when
+older entries differ.
+
+Current routing and registry contract:
+
+- Styles use semantic slug IDs, not numeric sequence IDs.
+- Topics are the unit inside a style; there is no v1/v2 URL or compatibility
+  layer.
+- `STYLE_REGISTRY` array order defines style order, and each entry's `topics`
+  array defines topic order.
+- Stable URLs use query parameters:
+  `?view=lab&style=<style-id>&topic=<topic-id>&scene=<n>&beat=<n>`.
+- The active catalog currently contains 49 registered styles.
+- The cross-domain Topic Set is confirmed and authorized in
+  `docs/CROSS_DOMAIN_TOPIC_SET_PLAN.md`. Implementation runs as 49 independent
+  Topic tasks. After the first 21 Topics shipped in seven historical three-Topic
+  commits, the remaining 28 use logical commit batches of 10, 10, and 8. The
+  first 10-Topic batch started all unfinished Topics concurrently and shipped at
+  registry total 128. Beginning with the second 10-Topic batch, at most four
+  Topic agents run at once and completed slots are refilled. That batch is
+  integrated and validated at registry total 138; the final 8-Topic batch has
+  not started.
+
+---
+
 ## Domain Glossary
 
 ### Style (风格)
 
-A self-contained slide presentation with its own visual DNA. Each Style is authored in isolation — the agent building a Style does not know it will be wrapped in a Workbench. A Style exports:
+A stable visual system with its own Design DNA and semantic slug ID. A Style
+owns one or more Topics; it is not itself a presentation or a content version.
 
-- A React component that receives `scene`, `beat`, `language`, `isThumbnail`, `onNavigate`
-- A `getMetadata(lang)` function returning localized metadata
-
-Each Style has a unique two-digit string ID (e.g. `"01"`, `"24"`). There are 48 Styles total, organized into 6 Bands.
+_Avoid_: Slide, deck, version.
 
 ### Band (风格族)
 
@@ -28,7 +53,8 @@ A high-level grouping of Styles by visual family. The 6 Bands are:
 
 ### Scene (场景)
 
-One of 5 major narrative sections within a Style. The count is fixed at 5 per Style — this is a structural invariant. Scenes are numbered 1 through 5.
+One of 5 major narrative sections within a Topic. The count is fixed at 5 per
+Topic; Scenes are numbered 1 through 5.
 
 ### Beat (节拍)
 
@@ -42,11 +68,14 @@ A responsive grid showing all Styles as 16:9 thumbnail cards. Supports tag-based
 
 ### Lab View (实验室视图)
 
-The single-Style interactive presentation hall. Shows the 16:9 Stage with Workbench chrome (sidebar, header, bottom progress bar) around it.
+The interactive presentation hall for one selected Topic within a Style. It
+shows the 16:9 Stage with Workbench chrome around it.
 
 ### Pure Mode (纯净模式)
 
-A display state where all Workbench chrome is hidden and only the Style's Stage is visible, centered and maximized in the viewport. Activated via `&pure=1` URL parameter. Used for:
+A display state where all Workbench chrome is hidden and only the selected
+Topic's Stage is visible, centered and maximized in the viewport. Activated via
+the `pure=1` URL parameter. Used for:
 
 - Clean screenshots and recording
 - iframe embedding without visual pollution
@@ -60,37 +89,118 @@ The Workbench chrome that wraps the Stage: header (language/theme toggles, GitHu
 
 ### Stage (舞台)
 
-The 16:9 fixed-ratio canvas (nominal 1920×1080) where a Style renders. The Stage uses `container-type: size` so that `cqw`/`cqh` units inside the Style resolve relative to the Stage dimensions, not the viewport. The Stage scales as a whole via CSS `transform: scale()`.
+The 16:9 fixed-ratio canvas (nominal 1920×1080) where a Topic renders. Content
+inside the Stage resolves container-query units against the Stage rather than
+the browser viewport.
 
 ### Internal Navigation (内嵌导航)
 
-Navigation UI rendered **inside** the Stage by a Style component. Each Style designs its own Internal Navigation to match its aesthetic (360° spatial dispersal, ghost/weakened presence). This is the Style's own navigation, not the Workbench's.
+Navigation UI rendered inside the Stage by a Topic component. It follows the
+owning Style's Design DNA but belongs to the Topic, not the Workbench Envelope.
 
 Internal Navigation communicates with the Envelope via the `onNavigate(scene, beat)` callback.
 
-### Version（版本）
-
-某个风格（Style）下的一个具体实现。每个 Agent/模型产出一个版本，拥有独立的题材、内容和视觉表现。版本由题材名（如"决策的艺术"）标识，而非 v1/v2。一个风格可以有多个版本，它们共享风格 ID 但有不同的 `versionId`。
-
 ### Topic（题材）
 
-版本的主题/内容方向，如 "决策的艺术"、"产品发布会"。用几个字概括，是版本的人类可读标识。同一个风格下可以有完全不同题材的版本（风格定义视觉 DNA，题材定义内容方向）。
+A self-contained five-Scene presentation inside a Style. A Topic has a stable
+semantic ID, bilingual name, model label, presentation component, and localized
+metadata; it is the unit addressed by the `topic` query parameter.
+
+_Avoid_: Version, v1, v2, v3.
+
+### Topic Set（Topic 套系）
+
+A curated planning collection that assigns one new Topic to every registered
+Style. A Topic Set is not a runtime version and does not introduce ordinal
+compatibility routes.
+
+_Avoid_: Version set, v3, slide batch.
+
+### Content Territory（内容疆域）
+
+One of the seven subject-area partitions used to distribute Topics across a
+Topic Set. It constrains subject matter, not visual Style or Band.
+
+_Avoid_: Band, Style family.
+
+### Narrative Archetype（叙事原型）
+
+The five-Scene story logic assigned to a Topic, independent of its Content
+Territory and visual Style.
+
+_Avoid_: Layout template, transition preset.
+
+### Viewing Mode（观看模式）
+
+The intended consumption profile: stage impact, visual narrative, diagram
+explainer, editorial reading, or evidence report. It governs density and
+readability, not visual identity.
+
+_Avoid_: Style category, visual engine.
+
+### Visual Engine（主视觉引擎）
+
+The dominant medium that produces a Topic's imagery, such as type, Emoji actors,
+drawn diagrams, physical material, object metaphor, photography, or interface
+simulation. It is orthogonal to Viewing Mode and Motion Intensity.
+
+_Avoid_: Visual impact, animation style.
+
+### Motion Language（动画语言）
+
+The material-specific verbs used to reveal and transform content inside a
+Scene. Motion Language excludes transitions between Scenes.
+
+_Avoid_: Transition, generic animation.
+
+### Motion Intensity（运动强度）
+
+A 1–5 ceiling on how much visual change a Topic may perform. It expresses an
+attention budget, not speed or animation quality.
+
+_Avoid_: Speed, spectacle score.
+
+### Navigation Language（导航语言）
+
+The geometry, invocation behavior, and feedback behavior of a Topic's Internal
+Navigation. It is distinct from the Workbench Envelope controls.
+
+_Avoid_: Bottom dots, navigation bar.
+
+### Transition Score（转场乐谱）
+
+The ordered four-edge transition sequence for Scene 1→2, 2→3, 3→4, and 4→5
+inside one Topic.
+
+_Avoid_: One global transition preset.
+
+### Signature Effect（签名效果）
+
+A deliberately rare bespoke motion or transition that embodies a Topic's
+visual metaphor and still has a deterministic reduced-motion fallback.
+
+_Avoid_: Decorative one-off effect.
 
 ### Model Label（模型标签）
 
-每个版本的元信息中包含编写该版本的模型名称，如 "Doubao-Seed-Evolving"、"GPT-5.5"。显示在 VersionBar 和版本信息中。
+每个 Topic 的元信息中包含编写该 Topic 的模型名称，如
+"Doubao-Seed-Evolving"、"GPT-5.5"。显示在 TopicBar 和 Topic 信息中。
 
-### VersionBar（版本条）
+### TopicBar（题材条）
 
-Header 下方的紧凑信息条（h-7），显示当前位置：`风格编号·风格名 › 题材名 [模型] v1/3 ⋮`。点击 ⋮ 可查看版本信息。
+Header 下方的紧凑信息条，显示当前位置：`风格名 › 题材名 [模型]`。
 
 ### Registry (注册表)
 
-The authoritative array of all available Styles. Each entry contains the Style's ID, localized name, and a `versions` array. This is the single source of truth for enumeration.
+The authoritative array of all available Styles. Each entry contains the
+Style's ID, localized name, and a `topics` array. This is the single source of
+truth for enumeration.
 
 ### Active Styles List (活跃风格列表)
 
-The full set of all 48 Styles. This is the list used for cross-style Next/Prev cycling. Filtering does **not** change the Active Styles List — it only affects Overview View visibility.
+The full set of all 49 Styles. This is the list used for cross-style Next/Prev
+cycling. Filtering does **not** change the Active Styles List — it only affects
+Overview View visibility.
 
 ### Filter (过滤器)
 
@@ -101,11 +211,14 @@ Tag-based AND filtering that controls which Style cards are visible in Overview 
 
 ### Navigation State (导航状态)
 
-The current position tuple: `(styleId, scene, beat)`. This state is fully reflected in the URL query parameters for stable frame addressing.
+The current position tuple: `(styleId, topicId, scene, beat)`. This state is
+fully reflected in URL query parameters for stable frame addressing.
 
 ### Seamless Cycling (无缝循环)
 
-When advancing past the last Beat of Scene 5 of a Style, the system cycles to Scene 1, Beat 0 of the **next Style in the Active Styles List**. Similarly for Prev going backward. This creates an infinite loop across all 48 Styles.
+When advancing past the last Beat of Scene 5, the system cycles first to the
+next Topic in the current Style, then to the first Topic of the next Style.
+Prev follows the same order in reverse.
 
 ### Theme Mode (深浅色模式)
 
@@ -117,7 +230,8 @@ The Envelope's color scheme: `auto` (follows system), `light`, or `dark`. Persis
 
 ### Harness Contract (线束契约)
 
-The set of invariants that any slide implementation must satisfy to survive iteration:
+The set of invariants that any Topic implementation must satisfy to survive
+iteration:
 
 - **Stable Frame Address** — every scene/beat reachable by stable URL
 - **Fixed Stage** — 1920×1080 base, scales as a whole
@@ -127,7 +241,8 @@ The set of invariants that any slide implementation must satisfy to survive iter
 
 ### Thumbnail Mode (缩略图模式)
 
-When a Style is rendered in Overview View cards (`isThumbnail={true}`), it must suppress Internal Navigation UI and any interactive elements. The `onNavigate` prop is `undefined` in this mode.
+When a Topic is rendered as a thumbnail (`isThumbnail={true}`), it suppresses
+Internal Navigation and interactive elements.
 
 ---
 
@@ -136,13 +251,13 @@ When a Style is rendered in Overview View cards (`isThumbnail={true}`), it must 
 ```
 deck_root:        ~/dev/frontend-harness-slides-workbench
 project_type:     Workbench demo site (not a slide deck itself)
-purpose:          Showcase 48 bespoke slide styles in a browser-able framework
+purpose:          Showcase 49 bespoke slide styles and their Topics in a browser-able framework
 audience:         Internal review + external iframe embedding + demo visitors
 technology_stack: React 19 + Vite 6 + Tailwind CSS v4 + TypeScript + Playwright
 stage:            1920x1080 fixed, container-type: size, CSS transform scale()
-style_count:      48 (all from skill Design DNA catalog)
-style_isolation:  Each style fully self-contained; sub-agents build without knowing Workbench exists
-shared_infra:     None initially; extract common patterns after all 48 are built
+style_count:      49 registered Styles
+style_isolation:  Style DNA stays isolated; Topics share explicit harness and lifecycle contracts
+shared_infra:     Registry, routing, SpatialSceneTrack, audit surface; expand before the new Topic Set
 delivery_target:  Vercel (via GitHub Actions CI)
 non_goals:        Not a slide authoring tool; not an npm package; not a presentation runner
 ```

@@ -80,7 +80,7 @@ describe("Style 32: 32-nordic-rosemaling — overflow check", () => {
 describe("Style 32: 32-nordic-rosemaling — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("32");
+    expect(meta.id).toBe("mechanical-scoring-funnel");
     expect(meta.band).toBe("craft-cultural");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

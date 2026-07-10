@@ -241,7 +241,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "24",
+    id: "analog-cutout-collage",
     band: "editorial-print",
     name: nameMap[lang],
     theme: themeMap[lang],

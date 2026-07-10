@@ -226,7 +226,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "06",
+    id: "kinetic-type-punchline",
     band: "minimal-keynote",
     name: nameMap[lang],
     theme: themeMap[lang],

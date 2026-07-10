@@ -292,7 +292,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "07",
+    id: "sketch-board-emoji",
     band: "minimal-keynote",
     name: nameMap[lang],
     theme: themeMap[lang],

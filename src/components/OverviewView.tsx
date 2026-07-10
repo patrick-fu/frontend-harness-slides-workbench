@@ -19,12 +19,12 @@ export default function OverviewView({
   const [selectedBands, setSelectedBands] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  // Build metadata list for all registered styles (using first version)
+  // Build metadata list for all registered styles (using first topic)
   const allMetadata = useMemo(
     () =>
       registry
-        .filter((entry) => entry.versions.length > 0)
-        .map((entry) => entry.versions[0].getMetadata(language)),
+        .filter((entry) => entry.topics.length > 0)
+        .map((entry) => entry.topics[0].getMetadata(language)),
     [registry, language],
   );
 
@@ -79,9 +79,9 @@ export default function OverviewView({
 
   const noResults = filteredMetadata.length === 0 && allMetadata.length > 0;
 
-  // Count total versions
-  const totalVersions = useMemo(
-    () => registry.reduce((sum, s) => sum + s.versions.length, 0),
+  // Count total topics
+  const totalTopics = useMemo(
+    () => registry.reduce((sum, style) => sum + style.topics.length, 0),
     [registry],
   );
 
@@ -98,8 +98,8 @@ export default function OverviewView({
           </h1>
           <p className="text-sm opacity-50">
             {language === "zh"
-              ? `${registry.length} 种风格 · ${totalVersions} 个版本`
-              : `${registry.length} styles · ${totalVersions} versions`}
+              ? `${registry.length} 种风格 · ${totalTopics} 个主题`
+              : `${registry.length} styles · ${totalTopics} topics`}
           </p>
         </div>
 
@@ -145,14 +145,14 @@ export default function OverviewView({
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {styles.map((meta) => {
-                  const versionCount =
-                    registry.find((e) => e.id === meta.id)?.versions.length ??
+                  const topicCount =
+                    registry.find((e) => e.id === meta.id)?.topics.length ??
                     0;
                   return (
                     <StyleCard
                       key={meta.id}
                       meta={meta}
-                      versionCount={versionCount}
+                      topicCount={topicCount}
                       onSelect={onSelectStyle}
                     />
                   );
@@ -170,11 +170,11 @@ export default function OverviewView({
 
 interface StyleCardProps {
   meta: StyleMetadata;
-  versionCount: number;
+  topicCount: number;
   onSelect: (styleId: string) => void;
 }
 
-function StyleCard({ meta, versionCount, onSelect }: StyleCardProps) {
+function StyleCard({ meta, topicCount, onSelect }: StyleCardProps) {
   const scene3Filename = scene3Thumbnails[meta.id];
 
   const handleClick = useCallback(() => {
@@ -202,8 +202,8 @@ function StyleCard({ meta, versionCount, onSelect }: StyleCardProps) {
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           />
         )}
-        {/* Version count badge */}
-        {versionCount > 1 && (
+        {/* Topic count badge */}
+        {topicCount > 1 && (
           <div
             className="absolute top-2 right-2 px-1.5 py-0.5 rounded-md text-[10px] font-medium"
             style={{
@@ -212,7 +212,7 @@ function StyleCard({ meta, versionCount, onSelect }: StyleCardProps) {
               backdropFilter: "blur(4px)",
             }}
           >
-            ×{versionCount}
+            ×{topicCount}
           </div>
         )}
       </div>

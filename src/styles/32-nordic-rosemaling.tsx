@@ -160,7 +160,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     return { id, title: sceneTitles[lang][id - 1], beats };
   });
   return {
-    id: "32", band: "craft-cultural", name: nameMap[lang], theme: themeMap[lang],
+    id: "mechanical-scoring-funnel", band: "craft-cultural", name: nameMap[lang], theme: themeMap[lang],
     densityLabel: densityLabelMap[lang], heroScene: 3,
     colors: { bg: "#0d1117", ink: "#e2e8f0", panel: "#161b22" },
     typography: { header: "Oswald 700", body: "Inter 400" },

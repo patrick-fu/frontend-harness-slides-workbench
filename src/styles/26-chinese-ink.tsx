@@ -196,7 +196,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "26",
+    id: "botanical-specimen-plate",
     band: "craft-cultural",
     name: nameMap[lang],
     theme: themeMap[lang],

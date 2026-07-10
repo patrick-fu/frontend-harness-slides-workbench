@@ -180,7 +180,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "28",
+    id: "expedition-screenprint",
     band: "craft-cultural",
     name: nameMap[lang],
     theme: themeMap[lang],

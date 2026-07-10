@@ -241,7 +241,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "34",
+    id: "retro-windows",
     band: "contemporary-digital",
     name: nameMap[lang],
     theme: themeMap[lang],

@@ -159,7 +159,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     return { id, title: sceneTitles[lang][id - 1], beats };
   });
   return {
-    id: "31", band: "craft-cultural", name: nameMap[lang], theme: themeMap[lang],
+    id: "red-wedge-agitprop", band: "craft-cultural", name: nameMap[lang], theme: themeMap[lang],
     densityLabel: densityLabelMap[lang], heroScene: 2,
     colors: { bg: "#f0e8d8", ink: "#111111", panel: "#e8dfc8" },
     typography: { header: "Oswald 700", body: "Inter 400" },

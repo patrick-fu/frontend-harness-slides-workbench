@@ -112,7 +112,7 @@ describe("Style 11: Timeline Spiral — overflow check", () => {
 describe("Style 11: Timeline Spiral — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("11");
+    expect(meta.id).toBe("signal-pipeline-flow");
     expect(meta.band).toBe("balanced-hybrid");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

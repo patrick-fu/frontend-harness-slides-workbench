@@ -112,7 +112,7 @@ describe("Style 14: Org Chart — overflow check", () => {
 describe("Style 14: Org Chart — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("14");
+    expect(meta.id).toBe("collaborative-pairing-board");
     expect(meta.band).toBe("balanced-hybrid");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);

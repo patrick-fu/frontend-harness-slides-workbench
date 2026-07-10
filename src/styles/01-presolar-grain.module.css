@@ -1,0 +1,671 @@
+.root {
+  --style-01-bg: #090908;
+  --style-01-ink: #f4f0e6;
+  --style-01-soft: rgba(244, 240, 230, 0.58);
+  --style-01-hairline: rgba(244, 240, 230, 0.16);
+  --style-01-accent: #d6a961;
+  --style-01-accent-pale: #f7e6b5;
+  --style-01-panel: #141310;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--style-01-ink);
+  background:
+    radial-gradient(ellipse at 52% 44%, #171510 0%, #0c0c0a 38%, #090908 70%),
+    var(--style-01-bg);
+  font-family: "Avenir Next", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+}
+
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    112deg,
+    transparent 0%,
+    rgba(255, 244, 203, 0.018) 43%,
+    rgba(255, 244, 203, 0.04) 50%,
+    transparent 57%
+  );
+}
+
+.sceneTrack {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.makerMark {
+  position: absolute;
+  top: 5.3cqh;
+  left: 5.2cqw;
+  right: 5.2cqw;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--style-01-soft);
+  font-size: 0.68cqw;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.12cqw;
+}
+
+.copyBlock {
+  position: absolute;
+  z-index: 6;
+}
+
+.title {
+  margin: 0;
+  max-width: 100%;
+  color: var(--style-01-ink);
+  font-family: "Iowan Old Style", "Songti SC", "Noto Serif CJK SC", serif;
+  font-size: 5.15cqw;
+  font-weight: 500;
+  line-height: 0.94;
+  letter-spacing: -0.13cqw;
+  text-wrap: balance;
+}
+
+.subtitle {
+  margin: 3.2cqh 0 0;
+  max-width: 35cqw;
+  color: var(--style-01-soft);
+  font-size: 1.12cqw;
+  font-weight: 400;
+  line-height: 1.48;
+  letter-spacing: 0.012cqw;
+}
+
+.detail {
+  position: absolute;
+  z-index: 7;
+  margin: 0;
+  max-width: 34cqw;
+  color: rgba(244, 240, 230, 0.46);
+  font-size: 0.82cqw;
+  font-weight: 450;
+  line-height: 1.45;
+  letter-spacing: 0.025cqw;
+}
+
+.visualField {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.subtitle,
+.detail,
+.objectLabel,
+.sectionLeader,
+.sectionCaption,
+.isotopeRail,
+.grainSignatureLabel,
+.scaleRing,
+.scaleAnnotation,
+.returnLabel {
+  transition:
+    opacity 920ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 920ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 920ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-visible="false"] {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.42cqh);
+}
+
+[data-visible="true"] {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.grainSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 1.8cqh 2.2cqw rgba(0, 0, 0, 0.58));
+}
+
+[data-active-panel="true"] .grainSheen {
+  animation: grainLightPass 1380ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+[data-active-panel="false"] .grainSheen {
+  animation: none;
+}
+
+@keyframes grainLightPass {
+  0% {
+    opacity: 0.08;
+    transform: translateX(-0.7cqw);
+  }
+  58% {
+    opacity: 0.72;
+  }
+  100% {
+    opacity: 0.42;
+    transform: translateX(0.18cqw);
+  }
+}
+
+/* Scene 1 · macro object */
+
+.scene1 .copyBlock {
+  left: 7cqw;
+  top: 62cqh;
+  width: 70cqw;
+}
+
+.scene1 .title {
+  font-size: 5.5cqw;
+}
+
+.scene1 .detail {
+  right: 7cqw;
+  bottom: 6.6cqh;
+  text-align: right;
+}
+
+.macroComposition {
+  position: absolute;
+  inset: 0;
+}
+
+.giantScaleWord {
+  position: absolute;
+  left: 50%;
+  top: 9cqh;
+  transform: translateX(-50%);
+  color: rgba(244, 240, 230, 0.035);
+  font-family: "Avenir Next", "PingFang SC", sans-serif;
+  font-size: 19.5cqw;
+  font-weight: 650;
+  line-height: 0.8;
+  letter-spacing: -0.95cqw;
+  white-space: nowrap;
+}
+
+.macroGrain {
+  position: absolute;
+  left: 40.1cqw;
+  top: 10.5cqh;
+  width: 20.5cqw;
+  height: 43cqh;
+}
+
+.objectLabel {
+  position: absolute;
+  left: 61.5cqw;
+  top: 43.2cqh;
+  color: rgba(244, 240, 230, 0.38);
+  font-size: 0.64cqw;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.12cqw;
+}
+
+/* Scene 2 · meteorite thin section */
+
+.scene2 .copyBlock {
+  left: 7cqw;
+  top: 17.5cqh;
+  width: 38cqw;
+}
+
+.scene2 .title {
+  font-size: 4.8cqw;
+}
+
+.scene2 .detail {
+  left: 7cqw;
+  bottom: 9cqh;
+}
+
+.thinSectionComposition {
+  position: absolute;
+  right: 2cqw;
+  top: 13cqh;
+  width: 56cqw;
+  height: 72cqh;
+}
+
+.sectionPlate {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2.4cqh 3.2cqw rgba(0, 0, 0, 0.5));
+}
+
+.embeddedGrain {
+  position: absolute;
+  left: 48.4%;
+  top: 41%;
+  width: 6.7cqw;
+  height: 13.1cqh;
+  transform: rotate(8deg);
+}
+
+.sectionLeader {
+  position: absolute;
+  left: 58.5%;
+  top: 54%;
+  width: 10cqw;
+  height: 0.07cqw;
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--style-01-accent-pale), transparent);
+}
+
+.sectionCaption {
+  position: absolute;
+  left: 76%;
+  top: 52.4%;
+  color: var(--style-01-soft);
+  font-size: 0.72cqw;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.08cqw;
+  white-space: nowrap;
+}
+
+/* Scene 3 · isotope map */
+
+.scene3 .copyBlock {
+  left: 7cqw;
+  top: 14.5cqh;
+  width: 43cqw;
+}
+
+.scene3 .title {
+  font-size: 5.15cqw;
+}
+
+.scene3 .subtitle {
+  max-width: 34cqw;
+}
+
+.scene3 .detail {
+  left: 7cqw;
+  bottom: 8cqh;
+}
+
+.isotopeComposition {
+  position: absolute;
+  inset: 0;
+}
+
+.isotopeGrain {
+  position: absolute;
+  left: 12.6cqw;
+  top: 48.5cqh;
+  width: 12.2cqw;
+  height: 24cqh;
+}
+
+.railField {
+  position: absolute;
+  right: 7cqw;
+  top: 37cqh;
+  width: 45cqw;
+  height: 42cqh;
+}
+
+.baselineLabel {
+  position: absolute;
+  right: 19.7cqw;
+  top: -4cqh;
+  color: rgba(244, 240, 230, 0.35);
+  font-size: 0.62cqw;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.08cqw;
+}
+
+.isotopeRail {
+  position: relative;
+  display: grid;
+  grid-template-columns: 9cqw 1fr;
+  align-items: center;
+  height: 10.5cqh;
+}
+
+.railName {
+  color: rgba(244, 240, 230, 0.74);
+  font-family: "Iowan Old Style", "Songti SC", serif;
+  font-size: 1.12cqw;
+  line-height: 1;
+}
+
+.railLine {
+  position: relative;
+  height: 0.08cqw;
+  background: linear-gradient(90deg, rgba(244, 240, 230, 0.12), rgba(244, 240, 230, 0.32), rgba(244, 240, 230, 0.12));
+}
+
+.solarMark,
+.grainMark {
+  position: absolute;
+  top: 50%;
+  width: 0.42cqw;
+  height: 1.5cqh;
+  transform: translate(-50%, -50%);
+}
+
+.solarMark {
+  left: 55%;
+  background: rgba(244, 240, 230, 0.42);
+}
+
+.grainMark {
+  left: 82%;
+  background: var(--style-01-accent-pale);
+  box-shadow: 0 0 1.6cqw rgba(214, 169, 97, 0.42);
+}
+
+.grainMark[data-shift="wide"] {
+  left: 88%;
+}
+
+.grainMark[data-shift="low"] {
+  left: 27%;
+}
+
+.grainMark[data-shift="high"] {
+  left: 76%;
+}
+
+.grainSignatureLabel {
+  position: absolute;
+  right: 0;
+  bottom: -2cqh;
+  color: var(--style-01-accent-pale);
+  font-size: 0.76cqw;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.04cqw;
+}
+
+/* Scene 4 · context expands around a still object */
+
+.scene4 .copyBlock {
+  left: 7cqw;
+  top: 15.5cqh;
+  width: 38cqw;
+}
+
+.scene4 .title {
+  font-size: 5.3cqw;
+}
+
+.scene4 .detail {
+  left: 7cqw;
+  bottom: 8.5cqh;
+}
+
+.scaleComposition {
+  position: absolute;
+  inset: 0;
+}
+
+.scaleStatement {
+  position: absolute;
+  right: -1cqw;
+  top: 7cqh;
+  color: rgba(244, 240, 230, 0.026);
+  font-size: 12cqw;
+  font-weight: 650;
+  line-height: 0.8;
+  letter-spacing: -0.62cqw;
+  white-space: nowrap;
+}
+
+.scaleSystem {
+  position: absolute;
+  right: 2cqw;
+  top: 11cqh;
+  width: 54cqw;
+  height: 80cqh;
+}
+
+.scaleRing {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 0.07cqw solid rgba(244, 240, 230, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.scaleRing[data-visible="false"] {
+  transform: translate(-50%, -50%) scale(0.985);
+}
+
+.scaleRing > span {
+  position: absolute;
+  right: 1.2cqw;
+  top: 1.8cqh;
+  color: rgba(244, 240, 230, 0.42);
+  font-size: 0.6cqw;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.08cqw;
+  white-space: nowrap;
+}
+
+.scaleRing[data-scale-index="0"] {
+  width: 9cqw;
+  height: 16cqh;
+  border-color: rgba(247, 230, 181, 0.42);
+}
+
+.scaleRing[data-scale-index="1"] {
+  width: 20cqw;
+  height: 36cqh;
+}
+
+.scaleRing[data-scale-index="2"] {
+  width: 34cqw;
+  height: 60cqh;
+}
+
+.scaleRing[data-scale-index="3"] {
+  width: 49cqw;
+  height: 76cqh;
+  border-color: rgba(214, 169, 97, 0.26);
+}
+
+.scaleGrain {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4.4cqw;
+  height: 8.8cqh;
+  transform: translate(-50%, -50%);
+}
+
+.scaleAnnotation {
+  position: absolute;
+  right: 7cqw;
+  bottom: 6.5cqh;
+  color: rgba(244, 240, 230, 0.38);
+  font-size: 0.62cqw;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.08cqw;
+}
+
+/* Scene 5 · quiet return */
+
+.scene5 .copyBlock {
+  left: 7cqw;
+  top: 59cqh;
+  width: 73cqw;
+}
+
+.scene5 .title {
+  font-size: 7cqw;
+  letter-spacing: -0.2cqw;
+}
+
+.scene5 .subtitle {
+  margin-top: 2.4cqh;
+}
+
+.scene5 .detail {
+  right: 7cqw;
+  bottom: 6.8cqh;
+  text-align: right;
+}
+
+.returnComposition {
+  position: absolute;
+  inset: 0;
+}
+
+.returnWord {
+  position: absolute;
+  left: 50%;
+  top: 11.5cqh;
+  transform: translateX(-50%);
+  color: rgba(244, 240, 230, 0.03);
+  font-family: "Avenir Next", "PingFang SC", sans-serif;
+  font-size: 16.5cqw;
+  font-weight: 650;
+  line-height: 0.8;
+  letter-spacing: -0.75cqw;
+  white-space: nowrap;
+}
+
+.returnGrain {
+  position: absolute;
+  left: 42.1cqw;
+  top: 11cqh;
+  width: 15.8cqw;
+  height: 34cqh;
+  transition: transform 1400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.returnComposition[data-final-focus="true"] .returnGrain {
+  transform: scale(1.01);
+}
+
+.returnLabel {
+  position: absolute;
+  left: 59cqw;
+  top: 38.8cqh;
+  color: rgba(244, 240, 230, 0.38);
+  font-size: 0.64cqw;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.11cqw;
+}
+
+/* Ambient corner-grain navigation */
+
+.grainNavigation {
+  position: absolute;
+  top: 3.4cqh;
+  right: 3.1cqw;
+  z-index: 12;
+  width: 10cqw;
+  height: 12cqh;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.grainNavButton {
+  position: absolute;
+  width: 1.7cqw;
+  height: 3cqh;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+.grainNavButton:nth-child(1) {
+  left: 12%;
+  top: 65%;
+}
+
+.grainNavButton:nth-child(2) {
+  left: 33%;
+  top: 33%;
+}
+
+.grainNavButton:nth-child(3) {
+  left: 53%;
+  top: 72%;
+}
+
+.grainNavButton:nth-child(4) {
+  left: 72%;
+  top: 22%;
+}
+
+.grainNavButton:nth-child(5) {
+  left: 89%;
+  top: 56%;
+}
+
+.grainNavFacet {
+  display: block;
+  width: 0.42cqw;
+  height: 0.78cqh;
+  margin: auto;
+  clip-path: polygon(30% 0%, 85% 14%, 100% 65%, 55% 100%, 4% 72%, 0% 22%);
+  background: rgba(244, 240, 230, 0.27);
+  transform: rotate(18deg);
+  transition:
+    width 640ms cubic-bezier(0.16, 1, 0.3, 1),
+    height 640ms cubic-bezier(0.16, 1, 0.3, 1),
+    background 640ms ease,
+    box-shadow 640ms ease;
+}
+
+.grainNavButton[data-active="true"] .grainNavFacet {
+  width: 0.68cqw;
+  height: 1.26cqh;
+  background: var(--style-01-accent-pale);
+  box-shadow:
+    0 0 0.7cqw rgba(214, 169, 97, 0.7),
+    0 0 1.7cqw rgba(214, 169, 97, 0.28);
+}
+
+.grainNavButton:hover .grainNavFacet,
+.grainNavButton:focus-visible .grainNavFacet {
+  background: var(--style-01-accent-pale);
+}
+
+.grainNavButton:focus-visible {
+  outline: 0.07cqw solid rgba(247, 230, 181, 0.62);
+  outline-offset: 0.1cqw;
+}
+
+.root[data-motion="off"] *,
+.root[data-motion="off"] *::before,
+.root[data-motion="off"] *::after {
+  animation: none !important;
+  transition-duration: 0s !important;
+  scroll-behavior: auto !important;
+}

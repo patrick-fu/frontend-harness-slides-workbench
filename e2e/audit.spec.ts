@@ -8,75 +8,253 @@ interface StyleBeatInfo {
 }
 
 const STYLE_BEATS: StyleBeatInfo[] = [
-  { id: "01", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "02", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "03", beats: { 1: 1, 2: 2, 3: 2, 4: 3, 5: 1 } },
-  { id: "04", beats: { 1: 1, 2: 2, 3: 2, 4: 3, 5: 2 } },
-  { id: "05", beats: { 1: 1, 2: 3, 3: 2, 4: 3, 5: 1 } },
-  { id: "06", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
-  { id: "07", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
-  { id: "08", beats: { 1: 2, 2: 2, 3: 2, 4: 3, 5: 1 } },
-  { id: "09", beats: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 } },
-  { id: "10", beats: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 } },
-  { id: "11", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
-  { id: "12", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
-  { id: "13", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
-  { id: "14", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
-  { id: "15", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
-  { id: "16", beats: { 1: 1, 2: 3, 3: 2, 4: 3, 5: 1 } },
-  { id: "17", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "18", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "19", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
-  { id: "20", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "21", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "22", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 2 } },
-  { id: "23", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "24", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
-  { id: "25", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
-  { id: "26", beats: { 1: 1, 2: 3, 3: 2, 4: 3, 5: 1 } },
-  { id: "27", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
-  { id: "28", beats: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 } },
-  { id: "29", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
-  { id: "30", beats: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 } },
-  { id: "31", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
-  { id: "32", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
-  { id: "33", beats: { 1: 1, 2: 2, 3: 3, 4: 1, 5: 1 } },
-  { id: "34", beats: { 1: 1, 2: 2, 3: 3, 4: 1, 5: 1 } },
-  { id: "35", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
-  { id: "36", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
-  { id: "37", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "38", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "39", beats: { 1: 1, 2: 2, 3: 2, 4: 1, 5: 3 } },
-  { id: "40", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "41", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "42", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "43", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "44", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
-  { id: "45", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 3 } },
-  { id: "46", beats: { 1: 1, 2: 2, 3: 3, 4: 3, 5: 2 } },
-  { id: "47", beats: { 1: 1, 2: 2, 3: 3, 4: 3, 5: 2 } },
-  { id: "48", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 2 } },
+  { id: "minimal-product-keynote", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
+  { id: "objective-swiss-grid", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
+  { id: "wabi-sabi-ceramic", beats: { 1: 1, 2: 2, 3: 2, 4: 3, 5: 1 } },
+  { id: "interactive-dialogue-stage", beats: { 1: 1, 2: 2, 3: 2, 4: 3, 5: 2 } },
+  { id: "cyanotype-drafting-table", beats: { 1: 1, 2: 3, 3: 2, 4: 3, 5: 1 } },
+  { id: "kinetic-type-punchline", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
+  { id: "sketch-board-emoji", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
+  { id: "spotlight-quote-poster", beats: { 1: 2, 2: 2, 3: 2, 4: 3, 5: 1 } },
+  { id: "subway-map-of-intent", beats: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 } },
+  { id: "benchmark-matrix", beats: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 } },
+  { id: "signal-pipeline-flow", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
+  { id: "engineering-whiteboard-explainer", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 2 } },
+  { id: "soft-pastel-friendly", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
+  { id: "kitchen-prep-station", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
+  { id: "collaborative-pairing-board", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
+  { id: "studio-mixing-console", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
+  { id: "debug-reaction-board", beats: { 1: 1, 2: 3, 3: 2, 4: 3, 5: 1 } },
+  { id: "front-page-broadsheet", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
+  { id: "magazine-masthead", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
+  { id: "warm-editorial-feature", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
+  { id: "scholars-vellum", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
+  { id: "solar-biennale-poster", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
+  { id: "duotone-session", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 2 } },
+  { id: "riso-print-zine", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
+  { id: "analog-cutout-collage", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
+  { id: "woodblock-floating-world", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
+  { id: "botanical-specimen-plate", beats: { 1: 1, 2: 3, 3: 2, 4: 3, 5: 1 } },
+  { id: "machine-age-deco", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
+  { id: "expedition-screenprint", beats: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 } },
+  { id: "cassette-era-packaging", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
+  { id: "neo-brutalist-bulletin", beats: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 } },
+  { id: "red-wedge-agitprop", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
+  { id: "mechanical-scoring-funnel", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
+  { id: "liquid-glass", beats: { 1: 1, 2: 2, 3: 3, 4: 1, 5: 1 } },
+  { id: "retro-windows", beats: { 1: 1, 2: 2, 3: 3, 4: 1, 5: 1 } },
+  { id: "mid-century-grove", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
+  { id: "after-hours-luxe", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
+  { id: "operating-manual", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
+  { id: "widescreen-title-card", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
+  { id: "blackboard-chalk-talk", beats: { 1: 1, 2: 2, 3: 2, 4: 1, 5: 3 } },
+  { id: "arcade-boss-fight", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
+  { id: "research-memo", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
+  { id: "decision-record", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
+  { id: "maintainer-issue-brief", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
+  { id: "field-notes-report", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
+  { id: "annotated-source-diff", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 3 } },
+  { id: "checklist-ledger", beats: { 1: 1, 2: 2, 3: 3, 4: 3, 5: 2 } },
+  { id: "context-bento-box", beats: { 1: 1, 2: 2, 3: 3, 4: 3, 5: 2 } },
+  { id: "object-metaphor-hero", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 2 } },
 ];
 
 const ALL_STYLE_IDS = STYLE_BEATS.map((s) => s.id);
-const V2_SCENE_5_LAST_BEAT: Record<string, number> = {
-  "01": 1,
-  "08": 2,
-  "16": 2,
-  "24": 2,
-  "32": 2,
-  "40": 3,
-  "48": 0,
+const PRIMARY_TOPIC_BY_STYLE: Record<string, string> = {
+  "minimal-product-keynote": "product-keynote",
+  "objective-swiss-grid": "swiss-grid",
+  "wabi-sabi-ceramic": "ceramic-calm",
+  "interactive-dialogue-stage": "dialogue-stage",
+  "cyanotype-drafting-table": "blueprint",
+  "kinetic-type-punchline": "type-poster",
+  "sketch-board-emoji": "workshop-board",
+  "spotlight-quote-poster": "quote-poster",
+  "subway-map-of-intent": "subway-flow",
+  "benchmark-matrix": "benchmark",
+  "signal-pipeline-flow": "pipeline",
+  "engineering-whiteboard-explainer": "from-prompt-to-patch",
+  "soft-pastel-friendly": "friendly-onboard",
+  "kitchen-prep-station": "prep-station",
+  "collaborative-pairing-board": "pairing-board",
+  "studio-mixing-console": "mixing-console",
+  "debug-reaction-board": "debug-board",
+  "front-page-broadsheet": "broadsheet",
+  "magazine-masthead": "masthead",
+  "warm-editorial-feature": "editorial-feature",
+  "scholars-vellum": "scholar-notes",
+  "solar-biennale-poster": "biennale-poster",
+  "duotone-session": "session-poster",
+  "riso-print-zine": "riso-zine",
+  "analog-cutout-collage": "cutout-collage",
+  "woodblock-floating-world": "woodblock",
+  "botanical-specimen-plate": "specimen-plate",
+  "machine-age-deco": "deco-gala",
+  "expedition-screenprint": "expedition-print",
+  "cassette-era-packaging": "cassette-pack",
+  "neo-brutalist-bulletin": "brutalist-bulletin",
+  "red-wedge-agitprop": "red-wedge",
+  "mechanical-scoring-funnel": "scoring-funnel",
+  "liquid-glass": "liquid-glass",
+  "retro-windows": "retro-desktop",
+  "mid-century-grove": "botanical-brand",
+  "after-hours-luxe": "after-hours",
+  "operating-manual": "manual",
+  "widescreen-title-card": "title-card",
+  "blackboard-chalk-talk": "chalk-talk",
+  "arcade-boss-fight": "boss-fight",
+  "research-memo": "research-memo",
+  "decision-record": "decision-record",
+  "maintainer-issue-brief": "issue-brief",
+  "field-notes-report": "field-notes",
+  "annotated-source-diff": "source-diff",
+  "checklist-ledger": "checklist-ledger",
+  "context-bento-box": "context-bento",
+  "object-metaphor-hero": "object-metaphor",
 };
-// v3 scene-5 last beat index (0-based). Only styles whose v3 scene 5 has more
-// than one beat are listed; every other v3 scene 5 is a single beat (index 0).
-const V3_SCENE_5_LAST_BEAT: Record<string, number> = {
-  "04": 1,
-  "30": 1,
-  "45": 2,
-  "46": 1,
-  "47": 1,
-  "48": 1,
+const SECONDARY_TOPIC_BY_STYLE: Record<string, string> = {
+  "minimal-product-keynote": "quiet-launch",
+  "objective-swiss-grid": "clean-metrics",
+  "wabi-sabi-ceramic": "repair-strategy",
+  "interactive-dialogue-stage": "better-question",
+  "cyanotype-drafting-table": "resilience-plan",
+  "kinetic-type-punchline": "one-constraint",
+  "sketch-board-emoji": "human-loop",
+  "spotlight-quote-poster": "kept-sentence",
+  "subway-map-of-intent": "release-tracks",
+  "benchmark-matrix": "durable-tool",
+  "signal-pipeline-flow": "event-insight",
+  "soft-pastel-friendly": "breathing-onboard",
+  "kitchen-prep-station": "clean-brief",
+  "collaborative-pairing-board": "shared-artifact",
+  "studio-mixing-console": "operating-model",
+  "debug-reaction-board": "learning-incident",
+  "front-page-broadsheet": "after-launch",
+  "magazine-masthead": "product-cover",
+  "warm-editorial-feature": "useful-week",
+  "scholars-vellum": "margin-argument",
+  "solar-biennale-poster": "public-light",
+  "duotone-session": "five-takes",
+  "riso-print-zine": "community-print",
+  "analog-cutout-collage": "rebuilt-archive",
+  "woodblock-floating-world": "tide-map",
+  "botanical-specimen-plate": "growth-signals",
+  "machine-age-deco": "infrastructure-gala",
+  "expedition-screenprint": "field-route",
+  "cassette-era-packaging": "release-mixtape",
+  "neo-brutalist-bulletin": "hard-thing",
+  "red-wedge-agitprop": "org-move",
+  "mechanical-scoring-funnel": "priority-score",
+  "liquid-glass": "spatial-brief",
+  "retro-windows": "toolchain-desk",
+  "mid-century-grove": "calm-growth",
+  "after-hours-luxe": "beta-salon",
+  "operating-manual": "habit-runbook",
+  "widescreen-title-card": "system-acts",
+  "blackboard-chalk-talk": "shortcut",
+  "arcade-boss-fight": "latency-boss",
+  "research-memo": "small-team",
+  "decision-record": "boundary",
+  "maintainer-issue-brief": "agent-pickup",
+  "field-notes-report": "platform-study",
+  "annotated-source-diff": "flow-rewrite",
+  "checklist-ledger": "launch-ledger",
+  "context-bento-box": "handoff-box",
+  "object-metaphor-hero": "recovery-kit",
+};
+const COORDINATED_TOPIC_BY_STYLE: Record<string, string> = {
+  "minimal-product-keynote": "presolar-grain",
+  "wabi-sabi-ceramic": "stone-to-soil",
+  "interactive-dialogue-stage": "vocal-folds",
+  "cyanotype-drafting-table": "comet-anatomy",
+  "kinetic-type-punchline": "before-a",
+  "sketch-board-emoji": "stadium-wave",
+  "subway-map-of-intent": "tea-cha-routes",
+  "signal-pipeline-flow": "district-heat",
+  "engineering-whiteboard-explainer": "water-tower",
+  "soft-pastel-friendly": "chrysalis-rebuild",
+  "kitchen-prep-station": "cocoa-fermentation",
+  "studio-mixing-console": "tidal-time",
+  "front-page-broadsheet": "rogue-wave",
+  "warm-editorial-feature": "oral-to-written",
+  "scholars-vellum": "hidden-text",
+  "solar-biennale-poster": "iron-from-stars",
+  "duotone-session": "dance-notation",
+  "botanical-specimen-plate": "leaf-stomata",
+  "mechanical-scoring-funnel": "snowflake-branches",
+  "expedition-screenprint": "saharan-dust",
+  "red-wedge-agitprop": "pneumatic-post",
+  "liquid-glass": "safety-glass",
+  "retro-windows": "voyager-boundary",
+  "mid-century-grove": "monarch-migration",
+  "after-hours-luxe": "urushi-cure",
+  "operating-manual": "escapement",
+  "widescreen-title-card": "whale-fall",
+  "research-memo": "impact-evidence",
+  "maintainer-issue-brief": "ozone-hole",
+  "spotlight-quote-poster": "freedive",
+  "benchmark-matrix": "natural-clocks",
+  "collaborative-pairing-board": "elevator-counterweight",
+  "debug-reaction-board": "acoustic-crack",
+  "magazine-masthead": "moth-experiment",
+  "machine-age-deco": "reinforced-concrete",
+  "neo-brutalist-bulletin": "sinking-delta",
+  "field-notes-report": "ancient-sound",
+  "annotated-source-diff": "reading-rosetta",
+  "checklist-ledger": "pigment-without-touch",
+  "object-metaphor-hero": "cocoon-to-cloth",
+  "blackboard-chalk-talk": "hearing-path",
+};
+const SECONDARY_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
+  "minimal-product-keynote": 1,
+  "spotlight-quote-poster": 2,
+  "debug-reaction-board": 2,
+  "analog-cutout-collage": 2,
+  "mechanical-scoring-funnel": 2,
+  "arcade-boss-fight": 3,
+  "object-metaphor-hero": 0,
+};
+const COORDINATED_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
+  "minimal-product-keynote": 1,
+  "wabi-sabi-ceramic": 0,
+  "interactive-dialogue-stage": 0,
+  "cyanotype-drafting-table": 0,
+  "kinetic-type-punchline": 3,
+  "sketch-board-emoji": 0,
+  "subway-map-of-intent": 0,
+  "signal-pipeline-flow": 0,
+  "engineering-whiteboard-explainer": 3,
+  "soft-pastel-friendly": 0,
+  "kitchen-prep-station": 0,
+  "studio-mixing-console": 0,
+  "front-page-broadsheet": 0,
+  "warm-editorial-feature": 0,
+  "scholars-vellum": 0,
+  "solar-biennale-poster": 0,
+  "duotone-session": 0,
+  "botanical-specimen-plate": 0,
+  "mechanical-scoring-funnel": 3,
+  "expedition-screenprint": 0,
+  "red-wedge-agitprop": 0,
+  "liquid-glass": 0,
+  "retro-windows": 0,
+  "mid-century-grove": 0,
+  "after-hours-luxe": 1,
+  "operating-manual": 0,
+  "widescreen-title-card": 3,
+  "research-memo": 0,
+  "maintainer-issue-brief": 0,
+  "spotlight-quote-poster": 0,
+  "benchmark-matrix": 0,
+  "collaborative-pairing-board": 0,
+  "debug-reaction-board": 0,
+  "magazine-masthead": 0,
+  "machine-age-deco": 0,
+  "neo-brutalist-bulletin": 0,
+  "field-notes-report": 0,
+  "annotated-source-diff": 0,
+  "checklist-ledger": 0,
+  "object-metaphor-hero": 1,
+  "blackboard-chalk-talk": 3,
 };
 const SCENE_TRANSITION_KINDS = [
   "slide-x",
@@ -91,32 +269,30 @@ const SCENE_TRANSITION_KINDS = [
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
-/** Build URL hash string from params. Format: #view=lab&style=01&scene=1&beat=0 */
-function buildHash(params: {
+/** Build URL query string from params. Format: ?view=lab&style=...&topic=... */
+function buildQuery(params: {
   view: string;
   style?: string;
-  version?: string;
+  topic?: string;
   scene?: number;
   beat?: number;
   pure?: boolean;
   frozen?: boolean;
 }): string {
-  const parts = [`view=${params.view}`];
-  if (params.style) parts.push(`style=${params.style}`);
-  if (params.version) parts.push(`version=${params.version}`);
-  if (params.scene !== undefined) parts.push(`scene=${params.scene}`);
-  if (params.beat !== undefined) parts.push(`beat=${params.beat}`);
-  parts.push(`pure=${params.pure ? "1" : "0"}`);
-  parts.push(`frozen=${params.frozen ? "1" : "0"}`);
-  return `#${parts.join("&")}`;
+  const search = new URLSearchParams();
+  search.set("view", params.view);
+  if (params.style) search.set("style", params.style);
+  if (params.topic) search.set("topic", params.topic);
+  if (params.scene !== undefined) search.set("scene", String(params.scene));
+  if (params.beat !== undefined) search.set("beat", String(params.beat));
+  if (params.pure) search.set("pure", "1");
+  if (params.frozen) search.set("frozen", "1");
+  return `?${search.toString()}`;
 }
 
-/** Parse current URL hash into a key-value map. */
-function parseHashFromUrl(url: string): Record<string, string> {
-  const hashIdx = url.indexOf("#");
-  if (hashIdx === -1) return {};
-  const hash = url.slice(hashIdx + 1);
-  const params = new URLSearchParams(hash);
+/** Parse current URL query into a key-value map. */
+function parseQueryFromUrl(url: string): Record<string, string> {
+  const params = new URL(url).searchParams;
   const result: Record<string, string> = {};
   params.forEach((v, k) => {
     result[k] = v;
@@ -124,24 +300,24 @@ function parseHashFromUrl(url: string): Record<string, string> {
   return result;
 }
 
-/** Navigate to a lab view with the given style/scene/beat via hash. */
+/** Navigate to a lab view with the given style/scene/beat via query params. */
 async function openLab(
   page: Page,
   styleId: string,
   scene: number,
   beat: number,
-  opts: { version?: string; pure?: boolean; frozen?: boolean } = {},
+  opts: { topic?: string; pure?: boolean; frozen?: boolean } = {},
 ) {
-  const hash = buildHash({
+  const query = buildQuery({
     view: "lab",
     style: styleId,
-    version: opts.version,
+    topic: opts.topic ?? PRIMARY_TOPIC_BY_STYLE[styleId],
     scene,
     beat,
     pure: opts.pure ?? false,
     frozen: opts.frozen ?? false,
   });
-  await page.goto(`/${hash}`, { waitUntil: "networkidle" });
+  await page.goto(`/${query}`, { waitUntil: "networkidle" });
   await page.waitForSelector('[data-testid="stage"]', {
     state: "visible",
     timeout: 10000,
@@ -150,10 +326,10 @@ async function openLab(
   await page.waitForTimeout(300);
 }
 
-/** Navigate to overview (gallery) view via hash. */
+/** Navigate to overview (gallery) view via query params. */
 async function openOverview(page: Page) {
-  const hash = buildHash({ view: "overview" });
-  await page.goto(`/${hash}`, { waitUntil: "networkidle" });
+  const query = buildQuery({ view: "overview" });
+  await page.goto(`/${query}`, { waitUntil: "networkidle" });
   await page.waitForSelector('[data-testid="overview-view"]', {
     state: "visible",
     timeout: 10000,
@@ -192,23 +368,44 @@ async function measureOverflow(
   });
 }
 
-/** Get the last beat index (0-based) for a given style/version and scene. */
+/** Get the last beat index (0-based) for a given style/topic and scene. */
 function getLastBeat(
   styleId: string,
   scene: number,
-  version: "v1" | "v2" | "v3" = "v1",
+  topicId: string = PRIMARY_TOPIC_BY_STYLE[styleId],
 ): number {
-  if (version === "v2" && scene === 5 && styleId in V2_SCENE_5_LAST_BEAT) {
-    return V2_SCENE_5_LAST_BEAT[styleId];
+  if (
+    topicId === COORDINATED_TOPIC_BY_STYLE[styleId] &&
+    scene === 5 &&
+    styleId in COORDINATED_TOPIC_SCENE_5_LAST_BEAT
+  ) {
+    return COORDINATED_TOPIC_SCENE_5_LAST_BEAT[styleId];
   }
-  if (version === "v3" && scene === 5) {
-    return V3_SCENE_5_LAST_BEAT[styleId] ?? 0;
+  if (
+    topicId === SECONDARY_TOPIC_BY_STYLE[styleId] &&
+    scene === 5 &&
+    styleId in SECONDARY_TOPIC_SCENE_5_LAST_BEAT
+  ) {
+    return SECONDARY_TOPIC_SCENE_5_LAST_BEAT[styleId];
   }
 
   const info = STYLE_BEATS.find((s) => s.id === styleId);
   if (!info) return 0;
   const count = info.beats[scene] ?? 1;
   return count - 1; // convert count to 0-based index
+}
+
+function getTopicSequence(styleId: string): string[] {
+  return [
+    PRIMARY_TOPIC_BY_STYLE[styleId],
+    SECONDARY_TOPIC_BY_STYLE[styleId],
+    COORDINATED_TOPIC_BY_STYLE[styleId],
+  ].filter((topicId): topicId is string => Boolean(topicId));
+}
+
+function getLastTopic(styleId: string): string {
+  const topics = getTopicSequence(styleId);
+  return topics[topics.length - 1];
 }
 
 /** Get the first scene with multiple beats for a given style. */
@@ -219,9 +416,9 @@ function getFirstMultiBeatScene(style: StyleBeatInfo): number {
 
 // ── Tests ──────────────────────────────────────────────────────────────────
 
-// ─── 1 & 2: All 48 styles — console errors + overflow (parallel) ───────────
+// ─── 1 & 2: All registered styles — console errors + overflow (parallel) ───
 
-test.describe.parallel("Style audit — all 48 styles", () => {
+test.describe.parallel("Style audit — all registered styles", () => {
   for (const style of STYLE_BEATS) {
     test(`style ${style.id} scene 1 beat 0 — no console errors, no overflow`, async ({
       page,
@@ -328,61 +525,61 @@ test.describe.parallel("Style audit — all 48 styles", () => {
 test.describe("Navigation", () => {
   test("ArrowRight advances beat within scene", async ({ page }) => {
     // Style 01 scene 2 has 2 beats (ids 0, 1). From beat 0, right should go to beat 1.
-    await openLab(page, "01", 2, 0, { frozen: true });
+    await openLab(page, "minimal-product-keynote", 2, 0, { frozen: true });
 
     await page.keyboard.press("ArrowRight");
     await page.waitForTimeout(200);
 
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.style).toBe("01");
-    expect(Number(hash.scene)).toBe(2);
-    expect(Number(hash.beat)).toBe(1);
+    const query = parseQueryFromUrl(page.url());
+    expect(query.style).toBe("minimal-product-keynote");
+    expect(Number(query.scene)).toBe(2);
+    expect(Number(query.beat)).toBe(1);
   });
 
   test("ArrowRight advances to next scene when at last beat", async ({
     page,
   }) => {
     // Style 01 scene 2 has 2 beats (ids 0, 1). Last beat = 1.
-    const lastBeat = getLastBeat("01", 2);
-    await openLab(page, "01", 2, lastBeat, { frozen: true });
+    const lastBeat = getLastBeat("minimal-product-keynote", 2);
+    await openLab(page, "minimal-product-keynote", 2, lastBeat, { frozen: true });
 
     await page.keyboard.press("ArrowRight");
     await page.waitForTimeout(200);
 
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.style).toBe("01");
-    expect(Number(hash.scene)).toBe(3);
-    expect(Number(hash.beat)).toBe(0);
+    const query = parseQueryFromUrl(page.url());
+    expect(query.style).toBe("minimal-product-keynote");
+    expect(Number(query.scene)).toBe(3);
+    expect(Number(query.beat)).toBe(0);
   });
 
   test("Space advances to next scene when at last beat", async ({ page }) => {
-    await openLab(page, "01", 1, 0, { frozen: true });
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
     await page.keyboard.press("Space");
     await page.waitForTimeout(200);
 
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.style).toBe("01");
-    expect(Number(hash.scene)).toBe(2);
-    expect(Number(hash.beat)).toBe(0);
+    const query = parseQueryFromUrl(page.url());
+    expect(query.style).toBe("minimal-product-keynote");
+    expect(Number(query.scene)).toBe(2);
+    expect(Number(query.beat)).toBe(0);
   });
 
   test("mouse click on the stage advances to next scene", async ({ page }) => {
-    await openLab(page, "01", 1, 0, { frozen: true });
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
     await page.locator('[data-testid="stage"]').click({ position: { x: 10, y: 10 } });
     await page.waitForTimeout(200);
 
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.style).toBe("01");
-    expect(Number(hash.scene)).toBe(2);
-    expect(Number(hash.beat)).toBe(0);
+    const query = parseQueryFromUrl(page.url());
+    expect(query.style).toBe("minimal-product-keynote");
+    expect(Number(query.scene)).toBe(2);
+    expect(Number(query.beat)).toBe(0);
   });
 
   test("Space with sidebar focus advances the current slide without activating the focused sidebar item", async ({
     page,
   }) => {
-    await openLab(page, "01", 1, 0, { frozen: true });
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
     const bandToggle = page.locator('[data-testid="band-toggle-editorial-print"]');
     if (await bandToggle.isVisible()) {
@@ -390,51 +587,59 @@ test.describe("Navigation", () => {
       if (expanded === "false") await bandToggle.click();
     }
 
-    const sidebarItem = page.locator('[data-testid="sidebar-style-17"]');
+    const sidebarItem = page.locator('[data-testid="sidebar-style-front-page-broadsheet"]');
     await expect(sidebarItem).toBeVisible({ timeout: 5000 });
     await sidebarItem.focus();
     await page.keyboard.press("Space");
     await page.waitForTimeout(200);
 
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.style).toBe("01");
-    expect(Number(hash.scene)).toBe(2);
-    expect(Number(hash.beat)).toBe(0);
+    const query = parseQueryFromUrl(page.url());
+    expect(query.style).toBe("minimal-product-keynote");
+    expect(Number(query.scene)).toBe(2);
+    expect(Number(query.beat)).toBe(0);
   });
 
   test("ArrowLeft goes to previous beat", async ({ page }) => {
     // Style 01 scene 3 has 3 beats (ids 0, 1, 2). Start at beat 2.
-    await openLab(page, "01", 3, 2, { frozen: true });
+    await openLab(page, "minimal-product-keynote", 3, 2, { frozen: true });
 
     await page.keyboard.press("ArrowLeft");
     await page.waitForTimeout(200);
 
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.style).toBe("01");
-    expect(Number(hash.scene)).toBe(3);
-    expect(Number(hash.beat)).toBe(1);
+    const query = parseQueryFromUrl(page.url());
+    expect(query.style).toBe("minimal-product-keynote");
+    expect(Number(query.scene)).toBe(3);
+    expect(Number(query.beat)).toBe(1);
   });
 
-  test("ArrowLeft at scene 1 beat 0 wraps to previous version", async ({ page }) => {
-    // At style 02 v1 scene 1 beat 0, ArrowLeft should go to style 01's last
-    // version (v3 is now the last curated version) at its final position.
-    await openLab(page, "02", 1, 0, { version: "v1", frozen: true });
+  test("ArrowLeft at scene 1 beat 0 wraps to previous topic", async ({ page }) => {
+    await openLab(page, "objective-swiss-grid", 1, 0, {
+      topic: PRIMARY_TOPIC_BY_STYLE["objective-swiss-grid"],
+      frozen: true,
+    });
 
     await page.keyboard.press("ArrowLeft");
     await page.waitForTimeout(300);
 
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.style).toBe("01");
-    expect(hash.version).toBe("v3");
-    expect(Number(hash.scene)).toBe(5);
-    expect(Number(hash.beat)).toBe(getLastBeat("01", 5, "v3"));
+    const query = parseQueryFromUrl(page.url());
+    expect(query.style).toBe("minimal-product-keynote");
+    const previousTopic = getLastTopic("minimal-product-keynote");
+    expect(query.topic).toBe(previousTopic);
+    expect(Number(query.scene)).toBe(5);
+    expect(Number(query.beat)).toBe(
+      getLastBeat(
+        "minimal-product-keynote",
+        5,
+        previousTopic,
+      ),
+    );
   });
 
   test("ArrowRight advances through multiple scenes within same style", async ({
     page,
   }) => {
     // Start at style 01 scene 1 beat 0
-    await openLab(page, "01", 1, 0, { frozen: true });
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
     // Press ArrowRight enough times to traverse all of style 01
     // Style 01: s1(1b) s2(2b) s3(3b) s4(2b) s5(1b)
@@ -456,15 +661,15 @@ test.describe("Navigation", () => {
     }
     await page.waitForTimeout(200);
 
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.style).toBe("01");
-    expect(Number(hash.scene)).toBe(5);
-    expect(Number(hash.beat)).toBe(0);
+    const query = parseQueryFromUrl(page.url());
+    expect(query.style).toBe("minimal-product-keynote");
+    expect(Number(query.scene)).toBe(5);
+    expect(Number(query.beat)).toBe(0);
   });
 });
 
-test.describe("Style 01 v1 transition contract", () => {
-  const STYLE_01_V1_BEATS: Record<number, number> = {
+test.describe("Minimal Product Keynote transition contract", () => {
+  const MINIMAL_PRODUCT_KEYNOTE_BEATS: Record<number, number> = {
     1: 1,
     2: 2,
     3: 3,
@@ -475,7 +680,7 @@ test.describe("Style 01 v1 transition contract", () => {
   test("non-frozen scene advance uses transition states instead of outgoing clones", async ({
     page,
   }) => {
-    await openLab(page, "01", 1, 0, {
+    await openLab(page, "minimal-product-keynote", 1, 0, {
       frozen: false,
     });
 
@@ -544,13 +749,13 @@ test.describe("Style 01 v1 transition contract", () => {
     expect(trackState.cloneCount).toBe(0);
   });
 
-  test("every style 01 v1 frame keeps active content inside the stage", async ({
+  test("every primary topic frame keeps active content inside the stage", async ({
     page,
   }) => {
-    for (const [sceneText, beatCount] of Object.entries(STYLE_01_V1_BEATS)) {
+    for (const [sceneText, beatCount] of Object.entries(MINIMAL_PRODUCT_KEYNOTE_BEATS)) {
       const scene = Number(sceneText);
       for (let beat = 0; beat < beatCount; beat++) {
-        await openLab(page, "01", scene, beat, {
+        await openLab(page, "minimal-product-keynote", scene, beat, {
           frozen: false,
         });
 
@@ -609,11 +814,11 @@ test.describe("Style 01 v1 transition contract", () => {
     }
   });
 
-  test("beat reveal animates existing layout items in v1 motion scenes", async ({
+  test("beat reveal animates existing layout items in motion scenes", async ({
     page,
   }) => {
     for (const scene of [2, 4]) {
-      await openLab(page, "01", scene, 0, {
+      await openLab(page, "minimal-product-keynote", scene, 0, {
         frozen: false,
       });
 
@@ -639,7 +844,7 @@ test.describe("Style 01 v1 transition contract", () => {
   test("reserved beat layout keeps scene 3 question slots mounted before reveal", async ({
     page,
   }) => {
-    await openLab(page, "01", 3, 0, {
+    await openLab(page, "minimal-product-keynote", 3, 0, {
       frozen: false,
     });
 
@@ -672,7 +877,7 @@ test.describe("Style 01 v1 transition contract", () => {
 
 test.describe("Pure mode", () => {
   test("pure=1 hides header and sidebar", async ({ page }) => {
-    await openLab(page, "01", 1, 0, { pure: true, frozen: true });
+    await openLab(page, "minimal-product-keynote", 1, 0, { pure: true, frozen: true });
 
     // Header and sidebar wrapper divs should have display:none
     await expect(page.locator('[data-testid="header"]')).toBeHidden();
@@ -683,10 +888,26 @@ test.describe("Pure mode", () => {
   });
 
   test("pure=0 shows header and sidebar", async ({ page }) => {
-    await openLab(page, "01", 1, 0, { pure: false, frozen: true });
+    await openLab(page, "minimal-product-keynote", 1, 0, { pure: false, frozen: true });
 
     await expect(page.locator('[data-testid="header"]')).toBeVisible();
     await expect(page.locator('[data-testid="sidebar"]')).toBeVisible();
+  });
+
+  test("pure=1 keeps semantic headers inside the active slide visible", async ({
+    page,
+  }) => {
+    await openLab(page, "sketch-board-emoji", 4, 4, {
+      topic: "stadium-wave",
+      pure: true,
+      frozen: true,
+    });
+
+    await expect(
+      page.locator(
+        '[data-testid="spatial-scene-panel"][data-active="true"] header',
+      ),
+    ).toBeVisible();
   });
 });
 
@@ -696,7 +917,7 @@ test.describe("Frozen mode", () => {
   test("frozen=1 sets data-frozen attribute on html element", async ({
     page,
   }) => {
-    await openLab(page, "01", 1, 0, { frozen: true });
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
     const frozenAttr = await page.evaluate(() =>
       document.documentElement.getAttribute("data-frozen"),
@@ -705,7 +926,7 @@ test.describe("Frozen mode", () => {
   });
 
   test("frozen=0 removes data-frozen attribute", async ({ page }) => {
-    await openLab(page, "01", 1, 0, { frozen: false });
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: false });
 
     const frozenAttr = await page.evaluate(() =>
       document.documentElement.getAttribute("data-frozen"),
@@ -714,7 +935,7 @@ test.describe("Frozen mode", () => {
   });
 
   test("frozen mode stage is still visible", async ({ page }) => {
-    await openLab(page, "17", 1, 0, { frozen: true });
+    await openLab(page, "front-page-broadsheet", 1, 0, { frozen: true });
     await expect(page.locator('[data-testid="stage"]')).toBeVisible();
   });
 });
@@ -771,7 +992,7 @@ test.describe("Language toggle", () => {
     await expect(enSegOverview).toHaveAttribute("aria-pressed", "true");
 
     // Navigate to a style
-    await page.locator('[data-testid="style-card-01"]').click();
+    await page.locator('[data-testid="style-card-minimal-product-keynote"]').click();
     await page.waitForSelector('[data-testid="stage"]', {
       state: "visible",
       timeout: 10000,
@@ -786,242 +1007,201 @@ test.describe("Language toggle", () => {
   });
 });
 
-// ─── 7: URL hash persistence ───────────────────────────────────────────────
+// ─── 7: URL query persistence ───────────────────────────────────────────────
 
-test.describe("URL hash persistence", () => {
-  test("hash reflects current lab view state", async ({ page }) => {
-    await openLab(page, "17", 3, 1, { frozen: true });
+test.describe("URL query persistence", () => {
+  test("query reflects current lab view state", async ({ page }) => {
+    await openLab(page, "front-page-broadsheet", 3, 1, { frozen: true });
 
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.view).toBe("lab");
-    expect(hash.style).toBe("17");
-    expect(Number(hash.scene)).toBe(3);
-    expect(Number(hash.beat)).toBe(1);
-    expect(hash.frozen).toBe("1");
-    expect(hash.pure).toBe("0");
+    const query = parseQueryFromUrl(page.url());
+    expect(query.view).toBe("lab");
+    expect(query.style).toBe("front-page-broadsheet");
+    expect(query.topic).toBe(PRIMARY_TOPIC_BY_STYLE["front-page-broadsheet"]);
+    expect(Number(query.scene)).toBe(3);
+    expect(Number(query.beat)).toBe(1);
+    expect(query.frozen).toBe("1");
+    expect(query.pure).toBeUndefined();
   });
 
-  test("hash updates after keyboard navigation", async ({ page }) => {
-    await openLab(page, "01", 2, 0, { frozen: true });
+  test("query updates after keyboard navigation", async ({ page }) => {
+    await openLab(page, "minimal-product-keynote", 2, 0, { frozen: true });
 
     await page.keyboard.press("ArrowRight");
     await page.waitForTimeout(200);
 
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.view).toBe("lab");
-    expect(hash.style).toBe("01");
+    const query = parseQueryFromUrl(page.url());
+    expect(query.view).toBe("lab");
+    expect(query.style).toBe("minimal-product-keynote");
     // Scene 2 has 2 beats (0, 1). From beat 0, right goes to beat 1.
-    expect(Number(hash.scene)).toBe(2);
-    expect(Number(hash.beat)).toBe(1);
+    expect(Number(query.scene)).toBe(2);
+    expect(Number(query.beat)).toBe(1);
   });
 
-  test("direct hash navigation loads correct style and scene", async ({
+  test("direct query navigation loads correct style and scene", async ({
     page,
   }) => {
-    const hash = buildHash({
+    const query = buildQuery({
       view: "lab",
-      style: "33",
+      style: "liquid-glass",
+      topic: PRIMARY_TOPIC_BY_STYLE["liquid-glass"],
       scene: 4,
       beat: 0,
       frozen: true,
     });
-    await page.goto(`/${hash}`, { waitUntil: "networkidle" });
+    await page.goto(`/${query}`, { waitUntil: "networkidle" });
     await page.waitForSelector('[data-testid="stage"]', {
       state: "visible",
       timeout: 10000,
     });
     await page.waitForTimeout(300);
 
-    const parsed = parseHashFromUrl(page.url());
+    const parsed = parseQueryFromUrl(page.url());
     expect(parsed.view).toBe("lab");
-    expect(parsed.style).toBe("33");
+    expect(parsed.style).toBe("liquid-glass");
+    expect(parsed.topic).toBe(PRIMARY_TOPIC_BY_STYLE["liquid-glass"]);
     expect(Number(parsed.scene)).toBe(4);
     expect(Number(parsed.beat)).toBe(0);
   });
 
-  test("overview hash loads gallery view", async ({ page }) => {
-    const hash = buildHash({ view: "overview" });
-    await page.goto(`/${hash}`, { waitUntil: "networkidle" });
+  test("overview query loads gallery view", async ({ page }) => {
+    const query = buildQuery({ view: "overview" });
+    await page.goto(`/${query}`, { waitUntil: "networkidle" });
     await page.waitForSelector('[data-testid="overview-view"]', {
       state: "visible",
       timeout: 10000,
     });
 
-    const parsed = parseHashFromUrl(page.url());
+    const parsed = parseQueryFromUrl(page.url());
     expect(parsed.view).toBe("overview");
   });
 
-  test("pure and frozen flags are preserved in hash", async ({ page }) => {
-    await openLab(page, "01", 1, 0, { pure: true, frozen: true });
+  test("pure and frozen flags are preserved in query", async ({ page }) => {
+    await openLab(page, "minimal-product-keynote", 1, 0, { pure: true, frozen: true });
 
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.pure).toBe("1");
-    expect(hash.frozen).toBe("1");
+    const query = parseQueryFromUrl(page.url());
+    expect(query.pure).toBe("1");
+    expect(query.frozen).toBe("1");
   });
 });
 
 // ─── 8: Cross-style cycling ────────────────────────────────────────────────
 
 test.describe("Cross-style cycling", () => {
-  test("ArrowRight from last style v1 advances to its v2", async ({
+  test("ArrowRight from last style primary topic advances to its secondary topic", async ({
     page,
   }) => {
-    const lastStyleId = ALL_STYLE_IDS[ALL_STYLE_IDS.length - 1]; // "48"
+    const lastStyleId = ALL_STYLE_IDS[ALL_STYLE_IDS.length - 1]; // "object-metaphor-hero"
+    const primaryTopic = PRIMARY_TOPIC_BY_STYLE[lastStyleId];
+    const secondaryTopic = SECONDARY_TOPIC_BY_STYLE[lastStyleId];
     const lastScene = 5;
-    const lastBeat = getLastBeat(lastStyleId, lastScene, "v1");
+    const lastBeat = getLastBeat(lastStyleId, lastScene, primaryTopic);
 
     await openLab(page, lastStyleId, lastScene, lastBeat, {
-      version: "v1",
+      topic: primaryTopic,
       frozen: true,
     });
 
-    const hashBefore = parseHashFromUrl(page.url());
-    expect(hashBefore.style).toBe(lastStyleId);
-    expect(hashBefore.version).toBe("v1");
-    expect(Number(hashBefore.scene)).toBe(lastScene);
-    expect(Number(hashBefore.beat)).toBe(lastBeat);
+    const queryBefore = parseQueryFromUrl(page.url());
+    expect(queryBefore.style).toBe(lastStyleId);
+    expect(queryBefore.topic).toBe(primaryTopic);
+    expect(Number(queryBefore.scene)).toBe(lastScene);
+    expect(Number(queryBefore.beat)).toBe(lastBeat);
 
-    // Version-aware navigation enters v2 before wrapping to the first style.
     await page.keyboard.press("ArrowRight");
     await page.waitForTimeout(400); // cross-style flash may take a beat
 
-    const hashAfter = parseHashFromUrl(page.url());
-    expect(hashAfter.style).toBe(lastStyleId);
-    expect(hashAfter.version).toBe("v2");
-    expect(Number(hashAfter.scene)).toBe(1);
-    expect(Number(hashAfter.beat)).toBe(0);
+    const queryAfter = parseQueryFromUrl(page.url());
+    expect(queryAfter.style).toBe(lastStyleId);
+    expect(queryAfter.topic).toBe(secondaryTopic);
+    expect(Number(queryAfter.scene)).toBe(1);
+    expect(Number(queryAfter.beat)).toBe(0);
   });
 
-  test("ArrowRight from last style v2 advances to its v3", async ({
+  test("ArrowRight from last style final topic wraps to first style primary topic", async ({
     page,
   }) => {
-    const lastStyleId = ALL_STYLE_IDS[ALL_STYLE_IDS.length - 1]; // "48"
-    const lastBeat = getLastBeat(lastStyleId, 5, "v2");
+    const lastStyleId = ALL_STYLE_IDS[ALL_STYLE_IDS.length - 1]; // "object-metaphor-hero"
+    const lastTopic = getLastTopic(lastStyleId);
+    const lastBeat = getLastBeat(lastStyleId, 5, lastTopic);
 
     await openLab(page, lastStyleId, 5, lastBeat, {
-      version: "v2",
+      topic: lastTopic,
       frozen: true,
     });
 
     await page.keyboard.press("ArrowRight");
     await page.waitForTimeout(400);
 
-    const hashAfter = parseHashFromUrl(page.url());
-    expect(hashAfter.style).toBe(lastStyleId);
-    expect(hashAfter.version).toBe("v3");
-    expect(Number(hashAfter.scene)).toBe(1);
-    expect(Number(hashAfter.beat)).toBe(0);
+    const queryAfter = parseQueryFromUrl(page.url());
+    expect(queryAfter.style).toBe("minimal-product-keynote");
+    expect(queryAfter.topic).toBe(PRIMARY_TOPIC_BY_STYLE["minimal-product-keynote"]);
+    expect(Number(queryAfter.scene)).toBe(1);
+    expect(Number(queryAfter.beat)).toBe(0);
   });
 
-  test("ArrowRight from last style v3 wraps to first style v1", async ({
+  test("ArrowLeft from first style primary topic wraps to last style final topic", async ({
     page,
   }) => {
-    const lastStyleId = ALL_STYLE_IDS[ALL_STYLE_IDS.length - 1]; // "48"
-    const lastBeat = getLastBeat(lastStyleId, 5, "v3");
+    const firstStyleId = ALL_STYLE_IDS[0]; // "minimal-product-keynote"
 
-    await openLab(page, lastStyleId, 5, lastBeat, {
-      version: "v3",
+    await openLab(page, firstStyleId, 1, 0, {
+      topic: PRIMARY_TOPIC_BY_STYLE[firstStyleId],
       frozen: true,
     });
 
-    await page.keyboard.press("ArrowRight");
-    await page.waitForTimeout(400);
-
-    const hashAfter = parseHashFromUrl(page.url());
-    expect(hashAfter.style).toBe("01");
-    expect(hashAfter.version).toBe("v1");
-    expect(Number(hashAfter.scene)).toBe(1);
-    expect(Number(hashAfter.beat)).toBe(0);
-  });
-
-  test("ArrowLeft from first style scene 1 beat 0 wraps to last style v3", async ({
-    page,
-  }) => {
-    const firstStyleId = ALL_STYLE_IDS[0]; // "01"
-
-    await openLab(page, firstStyleId, 1, 0, { version: "v1", frozen: true });
-
-    // Press ArrowLeft — should wrap to last style's last version (v3).
+    // Press ArrowLeft — should wrap to last style
     await page.keyboard.press("ArrowLeft");
     await page.waitForTimeout(400);
 
-    const hash = parseHashFromUrl(page.url());
+    const query = parseQueryFromUrl(page.url());
     const lastStyleId = ALL_STYLE_IDS[ALL_STYLE_IDS.length - 1];
-    expect(hash.style).toBe(lastStyleId);
-    expect(hash.version).toBe("v3");
+    const lastTopic = getLastTopic(lastStyleId);
+    expect(query.style).toBe(lastStyleId);
+    expect(query.topic).toBe(lastTopic);
 
-    const expectedLastBeat = getLastBeat(lastStyleId, 5, "v3");
-    expect(Number(hash.scene)).toBe(5);
-    expect(Number(hash.beat)).toBe(expectedLastBeat);
+    const expectedLastBeat = getLastBeat(lastStyleId, 5, lastTopic);
+    expect(Number(query.scene)).toBe(5);
+    expect(Number(query.beat)).toBe(expectedLastBeat);
   });
 
-  test("cycling across band boundaries is version-aware", async ({ page }) => {
+  test("cycling across band boundaries is topic-aware", async ({ page }) => {
     // Test cross-style cycling at band boundaries (most likely to break).
     // Each transition: openLab to the "from" style's last position, then
     // ArrowRight to advance. openLab does a full page goto + waitForSelector
-    // + 300ms settle, which gives React time to initialize from the hash.
+    // + 300ms settle, which gives React time to initialize from the query.
     const boundaryTransitions = [
-      { from: "08", to: "09" },  // Minimal Keynote → Balanced Hybrid
-      { from: "16", to: "17" },  // Balanced Hybrid → Editorial & Print
-      { from: "24", to: "25" },  // Editorial & Print → Craft & Cultural
-      { from: "32", to: "33" },  // Craft & Cultural → Contemporary Digital
-      { from: "40", to: "41" },  // Contemporary Digital → Text Report
-      { from: "48", to: "01" },  // Text Report → Minimal Keynote (wrap)
+      { from: "spotlight-quote-poster", to: "subway-map-of-intent" },  // Minimal Keynote → Balanced Hybrid
+      { from: "debug-reaction-board", to: "front-page-broadsheet" },  // Balanced Hybrid → Editorial & Print
+      { from: "analog-cutout-collage", to: "woodblock-floating-world" },  // Editorial & Print → Craft & Cultural
+      { from: "mechanical-scoring-funnel", to: "liquid-glass" },  // Craft & Cultural → Contemporary Digital
+      { from: "arcade-boss-fight", to: "research-memo" },  // Contemporary Digital → Text Report
+      { from: "object-metaphor-hero", to: "minimal-product-keynote" },  // Text Report → Minimal Keynote (wrap)
     ];
 
     for (const { from, to } of boundaryTransitions) {
-      const v1LastBeat = getLastBeat(from, 5, "v1");
-      await openLab(page, from, 5, v1LastBeat, {
-        version: "v1",
-        frozen: true,
-      });
+      const topics = getTopicSequence(from);
+      for (const [index, topic] of topics.entries()) {
+        const lastBeat = getLastBeat(from, 5, topic);
+        await openLab(page, from, 5, lastBeat, {
+          topic,
+          frozen: true,
+        });
 
-      await page.keyboard.press("ArrowRight");
-      await page.waitForTimeout(400);
+        await page.keyboard.press("ArrowRight");
+        await page.waitForTimeout(400);
 
-      const v2Hash = parseHashFromUrl(page.url());
-      expect(v2Hash.style).toBe(from);
-      expect(v2Hash.version).toBe("v2");
-      expect(Number(v2Hash.scene)).toBe(1);
-      expect(Number(v2Hash.beat)).toBe(0);
-
-      // v2 → v3 within the same style (v3 is now the last curated version).
-      const v2LastBeat = getLastBeat(from, 5, "v2");
-      await openLab(page, from, 5, v2LastBeat, {
-        version: "v2",
-        frozen: true,
-      });
-
-      await page.keyboard.press("ArrowRight");
-      await page.waitForTimeout(400);
-
-      const v3Hash = parseHashFromUrl(page.url());
-      expect(v3Hash.style).toBe(from);
-      expect(v3Hash.version).toBe("v3");
-      expect(Number(v3Hash.scene)).toBe(1);
-      expect(Number(v3Hash.beat)).toBe(0);
-
-      const v3LastBeat = getLastBeat(from, 5, "v3");
-      await openLab(page, from, 5, v3LastBeat, {
-        version: "v3",
-        frozen: true,
-      });
-
-      const hashBefore = parseHashFromUrl(page.url());
-      expect(hashBefore.style).toBe(from);
-      expect(hashBefore.version).toBe("v3");
-      expect(Number(hashBefore.scene)).toBe(5);
-      expect(Number(hashBefore.beat)).toBe(v3LastBeat);
-
-      // After the last version, ArrowRight should cross to the next style's first version.
-      await page.keyboard.press("ArrowRight");
-      await page.waitForTimeout(400);
-
-      const hashAfter = parseHashFromUrl(page.url());
-      expect(hashAfter.style).toBe(to);
-      expect(hashAfter.version).toBe("v1");
-      expect(Number(hashAfter.scene)).toBe(1);
-      expect(Number(hashAfter.beat)).toBe(0);
+        const queryAfter = parseQueryFromUrl(page.url());
+        const nextTopic = topics[index + 1];
+        if (nextTopic) {
+          expect(queryAfter.style).toBe(from);
+          expect(queryAfter.topic).toBe(nextTopic);
+        } else {
+          expect(queryAfter.style).toBe(to);
+          expect(queryAfter.topic).toBe(PRIMARY_TOPIC_BY_STYLE[to]);
+        }
+        expect(Number(queryAfter.scene)).toBe(1);
+        expect(Number(queryAfter.beat)).toBe(0);
+      }
     }
   });
 });
@@ -1029,13 +1209,12 @@ test.describe("Cross-style cycling", () => {
 // ─── 9: Gallery view (overview) loads ──────────────────────────────────────
 
 test.describe("Gallery / overview view", () => {
-  test("overview view renders with all 48 style cards", async ({ page }) => {
+  test("overview view renders all registered style cards", async ({ page }) => {
     const errors = attachErrorCollector(page);
     await openOverview(page);
 
     await expect(page.locator('[data-testid="overview-view"]')).toBeVisible();
 
-    // All 48 style cards should be present
     for (const id of ALL_STYLE_IDS) {
       await expect
         .soft(page.locator(`[data-testid="style-card-${id}"]`), `style-card-${id} missing`)
@@ -1052,7 +1231,7 @@ test.describe("Gallery / overview view", () => {
   }) => {
     await openOverview(page);
 
-    const card = page.locator('[data-testid="style-card-17"]');
+    const card = page.locator('[data-testid="style-card-front-page-broadsheet"]');
     await expect(card).toBeVisible();
     await card.click();
 
@@ -1062,11 +1241,11 @@ test.describe("Gallery / overview view", () => {
     });
     await page.waitForTimeout(300);
 
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.view).toBe("lab");
-    expect(hash.style).toBe("17");
-    expect(Number(hash.scene)).toBe(1);
-    expect(Number(hash.beat)).toBe(0);
+    const query = parseQueryFromUrl(page.url());
+    expect(query.view).toBe("lab");
+    expect(query.style).toBe("front-page-broadsheet");
+    expect(Number(query.scene)).toBe(1);
+    expect(Number(query.beat)).toBe(0);
   });
 
   test("overview title text is visible", async ({ page }) => {
@@ -1081,7 +1260,7 @@ test.describe("Gallery / overview view", () => {
 test.describe("Cinema / lab view", () => {
   test("lab view renders stage for style 01", async ({ page }) => {
     const errors = attachErrorCollector(page);
-    await openLab(page, "01", 1, 0, { frozen: true });
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
     await expect(page.locator('[data-testid="stage"]')).toBeVisible();
     await expect(page.locator('[data-testid="lab-view"]')).toBeVisible();
@@ -1092,7 +1271,7 @@ test.describe("Cinema / lab view", () => {
 
   test("lab view renders stage for style 48 (last style)", async ({ page }) => {
     const errors = attachErrorCollector(page);
-    await openLab(page, "48", 1, 0, { frozen: true });
+    await openLab(page, "object-metaphor-hero", 1, 0, { frozen: true });
 
     await expect(page.locator('[data-testid="stage"]')).toBeVisible();
 
@@ -1101,7 +1280,7 @@ test.describe("Cinema / lab view", () => {
   });
 
   test("lab view shows bottom bar with scene dots", async ({ page }) => {
-    await openLab(page, "01", 1, 0, { frozen: true });
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
     await expect(page.locator('[data-testid="bottom-bar"]')).toBeVisible();
 
@@ -1112,7 +1291,7 @@ test.describe("Cinema / lab view", () => {
   });
 
   test("bottom bar next/prev buttons are functional", async ({ page }) => {
-    await openLab(page, "01", 1, 0, { frozen: true });
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
     const nextBtn = page.locator('[data-testid="next-button"]');
     await expect(nextBtn).toBeVisible();
@@ -1120,9 +1299,9 @@ test.describe("Cinema / lab view", () => {
     await page.waitForTimeout(200);
 
     // Style 01 scene 1 has 1 beat, so from beat 0 it advances to scene 2 beat 0
-    const hash = parseHashFromUrl(page.url());
-    expect(Number(hash.scene)).toBe(2);
-    expect(Number(hash.beat)).toBe(0);
+    const query = parseQueryFromUrl(page.url());
+    expect(Number(query.scene)).toBe(2);
+    expect(Number(query.beat)).toBe(0);
 
     // Prev button should go back
     const prevBtn = page.locator('[data-testid="prev-button"]');
@@ -1130,27 +1309,27 @@ test.describe("Cinema / lab view", () => {
     await prevBtn.click();
     await page.waitForTimeout(200);
 
-    const hashBack = parseHashFromUrl(page.url());
-    expect(Number(hashBack.scene)).toBe(1);
-    expect(Number(hashBack.beat)).toBe(0);
+    const queryBack = parseQueryFromUrl(page.url());
+    expect(Number(queryBack.scene)).toBe(1);
+    expect(Number(queryBack.beat)).toBe(0);
   });
 
   test("clicking scene dot jumps to that scene", async ({ page }) => {
-    await openLab(page, "01", 1, 0, { frozen: true });
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
     const dot4 = page.locator('[data-testid="scene-dot-4"]');
     await expect(dot4).toBeVisible();
     await dot4.click();
     await page.waitForTimeout(200);
 
-    const hash = parseHashFromUrl(page.url());
-    expect(Number(hash.scene)).toBe(4);
-    expect(Number(hash.beat)).toBe(0);
+    const query = parseQueryFromUrl(page.url());
+    expect(Number(query.scene)).toBe(4);
+    expect(Number(query.beat)).toBe(0);
   });
 
   test("beat counter reflects current position", async ({ page }) => {
     // Style 01 scene 3 has 3 beats
-    await openLab(page, "01", 3, 1, { frozen: true });
+    await openLab(page, "minimal-product-keynote", 3, 1, { frozen: true });
 
     const beatCounter = page.locator('[data-testid="beat-counter"]');
     await expect(beatCounter).toBeVisible();
@@ -1159,7 +1338,7 @@ test.describe("Cinema / lab view", () => {
   });
 
   test("sidebar style items are visible and clickable", async ({ page }) => {
-    await openLab(page, "01", 1, 0, { frozen: true });
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
     // Make sure the editorial-print band is expanded (style 17 lives there)
     const bandToggle = page.locator('[data-testid="band-toggle-editorial-print"]');
@@ -1168,14 +1347,14 @@ test.describe("Cinema / lab view", () => {
       if (expanded === "false") await bandToggle.click();
     }
 
-    const sidebarItem = page.locator('[data-testid="sidebar-style-17"]');
+    const sidebarItem = page.locator('[data-testid="sidebar-style-front-page-broadsheet"]');
     await expect(sidebarItem).toBeVisible({ timeout: 5000 });
     await sidebarItem.click();
     await page.waitForTimeout(300);
 
-    const hash = parseHashFromUrl(page.url());
-    expect(hash.style).toBe("17");
-    expect(Number(hash.scene)).toBe(1);
-    expect(Number(hash.beat)).toBe(0);
+    const query = parseQueryFromUrl(page.url());
+    expect(query.style).toBe("front-page-broadsheet");
+    expect(Number(query.scene)).toBe(1);
+    expect(Number(query.beat)).toBe(0);
   });
 });

@@ -227,7 +227,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "04",
+    id: "interactive-dialogue-stage",
     band: "minimal-keynote",
     name: nameMap[lang],
     theme: themeMap[lang],

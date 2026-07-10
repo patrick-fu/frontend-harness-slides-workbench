@@ -80,7 +80,7 @@ describe("Style 35: 35-neon-grid — overflow check", () => {
 describe("Style 35: 35-neon-grid — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("35");
+    expect(meta.id).toBe("mid-century-grove");
     expect(meta.band).toBe("contemporary-digital");
     expect(meta.name.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);
