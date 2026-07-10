@@ -201,6 +201,14 @@ const COORDINATED_TOPIC_BY_STYLE: Record<string, string> = {
   "field-notes-report": "ancient-sound",
   "annotated-source-diff": "reading-rosetta",
   "checklist-ledger": "pigment-without-touch",
+  "objective-swiss-grid": "bridge-movement",
+  "riso-print-zine": "seven-blues",
+  "analog-cutout-collage": "concealed-objects",
+  "woodblock-floating-world": "whistled-language",
+  "cassette-era-packaging": "ice-core-archive",
+  "arcade-boss-fight": "egg-mimicry",
+  "decision-record": "standard-time",
+  "context-bento-box": "lichen-partners",
   "object-metaphor-hero": "cocoon-to-cloth",
   "blackboard-chalk-talk": "hearing-path",
 };
@@ -253,6 +261,14 @@ const COORDINATED_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
   "field-notes-report": 0,
   "annotated-source-diff": 0,
   "checklist-ledger": 0,
+  "objective-swiss-grid": 0,
+  "riso-print-zine": 0,
+  "analog-cutout-collage": 0,
+  "woodblock-floating-world": 0,
+  "cassette-era-packaging": 0,
+  "arcade-boss-fight": 0,
+  "decision-record": 0,
+  "context-bento-box": 0,
   "object-metaphor-hero": 1,
   "blackboard-chalk-talk": 3,
 };
@@ -1193,11 +1209,23 @@ test.describe("Cross-style cycling", () => {
         const queryAfter = parseQueryFromUrl(page.url());
         const nextTopic = topics[index + 1];
         if (nextTopic) {
-          expect(queryAfter.style).toBe(from);
-          expect(queryAfter.topic).toBe(nextTopic);
+          expect(
+            queryAfter.style,
+            `${from}/${topic} should advance to ${from}/${nextTopic}`,
+          ).toBe(from);
+          expect(
+            queryAfter.topic,
+            `${from}/${topic} should advance to ${from}/${nextTopic}`,
+          ).toBe(nextTopic);
         } else {
-          expect(queryAfter.style).toBe(to);
-          expect(queryAfter.topic).toBe(PRIMARY_TOPIC_BY_STYLE[to]);
+          expect(
+            queryAfter.style,
+            `${from}/${topic} should advance to ${to}/${PRIMARY_TOPIC_BY_STYLE[to]}`,
+          ).toBe(to);
+          expect(
+            queryAfter.topic,
+            `${from}/${topic} should advance to ${to}/${PRIMARY_TOPIC_BY_STYLE[to]}`,
+          ).toBe(PRIMARY_TOPIC_BY_STYLE[to]);
         }
         expect(Number(queryAfter.scene)).toBe(1);
         expect(Number(queryAfter.beat)).toBe(0);

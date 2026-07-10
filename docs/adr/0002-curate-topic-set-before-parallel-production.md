@@ -140,6 +140,9 @@ production is capped at four Topic agents concurrently and refills a slot
 whenever one finishes. Concurrency does not change commit scope: each batch is
 integrated, reviewed, committed, and pushed only after all of its Topics pass.
 
+All three remaining logical batches are now integrated. The completed registry
+contains 146 Topics, including all 49 independently produced cross-domain Topics.
+
 ## Considered alternatives
 
 - **Forty-nine unrelated prompts** maximized local freedom but provided no

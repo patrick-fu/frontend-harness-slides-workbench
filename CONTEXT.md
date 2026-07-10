@@ -25,9 +25,10 @@ Current routing and registry contract:
   commits, the remaining 28 use logical commit batches of 10, 10, and 8. The
   first 10-Topic batch started all unfinished Topics concurrently and shipped at
   registry total 128. Beginning with the second 10-Topic batch, at most four
-  Topic agents run at once and completed slots are refilled. That batch is
-  integrated and validated at registry total 138; the final 8-Topic batch has
-  not started.
+  Topic agents ran at once and completed slots were refilled. The second batch
+  shipped at registry total 138; the final 8-Topic batch completes the full set
+  at registry total 146. All 49 independent Topic tasks are integrated and
+  validated.
 
 ---
 

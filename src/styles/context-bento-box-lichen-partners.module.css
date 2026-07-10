@@ -1,0 +1,882 @@
+.root {
+  --lichen-bg: #101812;
+  --lichen-deep: #172018;
+  --lichen-panel: #1e2b1d;
+  --lichen-panel-lift: #293822;
+  --lichen-ink: #edf0d9;
+  --lichen-muted: #aeb79b;
+  --lichen-rule: rgba(232, 240, 207, 0.19);
+  --lichen-rule-strong: rgba(232, 240, 207, 0.42);
+  --lichen-cortex: #d2db8d;
+  --lichen-photo: #8cc8a0;
+  --lichen-medulla: #e5d9b6;
+  --lichen-research: #c697a5;
+  --lichen-shadow: rgba(3, 10, 4, 0.48);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--lichen-bg);
+  color: var(--lichen-ink);
+  font-family: "Avenir Next", "Noto Sans SC", "PingFang SC", sans-serif;
+}
+
+.environmentalField {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 17%, rgba(159, 191, 103, 0.16), transparent 31%),
+    radial-gradient(circle at 81% 75%, rgba(101, 148, 107, 0.14), transparent 35%),
+    linear-gradient(132deg, #0d1510 0%, #152216 47%, #0b130e 100%);
+}
+
+.environmentalField::after {
+  position: absolute;
+  inset: 2cqw;
+  border: 0.06cqw solid rgba(223, 234, 184, 0.09);
+  border-radius: 2.2cqw;
+  content: "";
+}
+
+.trackFrame {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.scene {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 5.2cqh 18cqw 5.5cqh 6cqw;
+  overflow: hidden;
+}
+
+.scene h1,
+.scene h2,
+.scene p {
+  margin: 0;
+}
+
+.eyebrow {
+  display: block;
+  color: var(--lichen-cortex);
+  font-family: "SF Mono", "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.74cqw;
+  font-weight: 700;
+  letter-spacing: 0.15cqw;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.sceneBody {
+  display: block;
+  max-width: 100%;
+  color: var(--lichen-muted);
+  font-size: 1.13cqw;
+  line-height: 1.48;
+}
+
+.heroHeader,
+.sectionHeader,
+.networkHeader,
+.researchHeader,
+.recombinedCopy {
+  position: relative;
+  z-index: 3;
+}
+
+.heroHeader {
+  width: 35cqw;
+  padding-top: 7cqh;
+}
+
+.heroHeader h1 {
+  max-width: 34cqw;
+  margin: 1.4cqh 0 2.1cqh;
+  color: var(--lichen-ink);
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  font-size: 4.65cqw;
+  font-weight: 600;
+  letter-spacing: -0.14cqw;
+  line-height: 0.95;
+}
+
+.wholeVisual {
+  position: absolute;
+  top: 5.2cqh;
+  right: 13.8cqw;
+  width: 59cqw;
+  height: 72cqh;
+}
+
+.wholeThallus {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.thallusShadow {
+  fill: rgba(1, 7, 2, 0.48);
+  transform: translateY(2.3%);
+}
+
+.thallusBody {
+  stroke: rgba(239, 245, 193, 0.34);
+  stroke-width: 5;
+}
+
+.thallusGlow {
+  mix-blend-mode: screen;
+}
+
+.thallusRidges path {
+  fill: none;
+  stroke: rgba(242, 242, 191, 0.28);
+  stroke-linecap: round;
+  stroke-width: 11;
+}
+
+.cutGroup {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 440ms cubic-bezier(0.22, 1, 0.36, 1), transform 440ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cutGroup[data-visible="false"] {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.cutPocket {
+  stroke: rgba(26, 45, 25, 0.72);
+  stroke-width: 9;
+}
+
+.cutLine {
+  fill: none;
+  stroke: rgba(45, 67, 37, 0.78);
+  stroke-linecap: round;
+  stroke-width: 8;
+}
+
+.thallusTag {
+  fill: none;
+  stroke: var(--lichen-ink);
+  stroke-width: 3;
+}
+
+.thallusTagText {
+  fill: var(--lichen-ink);
+  font-family: "SF Mono", "IBM Plex Mono", monospace;
+  font-size: 20;
+  letter-spacing: 2;
+}
+
+.cutLegend {
+  position: absolute;
+  right: 1cqw;
+  bottom: 5cqh;
+  max-width: 17cqw;
+  padding: 1cqh 1.2cqw;
+  border: 0.06cqw solid var(--lichen-rule-strong);
+  border-radius: 0.8cqw;
+  background: rgba(16, 24, 18, 0.78);
+  color: var(--lichen-ink);
+  font-family: "SF Mono", "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.72cqw;
+  line-height: 1.35;
+  transition: opacity 360ms ease, transform 360ms ease;
+}
+
+.cutLegend[data-visible="false"] {
+  opacity: 0;
+  transform: translateY(1.2cqh);
+}
+
+.beatCaption {
+  position: absolute;
+  bottom: 7.1cqh;
+  left: 6cqw;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: 3cqw 1fr;
+  column-gap: 1cqw;
+  width: 30cqw;
+  min-height: 6.8cqh;
+  padding: 1.1cqh 1.1cqw;
+  border-left: 0.22cqw solid var(--lichen-cortex);
+  background: rgba(15, 23, 16, 0.7);
+  box-sizing: border-box;
+}
+
+.beatCaption > span {
+  grid-row: 1 / span 3;
+  color: var(--lichen-cortex);
+  font-family: "SF Mono", "IBM Plex Mono", monospace;
+  font-size: 1.25cqw;
+  font-weight: 700;
+  letter-spacing: 0.04cqw;
+}
+
+.beatCaption strong {
+  color: var(--lichen-ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.06cqw;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.beatCaption p {
+  color: var(--lichen-muted);
+  font-size: 0.75cqw;
+  line-height: 1.3;
+}
+
+.beatCaption i {
+  color: rgba(211, 221, 163, 0.68);
+  font-family: "SF Mono", "IBM Plex Mono", monospace;
+  font-size: 0.55cqw;
+  font-style: normal;
+  letter-spacing: 0.11cqw;
+}
+
+.sourceStamp {
+  position: absolute;
+  bottom: 2.35cqh;
+  left: 6cqw;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.55cqw;
+  color: rgba(227, 237, 201, 0.68);
+  font-family: "SF Mono", "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.56cqw;
+  letter-spacing: 0.1cqw;
+  line-height: 1;
+}
+
+.sourceStamp > span {
+  color: var(--lichen-muted);
+}
+
+.sourceStamp a {
+  color: var(--lichen-cortex);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.sceneTwo {
+  display: grid;
+  grid-template-columns: 28% 1fr;
+  grid-template-rows: 23% 1fr;
+  gap: 1.8cqh 3.4cqw;
+}
+
+.sectionHeader {
+  grid-column: 1 / span 2;
+  align-self: start;
+}
+
+.sectionHeader h1,
+.networkHeader h1,
+.researchHeader h1,
+.recombinedCopy h1 {
+  margin: 1.15cqh 0 0;
+  color: var(--lichen-ink);
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  font-size: 3.75cqw;
+  font-weight: 600;
+  letter-spacing: -0.1cqw;
+  line-height: 0.96;
+}
+
+.cutawayNote {
+  align-self: stretch;
+  padding: 2cqh 1.6cqw;
+  border-top: 0.1cqw solid var(--lichen-rule-strong);
+  border-bottom: 0.1cqw solid var(--lichen-rule);
+}
+
+.cutawayNote > span {
+  color: var(--lichen-muted);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.26cqw;
+  line-height: 1.46;
+}
+
+.layerKey {
+  display: grid;
+  gap: 1cqh;
+  margin-top: 3.2cqh;
+}
+
+.layerKey span {
+  position: relative;
+  padding-left: 1.5cqw;
+  color: var(--lichen-ink);
+  font-size: 0.82cqw;
+  line-height: 1.25;
+}
+
+.layerKey span::before {
+  position: absolute;
+  top: 0.25cqh;
+  left: 0;
+  width: 0.75cqw;
+  height: 0.75cqw;
+  border-radius: 50%;
+  background: var(--lichen-cortex);
+  content: "";
+}
+
+.layerKey span:last-child::before {
+  background: var(--lichen-photo);
+}
+
+.cutawayFrame {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cutawayDiagram {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cutawayBack {
+  fill: rgba(35, 51, 33, 0.92);
+  stroke: rgba(236, 239, 198, 0.24);
+  stroke-width: 8;
+}
+
+.photobiontShape {
+  fill: #88c29a;
+  stroke: rgba(16, 36, 21, 0.55);
+  stroke-width: 8;
+  transition: opacity 380ms ease, transform 380ms ease;
+}
+
+.medullaShape {
+  stroke: rgba(16, 36, 21, 0.55);
+  stroke-width: 8;
+  transition: opacity 380ms ease, transform 380ms ease;
+}
+
+.photobiontShape[data-visible="false"],
+.medullaShape[data-visible="false"],
+.cutawayHyphae[data-visible="false"],
+.cutawayLabels[data-visible="false"] {
+  opacity: 0;
+}
+
+.cutawayHyphae,
+.cutawayLabels {
+  transition: opacity 380ms ease;
+}
+
+.cutawayHyphae path {
+  fill: none;
+  stroke: rgba(43, 67, 45, 0.76);
+  stroke-linecap: round;
+  stroke-width: 12;
+}
+
+.cutawayLabels path {
+  fill: none;
+  stroke: var(--lichen-cortex);
+  stroke-width: 4;
+}
+
+.cutawayLabels text {
+  fill: var(--lichen-ink);
+  font-family: "SF Mono", "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 24;
+  letter-spacing: 1;
+}
+
+.sceneThree {
+  padding-right: 17cqw;
+}
+
+.networkHeader {
+  width: 48cqw;
+}
+
+.networkHeader .sceneBody {
+  margin-top: 1.9cqh;
+}
+
+.exchangeNetwork {
+  position: absolute;
+  top: 28cqh;
+  right: 16cqw;
+  left: 6cqw;
+  height: 45cqh;
+  border: 0.1cqw solid var(--lichen-rule-strong);
+  border-radius: 2.2cqw 1cqw 2.7cqw 1.4cqw;
+  overflow: hidden;
+  background: linear-gradient(120deg, rgba(31, 46, 28, 0.9), rgba(18, 29, 22, 0.84));
+  box-shadow: 0 2.1cqh 4cqw var(--lichen-shadow);
+}
+
+.exchangeLines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.exchangeLine,
+.exchangeLineAlt,
+.exchangeThread {
+  fill: none;
+  stroke-linecap: round;
+  transition: opacity 420ms ease, stroke-dashoffset 420ms ease;
+}
+
+.exchangeLine {
+  stroke: var(--lichen-cortex);
+  stroke-width: 8;
+}
+
+.exchangeLineAlt {
+  stroke: #527464;
+  stroke-width: 8;
+}
+
+.exchangeThread {
+  stroke: rgba(213, 228, 155, 0.2);
+  stroke-dasharray: 9 16;
+  stroke-width: 4;
+}
+
+.exchangeLine[data-visible="false"],
+.exchangeLineAlt[data-visible="false"] {
+  opacity: 0;
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+}
+
+.fungalCompartment,
+.photobiontCompartment {
+  position: absolute;
+  display: grid;
+  align-content: center;
+  gap: 1.1cqh;
+  box-sizing: border-box;
+  min-height: 23cqh;
+  padding: 2.4cqh 2.2cqw;
+  overflow: hidden;
+}
+
+.fungalCompartment {
+  top: 8cqh;
+  left: 5.2cqw;
+  width: 31cqw;
+  border: 0.12cqw solid rgba(214, 221, 137, 0.76);
+  border-radius: 2.4cqw 1.1cqw 1.8cqw 1.3cqw;
+  background: rgba(72, 93, 50, 0.68);
+}
+
+.photobiontCompartment {
+  right: 5.2cqw;
+  bottom: 7cqh;
+  width: 32cqw;
+  border: 0.12cqw solid rgba(140, 200, 160, 0.74);
+  border-radius: 1.1cqw 2.7cqw 1.2cqw 2cqw;
+  background: rgba(54, 111, 79, 0.62);
+}
+
+.fungalCompartment > span,
+.photobiontCompartment > span {
+  color: var(--lichen-cortex);
+  font-family: "SF Mono", "IBM Plex Mono", monospace;
+  font-size: 0.68cqw;
+  font-weight: 700;
+  letter-spacing: 0.13cqw;
+  text-transform: uppercase;
+}
+
+.photobiontCompartment > span {
+  color: #a8e2bd;
+}
+
+.fungalCompartment strong,
+.photobiontCompartment strong {
+  color: var(--lichen-ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.5cqw;
+  font-weight: 600;
+  line-height: 1.02;
+}
+
+.fungalCompartment p,
+.photobiontCompartment p {
+  color: var(--lichen-muted);
+  font-size: 0.88cqw;
+  line-height: 1.35;
+}
+
+.exchangeTag {
+  position: absolute;
+  top: 18.3cqh;
+  left: 40cqw;
+  z-index: 2;
+  display: grid;
+  gap: 1.1cqh;
+  width: 18cqw;
+  color: var(--lichen-ink);
+  font-family: "SF Mono", "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.6cqw;
+  line-height: 1.3;
+  text-align: center;
+  transition: opacity 380ms ease, transform 380ms ease;
+}
+
+.exchangeTag span {
+  padding: 0.65cqh 0.7cqw;
+  border: 0.06cqw solid var(--lichen-rule-strong);
+  border-radius: 0.7cqw;
+  background: rgba(11, 21, 13, 0.76);
+}
+
+.exchangeTag[data-visible="false"] {
+  opacity: 0;
+  transform: scale(0.88);
+}
+
+.sceneFour {
+  display: grid;
+  grid-template-columns: 46% 1fr;
+  grid-template-rows: 33% 1fr;
+  gap: 2cqh 3.2cqw;
+}
+
+.researchHeader {
+  grid-column: 1 / span 2;
+  width: 54cqw;
+}
+
+.researchHeader .sceneBody {
+  margin-top: 1.8cqh;
+}
+
+.researchLedger {
+  position: relative;
+  grid-column: 1 / span 2;
+  min-height: 0;
+  border-top: 0.12cqw solid var(--lichen-rule-strong);
+  border-bottom: 0.12cqw solid var(--lichen-rule);
+}
+
+.studyCellYeast,
+.studyCellBacteria,
+.scopeSeal {
+  position: absolute;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.studyCellYeast,
+.studyCellBacteria {
+  display: grid;
+  align-content: start;
+  gap: 1.2cqh;
+  padding: 2.1cqh 2cqw;
+}
+
+.studyCellYeast {
+  top: 4cqh;
+  left: 0;
+  width: 43cqw;
+  min-height: 25cqh;
+  border-left: 0.32cqw solid var(--lichen-research);
+  background: rgba(64, 42, 56, 0.32);
+}
+
+.studyCellBacteria {
+  right: 0;
+  bottom: 4cqh;
+  width: 36cqw;
+  min-height: 23cqh;
+  border-right: 0.32cqw solid var(--lichen-photo);
+  background: rgba(35, 79, 59, 0.3);
+}
+
+.studyCellYeast > span,
+.studyCellBacteria > span,
+.scopeSeal > span {
+  color: var(--lichen-muted);
+  font-family: "SF Mono", "IBM Plex Mono", monospace;
+  font-size: 0.65cqw;
+  font-weight: 700;
+  letter-spacing: 0.13cqw;
+  text-transform: uppercase;
+}
+
+.studyCellYeast strong,
+.studyCellBacteria strong {
+  color: var(--lichen-ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.36cqw;
+  font-weight: 500;
+  line-height: 1.19;
+}
+
+.studyCellYeast i,
+.studyCellBacteria i {
+  color: var(--lichen-cortex);
+  font-family: "SF Mono", "IBM Plex Mono", monospace;
+  font-size: 0.62cqw;
+  font-style: normal;
+  letter-spacing: 0.12cqw;
+}
+
+.scopeSeal {
+  top: 31cqh;
+  left: 38cqw;
+  z-index: 2;
+  width: 22cqw;
+  padding: 1.3cqh 1.2cqw;
+  border: 0.1cqw solid rgba(229, 217, 182, 0.74);
+  border-radius: 1.1cqw 0.45cqw 1.1cqw 0.45cqw;
+  background: rgba(20, 28, 19, 0.94);
+  text-align: center;
+}
+
+.scopeSeal strong {
+  display: block;
+  margin-top: 0.8cqh;
+  color: var(--lichen-medulla);
+  font-family: "SF Mono", "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.8cqw;
+  letter-spacing: 0.08cqw;
+  line-height: 1.2;
+}
+
+.scopeSeal p {
+  margin-top: 0.8cqh;
+  color: var(--lichen-muted);
+  font-size: 0.72cqw;
+  line-height: 1.22;
+}
+
+.sceneFive {
+  padding-right: 16.5cqw;
+}
+
+.recombinedVisual {
+  position: absolute;
+  top: 5cqh;
+  left: 3cqw;
+  width: 56cqw;
+  height: 72cqh;
+}
+
+.recombinedThallus {
+  transform: rotate(-4deg) scale(0.96);
+}
+
+.recombineMarks path {
+  fill: none;
+  stroke: rgba(242, 239, 197, 0.72);
+  stroke-dasharray: 14 16;
+  stroke-linecap: round;
+  stroke-width: 4;
+}
+
+.recombinedCopy {
+  position: absolute;
+  top: 18cqh;
+  right: 18cqw;
+  width: 31cqw;
+}
+
+.recombinedCopy h1 {
+  margin-top: 1.5cqh;
+  font-size: 4.35cqw;
+}
+
+.recombinedCopy .sceneBody {
+  margin-top: 2.3cqh;
+}
+
+.recombinedRule {
+  width: 10cqw;
+  height: 0.22cqh;
+  margin: 2.5cqh 0 1.7cqh;
+  background: linear-gradient(90deg, var(--lichen-cortex), var(--lichen-photo));
+}
+
+.finalBoundary {
+  display: block;
+  color: var(--lichen-medulla);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.4cqw;
+  line-height: 1.16;
+}
+
+.lichenNavigation {
+  position: absolute;
+  top: 9.2cqh;
+  right: 2cqw;
+  z-index: 9;
+  display: grid;
+  justify-items: stretch;
+  width: 12.8cqw;
+  padding: 0.8cqh 0.8cqw 1.1cqh;
+  border: 0.08cqw solid var(--lichen-rule-strong);
+  border-radius: 1.3cqw 0.65cqw 1.3cqw 0.65cqw;
+  background: rgba(14, 23, 16, 0.86);
+  box-shadow: 0 1.7cqh 3cqw var(--lichen-shadow);
+  touch-action: manipulation;
+}
+
+.holdControl,
+.lichenNode {
+  appearance: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+.holdControl {
+  display: grid;
+  grid-template-columns: 1.2cqw 1fr;
+  align-items: center;
+  gap: 0.45cqw;
+  min-height: 3.3cqh;
+  padding: 0.6cqh 0.65cqw;
+  border: 0.06cqw solid var(--lichen-rule);
+  border-radius: 0.65cqw;
+  background: rgba(45, 66, 38, 0.54);
+  color: var(--lichen-cortex);
+  font-family: "SF Mono", "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.52cqw;
+  font-weight: 700;
+  letter-spacing: 0.06cqw;
+  line-height: 1.08;
+  text-align: left;
+}
+
+.holdControl > span {
+  font-size: 1.1cqw;
+  line-height: 1;
+}
+
+.holdControl:focus-visible,
+.lichenNode:focus-visible {
+  outline: 0.12cqw solid var(--lichen-medulla);
+  outline-offset: 0.16cqw;
+}
+
+.nodeColumn {
+  display: grid;
+  gap: 0.55cqh;
+  margin-top: 0.8cqh;
+}
+
+.lichenNode {
+  display: grid;
+  grid-template-columns: 1.5cqw 1cqw 1fr;
+  align-items: center;
+  gap: 0.45cqw;
+  min-height: 3.15cqh;
+  padding: 0.52cqh 0.55cqw;
+  border: 0.06cqw solid var(--lichen-rule);
+  border-radius: 0.42cqw 0.9cqw 0.42cqw 0.75cqw;
+  background: rgba(28, 42, 29, 0.78);
+  color: var(--lichen-muted);
+  text-align: left;
+  transition: background 300ms ease, border-color 300ms ease, color 300ms ease, transform 300ms ease;
+}
+
+.lichenNode[data-active="true"] {
+  border-color: var(--lichen-cortex);
+  background: linear-gradient(108deg, rgba(146, 168, 83, 0.75), rgba(57, 82, 48, 0.94));
+  color: var(--lichen-ink);
+  transform: translateX(-0.34cqw);
+}
+
+.lichenNode[data-active="true"][data-material="photobiont"] {
+  border-color: var(--lichen-photo);
+  background: linear-gradient(108deg, rgba(86, 161, 116, 0.72), rgba(39, 85, 58, 0.94));
+}
+
+.lichenNode[data-active="true"][data-material="research"] {
+  border-color: var(--lichen-research);
+  background: linear-gradient(108deg, rgba(147, 88, 108, 0.72), rgba(74, 47, 60, 0.94));
+}
+
+.nodeIndex {
+  color: currentColor;
+  font-family: "SF Mono", "IBM Plex Mono", monospace;
+  font-size: 0.6cqw;
+  font-weight: 700;
+  letter-spacing: 0.04cqw;
+}
+
+.nodeMaterial {
+  width: 0.82cqw;
+  height: 1.6cqh;
+  border-radius: 0.65cqw 0.35cqw 0.65cqw 0.35cqw;
+  background: var(--lichen-cortex);
+}
+
+.lichenNode[data-material="photobiont"] .nodeMaterial {
+  background: var(--lichen-photo);
+}
+
+.lichenNode[data-material="research"] .nodeMaterial {
+  background: var(--lichen-research);
+}
+
+.nodeName {
+  min-width: 0;
+  max-width: 7cqw;
+  overflow: hidden;
+  color: currentColor;
+  font-family: "SF Mono", "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.61cqw;
+  font-weight: 700;
+  letter-spacing: 0.05cqw;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: max-width 300ms ease, opacity 300ms ease;
+}
+
+.nodeName[data-visible="false"] {
+  max-width: 0;
+  opacity: 0;
+}
+
+.navInstruction {
+  display: block;
+  margin-top: 0.85cqh;
+  color: rgba(222, 233, 191, 0.64);
+  font-family: "SF Mono", "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 0.49cqw;
+  letter-spacing: 0.05cqw;
+  line-height: 1.18;
+  text-align: center;
+}
+
+.frozen *,
+.frozen *::before,
+.frozen *::after {
+  animation: none !important;
+  transition: none !important;
+}

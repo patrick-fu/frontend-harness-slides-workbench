@@ -27,6 +27,7 @@ import TerminalGlow08, {
 import { quietLaunchWindowTopic } from "./01-quiet-launch-window";
 import { presolarGrainTopic } from "./01-presolar-grain";
 import { metricsWithoutNoiseTopic } from "./02-metrics-without-noise";
+import { bridgeMovementTopic } from "./objective-swiss-grid-bridge-movement";
 import { repairAsStrategyTopic } from "./03-repair-as-strategy";
 import { stoneToSoilTopic } from "./wabi-sabi-ceramic-stone-to-soil";
 import { betterQuestionTopic } from "./04-better-question";
@@ -119,6 +120,8 @@ import { fiveTakesRoomTopic } from "./22-five-takes-room";
 import { danceNotationTopic } from "./duotone-session-dance-notation";
 import { communityPrintsItselfTopic } from "./23-community-prints-itself";
 import { archiveReassembledTopic } from "./24-archive-reassembled";
+import { sevenBluesTopic } from "./riso-print-zine-seven-blues";
+import { concealedObjectsTopic } from "./analog-cutout-collage-concealed-objects";
 import WoodblockPrint25, {
   getMetadata as getMetadata25,
 } from "./25-woodblock-print";
@@ -144,6 +147,7 @@ import NordicRosemaling32, {
   getMetadata as getMetadata32,
 } from "./32-nordic-rosemaling";
 import { tideMapTeamTopic } from "./25-tide-map-team";
+import { whistledLanguageTopic } from "./woodblock-floating-world-whistled-language";
 import { growthSignalsTopic } from "./26-growth-signals";
 import { leafStomataTopic } from "./27-leaf-stomata";
 import { infrastructureGalaTopic } from "./27-infrastructure-gala";
@@ -151,6 +155,7 @@ import { reinforcedConcreteTopic } from "./machine-age-deco-reinforced-concrete"
 import { fieldRouteSignalTopic } from "./28-field-route-signal";
 import { saharanDustTopic } from "./expedition-screenprint-saharan-dust";
 import { releaseMixtapeTopic } from "./29-release-mixtape";
+import { iceCoreArchiveTopic } from "./cassette-era-packaging-ice-core-archive";
 import { shippingHardThingTopic } from "./30-shipping-hard-thing";
 import { sinkingDeltaTopic } from "./neo-brutalist-bulletin-sinking-delta";
 import { moveOrgChartTopic } from "./31-move-org-chart";
@@ -196,6 +201,7 @@ import { whaleFallTopic } from "./39-whale-fall";
 import { deriveShortcutTopic } from "./39-derive-shortcut";
 import { hearingPathTopic } from "./40-hearing-path";
 import { latencyBossFightTopic } from "./40-latency-boss-fight";
+import { eggMimicryTopic } from "./arcade-boss-fight-egg-mimicry";
 import AnnualReport41, {
   getMetadata as getMetadata41,
 } from "./41-annual-report";
@@ -223,6 +229,7 @@ import ExecutiveSummary48, {
 import { evidenceSmallerTeamTopic } from "./41-evidence-smaller-team";
 import { impactEvidenceTopic } from "./42-impact-evidence";
 import { chooseBoundaryTopic } from "./42-choose-boundary";
+import { standardTimeTopic } from "./decision-record-standard-time";
 import { readyAgentPickupTopic } from "./43-ready-agent-pickup";
 import { ozoneHoleTopic } from "./maintainer-issue-brief-ozone-hole";
 import { stationPlatformStudyTopic } from "./44-station-platform-study";
@@ -232,6 +239,7 @@ import { readingRosettaTopic } from "./annotated-source-diff-reading-rosetta";
 import { launchGateLedgerTopic } from "./46-launch-gate-ledger";
 import { pigmentWithoutTouchTopic } from "./checklist-ledger-pigment-without-touch";
 import { handoffCompartmentsTopic } from "./47-handoff-compartments";
+import { lichenPartnersTopic } from "./context-bento-box-lichen-partners";
 import { recoveryKitTopic } from "./48-recovery-kit";
 import { cocoonToClothTopic } from "./49-cocoon-to-cloth";
 
@@ -269,6 +277,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata02,
     },
     metricsWithoutNoiseTopic,
+    bridgeMovementTopic,
   ]),
   buildEntry("wabi-sabi-ceramic", [
     {
@@ -505,6 +514,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata23,
     },
     communityPrintsItselfTopic,
+    sevenBluesTopic,
   ]),
   buildEntry("analog-cutout-collage", [
     {
@@ -515,6 +525,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata24,
     },
     archiveReassembledTopic,
+    concealedObjectsTopic,
   ]),
   // Craft & Cultural Traditions: 25-32
   buildEntry("woodblock-floating-world", [
@@ -526,6 +537,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata25,
     },
     tideMapTeamTopic,
+    whistledLanguageTopic,
   ]),
   buildEntry("botanical-specimen-plate", [
     {
@@ -569,6 +581,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata29,
     },
     releaseMixtapeTopic,
+    iceCoreArchiveTopic,
   ]),
   buildEntry("neo-brutalist-bulletin", [
     {
@@ -690,6 +703,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata40,
     },
     latencyBossFightTopic,
+    eggMimicryTopic,
   ]),
   // Text Report: 41-48
   buildEntry("research-memo", [
@@ -712,6 +726,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata42,
     },
     chooseBoundaryTopic,
+    standardTimeTopic,
   ]),
   buildEntry("maintainer-issue-brief", [
     {
@@ -766,6 +781,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata47,
     },
     handoffCompartmentsTopic,
+    lichenPartnersTopic,
   ]),
   buildEntry("object-metaphor-hero", [
     {
