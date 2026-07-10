@@ -158,7 +158,7 @@ describe("Arcade Boss Fight: egg mimicry — topic contract", () => {
       en: "Egg Mimicry",
       zh: "卵拟态",
     });
-    expect(eggMimicryTopic.model).toBe("GPT-5.6 Terra/Max");
+    expect(eggMimicryTopic.model).toBe("GPT 5.6 Sol");
     expect(eggMimicryTopic.navigation).toEqual({
       geometry: "spatial-node",
       carrier: "nest-map",

@@ -1019,7 +1019,7 @@ export default function VoyagerBoundary({
 export const voyagerBoundaryTopic = defineStyleTopic({
   id: "voyager-boundary",
   topic: { en: "Voyager Boundary", zh: "日球层边界" },
-  model: "GPT-5 Codex",
+  model: "GPT 5.6 Sol",
   component: VoyagerBoundary,
   getMetadata,
   navigation: {

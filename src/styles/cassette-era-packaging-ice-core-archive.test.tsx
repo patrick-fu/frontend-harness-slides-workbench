@@ -156,7 +156,7 @@ describe("Cassette-Era Packaging / Ice-Core Archive — topic protocol and evide
       en: "Ice-Core Archive",
       zh: "冰芯档案",
     });
-    expect(iceCoreArchiveTopic.model).toBe("GPT-5.6 Terra/Max");
+    expect(iceCoreArchiveTopic.model).toBe("GPT 5.6 Sol");
     expect(iceCoreArchiveTopic.navigation).toEqual({
       geometry: "object-controller",
       carrier: "ice-core-tape-reels",

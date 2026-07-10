@@ -1028,7 +1028,7 @@ export default function CocoaFermentation({
 export const cocoaFermentationTopic = defineStyleTopic({
   id: "cocoa-fermentation",
   topic: { en: "Cocoa Fermentation", zh: "可可发酵" },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: CocoaFermentation,
   getMetadata,
   navigation: {

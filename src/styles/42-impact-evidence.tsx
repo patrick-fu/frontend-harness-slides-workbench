@@ -1172,7 +1172,7 @@ export const impactEvidenceTopic = defineStyleTopic({
     en: "Impact Evidence",
     zh: "撞击证据",
   },
-  model: "GPT-5",
+  model: "GPT 5.6 Sol",
   component: ImpactEvidence,
   getMetadata,
   navigation: {

@@ -1473,7 +1473,7 @@ export const ozoneHoleTopic = defineStyleTopic({
     en: "Ozone Hole",
     zh: "臭氧洞",
   },
-  model: "GPT-5",
+  model: "GPT 5.6 Sol",
   component: OzoneHoleIssueBrief,
   getMetadata,
   navigation: {

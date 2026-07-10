@@ -1653,7 +1653,7 @@ export const pigmentWithoutTouchTopic = defineStyleTopic({
     en: "Pigment Without Touch",
     zh: "无损识色",
   },
-  model: "GPT-5",
+  model: "GPT 5.6 Sol",
   component: PigmentWithoutTouch,
   getMetadata,
   navigation: NAVIGATION_PROFILE,

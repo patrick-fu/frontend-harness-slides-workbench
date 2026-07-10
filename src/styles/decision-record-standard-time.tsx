@@ -1472,7 +1472,7 @@ export const standardTimeTopic = defineStyleTopic({
     en: "Standard Time",
     zh: "标准时",
   },
-  model: "GPT-5.6 Terra/Max",
+  model: "GPT 5.6 Sol",
   component: StandardTimeDecisionRecord,
   getMetadata,
   navigation: {

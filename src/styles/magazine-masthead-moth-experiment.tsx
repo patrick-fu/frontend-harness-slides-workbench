@@ -1337,7 +1337,7 @@ export default function MothExperiment({
 export const mothExperimentTopic = defineStyleTopic({
   id: "moth-experiment",
   topic: { en: "Moth Experiment", zh: "桦尺蛾实验" },
-  model: "GPT-5.6 Terra",
+  model: "GPT 5.6 Sol",
   component: MothExperiment,
   getMetadata,
   navigation: {

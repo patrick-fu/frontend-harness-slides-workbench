@@ -1234,7 +1234,7 @@ export const whistledLanguageTopic = defineStyleTopic({
     en: "Whistled Language",
     zh: "口哨语言",
   },
-  model: "GPT-5.6 Terra/Max",
+  model: "GPT 5.6 Sol",
   component: WhistledLanguage,
   getMetadata,
   navigation: {

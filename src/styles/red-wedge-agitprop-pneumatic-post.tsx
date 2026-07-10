@@ -847,7 +847,7 @@ export const pneumaticPostTopic = defineStyleTopic({
     en: "Pneumatic Post",
     zh: "气动邮政",
   },
-  model: "GPT-5 Codex",
+  model: "GPT 5.6 Sol",
   component: PneumaticPost,
   getMetadata,
   navigation: {

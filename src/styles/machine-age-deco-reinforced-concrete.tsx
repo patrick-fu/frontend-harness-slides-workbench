@@ -1063,7 +1063,7 @@ export const reinforcedConcreteTopic = defineStyleTopic({
     en: "Reinforced Concrete",
     zh: "钢筋混凝土",
   },
-  model: "GPT-5.6 Terra",
+  model: "GPT 5.6 Sol",
   component: ReinforcedConcrete,
   getMetadata,
   navigation: {

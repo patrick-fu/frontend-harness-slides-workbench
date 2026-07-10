@@ -1453,7 +1453,7 @@ export default function EggMimicry({
 export const eggMimicryTopic = defineStyleTopic({
   id: "egg-mimicry",
   topic: { en: "Egg Mimicry", zh: "卵拟态" },
-  model: "GPT-5.6 Terra/Max",
+  model: "GPT 5.6 Sol",
   component: EggMimicry,
   getMetadata,
   navigation: {

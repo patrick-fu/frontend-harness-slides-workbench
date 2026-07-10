@@ -1054,7 +1054,7 @@ export default function LichenPartners({
 export const lichenPartnersTopic = defineStyleTopic({
   id: "lichen-partners",
   topic: { en: "Lichen Partners", zh: "地衣伙伴" },
-  model: "GPT-5.6 Terra/Max",
+  model: "GPT 5.6 Sol",
   component: LichenPartners,
   getMetadata,
   navigation: NAVIGATION_PROFILE,

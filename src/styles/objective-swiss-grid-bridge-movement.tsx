@@ -1351,7 +1351,7 @@ export const bridgeMovementTopic = defineStyleTopic({
     en: "Bridge Movement",
     zh: "桥的位移",
   },
-  model: "GPT-5.6 Terra/Max",
+  model: "GPT 5.6 Sol",
   component: BridgeMovement,
   getMetadata,
   navigation: {

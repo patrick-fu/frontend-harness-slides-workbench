@@ -958,7 +958,7 @@ export const chrysalisRebuildTopic = defineStyleTopic({
     en: "Inside a Chrysalis",
     zh: "蛹中重建",
   },
-  model: "GPT-5",
+  model: "GPT 5.6 Sol",
   component: ChrysalisRebuild,
   getMetadata,
   navigation: {

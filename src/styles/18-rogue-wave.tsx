@@ -1206,7 +1206,7 @@ export default function RogueWave({
 export const rogueWaveTopic = defineStyleTopic({
   id: "rogue-wave",
   topic: { en: "Rogue Wave", zh: "怪浪" },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: RogueWave,
   getMetadata,
   navigation: {

@@ -157,7 +157,7 @@ describe("Machine-Age Deco / Reinforced Concrete — protocol and sources", () =
       en: "Reinforced Concrete",
       zh: "钢筋混凝土",
     });
-    expect(reinforcedConcreteTopic.model).toBe("GPT-5.6 Terra");
+    expect(reinforcedConcreteTopic.model).toBe("GPT 5.6 Sol");
     expect(reinforcedConcreteTopic.navigation).toEqual({
       geometry: "edge-scale",
       carrier: "load-ruler",

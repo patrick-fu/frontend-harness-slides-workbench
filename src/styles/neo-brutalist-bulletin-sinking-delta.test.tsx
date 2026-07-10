@@ -98,7 +98,7 @@ describe("Sinking Delta topic protocol", () => {
       en: "Sinking Delta",
       zh: "下沉三角洲",
     });
-    expect(sinkingDeltaTopic.model).toBe("GPT-5.6 Terra · Max effort");
+    expect(sinkingDeltaTopic.model).toBe("GPT 5.6 Sol");
     expect(sinkingDeltaTopic.navigation).toEqual({
       geometry: "spatial-node",
       carrier: "delta-distributary-blocks",

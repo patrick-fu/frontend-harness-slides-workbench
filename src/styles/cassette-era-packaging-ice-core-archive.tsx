@@ -1429,7 +1429,7 @@ export const iceCoreArchiveTopic = defineStyleTopic({
     en: "Ice-Core Archive",
     zh: "冰芯档案",
   },
-  model: "GPT-5.6 Terra/Max",
+  model: "GPT 5.6 Sol",
   component: IceCoreArchive,
   getMetadata,
   navigation: {

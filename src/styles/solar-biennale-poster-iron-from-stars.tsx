@@ -926,7 +926,7 @@ export const ironFromStarsTopic = defineStyleTopic({
     en: "Iron from Stars",
     zh: "恒星炼铁",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: IronFromStars,
   getMetadata,
   navigation: {

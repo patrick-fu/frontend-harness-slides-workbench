@@ -1099,7 +1099,7 @@ export const tidalTimeTopic = defineStyleTopic({
     en: "Tidal Time",
     zh: "潮汐时差",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: TidalTime,
   getMetadata,
   navigation: {

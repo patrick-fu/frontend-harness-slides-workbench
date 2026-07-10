@@ -1257,7 +1257,7 @@ export default function ConcealedObjects({
 export const concealedObjectsTopic = defineStyleTopic({
   id: "concealed-objects",
   topic: { en: "Inside the Wall", zh: "墙中藏物" },
-  model: "GPT-5.6 Terra/Max",
+  model: "GPT 5.6 Sol",
   component: ConcealedObjects,
   getMetadata,
   navigation: {

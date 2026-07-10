@@ -153,7 +153,7 @@ describe("Decision Record / Standard Time — protocol and research packet", () 
       en: "Standard Time",
       zh: "标准时",
     });
-    expect(standardTimeTopic.model).toBe("GPT-5.6 Terra/Max");
+    expect(standardTimeTopic.model).toBe("GPT 5.6 Sol");
     expect(standardTimeTopic.navigation).toEqual({
       geometry: "typographic-index",
       carrier: "time-standard-clauses",

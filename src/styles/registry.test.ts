@@ -55,6 +55,11 @@ describe("STYLE_REGISTRY topic catalog", () => {
 
   it("registers the complete 49-Topic coordinated set", () => {
     expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(146);
+    expect(
+      STYLE_REGISTRY.map(
+        (style) => style.topics[style.topics.length - 1]?.model,
+      ),
+    ).toEqual(Array.from({ length: 49 }, () => "GPT 5.6 Sol"));
     expect(findTopic("interactive-dialogue-stage", "vocal-folds")).toBeDefined();
     expect(findTopic("cyanotype-drafting-table", "comet-anatomy")).toBeDefined();
     expect(findTopic("kinetic-type-punchline", "before-a")).toBeDefined();

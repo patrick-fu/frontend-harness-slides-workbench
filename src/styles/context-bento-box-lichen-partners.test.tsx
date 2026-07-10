@@ -88,7 +88,7 @@ describe("Lichen Partners topic contract", () => {
       en: "Lichen Partners",
       zh: "地衣伙伴",
     });
-    expect(lichenPartnersTopic.model).toBe("GPT-5.6 Terra/Max");
+    expect(lichenPartnersTopic.model).toBe("GPT 5.6 Sol");
     expect(lichenPartnersTopic.navigation).toEqual({
       geometry: "spatial-node",
       carrier: "lichen-compartments",

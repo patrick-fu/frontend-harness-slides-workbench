@@ -769,7 +769,7 @@ export const urushiCureTopic = defineStyleTopic({
     en: "Urushi Cure",
     zh: "漆的固化",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: UrushiCure,
   getMetadata,
   navigation: {

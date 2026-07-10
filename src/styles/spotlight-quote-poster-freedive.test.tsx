@@ -164,7 +164,7 @@ describe("Spotlight Quote Poster / Freedive — coordinated topic contract", () 
   it("exports the planned topic, ambient footlight navigation, research packet, and score", () => {
     expect(freediveTopic.id).toBe("freedive");
     expect(freediveTopic.topic).toEqual({ en: "Freedive", zh: "自由潜水" });
-    expect(freediveTopic.model).toBe("GPT-5.6 Terra/Max");
+    expect(freediveTopic.model).toBe("GPT 5.6 Sol");
     expect(freediveTopic.navigation).toEqual({
       geometry: "ambient",
       carrier: "footlight-notches",

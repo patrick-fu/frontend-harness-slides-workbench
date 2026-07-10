@@ -1091,7 +1091,7 @@ export const districtHeatTopic = defineStyleTopic({
     en: "Second Heat",
     zh: "城市余热",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: DistrictHeat,
   getMetadata,
   navigation: {

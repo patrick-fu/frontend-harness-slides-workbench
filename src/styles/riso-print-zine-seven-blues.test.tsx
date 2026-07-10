@@ -104,7 +104,7 @@ describe("Riso Print Zine / Seven Blues — coordinated topic contract", () => {
       en: "Seven Blues",
       zh: "七种蓝",
     });
-    expect(sevenBluesTopic.model).toBe("GPT-5.6 Terra/Max");
+    expect(sevenBluesTopic.model).toBe("GPT 5.6 Sol");
     expect(sevenBluesTopic.navigation).toEqual({
       geometry: "card-miniature",
       carrier: "blue-pigment-swatches",

@@ -1086,7 +1086,7 @@ export const elevatorCounterweightTopic = defineStyleTopic({
     en: "Counterweight",
     zh: "电梯配重",
   },
-  model: "GPT-5.6 Terra",
+  model: "GPT 5.6 Sol",
   component: ElevatorCounterweight,
   getMetadata,
   navigation: {

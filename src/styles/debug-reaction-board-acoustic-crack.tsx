@@ -1391,7 +1391,7 @@ export const acousticCrackTopic = defineStyleTopic({
     en: "Acoustic Crack",
     zh: "听裂缝",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: AcousticCrack,
   getMetadata,
   navigation: {

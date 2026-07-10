@@ -142,7 +142,7 @@ describe("Woodblock Floating World / Whistled Language — topic packet", () => 
       en: "Whistled Language",
       zh: "口哨语言",
     });
-    expect(whistledLanguageTopic.model).toBe("GPT-5.6 Terra/Max");
+    expect(whistledLanguageTopic.model).toBe("GPT 5.6 Sol");
     expect(whistledLanguageTopic.navigation).toEqual({
       geometry: "spatial-node",
       carrier: "mountain-peak-array",

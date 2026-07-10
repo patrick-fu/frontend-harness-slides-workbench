@@ -114,7 +114,7 @@ describe("Objective Swiss Grid / Bridge Movement — topic protocol", () => {
       en: "Bridge Movement",
       zh: "桥的位移",
     });
-    expect(bridgeMovementTopic.model).toBe("GPT-5.6 Terra/Max");
+    expect(bridgeMovementTopic.model).toBe("GPT 5.6 Sol");
     expect(bridgeMovementTopic.navigation).toEqual({
       geometry: "edge-scale",
       carrier: "bearing-ruler",

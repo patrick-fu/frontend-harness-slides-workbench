@@ -1026,7 +1026,7 @@ export const stoneToSoilTopic = defineStyleTopic({
     en: "Stone to Soil",
     zh: "石成土",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: StoneToSoil,
   getMetadata,
   navigation: {

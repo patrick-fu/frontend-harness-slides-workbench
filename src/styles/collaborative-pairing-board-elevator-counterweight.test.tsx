@@ -88,7 +88,7 @@ describe("Elevator Counterweight topic protocol", () => {
       en: "Counterweight",
       zh: "电梯配重",
     });
-    expect(elevatorCounterweightTopic.model).toBe("GPT-5.6 Terra");
+    expect(elevatorCounterweightTopic.model).toBe("GPT 5.6 Sol");
     expect(elevatorCounterweightTopic.navigation).toEqual({
       geometry: "path",
       carrier: "counterweight-cable",

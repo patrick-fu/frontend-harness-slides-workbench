@@ -874,7 +874,7 @@ export const vocalFoldsTopic = defineStyleTopic({
     en: "Vocal Folds",
     zh: "声带",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: VocalFolds,
   getMetadata,
   navigation: NAVIGATION_PROFILE,

@@ -1158,7 +1158,7 @@ export const teaChaRoutesTopic = defineStyleTopic({
     en: "Tea / Cha",
     zh: "茶与 Cha",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: TeaChaRoutes,
   getMetadata,
   navigation: {

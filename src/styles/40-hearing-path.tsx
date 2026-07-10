@@ -1099,7 +1099,7 @@ export const hearingPathTopic = defineStyleTopic({
     en: "How Hearing Begins",
     zh: "听觉起点",
   },
-  model: "GPT-5",
+  model: "GPT 5.6 Sol",
   component: HearingPath,
   getMetadata,
   navigation: NAVIGATION_PROFILE,

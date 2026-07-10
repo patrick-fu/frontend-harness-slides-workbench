@@ -1462,7 +1462,7 @@ export const sevenBluesTopic = defineStyleTopic({
     en: "Seven Blues",
     zh: "七种蓝",
   },
-  model: "GPT-5.6 Terra/Max",
+  model: "GPT 5.6 Sol",
   component: RisoPrintZineSevenBlues,
   getMetadata,
   navigation: {

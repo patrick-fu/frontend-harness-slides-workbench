@@ -1238,7 +1238,7 @@ export default function NaturalClocks({
 export const naturalClocksTopic = defineStyleTopic({
   id: "natural-clocks",
   topic: { en: "Natural Clocks", zh: "自然时钟" },
-  model: "GPT-5.6 Terra",
+  model: "GPT 5.6 Sol",
   component: NaturalClocks,
   getMetadata,
   navigation: {

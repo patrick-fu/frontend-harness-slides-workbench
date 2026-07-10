@@ -116,7 +116,7 @@ describe("Analog Cutout Collage: concealed objects — topic contract", () => {
       en: "Inside the Wall",
       zh: "墙中藏物",
     });
-    expect(concealedObjectsTopic.model).toBe("GPT-5.6 Terra/Max");
+    expect(concealedObjectsTopic.model).toBe("GPT 5.6 Sol");
     expect(concealedObjectsTopic.navigation).toEqual({
       geometry: "card-miniature",
       carrier: "wall-cache-fragments",
