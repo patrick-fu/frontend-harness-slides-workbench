@@ -26,7 +26,7 @@ import { defineStyleTopic } from "./topic";
 export const engineeringWhiteboardExplainerTopic = defineStyleTopic({
   id: "from-prompt-to-patch",
   topic: { en: "From Prompt to Patch", zh: "从提示到补丁" },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: EngineeringWhiteboardExplainer,
   getMetadata,
 });
@@ -163,7 +163,7 @@ export default function EngineeringWhiteboardExplainer({
 export const engineeringWhiteboardExplainerTopic = defineStyleTopic({
   id: "from-prompt-to-patch",
   topic: { en: "From Prompt to Patch", zh: "从提示到补丁" },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: EngineeringWhiteboardExplainer,
   getMetadata,
 });
@@ -179,7 +179,7 @@ export const engineeringWhiteboardExplainerTopic = defineStyleTopic({
 interface StyleTopicModule {
   id: string;              // 稳定 Topic ID，如 "decision-art", "product-launch"
   topic: { en: string; zh: string }; // 题材短名，如 { en: "Decision Art", zh: "决策艺术" }
-  model: string;           // 编写模型，如 "Doubao-Seed-Evolving", "GPT-5.5"
+  model: string;           // 编写模型，如 "Doubao-Seed-Evolving", "GPT 5.5"
   component: React.ComponentType<BespokeStyleProps>;  // 默认导出的组件
   getMetadata: (lang: "en" | "zh") => StyleMetadata;  // metadata 函数
   navigation?: TopicNavigationProfile;

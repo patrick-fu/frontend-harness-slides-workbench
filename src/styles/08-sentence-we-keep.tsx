@@ -1507,7 +1507,7 @@ export const sentenceWeKeepTopic = defineStyleTopic({
     en: "Kept Sentence",
     zh: "留下句子",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: SentenceWeKeepV2,
   getMetadata,
 });

@@ -1441,7 +1441,7 @@ export const evidenceSmallerTeamTopic = defineStyleTopic({
     en: "Small Team",
     zh: "小团队证据",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: EvidenceSmallerTeamV2,
   getMetadata,
 });

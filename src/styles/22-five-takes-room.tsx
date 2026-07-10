@@ -734,7 +734,7 @@ export const fiveTakesRoomTopic = defineStyleTopic({
     en: "Five Takes",
     zh: "五个视角",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: FiveTakesRoomV2,
   getMetadata,
 });

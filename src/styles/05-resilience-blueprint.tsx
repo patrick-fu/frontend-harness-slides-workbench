@@ -800,7 +800,7 @@ export const resilienceBlueprintTopic = defineStyleTopic({
     en: "Resilience Plan",
     zh: "韧性方案",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: ResilienceBlueprintV2,
   getMetadata,
 });

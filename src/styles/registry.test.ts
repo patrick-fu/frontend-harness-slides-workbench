@@ -53,6 +53,14 @@ describe("STYLE_REGISTRY topic catalog", () => {
     ]);
   });
 
+  it("uses the normalized model ID for the legacy GPT 5.5 Topic set", () => {
+    const models = STYLE_REGISTRY.flatMap((style) =>
+      style.topics.map((topic) => topic.model),
+    );
+
+    expect(models.filter((model) => model === "GPT 5.5")).toHaveLength(48);
+  });
+
   it("registers the complete 49-Topic coordinated set", () => {
     expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(146);
     expect(

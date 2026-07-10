@@ -157,7 +157,7 @@ describe("Sidebar — band sections", () => {
           ...registry[0].topics[0],
           id: "quiet-launch",
           topic: { en: "Quiet Launch", zh: "安静发布" },
-          model: "GPT-5.5",
+          model: "GPT 5.5",
         },
       ],
     };
@@ -224,7 +224,7 @@ describe("Sidebar — style selection", () => {
           ...registry[0].topics[0],
           id: "quiet-launch",
           topic: { en: "Quiet Launch", zh: "安静发布" },
-          model: "GPT-5.5",
+          model: "GPT 5.5",
         },
       ],
     };

@@ -46,7 +46,7 @@ function renderTopicBar(
       {
         id: "decision-art",
         topic: { en: "Decision Art", zh: "决策艺术" },
-        model: "GPT-5.5",
+        model: "GPT 5.5",
       },
     ]),
     currentTopicId: "decision-art",

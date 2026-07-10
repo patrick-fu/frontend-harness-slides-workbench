@@ -659,7 +659,7 @@ export const fiveActsSystemTopic = defineStyleTopic({
     en: "System Acts",
     zh: "系统五幕",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: FiveActsSystemV2,
   getMetadata,
 });

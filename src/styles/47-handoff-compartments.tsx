@@ -1591,7 +1591,7 @@ export const handoffCompartmentsTopic = defineStyleTopic({
     en: "Handoff Box",
     zh: "交接盒",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: HandoffCompartmentsV2,
   getMetadata,
 });

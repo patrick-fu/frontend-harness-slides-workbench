@@ -846,7 +846,7 @@ export const argumentInMarginsTopic = defineStyleTopic({
     en: "Margin Argument",
     zh: "页边论点",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: ArgumentInMarginsV2,
   getMetadata,
 });

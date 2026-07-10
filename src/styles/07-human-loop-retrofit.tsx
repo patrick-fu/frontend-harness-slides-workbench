@@ -1407,7 +1407,7 @@ export const humanLoopRetrofitTopic = defineStyleTopic({
     en: "Human Loop",
     zh: "人机回路",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: HumanLoopRetrofitV2,
   getMetadata,
 });

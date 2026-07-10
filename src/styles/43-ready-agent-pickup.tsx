@@ -800,7 +800,7 @@ export const readyAgentPickupTopic = defineStyleTopic({
     en: "Agent Pickup",
     zh: "Agent 接手",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: ReadyAgentPickupV2,
   getMetadata,
 });

@@ -1052,7 +1052,7 @@ export const tideMapTeamTopic = defineStyleTopic({
     en: "Tide Map",
     zh: "潮汐地图",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: TideMapTeamV2,
   getMetadata,
 });

@@ -1155,7 +1155,7 @@ export const toolchainDesktopTopic = defineStyleTopic({
     en: "Toolchain Desk",
     zh: "工具桌面",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: ToolchainDesktopV2,
   getMetadata,
 });

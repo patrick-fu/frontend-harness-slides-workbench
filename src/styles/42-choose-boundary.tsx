@@ -998,7 +998,7 @@ export const chooseBoundaryTopic = defineStyleTopic({
     en: "Boundary",
     zh: "边界选择",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: ChooseBoundaryV2,
   getMetadata,
 });

@@ -1411,7 +1411,7 @@ export const recoveryKitTopic = defineStyleTopic({
     en: "Recovery Kit",
     zh: "恢复工具包",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: RecoveryKitV2,
   getMetadata,
 });

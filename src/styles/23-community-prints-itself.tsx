@@ -1090,7 +1090,7 @@ export const communityPrintsItselfTopic = defineStyleTopic({
     en: "Community Print",
     zh: "社群印刷",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: CommunityPrintsItselfV2,
   getMetadata,
 });

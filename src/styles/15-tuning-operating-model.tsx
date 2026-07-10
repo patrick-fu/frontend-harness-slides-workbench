@@ -964,7 +964,7 @@ export const tuningOperatingModelTopic = defineStyleTopic({
     en: "Operating Model",
     zh: "运营模型",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: TuningOperatingModelV2,
   getMetadata,
 });

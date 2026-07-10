@@ -1419,7 +1419,7 @@ export const rewriteBrokenFlowTopic = defineStyleTopic({
     en: "Flow Rewrite",
     zh: "流程重写",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: RewriteBrokenFlowV2,
   getMetadata,
 });

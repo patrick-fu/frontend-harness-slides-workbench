@@ -185,7 +185,7 @@ _Avoid_: Decorative one-off effect.
 ### Model Label（模型标签）
 
 每个 Topic 的元信息中包含编写该 Topic 的模型名称，如
-"Doubao-Seed-Evolving"、"GPT-5.5"。显示在 TopicBar 和 Topic 信息中。
+"Doubao-Seed-Evolving"、"GPT 5.5"。显示在 TopicBar 和 Topic 信息中。
 
 ### TopicBar（题材条）
 
@@ -1274,7 +1274,7 @@ Sidebar 中每个风格条目可展开，显示该风格的所有版本：
 ```
 ▼ 01  Executive Silence
     ▸ 决策的艺术  [Doubao]
-    ▸ 产品发布会  [GPT-5.5]
+    ▸ 产品发布会  [GPT 5.5]
   02  Swiss Precision
     ▸ 效率系统  [Doubao]
 ```

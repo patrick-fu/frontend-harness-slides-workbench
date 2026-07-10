@@ -761,7 +761,7 @@ export const repairAsStrategyTopic = defineStyleTopic({
     en: "Repair Strategy",
     zh: "修复策略",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: RepairAsStrategyV2,
   getMetadata,
 });
