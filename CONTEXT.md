@@ -23,10 +23,11 @@ Current routing and registry contract:
   `docs/CROSS_DOMAIN_TOPIC_SET_PLAN.md`. Implementation runs as 49 independent
   Topic tasks. After the first 21 Topics shipped in seven historical three-Topic
   commits, the remaining 28 use logical commit batches of 10, 10, and 8. The
-  current batch started all unfinished Topics concurrently; from the next batch
-  onward, at most four Topic agents run at once and completed slots are refilled.
-  Every Topic has a different agent, and a batch is committed only after all of
-  its Topics pass centralized integration and review.
+  first 10-Topic batch started all unfinished Topics concurrently and shipped at
+  registry total 128. Beginning with the second 10-Topic batch, at most four
+  Topic agents run at once and completed slots are refilled. That batch is
+  integrated and validated at registry total 138; the final 8-Topic batch has
+  not started.
 
 ---
 

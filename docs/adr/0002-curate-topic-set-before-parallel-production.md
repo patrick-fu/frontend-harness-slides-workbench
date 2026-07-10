@@ -133,12 +133,12 @@ The user confirmed the matrix and authorized implementation on 2026-07-10.
 Production therefore proceeds as 49 independent Topic tasks with centralized
 integration. The first 21 Topics shipped in seven historical three-Topic
 commits. The user then aligned production concurrency and commit scope: the
-remaining 28 Topics use logical commit batches of 10, 10, and 8. The current
-batch started all unfinished Topics concurrently under the instruction active at
-that time. Starting with the next batch, production is capped at four Topic
-agents concurrently and refills a slot whenever one finishes. Concurrency does
-not change commit scope: each batch is integrated, reviewed, committed, and
-pushed only after all of its Topics pass.
+remaining 28 Topics use logical commit batches of 10, 10, and 8. The first
+10-Topic batch started all unfinished Topics concurrently under the
+instruction active at that time. Starting with the second 10-Topic batch,
+production is capped at four Topic agents concurrently and refills a slot
+whenever one finishes. Concurrency does not change commit scope: each batch is
+integrated, reviewed, committed, and pushed only after all of its Topics pass.
 
 ## Considered alternatives
 

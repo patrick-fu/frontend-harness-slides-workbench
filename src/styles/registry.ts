@@ -38,6 +38,7 @@ import { humanLoopRetrofitTopic } from "./07-human-loop-retrofit";
 import { beforeATopic } from "./06-before-a";
 import { stadiumWaveTopic } from "./07-stadium-wave";
 import { sentenceWeKeepTopic } from "./08-sentence-we-keep";
+import { freediveTopic } from "./spotlight-quote-poster-freedive";
 import ProcessFlow09, {
   getMetadata as getMetadata09,
 } from "./09-process-flow";
@@ -65,6 +66,7 @@ import CaseStudy16, {
 import { threeTracksReleaseTopic } from "./09-three-tracks-release";
 import { teaChaRoutesTopic } from "./09-tea-cha-routes";
 import { durableToolTopic } from "./10-durable-tool";
+import { naturalClocksTopic } from "./benchmark-matrix-natural-clocks";
 import { eventToInsightTopic } from "./11-event-to-insight";
 import { districtHeatTopic } from "./signal-pipeline-flow-district-heat";
 import { engineeringWhiteboardExplainerTopic } from "./engineering-whiteboard-explainer";
@@ -74,9 +76,11 @@ import { chrysalisRebuildTopic } from "./soft-pastel-friendly-chrysalis-rebuild"
 import { rawNotesCleanBriefTopic } from "./13-raw-notes-clean-brief";
 import { cocoaFermentationTopic } from "./kitchen-prep-station-cocoa-fermentation";
 import { twoTeamsOneArtifactTopic } from "./14-two-teams-one-artifact";
+import { elevatorCounterweightTopic } from "./collaborative-pairing-board-elevator-counterweight";
 import { tuningOperatingModelTopic } from "./15-tuning-operating-model";
 import { tidalTimeTopic } from "./studio-mixing-console-tidal-time";
 import { incidentLearnsTopic } from "./16-incident-learns";
+import { acousticCrackTopic } from "./debug-reaction-board-acoustic-crack";
 import EditorialBroadsheet17, {
   getMetadata as getMetadata17,
 } from "./17-editorial-broadsheet";
@@ -104,6 +108,7 @@ import ManuscriptScroll24, {
 import { morningAfterLaunchTopic } from "./17-morning-after-launch";
 import { rogueWaveTopic } from "./18-rogue-wave";
 import { productGetsCoverTopic } from "./18-product-gets-cover";
+import { mothExperimentTopic } from "./magazine-masthead-moth-experiment";
 import { usefulWeekNotesTopic } from "./19-useful-week-notes";
 import { oralToWrittenTopic } from "./warm-editorial-feature-oral-to-written";
 import { argumentInMarginsTopic } from "./20-argument-in-margins";
@@ -142,10 +147,12 @@ import { tideMapTeamTopic } from "./25-tide-map-team";
 import { growthSignalsTopic } from "./26-growth-signals";
 import { leafStomataTopic } from "./27-leaf-stomata";
 import { infrastructureGalaTopic } from "./27-infrastructure-gala";
+import { reinforcedConcreteTopic } from "./machine-age-deco-reinforced-concrete";
 import { fieldRouteSignalTopic } from "./28-field-route-signal";
 import { saharanDustTopic } from "./expedition-screenprint-saharan-dust";
 import { releaseMixtapeTopic } from "./29-release-mixtape";
 import { shippingHardThingTopic } from "./30-shipping-hard-thing";
+import { sinkingDeltaTopic } from "./neo-brutalist-bulletin-sinking-delta";
 import { moveOrgChartTopic } from "./31-move-org-chart";
 import { pneumaticPostTopic } from "./red-wedge-agitprop-pneumatic-post";
 import { prioritizeWithoutDebateTopic } from "./32-prioritize-without-debate";
@@ -219,8 +226,11 @@ import { chooseBoundaryTopic } from "./42-choose-boundary";
 import { readyAgentPickupTopic } from "./43-ready-agent-pickup";
 import { ozoneHoleTopic } from "./maintainer-issue-brief-ozone-hole";
 import { stationPlatformStudyTopic } from "./44-station-platform-study";
+import { ancientSoundTopic } from "./field-notes-report-ancient-sound";
 import { rewriteBrokenFlowTopic } from "./45-rewrite-broken-flow";
+import { readingRosettaTopic } from "./annotated-source-diff-reading-rosetta";
 import { launchGateLedgerTopic } from "./46-launch-gate-ledger";
+import { pigmentWithoutTouchTopic } from "./checklist-ledger-pigment-without-touch";
 import { handoffCompartmentsTopic } from "./47-handoff-compartments";
 import { recoveryKitTopic } from "./48-recovery-kit";
 import { cocoonToClothTopic } from "./49-cocoon-to-cloth";
@@ -324,6 +334,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata08,
     },
     sentenceWeKeepTopic,
+    freediveTopic,
   ]),
   // Balanced Hybrid: 09-16
   buildEntry("subway-map-of-intent", [
@@ -346,6 +357,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata10,
     },
     durableToolTopic,
+    naturalClocksTopic,
   ]),
   buildEntry("signal-pipeline-flow", [
     {
@@ -393,6 +405,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata14,
     },
     twoTeamsOneArtifactTopic,
+    elevatorCounterweightTopic,
   ]),
   buildEntry("studio-mixing-console", [
     {
@@ -414,6 +427,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata16,
     },
     incidentLearnsTopic,
+    acousticCrackTopic,
   ]),
   // Editorial & Print: 17-24
   buildEntry("front-page-broadsheet", [
@@ -436,6 +450,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata18,
     },
     productGetsCoverTopic,
+    mothExperimentTopic,
   ]),
   buildEntry("warm-editorial-feature", [
     {
@@ -532,6 +547,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata27,
     },
     infrastructureGalaTopic,
+    reinforcedConcreteTopic,
   ]),
   buildEntry("expedition-screenprint", [
     {
@@ -563,6 +579,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata30,
     },
     shippingHardThingTopic,
+    sinkingDeltaTopic,
   ]),
   buildEntry("red-wedge-agitprop", [
     {
@@ -716,6 +733,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata44,
     },
     stationPlatformStudyTopic,
+    ancientSoundTopic,
   ]),
   buildEntry("annotated-source-diff", [
     {
@@ -726,6 +744,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata45,
     },
     rewriteBrokenFlowTopic,
+    readingRosettaTopic,
   ]),
   buildEntry("checklist-ledger", [
     {
@@ -736,6 +755,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata46,
     },
     launchGateLedgerTopic,
+    pigmentWithoutTouchTopic,
   ]),
   buildEntry("context-bento-box", [
     {

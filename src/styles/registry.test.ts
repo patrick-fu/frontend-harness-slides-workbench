@@ -53,8 +53,8 @@ describe("STYLE_REGISTRY topic catalog", () => {
     ]);
   });
 
-  it("registers the coordinated Topic Set through the first 10-topic logical batch", () => {
-    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(128);
+  it("registers the coordinated Topic Set through the second 10-topic logical batch", () => {
+    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(138);
     expect(findTopic("interactive-dialogue-stage", "vocal-folds")).toBeDefined();
     expect(findTopic("cyanotype-drafting-table", "comet-anatomy")).toBeDefined();
     expect(findTopic("kinetic-type-punchline", "before-a")).toBeDefined();
@@ -90,5 +90,21 @@ describe("STYLE_REGISTRY topic catalog", () => {
     expect(findTopic("wabi-sabi-ceramic", "stone-to-soil")).toBeDefined();
     expect(findTopic("solar-biennale-poster", "iron-from-stars")).toBeDefined();
     expect(findTopic("warm-editorial-feature", "oral-to-written")).toBeDefined();
+    expect(findTopic("spotlight-quote-poster", "freedive")).toBeDefined();
+    expect(findTopic("benchmark-matrix", "natural-clocks")).toBeDefined();
+    expect(
+      findTopic("collaborative-pairing-board", "elevator-counterweight"),
+    ).toBeDefined();
+    expect(findTopic("debug-reaction-board", "acoustic-crack")).toBeDefined();
+    expect(findTopic("magazine-masthead", "moth-experiment")).toBeDefined();
+    expect(
+      findTopic("machine-age-deco", "reinforced-concrete"),
+    ).toBeDefined();
+    expect(findTopic("neo-brutalist-bulletin", "sinking-delta")).toBeDefined();
+    expect(findTopic("field-notes-report", "ancient-sound")).toBeDefined();
+    expect(findTopic("annotated-source-diff", "reading-rosetta")).toBeDefined();
+    expect(
+      findTopic("checklist-ledger", "pigment-without-touch"),
+    ).toBeDefined();
   });
 });

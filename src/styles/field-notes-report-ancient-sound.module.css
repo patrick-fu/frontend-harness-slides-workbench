@@ -1,0 +1,1033 @@
+.root {
+  --paper: #ead8ad;
+  --paper-light: #f8edcf;
+  --paper-deep: #d9bd82;
+  --ink: #30291f;
+  --ink-soft: #6f604d;
+  --terracotta: #aa5538;
+  --terracotta-dark: #7f3827;
+  --lichen: #68754a;
+  --charcoal: #443a2d;
+  --rule: rgba(74, 55, 35, 0.3);
+  container-type: size;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, rgba(65, 45, 24, 0.1), transparent 7%, transparent 93%, rgba(65, 45, 24, 0.08)),
+    repeating-linear-gradient(0deg, transparent 0 4.1cqh, rgba(94, 67, 38, 0.07) 4.1cqh 4.18cqh),
+    linear-gradient(118deg, #f4e5bd 0%, var(--paper) 54%, #f5e7c5 100%);
+  font-family: "Avenir Next", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  user-select: none;
+}
+
+.paperGrain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.58;
+  background:
+    radial-gradient(circle at 12% 22%, rgba(69, 46, 24, 0.2) 0 0.07cqw, transparent 0.12cqw),
+    radial-gradient(circle at 32% 74%, rgba(69, 46, 24, 0.16) 0 0.05cqw, transparent 0.11cqw),
+    radial-gradient(circle at 72% 18%, rgba(69, 46, 24, 0.14) 0 0.06cqw, transparent 0.12cqw),
+    radial-gradient(circle at 88% 82%, rgba(69, 46, 24, 0.12) 0 0.08cqw, transparent 0.14cqw);
+  mix-blend-mode: multiply;
+}
+
+.binding {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 2.1cqw;
+  z-index: 5;
+  width: 1.8cqw;
+  pointer-events: none;
+  opacity: 0.72;
+  background:
+    radial-gradient(circle at 50% 2.8cqh, transparent 0 0.46cqw, rgba(66, 49, 31, 0.72) 0.5cqw 0.62cqw, transparent 0.66cqw) 0 0 / 1.8cqw 8.2cqh repeat-y,
+    linear-gradient(90deg, transparent, rgba(67, 49, 30, 0.18), transparent);
+}
+
+.fieldMasthead {
+  position: absolute;
+  top: 2.2cqh;
+  left: 6.2cqw;
+  right: 5.8cqw;
+  z-index: 8;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 1.1cqh;
+  border-bottom: 0.12cqw solid rgba(54, 41, 27, 0.58);
+  color: var(--ink-soft);
+  font-size: 0.88cqw;
+  letter-spacing: 0.14cqw;
+  text-transform: uppercase;
+}
+
+.fieldMasthead strong {
+  color: var(--terracotta-dark);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 1.15cqw;
+  letter-spacing: 0.09cqw;
+}
+
+.sceneTrack {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.scenePage {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 8.2cqh 6.7cqw 15.8cqh 7.2cqw;
+  overflow: hidden;
+}
+
+.sceneHeader {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(20cqw, 34cqw);
+  grid-template-rows: auto auto;
+  column-gap: 3cqw;
+  align-items: end;
+  min-height: 15cqh;
+  padding: 0 0 2cqh;
+  border-bottom: 0.12cqw solid var(--rule);
+}
+
+.eyebrow {
+  grid-column: 1 / -1;
+  margin: 0 0 0.9cqh;
+  color: var(--terracotta-dark);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 1.08cqw;
+  line-height: 1;
+  letter-spacing: 0.12cqw;
+  text-transform: uppercase;
+}
+
+.sceneTitle {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 3.15cqw;
+  line-height: 0.96;
+  font-weight: 700;
+  letter-spacing: -0.08cqw;
+}
+
+.sceneSubtitle {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 1.05cqw;
+  line-height: 1.38;
+  text-align: right;
+}
+
+.noteLabel {
+  display: block;
+  color: var(--terracotta-dark);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 0.92cqw;
+  line-height: 1;
+  letter-spacing: 0.08cqw;
+  text-transform: uppercase;
+}
+
+.siteGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.85fr);
+  gap: 2.5cqw;
+  height: 59.2cqh;
+  padding-top: 2.5cqh;
+}
+
+.sitePlanWrap,
+.corridorDiagram,
+.responseMapWrap {
+  position: relative;
+  overflow: hidden;
+  border: 0.12cqw solid rgba(67, 49, 30, 0.48);
+  border-radius: 0.45cqw;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 3.7cqh, rgba(70, 50, 31, 0.055) 3.7cqh 3.78cqh),
+    rgba(248, 237, 207, 0.8);
+  box-shadow: 0.45cqh 0.5cqw 0 rgba(77, 55, 31, 0.12);
+}
+
+.paperTab {
+  position: absolute;
+  top: 1.5cqh;
+  left: 1.2cqw;
+  z-index: 2;
+  padding: 0.65cqh 0.9cqw;
+  border: 0.1cqw solid var(--terracotta);
+  border-radius: 0.2cqw;
+  color: var(--terracotta-dark);
+  background: rgba(247, 227, 180, 0.92);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 0.95cqw;
+  line-height: 1;
+  transform: rotate(-1.2deg);
+}
+
+.sitePlan {
+  width: 100%;
+  height: 51cqh;
+  margin-top: 2.6cqh;
+  color: var(--charcoal);
+}
+
+.contour,
+.galleryLine,
+.drainLine,
+.routeLine {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contour {
+  stroke: rgba(86, 69, 45, 0.36);
+  stroke-width: 3;
+  stroke-dasharray: 8 12;
+}
+
+.siteMass {
+  fill: rgba(105, 91, 64, 0.14);
+  stroke: var(--charcoal);
+  stroke-width: 4;
+}
+
+.plaza {
+  fill: rgba(170, 85, 56, 0.11);
+  stroke: var(--terracotta);
+  stroke-width: 4;
+}
+
+.galleryLine {
+  stroke: var(--charcoal);
+  stroke-width: 10;
+}
+
+.drainLine {
+  stroke: #627056;
+  stroke-width: 7;
+  stroke-dasharray: 5 8;
+}
+
+.routeLine {
+  stroke: var(--terracotta);
+  stroke-width: 5;
+  stroke-dasharray: 18 12;
+}
+
+.ventDot {
+  fill: var(--paper-light);
+  stroke: var(--terracotta);
+  stroke-width: 5;
+}
+
+.svgLabel {
+  fill: var(--ink-soft);
+  font-family: "Avenir Next", "PingFang SC", sans-serif;
+  font-size: 1.05cqw;
+  letter-spacing: 0.12cqw;
+}
+
+.sketchCaption,
+.scaleNote,
+.mapLegend {
+  position: absolute;
+  right: 1.4cqw;
+  bottom: 1.2cqh;
+  margin: 0;
+  color: var(--terracotta-dark);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 0.9cqw;
+  line-height: 1.1;
+}
+
+.coverNotes {
+  display: grid;
+  grid-template-rows: 1.15fr 0.9fr 0.9fr;
+  gap: 1.5cqh;
+  min-width: 0;
+}
+
+.questionCard,
+.fieldNote,
+.boundaryNote {
+  box-sizing: border-box;
+  padding: 2.1cqh 1.5cqw;
+  border: 0.1cqw solid var(--rule);
+  background: rgba(248, 237, 207, 0.74);
+  box-shadow: 0.35cqh 0.35cqw 0 rgba(83, 60, 35, 0.09);
+  transition: opacity 360ms ease, transform 420ms cubic-bezier(0.2, 0.8, 0.24, 1);
+}
+
+.questionCard {
+  border-left: 0.36cqw solid var(--terracotta);
+  transform: rotate(0.45deg);
+}
+
+.fieldNote {
+  border-left: 0.36cqw solid var(--lichen);
+  transform: rotate(-0.35deg);
+}
+
+.boundaryNote {
+  border: 0.12cqw dashed var(--terracotta);
+  background: rgba(224, 188, 119, 0.26);
+  transform: rotate(0.25deg);
+}
+
+.questionCard p,
+.fieldNote p,
+.boundaryNote p {
+  margin: 1.15cqh 0 0;
+  color: var(--ink);
+  font-size: 1.18cqw;
+  line-height: 1.42;
+}
+
+.slotVisible {
+  opacity: 1;
+}
+
+.slotMuted {
+  opacity: 0.17;
+  transform: translateY(0.9cqh) rotate(-0.35deg);
+}
+
+.instrumentGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25cqw;
+  height: 47.5cqh;
+  padding-top: 2.2cqh;
+}
+
+.instrumentCard {
+  position: relative;
+  display: grid;
+  grid-template-rows: 14.5cqh minmax(0, 1fr);
+  min-width: 0;
+  overflow: visible;
+  padding: 1.5cqh 1.25cqw 1.8cqh;
+  border: 0.12cqw solid rgba(64, 48, 31, 0.5);
+  border-radius: 0.35cqw;
+  background: rgba(248, 237, 207, 0.82);
+  box-shadow: 0.4cqh 0.36cqw 0 rgba(83, 60, 35, 0.11);
+  opacity: 0.58;
+  transform: translateY(0.8cqh) rotate(-0.25deg);
+  transition:
+    opacity 320ms ease,
+    transform 480ms cubic-bezier(0.2, 0.8, 0.24, 1),
+    border-color 320ms ease,
+    box-shadow 320ms ease;
+}
+
+.instrumentCard:nth-child(even) {
+  transform: translateY(0.8cqh) rotate(0.35deg);
+}
+
+.instrumentCard[data-focused="true"] {
+  z-index: 2;
+  opacity: 1;
+  border-color: var(--terracotta);
+  box-shadow: 0.75cqh 0.62cqw 0 rgba(144, 74, 45, 0.18);
+  transform: translateY(-0.5cqh) rotate(-0.7deg);
+}
+
+.instrumentCard:nth-child(even)[data-focused="true"] {
+  transform: translateY(-0.5cqh) rotate(0.55deg);
+}
+
+.cardClip {
+  position: absolute;
+  top: -1.2cqh;
+  left: 50%;
+  width: 2.2cqw;
+  height: 3.4cqh;
+  border: 0.14cqw solid rgba(58, 48, 38, 0.72);
+  border-bottom: 0;
+  border-radius: 1cqw 1cqw 0 0;
+  transform: translateX(-50%);
+}
+
+.cardIndex {
+  position: absolute;
+  top: 1.1cqh;
+  left: 0.8cqw;
+  color: rgba(49, 41, 31, 0.46);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 1cqw;
+}
+
+.pututuGlyph {
+  justify-self: center;
+  width: 9cqw;
+  height: 13cqh;
+  color: var(--charcoal);
+}
+
+.shellFill {
+  fill: rgba(183, 137, 76, 0.17);
+  stroke: currentColor;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.shellLine,
+.shellNotch {
+  fill: none;
+  stroke: var(--terracotta);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.shellMouth {
+  fill: var(--paper-light);
+  stroke: var(--terracotta-dark);
+  stroke-width: 4;
+}
+
+.cardCopy {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.cardKicker {
+  color: var(--terracotta-dark);
+  font-size: 0.72cqw;
+  line-height: 1;
+  letter-spacing: 0.1cqw;
+}
+
+.cardCopy h2 {
+  margin: 1cqh 0 0;
+  color: var(--ink);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 1.62cqw;
+  line-height: 1.05;
+}
+
+.cardCopy p {
+  margin: 1.1cqh 0 0;
+  color: var(--ink-soft);
+  font-size: 0.9cqw;
+  line-height: 1.34;
+}
+
+.cardCopy small {
+  margin-top: auto;
+  padding-top: 1.1cqh;
+  border-top: 0.08cqw solid var(--rule);
+  color: var(--terracotta-dark);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 0.78cqw;
+  line-height: 1.2;
+}
+
+.boundaryStrip {
+  display: grid;
+  grid-template-columns: 12cqw 1fr;
+  gap: 1.5cqw;
+  align-items: center;
+  min-height: 8.3cqh;
+  margin-top: 1.8cqh;
+  padding: 1.2cqh 1.5cqw;
+  border: 0.12cqw dashed var(--terracotta);
+  background: rgba(225, 188, 115, 0.24);
+}
+
+.boundaryStrip span {
+  color: var(--terracotta-dark);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 1cqw;
+  letter-spacing: 0.08cqw;
+  text-transform: uppercase;
+}
+
+.boundaryStrip p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.02cqw;
+  line-height: 1.35;
+}
+
+.measurementGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 2.4cqw;
+  height: 59.2cqh;
+  padding-top: 2.4cqh;
+}
+
+.corridorSvg {
+  width: 100%;
+  height: 54cqh;
+  color: var(--charcoal);
+}
+
+.dimensionTag {
+  position: absolute;
+  top: 1.4cqh;
+  right: 1.2cqw;
+  z-index: 2;
+  padding: 0.65cqh 0.85cqw;
+  border: 0.1cqw solid var(--terracotta);
+  color: var(--terracotta-dark);
+  background: rgba(248, 237, 207, 0.9);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 0.86cqw;
+  transform: rotate(0.6deg);
+}
+
+.stoneWall {
+  fill: rgba(90, 76, 57, 0.1);
+  stroke: var(--charcoal);
+  stroke-width: 8;
+  stroke-linejoin: round;
+}
+
+.stoneCourse,
+.stoneJoint {
+  fill: none;
+  stroke: rgba(68, 57, 44, 0.28);
+  stroke-width: 3;
+}
+
+.signalPath,
+.signalPathSoft {
+  fill: none;
+  stroke: var(--terracotta);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 18 13;
+}
+
+.signalPathSoft {
+  stroke: rgba(170, 85, 56, 0.46);
+  stroke-width: 4;
+  stroke-dasharray: 7 12;
+}
+
+.sourceNode rect,
+.sourceNode path {
+  fill: var(--paper-light);
+  stroke: var(--terracotta-dark);
+  stroke-width: 6;
+}
+
+.sourceNode path:last-child {
+  fill: none;
+  stroke-width: 4;
+}
+
+.receiverNode circle,
+.receiverNode path {
+  fill: var(--paper-light);
+  stroke: var(--lichen);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.receiverNode circle:nth-of-type(n + 2) {
+  fill: var(--lichen);
+  stroke: none;
+}
+
+.dimensionLine {
+  fill: none;
+  stroke: var(--ink-soft);
+  stroke-width: 3;
+}
+
+.methodLedger {
+  display: grid;
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+  overflow: hidden;
+  border: 0.12cqw solid rgba(67, 49, 30, 0.46);
+  background: rgba(248, 237, 207, 0.74);
+  box-shadow: 0.45cqh 0.5cqw 0 rgba(77, 55, 31, 0.1);
+}
+
+.methodRow {
+  display: grid;
+  grid-template-columns: 3.2cqw 1fr;
+  gap: 0.9cqw;
+  align-items: center;
+  padding: 1.05cqh 1.1cqw;
+  border-bottom: 0.09cqw solid var(--rule);
+}
+
+.methodRow:last-child {
+  border-bottom: 0;
+}
+
+.methodNumber {
+  display: grid;
+  place-items: center;
+  width: 2.25cqw;
+  height: 2.25cqw;
+  border: 0.12cqw solid var(--terracotta);
+  border-radius: 50%;
+  color: var(--terracotta-dark);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 0.9cqw;
+}
+
+.methodRow p {
+  margin: 0.65cqh 0 0;
+  color: var(--ink);
+  font-size: 0.9cqw;
+  line-height: 1.3;
+}
+
+.responseGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  gap: 2cqw;
+  height: 59.2cqh;
+  padding-top: 2.4cqh;
+}
+
+.responseMap {
+  width: 100%;
+  height: 44.5cqh;
+  color: var(--charcoal);
+}
+
+.mapShell {
+  fill: rgba(94, 78, 54, 0.08);
+  stroke: var(--charcoal);
+  stroke-width: 8;
+}
+
+.mapPassage,
+.mapPassageThin {
+  fill: none;
+  stroke: rgba(67, 56, 42, 0.62);
+  stroke-width: 22;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+.mapPassageThin {
+  stroke-width: 12;
+  opacity: 0.62;
+}
+
+.mapZone circle,
+.mapZoneFocused circle {
+  fill: rgba(170, 85, 56, 0.04);
+  stroke: rgba(170, 85, 56, 0.34);
+  stroke-width: 4;
+}
+
+.mapZoneFocused circle {
+  fill: rgba(170, 85, 56, 0.12);
+  stroke: var(--terracotta);
+  stroke-width: 7;
+}
+
+.zoneIndex {
+  fill: var(--terracotta-dark);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 1.55cqw;
+}
+
+.echoPath {
+  fill: none;
+  stroke: rgba(104, 117, 74, 0.72);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 11 12;
+}
+
+.metricNote {
+  position: absolute;
+  left: 1.3cqw;
+  right: 1.3cqw;
+  bottom: 4.2cqh;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.7cqh 1cqw;
+  align-items: baseline;
+  padding: 1.2cqh 1.1cqw;
+  border-left: 0.34cqw solid var(--terracotta);
+  background: rgba(248, 237, 207, 0.88);
+}
+
+.metricNote span {
+  color: var(--terracotta-dark);
+  font-size: 0.72cqw;
+  letter-spacing: 0.08cqw;
+}
+
+.metricNote strong {
+  color: var(--terracotta-dark);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 1.7cqw;
+  line-height: 1;
+}
+
+.metricNote p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.77cqw;
+  line-height: 1.3;
+}
+
+.galleryLedger {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr)) 1.12fr;
+  gap: 1.15cqh;
+}
+
+.galleryCard {
+  display: grid;
+  grid-template-columns: 4cqw 1fr;
+  gap: 1cqw;
+  align-items: center;
+  padding: 1.1cqh 1.2cqw;
+  border: 0.1cqw solid var(--rule);
+  border-left: 0.25cqw solid rgba(104, 117, 74, 0.48);
+  background: rgba(248, 237, 207, 0.72);
+  opacity: 0.56;
+  transform: translateX(0.7cqw);
+  transition:
+    opacity 320ms ease,
+    transform 430ms cubic-bezier(0.2, 0.8, 0.24, 1),
+    border-color 320ms ease,
+    box-shadow 320ms ease;
+}
+
+.galleryCard[data-focused="true"] {
+  opacity: 1;
+  border-left-color: var(--terracotta);
+  box-shadow: 0.35cqh 0.35cqw 0 rgba(91, 64, 36, 0.1);
+  transform: translateX(0);
+}
+
+.galleryIndex {
+  color: var(--terracotta);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 1.75cqw;
+  line-height: 1;
+}
+
+.galleryCard h2 {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 1.25cqw;
+  line-height: 1;
+}
+
+.galleryCard p {
+  margin: 0.55cqh 0 0;
+  color: var(--ink-soft);
+  font-size: 0.82cqw;
+  line-height: 1.28;
+}
+
+.galleryCard small {
+  display: block;
+  margin-top: 0.45cqh;
+  color: var(--terracotta-dark);
+  font-size: 0.68cqw;
+  line-height: 1.15;
+}
+
+.uncertaintyCard {
+  padding: 1.3cqh 1.2cqw;
+  border: 0.12cqw dashed var(--terracotta);
+  background: rgba(224, 188, 119, 0.25);
+}
+
+.uncertaintyCard span {
+  color: var(--terracotta-dark);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 0.9cqw;
+  letter-spacing: 0.08cqw;
+}
+
+.uncertaintyCard p {
+  margin: 0.75cqh 0 0;
+  color: var(--ink);
+  font-size: 0.88cqw;
+  line-height: 1.32;
+}
+
+.evidenceColumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.7cqw;
+  height: 44.5cqh;
+  padding-top: 2.4cqh;
+}
+
+.evidenceColumn {
+  display: grid;
+  grid-template-rows: 5.3cqh repeat(3, minmax(0, 1fr));
+  overflow: hidden;
+  border: 0.12cqw solid rgba(67, 49, 30, 0.48);
+  background: rgba(248, 237, 207, 0.76);
+  box-shadow: 0.45cqh 0.45cqw 0 rgba(77, 55, 31, 0.1);
+}
+
+.inferenceColumn {
+  border-style: dashed;
+}
+
+.columnHeader {
+  display: flex;
+  align-items: center;
+  padding: 0 1.4cqw;
+  color: var(--paper-light);
+  background: var(--lichen);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 1.35cqw;
+  letter-spacing: 0.11cqw;
+}
+
+.inferenceColumn .columnHeader {
+  background: var(--terracotta-dark);
+}
+
+.evidenceRow {
+  display: grid;
+  grid-template-columns: 3cqw 1fr;
+  gap: 1cqw;
+  align-items: center;
+  padding: 1.2cqh 1.3cqw;
+  border-bottom: 0.09cqw solid var(--rule);
+}
+
+.evidenceRow:last-child {
+  border-bottom: 0;
+}
+
+.evidenceRow > span {
+  color: var(--terracotta);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 1.4cqw;
+  line-height: 1;
+}
+
+.evidenceRow h2 {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 1.12cqw;
+  line-height: 1;
+}
+
+.evidenceRow p {
+  margin: 0.7cqh 0 0;
+  color: var(--ink-soft);
+  font-size: 0.9cqw;
+  line-height: 1.32;
+}
+
+.finalBoundary {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
+  gap: 2cqw;
+  align-items: center;
+  min-height: 10.5cqh;
+  margin-top: 1.7cqh;
+  padding: 1.3cqh 1.5cqw;
+  border: 0.12cqw dashed var(--terracotta);
+  background: rgba(224, 188, 119, 0.25);
+}
+
+.finalBoundary p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.92cqw;
+  line-height: 1.36;
+}
+
+.finalBoundary strong {
+  color: var(--terracotta-dark);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 1.45cqw;
+  line-height: 1.16;
+  text-align: right;
+}
+
+.fieldCardNav {
+  position: absolute;
+  right: 6cqw;
+  bottom: 1.6cqh;
+  z-index: 12;
+  width: 48cqw;
+  min-height: 8.8cqh;
+  padding: 1.3cqh 1.2cqw 0.9cqh;
+  outline: none;
+  border: 0.1cqw solid rgba(66, 49, 31, 0.44);
+  border-radius: 0.45cqw;
+  background: rgba(239, 218, 171, 0.9);
+  box-shadow: 0.5cqh 0.5cqw 0 rgba(78, 55, 31, 0.13);
+  transition: min-height 360ms ease, background 320ms ease;
+  touch-action: manipulation;
+}
+
+.fieldCardNav:focus-visible {
+  outline: 0.16cqw solid var(--terracotta);
+  outline-offset: 0.25cqw;
+}
+
+.fieldCardNav[data-expanded="true"] {
+  min-height: 13.6cqh;
+  background: rgba(244, 226, 187, 0.97);
+}
+
+.navHint {
+  display: block;
+  margin-bottom: 0.55cqh;
+  color: var(--ink-soft);
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 0.72cqw;
+  line-height: 1;
+  letter-spacing: 0.06cqw;
+  text-align: right;
+}
+
+.cardStack {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.55cqw;
+  align-items: end;
+}
+
+.navCard {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2cqw 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 0.25cqh 0.45cqw;
+  align-items: center;
+  height: 5.2cqh;
+  padding: 0.5cqh 0.55cqw;
+  overflow: hidden;
+  border: 0.08cqw solid rgba(65, 48, 31, 0.4);
+  border-radius: 0.22cqw;
+  color: var(--ink);
+  background: rgba(248, 237, 207, 0.82);
+  box-shadow: 0.22cqh 0.22cqw 0 rgba(72, 52, 31, 0.1);
+  cursor: pointer;
+  font-family: "Avenir Next", "PingFang SC", sans-serif;
+  opacity: 0.58;
+  transform: translateY(0.55cqh);
+  transition:
+    height 360ms ease,
+    opacity 280ms ease,
+    transform 420ms cubic-bezier(0.2, 0.8, 0.24, 1),
+    background 280ms ease,
+    border-color 280ms ease;
+}
+
+.fieldCardNav[data-expanded="true"] .navCard {
+  height: 9.4cqh;
+  opacity: 0.86;
+  transform: translateY(0);
+}
+
+.fieldCardNav[data-expanded="true"] .navCard:nth-child(1) {
+  transform: translateY(0.5cqh) rotate(-0.7deg);
+}
+
+.fieldCardNav[data-expanded="true"] .navCard:nth-child(2) {
+  transform: translateY(0.2cqh) rotate(-0.3deg);
+}
+
+.fieldCardNav[data-expanded="true"] .navCard:nth-child(3) {
+  transform: translateY(-0.2cqh);
+}
+
+.fieldCardNav[data-expanded="true"] .navCard:nth-child(4) {
+  transform: translateY(0.2cqh) rotate(0.3deg);
+}
+
+.fieldCardNav[data-expanded="true"] .navCard:nth-child(5) {
+  transform: translateY(0.5cqh) rotate(0.7deg);
+}
+
+.navCard[data-active="true"] {
+  z-index: 2;
+  opacity: 1;
+  border-color: var(--terracotta);
+  color: var(--paper-light);
+  background: var(--terracotta-dark);
+  transform: translateY(-0.9cqh) rotate(-0.6deg);
+}
+
+.fieldCardNav[data-expanded="true"] .navCard[data-active="true"] {
+  transform: translateY(-1.4cqh) rotate(-0.8deg);
+}
+
+.navCard:focus-visible {
+  outline: 0.12cqw solid var(--terracotta);
+  outline-offset: 0.12cqw;
+}
+
+.navCardNumber {
+  grid-row: 1 / -1;
+  color: currentColor;
+  font-family: "Noteworthy", "Kaiti SC", "STKaiti", cursive;
+  font-size: 0.78cqw;
+  line-height: 1;
+}
+
+.navCardSketch {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.18cqw;
+  height: 1.8cqh;
+}
+
+.navCardSketch i {
+  display: block;
+  width: 0.62cqw;
+  border-top: 0.12cqw solid currentColor;
+  opacity: 0.7;
+}
+
+.navCardSketch i:nth-child(2) {
+  width: 1.15cqw;
+}
+
+.navCardLabel {
+  overflow: hidden;
+  color: currentColor;
+  font-size: 0.64cqw;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.motionOff,
+.motionOff *,
+.motionOff *::before,
+.motionOff *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+  scroll-behavior: auto !important;
+}
