@@ -29,6 +29,7 @@ import { presolarGrainTopic } from "./01-presolar-grain";
 import { metricsWithoutNoiseTopic } from "./02-metrics-without-noise";
 import { repairAsStrategyTopic } from "./03-repair-as-strategy";
 import { betterQuestionTopic } from "./04-better-question";
+import { vocalFoldsTopic } from "./04-vocal-folds";
 import { resilienceBlueprintTopic } from "./05-resilience-blueprint";
 import { cometAnatomyTopic } from "./05-comet-anatomy";
 import { oneConstraintWinsTopic } from "./06-one-constraint-wins";
@@ -61,6 +62,7 @@ import CaseStudy16, {
   getMetadata as getMetadata16,
 } from "./16-case-study";
 import { threeTracksReleaseTopic } from "./09-three-tracks-release";
+import { teaChaRoutesTopic } from "./09-tea-cha-routes";
 import { durableToolTopic } from "./10-durable-tool";
 import { eventToInsightTopic } from "./11-event-to-insight";
 import { engineeringWhiteboardExplainerTopic } from "./engineering-whiteboard-explainer";
@@ -137,6 +139,7 @@ import { saharanDustTopic } from "./expedition-screenprint-saharan-dust";
 import { releaseMixtapeTopic } from "./29-release-mixtape";
 import { shippingHardThingTopic } from "./30-shipping-hard-thing";
 import { moveOrgChartTopic } from "./31-move-org-chart";
+import { pneumaticPostTopic } from "./red-wedge-agitprop-pneumatic-post";
 import { prioritizeWithoutDebateTopic } from "./32-prioritize-without-debate";
 import { snowflakeBranchesTopic } from "./33-snowflake-branches";
 import GlassDashboard33, {
@@ -266,6 +269,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata04,
     },
     betterQuestionTopic,
+    vocalFoldsTopic,
   ]),
   buildEntry("cyanotype-drafting-table", [
     {
@@ -320,6 +324,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata09,
     },
     threeTracksReleaseTopic,
+    teaChaRoutesTopic,
   ]),
   buildEntry("benchmark-matrix", [
     {
@@ -550,6 +555,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata31,
     },
     moveOrgChartTopic,
+    pneumaticPostTopic,
   ]),
   buildEntry("mechanical-scoring-funnel", [
     {

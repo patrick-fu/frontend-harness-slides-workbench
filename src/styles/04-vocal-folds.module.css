@@ -1,0 +1,1320 @@
+.root {
+  --vf-bg: #050810;
+  --vf-ink: #f4f7fb;
+  --vf-muted: #93a0b2;
+  --vf-air: #ffb45c;
+  --vf-air-soft: #ffd596;
+  --vf-fold: #60e1d2;
+  --vf-fold-soft: #b2fff3;
+  --vf-voice: #e97db8;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  overflow: hidden;
+  color: var(--vf-ink);
+  font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+  background:
+    radial-gradient(circle at 50% 43%, rgba(96, 225, 210, 0.1), transparent 29%),
+    radial-gradient(circle at 49% 82%, rgba(255, 180, 92, 0.09), transparent 27%),
+    linear-gradient(180deg, #07101b 0%, var(--vf-bg) 55%, #020307 100%);
+}
+
+.root *,
+.root *::before,
+.root *::after {
+  box-sizing: border-box;
+}
+
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 7.9cqw,
+      rgba(196, 223, 240, 0.028) 7.9cqw 8cqw
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 8.9cqh,
+      rgba(196, 223, 240, 0.022) 8.9cqh 9cqh
+    );
+  pointer-events: none;
+}
+
+.proscenium {
+  position: absolute;
+  inset: 3.2cqh 3cqw 13.5cqh;
+  border: 0.1cqw solid rgba(214, 235, 247, 0.16);
+  clip-path: polygon(2% 0, 98% 0, 100% 5%, 100% 100%, 0 100%, 0 5%);
+  box-shadow:
+    inset 0 0 4cqw rgba(96, 225, 210, 0.05),
+    0 0 4cqw rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+.airLight,
+.foldLight {
+  position: absolute;
+  top: 0;
+  width: 36cqw;
+  height: 82cqh;
+  opacity: 0.25;
+  filter: blur(0.45cqw);
+  transform-origin: top center;
+  pointer-events: none;
+}
+
+.airLight {
+  left: 2cqw;
+  background: linear-gradient(160deg, rgba(255, 180, 92, 0.33), rgba(255, 180, 92, 0.02) 67%, transparent);
+  clip-path: polygon(4% 0, 24% 0, 100% 100%, 30% 100%);
+}
+
+.foldLight {
+  right: 2cqw;
+  background: linear-gradient(200deg, rgba(96, 225, 210, 0.34), rgba(96, 225, 210, 0.02) 67%, transparent);
+  clip-path: polygon(76% 0, 96% 0, 70% 100%, 0 100%);
+}
+
+.rigLine {
+  position: absolute;
+  top: 4.6cqh;
+  left: 5cqw;
+  right: 5cqw;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.2cqw;
+  color: rgba(222, 236, 246, 0.48);
+  font-size: 0.72cqw;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.12cqw;
+}
+
+.rigLine span:first-child {
+  color: var(--vf-air);
+}
+
+.rigLine span:last-child {
+  color: var(--vf-fold);
+}
+
+.rigLine i {
+  height: 0.1cqh;
+  background: linear-gradient(90deg, rgba(255, 180, 92, 0.3), rgba(235, 244, 250, 0.15), rgba(96, 225, 210, 0.3));
+}
+
+.track {
+  position: absolute !important;
+  inset: 7.5cqh 4.6cqw 15.6cqh;
+  width: auto !important;
+  height: auto !important;
+  z-index: 4;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 1.3cqh;
+  padding: 2.5cqh 3cqw 1.5cqh;
+  overflow: hidden;
+}
+
+.sceneHeader {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(26cqw, 43cqw);
+  align-items: end;
+  column-gap: 4cqw;
+  row-gap: 0.7cqh;
+  min-height: 14cqh;
+}
+
+.sceneCue {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: rgba(218, 235, 247, 0.5);
+  font-size: 0.78cqw;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.09cqw;
+}
+
+.sceneHeader h1 {
+  margin: 0;
+  max-width: 55cqw;
+  color: var(--vf-ink);
+  font-size: 3.7cqw;
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.08cqw;
+}
+
+.sceneSubtitle {
+  margin: 0;
+  max-width: 43cqw;
+  color: rgba(222, 234, 243, 0.67);
+  font-size: 1.08cqw;
+  font-weight: 400;
+  line-height: 1.38;
+}
+
+.sceneCanvas {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sceneFooter {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 2.6cqh;
+  border-top: 0.1cqh solid rgba(212, 232, 244, 0.12);
+  color: rgba(210, 228, 240, 0.45);
+  font-size: 0.66cqw;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.06cqw;
+}
+
+.sceneFooter strong {
+  color: rgba(244, 247, 251, 0.74);
+  font-size: 0.9cqw;
+}
+
+/* Scene 01 — a suspended role stage, not a dialogue UI. */
+
+.darkStage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 43cqh;
+  overflow: hidden;
+}
+
+.darkStage::before {
+  content: "";
+  position: absolute;
+  left: 17cqw;
+  right: 17cqw;
+  bottom: 5cqh;
+  height: 0.18cqh;
+  background: linear-gradient(90deg, transparent, rgba(226, 240, 248, 0.32), transparent);
+  box-shadow: 0 -1.2cqh 2.4cqw rgba(255, 180, 92, 0.05);
+}
+
+.airRole,
+.foldRole {
+  position: absolute;
+  top: 14cqh;
+  z-index: 3;
+  display: grid;
+  gap: 0.6cqh;
+}
+
+.airRole {
+  left: 7cqw;
+  color: var(--vf-air);
+}
+
+.foldRole {
+  right: 7cqw;
+  color: var(--vf-fold);
+  text-align: right;
+}
+
+.roleCode {
+  font-size: 4.8cqw;
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.18cqw;
+  text-shadow: 0 0 2.4cqw currentColor;
+}
+
+.roleNote {
+  color: rgba(230, 240, 247, 0.54);
+  font-size: 0.7cqw;
+  font-weight: 700;
+  letter-spacing: 0.08cqw;
+}
+
+.airColumn {
+  position: absolute;
+  left: 50%;
+  bottom: 5.2cqh;
+  width: 13cqw;
+  height: 23cqh;
+  transform: translateX(-50%);
+  background: linear-gradient(0deg, rgba(255, 180, 92, 0.25), rgba(255, 180, 92, 0));
+  clip-path: polygon(28% 100%, 72% 100%, 59% 0, 41% 0);
+}
+
+.airParticles {
+  position: absolute;
+  inset: 0;
+}
+
+.airParticles span {
+  position: absolute;
+  left: calc(20% + (var(--particle-index) * 5%));
+  bottom: calc((var(--particle-index) * 6%) + 4%);
+  width: 0.34cqw;
+  height: 0.34cqw;
+  border-radius: 50%;
+  background: var(--vf-air-soft);
+  box-shadow: 0 0 0.7cqw rgba(255, 180, 92, 0.8);
+  opacity: calc(0.3 + (var(--particle-index) * 0.035));
+}
+
+.closedPair {
+  position: absolute;
+  left: 50%;
+  top: 9cqh;
+  z-index: 4;
+  width: 28cqw;
+  height: 22cqh;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 0 1.5cqw rgba(96, 225, 210, 0.24));
+}
+
+.foldLeft,
+.foldRight {
+  position: absolute;
+  top: 3cqh;
+  width: 13.2cqw;
+  height: 16cqh;
+  background:
+    linear-gradient(90deg, rgba(96, 225, 210, 0.22), rgba(178, 255, 243, 0.84)),
+    #163f45;
+  border: 0.12cqw solid rgba(188, 255, 247, 0.62);
+}
+
+.foldLeft {
+  left: 0;
+  clip-path: polygon(0 12%, 100% 34%, 100% 66%, 0 88%, 12% 50%);
+}
+
+.foldRight {
+  right: 0;
+  clip-path: polygon(100% 12%, 0 34%, 0 66%, 100% 88%, 88% 50%);
+}
+
+.glottalSeam {
+  position: absolute;
+  left: 50%;
+  top: 8.3cqh;
+  width: 0.3cqw;
+  height: 5.6cqh;
+  transform: translateX(-50%);
+  background: #010205;
+  box-shadow: 0 0 1.3cqw rgba(255, 180, 92, 0.18);
+}
+
+.holdCue {
+  position: absolute;
+  left: 50%;
+  bottom: 5.9cqh;
+  margin: 0;
+  transform: translateX(-50%);
+  color: rgba(255, 213, 150, 0.65);
+  font-size: 0.68cqw;
+  font-weight: 700;
+  letter-spacing: 0.11cqw;
+  white-space: nowrap;
+}
+
+/* Scene 02 — two anatomical viewpoints crossing in the light field. */
+
+.anatomyViews {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 43cqh;
+}
+
+.superiorView,
+.coronalView {
+  position: absolute;
+  margin: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 1cqh;
+  transition:
+    opacity 420ms ease,
+    transform 600ms cubic-bezier(0.34, 1.38, 0.64, 1),
+    filter 420ms ease;
+}
+
+.superiorView {
+  left: 7cqw;
+  top: 3.2cqh;
+  width: 47cqw;
+  height: 35cqh;
+}
+
+.coronalView {
+  right: 5cqw;
+  bottom: 2.5cqh;
+  width: 40cqw;
+  height: 30cqh;
+}
+
+.superiorView[data-active="false"],
+.coronalView[data-active="false"] {
+  opacity: 0.42;
+  filter: saturate(0.45);
+  transform: scale(0.95);
+}
+
+.superiorView[data-active="true"],
+.coronalView[data-active="true"] {
+  opacity: 1;
+  filter: none;
+  transform: scale(1);
+}
+
+.superiorView figcaption,
+.coronalView figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.1cqh solid rgba(218, 235, 246, 0.18);
+  padding-bottom: 0.8cqh;
+}
+
+.superiorView figcaption strong,
+.coronalView figcaption strong {
+  color: var(--vf-fold-soft);
+  font-size: 0.74cqw;
+  letter-spacing: 0.07cqw;
+}
+
+.superiorView figcaption span,
+.coronalView figcaption span {
+  color: rgba(216, 232, 242, 0.48);
+  font-size: 0.62cqw;
+  font-weight: 600;
+  letter-spacing: 0.05cqw;
+}
+
+.topPair {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at center, rgba(96, 225, 210, 0.16), transparent 60%),
+    linear-gradient(90deg, rgba(255, 180, 92, 0.04), transparent 50%, rgba(96, 225, 210, 0.04));
+  clip-path: polygon(3% 8%, 94% 0, 100% 92%, 6% 100%);
+}
+
+.topFoldLeft,
+.topFoldRight {
+  position: absolute;
+  top: 16%;
+  width: 47%;
+  height: 68%;
+  border: 0.12cqw solid rgba(178, 255, 243, 0.65);
+  background: linear-gradient(90deg, rgba(24, 69, 76, 0.92), rgba(96, 225, 210, 0.58));
+}
+
+.topFoldLeft {
+  left: 2%;
+  clip-path: polygon(0 0, 100% 36%, 100% 64%, 0 100%, 16% 50%);
+}
+
+.topFoldRight {
+  right: 2%;
+  clip-path: polygon(100% 0, 0 36%, 0 64%, 100% 100%, 84% 50%);
+  background: linear-gradient(270deg, rgba(24, 69, 76, 0.92), rgba(96, 225, 210, 0.58));
+}
+
+.topGlottis {
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  width: 1.2cqw;
+  height: 30%;
+  transform: translateX(-50%);
+  background: #010205;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  box-shadow: 0 0 1.4cqw rgba(255, 180, 92, 0.24);
+}
+
+.sectionPair {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(0deg, rgba(255, 180, 92, 0.13), transparent 50%),
+    rgba(7, 17, 25, 0.76);
+  clip-path: polygon(0 7%, 96% 0, 100% 92%, 4% 100%);
+}
+
+.sectionFoldLeft,
+.sectionFoldRight {
+  position: absolute;
+  top: 15%;
+  width: 43%;
+  height: 62%;
+  border: 0.12cqw solid rgba(178, 255, 243, 0.56);
+  background:
+    linear-gradient(0deg, rgba(96, 225, 210, 0.18), rgba(178, 255, 243, 0.6)),
+    #153940;
+}
+
+.sectionFoldLeft {
+  left: 4%;
+  border-radius: 60% 18% 36% 42%;
+  transform: rotate(5deg);
+}
+
+.sectionFoldRight {
+  right: 4%;
+  border-radius: 18% 60% 42% 36%;
+  transform: rotate(-5deg);
+}
+
+.sectionFoldLeft i,
+.sectionFoldRight i {
+  position: absolute;
+  inset: 17% 13%;
+  border: 0.1cqw solid rgba(244, 247, 251, 0.28);
+  border-radius: inherit;
+}
+
+.sectionAirway {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 5.5cqw;
+  height: 60%;
+  transform: translateX(-50%);
+  background: linear-gradient(0deg, rgba(255, 180, 92, 0.34), transparent);
+  clip-path: polygon(31% 100%, 69% 100%, 95% 0, 5% 0);
+}
+
+.viewConnector {
+  position: absolute;
+  left: 47cqw;
+  top: 23cqh;
+  z-index: 4;
+  width: 14cqw;
+  height: 11cqh;
+  transform: rotate(21deg);
+}
+
+.viewConnector span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0.1cqh;
+  background: linear-gradient(90deg, rgba(96, 225, 210, 0), rgba(96, 225, 210, 0.6), rgba(255, 180, 92, 0));
+}
+
+.viewConnector span:nth-child(1) {
+  top: 1cqh;
+}
+
+.viewConnector span:nth-child(2) {
+  top: 5cqh;
+}
+
+.viewConnector span:nth-child(3) {
+  top: 9cqh;
+}
+
+.anatomyBoundary {
+  position: absolute;
+  left: 7cqw;
+  bottom: 1cqh;
+  margin: 0;
+  color: rgba(226, 238, 246, 0.55);
+  font-size: 0.7cqw;
+  font-weight: 600;
+  letter-spacing: 0.035cqw;
+}
+
+/* Scene 03 — pressure, opening, recoil and pulse share one stable cutaway. */
+
+.phonationCycle {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 43cqh;
+  display: grid;
+  grid-template-columns: 12cqw minmax(0, 1fr) 12cqw;
+  grid-template-rows: minmax(0, 1fr) 8cqh 9.5cqh;
+  column-gap: 1.4cqw;
+  align-items: center;
+}
+
+.airSideLabel,
+.foldSideLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.7cqw;
+  color: rgba(227, 239, 247, 0.46);
+  font-size: 0.74cqw;
+  font-weight: 700;
+  letter-spacing: 0.1cqw;
+}
+
+.airSideLabel {
+  justify-content: end;
+  color: var(--vf-air);
+}
+
+.foldSideLabel {
+  color: var(--vf-fold);
+}
+
+.airSideLabel i,
+.foldSideLabel i {
+  width: 3.2cqw;
+  height: 0.12cqh;
+  background: currentColor;
+  box-shadow: 0 0 1cqw currentColor;
+}
+
+.cycleCutaway {
+  position: relative;
+  align-self: stretch;
+  min-height: 27cqh;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(96, 225, 210, 0.05), transparent 28% 72%, rgba(96, 225, 210, 0.05)),
+    radial-gradient(ellipse at 50% 92%, rgba(255, 180, 92, 0.24), transparent 42%);
+  clip-path: polygon(2% 0, 98% 0, 100% 88%, 92% 100%, 8% 100%, 0 88%);
+}
+
+.pressureChamber {
+  position: absolute;
+  left: 32%;
+  right: 32%;
+  bottom: 0;
+  height: 54%;
+  background: linear-gradient(0deg, rgba(255, 180, 92, 0.28), rgba(255, 180, 92, 0));
+  clip-path: polygon(28% 100%, 72% 100%, 92% 0, 8% 0);
+  transition: opacity 420ms ease;
+}
+
+.pressureLabel {
+  position: absolute;
+  left: 50%;
+  bottom: 2cqh;
+  transform: translateX(-50%);
+  color: rgba(255, 221, 171, 0.7);
+  font-size: 0.6cqw;
+  font-weight: 700;
+  letter-spacing: 0.05cqw;
+  white-space: nowrap;
+}
+
+.cycleFoldLeft,
+.cycleFoldRight {
+  position: absolute;
+  top: 8%;
+  z-index: 3;
+  width: 43%;
+  height: 72%;
+  border: 0.12cqw solid rgba(178, 255, 243, 0.64);
+  background:
+    radial-gradient(circle at 65% 50%, rgba(178, 255, 243, 0.34), transparent 43%),
+    linear-gradient(90deg, #102d34, rgba(96, 225, 210, 0.6));
+  transition:
+    transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter 440ms ease;
+  will-change: transform;
+}
+
+.cycleFoldLeft {
+  left: 3%;
+  border-radius: 72% 19% 32% 56%;
+  transform-origin: left center;
+}
+
+.cycleFoldRight {
+  right: 3%;
+  border-radius: 19% 72% 56% 32%;
+  transform-origin: right center;
+  background:
+    radial-gradient(circle at 35% 50%, rgba(178, 255, 243, 0.34), transparent 43%),
+    linear-gradient(270deg, #102d34, rgba(96, 225, 210, 0.6));
+}
+
+.cycleFoldLeft span,
+.cycleFoldRight span {
+  position: absolute;
+  inset: 12% 10%;
+  border: 0.1cqw solid rgba(244, 247, 251, 0.2);
+  border-radius: inherit;
+}
+
+.cycleGap {
+  position: absolute;
+  left: 50%;
+  top: 18%;
+  z-index: 4;
+  width: 0.8cqw;
+  height: 57%;
+  transform: translateX(-50%);
+  background: #010205;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  box-shadow: 0 0 1.5cqw rgba(255, 180, 92, 0.18);
+  transition:
+    width 600ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 420ms ease;
+}
+
+.phonationCycle[data-phonation-step="pressure"] .cycleFoldLeft {
+  transform: translateX(1.2cqw) scaleX(1.02);
+}
+
+.phonationCycle[data-phonation-step="pressure"] .cycleFoldRight {
+  transform: translateX(-1.2cqw) scaleX(1.02);
+}
+
+.phonationCycle[data-phonation-step="pressure"] .cycleGap {
+  width: 0.22cqw;
+}
+
+.phonationCycle[data-phonation-step="opening"] .cycleFoldLeft {
+  transform: translateX(-3.3cqw) scaleX(0.95) rotate(-1.5deg);
+}
+
+.phonationCycle[data-phonation-step="opening"] .cycleFoldRight {
+  transform: translateX(3.3cqw) scaleX(0.95) rotate(1.5deg);
+}
+
+.phonationCycle[data-phonation-step="opening"] .cycleGap {
+  width: 7.3cqw;
+}
+
+.phonationCycle[data-phonation-step="recoil"] .cycleFoldLeft {
+  transform: translateX(-0.9cqw) scaleX(1.01);
+}
+
+.phonationCycle[data-phonation-step="recoil"] .cycleFoldRight {
+  transform: translateX(0.9cqw) scaleX(1.01);
+}
+
+.phonationCycle[data-phonation-step="recoil"] .cycleGap {
+  width: 2.1cqw;
+}
+
+.phonationCycle[data-phonation-step="pulse"] .cycleFoldLeft {
+  transform: translateX(0.45cqw);
+}
+
+.phonationCycle[data-phonation-step="pulse"] .cycleFoldRight {
+  transform: translateX(-0.45cqw);
+}
+
+.phonationCycle[data-phonation-step="pulse"] .cycleGap {
+  width: 0.45cqw;
+}
+
+.forceArrowLeft,
+.forceArrowRight {
+  position: absolute;
+  top: 48%;
+  z-index: 5;
+  width: 5cqw;
+  height: 0.15cqh;
+  background: var(--vf-air);
+  opacity: 0;
+  transition: opacity 340ms ease;
+}
+
+.forceArrowLeft {
+  left: 34%;
+  transform: rotate(180deg);
+  clip-path: polygon(0 35%, 78% 35%, 78% 0, 100% 50%, 78% 100%, 78% 65%, 0 65%);
+}
+
+.forceArrowRight {
+  right: 34%;
+  clip-path: polygon(0 35%, 78% 35%, 78% 0, 100% 50%, 78% 100%, 78% 65%, 0 65%);
+}
+
+.phonationCycle[data-phonation-step="opening"] .forceArrowLeft,
+.phonationCycle[data-phonation-step="opening"] .forceArrowRight {
+  opacity: 0.88;
+}
+
+.pulseStack {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 2;
+  width: 13cqw;
+  height: 18cqh;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+
+.pulseStack i {
+  position: absolute;
+  left: 50%;
+  width: 2cqw;
+  height: 2cqw;
+  border: 0.12cqw solid var(--vf-air-soft);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 1.4cqw rgba(255, 180, 92, 0.45);
+}
+
+.pulseStack i:nth-child(1) {
+  bottom: 0;
+}
+
+.pulseStack i:nth-child(2) {
+  bottom: 5.4cqh;
+  width: 4cqw;
+  height: 4cqw;
+  opacity: 0.66;
+}
+
+.pulseStack i:nth-child(3) {
+  bottom: 12cqh;
+  width: 6cqw;
+  height: 6cqw;
+  opacity: 0.34;
+}
+
+.phonationCycle[data-phonation-step="pulse"] .pulseStack {
+  opacity: 1;
+}
+
+.cycleScore {
+  grid-column: 1 / -1;
+  align-self: stretch;
+  margin: 0;
+  padding: 0 8cqw;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1cqw;
+}
+
+.cycleScore li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.7cqw;
+  border-top: 0.12cqh solid rgba(216, 233, 244, 0.15);
+  color: rgba(215, 231, 242, 0.35);
+  transition:
+    color 320ms ease,
+    border-color 320ms ease,
+    transform 450ms cubic-bezier(0.34, 1.38, 0.64, 1);
+}
+
+.cycleScore li[data-active="true"] {
+  color: var(--vf-fold-soft);
+  border-color: var(--vf-fold);
+  transform: translateY(-0.45cqh);
+}
+
+.cycleScore span {
+  font-size: 0.62cqw;
+}
+
+.cycleScore strong {
+  font-size: 0.72cqw;
+  letter-spacing: 0.05cqw;
+}
+
+.mechanismCaption {
+  grid-column: 1 / -1;
+  align-self: stretch;
+  display: grid;
+  grid-template-columns: 28cqw minmax(0, 1fr);
+  gap: 2cqw;
+  align-items: center;
+  margin: 0 8cqw;
+  padding: 1cqh 1.3cqw;
+  border-left: 0.16cqw solid var(--vf-air);
+  background: linear-gradient(90deg, rgba(255, 180, 92, 0.09), transparent);
+  min-height: 7.5cqh;
+}
+
+.mechanismCaption strong {
+  color: var(--vf-air-soft);
+  font-size: 1.05cqw;
+  line-height: 1.15;
+}
+
+.mechanismCaption p {
+  margin: 0;
+  color: rgba(226, 237, 245, 0.68);
+  font-size: 0.87cqw;
+  line-height: 1.33;
+}
+
+/* Scene 04 — a source on the stage floor passes into a resonant space. */
+
+.resonanceSpace {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 43cqh;
+  overflow: hidden;
+}
+
+.sourceEmitter {
+  position: absolute;
+  left: 5cqw;
+  top: 10cqh;
+  width: 25cqw;
+  height: 24cqh;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 1cqh;
+  transition:
+    opacity 440ms ease,
+    transform 560ms cubic-bezier(0.34, 1.38, 0.64, 1);
+}
+
+.sourceLabel,
+.tractLabel {
+  color: var(--vf-air);
+  font-size: 0.7cqw;
+  font-weight: 700;
+  letter-spacing: 0.1cqw;
+}
+
+.miniFolds {
+  position: relative;
+  width: 9cqw;
+  height: 5cqh;
+}
+
+.miniFolds i {
+  position: absolute;
+  top: 0;
+  width: 4.3cqw;
+  height: 5cqh;
+  background: var(--vf-fold);
+  filter: drop-shadow(0 0 0.7cqw rgba(96, 225, 210, 0.55));
+}
+
+.miniFolds i:first-child {
+  left: 0;
+  clip-path: polygon(0 10%, 100% 38%, 100% 62%, 0 90%);
+}
+
+.miniFolds i:last-child {
+  right: 0;
+  clip-path: polygon(100% 10%, 0 38%, 0 62%, 100% 90%);
+}
+
+.pulseTrain {
+  display: flex;
+  align-items: end;
+  gap: 0.45cqw;
+  height: 6cqh;
+}
+
+.pulseTrain i {
+  width: 0.3cqw;
+  height: 4.8cqh;
+  background: var(--vf-air-soft);
+  box-shadow: 0 0 0.7cqw rgba(255, 180, 92, 0.55);
+}
+
+.pulseTrain i:nth-child(even) {
+  height: 2.8cqh;
+  opacity: 0.56;
+}
+
+.sourceEmitter strong,
+.tractSilhouette strong {
+  color: rgba(241, 246, 250, 0.83);
+  font-size: 0.93cqw;
+  font-weight: 600;
+}
+
+.handoffBeam {
+  position: absolute;
+  left: 28cqw;
+  top: 21cqh;
+  width: 20cqw;
+  height: 8cqh;
+  overflow: hidden;
+}
+
+.handoffBeam::before,
+.handoffBeam::after,
+.handoffBeam span {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0.12cqh;
+  background: linear-gradient(90deg, rgba(255, 180, 92, 0), var(--vf-air), rgba(233, 125, 184, 0.5));
+}
+
+.handoffBeam::before {
+  top: 1.4cqh;
+}
+
+.handoffBeam span {
+  top: 3.8cqh;
+}
+
+.handoffBeam::after {
+  top: 6.2cqh;
+}
+
+.tractSilhouette {
+  position: absolute;
+  right: 6cqw;
+  top: 1.5cqh;
+  width: 43cqw;
+  height: 37cqh;
+  display: grid;
+  justify-items: center;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 0.5cqh;
+  transition:
+    opacity 440ms ease,
+    transform 600ms cubic-bezier(0.34, 1.38, 0.64, 1),
+    filter 440ms ease;
+}
+
+.tractSilhouette svg {
+  width: 31cqw;
+  height: 28cqh;
+  overflow: visible;
+}
+
+.tractOutline {
+  fill: rgba(96, 225, 210, 0.08);
+  stroke: rgba(178, 255, 243, 0.42);
+  stroke-width: 2;
+}
+
+.tractChannel {
+  fill: rgba(233, 125, 184, 0.09);
+  stroke: rgba(233, 125, 184, 0.46);
+  stroke-width: 3;
+}
+
+.resonanceNode {
+  fill: rgba(233, 125, 184, 0.05);
+  stroke: rgba(233, 125, 184, 0.28);
+  stroke-width: 3;
+  transform-origin: center;
+  transition:
+    fill 420ms ease,
+    stroke 420ms ease,
+    filter 420ms ease,
+    transform 560ms cubic-bezier(0.34, 1.38, 0.64, 1);
+}
+
+.resonanceSpace[data-source-filter="source"] .tractSilhouette {
+  opacity: 0.34;
+  filter: saturate(0.3);
+  transform: scale(0.94);
+}
+
+.resonanceSpace[data-source-filter="filter"] .sourceEmitter {
+  opacity: 0.58;
+  transform: scale(0.92);
+}
+
+.resonanceSpace[data-source-filter="filter"] .tractSilhouette {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.resonanceSpace[data-source-filter="filter"] .tractLabel {
+  color: var(--vf-voice);
+}
+
+.resonanceSpace[data-source-filter="filter"] .resonanceNode {
+  fill: rgba(233, 125, 184, 0.28);
+  stroke: var(--vf-voice);
+  filter: drop-shadow(0 0 0.9cqw rgba(233, 125, 184, 0.7));
+  transform: scale(1.08);
+}
+
+.spectrumStage {
+  position: absolute;
+  left: 33cqw;
+  right: 37cqw;
+  bottom: 3.8cqh;
+  height: 10cqh;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 0.7cqw;
+}
+
+.spectrumStage span {
+  width: 0.35cqw;
+  height: calc(2.2cqh + (var(--particle-index) * 0.45cqh));
+  max-height: 8cqh;
+  background: linear-gradient(0deg, var(--vf-air), var(--vf-voice));
+  opacity: 0.18;
+  transition:
+    opacity 420ms ease,
+    transform 560ms cubic-bezier(0.34, 1.38, 0.64, 1);
+}
+
+.resonanceSpace[data-source-filter="filter"] .spectrumStage span {
+  opacity: calc(0.22 + (var(--particle-index) * 0.055));
+  transform: scaleY(1.12);
+}
+
+.sourceFilterBoundary {
+  position: absolute;
+  left: 5cqw;
+  right: 5cqw;
+  bottom: 0;
+  margin: 0;
+  color: rgba(220, 234, 243, 0.45);
+  text-align: center;
+  font-size: 0.62cqw;
+  font-weight: 700;
+  letter-spacing: 0.04cqw;
+}
+
+/* Scene 05 — all stage geometry resolves into one quiet line. */
+
+.scene[data-composition="voice-line"] .sceneHeader {
+  grid-template-columns: 1fr;
+  align-content: center;
+  text-align: center;
+  min-height: 20cqh;
+}
+
+.scene[data-composition="voice-line"] .sceneCue,
+.scene[data-composition="voice-line"] .sceneSubtitle {
+  grid-column: 1;
+  justify-self: center;
+}
+
+.scene[data-composition="voice-line"] .sceneHeader h1 {
+  justify-self: center;
+  max-width: 84cqw;
+  font-size: 5.2cqw;
+  line-height: 0.95;
+  background: linear-gradient(90deg, var(--vf-air-soft), var(--vf-fold-soft), #ffc2e2);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.voiceLineStage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 36cqh;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.jobLabels {
+  width: 70cqw;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2cqw;
+}
+
+.jobLabels span {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.7cqw;
+  color: rgba(228, 238, 245, 0.48);
+  font-size: 0.68cqw;
+  font-weight: 700;
+  letter-spacing: 0.07cqw;
+}
+
+.jobLabels b {
+  font-size: 1.1cqw;
+  letter-spacing: 0.03cqw;
+}
+
+.jobLabels span:nth-child(1) b {
+  color: var(--vf-air);
+}
+
+.jobLabels span:nth-child(2) b {
+  color: var(--vf-fold);
+}
+
+.jobLabels span:nth-child(3) b {
+  color: var(--vf-voice);
+}
+
+.voiceLine {
+  width: 82cqw;
+  height: 18cqh;
+  overflow: visible;
+}
+
+.voiceGhost,
+.voiceSignal {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.voiceGhost {
+  stroke: rgba(240, 247, 251, 0.1);
+  stroke-width: 15;
+}
+
+.voiceSignal {
+  stroke: url("#unused");
+  stroke: var(--vf-voice);
+  stroke-width: 5;
+  filter: drop-shadow(0 0 1cqw rgba(233, 125, 184, 0.62));
+}
+
+/* Navigation — five light positions drawn as a spatial stage plan. */
+
+.stagePlan {
+  position: absolute;
+  left: 6cqw;
+  right: 6cqw;
+  bottom: 1.4cqh;
+  z-index: 8;
+  height: 11.5cqh;
+  overflow: visible;
+}
+
+.planLine {
+  position: absolute;
+  left: 6cqw;
+  right: 3cqw;
+  top: 5.2cqh;
+  height: 0.14cqh;
+  background: linear-gradient(90deg, var(--vf-air), rgba(231, 241, 247, 0.28) 34% 66%, var(--vf-fold));
+  clip-path: polygon(0 35%, 22% 0, 50% 68%, 74% 10%, 100% 46%, 100% 68%, 74% 32%, 50% 90%, 22% 24%, 0 64%);
+  opacity: 0.48;
+}
+
+.stageNode {
+  appearance: none;
+  position: absolute;
+  left: var(--node-x);
+  top: var(--node-y);
+  display: grid;
+  justify-items: center;
+  gap: 0.45cqh;
+  min-width: 5.2cqw;
+  min-height: 5.6cqh;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(220, 234, 243, 0.46);
+  font: inherit;
+  cursor: pointer;
+  transform: translateX(-50%);
+}
+
+.stageNode:focus-visible {
+  outline: 0.14cqw solid var(--vf-fold-soft);
+  outline-offset: 0.35cqw;
+  clip-path: polygon(4% 0, 96% 0, 100% 82%, 88% 100%, 12% 100%, 0 82%);
+}
+
+.nodeLamp {
+  width: 1.2cqw;
+  height: 1.2cqw;
+  border: 0.1cqw solid currentColor;
+  border-radius: 50%;
+  background: rgba(244, 247, 251, 0.05);
+  box-shadow: 0 0 0.6cqw rgba(244, 247, 251, 0.12);
+  transition:
+    transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 320ms ease,
+    box-shadow 320ms ease,
+    color 320ms ease;
+}
+
+.nodeLabel {
+  color: currentColor;
+  font-size: 0.68cqw;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.045cqw;
+  transition:
+    color 320ms ease,
+    font-weight 320ms ease,
+    transform 420ms cubic-bezier(0.34, 1.38, 0.64, 1);
+}
+
+.stageNode:hover,
+.stageNode[data-active="true"] {
+  color: var(--vf-fold-soft);
+}
+
+.stageNode:hover .nodeLamp {
+  transform: translateY(-0.4cqh) scale(1.15);
+}
+
+.stageNode[data-active="true"] .nodeLamp {
+  transform: translateY(-0.7cqh) scale(1.3);
+  border-color: var(--vf-air-soft);
+  background: linear-gradient(135deg, var(--vf-air), var(--vf-fold));
+  box-shadow:
+    0 0 1.2cqw rgba(255, 180, 92, 0.6),
+    0 0 2cqw rgba(96, 225, 210, 0.32);
+}
+
+.stageNode[data-active="true"] .nodeLabel {
+  color: var(--vf-ink);
+  font-weight: 900;
+  transform: translateY(-0.25cqh) scale(1.08);
+}
+
+/* Deterministic thumbnail and reduced-motion states. */
+
+.root[data-motion="off"] *,
+.root[data-motion="off"] *::before,
+.root[data-motion="off"] *::after {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+.root[data-thumbnail="true"] .track {
+  inset: 5.5cqh 3.8cqw 5cqh;
+}
+
+.root[data-thumbnail="true"] .rigLine,
+.root[data-thumbnail="true"] .sceneFooter {
+  display: none;
+}
+
+.root[data-thumbnail="true"] .scene {
+  gap: 1cqh;
+  padding: 2.4cqh 2.6cqw;
+}
+
+.root[data-thumbnail="true"] .sceneHeader {
+  min-height: 12cqh;
+}
+
+.root[data-thumbnail="true"] .sceneSubtitle {
+  font-size: 0.95cqw;
+}
