@@ -1,0 +1,965 @@
+.root {
+  --soil-bg: #e8dfcf;
+  --soil-paper: #ded2bf;
+  --soil-ink: #39372f;
+  --soil-muted: #756d61;
+  --soil-basalt: #343733;
+  --soil-basalt-light: #55564e;
+  --soil-water: #738b8a;
+  --soil-rind: #9b7459;
+  --soil-red: #9c4e34;
+  --soil-red-dark: #713c2d;
+  --soil-clay: #bd7651;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--soil-ink);
+  background:
+    radial-gradient(ellipse at 18% 22%, rgba(255, 248, 229, 0.42), transparent 48%),
+    radial-gradient(ellipse at 82% 76%, rgba(104, 76, 51, 0.08), transparent 52%),
+    var(--soil-bg);
+  font-family: "Alegreya Sans", "Noto Serif SC", sans-serif;
+  user-select: none;
+}
+
+.root::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      8deg,
+      rgba(69, 59, 47, 0.018) 0,
+      rgba(69, 59, 47, 0.018) 0.05cqh,
+      transparent 0.05cqh,
+      transparent 0.38cqh
+    ),
+    repeating-linear-gradient(
+      93deg,
+      transparent 0,
+      transparent 0.62cqw,
+      rgba(255, 255, 255, 0.03) 0.62cqw,
+      rgba(255, 255, 255, 0.03) 0.67cqw
+    );
+  content: "";
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.root::after {
+  position: absolute;
+  top: -24cqh;
+  left: 16cqw;
+  z-index: 0;
+  width: 52cqw;
+  height: 54cqh;
+  background: rgba(255, 249, 231, 0.2);
+  clip-path: polygon(5% 0, 100% 0, 76% 100%, 0 78%);
+  content: "";
+  pointer-events: none;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.materialHeader {
+  position: absolute;
+  top: 7.2cqh;
+  left: 6.2cqw;
+  z-index: 4;
+  width: 30.5cqw;
+}
+
+.folioRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.1cqh;
+  border-bottom: 0.08cqw solid rgba(57, 55, 47, 0.26);
+  color: var(--soil-muted);
+  font-size: 0.82cqw;
+  letter-spacing: 0.11cqw;
+  text-transform: uppercase;
+}
+
+.materialHeader h1 {
+  max-width: 29cqw;
+  margin: 2.3cqh 0 1.5cqh;
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-size: 3.05cqw;
+  font-weight: 400;
+  letter-spacing: 0.03cqw;
+  line-height: 1.08;
+}
+
+.thesis {
+  max-width: 28cqw;
+  margin: 0;
+  color: #504b43;
+  font-size: 1.27cqw;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.currentObservation {
+  display: grid;
+  grid-template-columns: 2.2cqw 1fr;
+  gap: 1cqw;
+  min-height: 9.8cqh;
+  margin-top: 3.1cqh;
+  padding-top: 2cqh;
+  border-top: 0.08cqw solid rgba(57, 55, 47, 0.2);
+}
+
+.currentObservation > span {
+  color: var(--soil-red-dark);
+  font-size: 0.95cqw;
+  letter-spacing: 0.08cqw;
+}
+
+.currentObservation strong {
+  display: block;
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-size: 1.42cqw;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.currentObservation p {
+  max-width: 22cqw;
+  margin: 0.8cqh 0 0;
+  color: var(--soil-muted);
+  font-size: 0.98cqw;
+  line-height: 1.42;
+}
+
+.evidence {
+  margin: 2.2cqh 0 0;
+  color: rgba(57, 55, 47, 0.58);
+  font-size: 0.78cqw;
+  letter-spacing: 0.025cqw;
+  line-height: 1.35;
+}
+
+/* Scene 1 — actual basalt sample, not ceramic metaphor */
+
+.specimenComposition {
+  position: absolute;
+  top: 10cqh;
+  right: 7.4cqw;
+  width: 55cqw;
+  height: 76cqh;
+}
+
+.specimenSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.tableShadow,
+.bowlShadow {
+  fill: rgba(69, 52, 39, 0.13);
+  filter: blur(0.32cqw);
+}
+
+.basaltBody {
+  fill: var(--soil-basalt);
+  stroke: #2b2e2a;
+  stroke-width: 7;
+  stroke-linejoin: round;
+  filter: drop-shadow(0.7cqw 1.8cqh 0.7cqw rgba(54, 45, 36, 0.18));
+}
+
+.basaltPlane {
+  fill: var(--soil-basalt-light);
+  opacity: 0.5;
+}
+
+.vesicle {
+  fill: #242823;
+  stroke: rgba(214, 203, 182, 0.18);
+  stroke-width: 3;
+}
+
+.dryFracture {
+  fill: none;
+  stroke: #242722;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.grazingLight {
+  fill: none;
+  opacity: 0;
+  stroke: rgba(235, 219, 184, 0.8);
+  stroke-dasharray: 54 32;
+  stroke-linecap: round;
+  stroke-width: 10;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.grazingLight[data-visible="true"] {
+  opacity: 0.74;
+  animation: grazingSweep 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes grazingSweep {
+  from {
+    stroke-dashoffset: 120;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.specimenTag {
+  position: absolute;
+  right: 2.5cqw;
+  bottom: 4cqh;
+  display: grid;
+  grid-template-columns: 2.8cqw auto;
+  column-gap: 0.7cqw;
+  align-items: baseline;
+  width: 16cqw;
+  padding: 1.3cqh 0;
+  border-top: 0.08cqw solid rgba(57, 55, 47, 0.5);
+  border-bottom: 0.08cqw solid rgba(57, 55, 47, 0.22);
+  color: var(--soil-muted);
+  font-size: 0.78cqw;
+  letter-spacing: 0.04cqw;
+}
+
+.specimenTag strong {
+  font-weight: 500;
+}
+
+.specimenTag small {
+  grid-column: 2;
+  margin-top: 0.35cqh;
+  font-size: 0.65cqw;
+  letter-spacing: 0.05cqw;
+}
+
+.poreNote {
+  position: absolute;
+  top: 25cqh;
+  right: -1cqw;
+  display: flex;
+  gap: 0.7cqw;
+  align-items: center;
+  opacity: 0;
+  transform: translateX(0.7cqw);
+  transition:
+    opacity 0.62s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.62s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.poreNote[data-visible="true"] {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.poreNote span {
+  width: 5.2cqw;
+  height: 0.08cqw;
+  background: var(--soil-red-dark);
+  transform: rotate(-14deg);
+  transform-origin: right center;
+}
+
+.poreNote p {
+  margin: 0;
+  color: var(--soil-muted);
+  font-size: 0.72cqw;
+  letter-spacing: 0.05cqw;
+}
+
+/* Scene 2 — wet rind */
+
+.scene2 .materialHeader {
+  top: 8cqh;
+}
+
+.wetComposition {
+  position: absolute;
+  top: 7cqh;
+  right: 3.5cqw;
+  width: 60cqw;
+  height: 81cqh;
+}
+
+.wetSvg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.wetRockOuter {
+  fill: #3b3d37;
+  stroke: #2e312c;
+  stroke-width: 7;
+  stroke-linejoin: round;
+  filter: drop-shadow(0.6cqw 1.5cqh 0.75cqw rgba(54, 45, 36, 0.16));
+}
+
+.wetCore {
+  fill: #30332f;
+  stroke: rgba(224, 212, 189, 0.12);
+  stroke-width: 4;
+}
+
+.weatheredRind {
+  fill: var(--soil-rind);
+  opacity: 0;
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.weatheredRind[data-visible="true"] {
+  opacity: 0.76;
+}
+
+.surfaceWater,
+.wetFracture,
+.wetFractureFine {
+  fill: none;
+  opacity: 0;
+  stroke: var(--soil-water);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: opacity 0.7s ease;
+}
+
+.surfaceWater {
+  stroke-dasharray: 28 20;
+  stroke-width: 15;
+}
+
+.wetFracture {
+  stroke-width: 12;
+}
+
+.wetFractureFine {
+  stroke-width: 7;
+}
+
+.surfaceWater[data-visible="true"],
+.wetFracture[data-visible="true"],
+.wetFractureFine[data-visible="true"] {
+  opacity: 0.88;
+  animation: waterTrace 0.82s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes waterTrace {
+  from {
+    stroke-dashoffset: 160;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.waterDrop {
+  fill: var(--soil-water);
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.waterDrop[data-visible="true"] {
+  opacity: 0.8;
+}
+
+.wetLegend {
+  position: absolute;
+  top: 9cqh;
+  right: 2.2cqw;
+  display: grid;
+  gap: 1cqh;
+  width: 10.5cqw;
+}
+
+.wetLegend > div {
+  display: grid;
+  grid-template-columns: 1.4cqw 1fr;
+  gap: 0.6cqw;
+  align-items: center;
+  color: var(--soil-muted);
+  font-size: 0.76cqw;
+  letter-spacing: 0.03cqw;
+  opacity: 0.18;
+  transition: opacity 0.6s ease;
+}
+
+.wetLegend > div[data-visible="true"] {
+  opacity: 1;
+}
+
+.legendWater,
+.legendFracture,
+.legendRind {
+  display: block;
+  height: 0.45cqh;
+}
+
+.legendWater {
+  background: var(--soil-water);
+}
+
+.legendFracture {
+  height: 0.1cqh;
+  background: var(--soil-water);
+}
+
+.legendRind {
+  background: var(--soil-rind);
+}
+
+.noMagicNote {
+  position: absolute;
+  right: 18cqw;
+  bottom: 2.4cqh;
+  width: 28cqw;
+  margin: 0;
+  color: rgba(57, 55, 47, 0.56);
+  font-size: 0.72cqw;
+  letter-spacing: 0.06cqw;
+  text-align: right;
+}
+
+/* Scene 3 — three evidence trays */
+
+.scene3 .materialHeader {
+  width: 27cqw;
+}
+
+.scene3 .materialHeader h1,
+.scene3 .thesis {
+  max-width: 25cqw;
+}
+
+.fragmentComposition {
+  position: absolute;
+  top: 8.4cqh;
+  right: 5.8cqw;
+  width: 59cqw;
+  height: 78cqh;
+}
+
+.trayStack {
+  display: grid;
+  gap: 2.5cqh;
+}
+
+.evidenceTray {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.5cqw 10cqw 1fr 2cqw;
+  gap: 1.3cqw;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 18.5cqh;
+  padding: 1.8cqh 1.5cqw;
+  border-top: 0.08cqw solid rgba(57, 55, 47, 0.38);
+  border-bottom: 0.08cqw solid rgba(57, 55, 47, 0.12);
+  opacity: 0.2;
+  transform: translateY(0.7cqh);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.evidenceTray[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.trayIndex {
+  align-self: start;
+  color: var(--soil-red-dark);
+  font-size: 0.8cqw;
+  letter-spacing: 0.08cqw;
+}
+
+.trayShard {
+  position: relative;
+  width: 8.3cqw;
+  height: 13cqh;
+}
+
+.trayShard i {
+  position: absolute;
+  display: block;
+  background: var(--soil-basalt-light);
+  clip-path: polygon(10% 12%, 83% 0, 100% 62%, 72% 100%, 2% 76%);
+}
+
+.trayShard i:nth-child(1) {
+  top: 0;
+  left: 0;
+  width: 4.8cqw;
+  height: 7cqh;
+  transform: rotate(-9deg);
+}
+
+.trayShard i:nth-child(2) {
+  top: 5.2cqh;
+  left: 3.8cqw;
+  width: 3.5cqw;
+  height: 6cqh;
+  background: var(--soil-rind);
+  transform: rotate(14deg);
+}
+
+.trayShard i:nth-child(3) {
+  top: 7cqh;
+  left: 0.5cqw;
+  width: 2.5cqw;
+  height: 4.2cqh;
+  background: var(--soil-red);
+  transform: rotate(-19deg);
+}
+
+.trayShard i:nth-child(4) {
+  top: 1.5cqh;
+  right: 0;
+  width: 2.1cqw;
+  height: 3.4cqh;
+  background: #c28a5e;
+  transform: rotate(11deg);
+}
+
+.trayCopy h2 {
+  margin: 0;
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-size: 1.55cqw;
+  font-weight: 400;
+  letter-spacing: 0.04cqw;
+}
+
+.trayCopy strong {
+  display: block;
+  margin-top: 0.75cqh;
+  color: var(--soil-red-dark);
+  font-size: 0.93cqw;
+  font-weight: 500;
+  letter-spacing: 0.035cqw;
+}
+
+.trayCopy p {
+  max-width: 30cqw;
+  margin: 0.65cqh 0 0;
+  color: var(--soil-muted);
+  font-size: 0.86cqw;
+  line-height: 1.35;
+}
+
+.trayDirection {
+  color: rgba(57, 55, 47, 0.5);
+  font-size: 1.7cqw;
+}
+
+.massBalanceNote {
+  position: absolute;
+  right: 2cqw;
+  bottom: -0.5cqh;
+  width: 22cqw;
+  padding-left: 1.2cqw;
+  border-left: 0.18cqw solid var(--soil-red-dark);
+}
+
+.massBalanceNote span {
+  color: var(--soil-red-dark);
+  font-size: 0.72cqw;
+  letter-spacing: 0.08cqw;
+}
+
+.massBalanceNote p {
+  margin: 0.6cqh 0 0;
+  color: var(--soil-muted);
+  font-size: 0.78cqw;
+  line-height: 1.35;
+}
+
+/* Scene 4 — field profile */
+
+.scene4 .materialHeader {
+  top: 6.2cqh;
+  width: 26.5cqw;
+}
+
+.scene4 .materialHeader h1,
+.scene4 .thesis {
+  max-width: 25cqw;
+}
+
+.scene4 .currentObservation {
+  margin-top: 2.3cqh;
+}
+
+.profileComposition {
+  position: absolute;
+  top: 3.4cqh;
+  right: 2.7cqw;
+  width: 66cqw;
+  height: 88cqh;
+}
+
+.profileSvg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0.3cqw 1cqh 0.5cqw rgba(71, 50, 36, 0.1));
+}
+
+.profileSurface {
+  fill: #5e6652;
+}
+
+.profileTopsoil {
+  fill: #6e5744;
+}
+
+.profileRedSoil {
+  fill: var(--soil-red);
+}
+
+.profileSaprolite {
+  fill: #aa7657;
+}
+
+.profileBasalt {
+  fill: var(--soil-basalt);
+}
+
+.profileTopsoil,
+.profileRedSoil {
+  opacity: 0.14;
+  transform: translateY(0.7cqh);
+  transition:
+    opacity 0.78s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.78s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profileSaprolite,
+.profileWeatherFront {
+  opacity: 0.18;
+  transition: opacity 0.68s ease;
+}
+
+.profileTopsoil[data-visible="true"],
+.profileRedSoil[data-visible="true"],
+.profileSaprolite[data-visible="true"],
+.profileWeatherFront[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.profileWeatherFront {
+  fill: none;
+  stroke: #d4aa82;
+  stroke-dasharray: 18 13;
+  stroke-width: 7;
+}
+
+.coreStone {
+  fill: #3a3b35;
+  stroke: rgba(225, 213, 191, 0.23);
+  stroke-width: 4;
+}
+
+.oxideMarks {
+  fill: #6f3228;
+  opacity: 0;
+  transition: opacity 0.85s ease;
+}
+
+.oxideMarks[data-visible="true"] {
+  opacity: 0.68;
+}
+
+.profileLabels {
+  fill: rgba(245, 235, 215, 0.9);
+  font-family: "Alegreya Sans", "Noto Serif SC", sans-serif;
+  font-size: 0.94cqw;
+  letter-spacing: 0.1cqw;
+}
+
+.fieldCase {
+  position: absolute;
+  top: 10cqh;
+  right: 1.5cqw;
+  box-sizing: border-box;
+  width: 15.5cqw;
+  padding: 1.6cqh 1.1cqw;
+  border: 0.08cqw solid rgba(57, 55, 47, 0.36);
+  background: rgba(232, 223, 207, 0.87);
+  opacity: 0;
+  transform: translateY(0.7cqh);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fieldCase[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fieldCase > span {
+  color: var(--soil-red-dark);
+  font-size: 0.76cqw;
+  letter-spacing: 0.06cqw;
+  text-transform: uppercase;
+}
+
+.fieldCase dl {
+  display: grid;
+  gap: 1.2cqh;
+  margin: 1.7cqh 0 1.2cqh;
+}
+
+.fieldCase dl > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8cqw;
+  padding-bottom: 0.7cqh;
+  border-bottom: 0.07cqw solid rgba(57, 55, 47, 0.18);
+}
+
+.fieldCase dt {
+  color: var(--soil-muted);
+  font-size: 0.72cqw;
+}
+
+.fieldCase dd {
+  margin: 0;
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-size: 0.95cqw;
+}
+
+.fieldCase p {
+  margin: 0;
+  color: var(--soil-muted);
+  font-size: 0.67cqw;
+  line-height: 1.35;
+}
+
+.oxideCaption {
+  position: absolute;
+  left: 14cqw;
+  bottom: 3cqh;
+  color: var(--soil-red-dark);
+  font-size: 0.73cqw;
+  letter-spacing: 0.05cqw;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.oxideCaption[data-visible="true"] {
+  opacity: 1;
+}
+
+/* Scene 5 — quiet, still conclusion */
+
+.scene5 .materialHeader {
+  top: 10cqh;
+  left: 8cqw;
+  width: 32cqw;
+}
+
+.scene5 .materialHeader h1 {
+  max-width: 31cqw;
+  font-size: 3.8cqw;
+}
+
+.scene5 .currentObservation {
+  display: none;
+}
+
+.scene5 .evidence {
+  margin-top: 4cqh;
+}
+
+.bowlComposition {
+  position: absolute;
+  top: 10cqh;
+  right: 7.5cqw;
+  width: 57cqw;
+  height: 79cqh;
+}
+
+.bowlSvg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.bowlBody {
+  fill: #b4a690;
+  stroke: #8f826f;
+  stroke-width: 7;
+  stroke-linejoin: round;
+}
+
+.bowlLip {
+  fill: #cabca4;
+  stroke: #8f826f;
+  stroke-width: 6;
+}
+
+.earthMound {
+  fill: var(--soil-red);
+}
+
+.earthRidge {
+  fill: none;
+  stroke: #6f3528;
+  stroke-linecap: round;
+  stroke-width: 8;
+  opacity: 0.55;
+}
+
+.earthGrain {
+  fill: #6f3528;
+  opacity: 0.72;
+}
+
+.closingLine {
+  position: absolute;
+  right: 17cqw;
+  bottom: 1cqh;
+  display: grid;
+  grid-template-columns: 7cqw 1fr;
+  gap: 1cqw;
+  align-items: center;
+  width: 32cqw;
+}
+
+.closingLine span {
+  height: 0.16cqh;
+  background: var(--soil-red-dark);
+  clip-path: polygon(0 22%, 100% 0, 96% 100%, 2% 72%);
+}
+
+.closingLine p {
+  margin: 0;
+  color: var(--soil-red-dark);
+  font-size: 0.78cqw;
+  letter-spacing: 0.055cqw;
+  line-height: 1.35;
+}
+
+/* Ceramic-shard object controller */
+
+.shardNavigation {
+  position: absolute;
+  right: 2.2cqw;
+  bottom: 2.4cqh;
+  z-index: 12;
+  width: 13cqw;
+  height: 23cqh;
+}
+
+.ringKernel {
+  position: absolute;
+  top: 7cqh;
+  left: 4.7cqw;
+  display: grid;
+  place-items: center;
+  width: 3.2cqw;
+  height: 5.7cqh;
+  border: 0.08cqw solid rgba(57, 55, 47, 0.24);
+  border-radius: 50%;
+  background: rgba(222, 210, 191, 0.66);
+}
+
+.ringKernel span {
+  display: block;
+  width: 1.2cqw;
+  height: 2.1cqh;
+  border-radius: 50%;
+  background: var(--soil-red);
+  box-shadow: inset 0.15cqw 0.2cqh rgba(73, 45, 35, 0.25);
+}
+
+.shardButton {
+  position: absolute;
+  top: var(--shard-y);
+  left: var(--shard-x);
+  display: grid;
+  place-items: center;
+  width: 2.8cqw;
+  height: 5cqh;
+  padding: 0;
+  border: 0.08cqw solid rgba(57, 55, 47, 0.32);
+  background: #b7a68f;
+  color: rgba(57, 55, 47, 0.68);
+  clip-path: polygon(13% 4%, 86% 0, 100% 61%, 73% 100%, 4% 82%, 0 25%);
+  cursor: pointer;
+  transform: translate(0, 0) rotate(var(--shard-rotation));
+  transition:
+    transform 0.46s cubic-bezier(0.22, 0.75, 0.2, 1),
+    background-color 0.46s ease,
+    color 0.46s ease;
+}
+
+.shardButton:nth-of-type(2),
+.shardButton:nth-of-type(4) {
+  background: #9d8e78;
+}
+
+.shardButton:nth-of-type(3),
+.shardButton:nth-of-type(5) {
+  background: #c2af94;
+}
+
+.shardButton span {
+  font-size: 0.75cqw;
+  letter-spacing: 0.05cqw;
+  transform: rotate(calc(var(--shard-rotation) * -1));
+}
+
+.shardButton:hover,
+.shardButton:focus-visible {
+  color: var(--soil-ink);
+  outline: 0.12cqw solid rgba(113, 60, 45, 0.45);
+  outline-offset: 0.16cqw;
+}
+
+.shardButton[data-active="true"] {
+  background: var(--soil-red);
+  color: #f1e7d4;
+  transform:
+    translate(var(--active-shift-x), var(--active-shift-y))
+    rotate(var(--shard-rotation));
+}
+
+.motionOff,
+.motionOff *,
+.motionOff *::before,
+.motionOff *::after {
+  scroll-behavior: auto !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+.thumbnail .materialHeader {
+  left: 5.8cqw;
+}

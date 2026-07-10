@@ -1,0 +1,1447 @@
+.root {
+  --style-kitchen-prep-station-bg: #f2d39a;
+  --style-kitchen-prep-station-ink: #3b2415;
+  --style-kitchen-prep-station-panel: #fff1cf;
+  --style-kitchen-prep-station-wood: #9f5b31;
+  --style-kitchen-prep-station-deep-wood: #6e351f;
+  --style-kitchen-prep-station-terracotta: #bd512c;
+  --style-kitchen-prep-station-herb: #567a45;
+  --style-kitchen-prep-station-gold: #d99b3f;
+  --style-kitchen-prep-station-cream: #fff7df;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: size;
+  color: var(--style-kitchen-prep-station-ink);
+  font-family:
+    "Avenir Next",
+    "PingFang SC",
+    "Microsoft YaHei",
+    sans-serif;
+  background:
+    radial-gradient(circle at 12% 11%, rgb(255 249 221 / 0.84) 0 14%, transparent 33%),
+    radial-gradient(circle at 86% 86%, rgb(174 68 35 / 0.2) 0 17%, transparent 39%),
+    linear-gradient(137deg, #f8e3b8 0%, #e8bb76 58%, #f1d29a 100%);
+}
+
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      2deg,
+      transparent 0 1.5cqh,
+      rgb(86 44 20 / 0.024) 1.5cqh 1.72cqh,
+      transparent 1.72cqh 3.8cqh
+    ),
+    radial-gradient(ellipse at 50% -8%, rgb(255 255 255 / 0.38), transparent 54%);
+  pointer-events: none;
+}
+
+.root::after {
+  content: "";
+  position: absolute;
+  inset: 2.4cqh 2.2cqw;
+  border: 0.12cqw solid rgb(84 43 20 / 0.12);
+  border-radius: 2.6cqw;
+  box-shadow:
+    inset 0 0.45cqh 0 rgb(255 255 255 / 0.4),
+    inset 0 -0.35cqh 0 rgb(88 44 20 / 0.09);
+  pointer-events: none;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 20cqh 47cqh 8.5cqh;
+  gap: 1.5cqh;
+  padding: 4.5cqh 6cqw 17cqh;
+  overflow: hidden;
+}
+
+.sceneHeader {
+  position: relative;
+  z-index: 3;
+  max-width: 88cqw;
+}
+
+.eyebrowRow {
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+  min-height: 3.4cqh;
+  margin-bottom: 0.7cqh;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3.2cqh;
+  padding: 0.42cqh 1.05cqw;
+  border: 0.1cqw solid rgb(83 43 20 / 0.16);
+  border-radius: 999cqw;
+  color: #fff9e7;
+  font-size: 0.84cqw;
+  font-weight: 800;
+  letter-spacing: 0.09cqw;
+  background: var(--style-kitchen-prep-station-terracotta);
+  box-shadow: 0 0.55cqh 1.1cqw rgb(113 47 23 / 0.17);
+}
+
+.beatPips {
+  display: flex;
+  align-items: center;
+  gap: 0.42cqw;
+  padding: 0.45cqh 0.6cqw;
+  border-radius: 999cqw;
+  background: rgb(255 247 218 / 0.58);
+}
+
+.beatPips span {
+  width: 0.54cqw;
+  height: 0.54cqw;
+  border-radius: 50%;
+  background: rgb(76 45 25 / 0.2);
+  transition:
+    width 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 280ms ease;
+}
+
+.beatPips span[data-complete="true"] {
+  background: var(--style-kitchen-prep-station-herb);
+}
+
+.beatPips span[data-current="true"] {
+  width: 1.45cqw;
+  border-radius: 999cqw;
+  background: var(--style-kitchen-prep-station-terracotta);
+}
+
+.sceneHeader h1 {
+  max-width: 84cqw;
+  margin: 0;
+  font-size: 4.15cqw;
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.12cqw;
+  text-wrap: balance;
+}
+
+.subtitle {
+  max-width: 78cqw;
+  margin: 1cqh 0 0;
+  color: rgb(59 36 21 / 0.73);
+  font-size: 1.26cqw;
+  font-weight: 600;
+  line-height: 1.27;
+  text-wrap: balance;
+}
+
+.visualArea {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  z-index: 2;
+}
+
+.beatCaption {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.8cqw 1fr;
+  align-items: center;
+  gap: 1.1cqw;
+  width: 72cqw;
+  min-height: 7.2cqh;
+  padding: 0.9cqh 1.2cqw;
+  border-left: 0.34cqw solid var(--style-kitchen-prep-station-herb);
+  border-radius: 0.9cqw 1.5cqw 1.5cqw 0.9cqw;
+  background: rgb(255 248 224 / 0.76);
+  box-shadow: 0 0.65cqh 1.4cqw rgb(88 44 20 / 0.09);
+  overflow: hidden;
+}
+
+.beatCaption > span {
+  display: grid;
+  place-items: center;
+  width: 2.8cqw;
+  height: 2.8cqw;
+  border-radius: 50%;
+  color: #fff8df;
+  font-size: 0.92cqw;
+  font-weight: 800;
+  background: var(--style-kitchen-prep-station-herb);
+}
+
+.beatCaption strong {
+  display: block;
+  margin: 0 0 0.15cqh;
+  font-size: 1.1cqw;
+  font-weight: 800;
+}
+
+.beatCaption p {
+  margin: 0;
+  color: rgb(59 36 21 / 0.72);
+  font-size: 0.92cqw;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.sourceNote {
+  position: absolute;
+  right: 6cqw;
+  bottom: 16.2cqh;
+  z-index: 3;
+  margin: 0;
+  color: rgb(59 36 21 / 0.52);
+  font-size: 0.68cqw;
+  font-weight: 700;
+  letter-spacing: 0.025cqw;
+}
+
+/* Scene 1 — a literal ingredient-stage, not a recipe card. */
+.podStage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 0.16cqw solid rgb(84 42 20 / 0.22);
+  border-radius: 2.5cqw 3.1cqw 2.3cqw 3.4cqw;
+  background:
+    linear-gradient(105deg, rgb(255 255 255 / 0.18), transparent 29% 72%, rgb(87 42 18 / 0.12)),
+    repeating-linear-gradient(
+      4deg,
+      #bd7542 0 0.55cqh,
+      #b76d3d 0.55cqh 1.15cqh,
+      #c17b47 1.15cqh 1.8cqh
+    );
+  box-shadow:
+    0 1.5cqh 2.5cqw rgb(93 45 18 / 0.2),
+    inset 0 0.35cqh 0 rgb(255 255 255 / 0.24);
+  overflow: hidden;
+  transform: rotate(-0.35deg);
+}
+
+.boardStamp,
+.stationStamp {
+  position: absolute;
+  left: 1.4cqw;
+  top: 1.2cqh;
+  z-index: 4;
+  display: inline-flex;
+  padding: 0.55cqh 0.85cqw;
+  border-radius: 0.7cqw;
+  color: #fff4d7;
+  font-size: 0.72cqw;
+  font-weight: 800;
+  letter-spacing: 0.08cqw;
+  background: rgb(79 37 20 / 0.7);
+  box-shadow: 0 0.45cqh 0.8cqw rgb(74 33 15 / 0.16);
+}
+
+.podDrawing {
+  position: absolute;
+  left: 1.8cqw;
+  top: 0.3cqh;
+  width: 76cqw;
+  height: 44.5cqh;
+  overflow: visible;
+  filter: drop-shadow(0 1.3cqh 1.15cqw rgb(62 28 14 / 0.2));
+}
+
+.podHalf {
+  stroke: #5f2518;
+  stroke-width: 7;
+}
+
+.podRidge {
+  fill: none;
+  stroke: rgb(255 196 95 / 0.42);
+  stroke-width: 9;
+  stroke-linecap: round;
+}
+
+.pulpBed {
+  stroke: #8b482b;
+  stroke-width: 7;
+}
+
+.pulpHalo {
+  fill: #fff8df;
+  stroke: rgb(139 72 43 / 0.18);
+  stroke-width: 3;
+}
+
+.wetBean {
+  fill: #755038;
+  stroke: #4b3022;
+  stroke-width: 3;
+}
+
+.beanSeam {
+  fill: none;
+  stroke: rgb(255 235 190 / 0.48);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.objectLabel {
+  position: absolute;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5cqh 0.8cqw;
+  border-radius: 999cqw;
+  color: #4a2a19;
+  font-size: 0.8cqw;
+  font-weight: 800;
+  background: #fff2cb;
+  box-shadow: 0 0.45cqh 0.8cqw rgb(71 31 12 / 0.15);
+}
+
+.pulpLabel {
+  left: 61cqw;
+  top: 8cqh;
+}
+
+.seedLabel {
+  left: 70cqw;
+  bottom: 5cqh;
+}
+
+.aromaState {
+  position: absolute;
+  right: 2.3cqw;
+  bottom: 2.4cqh;
+  z-index: 6;
+  display: grid;
+  gap: 0.3cqh;
+  width: 18cqw;
+  padding: 1.25cqh 1.2cqw;
+  border: 0.12cqw solid rgb(63 34 18 / 0.18);
+  border-radius: 1.4cqw;
+  background: rgb(255 247 220 / 0.9);
+  box-shadow: 0 0.8cqh 1.3cqw rgb(64 28 12 / 0.17);
+  transform: rotate(1.2deg);
+}
+
+.aromaState span {
+  color: rgb(59 36 21 / 0.55);
+  font-size: 0.66cqw;
+  font-weight: 800;
+  letter-spacing: 0.08cqw;
+}
+
+.aromaState strong {
+  color: var(--style-kitchen-prep-station-terracotta);
+  font-size: 1.5cqw;
+  line-height: 1.05;
+}
+
+/* Scene 2 — process zones, deliberately without microbial avatars. */
+.microbialBoard {
+  position: relative;
+  display: grid;
+  grid-template-columns: 24cqw 1fr;
+  grid-template-rows: 32cqh 10cqh;
+  gap: 1.7cqh 1.6cqw;
+  width: 100%;
+  height: 100%;
+  padding: 1.8cqh 1.8cqw;
+  border: 0.14cqw solid rgb(78 41 21 / 0.18);
+  border-radius: 2.5cqw;
+  background:
+    linear-gradient(110deg, rgb(255 250 226 / 0.83), rgb(241 202 137 / 0.72)),
+    repeating-linear-gradient(90deg, transparent 0 2.5cqw, rgb(96 49 23 / 0.04) 2.5cqw 2.65cqw);
+  box-shadow: 0 1.2cqh 2.1cqw rgb(91 44 18 / 0.14);
+  overflow: hidden;
+}
+
+.pulpMass {
+  position: relative;
+  grid-row: 1 / 3;
+  min-height: 0;
+  border-radius: 2.1cqw;
+  background:
+    radial-gradient(circle at 40% 30%, rgb(255 249 218 / 0.46), transparent 45%),
+    linear-gradient(160deg, #d99954, #a64f2f 66%, #783522);
+  box-shadow:
+    inset 0 0.45cqh 0 rgb(255 255 255 / 0.25),
+    inset 0 -1.1cqh 2cqw rgb(68 27 14 / 0.24),
+    0 0.9cqh 1.3cqw rgb(76 34 15 / 0.16);
+  overflow: hidden;
+}
+
+.massBeans {
+  position: absolute;
+  inset: 6.3cqh 2cqw 6.7cqh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-content: center;
+  gap: 1.15cqh 1cqw;
+}
+
+.massBeans span {
+  justify-self: center;
+  width: 4.3cqw;
+  height: 2.8cqh;
+  border: 0.1cqw solid rgb(76 40 26 / 0.45);
+  border-radius: 54% 46% 50% 50%;
+  background:
+    radial-gradient(ellipse at 50% 44%, #73513a 0 45%, transparent 47%),
+    #fff1cc;
+  box-shadow: 0 0.45cqh 0.7cqw rgb(66 30 14 / 0.18);
+  transform: rotate(var(--bean-rotate, 0deg));
+}
+
+.lowOxygen {
+  position: absolute;
+  left: 2.2cqw;
+  right: 2.2cqw;
+  bottom: 1.6cqh;
+  padding: 0.8cqh 0.7cqw;
+  border-radius: 999cqw;
+  color: #fff4d5;
+  font-size: 0.8cqw;
+  font-weight: 800;
+  text-align: center;
+  background: rgb(68 38 26 / 0.66);
+}
+
+.zoneRail {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.15cqw;
+  min-width: 0;
+}
+
+.microbialZone {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 0.7cqh;
+  align-content: start;
+  min-width: 0;
+  padding: 2.5cqh 1.15cqw 1.3cqh;
+  border: 0.13cqw solid rgb(70 38 20 / 0.16);
+  border-radius: 1.4cqw 2cqw 1.4cqw 1.9cqw;
+  box-shadow: 0 0.75cqh 1.2cqw rgb(75 35 15 / 0.12);
+  transition:
+    opacity 360ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 360ms ease;
+}
+
+.microbialZone[data-revealed="false"] {
+  opacity: 0.16;
+  filter: saturate(0.25);
+  transform: translateY(1.2cqh) scale(0.975);
+}
+
+.microbialZone[data-revealed="true"] {
+  opacity: 1;
+  filter: none;
+  transform: translateY(0) scale(1);
+}
+
+.zone1 {
+  background: #f3cb72;
+}
+
+.zone2 {
+  background: #c8d79b;
+}
+
+.zone3 {
+  background: #db8c64;
+}
+
+.zoneNumber {
+  position: absolute;
+  left: 0.9cqw;
+  top: 0.8cqh;
+  color: rgb(59 36 21 / 0.5);
+  font-size: 0.72cqw;
+  font-weight: 800;
+}
+
+.microbialZone strong {
+  font-size: 1.55cqw;
+  line-height: 1;
+}
+
+.zoneFlow {
+  font-size: 0.94cqw;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.oxygenGate {
+  position: relative;
+  display: grid;
+  grid-template-columns: 5.2cqw 1fr;
+  align-items: center;
+  gap: 1cqw;
+  min-width: 0;
+  padding: 0.8cqh 1.1cqw;
+  border: 0.12cqw dashed rgb(67 93 57 / 0.45);
+  border-radius: 1.5cqw;
+  color: #2f4c2f;
+  font-size: 0.93cqw;
+  font-weight: 800;
+  background: rgb(223 236 192 / 0.68);
+  transition:
+    opacity 360ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.oxygenGate[data-revealed="false"] {
+  opacity: 0.16;
+  transform: translateX(-1.4cqw);
+}
+
+.oxygenGate[data-revealed="true"] {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.airArrow {
+  display: grid;
+  place-items: center;
+  width: 4.5cqw;
+  height: 4.5cqh;
+  border-radius: 999cqw;
+  color: #fffbe9;
+  background: var(--style-kitchen-prep-station-herb);
+}
+
+.relayQualifier {
+  position: absolute;
+  right: 2.2cqw;
+  top: 0.65cqh;
+  color: rgb(59 36 21 / 0.48);
+  font-size: 0.68cqw;
+  font-weight: 800;
+}
+
+/* Scene 3 — one fermentation stack plus exactly three process readings. */
+.heatWorkbench {
+  position: relative;
+  display: grid;
+  grid-template-columns: 58cqw 1fr;
+  gap: 2cqw;
+  width: 100%;
+  height: 100%;
+}
+
+.fermentationBox {
+  position: relative;
+  min-height: 0;
+  border-radius: 2.2cqw;
+  background:
+    linear-gradient(100deg, rgb(255 255 255 / 0.16), transparent 31% 76%, rgb(68 29 12 / 0.11)),
+    repeating-linear-gradient(0deg, #a65f35 0 1.5cqh, #99552f 1.5cqh 2.8cqh);
+  box-shadow:
+    0 1.3cqh 2cqw rgb(75 34 14 / 0.19),
+    inset 0 0.42cqh 0 rgb(255 255 255 / 0.2);
+  overflow: hidden;
+}
+
+.boxRim {
+  position: absolute;
+  inset: 4.8cqh 2.2cqw 3.2cqh;
+  border: 1.5cqw solid #784126;
+  border-top-width: 2.2cqh;
+  border-radius: 1.4cqw;
+  box-shadow:
+    inset 0 0 0 0.45cqw #c37c47,
+    0 0.75cqh 1.1cqw rgb(63 27 12 / 0.23);
+  pointer-events: none;
+}
+
+.beanStack {
+  position: absolute;
+  left: 5.3cqw;
+  right: 5.3cqw;
+  bottom: 6cqh;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-content: end;
+  gap: 0.55cqh 0.55cqw;
+  height: 27cqh;
+  padding: 1.5cqh 1cqw;
+  border-radius: 0.9cqw;
+  background: linear-gradient(180deg, #d68b4d, #a8482d 70%, #74301f);
+  overflow: hidden;
+}
+
+.beanStack span {
+  justify-self: center;
+  width: 5.1cqw;
+  height: 3cqh;
+  border: 0.1cqw solid rgb(69 34 22 / 0.38);
+  border-radius: 55% 45% 52% 48%;
+  background: linear-gradient(145deg, #90583c, #5f3829);
+  box-shadow: 0 0.25cqh 0.4cqw rgb(50 22 11 / 0.18);
+  transform: rotate(var(--bean-rotate, 0deg));
+}
+
+.heatCore {
+  position: absolute;
+  left: 18cqw;
+  bottom: 8cqh;
+  width: 24cqw;
+  height: 23cqh;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(255 196 73 / 0.72), rgb(218 79 33 / 0.36) 48%, transparent 72%);
+  filter: blur(1.3cqw);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.turningPaddle {
+  position: absolute;
+  right: 3.8cqw;
+  top: 3.8cqh;
+  width: 22cqw;
+  height: 3.2cqh;
+  border-radius: 999cqw;
+  color: #fff5d8;
+  font-size: 0.72cqw;
+  font-weight: 800;
+  background: linear-gradient(90deg, #50301e 0 17%, #d3a167 17% 100%);
+  box-shadow: 0 0.75cqh 1.1cqw rgb(58 26 12 / 0.22);
+  transform-origin: 86% 50%;
+  transition:
+    opacity 360ms ease,
+    transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.turningPaddle span {
+  position: absolute;
+  left: 1cqw;
+  top: 0.7cqh;
+}
+
+.turningPaddle[data-revealed="false"] {
+  opacity: 0.12;
+  transform: rotate(-4deg) translateY(-1cqh);
+}
+
+.turningPaddle[data-revealed="true"] {
+  opacity: 1;
+  transform: rotate(29deg) translateY(0);
+}
+
+.exchangeArrows {
+  position: absolute;
+  left: 6cqw;
+  right: 5cqw;
+  top: 4.1cqh;
+  display: flex;
+  justify-content: space-around;
+  color: #f6efce;
+  font-size: 0.76cqw;
+  font-weight: 800;
+  transition:
+    opacity 360ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.exchangeArrows span {
+  display: grid;
+  place-items: center;
+  width: 3.2cqw;
+  height: 3.2cqw;
+  border: 0.1cqw solid rgb(255 244 210 / 0.4);
+  border-radius: 50%;
+  background: rgb(71 93 57 / 0.74);
+}
+
+.exchangeArrows[data-revealed="false"] {
+  opacity: 0.1;
+  transform: translateY(1.5cqh);
+}
+
+.exchangeArrows[data-revealed="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.readingPanel {
+  position: relative;
+  display: grid;
+  grid-template-rows: 3.8cqh repeat(3, minmax(0, 1fr)) auto;
+  gap: 0.75cqh;
+  min-width: 0;
+  padding: 1.4cqh 1.4cqw;
+  border: 0.14cqw solid rgb(77 42 22 / 0.2);
+  border-radius: 2cqw;
+  background: rgb(255 245 214 / 0.83);
+  box-shadow: 0 1cqh 1.6cqw rgb(81 40 17 / 0.13);
+}
+
+.readingTitle {
+  color: rgb(59 36 21 / 0.5);
+  font-size: 0.7cqw;
+  font-weight: 800;
+  letter-spacing: 0.08cqw;
+}
+
+.reading {
+  display: grid;
+  align-content: center;
+  gap: 0.25cqh;
+  min-height: 0;
+  padding: 0.7cqh 1.1cqw;
+  border-left: 0.34cqw solid var(--style-kitchen-prep-station-terracotta);
+  border-radius: 0.8cqw 1.2cqw 1.2cqw 0.8cqw;
+  background: #fff3d0;
+  box-shadow: 0 0.5cqh 0.9cqw rgb(84 41 18 / 0.08);
+  transition:
+    opacity 360ms ease,
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reading[data-revealed="false"] {
+  opacity: 0.14;
+  transform: translateX(1.1cqw);
+}
+
+.reading[data-revealed="true"] {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reading > span {
+  color: rgb(59 36 21 / 0.52);
+  font-size: 0.64cqw;
+  font-weight: 800;
+  letter-spacing: 0.05cqw;
+}
+
+.reading strong {
+  font-size: 1.65cqw;
+  line-height: 1.02;
+}
+
+.reading:first-of-type strong {
+  color: var(--style-kitchen-prep-station-terracotta);
+  font-size: 2.45cqw;
+}
+
+.reading small {
+  color: rgb(59 36 21 / 0.62);
+  font-size: 0.68cqw;
+  font-weight: 700;
+}
+
+.processFoot {
+  margin: 0.3cqh 0 0;
+  color: rgb(59 36 21 / 0.58);
+  font-size: 0.68cqw;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+/* Scene 4 — the only peak image: one oversized bean cutaway. */
+.cutawayWorkbench {
+  position: relative;
+  display: grid;
+  grid-template-columns: 61cqw 1fr;
+  gap: 2cqw;
+  width: 100%;
+  height: 100%;
+  padding: 1cqh 1cqw;
+  border-radius: 2.5cqw;
+  background:
+    radial-gradient(circle at 38% 48%, rgb(255 201 110 / 0.25), transparent 37%),
+    linear-gradient(108deg, rgb(255 245 216 / 0.87), rgb(226 171 104 / 0.78));
+  box-shadow:
+    0 1.2cqh 2.1cqw rgb(91 43 18 / 0.14),
+    inset 0 0.35cqh 0 rgb(255 255 255 / 0.46);
+  overflow: hidden;
+}
+
+.cutawayCanvas {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+}
+
+.beanCutaway {
+  position: absolute;
+  left: -1.5cqw;
+  top: -3.7cqh;
+  width: 60cqw;
+  height: 52cqh;
+  overflow: visible;
+  filter: drop-shadow(0 1.2cqh 1.3cqw rgb(73 31 15 / 0.24));
+}
+
+.beanShell {
+  fill: #4f241b;
+  stroke: #3d1c17;
+  stroke-width: 13;
+}
+
+.cotyledon {
+  stroke: #6d2f20;
+  stroke-width: 11;
+}
+
+.cotyledonSeam {
+  fill: none;
+  stroke: rgb(255 221 154 / 0.65);
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.embryo {
+  fill: #f3c76f;
+  stroke: #6d3c23;
+  stroke-width: 5;
+  transform-origin: center;
+  transition:
+    opacity 340ms ease,
+    transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.embryo[data-revealed="false"] {
+  opacity: 0.18;
+  transform: scale(0.72);
+}
+
+.cellGrid,
+.cellFragments {
+  transition:
+    opacity 420ms ease,
+    filter 420ms ease;
+}
+
+.cellGrid circle {
+  fill: rgb(255 208 133 / 0.18);
+  stroke: rgb(255 228 176 / 0.5);
+  stroke-width: 4;
+}
+
+.cellFragments path {
+  fill: rgb(101 37 27 / 0.15);
+  stroke: rgb(255 215 151 / 0.34);
+  stroke-width: 4;
+}
+
+.cellGrid[data-revealed="false"],
+.cellFragments[data-revealed="false"] {
+  opacity: 0.08;
+  filter: saturate(0.3);
+}
+
+.cellGrid[data-revealed="true"],
+.cellFragments[data-revealed="true"] {
+  opacity: 1;
+  filter: none;
+}
+
+.embryoLabel {
+  position: absolute;
+  left: 27cqw;
+  top: 21cqh;
+  padding: 0.45cqh 0.72cqw;
+  border-radius: 999cqw;
+  color: #56301d;
+  font-size: 0.72cqw;
+  font-weight: 800;
+  background: rgb(255 238 194 / 0.88);
+}
+
+.penetrationLabel {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: 5.2cqw;
+  height: 5.2cqw;
+  border: 0.12cqw solid rgb(255 246 215 / 0.42);
+  border-radius: 50%;
+  color: #fff7db;
+  font-size: 0.82cqw;
+  font-weight: 800;
+  box-shadow: 0 0.75cqh 1.1cqw rgb(69 28 13 / 0.2);
+  transition:
+    opacity 360ms ease,
+    transform 540ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.penetrationLabel::after {
+  content: "";
+  position: absolute;
+  left: 4.5cqw;
+  top: 50%;
+  width: 12cqw;
+  height: 0.24cqh;
+  border-radius: 999cqw;
+  background: currentColor;
+  transform-origin: left center;
+}
+
+.acidLabel {
+  left: 1.5cqw;
+  top: 10cqh;
+  background: #a74f3b;
+}
+
+.acidLabel::after {
+  transform: rotate(15deg);
+}
+
+.heatLabel {
+  left: 3cqw;
+  bottom: 5cqh;
+  background: #d87831;
+}
+
+.heatLabel::after {
+  transform: rotate(-14deg);
+}
+
+.penetrationLabel[data-revealed="false"] {
+  opacity: 0.08;
+  transform: translateX(-2cqw) scale(0.8);
+}
+
+.penetrationLabel[data-revealed="true"] {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.cellChangeLabel {
+  position: absolute;
+  right: 0.6cqw;
+  bottom: 1.1cqh;
+  z-index: 5;
+  display: grid;
+  gap: 0.3cqh;
+  width: 24cqw;
+  padding: 1cqh 1.1cqw;
+  border-left: 0.32cqw solid var(--style-kitchen-prep-station-terracotta);
+  border-radius: 0.9cqw;
+  background: rgb(255 242 209 / 0.88);
+  box-shadow: 0 0.6cqh 1.1cqw rgb(74 31 14 / 0.13);
+  transition:
+    opacity 360ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cellChangeLabel[data-revealed="false"] {
+  opacity: 0.08;
+  transform: translateY(1.5cqh);
+}
+
+.cellChangeLabel[data-revealed="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cellChangeLabel strong {
+  font-size: 0.9cqw;
+}
+
+.cellChangeLabel span {
+  color: rgb(59 36 21 / 0.62);
+  font-size: 0.68cqw;
+  font-weight: 700;
+}
+
+.precursorTray {
+  align-self: stretch;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 1.2cqh;
+  min-width: 0;
+  padding: 2cqh 1.4cqw;
+  border: 0.14cqw solid rgb(73 39 20 / 0.18);
+  border-radius: 1.8cqw;
+  background:
+    linear-gradient(150deg, rgb(255 250 230 / 0.92), rgb(231 193 131 / 0.84));
+  box-shadow: 0 0.9cqh 1.4cqw rgb(79 37 16 / 0.13);
+  transition:
+    opacity 420ms ease,
+    transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 420ms ease;
+}
+
+.precursorTray[data-revealed="false"] {
+  opacity: 0.12;
+  filter: saturate(0.2);
+  transform: translateX(1.4cqw);
+}
+
+.precursorTray[data-revealed="true"] {
+  opacity: 1;
+  filter: none;
+  transform: translateX(0);
+}
+
+.precursorTitle {
+  color: rgb(59 36 21 / 0.58);
+  font-size: 0.7cqw;
+  font-weight: 800;
+  letter-spacing: 0.06cqw;
+}
+
+.precursorCells {
+  display: grid;
+  align-content: center;
+  gap: 1.1cqh;
+}
+
+.precursorCells span {
+  display: grid;
+  align-content: center;
+  min-height: 6.7cqh;
+  padding: 0.9cqh 1cqw;
+  border-left: 0.4cqw solid var(--style-kitchen-prep-station-herb);
+  border-radius: 0.8cqw 1.2cqw 1.2cqw 0.8cqw;
+  color: #2f4326;
+  font-size: 1.08cqw;
+  font-weight: 800;
+  background: #e6efc7;
+  box-shadow: 0 0.55cqh 0.9cqw rgb(69 76 42 / 0.1);
+}
+
+.precursorTray small {
+  color: rgb(59 36 21 / 0.58);
+  font-size: 0.68cqw;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+/* Scene 5 — dried beans hand off to a roast-driven aroma wheel. */
+.aromaWorkbench {
+  position: relative;
+  display: grid;
+  grid-template-columns: 29cqw 17cqw 1fr;
+  align-items: center;
+  gap: 2cqw;
+  width: 100%;
+  height: 100%;
+  padding: 1.2cqh 2cqw 2.6cqh;
+  border: 0.14cqw solid rgb(78 40 20 / 0.17);
+  border-radius: 2.5cqw;
+  background:
+    linear-gradient(115deg, rgb(255 249 227 / 0.89), rgb(231 189 121 / 0.79));
+  box-shadow: 0 1.2cqh 2.1cqw rgb(87 41 17 / 0.14);
+  overflow: hidden;
+}
+
+.driedBeanPlate {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 38cqh;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #fff9e9 0 43%, #ecc88d 44% 61%, #fff1d2 62% 100%);
+  box-shadow:
+    0 1.1cqh 1.7cqw rgb(83 39 17 / 0.16),
+    inset 0 0.35cqh 0 rgb(255 255 255 / 0.65);
+}
+
+.driedBeanPlate .stationStamp {
+  left: 50%;
+  top: 1.8cqh;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.driedBeans {
+  display: grid;
+  grid-template-columns: repeat(3, 5.4cqw);
+  gap: 1.1cqh 0.8cqw;
+  transform: rotate(-4deg);
+}
+
+.driedBeans span {
+  width: 5.2cqw;
+  height: 5.4cqh;
+  border: 0.12cqw solid #41261c;
+  border-radius: 58% 42% 54% 46%;
+  background:
+    linear-gradient(78deg, transparent 46%, rgb(231 178 111 / 0.34) 47% 52%, transparent 53%),
+    linear-gradient(145deg, #75503b, #4a2c22);
+  box-shadow: 0 0.55cqh 0.7cqw rgb(57 25 13 / 0.2);
+  transform: rotate(var(--bean-rotate, 0deg));
+}
+
+.roastHandoff {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 1cqh;
+  padding: 2cqh 1cqw;
+  border-top: 0.15cqw solid rgb(87 46 22 / 0.2);
+  border-bottom: 0.15cqw solid rgb(87 46 22 / 0.2);
+  text-align: center;
+}
+
+.roastHandoff span {
+  display: inline-flex;
+  padding: 0.55cqh 0.9cqw;
+  border-radius: 999cqw;
+  color: #fff6d9;
+  font-size: 0.78cqw;
+  font-weight: 800;
+  letter-spacing: 0.08cqw;
+  background: var(--style-kitchen-prep-station-terracotta);
+}
+
+.roastHandoff strong {
+  font-size: 0.98cqw;
+  line-height: 1.25;
+}
+
+.roastHandoff i {
+  color: var(--style-kitchen-prep-station-herb);
+  font-size: 3.2cqw;
+  font-style: normal;
+  line-height: 0.8;
+}
+
+.aromaWheel {
+  position: relative;
+  justify-self: center;
+  width: 27cqw;
+  height: 27cqw;
+  max-height: 42cqh;
+  border: 0.55cqw solid #fff3d2;
+  border-radius: 50%;
+  background: conic-gradient(
+    from -18deg,
+    #7d3928 0 20%,
+    #c46a37 20% 40%,
+    #d2a64b 40% 60%,
+    #72874d 60% 80%,
+    #b55b68 80% 100%
+  );
+  box-shadow:
+    0 1.1cqh 1.7cqw rgb(80 36 15 / 0.18),
+    inset 0 0 0 0.2cqw rgb(71 34 18 / 0.16);
+}
+
+.wheelCore {
+  position: absolute;
+  inset: 27%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: 0.6cqw;
+  border: 0.16cqw solid rgb(75 39 20 / 0.16);
+  border-radius: 50%;
+  color: var(--style-kitchen-prep-station-ink);
+  font-size: 0.84cqw;
+  font-weight: 800;
+  line-height: 1.05;
+  text-align: center;
+  background: #fff3d2;
+}
+
+.aromaWheel > span {
+  position: absolute;
+  z-index: 3;
+  display: inline-flex;
+  padding: 0.4cqh 0.62cqw;
+  border-radius: 999cqw;
+  color: #fff9e7;
+  font-size: 0.7cqw;
+  font-weight: 800;
+  background: rgb(52 29 18 / 0.62);
+  box-shadow: 0 0.35cqh 0.55cqw rgb(49 21 10 / 0.13);
+}
+
+.aromaWheel > span:nth-of-type(1) {
+  left: 39%;
+  top: 6%;
+}
+
+.aromaWheel > span:nth-of-type(2) {
+  right: 3%;
+  top: 35%;
+}
+
+.aromaWheel > span:nth-of-type(3) {
+  right: 15%;
+  bottom: 9%;
+}
+
+.aromaWheel > span:nth-of-type(4) {
+  left: 9%;
+  bottom: 15%;
+}
+
+.aromaWheel > span:nth-of-type(5) {
+  left: 2%;
+  top: 31%;
+}
+
+.aromaBoundary {
+  position: absolute;
+  left: 34cqw;
+  right: 4cqw;
+  bottom: 1cqh;
+  margin: 0;
+  color: rgb(59 36 21 / 0.58);
+  font-size: 0.68cqw;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Object-controller navigation: a five-cell sample tray, collapsed by default. */
+.sampleTray {
+  position: absolute;
+  left: 50%;
+  bottom: 1.8cqh;
+  z-index: 20;
+  display: block;
+  width: 28cqw;
+  height: 6.1cqh;
+  border: 0.14cqw solid rgb(72 34 17 / 0.34);
+  border-radius: 1.3cqw 1.3cqw 2cqw 2cqw;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.15), transparent 35%),
+    #8d4a2b;
+  box-shadow:
+    0 1cqh 1.8cqw rgb(69 30 12 / 0.22),
+    inset 0 0.3cqh 0 rgb(255 255 255 / 0.18);
+  transform: translateX(-50%);
+  transition:
+    width 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 320ms ease,
+    background-color 320ms ease;
+  overflow: hidden;
+}
+
+.sampleTray[data-expanded="true"] {
+  width: 70cqw;
+  height: 13.1cqh;
+  border-radius: 1.6cqw 1.6cqw 2.4cqw 2.4cqw;
+  background-color: #9c5731;
+}
+
+.trayToggle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7cqw;
+  width: 100%;
+  height: 2.1cqh;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  color: #fff2ce;
+  font: inherit;
+  cursor: pointer;
+  background: rgb(74 34 17 / 0.38);
+}
+
+.trayHandle {
+  width: 5.6cqw;
+  height: 0.45cqh;
+  border-radius: 999cqw;
+  background: rgb(255 235 195 / 0.58);
+  box-shadow: 0 0.2cqh 0.35cqw rgb(49 20 9 / 0.2);
+}
+
+.toggleHint {
+  max-width: 0;
+  opacity: 0;
+  font-size: 0.62cqw;
+  font-weight: 800;
+  letter-spacing: 0.06cqw;
+  text-transform: uppercase;
+  transition:
+    max-width 260ms ease,
+    opacity 220ms ease;
+}
+
+.sampleTray[data-expanded="true"] .toggleHint {
+  max-width: 8cqw;
+  opacity: 0.82;
+}
+
+.sampleCells {
+  position: absolute;
+  inset: 0 0 2.1cqh;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.35cqw;
+  min-width: 0;
+  min-height: 0;
+  padding: 0.45cqh 0.65cqw 0.7cqh;
+}
+
+.sampleCell {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  place-items: center;
+  gap: 0;
+  min-width: 0;
+  min-height: 0;
+  padding: 0.35cqh 0.35cqw;
+  border: 0.08cqw solid rgb(255 238 204 / 0.14);
+  border-radius: 0.8cqw;
+  color: #fff3d4;
+  font: inherit;
+  cursor: pointer;
+  background: rgb(65 29 15 / 0.16);
+  transition:
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 260ms ease,
+    box-shadow 260ms ease,
+    grid-template-columns 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sampleCell:hover,
+.sampleCell:focus-visible {
+  outline: 0.14cqw solid #ffe8ad;
+  outline-offset: -0.1cqw;
+  background: rgb(255 232 180 / 0.15);
+}
+
+.sampleCellActive {
+  background: rgb(255 224 161 / 0.23);
+  box-shadow: inset 0 0 0 0.12cqw rgb(255 236 196 / 0.36);
+  transform: translateY(-0.35cqh);
+}
+
+.sampleBean {
+  position: relative;
+  display: block;
+  width: 2.7cqw;
+  height: 2.65cqh;
+  border: 0.09cqw solid #351b13;
+  border-radius: 58% 42% 55% 45%;
+  background: linear-gradient(145deg, #8c5d42, #4d2c22);
+  box-shadow: 0 0.28cqh 0.45cqw rgb(39 15 7 / 0.28);
+  transition:
+    width 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 260ms ease;
+}
+
+.sampleBean i {
+  position: absolute;
+  left: 48%;
+  top: 12%;
+  bottom: 12%;
+  width: 0.1cqw;
+  border-radius: 999cqw;
+  background: rgb(255 224 176 / 0.38);
+  transform: rotate(8deg);
+}
+
+.sampleCellActive .sampleBean {
+  background: linear-gradient(145deg, #e2aa5e, #8d452c);
+  transform: rotate(-7deg) scale(1.08);
+}
+
+.sampleIndex,
+.sampleLabel {
+  position: absolute;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  pointer-events: none;
+  transition:
+    max-width 320ms ease,
+    opacity 240ms ease;
+}
+
+.sampleTray[data-expanded="true"] .sampleCell {
+  grid-template-columns: 4cqw minmax(0, 1fr);
+  grid-template-rows: 2.3cqh 1fr;
+  justify-items: start;
+  gap: 0.25cqh 0.6cqw;
+  padding: 0.7cqh 0.7cqw;
+}
+
+.sampleTray[data-expanded="true"] .sampleBean {
+  grid-row: 1 / 3;
+  width: 3.5cqw;
+  height: 4.4cqh;
+}
+
+.sampleTray[data-expanded="true"] .sampleIndex,
+.sampleTray[data-expanded="true"] .sampleLabel {
+  position: static;
+  max-width: 8cqw;
+  opacity: 1;
+}
+
+.sampleIndex {
+  align-self: end;
+  color: rgb(255 235 195 / 0.62);
+  font-size: 0.58cqw;
+  font-weight: 800;
+}
+
+.sampleLabel {
+  align-self: start;
+  font-size: 0.72cqw;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.root[data-language="zh"] .sceneHeader h1 {
+  font-size: 3.85cqw;
+  line-height: 1.08;
+  letter-spacing: -0.04cqw;
+}
+
+.root[data-language="zh"] .subtitle {
+  font-size: 1.18cqw;
+  line-height: 1.36;
+}
+
+.root[data-language="zh"] .beatCaption p {
+  font-size: 0.86cqw;
+}
+
+.root[data-language="zh"] .zoneFlow,
+.root[data-language="zh"] .processFoot,
+.root[data-language="zh"] .aromaBoundary {
+  line-height: 1.35;
+}
+
+.root[data-motion-off="true"] *,
+.root[data-motion-off="true"] *::before,
+.root[data-motion-off="true"] *::after {
+  animation: none !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+@media print {
+  .sampleTray {
+    display: none;
+  }
+}

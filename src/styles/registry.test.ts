@@ -53,8 +53,8 @@ describe("STYLE_REGISTRY topic catalog", () => {
     ]);
   });
 
-  it("registers the coordinated Topic Set through batch seven", () => {
-    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(118);
+  it("registers the coordinated Topic Set through the first 10-topic logical batch", () => {
+    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(128);
     expect(findTopic("interactive-dialogue-stage", "vocal-folds")).toBeDefined();
     expect(findTopic("cyanotype-drafting-table", "comet-anatomy")).toBeDefined();
     expect(findTopic("kinetic-type-punchline", "before-a")).toBeDefined();
@@ -80,5 +80,15 @@ describe("STYLE_REGISTRY topic catalog", () => {
     expect(findTopic("blackboard-chalk-talk", "hearing-path")).toBeDefined();
     expect(findTopic("liquid-glass", "safety-glass")).toBeDefined();
     expect(findTopic("subway-map-of-intent", "tea-cha-routes")).toBeDefined();
+    expect(findTopic("mid-century-grove", "monarch-migration")).toBeDefined();
+    expect(findTopic("kitchen-prep-station", "cocoa-fermentation")).toBeDefined();
+    expect(findTopic("soft-pastel-friendly", "chrysalis-rebuild")).toBeDefined();
+    expect(findTopic("maintainer-issue-brief", "ozone-hole")).toBeDefined();
+    expect(findTopic("studio-mixing-console", "tidal-time")).toBeDefined();
+    expect(findTopic("duotone-session", "dance-notation")).toBeDefined();
+    expect(findTopic("signal-pipeline-flow", "district-heat")).toBeDefined();
+    expect(findTopic("wabi-sabi-ceramic", "stone-to-soil")).toBeDefined();
+    expect(findTopic("solar-biennale-poster", "iron-from-stars")).toBeDefined();
+    expect(findTopic("warm-editorial-feature", "oral-to-written")).toBeDefined();
   });
 });

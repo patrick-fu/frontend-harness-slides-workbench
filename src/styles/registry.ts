@@ -28,6 +28,7 @@ import { quietLaunchWindowTopic } from "./01-quiet-launch-window";
 import { presolarGrainTopic } from "./01-presolar-grain";
 import { metricsWithoutNoiseTopic } from "./02-metrics-without-noise";
 import { repairAsStrategyTopic } from "./03-repair-as-strategy";
+import { stoneToSoilTopic } from "./wabi-sabi-ceramic-stone-to-soil";
 import { betterQuestionTopic } from "./04-better-question";
 import { vocalFoldsTopic } from "./04-vocal-folds";
 import { resilienceBlueprintTopic } from "./05-resilience-blueprint";
@@ -65,12 +66,16 @@ import { threeTracksReleaseTopic } from "./09-three-tracks-release";
 import { teaChaRoutesTopic } from "./09-tea-cha-routes";
 import { durableToolTopic } from "./10-durable-tool";
 import { eventToInsightTopic } from "./11-event-to-insight";
+import { districtHeatTopic } from "./signal-pipeline-flow-district-heat";
 import { engineeringWhiteboardExplainerTopic } from "./engineering-whiteboard-explainer";
 import { waterTowerTopic } from "./engineering-whiteboard-water-tower";
 import { onboardingThatBreathesTopic } from "./12-onboarding-that-breathes";
+import { chrysalisRebuildTopic } from "./soft-pastel-friendly-chrysalis-rebuild";
 import { rawNotesCleanBriefTopic } from "./13-raw-notes-clean-brief";
+import { cocoaFermentationTopic } from "./kitchen-prep-station-cocoa-fermentation";
 import { twoTeamsOneArtifactTopic } from "./14-two-teams-one-artifact";
 import { tuningOperatingModelTopic } from "./15-tuning-operating-model";
+import { tidalTimeTopic } from "./studio-mixing-console-tidal-time";
 import { incidentLearnsTopic } from "./16-incident-learns";
 import EditorialBroadsheet17, {
   getMetadata as getMetadata17,
@@ -100,10 +105,13 @@ import { morningAfterLaunchTopic } from "./17-morning-after-launch";
 import { rogueWaveTopic } from "./18-rogue-wave";
 import { productGetsCoverTopic } from "./18-product-gets-cover";
 import { usefulWeekNotesTopic } from "./19-useful-week-notes";
+import { oralToWrittenTopic } from "./warm-editorial-feature-oral-to-written";
 import { argumentInMarginsTopic } from "./20-argument-in-margins";
 import { hiddenTextTopic } from "./scholars-vellum-hidden-text";
 import { publicLightProgramTopic } from "./21-public-light-program";
+import { ironFromStarsTopic } from "./solar-biennale-poster-iron-from-stars";
 import { fiveTakesRoomTopic } from "./22-five-takes-room";
+import { danceNotationTopic } from "./duotone-session-dance-notation";
 import { communityPrintsItselfTopic } from "./23-community-prints-itself";
 import { archiveReassembledTopic } from "./24-archive-reassembled";
 import WoodblockPrint25, {
@@ -171,6 +179,7 @@ import { safetyGlassTopic } from "./liquid-glass-safety-glass";
 import { toolchainDesktopTopic } from "./34-toolchain-desktop";
 import { voyagerBoundaryTopic } from "./35-voyager-boundary";
 import { calmerGrowthModelTopic } from "./35-calmer-growth-model";
+import { monarchMigrationTopic } from "./mid-century-grove-monarch-migration";
 import { privateBetaSalonTopic } from "./36-private-beta-salon";
 import { urushiCureTopic } from "./37-urushi-cure";
 import { newHabitRunbookTopic } from "./37-new-habit-runbook";
@@ -208,6 +217,7 @@ import { evidenceSmallerTeamTopic } from "./41-evidence-smaller-team";
 import { impactEvidenceTopic } from "./42-impact-evidence";
 import { chooseBoundaryTopic } from "./42-choose-boundary";
 import { readyAgentPickupTopic } from "./43-ready-agent-pickup";
+import { ozoneHoleTopic } from "./maintainer-issue-brief-ozone-hole";
 import { stationPlatformStudyTopic } from "./44-station-platform-study";
 import { rewriteBrokenFlowTopic } from "./45-rewrite-broken-flow";
 import { launchGateLedgerTopic } from "./46-launch-gate-ledger";
@@ -259,6 +269,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata03,
     },
     repairAsStrategyTopic,
+    stoneToSoilTopic,
   ]),
   buildEntry("interactive-dialogue-stage", [
     {
@@ -345,6 +356,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata11,
     },
     eventToInsightTopic,
+    districtHeatTopic,
   ]),
   buildEntry("engineering-whiteboard-explainer", [
     engineeringWhiteboardExplainerTopic,
@@ -359,6 +371,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata12,
     },
     onboardingThatBreathesTopic,
+    chrysalisRebuildTopic,
   ]),
   buildEntry("kitchen-prep-station", [
     {
@@ -369,6 +382,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata13,
     },
     rawNotesCleanBriefTopic,
+    cocoaFermentationTopic,
   ]),
   buildEntry("collaborative-pairing-board", [
     {
@@ -389,6 +403,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata15,
     },
     tuningOperatingModelTopic,
+    tidalTimeTopic,
   ]),
   buildEntry("debug-reaction-board", [
     {
@@ -431,6 +446,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata19,
     },
     usefulWeekNotesTopic,
+    oralToWrittenTopic,
   ]),
   buildEntry("scholars-vellum", [
     {
@@ -452,6 +468,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata21,
     },
     publicLightProgramTopic,
+    ironFromStarsTopic,
   ]),
   buildEntry("duotone-session", [
     {
@@ -462,6 +479,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata22,
     },
     fiveTakesRoomTopic,
+    danceNotationTopic,
   ]),
   buildEntry("riso-print-zine", [
     {
@@ -600,6 +618,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata35,
     },
     calmerGrowthModelTopic,
+    monarchMigrationTopic,
   ]),
   buildEntry("after-hours-luxe", [
     {
@@ -686,6 +705,7 @@ export const STYLE_REGISTRY: StyleRegistryEntry[] = [
       getMetadata: getMetadata43,
     },
     readyAgentPickupTopic,
+    ozoneHoleTopic,
   ]),
   buildEntry("field-notes-report", [
     {

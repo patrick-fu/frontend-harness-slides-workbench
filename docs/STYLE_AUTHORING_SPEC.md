@@ -182,8 +182,15 @@ interface StyleTopicModule {
   model: string;           // 编写模型，如 "Doubao-Seed-Evolving", "GPT-5.5"
   component: React.ComponentType<BespokeStyleProps>;  // 默认导出的组件
   getMetadata: (lang: "en" | "zh") => StyleMetadata;  // metadata 函数
+  navigation?: TopicNavigationProfile;
+  sources?: readonly TopicSource[];
+  transitionScore?: Readonly<TopicTransitionScore>;
 }
 ```
+
+通用 legacy Topic 可以不声明后三项。`CROSS_DOMAIN_TOPIC_SET_PLAN` 统筹的
+49 个新 Topic 必须声明精确 `navigation`、claim-scoped `sources` 和四条 edge
+的 `transitionScore`；具体值以计划对应 Style 小节为准。
 
 ---
 
@@ -211,7 +218,12 @@ interface StyleTopicModule {
 - 不要在 Style 内维护 `outgoingScene`、不要渲染 full-screen outgoing clone、不要读取 `isTransitionClone`。
 - `reducedMotion` 或 thumbnail/frozen 场景下传入 `reducedMotion={true}`，track 会关闭 transition。
 - 每个 Style 必须显式声明 `transitionKind`，或为每条 scene edge 声明 `transitionMap`，避免全仓库退化成同一种横向滑动。
-- 当前支持：`slide-x`、`slide-y`、`fade`、`scale-fade`、`hard-cut`、`wipe`、`page-flip`、`glitch`。
+- 当前 canonical vocabulary 共 21 种：`hard-cut`、`crossfade`、
+  `dip-to-color`、`push-x`、`push-y`、`diagonal-pan`、`zoom-through`、
+  `dolly-pull`、`focus-swap`、`linear-wipe`、`iris-open`、`multi-blind`、
+  `page-turn`、`paper-fold`、`ink-spread`、`grid-reveal`、`split-merge`、
+  `card-carousel`、`glitch`、`scanline`、`afterimage`。现有 Topic 仍可使用
+  legacy `slide-x`、`slide-y`、`fade`、`scale-fade`、`wipe`、`page-flip`。
 
 ```tsx
 // ✅ 正确
@@ -394,6 +406,9 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 
 完成 Topic 模块后，在 `src/styles/registry.ts` 中注册。当前 registry 仍是集中枚举文件，属于已知冲突热点；新增 Topic 应把所有元信息放进自己的 Topic 模块，registry 只做一行 import 和数组追加。
 
+并行 Topic Set 施工时，Topic agent 只修改自己的 TSX/CSS/test；主 integrator
+统一修改 registry、registry test 与 E2E audit，避免共享文件冲突。
+
 ### 7.1 导入
 
 ```ts
@@ -420,6 +435,11 @@ buildEntry("engineering-whiteboard-explainer", [
 - 题材由 Agent 自由选择（可以讲任何故事）
 - 同一个风格下可以有完全不同题材的 Topic
 
+本节只适用于没有统筹 assignment 的普通 Topic。参与
+`CROSS_DOMAIN_TOPIC_SET_PLAN` 的 Topic 已锁定题材、5-Scene 叙事、Viewing
+Mode、Visual Engine、Motion、Navigation、Transition Score、事实边界与
+forbidden defaults；实现 agent 不得自行换题或放宽这些约束。
+
 示例：
 - 风格 `minimal-product-keynote` + 题材 "Product Keynote"
 - 风格 01 (Executive Silence) + 题材 "产品发布会"
@@ -439,7 +459,9 @@ buildEntry("engineering-whiteboard-explainer", [
 - 交互细节
 - CSS 实现方式（inline style / CSS module / styled-jsx）
 
-**唯一硬性约束**：第 5 节列出的设计约束（cqw/cqh 单位、SpatialSceneTrack 或等价空间轨道、reducedMotion 支持等）。
+**通用硬性约束**：第 5 节列出的设计约束（cqw/cqh 单位、
+SpatialSceneTrack 或等价空间轨道、reducedMotion 支持等）。统筹 Topic Set
+还必须满足计划正文与本规范第 4 节扩展元信息；表现层自由不能覆盖这些契约。
 
 ---
 
@@ -462,4 +484,13 @@ buildEntry("engineering-whiteboard-explainer", [
 - [ ] 双语内容（en + zh）
 - [ ] `getMetadata` 包含完整的 5 个场景 beats 定义
 - [ ] 字体在 `getMetadata().fonts` 中声明
-- [ ] 已在 `registry.ts` 中追加 Topic 模块常量
+- [ ] 统筹 Topic 声明精确 `navigation`、`sources`、`transitionScore`
+- [ ] 至少 3 个 claim-scoped HTTPS 权威 sources，字段完整且事实边界保守
+- [ ] 根导航渲染 `data-topic-navigation` 及 geometry/carrier/invocation/feedback
+- [ ] 导航具备 click/tap 与 keyboard fallback，并隔离全局导航事件
+- [ ] multi-beat Scene 声明稳定的 `motion` 或 `reserved` beat layout
+- [ ] reduced-motion、thumbnail、frozen 都渲染确定性 settled frame
+- [ ] focused unit test、typecheck、`git diff --check` 通过
+- [ ] 完成 1920×1080 EN/ZH、导航、console、overflow 视觉 Review
+- [ ] 无临时 preview、无限动画、remote hotlink 或未知许可资产
+- [ ] 主 integrator 已在 `registry.ts`、registry test 与 E2E audit 完成集中注册

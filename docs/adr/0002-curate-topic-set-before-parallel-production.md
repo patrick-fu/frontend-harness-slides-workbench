@@ -90,12 +90,11 @@ Style-specific expression while retaining shared lifecycle and deterministic
 reduced-motion fallback. Topic components must not create their own outgoing
 clone lifecycle.
 
-The 21-primitives vocabulary is a planned infrastructure expansion, not a claim
-about current runtime support. The current shared track supports eight kinds;
-types, CSS, interruption behavior, protocol tests, frozen mode, and reduced
-motion must be extended before Topic implementations may reference the new
-scores. A Signature Effect is an edge modifier over a shared primitive and may
-not replace that fallback lifecycle.
+At decision time, the 21-primitives vocabulary was a planned infrastructure
+expansion rather than a claim about runtime support. That expansion has since
+landed: the shared track now exposes all 21 canonical primitives while retaining
+the legacy kinds for existing Topics. A Signature Effect remains an edge
+modifier over a shared primitive and may not replace that fallback lifecycle.
 
 ## Navigation decision
 
@@ -131,8 +130,15 @@ The complete proposed matrix and production gates live in
 `docs/CROSS_DOMAIN_TOPIC_SET_PLAN.md`.
 
 The user confirmed the matrix and authorized implementation on 2026-07-10.
-Production therefore proceeds as 49 independent Topic tasks in batches of
-three, with centralized integration, review, commit, and push after each batch.
+Production therefore proceeds as 49 independent Topic tasks with centralized
+integration. The first 21 Topics shipped in seven historical three-Topic
+commits. The user then aligned production concurrency and commit scope: the
+remaining 28 Topics use logical commit batches of 10, 10, and 8. The current
+batch started all unfinished Topics concurrently under the instruction active at
+that time. Starting with the next batch, production is capped at four Topic
+agents concurrently and refills a slot whenever one finishes. Concurrency does
+not change commit scope: each batch is integrated, reviewed, committed, and
+pushed only after all of its Topics pass.
 
 ## Considered alternatives
 

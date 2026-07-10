@@ -21,7 +21,12 @@ Current routing and registry contract:
 - The active catalog currently contains 49 registered styles.
 - The cross-domain Topic Set is confirmed and authorized in
   `docs/CROSS_DOMAIN_TOPIC_SET_PLAN.md`. Implementation runs as 49 independent
-  Topic tasks in batches of three, with a commit and push after every batch.
+  Topic tasks. After the first 21 Topics shipped in seven historical three-Topic
+  commits, the remaining 28 use logical commit batches of 10, 10, and 8. The
+  current batch started all unfinished Topics concurrently; from the next batch
+  onward, at most four Topic agents run at once and completed slots are refilled.
+  Every Topic has a different agent, and a batch is committed only after all of
+  its Topics pass centralized integration and review.
 
 ---
 
