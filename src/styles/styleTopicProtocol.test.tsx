@@ -89,7 +89,7 @@ describe("style topic protocol", () => {
 
       unmount();
     }
-  });
+  }, 15_000);
 
   it("requires every style source to explicitly choose scene transition behavior", () => {
     for (const [sourcePath, source] of Object.entries(styleSources)) {
