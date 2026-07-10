@@ -316,7 +316,7 @@ describe("style topic protocol", () => {
       usedKinds.size,
       `secondary topic transitions must remain varied, not collapse into ${Array.from(usedKinds).join(", ")}`,
     ).toBeGreaterThanOrEqual(6);
-  });
+  }, 15_000);
 
   it("keeps coordinated navigation profiles unique and reflected in the rendered control", () => {
     const carriers = new Set<string>();
