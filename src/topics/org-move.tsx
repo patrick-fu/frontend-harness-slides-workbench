@@ -9,7 +9,7 @@ import { useFLIP } from "../hooks/useFLIP";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./org-move.module.css";
 
 type Lang = "en" | "zh";

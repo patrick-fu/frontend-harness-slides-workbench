@@ -8,7 +8,7 @@ import {
 import { useFLIP } from "../hooks/useFLIP";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 
 type Lang = "en" | "zh";
 type FragmentTone = "headline" | "body" | "annotation" | "stamp";
@@ -1534,7 +1534,6 @@ function TopicStage({
   return (
     <div
       data-topic-id="rebuilt-archive"
-      data-style-id="analog-cutout-collage"
       data-motion={motionDisabled ? "off" : "on"}
       style={{
         containerType: "size",

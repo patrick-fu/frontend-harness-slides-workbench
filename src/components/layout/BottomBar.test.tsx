@@ -1,9 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import type { SceneMetadata } from "../../types";
+import type { TopicMetadata } from "../../domain/topic";
 import BottomBar from "./BottomBar";
 
-function scenes(beatCounts = [1, 2, 3, 2, 1]): SceneMetadata[] {
+function scenes(
+  beatCounts = [1, 2, 3, 2, 1],
+): TopicMetadata["scenes"] {
   return beatCounts.map((count, index) => ({
     id: index + 1,
     title: `Scene ${index + 1}`,

@@ -15,12 +15,12 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionKind,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./pigment-without-touch.module.css";
 
 type Language = "en" | "zh";

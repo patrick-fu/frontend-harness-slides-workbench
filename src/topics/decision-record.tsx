@@ -5,7 +5,7 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import styles from "./decision-record.module.css";
 
 // ─── Content ────────────────────────────────────────────────────────────────
@@ -324,11 +324,11 @@ function TopicStage({
       document.head.appendChild(link);
     };
     inject(
-      "style-42-fonts-source-serif",
+      "decision-record-fonts-source-serif",
       "https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600;700&display=swap",
     );
     inject(
-      "style-42-fonts-noto-serif-sc",
+      "decision-record-fonts-noto-serif-sc",
       "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap",
     );
   }, []);
@@ -716,9 +716,8 @@ function TopicStage({
 
   return (
     <div
-      data-testid="style-42-root"
+      data-testid="decision-record-root"
       data-topic-id="decision-record"
-      data-style-id="decision-record"
       className={rootClasses}
     >
             <SpatialSceneTrack

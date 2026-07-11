@@ -600,7 +600,6 @@ describe("Arcade Boss Fight: egg mimicry — stage-local safety", () => {
         expect(root?.parentElement).toBe(stage);
         expect(root).toHaveClass(styleClasses.root);
         expect(root).toHaveAttribute("data-topic-id", "egg-mimicry");
-        expect(root).toHaveAttribute("data-style-id", "arcade-boss-fight");
         expect(root).toHaveAttribute("data-motion", "off");
         expect(root).toHaveAttribute("data-pixel-art", "original");
         expect(trackShell).toHaveClass(styleClasses.trackShell);

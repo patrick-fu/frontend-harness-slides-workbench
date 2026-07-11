@@ -1,14 +1,16 @@
 import { test, expect, Page } from "@playwright/test";
-import { CATALOG_MANIFEST } from "../src/styles/catalog-manifest.generated";
-import { CURATED_TOPIC_CONTRACTS } from "../src/styles/curated-topic-contract";
+import { CATALOG_MANIFEST } from "../src/catalog/manifest.generated";
 
 const CATALOG_TOPIC_COUNT = CATALOG_MANIFEST.reduce(
   (total, style) => total + style.topics.length,
   0,
 );
 
-const CURATED_TOPIC_KEYS = CURATED_TOPIC_CONTRACTS.map(
-  ({ styleId, topicId }) => ({ styleId, topicId }),
+const TOPIC_KEYS = CATALOG_MANIFEST.flatMap((styleGroup) =>
+  styleGroup.topics.map((topic) => ({
+    styleId: styleGroup.style.id,
+    topicId: topic.id,
+  })),
 );
 
 const SCENE_TRANSITION_KINDS = [
@@ -68,7 +70,7 @@ async function openLab(
   const query = buildQuery({
     view: "lab",
     style: styleId,
-    topic: opts.topic ?? getPrimaryTopicId(styleId),
+    topic: opts.topic ?? getFirstTopicId(styleId),
     scene,
     beat,
     pure: opts.pure ?? false,
@@ -126,14 +128,18 @@ async function measureOverflow(
 }
 
 function getManifestStyle(styleId: string) {
-  const style = CATALOG_MANIFEST.find((entry) => entry.id === styleId);
-  if (!style) throw new Error(`Style is missing from the manifest: ${styleId}`);
-  return style;
+  const styleGroup = CATALOG_MANIFEST.find(
+    (entry) => entry.style.id === styleId,
+  );
+  if (!styleGroup) {
+    throw new Error(`Style is missing from the manifest: ${styleId}`);
+  }
+  return styleGroup;
 }
 
-function getPrimaryTopicId(styleId: string): string {
+function getFirstTopicId(styleId: string): string {
   const topic = getManifestStyle(styleId).topics[0];
-  if (!topic) throw new Error(`Style is missing its primary Topic: ${styleId}`);
+  if (!topic) throw new Error(`Style is missing its first Topic: ${styleId}`);
   return topic.id;
 }
 
@@ -141,7 +147,7 @@ function getPrimaryTopicId(styleId: string): string {
 function getLastBeat(
   styleId: string,
   scene: number,
-  topicId: string = getPrimaryTopicId(styleId),
+  topicId: string = getFirstTopicId(styleId),
 ): number {
   const topic = getManifestTopic(styleId, topicId);
   const sceneMetadata = topic.metadata.en.scenes.find(
@@ -173,9 +179,9 @@ function getLastTopic(styleId: string): string {
   return topic.id;
 }
 
-/** Get the first multi-beat Scene from the primary Topic's authored metadata. */
+/** Get the first multi-beat Scene from the first Topic's authored metadata. */
 function getFirstMultiBeatScene(styleId: string): number {
-  const topic = getManifestTopic(styleId, getPrimaryTopicId(styleId));
+  const topic = getManifestTopic(styleId, getFirstTopicId(styleId));
   const scene = topic.metadata.en.scenes.find(
     (candidate) => candidate.beats.length > 1,
   );
@@ -183,45 +189,38 @@ function getFirstMultiBeatScene(styleId: string): number {
 }
 
 function getFirstStyleId(): string {
-  const style = CATALOG_MANIFEST[0];
-  if (!style) throw new Error("The manifest has no Styles");
-  return style.id;
+  const styleGroup = CATALOG_MANIFEST[0];
+  if (!styleGroup) throw new Error("The manifest has no Styles");
+  return styleGroup.style.id;
 }
 
 function getLastStyleId(): string {
-  const style = CATALOG_MANIFEST[CATALOG_MANIFEST.length - 1];
-  if (!style) throw new Error("The manifest has no Styles");
-  return style.id;
+  const styleGroup = CATALOG_MANIFEST[CATALOG_MANIFEST.length - 1];
+  if (!styleGroup) throw new Error("The manifest has no Styles");
+  return styleGroup.style.id;
 }
 
 function getBandBoundaryTransitions(): Array<{ from: string; to: string }> {
-  return CATALOG_MANIFEST.flatMap((style, index) => {
-    const nextStyle =
+  return CATALOG_MANIFEST.flatMap((styleGroup, index) => {
+    const nextStyleGroup =
       CATALOG_MANIFEST[(index + 1) % CATALOG_MANIFEST.length];
-    if (!nextStyle) return [];
+    if (!nextStyleGroup) return [];
 
-    const band = getManifestTopic(
-      style.id,
-      getPrimaryTopicId(style.id),
-    ).metadata.en.band;
-    const nextBand = getManifestTopic(
-      nextStyle.id,
-      getPrimaryTopicId(nextStyle.id),
-    ).metadata.en.band;
-
-    return band === nextBand ? [] : [{ from: style.id, to: nextStyle.id }];
+    return styleGroup.style.band === nextStyleGroup.style.band
+      ? []
+      : [{ from: styleGroup.style.id, to: nextStyleGroup.style.id }];
   });
 }
 
-const CURATED_AUDIT_LANGUAGES = ["en", "zh"] as const;
+const TOPIC_AUDIT_LANGUAGES = ["en", "zh"] as const;
 
-type CuratedAuditLanguage = (typeof CURATED_AUDIT_LANGUAGES)[number];
+type TopicAuditLanguage = (typeof TOPIC_AUDIT_LANGUAGES)[number];
 
-interface CuratedHeroFinalFrame {
+interface TopicHeroFinalFrame {
   styleId: string;
   topicId: string;
   topicName: string;
-  language: CuratedAuditLanguage;
+  language: TopicAuditLanguage;
   scene: number;
   beat: number;
   evidenceBoundary?: string;
@@ -240,56 +239,59 @@ function getManifestTopic(styleId: string, topicId: string) {
   return topic;
 }
 
-const CURATED_HERO_FINAL_FRAMES: CuratedHeroFinalFrame[] =
-  CURATED_TOPIC_KEYS.flatMap(({ styleId, topicId }) => {
+const TOPIC_HERO_FINAL_FRAMES: TopicHeroFinalFrame[] = TOPIC_KEYS.flatMap(
+  ({ styleId, topicId }) => {
     const topic = getManifestTopic(styleId, topicId);
 
-    return CURATED_AUDIT_LANGUAGES.map((language) => {
+    return TOPIC_AUDIT_LANGUAGES.map((language) => {
       const metadata = topic.metadata[language];
       const heroScene = metadata.scenes.find(
         (scene) => scene.id === metadata.heroScene,
       );
       if (!heroScene) {
         throw new Error(
-          `Curated Topic hero scene is missing: ${styleId}/${topicId}/${language}`,
+          `Topic hero scene is missing: ${styleId}/${topicId}/${language}`,
         );
       }
 
       const finalBeat = heroScene.beats[heroScene.beats.length - 1];
       if (!finalBeat) {
         throw new Error(
-          `Curated Topic hero scene has no beats: ${styleId}/${topicId}/${language}`,
+          `Topic hero scene has no beats: ${styleId}/${topicId}/${language}`,
         );
       }
 
       return {
         styleId,
         topicId,
-        topicName: topic.topic[language],
+        topicName: topic.title[language],
         language,
         scene: heroScene.id,
         beat: finalBeat.id,
         evidenceBoundary:
-          topic.evidence?.kind === "illustrative"
+          (topic.evidence.kind === "illustrative" ||
+            topic.evidence.kind === "mixed") &&
+          topic.evidence.display === "envelope"
             ? topic.evidence.boundary[language]
             : undefined,
       };
     });
-  });
+  },
+);
 
-const CURATED_HERO_FRAME_AUDITS = CURATED_TOPIC_KEYS.map(
+const TOPIC_HERO_FRAME_AUDITS = TOPIC_KEYS.map(
   ({ styleId, topicId }) => ({
     styleId,
     topicId,
-    frames: CURATED_HERO_FINAL_FRAMES.filter(
+    frames: TOPIC_HERO_FINAL_FRAMES.filter(
       (frame) => frame.styleId === styleId && frame.topicId === topicId,
     ),
   }),
 );
 
-async function openCuratedHeroFinalFrame(
+async function openTopicHeroFinalFrame(
   page: Page,
-  frame: CuratedHeroFinalFrame,
+  frame: TopicHeroFinalFrame,
 ) {
   const query = buildQuery({
     view: "lab",
@@ -345,13 +347,14 @@ async function getFrozenStageState(page: Page) {
 // ─── 1 & 2: All registered styles — console errors + overflow (parallel) ───
 
 test.describe.parallel("Style audit — all registered styles", () => {
-  for (const style of CATALOG_MANIFEST) {
-    test(`style ${style.id} scene 1 beat 0 — no console errors, no overflow`, async ({
+  for (const styleGroup of CATALOG_MANIFEST) {
+    const styleId = styleGroup.style.id;
+    test(`style ${styleId} scene 1 beat 0 — no console errors, no overflow`, async ({
       page,
     }) => {
       const errors = attachErrorCollector(page);
 
-      await openLab(page, style.id, 1, 0, { frozen: true });
+      await openLab(page, styleId, 1, 0, { frozen: true });
 
       // Verify stage is rendered
       await expect(page.locator('[data-testid="stage"]')).toBeVisible();
@@ -363,18 +366,18 @@ test.describe.parallel("Style audit — all registered styles", () => {
       // Assert no console / page errors
       expect(
         errors,
-        `Console errors in style ${style.id}: ${errors.join("; ")}`,
+        `Console errors in style ${styleId}: ${errors.join("; ")}`,
       ).toEqual([]);
 
       // Assert no horizontal or vertical overflow beyond 2px tolerance
       const { overflowX, overflowY } = await measureOverflow(page);
       expect(
         overflowX,
-        `Style ${style.id} scene 1 overflows horizontally by ${overflowX}px`,
+        `Style ${styleId} scene 1 overflows horizontally by ${overflowX}px`,
       ).toBeLessThanOrEqual(2);
       expect(
         overflowY,
-        `Style ${style.id} scene 1 overflows vertically by ${overflowY}px`,
+        `Style ${styleId} scene 1 overflows vertically by ${overflowY}px`,
       ).toBeLessThanOrEqual(2);
 
       const transitionState = await page.evaluate(() => {
@@ -397,26 +400,26 @@ test.describe.parallel("Style audit — all registered styles", () => {
 
       expect(
         transitionState.panelCount,
-        `Style ${style.id} must keep spatial scene panels mounted`,
+        `Style ${styleId} must keep spatial scene panels mounted`,
       ).toBeGreaterThanOrEqual(5);
       expect(
         SCENE_TRANSITION_KINDS,
-        `Style ${style.id} must expose a supported scene transition kind`,
+        `Style ${styleId} must expose a supported scene transition kind`,
       ).toContain(transitionState.transitionKind);
-      expect(transitionState.activeScene, `Style ${style.id}`).toBe("1");
-      expect(transitionState.activeState, `Style ${style.id}`).toBe("active");
+      expect(transitionState.activeScene, `Style ${styleId}`).toBe("1");
+      expect(transitionState.activeState, `Style ${styleId}`).toBe("active");
       expect(
         transitionState.cloneCount,
-        `Style ${style.id} must not render outgoing transition clones`,
+        `Style ${styleId} must not render outgoing transition clones`,
       ).toBe(0);
     });
 
-    test(`style ${style.id} first multi-beat scene declares beat layout mode`, async ({
+    test(`style ${styleId} first multi-beat scene declares beat layout mode`, async ({
       page,
     }) => {
-      const scene = getFirstMultiBeatScene(style.id);
+      const scene = getFirstMultiBeatScene(styleId);
 
-      await openLab(page, style.id, scene, 0, { frozen: true });
+      await openLab(page, styleId, scene, 0, { frozen: true });
       await expect(page.locator('[data-testid="spatial-scene-track"]')).toBeVisible();
 
       const layoutState = await page.evaluate(() => {
@@ -437,17 +440,17 @@ test.describe.parallel("Style audit — all registered styles", () => {
         };
       });
 
-      expect(layoutState.activeScene, `Style ${style.id}`).toBe(String(scene));
+      expect(layoutState.activeScene, `Style ${styleId}`).toBe(String(scene));
       expect(
         layoutState.layoutMode,
-        `Style ${style.id} scene ${scene} must declare a beat layout mode`,
+        `Style ${styleId} scene ${scene} must declare a beat layout mode`,
       ).toMatch(/^(motion|reserved)$/);
     });
   }
 });
 
-test.describe.parallel("Curated Topic hero-frame audit", () => {
-  for (const audit of CURATED_HERO_FRAME_AUDITS) {
+test.describe.parallel("Topic hero-frame audit", () => {
+  for (const audit of TOPIC_HERO_FRAME_AUDITS) {
     test(
       `${audit.styleId}/${audit.topicId} EN and ZH hero final frames are frozen and settled`,
       async ({ page }) => {
@@ -456,7 +459,7 @@ test.describe.parallel("Curated Topic hero-frame audit", () => {
 
         for (const frame of audit.frames) {
           const errorCountBeforeFrame = errors.length;
-          await openCuratedHeroFinalFrame(page, frame);
+          await openTopicHeroFinalFrame(page, frame);
 
           const topicMenuTrigger = page
             .locator("button[aria-haspopup='menu']:not([aria-label])")
@@ -648,7 +651,7 @@ test.describe("Navigation", () => {
 
   test("ArrowLeft at scene 1 beat 0 wraps to previous topic", async ({ page }) => {
     await openLab(page, "objective-swiss-grid", 1, 0, {
-      topic: getPrimaryTopicId("objective-swiss-grid"),
+      topic: getFirstTopicId("objective-swiss-grid"),
       frozen: true,
     });
 
@@ -783,7 +786,7 @@ test.describe("Minimal Product Keynote transition contract", () => {
     expect(trackState.cloneCount).toBe(0);
   });
 
-  test("every primary topic frame keeps active content inside the stage", async ({
+  test("every first Topic frame keeps active content inside the stage", async ({
     page,
   }) => {
     for (const [sceneText, beatCount] of Object.entries(MINIMAL_PRODUCT_KEYNOTE_BEATS)) {
@@ -1048,7 +1051,7 @@ test.describe("URL query persistence", () => {
     const query = parseQueryFromUrl(page.url());
     expect(query.view).toBe("lab");
     expect(query.style).toBe("front-page-broadsheet");
-    expect(query.topic).toBe(getPrimaryTopicId("front-page-broadsheet"));
+    expect(query.topic).toBe(getFirstTopicId("front-page-broadsheet"));
     expect(Number(query.scene)).toBe(3);
     expect(Number(query.beat)).toBe(1);
     expect(query.frozen).toBe("1");
@@ -1075,7 +1078,7 @@ test.describe("URL query persistence", () => {
     const query = buildQuery({
       view: "lab",
       style: "liquid-glass",
-      topic: getPrimaryTopicId("liquid-glass"),
+      topic: getFirstTopicId("liquid-glass"),
       scene: 4,
       beat: 0,
       frozen: true,
@@ -1090,7 +1093,7 @@ test.describe("URL query persistence", () => {
     const parsed = parseQueryFromUrl(page.url());
     expect(parsed.view).toBe("lab");
     expect(parsed.style).toBe("liquid-glass");
-    expect(parsed.topic).toBe(getPrimaryTopicId("liquid-glass"));
+    expect(parsed.topic).toBe(getFirstTopicId("liquid-glass"));
     expect(Number(parsed.scene)).toBe(4);
     expect(Number(parsed.beat)).toBe(0);
   });
@@ -1119,25 +1122,25 @@ test.describe("URL query persistence", () => {
 // ─── 8: Cross-style cycling ────────────────────────────────────────────────
 
 test.describe("Cross-style cycling", () => {
-  test("ArrowRight from last style primary topic advances to its secondary topic", async ({
+  test("ArrowRight from last style first Topic advances to its second Topic", async ({
     page,
   }) => {
     const lastStyleId = getLastStyleId();
-    const [primaryTopic, secondaryTopic] = getTopicSequence(lastStyleId);
-    if (!primaryTopic || !secondaryTopic) {
+    const [firstTopic, secondTopic] = getTopicSequence(lastStyleId);
+    if (!firstTopic || !secondTopic) {
       throw new Error(`Last Style must expose at least two Topics: ${lastStyleId}`);
     }
     const lastScene = 5;
-    const lastBeat = getLastBeat(lastStyleId, lastScene, primaryTopic);
+    const lastBeat = getLastBeat(lastStyleId, lastScene, firstTopic);
 
     await openLab(page, lastStyleId, lastScene, lastBeat, {
-      topic: primaryTopic,
+      topic: firstTopic,
       frozen: true,
     });
 
     const queryBefore = parseQueryFromUrl(page.url());
     expect(queryBefore.style).toBe(lastStyleId);
-    expect(queryBefore.topic).toBe(primaryTopic);
+    expect(queryBefore.topic).toBe(firstTopic);
     expect(Number(queryBefore.scene)).toBe(lastScene);
     expect(Number(queryBefore.beat)).toBe(lastBeat);
 
@@ -1146,12 +1149,12 @@ test.describe("Cross-style cycling", () => {
 
     const queryAfter = parseQueryFromUrl(page.url());
     expect(queryAfter.style).toBe(lastStyleId);
-    expect(queryAfter.topic).toBe(secondaryTopic);
+    expect(queryAfter.topic).toBe(secondTopic);
     expect(Number(queryAfter.scene)).toBe(1);
     expect(Number(queryAfter.beat)).toBe(0);
   });
 
-  test("ArrowRight from last style final topic wraps to first style primary topic", async ({
+  test("ArrowRight from last style final topic wraps to first style first Topic", async ({
     page,
   }) => {
     const lastStyleId = getLastStyleId();
@@ -1169,18 +1172,18 @@ test.describe("Cross-style cycling", () => {
 
     const queryAfter = parseQueryFromUrl(page.url());
     expect(queryAfter.style).toBe(firstStyleId);
-    expect(queryAfter.topic).toBe(getPrimaryTopicId(firstStyleId));
+    expect(queryAfter.topic).toBe(getFirstTopicId(firstStyleId));
     expect(Number(queryAfter.scene)).toBe(1);
     expect(Number(queryAfter.beat)).toBe(0);
   });
 
-  test("ArrowLeft from first style primary topic wraps to last style final topic", async ({
+  test("ArrowLeft from first style first Topic wraps to last style final topic", async ({
     page,
   }) => {
     const firstStyleId = getFirstStyleId();
 
     await openLab(page, firstStyleId, 1, 0, {
-      topic: getPrimaryTopicId(firstStyleId),
+      topic: getFirstTopicId(firstStyleId),
       frozen: true,
     });
 
@@ -1228,7 +1231,7 @@ test.describe("Cross-style cycling", () => {
             `${from}/${topic} should advance to ${from}/${nextTopic}`,
           ).toBe(nextTopic);
         } else {
-          const nextPrimaryTopic = getPrimaryTopicId(to);
+          const nextPrimaryTopic = getFirstTopicId(to);
           expect(
             queryAfter.style,
             `${from}/${topic} should advance to ${to}/${nextPrimaryTopic}`,
@@ -1295,7 +1298,7 @@ test.describe("Catalog / overview view", () => {
     await expect(page.locator('[data-testid="catalog-filter-bar"]')).toBeVisible();
     await expect(page.locator('[data-testid="filter-panel"]')).toBeVisible();
     await expect(page.getByRole("group", { name: "Category" })).toBeVisible();
-    await expect(page.getByRole("group", { name: "Model" })).toBeVisible();
+    await expect(page.getByRole("group", { name: "Model ID" })).toBeVisible();
     await expect(page.locator('[data-testid="catalog-summary"]')).toHaveText(
       `All ${CATALOG_TOPIC_COUNT} Topics · ${CATALOG_MANIFEST.length} Styles`,
     );
@@ -1314,13 +1317,11 @@ test.describe("Catalog / overview view", () => {
 
     const selectedBand = "minimal-keynote";
     const selectedModel = "Doubao-Seed-Evolving";
-    const topicsInSelectedBand = CATALOG_MANIFEST.flatMap((style) =>
-      style.topics.filter(
-        (topic) => topic.metadata.en.band === selectedBand,
-      ),
+    const topicsInSelectedBand = CATALOG_MANIFEST.flatMap((styleGroup) =>
+      styleGroup.style.band === selectedBand ? styleGroup.topics : [],
     );
     const topicsInSelectedBandAndModel = topicsInSelectedBand.filter(
-      (topic) => topic.model === selectedModel,
+      (topic) => topic.modelId === selectedModel,
     );
     const category = page.getByRole("group", { name: "Category" });
     await category
@@ -1335,7 +1336,7 @@ test.describe("Catalog / overview view", () => {
     expect(query.model).toBeUndefined();
 
     const model = page
-      .getByRole("group", { name: "Model" })
+      .getByRole("group", { name: "Model ID" })
       .getByRole("button", { name: /^Doubao-Seed-Evolving,/ });
     await model.click();
     await expect(page.locator('[data-testid="topic-card"]')).toHaveCount(
@@ -1374,7 +1375,7 @@ test.describe("Catalog / overview view", () => {
       buildQuery({
         view: "lab",
         style: "front-page-broadsheet",
-        topic: getPrimaryTopicId("front-page-broadsheet"),
+        topic: getFirstTopicId("front-page-broadsheet"),
         scene: 1,
         beat: 0,
       }),
@@ -1390,7 +1391,7 @@ test.describe("Catalog / overview view", () => {
     const query = parseQueryFromUrl(page.url());
     expect(query.view).toBe("lab");
     expect(query.style).toBe("front-page-broadsheet");
-    expect(query.topic).toBe(getPrimaryTopicId("front-page-broadsheet"));
+    expect(query.topic).toBe(getFirstTopicId("front-page-broadsheet"));
     expect(Number(query.scene)).toBe(1);
     expect(Number(query.beat)).toBe(0);
   });
@@ -1478,7 +1479,7 @@ test.describe("Player / lab view", () => {
     await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
     const style = CATALOG_MANIFEST.find(
-      (entry) => entry.id === "minimal-product-keynote",
+      (entry) => entry.style.id === "minimal-product-keynote",
     );
     if (!style) throw new Error("Minimal Product Keynote is missing from the manifest");
 

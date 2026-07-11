@@ -164,7 +164,7 @@ function dispatchNativeTouch(
   element.dispatchEvent(event);
 }
 
-describe("Spotlight Quote Poster / Freedive — coordinated topic contract", () => {
+describe("Spotlight Quote Poster / Freedive — Topic contract", () => {
   it("exports the planned topic, ambient footlight navigation, research packet, and score", () => {
     expect(freedive.id).toBe("freedive");
     expect(freedive.title).toEqual({ en: "Freedive", zh: "自由潜水" });

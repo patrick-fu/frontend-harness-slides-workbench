@@ -7,11 +7,11 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./vocal-folds.module.css";
 
 type Language = TopicStageProps["language"];

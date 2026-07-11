@@ -1,16 +1,18 @@
 import { describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, within } from "@testing-library/react";
-import type { StyleMetadata, StyleRegistryEntry, StyleTopic } from "../types";
+import { lazy } from "react";
+import type {
+  RuntimeStyleGroup,
+  RuntimeTopic,
+} from "../catalog/runtime-registry";
+import type { Band } from "../domain/style";
+import type { TopicMetadata, TopicStageProps } from "../domain/topic";
 import OverviewView from "./OverviewView";
 
-function makeMetadata(
-  styleId: string,
-  band: StyleMetadata["band"],
-): StyleMetadata {
+const EmptyStage = (_props: TopicStageProps) => null;
+
+function makeMetadata(): TopicMetadata {
   return {
-    id: styleId,
-    band,
-    name: `Style ${styleId}`,
     theme: "A test theme",
     densityLabel: "Sparse",
     heroScene: 1,
@@ -25,32 +27,46 @@ function makeMetadata(
 function makeTopic(
   styleId: string,
   id: string,
-  model: string,
-  band: StyleMetadata["band"],
-): StyleTopic {
+  modelId: RuntimeTopic["modelId"],
+): RuntimeTopic {
+  const metadata = makeMetadata();
   return {
     id,
-    topic: { en: `Topic ${id}`, zh: `题材 ${id}` },
-    model,
-    component: () => null,
-    getMetadata: () => makeMetadata(styleId, band),
+    styleId,
+    title: { en: `Topic ${id}`, zh: `题材 ${id}` },
+    modelId,
+    metadata: { en: metadata, zh: metadata },
+    navigation: { mode: "none" },
+    transitionScore: {
+      "1->2": "hard-cut",
+      "2->3": "hard-cut",
+      "3->4": "hard-cut",
+      "4->5": "hard-cut",
+    },
+    evidence: { kind: "none" },
+    modulePath: `../topics/${id}.tsx`,
+    Stage: lazy(async () => ({ default: EmptyStage })),
+    loadStage: async () => EmptyStage,
   };
 }
 
-const registry: StyleRegistryEntry[] = [
-  {
-    id: "alpha",
-    name: { en: "Alpha", zh: "甲" },
-    topics: [
-      makeTopic("alpha", "a-one", "GPT 5.5", "minimal-keynote"),
-      makeTopic("alpha", "a-two", "Claude 4", "minimal-keynote"),
-    ],
-  },
-  {
-    id: "beta",
-    name: { en: "Beta", zh: "乙" },
-    topics: [makeTopic("beta", "b-one", "GPT 5.5", "text-report")],
-  },
+function makeGroup(
+  id: string,
+  name: { en: string; zh: string },
+  band: Band,
+  topics: RuntimeTopic[],
+): RuntimeStyleGroup {
+  return { style: { id, name, band }, topics };
+}
+
+const registry: readonly RuntimeStyleGroup[] = [
+  makeGroup("alpha", { en: "Alpha", zh: "甲" }, "minimal-keynote", [
+    makeTopic("alpha", "a-one", "GPT 5.5"),
+    makeTopic("alpha", "a-two", "Claude Opus 4.8"),
+  ]),
+  makeGroup("beta", { en: "Beta", zh: "乙" }, "text-report", [
+    makeTopic("beta", "b-one", "GPT 5.5"),
+  ]),
 ];
 
 const defaultProps = {
@@ -125,7 +141,7 @@ describe("OverviewView", () => {
     fireEvent.touchStart(link);
 
     expect(onPrefetchTopic).toHaveBeenCalledTimes(3);
-    expect(onPrefetchTopic).toHaveBeenLastCalledWith("alpha", "a-one");
+    expect(onPrefetchTopic).toHaveBeenLastCalledWith("a-one");
   });
 
   it("summarizes all Topics and Styles, then hands user facet choices to the URL owner", () => {
@@ -154,7 +170,7 @@ describe("OverviewView", () => {
     render(
       <OverviewView
         {...defaultProps}
-        filters={{ bands: ["text-report"], models: ["Claude 4"] }}
+        filters={{ bands: ["text-report"], models: ["Claude Opus 4.8"] }}
       />,
     );
 

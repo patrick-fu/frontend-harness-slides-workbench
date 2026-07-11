@@ -1,4 +1,4 @@
-/* ─── Style 14: Collaborative Pairing Board ─────────────────────────────
+/* ─── Collaborative Pairing Board ─────────────────────────────
    Clean light neutral ground. Calm professional accent. Two-party
    collaboration structure with even-handed neutral typography.
    All sizing in cqw/cqh. No px/vw/vh.
@@ -10,8 +10,8 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-14-bg, #f8f9fa);
-  color: var(--style-14-ink, #212529);
+  background: var(--topic-bg, #f8f9fa);
+  color: var(--topic-ink, #212529);
   font-family: "Inter", system-ui, -apple-system, sans-serif;
 }
 
@@ -94,7 +94,7 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--style-14-accent, #4dabf7);
+  color: var(--topic-accent, #4dabf7);
   margin-bottom: 2cqh;
 }
 
@@ -104,12 +104,12 @@
   line-height: 1.0;
   letter-spacing: -0.04em;
   margin: 0;
-  color: var(--style-14-ink, #212529);
+  color: var(--topic-ink, #212529);
 }
 
 .orgTitle em {
   font-style: normal;
-  color: var(--style-14-accent, #4dabf7);
+  color: var(--topic-accent, #4dabf7);
 }
 
 .orgSub {
@@ -117,7 +117,7 @@
   font-weight: 400;
   line-height: 1.4;
   margin-top: 2.5cqh;
-  color: var(--style-14-muted, #6c757d);
+  color: var(--topic-muted, #6c757d);
   max-width: 55cqw;
 }
 
@@ -134,7 +134,7 @@
 .orgStatVal {
   font-size: 4cqw;
   font-weight: 800;
-  color: var(--style-14-accent, #4dabf7);
+  color: var(--topic-accent, #4dabf7);
   line-height: 1;
   display: block;
   letter-spacing: -0.02em;
@@ -143,7 +143,7 @@
 .orgStatLbl {
   font-size: 1.3cqw;
   font-weight: 500;
-  color: var(--style-14-muted, #6c757d);
+  color: var(--topic-muted, #6c757d);
   margin-top: 0.5cqh;
   display: block;
 }
@@ -165,7 +165,7 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--style-14-accent, #4dabf7);
+  color: var(--topic-accent, #4dabf7);
 }
 
 .chartTitle {
@@ -174,7 +174,7 @@
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0.3cqh 0 0 0;
-  color: var(--style-14-ink, #212529);
+  color: var(--topic-ink, #212529);
 }
 
 .chartArea {
@@ -226,7 +226,7 @@
 }
 
 .teamCard {
-  background: var(--style-14-panel, #ffffff);
+  background: var(--topic-panel, #ffffff);
   border-radius: 1.2cqw;
   padding: 2cqh 2cqw;
   box-shadow: 0 0.3cqh 1.5cqh rgba(0, 0, 0, 0.06);
@@ -250,7 +250,7 @@
 
 .teamCard.ceo {
   min-width: 20cqw;
-  border-color: var(--style-14-accent, #4dabf7);
+  border-color: var(--topic-accent, #4dabf7);
   box-shadow: 0 0.5cqh 2cqh rgba(77, 171, 247, 0.15);
 }
 
@@ -277,7 +277,7 @@
 .teamName {
   font-size: 1.6cqw;
   font-weight: 700;
-  color: var(--style-14-ink, #212529);
+  color: var(--topic-ink, #212529);
   text-align: center;
   line-height: 1.2;
 }
@@ -285,14 +285,14 @@
 .teamRole {
   font-size: 1.2cqw;
   font-weight: 500;
-  color: var(--style-14-muted, #6c757d);
+  color: var(--topic-muted, #6c757d);
   text-align: center;
 }
 
 .teamCount {
   font-size: 1.1cqw;
   font-weight: 600;
-  color: var(--style-14-accent, #4dabf7);
+  color: var(--topic-accent, #4dabf7);
   background: rgba(77, 171, 247, 0.1);
   padding: 0.3cqh 0.8cqw;
   border-radius: 1cqw;
@@ -337,7 +337,7 @@
 .leadName {
   font-size: 3cqw;
   font-weight: 800;
-  color: var(--style-14-ink, #212529);
+  color: var(--topic-ink, #212529);
   display: block;
   line-height: 1.1;
 }
@@ -345,7 +345,7 @@
 .leadTitle {
   font-size: 1.6cqw;
   font-weight: 500;
-  color: var(--style-14-muted, #6c757d);
+  color: var(--topic-muted, #6c757d);
   display: block;
   margin-top: 0.5cqh;
 }
@@ -359,7 +359,7 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--style-14-accent, #4dabf7);
+  color: var(--topic-accent, #4dabf7);
   margin-bottom: 1.5cqh;
   display: block;
 }
@@ -371,7 +371,7 @@
 }
 
 .memberCard {
-  background: var(--style-14-panel, #ffffff);
+  background: var(--topic-panel, #ffffff);
   border-radius: 1cqw;
   padding: 1.5cqh 1.5cqw;
   display: flex;
@@ -412,13 +412,13 @@
 .memberName {
   font-size: 1.4cqw;
   font-weight: 600;
-  color: var(--style-14-ink, #212529);
+  color: var(--topic-ink, #212529);
 }
 
 .memberRole {
   font-size: 1.1cqw;
   font-weight: 400;
-  color: var(--style-14-muted, #6c757d);
+  color: var(--topic-muted, #6c757d);
 }
 
 /* ── Scene 4: Growth Metrics ───────────────────────────────────────────── */
@@ -457,7 +457,7 @@
 .growthYear {
   font-size: 3cqw;
   font-weight: 800;
-  color: var(--style-14-accent, #4dabf7);
+  color: var(--topic-accent, #4dabf7);
   min-width: 8cqw;
   font-variant-numeric: tabular-nums;
 }
@@ -473,7 +473,7 @@
 
 .growthBar {
   height: 100%;
-  background: linear-gradient(90deg, var(--style-14-accent, #4dabf7), #74c0fc);
+  background: linear-gradient(90deg, var(--topic-accent, #4dabf7), #74c0fc);
   border-radius: 1cqh;
   transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
@@ -492,7 +492,7 @@
 .growthDesc {
   font-size: 1.4cqw;
   font-weight: 500;
-  color: var(--style-14-muted, #6c757d);
+  color: var(--topic-muted, #6c757d);
   min-width: 20cqw;
 }
 
@@ -513,19 +513,19 @@
   line-height: 1.1;
   letter-spacing: -0.03em;
   margin: 0;
-  color: var(--style-14-ink, #212529);
+  color: var(--topic-ink, #212529);
   max-width: 70cqw;
 }
 
 .closingBig em {
   font-style: normal;
-  color: var(--style-14-accent, #4dabf7);
+  color: var(--topic-accent, #4dabf7);
 }
 
 .closingSub {
   font-size: 2.2cqw;
   font-weight: 400;
-  color: var(--style-14-muted, #6c757d);
+  color: var(--topic-muted, #6c757d);
   margin-top: 3cqh;
   max-width: 55cqw;
   line-height: 1.4;
@@ -556,7 +556,7 @@
 .closingValText {
   font-size: 1.5cqw;
   font-weight: 600;
-  color: var(--style-14-ink, #212529);
+  color: var(--topic-ink, #212529);
 }
 
 /* ── Navigation ────────────────────────────────────────────────────────── */
@@ -578,7 +578,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  background: var(--style-14-ink, #212529);
+  background: var(--topic-ink, #212529);
   opacity: 0.1;
   transition:
     opacity 0.3s ease,
@@ -593,7 +593,7 @@
 .navDotActive {
   opacity: 0.5;
   width: 5cqw;
-  background: var(--style-14-accent, #4dabf7);
+  background: var(--topic-accent, #4dabf7);
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */

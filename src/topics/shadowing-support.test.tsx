@@ -17,5 +17,8 @@ it("keeps the notebook-folio navigation and observed-workflow transitions", () =
     "3->4": "slide-y",
     "4->5": "page-flip",
   });
-  expect(shadowingSupport.evidence).toEqual({ kind: "none" });
+  expect(shadowingSupport.evidence).toMatchObject({
+    kind: "illustrative",
+    display: "envelope",
+  });
 });

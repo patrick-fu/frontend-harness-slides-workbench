@@ -5,11 +5,11 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./chapter-zero.module.css";
 
@@ -33,7 +33,7 @@ const EVIDENCE = {
     en: "Illustrative title-card scenario: the reel, opening credit, cast, and closing text are presentation fiction, not external factual claims.",
     zh: "示例标题卡场景：卷标、开场字幕、演职和收尾文字均为演示虚构内容，并非外部事实主张。",
   },
-  display: "stage",
+  display: "envelope",
 } as const;
 
 const BEAT_LAYOUT_MODES: Partial<Record<number, BeatLayoutMode>> = {

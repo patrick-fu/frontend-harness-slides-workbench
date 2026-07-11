@@ -5,8 +5,8 @@ import {
   type TopicMetadata,
   type TopicStageProps,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { BeatLayoutMode, SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { BeatLayoutMode, SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 
 type Lang = "en" | "zh";
 type SceneId = 1 | 2 | 3 | 4 | 5;

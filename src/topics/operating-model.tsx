@@ -9,7 +9,7 @@ import {
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./operating-model.module.css";
 
 type Lang = "en" | "zh";

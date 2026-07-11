@@ -1,15 +1,15 @@
-/* ── Style 33: Liquid Glass (Museum Vitrine) ───────────────────────────── */
+/* ── Liquid Glass (Museum Vitrine) ───────────────────────────── */
 
-:root {
-  --style-33-bg: #e8e4df;
-  --style-33-ink: #2a2520;
-  --style-33-accent: #c9a96e;
-  --style-33-accent2: #8b9d8b;
-  --style-33-panel: rgba(255, 255, 255, 0.6);
-  --style-33-border: rgba(255, 255, 255, 0.8);
-  --style-33-edge: rgba(255, 255, 255, 0.95);
-  --style-33-shadow: rgba(42, 37, 32, 0.08);
-  --style-33-dim: rgba(42, 37, 32, 0.5);
+.root {
+  --topic-bg: #e8e4df;
+  --topic-ink: #2a2520;
+  --topic-accent: #c9a96e;
+  --topic-accent2: #8b9d8b;
+  --topic-panel: rgba(255, 255, 255, 0.6);
+  --topic-border: rgba(255, 255, 255, 0.8);
+  --topic-edge: rgba(255, 255, 255, 0.95);
+  --topic-shadow: rgba(42, 37, 32, 0.08);
+  --topic-dim: rgba(42, 37, 32, 0.5);
 }
 
 .root {
@@ -17,8 +17,8 @@
   height: 100%;
   position: relative;
   overflow: hidden;
-  background: var(--style-33-bg);
-  color: var(--style-33-ink);
+  background: var(--topic-bg);
+  color: var(--topic-ink);
   font-family: "Inter", system-ui, sans-serif;
   user-select: none;
 }
@@ -92,7 +92,7 @@
   }
 }
 
-/* ── Transition Track (legacy, kept for backward compat) ───────────────── */
+/* ── Scene transition track ───────────────── */
 
 .transitionTrack {
   position: relative;
@@ -132,25 +132,25 @@
   font-weight: 700;
   letter-spacing: -0.02em;
   margin: 0;
-  color: var(--style-33-ink);
+  color: var(--topic-ink);
 }
 
 .dashboardSubtitle {
   font-size: 2cqh;
-  color: var(--style-33-ink);
+  color: var(--topic-ink);
   opacity: 0.6;
   margin: 0;
 }
 
 .dashboardBadge {
   padding: 0.8cqh 1.5cqw;
-  background: var(--style-33-panel);
+  background: var(--topic-panel);
   backdrop-filter: blur(12px);
-  border: 1px solid var(--style-33-border);
+  border: 1px solid var(--topic-border);
   border-radius: 1cqh;
   font-size: 1.8cqh;
   font-weight: 500;
-  box-shadow: 0 0.2cqh 1cqh var(--style-33-shadow);
+  box-shadow: 0 0.2cqh 1cqh var(--topic-shadow);
 }
 
 .kpiRow {
@@ -160,16 +160,16 @@
 }
 
 .kpiCard {
-  background: var(--style-33-panel);
+  background: var(--topic-panel);
   backdrop-filter: blur(16px);
-  border: 1px solid var(--style-33-border);
+  border: 1px solid var(--topic-border);
   border-radius: 1.5cqh;
   padding: 2cqh 1.5cqw;
   display: flex;
   flex-direction: column;
   gap: 0.8cqh;
   position: relative;
-  box-shadow: 0 0.4cqh 2cqh var(--style-33-shadow);
+  box-shadow: 0 0.4cqh 2cqh var(--topic-shadow);
 }
 
 /* Glass top-edge highlight */
@@ -180,7 +180,7 @@
   left: 1cqw;
   right: 1cqw;
   height: 0.25cqh;
-  background: linear-gradient(90deg, transparent, var(--style-33-edge), transparent);
+  background: linear-gradient(90deg, transparent, var(--topic-edge), transparent);
   border-radius: 1.5cqh 1.5cqh 0 0;
   pointer-events: none;
 }
@@ -226,9 +226,9 @@
 }
 
 .chartPanel {
-  background: var(--style-33-panel);
+  background: var(--topic-panel);
   backdrop-filter: blur(16px);
-  border: 1px solid var(--style-33-border);
+  border: 1px solid var(--topic-border);
   border-radius: 1.5cqh;
   padding: 2cqh 1.5cqw;
   display: flex;
@@ -236,7 +236,7 @@
   gap: 1.5cqh;
   min-height: 0;
   position: relative;
-  box-shadow: 0 0.4cqh 2cqh var(--style-33-shadow);
+  box-shadow: 0 0.4cqh 2cqh var(--topic-shadow);
 }
 
 .chartPanel::before {
@@ -246,7 +246,7 @@
   left: 1.5cqw;
   right: 1.5cqw;
   height: 0.25cqh;
-  background: linear-gradient(90deg, transparent, var(--style-33-edge), transparent);
+  background: linear-gradient(90deg, transparent, var(--topic-edge), transparent);
   border-radius: 1.5cqh 1.5cqh 0 0;
   pointer-events: none;
 }
@@ -275,7 +275,7 @@
 .chartBar {
   flex: 1;
   border-radius: 0.6cqh 0.6cqh 0 0;
-  background: linear-gradient(180deg, var(--style-33-accent), rgba(201, 169, 110, 0.4));
+  background: linear-gradient(180deg, var(--topic-accent), rgba(201, 169, 110, 0.4));
   transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   min-height: 1cqh;
   position: relative;
@@ -300,9 +300,9 @@
 }
 
 .activityPanel {
-  background: var(--style-33-panel);
+  background: var(--topic-panel);
   backdrop-filter: blur(16px);
-  border: 1px solid var(--style-33-border);
+  border: 1px solid var(--topic-border);
   border-radius: 1.5cqh;
   padding: 2cqh 1.5cqw;
   flex: 1;
@@ -312,7 +312,7 @@
   min-height: 0;
   overflow: hidden;
   position: relative;
-  box-shadow: 0 0.4cqh 2cqh var(--style-33-shadow);
+  box-shadow: 0 0.4cqh 2cqh var(--topic-shadow);
 }
 
 .activityPanel::before {
@@ -322,7 +322,7 @@
   left: 1.5cqw;
   right: 1.5cqw;
   height: 0.25cqh;
-  background: linear-gradient(90deg, transparent, var(--style-33-edge), transparent);
+  background: linear-gradient(90deg, transparent, var(--topic-edge), transparent);
   border-radius: 1.5cqh 1.5cqh 0 0;
   pointer-events: none;
 }
@@ -341,7 +341,7 @@
   align-items: center;
   gap: 1cqw;
   padding: 0.8cqh 0;
-  border-bottom: 1px solid var(--style-33-border);
+  border-bottom: 1px solid var(--topic-border);
 }
 
 .activityItem:last-child {
@@ -390,12 +390,12 @@
 }
 
 .backBtn {
-  background: var(--style-33-panel);
+  background: var(--topic-panel);
   backdrop-filter: blur(12px);
-  border: 1px solid var(--style-33-border);
+  border: 1px solid var(--topic-border);
   border-radius: 1cqh;
   padding: 1cqh 1.5cqw;
-  color: var(--style-33-ink);
+  color: var(--topic-ink);
   font-size: 1.8cqh;
   cursor: pointer;
   display: flex;
@@ -431,16 +431,16 @@
 }
 
 .metricCard {
-  background: var(--style-33-panel);
+  background: var(--topic-panel);
   backdrop-filter: blur(16px);
-  border: 1px solid var(--style-33-border);
+  border: 1px solid var(--topic-border);
   border-radius: 1.5cqh;
   padding: 2.5cqh 2cqw;
   display: flex;
   flex-direction: column;
   gap: 1cqh;
   position: relative;
-  box-shadow: 0 0.4cqh 2cqh var(--style-33-shadow);
+  box-shadow: 0 0.4cqh 2cqh var(--topic-shadow);
 }
 
 .metricCard::before {
@@ -450,7 +450,7 @@
   left: 2cqw;
   right: 2cqw;
   height: 0.25cqh;
-  background: linear-gradient(90deg, transparent, var(--style-33-edge), transparent);
+  background: linear-gradient(90deg, transparent, var(--topic-edge), transparent);
   border-radius: 1.5cqh 1.5cqh 0 0;
   pointer-events: none;
 }
@@ -467,7 +467,7 @@
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.03em;
-  color: var(--style-33-ink);
+  color: var(--topic-ink);
 }
 
 .metricTrend {
@@ -504,9 +504,9 @@
 }
 
 .glassCard {
-  background: var(--style-33-panel);
+  background: var(--topic-panel);
   backdrop-filter: blur(16px);
-  border: 1px solid var(--style-33-border);
+  border: 1px solid var(--topic-border);
   border-radius: 1.5cqh;
   padding: 2cqh 1.5cqw;
   display: flex;
@@ -514,7 +514,7 @@
   gap: 1cqh;
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   position: relative;
-  box-shadow: 0 0.4cqh 2cqh var(--style-33-shadow);
+  box-shadow: 0 0.4cqh 2cqh var(--topic-shadow);
 }
 
 .glassCard::before {
@@ -524,7 +524,7 @@
   left: 1.5cqw;
   right: 1.5cqw;
   height: 0.25cqh;
-  background: linear-gradient(90deg, transparent, var(--style-33-edge), transparent);
+  background: linear-gradient(90deg, transparent, var(--topic-edge), transparent);
   border-radius: 1.5cqh 1.5cqh 0 0;
   pointer-events: none;
 }
@@ -532,7 +532,7 @@
 .glassCard:hover {
   transform: translateY(-0.5cqh);
   border-color: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 0.8cqh 3cqh var(--style-33-shadow);
+  box-shadow: 0 0.8cqh 3cqh var(--topic-shadow);
 }
 
 .cardIcon {
@@ -591,7 +591,7 @@
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
-  color: var(--style-33-ink);
+  color: var(--topic-ink);
   margin: 0;
 }
 
@@ -630,7 +630,7 @@
   font-weight: 800;
   letter-spacing: -0.03em;
   margin: 0;
-  color: var(--style-33-ink);
+  color: var(--topic-ink);
 }
 
 .summarySub {
@@ -691,7 +691,7 @@
 }
 
 .navDotActive {
-  background: var(--style-33-accent);
+  background: var(--topic-accent);
   transform: scale(1.3);
 }
 

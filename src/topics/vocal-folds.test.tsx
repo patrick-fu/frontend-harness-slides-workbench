@@ -90,7 +90,7 @@ function renderStage(
   };
 }
 
-describe("Vocal Folds — coordinated Topic contract", () => {
+describe("Vocal Folds — Topic contract", () => {
   it("exports the planned topic, stage-plan navigation, facts packet, and score", () => {
     expect(topic).toMatchObject({
       id: "vocal-folds",

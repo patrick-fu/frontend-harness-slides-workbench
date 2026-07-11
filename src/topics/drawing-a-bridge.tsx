@@ -3,10 +3,9 @@ import {
   type TopicDefinition,
   type TopicStageProps,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
-import { curatedNavigationAttributes } from "../styles/curated-topic-contract";
 import styles from "./drawing-a-bridge.module.css";
 
 /* ───────────────────────── palette (real hex) ───────────────────────── */
@@ -457,7 +456,11 @@ function TopicStage({
       {/* revision-index navigation prototype */}
       {!isThumbnail && (
         <nav
-          {...curatedNavigationAttributes("cyanotype-drafting-table", "drawing-a-bridge")}
+          data-topic-navigation="true"
+          data-navigation-geometry="edge-scale"
+          data-navigation-carrier="bridge-revision-index"
+          data-navigation-invocation="persistent"
+          data-navigation-feedback="mechanical-displacement"
           className={styles.revIndex}
           aria-label={pack.navTitle}
         >

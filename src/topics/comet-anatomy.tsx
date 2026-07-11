@@ -8,7 +8,7 @@ import {
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./comet-anatomy.module.css";
 
 type Language = TopicStageProps["language"];
@@ -841,7 +841,6 @@ function TopicStage({
       ]
         .filter(Boolean)
         .join(" ")}
-      data-style-id="cyanotype-drafting-table"
       data-topic-id="comet-anatomy"
       data-current-scene={activeScene}
       data-motion-state={motionOff ? "settled" : "measured"}
@@ -899,6 +898,6 @@ export default defineTopic({
       en: "Educational schematic: the drawings synthesize broad comet physics with 67P-specific reference measurements; individual nuclei, activity patterns, tails, and orbit displays vary by comet and observation time.",
       zh: "教学示意图：图中综合了通用彗星物理与 67P 的参考测量；不同彗星及不同观测时段的彗核、活动模式、彗尾和轨道显示都会不同。",
     },
-    display: "stage",
+  display: "envelope",
   },
 });

@@ -9,7 +9,7 @@ import { useFLIP } from "../hooks/useFLIP";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./hard-thing.module.css";
 
 type Language = "en" | "zh";

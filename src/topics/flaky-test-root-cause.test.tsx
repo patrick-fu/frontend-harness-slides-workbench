@@ -17,5 +17,8 @@ it("keeps the status-bar navigation and root-cause transition score", () => {
     "3->4": "slide-x",
     "4->5": "hard-cut",
   });
-  expect(flakyTestRootCause.evidence).toEqual({ kind: "none" });
+  expect(flakyTestRootCause.evidence).toMatchObject({
+    kind: "illustrative",
+    display: "envelope",
+  });
 });

@@ -14,7 +14,7 @@ import {
 } from "../domain/topic";
 import SpatialSceneTrack, {
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./field-notes.module.css";
 

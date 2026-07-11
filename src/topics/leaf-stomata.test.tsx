@@ -81,7 +81,7 @@ function dispatchPointer(
 
 afterEach(() => cleanup());
 
-describe("Leaf Stomata — coordinated topic contract", () => {
+describe("Leaf Stomata — Topic contract", () => {
   it("exports the planned topic, navigation profile, and exact transition score", () => {
     expect(topic.id).toBe("leaf-stomata");
     expect(topic.title).toEqual({

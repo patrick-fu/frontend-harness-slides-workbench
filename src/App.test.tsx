@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import App from "./App";
-import { CATALOG_MANIFEST } from "./styles/catalog-manifest.generated";
+import { CATALOG_MANIFEST } from "./catalog/manifest.generated";
 
 const CATALOG_TOPIC_COUNT = CATALOG_MANIFEST.reduce(
   (total, style) => total + style.topics.length,

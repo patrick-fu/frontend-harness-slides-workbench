@@ -1,14 +1,14 @@
-/* ── Style 43: Maintainer Issue Brief ─────────────────────────────────── */
+/* ── Maintainer Issue Brief ─────────────────────────────────── */
 
-:root {
-  --style-43-bg: #f6f8fa;
-  --style-43-ink: #24292f;
-  --style-43-panel: #eef1f4;
-  --style-43-accent: #0969da;
-  --style-43-rule: #d0d7de;
-  --style-43-muted: #656d76;
-  --style-43-link: #0969da;
-  --style-43-tag-bg: #e6eff8;
+.root {
+  --topic-bg: #f6f8fa;
+  --topic-ink: #24292f;
+  --topic-panel: #eef1f4;
+  --topic-accent: #0969da;
+  --topic-rule: #d0d7de;
+  --topic-muted: #656d76;
+  --topic-link: #0969da;
+  --topic-tag-bg: #e6eff8;
 }
 
 .root {
@@ -16,8 +16,8 @@
   height: 100%;
   position: relative;
   overflow: hidden;
-  background: var(--style-43-bg);
-  color: var(--style-43-ink);
+  background: var(--topic-bg);
+  color: var(--topic-ink);
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   user-select: none;
 }
@@ -91,7 +91,7 @@
   font-family: "Inter", sans-serif;
   font-size: 1.8cqh;
   font-weight: 500;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: 3cqh;
@@ -101,7 +101,7 @@
   font-family: Georgia, "Noto Serif SC", serif;
   font-size: 8cqh;
   font-weight: 700;
-  color: var(--style-43-ink);
+  color: var(--topic-ink);
   margin: 0;
   letter-spacing: -0.02em;
   line-height: 1.05;
@@ -110,7 +110,7 @@
 .coverRule {
   width: 10cqw;
   height: 0.15cqh;
-  background: var(--style-43-accent);
+  background: var(--topic-accent);
   margin: 3cqh 0;
 }
 
@@ -118,7 +118,7 @@
   font-family: Georgia, "Noto Serif SC", serif;
   font-size: 3cqh;
   font-weight: 400;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
   margin: 0;
   font-style: italic;
   max-width: 60cqw;
@@ -137,8 +137,8 @@
   font-family: "Inter", sans-serif;
   font-size: 1.7cqh;
   font-weight: 500;
-  color: var(--style-43-accent);
-  background: var(--style-43-panel);
+  color: var(--topic-accent);
+  background: var(--topic-panel);
   padding: 0.6cqh 1.5cqw;
   border-radius: 2cqh;
   letter-spacing: 0.02em;
@@ -155,7 +155,7 @@
 .coverFooter p {
   font-family: "Inter", sans-serif;
   font-size: 1.7cqh;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
   margin: 0.3cqh 0;
 }
 
@@ -178,7 +178,7 @@
   font-family: "Inter", sans-serif;
   font-size: 1.8cqh;
   font-weight: 600;
-  color: var(--style-43-link);
+  color: var(--topic-link);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   margin-bottom: 1.5cqh;
@@ -187,7 +187,7 @@
 .paperCard {
   flex: 1;
   background: #ffffff;
-  border: 0.05cqh solid var(--style-43-rule);
+  border: 0.05cqh solid var(--topic-rule);
   border-radius: 1.2cqh;
   padding: 3cqh 4cqw;
   display: flex;
@@ -209,7 +209,7 @@
   font-size: 1.7cqh;
   font-weight: 600;
   color: #ffffff;
-  background: var(--style-43-accent);
+  background: var(--topic-accent);
   padding: 0.4cqh 1.2cqw;
   border-radius: 0.4cqh;
   letter-spacing: 0.03em;
@@ -219,7 +219,7 @@
   font-family: "Inter", sans-serif;
   font-size: 1.6cqh;
   font-weight: 500;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
   font-style: italic;
 }
 
@@ -227,7 +227,7 @@
   font-family: "Inter", sans-serif;
   font-size: 1.7cqh;
   font-weight: 600;
-  color: var(--style-43-link);
+  color: var(--topic-link);
   margin-left: auto;
 }
 
@@ -235,7 +235,7 @@
   font-family: Georgia, "Noto Serif SC", serif;
   font-size: 3.8cqh;
   font-weight: 700;
-  color: var(--style-43-ink);
+  color: var(--topic-ink);
   margin: 0 0 1cqh 0;
   line-height: 1.2;
 }
@@ -243,14 +243,14 @@
 .paperAuthors {
   font-family: "Inter", sans-serif;
   font-size: 2.2cqh;
-  color: var(--style-43-ink);
+  color: var(--topic-ink);
   margin: 0 0 1.5cqh 0;
   font-weight: 500;
 }
 
 .paperAffil {
   font-weight: 400;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
 }
 
 .paperTags {
@@ -264,8 +264,8 @@
   font-family: "Inter", sans-serif;
   font-size: 1.5cqh;
   font-weight: 500;
-  color: var(--style-43-accent);
-  background: var(--style-43-tag-bg);
+  color: var(--topic-accent);
+  background: var(--topic-tag-bg);
   padding: 0.4cqh 1cqw;
   border-radius: 0.4cqh;
 }
@@ -273,7 +273,7 @@
 .paperAbstract {
   flex: 1;
   overflow: hidden;
-  border-top: 0.05cqh solid var(--style-43-rule);
+  border-top: 0.05cqh solid var(--topic-rule);
   padding-top: 1.5cqh;
 }
 
@@ -281,7 +281,7 @@
   font-family: "Inter", sans-serif;
   font-size: 1.6cqh;
   font-weight: 600;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin: 0 0 0.8cqh 0;
@@ -291,7 +291,7 @@
   font-family: Georgia, "Noto Serif SC", serif;
   font-size: 2cqh;
   line-height: 1.6;
-  color: var(--style-43-ink);
+  color: var(--topic-ink);
   margin: 0;
   text-align: justify;
 }
@@ -301,19 +301,19 @@
   justify-content: space-between;
   margin-top: 1.5cqh;
   padding-top: 1cqh;
-  border-top: 0.05cqh solid var(--style-43-rule);
+  border-top: 0.05cqh solid var(--topic-rule);
 }
 
 .paperPages {
   font-family: "Inter", sans-serif;
   font-size: 1.6cqh;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
 }
 
 .paperRefs {
   font-family: "Inter", sans-serif;
   font-size: 1.6cqh;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
   font-style: italic;
 }
 
@@ -336,21 +336,21 @@
   font-family: Georgia, "Noto Serif SC", serif;
   font-size: 4cqh;
   font-weight: 700;
-  color: var(--style-43-ink);
+  color: var(--topic-ink);
   margin: 0;
 }
 
 .networkSubtitle {
   font-family: "Inter", sans-serif;
   font-size: 2cqh;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
   margin: 0.5cqh 0 0 0;
 }
 
 .networkViz {
   flex: 1;
   position: relative;
-  background: var(--style-43-panel);
+  background: var(--topic-panel);
   border-radius: 1cqh;
   overflow: hidden;
 }
@@ -387,7 +387,7 @@
   font-family: "Inter", sans-serif;
   font-size: 1.5cqh;
   font-weight: 600;
-  color: var(--style-43-ink);
+  color: var(--topic-ink);
   background: rgba(246, 248, 250, 0.9);
   padding: 0.2cqh 0.6cqw;
   border-radius: 0.3cqh;
@@ -397,7 +397,7 @@
   font-family: "Inter", sans-serif;
   font-size: 1.3cqh;
   font-weight: 500;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
   margin-top: 0.2cqh;
 }
 
@@ -414,7 +414,7 @@
   gap: 0.6cqw;
   font-family: "Inter", sans-serif;
   font-size: 1.6cqh;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
   font-weight: 500;
 }
 
@@ -444,14 +444,14 @@
   font-family: Georgia, "Noto Serif SC", serif;
   font-size: 4cqh;
   font-weight: 700;
-  color: var(--style-43-ink);
+  color: var(--topic-ink);
   margin: 0;
 }
 
 .kwSubtitle {
   font-family: "Inter", sans-serif;
   font-size: 2cqh;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
   margin: 0.5cqh 0 0 0;
 }
 
@@ -463,7 +463,7 @@
   align-content: center;
   justify-content: center;
   padding: 2cqh;
-  background: var(--style-43-panel);
+  background: var(--topic-panel);
   border-radius: 1cqh;
 }
 
@@ -472,18 +472,18 @@
   align-items: baseline;
   gap: 0.5cqw;
   font-family: Georgia, "Noto Serif SC", serif;
-  color: var(--style-43-ink);
+  color: var(--topic-ink);
   background: #ffffff;
   padding: 0.5cqh 1.2cqw;
   border-radius: 0.6cqh;
-  border: 0.05cqh solid var(--style-43-rule);
+  border: 0.05cqh solid var(--topic-rule);
   line-height: 1.3;
 }
 
 .kwCount {
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
   font-size: 0.7em;
 }
 
@@ -533,14 +533,14 @@
   font-family: Georgia, "Noto Serif SC", serif;
   font-size: 4cqh;
   font-weight: 700;
-  color: var(--style-43-ink);
+  color: var(--topic-ink);
   margin: 0;
 }
 
 .statsSubtitle {
   font-family: "Inter", sans-serif;
   font-size: 2cqh;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
   margin: 0.5cqh 0 0 0;
 }
 
@@ -554,7 +554,7 @@
 
 .statCard {
   background: #ffffff;
-  border: 0.05cqh solid var(--style-43-rule);
+  border: 0.05cqh solid var(--topic-rule);
   border-radius: 1cqh;
   padding: 2.5cqh 2.5cqw;
   display: flex;
@@ -569,7 +569,7 @@
   font-family: Georgia, "Noto Serif SC", serif;
   font-size: 5.5cqh;
   font-weight: 700;
-  color: var(--style-43-accent);
+  color: var(--topic-accent);
   line-height: 1;
   margin-bottom: 0.8cqh;
 }
@@ -578,14 +578,14 @@
   font-family: "Inter", sans-serif;
   font-size: 2cqh;
   font-weight: 600;
-  color: var(--style-43-ink);
+  color: var(--topic-ink);
   margin-bottom: 0.4cqh;
 }
 
 .statSub {
   font-family: "Inter", sans-serif;
   font-size: 1.6cqh;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
   font-style: italic;
 }
 
@@ -599,7 +599,7 @@
   z-index: 10;
   background: rgba(246, 248, 250, 0.95);
   backdrop-filter: blur(8px);
-  border-bottom: 0.05cqh solid var(--style-43-rule);
+  border-bottom: 0.05cqh solid var(--topic-rule);
   padding: 1cqh 6cqw;
 }
 
@@ -613,7 +613,7 @@
   font-family: "Inter", sans-serif;
   font-size: 1.7cqh;
   font-weight: 500;
-  color: var(--style-43-muted);
+  color: var(--topic-muted);
   background: none;
   border: none;
   cursor: pointer;
@@ -624,17 +624,17 @@
 }
 
 .navTab:hover {
-  background: var(--style-43-panel);
-  color: var(--style-43-ink);
+  background: var(--topic-panel);
+  color: var(--topic-ink);
 }
 
 .navTabActive {
-  background: var(--style-43-accent);
+  background: var(--topic-accent);
   color: #ffffff;
 }
 
 .navTabActive:hover {
-  background: var(--style-43-accent);
+  background: var(--topic-accent);
   color: #ffffff;
 }
 

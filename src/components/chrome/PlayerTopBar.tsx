@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import type { StyleRegistryEntry } from "../../types";
+import type { RuntimeStyleGroup } from "../../catalog/runtime-registry";
 import { modelColor } from "../../utils/model-color";
 
 export interface PlayerTopBarProps {
-  style: StyleRegistryEntry | null;
+  group: RuntimeStyleGroup | null;
   topicId: string;
   language: "en" | "zh";
   onOverview: () => void;
@@ -15,7 +15,7 @@ export interface PlayerTopBarProps {
 }
 
 export default function PlayerTopBar({
-  style,
+  group,
   topicId,
   language,
   onOverview,
@@ -28,7 +28,7 @@ export default function PlayerTopBar({
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const topic = style?.topics.find((item) => item.id === topicId) ?? null;
+  const topic = group?.topics.find((item) => item.id === topicId) ?? null;
 
   useEffect(() => {
     if (!open) return;
@@ -56,7 +56,7 @@ export default function PlayerTopBar({
         <button
           ref={triggerRef}
           type="button"
-          disabled={!style || !topic}
+          disabled={!group || !topic}
           aria-haspopup="menu"
           aria-expanded={open}
           onClick={() => setOpen((value) => !value)}
@@ -71,18 +71,18 @@ export default function PlayerTopBar({
           }}
           className="flex h-9 max-w-full items-center gap-2 rounded-lg px-2 text-left hover:bg-ink/[0.06] disabled:opacity-50"
         >
-          <span className="hidden truncate text-[11px] text-ink/45 sm:block">{style?.name[language]}</span>
+          <span className="hidden truncate text-[11px] text-ink/45 sm:block">{group?.style.name[language]}</span>
           <span className="hidden text-ink/20 sm:block">›</span>
-          <span className="min-w-0 truncate text-xs font-medium text-ink/80">{topic?.topic[language] ?? topicId}</span>
+          <span className="min-w-0 truncate text-xs font-medium text-ink/80">{topic?.title[language] ?? topicId}</span>
           {topic && (
             <span className="hidden shrink-0 items-center gap-1.5 font-mono text-[9px] text-ink/40 lg:flex">
-              <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: modelColor(topic.model) }} />
-              {topic.model}
+              <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: modelColor(topic.modelId) }} />
+              {topic.modelId}
             </span>
           )}
           <span aria-hidden="true" className="text-[10px] text-ink/35">⌄</span>
         </button>
-        {open && style && (
+        {open && group && (
           <div
             role="menu"
             onKeyDown={(event) => {
@@ -101,8 +101,8 @@ export default function PlayerTopBar({
             }}
             className="absolute left-0 top-[calc(100%+.35rem)] z-[90] w-[min(420px,calc(100vw-1rem))] rounded-xl border border-ink/10 bg-elevated p-1.5 text-ink shadow-xl"
           >
-            <div className="px-2.5 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/35">{style.name[language]}</div>
-            {style.topics.map((item) => {
+            <div className="px-2.5 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/35">{group.style.name[language]}</div>
+            {group.topics.map((item) => {
               const active = item.id === topicId;
               return (
                 <button
@@ -116,9 +116,9 @@ export default function PlayerTopBar({
                   }}
                   className={`flex min-h-11 w-full items-center gap-2 rounded-lg px-2.5 text-left ${active ? "bg-ink/[0.08]" : "hover:bg-ink/[0.05]"}`}
                 >
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: modelColor(item.model) }} />
-                  <span className="min-w-0 flex-1 truncate text-xs">{item.topic[language]}</span>
-                  <span className="max-w-[150px] truncate font-mono text-[9px] text-ink/40">{item.model}</span>
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: modelColor(item.modelId) }} />
+                  <span className="min-w-0 flex-1 truncate text-xs">{item.title[language]}</span>
+                  <span className="max-w-[150px] truncate font-mono text-[9px] text-ink/40">{item.modelId}</span>
                 </button>
               );
             })}

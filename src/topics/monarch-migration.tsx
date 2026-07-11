@@ -9,7 +9,7 @@ import type { Source } from "../domain/evidence";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./monarch-migration.module.css";
 
 type Language = TopicStageProps["language"];
@@ -800,7 +800,6 @@ function TopicStage({
   return (
     <main
       className={`${styles.root} ${motionOff ? styles.motionOff : ""}`}
-      data-style-id="mid-century-grove"
       data-topic-id="monarch-migration"
       data-current-scene={activeScene}
       data-motion-state={motionOff ? "settled" : "gentle"}

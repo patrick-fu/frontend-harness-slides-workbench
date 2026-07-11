@@ -1,18 +1,18 @@
-/* Style 25: Woodblock Floating-World — Craft & Cultural */
+/* Woodblock Floating-World — Craft & Cultural */
 /* Hand-pressed woodblock print on warm paper: indigo, vermilion seal, bokashi sky */
 
 .root {
-  --style-25-bg: #ead9c0;
-  --style-25-ink: #1a3a5c;
-  --style-25-panel: #f0e6d2;
-  --style-25-accent: #c75b3a;
-  --style-25-gold: #b8956a;
+  --topic-bg: #ead9c0;
+  --topic-ink: #1a3a5c;
+  --topic-panel: #f0e6d2;
+  --topic-accent: #c75b3a;
+  --topic-gold: #b8956a;
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
-  background: var(--style-25-bg);
-  color: var(--style-25-ink);
+  background: var(--topic-bg);
+  color: var(--topic-ink);
   font-family: "Noto Serif JP", "Inter", system-ui, sans-serif;
 }
 
@@ -154,7 +154,7 @@
   line-height: 1;
   margin: 0;
   letter-spacing: 0.05em;
-  color: var(--style-25-ink);
+  color: var(--topic-ink);
 }
 
 .titleEn {
@@ -163,7 +163,7 @@
   margin: 1cqh 0 0;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--style-25-ink);
+  color: var(--topic-ink);
   opacity: 0.7;
   font-family: "Inter", system-ui, sans-serif;
 }
@@ -172,14 +172,14 @@
   width: 12cqw;
   height: 0.3cqh;
   margin: 3cqh auto;
-  background: var(--style-25-accent);
+  background: var(--topic-accent);
 }
 
 .titleSub {
   font-size: 3.2cqh;
   font-weight: 400;
   margin: 0;
-  color: var(--style-25-ink);
+  color: var(--topic-ink);
   opacity: 0.8;
   font-family: "Inter", system-ui, sans-serif;
 }
@@ -199,7 +199,7 @@
   font-weight: 500;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--style-25-accent);
+  color: var(--topic-accent);
   font-family: "Inter", system-ui, sans-serif;
   margin-bottom: 1cqh;
 }
@@ -208,7 +208,7 @@
   font-size: 6cqh;
   font-weight: 700;
   margin: 0 0 4cqh;
-  color: var(--style-25-ink);
+  color: var(--topic-ink);
 }
 
 .stepsGrid {
@@ -219,8 +219,8 @@
 }
 
 .stepCard {
-  background: var(--style-25-panel);
-  border: 0.3cqh solid var(--style-25-ink);
+  background: var(--topic-panel);
+  border: 0.3cqh solid var(--topic-ink);
   padding: 3cqh 2cqw;
   display: flex;
   flex-direction: column;
@@ -240,14 +240,14 @@
   font-size: 8cqh;
   font-weight: 900;
   line-height: 1;
-  color: var(--style-25-ink);
+  color: var(--topic-ink);
   margin-bottom: 1cqh;
 }
 
 .stepLabel {
   font-size: 3.2cqh;
   font-weight: 700;
-  color: var(--style-25-ink);
+  color: var(--topic-ink);
   font-family: "Inter", system-ui, sans-serif;
   margin-bottom: 0.8cqh;
 }
@@ -255,7 +255,7 @@
 .stepDesc {
   font-size: 2.2cqh;
   line-height: 1.5;
-  color: var(--style-25-ink);
+  color: var(--topic-ink);
   opacity: 0.75;
   margin: 0;
   font-family: "Inter", system-ui, sans-serif;
@@ -293,13 +293,13 @@
   font-size: 5cqh;
   font-weight: 700;
   margin: 0 0 1cqh;
-  color: var(--style-25-ink);
+  color: var(--topic-ink);
   line-height: 1.2;
 }
 
 .printArtist {
   font-size: 2.8cqh;
-  color: var(--style-25-ink);
+  color: var(--topic-ink);
   opacity: 0.7;
   margin: 0;
   font-family: "Inter", system-ui, sans-serif;
@@ -311,7 +311,7 @@
   gap: 4cqw;
   margin-top: 3cqh;
   padding-top: 3cqh;
-  border-top: 0.2cqh solid var(--style-25-ink);
+  border-top: 0.2cqh solid var(--topic-ink);
   opacity: 0.85;
 }
 
@@ -332,14 +332,14 @@
   display: block;
   font-size: 5cqh;
   font-weight: 900;
-  color: var(--style-25-accent);
+  color: var(--topic-accent);
   line-height: 1;
 }
 
 .statLabel {
   display: block;
   font-size: 2.2cqh;
-  color: var(--style-25-ink);
+  color: var(--topic-ink);
   opacity: 0.7;
   margin-top: 0.5cqh;
   font-family: "Inter", system-ui, sans-serif;
@@ -369,8 +369,8 @@
   gap: 2cqw;
   align-items: baseline;
   padding: 2cqh 2cqw;
-  background: var(--style-25-panel);
-  border-left: 0.6cqh solid var(--style-25-accent);
+  background: var(--topic-panel);
+  border-left: 0.6cqh solid var(--topic-accent);
   opacity: 0;
   transform: translateX(-2cqw);
   transition: opacity 0.6s ease, transform 0.6s ease;
@@ -384,19 +384,19 @@
 .masterName {
   font-size: 4cqh;
   font-weight: 700;
-  color: var(--style-25-ink);
+  color: var(--topic-ink);
 }
 
 .masterYears {
   font-size: 2.6cqh;
-  color: var(--style-25-accent);
+  color: var(--topic-accent);
   font-family: "Inter", system-ui, sans-serif;
   font-weight: 500;
 }
 
 .masterWork {
   font-size: 2.6cqh;
-  color: var(--style-25-ink);
+  color: var(--topic-ink);
   opacity: 0.75;
   font-family: "Inter", system-ui, sans-serif;
 }
@@ -428,18 +428,18 @@
   font-size: 8cqh;
   font-weight: 700;
   margin: 0;
-  color: var(--style-25-ink);
+  color: var(--topic-ink);
   text-align: center;
   line-height: 1.3;
 }
 
 .closingAccent {
-  color: var(--style-25-accent);
+  color: var(--topic-accent);
 }
 
 .closingSub {
   font-size: 3cqh;
-  color: var(--style-25-ink);
+  color: var(--topic-ink);
   opacity: 0.65;
   margin-top: 2cqh;
   font-family: "Inter", system-ui, sans-serif;
@@ -472,8 +472,8 @@
 .navItem {
   width: 5cqh;
   height: 5cqh;
-  border: 0.25cqh solid var(--style-25-ink);
-  background: var(--style-25-panel);
+  border: 0.25cqh solid var(--topic-ink);
+  background: var(--topic-panel);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -484,28 +484,28 @@
 }
 
 .navItem:hover {
-  background: var(--style-25-ink);
+  background: var(--topic-ink);
 }
 
 .navItem:hover .navCircle {
-  fill: var(--style-25-panel);
+  fill: var(--topic-panel);
 }
 
 .navItem:hover .navWave {
-  stroke: var(--style-25-panel);
+  stroke: var(--topic-panel);
 }
 
 .navItemActive {
-  background: var(--style-25-accent);
-  border-color: var(--style-25-accent);
+  background: var(--topic-accent);
+  border-color: var(--topic-accent);
 }
 
 .navItemActive .navCircle {
-  fill: var(--style-25-panel);
+  fill: var(--topic-panel);
 }
 
 .navItemActive .navWave {
-  stroke: var(--style-25-panel);
+  stroke: var(--topic-panel);
 }
 
 .navItem svg {
@@ -514,12 +514,12 @@
 }
 
 .navCircle {
-  fill: var(--style-25-ink);
+  fill: var(--topic-ink);
   transition: fill 0.3s ease;
 }
 
 .navWave {
-  stroke: var(--style-25-ink);
+  stroke: var(--topic-ink);
   stroke-width: 1.5;
   transition: stroke 0.3s ease;
 }

@@ -1,7 +1,8 @@
-import type { StyleMetadata } from "../types";
+import type { TopicMetadata } from "../domain/topic";
+import type { CatalogTopicEntry } from "./catalog-filter";
 
 /**
- * Filter a list of StyleMetadata by band (OR) and tags (AND).
+ * Filter Catalog Topics by Style Band (OR) and Topic tags (AND).
  *
  * - Empty selectedBands → skip band filter.
  * - Non-empty selectedBands → keep styles whose band is in the list (OR).
@@ -10,17 +11,20 @@ import type { StyleMetadata } from "../types";
  * - Original order is preserved.
  */
 export function applyFilters(
-  allStyles: StyleMetadata[],
+  allTopics: readonly CatalogTopicEntry[],
   selectedBands: string[],
   selectedTags: string[],
-): StyleMetadata[] {
-  return allStyles.filter((style) => {
-    if (selectedBands.length > 0 && !selectedBands.includes(style.band)) {
+): CatalogTopicEntry[] {
+  return allTopics.filter((entry) => {
+    if (
+      selectedBands.length > 0 &&
+      !selectedBands.includes(entry.style.band)
+    ) {
       return false;
     }
     if (
       selectedTags.length > 0 &&
-      !selectedTags.every((tag) => style.tags.includes(tag))
+      !selectedTags.every((tag) => entry.metadata.tags.includes(tag))
     ) {
       return false;
     }
@@ -29,15 +33,15 @@ export function applyFilters(
 }
 
 /**
- * Aggregate all tags across styles, count occurrences, sort alphabetically.
+ * Aggregate all tags across Topic metadata, count occurrences, sort alphabetically.
  */
 export function aggregateTags(
-  allStyles: StyleMetadata[],
+  allTopics: readonly TopicMetadata[],
 ): Array<{ tag: string; count: number }> {
   const counts = new Map<string, number>();
 
-  for (const style of allStyles) {
-    for (const tag of style.tags) {
+  for (const topic of allTopics) {
+    for (const tag of topic.tags) {
       counts.set(tag, (counts.get(tag) ?? 0) + 1);
     }
   }

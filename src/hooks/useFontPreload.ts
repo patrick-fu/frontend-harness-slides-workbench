@@ -1,18 +1,18 @@
 import { useEffect, useRef } from "react";
 import { collectAllFonts, buildGoogleFontsUrl } from "../utils/fonts";
-import type { StyleRegistryEntry } from "../types";
+import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
 
 /**
- * Hook that preloads fonts used by the registered styles.
+ * Hook that preloads fonts used by the runtime Style Groups.
  *
- * - Collects all font families from the registry for the current language.
+ * - Collects all font families from the runtime registry for the current language.
  * - Builds a Google Fonts CSS URL and injects a <link> tag into <head>.
  * - Cleans up the link tag when language changes or component unmounts.
  *
  * This is a no-op if the registry is empty or no fonts are found.
  */
 export function useFontPreload(
-  registry: StyleRegistryEntry[],
+  registry: readonly RuntimeStyleGroup[],
   language: "en" | "zh",
 ): void {
   const linkRef = useRef<HTMLLinkElement | null>(null);

@@ -1,4 +1,4 @@
-/* ─── Style 02: Objective Swiss Grid ───────────────────────────────────────
+/* ─── Objective Swiss Grid ───────────────────────────────────────
    Precision instrument. Visible mathematical grid. Achromatic + signal hue.
    All sizing in cqw/cqh.
    ──────────────────────────────────────────────────────────────────────── */
@@ -9,8 +9,8 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-02-bg, #fafafa);
-  color: var(--style-02-ink, #111111);
+  background: var(--topic-bg, #fafafa);
+  color: var(--topic-ink, #111111);
   font-family: "Inter", "Helvetica Neue", system-ui, sans-serif;
 }
 
@@ -78,7 +78,7 @@
   right: 0;
   top: 0;
   height: 2px;
-  background: var(--style-02-accent, #d32f2f);
+  background: var(--topic-accent, #d32f2f);
   z-index: 20;
   pointer-events: none;
   animation: sweepRuleMove 0.7s cubic-bezier(0.7, 0, 0.3, 1) forwards;
@@ -115,7 +115,7 @@
   top: 0;
   bottom: 0;
   width: 1px;
-  background: var(--style-02-ink, #111111);
+  background: var(--topic-ink, #111111);
 }
 
 .gridLineH {
@@ -123,14 +123,14 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: var(--style-02-ink, #111111);
+  background: var(--topic-ink, #111111);
 }
 
 .cornerMark {
   position: absolute;
   font-size: 2cqw;
   font-weight: 300;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
   opacity: 0.2;
   font-family: "Helvetica Neue", monospace;
 }
@@ -147,7 +147,7 @@
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
   opacity: 0.5;
   margin-bottom: 3cqh;
 }
@@ -158,13 +158,13 @@
   line-height: 0.9;
   letter-spacing: -0.04em;
   margin: 0;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
 }
 
 .redRule {
   width: 12cqw;
   height: 0.6cqh;
-  background: var(--style-02-accent, #d32f2f);
+  background: var(--topic-accent, #d32f2f);
   margin: 3cqh 0;
 }
 
@@ -173,7 +173,7 @@
   font-weight: 300;
   line-height: 1.3;
   margin: 0;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
   opacity: 0.7;
 }
 
@@ -192,7 +192,7 @@
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--style-02-accent, #d32f2f);
+  color: var(--topic-accent, #d32f2f);
   margin-bottom: 2cqh;
 }
 
@@ -202,7 +202,7 @@
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0 0 5cqh 0;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
 }
 
 .metricRow {
@@ -222,7 +222,7 @@
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.03em;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
 }
 
 .metricUnit {
@@ -237,9 +237,9 @@
   font-weight: 400;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
   opacity: 0.5;
-  border-top: 1px solid var(--style-02-ink, #111111);
+  border-top: 1px solid var(--topic-ink, #111111);
   padding-top: 1cqh;
 }
 
@@ -258,7 +258,7 @@
   line-height: 1.15;
   letter-spacing: -0.02em;
   margin: 0 0 2cqh 0;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
   flex-shrink: 0;
 }
 
@@ -284,7 +284,7 @@
 .stepId {
   font-size: 1.6cqw;
   font-weight: 700;
-  color: var(--style-02-accent, #d32f2f);
+  color: var(--topic-accent, #d32f2f);
   letter-spacing: 0.05em;
   min-width: 3cqw;
   padding-top: 0.2cqh;
@@ -300,7 +300,7 @@
   font-size: 2cqw;
   font-weight: 500;
   margin: 0 0 0.3cqh 0;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
   line-height: 1.2;
 }
 
@@ -309,7 +309,7 @@
   font-weight: 300;
   line-height: 1.4;
   margin: 0;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
   opacity: 0.6;
 }
 
@@ -330,7 +330,7 @@
   font-size: 3.5cqw;
   font-weight: 500;
   margin: 0 0 4cqh 0;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
   letter-spacing: -0.01em;
 }
 
@@ -350,7 +350,7 @@
   font-size: 1.6cqw;
   font-weight: 400;
   min-width: 20cqw;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
   opacity: 0.7;
 }
 
@@ -364,7 +364,7 @@
 .qualityBarFill {
   height: 100%;
   width: 0;
-  background: var(--style-02-accent, #d32f2f);
+  background: var(--topic-accent, #d32f2f);
 }
 
 .qualityThreshold {
@@ -372,7 +372,7 @@
   top: -0.4cqh;
   bottom: -0.4cqh;
   width: 1px;
-  background: var(--style-02-ink, #111111);
+  background: var(--topic-ink, #111111);
   opacity: 0.3;
 }
 
@@ -381,7 +381,7 @@
   font-weight: 700;
   min-width: 6cqw;
   text-align: right;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
 }
 
 /* ── Scene 5: Closing ──────────────────────────────────────────────────── */
@@ -401,7 +401,7 @@
 .redRuleLarge {
   width: 8cqw;
   height: 0.8cqh;
-  background: var(--style-02-accent, #d32f2f);
+  background: var(--topic-accent, #d32f2f);
   margin: 0 auto 4cqh;
 }
 
@@ -411,14 +411,14 @@
   line-height: 1.05;
   letter-spacing: -0.03em;
   margin: 0 0 3cqh 0;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
 }
 
 .closingSub {
   font-size: 2cqw;
   font-weight: 300;
   margin: 0;
-  color: var(--style-02-ink, #111111);
+  color: var(--topic-ink, #111111);
   opacity: 0.5;
   letter-spacing: 0.05em;
 }
@@ -453,7 +453,7 @@
   min-width: 8px;
   min-height: 8px;
   border-radius: 50%;
-  border: 1px solid var(--style-02-ink, #111111);
+  border: 1px solid var(--topic-ink, #111111);
   background: transparent;
   cursor: pointer;
   padding: 0;
@@ -466,12 +466,12 @@
 }
 
 .navDot:hover {
-  border-color: var(--style-02-accent, #d32f2f);
+  border-color: var(--topic-accent, #d32f2f);
 }
 
 .navDotActive {
-  background: var(--style-02-accent, #d32f2f);
-  border-color: var(--style-02-accent, #d32f2f);
+  background: var(--topic-accent, #d32f2f);
+  border-color: var(--topic-accent, #d32f2f);
   transform: scale(1.25);
 }
 

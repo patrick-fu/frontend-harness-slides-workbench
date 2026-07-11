@@ -10,9 +10,9 @@ import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
   type SceneTransitionModifierMap,
-} from "../styles/SpatialSceneTrack";
-import standingActorUrl from "../styles/assets/stadium-wave/openmoji-person-standing.svg";
-import raisedActorUrl from "../styles/assets/stadium-wave/openmoji-person-raising-hand.svg";
+} from "../components/stage/SpatialSceneTrack";
+import standingActorUrl from "../assets/stadium-wave/openmoji-person-standing.svg";
+import raisedActorUrl from "../assets/stadium-wave/openmoji-person-raising-hand.svg";
 import styles from "./stadium-wave.module.css";
 
 type Language = "en" | "zh";
@@ -867,7 +867,6 @@ function TopicStage({
     <section
       className={[styles.root, motionOff ? styles.motionOff : ""].join(" ")}
       lang={language}
-      data-style-id="sketch-board-emoji"
       data-topic-id="stadium-wave"
       data-emoji-rendering="local-svg"
       data-motion={motionOff ? "off" : "on"}

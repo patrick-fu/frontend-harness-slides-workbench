@@ -10,7 +10,7 @@ import { useFLIP } from "../hooks/useFLIP";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 
 type Language = TopicStageProps["language"];
 type VoiceSide = "warm" | "cool" | "both";

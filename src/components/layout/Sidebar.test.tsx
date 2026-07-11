@@ -1,20 +1,19 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { lazy } from "react";
 import Sidebar from "./Sidebar";
-import type { StyleRegistryEntry, StyleMetadata } from "../../types";
+import type {
+  RuntimeStyleGroup,
+  RuntimeTopic,
+} from "../../catalog/runtime-registry";
+import { BANDS, type Band } from "../../domain/style";
+import type { TopicMetadata, TopicStageProps } from "../../domain/topic";
 
 // ─── Mock helpers ───────────────────────────────────────────────────────────
 
-const BAND_ORDER = [
-  "minimal-keynote",
-  "balanced-hybrid",
-  "editorial-print",
-  "craft-cultural",
-  "contemporary-digital",
-  "text-report",
-] as const;
+const BAND_ORDER = BANDS;
 
-type BandId = (typeof BAND_ORDER)[number];
+type BandId = Band;
 
 const BAND_LABELS: Record<BandId, { en: string; zh: string }> = {
   "minimal-keynote": { en: "Minimal Keynote", zh: "极简主旨" },
@@ -30,11 +29,8 @@ function makeMockEntry(
   band: BandId,
   nameEn: string,
   nameZh: string,
-): StyleRegistryEntry {
-  const meta: StyleMetadata = {
-    id,
-    band,
-    name: nameEn,
+): RuntimeStyleGroup {
+  const meta: TopicMetadata = {
     theme: `Theme for ${nameEn}`,
     densityLabel: "Medium",
     heroScene: 1,
@@ -49,27 +45,32 @@ function makeMockEntry(
     })),
   };
 
+  const Stage = (_props: TopicStageProps) => null;
+  const topic: RuntimeTopic = {
+    id: "default-topic",
+    styleId: id,
+    title: { en: `${nameEn} Topic`, zh: `${nameZh}题材` },
+    modelId: "GPT 5.5",
+    metadata: { en: meta, zh: meta },
+    navigation: { mode: "none" },
+    transitionScore: {
+      "1->2": "hard-cut",
+      "2->3": "hard-cut",
+      "3->4": "hard-cut",
+      "4->5": "hard-cut",
+    },
+    evidence: { kind: "none" },
+    modulePath: `../topics/${id}.tsx`,
+    Stage: lazy(async () => ({ default: Stage })),
+    loadStage: async () => Stage,
+  };
   return {
-    id,
-    name: { en: nameEn, zh: nameZh },
-    topics: [
-      {
-        id: "default-topic",
-        topic: { en: `${nameEn} Topic`, zh: `${nameZh}题材` },
-        model: "test-model",
-        component: () => null,
-        getMetadata: (lang: "en" | "zh") => {
-          if (lang === "zh") {
-            return { ...meta, name: nameZh };
-          }
-          return meta;
-        },
-      },
-    ],
+    style: { id, name: { en: nameEn, zh: nameZh }, band },
+    topics: [topic],
   };
 }
 
-function makeMockRegistry(): StyleRegistryEntry[] {
+function makeMockRegistry(): RuntimeStyleGroup[] {
   return [
     makeMockEntry("executive-silence", "minimal-keynote", "Executive Silence", "静默主旨"),
     makeMockEntry("pure-focus", "minimal-keynote", "Pure Focus", "纯粹聚焦"),
@@ -149,15 +150,17 @@ describe("Sidebar — band sections", () => {
 
   it("shows localized topics inside expanded multi-topic styles", () => {
     const registry = makeMockRegistry();
+    const group = registry[0]!;
+    const firstTopic = group.topics[0]!;
     registry[0] = {
-      ...registry[0],
+      ...group,
       topics: [
-        registry[0].topics[0],
+        firstTopic,
         {
-          ...registry[0].topics[0],
+          ...firstTopic,
           id: "quiet-launch",
-          topic: { en: "Quiet Launch", zh: "安静发布" },
-          model: "GPT 5.5",
+          title: { en: "Quiet Launch", zh: "安静发布" },
+          modelId: "GPT 5.5",
         },
       ],
     };
@@ -216,15 +219,17 @@ describe("Sidebar — style selection", () => {
 
   it("blurs the clicked topic button after selection", () => {
     const registry = makeMockRegistry();
+    const group = registry[0]!;
+    const firstTopic = group.topics[0]!;
     registry[0] = {
-      ...registry[0],
+      ...group,
       topics: [
-        registry[0].topics[0],
+        firstTopic,
         {
-          ...registry[0].topics[0],
+          ...firstTopic,
           id: "quiet-launch",
-          topic: { en: "Quiet Launch", zh: "安静发布" },
-          model: "GPT 5.5",
+          title: { en: "Quiet Launch", zh: "安静发布" },
+          modelId: "GPT 5.5",
         },
       ],
     };

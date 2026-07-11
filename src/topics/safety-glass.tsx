@@ -14,7 +14,7 @@ import {
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./safety-glass.module.css";
 
 type Language = TopicStageProps["language"];
@@ -952,7 +952,6 @@ function TopicStage({
   return (
     <main
       className={cx(styles.root, motionOff && styles.motionOff)}
-      data-style-id="liquid-glass"
       data-topic-id="safety-glass"
       data-motion={motionOff ? "off" : "material"}
       data-current-scene={activeScene}

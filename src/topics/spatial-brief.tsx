@@ -8,7 +8,7 @@ import {
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./spatial-brief.module.css";
 
 type Language = "en" | "zh";
@@ -412,8 +412,8 @@ function clampBeat(sceneData: SceneContent, language: Language, beat: number) {
 
 function getSceneStyle(sceneData: SceneContent): CSSProperties {
   return {
-    "--style-33-v2-accent": sceneData.accent,
-    "--style-33-v2-secondary": sceneData.secondary,
+    "--topic-accent": sceneData.accent,
+    "--topic-secondary": sceneData.secondary,
   } as CSSProperties;
 }
 
@@ -470,13 +470,13 @@ function ProductGlyph({ sceneId }: { sceneId: SceneId }) {
       aria-hidden="true"
     >
       <defs>
-        <radialGradient id={`style33v2-core-${sceneId}`} cx="50%" cy="50%" r="50%">
-          <stop offset="0" stopColor="var(--style-33-v2-secondary)" stopOpacity="0.95" />
-          <stop offset="0.52" stopColor="var(--style-33-v2-accent)" stopOpacity="0.34" />
-          <stop offset="1" stopColor="var(--style-33-v2-accent)" stopOpacity="0" />
+        <radialGradient id={`spatial-brief-core-${sceneId}`} cx="50%" cy="50%" r="50%">
+          <stop offset="0" stopColor="var(--topic-secondary)" stopOpacity="0.95" />
+          <stop offset="0.52" stopColor="var(--topic-accent)" stopOpacity="0.34" />
+          <stop offset="1" stopColor="var(--topic-accent)" stopOpacity="0" />
         </radialGradient>
       </defs>
-      <circle cx="50" cy="50" r="38" fill={`url(#style33v2-core-${sceneId})`} />
+      <circle cx="50" cy="50" r="38" fill={`url(#spatial-brief-core-${sceneId})`} />
       <path className={styles.glyphOrbit} d="M18 58 C34 18 70 18 84 56" />
       <path className={styles.glyphOrbitSoft} d="M24 72 C44 43 66 42 82 70" />
       <circle className={styles.glyphNode} cx="18" cy="58" r="2.4" />

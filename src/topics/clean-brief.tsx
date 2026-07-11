@@ -8,7 +8,7 @@ import {
 import { useFLIP } from "../hooks/useFLIP";
 import SpatialSceneTrack, {
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./clean-brief.module.css";
 
 type Lang = "en" | "zh";
@@ -782,7 +782,6 @@ function TopicStage({
       className={styles.root}
       data-motion-off={motionOff ? "true" : undefined}
       data-thumbnail={isThumbnail ? "true" : undefined}
-      data-style-id="kitchen-prep-station"
       data-topic-id="clean-brief"
     >
       <div className={styles.counterGlow} aria-hidden="true" />

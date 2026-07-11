@@ -5,11 +5,11 @@ import {
   type TopicDefinition,
   type TopicStageProps,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   SceneTransitionMap,
   SceneTransitionModifierMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./before-a.module.css";
 
 type Lang = TopicStageProps["language"];

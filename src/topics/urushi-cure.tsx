@@ -10,7 +10,7 @@ import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
   type SceneTransitionModifierMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./urushi-cure.module.css";
 
 type Lang = "en" | "zh";

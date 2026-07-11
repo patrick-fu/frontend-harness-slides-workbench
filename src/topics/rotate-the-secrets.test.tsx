@@ -53,7 +53,7 @@ describe("Rotate the Secrets protocol", () => {
         "3->4": "slide-y",
         "4->5": "hard-cut",
       },
-      evidence: { kind: "illustrative", display: "stage" },
+      evidence: { kind: "illustrative", display: "envelope" },
     });
   });
 

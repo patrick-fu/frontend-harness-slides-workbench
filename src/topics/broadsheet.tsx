@@ -5,8 +5,8 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import styles from "./broadsheet.module.css";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
@@ -534,6 +534,11 @@ function TopicStage({
     return (
       <nav
         data-testid="broadsheet-nav"
+        data-topic-navigation="true"
+        data-navigation-geometry="typographic-index"
+        data-navigation-carrier="broadsheet-scene-dots"
+        data-navigation-invocation="persistent"
+        data-navigation-feedback="active-glow"
         className={styles.navDots}
         aria-label="Scene navigation"
       >

@@ -52,7 +52,7 @@ describe("System Acts protocol", () => {
         "3->4": "scale-fade",
         "4->5": "hard-cut",
       },
-      evidence: { kind: "illustrative", display: "stage" },
+      evidence: { kind: "illustrative", display: "envelope" },
     });
   });
 

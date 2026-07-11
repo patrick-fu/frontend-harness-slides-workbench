@@ -4,7 +4,7 @@ import {
   type TopicMetadata,
   type TopicStageProps,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import styles from "./swiss-grid.module.css";
 import { useFLIP } from "../hooks/useFLIP";
 
@@ -389,7 +389,7 @@ function TopicStage({
                     style={{
                       width: reducedMotion ? `${barWidth}%` : `${barWidth}%`,
                       transition: reducedMotion ? "none" : `width 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${0.2 + i * 0.1}s`,
-                      background: cr.score >= cr.threshold ? "var(--style-02-accent, #d32f2f)" : "var(--style-02-ink, #1a1a1a)",
+                      background: cr.score >= cr.threshold ? "var(--topic-accent, #d32f2f)" : "var(--topic-ink, #1a1a1a)",
                     }}
                   />
                   <div

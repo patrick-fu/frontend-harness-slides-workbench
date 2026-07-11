@@ -9,7 +9,7 @@ import {
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 
 type Language = "en" | "zh";
 type SceneId = 1 | 2 | 3 | 4 | 5;
@@ -449,7 +449,6 @@ function TopicStage({
 
   return (
     <section
-      data-style-id="minimal-product-keynote"
       data-topic-id="quiet-launch"
       style={rootStyle}
     >

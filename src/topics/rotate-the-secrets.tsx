@@ -5,8 +5,8 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import styles from "./rotate-the-secrets.module.css";
 
 /* ─── theme tokens ──────────────────────────────────────────────── */
@@ -124,7 +124,7 @@ const EVIDENCE = {
     en: "Illustrative security runbook: paths, version numbers, replica counts, commands, and outcomes are presentation examples; use an approved procedure for real credential rotation.",
     zh: "示例安全手册：路径、版本号、副本数量、命令和结果均为演示内容；实际凭据轮换应遵循已批准的流程。",
   },
-  display: "stage",
+  display: "envelope",
 } as const;
 
 /* ─── nav: command / status bar ─────────────────────────────────── */

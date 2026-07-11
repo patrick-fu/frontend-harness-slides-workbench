@@ -4,11 +4,11 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import styles from "./anatomy-of-an-idea.module.css";
 
-/* ── Botanical Specimen Plate · v3 · "Anatomy of an Idea" ──────────────
+/* ── Botanical Specimen Plate � · "Anatomy of an Idea" ──────────────
    An idea dissected like a pressed herbarium specimen. Engraving precision,
    taxonomic label furniture, aged-paper stillness. Layout in cqw/cqh only. */
 

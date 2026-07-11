@@ -4,18 +4,16 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./a-rivers-journey.module.css";
 
-/* ── Woodblock Floating-World · v3 · "A River's Journey" ──────────────────────
+/* ── Woodblock Floating-World � · "A River's Journey" ──────────────────────
    A river from source to sea told as a floating-world journey. Flat unshaded
    ink planes bounded by confident key-lines on warm paper, one bokashi sky in
    the valley, a single red seal stamping the opening and the close. Motion is
    calm drift + ink-settling fades — nothing snaps or bounces. cqw/cqh only. */
-
-const STYLE_ID = "woodblock-floating-world";
 
 const PALETTE = {
   paper: "#f2e6cf",
@@ -691,7 +689,7 @@ const METADATA = {
 
 export default defineTopic({
   id: "a-rivers-journey",
-  styleId: STYLE_ID,
+  styleId: "woodblock-floating-world",
   title: { en: COPY.en.theme, zh: COPY.zh.theme },
   modelId: "Claude Opus 4.8",
   Stage: TopicStage,

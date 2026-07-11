@@ -1,5 +1,6 @@
 import type { TopicDefinition, TopicStage } from "../domain/topic";
-import type { TopicStageResolver } from "./runtime-registry";
+
+export type TopicStageResolver = (modulePath: string) => Promise<TopicStage>;
 
 export type TopicDefinitionLoaders = Record<
   string,

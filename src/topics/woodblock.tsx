@@ -6,7 +6,7 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import styles from "./woodblock.module.css";
 import { useFLIP } from "../hooks/useFLIP";
 
@@ -14,7 +14,7 @@ import { useFLIP } from "../hooks/useFLIP";
 
 function useFonts() {
   useEffect(() => {
-    const id = "style-25-fonts";
+    const id = "woodblock-fonts";
     if (document.getElementById(id)) return;
     const link = document.createElement("link");
     link.id = id;
@@ -155,13 +155,13 @@ function MtFujiSVG({ className }: { className?: string }) {
       {/* Mountain body */}
       <path
         d="M10 110 L60 45 L75 55 L85 35 L100 15 L115 35 L125 55 L140 45 L190 110 Z"
-        fill="var(--style-25-ink, #1a3a5c)"
+        fill="var(--topic-ink, #1a3a5c)"
         opacity="0.15"
       />
       {/* Snow cap */}
       <path
         d="M75 55 L85 35 L100 15 L115 35 L125 55 L120 50 L115 42 L108 48 L100 30 L92 48 L85 42 L80 50 Z"
-        fill="var(--style-25-bg, #e8dcc8)"
+        fill="var(--topic-bg, #e8dcc8)"
         opacity="0.9"
       />
     </svg>
@@ -182,20 +182,20 @@ function GreatWaveSVG({ className }: { className?: string }) {
       {/* Main wave curve */}
       <path
         d="M20 180 Q60 160 80 140 Q100 110 140 100 Q180 90 220 95 Q260 100 280 120 Q300 140 320 155 Q340 165 380 170"
-        stroke="var(--style-25-ink, #1a3a5c)"
+        stroke="var(--topic-ink, #1a3a5c)"
         strokeWidth="3"
         fill="none"
       />
       {/* Wave body fill */}
       <path
         d="M20 180 Q60 160 80 140 Q100 110 140 100 Q180 90 220 95 Q260 100 280 120 Q300 140 320 155 Q340 165 380 170 L380 200 L20 200 Z"
-        fill="var(--style-25-ink, #1a3a5c)"
+        fill="var(--topic-ink, #1a3a5c)"
         opacity="0.12"
       />
       {/* Inner wave detail */}
       <path
         d="M100 130 Q130 115 160 110 Q190 105 220 108"
-        stroke="var(--style-25-ink, #1a3a5c)"
+        stroke="var(--topic-ink, #1a3a5c)"
         strokeWidth="1.5"
         fill="none"
         opacity="0.4"
@@ -205,7 +205,7 @@ function GreatWaveSVG({ className }: { className?: string }) {
         <path
           key={i}
           d={`M${60 + i * 35} ${155 - i * 3} q8 -5 16 0`}
-          stroke="var(--style-25-ink, #1a3a5c)"
+          stroke="var(--topic-ink, #1a3a5c)"
           strokeWidth="1"
           fill="none"
           opacity={0.2 + i * 0.04}
@@ -214,14 +214,14 @@ function GreatWaveSVG({ className }: { className?: string }) {
       {/* Wave crest curl */}
       <path
         d="M260 110 Q270 95 285 90 Q300 85 310 95 Q315 100 310 108"
-        stroke="var(--style-25-ink, #1a3a5c)"
+        stroke="var(--topic-ink, #1a3a5c)"
         strokeWidth="2"
         fill="none"
       />
       {/* Fuji in background */}
       <path
         d="M330 130 L345 105 L355 115 L365 100 L375 115 L385 105 L400 130"
-        stroke="var(--style-25-ink, #1a3a5c)"
+        stroke="var(--topic-ink, #1a3a5c)"
         strokeWidth="1.5"
         fill="none"
         opacity="0.3"
@@ -245,7 +245,7 @@ function WavePatternSVG({ className }: { className?: string }) {
         <path
           key={i}
           d={`M${i * 60} 20 Q${i * 60 + 15} 5 ${i * 60 + 30} 20 Q${i * 60 + 45} 35 ${i * 60 + 60} 20`}
-          stroke="var(--style-25-ink, #1a3a5c)"
+          stroke="var(--topic-ink, #1a3a5c)"
           strokeWidth="1.5"
           fill="none"
           opacity="0.25"

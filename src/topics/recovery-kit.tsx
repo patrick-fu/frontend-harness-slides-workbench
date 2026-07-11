@@ -6,8 +6,8 @@ import {
   type TopicTransitionScore,
 } from "../domain/topic";
 import { useFLIP } from "../hooks/useFLIP";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { BeatLayoutMode, SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { BeatLayoutMode, SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 
 type Lang = TopicStageProps["language"];
 type SceneId = 1 | 2 | 3 | 4 | 5;

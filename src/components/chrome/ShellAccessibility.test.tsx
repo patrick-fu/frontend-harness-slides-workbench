@@ -1,39 +1,56 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { lazy } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "../../App";
 import FilterPanel, { type FilterOption } from "../FilterPanel";
 import BottomBar from "../layout/BottomBar";
-import type { SceneMetadata, StyleRegistryEntry, StyleTopic } from "../../types";
+import type {
+  RuntimeStyleGroup,
+  RuntimeTopic,
+} from "../../catalog/runtime-registry";
+import type { TopicMetadata, TopicStageProps } from "../../domain/topic";
 import CommandPalette from "./CommandPalette";
 
-const Noop = () => null;
+const Noop = (_props: TopicStageProps) => null;
 
-function topic(id: string, title: string): StyleTopic {
+function topic(id: string, title: string): RuntimeTopic {
+  const metadata: TopicMetadata = {
+    theme: "",
+    densityLabel: "",
+    heroScene: 1,
+    colors: { bg: "#fff", ink: "#111", panel: "#eee" },
+    typography: { header: "serif", body: "sans" },
+    tags: [],
+    fonts: [],
+    scenes: [],
+  };
   return {
     id,
-    topic: { en: title, zh: title },
-    model: "GPT 5.6 Sol",
-    component: Noop,
-    getMetadata: () => ({
-      id,
-      band: "minimal-keynote",
-      name: title,
-      theme: "",
-      densityLabel: "",
-      heroScene: 1,
-      colors: { bg: "#fff", ink: "#111", panel: "#eee" },
-      typography: { header: "serif", body: "sans" },
-      tags: [],
-      fonts: [],
-      scenes: [],
-    }),
+    styleId: "quiet-grid",
+    title: { en: title, zh: title },
+    modelId: "GPT 5.6 Sol",
+    metadata: { en: metadata, zh: metadata },
+    navigation: { mode: "none" },
+    transitionScore: {
+      "1->2": "hard-cut",
+      "2->3": "hard-cut",
+      "3->4": "hard-cut",
+      "4->5": "hard-cut",
+    },
+    evidence: { kind: "none" },
+    modulePath: `../topics/${id}.tsx`,
+    Stage: lazy(async () => ({ default: Noop })),
+    loadStage: async () => Noop,
   };
 }
 
-const registry: StyleRegistryEntry[] = [
+const registry: readonly RuntimeStyleGroup[] = [
   {
-    id: "quiet-grid",
-    name: { en: "Quiet Grid", zh: "静默网格" },
+    style: {
+      id: "quiet-grid",
+      name: { en: "Quiet Grid", zh: "静默网格" },
+      band: "minimal-keynote",
+    },
     topics: [topic("quiet-launch", "Quiet launch")],
   },
 ];
@@ -42,7 +59,7 @@ const filterOptions: FilterOption[] = [
   { value: "minimal-keynote", label: "Minimal Keynote", count: 1 },
 ];
 
-const scenes: SceneMetadata[] = [
+const scenes: TopicMetadata["scenes"] = [
   {
     id: 1,
     title: "Opening",

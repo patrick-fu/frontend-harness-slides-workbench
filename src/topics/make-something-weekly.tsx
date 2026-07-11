@@ -6,7 +6,7 @@ import {
   type TopicMetadata,
   type TopicStageProps,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./make-something-weekly.module.css";
 

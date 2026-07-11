@@ -1,19 +1,19 @@
-/* ─── Style 34: Retro OS 95 ────────────────────────────────────────────────
+/* ─── Retro OS 95 ────────────────────────────────────────────────
    Windows 95 / classic Mac OS aesthetic. Beveled everything.
    All sizing in cqw/cqh. No px/vw/vh.
    ──────────────────────────────────────────────────────────────────────── */
 
-:root {
-  --style-34-bg: #808080;
-  --style-34-ink: #000000;
-  --style-34-panel: #c0c0c0;
-  --style-34-panel-light: #ffffff;
-  --style-34-panel-dark: #808080;
-  --style-34-panel-darker: #404040;
-  --style-34-titlebar: #000080;
-  --style-34-titlebar-text: #ffffff;
-  --style-34-button-face: #c0c0c0;
-  --style-34-accent: #000080;
+.root {
+  --topic-bg: #808080;
+  --topic-ink: #000000;
+  --topic-panel: #c0c0c0;
+  --topic-panel-light: #ffffff;
+  --topic-panel-dark: #808080;
+  --topic-panel-darker: #404040;
+  --topic-titlebar: #000080;
+  --topic-titlebar-text: #ffffff;
+  --topic-button-face: #c0c0c0;
+  --topic-accent: #000080;
 }
 
 .root {
@@ -22,8 +22,8 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-34-bg);
-  color: var(--style-34-ink);
+  background: var(--topic-bg);
+  color: var(--topic-ink);
   font-family: "MS Sans Serif", "Tahoma", "Inter", system-ui, sans-serif;
   font-size: 2.2cqh;
   image-rendering: pixelated;
@@ -71,7 +71,7 @@
   }
 }
 
-/* ── Transition Track (legacy, kept for backward compat) ────────────────── */
+/* ── Scene transition track ────────────────── */
 
 .transitionTrack {
   position: relative;
@@ -91,47 +91,47 @@
 /* ── Beveled Panel (outset) ────────────────────────────────────────────── */
 
 .bevelPanel {
-  background: var(--style-34-panel);
-  border-top: 0.3cqh solid var(--style-34-panel-light);
-  border-left: 0.3cqh solid var(--style-34-panel-light);
-  border-right: 0.3cqh solid var(--style-34-panel-darker);
-  border-bottom: 0.3cqh solid var(--style-34-panel-darker);
+  background: var(--topic-panel);
+  border-top: 0.3cqh solid var(--topic-panel-light);
+  border-left: 0.3cqh solid var(--topic-panel-light);
+  border-right: 0.3cqh solid var(--topic-panel-darker);
+  border-bottom: 0.3cqh solid var(--topic-panel-darker);
   box-shadow:
     inset 0.15cqh 0.15cqh 0 0 #dfdfdf,
-    inset -0.15cqh -0.15cqh 0 0 var(--style-34-panel-dark);
+    inset -0.15cqh -0.15cqh 0 0 var(--topic-panel-dark);
 }
 
 /* ── Beveled Panel (inset) ─────────────────────────────────────────────── */
 
 .bevelInset {
   background: #ffffff;
-  border-top: 0.25cqh solid var(--style-34-panel-darker);
-  border-left: 0.25cqh solid var(--style-34-panel-darker);
-  border-right: 0.25cqh solid var(--style-34-panel-light);
-  border-bottom: 0.25cqh solid var(--style-34-panel-light);
+  border-top: 0.25cqh solid var(--topic-panel-darker);
+  border-left: 0.25cqh solid var(--topic-panel-darker);
+  border-right: 0.25cqh solid var(--topic-panel-light);
+  border-bottom: 0.25cqh solid var(--topic-panel-light);
 }
 
 /* ── Window ────────────────────────────────────────────────────────────── */
 
 .window {
   position: absolute;
-  background: var(--style-34-panel);
-  border-top: 0.35cqh solid var(--style-34-panel-light);
-  border-left: 0.35cqh solid var(--style-34-panel-light);
-  border-right: 0.35cqh solid var(--style-34-panel-darker);
-  border-bottom: 0.35cqh solid var(--style-34-panel-darker);
+  background: var(--topic-panel);
+  border-top: 0.35cqh solid var(--topic-panel-light);
+  border-left: 0.35cqh solid var(--topic-panel-light);
+  border-right: 0.35cqh solid var(--topic-panel-darker);
+  border-bottom: 0.35cqh solid var(--topic-panel-darker);
   box-shadow:
     inset 0.15cqh 0.15cqh 0 0 #dfdfdf,
-    inset -0.15cqh -0.15cqh 0 0 var(--style-34-panel-dark);
+    inset -0.15cqh -0.15cqh 0 0 var(--topic-panel-dark);
 }
 
 .windowTitlebar {
   background: linear-gradient(
     90deg,
-    var(--style-34-titlebar) 0%,
+    var(--topic-titlebar) 0%,
     #1084d0 100%
   );
-  color: var(--style-34-titlebar-text);
+  color: var(--topic-titlebar-text);
   padding: 0.6cqh 1cqw;
   display: flex;
   align-items: center;
@@ -156,11 +156,11 @@
   width: 3.2cqh;
   height: 3.2cqh;
   min-width: 16px;
-  background: var(--style-34-panel);
-  border-top: 0.2cqh solid var(--style-34-panel-light);
-  border-left: 0.2cqh solid var(--style-34-panel-light);
-  border-right: 0.2cqh solid var(--style-34-panel-darker);
-  border-bottom: 0.2cqh solid var(--style-34-panel-darker);
+  background: var(--topic-panel);
+  border-top: 0.2cqh solid var(--topic-panel-light);
+  border-left: 0.2cqh solid var(--topic-panel-light);
+  border-right: 0.2cqh solid var(--topic-panel-darker);
+  border-bottom: 0.2cqh solid var(--topic-panel-darker);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -263,19 +263,19 @@
 }
 
 .explorerToolbar {
-  background: var(--style-34-panel);
+  background: var(--topic-panel);
   padding: 0.8cqh 1cqw;
   display: flex;
   gap: 0.5cqw;
-  border-bottom: 0.2cqh solid var(--style-34-panel-dark);
+  border-bottom: 0.2cqh solid var(--topic-panel-dark);
 }
 
 .toolbarBtn {
-  background: var(--style-34-panel);
-  border-top: 0.15cqh solid var(--style-34-panel-light);
-  border-left: 0.15cqh solid var(--style-34-panel-light);
-  border-right: 0.15cqh solid var(--style-34-panel-darker);
-  border-bottom: 0.15cqh solid var(--style-34-panel-darker);
+  background: var(--topic-panel);
+  border-top: 0.15cqh solid var(--topic-panel-light);
+  border-left: 0.15cqh solid var(--topic-panel-light);
+  border-right: 0.15cqh solid var(--topic-panel-darker);
+  border-bottom: 0.15cqh solid var(--topic-panel-darker);
   padding: 0.5cqh 1.2cqw;
   font-size: 1.8cqh;
   cursor: pointer;
@@ -284,19 +284,19 @@
 }
 
 .toolbarBtn:active {
-  border-top: 0.15cqh solid var(--style-34-panel-darker);
-  border-left: 0.15cqh solid var(--style-34-panel-darker);
-  border-right: 0.15cqh solid var(--style-34-panel-light);
-  border-bottom: 0.15cqh solid var(--style-34-panel-light);
+  border-top: 0.15cqh solid var(--topic-panel-darker);
+  border-left: 0.15cqh solid var(--topic-panel-darker);
+  border-right: 0.15cqh solid var(--topic-panel-light);
+  border-bottom: 0.15cqh solid var(--topic-panel-light);
 }
 
 .explorerAddress {
-  background: var(--style-34-panel);
+  background: var(--topic-panel);
   padding: 0.6cqh 1cqw;
   display: flex;
   align-items: center;
   gap: 1cqw;
-  border-bottom: 0.15cqh solid var(--style-34-panel-dark);
+  border-bottom: 0.15cqh solid var(--topic-panel-dark);
 }
 
 .addressLabel {
@@ -307,10 +307,10 @@
 .addressBar {
   flex: 1;
   background: #ffffff;
-  border-top: 0.15cqh solid var(--style-34-panel-darker);
-  border-left: 0.15cqh solid var(--style-34-panel-darker);
-  border-right: 0.15cqh solid var(--style-34-panel-light);
-  border-bottom: 0.15cqh solid var(--style-34-panel-light);
+  border-top: 0.15cqh solid var(--topic-panel-darker);
+  border-left: 0.15cqh solid var(--topic-panel-darker);
+  border-right: 0.15cqh solid var(--topic-panel-light);
+  border-bottom: 0.15cqh solid var(--topic-panel-light);
   padding: 0.4cqh 0.8cqw;
   font-size: 1.8cqh;
   font-family: inherit;
@@ -324,8 +324,8 @@
 
 .explorerSidebar {
   width: 20cqw;
-  background: var(--style-34-panel);
-  border-right: 0.2cqh solid var(--style-34-panel-dark);
+  background: var(--topic-panel);
+  border-right: 0.2cqh solid var(--topic-panel-dark);
   padding: 1.5cqh 1cqw;
   overflow-y: auto;
 }
@@ -347,8 +347,8 @@
 .explorerFiles {
   flex: 1;
   background: #ffffff;
-  border-top: 0.15cqh solid var(--style-34-panel-darker);
-  border-left: 0.15cqh solid var(--style-34-panel-darker);
+  border-top: 0.15cqh solid var(--topic-panel-darker);
+  border-left: 0.15cqh solid var(--topic-panel-darker);
   margin: 1cqh;
   padding: 1.5cqh;
   display: grid;
@@ -402,14 +402,14 @@
 
 .dialogBox {
   width: 55cqw;
-  background: var(--style-34-panel);
-  border-top: 0.35cqh solid var(--style-34-panel-light);
-  border-left: 0.35cqh solid var(--style-34-panel-light);
-  border-right: 0.35cqh solid var(--style-34-panel-darker);
-  border-bottom: 0.35cqh solid var(--style-34-panel-darker);
+  background: var(--topic-panel);
+  border-top: 0.35cqh solid var(--topic-panel-light);
+  border-left: 0.35cqh solid var(--topic-panel-light);
+  border-right: 0.35cqh solid var(--topic-panel-darker);
+  border-bottom: 0.35cqh solid var(--topic-panel-darker);
   box-shadow:
     inset 0.15cqh 0.15cqh 0 0 #dfdfdf,
-    inset -0.15cqh -0.15cqh 0 0 var(--style-34-panel-dark);
+    inset -0.15cqh -0.15cqh 0 0 var(--topic-panel-dark);
 }
 
 .dialogBody {
@@ -454,11 +454,11 @@
 }
 
 .osButton {
-  background: var(--style-34-panel);
-  border-top: 0.25cqh solid var(--style-34-panel-light);
-  border-left: 0.25cqh solid var(--style-34-panel-light);
-  border-right: 0.25cqh solid var(--style-34-panel-darker);
-  border-bottom: 0.25cqh solid var(--style-34-panel-darker);
+  background: var(--topic-panel);
+  border-top: 0.25cqh solid var(--topic-panel-light);
+  border-left: 0.25cqh solid var(--topic-panel-light);
+  border-right: 0.25cqh solid var(--topic-panel-darker);
+  border-bottom: 0.25cqh solid var(--topic-panel-darker);
   padding: 1cqh 3cqw;
   font-size: 2.2cqh;
   font-family: inherit;
@@ -468,10 +468,10 @@
 }
 
 .osButton:active {
-  border-top: 0.25cqh solid var(--style-34-panel-darker);
-  border-left: 0.25cqh solid var(--style-34-panel-darker);
-  border-right: 0.25cqh solid var(--style-34-panel-light);
-  border-bottom: 0.25cqh solid var(--style-34-panel-light);
+  border-top: 0.25cqh solid var(--topic-panel-darker);
+  border-left: 0.25cqh solid var(--topic-panel-darker);
+  border-right: 0.25cqh solid var(--topic-panel-light);
+  border-bottom: 0.25cqh solid var(--topic-panel-light);
 }
 
 .osButtonDefault {
@@ -513,10 +513,10 @@
   color: #ffffff;
   text-shadow: 0.2cqh 0.2cqh 0 rgba(0,0,0,0.3);
   flex-shrink: 0;
-  border-top: 0.2cqh solid var(--style-34-panel-darker);
-  border-left: 0.2cqh solid var(--style-34-panel-darker);
-  border-right: 0.2cqh solid var(--style-34-panel-light);
-  border-bottom: 0.2cqh solid var(--style-34-panel-light);
+  border-top: 0.2cqh solid var(--topic-panel-darker);
+  border-left: 0.2cqh solid var(--topic-panel-darker);
+  border-right: 0.2cqh solid var(--topic-panel-light);
+  border-bottom: 0.2cqh solid var(--topic-panel-light);
 }
 
 .aboutInfo {
@@ -541,7 +541,7 @@
 
 .aboutSpecs {
   margin-top: 1.5cqh;
-  border-top: 0.15cqh solid var(--style-34-panel-dark);
+  border-top: 0.15cqh solid var(--topic-panel-dark);
   padding-top: 1.5cqh;
 }
 
@@ -606,8 +606,8 @@
   left: 0;
   right: 0;
   height: 5.5cqh;
-  background: var(--style-34-panel);
-  border-top: 0.3cqh solid var(--style-34-panel-light);
+  background: var(--topic-panel);
+  border-top: 0.3cqh solid var(--topic-panel-light);
   display: flex;
   align-items: center;
   padding: 0.5cqh 0.8cqw;
@@ -616,11 +616,11 @@
 }
 
 .startButton {
-  background: var(--style-34-panel);
-  border-top: 0.2cqh solid var(--style-34-panel-light);
-  border-left: 0.2cqh solid var(--style-34-panel-light);
-  border-right: 0.2cqh solid var(--style-34-panel-darker);
-  border-bottom: 0.2cqh solid var(--style-34-panel-darker);
+  background: var(--topic-panel);
+  border-top: 0.2cqh solid var(--topic-panel-light);
+  border-left: 0.2cqh solid var(--topic-panel-light);
+  border-right: 0.2cqh solid var(--topic-panel-darker);
+  border-bottom: 0.2cqh solid var(--topic-panel-darker);
   padding: 0.5cqh 1.5cqw;
   font-size: 2.2cqh;
   font-weight: bold;
@@ -633,19 +633,19 @@
 }
 
 .startButton:active {
-  border-top: 0.2cqh solid var(--style-34-panel-darker);
-  border-left: 0.2cqh solid var(--style-34-panel-darker);
-  border-right: 0.2cqh solid var(--style-34-panel-light);
-  border-bottom: 0.2cqh solid var(--style-34-panel-light);
+  border-top: 0.2cqh solid var(--topic-panel-darker);
+  border-left: 0.2cqh solid var(--topic-panel-darker);
+  border-right: 0.2cqh solid var(--topic-panel-light);
+  border-bottom: 0.2cqh solid var(--topic-panel-light);
 }
 
 .taskbarClock {
   margin-left: auto;
-  background: var(--style-34-panel);
-  border-top: 0.15cqh solid var(--style-34-panel-darker);
-  border-left: 0.15cqh solid var(--style-34-panel-darker);
-  border-right: 0.15cqh solid var(--style-34-panel-light);
-  border-bottom: 0.15cqh solid var(--style-34-panel-light);
+  background: var(--topic-panel);
+  border-top: 0.15cqh solid var(--topic-panel-darker);
+  border-left: 0.15cqh solid var(--topic-panel-darker);
+  border-right: 0.15cqh solid var(--topic-panel-light);
+  border-bottom: 0.15cqh solid var(--topic-panel-light);
   padding: 0.4cqh 1.2cqw;
   font-size: 1.8cqh;
 }
@@ -666,11 +666,11 @@
   height: 2.8cqh;
   min-width: 12px;
   min-height: 12px;
-  background: var(--style-34-panel);
-  border-top: 0.15cqh solid var(--style-34-panel-light);
-  border-left: 0.15cqh solid var(--style-34-panel-light);
-  border-right: 0.15cqh solid var(--style-34-panel-darker);
-  border-bottom: 0.15cqh solid var(--style-34-panel-darker);
+  background: var(--topic-panel);
+  border-top: 0.15cqh solid var(--topic-panel-light);
+  border-left: 0.15cqh solid var(--topic-panel-light);
+  border-right: 0.15cqh solid var(--topic-panel-darker);
+  border-bottom: 0.15cqh solid var(--topic-panel-darker);
   cursor: pointer;
   font-size: 1.4cqh;
   font-family: inherit;

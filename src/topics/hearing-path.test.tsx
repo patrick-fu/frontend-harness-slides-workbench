@@ -85,7 +85,7 @@ function renderStage(
   };
 }
 
-describe("How Hearing Begins — coordinated topic contract", () => {
+describe("How Hearing Begins — Topic contract", () => {
   it("exports the planned topic, navigation profile, facts packet, and score", () => {
     expect(topic.id).toBe("hearing-path");
     expect(topic.title).toEqual({

@@ -13,8 +13,8 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { BeatLayoutMode, SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { BeatLayoutMode, SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import styles from "./standard-time.module.css";
 
 type Language = "en" | "zh";
@@ -1428,7 +1428,6 @@ function TopicStage({
         .join(" ")}
       data-testid="standard-time-root"
       data-topic-id="standard-time"
-      data-style-id="decision-record"
       data-language={language}
       data-stage-safe="true"
       data-settled={settled ? "true" : "false"}

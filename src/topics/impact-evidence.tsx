@@ -9,7 +9,7 @@ import {
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./impact-evidence.module.css";
 
 type Language = "en" | "zh";
@@ -1128,9 +1128,7 @@ function TopicStage({
     <section
       className={styles.root}
       data-testid="impact-evidence-root"
-      data-style-id="research-memo"
       data-topic-id="impact-evidence"
-      data-topic-origin="curated"
       data-motion={effectiveReducedMotion ? "off" : "restrained"}
     >
       <header className={styles.memoHeader}>

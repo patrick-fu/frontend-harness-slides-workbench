@@ -13,8 +13,8 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { BeatLayoutMode, SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { BeatLayoutMode, SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import styles from "./hearing-path.module.css";
 
 type Language = "en" | "zh";

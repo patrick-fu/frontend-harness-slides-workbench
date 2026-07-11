@@ -16,7 +16,7 @@ import type { Source } from "../domain/evidence";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./sinking-delta.module.css";
 
 type Language = TopicStageProps["language"];
@@ -1170,7 +1170,6 @@ function TopicStage({
     <main
       className={styles.root}
       lang={language === "zh" ? "zh-CN" : "en"}
-      data-style-id="neo-brutalist-bulletin"
       data-topic-id="sinking-delta"
       data-motion={motionOff ? "off" : "on"}
       data-frozen={motionOff ? "true" : "false"}
@@ -1223,6 +1222,6 @@ export default defineTopic({
       en: "Coastal Louisiana and Mississippi Delta evidence describes regional, multi-force processes; it does not imply one rate, cause, or guaranteed project outcome.",
       zh: "沿海路易斯安那州与密西西比河三角洲证据描述的是区域、多因素过程；它不意味着单一速率、单一成因或有保证的项目结果。",
     },
-    display: "stage",
+  display: "envelope",
   },
 });

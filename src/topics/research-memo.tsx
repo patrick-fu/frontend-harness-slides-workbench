@@ -5,7 +5,7 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import styles from "./research-memo.module.css";
 import { useFLIP } from "../hooks/useFLIP";
 
@@ -343,11 +343,11 @@ function TopicStage({
       document.head.appendChild(link);
     };
     inject(
-      "style-41-fonts-source-serif",
+      "research-memo-fonts-source-serif",
       "https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600;700&display=swap",
     );
     inject(
-      "style-41-fonts-noto-serif-sc",
+      "research-memo-fonts-noto-serif-sc",
       "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap",
     );
   }, []);
@@ -782,9 +782,8 @@ function TopicStage({
 
   return (
     <div
-      data-testid="style-41-root"
+      data-testid="research-memo-root"
       data-topic-id="research-memo"
-      data-style-id="research-memo"
       className={rootClasses}
     >
             <SpatialSceneTrack

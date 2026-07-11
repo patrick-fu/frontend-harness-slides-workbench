@@ -8,7 +8,7 @@ import {
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 
 type Lang = "en" | "zh";
 type Tone = "green" | "red" | "yellow" | "cyan" | "navy";
@@ -680,15 +680,15 @@ function isRevealed(beat: number, index: number): boolean {
 
 function revealClass(beat: number, index: number, className?: string): string {
   return cx(
-    "tw34-reveal",
-    isRevealed(beat, index) ? "tw34-visible" : "tw34-hidden",
-    beat === index && "tw34-current",
+    "toolchain-reveal",
+    isRevealed(beat, index) ? "toolchain-visible" : "toolchain-hidden",
+    beat === index && "toolchain-current",
     className,
   );
 }
 
 function ToneLight({ tone }: { tone: Tone }) {
-  return <span className={cx("tw34-light", `tw34-tone-${tone}`)} aria-hidden="true" />;
+  return <span className={cx("toolchain-light", `toolchain-tone-${tone}`)} aria-hidden="true" />;
 }
 
 function RetroWindow({
@@ -703,17 +703,17 @@ function RetroWindow({
   children: ReactNode;
 }) {
   return (
-    <div className={cx("tw34-window", className)} data-beat-layout-item="true">
-      <div className="tw34-titlebar">
-        <span className="tw34-title-icon">{icon}</span>
-        <span className="tw34-title-text">{title}</span>
-        <span className="tw34-controls" aria-hidden="true">
+    <div className={cx("toolchain-window", className)} data-beat-layout-item="true">
+      <div className="toolchain-titlebar">
+        <span className="toolchain-title-icon">{icon}</span>
+        <span className="toolchain-title-text">{title}</span>
+        <span className="toolchain-controls" aria-hidden="true">
           <span />
           <span />
           <span />
         </span>
       </div>
-      <div className="tw34-window-body">{children}</div>
+      <div className="toolchain-window-body">{children}</div>
     </div>
   );
 }
@@ -730,8 +730,8 @@ function GroupBox({
   className?: string;
 }) {
   return (
-    <section className={cx("tw34-group", className)} data-tone={tone} data-beat-layout-item="true">
-      <div className="tw34-group-title">
+    <section className={cx("toolchain-group", className)} data-tone={tone} data-beat-layout-item="true">
+      <div className="toolchain-group-title">
         <ToneLight tone={tone} />
         <span>{title}</span>
       </div>
@@ -750,16 +750,16 @@ function BeatMarkers({
   label: string;
 }) {
   return (
-    <div className="tw34-beat-box" data-beat-layout-item="true" aria-label={label}>
-      <span className="tw34-beat-caption">{label}</span>
-      <div className="tw34-beat-markers">
+    <div className="toolchain-beat-box" data-beat-layout-item="true" aria-label={label}>
+      <span className="toolchain-beat-caption">{label}</span>
+      <div className="toolchain-beat-markers">
         {beats.map((item, index) => (
           <span
             key={item.id}
             className={cx(
-              "tw34-beat-marker",
-              isRevealed(beat, index) && "tw34-beat-marker-on",
-              beat === index && "tw34-beat-marker-current",
+              "toolchain-beat-marker",
+              isRevealed(beat, index) && "toolchain-beat-marker-on",
+              beat === index && "toolchain-beat-marker-current",
             )}
             title={item.title}
           />
@@ -771,12 +771,12 @@ function BeatMarkers({
 
 function MetricBar({ metric }: { metric: MetricCopy }) {
   return (
-    <div className="tw34-meter-row" data-beat-layout-item="true">
-      <span className="tw34-meter-label">{metric.label}</span>
-      <span className="tw34-meter">
+    <div className="toolchain-meter-row" data-beat-layout-item="true">
+      <span className="toolchain-meter-label">{metric.label}</span>
+      <span className="toolchain-meter">
         <span
-          className={cx("tw34-meter-fill", `tw34-tone-${metric.tone}`)}
-          style={cssVars({ "--tw34-fill": metric.value })}
+          className={cx("toolchain-meter-fill", `toolchain-tone-${metric.tone}`)}
+          style={cssVars({ "--toolchain-fill": metric.value })}
         />
       </span>
     </div>
@@ -785,10 +785,10 @@ function MetricBar({ metric }: { metric: MetricCopy }) {
 
 function CommandLines({ lines, beat }: { lines: string[]; beat: number }) {
   return (
-    <div className="tw34-terminal" data-beat-layout-item="true">
+    <div className="toolchain-terminal" data-beat-layout-item="true">
       {lines.map((line, index) => (
         <div key={line} className={revealClass(beat, index)}>
-          <span className="tw34-prompt">&gt;</span> {line}
+          <span className="toolchain-prompt">&gt;</span> {line}
         </div>
       ))}
     </div>
@@ -798,10 +798,10 @@ function CommandLines({ lines, beat }: { lines: string[]; beat: number }) {
 function PanelLines({ panel, beat }: { panel: PanelCopy; beat: number }) {
   return (
     <GroupBox title={panel.title} tone={panel.tone ?? "navy"}>
-      <ul className="tw34-lines">
+      <ul className="toolchain-lines">
         {panel.lines.map((line, index) => (
           <li key={line} className={revealClass(beat, index)} data-beat-layout-item="true">
-            <span className="tw34-chevron">»</span>
+            <span className="toolchain-chevron">»</span>
             <span>{line}</span>
           </li>
         ))}
@@ -820,9 +820,9 @@ function SceneHeader({
   language: Lang;
 }) {
   return (
-    <header className="tw34-command-band" data-beat-layout-item="true">
-      <div className="tw34-copy-block">
-        <div className="tw34-kicker">
+    <header className="toolchain-command-band" data-beat-layout-item="true">
+      <div className="toolchain-copy-block">
+        <div className="toolchain-kicker">
           <ToneLight tone={sceneCopy.id === 3 ? "red" : sceneCopy.id === 5 ? "cyan" : "green"} />
           <span>{sceneCopy.status}</span>
         </div>
@@ -837,7 +837,7 @@ function SceneHeader({
 function StatusFooter({ sceneCopy, beat }: { sceneCopy: SceneCopy; beat: number }) {
   const activeBeat = sceneCopy.beats[beat] ?? sceneCopy.beats[0];
   return (
-    <footer className="tw34-status-footer" data-beat-layout-item="true">
+    <footer className="toolchain-status-footer" data-beat-layout-item="true">
       <span>{activeBeat.title}</span>
       <span>{activeBeat.body}</span>
       <span>{sceneCopy.footer}</span>
@@ -847,19 +847,19 @@ function StatusFooter({ sceneCopy, beat }: { sceneCopy: SceneCopy; beat: number 
 
 function BootBody({ sceneCopy, beat }: { sceneCopy: SceneCopy; beat: number }) {
   return (
-    <div className="tw34-body tw34-boot-body">
-      <div className={revealClass(beat, 1, "tw34-splash")} data-beat-layout-item="true">
-        <div className="tw34-splash-logo">TOOLCHAIN OS 95</div>
-        <div className="tw34-splash-sub">C:\WORKBENCH\SYSTEM</div>
-        <div className="tw34-progress">
-          <span style={cssVars({ "--tw34-fill": isRevealed(beat, 2) ? "92%" : "58%" })} />
+    <div className="toolchain-body toolchain-boot-body">
+      <div className={revealClass(beat, 1, "toolchain-splash")} data-beat-layout-item="true">
+        <div className="toolchain-splash-logo">TOOLCHAIN OS 95</div>
+        <div className="toolchain-splash-sub">C:\WORKBENCH\SYSTEM</div>
+        <div className="toolchain-progress">
+          <span style={cssVars({ "--toolchain-fill": isRevealed(beat, 2) ? "92%" : "58%" })} />
         </div>
       </div>
-      <div className="tw34-boot-side">
+      <div className="toolchain-boot-side">
         <PanelLines panel={sceneCopy.panels[0]} beat={beat} />
         <CommandLines lines={sceneCopy.commands} beat={beat} />
       </div>
-      <div className="tw34-boot-meters">
+      <div className="toolchain-boot-meters">
         {sceneCopy.metrics.map((metric) => (
           <MetricBar key={metric.label} metric={metric} />
         ))}
@@ -870,18 +870,18 @@ function BootBody({ sceneCopy, beat }: { sceneCopy: SceneCopy; beat: number }) {
 
 function DesktopBody({ sceneCopy, beat }: { sceneCopy: SceneCopy; beat: number }) {
   return (
-    <div className="tw34-body tw34-desktop-body">
+    <div className="toolchain-body toolchain-desktop-body">
       {sceneCopy.panels.map((panel, index) => (
         <div
           key={panel.title}
-          className={revealClass(beat, index, cx("tw34-floating-slot", `tw34-float-${index + 1}`))}
+          className={revealClass(beat, index, cx("toolchain-floating-slot", `toolchain-float-${index + 1}`))}
           data-beat-layout-item="true"
         >
-          <RetroWindow title={panel.title} icon={index === 0 ? "C" : index === 1 ? "P" : "T"} className="tw34-floating-window">
-            <ul className="tw34-lines">
+          <RetroWindow title={panel.title} icon={index === 0 ? "C" : index === 1 ? "P" : "T"} className="toolchain-floating-window">
+            <ul className="toolchain-lines">
               {panel.lines.map((line) => (
                 <li key={line}>
-                  <span className="tw34-chevron">»</span>
+                  <span className="toolchain-chevron">»</span>
                   <span>{line}</span>
                 </li>
               ))}
@@ -898,23 +898,23 @@ function DesktopBody({ sceneCopy, beat }: { sceneCopy: SceneCopy; beat: number }
 function ConflictDialog({ sceneCopy, beat }: { sceneCopy: SceneCopy; beat: number }) {
   if (!sceneCopy.dialog) return null;
   return (
-    <div className={revealClass(beat, 1, "tw34-dialog")} data-beat-layout-item="true">
-      <div className="tw34-dialog-title">
+    <div className={revealClass(beat, 1, "toolchain-dialog")} data-beat-layout-item="true">
+      <div className="toolchain-dialog-title">
         <span>!</span>
         <span>{sceneCopy.dialog.title}</span>
       </div>
-      <div className="tw34-dialog-body">
-        <div className="tw34-warning-icon">!</div>
+      <div className="toolchain-dialog-body">
+        <div className="toolchain-warning-icon">!</div>
         <div>
           <strong>{sceneCopy.dialog.message}</strong>
           <p>{sceneCopy.dialog.detail}</p>
         </div>
       </div>
-      <div className="tw34-dialog-buttons">
-        <span className={cx("tw34-button-face", isRevealed(beat, 2) && "tw34-button-active")}>
+      <div className="toolchain-dialog-buttons">
+        <span className={cx("toolchain-button-face", isRevealed(beat, 2) && "toolchain-button-active")}>
           {sceneCopy.dialog.primary}
         </span>
-        <span className="tw34-button-face">{sceneCopy.dialog.secondary}</span>
+        <span className="toolchain-button-face">{sceneCopy.dialog.secondary}</span>
       </div>
     </div>
   );
@@ -922,13 +922,13 @@ function ConflictDialog({ sceneCopy, beat }: { sceneCopy: SceneCopy; beat: numbe
 
 function ConflictBody({ sceneCopy, beat }: { sceneCopy: SceneCopy; beat: number }) {
   return (
-    <div className="tw34-body tw34-conflict-body">
-      <div className="tw34-conflict-panels">
+    <div className="toolchain-body toolchain-conflict-body">
+      <div className="toolchain-conflict-panels">
         {sceneCopy.panels.map((panel, index) => (
           <PanelLines key={panel.title} panel={panel} beat={Math.min(beat + index, 2)} />
         ))}
       </div>
-      <div className="tw34-conflict-side" data-beat-layout-item="true">
+      <div className="toolchain-conflict-side" data-beat-layout-item="true">
         {sceneCopy.metrics.map((metric) => (
           <MetricBar key={metric.label} metric={metric} />
         ))}
@@ -941,24 +941,24 @@ function ConflictBody({ sceneCopy, beat }: { sceneCopy: SceneCopy; beat: number 
 
 function WorkflowBody({ sceneCopy, beat }: { sceneCopy: SceneCopy; beat: number }) {
   return (
-    <div className="tw34-body tw34-workflow-body">
-      <div className="tw34-step-rail" data-beat-layout-item="true">
+    <div className="toolchain-body toolchain-workflow-body">
+      <div className="toolchain-step-rail" data-beat-layout-item="true">
         {sceneCopy.steps.map((step, index) => (
           <div
             key={step.label}
-            className={revealClass(beat, Math.max(0, index - 1), "tw34-step-card")}
+            className={revealClass(beat, Math.max(0, index - 1), "toolchain-step-card")}
             data-beat-layout-item="true"
           >
             <ToneLight tone={step.tone} />
-            <span className="tw34-step-label">{step.label}</span>
-            <span className="tw34-step-detail">{step.detail}</span>
+            <span className="toolchain-step-label">{step.label}</span>
+            <span className="toolchain-step-detail">{step.detail}</span>
           </div>
         ))}
       </div>
-      <div className="tw34-workflow-grid">
+      <div className="toolchain-workflow-grid">
         <PanelLines panel={sceneCopy.panels[0]} beat={beat} />
         <PanelLines panel={sceneCopy.panels[1]} beat={beat} />
-        <div className="tw34-metric-stack" data-beat-layout-item="true">
+        <div className="toolchain-metric-stack" data-beat-layout-item="true">
           {sceneCopy.metrics.map((metric) => (
             <MetricBar key={metric.label} metric={metric} />
           ))}
@@ -971,20 +971,20 @@ function WorkflowBody({ sceneCopy, beat }: { sceneCopy: SceneCopy; beat: number 
 
 function ShutdownBody({ sceneCopy, beat }: { sceneCopy: SceneCopy; beat: number }) {
   return (
-    <div className="tw34-body tw34-shutdown-body">
-      <div className="tw34-dim-windows" data-beat-layout-item="true">
+    <div className="toolchain-body toolchain-shutdown-body">
+      <div className="toolchain-dim-windows" data-beat-layout-item="true">
         {sceneCopy.panels.map((panel, index) => (
-          <div key={panel.title} className={revealClass(beat, index, `tw34-dim-window tw34-dim-${index + 1}`)}>
+          <div key={panel.title} className={revealClass(beat, index, `toolchain-dim-window toolchain-dim-${index + 1}`)}>
             <PanelLines panel={panel} beat={beat} />
           </div>
         ))}
       </div>
-      <div className="tw34-shutdown-dialog" data-beat-layout-item="true">
+      <div className="toolchain-shutdown-dialog" data-beat-layout-item="true">
         <ConflictDialog sceneCopy={sceneCopy} beat={beat} />
       </div>
-      <div className="tw34-power-strip" data-beat-layout-item="true">
+      <div className="toolchain-power-strip" data-beat-layout-item="true">
         {sceneCopy.steps.map((step, index) => (
-          <div key={step.label} className={revealClass(beat, index, "tw34-power-row")}>
+          <div key={step.label} className={revealClass(beat, index, "toolchain-power-row")}>
             <ToneLight tone={step.tone} />
             <span>{step.label}</span>
             <span>{step.detail}</span>
@@ -1019,12 +1019,12 @@ function ScenePanel({
 
   return (
     <section
-      className={cx("tw34-scene", `tw34-scene-${sceneId}`)}
+      className={cx("toolchain-scene", `toolchain-scene-${sceneId}`)}
       data-active={isActive ? "true" : "false"}
       data-beat-layout-container="true"
       data-beat-layout-mode="reserved"
     >
-      <RetroWindow title={sceneCopy.file} icon={sceneCopy.icon} className="tw34-main-window">
+      <RetroWindow title={sceneCopy.file} icon={sceneCopy.icon} className="toolchain-main-window">
         <SceneHeader sceneCopy={sceneCopy} beat={activeBeat} language={language} />
         <SceneBody sceneCopy={sceneCopy} beat={activeBeat} />
         <StatusFooter sceneCopy={sceneCopy} beat={activeBeat} />
@@ -1046,7 +1046,7 @@ function Taskbar({
 
   return (
     <nav
-      className="tw34-taskbar"
+      className="toolchain-taskbar"
       aria-label={copy.navLabel}
       data-topic-navigation="true"
       data-navigation-geometry="edge-scale"
@@ -1054,24 +1054,24 @@ function Taskbar({
       data-navigation-invocation="persistent"
       data-navigation-feedback="mechanical-displacement"
     >
-      <button type="button" className="tw34-start-button" onClick={() => onNavigate?.(1, 0)}>
+      <button type="button" className="toolchain-start-button" onClick={() => onNavigate?.(1, 0)}>
         {copy.start}
       </button>
-      <div className="tw34-task-buttons">
+      <div className="toolchain-task-buttons">
         {SCENE_IDS.map((sceneId, index) => (
           <button
             key={sceneId}
             type="button"
-            className={cx("tw34-task-button", scene === sceneId && "tw34-task-button-active")}
+            className={cx("toolchain-task-button", scene === sceneId && "toolchain-task-button-active")}
             aria-current={scene === sceneId ? "page" : undefined}
             onClick={() => onNavigate?.(sceneId, 0)}
           >
-            <span className="tw34-task-index">{sceneId}</span>
+            <span className="toolchain-task-index">{sceneId}</span>
             <span>{copy.sceneLabels[index]}</span>
           </button>
         ))}
       </div>
-      <div className="tw34-tray">
+      <div className="toolchain-tray">
         <ToneLight tone={scene === 3 ? "red" : scene === 5 ? "cyan" : "green"} />
         <span>{copy.tray}</span>
       </div>
@@ -1128,14 +1128,14 @@ function TopicStage({
 
   return (
     <Fragment>
-      <style>{STYLE_34_CSS}</style>
+      <style>{TOOLCHAIN_CSS}</style>
       <div
-        className="tw34-root"
+        className="toolchain-root"
         data-topic-id="toolchain-desk"
         data-motion={motionOff ? "off" : "on"}
         data-thumbnail={isThumbnail ? "true" : "false"}
       >
-        <div className="tw34-desktop">
+        <div className="toolchain-desktop">
           <SpatialSceneTrack
             scene={scene}
             beat={beat}
@@ -1144,7 +1144,7 @@ function TopicStage({
             transitionDurationMs={520}
             reducedMotion={motionOff}
             beatLayoutModes={BEAT_LAYOUT_MODES}
-            className="tw34-track"
+            className="toolchain-track"
             renderScene={(sceneId, sceneBeat, isActive) => (
               <ScenePanel
                 sceneId={sceneId}
@@ -1193,40 +1193,40 @@ export default defineTopic({
   },
 });
 
-const STYLE_34_CSS = `
-.tw34-root {
-  --tw34-gray: #c8c8be;
-  --tw34-gray-dark: #8b8b82;
-  --tw34-gray-mid: #adada3;
-  --tw34-gray-shadow: #5d5d56;
-  --tw34-ink: #111111;
-  --tw34-paper: #f5f1df;
-  --tw34-navy: #001a63;
-  --tw34-navy-hi: #0a2f86;
-  --tw34-green: #0a8a2a;
-  --tw34-red: #b31818;
-  --tw34-yellow: #d1a216;
-  --tw34-cyan: #148f9e;
+const TOOLCHAIN_CSS = `
+.toolchain-root {
+  --toolchain-gray: #c8c8be;
+  --toolchain-gray-dark: #8b8b82;
+  --toolchain-gray-mid: #adada3;
+  --toolchain-gray-shadow: #5d5d56;
+  --toolchain-ink: #111111;
+  --toolchain-paper: #f5f1df;
+  --toolchain-navy: #001a63;
+  --toolchain-navy-hi: #0a2f86;
+  --toolchain-green: #0a8a2a;
+  --toolchain-red: #b31818;
+  --toolchain-yellow: #d1a216;
+  --toolchain-cyan: #148f9e;
   container-type: size;
   position: relative;
   width: 100cqw;
   height: 100cqh;
   overflow: hidden;
-  color: var(--tw34-ink);
+  color: var(--toolchain-ink);
   background:
     repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0, rgba(255,255,255,0.08) 0.16cqw, transparent 0.16cqw, transparent 1.8cqw),
     #bdbdb4;
   font-family: "MS Sans Serif", Tahoma, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
-.tw34-root *,
-.tw34-root *::before,
-.tw34-root *::after {
+.toolchain-root *,
+.toolchain-root *::before,
+.toolchain-root *::after {
   box-sizing: border-box;
   letter-spacing: 0;
 }
 
-.tw34-root::after {
+.toolchain-root::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1236,52 +1236,52 @@ const STYLE_34_CSS = `
   background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.16) 0, rgba(0,0,0,0.16) 0.12cqh, transparent 0.12cqh, transparent 0.48cqh);
 }
 
-.tw34-root[data-motion="off"] *,
-.tw34-root[data-motion="off"] *::before,
-.tw34-root[data-motion="off"] *::after {
+.toolchain-root[data-motion="off"] *,
+.toolchain-root[data-motion="off"] *::before,
+.toolchain-root[data-motion="off"] *::after {
   transition-duration: 0s !important;
   animation-duration: 0s !important;
 }
 
-.tw34-desktop {
+.toolchain-desktop {
   position: absolute;
   inset: 0;
   padding: 2.4cqh 2.1cqw 7.8cqh;
 }
 
-.tw34-root[data-thumbnail="true"] .tw34-desktop {
+.toolchain-root[data-thumbnail="true"] .toolchain-desktop {
   padding: 2.1cqh 2cqw;
 }
 
-.tw34-track {
+.toolchain-track {
   width: 100%;
   height: 100%;
 }
 
-.tw34-scene {
+.toolchain-scene {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
-.tw34-window {
+.toolchain-window {
   position: relative;
-  background: var(--tw34-gray);
-  border: 0.16cqw solid var(--tw34-gray-shadow);
+  background: var(--toolchain-gray);
+  border: 0.16cqw solid var(--toolchain-gray-shadow);
   box-shadow:
     inset 0.2cqw 0.2cqw 0 #ffffff,
     inset -0.2cqw -0.2cqw 0 #6f6f67;
   overflow: hidden;
 }
 
-.tw34-main-window {
+.toolchain-main-window {
   position: absolute;
   inset: 0;
   display: grid;
   grid-template-rows: 4.8cqh 1fr;
 }
 
-.tw34-titlebar {
+.toolchain-titlebar {
   min-height: 4.8cqh;
   display: grid;
   grid-template-columns: 2.6cqw 1fr 7.4cqw;
@@ -1289,17 +1289,17 @@ const STYLE_34_CSS = `
   gap: 0.6cqw;
   padding: 0.55cqh 0.7cqw;
   color: #ffffff;
-  background: linear-gradient(to right, var(--tw34-navy), var(--tw34-navy-hi));
+  background: linear-gradient(to right, var(--toolchain-navy), var(--toolchain-navy-hi));
   font-weight: 700;
   line-height: 1;
 }
 
-.tw34-title-icon {
+.toolchain-title-icon {
   display: grid;
   place-items: center;
   width: 1.8cqw;
   height: 2.6cqh;
-  color: var(--tw34-navy);
+  color: var(--toolchain-navy);
   background: #f5f1df;
   border: 0.12cqw solid #ffffff;
   box-shadow:
@@ -1308,50 +1308,50 @@ const STYLE_34_CSS = `
   font-size: 1.05cqw;
 }
 
-.tw34-title-text {
+.toolchain-title-text {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   font-size: 1.32cqw;
 }
 
-.tw34-controls {
+.toolchain-controls {
   display: grid;
   grid-template-columns: repeat(3, 1.65cqw);
   justify-content: end;
   gap: 0.36cqw;
 }
 
-.tw34-controls span {
+.toolchain-controls span {
   width: 1.65cqw;
   height: 2.3cqh;
-  background: var(--tw34-gray);
+  background: var(--toolchain-gray);
   border: 0.12cqw solid #3f3f39;
   box-shadow:
     inset 0.14cqw 0.14cqw 0 #ffffff,
     inset -0.14cqw -0.14cqw 0 #74746d;
 }
 
-.tw34-window-body {
+.toolchain-window-body {
   min-height: 0;
   display: grid;
   grid-template-rows: 17.8cqh 1fr 7.6cqh;
 }
 
-.tw34-command-band {
+.toolchain-command-band {
   display: grid;
   grid-template-columns: 1fr 16cqw;
   gap: 1.2cqw;
   padding: 2.1cqh 2cqw 1.5cqh;
-  border-bottom: 0.18cqw solid var(--tw34-gray-shadow);
+  border-bottom: 0.18cqw solid var(--toolchain-gray-shadow);
   box-shadow: inset 0 -0.18cqw 0 #ffffff;
 }
 
-.tw34-copy-block {
+.toolchain-copy-block {
   min-width: 0;
 }
 
-.tw34-kicker {
+.toolchain-kicker {
   display: flex;
   align-items: center;
   gap: 0.55cqw;
@@ -1361,47 +1361,47 @@ const STYLE_34_CSS = `
   text-transform: uppercase;
 }
 
-.tw34-command-band h1 {
+.toolchain-command-band h1 {
   margin: 0;
-  color: var(--tw34-navy);
+  color: var(--toolchain-navy);
   font-size: 3.05cqw;
   line-height: 1;
   font-weight: 800;
 }
 
-.tw34-command-band p {
+.toolchain-command-band p {
   width: 62cqw;
   margin: 1cqh 0 0;
   font-size: 1.22cqw;
   line-height: 1.28;
 }
 
-.tw34-beat-box {
+.toolchain-beat-box {
   align-self: stretch;
   display: grid;
   grid-template-rows: 3cqh 1fr;
   padding: 1cqh 0.8cqw;
-  background: var(--tw34-gray-mid);
-  border: 0.14cqw solid var(--tw34-gray-shadow);
+  background: var(--toolchain-gray-mid);
+  border: 0.14cqw solid var(--toolchain-gray-shadow);
   box-shadow:
     inset 0.16cqw 0.16cqw 0 #ffffff,
     inset -0.16cqw -0.16cqw 0 #6f6f67;
 }
 
-.tw34-beat-caption {
+.toolchain-beat-caption {
   font-size: 0.94cqw;
   font-weight: 700;
   text-transform: uppercase;
 }
 
-.tw34-beat-markers {
+.toolchain-beat-markers {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.5cqw;
   align-items: center;
 }
 
-.tw34-beat-marker {
+.toolchain-beat-marker {
   display: block;
   height: 2.6cqh;
   background: #e9e7d8;
@@ -1411,58 +1411,58 @@ const STYLE_34_CSS = `
     inset -0.14cqw -0.14cqw 0 #ffffff;
 }
 
-.tw34-beat-marker-on {
-  background: var(--tw34-navy);
+.toolchain-beat-marker-on {
+  background: var(--toolchain-navy);
 }
 
-.tw34-beat-marker-current {
-  outline: 0.22cqw solid var(--tw34-yellow);
+.toolchain-beat-marker-current {
+  outline: 0.22cqw solid var(--toolchain-yellow);
   outline-offset: -0.36cqw;
 }
 
-.tw34-body {
+.toolchain-body {
   min-height: 0;
   padding: 1.8cqh 1.8cqw;
   overflow: hidden;
 }
 
-.tw34-status-footer {
+.toolchain-status-footer {
   display: grid;
   grid-template-columns: 17cqw 1fr 34cqw;
   align-items: center;
   gap: 1cqw;
   min-height: 7.6cqh;
   padding: 0.8cqh 1cqw;
-  background: var(--tw34-gray-mid);
+  background: var(--toolchain-gray-mid);
   border-top: 0.18cqw solid #ffffff;
-  box-shadow: inset 0 0.18cqw 0 var(--tw34-gray-shadow);
+  box-shadow: inset 0 0.18cqw 0 var(--toolchain-gray-shadow);
   font-size: 1cqw;
   line-height: 1.18;
 }
 
-.tw34-status-footer span {
+.toolchain-status-footer span {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.tw34-status-footer span:first-child {
+.toolchain-status-footer span:first-child {
   font-weight: 700;
-  color: var(--tw34-navy);
+  color: var(--toolchain-navy);
 }
 
-.tw34-group {
+.toolchain-group {
   position: relative;
   min-height: 12cqh;
   padding: 2.5cqh 1cqw 1.2cqh;
-  background: var(--tw34-gray);
-  border: 0.14cqw solid var(--tw34-gray-shadow);
+  background: var(--toolchain-gray);
+  border: 0.14cqw solid var(--toolchain-gray-shadow);
   box-shadow:
     inset 0.16cqw 0.16cqw 0 #ffffff,
     inset -0.16cqw -0.16cqw 0 #777770;
 }
 
-.tw34-group-title {
+.toolchain-group-title {
   position: absolute;
   top: -1.2cqh;
   left: 0.8cqw;
@@ -1470,13 +1470,13 @@ const STYLE_34_CSS = `
   align-items: center;
   gap: 0.45cqw;
   padding: 0 0.45cqw;
-  background: var(--tw34-gray);
+  background: var(--toolchain-gray);
   font-size: 0.95cqw;
   font-weight: 700;
   text-transform: uppercase;
 }
 
-.tw34-lines {
+.toolchain-lines {
   display: grid;
   gap: 0.8cqh;
   margin: 0;
@@ -1486,19 +1486,19 @@ const STYLE_34_CSS = `
   line-height: 1.18;
 }
 
-.tw34-lines li {
+.toolchain-lines li {
   display: grid;
   grid-template-columns: 1.2cqw 1fr;
   gap: 0.4cqw;
   min-width: 0;
 }
 
-.tw34-chevron {
-  color: var(--tw34-navy);
+.toolchain-chevron {
+  color: var(--toolchain-navy);
   font-weight: 700;
 }
 
-.tw34-light {
+.toolchain-light {
   display: inline-block;
   width: 0.9cqw;
   height: 1.6cqh;
@@ -1508,50 +1508,50 @@ const STYLE_34_CSS = `
     inset -0.12cqw -0.12cqw 0 rgba(0,0,0,0.24);
 }
 
-.tw34-tone-green {
-  background: var(--tw34-green);
+.toolchain-tone-green {
+  background: var(--toolchain-green);
 }
 
-.tw34-tone-red {
-  background: var(--tw34-red);
+.toolchain-tone-red {
+  background: var(--toolchain-red);
 }
 
-.tw34-tone-yellow {
-  background: var(--tw34-yellow);
+.toolchain-tone-yellow {
+  background: var(--toolchain-yellow);
 }
 
-.tw34-tone-cyan {
-  background: var(--tw34-cyan);
+.toolchain-tone-cyan {
+  background: var(--toolchain-cyan);
 }
 
-.tw34-tone-navy {
-  background: var(--tw34-navy);
+.toolchain-tone-navy {
+  background: var(--toolchain-navy);
 }
 
-.tw34-reveal {
+.toolchain-reveal {
   visibility: hidden;
   opacity: 0;
   transform: translateY(0.55cqh);
 }
 
-.tw34-root[data-motion="on"] .tw34-reveal {
+.toolchain-root[data-motion="on"] .toolchain-reveal {
   transition:
     visibility 120ms steps(1, end),
     opacity 120ms steps(1, end),
     transform 120ms steps(1, end);
 }
 
-.tw34-visible {
+.toolchain-visible {
   visibility: visible;
   opacity: 1;
   transform: translateY(0);
 }
 
-.tw34-current {
-  color: var(--tw34-navy);
+.toolchain-current {
+  color: var(--toolchain-navy);
 }
 
-.tw34-meter-row {
+.toolchain-meter-row {
   display: grid;
   grid-template-columns: 9cqw 1fr;
   align-items: center;
@@ -1561,13 +1561,13 @@ const STYLE_34_CSS = `
   text-transform: uppercase;
 }
 
-.tw34-meter-label {
+.toolchain-meter-label {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.tw34-meter {
+.toolchain-meter {
   display: block;
   height: 1.65cqh;
   padding: 0.26cqh 0.18cqw;
@@ -1578,13 +1578,13 @@ const STYLE_34_CSS = `
     inset -0.14cqw -0.14cqw 0 #ffffff;
 }
 
-.tw34-meter-fill {
+.toolchain-meter-fill {
   display: block;
-  width: var(--tw34-fill);
+  width: var(--toolchain-fill);
   height: 100%;
 }
 
-.tw34-terminal {
+.toolchain-terminal {
   display: grid;
   gap: 0.7cqh;
   padding: 1.2cqh 1cqw;
@@ -1599,11 +1599,11 @@ const STYLE_34_CSS = `
   line-height: 1.18;
 }
 
-.tw34-prompt {
-  color: var(--tw34-cyan);
+.toolchain-prompt {
+  color: var(--toolchain-cyan);
 }
 
-.tw34-progress {
+.toolchain-progress {
   height: 2.3cqh;
   padding: 0.3cqh 0.22cqw;
   background: #e9e7d8;
@@ -1613,104 +1613,104 @@ const STYLE_34_CSS = `
     inset -0.14cqw -0.14cqw 0 #ffffff;
 }
 
-.tw34-progress span {
+.toolchain-progress span {
   display: block;
-  width: var(--tw34-fill);
+  width: var(--toolchain-fill);
   height: 100%;
-  background: var(--tw34-navy);
+  background: var(--toolchain-navy);
 }
 
-.tw34-boot-body {
+.toolchain-boot-body {
   display: grid;
   grid-template-columns: 45cqw 1fr;
   grid-template-rows: 1fr 12cqh;
   gap: 1.4cqw;
 }
 
-.tw34-splash {
+.toolchain-splash {
   grid-row: 1 / 3;
   display: grid;
   align-content: center;
   gap: 2.6cqh;
   padding: 4cqh 4cqw;
-  color: var(--tw34-navy);
-  background: var(--tw34-paper);
+  color: var(--toolchain-navy);
+  background: var(--toolchain-paper);
   border: 0.18cqw solid #4a4a44;
   box-shadow:
     inset 0.18cqw 0.18cqw 0 #777770,
     inset -0.18cqw -0.18cqw 0 #ffffff;
 }
 
-.tw34-splash-logo {
+.toolchain-splash-logo {
   font-size: 3.25cqw;
   font-weight: 800;
   line-height: 1;
 }
 
-.tw34-splash-sub {
+.toolchain-splash-sub {
   color: #111111;
   font-family: "Courier New", monospace;
   font-size: 1.15cqw;
 }
 
-.tw34-boot-side {
+.toolchain-boot-side {
   display: grid;
   gap: 1.5cqh;
 }
 
-.tw34-boot-meters {
+.toolchain-boot-meters {
   display: grid;
   gap: 0.8cqh;
   align-content: center;
   padding: 1.1cqh 1cqw;
-  background: var(--tw34-gray-mid);
+  background: var(--toolchain-gray-mid);
   border: 0.14cqw solid #5e5e58;
   box-shadow:
     inset 0.16cqw 0.16cqw 0 #ffffff,
     inset -0.16cqw -0.16cqw 0 #74746d;
 }
 
-.tw34-desktop-body {
+.toolchain-desktop-body {
   position: relative;
 }
 
-.tw34-floating-slot {
+.toolchain-floating-slot {
   position: absolute;
 }
 
-.tw34-float-1 {
+.toolchain-float-1 {
   left: 2cqw;
   top: 1.5cqh;
   width: 42cqw;
   height: 29cqh;
 }
 
-.tw34-float-2 {
+.toolchain-float-2 {
   right: 5cqw;
   top: 8cqh;
   width: 34cqw;
   height: 25cqh;
 }
 
-.tw34-float-3 {
+.toolchain-float-3 {
   left: 19cqw;
   bottom: 8cqh;
   width: 46cqw;
   height: 22cqh;
 }
 
-.tw34-floating-window {
+.toolchain-floating-window {
   width: 100%;
   height: 100%;
 }
 
-.tw34-floating-window .tw34-window-body {
+.toolchain-floating-window .toolchain-window-body {
   grid-template-rows: 1fr 6cqh;
   padding: 1.4cqh 1.1cqw;
   gap: 1cqh;
 }
 
-.tw34-desktop-body > .tw34-terminal {
+.toolchain-desktop-body > .toolchain-terminal {
   position: absolute;
   right: 2cqw;
   bottom: 2cqh;
@@ -1718,41 +1718,41 @@ const STYLE_34_CSS = `
   height: 12cqh;
 }
 
-.tw34-conflict-body {
+.toolchain-conflict-body {
   position: relative;
   display: grid;
   grid-template-columns: 1fr 27cqw;
   gap: 1.5cqw;
 }
 
-.tw34-conflict-panels {
+.toolchain-conflict-panels {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.4cqw;
   align-content: start;
 }
 
-.tw34-conflict-side {
+.toolchain-conflict-side {
   display: grid;
   gap: 1.3cqh;
   align-content: start;
 }
 
-.tw34-dialog {
+.toolchain-dialog {
   position: absolute;
   left: 20cqw;
   top: 13cqh;
   width: 42cqw;
   min-height: 24cqh;
   z-index: 4;
-  background: var(--tw34-gray);
+  background: var(--toolchain-gray);
   border: 0.16cqw solid #45453f;
   box-shadow:
     inset 0.2cqw 0.2cqw 0 #ffffff,
     inset -0.2cqw -0.2cqw 0 #6f6f67;
 }
 
-.tw34-dialog-title {
+.toolchain-dialog-title {
   display: grid;
   grid-template-columns: 2cqw 1fr;
   align-items: center;
@@ -1760,20 +1760,20 @@ const STYLE_34_CSS = `
   min-height: 4cqh;
   padding: 0.55cqh 0.8cqw;
   color: #ffffff;
-  background: var(--tw34-navy);
+  background: var(--toolchain-navy);
   font-size: 1.1cqw;
   font-weight: 700;
 }
 
-.tw34-dialog-title span:first-child {
+.toolchain-dialog-title span:first-child {
   display: grid;
   place-items: center;
   color: #111111;
-  background: var(--tw34-yellow);
+  background: var(--toolchain-yellow);
   border: 0.1cqw solid #111111;
 }
 
-.tw34-dialog-body {
+.toolchain-dialog-body {
   display: grid;
   grid-template-columns: 6cqw 1fr;
   gap: 1cqw;
@@ -1782,36 +1782,36 @@ const STYLE_34_CSS = `
   line-height: 1.2;
 }
 
-.tw34-dialog-body p {
+.toolchain-dialog-body p {
   margin: 0.9cqh 0 0;
 }
 
-.tw34-warning-icon {
+.toolchain-warning-icon {
   display: grid;
   place-items: center;
   width: 4.4cqw;
   height: 7.2cqh;
   color: #111111;
-  background: var(--tw34-yellow);
+  background: var(--toolchain-yellow);
   border: 0.14cqw solid #111111;
   font-size: 2.5cqw;
   font-weight: 800;
 }
 
-.tw34-dialog-buttons {
+.toolchain-dialog-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 1cqw;
   padding: 0 1.4cqw 1.6cqh;
 }
 
-.tw34-button-face {
+.toolchain-button-face {
   display: grid;
   place-items: center;
   min-width: 10cqw;
   min-height: 3.8cqh;
   padding: 0.6cqh 0.9cqw;
-  background: var(--tw34-gray);
+  background: var(--toolchain-gray);
   border: 0.12cqw solid #45453f;
   box-shadow:
     inset 0.16cqw 0.16cqw 0 #ffffff,
@@ -1820,104 +1820,104 @@ const STYLE_34_CSS = `
   font-weight: 700;
 }
 
-.tw34-button-active {
+.toolchain-button-active {
   box-shadow:
     inset 0.16cqw 0.16cqw 0 #777770,
     inset -0.16cqw -0.16cqw 0 #ffffff;
   color: #ffffff;
-  background: var(--tw34-navy);
+  background: var(--toolchain-navy);
 }
 
-.tw34-workflow-body {
+.toolchain-workflow-body {
   display: grid;
   grid-template-rows: 12cqh 1fr 10cqh;
   gap: 1.4cqh;
 }
 
-.tw34-step-rail {
+.toolchain-step-rail {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1cqw;
 }
 
-.tw34-step-card {
+.toolchain-step-card {
   display: grid;
   grid-template-columns: 1.1cqw 1fr;
   grid-template-rows: 3.2cqh 1fr;
   gap: 0.35cqw 0.55cqw;
   padding: 1cqh 0.9cqw;
-  background: var(--tw34-paper);
+  background: var(--toolchain-paper);
   border: 0.14cqw solid #474741;
   box-shadow:
     inset 0.16cqw 0.16cqw 0 #ffffff,
     inset -0.16cqw -0.16cqw 0 #777770;
 }
 
-.tw34-step-label {
-  color: var(--tw34-navy);
+.toolchain-step-label {
+  color: var(--toolchain-navy);
   font-size: 1.12cqw;
   font-weight: 800;
 }
 
-.tw34-step-detail {
+.toolchain-step-detail {
   grid-column: 2;
   font-size: 0.95cqw;
   line-height: 1.15;
 }
 
-.tw34-workflow-grid {
+.toolchain-workflow-grid {
   min-height: 0;
   display: grid;
   grid-template-columns: 1fr 1fr 28cqw;
   gap: 1.2cqw;
 }
 
-.tw34-metric-stack {
+.toolchain-metric-stack {
   display: grid;
   align-content: start;
   gap: 1.4cqh;
   padding: 1.3cqh 1cqw;
-  background: var(--tw34-gray-mid);
+  background: var(--toolchain-gray-mid);
   border: 0.14cqw solid #5e5e58;
   box-shadow:
     inset 0.16cqw 0.16cqw 0 #ffffff,
     inset -0.16cqw -0.16cqw 0 #74746d;
 }
 
-.tw34-shutdown-body {
+.toolchain-shutdown-body {
   position: relative;
   background:
     repeating-linear-gradient(0deg, rgba(0,0,0,0.22) 0, rgba(0,0,0,0.22) 0.2cqh, transparent 0.2cqh, transparent 1cqh),
     #5a5a54;
 }
 
-.tw34-dim-windows {
+.toolchain-dim-windows {
   position: absolute;
   inset: 3cqh 3cqw 12cqh 3cqw;
   opacity: 0.62;
 }
 
-.tw34-dim-window {
+.toolchain-dim-window {
   position: absolute;
   width: 33cqw;
 }
 
-.tw34-dim-1 {
+.toolchain-dim-1 {
   left: 4cqw;
   top: 1cqh;
 }
 
-.tw34-dim-2 {
+.toolchain-dim-2 {
   right: 3cqw;
   top: 9cqh;
 }
 
-.tw34-shutdown-dialog .tw34-dialog {
+.toolchain-shutdown-dialog .toolchain-dialog {
   left: 25cqw;
   top: 10cqh;
 }
 
-.tw34-power-strip {
+.toolchain-power-strip {
   position: absolute;
   left: 12cqw;
   right: 12cqw;
@@ -1927,13 +1927,13 @@ const STYLE_34_CSS = `
   gap: 1cqw;
 }
 
-.tw34-power-row {
+.toolchain-power-row {
   display: grid;
   grid-template-columns: 1.2cqw 7cqw 1fr;
   align-items: center;
   gap: 0.6cqw;
   padding: 1cqh 1cqw;
-  background: var(--tw34-gray);
+  background: var(--toolchain-gray);
   border: 0.14cqw solid #45453f;
   box-shadow:
     inset 0.16cqw 0.16cqw 0 #ffffff,
@@ -1941,7 +1941,7 @@ const STYLE_34_CSS = `
   font-size: 0.95cqw;
 }
 
-.tw34-taskbar {
+.toolchain-taskbar {
   position: absolute;
   left: 0;
   right: 0;
@@ -1953,16 +1953,16 @@ const STYLE_34_CSS = `
   gap: 0.7cqw;
   align-items: center;
   padding: 0.6cqh 0.7cqw;
-  background: var(--tw34-gray);
+  background: var(--toolchain-gray);
   border-top: 0.18cqw solid #ffffff;
-  box-shadow: inset 0 0.18cqw 0 var(--tw34-gray-shadow);
+  box-shadow: inset 0 0.18cqw 0 var(--toolchain-gray-shadow);
 }
 
-.tw34-start-button,
-.tw34-task-button {
+.toolchain-start-button,
+.toolchain-task-button {
   height: 4cqh;
-  color: var(--tw34-ink);
-  background: var(--tw34-gray);
+  color: var(--toolchain-ink);
+  background: var(--toolchain-gray);
   border: 0.13cqw solid #45453f;
   box-shadow:
     inset 0.16cqw 0.16cqw 0 #ffffff,
@@ -1973,21 +1973,21 @@ const STYLE_34_CSS = `
   text-align: left;
 }
 
-.tw34-start-button {
+.toolchain-start-button {
   display: grid;
   place-items: center;
   color: #ffffff;
-  background: var(--tw34-navy);
+  background: var(--toolchain-navy);
 }
 
-.tw34-task-buttons {
+.toolchain-task-buttons {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 0.55cqw;
   min-width: 0;
 }
 
-.tw34-task-button {
+.toolchain-task-button {
   display: grid;
   grid-template-columns: 1.9cqw 1fr;
   align-items: center;
@@ -1996,29 +1996,29 @@ const STYLE_34_CSS = `
   padding: 0 0.55cqw;
 }
 
-.tw34-task-button-active {
+.toolchain-task-button-active {
   box-shadow:
     inset 0.16cqw 0.16cqw 0 #777770,
     inset -0.16cqw -0.16cqw 0 #ffffff;
   background: #e5e3d5;
 }
 
-.tw34-task-index {
+.toolchain-task-index {
   display: grid;
   place-items: center;
   height: 2.4cqh;
   color: #ffffff;
-  background: var(--tw34-navy);
+  background: var(--toolchain-navy);
 }
 
-.tw34-tray {
+.toolchain-tray {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 0.6cqw;
   height: 4cqh;
   padding: 0 0.8cqw;
-  background: var(--tw34-gray-mid);
+  background: var(--toolchain-gray-mid);
   border: 0.13cqw solid #45453f;
   box-shadow:
     inset 0.16cqw 0.16cqw 0 #777770,

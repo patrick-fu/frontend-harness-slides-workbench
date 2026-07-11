@@ -7,11 +7,11 @@ import type {
 } from "../domain/topic";
 import { defineTopic } from "../domain/topic";
 import type { Source } from "../domain/evidence";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./dance-notation.module.css";
 
 type Language = "en" | "zh";

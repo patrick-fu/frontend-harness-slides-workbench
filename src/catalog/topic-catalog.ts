@@ -39,7 +39,7 @@ export function validateTopicRegistry(
   const seenStyles = new Set<string>();
   const seenTopics = new Set<string>();
 
-  return registry.map((topics, groupIndex) => {
+  const styleGroups = registry.map((topics, groupIndex) => {
     const firstTopic = topics[0];
     if (!firstTopic) {
       throw new Error(
@@ -76,6 +76,17 @@ export function validateTopicRegistry(
 
     return { style, topics };
   });
+
+  const unregisteredStyles = Object.keys(styles).filter(
+    (styleId) => !seenStyles.has(styleId),
+  );
+  if (unregisteredStyles.length > 0) {
+    throw new Error(
+      `Style definitions missing from the Topic Registry: ${unregisteredStyles.join(", ")}.`,
+    );
+  }
+
+  return styleGroups;
 }
 
 function projectTopic(topic: TopicDefinition): CatalogTopic {

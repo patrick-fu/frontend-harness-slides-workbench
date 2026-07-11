@@ -6,11 +6,11 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./escapement.module.css";
 
 type Lang = "en" | "zh";
@@ -1005,7 +1005,6 @@ function TopicStage({
   return (
     <div
       className={`${styles.root} ${reduce ? styles.reduce : ""} ${isThumbnail ? styles.thumbnail : ""}`}
-      data-style-id="operating-manual"
       data-style="operating-manual"
       data-topic-id="escapement"
       data-motion={reduce ? "off" : "on"}
@@ -1052,7 +1051,7 @@ const EVIDENCE = {
     en: "Illustrative mechanical schematic: the recoil anchor escapement diagrams are conceptual, not to scale, and not a precision-adjustment recipe.",
     zh: "示意性机械图：反冲式锚形擒纵图仅用于概念说明，不按比例绘制，也不是精密调校配方。",
   },
-  display: "stage",
+  display: "envelope",
 } as const;
 
 export default defineTopic({

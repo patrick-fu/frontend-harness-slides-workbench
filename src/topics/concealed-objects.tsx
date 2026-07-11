@@ -14,11 +14,11 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./concealed-objects.module.css";
 
 type Language = TopicStageProps["language"];
@@ -1236,7 +1236,6 @@ function TopicStage({
     <div
       className={styles.root}
       data-topic-id="concealed-objects"
-      data-style-id="analog-cutout-collage"
       data-motion={motionDisabled ? "off" : "on"}
       data-object-art="drawn"
     >
@@ -1283,6 +1282,6 @@ export default defineTopic({
       en: "Object details and find contexts are source-backed; associations with concealment practices remain bounded interpretations and do not establish a historic person's intent.",
       zh: "物件细节与发现背景均有来源支持；与藏匿习俗的联系仍属有边界的解释，不能证明某位历史人物的意图。",
     },
-    display: "stage",
+  display: "envelope",
   },
 });

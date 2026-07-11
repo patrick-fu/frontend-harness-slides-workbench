@@ -5,7 +5,7 @@ import {
   type TopicMetadata,
   type TopicStageProps,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import styles from "./pairing-board.module.css";
 import { useFLIP } from "../hooks/useFLIP";
 
@@ -545,7 +545,6 @@ function TopicStage({
   return (
     <div
       className={rootClasses}
-      data-style-id="collaborative-pairing-board"
       data-topic-id="pairing-board"
       data-motion={reducedMotion || isThumbnail ? "off" : "on"}
     >

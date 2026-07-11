@@ -7,8 +7,8 @@ import {
   type TopicTransitionScore,
 } from "../domain/topic";
 import type { Source } from "../domain/evidence";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { BeatLayoutMode, SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { BeatLayoutMode, SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import styles from "./acoustic-crack.module.css";
 
 type Lang = "en" | "zh";
@@ -1413,6 +1413,6 @@ export default defineTopic({
       en: "Acoustic-emission monitoring can prioritize inspection; it does not by itself classify or size a defect.",
       zh: "声发射监测可以确定检查优先级；它本身不能判定缺陷类型或尺寸。",
     },
-    display: "stage",
+  display: "envelope",
   },
 });

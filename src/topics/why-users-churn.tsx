@@ -5,8 +5,8 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import styles from "./why-users-churn.module.css";
 
 /* ── Palette: bright paper, near-flat depth, one serious accent ───────────── */
@@ -774,7 +774,6 @@ function TopicStage({
     <div
       className={styles.root}
       data-topic-id="why-users-churn"
-      data-style-id="research-memo"
       data-rm={rm ? "true" : "false"}
       style={{ background: PAPER }}
     >

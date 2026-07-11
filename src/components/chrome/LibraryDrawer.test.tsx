@@ -1,49 +1,76 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { lazy } from "react";
 import { describe, expect, it, vi } from "vitest";
-import type { StyleRegistryEntry, StyleTopic } from "../../types";
+import type {
+  RuntimeStyleGroup,
+  RuntimeTopic,
+} from "../../catalog/runtime-registry";
+import type { TopicMetadata, TopicStageProps } from "../../domain/topic";
 import LibraryDrawer from "./LibraryDrawer";
 
-const Noop = () => null;
+const Noop = (_props: TopicStageProps) => null;
+const metadata: TopicMetadata = {
+  theme: "",
+  densityLabel: "",
+  heroScene: 1,
+  colors: { bg: "#fff", ink: "#111", panel: "#eee" },
+  typography: { header: "serif", body: "sans" },
+  tags: [],
+  fonts: [],
+  scenes: Array.from({ length: 5 }, (_, index) => ({
+    id: index + 1,
+    title: `Scene ${index + 1}`,
+    beats: [{ id: 0, action: "", title: "", body: "" }],
+  })),
+};
 
-function topic(id: string, name: string, model: string): StyleTopic {
+function topic(
+  styleId: string,
+  id: string,
+  name: string,
+  modelId: RuntimeTopic["modelId"],
+): RuntimeTopic {
   return {
     id,
-    topic: { en: name, zh: name },
-    model,
-    component: Noop,
-    getMetadata: () => ({
-      id,
-      band: "minimal-keynote",
-      name,
-      theme: "",
-      densityLabel: "",
-      heroScene: 1,
-      colors: { bg: "#fff", ink: "#111", panel: "#eee" },
-      typography: { header: "serif", body: "sans" },
-      tags: [],
-      fonts: [],
-      scenes: Array.from({ length: 5 }, (_, index) => ({
-        id: index + 1,
-        title: `Scene ${index + 1}`,
-        beats: [{ id: 0, action: "", title: "", body: "" }],
-      })),
-    }),
+    styleId,
+    title: { en: name, zh: name },
+    modelId,
+    metadata: { en: metadata, zh: metadata },
+    navigation: { mode: "none" },
+    transitionScore: {
+      "1->2": "hard-cut",
+      "2->3": "hard-cut",
+      "3->4": "hard-cut",
+      "4->5": "hard-cut",
+    },
+    evidence: { kind: "none" },
+    modulePath: `../topics/${id}.tsx`,
+    Stage: lazy(async () => ({ default: Noop })),
+    loadStage: async () => Noop,
   };
 }
 
-const registry: StyleRegistryEntry[] = [
+const registry: readonly RuntimeStyleGroup[] = [
   {
-    id: "quiet-grid",
-    name: { en: "Quiet Grid", zh: "静默网格" },
+    style: {
+      id: "quiet-grid",
+      name: { en: "Quiet Grid", zh: "静默网格" },
+      band: "minimal-keynote",
+    },
     topics: [
-      topic("launch", "Quiet launch", "GPT 5.6 Sol"),
-      topic("grain", "Presolar grain", "GPT 5.5"),
+      topic("quiet-grid", "launch", "Quiet launch", "GPT 5.6 Sol"),
+      topic("quiet-grid", "grain", "Presolar grain", "GPT 5.5"),
     ],
   },
   {
-    id: "field-notes",
-    name: { en: "Field Notes", zh: "田野笔记" },
-    topics: [topic("dust", "Saharan dust", "Doubao-Seed-Evolving")],
+    style: {
+      id: "field-notes",
+      name: { en: "Field Notes", zh: "田野笔记" },
+      band: "text-report",
+    },
+    topics: [
+      topic("field-notes", "dust", "Saharan dust", "Doubao-Seed-Evolving"),
+    ],
   },
 ];
 

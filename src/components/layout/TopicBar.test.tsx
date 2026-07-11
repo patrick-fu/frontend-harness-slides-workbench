@@ -1,34 +1,54 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { lazy } from "react";
 import TopicBar from "./TopicBar";
-import type { StyleRegistryEntry } from "../../types";
+import type {
+  RuntimeStyleGroup,
+  RuntimeTopic,
+} from "../../catalog/runtime-registry";
+import type { TopicMetadata, TopicStageProps } from "../../domain/topic";
 
-function makeStyle(
+const metadata: TopicMetadata = {
+  theme: "test",
+  densityLabel: "Sparse",
+  heroScene: 1,
+  colors: { bg: "#fff", ink: "#111", panel: "#eee" },
+  typography: { header: "Test 700", body: "Test 400" },
+  tags: ["test"],
+  fonts: [],
+  scenes: [],
+};
+
+const EmptyStage = (_props: TopicStageProps) => null;
+
+function makeGroup(
   topics: Array<{
     id: string;
-    topic: { en: string; zh: string };
-    model: string;
+    title: { en: string; zh: string };
+    modelId: RuntimeTopic["modelId"];
   }>,
-): StyleRegistryEntry {
+): RuntimeStyleGroup {
   return {
-    id: "minimal-product-keynote",
-    name: { en: "Minimal Product Keynote", zh: "极简产品演示" },
+    style: {
+      id: "minimal-product-keynote",
+      name: { en: "Minimal Product Keynote", zh: "极简产品演示" },
+      band: "minimal-keynote",
+    },
     topics: topics.map((topic) => ({
       ...topic,
-      component: () => null,
-      getMetadata: () => ({
-        id: "minimal-product-keynote",
-        name: "Minimal Product Keynote",
-        band: "minimal-keynote",
-        theme: "test",
-        densityLabel: "Sparse",
-        heroScene: 1,
-        colors: { bg: "#fff", ink: "#111", panel: "#eee" },
-        typography: { header: "Test 700", body: "Test 400" },
-        tags: ["test"],
-        fonts: [],
-        scenes: [],
-      }),
+      styleId: "minimal-product-keynote",
+      metadata: { en: metadata, zh: metadata },
+      navigation: { mode: "none" },
+      transitionScore: {
+        "1->2": "hard-cut",
+        "2->3": "hard-cut",
+        "3->4": "hard-cut",
+        "4->5": "hard-cut",
+      },
+      evidence: { kind: "none" },
+      modulePath: `../topics/${topic.id}.tsx`,
+      Stage: lazy(async () => ({ default: EmptyStage })),
+      loadStage: async () => EmptyStage,
     })),
   };
 }
@@ -37,16 +57,16 @@ function renderTopicBar(
   props: Partial<React.ComponentProps<typeof TopicBar>> = {},
 ) {
   const defaultProps = {
-    style: makeStyle([
+    group: makeGroup([
       {
         id: "product-keynote",
-        topic: { en: "Product Keynote", zh: "产品主题" },
-        model: "Doubao-Seed-Evolving",
+        title: { en: "Product Keynote", zh: "产品主题" },
+        modelId: "Doubao-Seed-Evolving",
       },
       {
         id: "decision-art",
-        topic: { en: "Decision Art", zh: "决策艺术" },
-        model: "GPT 5.5",
+        title: { en: "Decision Art", zh: "决策艺术" },
+        modelId: "GPT 5.5",
       },
     ]),
     currentTopicId: "decision-art",
@@ -148,11 +168,11 @@ describe("TopicBar", () => {
 
   it("does not render the switcher for a single-topic style", () => {
     renderTopicBar({
-      style: makeStyle([
+      group: makeGroup([
         {
           id: "product-keynote",
-          topic: { en: "Product Keynote", zh: "产品主题" },
-          model: "Doubao-Seed-Evolving",
+          title: { en: "Product Keynote", zh: "产品主题" },
+          modelId: "Doubao-Seed-Evolving",
         },
       ]),
       currentTopicId: "product-keynote",

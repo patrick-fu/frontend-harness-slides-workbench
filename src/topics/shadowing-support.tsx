@@ -6,8 +6,8 @@ import {
   type TopicNavigation,
   type TopicStageProps,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./shadowing-support.module.css";
 
@@ -750,5 +750,12 @@ export default defineTopic({
   metadata,
   navigation: NAVIGATION,
   transitionScore: TRANSITION_SCORE,
-  evidence: { kind: "none" },
+  evidence: {
+    kind: "illustrative",
+    boundary: {
+      en: "Illustrative support-shadowing report: people, conversations, tickets, timings, counts, and findings are authored examples, not observations from a real study.",
+      zh: "示例客服跟班报告：人物、对话、工单、时间、数量和发现均为创作示例，并非真实研究的观察结果。",
+    },
+    display: "envelope",
+  },
 });

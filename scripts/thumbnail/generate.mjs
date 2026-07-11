@@ -11,7 +11,6 @@ import {
   inspectWebp,
   removeUnmappedShowcaseWebps,
   showcaseDirectory,
-  writeThumbnailManifest,
 } from "./shared.mjs";
 
 const execFile = promisify(execFileCallback);
@@ -158,7 +157,6 @@ async function main() {
     for (const result of results) {
       await rename(result.path, resolve(showcaseDirectory, result.target.filename));
     }
-    await writeThumbnailManifest(targets);
     const removedFilenames = await removeUnmappedShowcaseWebps(targets);
 
     const bytes = results.reduce((sum, result) => sum + result.bytes, 0);

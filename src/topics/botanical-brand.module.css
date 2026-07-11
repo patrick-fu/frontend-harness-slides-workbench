@@ -1,21 +1,21 @@
-/* ─── Style 35: Mid-Century Grove ─────────────────────────────────────────
+/* ─── Mid-Century Grove ─────────────────────────────────────────
    Botanical specimen card aesthetic. Deep forest green ground.
    Warm cream text. Rust-orange accent (punctuation only).
    Linen/paper feel. Wood-warmth atmospheric depth.
    All sizing in cqw/cqh. No px/vw/vh.
    ──────────────────────────────────────────────────────────────────────── */
 
-:root {
-  --style-35-bg: #1a2e1f;
-  --style-35-ink: #f5efe0;
-  --style-35-panel: #243828;
-  --style-35-accent: #c4622a;
-  --style-35-cream: #f5efe0;
-  --style-35-sage: #3d5c42;
-  --style-35-warm: #8b7355;
-  --style-35-dim: rgba(245, 239, 224, 0.6);
-  --style-35-border: rgba(245, 239, 224, 0.15);
-  --style-35-linen: rgba(245, 239, 224, 0.04);
+.root {
+  --topic-bg: #1a2e1f;
+  --topic-ink: #f5efe0;
+  --topic-panel: #243828;
+  --topic-accent: #c4622a;
+  --topic-cream: #f5efe0;
+  --topic-sage: #3d5c42;
+  --topic-warm: #8b7355;
+  --topic-dim: rgba(245, 239, 224, 0.6);
+  --topic-border: rgba(245, 239, 224, 0.15);
+  --topic-linen: rgba(245, 239, 224, 0.04);
 }
 
 .root {
@@ -24,8 +24,8 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-35-bg);
-  color: var(--style-35-ink);
+  background: var(--topic-bg);
+  color: var(--topic-ink);
   font-family: "Inter", system-ui, sans-serif;
 }
 
@@ -39,15 +39,15 @@
       0deg,
       transparent,
       transparent 0.3cqh,
-      var(--style-35-linen) 0.3cqh,
-      var(--style-35-linen) 0.32cqh
+      var(--topic-linen) 0.3cqh,
+      var(--topic-linen) 0.32cqh
     ),
     repeating-linear-gradient(
       90deg,
       transparent,
       transparent 0.3cqw,
-      var(--style-35-linen) 0.3cqw,
-      var(--style-35-linen) 0.32cqw
+      var(--topic-linen) 0.3cqw,
+      var(--topic-linen) 0.32cqw
     );
   pointer-events: none;
   z-index: 1;
@@ -65,7 +65,7 @@
   z-index: 0;
 }
 
-/* ── Transition Track (legacy, kept for backward compat) ───────────────── */
+/* ── Scene transition track ───────────────── */
 
 .transitionTrack {
   position: relative;
@@ -163,7 +163,7 @@
   letter-spacing: 0.02em;
   margin: 0;
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  color: var(--style-35-cream);
+  color: var(--topic-cream);
   line-height: 1.1;
 }
 
@@ -172,7 +172,7 @@
   font-weight: 300;
   letter-spacing: 0.12em;
   margin-top: 2cqh;
-  color: var(--style-35-dim);
+  color: var(--topic-dim);
   font-family: "Inter", system-ui, sans-serif;
 }
 
@@ -193,7 +193,7 @@
   font-size: 1.8cqh;
   text-transform: uppercase;
   letter-spacing: 0.25em;
-  color: var(--style-35-accent);
+  color: var(--topic-accent);
   margin-bottom: 1cqh;
   font-weight: 500;
 }
@@ -202,7 +202,7 @@
   font-size: 5.5cqh;
   font-weight: 600;
   margin: 0 0 3cqh 0;
-  color: var(--style-35-cream);
+  color: var(--topic-cream);
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
   letter-spacing: -0.01em;
   line-height: 1.15;
@@ -218,7 +218,7 @@
 
 .cultureCard {
   background: rgba(36, 56, 40, 0.7);
-  border: 0.15cqh solid var(--style-35-border);
+  border: 0.15cqh solid var(--topic-border);
   border-radius: 0.6cqh;
   padding: 2.5cqh 2cqw;
   display: flex;
@@ -241,7 +241,7 @@
   left: 1.5cqw;
   right: 1.5cqw;
   height: 0.1cqh;
-  background: var(--style-35-accent);
+  background: var(--topic-accent);
   opacity: 0.5;
 }
 
@@ -263,20 +263,20 @@
   font-size: 2.6cqh;
   font-weight: 600;
   margin: 0;
-  color: var(--style-35-cream);
+  color: var(--topic-cream);
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
 }
 
 .cultureCardDesc {
   font-size: 1.8cqh;
   line-height: 1.6;
-  color: var(--style-35-dim);
+  color: var(--topic-dim);
   flex: 1;
 }
 
 .cultureCardTag {
   font-size: 1.4cqh;
-  color: var(--style-35-accent);
+  color: var(--topic-accent);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   font-weight: 500;
@@ -311,7 +311,7 @@
   left: 5cqw;
   right: 5cqw;
   height: 0.15cqh;
-  background: var(--style-35-border);
+  background: var(--topic-border);
   transform: translateY(-50%);
 }
 
@@ -344,20 +344,20 @@
   width: 2.5cqh;
   height: 2.5cqh;
   border-radius: 50%;
-  background: var(--style-35-panel);
-  border: 0.2cqh solid var(--style-35-accent);
+  background: var(--topic-panel);
+  border: 0.2cqh solid var(--topic-accent);
 }
 
 .timelineYear {
   font-size: 3.2cqh;
   font-weight: 600;
-  color: var(--style-35-cream);
+  color: var(--topic-cream);
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
 }
 
 .timelineLabel {
   font-size: 1.7cqh;
-  color: var(--style-35-dim);
+  color: var(--topic-dim);
   text-align: center;
   max-width: 15cqw;
   line-height: 1.4;
@@ -382,7 +382,7 @@
 .heroQuoteMark {
   font-size: 14cqh;
   line-height: 0.8;
-  color: var(--style-35-accent);
+  color: var(--topic-accent);
   opacity: 0.4;
   margin-bottom: -2cqh;
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
@@ -394,7 +394,7 @@
   line-height: 1.35;
   max-width: 70cqw;
   margin: 0;
-  color: var(--style-35-cream);
+  color: var(--topic-cream);
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
   font-style: italic;
 }
@@ -402,7 +402,7 @@
 .heroAuthor {
   font-size: 2.2cqh;
   margin-top: 3cqh;
-  color: var(--style-35-accent);
+  color: var(--topic-accent);
   letter-spacing: 0.12em;
   font-weight: 400;
 }
@@ -423,7 +423,7 @@
 .heroStatValue {
   font-size: 5.5cqh;
   font-weight: 600;
-  color: var(--style-35-cream);
+  color: var(--topic-cream);
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
 }
 
@@ -431,7 +431,7 @@
   font-size: 1.5cqh;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: var(--style-35-dim);
+  color: var(--topic-dim);
 }
 
 /* ── Scene 5: Closing ──────────────────────────────────────────────────── */
@@ -452,7 +452,7 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   margin: 0;
-  color: var(--style-35-cream);
+  color: var(--topic-cream);
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
   line-height: 1.1;
 }
@@ -460,7 +460,7 @@
 .closingSub {
   font-size: 2.8cqh;
   margin-top: 2cqh;
-  color: var(--style-35-dim);
+  color: var(--topic-dim);
   letter-spacing: 0.06em;
   font-weight: 300;
 }
@@ -495,7 +495,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--style-35-accent);
+  background: var(--topic-accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);

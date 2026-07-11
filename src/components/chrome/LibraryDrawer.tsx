@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { StyleRegistryEntry } from "../../types";
+import type { RuntimeStyleGroup } from "../../catalog/runtime-registry";
 import { modelColor } from "../../utils/model-color";
 import { useModalFocus } from "../../hooks/useModalFocus";
 import { BAND_LABELS, groupByBand } from "../layout/bands";
 
 export interface LibraryDrawerProps {
   open: boolean;
-  registry: StyleRegistryEntry[];
+  registry: readonly RuntimeStyleGroup[];
   currentStyleId: string;
   currentTopicId: string;
   language: "en" | "zh";
@@ -39,21 +39,22 @@ export default function LibraryDrawer({
 
   const grouped = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase();
-    return groupByBand(registry).map(([band, styles]) => [
+    return groupByBand(registry).map(([band, groups]) => [
       band,
-      styles.flatMap((style) => {
-        if (!normalized) return [{ style, topics: style.topics }];
+      groups.flatMap((group) => {
+        const style = group.style;
+        if (!normalized) return [{ group, topics: group.topics }];
         const styleMatches = `${style.name.en} ${style.name.zh} ${style.id}`
           .toLocaleLowerCase()
           .includes(normalized);
-        const topics = style.topics.filter((topic) =>
+        const topics = group.topics.filter((topic) =>
           styleMatches
             ? true
-            : `${topic.topic.en} ${topic.topic.zh} ${topic.id} ${topic.model}`
+            : `${topic.title.en} ${topic.title.zh} ${topic.id} ${topic.modelId}`
                 .toLocaleLowerCase()
                 .includes(normalized),
         );
-        return topics.length ? [{ style, topics }] : [];
+        return topics.length ? [{ group, topics }] : [];
       }),
     ] as const);
   }, [query, registry]);
@@ -133,15 +134,16 @@ export default function LibraryDrawer({
               {labels.empty}
             </div>
           )}
-          {grouped.map(([band, styles]) => {
-            if (!styles.length) return null;
+          {grouped.map(([band, groups]) => {
+            if (!groups.length) return null;
             return (
               <section key={band} className="mb-5">
                 <h3 className="sticky top-0 z-10 bg-elevated/95 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-ink/40 backdrop-blur">
                   {BAND_LABELS[band][language]}
                 </h3>
                 <div className="space-y-1">
-                  {styles.map(({ style, topics }) => {
+                  {groups.map(({ group, topics }) => {
+                    const style = group.style;
                     const isExpanded = Boolean(query) || expandedStyles.has(style.id);
                     const isCurrent = style.id === currentStyleId;
                     return (
@@ -179,7 +181,7 @@ export default function LibraryDrawer({
                                   key={topic.id}
                                   type="button"
                                   aria-current={active ? "page" : undefined}
-                                  aria-label={`${topic.topic[language]} · ${topic.model}`}
+                                  aria-label={`${topic.title[language]} · ${topic.modelId}`}
                                   onClick={() => {
                                     onSelectTopic(style.id, topic.id);
                                     onClose();
@@ -190,13 +192,13 @@ export default function LibraryDrawer({
                                 >
                                   <span
                                     className="h-1.5 w-1.5 shrink-0 rounded-full"
-                                    style={{ backgroundColor: modelColor(topic.model) }}
+                                    style={{ backgroundColor: modelColor(topic.modelId) }}
                                   />
                                   <span className="min-w-0 flex-1 truncate text-xs">
-                                    {topic.topic[language]}
+                                    {topic.title[language]}
                                   </span>
                                   <span className="max-w-[112px] truncate font-mono text-[9px] text-ink/40">
-                                    {topic.model}
+                                    {topic.modelId}
                                   </span>
                                 </button>
                               );

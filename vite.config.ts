@@ -1,7 +1,7 @@
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import { CATALOG_MANIFEST } from "./src/styles/catalog-manifest.generated";
+import { CATALOG_MANIFEST } from "./src/catalog/manifest.generated";
 
 function catalogStatsAsset(): Plugin {
   return {

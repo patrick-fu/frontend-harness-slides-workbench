@@ -94,7 +94,7 @@ describe("The Escapement Topic contract", () => {
       invocation: "keyboard-focus",
       feedback: "typographic-emphasis",
     });
-    expect(topic.evidence).toMatchObject({ kind: "mixed", display: "stage" });
+    expect(topic.evidence).toMatchObject({ kind: "mixed", display: "envelope" });
     expect(topic.transitionScore).toEqual({
       "1->2": "hard-cut",
       "2->3": "linear-wipe",

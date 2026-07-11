@@ -80,7 +80,7 @@ describe("Whale Fall — topic contract", () => {
       invocation: "keyboard-focus",
       feedback: "next-state-preview",
     });
-    expect(topic.evidence).toMatchObject({ kind: "mixed", display: "stage" });
+    expect(topic.evidence).toMatchObject({ kind: "mixed", display: "envelope" });
     expect(topic.transitionScore).toEqual({
       "1->2": "dip-to-color",
       "2->3": "dolly-pull",

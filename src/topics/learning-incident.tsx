@@ -10,7 +10,7 @@ import { useFLIP } from "../hooks/useFLIP";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./learning-incident.module.css";
 
 type Language = "en" | "zh";
@@ -789,7 +789,6 @@ function TopicStage({
         isThumbnail ? styles.thumbnail : "",
         isStatic ? styles.staticMode : "",
       ].join(" ")}
-      data-style-id="debug-reaction-board"
     >
       <div className={styles.gridBackdrop} aria-hidden="true" />
       {!isThumbnail && (

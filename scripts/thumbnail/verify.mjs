@@ -14,53 +14,31 @@ async function main() {
   try {
     await vite.listen();
     const targets = await collectThumbnailTargets(vite);
-    const { topicShowcaseThumbnails } = await vite.ssrLoadModule(
-      "/src/data/showcase-thumbnails.ts",
-    );
-    const expectedPairs = targets.map(
-      (target) => `${target.styleId}/${target.topicId}`,
-    );
-    const actualPairs = Object.entries(topicShowcaseThumbnails).flatMap(
-      ([styleId, topics]) =>
-        Object.keys(topics).map((topicId) => `${styleId}/${topicId}`),
-    );
     const failures = [];
-
-    if (JSON.stringify(actualPairs) !== JSON.stringify(expectedPairs)) {
-      failures.push("thumbnail manifest keys do not exactly match the Registry");
-    }
 
     const expectedFilenames = targets.map((target) => target.filename).sort();
     const committedFilenames = (await readdir(showcaseDirectory))
       .filter((filename) => filename.endsWith(".webp"))
       .sort();
     if (JSON.stringify(committedFilenames) !== JSON.stringify(expectedFilenames)) {
-      failures.push("showcase WebP files do not exactly match the thumbnail manifest");
+      failures.push("showcase WebP basenames do not exactly match Registry Topic IDs");
     }
 
     let totalBytes = 0;
     for (const target of targets) {
-      const filename = topicShowcaseThumbnails[target.styleId]?.[target.topicId];
-      if (filename !== target.filename) {
-        failures.push(
-          `${target.styleId}/${target.topicId} maps to ${filename ?? "nothing"}, expected ${target.filename}`,
-        );
-        continue;
-      }
-
-      const filePath = resolve(showcaseDirectory, filename);
+      const filePath = resolve(showcaseDirectory, target.filename);
       try {
         await access(filePath);
         const image = await inspectWebp(filePath);
         totalBytes += image.bytes;
         if (image.width !== 1920 || image.height !== 1080) {
           failures.push(
-            `${filename} is ${image.width}×${image.height}, expected 1920×1080`,
+            `${target.filename} is ${image.width}×${image.height}, expected 1920×1080`,
           );
         }
       } catch (error) {
         const reason = error instanceof Error ? error.message : String(error);
-        failures.push(`${filename}: ${reason}`);
+        failures.push(`${target.filename}: ${reason}`);
       }
     }
 

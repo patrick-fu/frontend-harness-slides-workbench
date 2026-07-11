@@ -186,7 +186,7 @@
   }
 }
 
-/* ── Transition Track (legacy) ──────────────────────────────────────────── */
+/* ── Scene transition track ──────────────────────────────────────────── */
 
 .transitionTrack {
   position: relative;

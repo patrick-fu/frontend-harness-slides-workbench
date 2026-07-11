@@ -8,7 +8,7 @@ import type {
 } from "../domain/topic";
 import { defineTopic } from "../domain/topic";
 import type { Source } from "../domain/evidence";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import styles from "./cocoa-fermentation.module.css";
 
 type Lang = "en" | "zh";
@@ -1005,7 +1005,6 @@ function TopicStage({
       data-language={language}
       data-motion-off={motionOff ? "true" : undefined}
       data-thumbnail={isThumbnail ? "true" : undefined}
-      data-style-id="kitchen-prep-station"
       data-topic-id="cocoa-fermentation"
     >
       <SpatialSceneTrack

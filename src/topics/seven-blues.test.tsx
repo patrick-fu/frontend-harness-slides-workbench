@@ -637,7 +637,6 @@ describe("Riso Print Zine / Seven Blues — deterministic stage safety", () => {
     );
 
     expect(root?.parentElement).toBe(stage);
-    expect(root).toHaveAttribute("data-style-id", "riso-print-zine");
     expect(root).toHaveAttribute(
       "data-transition-score",
       "multi-blind|ink-spread|afterimage|multi-blind",

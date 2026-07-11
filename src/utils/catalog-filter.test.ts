@@ -1,37 +1,40 @@
 import { describe, expect, it } from "vitest";
-import type { StyleMetadata, StyleRegistryEntry, StyleTopic } from "../types";
+import { lazy } from "react";
+import type {
+  RuntimeStyleGroup,
+  RuntimeTopic,
+} from "../catalog/runtime-registry";
+import type { Band, StyleDefinition } from "../domain/style";
+import type { TopicMetadata, TopicStageProps } from "../domain/topic";
 import {
   buildCatalogTopics,
   filterCatalogTopics,
   getCatalogFacetCounts,
-  type CatalogTopic,
+  type CatalogTopicEntry,
 } from "./catalog-filter";
+
+const EmptyStage = (_props: TopicStageProps) => null;
 
 function makeTopic(
   styleId: string,
   topicId: string,
-  band: CatalogTopic["band"],
-  model: string,
-): CatalogTopic {
+  band: Band,
+  modelId: RuntimeTopic["modelId"],
+): CatalogTopicEntry {
+  const metadata = makeMetadata();
   return {
-    styleId,
-    styleName: `Style ${styleId}`,
-    topicId,
-    topicName: `Topic ${topicId}`,
-    band,
-    model,
-    metadata: {} as StyleMetadata,
+    style: {
+      id: styleId,
+      name: { en: `Style ${styleId}`, zh: `风格 ${styleId}` },
+      band,
+    },
+    topic: makeRuntimeTopic(styleId, topicId, modelId, metadata),
+    metadata,
   };
 }
 
-function makeMetadata(
-  id: string,
-  band: StyleMetadata["band"],
-): StyleMetadata {
+function makeMetadata(): TopicMetadata {
   return {
-    id,
-    band,
-    name: `Style ${id}`,
     theme: "test theme",
     densityLabel: "Sparse",
     heroScene: 1,
@@ -43,35 +46,54 @@ function makeMetadata(
   };
 }
 
-function makeRegistryTopic(
+function makeRuntimeTopic(
+  styleId: string,
   id: string,
-  model: string,
-  band: StyleMetadata["band"],
-): StyleTopic {
+  modelId: RuntimeTopic["modelId"],
+  metadata: TopicMetadata,
+): RuntimeTopic {
   return {
     id,
-    topic: { en: `Topic ${id}`, zh: `题材 ${id}` },
-    model,
-    component: () => null,
-    getMetadata: () => makeMetadata(id, band),
+    styleId,
+    title: { en: `Topic ${id}`, zh: `题材 ${id}` },
+    modelId,
+    metadata: { en: metadata, zh: metadata },
+    navigation: { mode: "none" },
+    transitionScore: {
+      "1->2": "hard-cut",
+      "2->3": "hard-cut",
+      "3->4": "hard-cut",
+      "4->5": "hard-cut",
+    },
+    evidence: { kind: "none" },
+    modulePath: `../topics/${id}.tsx`,
+    Stage: lazy(async () => ({ default: EmptyStage })),
+    loadStage: async () => EmptyStage,
   };
+}
+
+function makeGroup(
+  style: StyleDefinition,
+  topics: RuntimeTopic[],
+): RuntimeStyleGroup {
+  return { style, topics };
 }
 
 describe("filterCatalogTopics", () => {
   it("uses OR within each facet and AND between the Band and Model facets", () => {
     const topics = [
       makeTopic("minimal", "keynote", "minimal-keynote", "GPT 5.5"),
-      makeTopic("minimal", "research", "minimal-keynote", "Claude 4"),
+      makeTopic("minimal", "research", "minimal-keynote", "Claude Opus 4.8"),
       makeTopic("balanced", "process", "balanced-hybrid", "GPT 5.5"),
-      makeTopic("editorial", "brief", "editorial-print", "Gemini 2.5"),
+      makeTopic("editorial", "brief", "editorial-print", "Doubao-Seed-Evolving"),
     ];
 
     const visible = filterCatalogTopics(topics, {
       bands: ["minimal-keynote", "editorial-print"],
-      models: ["GPT 5.5", "Gemini 2.5"],
+      models: ["GPT 5.5", "Doubao-Seed-Evolving"],
     });
 
-    expect(visible.map((topic) => topic.topicId)).toEqual([
+    expect(visible.map((entry) => entry.topic.id)).toEqual([
       "keynote",
       "brief",
     ]);
@@ -99,32 +121,43 @@ describe("filterCatalogTopics", () => {
 
 describe("buildCatalogTopics", () => {
   it("enumerates every Topic in registry order with the requested localized labels", () => {
-    const registry: StyleRegistryEntry[] = [
-      {
-        id: "alpha",
-        name: { en: "Alpha", zh: "甲" },
-        topics: [
-          makeRegistryTopic("first", "GPT 5.5", "minimal-keynote"),
-          makeRegistryTopic("second", "Claude 4", "minimal-keynote"),
+    const registry: readonly RuntimeStyleGroup[] = [
+      makeGroup(
+        {
+          id: "alpha",
+          name: { en: "Alpha", zh: "甲" },
+          band: "minimal-keynote",
+        },
+        [
+          makeRuntimeTopic("alpha", "first", "GPT 5.5", makeMetadata()),
+          makeRuntimeTopic(
+            "alpha",
+            "second",
+            "Claude Opus 4.8",
+            makeMetadata(),
+          ),
         ],
-      },
-      {
-        id: "beta",
-        name: { en: "Beta", zh: "乙" },
-        topics: [makeRegistryTopic("third", "GPT 5.5", "editorial-print")],
-      },
+      ),
+      makeGroup(
+        {
+          id: "beta",
+          name: { en: "Beta", zh: "乙" },
+          band: "editorial-print",
+        },
+        [makeRuntimeTopic("beta", "third", "GPT 5.5", makeMetadata())],
+      ),
     ];
 
     const topics = buildCatalogTopics(registry, "zh");
 
     expect(
-      topics.map(({ styleId, styleName, topicId, topicName, band, model }) => ({
-        styleId,
-        styleName,
-        topicId,
-        topicName,
-        band,
-        model,
+      topics.map(({ style, topic }) => ({
+        styleId: style.id,
+        styleName: style.name.zh,
+        topicId: topic.id,
+        topicName: topic.title.zh,
+        band: style.band,
+        modelId: topic.modelId,
       })),
     ).toEqual([
       {
@@ -133,7 +166,7 @@ describe("buildCatalogTopics", () => {
         topicId: "first",
         topicName: "题材 first",
         band: "minimal-keynote",
-        model: "GPT 5.5",
+        modelId: "GPT 5.5",
       },
       {
         styleId: "alpha",
@@ -141,7 +174,7 @@ describe("buildCatalogTopics", () => {
         topicId: "second",
         topicName: "题材 second",
         band: "minimal-keynote",
-        model: "Claude 4",
+        modelId: "Claude Opus 4.8",
       },
       {
         styleId: "beta",
@@ -149,7 +182,7 @@ describe("buildCatalogTopics", () => {
         topicId: "third",
         topicName: "题材 third",
         band: "editorial-print",
-        model: "GPT 5.5",
+        modelId: "GPT 5.5",
       },
     ]);
   });
@@ -159,9 +192,9 @@ describe("getCatalogFacetCounts", () => {
   it("uses Topic counts from the opposite facet and keeps exact model strings in first-occurrence order", () => {
     const topics = [
       makeTopic("minimal", "keynote", "minimal-keynote", "GPT 5.5"),
-      makeTopic("minimal", "research", "minimal-keynote", "Claude 4"),
+      makeTopic("minimal", "research", "minimal-keynote", "Claude Opus 4.8"),
       makeTopic("editorial", "brief", "editorial-print", "GPT 5.5"),
-      makeTopic("balanced", "process", "balanced-hybrid", "GPT-5.5"),
+      makeTopic("balanced", "process", "balanced-hybrid", "GPT 5.6 Sol"),
     ];
 
     const facets = getCatalogFacetCounts(topics, {
@@ -175,9 +208,9 @@ describe("getCatalogFacetCounts", () => {
       { band: "balanced-hybrid", count: 0 },
     ]);
     expect(facets.models).toEqual([
-      { model: "GPT 5.5", count: 2 },
-      { model: "Claude 4", count: 1 },
-      { model: "GPT-5.5", count: 0 },
+      { modelId: "GPT 5.5", count: 2 },
+      { modelId: "Claude Opus 4.8", count: 1 },
+      { modelId: "GPT 5.6 Sol", count: 0 },
     ]);
   });
 });

@@ -6,11 +6,11 @@ import {
   type TopicTransitionScore,
 } from "../domain/topic";
 import type { Source } from "../domain/evidence";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./district-heat.module.css";
 
 type Lang = "en" | "zh";

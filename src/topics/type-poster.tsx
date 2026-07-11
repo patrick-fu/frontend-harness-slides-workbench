@@ -4,7 +4,7 @@ import {
   type TopicDefinition,
   type TopicStageProps,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import styles from "./type-poster.module.css";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
@@ -275,10 +275,10 @@ const metadata = {
 } satisfies TopicDefinition["metadata"];
 
 const TRANSITION_SCORE = {
-  "1->2": "fade",
-  "2->3": "fade",
-  "3->4": "fade",
-  "4->5": "fade",
+  "1->2": "hard-cut",
+  "2->3": "hard-cut",
+  "3->4": "hard-cut",
+  "4->5": "hard-cut",
 } as const satisfies TopicDefinition["transitionScore"];
 
 function TopicStage({

@@ -1,4 +1,4 @@
-import type { StyleRegistryEntry } from "../types";
+import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
 
 export interface NavTarget {
   styleId: string;
@@ -60,23 +60,23 @@ export function getSwipeNavigationDirection(
 }
 
 function findStyle(
-  registry: StyleRegistryEntry[],
+  registry: readonly RuntimeStyleGroup[],
   styleId: string,
-): StyleRegistryEntry | undefined {
-  return registry.find((s) => s.id === styleId);
+): RuntimeStyleGroup | undefined {
+  return registry.find((group) => group.style.id === styleId);
 }
 
 /**
  * Get the last beat ID for a given scene in a topic.
  */
 function getLastBeat(
-  entry: StyleRegistryEntry,
+  entry: RuntimeStyleGroup,
   topicIndex: number,
   scene: number,
 ): number {
   const topic = entry.topics[topicIndex];
   if (!topic) return 0;
-  const meta = topic.getMetadata("en");
+  const meta = topic.metadata.en;
   const sceneDef = meta.scenes.find((s) => s.id === scene);
   if (!sceneDef || sceneDef.beats.length === 0) return 0;
   return sceneDef.beats[sceneDef.beats.length - 1].id;
@@ -86,7 +86,7 @@ function getLastBeat(
  * Find the topic index within a style's topics array.
  * Returns 0 if not found (fallback to first topic).
  */
-function getTopicIndex(entry: StyleRegistryEntry, topicId: string): number {
+function getTopicIndex(entry: RuntimeStyleGroup, topicId: string): number {
   const idx = entry.topics.findIndex((topic) => topic.id === topicId);
   return idx >= 0 ? idx : 0;
 }
@@ -103,7 +103,7 @@ function getTopicIndex(entry: StyleRegistryEntry, topicId: string): number {
  *   - Else: next style's first topic, scene 1, beat 0, flashStyle.
  */
 export function computeNext(
-  registry: StyleRegistryEntry[],
+  registry: readonly RuntimeStyleGroup[],
   currentStyleId: string,
   currentTopicId: string,
   scene: number,
@@ -154,13 +154,17 @@ export function computeNext(
   }
 
   // Wrap to next style's first topic
-  const currentStyleIndex = registry.findIndex((s) => s.id === currentStyleId);
+  const currentStyleIndex = registry.findIndex(
+    (group) => group.style.id === currentStyleId,
+  );
   const nextStyleIndex = (currentStyleIndex + 1) % registry.length;
   const nextStyle = registry[nextStyleIndex];
+  if (!nextStyle) return null;
   const nextTopic = nextStyle.topics[0];
+  if (!nextTopic) return null;
 
   return {
-    styleId: nextStyle.id,
+    styleId: nextStyle.style.id,
     topicId: nextTopic.id,
     scene: 1,
     beat: 0,
@@ -180,7 +184,7 @@ export function computeNext(
  *   - Else: previous style's last topic's last scene, last beat, flashStyle.
  */
 export function computePrev(
-  registry: StyleRegistryEntry[],
+  registry: readonly RuntimeStyleGroup[],
   currentStyleId: string,
   currentTopicId: string,
   scene: number,
@@ -222,7 +226,8 @@ export function computePrev(
   // Check if there's a previous topic in this style
   if (topicIndex > 0) {
     const prevTopic = entry.topics[topicIndex - 1];
-    const prevMeta = prevTopic.getMetadata("en");
+    if (!prevTopic) return null;
+    const prevMeta = prevTopic.metadata.en;
     const lastSceneId = prevMeta.scenes[prevMeta.scenes.length - 1].id;
     const lastScene = prevMeta.scenes[prevMeta.scenes.length - 1];
     const lastBeat = lastScene.beats[lastScene.beats.length - 1]?.id ?? 0;
@@ -236,18 +241,22 @@ export function computePrev(
   }
 
   // Wrap to previous style's last topic
-  const currentStyleIndex = registry.findIndex((s) => s.id === currentStyleId);
+  const currentStyleIndex = registry.findIndex(
+    (group) => group.style.id === currentStyleId,
+  );
   const prevStyleIndex =
     (currentStyleIndex - 1 + registry.length) % registry.length;
   const prevStyle = registry[prevStyleIndex];
+  if (!prevStyle) return null;
   const prevTopic = prevStyle.topics[prevStyle.topics.length - 1];
-  const prevMeta = prevTopic.getMetadata("en");
+  if (!prevTopic) return null;
+  const prevMeta = prevTopic.metadata.en;
   const lastSceneId = prevMeta.scenes[prevMeta.scenes.length - 1].id;
   const lastScene = prevMeta.scenes[prevMeta.scenes.length - 1];
   const lastBeat = lastScene.beats[lastScene.beats.length - 1]?.id ?? 0;
 
   return {
-    styleId: prevStyle.id,
+    styleId: prevStyle.style.id,
     topicId: prevTopic.id,
     scene: lastSceneId,
     beat: lastBeat,
@@ -260,7 +269,7 @@ export function computePrev(
  * Clamps targetScene to 1-5.
  */
 export function jumpScene(
-  _registry: StyleRegistryEntry[],
+  _registry: readonly RuntimeStyleGroup[],
   styleId: string,
   topicId: string,
   targetScene: number,
@@ -274,7 +283,7 @@ export function jumpScene(
  * Returns null if the style id does not exist in the registry.
  */
 export function jumpStyle(
-  registry: StyleRegistryEntry[],
+  registry: readonly RuntimeStyleGroup[],
   targetStyleId: string,
 ): NavTarget | null {
   const entry = findStyle(registry, targetStyleId);
@@ -292,7 +301,7 @@ export function jumpStyle(
  * Returns null if not found.
  */
 export function jumpTopic(
-  registry: StyleRegistryEntry[],
+  registry: readonly RuntimeStyleGroup[],
   targetStyleId: string,
   targetTopicId: string,
 ): NavTarget | null {

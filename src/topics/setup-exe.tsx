@@ -5,9 +5,8 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import { curatedNavigationAttributes } from "../styles/curated-topic-contract";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import styles from "./setup-exe.module.css";
 
 /* ----------------------------------------------------------------------------
@@ -237,7 +236,14 @@ function WizardNav({ scene, copy, isThumbnail, onNavigate }: NavProps): ReactNod
     onNavigate?.(target, 0);
   };
   return (
-    <div {...curatedNavigationAttributes("retro-windows", "setup-exe")} className={styles.nav}>
+    <div
+      className={styles.nav}
+      data-topic-navigation="true"
+      data-navigation-geometry="edge-scale"
+      data-navigation-carrier="setup-wizard-controls"
+      data-navigation-invocation="drag-scrub"
+      data-navigation-feedback="mechanical-displacement"
+    >
       <span className={styles.navStep}>{copy.stepOf(scene)}</span>
       <div className={styles.navBtns}>
         <button

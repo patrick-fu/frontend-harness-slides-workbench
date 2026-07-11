@@ -13,7 +13,7 @@ import {
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./stone-to-soil.module.css";
 
 type Language = TopicStageProps["language"];
@@ -996,7 +996,6 @@ function TopicStage({
         motionOff && styles.motionOff,
         isThumbnail && styles.thumbnail,
       )}
-      data-style-id="wabi-sabi-ceramic"
       data-topic-id="stone-to-soil"
       data-current-scene={activeScene}
       data-motion-state={motionOff ? "settled" : "material"}

@@ -7,7 +7,7 @@ import {
 } from "../domain/topic";
 import SpatialSceneTrack, {
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./raw-logs-to-report.module.css";
 
@@ -457,7 +457,6 @@ function TopicStage(props: TopicStageProps) {
     <div
       className={styles.root}
       data-static={staticMode ? "true" : "false"}
-      data-style-id="kitchen-prep-station"
       data-topic-id="raw-logs-to-report"
       style={
         {

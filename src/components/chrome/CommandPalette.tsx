@@ -1,11 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { StyleRegistryEntry, StyleTopic } from "../../types";
+import type {
+  RuntimeStyleGroup,
+  RuntimeTopic,
+} from "../../catalog/runtime-registry";
 import { modelColor } from "../../utils/model-color";
 import { useModalFocus } from "../../hooks/useModalFocus";
 
 export interface CommandPaletteProps {
   open: boolean;
-  registry: StyleRegistryEntry[];
+  registry: readonly RuntimeStyleGroup[];
   language: "en" | "zh";
   recent: string[];
   onClose: () => void;
@@ -14,20 +17,20 @@ export interface CommandPaletteProps {
 
 interface TopicResult {
   key: string;
-  style: StyleRegistryEntry;
-  topic: StyleTopic;
+  group: RuntimeStyleGroup;
+  topic: RuntimeTopic;
   registryIndex: number;
 }
 
 function rank(result: TopicResult, query: string): number | null {
   const values = [
-    result.topic.topic.en,
-    result.topic.topic.zh,
+    result.topic.title.en,
+    result.topic.title.zh,
     result.topic.id,
-    result.topic.model,
-    result.style.name.en,
-    result.style.name.zh,
-    result.style.id,
+    result.topic.modelId,
+    result.group.style.name.en,
+    result.group.style.name.zh,
+    result.group.style.id,
   ].map((value) => value.toLocaleLowerCase());
   if (values.some((value) => value === query)) return 0;
   if (values.some((value) => value.startsWith(query))) return 1;
@@ -49,10 +52,10 @@ export default function CommandPalette({
   const dialogRef = useRef<HTMLElement>(null);
   const allTopics = useMemo<TopicResult[]>(
     () =>
-      registry.flatMap((style, styleIndex) =>
-        style.topics.map((topic, topicIndex) => ({
-          key: `${style.id}/${topic.id}`,
-          style,
+      registry.flatMap((group, styleIndex) =>
+        group.topics.map((topic, topicIndex) => ({
+          key: `${group.style.id}/${topic.id}`,
+          group,
           topic,
           registryIndex: styleIndex * 1000 + topicIndex,
         })),
@@ -117,7 +120,7 @@ export default function CommandPalette({
 
   const choose = (result: TopicResult | undefined) => {
     if (!result) return;
-    onSelectTopic(result.style.id, result.topic.id);
+    onSelectTopic(result.group.style.id, result.topic.id);
     onClose();
   };
 
@@ -200,18 +203,18 @@ export default function CommandPalette({
                 >
                   <span
                     className="h-2 w-2 shrink-0 rounded-full"
-                    style={{ backgroundColor: modelColor(result.topic.model) }}
+                    style={{ backgroundColor: modelColor(result.topic.modelId) }}
                   />
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-[11px] text-ink/45">
-                      {result.style.name[language]}
+                      {result.group.style.name[language]}
                     </span>
                     <span className="block truncate text-sm font-medium">
-                      {result.topic.topic[language]}
+                      {result.topic.title[language]}
                     </span>
                   </span>
                   <span className="max-w-[170px] truncate font-mono text-[10px] text-ink/40">
-                    {result.topic.model}
+                    {result.topic.modelId}
                   </span>
                 </button>
               );

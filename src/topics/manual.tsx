@@ -5,7 +5,7 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import styles from "./manual.module.css";
 import { useFLIP } from "../hooks/useFLIP";
 
@@ -384,7 +384,7 @@ const EVIDENCE = {
     en: "Illustrative terminal scenario: commands, system readings, procedures, and outcomes are presentation examples, not operational instructions or external factual claims.",
     zh: "示例终端场景：命令、系统读数、流程和结果均为演示内容，不构成操作指令或外部事实主张。",
   },
-  display: "stage",
+  display: "envelope",
 } as const;
 
 // ─── Component ──────────────────────────────────────────────────────────────

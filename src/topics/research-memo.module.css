@@ -1,12 +1,12 @@
-/* ── Style 41: Research Memo ─────────────────────────────────────────── */
+/* ── Research Memo ─────────────────────────────────────────── */
 
-:root {
-  --style-41-paper: #fafaf7;
-  --style-41-ink: #1a1a1a;
-  --style-41-panel: #f0ede8;
-  --style-41-accent: #1a3a5c;
-  --style-41-rule: #c8c8c8;
-  --style-41-muted: #666666;
+.root {
+  --topic-paper: #fafaf7;
+  --topic-ink: #1a1a1a;
+  --topic-panel: #f0ede8;
+  --topic-accent: #1a3a5c;
+  --topic-rule: #c8c8c8;
+  --topic-muted: #666666;
 }
 
 .root {
@@ -14,8 +14,8 @@
   height: 100%;
   position: relative;
   overflow: hidden;
-  background: var(--style-41-paper);
-  color: var(--style-41-ink);
+  background: var(--topic-paper);
+  color: var(--topic-ink);
   font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   user-select: none;
 }
@@ -54,14 +54,14 @@
   font-family: "Source Serif Pro", Georgia, serif;
   font-size: 2.2cqh;
   font-weight: 600;
-  color: var(--style-41-accent);
+  color: var(--topic-accent);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(6px);
   padding: 0.8cqh 2cqw;
   border-radius: 0.6cqh;
-  border: 0.05cqh solid var(--style-41-rule);
+  border: 0.05cqh solid var(--topic-rule);
   box-shadow: 0 0.4cqh 1.6cqh rgba(0, 0, 0, 0.08);
   animation: pageFlashInOut 0.2s ease-in-out forwards;
   pointer-events: none;
@@ -74,7 +74,7 @@
   100% { opacity: 0; transform: translateY(-0.3cqh); }
 }
 
-/* ── Transition Track (legacy) ──────────────────────────────────────────── */
+/* ── Scene transition track ──────────────────────────────────────────── */
 
 .transitionTrack {
   position: relative;
@@ -104,7 +104,7 @@
 
 .coverTopRule {
   height: 0.3cqh;
-  background: var(--style-41-accent);
+  background: var(--topic-accent);
   margin-bottom: 6cqh;
 }
 
@@ -122,7 +122,7 @@
   align-items: center;
   gap: 1.5cqw;
   font-size: 1.8cqh;
-  color: var(--style-41-muted);
+  color: var(--topic-muted);
   font-family: "Source Serif Pro", Georgia, serif;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -130,14 +130,14 @@
 }
 
 .coverMetaDot {
-  color: var(--style-41-accent);
+  color: var(--topic-accent);
 }
 
 .coverCompany {
   font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
   font-size: 9cqh;
   font-weight: 700;
-  color: var(--style-41-accent);
+  color: var(--topic-accent);
   margin: 0;
   letter-spacing: -0.02em;
   line-height: 1;
@@ -146,7 +146,7 @@
 .coverRule {
   width: 12cqw;
   height: 0.15cqh;
-  background: var(--style-41-accent);
+  background: var(--topic-accent);
   margin: 3cqh 0;
 }
 
@@ -154,7 +154,7 @@
   font-family: "Source Serif Pro", Georgia, serif;
   font-size: 4cqh;
   font-weight: 400;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
   margin: 0;
   letter-spacing: 0.05em;
 }
@@ -163,7 +163,7 @@
   font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   font-size: 2.8cqh;
   font-style: italic;
-  color: var(--style-41-muted);
+  color: var(--topic-muted);
   margin: 2cqh 0 0 0;
 }
 
@@ -173,7 +173,7 @@
 
 .coverFiscal {
   font-size: 1.8cqh;
-  color: var(--style-41-muted);
+  color: var(--topic-muted);
   font-family: "Source Serif Pro", Georgia, serif;
   letter-spacing: 0.03em;
   margin: 0;
@@ -181,7 +181,7 @@
 
 .coverBottomRule {
   height: 0.15cqh;
-  background: var(--style-41-rule);
+  background: var(--topic-rule);
   margin-top: 3cqh;
 }
 
@@ -204,7 +204,7 @@
   font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
   font-size: 4.5cqh;
   font-weight: 700;
-  color: var(--style-41-accent);
+  color: var(--topic-accent);
   margin: 0;
   letter-spacing: -0.01em;
 }
@@ -212,7 +212,7 @@
 .letterRule {
   width: 100%;
   height: 0.1cqh;
-  background: var(--style-41-rule);
+  background: var(--topic-rule);
   margin-top: 1.5cqh;
 }
 
@@ -220,7 +220,7 @@
   font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   font-size: 2.8cqh;
   font-weight: 600;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
   margin: 0 0 2cqh 0;
 }
 
@@ -229,7 +229,7 @@
   font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   font-size: 2.2cqh;
   line-height: 1.65;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
   overflow: hidden;
 }
 
@@ -244,7 +244,7 @@
   font-size: 7cqh;
   line-height: 0.8;
   font-weight: 700;
-  color: var(--style-41-accent);
+  color: var(--topic-accent);
   margin-right: 0.6cqw;
   margin-top: 0.5cqh;
 }
@@ -258,14 +258,14 @@
   font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
   font-size: 2.6cqh;
   font-weight: 700;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
   margin: 0;
 }
 
 .letterSigTitle {
   font-family: "Source Serif Pro", Georgia, serif;
   font-size: 2cqh;
-  color: var(--style-41-muted);
+  color: var(--topic-muted);
   margin: 0.3cqh 0 0 0;
   font-style: italic;
 }
@@ -289,21 +289,21 @@
   font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
   font-size: 4.5cqh;
   font-weight: 700;
-  color: var(--style-41-accent);
+  color: var(--topic-accent);
   margin: 0;
 }
 
 .finSubtitle {
   font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   font-size: 2.4cqh;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
   margin: 0.5cqh 0 0 0;
 }
 
 .finNote {
   font-family: "Source Serif Pro", Georgia, serif;
   font-size: 1.8cqh;
-  color: var(--style-41-muted);
+  color: var(--topic-muted);
   margin: 0.5cqh 0 0 0;
   font-style: italic;
 }
@@ -321,14 +321,14 @@
 }
 
 .finTable thead tr {
-  border-bottom: 0.2cqh solid var(--style-41-ink);
+  border-bottom: 0.2cqh solid var(--topic-ink);
 }
 
 .finTable th {
   text-align: left;
   padding: 1.2cqh 1cqw;
   font-weight: 700;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
   font-size: 2cqh;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -339,16 +339,16 @@
 }
 
 .finTable tbody tr {
-  border-bottom: 0.05cqh solid var(--style-41-rule);
+  border-bottom: 0.05cqh solid var(--topic-rule);
 }
 
 .finTable tbody tr:last-child {
-  border-bottom: 0.2cqh solid var(--style-41-ink);
+  border-bottom: 0.2cqh solid var(--topic-ink);
 }
 
 .finTable td {
   padding: 1.1cqh 1cqw;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
   font-variant-numeric: tabular-nums;
 }
 
@@ -364,12 +364,12 @@
 .finFootnote {
   font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   font-size: 1.7cqh;
-  color: var(--style-41-muted);
+  color: var(--topic-muted);
   margin: 1.5cqh 0 0 0;
   line-height: 1.5;
   font-style: italic;
   padding-top: 1cqh;
-  border-top: 0.05cqh solid var(--style-41-rule);
+  border-top: 0.05cqh solid var(--topic-rule);
 }
 
 /* ── Scene 4: Segment Performance ──────────────────────────────────────── */
@@ -391,14 +391,14 @@
   font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
   font-size: 4.5cqh;
   font-weight: 700;
-  color: var(--style-41-accent);
+  color: var(--topic-accent);
   margin: 0;
 }
 
 .segIntro {
   font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   font-size: 2.2cqh;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
   margin: 1cqh 0 0 0;
   line-height: 1.5;
   max-width: 70cqw;
@@ -429,7 +429,7 @@
   font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   font-size: 2.2cqh;
   font-weight: 600;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
 }
 
 .segBarGrowth {
@@ -441,14 +441,14 @@
 
 .segBarTrack {
   height: 2.5cqh;
-  background: var(--style-41-panel);
+  background: var(--topic-panel);
   border-radius: 0.4cqh;
   overflow: hidden;
 }
 
 .segBarFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--style-41-accent), #2a5a8c);
+  background: linear-gradient(90deg, var(--topic-accent), #2a5a8c);
   border-radius: 0.4cqh;
   transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -457,7 +457,7 @@
   font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   font-size: 2.4cqh;
   font-weight: 700;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
@@ -471,14 +471,14 @@
 .segDetail {
   font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   font-size: 2cqh;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
   line-height: 1.5;
   margin: 0;
   flex: 1;
 }
 
 .segDetail strong {
-  color: var(--style-41-accent);
+  color: var(--topic-accent);
 }
 
 /* ── Scene 5: Auditor's Report ─────────────────────────────────────────── */
@@ -500,14 +500,14 @@
   font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
   font-size: 4cqh;
   font-weight: 700;
-  color: var(--style-41-accent);
+  color: var(--topic-accent);
   margin: 0;
 }
 
 .auditorRule {
   width: 100%;
   height: 0.1cqh;
-  background: var(--style-41-rule);
+  background: var(--topic-rule);
   margin-top: 1.5cqh;
 }
 
@@ -515,7 +515,7 @@
   font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   font-size: 2.4cqh;
   font-weight: 600;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
   margin: 0 0 2cqh 0;
 }
 
@@ -524,7 +524,7 @@
   font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   font-size: 2.1cqh;
   line-height: 1.65;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
   overflow: hidden;
 }
 
@@ -534,38 +534,38 @@
 }
 
 .auditorEmphasis {
-  border-left: 0.3cqh solid var(--style-41-accent);
+  border-left: 0.3cqh solid var(--topic-accent);
   padding-left: 2cqw;
   font-style: italic;
-  color: var(--style-41-muted);
+  color: var(--topic-muted);
 }
 
 .auditorSigBlock {
   margin-top: 2cqh;
   text-align: right;
   padding-top: 1.5cqh;
-  border-top: 0.05cqh solid var(--style-41-rule);
+  border-top: 0.05cqh solid var(--topic-rule);
 }
 
 .auditorFirm {
   font-family: Georgia, "Source Serif Pro", "Noto Serif SC", serif;
   font-size: 2.6cqh;
   font-weight: 700;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
   margin: 0;
 }
 
 .auditorPartner {
   font-family: "Source Serif Pro", Georgia, "Noto Serif SC", serif;
   font-size: 2cqh;
-  color: var(--style-41-ink);
+  color: var(--topic-ink);
   margin: 0.3cqh 0;
 }
 
 .auditorLocation {
   font-family: "Source Serif Pro", Georgia, serif;
   font-size: 1.8cqh;
-  color: var(--style-41-muted);
+  color: var(--topic-muted);
   margin: 0.3cqh 0 0 0;
   font-style: italic;
 }
@@ -580,7 +580,7 @@
   z-index: 10;
   background: rgba(250, 250, 247, 0.95);
   backdrop-filter: blur(8px);
-  border-top: 0.05cqh solid var(--style-41-rule);
+  border-top: 0.05cqh solid var(--topic-rule);
   padding: 1.2cqh 6cqw 1.5cqh;
 }
 
@@ -610,29 +610,29 @@
 }
 
 .navItem:hover {
-  background: var(--style-41-panel);
+  background: var(--topic-panel);
 }
 
 .navNum {
   font-size: 2.2cqh;
   font-weight: 700;
-  color: var(--style-41-muted);
+  color: var(--topic-muted);
   font-family: Georgia, "Source Serif Pro", serif;
   line-height: 1;
 }
 
 .navLabel {
   font-size: 1.5cqh;
-  color: var(--style-41-muted);
+  color: var(--topic-muted);
   letter-spacing: 0.04em;
 }
 
 .navItemActive {
-  background: var(--style-41-accent);
+  background: var(--topic-accent);
 }
 
 .navItemActive:hover {
-  background: var(--style-41-accent);
+  background: var(--topic-accent);
 }
 
 .navItemActive .navNum {
@@ -647,7 +647,7 @@
   text-align: center;
   font-family: "Source Serif Pro", Georgia, serif;
   font-size: 1.5cqh;
-  color: var(--style-41-muted);
+  color: var(--topic-muted);
   letter-spacing: 0.06em;
 }
 

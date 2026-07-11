@@ -11,7 +11,7 @@ import type { Source } from "../domain/evidence";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionKind,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./ancient-sound.module.css";
 
 type Language = "en" | "zh";
@@ -1253,6 +1253,6 @@ export default defineTopic({
       en: COPY.en.scene5.boundary,
       zh: COPY.zh.scene5.boundary,
     },
-    display: "stage",
+  display: "envelope",
   },
 });

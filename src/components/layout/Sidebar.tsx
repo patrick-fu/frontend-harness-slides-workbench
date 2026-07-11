@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import type { StyleRegistryEntry } from "../../types";
+import type { RuntimeStyleGroup } from "../../catalog/runtime-registry";
 import {
   BAND_LABELS,
   groupByBand,
@@ -7,7 +7,7 @@ import {
 } from "./bands";
 
 export interface SidebarProps {
-  registry: StyleRegistryEntry[];
+  registry: readonly RuntimeStyleGroup[];
   currentStyleId: string;
   currentTopicId: string;
   onSelectStyle: (id: string) => void;
@@ -181,8 +181,8 @@ export default function Sidebar({
       >
         {/* Band sections — scrollable area */}
         <div className="flex-1 overflow-y-auto py-1">
-          {grouped.map(([band, entries]) => {
-            if (entries.length === 0) return null;
+          {grouped.map(([band, groups]) => {
+            if (groups.length === 0) return null;
             const isBandCollapsed = collapsedBands.has(band);
             const bandLabel = BAND_LABELS[band][language];
 
@@ -227,19 +227,20 @@ export default function Sidebar({
                 {/* Style entries */}
                 {!isBandCollapsed && (
                   <ul role="tree" className="mt-0.5">
-                    {entries.map((entry) => {
-                      const isCurrent = entry.id === currentStyleId;
-                      const isExpanded = expandedStyles.has(entry.id);
-                      const hasMultipleTopics = entry.topics.length > 1;
-                      const styleName = entry.name[language];
+                    {groups.map((group) => {
+                      const style = group.style;
+                      const isCurrent = style.id === currentStyleId;
+                      const isExpanded = expandedStyles.has(style.id);
+                      const hasMultipleTopics = group.topics.length > 1;
+                      const styleName = style.name[language];
 
                       return (
-                        <li key={entry.id} role="none">
+                        <li key={style.id} role="none">
                           <button
                             type="button"
                             role="treeitem"
-                            data-testid={`sidebar-style-${entry.id}`}
-                            onClick={(e) => handleStyleClick(entry.id, e)}
+                            data-testid={`sidebar-style-${style.id}`}
+                            onClick={(e) => handleStyleClick(style.id, e)}
                             aria-current={isCurrent ? "true" : undefined}
                             aria-expanded={isExpanded}
                             className={[
@@ -259,9 +260,9 @@ export default function Sidebar({
                                 {hasMultipleTopics && (
                                   <span
                                     className="shrink-0 text-[10px] text-ink/40 font-mono"
-                                    title={`${entry.topics.length} topics`}
+                                    title={`${group.topics.length} topics`}
                                   >
-                                    ×{entry.topics.length}
+                                    ×{group.topics.length}
                                   </span>
                                 )}
                                 {hasMultipleTopics && (
@@ -282,7 +283,7 @@ export default function Sidebar({
                                     }}
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      toggleStyleExpand(entry.id);
+                                      toggleStyleExpand(style.id);
                                     }}
                                   >
                                     <polyline points="2,4 6,8 10,4" />
@@ -295,17 +296,17 @@ export default function Sidebar({
                           {/* Topic sub-list */}
                           {!collapsed && isExpanded && hasMultipleTopics && (
                             <ul className="mt-0.5 ml-7">
-                              {entry.topics.map((topic) => {
+                              {group.topics.map((topic) => {
                                 const isCurrentTopic =
                                   isCurrent && topic.id === currentTopicId;
                                 return (
                                   <li key={topic.id}>
                                     <button
                                       type="button"
-                                      data-testid={`sidebar-topic-${entry.id}-${topic.id}`}
+                                      data-testid={`sidebar-topic-${style.id}-${topic.id}`}
                                       onClick={(e) =>
                                         handleTopicClick(
-                                          entry.id,
+                                          style.id,
                                           topic.id,
                                           e,
                                         )
@@ -318,10 +319,10 @@ export default function Sidebar({
                                       ].join(" ")}
                                     >
                                       <span className="truncate flex-1">
-                                        {topic.topic[language]}
+                                        {topic.title[language]}
                                       </span>
                                       <span className="shrink-0 text-[9px] text-ink/30 font-mono">
-                                        {topic.model}
+                                        {topic.modelId}
                                       </span>
                                     </button>
                                   </li>

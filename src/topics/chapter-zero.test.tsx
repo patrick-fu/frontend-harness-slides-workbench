@@ -45,7 +45,7 @@ describe("Chapter Zero protocol", () => {
         "3->4": "fade",
         "4->5": "fade",
       },
-      evidence: { kind: "illustrative", display: "stage" },
+      evidence: { kind: "illustrative", display: "envelope" },
     });
   });
 

@@ -13,11 +13,11 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./moth-experiment.module.css";
 
 type Language = TopicStageProps["language"];
@@ -1308,7 +1308,6 @@ function TopicStage({
         .filter(Boolean)
         .join(" ")}
       data-topic-id="moth-experiment"
-      data-style-id="magazine-masthead"
       data-motion={motionDisabled ? "off" : "settled"}
       data-specimen-art="drawn"
     >

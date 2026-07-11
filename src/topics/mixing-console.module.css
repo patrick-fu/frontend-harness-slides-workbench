@@ -1,4 +1,4 @@
-/* ─── Style 15: Studio Mixing Console ───────────────────────────────────
+/* ─── Studio Mixing Console ───────────────────────────────────
    Deep studio-dark. Metallic hardware-feel panels. Vivid meter colors
    appear only on fader indicators. Compact technical/monospace labels.
    All sizing in cqw/cqh. No px/vw/vh.
@@ -10,8 +10,8 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-15-bg, #121212);
-  color: var(--style-15-ink, #e8e8e8);
+  background: var(--topic-bg, #121212);
+  color: var(--topic-ink, #e8e8e8);
   font-family: "Inter", system-ui, -apple-system, sans-serif;
 }
 
@@ -66,7 +66,7 @@
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--style-15-accent, #4ade80);
+  color: var(--topic-accent, #4ade80);
   margin-bottom: 2cqh;
 }
 
@@ -76,12 +76,12 @@
   line-height: 0.95;
   letter-spacing: -0.04em;
   margin: 0;
-  color: var(--style-15-ink, #e8e8e8);
+  color: var(--topic-ink, #e8e8e8);
 }
 
 .roadmapTitle em {
   font-style: normal;
-  color: var(--style-15-accent, #4ade80);
+  color: var(--topic-accent, #4ade80);
 }
 
 .roadmapSub {
@@ -89,7 +89,7 @@
   font-weight: 400;
   line-height: 1.4;
   margin-top: 3cqh;
-  color: var(--style-15-muted, #8a8a8a);
+  color: var(--topic-muted, #8a8a8a);
   max-width: 55cqw;
 }
 
@@ -108,14 +108,14 @@
   font-family: "JetBrains Mono", monospace;
   font-size: 3cqw;
   font-weight: 700;
-  color: var(--style-15-accent, #4ade80);
+  color: var(--topic-accent, #4ade80);
   line-height: 1;
 }
 
 .roadmapMetaLbl {
   font-size: 1.3cqw;
   font-weight: 500;
-  color: var(--style-15-muted, #8a8a8a);
+  color: var(--topic-muted, #8a8a8a);
   margin-top: 0.5cqh;
 }
 
@@ -137,7 +137,7 @@
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--style-15-accent, #4ade80);
+  color: var(--topic-accent, #4ade80);
 }
 
 .ganttTitle {
@@ -146,14 +146,14 @@
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0.3cqh 0 0 0;
-  color: var(--style-15-ink, #e8e8e8);
+  color: var(--topic-ink, #e8e8e8);
 }
 
 .ganttChart {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: var(--style-15-panel, #1e1e1e);
+  background: var(--topic-panel, #1e1e1e);
   border-radius: 1cqw;
   padding: 2.5cqh 2.5cqw;
   border: 0.1cqw solid rgba(255, 255, 255, 0.06);
@@ -173,13 +173,13 @@
   font-family: "JetBrains Mono", monospace;
   font-size: 1cqw;
   font-weight: 500;
-  color: var(--style-15-muted, #8a8a8a);
+  color: var(--topic-muted, #8a8a8a);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .ganttMonth.current {
-  color: var(--style-15-accent, #4ade80);
+  color: var(--topic-accent, #4ade80);
   font-weight: 700;
 }
 
@@ -211,7 +211,7 @@
   width: 16.5cqw;
   font-size: 1.3cqw;
   font-weight: 500;
-  color: var(--style-15-ink, #e8e8e8);
+  color: var(--topic-ink, #e8e8e8);
   flex-shrink: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -286,16 +286,16 @@
   font-weight: 600;
   border: 0.1cqw solid transparent;
   transition: all 0.3s ease;
-  color: var(--style-15-muted, #8a8a8a);
+  color: var(--topic-muted, #8a8a8a);
   background: transparent;
   text-align: left;
   font-family: "JetBrains Mono", monospace;
 }
 
 .phaseTab.active {
-  background: var(--style-15-panel, #1e1e1e);
+  background: var(--topic-panel, #1e1e1e);
   border-color: rgba(74, 222, 128, 0.25);
-  color: var(--style-15-ink, #e8e8e8);
+  color: var(--topic-ink, #e8e8e8);
   box-shadow: inset 0 0.1cqh 0.3cqh rgba(0, 0, 0, 0.3);
 }
 
@@ -310,7 +310,7 @@
 
 .phaseContent {
   flex: 1;
-  background: var(--style-15-panel, #1e1e1e);
+  background: var(--topic-panel, #1e1e1e);
   border-radius: 1cqw;
   padding: 3cqh 3cqw;
   border: 0.1cqw solid rgba(255, 255, 255, 0.06);
@@ -324,7 +324,7 @@
 .phaseName {
   font-size: 3cqw;
   font-weight: 700;
-  color: var(--style-15-ink, #e8e8e8);
+  color: var(--topic-ink, #e8e8e8);
   margin: 0;
   line-height: 1.1;
 }
@@ -333,7 +333,7 @@
   font-family: "JetBrains Mono", monospace;
   font-size: 1.2cqw;
   font-weight: 500;
-  color: var(--style-15-accent, #4ade80);
+  color: var(--topic-accent, #4ade80);
   margin-top: 0.5cqh;
   display: block;
 }
@@ -351,7 +351,7 @@
   padding: 1.2cqh 1.5cqw;
   background: rgba(255, 255, 255, 0.03);
   border-radius: 0.6cqw;
-  border-left: 0.3cqw solid var(--style-15-accent, #4ade80);
+  border-left: 0.3cqw solid var(--topic-accent, #4ade80);
   opacity: 0;
   transform: translateX(1cqw);
   transition:
@@ -383,7 +383,7 @@
 .phaseItemTitle {
   font-size: 1.5cqw;
   font-weight: 600;
-  color: var(--style-15-ink, #e8e8e8);
+  color: var(--topic-ink, #e8e8e8);
   display: block;
   margin-bottom: 0.3cqh;
 }
@@ -391,7 +391,7 @@
 .phaseItemDesc {
   font-size: 1.2cqw;
   font-weight: 400;
-  color: var(--style-15-muted, #8a8a8a);
+  color: var(--topic-muted, #8a8a8a);
   line-height: 1.3;
 }
 
@@ -431,7 +431,7 @@
 
 .depNode {
   padding: 1.5cqh 2.5cqw;
-  background: var(--style-15-panel, #1e1e1e);
+  background: var(--topic-panel, #1e1e1e);
   border-radius: 1cqw;
   border: 0.15cqw solid rgba(74, 222, 128, 0.2);
   text-align: center;
@@ -443,7 +443,7 @@
   font-family: "JetBrains Mono", monospace;
   font-size: 1cqw;
   font-weight: 500;
-  color: var(--style-15-accent, #4ade80);
+  color: var(--topic-accent, #4ade80);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   display: block;
@@ -453,13 +453,13 @@
 .depNodeName {
   font-size: 1.5cqw;
   font-weight: 600;
-  color: var(--style-15-ink, #e8e8e8);
+  color: var(--topic-ink, #e8e8e8);
 }
 
 .depArrow {
   width: 3cqw;
   height: 2cqh;
-  color: var(--style-15-accent, #4ade80);
+  color: var(--topic-accent, #4ade80);
   opacity: 0.4;
   flex-shrink: 0;
 }
@@ -481,19 +481,19 @@
   line-height: 1.1;
   letter-spacing: -0.03em;
   margin: 0;
-  color: var(--style-15-ink, #e8e8e8);
+  color: var(--topic-ink, #e8e8e8);
   max-width: 70cqw;
 }
 
 .closingRoadmap em {
   font-style: normal;
-  color: var(--style-15-accent, #4ade80);
+  color: var(--topic-accent, #4ade80);
 }
 
 .closingRoadmapSub {
   font-size: 2.2cqw;
   font-weight: 400;
-  color: var(--style-15-muted, #8a8a8a);
+  color: var(--topic-muted, #8a8a8a);
   margin-top: 3cqh;
   max-width: 55cqw;
   line-height: 1.4;
@@ -513,7 +513,7 @@
   font-family: "JetBrains Mono", monospace;
   font-size: 3cqw;
   font-weight: 700;
-  color: var(--style-15-accent, #4ade80);
+  color: var(--topic-accent, #4ade80);
   display: block;
   line-height: 1;
 }
@@ -521,7 +521,7 @@
 .closingProgLbl {
   font-size: 1.2cqw;
   font-weight: 500;
-  color: var(--style-15-muted, #8a8a8a);
+  color: var(--topic-muted, #8a8a8a);
   margin-top: 0.5cqh;
   display: block;
   font-family: "JetBrains Mono", monospace;
@@ -543,7 +543,7 @@
   width: 0.6cqw;
   height: 0.6cqw;
   border-radius: 50%;
-  border: 0.1cqw solid var(--style-15-accent, #4ade80);
+  border: 0.1cqw solid var(--topic-accent, #4ade80);
   padding: 0;
   cursor: pointer;
   background: transparent;
@@ -561,7 +561,7 @@
 
 .navDotActive {
   opacity: 0.8;
-  background: var(--style-15-accent, #4ade80);
+  background: var(--topic-accent, #4ade80);
   transform: scale(1.3);
   box-shadow: 0 0 0.5cqw rgba(74, 222, 128, 0.4);
 }

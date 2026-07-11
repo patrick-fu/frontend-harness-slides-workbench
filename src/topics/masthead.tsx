@@ -5,8 +5,8 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import styles from "./masthead.module.css";
 
 // ─── Content ────────────────────────────────────────────────────────────────
@@ -421,7 +421,15 @@ function TopicStage({
     if (isThumbnail) return null;
 
     return (
-      <div className={styles.navIndicators} aria-label="Scene navigation">
+      <div
+        className={styles.navIndicators}
+        aria-label="Scene navigation"
+        data-topic-navigation="true"
+        data-navigation-geometry="typographic-index"
+        data-navigation-carrier="masthead-scene-dots"
+        data-navigation-invocation="persistent"
+        data-navigation-feedback="active-glow"
+      >
         {[1, 2, 3, 4, 5].map((s) => {
           const isActive = s === scene;
           const classes = [

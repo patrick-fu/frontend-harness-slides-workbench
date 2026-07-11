@@ -75,7 +75,7 @@ function activePanel(container: HTMLElement): HTMLElement {
 afterEach(() => cleanup());
 
 describe("Stone to Soil — Topic contract", () => {
-  it("exports the coordinated topic profile and exact transition score", () => {
+  it("exports the authored Topic profile and exact transition score", () => {
     expect(topic).toMatchObject({
       id: "stone-to-soil",
       styleId: "wabi-sabi-ceramic",

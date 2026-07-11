@@ -5,7 +5,7 @@ import topic from "./triage-the-backlog";
 runTopicContract(topic);
 
 describe("Triage the Backlog protocol", () => {
-  it("keeps its authored identity, lane navigation, curated edges, and illustrative boundary", () => {
+  it("keeps its authored identity, lane navigation, authored edges, and illustrative boundary", () => {
     expect(topic).toMatchObject({
       id: "triage-the-backlog",
       styleId: "mechanical-scoring-funnel",

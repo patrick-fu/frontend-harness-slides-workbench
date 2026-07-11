@@ -6,11 +6,11 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 
 type Lang = "en" | "zh";
 type Tone = "neutral" | "command" | "warning" | "success";
@@ -60,7 +60,7 @@ const EVIDENCE = {
     en: "Illustrative habit runbook: triggers, steps, guardrails, and outcomes are presentation examples, not clinical, behavioral, or operational guidance.",
     zh: "示例习惯手册：触发器、步骤、护栏和结果均为演示内容，不构成临床、行为或操作建议。",
   },
-  display: "stage",
+  display: "envelope",
 } as const;
 
 const BEAT_LAYOUT_MODES: Record<number, BeatLayoutMode> = {
@@ -1074,7 +1074,6 @@ function TopicStage({
           letterSpacing: "0",
         } as CSSProperties
       }
-      data-style-id="operating-manual"
       data-topic-id="habit-runbook"
     >
       <div

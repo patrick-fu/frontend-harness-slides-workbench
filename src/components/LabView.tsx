@@ -6,12 +6,12 @@ import {
   useState,
   type MouseEvent,
 } from "react";
+import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
 import type {
-  BespokeStyleProps,
-  SceneMetadata,
-  StyleRegistryEntry,
-  TopicComponent,
-} from "../types";
+  TopicMetadata,
+  TopicStage,
+  TopicStageProps,
+} from "../domain/topic";
 import { useKeyboard } from "../hooks/useKeyboard";
 import { useStageScale } from "../hooks/useStageScale";
 import { useTouchNav } from "../hooks/useTouchNav";
@@ -28,7 +28,7 @@ import PureModeOverlay from "./PureModeOverlay";
 import CrossTopicNotice from "./chrome/CrossTopicNotice";
 
 export interface LabViewProps {
-  registry: StyleRegistryEntry[];
+  registry: readonly RuntimeStyleGroup[];
   styleId: string;
   topicId: string;
   scene: number;
@@ -45,14 +45,14 @@ export interface LabViewProps {
   onOpenLibrary: () => void;
   onOpenPalette: () => void;
   onOpenControls: () => void;
-  loadTopic?: (styleId: string, topicId: string) => Promise<TopicComponent>;
-  prefetchAdjacentTopics?: (styleId: string, topicId: string) => Promise<void>;
+  loadTopicStage: (topicId: string) => Promise<TopicStage>;
+  prefetchAdjacentTopics?: (topicId: string) => Promise<void>;
 }
 
-interface TopicLoadState {
+interface TopicStageLoadState {
   key: string;
   status: "loading" | "ready" | "error";
-  component: TopicComponent | null;
+  stage: TopicStage | null;
 }
 
 const INTERACTIVE_SELECTOR = [
@@ -86,7 +86,7 @@ export default function LabView({
   onOpenLibrary,
   onOpenPalette,
   onOpenControls,
-  loadTopic,
+  loadTopicStage,
   prefetchAdjacentTopics,
 }: LabViewProps) {
   const stageContainerRef = useRef<HTMLDivElement>(null);
@@ -95,10 +95,10 @@ export default function LabView({
   const [hoverCue, setHoverCue] = useState<"prev" | "next" | null>(null);
   const [retryToken, setRetryToken] = useState(0);
   const [mobileTouchInput, setMobileTouchInput] = useState(false);
-  const [topicLoadState, setTopicLoadState] = useState<TopicLoadState>({
+  const [topicLoadState, setTopicLoadState] = useState<TopicStageLoadState>({
     key: "",
     status: "loading",
-    component: null,
+    stage: null,
   });
   const { scale, width: scaledWidth, height: scaledHeight } =
     useStageScale(stageContainerRef);
@@ -112,46 +112,46 @@ export default function LabView({
   }, []);
 
   const found = useMemo(() => {
-    const style = registry.find((entry) => entry.id === styleId);
-    const topic = style?.topics.find((entry) => entry.id === topicId);
-    return style && topic ? { style, topic } : null;
+    const group = registry.find((entry) => entry.style.id === styleId);
+    const topic = group?.topics.find((entry) => entry.id === topicId);
+    return group && topic ? { group, topic } : null;
   }, [registry, styleId, topicId]);
   const meta = useMemo(
-    () => found?.topic.getMetadata(language) ?? null,
+    () => found?.topic.metadata[language] ?? null,
     [found, language],
   );
-  const scenes = useMemo<SceneMetadata[]>(
+  const scenes = useMemo<TopicMetadata["scenes"]>(
     () => meta?.scenes.map((item) => ({ ...item })) ?? [],
     [meta],
   );
-  const topicKey = `${styleId}/${topicId}`;
+  const topicKey = topicId;
   const activeLoadState =
     topicLoadState.key === topicKey
       ? topicLoadState
-      : { key: topicKey, status: "loading" as const, component: null };
+      : { key: topicKey, status: "loading" as const, stage: null };
 
   useEffect(() => {
-    if (!found || !loadTopic) return;
+    if (!found) return;
     let cancelled = false;
-    setTopicLoadState({ key: topicKey, status: "loading", component: null });
-    void loadTopic(styleId, topicId).then(
-      (component) => {
+    setTopicLoadState({ key: topicKey, status: "loading", stage: null });
+    void loadTopicStage(topicId).then(
+      (stage) => {
         if (cancelled) return;
-        setTopicLoadState({ key: topicKey, status: "ready", component });
+        setTopicLoadState({ key: topicKey, status: "ready", stage });
         if (prefetchAdjacentTopics) {
-          void prefetchAdjacentTopics(styleId, topicId).catch(() => undefined);
+          void prefetchAdjacentTopics(topicId).catch(() => undefined);
         }
       },
       () => {
         if (!cancelled) {
-          setTopicLoadState({ key: topicKey, status: "error", component: null });
+          setTopicLoadState({ key: topicKey, status: "error", stage: null });
         }
       },
     );
     return () => {
       cancelled = true;
     };
-  }, [found, loadTopic, prefetchAdjacentTopics, retryToken, styleId, topicId, topicKey]);
+  }, [found, loadTopicStage, prefetchAdjacentTopics, retryToken, topicId, topicKey]);
 
   const handleNext = useCallback(() => {
     const target = computeNext(registry, styleId, topicId, scene, beat, isPureMode);
@@ -171,7 +171,7 @@ export default function LabView({
       onNavigate({ styleId, topicId, scene, beat: targetBeat }),
     [onNavigate, scene, styleId, topicId],
   );
-  const handleStyleInternalNavigate = useCallback(
+  const handleStageNavigate = useCallback(
     (targetScene: number, targetBeat: number) =>
       onNavigate({ styleId, topicId, scene: targetScene, beat: targetBeat }),
     [onNavigate, styleId, topicId],
@@ -231,19 +231,18 @@ export default function LabView({
     );
   }
 
-  const StyleComponent = loadTopic
-    ? activeLoadState.component
-    : found.topic.component;
-  const isTopicReady = Boolean(StyleComponent);
-  const styleProps: BespokeStyleProps = {
+  const LoadedStage = activeLoadState.stage;
+  const isTopicReady = Boolean(LoadedStage);
+  const stageProps: TopicStageProps = {
     scene,
     beat,
     language,
     isThumbnail: false,
     reducedMotion: reducedMotion || frozen,
-    onNavigate: handleStyleInternalNavigate,
+    onNavigate: handleStageNavigate,
   };
-  const styleNumber = registry.findIndex((entry) => entry.id === found.style.id) + 1;
+  const styleNumber =
+    registry.findIndex((entry) => entry.style.id === found.group.style.id) + 1;
   const illustrativeBoundary =
     (found.topic.evidence?.kind === "illustrative" ||
       found.topic.evidence?.kind === "mixed") &&
@@ -294,9 +293,9 @@ export default function LabView({
                 transformOrigin: "top left",
               }}
             >
-              {StyleComponent ? (
+              {LoadedStage ? (
                 <>
-                  <StyleComponent {...styleProps} />
+                  <LoadedStage {...stageProps} />
                   {illustrativeBoundary && (
                     <div
                       role="note"
@@ -375,9 +374,9 @@ export default function LabView({
             {announceTopic && !isPureMode && (
               <CrossTopicNotice
                 styleNumber={styleNumber}
-                styleName={found.style.name[language]}
-                topicName={found.topic.topic[language]}
-                modelId={found.topic.model}
+                styleName={found.group.style.name[language]}
+                topicName={found.topic.title[language]}
+                modelId={found.topic.modelId}
                 reducedMotion={reducedMotion}
                 onDone={onAnnouncementDone}
               />

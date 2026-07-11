@@ -15,7 +15,7 @@ import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionKind,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./leaf-stomata.module.css";
 
 type Language = TopicStageProps["language"];

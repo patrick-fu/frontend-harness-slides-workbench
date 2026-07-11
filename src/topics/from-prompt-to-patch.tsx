@@ -7,7 +7,7 @@ import {
 } from "../domain/topic";
 import SpatialSceneTrack, {
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 
 type Lang = "en" | "zh";
 

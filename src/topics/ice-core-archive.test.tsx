@@ -667,7 +667,6 @@ describe("Cassette-Era Packaging / Ice-Core Archive — deterministic fixed-stag
       "[data-topic-navigation='true']",
     );
 
-    expect(root).toHaveAttribute("data-style-id", "cassette-era-packaging");
     expect(track?.parentElement).toBe(root);
     expect(track?.querySelectorAll("[data-spatial-scene-panel='true']")).toHaveLength(5);
     expect(track).toHaveStyle({ overflow: "hidden" });

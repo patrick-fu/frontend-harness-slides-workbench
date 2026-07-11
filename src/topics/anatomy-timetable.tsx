@@ -4,8 +4,8 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { BeatLayoutMode } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { BeatLayoutMode } from "../components/stage/SpatialSceneTrack";
 import styles from "./anatomy-timetable.module.css";
 
 /* ────────────────────────────────────────────────────────────────────────
@@ -15,9 +15,6 @@ import styles from "./anatomy-timetable.module.css";
    the "now" marker, the delayed exception row, and the nav datum.
    Flush-left ragged-right. Flat surface. cqw/cqh units only.
    ──────────────────────────────────────────────────────────────────────── */
-
-const MODEL = "Claude Opus 4.8";
-const STYLE_ID = "objective-swiss-grid";
 
 // Grid module: 8 columns × 8 baselines. Column letters A–H.
 const COLS = 8;
@@ -786,9 +783,9 @@ const metadata = {
 
 export default defineTopic({
   id: "anatomy-timetable",
-  styleId: STYLE_ID,
+  styleId: "objective-swiss-grid",
   title: { en: "Anatomy of a Timetable", zh: "时刻表解剖" },
-  modelId: MODEL,
+  modelId: "Claude Opus 4.8",
   Stage: TopicStage,
   metadata,
   navigation: {

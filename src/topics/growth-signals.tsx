@@ -7,7 +7,7 @@ import {
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 
 type Lang = "en" | "zh";
 type SceneId = 1 | 2 | 3 | 4 | 5;
@@ -618,14 +618,14 @@ export default defineTopic({
 
 const GROWTH_SIGNALS_V2_CSS = `
 .growthSignalsV2 {
-  --style-26-bg: #eadfbe;
-  --style-26-paper: #f0e5c9;
-  --style-26-ink: #3d311e;
-  --style-26-sepia: #6c5834;
-  --style-26-green: #707842;
-  --style-26-ochre: #9b7b43;
-  --style-26-rose: #966f60;
-  --style-26-rule: rgba(83, 65, 35, 0.58);
+  --topic-bg: #eadfbe;
+  --topic-paper: #f0e5c9;
+  --topic-ink: #3d311e;
+  --topic-sepia: #6c5834;
+  --topic-green: #707842;
+  --topic-ochre: #9b7b43;
+  --topic-rose: #966f60;
+  --topic-rule: rgba(83, 65, 35, 0.58);
   position: relative;
   container-type: size;
   width: 100%;
@@ -634,8 +634,8 @@ const GROWTH_SIGNALS_V2_CSS = `
   background:
     radial-gradient(circle at 18% 12%, rgba(255,255,255,0.32), transparent 26%),
     radial-gradient(circle at 80% 78%, rgba(132,103,57,0.16), transparent 34%),
-    linear-gradient(135deg, #f2e8cb 0%, var(--style-26-bg) 48%, #ddcc9f 100%);
-  color: var(--style-26-ink);
+    linear-gradient(135deg, #f2e8cb 0%, var(--topic-bg) 48%, #ddcc9f 100%);
+  color: var(--topic-ink);
   font-family: "Iowan Old Style", "Palatino Linotype", Georgia, "Songti SC", "Noto Serif CJK SC", serif;
   font-variant-numeric: oldstyle-nums;
   letter-spacing: 0;
@@ -665,7 +665,7 @@ const GROWTH_SIGNALS_V2_CSS = `
   inset: 4.1cqh 4.2cqw;
   z-index: 1;
   overflow: hidden;
-  border: 0.16cqw double var(--style-26-rule);
+  border: 0.16cqw double var(--topic-rule);
   background: rgba(240,229,201,0.86);
   box-shadow: inset 0 0 0 0.42cqw rgba(255,255,255,0.16);
 }
@@ -705,7 +705,7 @@ const GROWTH_SIGNALS_V2_CSS = `
   align-items: center;
   gap: 2cqw;
   padding-bottom: 1.2cqh;
-  border-bottom: 0.08cqw solid var(--style-26-rule);
+  border-bottom: 0.08cqw solid var(--topic-rule);
   font-size: 1.15cqw;
   font-variant: small-caps;
 }
@@ -733,7 +733,7 @@ const GROWTH_SIGNALS_V2_CSS = `
   margin: 0;
   font-size: 1.22cqw;
   font-variant: small-caps;
-  color: var(--style-26-sepia);
+  color: var(--topic-sepia);
 }
 
 .growthSignalsV2 h1 {
@@ -806,7 +806,7 @@ const GROWTH_SIGNALS_V2_CSS = `
 
 .growthSignalsV2 .inkLine {
   fill: none;
-  stroke: var(--style-26-ink);
+  stroke: var(--topic-ink);
   stroke-width: 1.1;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -824,7 +824,7 @@ const GROWTH_SIGNALS_V2_CSS = `
 
 .growthSignalsV2 .leaf {
   fill: rgba(112,120,66,0.42);
-  stroke: var(--style-26-ink);
+  stroke: var(--topic-ink);
   stroke-width: 0.54;
 }
 
@@ -835,13 +835,13 @@ const GROWTH_SIGNALS_V2_CSS = `
 
 .growthSignalsV2 .bud {
   fill: rgba(155,123,67,0.58);
-  stroke: var(--style-26-ink);
+  stroke: var(--topic-ink);
   stroke-width: 0.36;
 }
 
 .growthSignalsV2 .pinLine {
   fill: none;
-  stroke: var(--style-26-sepia);
+  stroke: var(--topic-sepia);
   stroke-width: 0.42;
   stroke-dasharray: 1.6 1.1;
 }
@@ -868,7 +868,7 @@ const GROWTH_SIGNALS_V2_CSS = `
   border: 0.08cqw solid rgba(83,65,35,0.48);
   background: rgba(239,227,195,0.72);
   text-align: center;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
 }
 
 .growthSignalsV2__taxonRoot {
@@ -992,7 +992,7 @@ const GROWTH_SIGNALS_V2_CSS = `
   width: 2.2cqw;
   height: 2.2cqw;
   border-radius: 50%;
-  border: 0.08cqw solid var(--style-26-sepia);
+  border: 0.08cqw solid var(--topic-sepia);
   font-variant: small-caps;
 }
 
@@ -1117,7 +1117,7 @@ const GROWTH_SIGNALS_V2_CSS = `
   display: block;
   width: 1.05cqw;
   height: 2.2cqh;
-  border: 0.06cqw solid var(--style-26-sepia);
+  border: 0.06cqw solid var(--topic-sepia);
   border-radius: 70% 30% 70% 30%;
   background: rgba(112,120,66,0.34);
   transform: rotate(-28deg);
@@ -1152,7 +1152,7 @@ const GROWTH_SIGNALS_V2_CSS = `
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   font: inherit;
   font-size: 0.9cqw;
   cursor: pointer;

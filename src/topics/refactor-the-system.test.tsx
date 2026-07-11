@@ -5,7 +5,7 @@ import topic from "./refactor-the-system";
 runTopicContract(topic);
 
 describe("Refactor the System protocol", () => {
-  it("keeps its authored identity, progress-wedge navigation, curated edges, and illustrative boundary", () => {
+  it("keeps its authored identity, progress-wedge navigation, authored edges, and illustrative boundary", () => {
     expect(topic).toMatchObject({
       id: "refactor-the-system",
       styleId: "red-wedge-agitprop",

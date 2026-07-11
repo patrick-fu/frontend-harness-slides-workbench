@@ -618,7 +618,6 @@ describe("Whistled Language — deterministic stage-safe DOM", () => {
   it("uses a clipped fixed-stage DOM with original SVG/CSS, not a fake JSDOM overflow assertion", () => {
     const view = renderStage({ scene: 5, beat: 0, reducedMotion: true });
     expect(view.root()).toHaveAttribute("data-motion-ceiling", "1");
-    expect(view.root()).toHaveAttribute("data-style-id", "woodblock-floating-world");
     expect(
       view.container.querySelector('[data-spatial-scene-track="true"]'),
     ).not.toBeNull();

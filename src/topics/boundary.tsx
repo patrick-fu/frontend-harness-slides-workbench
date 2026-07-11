@@ -5,11 +5,11 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./boundary.module.css";
 
 type Lang = "en" | "zh";
@@ -640,7 +640,7 @@ const COPY: Record<Lang, Record<SceneId, SceneCopy>> = {
 
 function useFonts() {
   useEffect(() => {
-    const id = "style-42-choose-boundary-v2-fonts";
+    const id = "boundary-fonts";
     if (document.getElementById(id)) {
       return;
     }
@@ -974,7 +974,6 @@ function TopicStage({
     <section
       className={styles.root}
       data-topic-id="boundary"
-      data-style-id="decision-record"
       data-language={language}
       data-thumbnail={isThumbnail ? "true" : "false"}
       data-reduced-motion={reducedMotion || isThumbnail ? "true" : "false"}

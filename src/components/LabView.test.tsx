@@ -1,6 +1,15 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { lazy } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { BespokeStyleProps, StyleRegistryEntry } from "../types";
+import type {
+  RuntimeStyleGroup,
+  RuntimeTopic,
+} from "../catalog/runtime-registry";
+import type {
+  TopicMetadata,
+  TopicStage,
+  TopicStageProps,
+} from "../domain/topic";
 import { useKeyboard } from "../hooks/useKeyboard";
 import { useTouchNav } from "../hooks/useTouchNav";
 import LabView from "./LabView";
@@ -11,52 +20,69 @@ vi.mock("../hooks/useStageScale", () => ({
 vi.mock("../hooks/useKeyboard", () => ({ useKeyboard: vi.fn() }));
 vi.mock("../hooks/useTouchNav", () => ({ useTouchNav: vi.fn() }));
 
-const Slide = vi.fn((_props: BespokeStyleProps) => <div>Slide content</div>);
-const registry: StyleRegistryEntry[] = [
+const Slide = vi.fn((_props: TopicStageProps) => <div>Slide content</div>);
+const metadata: TopicMetadata = {
+  theme: "",
+  densityLabel: "Sparse",
+  heroScene: 1,
+  colors: { bg: "#fff", ink: "#111", panel: "#eee" },
+  typography: { header: "serif", body: "sans" },
+  tags: [],
+  fonts: [],
+  scenes: Array.from({ length: 5 }, (_, index) => ({
+    id: index + 1,
+    title: `Scene ${index + 1}`,
+    beats: [{ id: 0, action: "", title: "Beat 1", body: "" }],
+  })),
+};
+
+function makeTopic(
+  evidence: RuntimeTopic["evidence"] = { kind: "none" },
+): RuntimeTopic {
+  return {
+    id: "quiet-launch",
+    styleId: "quiet-grid",
+    title: { en: "Quiet launch", zh: "静默发布" },
+    modelId: "GPT 5.6 Sol",
+    metadata: { en: metadata, zh: metadata },
+    navigation: { mode: "none" },
+    transitionScore: {
+      "1->2": "hard-cut",
+      "2->3": "hard-cut",
+      "3->4": "hard-cut",
+      "4->5": "hard-cut",
+    },
+    evidence,
+    modulePath: "../topics/quiet-launch.tsx",
+    Stage: lazy(async () => ({ default: Slide })),
+    loadStage: async () => Slide,
+  };
+}
+
+const registry: readonly RuntimeStyleGroup[] = [
   {
-    id: "quiet-grid",
-    name: { en: "Quiet Grid", zh: "静默网格" },
-    topics: [
-      {
-        id: "quiet-launch",
-        topic: { en: "Quiet launch", zh: "静默发布" },
-        model: "GPT 5.6 Sol",
-        component: Slide,
-        getMetadata: () => ({
-          id: "quiet-grid",
-          band: "minimal-keynote",
-          name: "Quiet Grid",
-          theme: "",
-          densityLabel: "Sparse",
-          heroScene: 1,
-          colors: { bg: "#fff", ink: "#111", panel: "#eee" },
-          typography: { header: "serif", body: "sans" },
-          tags: [],
-          fonts: [],
-          scenes: Array.from({ length: 5 }, (_, index) => ({
-            id: index + 1,
-            title: `Scene ${index + 1}`,
-            beats: [{ id: 0, action: "", title: "Beat 1", body: "" }],
-          })),
-        }),
-      },
-    ],
+    style: {
+      id: "quiet-grid",
+      name: { en: "Quiet Grid", zh: "静默网格" },
+      band: "minimal-keynote",
+    },
+    topics: [makeTopic()],
   },
 ];
 
-const illustrativeRegistry: StyleRegistryEntry[] = [
+const illustrativeRegistry: readonly RuntimeStyleGroup[] = [
   {
     ...registry[0],
-    topics: registry[0].topics.map((topic) => ({
-      ...topic,
-      evidence: {
-        kind: "illustrative" as const,
+    topics: [
+      makeTopic({
+        kind: "illustrative",
+        display: "envelope",
         boundary: {
           en: "Illustrative English boundary.",
           zh: "中文示例边界。",
         },
-      },
-    })),
+      }),
+    ],
   },
 ];
 
@@ -79,6 +105,9 @@ function setup(overrides: Partial<React.ComponentProps<typeof LabView>> = {}) {
     onOpenLibrary: vi.fn(),
     onOpenPalette: vi.fn(),
     onOpenControls: vi.fn(),
+    loadTopicStage: vi.fn(
+      () => new Promise<TopicStage>(() => undefined),
+    ),
     ...overrides,
   };
   render(<LabView {...props} />);
@@ -138,14 +167,15 @@ describe("LabView Player seam", () => {
     );
   });
 
-  it("keeps the localized illustrative evidence boundary visible in Pure Mode", () => {
+  it("keeps the localized illustrative evidence boundary visible in Pure Mode", async () => {
     setup({
       registry: illustrativeRegistry,
       isPureMode: true,
       language: "zh",
+      loadTopicStage: vi.fn().mockResolvedValue(Slide),
     });
 
-    expect(screen.getByRole("note")).toHaveTextContent("中文示例边界。");
+    expect(await screen.findByRole("note")).toHaveTextContent("中文示例边界。");
   });
 
   it("enables direct-touch navigation only for coarse mobile screens", async () => {
@@ -173,9 +203,9 @@ describe("LabView Player seam", () => {
     matchMedia.mockRestore();
   });
 
-  it("keeps the fixed Stage visible while a Topic component loads, then prefetches neighbors", async () => {
-    let resolveTopic: ((component: typeof Slide) => void) | undefined;
-    const loadTopic = vi.fn(
+  it("keeps the fixed Stage visible while a Topic Stage loads, then prefetches neighbors", async () => {
+    let resolveTopic: ((stage: typeof Slide) => void) | undefined;
+    const loadTopicStage = vi.fn(
       () =>
         new Promise<typeof Slide>((resolve) => {
           resolveTopic = resolve;
@@ -183,7 +213,7 @@ describe("LabView Player seam", () => {
     );
     const prefetchAdjacentTopics = vi.fn().mockResolvedValue(undefined);
 
-    setup({ loadTopic, prefetchAdjacentTopics });
+    setup({ loadTopicStage, prefetchAdjacentTopics });
 
     expect(screen.getByTestId("stage")).toHaveAttribute("data-topic-ready", "false");
     expect(screen.getByRole("status", { name: "Loading slides" })).toBeVisible();
@@ -193,21 +223,21 @@ describe("LabView Player seam", () => {
       expect(screen.getByTestId("stage")).toHaveAttribute("data-topic-ready", "true"),
     );
     expect(screen.getByText("Slide content")).toBeVisible();
-    expect(prefetchAdjacentTopics).toHaveBeenCalledWith("quiet-grid", "quiet-launch");
+    expect(prefetchAdjacentTopics).toHaveBeenCalledWith("quiet-launch");
   });
 
-  it("offers an in-Stage retry after a Topic component fails to load", async () => {
-    const loadTopic = vi
+  it("offers an in-Stage retry after a Topic Stage fails to load", async () => {
+    const loadTopicStage = vi
       .fn()
       .mockRejectedValueOnce(new Error("chunk unavailable"))
       .mockResolvedValueOnce(Slide);
 
-    setup({ loadTopic });
+    setup({ loadTopicStage });
 
     expect(await screen.findByText("Slides failed to load")).toBeVisible();
     fireEvent.click(screen.getByRole("button", { name: "Retry" }));
 
-    await waitFor(() => expect(loadTopic).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(loadTopicStage).toHaveBeenCalledTimes(2));
     expect(await screen.findByText("Slide content")).toBeVisible();
     expect(screen.getByTestId("stage")).toHaveAttribute("data-topic-ready", "true");
   });

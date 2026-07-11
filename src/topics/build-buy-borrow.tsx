@@ -4,10 +4,10 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 
 /* ────────────────────────────────────────────────────────────────────────
- * Benchmark Matrix — v3 · "Build vs Buy vs Borrow"
+ * Benchmark Matrix � · "Build vs Buy vs Borrow"
  * A fair, like-against-like evaluation matrix. Judgment moves from surface
  * metrics (speed, upfront cost) toward structural capability (control,
  * differentiation, long-run cost). Motion is clarifying only.

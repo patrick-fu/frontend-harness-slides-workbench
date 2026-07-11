@@ -11,7 +11,7 @@ import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
   type SceneTransitionModifierMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./pneumatic-post.module.css";
 
 type Language = TopicStageProps["language"];
@@ -807,7 +807,6 @@ function TopicStage({
     <main
       className={styles.root}
       lang={language === "zh" ? "zh-CN" : "en"}
-      data-style-id="red-wedge-agitprop"
       data-topic-id="pneumatic-post"
       data-motion={motionOff ? "off" : "on"}
       data-frozen={motionOff ? "true" : "false"}

@@ -1,22 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { CATALOG_MANIFEST } from "../styles/catalog-manifest.generated";
-import { validateStyleDefinitions } from "./topic-catalog";
+import { validateStyleDefinitions, validateTopicRegistry } from "./topic-catalog";
+import { TOPIC_REGISTRY } from "./topic-registry";
 import { STYLE_DEFINITIONS } from "./style-definitions";
 
 describe("STYLE_DEFINITIONS", () => {
-  it("preserves every current canonical Style identity and Band during migration", () => {
-    const currentStyles = Object.fromEntries(
-      CATALOG_MANIFEST.map((style) => [
-        style.id,
-        {
-          id: style.id,
-          name: style.name,
-          band: style.topics[0]?.metadata.en.band,
-        },
-      ]),
-    );
+  it("defines every Style used by the sole Topic Registry without introducing an ordering map", () => {
+    const styleGroups = validateTopicRegistry(STYLE_DEFINITIONS, TOPIC_REGISTRY);
 
-    expect(STYLE_DEFINITIONS).toEqual(currentStyles);
     expect(() => validateStyleDefinitions(STYLE_DEFINITIONS)).not.toThrow();
+    expect(new Set(styleGroups.map((group) => group.style.id))).toEqual(
+      new Set(Object.keys(STYLE_DEFINITIONS)),
+    );
   });
 });

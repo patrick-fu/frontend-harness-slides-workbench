@@ -10,7 +10,7 @@ import { useFLIP } from "../hooks/useFLIP";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./human-loop.module.css";
 
 type Lang = "en" | "zh";
@@ -1398,7 +1398,6 @@ function TopicStage({
     <section
       className={[styles.root, motionOff ? styles.motionOff : ""].join(" ")}
       lang={language}
-      data-style-id="sketch-board-emoji"
       data-topic-id="human-loop"
       data-motion={motionOff ? "off" : "on"}
     >

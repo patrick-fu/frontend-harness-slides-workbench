@@ -98,6 +98,14 @@ describe("createTopicCatalog", () => {
       message: 'Style "first-style" appears in more than one Registry group.',
     },
     {
+      name: "a Style definition omitted from the Registry",
+      registry: () => [
+        [makeTopicDefinition({ id: "first-topic", styleId: "first-style" })],
+      ],
+      message:
+        "Style definitions missing from the Topic Registry: second-style.",
+    },
+    {
       name: "a globally duplicated Topic ID",
       registry: () => [
         [makeTopicDefinition({ id: "same-topic", styleId: "first-style" })],

@@ -57,7 +57,7 @@ const BEAT_COUNTS: Record<number, number> = {
 
 // ─── 1. All 5 scenes × all beats render without errors ──────────────────────
 
-describe("Style 01: Executive Silence — render coverage", () => {
+describe("Product Keynote — render coverage", () => {
   it("renders all 5 scenes × all beats without throwing", () => {
     for (let scene = 1; scene <= 5; scene++) {
       const beats = BEAT_COUNTS[scene];
@@ -72,7 +72,7 @@ describe("Style 01: Executive Silence — render coverage", () => {
 
 // ─── 2. isThumbnail=true: no interactive elements, onNavigate undefined ─────
 
-describe("Style 01: Executive Silence — thumbnail mode", () => {
+describe("Product Keynote — thumbnail mode", () => {
   it("renders no navigation dots when isThumbnail=true", () => {
     renderStage({ isThumbnail: true, onNavigate: undefined });
     const dots = screen.queryAllByRole("button");
@@ -92,7 +92,7 @@ describe("Style 01: Executive Silence — thumbnail mode", () => {
 
 // ─── 3. isThumbnail=false: internal navigation elements exist ───────────────
 
-describe("Style 01: Executive Silence — navigation presence", () => {
+describe("Product Keynote — navigation presence", () => {
   it("renders 5 navigation dots when not in thumbnail mode", () => {
     renderStage({ isThumbnail: false });
     const navDots = screen
@@ -106,7 +106,7 @@ describe("Style 01: Executive Silence — navigation presence", () => {
 
 // ─── 4. Clicking internal nav calls onNavigate with correct (scene, beat) ───
 
-describe("Style 01: Executive Silence — navigation behavior", () => {
+describe("Product Keynote — navigation behavior", () => {
   it("clicking a scene dot calls onNavigate with (sceneId, 0)", () => {
     const { onNavigate } = renderStage({ scene: 1, beat: 0 });
     const dot3 = screen
@@ -129,7 +129,7 @@ describe("Style 01: Executive Silence — navigation behavior", () => {
 
 // ─── 5. reducedMotion=true: no CSS animations active ────────────────────────
 
-describe("Style 01: Executive Silence — reduced motion", () => {
+describe("Product Keynote — reduced motion", () => {
   it("applies transition-duration: 0s when reducedMotion=true", () => {
     const { stage } = renderStage({ reducedMotion: true, scene: 3, beat: 2 });
     // Check that the root element or transition track has no active transitions
@@ -149,7 +149,7 @@ describe("Style 01: Executive Silence — reduced motion", () => {
 
 // ─── 6. language="zh": Chinese text rendered ────────────────────────────────
 
-describe("Style 01: Executive Silence — Chinese language", () => {
+describe("Product Keynote — Chinese language", () => {
   it("renders Chinese title on scene 1", () => {
     renderStage({ scene: 1, beat: 0, language: "zh" });
     expect(screen.getByText("Nova 全新登场")).toBeInTheDocument();
@@ -183,7 +183,7 @@ describe("Style 01: Executive Silence — Chinese language", () => {
 
 // ─── 7. language="en": English text rendered ────────────────────────────────
 
-describe("Style 01: Executive Silence — English language", () => {
+describe("Product Keynote — English language", () => {
   it("renders English title on scene 1", () => {
     renderStage({ scene: 1, beat: 0, language: "en" });
     expect(screen.getByText("Introducing Nova")).toBeInTheDocument();
@@ -210,7 +210,7 @@ describe("Style 01: Executive Silence — English language", () => {
 
 // ─── 8. No content overflows Stage ──────────────────────────────────────────
 
-describe("Style 01: Executive Silence — overflow check", () => {
+describe("Product Keynote — overflow check", () => {
   it("does not overflow the Stage in any scene/beat combination", () => {
     for (let scene = 1; scene <= 5; scene++) {
       const beats = BEAT_COUNTS[scene];
@@ -298,7 +298,7 @@ describe("Product Keynote — metadata structure", () => {
 
 // ─── 10. heroScene validity ─────────────────────────────────────────────────
 
-describe("Style 01: Executive Silence — hero scene", () => {
+describe("Product Keynote — hero scene", () => {
   it("heroScene is between 1 and 5", () => {
     const meta = getMetadata("en");
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);
@@ -315,7 +315,7 @@ describe("Style 01: Executive Silence — hero scene", () => {
 
 // ─── Additional: root element contract ──────────────────────────────────────
 
-describe("Style 01: Executive Silence — root element contract", () => {
+describe("Product Keynote — root element contract", () => {
   it("root element has the root CSS module class (defines w-full h-full overflow-hidden relative)", () => {
     const { stage } = renderStage({ scene: 1, beat: 0 });
     const root = stage.firstElementChild as HTMLElement;

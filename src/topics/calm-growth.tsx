@@ -9,7 +9,7 @@ import { useFLIP } from "../hooks/useFLIP";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./calm-growth.module.css";
 
 const SCENE_IDS = [1, 2, 3, 4, 5] as const;
@@ -696,7 +696,6 @@ function TopicStage({
   return (
     <div
       className={styles.root}
-      data-style-id="mid-century-grove"
       data-motion-off={motionOff ? "true" : "false"}
     >
       <SpatialSceneTrack

@@ -1,6 +1,11 @@
 import { describe, it, expect } from "vitest";
-import type { StyleRegistryEntry, StyleMetadata } from "../types";
-import { STYLE_CATALOG_SOURCE } from "../styles/catalog-source";
+import { lazy } from "react";
+import {
+  RUNTIME_REGISTRY,
+  type RuntimeStyleGroup,
+  type RuntimeTopic,
+} from "../catalog/runtime-registry";
+import type { TopicMetadata, TopicStageProps } from "../domain/topic";
 import { collectAllFonts, buildGoogleFontsUrl, isCJKFont } from "./fonts";
 
 // ---------------------------------------------------------------------------
@@ -8,13 +13,9 @@ import { collectAllFonts, buildGoogleFontsUrl, isCJKFont } from "./fonts";
 // ---------------------------------------------------------------------------
 
 function makeMetadata(
-  id: string,
   fonts: string[],
-): StyleMetadata {
+): TopicMetadata {
   return {
-    id,
-    band: "minimal-keynote",
-    name: `Style ${id}`,
     theme: "",
     densityLabel: "",
     heroScene: 1,
@@ -26,19 +27,35 @@ function makeMetadata(
   };
 }
 
-function makeEntry(id: string, fonts: string[]): StyleRegistryEntry {
+const EmptyStage = (_props: TopicStageProps) => null;
+
+function makeEntry(id: string, fonts: string[]): RuntimeStyleGroup {
+  const metadata = makeMetadata(fonts);
+  const topic: RuntimeTopic = {
+    id: `${id}-topic`,
+    styleId: id,
+    title: { en: "Test Topic", zh: "测试题材" },
+    modelId: "GPT 5.5",
+    metadata: { en: metadata, zh: metadata },
+    navigation: { mode: "none" },
+    transitionScore: {
+      "1->2": "hard-cut",
+      "2->3": "hard-cut",
+      "3->4": "hard-cut",
+      "4->5": "hard-cut",
+    },
+    evidence: { kind: "none" },
+    modulePath: `../topics/${id}-topic.tsx`,
+    Stage: lazy(async () => ({ default: EmptyStage })),
+    loadStage: async () => EmptyStage,
+  };
   return {
-    id,
-    name: { en: `Style ${id}`, zh: `风格 ${id}` },
-    topics: [
-      {
-        id: "default-topic",
-        topic: { en: "Test Topic", zh: "测试题材" },
-        model: "test-model",
-        component: () => null,
-        getMetadata: (_lang: "en" | "zh") => makeMetadata(id, fonts),
-      },
-    ],
+    style: {
+      id,
+      name: { en: `Style ${id}`, zh: `风格 ${id}` },
+      band: "minimal-keynote",
+    },
+    topics: [topic],
   };
 }
 
@@ -206,7 +223,7 @@ describe("buildGoogleFontsUrl", () => {
     );
   });
 
-  it("merges a legacy family with its explicit descriptor", () => {
+  it("merges a plain family with its explicit descriptor", () => {
     expect(
       buildGoogleFontsUrl(["Inter", "Inter:wght@300;500;600"]),
     ).toBe(
@@ -214,7 +231,7 @@ describe("buildGoogleFontsUrl", () => {
     );
   });
 
-  it("falls back to legacy weights for a malformed descriptor", () => {
+  it("falls back to default weights for a malformed descriptor", () => {
     expect(buildGoogleFontsUrl(["Inter:wght"])).toBe(
       "https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap",
     );
@@ -242,7 +259,7 @@ describe("buildGoogleFontsUrl", () => {
 
   it("emits one selector per authored family across the full source catalog", () => {
     const url = buildGoogleFontsUrl(
-      collectAllFonts(STYLE_CATALOG_SOURCE, "zh"),
+      collectAllFonts(RUNTIME_REGISTRY, "zh"),
     );
     const families = new URL(url).searchParams
       .getAll("family")

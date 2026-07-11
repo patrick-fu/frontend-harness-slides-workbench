@@ -6,8 +6,8 @@ import {
   type TopicStageProps,
 } from "../domain/topic";
 import { useFLIP } from "../hooks/useFLIP";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import styles from "./one-constraint.module.css";
 
 type Lang = TopicStageProps["language"];

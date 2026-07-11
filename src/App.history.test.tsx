@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
-import { CATALOG_MANIFEST } from "./styles/catalog-manifest.generated";
+import { CATALOG_MANIFEST } from "./catalog/manifest.generated";
 
 const CATALOG_TOPIC_COUNT = CATALOG_MANIFEST.reduce(
   (total, style) => total + style.topics.length,
@@ -189,6 +189,58 @@ describe("Workbench URL, history, and sharing contract", () => {
     expect(params().get("scene")).toBe("1");
     expect(params().get("beat")).toBe("0");
     expect(replaceState).toHaveBeenCalledTimes(1);
+    expect(pushState).not.toHaveBeenCalled();
+  });
+
+  it("resolves a stale Style query from the global Topic ID without adding History", async () => {
+    setRoute(
+      "/?view=lab&style=sketch-board-emoji&topic=quiet-launch&scene=2&beat=0",
+    );
+    const pushState = vi.spyOn(window.history, "pushState");
+    const replaceState = vi.spyOn(window.history, "replaceState");
+
+    render(<App />);
+
+    await waitFor(() =>
+      expect(params().get("style")).toBe("minimal-product-keynote"),
+    );
+    expect(params().get("topic")).toBe("quiet-launch");
+    expect(screen.getByTestId("lab-view")).toBeVisible();
+    expect(
+      screen.queryByText("This slide deck is unavailable"),
+    ).not.toBeInTheDocument();
+    expect(replaceState).toHaveBeenCalledTimes(1);
+    expect(pushState).not.toHaveBeenCalled();
+  });
+
+  it("adds a missing Style query from the global Topic ID with replaceState", async () => {
+    setRoute("/?view=lab&topic=quiet-launch&scene=2&beat=0");
+    const pushState = vi.spyOn(window.history, "pushState");
+    const replaceState = vi.spyOn(window.history, "replaceState");
+
+    render(<App />);
+
+    await waitFor(() =>
+      expect(params().get("style")).toBe("minimal-product-keynote"),
+    );
+    expect(params().get("topic")).toBe("quiet-launch");
+    expect(window.location.hash).toBe("");
+    expect(replaceState).toHaveBeenCalledTimes(1);
+    expect(pushState).not.toHaveBeenCalled();
+  });
+
+  it("shows Not Found only when the global Topic ID is unknown", () => {
+    setRoute(
+      "/?view=lab&style=sketch-board-emoji&topic=missing-topic&scene=1&beat=0",
+    );
+    const pushState = vi.spyOn(window.history, "pushState");
+    const replaceState = vi.spyOn(window.history, "replaceState");
+
+    render(<App />);
+
+    expect(screen.getByText("This slide deck is unavailable")).toBeVisible();
+    expect(params().get("style")).toBe("sketch-board-emoji");
+    expect(replaceState).not.toHaveBeenCalled();
     expect(pushState).not.toHaveBeenCalled();
   });
 

@@ -1,4 +1,4 @@
-import type { StyleRegistryEntry } from "../types";
+import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
 
 const LEGACY_FONT_WEIGHTS = ["400", "700"];
 const LOCAL_FONT_FAMILIES = new Set([
@@ -41,23 +41,23 @@ export function isCJKFont(fontName: string): boolean {
 }
 
 /**
- * Collect all font families used across all topics in the registry.
+ * Collect all font families used across all Topics in the runtime registry.
  *
- * - Iterates every style → every topic → calls getMetadata(lang).
+ * - Iterates every Style Group → every Topic → reads static metadata.
  * - Deduplicates (first occurrence wins).
  * - When lang="en": drops fonts prefixed with "cjk:".
  * - When lang="zh": keeps all fonts, stripping the "cjk:" prefix.
  */
 export function collectAllFonts(
-  registry: StyleRegistryEntry[],
+  registry: readonly RuntimeStyleGroup[],
   lang: "en" | "zh",
 ): string[] {
   const seen = new Set<string>();
   const result: string[] = [];
 
-  for (const style of registry) {
-    for (const topic of style.topics) {
-      const meta = topic.getMetadata(lang);
+  for (const group of registry) {
+    for (const topic of group.topics) {
+      const meta = topic.metadata[lang];
       for (const font of meta.fonts) {
         if (lang === "en" && isCJKFont(font)) {
           continue;

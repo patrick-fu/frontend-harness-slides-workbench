@@ -5,7 +5,7 @@ import {
   type TopicMetadata,
   type TopicStageProps,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import styles from "./quote-poster.module.css";
 
 // ─── Transition constants ─────────────────────────────────────────────────
@@ -461,7 +461,6 @@ function TopicStage({
     <div
       className={rootClasses}
       lang={language}
-      data-style-id="spotlight-quote-poster"
       data-topic-id="quote-poster"
       data-motion={reducedMotion || isThumbnail ? "off" : "on"}
     >

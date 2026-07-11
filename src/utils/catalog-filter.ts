@@ -1,27 +1,26 @@
-import type { StyleMetadata, StyleRegistryEntry } from "../types";
+import type { RuntimeStyleGroup, RuntimeTopic } from "../catalog/runtime-registry";
+import type { ModelId } from "../domain/model";
+import type { Band, StyleDefinition } from "../domain/style";
+import type { TopicMetadata } from "../domain/topic";
 
 export interface CatalogFilters {
   bands: string[];
   models: string[];
 }
 
-export interface CatalogTopic {
-  styleId: string;
-  styleName: string;
-  topicId: string;
-  topicName: string;
-  band: StyleMetadata["band"];
-  model: string;
-  metadata: StyleMetadata;
+export interface CatalogTopicEntry {
+  style: StyleDefinition;
+  topic: RuntimeTopic;
+  metadata: TopicMetadata;
 }
 
 export interface CatalogBandOption {
-  band: StyleMetadata["band"];
+  band: Band;
   count: number;
 }
 
 export interface CatalogModelOption {
-  model: string;
+  modelId: ModelId;
   count: number;
 }
 
@@ -35,22 +34,17 @@ export interface CatalogFacetCounts {
  * Style or Topic order.
  */
 export function buildCatalogTopics(
-  registry: readonly StyleRegistryEntry[],
+  registry: readonly RuntimeStyleGroup[],
   language: "en" | "zh",
-): CatalogTopic[] {
-  const topics: CatalogTopic[] = [];
+): CatalogTopicEntry[] {
+  const topics: CatalogTopicEntry[] = [];
 
-  for (const style of registry) {
-    for (const topic of style.topics) {
-      const metadata = topic.getMetadata(language);
+  for (const group of registry) {
+    for (const topic of group.topics) {
       topics.push({
-        styleId: style.id,
-        styleName: style.name[language],
-        topicId: topic.id,
-        topicName: topic.topic[language],
-        band: metadata.band,
-        model: topic.model,
-        metadata,
+        style: group.style,
+        topic,
+        metadata: topic.metadata[language],
       });
     }
   }
@@ -63,13 +57,14 @@ export function buildCatalogTopics(
  * Selections match any value within a facet and both facets must match.
  */
 export function filterCatalogTopics(
-  topics: readonly CatalogTopic[],
+  topics: readonly CatalogTopicEntry[],
   filters: CatalogFilters,
-): CatalogTopic[] {
+): CatalogTopicEntry[] {
   return topics.filter(
     (topic) =>
-      (filters.bands.length === 0 || filters.bands.includes(topic.band)) &&
-      (filters.models.length === 0 || filters.models.includes(topic.model)),
+      (filters.bands.length === 0 || filters.bands.includes(topic.style.band)) &&
+      (filters.models.length === 0 ||
+        filters.models.includes(topic.topic.modelId)),
   );
 }
 
@@ -78,37 +73,37 @@ export function filterCatalogTopics(
  * This keeps a Band choice from hiding its own alternatives, and vice versa.
  */
 export function getCatalogFacetCounts(
-  topics: readonly CatalogTopic[],
+  topics: readonly CatalogTopicEntry[],
   filters: CatalogFilters,
 ): CatalogFacetCounts {
   const bands: CatalogBandOption[] = [];
   const models: CatalogModelOption[] = [];
-  const knownBands = new Set<StyleMetadata["band"]>();
-  const knownModels = new Set<string>();
+  const knownBands = new Set<Band>();
+  const knownModels = new Set<ModelId>();
 
   for (const topic of topics) {
-    if (!knownBands.has(topic.band)) {
-      knownBands.add(topic.band);
+    if (!knownBands.has(topic.style.band)) {
+      knownBands.add(topic.style.band);
       bands.push({
-        band: topic.band,
+        band: topic.style.band,
         count: topics.filter(
           (candidate) =>
-            candidate.band === topic.band &&
+            candidate.style.band === topic.style.band &&
             (filters.models.length === 0 ||
-              filters.models.includes(candidate.model)),
+              filters.models.includes(candidate.topic.modelId)),
         ).length,
       });
     }
 
-    if (!knownModels.has(topic.model)) {
-      knownModels.add(topic.model);
+    if (!knownModels.has(topic.topic.modelId)) {
+      knownModels.add(topic.topic.modelId);
       models.push({
-        model: topic.model,
+        modelId: topic.topic.modelId,
         count: topics.filter(
           (candidate) =>
-            candidate.model === topic.model &&
+            candidate.topic.modelId === topic.topic.modelId &&
             (filters.bands.length === 0 ||
-              filters.bands.includes(candidate.band)),
+              filters.bands.includes(candidate.style.band)),
         ).length,
       });
     }

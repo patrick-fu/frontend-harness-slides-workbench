@@ -10,7 +10,7 @@ import type { Source } from "../domain/evidence";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./bridge-movement.module.css";
 
 type Language = "en" | "zh";
@@ -1310,7 +1310,6 @@ function TopicStage({
       data-current-scene={activeScene}
       data-frozen={motionOff ? "true" : undefined}
       data-motion-state={motionOff ? "settled" : "measured"}
-      data-style-id="objective-swiss-grid"
       data-topic-id="bridge-movement"
       lang={language}
     >

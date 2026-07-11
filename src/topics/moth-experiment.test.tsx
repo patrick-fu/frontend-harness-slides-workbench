@@ -538,7 +538,6 @@ describe("Magazine Masthead: moth experiment — stage-local safety", () => {
         expect(root?.parentElement).toBe(stage);
         expect(root).toHaveClass(styleClasses.root);
         expect(root).toHaveAttribute("data-topic-id", "moth-experiment");
-        expect(root).toHaveAttribute("data-style-id", "magazine-masthead");
         expect(root).toHaveAttribute("data-motion", "off");
         expect(root).toHaveAttribute("data-specimen-art", "drawn");
 

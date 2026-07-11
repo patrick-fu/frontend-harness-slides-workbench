@@ -1,17 +1,11 @@
-import type { StyleRegistryEntry } from "../../types";
+import type { RuntimeStyleGroup } from "../../catalog/runtime-registry";
+import { BANDS, type Band } from "../../domain/style";
 
 // ─── Band definitions ───────────────────────────────────────────────────────
 
-export const BAND_ORDER = [
-  "minimal-keynote",
-  "balanced-hybrid",
-  "editorial-print",
-  "craft-cultural",
-  "contemporary-digital",
-  "text-report",
-] as const;
+export const BAND_ORDER = BANDS;
 
-export type BandId = (typeof BAND_ORDER)[number];
+export type BandId = Band;
 
 export const BAND_LABELS: Record<BandId, { en: string; zh: string }> = {
   "minimal-keynote": { en: "Minimal Keynote", zh: "极简主旨" },
@@ -24,22 +18,19 @@ export const BAND_LABELS: Record<BandId, { en: string; zh: string }> = {
 
 /**
  * Group registry entries by their band, preserving band order.
- * Uses the first topic's metadata to determine the band (all topics
- * of a style share the same band).
+ * Reads the Style definition, which owns the Band for its Topic Group.
  *
  * Returns an array of [bandId, entries] tuples in BAND_ORDER sequence.
  */
 export function groupByBand(
-  registry: StyleRegistryEntry[],
-): Array<[BandId, StyleRegistryEntry[]]> {
-  const map = new Map<BandId, StyleRegistryEntry[]>();
+  registry: readonly RuntimeStyleGroup[],
+): Array<[BandId, RuntimeStyleGroup[]]> {
+  const map = new Map<BandId, RuntimeStyleGroup[]>();
   for (const band of BAND_ORDER) {
     map.set(band, []);
   }
   for (const entry of registry) {
-    if (entry.topics.length === 0) continue;
-    const meta = entry.topics[0].getMetadata("en");
-    const band = meta.band as BandId;
+    const band = entry.style.band;
     if (map.has(band)) {
       map.get(band)!.push(entry);
     }

@@ -8,11 +8,11 @@ import {
   type TopicTransitionScore,
 } from "../domain/topic";
 import { useFLIP } from "../hooks/useFLIP";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./repair-strategy.module.css";
 
 type Language = TopicStageProps["language"];

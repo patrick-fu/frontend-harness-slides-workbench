@@ -5,7 +5,7 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import styles from "./title-card.module.css";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
@@ -253,7 +253,7 @@ const EVIDENCE = {
     en: "Illustrative film-title scenario: names, credits, chapters, quotations, and release framing are presentation fiction, not external factual claims.",
     zh: "示例电影片头场景：名称、演职员、章节、引言和发行信息均为演示虚构内容，并非外部事实主张。",
   },
-  display: "stage",
+  display: "envelope",
 } as const;
 
 // ─── Component ──────────────────────────────────────────────────────────────

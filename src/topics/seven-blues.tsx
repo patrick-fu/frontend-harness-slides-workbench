@@ -8,7 +8,7 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import styles from "./seven-blues.module.css";
 
 type Lang = "en" | "zh";
@@ -1423,7 +1423,6 @@ function TopicStage({
     <div
       className={cx(styles.root, settled && styles.settled)}
       data-topic-id="seven-blues"
-      data-style-id="riso-print-zine"
       data-language={language}
       data-motion={settled ? "off" : "on"}
       data-settled={settled ? "true" : "false"}
@@ -1490,6 +1489,6 @@ export default defineTopic({
       en: "Material and process statements are source-backed; the swatches and diagrams are illustrative, not material-color matches or universal cultural meanings of blue.",
       zh: "材料与工艺陈述有来源支持；色片和图示仅为说明，并非材料颜色等同物，也不代表蓝色具有普遍文化含义。",
     },
-    display: "stage",
+  display: "envelope",
   },
 });

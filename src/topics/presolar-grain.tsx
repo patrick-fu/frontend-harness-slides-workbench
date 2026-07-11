@@ -9,7 +9,7 @@ import type { Source } from "../domain/evidence";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./presolar-grain.module.css";
 
 type Language = "en" | "zh";
@@ -295,7 +295,6 @@ function TopicStage({
   return (
     <section
       className={styles.root}
-      data-style-id="minimal-product-keynote"
       data-topic-id="presolar-grain"
       data-motion={motionOff ? "off" : "on"}
       data-frozen-state={motionOff ? "settled" : undefined}

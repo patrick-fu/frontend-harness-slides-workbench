@@ -12,7 +12,7 @@ import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionKind,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./reading-rosetta.module.css";
 
 type Language = "en" | "zh";

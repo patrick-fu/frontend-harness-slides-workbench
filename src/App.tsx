@@ -21,10 +21,11 @@ import { useFontPreload } from "./hooks/useFontPreload";
 import { useKeyboard } from "./hooks/useKeyboard";
 import { useUrlState } from "./hooks/useUrlState";
 import {
-  STYLE_REGISTRY,
-  loadRegistryTopicComponent,
-  prefetchAdjacentRegistryTopics,
-} from "./styles/registry";
+  findRuntimeTopic,
+  loadRuntimeTopicStage,
+  prefetchAdjacentRuntimeTopics,
+  RUNTIME_REGISTRY,
+} from "./catalog/runtime-registry";
 import type { NavTarget } from "./utils/navigation";
 
 const RECENT_TOPICS_KEY = "fhsw:recent-topics";
@@ -53,22 +54,35 @@ function AppContent() {
   const [recentTopics, setRecentTopics] = useState(readRecentTopics);
   const catalogScrollRef = useRef<HTMLDivElement>(null);
 
-  useFontPreload(STYLE_REGISTRY, displayLanguage);
+  useFontPreload(RUNTIME_REGISTRY, displayLanguage);
 
-  const activeStyle = useMemo(
-    () => STYLE_REGISTRY.find((style) => style.id === urlState.styleId) ?? null,
-    [urlState.styleId],
+  const activeTopicEntry = useMemo(
+    () => findRuntimeTopic(urlState.topicId),
+    [urlState.topicId],
   );
-  const activeTopic = useMemo(
-    () => activeStyle?.topics.find((topic) => topic.id === urlState.topicId) ?? null,
-    [activeStyle, urlState.topicId],
-  );
+  const activeGroup = activeTopicEntry
+    ? RUNTIME_REGISTRY[activeTopicEntry.styleIndex] ?? null
+    : null;
+  const activeStyle = activeTopicEntry?.style ?? null;
+  const activeTopic = activeTopicEntry?.topic ?? null;
+  const resolvedStyleId = activeTopic?.styleId ?? urlState.styleId;
+
+  useEffect(() => {
+    if (!activeTopic) return;
+
+    const params = new URLSearchParams(window.location.search);
+    if (!params.has("topic")) return;
+    const styleIds = params.getAll("style");
+    if (styleIds.length === 1 && styleIds[0] === activeTopic.styleId) return;
+
+    setUrlState({ styleId: activeTopic.styleId }, { history: "replace" });
+  }, [activeTopic, setUrlState]);
 
   useEffect(() => {
     const base = displayLanguage === "zh" ? "FH Slides 工作台" : "FH Slides Workbench";
     document.title =
       urlState.view === "lab" && activeTopic
-        ? `${activeTopic.topic[displayLanguage]} — ${base}`
+        ? `${activeTopic.title[displayLanguage]} — ${base}`
         : base;
   }, [activeTopic, displayLanguage, urlState.view]);
 
@@ -88,7 +102,7 @@ function AppContent() {
 
   useEffect(() => {
     if (!activeTopic) return;
-    const metadata = activeTopic.getMetadata(displayLanguage);
+    const metadata = activeTopic.metadata[displayLanguage];
     const targetScene = metadata.scenes.find((item) => item.id === urlState.scene) ?? metadata.scenes[0];
     if (!targetScene) return;
     const lastBeat = targetScene.beats[targetScene.beats.length - 1]?.id ?? 0;
@@ -242,14 +256,14 @@ function AppContent() {
           controls={controls("overview")}
         />
         <OverviewView
-          registry={STYLE_REGISTRY}
+          registry={RUNTIME_REGISTRY}
           language={displayLanguage}
           filters={{ bands: urlState.bands, models: urlState.models }}
           onFiltersChange={updateFilters}
           getTopicHref={getTopicHref}
           onOpenTopic={selectTopic}
-          onPrefetchTopic={(styleId, topicId) => {
-            void loadRegistryTopicComponent(styleId, topicId).catch(() => undefined);
+          onPrefetchTopic={(topicId) => {
+            void loadRuntimeTopicStage(topicId).catch(() => undefined);
           }}
         />
       </div>
@@ -267,7 +281,7 @@ function AppContent() {
           <div className="flex min-w-0 flex-1 flex-col">
             {!urlState.pureMode && (
               <PlayerTopBar
-                style={activeStyle}
+                group={activeGroup}
                 topicId={urlState.topicId}
                 language={displayLanguage}
                 onOverview={goOverview}
@@ -280,8 +294,8 @@ function AppContent() {
             )}
             <div className="min-h-0 flex-1">
               <LabView
-                registry={STYLE_REGISTRY}
-                styleId={urlState.styleId}
+                registry={RUNTIME_REGISTRY}
+                styleId={resolvedStyleId}
                 topicId={urlState.topicId}
                 scene={urlState.scene}
                 beat={urlState.beat}
@@ -297,8 +311,8 @@ function AppContent() {
                 onOpenLibrary={() => setLibraryOpen(true)}
                 onOpenPalette={openPalette}
                 onOpenControls={openControls}
-                loadTopic={loadRegistryTopicComponent}
-                prefetchAdjacentTopics={prefetchAdjacentRegistryTopics}
+                loadTopicStage={loadRuntimeTopicStage}
+                prefetchAdjacentTopics={prefetchAdjacentRuntimeTopics}
               />
             </div>
           </div>
@@ -307,8 +321,8 @@ function AppContent() {
 
       <LibraryDrawer
         open={libraryOpen}
-        registry={STYLE_REGISTRY}
-        currentStyleId={urlState.styleId}
+        registry={RUNTIME_REGISTRY}
+        currentStyleId={resolvedStyleId}
         currentTopicId={urlState.topicId}
         language={displayLanguage}
         onClose={() => setLibraryOpen(false)}
@@ -316,7 +330,7 @@ function AppContent() {
       />
       <CommandPalette
         open={paletteOpen}
-        registry={STYLE_REGISTRY}
+        registry={RUNTIME_REGISTRY}
         language={displayLanguage}
         recent={recentTopics}
         onClose={() => setPaletteOpen(false)}

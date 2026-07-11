@@ -7,7 +7,7 @@ import {
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./shared-artifact.module.css";
 
 type Lang = "en" | "zh";
@@ -743,7 +743,6 @@ function TopicStage({
       className={[styles.root, noMotion ? styles.reducedMotion : ""]
         .filter(Boolean)
         .join(" ")}
-      data-style-id="collaborative-pairing-board"
       data-topic-id="shared-artifact"
       data-motion={noMotion ? "off" : "on"}
     >

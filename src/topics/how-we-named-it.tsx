@@ -11,8 +11,8 @@ import {
   type TopicMetadata,
   type TopicStageProps,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./how-we-named-it.module.css";
 
@@ -531,7 +531,6 @@ function TopicStage({
       className={styles.root}
       ref={rootRef}
       lang={language}
-      data-style-id="sketch-board-emoji"
       data-topic-id="how-we-named-it"
       data-motion={still ? "off" : "on"}
     >

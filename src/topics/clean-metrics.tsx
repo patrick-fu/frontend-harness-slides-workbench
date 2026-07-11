@@ -6,11 +6,11 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 
 type Lang = "en" | "zh";
 type SceneId = 1 | 2 | 3 | 4 | 5;
@@ -683,7 +683,7 @@ const METADATA_SCENES: Record<Lang, TopicMetadata["scenes"]> = {
 function useFonts() {
   useEffect(() => {
     if (typeof document === "undefined") return;
-    const id = "style-02-metrics-without-noise-v2-fonts";
+    const id = "clean-metrics-fonts";
     if (document.getElementById(id)) return;
 
     const link = document.createElement("link");
@@ -1014,7 +1014,6 @@ function TopicStage({
   return (
     <div
       className={rootClassName}
-      data-style-id="objective-swiss-grid"
       data-topic-id="clean-metrics"
       data-thumbnail={isThumbnail ? "true" : undefined}
       lang={language}
@@ -1082,20 +1081,20 @@ export default defineTopic({
 
 const SWISS_GRID_STYLES = `
 .fhs02v2Root {
-  --style-02-bg: #f6f5ef;
-  --style-02-ink: #111111;
-  --style-02-muted: #6b6b66;
-  --style-02-grid: rgba(17, 17, 17, 0.16);
-  --style-02-rule: rgba(17, 17, 17, 0.34);
-  --style-02-panel: rgba(17, 17, 17, 0.045);
-  --style-02-signal: #d32f2f;
+  --topic-bg: #f6f5ef;
+  --topic-ink: #111111;
+  --topic-muted: #6b6b66;
+  --topic-grid: rgba(17, 17, 17, 0.16);
+  --topic-rule: rgba(17, 17, 17, 0.34);
+  --topic-panel: rgba(17, 17, 17, 0.045);
+  --topic-signal: #d32f2f;
   container-type: size;
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: var(--style-02-bg);
-  color: var(--style-02-ink);
+  background: var(--topic-bg);
+  color: var(--topic-ink);
   font-family: "Inter", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
   letter-spacing: 0;
   isolation: isolate;
@@ -1128,14 +1127,14 @@ const SWISS_GRID_STYLES = `
   top: 0;
   bottom: 0;
   left: var(--grid-line-position);
-  border-left: 0.045cqw solid var(--style-02-grid);
+  border-left: 0.045cqw solid var(--topic-grid);
 }
 
 .fhs02v2GridLineHorizontal {
   left: 0;
   right: 0;
   top: var(--grid-line-position);
-  border-top: 0.07cqh solid var(--style-02-grid);
+  border-top: 0.07cqh solid var(--topic-grid);
 }
 
 .fhs02v2Scene {
@@ -1145,8 +1144,8 @@ const SWISS_GRID_STYLES = `
   grid-template-columns: 8.4cqw repeat(12, 1fr) 5.2cqw;
   grid-template-rows: 6.2cqh 9.4cqh 1fr 6.2cqh;
   column-gap: 1.1cqw;
-  color: var(--style-02-ink);
-  background: var(--style-02-bg);
+  color: var(--topic-ink);
+  background: var(--topic-bg);
 }
 
 .fhs02v2Header {
@@ -1156,7 +1155,7 @@ const SWISS_GRID_STYLES = `
   grid-template-columns: repeat(12, 1fr);
   column-gap: 1.1cqw;
   align-items: start;
-  border-top: 0.11cqh solid var(--style-02-ink);
+  border-top: 0.11cqh solid var(--topic-ink);
   padding-top: 1.1cqh;
 }
 
@@ -1165,7 +1164,7 @@ const SWISS_GRID_STYLES = `
 .fhs02v2MarginNote,
 .fhs02v2Footer {
   margin: 0;
-  color: var(--style-02-muted);
+  color: var(--topic-muted);
   font-size: 0.96cqw;
   line-height: 1.15;
   font-weight: 600;
@@ -1180,7 +1179,7 @@ const SWISS_GRID_STYLES = `
 .fhs02v2SceneNumber {
   grid-column: 12 / 13;
   justify-self: end;
-  color: var(--style-02-signal);
+  color: var(--topic-signal);
 }
 
 .fhs02v2MarginNote {
@@ -1189,7 +1188,7 @@ const SWISS_GRID_STYLES = `
   align-self: start;
   display: flex;
   min-height: 12cqh;
-  border-top: 0.11cqh solid var(--style-02-rule);
+  border-top: 0.11cqh solid var(--topic-rule);
   padding-top: 1.2cqh;
 }
 
@@ -1201,7 +1200,7 @@ const SWISS_GRID_STYLES = `
   grid-column: 2 / 14;
   grid-row: 4;
   align-self: start;
-  border-top: 0.11cqh solid var(--style-02-rule);
+  border-top: 0.11cqh solid var(--topic-rule);
   padding-top: 1cqh;
 }
 
@@ -1237,7 +1236,7 @@ const SWISS_GRID_STYLES = `
   font-size: 1.32cqw;
   line-height: 1.28;
   font-weight: 500;
-  color: var(--style-02-muted);
+  color: var(--topic-muted);
   letter-spacing: 0;
 }
 
@@ -1284,7 +1283,7 @@ const SWISS_GRID_STYLES = `
   grid-row: 1 / 7;
   display: grid;
   grid-template-rows: repeat(3, 1fr);
-  border-top: 0.18cqh solid var(--style-02-signal);
+  border-top: 0.18cqh solid var(--topic-signal);
 }
 
 .fhs02v2RuleRow {
@@ -1292,13 +1291,13 @@ const SWISS_GRID_STYLES = `
   grid-template-columns: 4.8cqw 1fr;
   grid-template-rows: auto 1fr;
   column-gap: 1cqw;
-  border-bottom: 0.11cqh solid var(--style-02-rule);
+  border-bottom: 0.11cqh solid var(--topic-rule);
   padding: 1.5cqh 0 1.2cqh;
 }
 
 .fhs02v2RuleRow strong,
 .fhs02v2Clause strong {
-  color: var(--style-02-signal);
+  color: var(--topic-signal);
   font-size: 1.05cqw;
   line-height: 1.05;
   font-weight: 800;
@@ -1317,7 +1316,7 @@ const SWISS_GRID_STYLES = `
 .fhs02v2Clause small {
   grid-column: 2;
   margin-top: 0.75cqh;
-  color: var(--style-02-muted);
+  color: var(--topic-muted);
   font-size: 0.98cqw;
   line-height: 1.22;
   font-weight: 500;
@@ -1330,8 +1329,8 @@ const SWISS_GRID_STYLES = `
   display: flex;
   align-items: end;
   justify-content: space-between;
-  border-top: 0.4cqh solid var(--style-02-signal);
-  color: var(--style-02-signal);
+  border-top: 0.4cqh solid var(--topic-signal);
+  color: var(--topic-signal);
   padding-top: 1.3cqh;
 }
 
@@ -1356,16 +1355,16 @@ const SWISS_GRID_STYLES = `
   display: grid;
   grid-template-rows: 4.3cqh 9.6cqh 1fr 2cqh;
   min-height: 31cqh;
-  border-top: 0.18cqh solid var(--style-02-ink);
-  border-bottom: 0.11cqh solid var(--style-02-rule);
-  background: var(--style-02-panel);
+  border-top: 0.18cqh solid var(--topic-ink);
+  border-bottom: 0.11cqh solid var(--topic-rule);
+  background: var(--topic-panel);
   padding: 1.5cqh 1.1cqw 1.25cqh;
 }
 
 .fhs02v2MetricCard p,
 .fhs02v2MetricCard span {
   margin: 0;
-  color: var(--style-02-muted);
+  color: var(--topic-muted);
   font-size: 0.98cqw;
   line-height: 1.18;
   font-weight: 600;
@@ -1390,7 +1389,7 @@ const SWISS_GRID_STYLES = `
   display: block;
   height: 0.62cqh;
   width: var(--metric-score);
-  background: var(--style-02-signal);
+  background: var(--topic-signal);
 }
 
 .fhs02v2Comparison .fhs02v2TitleBlock {
@@ -1402,7 +1401,7 @@ const SWISS_GRID_STYLES = `
   grid-row: 4 / 9;
   display: grid;
   grid-template-rows: 4.8cqh repeat(3, 1fr);
-  border-top: 0.18cqh solid var(--style-02-ink);
+  border-top: 0.18cqh solid var(--topic-ink);
 }
 
 .fhs02v2CompareHeader,
@@ -1415,11 +1414,11 @@ const SWISS_GRID_STYLES = `
 
 .fhs02v2CompareHeader {
   grid-template-columns: 2fr 2.2fr 2.2fr 3fr;
-  border-bottom: 0.11cqh solid var(--style-02-rule);
+  border-bottom: 0.11cqh solid var(--topic-rule);
 }
 
 .fhs02v2CompareHeader span {
-  color: var(--style-02-muted);
+  color: var(--topic-muted);
   font-size: 0.9cqw;
   line-height: 1;
   font-weight: 800;
@@ -1432,12 +1431,12 @@ const SWISS_GRID_STYLES = `
 }
 
 .fhs02v2CompareRow {
-  border-bottom: 0.11cqh solid var(--style-02-rule);
+  border-bottom: 0.11cqh solid var(--topic-rule);
 }
 
 .fhs02v2CompareRow strong,
 .fhs02v2DecisionRow strong {
-  color: var(--style-02-signal);
+  color: var(--topic-signal);
   font-size: 1.22cqw;
   line-height: 1.1;
   font-weight: 800;
@@ -1446,7 +1445,7 @@ const SWISS_GRID_STYLES = `
 
 .fhs02v2CompareRow span,
 .fhs02v2DecisionRow span {
-  color: var(--style-02-ink);
+  color: var(--topic-ink);
   font-size: 1.24cqw;
   line-height: 1.18;
   font-weight: 600;
@@ -1454,7 +1453,7 @@ const SWISS_GRID_STYLES = `
 }
 
 .fhs02v2CompareRow span:last-child {
-  color: var(--style-02-muted);
+  color: var(--topic-muted);
   font-size: 1.02cqw;
   font-weight: 600;
 }
@@ -1469,7 +1468,7 @@ const SWISS_GRID_STYLES = `
   grid-row: 3 / 9;
   display: grid;
   grid-template-rows: repeat(4, 1fr);
-  border-top: 0.18cqh solid var(--style-02-ink);
+  border-top: 0.18cqh solid var(--topic-ink);
 }
 
 .fhs02v2DecisionRow {
@@ -1477,15 +1476,15 @@ const SWISS_GRID_STYLES = `
   grid-template-columns: 2.2fr 2.5fr 2.5fr 1.2fr;
   column-gap: 1.1cqw;
   align-items: center;
-  border-bottom: 0.11cqh solid var(--style-02-rule);
+  border-bottom: 0.11cqh solid var(--topic-rule);
 }
 
 .fhs02v2DecisionRow mark {
   display: inline-flex;
   justify-self: start;
   min-width: 6cqw;
-  border: 0.11cqh solid var(--style-02-signal);
-  color: var(--style-02-signal);
+  border: 0.11cqh solid var(--topic-signal);
+  color: var(--topic-signal);
   background: transparent;
   font-size: 1.05cqw;
   line-height: 1;
@@ -1505,7 +1504,7 @@ const SWISS_GRID_STYLES = `
   grid-row: 4 / 9;
   display: grid;
   grid-template-rows: repeat(3, 1fr);
-  border-top: 0.18cqh solid var(--style-02-ink);
+  border-top: 0.18cqh solid var(--topic-ink);
 }
 
 .fhs02v2Clause {
@@ -1513,7 +1512,7 @@ const SWISS_GRID_STYLES = `
   grid-template-columns: 5.2cqw 1fr;
   grid-template-rows: auto 1fr;
   column-gap: 1.1cqw;
-  border-bottom: 0.11cqh solid var(--style-02-rule);
+  border-bottom: 0.11cqh solid var(--topic-rule);
   padding: 1.6cqh 0 1.15cqh;
 }
 
@@ -1524,8 +1523,8 @@ const SWISS_GRID_STYLES = `
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 0.18cqh solid var(--style-02-signal);
-  color: var(--style-02-signal);
+  border: 0.18cqh solid var(--topic-signal);
+  color: var(--topic-signal);
   font-size: 2.75cqw;
   line-height: 1;
   font-weight: 800;
@@ -1545,7 +1544,7 @@ const SWISS_GRID_STYLES = `
   width: 3.6cqw;
   display: grid;
   grid-template-rows: repeat(5, 6.8cqh);
-  border-top: 0.11cqh solid var(--style-02-rule);
+  border-top: 0.11cqh solid var(--topic-rule);
 }
 
 .fhs02v2IndexButton {
@@ -1556,10 +1555,10 @@ const SWISS_GRID_STYLES = `
   width: 100%;
   height: 100%;
   border: 0;
-  border-bottom: 0.11cqh solid var(--style-02-rule);
+  border-bottom: 0.11cqh solid var(--topic-rule);
   border-left: 0.18cqw solid transparent;
   background: transparent;
-  color: var(--style-02-muted);
+  color: var(--topic-muted);
   font: inherit;
   font-size: 0.96cqw;
   line-height: 1;
@@ -1574,12 +1573,12 @@ const SWISS_GRID_STYLES = `
 
 .fhs02v2IndexButton:hover,
 .fhs02v2IndexButton[aria-current="step"] {
-  color: var(--style-02-signal);
-  border-left-color: var(--style-02-signal);
+  color: var(--topic-signal);
+  border-left-color: var(--topic-signal);
 }
 
 .fhs02v2IndexButton:focus-visible {
-  outline: 0.16cqw solid var(--style-02-signal);
+  outline: 0.16cqw solid var(--topic-signal);
   outline-offset: 0.18cqw;
 }
 

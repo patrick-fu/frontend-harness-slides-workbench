@@ -1,4 +1,4 @@
-/* ─── Style 10: Benchmark Matrix ─────────────────────────────────────────
+/* ─── Benchmark Matrix ─────────────────────────────────────────
    Analytical evaluation matrix. Clean comparative evidence, scannable rows.
    All sizing in cqw/cqh. No px/vw/vh.
    ──────────────────────────────────────────────────────────────────────── */
@@ -9,8 +9,8 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-10-bg, #fafbfc);
-  color: var(--style-10-ink, #1a1a2e);
+  background: var(--topic-bg, #fafbfc);
+  color: var(--topic-ink, #1a1a2e);
   font-family: "Inter", system-ui, -apple-system, sans-serif;
 }
 
@@ -94,9 +94,9 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--style-10-accent, #4361ee);
+  color: var(--topic-accent, #4361ee);
   padding: 0.6cqh 1.5cqw;
-  border: 0.15cqw solid var(--style-10-accent, #4361ee);
+  border: 0.15cqw solid var(--topic-accent, #4361ee);
   border-radius: 0.4cqw;
   margin-bottom: 3cqh;
   width: fit-content;
@@ -108,11 +108,11 @@
   line-height: 1.0;
   letter-spacing: -0.04em;
   margin: 0;
-  color: var(--style-10-ink, #1a1a2e);
+  color: var(--topic-ink, #1a1a2e);
 }
 
 .titleHighlight {
-  color: var(--style-10-accent, #4361ee);
+  color: var(--topic-accent, #4361ee);
 }
 
 .subtitle {
@@ -120,7 +120,7 @@
   font-weight: 400;
   line-height: 1.4;
   margin-top: 3cqh;
-  color: var(--style-10-muted, #64748b);
+  color: var(--topic-muted, #64748b);
   max-width: 55cqw;
 }
 
@@ -137,7 +137,7 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--style-10-accent, #4361ee);
+  color: var(--topic-accent, #4361ee);
   margin-bottom: 0.5cqh;
 }
 
@@ -147,7 +147,7 @@
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0 0 3cqh 0;
-  color: var(--style-10-ink, #1a1a2e);
+  color: var(--topic-ink, #1a1a2e);
 }
 
 .quadrant {
@@ -160,7 +160,7 @@
 }
 
 .quadCell {
-  background: var(--style-10-panel, #f5f5f5);
+  background: var(--topic-panel, #f5f5f5);
   border-radius: 1cqw;
   padding: 2.5cqh 2.5cqw;
   display: flex;
@@ -181,7 +181,7 @@
 }
 
 .quadCellHighlight {
-  border-color: var(--style-10-accent, #4361ee);
+  border-color: var(--topic-accent, #4361ee);
   background: rgba(67, 97, 238, 0.06);
 }
 
@@ -190,14 +190,14 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--style-10-muted, #64748b);
+  color: var(--topic-muted, #64748b);
   margin-bottom: 1cqh;
 }
 
 .quadName {
   font-size: 2.8cqw;
   font-weight: 700;
-  color: var(--style-10-ink, #1a1a2e);
+  color: var(--topic-ink, #1a1a2e);
   margin-bottom: 0.5cqh;
 }
 
@@ -205,13 +205,13 @@
   font-size: 1.4cqw;
   font-weight: 400;
   line-height: 1.35;
-  color: var(--style-10-muted, #64748b);
+  color: var(--topic-muted, #64748b);
 }
 
 .quadCount {
   font-size: 3.5cqw;
   font-weight: 800;
-  color: var(--style-10-accent, #4361ee);
+  color: var(--topic-accent, #4361ee);
   margin-top: 0.5cqh;
 }
 
@@ -228,7 +228,7 @@
   overflow: hidden;
   border-radius: 1cqw;
   border: 0.15cqw solid #e2e8f0;
-  background: var(--style-10-bg, #ffffff);
+  background: var(--topic-bg, #ffffff);
 }
 
 .table {
@@ -245,8 +245,8 @@
   font-size: 1.3cqw;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--style-10-muted, #64748b);
-  background: var(--style-10-panel, #f5f5f5);
+  color: var(--topic-muted, #64748b);
+  background: var(--topic-panel, #f5f5f5);
   border-bottom: 0.15cqw solid #e2e8f0;
 }
 
@@ -255,13 +255,13 @@
 }
 
 .table th.ourCol {
-  color: var(--style-10-accent, #4361ee);
+  color: var(--topic-accent, #4361ee);
 }
 
 .table td {
   padding: 1.2cqh 1.5cqw;
   border-bottom: 0.1cqw solid #f1f5f9;
-  color: var(--style-10-ink, #1a1a2e);
+  color: var(--topic-ink, #1a1a2e);
   font-weight: 400;
   vertical-align: middle;
 }
@@ -276,7 +276,7 @@
 
 .table td.ourCell {
   font-weight: 600;
-  color: var(--style-10-accent, #4361ee);
+  color: var(--topic-accent, #4361ee);
 }
 
 .checkMark {
@@ -327,7 +327,7 @@
 }
 
 .matrixCell {
-  background: var(--style-10-panel, #f5f5f5);
+  background: var(--topic-panel, #f5f5f5);
   border-radius: 0.8cqw;
   padding: 2cqh 1.5cqw;
   display: flex;
@@ -352,21 +352,21 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--style-10-muted, #64748b);
+  color: var(--topic-muted, #64748b);
   width: 100%;
   padding-bottom: 0.6cqh;
   border-bottom: 0.1cqw solid #e2e8f0;
 }
 
 .matrixCellHeader.highlight {
-  color: var(--style-10-accent, #4361ee);
-  border-bottom-color: var(--style-10-accent, #4361ee);
+  color: var(--topic-accent, #4361ee);
+  border-bottom-color: var(--topic-accent, #4361ee);
 }
 
 .matrixFeature {
   font-size: 1.3cqw;
   font-weight: 500;
-  color: var(--style-10-ink, #1a1a2e);
+  color: var(--topic-ink, #1a1a2e);
   line-height: 1.2;
 }
 
@@ -396,13 +396,13 @@
   line-height: 1.1;
   letter-spacing: -0.03em;
   margin: 0;
-  color: var(--style-10-ink, #1a1a2e);
+  color: var(--topic-ink, #1a1a2e);
   max-width: 75cqw;
 }
 
 .closingStatement em {
   font-style: normal;
-  color: var(--style-10-accent, #4361ee);
+  color: var(--topic-accent, #4361ee);
 }
 
 .closingData {
@@ -418,7 +418,7 @@
 .closingDataVal {
   font-size: 5cqw;
   font-weight: 800;
-  color: var(--style-10-accent, #4361ee);
+  color: var(--topic-accent, #4361ee);
   line-height: 1;
   display: block;
 }
@@ -426,7 +426,7 @@
 .closingDataLbl {
   font-size: 1.5cqw;
   font-weight: 500;
-  color: var(--style-10-muted, #64748b);
+  color: var(--topic-muted, #64748b);
   margin-top: 0.8cqh;
   display: block;
 }
@@ -450,7 +450,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  background: var(--style-10-ink, #1a1a2e);
+  background: var(--topic-ink, #1a1a2e);
   opacity: 0.15;
   transition:
     opacity 0.3s ease,
@@ -464,7 +464,7 @@
 
 .navGridCellActive {
   opacity: 0.55;
-  background: var(--style-10-accent, #4361ee);
+  background: var(--topic-accent, #4361ee);
   width: 4cqw;
 }
 

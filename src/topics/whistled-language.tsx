@@ -12,11 +12,11 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./whistled-language.module.css";
 
 type Language = "en" | "zh";
@@ -59,7 +59,6 @@ type SceneCopy = {
   }>;
 };
 
-const STYLE_ID = "woodblock-floating-world";
 const TOPIC_ID = "whistled-language";
 const SCENE_IDS = [1, 2, 3, 4, 5] as const satisfies readonly SceneId[];
 
@@ -1200,7 +1199,6 @@ function TopicStage({
     <div
       className={styles.root}
       data-topic-id={TOPIC_ID}
-      data-style-id={STYLE_ID}
       data-motion-ceiling="1"
       data-settled={settled ? "true" : "false"}
       data-frozen={frozen ? "true" : "false"}
@@ -1240,7 +1238,7 @@ function TopicStage({
 
 export default defineTopic({
   id: TOPIC_ID,
-  styleId: STYLE_ID,
+  styleId: "woodblock-floating-world",
   title: {
     en: "Whistled Language",
     zh: "口哨语言",

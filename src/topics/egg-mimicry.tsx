@@ -12,8 +12,8 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { BeatLayoutMode, SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { BeatLayoutMode, SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import styles from "./egg-mimicry.module.css";
 
 type Language = TopicStageProps["language"];
@@ -1405,7 +1405,6 @@ function TopicStage({
         .filter(Boolean)
         .join(" ")}
       data-topic-id="egg-mimicry"
-      data-style-id="arcade-boss-fight"
       data-motion={motionDisabled ? "off" : "pixel-step"}
       data-pixel-fps={motionDisabled ? "static" : "8-12"}
       data-pixel-art="original"

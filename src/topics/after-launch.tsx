@@ -5,11 +5,11 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./after-launch.module.css";
 
 type Language = TopicStageProps["language"];
@@ -809,7 +809,15 @@ function FolioNav({ scene, beat, language, onNavigate }: FolioNavProps) {
   const beats = SCENES[scene][language].beats;
 
   return (
-    <nav className={styles.folioNav} aria-label={language === "zh" ? "报纸版记导航" : "Newspaper folio navigation"}>
+    <nav
+      className={styles.folioNav}
+      aria-label={language === "zh" ? "报纸版记导航" : "Newspaper folio navigation"}
+      data-topic-navigation="true"
+      data-navigation-geometry="typographic-index"
+      data-navigation-carrier="launch-folio-navigation"
+      data-navigation-invocation="persistent"
+      data-navigation-feedback="typographic-emphasis"
+    >
       <div className={styles.sceneFolios}>
         {SCENE_IDS.map((sceneId) => {
           const isCurrent = sceneId === scene;

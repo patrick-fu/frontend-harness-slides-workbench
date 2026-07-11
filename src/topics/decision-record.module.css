@@ -1,13 +1,13 @@
-/* ── Style 42: Decision Record ──────────────────────────────────────── */
+/* ── Decision Record ──────────────────────────────────────── */
 
-:root {
-  --style-42-paper: #f4f6f8;
-  --style-42-ink: #1a1a2e;
-  --style-42-panel: #e8ecf0;
-  --style-42-accent: #1e3a5f;
-  --style-42-rule: #c0c8d0;
-  --style-42-muted: #5a6070;
-  --style-42-cite: #3a4a60;
+.root {
+  --topic-paper: #f4f6f8;
+  --topic-ink: #1a1a2e;
+  --topic-panel: #e8ecf0;
+  --topic-accent: #1e3a5f;
+  --topic-rule: #c0c8d0;
+  --topic-muted: #5a6070;
+  --topic-cite: #3a4a60;
 }
 
 .root {
@@ -15,8 +15,8 @@
   height: 100%;
   position: relative;
   overflow: hidden;
-  background: var(--style-42-paper);
-  color: var(--style-42-ink);
+  background: var(--topic-paper);
+  color: var(--topic-ink);
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   user-select: none;
 }
@@ -90,7 +90,7 @@
   top: calc(45% - 1.5px);
   left: 0;
   height: 3px;
-  background: var(--style-42-ink, #1a1a1a);
+  background: var(--topic-ink, #1a1a1a);
   z-index: 5;
   pointer-events: none;
   animation: dividerRuleDraw 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
@@ -106,7 +106,7 @@
   }
 }
 
-/* ── Transition Track (legacy) ──────────────────────────────────────────── */
+/* ── Scene transition track ──────────────────────────────────────────── */
 
 .transitionTrack {
   position: relative;
@@ -140,7 +140,7 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.6cqh;
   font-weight: 600;
-  color: var(--style-42-ink);
+  color: var(--topic-ink);
   text-align: center;
   letter-spacing: 0.06em;
   line-height: 1.4;
@@ -157,7 +157,7 @@
 .captionRule {
   width: 60cqw;
   height: 0.1cqh;
-  background: var(--style-42-rule);
+  background: var(--topic-rule);
   margin: 1.5cqh 0;
 }
 
@@ -175,14 +175,14 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 4cqh;
   font-weight: 700;
-  color: var(--style-42-ink);
+  color: var(--topic-ink);
   line-height: 1.2;
 }
 
 .captionParty {
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2cqh;
-  color: var(--style-42-muted);
+  color: var(--topic-muted);
   font-style: italic;
 }
 
@@ -190,7 +190,7 @@
   font-family: "Inter", system-ui, sans-serif;
   font-size: 3cqh;
   font-weight: 700;
-  color: var(--style-42-accent);
+  color: var(--topic-accent);
   padding: 1cqh 0;
   font-style: italic;
 }
@@ -207,7 +207,7 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.4cqh;
   font-weight: 600;
-  color: var(--style-42-ink);
+  color: var(--topic-ink);
   letter-spacing: 0.04em;
 }
 
@@ -216,7 +216,7 @@
   gap: 3cqw;
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.8cqh;
-  color: var(--style-42-muted);
+  color: var(--topic-muted);
 }
 
 .captionCounsel {
@@ -228,7 +228,7 @@
 .captionCounselTitle {
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.8cqh;
-  color: var(--style-42-muted);
+  color: var(--topic-muted);
   margin: 0 0 0.3cqh 0;
   font-style: italic;
 }
@@ -237,21 +237,21 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.2cqh;
   font-weight: 700;
-  color: var(--style-42-ink);
+  color: var(--topic-ink);
   margin: 0;
 }
 
 .captionCounselFirm {
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.9cqh;
-  color: var(--style-42-ink);
+  color: var(--topic-ink);
   margin: 0.2cqh 0 0 0;
 }
 
 .captionCounselAddr {
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.7cqh;
-  color: var(--style-42-muted);
+  color: var(--topic-muted);
   margin: 0.2cqh 0 0 0;
   line-height: 1.4;
 }
@@ -275,7 +275,7 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 4.5cqh;
   font-weight: 700;
-  color: var(--style-42-accent);
+  color: var(--topic-accent);
   margin: 0;
   text-align: center;
   letter-spacing: 0.02em;
@@ -284,7 +284,7 @@
 .factsRule {
   width: 100%;
   height: 0.1cqh;
-  background: var(--style-42-rule);
+  background: var(--topic-rule);
   margin-top: 1.2cqh;
 }
 
@@ -306,7 +306,7 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.4cqh;
   font-weight: 700;
-  color: var(--style-42-accent);
+  color: var(--topic-accent);
   min-width: 3cqw;
   flex-shrink: 0;
   padding-top: 0.2cqh;
@@ -316,7 +316,7 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.1cqh;
   line-height: 1.6;
-  color: var(--style-42-ink);
+  color: var(--topic-ink);
   margin: 0;
   text-align: justify;
   flex: 1;
@@ -341,7 +341,7 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 4.5cqh;
   font-weight: 700;
-  color: var(--style-42-accent);
+  color: var(--topic-accent);
   margin: 0;
   text-align: center;
 }
@@ -349,7 +349,7 @@
 .argRule {
   width: 100%;
   height: 0.1cqh;
-  background: var(--style-42-rule);
+  background: var(--topic-rule);
   margin-top: 1.2cqh;
 }
 
@@ -364,7 +364,7 @@
   font-family: "Inter", system-ui, sans-serif;
   font-size: 3.5cqh;
   font-weight: 700;
-  color: var(--style-42-accent);
+  color: var(--topic-accent);
   flex-shrink: 0;
 }
 
@@ -372,7 +372,7 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.8cqh;
   font-weight: 700;
-  color: var(--style-42-ink);
+  color: var(--topic-ink);
   margin: 0;
   line-height: 1.3;
 }
@@ -381,14 +381,14 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.1cqh;
   line-height: 1.65;
-  color: var(--style-42-ink);
+  color: var(--topic-ink);
   margin: 0 0 1.5cqh 0;
   text-align: justify;
 }
 
 .argCitations {
-  background: var(--style-42-panel);
-  border-left: 0.3cqh solid var(--style-42-accent);
+  background: var(--topic-panel);
+  border-left: 0.3cqh solid var(--topic-accent);
   padding: 1.5cqh 2cqw;
   margin: 1cqh 0;
 }
@@ -397,7 +397,7 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.8cqh;
   font-weight: 600;
-  color: var(--style-42-muted);
+  color: var(--topic-muted);
   margin: 0 0 1cqh 0;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -414,14 +414,14 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.9cqh;
   font-style: italic;
-  color: var(--style-42-cite);
+  color: var(--topic-cite);
   font-weight: 600;
 }
 
 .argCiteRel {
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.7cqh;
-  color: var(--style-42-muted);
+  color: var(--topic-muted);
 }
 
 /* ── Scene 4: Prayer for Relief ───────────────────────────────────────── */
@@ -443,7 +443,7 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 4.5cqh;
   font-weight: 700;
-  color: var(--style-42-accent);
+  color: var(--topic-accent);
   margin: 0;
   text-align: center;
 }
@@ -451,7 +451,7 @@
 .reliefRule {
   width: 100%;
   height: 0.1cqh;
-  background: var(--style-42-rule);
+  background: var(--topic-rule);
   margin-top: 1.2cqh;
 }
 
@@ -459,7 +459,7 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.3cqh;
   font-weight: 600;
-  color: var(--style-42-ink);
+  color: var(--topic-ink);
   margin: 0 0 2cqh 0;
   font-variant: small-caps;
   letter-spacing: 0.04em;
@@ -478,14 +478,14 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.1cqh;
   line-height: 1.55;
-  color: var(--style-42-ink);
+  color: var(--topic-ink);
   text-align: justify;
 }
 
 .reliefItem::marker {
   font-family: "Inter", system-ui, sans-serif;
   font-weight: 700;
-  color: var(--style-42-accent);
+  color: var(--topic-accent);
 }
 
 /* ── Scene 5: Conclusion ──────────────────────────────────────────────── */
@@ -507,7 +507,7 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 4.5cqh;
   font-weight: 700;
-  color: var(--style-42-accent);
+  color: var(--topic-accent);
   margin: 0;
   text-align: center;
 }
@@ -515,7 +515,7 @@
 .concRule {
   width: 100%;
   height: 0.1cqh;
-  background: var(--style-42-rule);
+  background: var(--topic-rule);
   margin-top: 1.2cqh;
 }
 
@@ -523,7 +523,7 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.3cqh;
   line-height: 1.65;
-  color: var(--style-42-ink);
+  color: var(--topic-ink);
   margin: 0 0 2cqh 0;
   text-align: justify;
 }
@@ -531,7 +531,7 @@
 .concDate {
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2cqh;
-  color: var(--style-42-muted);
+  color: var(--topic-muted);
   margin: 0 0 3cqh 0;
 }
 
@@ -544,7 +544,7 @@
 .concSigRespect {
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2cqh;
-  color: var(--style-42-ink);
+  color: var(--topic-ink);
   margin: 0 0 1.5cqh 0;
 }
 
@@ -552,21 +552,21 @@
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2.6cqh;
   font-weight: 700;
-  color: var(--style-42-ink);
+  color: var(--topic-ink);
   margin: 0;
 }
 
 .concSigBar {
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.8cqh;
-  color: var(--style-42-muted);
+  color: var(--topic-muted);
   margin: 0.2cqh 0;
 }
 
 .concSigFirm {
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 2cqh;
-  color: var(--style-42-ink);
+  color: var(--topic-ink);
   margin: 0.3cqh 0 0 0;
   font-weight: 600;
 }
@@ -574,7 +574,7 @@
 .concSigAddr {
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.7cqh;
-  color: var(--style-42-muted);
+  color: var(--topic-muted);
   margin: 0.3cqh 0 0 0;
   line-height: 1.4;
 }
@@ -582,7 +582,7 @@
 .concSigContact {
   font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
   font-size: 1.6cqh;
-  color: var(--style-42-muted);
+  color: var(--topic-muted);
   margin: 0.5cqh 0 0 0;
   line-height: 1.4;
   font-style: italic;
@@ -598,7 +598,7 @@
   z-index: 10;
   background: rgba(244, 246, 248, 0.95);
   backdrop-filter: blur(8px);
-  border-top: 0.05cqh solid var(--style-42-rule);
+  border-top: 0.05cqh solid var(--topic-rule);
   padding: 1cqh 6cqw 1.2cqh;
 }
 
@@ -623,29 +623,29 @@
 }
 
 .navItem:hover {
-  background: var(--style-42-panel);
+  background: var(--topic-panel);
 }
 
 .navRoman {
   font-family: "Inter", system-ui, sans-serif;
   font-size: 2.2cqh;
   font-weight: 700;
-  color: var(--style-42-muted);
+  color: var(--topic-muted);
   line-height: 1;
 }
 
 .navLabel {
   font-size: 1.4cqh;
-  color: var(--style-42-muted);
+  color: var(--topic-muted);
   letter-spacing: 0.03em;
 }
 
 .navItemActive {
-  background: var(--style-42-accent);
+  background: var(--topic-accent);
 }
 
 .navItemActive:hover {
-  background: var(--style-42-accent);
+  background: var(--topic-accent);
 }
 
 .navItemActive .navRoman {

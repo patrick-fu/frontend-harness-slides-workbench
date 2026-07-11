@@ -135,8 +135,13 @@ textarea {
 
 /* ─── Frozen mode (instant animations) ──────────────────────────────────── */
 
-[data-frozen="true"] * {
+[data-frozen="true"] *,
+[data-frozen="true"] *::before,
+[data-frozen="true"] *::after {
+  animation-delay: 0s !important;
   animation-duration: 0s !important;
+  animation-iteration-count: 1 !important;
+  transition-delay: 0s !important;
   transition-duration: 0s !important;
 }
 

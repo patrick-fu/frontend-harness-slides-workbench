@@ -1,5 +1,10 @@
+import { lazy } from "react";
 import { describe, it, expect } from "vitest";
-import type { StyleRegistryEntry, StyleMetadata } from "../types";
+import type {
+  RuntimeStyleGroup,
+  RuntimeTopic,
+} from "../catalog/runtime-registry";
+import type { TopicMetadata, TopicStage } from "../domain/topic";
 import {
   computeNext,
   computePrev,
@@ -12,7 +17,7 @@ import {
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
-function makeScenes(beatCounts: number[]): StyleMetadata["scenes"] {
+function makeScenes(beatCounts: number[]): TopicMetadata["scenes"] {
   return beatCounts.map((count, i) => ({
     id: i + 1,
     title: `Scene ${i + 1}`,
@@ -29,11 +34,8 @@ function makeStyle(
   id: string,
   beatCounts: number[],
   topicCount: number = 1,
-): StyleRegistryEntry {
-  const metadata: StyleMetadata = {
-    id,
-    band: "minimal-keynote",
-    name: `Style ${id}`,
+): RuntimeStyleGroup {
+  const metadata: TopicMetadata = {
     theme: "",
     densityLabel: "",
     heroScene: 1,
@@ -43,16 +45,34 @@ function makeStyle(
     fonts: [],
     scenes: makeScenes(beatCounts),
   };
-  const topics = Array.from({ length: topicCount }, (_, i) => ({
-    id: `topic-${i + 1}`,
-    topic: { en: `Topic ${i + 1}`, zh: `题材 ${i + 1}` },
-    model: "test-model",
-    component: () => null,
-    getMetadata: () => metadata,
-  }));
+  const Stage: TopicStage = () => null;
+  const topics: RuntimeTopic[] = Array.from(
+    { length: topicCount },
+    (_, i) => ({
+      id: `topic-${i + 1}`,
+      styleId: id,
+      title: { en: `Topic ${i + 1}`, zh: `题材 ${i + 1}` },
+      modelId: "GPT 5.5",
+      metadata: { en: metadata, zh: metadata },
+      navigation: { mode: "none" },
+      transitionScore: {
+        "1->2": "hard-cut",
+        "2->3": "hard-cut",
+        "3->4": "hard-cut",
+        "4->5": "hard-cut",
+      },
+      evidence: { kind: "none" },
+      modulePath: `../topics/topic-${i + 1}.tsx`,
+      Stage: lazy(async () => ({ default: Stage })),
+      loadStage: async () => Stage,
+    }),
+  );
   return {
-    id,
-    name: { en: `Style ${id}`, zh: `风格 ${id}` },
+    style: {
+      id,
+      name: { en: `Style ${id}`, zh: `风格 ${id}` },
+      band: "minimal-keynote",
+    },
     topics,
   };
 }
@@ -63,7 +83,7 @@ function makeStyle(
 // Style "beta-style": [2, 3, 2, 3, 2] beats per scene
 // Style "gamma-style": [1, 1, 1, 1, 1] beats per scene (single-beat scenes)
 
-const registry: StyleRegistryEntry[] = [
+const registry: RuntimeStyleGroup[] = [
   makeStyle("alpha-style", [3, 2, 4, 1, 3]),
   makeStyle("beta-style", [2, 3, 2, 3, 2]),
   makeStyle("gamma-style", [1, 1, 1, 1, 1]),
@@ -247,13 +267,13 @@ describe("computeNext", () => {
 // ─── computeNext with multiple topics ─────────────────────────────────────
 
 describe("computeNext with multiple topics", () => {
-  const multiVersionRegistry: StyleRegistryEntry[] = [
+  const multiTopicRegistry: RuntimeStyleGroup[] = [
     makeStyle("alpha-style", [1, 1, 1, 1, 1], 2), // 2 topics
     makeStyle("beta-style", [1, 1, 1, 1, 1], 1),
   ];
 
   it("cycles to next topic within the same style", () => {
-    const result = computeNext(multiVersionRegistry, "alpha-style", "topic-1", 5, 0, false);
+    const result = computeNext(multiTopicRegistry, "alpha-style", "topic-1", 5, 0, false);
     expect(result).toEqual({
       styleId: "alpha-style",
       topicId: "topic-2",
@@ -264,7 +284,7 @@ describe("computeNext with multiple topics", () => {
   });
 
   it("goes to next style after last topic of current style", () => {
-    const result = computeNext(multiVersionRegistry, "alpha-style", "topic-2", 5, 0, false);
+    const result = computeNext(multiTopicRegistry, "alpha-style", "topic-2", 5, 0, false);
     expect(result).toEqual({
       styleId: "beta-style",
       topicId: "topic-1",
@@ -397,13 +417,13 @@ describe("computePrev", () => {
 // ─── computePrev with multiple topics ─────────────────────────────────────
 
 describe("computePrev with multiple topics", () => {
-  const multiVersionRegistry: StyleRegistryEntry[] = [
+  const multiTopicRegistry: RuntimeStyleGroup[] = [
     makeStyle("alpha-style", [1, 1, 1, 1, 1], 2), // 2 topics
     makeStyle("beta-style", [1, 1, 1, 1, 1], 1),
   ];
 
   it("cycles to previous topic within the same style", () => {
-    const result = computePrev(multiVersionRegistry, "alpha-style", "topic-2", 1, 0, false);
+    const result = computePrev(multiTopicRegistry, "alpha-style", "topic-2", 1, 0, false);
     expect(result).toEqual({
       styleId: "alpha-style",
       topicId: "topic-1",
@@ -414,7 +434,7 @@ describe("computePrev with multiple topics", () => {
   });
 
   it("goes to previous style's last topic from first topic", () => {
-    const result = computePrev(multiVersionRegistry, "beta-style", "topic-1", 1, 0, false);
+    const result = computePrev(multiTopicRegistry, "beta-style", "topic-1", 1, 0, false);
     expect(result).toEqual({
       styleId: "alpha-style",
       topicId: "topic-2",
@@ -536,12 +556,12 @@ describe("jumpStyle", () => {
 // ─── jumpTopic ────────────────────────────────────────────────────────────
 
 describe("jumpTopic", () => {
-  const multiVersionRegistry: StyleRegistryEntry[] = [
+  const multiTopicRegistry: RuntimeStyleGroup[] = [
     makeStyle("alpha-style", [1, 1, 1, 1, 1], 3),
   ];
 
   it("jumps to a specific topic", () => {
-    const result = jumpTopic(multiVersionRegistry, "alpha-style", "topic-2");
+    const result = jumpTopic(multiTopicRegistry, "alpha-style", "topic-2");
     expect(result).toEqual({
       styleId: "alpha-style",
       topicId: "topic-2",
@@ -551,12 +571,12 @@ describe("jumpTopic", () => {
   });
 
   it("returns null for non-existent topic", () => {
-    const result = jumpTopic(multiVersionRegistry, "alpha-style", "missing-topic");
+    const result = jumpTopic(multiTopicRegistry, "alpha-style", "missing-topic");
     expect(result).toBeNull();
   });
 
   it("returns null for non-existent style", () => {
-    const result = jumpTopic(multiVersionRegistry, "missing-style", "topic-1");
+    const result = jumpTopic(multiTopicRegistry, "missing-style", "topic-1");
     expect(result).toBeNull();
   });
 });

@@ -1,9 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { STYLE_REGISTRY } from "../styles/registry";
-import {
-  getShowcaseThumbnail,
-  topicShowcaseThumbnails,
-} from "./showcase-thumbnails";
+import { RUNTIME_REGISTRY } from "../catalog/runtime-registry";
+import { getShowcaseThumbnail } from "./showcase-thumbnails";
 
 type WebpBuffer = {
   length: number;
@@ -66,40 +63,30 @@ function webpDimensions(filename: string) {
 }
 
 describe("getShowcaseThumbnail", () => {
-  it("resolves only an exact style and topic pair", () => {
-    expect(
-      getShowcaseThumbnail("minimal-product-keynote", "product-keynote"),
-    ).toBe("/showcase/product-keynote.webp");
-    expect(
-      getShowcaseThumbnail("minimal-product-keynote", "missing-topic"),
-    ).toBeUndefined();
-    expect(
-      getShowcaseThumbnail("missing-style", "product-keynote"),
-    ).toBeUndefined();
+  it("derives the preview from Topic ID and the application base URL", () => {
+    expect(getShowcaseThumbnail("product-keynote", "/")).toBe(
+      "/showcase/product-keynote.webp",
+    );
+    expect(getShowcaseThumbnail("product-keynote", "/workbench/")).toBe(
+      "/workbench/showcase/product-keynote.webp",
+    );
+    expect(getShowcaseThumbnail("product-keynote", "/workbench")).toBe(
+      "/workbench/showcase/product-keynote.webp",
+    );
   });
 
-  it("maps every registered topic exactly once", () => {
-    const registryPairs = STYLE_REGISTRY.flatMap((style) =>
-      style.topics.map((topic) => `${style.id}/${topic.id}`),
+  it("commits exactly one 1920×1080 Topic-ID WebP for every Topic", () => {
+    const topicIds = RUNTIME_REGISTRY.flatMap((styleGroup) =>
+      styleGroup.topics.map((topic) => topic.id),
     );
-    const mappedPairs = Object.entries(topicShowcaseThumbnails).flatMap(
-      ([styleId, topics]) =>
-        Object.keys(topics).map((topicId) => `${styleId}/${topicId}`),
-    );
-
-    expect(mappedPairs).toEqual(registryPairs);
-  });
-
-  it("commits exactly one 1920×1080 WebP for every mapped topic", () => {
-    const mappedFilenames = Object.values(topicShowcaseThumbnails).flatMap(
-      (topics) => Object.values(topics),
-    );
+    const expectedFilenames = topicIds.map((topicId) => `${topicId}.webp`);
     const committedWebps = readdirSync(showcaseDirectory)
       .filter((filename) => filename.endsWith(".webp"))
       .sort();
 
-    expect(committedWebps).toEqual([...mappedFilenames].sort());
-    for (const filename of mappedFilenames) {
+    expect(new Set(topicIds).size).toBe(topicIds.length);
+    expect(committedWebps).toEqual([...expectedFilenames].sort());
+    for (const filename of expectedFilenames) {
       expect(webpDimensions(filename)).toEqual({ width: 1920, height: 1080 });
     }
   });

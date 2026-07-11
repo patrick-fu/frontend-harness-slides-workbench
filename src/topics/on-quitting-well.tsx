@@ -1,9 +1,9 @@
-// 08 · On Quitting Well · v3 — "Spotlight Quote Poster" / 聚光引言海报
+// On Quitting Well � — "Spotlight Quote Poster" / 聚光引言海报
 // A darkened stage; a single soft pool of light lifts one statement out of the
 // shadow. Luminous serif text, one muted gold accent, dominant emptiness.
 // Written from DNA + assignment only. cqw/cqh units; Envelope owns responsive.
 
-// 08 · On Quitting Well · v3 — "Spotlight Quote Poster" / 聚光引言海报
+// On Quitting Well � — "Spotlight Quote Poster" / 聚光引言海报
 // A darkened stage; a single soft pool of light lifts one statement out of the
 // shadow. Luminous serif text, one muted gold accent, dominant emptiness.
 // Written from DNA + assignment only. cqw/cqh units; Envelope owns responsive.
@@ -14,8 +14,8 @@ import {
   type TopicMetadata,
   type TopicStageProps,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./on-quitting-well.module.css";
 
@@ -336,7 +336,6 @@ function TopicStage({
     <div
       className={cx(styles.root, still && styles.still)}
       lang={language}
-      data-style-id="spotlight-quote-poster"
       data-topic-id="on-quitting-well"
       data-motion={still ? "off" : "on"}
     >

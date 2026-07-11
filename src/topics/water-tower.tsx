@@ -8,7 +8,7 @@ import {
 } from "../domain/topic";
 import SpatialSceneTrack, {
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./water-tower.module.css";
 
 type Lang = "en" | "zh";

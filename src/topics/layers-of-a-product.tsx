@@ -5,9 +5,8 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import { curatedNavigationAttributes } from "../styles/curated-topic-contract";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./layers-of-a-product.module.css";
 
@@ -407,7 +406,11 @@ function DepthNav({
   if (isThumbnail) return null;
   return (
     <div
-      {...curatedNavigationAttributes("liquid-glass", "layers-of-a-product")}
+      data-topic-navigation="true"
+      data-navigation-geometry="object-controller"
+      data-navigation-carrier="product-layer-stack"
+      data-navigation-invocation="drag-scrub"
+      data-navigation-feedback="next-state-preview"
       className={styles.nav}
       aria-label="layer depth"
     >

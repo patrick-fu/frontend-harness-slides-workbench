@@ -10,7 +10,7 @@ import type { Source } from "../domain/evidence";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./hidden-text.module.css";
 
 type Language = "en" | "zh";
@@ -1073,7 +1073,6 @@ function TopicStage({
     <section
       className={`${styles.root} ${motionOff ? styles.motionOff : ""}`}
       data-testid="hidden-text-root"
-      data-style-id="scholars-vellum"
       data-topic-id="hidden-text"
       data-motion={motionOff ? "off" : "restrained"}
       lang={language}

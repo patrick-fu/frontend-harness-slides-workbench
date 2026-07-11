@@ -33,7 +33,7 @@ const defaultProps = {
 };
 
 describe("FilterPanel", () => {
-  it("exposes separate Band and Model facets and toggles their values", () => {
+  it("exposes separate Band and Model ID facets and toggles their values", () => {
     const onToggleBand = vi.fn();
     const onToggleModel = vi.fn();
 
@@ -46,7 +46,7 @@ describe("FilterPanel", () => {
     );
 
     const bands = screen.getByRole("group", { name: "Category" });
-    const models = screen.getByRole("group", { name: "Model" });
+    const models = screen.getByRole("group", { name: "Model ID" });
     fireEvent.click(within(bands).getByRole("button", { name: /Minimal Keynote/ }));
     fireEvent.click(within(models).getByRole("button", { name: /GPT 5\.5/ }));
 
@@ -54,15 +54,15 @@ describe("FilterPanel", () => {
     expect(onToggleModel).toHaveBeenCalledWith("GPT 5.5");
   });
 
-  it("keeps overflowing Model options in a searchable +N popover", () => {
+  it("keeps overflowing Model ID options in a searchable +N popover", () => {
     const onToggleModel = vi.fn();
 
     render(<FilterPanel {...defaultProps} onToggleModel={onToggleModel} />);
 
-    const trigger = screen.getByRole("button", { name: "+1 Models" });
+    const trigger = screen.getByRole("button", { name: "+1 Model IDs" });
     fireEvent.click(trigger);
-    const popover = screen.getByRole("dialog", { name: "More Models" });
-    const searchbox = within(popover).getByRole("searchbox", { name: "Search Models" });
+    const popover = screen.getByRole("dialog", { name: "More Model IDs" });
+    const searchbox = within(popover).getByRole("searchbox", { name: "Search Model IDs" });
     expect(searchbox).toHaveFocus();
     fireEvent.change(searchbox, {
       target: { value: "Lla" },
@@ -71,7 +71,7 @@ describe("FilterPanel", () => {
 
     expect(onToggleModel).toHaveBeenCalledWith("Llama");
     fireEvent.keyDown(popover, { key: "Escape" });
-    expect(screen.queryByRole("dialog", { name: "More Models" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("dialog", { name: "More Model IDs" })).not.toBeInTheDocument();
     expect(trigger).toHaveFocus();
   });
 

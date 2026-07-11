@@ -1,44 +1,70 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { lazy } from "react";
 import { describe, expect, it, vi } from "vitest";
-import type { StyleRegistryEntry, StyleTopic } from "../../types";
+import type {
+  RuntimeStyleGroup,
+  RuntimeTopic,
+} from "../../catalog/runtime-registry";
+import type { TopicMetadata, TopicStageProps } from "../../domain/topic";
 import CommandPalette from "./CommandPalette";
 
-const Noop = () => null;
-function topic(id: string, title: string, model: string): StyleTopic {
+const Noop = (_props: TopicStageProps) => null;
+const metadata: TopicMetadata = {
+  theme: "",
+  densityLabel: "",
+  heroScene: 1,
+  colors: { bg: "#fff", ink: "#111", panel: "#eee" },
+  typography: { header: "serif", body: "sans" },
+  tags: [],
+  fonts: [],
+  scenes: [],
+};
+
+function topic(
+  styleId: string,
+  id: string,
+  title: string,
+  modelId: RuntimeTopic["modelId"],
+): RuntimeTopic {
   return {
     id,
-    topic: { en: title, zh: title },
-    model,
-    component: Noop,
-    getMetadata: () => ({
-      id,
-      band: "minimal-keynote",
-      name: title,
-      theme: "",
-      densityLabel: "",
-      heroScene: 1,
-      colors: { bg: "#fff", ink: "#111", panel: "#eee" },
-      typography: { header: "serif", body: "sans" },
-      tags: [],
-      fonts: [],
-      scenes: [],
-    }),
+    styleId,
+    title: { en: title, zh: title },
+    modelId,
+    metadata: { en: metadata, zh: metadata },
+    navigation: { mode: "none" },
+    transitionScore: {
+      "1->2": "hard-cut",
+      "2->3": "hard-cut",
+      "3->4": "hard-cut",
+      "4->5": "hard-cut",
+    },
+    evidence: { kind: "none" },
+    modulePath: `../topics/${id}.tsx`,
+    Stage: lazy(async () => ({ default: Noop })),
+    loadStage: async () => Noop,
   };
 }
 
-const registry: StyleRegistryEntry[] = [
+const registry: readonly RuntimeStyleGroup[] = [
   {
-    id: "quiet-grid",
-    name: { en: "Quiet Grid", zh: "静默网格" },
+    style: {
+      id: "quiet-grid",
+      name: { en: "Quiet Grid", zh: "静默网格" },
+      band: "minimal-keynote",
+    },
     topics: [
-      topic("launch", "Quiet launch", "GPT 5.6 Sol"),
-      topic("grain", "Presolar grain", "GPT 5.5"),
+      topic("quiet-grid", "launch", "Quiet launch", "GPT 5.6 Sol"),
+      topic("quiet-grid", "grain", "Presolar grain", "GPT 5.5"),
     ],
   },
   {
-    id: "field-notes",
-    name: { en: "Field Notes", zh: "田野笔记" },
-    topics: [topic("dust", "Saharan dust", "GPT 5.6 Sol")],
+    style: {
+      id: "field-notes",
+      name: { en: "Field Notes", zh: "田野笔记" },
+      band: "text-report",
+    },
+    topics: [topic("field-notes", "dust", "Saharan dust", "GPT 5.6 Sol")],
   },
 ];
 

@@ -16,8 +16,8 @@ import type {
 } from "../domain/topic";
 import { defineTopic } from "../domain/topic";
 import type { Source } from "../domain/evidence";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { BeatLayoutMode, SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { BeatLayoutMode, SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import styles from "./freedive.module.css";
 
 type Language = TopicStageProps["language"];
@@ -929,7 +929,7 @@ const EVIDENCE = {
     en: "Physiology explainer only: this Topic is not training, medical, equalization, or safe-zone advice.",
     zh: "仅作生理机制说明：本 Topic 不构成训练、医疗、平压或安全区域建议。",
   },
-  display: "stage",
+  display: "envelope",
 } as const satisfies TopicDefinition["evidence"];
 
 function TopicStage({
@@ -951,7 +951,6 @@ function TopicStage({
     <section
       className={styles.root}
       lang={language}
-      data-style-id="spotlight-quote-poster"
       data-topic-id="freedive"
       data-motion={motionOff ? "off" : "on"}
       data-thumbnail={isThumbnail ? "true" : "false"}

@@ -16,7 +16,7 @@ import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
   type SceneTransitionModifierMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./voyager-boundary.module.css";
 
 type Language = "en" | "zh";

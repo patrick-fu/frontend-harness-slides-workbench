@@ -10,7 +10,7 @@ import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionKind,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./ozone-hole.module.css";
 
 type Language = "en" | "zh";
@@ -1496,6 +1496,6 @@ export default defineTopic({
       en: COPY.en.chemistry.boundary,
       zh: COPY.zh.chemistry.boundary,
     },
-    display: "stage",
+  display: "envelope",
   },
 });

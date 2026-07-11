@@ -52,7 +52,7 @@ describe("Habit Runbook protocol", () => {
         "3->4": "glitch",
         "4->5": "hard-cut",
       },
-      evidence: { kind: "illustrative", display: "stage" },
+      evidence: { kind: "illustrative", display: "envelope" },
     });
   });
 

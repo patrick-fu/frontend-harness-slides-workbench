@@ -10,7 +10,7 @@ import {
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./whale-fall.module.css";
 
 type Language = TopicStageProps["language"];
@@ -876,7 +876,6 @@ function TopicStage({
       ]
         .filter(Boolean)
         .join(" ")}
-      data-style-id="widescreen-title-card"
       data-topic-id="whale-fall"
       data-current-scene={safeScene}
       data-motion-state={motionOff ? "settled" : "cinematic"}
@@ -927,7 +926,7 @@ const EVIDENCE = {
     en: "Evidence boundary: whale-fall succession is an explanatory sequence drawn from particular observed sites; stages, durations, species, and conditions overlap and vary by carcass and setting. The original scientific illustrations simplify processes and are not to scale.",
     zh: "证据边界：鲸落接替是基于特定观测地点的解释性序列；阶段、时长、物种和条件会随鲸体与环境重叠并变化。原创科学示意图简化了过程，且不按比例绘制。",
   },
-  display: "stage",
+  display: "envelope",
 } as const;
 
 export default defineTopic({

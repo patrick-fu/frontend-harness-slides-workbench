@@ -1,24 +1,28 @@
-import type { CatalogStyleManifest } from "../types";
+import type { CatalogStyleGroup } from "./topic-catalog";
 
 /**
- * Generated from catalog-source.ts. Keep the Catalog metadata synchronous
- * while every Stage component remains behind its Topic loader.
+ * Generated from topic-registry.ts. Keep Catalog metadata synchronous
+ * while every Stage component remains behind the Topic loader.
  */
 export const CATALOG_MANIFEST = [
   {
-    "id": "minimal-product-keynote",
-    "name": {
-      "en": "Minimal Product Keynote",
-      "zh": "极简产品主题演讲"
+    "style": {
+      "id": "minimal-product-keynote",
+      "name": {
+        "en": "Minimal Product Keynote",
+        "zh": "极简产品主题演讲"
+      },
+      "band": "minimal-keynote"
     },
     "topics": [
       {
         "id": "product-keynote",
-        "topic": {
+        "styleId": "minimal-product-keynote",
+        "title": {
           "en": "Product Keynote",
           "zh": "产品主题"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "One idea, enormous, alone in emptiness — premium product reveals, opening theses, and single big claims where restraint is the luxury",
@@ -133,10 +137,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "minimal-product-keynote",
-            "name": "Minimal Product Keynote",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "一个想法，巨大，独处于虚空——高端产品发布、开篇主题、单一重大主张，克制即是奢华",
@@ -251,18 +252,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "minimal-product-keynote",
-            "name": "极简产品主题演讲",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/product-keynote.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "scene-ruler",
           "invocation": "persistent",
           "feedback": "typographic-emphasis"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -272,20 +275,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "scale-fade",
-          "3->4": "scale-fade",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/product-keynote.tsx"
       },
       {
         "id": "quiet-launch",
-        "topic": {
+        "styleId": "minimal-product-keynote",
+        "title": {
           "en": "Quiet Launch",
           "zh": "安静发布"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Quiet Launch Window",
@@ -414,10 +413,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "minimal-product-keynote",
-            "name": "Minimal Product Keynote",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "安静发布窗口",
@@ -546,18 +542,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "minimal-product-keynote",
-            "name": "极简产品主题演讲",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/quiet-launch.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "aperture-rail",
           "invocation": "persistent",
           "feedback": "geometry-reflow"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "wipe",
+          "3->4": "fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -567,20 +565,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "wipe",
-          "3->4": "fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/quiet-launch.tsx"
       },
       {
         "id": "presolar-grain",
-        "topic": {
+        "styleId": "minimal-product-keynote",
+        "title": {
           "en": "Presolar Grain",
           "zh": "太阳前尘"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Presolar Grain",
@@ -714,10 +708,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "minimal-product-keynote",
-            "name": "Minimal Product Keynote",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "太阳前尘",
@@ -851,62 +842,60 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "minimal-product-keynote",
-            "name": "极简产品主题演讲",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/presolar-grain.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "corner-grain-field",
           "invocation": "persistent",
           "feedback": "active-glow"
         },
-        "sources": [
-          {
-            "authority": "NASA Astromaterials Acquisition and Curation Office",
-            "title": "Why Research Meteorites?",
-            "url": "https://ares.jsc.nasa.gov/meteorite-falls/why-research-meteorites/",
-            "supports": "Meteorites preserve materials used to study Solar System evolution, and presolar grains inform the study of star formation and stellar evolution."
-          },
-          {
-            "authority": "NASA Astrobiology",
-            "title": "Clues to the Processing of Dust around Stars",
-            "url": "https://astrobiology.nasa.gov/news/clues-to-the-processing-of-dust-around-stars/",
-            "supports": "Presolar grains originated before the Sun and occur in meteorites, interplanetary dust, and returned comet material; their minerals record stellar dust processing."
-          },
-          {
-            "citation": "Hoppe, P. et al. (1994), The Astrophysical Journal 430, 870–890. doi:10.1086/174458",
-            "title": "Carbon, nitrogen, magnesium, silicon, and titanium isotopic compositions of single interstellar silicon carbide grains",
-            "url": "https://doi.org/10.1086/174458",
-            "supports": "Measurements of several isotope systems in individual Murchison SiC grains demonstrate that single grains carry non-solar patterns used to constrain their stellar sources."
-          },
-          {
-            "citation": "Heck, P. R. et al. (2020), Proceedings of the National Academy of Sciences 117, 1884–1889. doi:10.1073/pnas.1904573117",
-            "title": "Lifetimes of interstellar dust from cosmic ray exposure ages of presolar silicon carbide",
-            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6995017/",
-            "supports": "Cosmogenic helium and neon in individual Murchison SiC grains preserve evidence of residence in interstellar space before incorporation into the Solar System."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "crossfade",
           "2->3": "iris-open",
           "3->4": "zoom-through",
           "4->5": "dip-to-color"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "NASA Astromaterials Acquisition and Curation Office",
+              "title": "Why Research Meteorites?",
+              "url": "https://ares.jsc.nasa.gov/meteorite-falls/why-research-meteorites/",
+              "supports": "Meteorites preserve materials used to study Solar System evolution, and presolar grains inform the study of star formation and stellar evolution."
+            },
+            {
+              "authority": "NASA Astrobiology",
+              "title": "Clues to the Processing of Dust around Stars",
+              "url": "https://astrobiology.nasa.gov/news/clues-to-the-processing-of-dust-around-stars/",
+              "supports": "Presolar grains originated before the Sun and occur in meteorites, interplanetary dust, and returned comet material; their minerals record stellar dust processing."
+            },
+            {
+              "citation": "Hoppe, P. et al. (1994), The Astrophysical Journal 430, 870–890. doi:10.1086/174458",
+              "title": "Carbon, nitrogen, magnesium, silicon, and titanium isotopic compositions of single interstellar silicon carbide grains",
+              "url": "https://doi.org/10.1086/174458",
+              "supports": "Measurements of several isotope systems in individual Murchison SiC grains demonstrate that single grains carry non-solar patterns used to constrain their stellar sources."
+            },
+            {
+              "citation": "Heck, P. R. et al. (2020), Proceedings of the National Academy of Sciences 117, 1884–1889. doi:10.1073/pnas.1904573117",
+              "title": "Lifetimes of interstellar dust from cosmic ray exposure ages of presolar silicon carbide",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6995017/",
+              "supports": "Cosmogenic helium and neon in individual Murchison SiC grains preserve evidence of residence in interstellar space before incorporation into the Solar System."
+            }
+          ]
+        },
+        "modulePath": "../topics/presolar-grain.tsx"
       },
       {
         "id": "last-feature-cut",
-        "topic": {
+        "styleId": "minimal-product-keynote",
+        "title": {
           "en": "The Last Feature We Cut",
           "zh": "删掉的功能"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "The Last Feature We Cut",
@@ -1017,10 +1006,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "minimal-product-keynote",
-            "name": "Minimal Product Keynote",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "删掉的功能",
@@ -1131,50 +1117,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "minimal-product-keynote",
-            "name": "极简产品主题演讲",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/last-feature-cut.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "feature-cut-whisper",
           "invocation": "persistent",
           "feedback": "active-glow"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "scale-fade",
           "2->3": "fade",
           "3->4": "scale-fade",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative product decision scenario: scope, timing, and delivery outcomes are presentation examples, not external factual claims.",
+            "zh": "示例产品决策场景：范围、时间与交付结果均为演示示例，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/last-feature-cut.tsx"
       }
     ]
   },
   {
-    "id": "objective-swiss-grid",
-    "name": {
-      "en": "Objective Swiss Grid",
-      "zh": "客观瑞士网格"
+    "style": {
+      "id": "objective-swiss-grid",
+      "name": {
+        "en": "Objective Swiss Grid",
+        "zh": "客观瑞士网格"
+      },
+      "band": "minimal-keynote"
     },
     "topics": [
       {
         "id": "swiss-grid",
-        "topic": {
+        "styleId": "objective-swiss-grid",
+        "title": {
           "en": "Swiss Grid",
           "zh": "瑞士网格"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "A precision instrument — every element locked to a visible mathematical grid; for data-dense decks, technical roadmaps, and comparative analyses where systematic clarity matters",
@@ -1288,10 +1275,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "objective-swiss-grid",
-            "name": "Objective Swiss Grid",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "精密仪器——每个元素锁定于可见的数学网格；适用于数据密集型演示、技术路线图和比较分析",
@@ -1405,18 +1389,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "objective-swiss-grid",
-            "name": "客观瑞士网格",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/swiss-grid.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "grid-axis",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
         },
         "evidence": {
           "kind": "illustrative",
@@ -1426,20 +1412,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "wipe",
-          "2->3": "wipe",
-          "3->4": "wipe",
-          "4->5": "wipe"
-        }
+        "modulePath": "../topics/swiss-grid.tsx"
       },
       {
         "id": "clean-metrics",
-        "topic": {
+        "styleId": "objective-swiss-grid",
+        "title": {
           "en": "Clean Metrics",
           "zh": "干净指标"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Metrics Without Noise",
@@ -1598,10 +1580,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "objective-swiss-grid",
-            "name": "Objective Swiss Grid",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "无噪声指标",
@@ -1760,18 +1739,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "objective-swiss-grid",
-            "name": "客观瑞士网格",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/clean-metrics.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "scene-grid-index",
           "invocation": "persistent",
           "feedback": "typographic-emphasis"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "slide-y",
+          "3->4": "fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -1781,20 +1762,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "wipe",
-          "2->3": "slide-y",
-          "3->4": "fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/clean-metrics.tsx"
       },
       {
         "id": "bridge-movement",
-        "topic": {
+        "styleId": "objective-swiss-grid",
+        "title": {
           "en": "Bridge Movement",
           "zh": "桥的位移"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Bridge Movement",
@@ -1920,10 +1897,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "objective-swiss-grid",
-            "name": "Objective Swiss Grid",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "桥的位移",
@@ -2049,78 +2023,76 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "objective-swiss-grid",
-            "name": "客观瑞士网格",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/bridge-movement.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "bearing-ruler",
           "invocation": "persistent",
           "feedback": "history-trail"
         },
-        "sources": [
-          {
-            "id": "S1",
-            "authority": "Federal Highway Administration",
-            "title": "Bridge Geometry Manual",
-            "citation": "FHWA-HIF-22-034, Bridge Geometry Manual, Part 1, bearing definition and common bearing types.",
-            "url": "https://www.fhwa.dot.gov/bridge/pubs/hif22034.pdf",
-            "supports": "Defines a bearing as a load-carrying element supporting the bridge superstructure while allowing translation, rotation, or translation with rotation, and identifies elastomeric, pot, disc, spherical, rocker, and roller-pin bearings as common types.",
-            "boundary": "This is a definition and geometry reference. It does not prescribe one bearing layout or the same degrees of freedom for every bridge, support, or load case.",
-            "accessDate": "2026-07-10"
-          },
-          {
-            "id": "S2",
-            "authority": "Federal Highway Administration",
-            "title": "Engineering Design, Fabrication, and Erection of Prefabricated Bridge Elements and Systems",
-            "citation": "FHWA-HIF-17-019, section 8.1.1, Bridge Deck Expansion Joints.",
-            "url": "https://www.fhwa.dot.gov/bridge/pubs/hif17019.pdf",
-            "supports": "States that deck expansion joints accommodate thermal movement in bridge superstructures and notes that joint capability, spacing, construction, drainage, and maintenance remain project-specific design considerations.",
-            "boundary": "The cited discussion is about deck expansion joints and thermal movement. It is not a universal instruction to use a joint at every support or to apply one movement range to every bridge.",
-            "accessDate": "2026-07-10"
-          },
-          {
-            "id": "S3",
-            "authority": "Washington State Department of Transportation",
-            "title": "Bridge Design Manual M 23-50.24, Chapter 9: Bearings and Expansion Joints",
-            "citation": "WSDOT Bridge Design Manual M 23-50.24, June 2025, sections 9.1–9.3.",
-            "url": "https://www.wsdot.wa.gov/publications/manuals/fulltext/m23-50/chapter9.pdf",
-            "supports": "Provides design guidance for expansion-joint movement ranges, bearing movement considerations, pin bearings, guided and non-guided translational bearing capability, and seismic isolation devices including high-damping rubber, friction pendulum systems, and hydraulic dampers.",
-            "boundary": "WSDOT requirements and device listings are used here as an authoritative design-manual example. Device selection, guide direction, detailing, and capacity require project-specific analysis and agency criteria.",
-            "accessDate": "2026-07-10"
-          },
-          {
-            "id": "S4",
-            "authority": "California Department of Transportation",
-            "title": "Seismic Design Criteria, Version 2.0",
-            "citation": "Caltrans Seismic Design Criteria Version 2.0, section 7.5, Bearings and Expansion Joints.",
-            "url": "https://dot.ca.gov/-/media/dot-media/programs/engineering/documents/seismicdesigncriteria-sdc/202007-seismicdesigncriteria-v2-a11y.pdf",
-            "supports": "Requires bearings to be checked so displacement capacity and failure mode are consistent with seismic-analysis assumptions, and explains that rotation in PTFE spherical bearings occurs along the spherical surface.",
-            "boundary": "Caltrans seismic criteria are not a substitute for local governing specifications. The Topic uses the source only to bound the seismic-capacity claim, not to specify a bearing for a real bridge.",
-            "accessDate": "2026-07-10"
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "dip-to-color",
           "2->3": "linear-wipe",
           "3->4": "crossfade",
           "4->5": "linear-wipe"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "S1",
+              "authority": "Federal Highway Administration",
+              "title": "Bridge Geometry Manual",
+              "citation": "FHWA-HIF-22-034, Bridge Geometry Manual, Part 1, bearing definition and common bearing types.",
+              "url": "https://www.fhwa.dot.gov/bridge/pubs/hif22034.pdf",
+              "supports": "Defines a bearing as a load-carrying element supporting the bridge superstructure while allowing translation, rotation, or translation with rotation, and identifies elastomeric, pot, disc, spherical, rocker, and roller-pin bearings as common types.",
+              "boundary": "This is a definition and geometry reference. It does not prescribe one bearing layout or the same degrees of freedom for every bridge, support, or load case.",
+              "accessDate": "2026-07-10"
+            },
+            {
+              "id": "S2",
+              "authority": "Federal Highway Administration",
+              "title": "Engineering Design, Fabrication, and Erection of Prefabricated Bridge Elements and Systems",
+              "citation": "FHWA-HIF-17-019, section 8.1.1, Bridge Deck Expansion Joints.",
+              "url": "https://www.fhwa.dot.gov/bridge/pubs/hif17019.pdf",
+              "supports": "States that deck expansion joints accommodate thermal movement in bridge superstructures and notes that joint capability, spacing, construction, drainage, and maintenance remain project-specific design considerations.",
+              "boundary": "The cited discussion is about deck expansion joints and thermal movement. It is not a universal instruction to use a joint at every support or to apply one movement range to every bridge.",
+              "accessDate": "2026-07-10"
+            },
+            {
+              "id": "S3",
+              "authority": "Washington State Department of Transportation",
+              "title": "Bridge Design Manual M 23-50.24, Chapter 9: Bearings and Expansion Joints",
+              "citation": "WSDOT Bridge Design Manual M 23-50.24, June 2025, sections 9.1–9.3.",
+              "url": "https://www.wsdot.wa.gov/publications/manuals/fulltext/m23-50/chapter9.pdf",
+              "supports": "Provides design guidance for expansion-joint movement ranges, bearing movement considerations, pin bearings, guided and non-guided translational bearing capability, and seismic isolation devices including high-damping rubber, friction pendulum systems, and hydraulic dampers.",
+              "boundary": "WSDOT requirements and device listings are used here as an authoritative design-manual example. Device selection, guide direction, detailing, and capacity require project-specific analysis and agency criteria.",
+              "accessDate": "2026-07-10"
+            },
+            {
+              "id": "S4",
+              "authority": "California Department of Transportation",
+              "title": "Seismic Design Criteria, Version 2.0",
+              "citation": "Caltrans Seismic Design Criteria Version 2.0, section 7.5, Bearings and Expansion Joints.",
+              "url": "https://dot.ca.gov/-/media/dot-media/programs/engineering/documents/seismicdesigncriteria-sdc/202007-seismicdesigncriteria-v2-a11y.pdf",
+              "supports": "Requires bearings to be checked so displacement capacity and failure mode are consistent with seismic-analysis assumptions, and explains that rotation in PTFE spherical bearings occurs along the spherical surface.",
+              "boundary": "Caltrans seismic criteria are not a substitute for local governing specifications. The Topic uses the source only to bound the seismic-capacity claim, not to specify a bearing for a real bridge.",
+              "accessDate": "2026-07-10"
+            }
+          ]
+        },
+        "modulePath": "../topics/bridge-movement.tsx"
       },
       {
         "id": "anatomy-timetable",
-        "topic": {
+        "styleId": "objective-swiss-grid",
+        "title": {
           "en": "Anatomy of a Timetable",
           "zh": "时刻表解剖"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Anatomy of a Timetable",
@@ -2239,10 +2211,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "objective-swiss-grid",
-            "name": "Objective Swiss Grid",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "时刻表解剖",
@@ -2361,50 +2330,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "objective-swiss-grid",
-            "name": "客观瑞士网格",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/anatomy-timetable.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "timetable-coordinate-marker",
           "invocation": "persistent",
           "feedback": "history-trail"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "slide-y",
           "3->4": "hard-cut",
           "4->5": "slide-y"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative timetable study: services, times, and delay status are presentation examples, not live transit data.",
+            "zh": "示例时刻表研究：车次、时间与晚点状态均为演示示例，并非实时交通数据。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/anatomy-timetable.tsx"
       }
     ]
   },
   {
-    "id": "wabi-sabi-ceramic",
-    "name": {
-      "en": "Wabi-Sabi Ceramic",
-      "zh": "侘寂陶器"
+    "style": {
+      "id": "wabi-sabi-ceramic",
+      "name": {
+        "en": "Wabi-Sabi Ceramic",
+        "zh": "侘寂陶器"
+      },
+      "band": "minimal-keynote"
     },
     "topics": [
       {
         "id": "ceramic-calm",
-        "topic": {
+        "styleId": "wabi-sabi-ceramic",
+        "title": {
           "en": "Ceramic Calm",
           "zh": "陶器静场"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "An unglazed ceramic bowl on a worn wooden table — reflective openings, philosophical framing, and craft-led storytelling where silence is honored",
@@ -2520,10 +2490,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "wabi-sabi-ceramic",
-            "name": "Wabi-Sabi Ceramic",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "磨损木桌上的一只素陶碗——反思性开场、哲学性叙事、工艺导向的故事讲述，静默被尊崇",
@@ -2639,18 +2606,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "wabi-sabi-ceramic",
-            "name": "侘寂陶器",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/ceramic-calm.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "ceramic-scene-dots",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -2660,20 +2629,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "fade",
-          "3->4": "fade",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/ceramic-calm.tsx"
       },
       {
         "id": "repair-strategy",
-        "topic": {
+        "styleId": "wabi-sabi-ceramic",
+        "title": {
           "en": "Repair Strategy",
           "zh": "修复策略"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Repair as Strategy",
@@ -2827,10 +2792,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "wabi-sabi-ceramic",
-            "name": "Wabi-Sabi Ceramic",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "修复即策略",
@@ -2984,18 +2946,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "wabi-sabi-ceramic",
-            "name": "侘寂陶器",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/repair-strategy.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "clay-chip-ring",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "scale-fade",
+          "3->4": "wipe",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -3005,20 +2969,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "scale-fade",
-          "3->4": "wipe",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/repair-strategy.tsx"
       },
       {
         "id": "stone-to-soil",
-        "topic": {
+        "styleId": "wabi-sabi-ceramic",
+        "title": {
           "en": "Stone to Soil",
           "zh": "石成土"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Stone Becoming Soil",
@@ -3151,10 +3111,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "wabi-sabi-ceramic",
-            "name": "Wabi-Sabi Ceramic",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "石头如何成为土壤",
@@ -3287,78 +3244,76 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "wabi-sabi-ceramic",
-            "name": "侘寂陶器",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/stone-to-soil.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "ceramic-shard-ring",
           "invocation": "persistent",
           "feedback": "mechanical-displacement"
         },
-        "sources": [
-          {
-            "authority": "U.S. Geological Survey",
-            "title": "Environmental Characteristics of Clays and Clay Mineral Deposits",
-            "citation": "USGS Information Handout, “Environmental Characteristics of Clays and Clay Mineral Deposits,” accessed 2026.",
-            "url": "https://pubs.usgs.gov/info/clays/",
-            "supports": "Supports the opening mechanism: weathering combines physical disaggregation with chemical decomposition, proceeds unevenly, and is governed by parent rock, water-to-rock ratio, temperature, organisms, and time while forming new clay minerals.",
-            "boundary": "This is a general clay and weathering reference rather than a profile-specific basalt study; the Topic therefore uses it for process factors, not for the mineral proportions or field numbers shown later."
-          },
-          {
-            "authority": "Food and Agriculture Organization of the United Nations",
-            "title": "Ferralsols — Diagnostic Properties and Modal Concept",
-            "citation": "FAO, World Soil Resources material, “Part 1 Ferralsols,” sections 1.1.1–1.1.2.",
-            "url": "https://www.fao.org/4/x5867e/x5867e03.htm",
-            "supports": "Supports the profile interpretation: strong tropical weathering decomposes most primary weatherable minerals; free drainage removes silica and bases; kaolinite and sesquioxides dominate, while oxidized iron stains small particles yellowish or reddish.",
-            "boundary": "Ferralsols are a broad soil group and do not describe every basalt-derived soil; parent material, drainage, landscape age, organic matter, and local moisture conditions can yield different horizons and colors."
-          },
-          {
-            "authority": "The Clay Minerals Society",
-            "title": "Weathering of Basalt: Changes in Rock Chemistry and Mineralogy",
-            "citation": "Eggleton, R. A., Foudoulis, C., and Varkevisser, D. Clays and Clay Minerals 35 (1987): 161–169. doi:10.1346/CCMN.1987.0350301.",
-            "url": "https://doi.org/10.1346/CCMN.1987.0350301",
-            "supports": "Supports selective mineral change rather than uniform crumbling: glass and olivine weather more readily than plagioclase and pyroxene, and more altered basalt rinds contain secondary halloysite and goethite alongside changing smectite assemblages.",
-            "boundary": "The reported sequence belongs to the sampled basalt core-stones; the three evidence trays are a conceptual classification of loss, residual enrichment, and neoformation, not a universal reaction recipe."
-          },
-          {
-            "authority": "University of the Philippines Los Baños Digital Repository",
-            "title": "Weathering of Basaltic Rock and Clay Mineral Formation in Leyte, Philippines",
-            "citation": "Asio, V. B., and John, R. F. The Philippine Agricultural Scientist 90, no. 3 (2007): 222–230.",
-            "url": "https://www.ukdr.uplb.edu.ph/journal-articles/6111/",
-            "supports": "Supports the field-case plate: a humid tropical Leyte site averaged about 2,700 millimetres of annual rainfall and 28 degrees Celsius, had a roughly four-metre yellowish-red weathering profile, lost Ca, Mg, K, Na and some Si, and accumulated Fe, Al, water, kaolinite, halloysite, and goethite.",
-            "boundary": "The numerical climate and depth values describe one Leyte study site and are explicitly labelled as a field case; they must not be read as thresholds or expected dimensions for all tropical basalt soils."
-          },
-          {
-            "authority": "U.S. National Park Service",
-            "title": "Igneous Rocks — Basalt and Rock Descriptors",
-            "citation": "National Park Service, Geology, “Igneous Rocks,” Basalt and Rock Descriptors sections, updated November 8, 2023; accessed July 10, 2026.",
-            "url": "https://www.nps.gov/subjects/geology/igneous.htm",
-            "supports": "Supports the opening specimen description: basalt is typically dark, commonly vesicular, and may have an aphanitic (fine-grained) or porphyritic texture; vesicles are cavities formed by expanding gas in fluid lava.",
-            "boundary": "Basalt textures vary. The source says commonly rather than invariably vesicular and allows either aphanitic or porphyritic texture, so the drawing selects one fine-grained vesicular specimen instead of treating every basalt as identical."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "ink-spread",
           "2->3": "dolly-pull",
           "3->4": "ink-spread",
           "4->5": "iris-open"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "U.S. Geological Survey",
+              "title": "Environmental Characteristics of Clays and Clay Mineral Deposits",
+              "citation": "USGS Information Handout, “Environmental Characteristics of Clays and Clay Mineral Deposits,” accessed 2026.",
+              "url": "https://pubs.usgs.gov/info/clays/",
+              "supports": "Supports the opening mechanism: weathering combines physical disaggregation with chemical decomposition, proceeds unevenly, and is governed by parent rock, water-to-rock ratio, temperature, organisms, and time while forming new clay minerals.",
+              "boundary": "This is a general clay and weathering reference rather than a profile-specific basalt study; the Topic therefore uses it for process factors, not for the mineral proportions or field numbers shown later."
+            },
+            {
+              "authority": "Food and Agriculture Organization of the United Nations",
+              "title": "Ferralsols — Diagnostic Properties and Modal Concept",
+              "citation": "FAO, World Soil Resources material, “Part 1 Ferralsols,” sections 1.1.1–1.1.2.",
+              "url": "https://www.fao.org/4/x5867e/x5867e03.htm",
+              "supports": "Supports the profile interpretation: strong tropical weathering decomposes most primary weatherable minerals; free drainage removes silica and bases; kaolinite and sesquioxides dominate, while oxidized iron stains small particles yellowish or reddish.",
+              "boundary": "Ferralsols are a broad soil group and do not describe every basalt-derived soil; parent material, drainage, landscape age, organic matter, and local moisture conditions can yield different horizons and colors."
+            },
+            {
+              "authority": "The Clay Minerals Society",
+              "title": "Weathering of Basalt: Changes in Rock Chemistry and Mineralogy",
+              "citation": "Eggleton, R. A., Foudoulis, C., and Varkevisser, D. Clays and Clay Minerals 35 (1987): 161–169. doi:10.1346/CCMN.1987.0350301.",
+              "url": "https://doi.org/10.1346/CCMN.1987.0350301",
+              "supports": "Supports selective mineral change rather than uniform crumbling: glass and olivine weather more readily than plagioclase and pyroxene, and more altered basalt rinds contain secondary halloysite and goethite alongside changing smectite assemblages.",
+              "boundary": "The reported sequence belongs to the sampled basalt core-stones; the three evidence trays are a conceptual classification of loss, residual enrichment, and neoformation, not a universal reaction recipe."
+            },
+            {
+              "authority": "University of the Philippines Los Baños Digital Repository",
+              "title": "Weathering of Basaltic Rock and Clay Mineral Formation in Leyte, Philippines",
+              "citation": "Asio, V. B., and John, R. F. The Philippine Agricultural Scientist 90, no. 3 (2007): 222–230.",
+              "url": "https://www.ukdr.uplb.edu.ph/journal-articles/6111/",
+              "supports": "Supports the field-case plate: a humid tropical Leyte site averaged about 2,700 millimetres of annual rainfall and 28 degrees Celsius, had a roughly four-metre yellowish-red weathering profile, lost Ca, Mg, K, Na and some Si, and accumulated Fe, Al, water, kaolinite, halloysite, and goethite.",
+              "boundary": "The numerical climate and depth values describe one Leyte study site and are explicitly labelled as a field case; they must not be read as thresholds or expected dimensions for all tropical basalt soils."
+            },
+            {
+              "authority": "U.S. National Park Service",
+              "title": "Igneous Rocks — Basalt and Rock Descriptors",
+              "citation": "National Park Service, Geology, “Igneous Rocks,” Basalt and Rock Descriptors sections, updated November 8, 2023; accessed July 10, 2026.",
+              "url": "https://www.nps.gov/subjects/geology/igneous.htm",
+              "supports": "Supports the opening specimen description: basalt is typically dark, commonly vesicular, and may have an aphanitic (fine-grained) or porphyritic texture; vesicles are cavities formed by expanding gas in fluid lava.",
+              "boundary": "Basalt textures vary. The source says commonly rather than invariably vesicular and allows either aphanitic or porphyritic texture, so the drawing selects one fine-grained vesicular specimen instead of treating every basalt as identical."
+            }
+          ]
+        },
+        "modulePath": "../topics/stone-to-soil.tsx"
       },
       {
         "id": "beauty-unfinished",
-        "topic": {
+        "styleId": "wabi-sabi-ceramic",
+        "title": {
           "en": "The Beauty of the Unfinished",
           "zh": "未完成之美"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "The Beauty of the Unfinished",
@@ -3471,10 +3426,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "wabi-sabi-ceramic",
-            "name": "Wabi-Sabi Ceramic",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "未完成之美",
@@ -3587,47 +3539,48 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "wabi-sabi-ceramic",
-            "name": "侘寂陶器",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/beauty-unfinished.tsx",
         "navigation": {
           "mode": "none"
-        },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
         },
         "transitionScore": {
           "1->2": "fade",
           "2->3": "fade",
           "3->4": "slide-x",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/beauty-unfinished.tsx"
       }
     ]
   },
   {
-    "id": "interactive-dialogue-stage",
-    "name": {
-      "en": "Interactive Dialogue Stage",
-      "zh": "互动对话舞台"
+    "style": {
+      "id": "interactive-dialogue-stage",
+      "name": {
+        "en": "Interactive Dialogue Stage",
+        "zh": "互动对话舞台"
+      },
+      "band": "minimal-keynote"
     },
     "topics": [
       {
         "id": "dialogue-stage",
-        "topic": {
+        "styleId": "interactive-dialogue-stage",
+        "title": {
           "en": "Dialogue Stage",
           "zh": "对话舞台"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "A small dim theater where two voices take turns — human-AI collaboration, Q&A exchanges, and conversational storytelling where the back-and-forth itself is the point",
@@ -3748,10 +3701,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "interactive-dialogue-stage",
-            "name": "Interactive Dialogue Stage",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "一座小型昏暗剧场，两个声音轮流登场——人机协作、问答交流、对话式叙事，来回本身即是意义",
@@ -3872,18 +3822,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "interactive-dialogue-stage",
-            "name": "互动对话舞台",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/dialogue-stage.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "dialogue-color-wheel",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
         },
         "evidence": {
           "kind": "illustrative",
@@ -3893,20 +3845,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "wipe",
-          "2->3": "wipe",
-          "3->4": "wipe",
-          "4->5": "wipe"
-        }
+        "modulePath": "../topics/dialogue-stage.tsx"
       },
       {
         "id": "better-question",
-        "topic": {
+        "styleId": "interactive-dialogue-stage",
+        "title": {
           "en": "Better Question",
           "zh": "更好问题"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "The Better Question",
@@ -4059,10 +4007,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "interactive-dialogue-stage",
-            "name": "Interactive Dialogue Stage",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "更好的问题",
@@ -4215,18 +4160,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "interactive-dialogue-stage",
-            "name": "互动对话舞台",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/better-question.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "spotlight-cue-rail",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "glitch",
+          "3->4": "slide-x",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -4236,20 +4183,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "glitch",
-          "3->4": "slide-x",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/better-question.tsx"
       },
       {
         "id": "vocal-folds",
-        "topic": {
+        "styleId": "interactive-dialogue-stage",
+        "title": {
           "en": "Vocal Folds",
           "zh": "声带"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Vocal Folds: Air, Tissue, Space",
@@ -4368,10 +4311,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "interactive-dialogue-stage",
-            "name": "Interactive Dialogue Stage",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "声带：空气、组织与空间",
@@ -4490,66 +4430,64 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "interactive-dialogue-stage",
-            "name": "互动对话舞台",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/vocal-folds.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "vocal-fold-stage-plan",
           "invocation": "persistent",
           "feedback": "typographic-emphasis"
         },
-        "sources": [
-          {
-            "authority": "NIH / National Institute on Deafness and Other Communication Disorders",
-            "title": "Taking Care of Your Voice",
-            "citation": "NIDCD. Taking Care of Your Voice. NIH Publication No. 14-5160; page updated June 11, 2025.",
-            "url": "https://www.nidcd.nih.gov/health/taking-care-your-voice",
-            "supports": "Vocal folds are paired tissue in the larynx; lung airflow drives vibration, and the throat, nose, and mouth act as resonating cavities that modulate the resulting sound."
-          },
-          {
-            "authority": "The Voice Foundation",
-            "title": "Understanding Voice Production",
-            "citation": "The Voice Foundation. Anatomy and Physiology of Voice Production: Understanding Voice Production. Accessed July 10, 2026.",
-            "url": "https://voicefoundation.org/health-science/voice-disorders/anatomy-physiology-of-voice-production/understanding-voice-production/",
-            "supports": "The vocal folds are layered, pliable structures rather than plucked strings; aerodynamic excitation, ordered opening and closing, resonance, and articulation have distinct roles."
-          },
-          {
-            "authority": "National Center for Voice and Speech",
-            "title": "Myoelastic Aerodynamic Theory of Phonation",
-            "citation": "National Center for Voice and Speech. Voice Production Tutorial: Myoelastic Aerodynamic Theory of Phonation.",
-            "url": "https://ncvs.org/archive/ncvs/tutorials/voiceprod/tutorial/model.html",
-            "supports": "Air pressure, tissue elasticity, damping, and flow interact to sustain vocal-fold oscillation; repeated airflow pulses form a source that is subsequently filtered by the vocal tract."
-          },
-          {
-            "authority": "Journal of the Acoustical Society of America / PubMed Central",
-            "title": "Mechanics of human voice production and control",
-            "citation": "Zhang Z. J Acoust Soc Am. 2016;140(4):2614. doi:10.1121/1.4964509. PMCID: PMC5412481.",
-            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5412481/",
-            "supports": "Self-sustained vibration results from airflow–tissue interaction; fold vibration modulates steady airflow into a pulsating glottal source, while vocal-tract resonances filter its spectrum."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "split-merge",
           "2->3": "focus-swap",
           "3->4": "grid-reveal",
           "4->5": "split-merge"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "NIH / National Institute on Deafness and Other Communication Disorders",
+              "title": "Taking Care of Your Voice",
+              "citation": "NIDCD. Taking Care of Your Voice. NIH Publication No. 14-5160; page updated June 11, 2025.",
+              "url": "https://www.nidcd.nih.gov/health/taking-care-your-voice",
+              "supports": "Vocal folds are paired tissue in the larynx; lung airflow drives vibration, and the throat, nose, and mouth act as resonating cavities that modulate the resulting sound."
+            },
+            {
+              "authority": "The Voice Foundation",
+              "title": "Understanding Voice Production",
+              "citation": "The Voice Foundation. Anatomy and Physiology of Voice Production: Understanding Voice Production. Accessed July 10, 2026.",
+              "url": "https://voicefoundation.org/health-science/voice-disorders/anatomy-physiology-of-voice-production/understanding-voice-production/",
+              "supports": "The vocal folds are layered, pliable structures rather than plucked strings; aerodynamic excitation, ordered opening and closing, resonance, and articulation have distinct roles."
+            },
+            {
+              "authority": "National Center for Voice and Speech",
+              "title": "Myoelastic Aerodynamic Theory of Phonation",
+              "citation": "National Center for Voice and Speech. Voice Production Tutorial: Myoelastic Aerodynamic Theory of Phonation.",
+              "url": "https://ncvs.org/archive/ncvs/tutorials/voiceprod/tutorial/model.html",
+              "supports": "Air pressure, tissue elasticity, damping, and flow interact to sustain vocal-fold oscillation; repeated airflow pulses form a source that is subsequently filtered by the vocal tract."
+            },
+            {
+              "authority": "Journal of the Acoustical Society of America / PubMed Central",
+              "title": "Mechanics of human voice production and control",
+              "citation": "Zhang Z. J Acoust Soc Am. 2016;140(4):2614. doi:10.1121/1.4964509. PMCID: PMC5412481.",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5412481/",
+              "supports": "Self-sustained vibration results from airflow–tissue interaction; fold vibration modulates steady airflow into a pulsating glottal source, while vocal-tract resonances filter its spectrum."
+            }
+          ]
+        },
+        "modulePath": "../topics/vocal-folds.tsx"
       },
       {
         "id": "rubber-duck",
-        "topic": {
+        "styleId": "interactive-dialogue-stage",
+        "title": {
           "en": "The Rubber Duck",
           "zh": "橡皮鸭"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "The Rubber Duck",
@@ -4667,10 +4605,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "interactive-dialogue-stage",
-            "name": "Interactive Dialogue Stage",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "橡皮鸭",
@@ -4788,50 +4723,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "interactive-dialogue-stage",
-            "name": "互动对话舞台",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/rubber-duck.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "duck-turn-stepper",
           "invocation": "persistent",
           "feedback": "next-state-preview"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-y",
           "2->3": "slide-y",
           "3->4": "fade",
           "4->5": "scale-fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/rubber-duck.tsx"
       }
     ]
   },
   {
-    "id": "cyanotype-drafting-table",
-    "name": {
-      "en": "Cyanotype Drafting Table",
-      "zh": "蓝图制图台"
+    "style": {
+      "id": "cyanotype-drafting-table",
+      "name": {
+        "en": "Cyanotype Drafting Table",
+        "zh": "蓝图制图台"
+      },
+      "band": "minimal-keynote"
     },
     "topics": [
       {
         "id": "blueprint",
-        "topic": {
+        "styleId": "cyanotype-drafting-table",
+        "title": {
           "en": "Blueprint",
           "zh": "蓝图"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Blueprint paper laid flat on a drafting table — deep Prussian-blue ground, chalk-white linework, pale cyan construction guides, and one scarce warm annotation for system schematics and architectural diagrams",
@@ -4952,10 +4888,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cyanotype-drafting-table",
-            "name": "Cyanotype Drafting Table",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "平铺在制图台上的蓝图纸张——深普鲁士蓝底色、粉笔白线条、浅蓝构造辅助线、一抹稀缺的暖色标注，适用于系统原理图和架构图",
@@ -5076,18 +5009,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cyanotype-drafting-table",
-            "name": "蓝图制图台",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/blueprint.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "blueprint-ruler-navigation",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -5097,20 +5032,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "fade",
-          "3->4": "fade",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/blueprint.tsx"
       },
       {
         "id": "resilience-plan",
-        "topic": {
+        "styleId": "cyanotype-drafting-table",
+        "title": {
           "en": "Resilience Plan",
           "zh": "韧性方案"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Resilience Blueprint",
@@ -5259,10 +5190,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cyanotype-drafting-table",
-            "name": "Cyanotype Drafting Table",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "韧性蓝图",
@@ -5411,18 +5339,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cyanotype-drafting-table",
-            "name": "蓝图制图台",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/resilience-plan.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "resilience-sheet-tabs",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "slide-x",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -5432,20 +5362,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "wipe",
-          "2->3": "slide-x",
-          "3->4": "scale-fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/resilience-plan.tsx"
       },
       {
         "id": "comet-anatomy",
-        "topic": {
+        "styleId": "cyanotype-drafting-table",
+        "title": {
           "en": "Comet Anatomy",
           "zh": "彗星解剖"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Anatomy of a Comet",
@@ -5565,10 +5491,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cyanotype-drafting-table",
-            "name": "Cyanotype Drafting Table",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "彗星解剖图",
@@ -5688,61 +5611,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cyanotype-drafting-table",
-            "name": "蓝图制图台",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/comet-anatomy.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "comet-sectional-scale",
           "invocation": "auto-hide",
           "feedback": "next-state-preview"
         },
-        "sources": [
-          {
-            "authority": "NASA Science",
-            "title": "Comet Facts",
-            "citation": "NASA Science, Solar System Exploration, “Comet Facts,” accessed 2026.",
-            "url": "https://science.nasa.gov/solar-system/comets/facts/",
-            "supports": "Supports the general anatomy used across the Topic: a frozen nucleus containing ices and dust, solar heating that produces a coma, and distinct dust and ion tails directed away from the Sun.",
-            "boundary": "NASA describes a broad comet model; individual nuclei, activity levels, compositions, and tail visibility vary, so the drawings are explanatory rather than a universal specimen."
-          },
-          {
-            "authority": "NASA Jet Propulsion Laboratory",
-            "title": "Basics of Space Flight — Chapter 1: The Solar System",
-            "citation": "NASA/JPL, Basics of Space Flight, Chapter 1, “Components of a Comet in the Vicinity of the Sun.”",
-            "url": "https://science.nasa.gov/learn/basics-of-space-flight/chapter1-3/",
-            "supports": "Supports the tail geometry: radiation pressure accelerates solid grains more slowly into a commonly curved dust tail, while solar-wind-driven ions form a straighter anti-solar tail.",
-            "boundary": "The page presents a teaching-level model and notes that cometary structures are diverse and dynamic; the two tail curves shown here are not trajectory predictions for one observation date."
-          },
-          {
-            "authority": "European Space Agency — Rosetta Science",
-            "title": "Rosetta’s target: comet 67P/Churyumov–Gerasimenko",
-            "citation": "ESA Science & Technology, 67P target fact sheet, updated mission reference.",
-            "url": "https://sci.esa.int/web/rosetta/-/14615-comet-67p",
-            "supports": "Supports the 67P reference envelope of 4.34 × 2.60 × 2.12 kilometres, its 6.45-year orbital period, and the 1.243 AU perihelion and 5.68 AU aphelion values on the final plate.",
-            "boundary": "Those measurements belong to comet 67P, not to all comets; the opening silhouette is a newly drawn reference profile and does not reproduce a Rosetta photograph."
-          },
-          {
-            "authority": "European Space Agency — Rosetta Mission",
-            "title": "Rosetta Frequently Asked Questions",
-            "citation": "ESA, Rosetta Mission FAQ, sections on comet activity, coma, and tails.",
-            "url": "https://www.esa.int/Science_Exploration/Space_Science/Rosetta/Frequently_asked_questions",
-            "supports": "Supports the causal sequence in the jet-field sheet: solar heating drives solid-to-gas sublimation, outflowing gas drags small dust grains, and the released material builds the coma and subsequent tails.",
-            "boundary": "The regular activity sequence is simplified into four beats; real outgassing is uneven, rotates with the nucleus, and can include short-lived outbursts that this Topic does not simulate."
-          },
-          {
-            "authority": "Science / Rosetta MIRO team",
-            "title": "Subsurface properties and early activity of comet 67P/Churyumov–Gerasimenko",
-            "citation": "Gulkis, S. et al. Science 347 (2015): aaa0709. doi:10.1126/science.aaa0709.",
-            "url": "https://pubmed.ncbi.nlm.nih.gov/25613896/",
-            "supports": "Supports the scientific caution in the cutaway and jet plates: heat transport and sublimation are coupled, early water outgassing was localized, and observed rates varied with nucleus rotation and shape.",
-            "boundary": "MIRO measurements characterize 67P during a particular early mission interval; the internal dots and vents are schematic marks, not a reconstruction of measured three-dimensional strata."
-          }
-        ],
+        "transitionScore": {
+          "1->2": "linear-wipe",
+          "2->3": "push-x",
+          "3->4": "iris-open",
+          "4->5": "dip-to-color"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -5791,22 +5674,18 @@ export const CATALOG_MANIFEST = [
             "en": "Educational schematic: the drawings synthesize broad comet physics with 67P-specific reference measurements; individual nuclei, activity patterns, tails, and orbit displays vary by comet and observation time.",
             "zh": "教学示意图：图中综合了通用彗星物理与 67P 的参考测量；不同彗星及不同观测时段的彗核、活动模式、彗尾和轨道显示都会不同。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "linear-wipe",
-          "2->3": "push-x",
-          "3->4": "iris-open",
-          "4->5": "dip-to-color"
-        }
+        "modulePath": "../topics/comet-anatomy.tsx"
       },
       {
         "id": "drawing-a-bridge",
-        "topic": {
+        "styleId": "cyanotype-drafting-table",
+        "title": {
           "en": "Drawing a Bridge",
           "zh": "桥的设计"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Drawing a Bridge",
@@ -5924,10 +5803,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cyanotype-drafting-table",
-            "name": "Cyanotype Drafting Table",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "桥的设计",
@@ -6045,50 +5921,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cyanotype-drafting-table",
-            "name": "蓝图制图台",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/drawing-a-bridge.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "bridge-revision-index",
           "invocation": "persistent",
           "feedback": "mechanical-displacement"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "wipe",
           "2->3": "wipe",
           "3->4": "slide-x",
           "4->5": "hard-cut"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/drawing-a-bridge.tsx"
       }
     ]
   },
   {
-    "id": "kinetic-type-punchline",
-    "name": {
-      "en": "Kinetic Type Punchline",
-      "zh": "动感字体金句"
+    "style": {
+      "id": "kinetic-type-punchline",
+      "name": {
+        "en": "Kinetic Type Punchline",
+        "zh": "动感字体金句"
+      },
+      "band": "minimal-keynote"
     },
     "topics": [
       {
         "id": "type-poster",
-        "topic": {
+        "styleId": "kinetic-type-punchline",
+        "title": {
           "en": "Type Poster",
           "zh": "字体海报"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "A loud graphic poster where words are the image — massive stacked phrases hit like a mic-drop, delivering one punch the audience cannot miss",
@@ -6197,10 +6074,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kinetic-type-punchline",
-            "name": "Kinetic Type Punchline",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "一张响亮的图形海报，文字即是图像——巨大的堆叠短语如扔麦般击中观众，传递一个无法忽视的重击",
@@ -6309,18 +6183,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kinetic-type-punchline",
-            "name": "动感字体金句",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/type-poster.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "type-poster-dot-row",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "hard-cut",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -6330,20 +6206,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "fade",
-          "3->4": "fade",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/type-poster.tsx"
       },
       {
         "id": "one-constraint",
-        "topic": {
+        "styleId": "kinetic-type-punchline",
+        "title": {
           "en": "One Constraint",
           "zh": "一个约束"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "One Constraint Wins",
@@ -6496,10 +6368,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kinetic-type-punchline",
-            "name": "Kinetic Type Punchline",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "一个约束赢",
@@ -6652,18 +6521,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kinetic-type-punchline",
-            "name": "动感字体金句",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/one-constraint.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "constraint-beat-stamps",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "slide-y",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -6673,20 +6544,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "glitch",
-          "2->3": "slide-y",
-          "3->4": "scale-fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/one-constraint.tsx"
       },
       {
         "id": "before-a",
-        "topic": {
+        "styleId": "kinetic-type-punchline",
+        "title": {
           "en": "Before A",
           "zh": "A之前"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Before A Was A",
@@ -6810,10 +6677,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kinetic-type-punchline",
-            "name": "Kinetic Type Punchline",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "A 还不是 A 的时候",
@@ -6937,62 +6801,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kinetic-type-punchline",
-            "name": "动感字体金句",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/before-a.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "letterform-lineage-index",
           "invocation": "persistent",
           "feedback": "material-color-change"
         },
-        "sources": [
-          {
-            "authority": "The British Museum",
-            "title": "Sandstone sphinx with Proto-Sinaitic signs (EA41748)",
-            "url": "https://www.britishmuseum.org/collection/object/Y_EA41748",
-            "supports": "The object is dated to about 1800 BCE and carries Proto-Sinaitic signs; the museum describes alphabetic, hieroglyph-derived, West Semitic interpretation as the basis of attempted decipherment.",
-            "boundary": "The object does not preserve a continuous aleph-to-A sequence and does not by itself prove that a specific head-shaped outline became modern A."
-          },
-          {
-            "authority": "Unicode Consortium",
-            "title": "The Unicode Standard, Chapter 10.3: Phoenician",
-            "url": "https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-10/",
-            "supports": "An older form of the Phoenician alphabet is described as a forerunner of Greek, Old Italic, and Latin among other scripts.",
-            "boundary": "A character encoding standard identifies script relationships and repertoire; its reference glyphs are not prescriptive inscription facsimiles."
-          },
-          {
-            "authority": "Unicode Consortium",
-            "title": "Unicode Technical Note 40: Old Italic Glyph Variation",
-            "url": "https://www.unicode.org/notes/tn40/old-italic-glyph-variation.pdf",
-            "supports": "The technical note identifies Euboean Greek in Italy as the ultimate source for ancient Italian alphabets and documents substantial local glyph variation.",
-            "boundary": "Unicode unifies several ancient Italian traditions in one block, so the displayed U+10300 outline is a comparison sample rather than a universal historical form."
-          },
-          {
-            "authority": "The Metropolitan Museum of Art",
-            "title": "Assyria to Iberia at the Dawn of the Classical Age",
-            "url": "https://resources.metmuseum.org/resources/metpublications/pdf/Assyria_to_Iberia_at_the_Dawn_of_the_Classical_Age.pdf",
-            "supports": "The museum publication describes Greek adoption of Phoenician letters and shows the exchange occurring across multiple Mediterranean locales.",
-            "boundary": "The publication does not establish one single transfer location or a smooth, uniform sequence of letter shapes."
-          },
-          {
-            "authority": "Cambridge University Press",
-            "title": "Greek Alphabetic Writing, The Cambridge Ancient History 20b",
-            "url": "https://www.cambridge.org/core/books/abs/cambridge-ancient-history/greek-alphabetic-writing/E26EF87BAEDA11D809E7F88751C1BE43",
-            "supports": "The chapter summary says the order, names, and shapes demonstrate that Greek alpha through tau derived from a Semitic alphabet.",
-            "boundary": "The place, date, and pathway of adoption remain debated; the slide therefore labels forms as sourced samples rather than animation frames."
-          },
-          {
-            "citation": "John F. Healey, The Early Alphabet, Reading the Past 9 (British Museum Press / University of California Press, 1990).",
-            "url": "https://books.google.com/books/about/The_Early_Alphabet.html?id=0_KnI588AnkC",
-            "supports": "The scholarly synthesis supplies the comparative early-alphabet and Proto-Sinaitic context behind the slide's explicitly labeled pictorial and acrophonic reconstruction.",
-            "boundary": "Comparative charts compress regional and chronological variation; the slide redraws a teaching schematic and does not present it as a facsimile of one inscription."
-          }
-        ],
+        "transitionScore": {
+          "1->2": "afterimage",
+          "2->3": "zoom-through",
+          "3->4": "multi-blind",
+          "4->5": "afterimage"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -7044,20 +6867,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "afterimage",
-          "2->3": "zoom-through",
-          "3->4": "multi-blind",
-          "4->5": "afterimage"
-        }
+        "modulePath": "../topics/before-a.tsx"
       },
       {
         "id": "ship-it",
-        "topic": {
+        "styleId": "kinetic-type-punchline",
+        "title": {
           "en": "Ship It",
           "zh": "发布"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Ship It",
@@ -7162,10 +6981,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kinetic-type-punchline",
-            "name": "Kinetic Type Punchline",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "发布",
@@ -7270,47 +7086,48 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kinetic-type-punchline",
-            "name": "动感字体金句",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/ship-it.tsx",
         "navigation": {
           "mode": "none"
-        },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
         },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "glitch",
           "3->4": "hard-cut",
           "4->5": "glitch"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative release prompt: the excuses, countdown, and outcome are poster rhetoric, not a record of a product release.",
+            "zh": "示例发布提示：其中借口、倒数和结果均为海报修辞，并非一次产品发布的记录。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/ship-it.tsx"
       }
     ]
   },
   {
-    "id": "sketch-board-emoji",
-    "name": {
-      "en": "Sketch Board Emoji",
-      "zh": "草图白板表情"
+    "style": {
+      "id": "sketch-board-emoji",
+      "name": {
+        "en": "Sketch Board Emoji",
+        "zh": "草图白板表情"
+      },
+      "band": "minimal-keynote"
     },
     "topics": [
       {
         "id": "workshop-board",
-        "topic": {
+        "styleId": "sketch-board-emoji",
+        "title": {
           "en": "Workshop Board",
           "zh": "工作坊"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "A warm in-progress workshop whiteboard — hand-drawn marks, sticky notes, and emoji actors making collaboration feel human and unfinished in the best way",
@@ -7419,10 +7236,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "sketch-board-emoji",
-            "name": "Sketch Board Emoji",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "一块温暖的进行中工作坊白板——手绘标记、便利贴和表情角色，让协作以最好的方式感觉人性化和未完成",
@@ -7531,18 +7345,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "sketch-board-emoji",
-            "name": "草图白板表情",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/workshop-board.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "workshop-scene-ticks",
           "invocation": "persistent",
           "feedback": "mechanical-displacement"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -7552,20 +7368,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "scale-fade",
-          "3->4": "scale-fade",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/workshop-board.tsx"
       },
       {
         "id": "human-loop",
-        "topic": {
+        "styleId": "sketch-board-emoji",
+        "title": {
           "en": "Human Loop",
           "zh": "人机回路"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Human Loop Retrofit",
@@ -7726,10 +7538,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "sketch-board-emoji",
-            "name": "Sketch Board Emoji",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "人机回路改造",
@@ -7890,18 +7699,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "sketch-board-emoji",
-            "name": "草图白板表情",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/human-loop.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "human-loop-sticker-row",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "scale-fade",
+          "3->4": "wipe",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -7911,20 +7722,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-x",
-          "2->3": "scale-fade",
-          "3->4": "wipe",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/human-loop.tsx"
       },
       {
         "id": "stadium-wave",
-        "topic": {
+        "styleId": "sketch-board-emoji",
+        "title": {
           "en": "Stadium Wave",
           "zh": "看台人浪"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Stadium Wave",
@@ -8074,10 +7881,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "sketch-board-emoji",
-            "name": "Sketch Board Emoji",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "看台人浪",
@@ -8227,56 +8031,54 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "sketch-board-emoji",
-            "name": "草图白板表情",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/stadium-wave.tsx",
-        "navigation": {
-          "geometry": "spatial-node",
-          "carrier": "stadium-seating-array",
-          "invocation": "auto-hide",
-          "feedback": "active-glow"
-        },
-        "sources": [
-          {
-            "id": "farkas-helbing-vicsek-2002",
-            "citation": "Farkas, I., Helbing, D. & Vicsek, T. Mexican waves in an excitable medium. Nature 419, 131–132 (2002).",
-            "url": "https://doi.org/10.1038/419131a",
-            "supports": "Spectators stand, raise their arms, sit, and pass the visible front to the next section; excitable-medium models reproduce this collective pattern."
-          },
-          {
-            "id": "farkas-helbing-vicsek-2003",
-            "citation": "Farkas, I., Helbing, D. & Vicsek, T. Human waves in stadiums. Physica A 330, 18–24 (2003).",
-            "url": "https://doi.org/10.1016/j.physa.2003.08.014",
-            "supports": "Wave formation and propagation can be treated as distinct stages; a small local excitation spreads only when nearby reactions sustain it."
-          },
-          {
-            "id": "farkas-vicsek-2006",
-            "citation": "Farkas, I. J. & Vicsek, T. Initiating a Mexican wave: An instantaneous collective decision with both short- and long-range interactions. Physica A 369, 830–840 (2006).",
-            "url": "https://doi.org/10.1016/j.physa.2006.01.075",
-            "supports": "A small group launches the wave; neighboring groups repeat the stand–raise–sit action with a short delay, while collective interactions select a propagation direction."
-          }
-        ],
         "evidence": {
-          "kind": "facts"
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "farkas-helbing-vicsek-2002",
+              "citation": "Farkas, I., Helbing, D. & Vicsek, T. Mexican waves in an excitable medium. Nature 419, 131–132 (2002).",
+              "url": "https://doi.org/10.1038/419131a",
+              "supports": "Spectators stand, raise their arms, sit, and pass the visible front to the next section; excitable-medium models reproduce this collective pattern."
+            },
+            {
+              "id": "farkas-helbing-vicsek-2003",
+              "citation": "Farkas, I., Helbing, D. & Vicsek, T. Human waves in stadiums. Physica A 330, 18–24 (2003).",
+              "url": "https://doi.org/10.1016/j.physa.2003.08.014",
+              "supports": "Wave formation and propagation can be treated as distinct stages; a small local excitation spreads only when nearby reactions sustain it."
+            },
+            {
+              "id": "farkas-vicsek-2006",
+              "citation": "Farkas, I. J. & Vicsek, T. Initiating a Mexican wave: An instantaneous collective decision with both short- and long-range interactions. Physica A 369, 830–840 (2006).",
+              "url": "https://doi.org/10.1016/j.physa.2006.01.075",
+              "supports": "A small group launches the wave; neighboring groups repeat the stand–raise–sit action with a short delay, while collective interactions select a propagation direction."
+            }
+          ]
         },
         "transitionScore": {
           "1->2": "push-x",
           "2->3": "card-carousel",
           "3->4": "diagonal-pan",
           "4->5": "grid-reveal"
-        }
+        },
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "stadium-seating-array",
+          "invocation": "auto-hide",
+          "feedback": "active-glow"
+        },
+        "modulePath": "../topics/stadium-wave.tsx"
       },
       {
         "id": "how-we-named-it",
-        "topic": {
+        "styleId": "sketch-board-emoji",
+        "title": {
           "en": "How We Named It",
           "zh": "起名字"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "How We Named It",
@@ -8383,10 +8185,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "sketch-board-emoji",
-            "name": "Sketch Board Emoji",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "起名字",
@@ -8493,50 +8292,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "sketch-board-emoji",
-            "name": "草图白板表情",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/how-we-named-it.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "naming-connector-trail",
           "invocation": "persistent",
           "feedback": "geometry-reflow"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-x",
           "2->3": "slide-x",
           "3->4": "scale-fade",
           "4->5": "scale-fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative naming workshop: the candidate names, reactions, and selection are authored presentation content, not a record of an external process.",
+            "zh": "示例起名工作坊：候选名称、反馈与选择均为创作的演示内容，并非外部流程记录。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/how-we-named-it.tsx"
       }
     ]
   },
   {
-    "id": "spotlight-quote-poster",
-    "name": {
-      "en": "Spotlight Quote Poster",
-      "zh": "聚光引言海报"
+    "style": {
+      "id": "spotlight-quote-poster",
+      "name": {
+        "en": "Spotlight Quote Poster",
+        "zh": "聚光引言海报"
+      },
+      "band": "minimal-keynote"
     },
     "topics": [
       {
         "id": "quote-poster",
-        "topic": {
+        "styleId": "spotlight-quote-poster",
+        "title": {
           "en": "Quote Poster",
           "zh": "引言海报"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "A darkened stage where a single spotlight falls on a few powerful words - held, reflective, meant to be sat with",
@@ -8657,10 +8457,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "spotlight-quote-poster",
-            "name": "Spotlight Quote Poster",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "黑暗舞台上一束聚光照在几句有力的话上——凝固、沉思、值得品味",
@@ -8781,28 +8578,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "spotlight-quote-poster",
-            "name": "聚光引言海报",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/quote-poster.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "spotlight-quiet-dots",
           "invocation": "persistent",
           "feedback": "mechanical-displacement"
         },
-        "sources": [
-          {
-            "authority": "Wikiquote",
-            "title": "Cesare Pavese — This Business of Living",
-            "citation": "Cesare Pavese, This Business of Living (1952), diary entry dated 14 July 1944.",
-            "url": "https://en.wikiquote.org/wiki/Cesare_Pavese#This_Business_of_Living_(1952)",
-            "supports": "Records the quotation “We do not remember days. We remember moments.” and attributes it to Cesare Pavese's 14 July 1944 diary entry."
-          }
-        ],
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "slide-y"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -8820,20 +8610,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-y",
-          "2->3": "slide-y",
-          "3->4": "slide-y",
-          "4->5": "slide-y"
-        }
+        "modulePath": "../topics/quote-poster.tsx"
       },
       {
         "id": "kept-sentence",
-        "topic": {
+        "styleId": "spotlight-quote-poster",
+        "title": {
           "en": "Kept Sentence",
           "zh": "留下句子"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "The Sentence We Keep",
@@ -8984,10 +8770,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "spotlight-quote-poster",
-            "name": "Spotlight Quote Poster",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "留下的那句话",
@@ -9138,18 +8921,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "spotlight-quote-poster",
-            "name": "聚光引言海报",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/kept-sentence.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "sentence-footlight-ticks",
           "invocation": "persistent",
           "feedback": "mechanical-displacement"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "scale-fade",
+          "3->4": "fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -9159,20 +8944,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "scale-fade",
-          "3->4": "fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/kept-sentence.tsx"
       },
       {
         "id": "freedive",
-        "topic": {
+        "styleId": "spotlight-quote-poster",
+        "title": {
           "en": "Freedive",
           "zh": "自由潜水"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Freedive: One Breath, Two Pressures",
@@ -9289,10 +9070,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "spotlight-quote-poster",
-            "name": "Spotlight Quote Poster",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "自由潜水：一口气，两种压力",
@@ -9409,68 +9187,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "spotlight-quote-poster",
-            "name": "聚光引言海报",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/freedive.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "footlight-notches",
           "invocation": "auto-hide",
           "feedback": "history-trail"
         },
-        "sources": [
-          {
-            "id": "dan-dive-reflex-2018",
-            "authority": "Divers Alert Network (DAN)",
-            "title": "How the Dive Reflex Protects the Brain and Heart",
-            "citation": "Brett K. How the Dive Reflex Protects the Brain and Heart. Alert Diver / Divers Alert Network. August 1, 2018.",
-            "url": "https://dan.org/alert-diver/article/how-the-dive-reflex-protects-the-brain-and-heart/",
-            "supports": "During a breath hold underwater, oxygen in the blood is used without being replaced by breathing; DAN describes slower heart rate and peripheral vasoconstriction as responses that prioritize blood delivery to the brain and heart.",
-            "claimIds": [
-              "oxygen-is-not-replaced-during-a-breath-hold",
-              "dive-response-prioritizes-oxygen-delivery"
-            ]
-          },
-          {
-            "id": "foster-sheel-2005",
-            "authority": "Scandinavian Journal of Medicine & Science in Sports / PubMed",
-            "title": "The human diving response, its function, and its control",
-            "citation": "Foster GE, Sheel AW. The human diving response, its function, and its control. Scand J Med Sci Sports. 2005;15(1):3-12. PMID: 15679566. doi:10.1111/j.1600-0838.2005.00440.x.",
-            "url": "https://pubmed.ncbi.nlm.nih.gov/15679566/",
-            "supports": "This peer-reviewed review identifies bradycardia and vasoconstriction among responses associated with apnea and the diving response, and frames its oxygen-conserving role cautiously as likely rather than guaranteed.",
-            "claimIds": [
-              "dive-response-prioritizes-oxygen-delivery"
-            ]
-          },
-          {
-            "id": "msd-barotrauma-2025",
-            "authority": "MSD Manual Professional Edition / Duke University Medical Center / UCLA",
-            "title": "Overview of Barotrauma",
-            "citation": "Moon RE. Overview of Barotrauma. MSD Manual Professional Edition. Full review June 2025; peer reviewed by Birnbaumer DM, David Geffen School of Medicine at UCLA.",
-            "url": "https://www.msdmanuals.com/professional/injuries-poisoning/injury-during-diving-or-work-in-compressed-air/overview-of-barotrauma",
-            "supports": "The medical reference explains that higher ambient pressure during descent compresses gas in air-containing spaces, lower pressure during ascent expands it, and pressure-related gas-volume changes can injure tissue (barotrauma).",
-            "claimIds": [
-              "ambient-pressure-changes-gas-volume",
-              "pressure-related-gas-volume-changes-can-injure"
-            ]
-          },
-          {
-            "id": "dan-hypoxia-breath-hold-2016",
-            "authority": "Divers Alert Network (DAN)",
-            "title": "Hypoxia in Breath-Hold Diving",
-            "citation": "McCafferty M. Hypoxia in Breath-Hold Diving. Alert Diver / Divers Alert Network. May 1, 2016.",
-            "url": "https://dan.org/alert-diver/article/hypoxia-in-breath-hold-diving/",
-            "supports": "DAN notes that physical activity during a breath hold increases oxygen consumption and that oxygen can fall too low to maintain consciousness, describing hypoxia as a genuine hazard rather than a performance milestone.",
-            "claimIds": [
-              "oxygen-is-not-replaced-during-a-breath-hold",
-              "low-oxygen-can-impair-consciousness"
-            ]
-          }
-        ],
+        "transitionScore": {
+          "1->2": "iris-open",
+          "2->3": "linear-wipe",
+          "3->4": "focus-swap",
+          "4->5": "dip-to-color"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -9526,22 +9257,18 @@ export const CATALOG_MANIFEST = [
             "en": "Physiology explainer only: this Topic is not training, medical, equalization, or safe-zone advice.",
             "zh": "仅作生理机制说明：本 Topic 不构成训练、医疗、平压或安全区域建议。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "iris-open",
-          "2->3": "linear-wipe",
-          "3->4": "focus-swap",
-          "4->5": "dip-to-color"
-        }
+        "modulePath": "../topics/freedive.tsx"
       },
       {
         "id": "on-quitting-well",
-        "topic": {
+        "styleId": "spotlight-quote-poster",
+        "title": {
           "en": "On Quitting Well",
           "zh": "好好离开"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "On Quitting Well",
@@ -9658,10 +9385,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "spotlight-quote-poster",
-            "name": "Spotlight Quote Poster",
-            "band": "minimal-keynote"
+            ]
           },
           "zh": {
             "theme": "好好离开",
@@ -9778,50 +9502,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "spotlight-quote-poster",
-            "name": "聚光引言海报",
-            "band": "minimal-keynote"
+            ]
           }
         },
-        "modulePath": "../topics/on-quitting-well.tsx",
         "navigation": {
-          "geometry": "ambient",
-          "carrier": "quitting-folio-glow",
-          "invocation": "persistent",
-          "feedback": "material-color-change"
-        },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
+          "geometry": "typographic-index",
+          "carrier": "quitting-ghost-index",
+          "invocation": "proximity-reveal",
+          "feedback": "typographic-emphasis"
         },
         "transitionScore": {
           "1->2": "fade",
           "2->3": "fade",
           "3->4": "scale-fade",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative reflection: the speaker, quoted lines, and departure narrative are authored presentation content, not attributed testimony or reporting.",
+            "zh": "示例性沉思：其中说话者、引言与离开叙事均为创作的演示内容，并非归属证词或报道。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/on-quitting-well.tsx"
       }
     ]
   },
   {
-    "id": "subway-map-of-intent",
-    "name": {
-      "en": "Subway Map of Intent",
-      "zh": "意图地铁图"
+    "style": {
+      "id": "subway-map-of-intent",
+      "name": {
+        "en": "Subway Map of Intent",
+        "zh": "意图地铁图"
+      },
+      "band": "balanced-hybrid"
     },
     "topics": [
       {
         "id": "subway-flow",
-        "topic": {
+        "styleId": "subway-map-of-intent",
+        "title": {
           "en": "Subway Flow",
           "zh": "地铁流程"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Multi-track Convergence Map — independent streams of intent shown as transit lines that meet at deliberate transfer stations. Best for converging workflows, milestone mapping, and showing how parallel tracks join.",
@@ -9941,10 +9666,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "subway-map-of-intent",
-            "name": "Subway Map of Intent",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "多轨汇聚地图——将独立的意图流展示为在刻意换乘站交汇的地铁线路。最适合展示收敛型工作流、里程碑映射，以及平行轨道如何汇合。",
@@ -10064,18 +9786,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "subway-map-of-intent",
-            "name": "意图地铁图",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/subway-flow.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "subway-flow-station-line",
           "invocation": "persistent",
           "feedback": "history-trail"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "slide-y"
         },
         "evidence": {
           "kind": "illustrative",
@@ -10085,20 +9809,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-y",
-          "2->3": "slide-y",
-          "3->4": "slide-y",
-          "4->5": "slide-y"
-        }
+        "modulePath": "../topics/subway-flow.tsx"
       },
       {
         "id": "release-tracks",
-        "topic": {
+        "styleId": "subway-map-of-intent",
+        "title": {
           "en": "Release Tracks",
           "zh": "发布轨道"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Three Tracks to One Release",
@@ -10245,10 +9965,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "subway-map-of-intent",
-            "name": "Subway Map of Intent",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "三轨合一发布",
@@ -10395,18 +10112,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "subway-map-of-intent",
-            "name": "意图地铁图",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/release-tracks.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "release-track-stop-rail",
           "invocation": "persistent",
           "feedback": "mechanical-displacement"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "wipe",
+          "3->4": "slide-x",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -10416,20 +10135,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-x",
-          "2->3": "wipe",
-          "3->4": "slide-x",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/release-tracks.tsx"
       },
       {
         "id": "tea-cha-routes",
-        "topic": {
+        "styleId": "subway-map-of-intent",
+        "title": {
           "en": "Tea / Cha",
           "zh": "茶与 Cha"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Tea by Sea, Cha by Land",
@@ -10556,10 +10271,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "subway-map-of-intent",
-            "name": "Subway Map of Intent",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "茶的两条词路",
@@ -10686,68 +10398,66 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "subway-map-of-intent",
-            "name": "意图地铁图",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/tea-cha-routes.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "tea-cha-route-lines",
           "invocation": "persistent",
           "feedback": "next-state-preview"
         },
-        "sources": [
-          {
-            "authority": "Brill Encyclopedia of Chinese Language and Linguistics",
-            "citation": "Dan Jurafsky (2015), ‘Tea’",
-            "url": "https://web.stanford.edu/~jurafsky/pubs/tea.pdf",
-            "supports": "Supports the related Southern Min te, Mandarin chá, and Cantonese caa4 forms; the ch/chai and t families; Persian -i; the 1559 Chiai record; Xiamen/Batavia uncertainty; Dutch maritime transmission; and Portuguese as an exception."
-          },
-          {
-            "authority": "Bulletin of Chinese Linguistics / Brill",
-            "citation": "Wang Feng (2020), Semantic Change, Lexical Competition and Lexical Stratification: The Rise and Fall of Two Words Meaning Tea, Ming 茗 and Cha 茶",
-            "url": "https://brill.com/view/journals/bcl/13/2/article-p378_5.pdf",
-            "supports": "Peer-reviewed historical-linguistics evidence for the rise of 茶, its competition with 茗, and 茶 becoming the core term during the Tang dynasty."
-          },
-          {
-            "authority": "Merriam-Webster Dictionary",
-            "title": "Tea — Word History",
-            "url": "https://www.merriam-webster.com/dictionary/tea",
-            "supports": "Supports English tea as a borrowing from the Xiamen Chinese form and gives 1655 as the first known English use."
-          },
-          {
-            "authority": "Online Etymology Dictionary",
-            "title": "Tea — Origin and history",
-            "url": "https://www.etymonline.com/word/tea",
-            "supports": "Supports English chaa in the 1590s, tea in the 1650s, Dutch/Malay/Xiamen transmission for tea, and ch-initial forms across overland networks."
-          },
-          {
-            "authority": "UNESCO Silk Roads Programme",
-            "title": "About the Silk Roads",
-            "url": "https://www.unesco.org/en/silk-roads/about-silk-roads",
-            "supports": "Supports treating the Silk Roads as dynamic, porous networks of multiple land and maritime routes rather than one fixed itinerary or single causal arrow."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "push-x",
           "2->3": "linear-wipe",
           "3->4": "iris-open",
           "4->5": "diagonal-pan"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "Brill Encyclopedia of Chinese Language and Linguistics",
+              "citation": "Dan Jurafsky (2015), ‘Tea’",
+              "url": "https://web.stanford.edu/~jurafsky/pubs/tea.pdf",
+              "supports": "Supports the related Southern Min te, Mandarin chá, and Cantonese caa4 forms; the ch/chai and t families; Persian -i; the 1559 Chiai record; Xiamen/Batavia uncertainty; Dutch maritime transmission; and Portuguese as an exception."
+            },
+            {
+              "authority": "Bulletin of Chinese Linguistics / Brill",
+              "citation": "Wang Feng (2020), Semantic Change, Lexical Competition and Lexical Stratification: The Rise and Fall of Two Words Meaning Tea, Ming 茗 and Cha 茶",
+              "url": "https://brill.com/view/journals/bcl/13/2/article-p378_5.pdf",
+              "supports": "Peer-reviewed historical-linguistics evidence for the rise of 茶, its competition with 茗, and 茶 becoming the core term during the Tang dynasty."
+            },
+            {
+              "authority": "Merriam-Webster Dictionary",
+              "title": "Tea — Word History",
+              "url": "https://www.merriam-webster.com/dictionary/tea",
+              "supports": "Supports English tea as a borrowing from the Xiamen Chinese form and gives 1655 as the first known English use."
+            },
+            {
+              "authority": "Online Etymology Dictionary",
+              "title": "Tea — Origin and history",
+              "url": "https://www.etymonline.com/word/tea",
+              "supports": "Supports English chaa in the 1590s, tea in the 1650s, Dutch/Malay/Xiamen transmission for tea, and ch-initial forms across overland networks."
+            },
+            {
+              "authority": "UNESCO Silk Roads Programme",
+              "title": "About the Silk Roads",
+              "url": "https://www.unesco.org/en/silk-roads/about-silk-roads",
+              "supports": "Supports treating the Silk Roads as dynamic, porous networks of multiple land and maritime routes rather than one fixed itinerary or single causal arrow."
+            }
+          ]
+        },
+        "modulePath": "../topics/tea-cha-routes.tsx"
       },
       {
         "id": "three-teams-launch",
-        "topic": {
+        "styleId": "subway-map-of-intent",
+        "title": {
           "en": "Three Teams, One Launch",
           "zh": "三队一发"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Three Teams, One Launch",
@@ -10864,10 +10574,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "subway-map-of-intent",
-            "name": "Subway Map of Intent",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "三队一发",
@@ -10984,50 +10691,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "subway-map-of-intent",
-            "name": "意图地铁图",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/three-teams-launch.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "launch-route-line",
           "invocation": "persistent",
           "feedback": "typographic-emphasis"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-x",
           "2->3": "slide-x",
           "3->4": "scale-fade",
           "4->5": "slide-x"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/three-teams-launch.tsx"
       }
     ]
   },
   {
-    "id": "benchmark-matrix",
-    "name": {
-      "en": "Benchmark Matrix",
-      "zh": "基准矩阵"
+    "style": {
+      "id": "benchmark-matrix",
+      "name": {
+        "en": "Benchmark Matrix",
+        "zh": "基准矩阵"
+      },
+      "band": "balanced-hybrid"
     },
     "topics": [
       {
         "id": "benchmark",
-        "topic": {
+        "styleId": "benchmark-matrix",
+        "title": {
           "en": "Benchmark",
           "zh": "基准评估"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Analytical Evaluation Matrix — clean comparative evidence with bright neutral ground, positive/negative result marks, and scannable like-against-like comparison. Best for tool comparisons, evaluation criteria, and data-heavy benchmarks.",
@@ -11147,10 +10855,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "benchmark-matrix",
-            "name": "Benchmark Matrix",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "分析评估矩阵——明亮中性底色、正负结果标记、可扫描的同类对比。最适合工具比较、评估标准和数据密集型基准测试。",
@@ -11270,18 +10975,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "benchmark-matrix",
-            "name": "基准矩阵",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/benchmark.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "benchmark-progress-cells",
           "invocation": "persistent",
           "feedback": "geometry-reflow"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -11291,20 +10998,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "scale-fade",
-          "3->4": "scale-fade",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/benchmark.tsx"
       },
       {
         "id": "durable-tool",
-        "topic": {
+        "styleId": "benchmark-matrix",
+        "title": {
           "en": "Durable Tool",
           "zh": "耐用工具"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Choosing the Durable Tool",
@@ -11457,10 +11160,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "benchmark-matrix",
-            "name": "Benchmark Matrix",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "选择耐用工具",
@@ -11613,18 +11313,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "benchmark-matrix",
-            "name": "基准矩阵",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/durable-tool.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "durable-tool-corner-tabs",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "wipe",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -11634,20 +11336,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "wipe",
-          "3->4": "scale-fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/durable-tool.tsx"
       },
       {
         "id": "natural-clocks",
-        "topic": {
+        "styleId": "benchmark-matrix",
+        "title": {
           "en": "Natural Clocks",
           "zh": "自然时钟"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Natural Clocks",
@@ -11774,10 +11472,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "benchmark-matrix",
-            "name": "Benchmark Matrix",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "自然时钟",
@@ -11904,163 +11599,161 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "benchmark-matrix",
-            "name": "基准矩阵",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/natural-clocks.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "clock-taxonomy-index",
           "invocation": "auto-hide",
           "feedback": "typographic-emphasis"
         },
-        "sources": [
-          {
-            "id": "nasa-ice",
-            "authority": "NASA Science",
-            "title": "Core questions: An introduction to ice cores",
-            "citation": "Stoller-Conrad, J. (2017), NASA Science; updated October 22, 2024.",
-            "url": "https://science.nasa.gov/science-research/earth-science/climate-science/core-questions-an-introduction-to-ice-cores/",
-            "supports": "Supports annual layer counting in ice, the East Antarctic 800,000-year record, and the boundary that annual layers become harder to identify at depth and need additional age methods.",
-            "claimIds": [
-              "ice-core.mechanism",
-              "ice-core.resolution",
-              "ice-core.span",
-              "ice-core.calibration",
-              "ice-core.boundary"
-            ]
-          },
-          {
-            "id": "nasa-tree",
-            "authority": "NASA Science",
-            "title": "How do we know what greenhouse gas and temperature levels were in the distant past?",
-            "citation": "NASA Science (2024), “How do we know what greenhouse gas and temperature levels were in the distant past?”",
-            "url": "https://science.nasa.gov/climate-change/faq/how-do-we-know-what-greenhouse-gas-and-temperature-levels-were-in-the-distant-past/",
-            "supports": "Supports the cautious overview framing that tree growth rings retain rough growing-season information for about 2,000 years; this is an overview range, not a universal tree-ring limit.",
-            "claimIds": [
-              "tree-rings.span",
-              "tree-rings.boundary"
-            ]
-          },
-          {
-            "id": "noaa-coral",
-            "authority": "NOAA National Centers for Environmental Information",
-            "title": "How Can Corals Teach Us About Climate?",
-            "citation": "NOAA National Centers for Environmental Information (2016), “How Can Corals Teach Us About Climate?”",
-            "url": "https://www.ncei.noaa.gov/news/how-can-corals-teach-us-about-climate",
-            "supports": "Supports coral seasonal density bands, dating and marking them by exact year and season, records over the past few hundred years, and the need for x-ray imaging when banding patterns are not visually evident.",
-            "claimIds": [
-              "coral.mechanism",
-              "coral.resolution",
-              "coral.span",
-              "coral.calibration",
-              "coral.boundary"
-            ]
-          },
-          {
-            "id": "ltrr-annual",
-            "authority": "University of Arizona Laboratory of Tree-Ring Research",
-            "title": "About Us",
-            "citation": "University of Arizona Laboratory of Tree-Ring Research, “About Us” (accessed July 10, 2026).",
-            "url": "https://ltrr.arizona.edu/about",
-            "supports": "Supports treating annual rings in trees as a dendrochronological archive and names the specialist institution behind the tree-ring evidence family used here.",
-            "claimIds": [
-              "tree-rings.mechanism",
-              "tree-rings.resolution"
-            ]
-          },
-          {
-            "id": "ltrr-chronology",
-            "authority": "University of Arizona Laboratory of Tree-Ring Research",
-            "title": "Program Overview and History",
-            "citation": "University of Arizona Laboratory of Tree-Ring Research, “Program Overview and History” (accessed July 10, 2026).",
-            "url": "https://www.ltrr.arizona.edu/archaeology/progandhist.htm",
-            "supports": "Supports chronology building, dendrochronological dating of wood, and linking living-tree and archaeological chronologies to assign calendar dates.",
-            "claimIds": [
-              "tree-rings.calibration"
-            ]
-          },
-          {
-            "id": "noaa-varve",
-            "authority": "NOAA World Data Service for Paleoclimatology",
-            "title": "A 3000-year varved record of glacier activity and climate change from the proglacial lake Hvítárvatn, Iceland",
-            "citation": "Larsen, D.J., Miller, G.H., Geirsdóttir, Á., & Thordarson, T. (2011), Quaternary Science Reviews 30, 2715–2731, doi:10.1016/j.quascirev.2011.05.026; NOAA/WDS Study 14730.",
-            "url": "https://www.ncei.noaa.gov/pub/data/paleo/paleolimnology/europe/iceland/hvitarvatn2011-3varvethickness.txt",
-            "supports": "Supports one Icelandic lake record spanning the past 3,000 years; sedimentology and tephrostratigraphy confirm the continuous, annual nature of its laminae, without generalizing that continuity to every lake.",
-            "claimIds": [
-              "varved-lake-mud.mechanism",
-              "varved-lake-mud.resolution",
-              "varved-lake-mud.span",
-              "varved-lake-mud.calibration",
-              "varved-lake-mud.boundary"
-            ]
-          },
-          {
-            "id": "usgs-archives",
-            "authority": "U.S. Geological Survey",
-            "title": "Paleoclimate Archives",
-            "citation": "U.S. Geological Survey, “Paleoclimate Archives” (accessed July 10, 2026).",
-            "url": "https://www.usgs.gov/programs/climate-research-and-development-program/science/paleoclimate-archives",
-            "supports": "Supports sediment deposited in layers, archive time period and analytical resolution varying by material, sampling and analysis of proxies, and reconstruction at the sample site; it also describes groundwater-deposited cave-mineral layers and analysis of their thickness and chemistry across varied forms.",
-            "claimIds": [
-              "sediment-layers.mechanism",
-              "sediment-layers.resolution",
-              "sediment-layers.span",
-              "sediment-layers.calibration",
-              "sediment-layers.boundary",
-              "cave-mineral.mechanism",
-              "cave-mineral.resolution",
-              "cave-mineral.boundary"
-            ]
-          },
-          {
-            "id": "usgs-calcite",
-            "authority": "U.S. Geological Survey",
-            "title": "Continuous 500,000-year climate record from vein calcite in Devils Hole, Nevada",
-            "citation": "Winograd, I.J., et al. (1992), Science 258, 255–260, doi:10.1126/science.258.5080.255.",
-            "url": "https://www.usgs.gov/publications/continuous-500000-year-climate-record-vein-calcite-devils-hole-nevada",
-            "supports": "Supports one continuous 500,000-year cave calcite example whose chronology uses replicated uranium-series dates; it is displayed as an example, not a general duration for all cave minerals.",
-            "claimIds": [
-              "cave-mineral.span",
-              "cave-mineral.calibration"
-            ]
-          },
-          {
-            "id": "nanograv",
-            "authority": "North American Nanohertz Observatory for Gravitational Waves (NANOGrav)",
-            "title": "Detector Characterization and Noise Budget",
-            "citation": "Agazie, G., et al. (2023), The Astrophysical Journal Letters 951:L9, doi:10.3847/2041-8213/acda88.",
-            "url": "https://nanograv.org/15yr/Summary/Detector",
-            "supports": "Supports prediction of pulse arrivals to about one microsecond across 15 years, plus the requirement to model pulse jitter, propagation, receiver, clock, and solar-system effects.",
-            "claimIds": [
-              "pulsar-timing.mechanism",
-              "pulsar-timing.resolution",
-              "pulsar-timing.span",
-              "pulsar-timing.calibration",
-              "pulsar-timing.boundary"
-            ]
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "page-turn",
           "2->3": "grid-reveal",
           "3->4": "crossfade",
           "4->5": "dip-to-color"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "nasa-ice",
+              "authority": "NASA Science",
+              "title": "Core questions: An introduction to ice cores",
+              "citation": "Stoller-Conrad, J. (2017), NASA Science; updated October 22, 2024.",
+              "url": "https://science.nasa.gov/science-research/earth-science/climate-science/core-questions-an-introduction-to-ice-cores/",
+              "supports": "Supports annual layer counting in ice, the East Antarctic 800,000-year record, and the boundary that annual layers become harder to identify at depth and need additional age methods.",
+              "claimIds": [
+                "ice-core.mechanism",
+                "ice-core.resolution",
+                "ice-core.span",
+                "ice-core.calibration",
+                "ice-core.boundary"
+              ]
+            },
+            {
+              "id": "nasa-tree",
+              "authority": "NASA Science",
+              "title": "How do we know what greenhouse gas and temperature levels were in the distant past?",
+              "citation": "NASA Science (2024), “How do we know what greenhouse gas and temperature levels were in the distant past?”",
+              "url": "https://science.nasa.gov/climate-change/faq/how-do-we-know-what-greenhouse-gas-and-temperature-levels-were-in-the-distant-past/",
+              "supports": "Supports the cautious overview framing that tree growth rings retain rough growing-season information for about 2,000 years; this is an overview range, not a universal tree-ring limit.",
+              "claimIds": [
+                "tree-rings.span",
+                "tree-rings.boundary"
+              ]
+            },
+            {
+              "id": "noaa-coral",
+              "authority": "NOAA National Centers for Environmental Information",
+              "title": "How Can Corals Teach Us About Climate?",
+              "citation": "NOAA National Centers for Environmental Information (2016), “How Can Corals Teach Us About Climate?”",
+              "url": "https://www.ncei.noaa.gov/news/how-can-corals-teach-us-about-climate",
+              "supports": "Supports coral seasonal density bands, dating and marking them by exact year and season, records over the past few hundred years, and the need for x-ray imaging when banding patterns are not visually evident.",
+              "claimIds": [
+                "coral.mechanism",
+                "coral.resolution",
+                "coral.span",
+                "coral.calibration",
+                "coral.boundary"
+              ]
+            },
+            {
+              "id": "ltrr-annual",
+              "authority": "University of Arizona Laboratory of Tree-Ring Research",
+              "title": "About Us",
+              "citation": "University of Arizona Laboratory of Tree-Ring Research, “About Us” (accessed July 10, 2026).",
+              "url": "https://ltrr.arizona.edu/about",
+              "supports": "Supports treating annual rings in trees as a dendrochronological archive and names the specialist institution behind the tree-ring evidence family used here.",
+              "claimIds": [
+                "tree-rings.mechanism",
+                "tree-rings.resolution"
+              ]
+            },
+            {
+              "id": "ltrr-chronology",
+              "authority": "University of Arizona Laboratory of Tree-Ring Research",
+              "title": "Program Overview and History",
+              "citation": "University of Arizona Laboratory of Tree-Ring Research, “Program Overview and History” (accessed July 10, 2026).",
+              "url": "https://www.ltrr.arizona.edu/archaeology/progandhist.htm",
+              "supports": "Supports chronology building, dendrochronological dating of wood, and linking living-tree and archaeological chronologies to assign calendar dates.",
+              "claimIds": [
+                "tree-rings.calibration"
+              ]
+            },
+            {
+              "id": "noaa-varve",
+              "authority": "NOAA World Data Service for Paleoclimatology",
+              "title": "A 3000-year varved record of glacier activity and climate change from the proglacial lake Hvítárvatn, Iceland",
+              "citation": "Larsen, D.J., Miller, G.H., Geirsdóttir, Á., & Thordarson, T. (2011), Quaternary Science Reviews 30, 2715–2731, doi:10.1016/j.quascirev.2011.05.026; NOAA/WDS Study 14730.",
+              "url": "https://www.ncei.noaa.gov/pub/data/paleo/paleolimnology/europe/iceland/hvitarvatn2011-3varvethickness.txt",
+              "supports": "Supports one Icelandic lake record spanning the past 3,000 years; sedimentology and tephrostratigraphy confirm the continuous, annual nature of its laminae, without generalizing that continuity to every lake.",
+              "claimIds": [
+                "varved-lake-mud.mechanism",
+                "varved-lake-mud.resolution",
+                "varved-lake-mud.span",
+                "varved-lake-mud.calibration",
+                "varved-lake-mud.boundary"
+              ]
+            },
+            {
+              "id": "usgs-archives",
+              "authority": "U.S. Geological Survey",
+              "title": "Paleoclimate Archives",
+              "citation": "U.S. Geological Survey, “Paleoclimate Archives” (accessed July 10, 2026).",
+              "url": "https://www.usgs.gov/programs/climate-research-and-development-program/science/paleoclimate-archives",
+              "supports": "Supports sediment deposited in layers, archive time period and analytical resolution varying by material, sampling and analysis of proxies, and reconstruction at the sample site; it also describes groundwater-deposited cave-mineral layers and analysis of their thickness and chemistry across varied forms.",
+              "claimIds": [
+                "sediment-layers.mechanism",
+                "sediment-layers.resolution",
+                "sediment-layers.span",
+                "sediment-layers.calibration",
+                "sediment-layers.boundary",
+                "cave-mineral.mechanism",
+                "cave-mineral.resolution",
+                "cave-mineral.boundary"
+              ]
+            },
+            {
+              "id": "usgs-calcite",
+              "authority": "U.S. Geological Survey",
+              "title": "Continuous 500,000-year climate record from vein calcite in Devils Hole, Nevada",
+              "citation": "Winograd, I.J., et al. (1992), Science 258, 255–260, doi:10.1126/science.258.5080.255.",
+              "url": "https://www.usgs.gov/publications/continuous-500000-year-climate-record-vein-calcite-devils-hole-nevada",
+              "supports": "Supports one continuous 500,000-year cave calcite example whose chronology uses replicated uranium-series dates; it is displayed as an example, not a general duration for all cave minerals.",
+              "claimIds": [
+                "cave-mineral.span",
+                "cave-mineral.calibration"
+              ]
+            },
+            {
+              "id": "nanograv",
+              "authority": "North American Nanohertz Observatory for Gravitational Waves (NANOGrav)",
+              "title": "Detector Characterization and Noise Budget",
+              "citation": "Agazie, G., et al. (2023), The Astrophysical Journal Letters 951:L9, doi:10.3847/2041-8213/acda88.",
+              "url": "https://nanograv.org/15yr/Summary/Detector",
+              "supports": "Supports prediction of pulse arrivals to about one microsecond across 15 years, plus the requirement to model pulse jitter, propagation, receiver, clock, and solar-system effects.",
+              "claimIds": [
+                "pulsar-timing.mechanism",
+                "pulsar-timing.resolution",
+                "pulsar-timing.span",
+                "pulsar-timing.calibration",
+                "pulsar-timing.boundary"
+              ]
+            }
+          ]
+        },
+        "modulePath": "../topics/natural-clocks.tsx"
       },
       {
         "id": "build-buy-borrow",
-        "topic": {
+        "styleId": "benchmark-matrix",
+        "title": {
           "en": "Build vs Buy vs Borrow",
           "zh": "自建还是买"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Build vs Buy vs Borrow",
@@ -12177,10 +11870,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "benchmark-matrix",
-            "name": "Benchmark Matrix",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "自建还是买",
@@ -12297,50 +11987,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "benchmark-matrix",
-            "name": "基准矩阵",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/build-buy-borrow.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "decision-dot-row",
           "invocation": "auto-hide",
           "feedback": "active-glow"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-y",
           "2->3": "slide-y",
           "3->4": "fade",
           "4->5": "scale-fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/build-buy-borrow.tsx"
       }
     ]
   },
   {
-    "id": "signal-pipeline-flow",
-    "name": {
-      "en": "Signal Pipeline Flow",
-      "zh": "信号管道流"
+    "style": {
+      "id": "signal-pipeline-flow",
+      "name": {
+        "en": "Signal Pipeline Flow",
+        "zh": "信号管道流"
+      },
+      "band": "balanced-hybrid"
     },
     "topics": [
       {
         "id": "pipeline",
-        "topic": {
+        "styleId": "signal-pipeline-flow",
+        "title": {
           "en": "Pipeline",
           "zh": "管道流程"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Dark Technical Pipeline Map — precise system diagram with near-black slate ground, luminous signal colors, and routed node-to-connector flow. Best for architecture, data flow, and process mapping where showing the routing is the explanation.",
@@ -12455,10 +12146,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "signal-pipeline-flow",
-            "name": "Signal Pipeline Flow",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "深色技术管道图——近黑色板岩底色上的精确系统图，发光信号色彩，路由节点到连接器的流动。最适合架构、数据流和流程映射，展示路由即解释。",
@@ -12573,18 +12261,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "signal-pipeline-flow",
-            "name": "信号管道流",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/pipeline.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "pipeline-timeline",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "slide-x",
+          "3->4": "slide-x",
+          "4->5": "slide-x"
         },
         "evidence": {
           "kind": "illustrative",
@@ -12594,20 +12284,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-x",
-          "2->3": "slide-x",
-          "3->4": "slide-x",
-          "4->5": "slide-x"
-        }
+        "modulePath": "../topics/pipeline.tsx"
       },
       {
         "id": "event-insight",
-        "topic": {
+        "styleId": "signal-pipeline-flow",
+        "title": {
           "en": "Event Insight",
           "zh": "事件洞察"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "From Event to Insight",
@@ -12755,10 +12441,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "signal-pipeline-flow",
-            "name": "Signal Pipeline Flow",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "从事件到洞察",
@@ -12906,18 +12589,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "signal-pipeline-flow",
-            "name": "信号管道流",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/event-insight.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "signal-route-navigator",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "glitch",
+          "3->4": "wipe",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -12927,20 +12612,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-x",
-          "2->3": "glitch",
-          "3->4": "wipe",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/event-insight.tsx"
       },
       {
         "id": "district-heat",
-        "topic": {
+        "styleId": "signal-pipeline-flow",
+        "title": {
           "en": "Second Heat",
           "zh": "城市余热"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Second Heat — a composite district heat recovery schematic",
@@ -13071,10 +12752,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "signal-pipeline-flow",
-            "name": "Signal Pipeline Flow",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "城市余热——区域热回收综合技术示意",
@@ -13205,80 +12883,78 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "signal-pipeline-flow",
-            "name": "信号管道流",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/district-heat.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "heat-pipe-loop",
           "invocation": "auto-hide",
           "feedback": "mechanical-displacement"
         },
-        "sources": [
-          {
-            "authority": "International Energy Agency",
-            "title": "Renewables in District Energy — Executive summary",
-            "citation": "IEA (2026), Renewables in District Energy, Executive summary",
-            "url": "https://www.iea.org/reports/renewables-in-district-energy/executive-summary",
-            "supports": "Supports the system boundary that waste-heat deployment depends on proximity, temperature compatibility, and connection cost; also supports thermal storage shifting heat across hours, days, or seasons and the need to reduce network losses."
-          },
-          {
-            "authority": "International Energy Agency",
-            "title": "How a heat pump works",
-            "citation": "IEA (2022), The Future of Heat Pumps",
-            "url": "https://www.iea.org/reports/the-future-of-heat-pumps/how-a-heat-pump-works",
-            "supports": "Supports that a heat pump extracts, amplifies, and transfers heat while requiring external power, normally electricity, and that large-scale systems can use waste heat from data centres and industrial processes."
-          },
-          {
-            "authority": "International Energy Agency",
-            "title": "Heat pumps in district heating and cooling systems",
-            "citation": "IEA (2020), Heat pumps in district heating and cooling systems",
-            "url": "https://www.iea.org/articles/heat-pumps-in-district-heating-and-cooling-systems",
-            "supports": "Supports using large heat pumps with low-temperature waste-heat sources below 45 degrees Celsius in district heating, which anchors the schematic source-band label without asserting a project-specific temperature."
-          },
-          {
-            "authority": "Stockholm Exergi",
-            "title": "Heat recovery — Open District Heating",
-            "citation": "Stockholm Exergi, Heat recovery — Open District Heating",
-            "url": "https://www.stockholmexergi.se/en/heat-recovery/",
-            "supports": "Provides the real-world anchor: Stockholm businesses including data centres can deliver excess heat through Open District Heating, with heat pumps used to make that heat available to the district network."
-          },
-          {
-            "authority": "LUT Energy / U.S. Department of Energy OSTI",
-            "title": "Heat exchanger thermal design guide",
-            "citation": "J. Saari (2010), Heat exchanger thermal design guide",
-            "url": "https://www.osti.gov/etdeweb/biblio/993238",
-            "supports": "Supports the exchanger principle shown in Scene 2: in recuperative heat exchangers, two fluids remain separated by the heat-transfer surface while thermal energy crosses that surface."
-          },
-          {
-            "authority": "UK Department of Energy and Climate Change / DNV GL",
-            "title": "Energy Storage Use Cases",
-            "citation": "Energy Storage Use Cases (2016), seasonal thermal storage use case",
-            "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/554467/Energy_Storage_Use_Cases.pdf",
-            "supports": "Supports seasonal thermal storage as long-term heat storage that can shift heat availability, improve use of waste heat, and serve district-heating demand while remaining size-, cost-, and application-dependent."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "push-x",
           "2->3": "grid-reveal",
           "3->4": "scanline",
           "4->5": "push-y"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "International Energy Agency",
+              "title": "Renewables in District Energy — Executive summary",
+              "citation": "IEA (2026), Renewables in District Energy, Executive summary",
+              "url": "https://www.iea.org/reports/renewables-in-district-energy/executive-summary",
+              "supports": "Supports the system boundary that waste-heat deployment depends on proximity, temperature compatibility, and connection cost; also supports thermal storage shifting heat across hours, days, or seasons and the need to reduce network losses."
+            },
+            {
+              "authority": "International Energy Agency",
+              "title": "How a heat pump works",
+              "citation": "IEA (2022), The Future of Heat Pumps",
+              "url": "https://www.iea.org/reports/the-future-of-heat-pumps/how-a-heat-pump-works",
+              "supports": "Supports that a heat pump extracts, amplifies, and transfers heat while requiring external power, normally electricity, and that large-scale systems can use waste heat from data centres and industrial processes."
+            },
+            {
+              "authority": "International Energy Agency",
+              "title": "Heat pumps in district heating and cooling systems",
+              "citation": "IEA (2020), Heat pumps in district heating and cooling systems",
+              "url": "https://www.iea.org/articles/heat-pumps-in-district-heating-and-cooling-systems",
+              "supports": "Supports using large heat pumps with low-temperature waste-heat sources below 45 degrees Celsius in district heating, which anchors the schematic source-band label without asserting a project-specific temperature."
+            },
+            {
+              "authority": "Stockholm Exergi",
+              "title": "Heat recovery — Open District Heating",
+              "citation": "Stockholm Exergi, Heat recovery — Open District Heating",
+              "url": "https://www.stockholmexergi.se/en/heat-recovery/",
+              "supports": "Provides the real-world anchor: Stockholm businesses including data centres can deliver excess heat through Open District Heating, with heat pumps used to make that heat available to the district network."
+            },
+            {
+              "authority": "LUT Energy / U.S. Department of Energy OSTI",
+              "title": "Heat exchanger thermal design guide",
+              "citation": "J. Saari (2010), Heat exchanger thermal design guide",
+              "url": "https://www.osti.gov/etdeweb/biblio/993238",
+              "supports": "Supports the exchanger principle shown in Scene 2: in recuperative heat exchangers, two fluids remain separated by the heat-transfer surface while thermal energy crosses that surface."
+            },
+            {
+              "authority": "UK Department of Energy and Climate Change / DNV GL",
+              "title": "Energy Storage Use Cases",
+              "citation": "Energy Storage Use Cases (2016), seasonal thermal storage use case",
+              "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/554467/Energy_Storage_Use_Cases.pdf",
+              "supports": "Supports seasonal thermal storage as long-term heat storage that can shift heat availability, improve use of waste heat, and serve district-heating demand while remaining size-, cost-, and application-dependent."
+            }
+          ]
+        },
+        "modulePath": "../topics/district-heat.tsx"
       },
       {
         "id": "where-request-goes",
-        "topic": {
+        "styleId": "signal-pipeline-flow",
+        "title": {
           "en": "Where the Request Goes",
           "zh": "请求去哪了"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Where the Request Goes",
@@ -13389,10 +13065,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "signal-pipeline-flow",
-            "name": "Signal Pipeline Flow",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "请求去哪了",
@@ -13503,50 +13176,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "signal-pipeline-flow",
-            "name": "信号管道流",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/where-request-goes.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "request-stage-stepper",
           "invocation": "auto-hide",
           "feedback": "history-trail"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-x",
           "2->3": "slide-x",
           "3->4": "glitch",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/where-request-goes.tsx"
       }
     ]
   },
   {
-    "id": "engineering-whiteboard-explainer",
-    "name": {
-      "en": "Engineering Whiteboard Explainer",
-      "zh": "工程讲解白板"
+    "style": {
+      "id": "engineering-whiteboard-explainer",
+      "name": {
+        "en": "Engineering Whiteboard Explainer",
+        "zh": "工程讲解白板"
+      },
+      "band": "balanced-hybrid"
     },
     "topics": [
       {
         "id": "from-prompt-to-patch",
-        "topic": {
+        "styleId": "engineering-whiteboard-explainer",
+        "title": {
           "en": "From Prompt to Patch",
           "zh": "提示到补丁"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "A clean engineering whiteboard walkthrough that turns a prompt into a reviewed patch through cards, arrows, status badges, and marker callouts.",
@@ -13683,10 +13357,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "engineering-whiteboard-explainer",
-            "name": "Engineering Whiteboard Explainer",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "用干净的工程白板，把一次提示如何变成经过验证的补丁讲清楚：卡片、箭头、状态章和标注一起推进论证。",
@@ -13823,15 +13494,17 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "engineering-whiteboard-explainer",
-            "name": "工程讲解白板",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/from-prompt-to-patch.tsx",
         "navigation": {
           "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "slide-x",
+          "3->4": "slide-y",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -13841,20 +13514,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "wipe",
-          "2->3": "slide-x",
-          "3->4": "slide-y",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/from-prompt-to-patch.tsx"
       },
       {
         "id": "water-tower",
-        "topic": {
+        "styleId": "engineering-whiteboard-explainer",
+        "title": {
           "en": "Water Tower",
           "zh": "城市水塔"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "A hand-drawn engineering explanation of how elevation, stored volume, demand, and pressure zones make a water tower useful without pretending a static sketch is a full hydraulic model.",
@@ -13982,10 +13651,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "engineering-whiteboard-explainer",
-            "name": "Engineering Whiteboard Explainer",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "用手绘工程图解释高程、储水量、需求和压力分区为何让水塔有用，同时明确静水压草图不等于完整水力模型。",
@@ -14113,71 +13779,72 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "engineering-whiteboard-explainer",
-            "name": "工程讲解白板",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/water-tower.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "water-network-node-map",
           "invocation": "proximity-reveal",
           "feedback": "history-trail"
         },
-        "sources": [
-          {
-            "authority": "US EPA",
-            "title": "Water Quality in Small Community Distribution Systems",
-            "url": "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P1000OY3.TXT",
-            "supports": "Distribution storage accommodates peak flow, emergency demand, firefighting, and pressure equalization."
-          },
-          {
-            "authority": "USGS",
-            "title": "Use of Submersible Pressure Transducers in Water-Resources Investigations",
-            "url": "https://pubs.usgs.gov/twri/twri8a3/",
-            "supports": "Pressure head is related to the height of the water column; total head also includes elevation and velocity terms."
-          },
-          {
-            "authority": "Washington State Department of Health",
-            "title": "Water System Design Manual",
-            "url": "https://doh.wa.gov/sites/default/files/2022-02/331-123.pdf",
-            "supports": "Real distribution design requires hydraulic analysis across demand, fire flow, terrain, friction, storage, and pressure zones."
-          },
-          {
-            "authority": "Minnesota Department of Health",
-            "title": "From Tall to Taller: Minnetonka Raises a Tower",
-            "url": "https://www.health.state.mn.us/communities/environment/water/waterline/featurestories/tonkatower.html",
-            "supports": "A municipal case shows why tower overflow elevations must align inside a pressure zone and why terrain creates several zones."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "grid-reveal",
           "2->3": "push-y",
           "3->4": "focus-swap",
           "4->5": "split-merge"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "US EPA",
+              "title": "Water Quality in Small Community Distribution Systems",
+              "url": "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P1000OY3.TXT",
+              "supports": "Distribution storage accommodates peak flow, emergency demand, firefighting, and pressure equalization."
+            },
+            {
+              "authority": "USGS",
+              "title": "Use of Submersible Pressure Transducers in Water-Resources Investigations",
+              "url": "https://pubs.usgs.gov/twri/twri8a3/",
+              "supports": "Pressure head is related to the height of the water column; total head also includes elevation and velocity terms."
+            },
+            {
+              "authority": "Washington State Department of Health",
+              "title": "Water System Design Manual",
+              "url": "https://doh.wa.gov/sites/default/files/2022-02/331-123.pdf",
+              "supports": "Real distribution design requires hydraulic analysis across demand, fire flow, terrain, friction, storage, and pressure zones."
+            },
+            {
+              "authority": "Minnesota Department of Health",
+              "title": "From Tall to Taller: Minnetonka Raises a Tower",
+              "url": "https://www.health.state.mn.us/communities/environment/water/waterline/featurestories/tonkatower.html",
+              "supports": "A municipal case shows why tower overflow elevations must align inside a pressure zone and why terrain creates several zones."
+            }
+          ]
+        },
+        "modulePath": "../topics/water-tower.tsx"
       }
     ]
   },
   {
-    "id": "soft-pastel-friendly",
-    "name": {
-      "en": "Soft Pastel Friendly",
-      "zh": "柔和粉彩友好"
+    "style": {
+      "id": "soft-pastel-friendly",
+      "name": {
+        "en": "Soft Pastel Friendly",
+        "zh": "柔和粉彩友好"
+      },
+      "band": "balanced-hybrid"
     },
     "topics": [
       {
         "id": "friendly-onboard",
-        "topic": {
+        "styleId": "soft-pastel-friendly",
+        "title": {
           "en": "Friendly Onboard",
           "zh": "友好入门"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Warm bone-and-peach ground with low-saturation pastels, rounded pill and squircle geometry, and a rounded display voice. Best for onboarding, community, and educational content where approachability is the message.",
@@ -14291,10 +13958,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "soft-pastel-friendly",
-            "name": "Soft Pastel Friendly",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "温暖的骨色和桃色底色，低饱和度粉彩，圆润的药丸和圆角矩形几何，圆润的展示字体。最适合入门、社区和教育内容，亲和力即信息。",
@@ -14408,18 +14072,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "soft-pastel-friendly",
-            "name": "柔和粉彩友好",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/friendly-onboard.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "friendly-icon-rail",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -14429,20 +14095,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "scale-fade",
-          "3->4": "scale-fade",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/friendly-onboard.tsx"
       },
       {
         "id": "breathing-onboard",
-        "topic": {
+        "styleId": "soft-pastel-friendly",
+        "title": {
           "en": "Breathing Onboard",
           "zh": "呼吸入门"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Onboarding That Breathes",
@@ -14589,10 +14251,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "soft-pastel-friendly",
-            "name": "Soft Pastel Friendly",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "会呼吸的新手引导",
@@ -14739,18 +14398,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "soft-pastel-friendly",
-            "name": "柔和粉彩友好",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/breathing-onboard.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "breathing-pill-carousel",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "slide-y",
+          "3->4": "fade",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -14760,20 +14421,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "slide-y",
-          "3->4": "fade",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/breathing-onboard.tsx"
       },
       {
         "id": "chrysalis-rebuild",
-        "topic": {
+        "styleId": "soft-pastel-friendly",
+        "title": {
           "en": "Inside a Chrysalis",
           "zh": "蛹中重建"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Danaus plexippus: rebuilding inside a chrysalis",
@@ -14904,10 +14561,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "soft-pastel-friendly",
-            "name": "Soft Pastel Friendly",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "帝王蝶（Danaus plexippus）蛹中重建",
@@ -15038,83 +14692,81 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "soft-pastel-friendly",
-            "name": "柔和粉彩友好",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/chrysalis-rebuild.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "cocoon-pollen-marks",
           "invocation": "proximity-reveal",
           "feedback": "next-state-preview"
         },
-        "sources": [
-          {
-            "id": "mjv-life-cycle",
-            "authority": "Monarch Joint Venture",
-            "title": "Monarch Life Cycle",
-            "citation": "Monarch Joint Venture, Monarch Biology: Life Cycle, Pupa and Adult sections.",
-            "url": "https://monarchjointventure.org/monarch-biology/life-cycle",
-            "supports": "Fixes the visible species to Danaus plexippus; supports the J-hang, chrysalis rather than cocoon, pre-existing clusters of adult-organ cells, 8–15 day summer pupal interval, and wing expansion after emergence.",
-            "boundary": "This public biology synthesis is species-specific at the life-cycle scale, but it is not a histological or cell-lineage atlas of a monarch pupa."
-          },
-          {
-            "id": "complete-metamorphosis",
-            "authority": "Royal Society / University of Bath",
-            "title": "Complete metamorphosis of insects",
-            "citation": "Rolff, J., Johnston, P. R. & Reynolds, S. (2019), Philosophical Transactions of the Royal Society B 374:20190063.",
-            "url": "https://doi.org/10.1098/rstb.2019.0063",
-            "supports": "Supports the central correction that a pupa is not uniformly converted to soup: many larval tissues and organs persist while being re-specified or extensively remodeled.",
-            "boundary": "The review covers holometabolous insects broadly; it does not establish that every named tissue follows identical timing or fate in Danaus plexippus."
-          },
-          {
-            "id": "cell-death-review",
-            "authority": "Royal Society / University of Insubria and University of Milan",
-            "title": "Cell death during complete metamorphosis",
-            "citation": "Tettamanti, G. & Casartelli, M. (2019), Philosophical Transactions of the Royal Society B 374:20190065.",
-            "url": "https://doi.org/10.1098/rstb.2019.0065",
-            "supports": "Supports three concurrent tissue-level outcomes described in Lepidoptera and other holometabolous insects: degeneration, remodeling or replacement, and proliferation and differentiation from imaginal primordia.",
-            "boundary": "Examples in the review span several insect taxa; the diagram therefore labels these as lepidopteran-scale mechanisms, not monarch-specific cell tracing."
-          },
-          {
-            "id": "endocrine-view",
-            "authority": "Royal Society / University of Washington",
-            "title": "The evolution of insect metamorphosis: a developmental and endocrine view",
-            "citation": "Truman, J. W. & Riddiford, L. M. (2019), Philosophical Transactions of the Royal Society B 374:20190070.",
-            "url": "https://doi.org/10.1098/rstb.2019.0070",
-            "supports": "Supports the explanatory role of ecdysone and juvenile-hormone context, tissue-specific developmental responses, and imaginal primordia that grow and differentiate during metamorphosis.",
-            "boundary": "This is comparative developmental endocrinology; the signal rings are a teaching abstraction and are not measured hormone traces from one monarch chrysalis."
-          },
-          {
-            "id": "monarch-heart",
-            "authority": "Royal Society Interface / UCLA",
-            "title": "Dynamic mechanical oscillations during metamorphosis of the monarch butterfly",
-            "citation": "Pelling, A. E. et al. (2009), Journal of the Royal Society Interface 6:29–37.",
-            "url": "https://doi.org/10.1098/rsif.2008.0224",
-            "supports": "Provides Danaus plexippus-specific evidence that measurable heart mechanics continue through the pupal interval while internal morphology changes.",
-            "boundary": "The study reports mechanical observations from a limited sample and does not map the origin of wings, eyes, legs, or every retained organ."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "iris-open",
           "2->3": "split-merge",
           "3->4": "iris-open",
           "4->5": "split-merge"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "mjv-life-cycle",
+              "authority": "Monarch Joint Venture",
+              "title": "Monarch Life Cycle",
+              "citation": "Monarch Joint Venture, Monarch Biology: Life Cycle, Pupa and Adult sections.",
+              "url": "https://monarchjointventure.org/monarch-biology/life-cycle",
+              "supports": "Fixes the visible species to Danaus plexippus; supports the J-hang, chrysalis rather than cocoon, pre-existing clusters of adult-organ cells, 8–15 day summer pupal interval, and wing expansion after emergence.",
+              "boundary": "This public biology synthesis is species-specific at the life-cycle scale, but it is not a histological or cell-lineage atlas of a monarch pupa."
+            },
+            {
+              "id": "complete-metamorphosis",
+              "authority": "Royal Society / University of Bath",
+              "title": "Complete metamorphosis of insects",
+              "citation": "Rolff, J., Johnston, P. R. & Reynolds, S. (2019), Philosophical Transactions of the Royal Society B 374:20190063.",
+              "url": "https://doi.org/10.1098/rstb.2019.0063",
+              "supports": "Supports the central correction that a pupa is not uniformly converted to soup: many larval tissues and organs persist while being re-specified or extensively remodeled.",
+              "boundary": "The review covers holometabolous insects broadly; it does not establish that every named tissue follows identical timing or fate in Danaus plexippus."
+            },
+            {
+              "id": "cell-death-review",
+              "authority": "Royal Society / University of Insubria and University of Milan",
+              "title": "Cell death during complete metamorphosis",
+              "citation": "Tettamanti, G. & Casartelli, M. (2019), Philosophical Transactions of the Royal Society B 374:20190065.",
+              "url": "https://doi.org/10.1098/rstb.2019.0065",
+              "supports": "Supports three concurrent tissue-level outcomes described in Lepidoptera and other holometabolous insects: degeneration, remodeling or replacement, and proliferation and differentiation from imaginal primordia.",
+              "boundary": "Examples in the review span several insect taxa; the diagram therefore labels these as lepidopteran-scale mechanisms, not monarch-specific cell tracing."
+            },
+            {
+              "id": "endocrine-view",
+              "authority": "Royal Society / University of Washington",
+              "title": "The evolution of insect metamorphosis: a developmental and endocrine view",
+              "citation": "Truman, J. W. & Riddiford, L. M. (2019), Philosophical Transactions of the Royal Society B 374:20190070.",
+              "url": "https://doi.org/10.1098/rstb.2019.0070",
+              "supports": "Supports the explanatory role of ecdysone and juvenile-hormone context, tissue-specific developmental responses, and imaginal primordia that grow and differentiate during metamorphosis.",
+              "boundary": "This is comparative developmental endocrinology; the signal rings are a teaching abstraction and are not measured hormone traces from one monarch chrysalis."
+            },
+            {
+              "id": "monarch-heart",
+              "authority": "Royal Society Interface / UCLA",
+              "title": "Dynamic mechanical oscillations during metamorphosis of the monarch butterfly",
+              "citation": "Pelling, A. E. et al. (2009), Journal of the Royal Society Interface 6:29–37.",
+              "url": "https://doi.org/10.1098/rsif.2008.0224",
+              "supports": "Provides Danaus plexippus-specific evidence that measurable heart mechanics continue through the pupal interval while internal morphology changes.",
+              "boundary": "The study reports mechanical observations from a limited sample and does not map the origin of wings, eyes, legs, or every retained organ."
+            }
+          ]
+        },
+        "modulePath": "../topics/chrysalis-rebuild.tsx"
       },
       {
         "id": "first-week-here",
-        "topic": {
+        "styleId": "soft-pastel-friendly",
+        "title": {
           "en": "Your First Week Here",
           "zh": "入职第一周"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Your First Week Here",
@@ -15226,10 +14878,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "soft-pastel-friendly",
-            "name": "Soft Pastel Friendly",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "入职第一周",
@@ -15341,50 +14990,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "soft-pastel-friendly",
-            "name": "柔和粉彩友好",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/first-week-here.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "week-day-picker",
           "invocation": "auto-hide",
           "feedback": "next-state-preview"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "scale-fade",
           "2->3": "slide-y",
           "3->4": "slide-y",
           "4->5": "scale-fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative onboarding scenario: people, tools, tasks, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例入职场景：人物、工具、任务和结果均为演示示例，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/first-week-here.tsx"
       }
     ]
   },
   {
-    "id": "kitchen-prep-station",
-    "name": {
-      "en": "Kitchen Prep Station",
-      "zh": "厨房备料台"
+    "style": {
+      "id": "kitchen-prep-station",
+      "name": {
+        "en": "Kitchen Prep Station",
+        "zh": "厨房备料台"
+      },
+      "band": "balanced-hybrid"
     },
     "topics": [
       {
         "id": "prep-station",
-        "topic": {
+        "styleId": "kitchen-prep-station",
+        "title": {
           "en": "Prep Station",
           "zh": "备料台"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Warm orange-tinted cream counter with earthy kitchen accents — terracotta, wood browns, and herb greens. Shows raw-to-clean transformation through hands-on prep stations. Best for process, ingredient-to-outcome, and craft narratives.",
@@ -15498,10 +15148,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kitchen-prep-station",
-            "name": "Kitchen Prep Station",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "暖橙色奶油台面配大地色厨房点缀——陶土红、木棕色和香草绿。通过亲自动手的备料台展示从原始到精致的转变。最适合流程、食材到成品和工艺叙事。",
@@ -15615,18 +15262,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kitchen-prep-station",
-            "name": "厨房备料台",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/prep-station.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "prep-station-scene-tabs",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "slide-y"
         },
         "evidence": {
           "kind": "illustrative",
@@ -15636,20 +15285,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-y",
-          "2->3": "slide-y",
-          "3->4": "slide-y",
-          "4->5": "slide-y"
-        }
+        "modulePath": "../topics/prep-station.tsx"
       },
       {
         "id": "clean-brief",
-        "topic": {
+        "styleId": "kitchen-prep-station",
+        "title": {
           "en": "Clean Brief",
           "zh": "清爽简报"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Raw Notes to Clean Brief",
@@ -15797,10 +15442,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kitchen-prep-station",
-            "name": "Kitchen Prep Station",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "从原始笔记到干净简报",
@@ -15948,18 +15590,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kitchen-prep-station",
-            "name": "厨房备料台",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/clean-brief.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "clean-brief-recipe-magnets",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "wipe",
+          "3->4": "scale-fade",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -15969,20 +15613,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-y",
-          "2->3": "wipe",
-          "3->4": "scale-fade",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/clean-brief.tsx"
       },
       {
         "id": "cocoa-fermentation",
-        "topic": {
+        "styleId": "kitchen-prep-station",
+        "title": {
           "en": "Cocoa Fermentation",
           "zh": "可可发酵"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Fermentation Before Chocolate",
@@ -16110,10 +15750,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kitchen-prep-station",
-            "name": "Kitchen Prep Station",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "巧克力之前的发酵",
@@ -16241,86 +15878,84 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kitchen-prep-station",
-            "name": "厨房备料台",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/cocoa-fermentation.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "cocoa-sample-tray",
           "invocation": "auto-hide",
           "feedback": "geometry-reflow"
         },
-        "sources": [
-          {
-            "authority": "FEMS Microbiology Reviews / PubMed",
-            "title": "Functional role of yeasts, lactic acid bacteria and acetic acid bacteria in cocoa fermentation processes",
-            "citation": "De Vuyst L, Leroy F. FEMS Microbiol Rev. 2020;44(4):432–453. PMID 32420601.",
-            "url": "https://pubmed.ncbi.nlm.nih.gov/32420601/",
-            "supports": "Supports the typical yeast–LAB–AAB succession, yeast conversion of pulp glucose to ethanol, LAB production of lactic acid and other metabolites, AAB oxidation of ethanol to acetic acid, and formation of roast-ready precursors after seed structure is disrupted.",
-            "boundary": "A synthesis across cocoa fermentations; species, timing, metabolite balance, and sensory outcome still vary with process conditions."
-          },
-          {
-            "authority": "Critical Reviews in Food Science and Nutrition / PubMed",
-            "title": "The microbiology of cocoa fermentation and its role in chocolate quality",
-            "citation": "Schwan RF, Wheals AE. Crit Rev Food Sci Nutr. 2004;44(4):205–221. PMID 15462126.",
-            "url": "https://pubmed.ncbi.nlm.nih.gov/15462126/",
-            "supports": "Supports the ordered microbial succession and the combined role of ethanol, lactic and acetic acids, and fermentation temperatures reaching roughly 50 °C in killing the seed and initiating flavor-precursor production.",
-            "boundary": "The reported upper temperature is not a universal target; actual peaks depend on heap or box design, mass, turning, variety, weather, and local practice."
-          },
-          {
-            "authority": "International Cocoa Organization",
-            "title": "Harvesting & Post-harvest: Fermentation",
-            "citation": "ICCO. Harvesting & Post-harvest, Fermentation and Drying Cocoa Beans sections.",
-            "url": "https://www.icco.org/harvesting-post-harvest-new/",
-            "supports": "Supports that turning or mixing increases aeration and bacterial activity, that heat and acetic acid contribute to seed death and cellular mixing, and that early fermentation temperatures are often reported around 40–45 °C.",
-            "boundary": "ICCO presents a practical overview rather than one universal fermentation schedule; bean type and local method change duration and temperature."
-          },
-          {
-            "authority": "International Cocoa Organization",
-            "title": "Processing Cocoa",
-            "citation": "ICCO. Processing Cocoa: summary of fermentation, drying, and roasting.",
-            "url": "https://www.icco.org/processing-cocoa/",
-            "supports": "Supports the two-stage flavor boundary used in the closing scene: correct wet-bean fermentation develops flavor on farm, while roasting continues flavor development in the factory.",
-            "boundary": "The page intentionally summarizes a complex process and does not prescribe one roast or fermentation profile for every origin or product."
-          },
-          {
-            "authority": "Molecules / PubMed Central",
-            "title": "The Chemistry behind Chocolate Production",
-            "citation": "Barišić V et al. Molecules. 2019;24(17):3163. PMCID PMC6749277.",
-            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6749277/",
-            "supports": "Supports fermentation as a precursor-forming stage and roasting as a later aroma-forming stage in which Maillard reactions and other chemistry transform amino acids, peptides, and reducing sugars.",
-            "boundary": "This is a chemistry review; the aroma wheel is illustrative of flavor families, not a promise that every fermentation produces every note."
-          },
-          {
-            "authority": "Frontiers in Microbiology",
-            "title": "A Combined Metagenomics and Metatranscriptomics Approach to Unravel Costa Rican Cocoa Box Fermentation Processes",
-            "citation": "Verce M et al. Front Microbiol. 2021;12:641185. doi:10.3389/fmicb.2021.641185.",
-            "url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2021.641185/full",
-            "supports": "Supports the condition-dependent relay shown in Scene 2: yeasts and LAB begin in a microaerobic pulp, then greater oxygen accessibility accompanies AAB oxidation of ethanol to acetic acid in measured Costa Rican box fermentations.",
-            "boundary": "The study covers three Costa Rican box fermentations; it substantiates a typical pathway but does not erase regional, species, or process variability."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "paper-fold",
           "2->3": "push-y",
           "3->4": "ink-spread",
           "4->5": "paper-fold"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "FEMS Microbiology Reviews / PubMed",
+              "title": "Functional role of yeasts, lactic acid bacteria and acetic acid bacteria in cocoa fermentation processes",
+              "citation": "De Vuyst L, Leroy F. FEMS Microbiol Rev. 2020;44(4):432–453. PMID 32420601.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/32420601/",
+              "supports": "Supports the typical yeast–LAB–AAB succession, yeast conversion of pulp glucose to ethanol, LAB production of lactic acid and other metabolites, AAB oxidation of ethanol to acetic acid, and formation of roast-ready precursors after seed structure is disrupted.",
+              "boundary": "A synthesis across cocoa fermentations; species, timing, metabolite balance, and sensory outcome still vary with process conditions."
+            },
+            {
+              "authority": "Critical Reviews in Food Science and Nutrition / PubMed",
+              "title": "The microbiology of cocoa fermentation and its role in chocolate quality",
+              "citation": "Schwan RF, Wheals AE. Crit Rev Food Sci Nutr. 2004;44(4):205–221. PMID 15462126.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/15462126/",
+              "supports": "Supports the ordered microbial succession and the combined role of ethanol, lactic and acetic acids, and fermentation temperatures reaching roughly 50 °C in killing the seed and initiating flavor-precursor production.",
+              "boundary": "The reported upper temperature is not a universal target; actual peaks depend on heap or box design, mass, turning, variety, weather, and local practice."
+            },
+            {
+              "authority": "International Cocoa Organization",
+              "title": "Harvesting & Post-harvest: Fermentation",
+              "citation": "ICCO. Harvesting & Post-harvest, Fermentation and Drying Cocoa Beans sections.",
+              "url": "https://www.icco.org/harvesting-post-harvest-new/",
+              "supports": "Supports that turning or mixing increases aeration and bacterial activity, that heat and acetic acid contribute to seed death and cellular mixing, and that early fermentation temperatures are often reported around 40–45 °C.",
+              "boundary": "ICCO presents a practical overview rather than one universal fermentation schedule; bean type and local method change duration and temperature."
+            },
+            {
+              "authority": "International Cocoa Organization",
+              "title": "Processing Cocoa",
+              "citation": "ICCO. Processing Cocoa: summary of fermentation, drying, and roasting.",
+              "url": "https://www.icco.org/processing-cocoa/",
+              "supports": "Supports the two-stage flavor boundary used in the closing scene: correct wet-bean fermentation develops flavor on farm, while roasting continues flavor development in the factory.",
+              "boundary": "The page intentionally summarizes a complex process and does not prescribe one roast or fermentation profile for every origin or product."
+            },
+            {
+              "authority": "Molecules / PubMed Central",
+              "title": "The Chemistry behind Chocolate Production",
+              "citation": "Barišić V et al. Molecules. 2019;24(17):3163. PMCID PMC6749277.",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6749277/",
+              "supports": "Supports fermentation as a precursor-forming stage and roasting as a later aroma-forming stage in which Maillard reactions and other chemistry transform amino acids, peptides, and reducing sugars.",
+              "boundary": "This is a chemistry review; the aroma wheel is illustrative of flavor families, not a promise that every fermentation produces every note."
+            },
+            {
+              "authority": "Frontiers in Microbiology",
+              "title": "A Combined Metagenomics and Metatranscriptomics Approach to Unravel Costa Rican Cocoa Box Fermentation Processes",
+              "citation": "Verce M et al. Front Microbiol. 2021;12:641185. doi:10.3389/fmicb.2021.641185.",
+              "url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2021.641185/full",
+              "supports": "Supports the condition-dependent relay shown in Scene 2: yeasts and LAB begin in a microaerobic pulp, then greater oxygen accessibility accompanies AAB oxidation of ethanol to acetic acid in measured Costa Rican box fermentations.",
+              "boundary": "The study covers three Costa Rican box fermentations; it substantiates a typical pathway but does not erase regional, species, or process variability."
+            }
+          ]
+        },
+        "modulePath": "../topics/cocoa-fermentation.tsx"
       },
       {
         "id": "raw-logs-to-report",
-        "topic": {
+        "styleId": "kitchen-prep-station",
+        "title": {
           "en": "From Raw Logs to Report",
           "zh": "日志到报告"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "From Raw Logs to Report",
@@ -16427,10 +16062,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kitchen-prep-station",
-            "name": "Kitchen Prep Station",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "日志到报告",
@@ -16537,50 +16169,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "kitchen-prep-station",
-            "name": "厨房备料台",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/raw-logs-to-report.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "report-recipe-rail",
           "invocation": "auto-hide",
           "feedback": "mechanical-displacement"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "wipe",
           "2->3": "wipe",
           "3->4": "slide-x",
           "4->5": "scale-fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/raw-logs-to-report.tsx"
       }
     ]
   },
   {
-    "id": "collaborative-pairing-board",
-    "name": {
-      "en": "Collaborative Pairing Board",
-      "zh": "协作配对板"
+    "style": {
+      "id": "collaborative-pairing-board",
+      "name": {
+        "en": "Collaborative Pairing Board",
+        "zh": "协作配对板"
+      },
+      "band": "balanced-hybrid"
     },
     "topics": [
       {
         "id": "pairing-board",
-        "topic": {
+        "styleId": "collaborative-pairing-board",
+        "title": {
           "en": "Pairing Board",
           "zh": "配对板"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Clean light neutral ground with calm professional accent. Shows two-party collaboration structures, cross-discipline pairing, and handoff workflows. Even-handed neutral typography lets the partnerships be the message.",
@@ -16688,10 +16321,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "collaborative-pairing-board",
-            "name": "Collaborative Pairing Board",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "干净的浅中性底色配冷静专业的点缀。展示双方协作结构、跨学科配对和交接工作流。公正的中性字体让伙伴关系成为信息本身。",
@@ -16799,18 +16429,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "collaborative-pairing-board",
-            "name": "协作配对板",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/pairing-board.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "pairing-board-progress-bars",
           "invocation": "persistent",
           "feedback": "geometry-reflow"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -16820,20 +16452,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "scale-fade",
-          "3->4": "scale-fade",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/pairing-board.tsx"
       },
       {
         "id": "shared-artifact",
-        "topic": {
+        "styleId": "collaborative-pairing-board",
+        "title": {
           "en": "Shared Artifact",
           "zh": "共享产物"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Two Teams, One Artifact",
@@ -16980,10 +16608,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "collaborative-pairing-board",
-            "name": "Collaborative Pairing Board",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "Two Teams, One Artifact / 两个团队，一份产物",
@@ -17130,18 +16755,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "collaborative-pairing-board",
-            "name": "协作配对板",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/shared-artifact.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "shared-artifact-latch-nav",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-x",
+          "3->4": "wipe",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -17151,20 +16778,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "slide-x",
-          "3->4": "wipe",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/shared-artifact.tsx"
       },
       {
         "id": "elevator-counterweight",
-        "topic": {
+        "styleId": "collaborative-pairing-board",
+        "title": {
           "en": "Counterweight",
           "zh": "电梯配重"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Elevator Counterweight",
@@ -17286,10 +16909,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "collaborative-pairing-board",
-            "name": "Collaborative Pairing Board",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "电梯配重",
@@ -17411,100 +17031,98 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "collaborative-pairing-board",
-            "name": "协作配对板",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/elevator-counterweight.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "counterweight-cable",
           "invocation": "proximity-reveal",
           "feedback": "geometry-reflow"
         },
-        "sources": [
-          {
-            "id": "asme-a17",
-            "authority": "ASME",
-            "title": "A17 — Elevators and Escalators Offerings",
-            "citation": "ASME Codes and Standards, A17 portfolio",
-            "url": "https://www.asme.org/resources/a17-elevators-and-escalators",
-            "supports": "ASME identifies A17.1/CSA B44 as the safety-code family for elevator design and identifies A17.6 as the dedicated standard for suspension, compensation, and governor systems.",
-            "claimIds": [
-              "scene-4:safety-chain",
-              "scene-5:distinct-responsibilities"
-            ]
-          },
-          {
-            "id": "tke-traction-elevators",
-            "authority": "TK Elevator",
-            "title": "Traction Versus Hydraulic Elevators",
-            "citation": "TK Elevator, traction-elevator system and advantages sections",
-            "url": "https://www.tkelevator.com/us-en/company/insights/traction-versus-hydraulic-elevators.html",
-            "supports": "TK Elevator explains that traction elevators use belts or steel ropes with a counterweight and that offsetting cab and occupant weight means the motor moves less weight, improving energy efficiency in the stated applications.",
-            "claimIds": [
-              "scene-3:reduced-machine-effort",
-              "scene-5:distinct-responsibilities"
-            ]
-          },
-          {
-            "id": "kone-elevator-glossary",
-            "authority": "KONE",
-            "title": "Elevator Glossary",
-            "citation": "KONE Distributors technical glossary, entries for balancing ratio, balancing weight, counterweight, governor, and safety gear",
-            "url": "https://distributors.kone.com/en/tools-downloads/glossary/",
-            "supports": "KONE defines balancing ratio as a selected share of rated load, describes balancing weight as balancing all or part of the car, sling, and rated load, and defines the rope-elevator drive system as supplying motor energy and regulating speed.",
-            "claimIds": [
-              "scene-2:design-reference",
-              "scene-3:drive-regulation",
-              "scene-5:distinct-responsibilities"
-            ]
-          },
-          {
-            "id": "otis-basic-lift-workings",
-            "authority": "Otis",
-            "title": "Understanding Basic Workings of a Lift",
-            "citation": "Otis UK technical explainer, traction-lift section",
-            "url": "https://www.otis.com/en-GB/w/the-basic-workings-of-a-lift",
-            "supports": "Otis describes ropes or belts over a machine sheave, the car and counterweight moving in opposite directions to reduce required energy, and the controller and drive regulating elevator speed.",
-            "claimIds": [
-              "scene-1:traction-pair",
-              "scene-3:drive-regulation",
-              "scene-5:distinct-responsibilities"
-            ]
-          },
-          {
-            "id": "otis-high-rise-safety-systems",
-            "authority": "Otis",
-            "title": "High-Rise Safety Systems",
-            "citation": "Otis technical safety-system explainer",
-            "url": "https://www.otis.com/en/us/tools-resources/high-rise-safety-systems",
-            "supports": "Otis distinguishes the motor, traction sheave, machine brake, overspeed governor, and car safeties, and explains that a governor can engage car safeties that clamp the hoistway rails during an overspeed condition.",
-            "claimIds": [
-              "scene-4:safety-chain",
-              "scene-5:distinct-responsibilities"
-            ]
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "split-merge",
           "2->3": "focus-swap",
           "3->4": "push-y",
           "4->5": "split-merge"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "asme-a17",
+              "authority": "ASME",
+              "title": "A17 — Elevators and Escalators Offerings",
+              "citation": "ASME Codes and Standards, A17 portfolio",
+              "url": "https://www.asme.org/resources/a17-elevators-and-escalators",
+              "supports": "ASME identifies A17.1/CSA B44 as the safety-code family for elevator design and identifies A17.6 as the dedicated standard for suspension, compensation, and governor systems.",
+              "claimIds": [
+                "scene-4:safety-chain",
+                "scene-5:distinct-responsibilities"
+              ]
+            },
+            {
+              "id": "tke-traction-elevators",
+              "authority": "TK Elevator",
+              "title": "Traction Versus Hydraulic Elevators",
+              "citation": "TK Elevator, traction-elevator system and advantages sections",
+              "url": "https://www.tkelevator.com/us-en/company/insights/traction-versus-hydraulic-elevators.html",
+              "supports": "TK Elevator explains that traction elevators use belts or steel ropes with a counterweight and that offsetting cab and occupant weight means the motor moves less weight, improving energy efficiency in the stated applications.",
+              "claimIds": [
+                "scene-3:reduced-machine-effort",
+                "scene-5:distinct-responsibilities"
+              ]
+            },
+            {
+              "id": "kone-elevator-glossary",
+              "authority": "KONE",
+              "title": "Elevator Glossary",
+              "citation": "KONE Distributors technical glossary, entries for balancing ratio, balancing weight, counterweight, governor, and safety gear",
+              "url": "https://distributors.kone.com/en/tools-downloads/glossary/",
+              "supports": "KONE defines balancing ratio as a selected share of rated load, describes balancing weight as balancing all or part of the car, sling, and rated load, and defines the rope-elevator drive system as supplying motor energy and regulating speed.",
+              "claimIds": [
+                "scene-2:design-reference",
+                "scene-3:drive-regulation",
+                "scene-5:distinct-responsibilities"
+              ]
+            },
+            {
+              "id": "otis-basic-lift-workings",
+              "authority": "Otis",
+              "title": "Understanding Basic Workings of a Lift",
+              "citation": "Otis UK technical explainer, traction-lift section",
+              "url": "https://www.otis.com/en-GB/w/the-basic-workings-of-a-lift",
+              "supports": "Otis describes ropes or belts over a machine sheave, the car and counterweight moving in opposite directions to reduce required energy, and the controller and drive regulating elevator speed.",
+              "claimIds": [
+                "scene-1:traction-pair",
+                "scene-3:drive-regulation",
+                "scene-5:distinct-responsibilities"
+              ]
+            },
+            {
+              "id": "otis-high-rise-safety-systems",
+              "authority": "Otis",
+              "title": "High-Rise Safety Systems",
+              "citation": "Otis technical safety-system explainer",
+              "url": "https://www.otis.com/en/us/tools-resources/high-rise-safety-systems",
+              "supports": "Otis distinguishes the motor, traction sheave, machine brake, overspeed governor, and car safeties, and explains that a governor can engage car safeties that clamp the hoistway rails during an overspeed condition.",
+              "claimIds": [
+                "scene-4:safety-chain",
+                "scene-5:distinct-responsibilities"
+              ]
+            }
+          ]
+        },
+        "modulePath": "../topics/elevator-counterweight.tsx"
       },
       {
         "id": "human-reviews-ai",
-        "topic": {
+        "styleId": "collaborative-pairing-board",
+        "title": {
           "en": "Human Reviews the AI",
           "zh": "人审 AI"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Human Reviews the AI",
@@ -17613,10 +17231,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "collaborative-pairing-board",
-            "name": "Collaborative Pairing Board",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "人审 AI",
@@ -17725,50 +17340,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "collaborative-pairing-board",
-            "name": "协作配对板",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/human-reviews-ai.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "review-seam-tabs",
           "invocation": "auto-hide",
           "feedback": "geometry-reflow"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-x",
           "2->3": "slide-x",
           "3->4": "fade",
           "4->5": "scale-fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/human-reviews-ai.tsx"
       }
     ]
   },
   {
-    "id": "studio-mixing-console",
-    "name": {
-      "en": "Studio Mixing Console",
-      "zh": "录音混音控制台"
+    "style": {
+      "id": "studio-mixing-console",
+      "name": {
+        "en": "Studio Mixing Console",
+        "zh": "录音混音控制台"
+      },
+      "band": "balanced-hybrid"
     },
     "topics": [
       {
         "id": "mixing-console",
-        "topic": {
+        "styleId": "studio-mixing-console",
+        "title": {
           "en": "Mixing Console",
           "zh": "混音台"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Deep studio-dark background with metallic hardware-feel panels. Vivid meter colors (green/yellow/red) appear only on fader indicators — never as floods. Compact technical/monospace labels give pro-audio gear feel. Best for parameter tuning, balancing multiple inputs, and showing levels.",
@@ -17884,10 +17500,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "studio-mixing-console",
-            "name": "Studio Mixing Console",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "深色录音棚背景配金属质感硬件面板。鲜明的电平颜色（绿/黄/红）仅出现在推子指示器上——从不泛滥。紧凑的技术/等宽标签营造专业音频设备感。最适合参数调优、平衡多路输入和显示电平。",
@@ -18003,18 +17616,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "studio-mixing-console",
-            "name": "录音混音控制台",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/mixing-console.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "mixing-console-scene-dots",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "slide-y"
         },
         "evidence": {
           "kind": "illustrative",
@@ -18024,20 +17639,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-y",
-          "2->3": "slide-y",
-          "3->4": "slide-y",
-          "4->5": "slide-y"
-        }
+        "modulePath": "../topics/mixing-console.tsx"
       },
       {
         "id": "operating-model",
-        "topic": {
+        "styleId": "studio-mixing-console",
+        "title": {
           "en": "Operating Model",
           "zh": "运营模型"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Tuning the Operating Model",
@@ -18178,10 +17789,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "studio-mixing-console",
-            "name": "Studio Mixing Console",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "调校运营模型",
@@ -18322,18 +17930,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "studio-mixing-console",
-            "name": "录音混音控制台",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/operating-model.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "operating-model-fader-rail",
           "invocation": "persistent",
           "feedback": "mechanical-displacement"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "glitch",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -18343,20 +17953,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-y",
-          "2->3": "glitch",
-          "3->4": "scale-fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/operating-model.tsx"
       },
       {
         "id": "tidal-time",
-        "topic": {
+        "styleId": "studio-mixing-console",
+        "title": {
           "en": "Tidal Time",
           "zh": "潮汐时差"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Tidal Time",
@@ -18477,10 +18083,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "studio-mixing-console",
-            "name": "Studio Mixing Console",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "潮汐时差",
@@ -18601,66 +18204,64 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "studio-mixing-console",
-            "name": "录音混音控制台",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/tidal-time.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "tidal-fader-bank",
           "invocation": "proximity-reveal",
           "feedback": "material-color-change"
         },
-        "sources": [
-          {
-            "authority": "NASA Jet Propulsion Laboratory",
-            "title": "The Apollo Experiment That Keeps on Giving",
-            "citation": "NASA/JPL News, 24 July 2019",
-            "url": "https://www.jpl.nasa.gov/news/the-apollo-experiment-that-keeps-on-giving/",
-            "supports": "Lunar laser ranging uses Apollo retroreflectors to measure Earth–Moon distance to millimeter scale, finds about 3.8 centimeters of present recession per year, and links the offset ocean tide to slower Earth rotation and a wider lunar orbit."
-          },
-          {
-            "authority": "NASA Science",
-            "title": "Tidal Locking",
-            "citation": "NASA Science Moon, updated 12 February 2026",
-            "url": "https://science.nasa.gov/moon/tidal-locking/",
-            "supports": "Earth's ocean bulges are out of phase with the Moon; the interaction dissipates energy, slows Earth's rotation, alters the Moon's orbital motion, and carries the Moon outward at roughly four centimeters per year today."
-          },
-          {
-            "authority": "International Laser Ranging Service",
-            "title": "SLR Measures the Tides — Earth/Moon Evolution",
-            "citation": "ILRS Science Contributions, NASA Goddard Space Flight Center",
-            "url": "https://ilrs.gsfc.nasa.gov/science/scienceContributions/tides.html",
-            "supports": "Laser ranging identifies tidal dissipation and momentum/energy exchange as the dominant explanation for the expanding lunar orbit, and explicitly warns that the current expansion rate cannot be projected unchanged into deep time."
-          },
-          {
-            "authority": "Nature / Oregon State University / NASA Goddard",
-            "title": "Significant dissipation of tidal energy in the deep ocean inferred from satellite altimeter data",
-            "citation": "Egbert, G. D. & Ray, R. D. (2000), Nature 405, 775–778. doi:10.1038/35015531",
-            "url": "https://www.nature.com/articles/35015531",
-            "supports": "Satellite altimetry maps substantial deep-ocean tidal dissipation near rough ocean-bottom topography; the study frames shallow-sea bottom friction and scattering of surface tides into internal waves as distinct candidate pathways."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "push-y",
           "2->3": "push-x",
           "3->4": "afterimage",
           "4->5": "focus-swap"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "NASA Jet Propulsion Laboratory",
+              "title": "The Apollo Experiment That Keeps on Giving",
+              "citation": "NASA/JPL News, 24 July 2019",
+              "url": "https://www.jpl.nasa.gov/news/the-apollo-experiment-that-keeps-on-giving/",
+              "supports": "Lunar laser ranging uses Apollo retroreflectors to measure Earth–Moon distance to millimeter scale, finds about 3.8 centimeters of present recession per year, and links the offset ocean tide to slower Earth rotation and a wider lunar orbit."
+            },
+            {
+              "authority": "NASA Science",
+              "title": "Tidal Locking",
+              "citation": "NASA Science Moon, updated 12 February 2026",
+              "url": "https://science.nasa.gov/moon/tidal-locking/",
+              "supports": "Earth's ocean bulges are out of phase with the Moon; the interaction dissipates energy, slows Earth's rotation, alters the Moon's orbital motion, and carries the Moon outward at roughly four centimeters per year today."
+            },
+            {
+              "authority": "International Laser Ranging Service",
+              "title": "SLR Measures the Tides — Earth/Moon Evolution",
+              "citation": "ILRS Science Contributions, NASA Goddard Space Flight Center",
+              "url": "https://ilrs.gsfc.nasa.gov/science/scienceContributions/tides.html",
+              "supports": "Laser ranging identifies tidal dissipation and momentum/energy exchange as the dominant explanation for the expanding lunar orbit, and explicitly warns that the current expansion rate cannot be projected unchanged into deep time."
+            },
+            {
+              "authority": "Nature / Oregon State University / NASA Goddard",
+              "title": "Significant dissipation of tidal energy in the deep ocean inferred from satellite altimeter data",
+              "citation": "Egbert, G. D. & Ray, R. D. (2000), Nature 405, 775–778. doi:10.1038/35015531",
+              "url": "https://www.nature.com/articles/35015531",
+              "supports": "Satellite altimetry maps substantial deep-ocean tidal dissipation near rough ocean-bottom topography; the study frames shallow-sea bottom friction and scattering of surface tides into internal waves as distinct candidate pathways."
+            }
+          ]
+        },
+        "modulePath": "../topics/tidal-time.tsx"
       },
       {
         "id": "tuning-the-model",
-        "topic": {
+        "styleId": "studio-mixing-console",
+        "title": {
           "en": "Tuning the Model",
           "zh": "调模型"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Tuning the Model",
@@ -18771,10 +18372,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "studio-mixing-console",
-            "name": "Studio Mixing Console",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "调模型",
@@ -18885,50 +18483,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "studio-mixing-console",
-            "name": "录音混音控制台",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/tuning-the-model.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "model-channel-selector",
           "invocation": "auto-hide",
           "feedback": "material-color-change"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-y",
           "2->3": "slide-y",
           "3->4": "hard-cut",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/tuning-the-model.tsx"
       }
     ]
   },
   {
-    "id": "debug-reaction-board",
-    "name": {
-      "en": "Debug Reaction Board",
-      "zh": "调试反应面板"
+    "style": {
+      "id": "debug-reaction-board",
+      "name": {
+        "en": "Debug Reaction Board",
+        "zh": "调试反应面板"
+      },
+      "band": "balanced-hybrid"
     },
     "topics": [
       {
         "id": "debug-board",
-        "topic": {
+        "styleId": "debug-reaction-board",
+        "title": {
           "en": "Debug Board",
           "zh": "调试面板"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Dark IDE diagnostic dashboard — traffic-light status vocabulary, monospaced throughout, color-coded diagnostic items with explicit state indicators",
@@ -19045,10 +18644,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "debug-reaction-board",
-            "name": "Debug Reaction Board",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "深色 IDE 诊断仪表板——红绿灯状态词汇、全程等宽字体、带明确状态指示的彩色诊断项",
@@ -19165,18 +18761,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "debug-reaction-board",
-            "name": "调试反应面板",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/debug-board.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "debug-board-scene-dots",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "hard-cut",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -19186,20 +18784,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "hard-cut",
-          "2->3": "hard-cut",
-          "3->4": "hard-cut",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/debug-board.tsx"
       },
       {
         "id": "learning-incident",
-        "topic": {
+        "styleId": "debug-reaction-board",
+        "title": {
           "en": "Learning Incident",
           "zh": "学习事故"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "The Incident Learns",
@@ -19346,10 +18940,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "debug-reaction-board",
-            "name": "Debug Reaction Board",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "事故学会了",
@@ -19496,18 +19087,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "debug-reaction-board",
-            "name": "调试反应面板",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/learning-incident.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "learning-incident-status-leds",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "slide-x",
+          "3->4": "wipe",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -19517,20 +19110,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "glitch",
-          "2->3": "slide-x",
-          "3->4": "wipe",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/learning-incident.tsx"
       },
       {
         "id": "acoustic-crack",
-        "topic": {
+        "styleId": "debug-reaction-board",
+        "title": {
           "en": "Acoustic Crack",
           "zh": "听裂缝"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Listening for a Crack — acoustic-emission location as an inspection lead, not an automatic diagnosis",
@@ -19656,10 +19245,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "debug-reaction-board",
-            "name": "Debug Reaction Board",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "听裂缝——把声发射事件定位为检查线索，而非自动诊断",
@@ -19785,95 +19371,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "debug-reaction-board",
-            "name": "调试反应面板",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/acoustic-crack.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "acoustic-trace-ruler",
           "invocation": "proximity-reveal",
           "feedback": "mechanical-displacement"
         },
-        "sources": [
-          {
-            "id": "fhwa-ae",
-            "stamp": "FHWA/AE",
-            "claimIds": [
-              "baseline-window",
-              "sensor-baseline",
-              "active-energy-release",
-              "arrival-time-location",
-              "localization-uncertainty",
-              "noise-discrimination"
-            ],
-            "authority": "Federal Highway Administration",
-            "title": "Bridge — Acoustic Emission (AE)",
-            "citation": "FHWA InfoTechnology, Bridge — Acoustic Emission (AE), accessed 10 July 2026",
-            "url": "https://infotechnology.fhwa.dot.gov/acoustic-emission-ae/",
-            "supports": "Supports the bridge application, transient elastic waves from evolving damage, surface-mounted sensors, arrival-time and wave-velocity source location, guard sensors, active-versus-arrested crack boundary, and the need to discriminate ambient noise."
-          },
-          {
-            "id": "fhwa-nde",
-            "stamp": "FHWA/NDE",
-            "claimIds": [
-              "baseline-window",
-              "sensor-baseline",
-              "active-energy-release",
-              "localization-uncertainty",
-              "noise-discrimination",
-              "inspection-handoff"
-            ],
-            "authority": "Federal Highway Administration",
-            "title": "Feasibility of Nondestructive Crack Detection and Monitoring for Steel Bridges",
-            "citation": "FHWA-HRT-12-060 (2012), Feasibility of Nondestructive Crack Detection and Monitoring for Steel Bridges",
-            "url": "https://www.fhwa.dot.gov/publications/research/nde/12060/index.cfm",
-            "supports": "Supports acoustic emission as rapid energy release in a transient elastic stress wave, the distinction between crack-growth monitoring and crack sizing, the requirement to combine AE with other NDE for quantitative defect information, and the field importance of signal discrimination and noise reduction."
-          },
-          {
-            "id": "iso-12714",
-            "stamp": "ISO",
-            "claimIds": [
-              "sensor-baseline",
-              "waveform-context"
-            ],
-            "authority": "International Organization for Standardization",
-            "title": "ISO 12714:1999 — Secondary calibration of acoustic emission sensors",
-            "citation": "ISO 12714:1999, Non-destructive testing — Acoustic emission inspection — Secondary calibration of acoustic emission sensors",
-            "url": "https://www.iso.org/standard/2343.html",
-            "supports": "Supports treating acoustic-emission sensors as calibrated receivers of elastic waves at a solid surface and treating frequency response as an instrument property that must be established rather than assumed from a generic waveform icon."
-          },
-          {
-            "id": "nist-waveform",
-            "stamp": "NIST",
-            "claimIds": [
-              "active-energy-release",
-              "waveform-context"
-            ],
-            "authority": "National Institute of Standards and Technology",
-            "title": "Using Acoustic Emission Waveform Characterization to Ascertain Where Cracks Originate in Concrete",
-            "citation": "Farnam, Geiker, Bentz & Weiss (2015), Cement and Concrete Composites 60, 135–145, doi:10.1016/j.cemconcomp.2015.04.008",
-            "url": "https://www.nist.gov/publications/using-acoustic-emission-waveform-characterization-ascertain-where-cracks-originate",
-            "supports": "Supports passive AE from cracking and microcracking while documenting that waveform properties depend on released energy, distance, source, orientation, and transfer medium; this bounds frequency display as contextual evidence, not a universal crack-type classifier."
-          },
-          {
-            "id": "tudelft-localization",
-            "stamp": "TU/D",
-            "claimIds": [
-              "arrival-time-location",
-              "localization-uncertainty",
-              "noise-discrimination"
-            ],
-            "authority": "Delft University of Technology",
-            "title": "Evaluation of acoustic emission source localization accuracy in concrete structures",
-            "citation": "Zhang, Pahlavan & Yang (2020), Structural Health Monitoring 19(6), 2063–2074, doi:10.1177/1475921720915625",
-            "url": "https://repository.tudelft.nl/record/uuid:3f16f4bd-2c5f-4f12-ae5d-ad3c928b4e67",
-            "supports": "Supports the localization uncertainty boundary: cracks in the propagation path, arrival-time picking error, sensor layout, attenuation, material wave speed, and noise can all move an estimated source location and require calibration."
-          }
-        ],
+        "transitionScore": {
+          "1->2": "scanline",
+          "2->3": "focus-swap",
+          "3->4": "dip-to-color",
+          "4->5": "scanline"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -19956,22 +19468,18 @@ export const CATALOG_MANIFEST = [
             "en": "Acoustic-emission monitoring can prioritize inspection; it does not by itself classify or size a defect.",
             "zh": "声发射监测可以确定检查优先级；它本身不能判定缺陷类型或尺寸。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scanline",
-          "2->3": "focus-swap",
-          "3->4": "dip-to-color",
-          "4->5": "scanline"
-        }
+        "modulePath": "../topics/acoustic-crack.tsx"
       },
       {
         "id": "safe-to-deploy",
-        "topic": {
+        "styleId": "debug-reaction-board",
+        "title": {
           "en": "Is It Safe to Deploy?",
           "zh": "能发布吗"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Is It Safe to Deploy?",
@@ -20082,10 +19590,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "debug-reaction-board",
-            "name": "Debug Reaction Board",
-            "band": "balanced-hybrid"
+            ]
           },
           "zh": {
             "theme": "能发布吗",
@@ -20196,50 +19701,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "debug-reaction-board",
-            "name": "调试反应面板",
-            "band": "balanced-hybrid"
+            ]
           }
         },
-        "modulePath": "../topics/safe-to-deploy.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "deploy-status-ticks",
           "invocation": "auto-hide",
           "feedback": "typographic-emphasis"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "hard-cut",
           "3->4": "slide-x",
           "4->5": "glitch"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/safe-to-deploy.tsx"
       }
     ]
   },
   {
-    "id": "front-page-broadsheet",
-    "name": {
-      "en": "Front-Page Broadsheet",
-      "zh": "头版大报"
+    "style": {
+      "id": "front-page-broadsheet",
+      "name": {
+        "en": "Front-Page Broadsheet",
+        "zh": "头版大报"
+      },
+      "band": "editorial-print"
     },
     "topics": [
       {
         "id": "broadsheet",
-        "topic": {
+        "styleId": "front-page-broadsheet",
+        "title": {
           "en": "Broadsheet",
           "zh": "大报头版"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Narrative-heavy briefings and long-form story arcs — dense newsprint authority with nameplate journalism gravitas",
@@ -20359,10 +19865,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "front-page-broadsheet",
-            "name": "Front-Page Broadsheet",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "叙事型深度报道与长篇故事弧线——密集新闻纸权威感配以报头式新闻庄重感",
@@ -20482,13 +19985,9 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "front-page-broadsheet",
-            "name": "头版大报",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/broadsheet.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "broadsheet-scene-dots",
@@ -20500,15 +19999,20 @@ export const CATALOG_MANIFEST = [
           "2->3": "page-flip",
           "3->4": "page-flip",
           "4->5": "page-flip"
-        }
+        },
+        "evidence": {
+          "kind": "none"
+        },
+        "modulePath": "../topics/broadsheet.tsx"
       },
       {
         "id": "after-launch",
-        "topic": {
+        "styleId": "front-page-broadsheet",
+        "title": {
           "en": "After Launch",
           "zh": "发布翌日"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "The Morning After Launch",
@@ -20656,10 +20160,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "front-page-broadsheet",
-            "name": "Front-Page Broadsheet",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "发布后的清晨",
@@ -20807,13 +20308,9 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "front-page-broadsheet",
-            "name": "头版大报",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/after-launch.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "launch-folio-navigation",
@@ -20825,15 +20322,20 @@ export const CATALOG_MANIFEST = [
           "2->3": "slide-y",
           "3->4": "wipe",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "none"
+        },
+        "modulePath": "../topics/after-launch.tsx"
       },
       {
         "id": "rogue-wave",
-        "topic": {
+        "styleId": "front-page-broadsheet",
+        "title": {
           "en": "Rogue Wave",
           "zh": "怪浪"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "The Rogue Wave File",
@@ -20954,10 +20456,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "front-page-broadsheet",
-            "name": "Front-Page Broadsheet",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "怪浪档案",
@@ -21078,78 +20577,76 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "front-page-broadsheet",
-            "name": "头版大报",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/rogue-wave.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "wavefront-clipping-deck",
           "invocation": "persistent",
           "feedback": "geometry-reflow"
         },
-        "sources": [
-          {
-            "authority": "NOAA National Data Buoy Center",
-            "title": "How significant wave height is calculated",
-            "citation": "NOAA NDBC. How are significant wave height, dominant period, average period, and wave steepness calculated?",
-            "url": "https://www.ndbc.noaa.gov/faq/wavecalc.shtml",
-            "supports": "Supports the denominator used on the measurement page: significant wave height is approximately the average trough-to-crest height of the highest one-third of waves and is estimated from the wave spectrum.",
-            "boundary": "This measurement note defines Hs; it does not itself define every rogue-wave screening convention or identify the mechanism behind a particular extreme crest."
-          },
-          {
-            "authority": "American Meteorological Society",
-            "title": "Are Rogue Waves Really Unexpected?",
-            "citation": "Fedele, F. (2016). Are Rogue Waves Really Unexpected? Journal of Physical Oceanography, 46(5), 1495–1508. doi:10.1175/JPO-D-15-0137.1.",
-            "url": "https://doi.org/10.1175/JPO-D-15-0137.1",
-            "supports": "Supports the Draupner comparison printed on the front page: Hs 11.9 m, crest-to-trough height 25.6 m, crest 18.5 m, and H/Hs 2.15 for the recorded event.",
-            "boundary": "The ratios describe one instrument record and a statistical framing of rarity; they are not a universal forecast threshold or proof of one generating mechanism."
-          },
-          {
-            "authority": "Scientific Reports",
-            "title": "Real world ocean rogue waves explained without the modulational instability",
-            "citation": "Fedele, F., Brennan, J., Ponce de León, S., Dudley, J. M., & Dias, F. (2016). Scientific Reports, 6, 27715. doi:10.1038/srep27715.",
-            "url": "https://doi.org/10.1038/srep27715",
-            "supports": "Supports presenting constructive interference and second-order bound nonlinearities as a sufficient explanation for several measured waves without requiring modulational instability in those cases.",
-            "boundary": "The paper argues that modulational instability was unnecessary for the records it analyzed; the slide does not generalize that result into a claim that nonlinear focusing never occurs."
-          },
-          {
-            "authority": "Journal of Geophysical Research: Oceans",
-            "title": "The Draupner wave: A fresh look and the emerging view",
-            "citation": "Cavaleri, L. et al. (2016). The Draupner wave: A fresh look and the emerging view. JGR Oceans, 121. doi:10.1002/2016JC011649.",
-            "url": "https://doi.org/10.1002/2016JC011649",
-            "supports": "Supports the crossing-sea interpretation as a plausible part of the Draupner sea state and the broader claim that directional structure matters when evaluating extreme-wave likelihood.",
-            "boundary": "The directional sea state was reconstructed with a model rather than fully measured at the platform, so the clipping labels crossing seas as plausible, not proven."
-          },
-          {
-            "authority": "Annual Review of Fluid Mechanics",
-            "title": "Oceanic Rogue Waves",
-            "citation": "Dysthe, K., Krogstad, H. E., & Müller, P. (2008). Oceanic Rogue Waves. Annual Review of Fluid Mechanics, 40, 287–310. doi:10.1146/annurev.fluid.40.111406.102203.",
-            "url": "https://doi.org/10.1146/annurev.fluid.40.111406.102203",
-            "supports": "Supports the multi-route mechanism ledger: dispersive and directional focusing, wave-current interaction, and nonlinear effects can each alter the tail of an extreme sea-state distribution.",
-            "boundary": "This is a synthesis of candidate mechanisms and observations, not a diagnostic that can assign a mechanism to one wave without directional spectra and local current measurements."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "page-turn",
           "2->3": "hard-cut",
           "3->4": "crossfade",
           "4->5": "page-turn"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "NOAA National Data Buoy Center",
+              "title": "How significant wave height is calculated",
+              "citation": "NOAA NDBC. How are significant wave height, dominant period, average period, and wave steepness calculated?",
+              "url": "https://www.ndbc.noaa.gov/faq/wavecalc.shtml",
+              "supports": "Supports the denominator used on the measurement page: significant wave height is approximately the average trough-to-crest height of the highest one-third of waves and is estimated from the wave spectrum.",
+              "boundary": "This measurement note defines Hs; it does not itself define every rogue-wave screening convention or identify the mechanism behind a particular extreme crest."
+            },
+            {
+              "authority": "American Meteorological Society",
+              "title": "Are Rogue Waves Really Unexpected?",
+              "citation": "Fedele, F. (2016). Are Rogue Waves Really Unexpected? Journal of Physical Oceanography, 46(5), 1495–1508. doi:10.1175/JPO-D-15-0137.1.",
+              "url": "https://doi.org/10.1175/JPO-D-15-0137.1",
+              "supports": "Supports the Draupner comparison printed on the front page: Hs 11.9 m, crest-to-trough height 25.6 m, crest 18.5 m, and H/Hs 2.15 for the recorded event.",
+              "boundary": "The ratios describe one instrument record and a statistical framing of rarity; they are not a universal forecast threshold or proof of one generating mechanism."
+            },
+            {
+              "authority": "Scientific Reports",
+              "title": "Real world ocean rogue waves explained without the modulational instability",
+              "citation": "Fedele, F., Brennan, J., Ponce de León, S., Dudley, J. M., & Dias, F. (2016). Scientific Reports, 6, 27715. doi:10.1038/srep27715.",
+              "url": "https://doi.org/10.1038/srep27715",
+              "supports": "Supports presenting constructive interference and second-order bound nonlinearities as a sufficient explanation for several measured waves without requiring modulational instability in those cases.",
+              "boundary": "The paper argues that modulational instability was unnecessary for the records it analyzed; the slide does not generalize that result into a claim that nonlinear focusing never occurs."
+            },
+            {
+              "authority": "Journal of Geophysical Research: Oceans",
+              "title": "The Draupner wave: A fresh look and the emerging view",
+              "citation": "Cavaleri, L. et al. (2016). The Draupner wave: A fresh look and the emerging view. JGR Oceans, 121. doi:10.1002/2016JC011649.",
+              "url": "https://doi.org/10.1002/2016JC011649",
+              "supports": "Supports the crossing-sea interpretation as a plausible part of the Draupner sea state and the broader claim that directional structure matters when evaluating extreme-wave likelihood.",
+              "boundary": "The directional sea state was reconstructed with a model rather than fully measured at the platform, so the clipping labels crossing seas as plausible, not proven."
+            },
+            {
+              "authority": "Annual Review of Fluid Mechanics",
+              "title": "Oceanic Rogue Waves",
+              "citation": "Dysthe, K., Krogstad, H. E., & Müller, P. (2008). Oceanic Rogue Waves. Annual Review of Fluid Mechanics, 40, 287–310. doi:10.1146/annurev.fluid.40.111406.102203.",
+              "url": "https://doi.org/10.1146/annurev.fluid.40.111406.102203",
+              "supports": "Supports the multi-route mechanism ledger: dispersive and directional focusing, wave-current interaction, and nonlinear effects can each alter the tail of an extreme sea-state distribution.",
+              "boundary": "This is a synthesis of candidate mechanisms and observations, not a diagnostic that can assign a mechanism to one wave without directional spectra and local current measurements."
+            }
+          ]
+        },
+        "modulePath": "../topics/rogue-wave.tsx"
       },
       {
         "id": "day-feed-stopped",
-        "topic": {
+        "styleId": "front-page-broadsheet",
+        "title": {
           "en": "The Day the Feed Stopped",
           "zh": "信息流停摆"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "The Day the Feed Stopped",
@@ -21263,10 +20760,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "front-page-broadsheet",
-            "name": "Front-Page Broadsheet",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "信息流停摆",
@@ -21380,50 +20874,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "front-page-broadsheet",
-            "name": "头版大报",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/day-feed-stopped.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "feed-page-spine",
           "invocation": "proximity-reveal",
           "feedback": "active-glow"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "page-flip",
           "2->3": "slide-y",
           "3->4": "slide-y",
           "4->5": "page-flip"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/day-feed-stopped.tsx"
       }
     ]
   },
   {
-    "id": "magazine-masthead",
-    "name": {
-      "en": "Magazine Masthead",
-      "zh": "杂志刊头"
+    "style": {
+      "id": "magazine-masthead",
+      "name": {
+        "en": "Magazine Masthead",
+        "zh": "杂志刊头"
+      },
+      "band": "editorial-print"
     },
     "topics": [
       {
         "id": "masthead",
-        "topic": {
+        "styleId": "magazine-masthead",
+        "title": {
           "en": "Masthead",
           "zh": "杂志刊头"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Deck covers and section thresholds with editorial gravitas — saturated color field, theatrical serif, and masthead authority",
@@ -21539,10 +21034,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "magazine-masthead",
-            "name": "Magazine Masthead",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "封面与章节门槛——饱和色域、戏剧化衬线字体与刊头式出版权威感",
@@ -21658,13 +21150,9 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "magazine-masthead",
-            "name": "杂志刊头",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/masthead.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "masthead-scene-dots",
@@ -21676,15 +21164,20 @@ export const CATALOG_MANIFEST = [
           "2->3": "fade",
           "3->4": "fade",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "none"
+        },
+        "modulePath": "../topics/masthead.tsx"
       },
       {
         "id": "product-cover",
-        "topic": {
+        "styleId": "magazine-masthead",
+        "title": {
           "en": "Product Cover",
           "zh": "产品封面"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "A Product Gets a Cover",
@@ -21826,10 +21319,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "magazine-masthead",
-            "name": "Magazine Masthead",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "一个产品登上封面",
@@ -21971,13 +21461,9 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "magazine-masthead",
-            "name": "杂志刊头",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/product-cover.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "product-cover-issue-strip",
@@ -21989,15 +21475,20 @@ export const CATALOG_MANIFEST = [
           "2->3": "page-flip",
           "3->4": "slide-x",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "none"
+        },
+        "modulePath": "../topics/product-cover.tsx"
       },
       {
         "id": "moth-experiment",
-        "topic": {
+        "styleId": "magazine-masthead",
+        "title": {
           "en": "Moth Experiment",
           "zh": "桦尺蛾实验"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "The Moth Experiment, Reopened",
@@ -22126,10 +21617,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "magazine-masthead",
-            "name": "Magazine Masthead",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "重审桦尺蛾实验",
@@ -22258,107 +21746,105 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "magazine-masthead",
-            "name": "杂志刊头",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/moth-experiment.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "moth-specimen-cards",
           "invocation": "auto-hide",
           "feedback": "material-color-change"
         },
-        "sources": [
-          {
-            "id": "kettlewell-1955",
-            "claimIds": [
-              "background-predation-field-test"
-            ],
-            "shortLabel": {
-              "en": "Kettlewell 1955",
-              "zh": "Kettlewell 1955"
-            },
-            "authority": "Heredity / Springer Nature",
-            "title": "Selection experiments on industrial melanism in the Lepidoptera",
-            "citation": "Kettlewell, H. B. D. (1955). Selection experiments on industrial melanism in the Lepidoptera. Heredity, 9, 323–342. https://doi.org/10.1038/hdy.1955.36.",
-            "url": "https://www.nature.com/articles/hdy195536",
-            "supports": "Supports the early field-experiment frame: Kettlewell set out to test background advantage, whether visually hunting birds ate resting moths, and whether differently conspicuous forms were taken selectively.",
-            "boundary": "This original experiment is evidence about its own release, observation, and recapture designs. It does not by itself establish every later population-frequency pattern or exclude every other evolutionary process."
-          },
-          {
-            "id": "majerus-cook-2012",
-            "claimIds": [
-              "method-design-caveats",
-              "majerus-six-year-replication"
-            ],
-            "shortLabel": {
-              "en": "Cook et al. 2012",
-              "zh": "Cook 2012"
-            },
-            "authority": "The Royal Society / Biology Letters",
-            "title": "Selective bird predation on the peppered moth: the last experiment of Michael Majerus",
-            "citation": "Cook, L. M., Grant, B. S., Saccheri, I. J., & Mallet, J. (2012). Selective bird predation on the peppered moth: the last experiment of Michael Majerus. Biology Letters, 8, 609–612. https://doi.org/10.1098/rsbl.2011.1136.",
-            "url": "https://royalsocietypublishing.org/doi/10.1098/rsbl.2011.1136",
-            "supports": "Supports the later six-year field test: 4,864 moths were released at low, naturalistic density on substrates documented as normal resting sites; the study reported stronger bird predation against melanics at its unpolluted site.",
-            "boundary": "The result strengthens a camouflage-and-predation mechanism under that study's site and design. It is not a claim that visual predation alone explains every historical frequency change everywhere."
-          },
-          {
-            "id": "nhm-frequency-overview",
-            "claimIds": [
-              "historical-frequency-shift"
-            ],
-            "shortLabel": {
-              "en": "NHM London",
-              "zh": "NHM London"
-            },
-            "authority": "Natural History Museum, London",
-            "title": "Rainbow nature: life in bold black and white — Peppered moth",
-            "citation": "Natural History Museum, London. Rainbow nature: life in bold black and white — Peppered moth (Biston betularia).",
-            "url": "https://www.nhm.ac.uk/discover/rainbow-nature-life-in-black-and-white.html",
-            "supports": "Supports the morphology and historical-frequency context printed in the evidence file: light typica, dark carbonaria, the 1848 Manchester record, a 98% dark-form report for industrial Manchester in 1895, and later recovery of the lighter form after cleaner air.",
-            "boundary": "This Museum overview summarizes historical observation and environmental context. It is not a controlled predation experiment and should not be read as an isolated causal test."
-          },
-          {
-            "id": "cook-saccheri-2013-review",
-            "claimIds": [
-              "background-predation-field-test",
-              "historical-frequency-shift",
-              "method-design-caveats",
-              "majerus-six-year-replication",
-              "bounded-selection-inference"
-            ],
-            "shortLabel": {
-              "en": "Cook & Saccheri 2013",
-              "zh": "Cook 2013"
-            },
-            "authority": "Heredity / Springer Nature",
-            "title": "The peppered moth and industrial melanism: evolution of a natural selection case study",
-            "citation": "Cook, L. M., & Saccheri, I. J. (2013). The peppered moth and industrial melanism: evolution of a natural selection case study. Heredity, 110, 207–212. https://doi.org/10.1038/hdy.2012.92.",
-            "url": "https://www.nature.com/articles/hdy201292",
-            "supports": "Supports the review-level distinction between geographic and temporal frequency evidence, earlier mark–recapture and predation studies, their methodological caveats, and the later controlled field work.",
-            "boundary": "This review synthesizes a case study; it does not make a single photograph, a single release, or an individual researcher into the whole evidentiary history of industrial melanism."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "iris-open",
           "2->3": "crossfade",
           "3->4": "focus-swap",
           "4->5": "iris-open"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "kettlewell-1955",
+              "claimIds": [
+                "background-predation-field-test"
+              ],
+              "shortLabel": {
+                "en": "Kettlewell 1955",
+                "zh": "Kettlewell 1955"
+              },
+              "authority": "Heredity / Springer Nature",
+              "title": "Selection experiments on industrial melanism in the Lepidoptera",
+              "citation": "Kettlewell, H. B. D. (1955). Selection experiments on industrial melanism in the Lepidoptera. Heredity, 9, 323–342. https://doi.org/10.1038/hdy.1955.36.",
+              "url": "https://www.nature.com/articles/hdy195536",
+              "supports": "Supports the early field-experiment frame: Kettlewell set out to test background advantage, whether visually hunting birds ate resting moths, and whether differently conspicuous forms were taken selectively.",
+              "boundary": "This original experiment is evidence about its own release, observation, and recapture designs. It does not by itself establish every later population-frequency pattern or exclude every other evolutionary process."
+            },
+            {
+              "id": "majerus-cook-2012",
+              "claimIds": [
+                "method-design-caveats",
+                "majerus-six-year-replication"
+              ],
+              "shortLabel": {
+                "en": "Cook et al. 2012",
+                "zh": "Cook 2012"
+              },
+              "authority": "The Royal Society / Biology Letters",
+              "title": "Selective bird predation on the peppered moth: the last experiment of Michael Majerus",
+              "citation": "Cook, L. M., Grant, B. S., Saccheri, I. J., & Mallet, J. (2012). Selective bird predation on the peppered moth: the last experiment of Michael Majerus. Biology Letters, 8, 609–612. https://doi.org/10.1098/rsbl.2011.1136.",
+              "url": "https://royalsocietypublishing.org/doi/10.1098/rsbl.2011.1136",
+              "supports": "Supports the later six-year field test: 4,864 moths were released at low, naturalistic density on substrates documented as normal resting sites; the study reported stronger bird predation against melanics at its unpolluted site.",
+              "boundary": "The result strengthens a camouflage-and-predation mechanism under that study's site and design. It is not a claim that visual predation alone explains every historical frequency change everywhere."
+            },
+            {
+              "id": "nhm-frequency-overview",
+              "claimIds": [
+                "historical-frequency-shift"
+              ],
+              "shortLabel": {
+                "en": "NHM London",
+                "zh": "NHM London"
+              },
+              "authority": "Natural History Museum, London",
+              "title": "Rainbow nature: life in bold black and white — Peppered moth",
+              "citation": "Natural History Museum, London. Rainbow nature: life in bold black and white — Peppered moth (Biston betularia).",
+              "url": "https://www.nhm.ac.uk/discover/rainbow-nature-life-in-black-and-white.html",
+              "supports": "Supports the morphology and historical-frequency context printed in the evidence file: light typica, dark carbonaria, the 1848 Manchester record, a 98% dark-form report for industrial Manchester in 1895, and later recovery of the lighter form after cleaner air.",
+              "boundary": "This Museum overview summarizes historical observation and environmental context. It is not a controlled predation experiment and should not be read as an isolated causal test."
+            },
+            {
+              "id": "cook-saccheri-2013-review",
+              "claimIds": [
+                "background-predation-field-test",
+                "historical-frequency-shift",
+                "method-design-caveats",
+                "majerus-six-year-replication",
+                "bounded-selection-inference"
+              ],
+              "shortLabel": {
+                "en": "Cook & Saccheri 2013",
+                "zh": "Cook 2013"
+              },
+              "authority": "Heredity / Springer Nature",
+              "title": "The peppered moth and industrial melanism: evolution of a natural selection case study",
+              "citation": "Cook, L. M., & Saccheri, I. J. (2013). The peppered moth and industrial melanism: evolution of a natural selection case study. Heredity, 110, 207–212. https://doi.org/10.1038/hdy.2012.92.",
+              "url": "https://www.nature.com/articles/hdy201292",
+              "supports": "Supports the review-level distinction between geographic and temporal frequency evidence, earlier mark–recapture and predation studies, their methodological caveats, and the later controlled field work.",
+              "boundary": "This review synthesizes a case study; it does not make a single photograph, a single release, or an individual researcher into the whole evidentiary history of industrial melanism."
+            }
+          ]
+        },
+        "modulePath": "../topics/moth-experiment.tsx"
       },
       {
         "id": "comeback-issue",
-        "topic": {
+        "styleId": "magazine-masthead",
+        "title": {
           "en": "The Comeback Issue",
           "zh": "回归特刊"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "The Comeback Issue",
@@ -22470,10 +21956,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "magazine-masthead",
-            "name": "Magazine Masthead",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "回归特刊",
@@ -22585,50 +22068,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "magazine-masthead",
-            "name": "杂志刊头",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/comeback-issue.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "comeback-issue-spine",
           "invocation": "proximity-reveal",
           "feedback": "history-trail"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "page-flip",
           "2->3": "scale-fade",
           "3->4": "page-flip",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/comeback-issue.tsx"
       }
     ]
   },
   {
-    "id": "warm-editorial-feature",
-    "name": {
-      "en": "Warm Editorial Feature",
-      "zh": "暖色专题特稿"
+    "style": {
+      "id": "warm-editorial-feature",
+      "name": {
+        "en": "Warm Editorial Feature",
+        "zh": "暖色专题特稿"
+      },
+      "band": "editorial-print"
     },
     "topics": [
       {
         "id": "editorial-feature",
-        "topic": {
+        "styleId": "warm-editorial-feature",
+        "title": {
           "en": "Editorial Feature",
           "zh": "专题特稿"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Narrative-driven thought-leadership and personal essays — warm cream paper with literary serif voice and generous margins",
@@ -22737,10 +22221,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "warm-editorial-feature",
-            "name": "Warm Editorial Feature",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "叙事型思想领导力与个人随笔——暖色奶油纸配以文学衬线字体与充裕留白",
@@ -22849,18 +22330,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "warm-editorial-feature",
-            "name": "暖色专题特稿",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/editorial-feature.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "editorial-feature-perimeter-marks",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "slide-x",
+          "3->4": "slide-x",
+          "4->5": "slide-x"
         },
         "evidence": {
           "kind": "illustrative",
@@ -22870,20 +22353,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-x",
-          "2->3": "slide-x",
-          "3->4": "slide-x",
-          "4->5": "slide-x"
-        }
+        "modulePath": "../topics/editorial-feature.tsx"
       },
       {
         "id": "useful-week",
-        "topic": {
+        "styleId": "warm-editorial-feature",
+        "title": {
           "en": "Useful Week",
           "zh": "有用一周"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Notes from a Useful Week",
@@ -23033,10 +22512,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "warm-editorial-feature",
-            "name": "Warm Editorial Feature",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "有用一周的札记",
@@ -23186,18 +22662,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "warm-editorial-feature",
-            "name": "暖色专题特稿",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/useful-week.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "useful-week-chapter-tabs",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-y",
+          "3->4": "scale-fade",
+          "4->5": "page-flip"
         },
         "evidence": {
           "kind": "illustrative",
@@ -23207,20 +22685,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "slide-y",
-          "3->4": "scale-fade",
-          "4->5": "page-flip"
-        }
+        "modulePath": "../topics/useful-week.tsx"
       },
       {
         "id": "oral-to-written",
-        "topic": {
+        "styleId": "warm-editorial-feature",
+        "title": {
           "en": "Oral to Written",
           "zh": "史诗成文"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Oral to Written",
@@ -23354,10 +22828,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "warm-editorial-feature",
-            "name": "Warm Editorial Feature",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "史诗成文",
@@ -23491,92 +22962,90 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "warm-editorial-feature",
-            "name": "暖色专题特稿",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/oral-to-written.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "oral-written-chapter-labels",
           "invocation": "proximity-reveal",
           "feedback": "active-glow"
         },
-        "sources": [
-          {
-            "id": "mpc-1935",
-            "authority": "Milman Parry Collection of Oral Literature, Harvard University",
-            "title": "The Milman Parry Collection, 1933–35",
-            "citation": "Milman Parry Collection of Oral Literature. ‘The Milman Parry Collection, 1933–35.’ Harvard University. Accessed 10 July 2026.",
-            "url": "https://mpc.chs.harvard.edu/milman-parry-collection-1933-35/",
-            "supports": "Identifies Milman Parry, Nikola Vujnović, and Albert Lord; distinguishes dictated texts, aluminum-disc sound recordings, and later notebook transcriptions; and describes the alternating-turntable recording method.",
-            "boundary": "This is collection-level workflow evidence. It does not make every item an open-licensed asset and does not by itself establish community consent for republication."
-          },
-          {
-            "id": "mpc-lord-1950",
-            "authority": "Milman Parry Collection of Oral Literature, Harvard University",
-            "title": "The Lord Collection, 1950–51",
-            "citation": "Milman Parry Collection of Oral Literature. ‘The Lord Collection, 1950–51.’ Harvard University. Accessed 10 July 2026.",
-            "url": "https://mpc.chs.harvard.edu/lord-collection-1950-51/",
-            "supports": "Confirms that Albert B. Lord returned in 1950–51, recorded some of the same singers including Avdo Međedović, and preserved magnetic-wire recordings with transcriptions for studying change across performances.",
-            "boundary": "The collection page establishes archive custody and research access, not blanket permission to reproduce a particular wire recording or transcript."
-          },
-          {
-            "id": "lord-avdo",
-            "authority": "Center for Hellenic Studies, Harvard University",
-            "title": "Avdo Međedović, Guslar",
-            "citation": "Albert B. Lord. ‘Avdo Međedović, Guslar.’ In Epic Singers and Oral Tradition. Cornell University Press; online edition, Center for Hellenic Studies. Accessed 10 July 2026.",
-            "url": "https://chs.harvard.edu/chapter/4-avdo-mededovic-guslar/",
-            "supports": "Documents Međedović as the performer, the 1935 oral-dictated Wedding text written down by Nikola Vujnović, and Lord’s 23 May 1950 Lord Text 35 performance of the same epic at 8,488 lines.",
-            "boundary": "Line counts identify documented tellings, not a quality ranking or proof that either performance is the single correct version of the epic."
-          },
-          {
-            "id": "foley-paper-text",
-            "authority": "Oral Tradition journal",
-            "title": "From Oral Performance to Paper-Text to Cyber-Edition",
-            "citation": "John Miles Foley. ‘From Oral Performance to Paper-Text to Cyber-Edition.’ Oral Tradition 20.2 (2005): 233–263.",
-            "url": "https://journal.oraltradition.org/wp-content/uploads/files/articles/20ii/Foley.pdf",
-            "supports": "Describes the 12,311-line 1935 oral-dictated Wedding, Vujnović’s written record, Lord’s translation volume, David E. Bynum’s original-language volume, and how editorial apparatus reconfigures performance for a page.",
-            "boundary": "The article analyzes mediation and editorial conventions; it does not license reuse of the underlying epic text, recordings, photographs, or archival facsimiles."
-          },
-          {
-            "id": "harvard-access",
-            "authority": "Harvard Library",
-            "title": "Milman Parry Collection of Oral Literature",
-            "citation": "Harvard Library. ‘Milman Parry Collection of Oral Literature.’ Collection access page. Accessed 10 July 2026.",
-            "url": "https://library.harvard.edu/collections/milman-parry-collection-oral-literature",
-            "supports": "Confirms that Harvard provides an online collection and appointment-based access to additional material in Widener Library, with curators as the contact for qualified research use.",
-            "boundary": "Public catalog access is evidence of archive stewardship and discoverability; it is not equivalent to permission to publish collection items."
-          },
-          {
-            "id": "harvard-rights",
-            "authority": "Harvard Library",
-            "title": "Digitized Content Copyright and Viewer Terms of Use",
-            "citation": "Harvard Library. ‘Privacy, Terms of Use & Copyright Information,’ Digitized Content Copyright and Viewer Terms of Use. Updated 14 September 2022; accessed 10 July 2026.",
-            "url": "https://library.harvard.edu/about/policies/privacy-terms-use-copyright-information",
-            "supports": "States that some digitized content is copyrighted or otherwise restricted, that research access does not automatically authorize copying or publication, and that item-level permission may be required.",
-            "boundary": "Rights can differ by item and jurisdiction. This demo therefore paraphrases verified facts and reproduces no archive audio, transcript, photograph, or facsimile."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "linear-wipe",
           "2->3": "page-turn",
           "3->4": "hard-cut",
           "4->5": "page-turn"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "mpc-1935",
+              "authority": "Milman Parry Collection of Oral Literature, Harvard University",
+              "title": "The Milman Parry Collection, 1933–35",
+              "citation": "Milman Parry Collection of Oral Literature. ‘The Milman Parry Collection, 1933–35.’ Harvard University. Accessed 10 July 2026.",
+              "url": "https://mpc.chs.harvard.edu/milman-parry-collection-1933-35/",
+              "supports": "Identifies Milman Parry, Nikola Vujnović, and Albert Lord; distinguishes dictated texts, aluminum-disc sound recordings, and later notebook transcriptions; and describes the alternating-turntable recording method.",
+              "boundary": "This is collection-level workflow evidence. It does not make every item an open-licensed asset and does not by itself establish community consent for republication."
+            },
+            {
+              "id": "mpc-lord-1950",
+              "authority": "Milman Parry Collection of Oral Literature, Harvard University",
+              "title": "The Lord Collection, 1950–51",
+              "citation": "Milman Parry Collection of Oral Literature. ‘The Lord Collection, 1950–51.’ Harvard University. Accessed 10 July 2026.",
+              "url": "https://mpc.chs.harvard.edu/lord-collection-1950-51/",
+              "supports": "Confirms that Albert B. Lord returned in 1950–51, recorded some of the same singers including Avdo Međedović, and preserved magnetic-wire recordings with transcriptions for studying change across performances.",
+              "boundary": "The collection page establishes archive custody and research access, not blanket permission to reproduce a particular wire recording or transcript."
+            },
+            {
+              "id": "lord-avdo",
+              "authority": "Center for Hellenic Studies, Harvard University",
+              "title": "Avdo Međedović, Guslar",
+              "citation": "Albert B. Lord. ‘Avdo Međedović, Guslar.’ In Epic Singers and Oral Tradition. Cornell University Press; online edition, Center for Hellenic Studies. Accessed 10 July 2026.",
+              "url": "https://chs.harvard.edu/chapter/4-avdo-mededovic-guslar/",
+              "supports": "Documents Međedović as the performer, the 1935 oral-dictated Wedding text written down by Nikola Vujnović, and Lord’s 23 May 1950 Lord Text 35 performance of the same epic at 8,488 lines.",
+              "boundary": "Line counts identify documented tellings, not a quality ranking or proof that either performance is the single correct version of the epic."
+            },
+            {
+              "id": "foley-paper-text",
+              "authority": "Oral Tradition journal",
+              "title": "From Oral Performance to Paper-Text to Cyber-Edition",
+              "citation": "John Miles Foley. ‘From Oral Performance to Paper-Text to Cyber-Edition.’ Oral Tradition 20.2 (2005): 233–263.",
+              "url": "https://journal.oraltradition.org/wp-content/uploads/files/articles/20ii/Foley.pdf",
+              "supports": "Describes the 12,311-line 1935 oral-dictated Wedding, Vujnović’s written record, Lord’s translation volume, David E. Bynum’s original-language volume, and how editorial apparatus reconfigures performance for a page.",
+              "boundary": "The article analyzes mediation and editorial conventions; it does not license reuse of the underlying epic text, recordings, photographs, or archival facsimiles."
+            },
+            {
+              "id": "harvard-access",
+              "authority": "Harvard Library",
+              "title": "Milman Parry Collection of Oral Literature",
+              "citation": "Harvard Library. ‘Milman Parry Collection of Oral Literature.’ Collection access page. Accessed 10 July 2026.",
+              "url": "https://library.harvard.edu/collections/milman-parry-collection-oral-literature",
+              "supports": "Confirms that Harvard provides an online collection and appointment-based access to additional material in Widener Library, with curators as the contact for qualified research use.",
+              "boundary": "Public catalog access is evidence of archive stewardship and discoverability; it is not equivalent to permission to publish collection items."
+            },
+            {
+              "id": "harvard-rights",
+              "authority": "Harvard Library",
+              "title": "Digitized Content Copyright and Viewer Terms of Use",
+              "citation": "Harvard Library. ‘Privacy, Terms of Use & Copyright Information,’ Digitized Content Copyright and Viewer Terms of Use. Updated 14 September 2022; accessed 10 July 2026.",
+              "url": "https://library.harvard.edu/about/policies/privacy-terms-use-copyright-information",
+              "supports": "States that some digitized content is copyrighted or otherwise restricted, that research access does not automatically authorize copying or publication, and that item-level permission may be required.",
+              "boundary": "Rights can differ by item and jurisdiction. This demo therefore paraphrases verified facts and reproduces no archive audio, transcript, photograph, or facsimile."
+            }
+          ]
+        },
+        "modulePath": "../topics/oral-to-written.tsx"
       },
       {
         "id": "letter-to-past-self",
-        "topic": {
+        "styleId": "warm-editorial-feature",
+        "title": {
           "en": "A Letter to My Past Self",
           "zh": "写给过去"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "A Letter to My Past Self",
@@ -23683,10 +23152,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "warm-editorial-feature",
-            "name": "Warm Editorial Feature",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "写给过去",
@@ -23793,50 +23259,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "warm-editorial-feature",
-            "name": "暖色专题特稿",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/letter-to-past-self.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "past-self-folio",
           "invocation": "proximity-reveal",
           "feedback": "next-state-preview"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "fade",
           "2->3": "fade",
           "3->4": "slide-x",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/letter-to-past-self.tsx"
       }
     ]
   },
   {
-    "id": "scholars-vellum",
-    "name": {
-      "en": "Scholar's Vellum",
-      "zh": "学者羊皮卷"
+    "style": {
+      "id": "scholars-vellum",
+      "name": {
+        "en": "Scholar's Vellum",
+        "zh": "学者羊皮卷"
+      },
+      "band": "editorial-print"
     },
     "topics": [
       {
         "id": "scholar-notes",
-        "topic": {
+        "styleId": "scholars-vellum",
+        "title": {
           "en": "Scholar Notes",
           "zh": "学者笔记"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Research essays and reflective decks — warm-dark library wall with candlelit amber-cream italic serif and dusty teal annotations",
@@ -23953,10 +23420,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "scholars-vellum",
-            "name": "Scholar's Vellum",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "研究随笔与反思型演示——暖色深色图书馆墙配以烛光琥珀米色斜体衬线与灰青色注解",
@@ -24073,18 +23537,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "scholars-vellum",
-            "name": "学者羊皮卷",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/scholar-notes.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "scholar-notes-perimeter-dots",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -24094,20 +23560,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "scale-fade",
-          "3->4": "scale-fade",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/scholar-notes.tsx"
       },
       {
         "id": "margin-argument",
-        "topic": {
+        "styleId": "scholars-vellum",
+        "title": {
           "en": "Margin Argument",
           "zh": "页边论点"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "The Argument in the Margins",
@@ -24258,10 +23720,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "scholars-vellum",
-            "name": "Scholar's Vellum",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "页边的论证",
@@ -24412,18 +23871,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "scholars-vellum",
-            "name": "学者羊皮卷",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/margin-argument.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "margin-argument-bookmarks",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "wipe",
+          "3->4": "page-flip",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -24433,20 +23894,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "wipe",
-          "3->4": "page-flip",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/margin-argument.tsx"
       },
       {
         "id": "hidden-text",
-        "topic": {
+        "styleId": "scholars-vellum",
+        "title": {
           "en": "Hidden Text",
           "zh": "重写羊皮卷"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "The text under the text: material, imaging, and bounded reading of the Archimedes Palimpsest",
@@ -24568,10 +24025,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "scholars-vellum",
-            "name": "Scholar's Vellum",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "文字下面的文字：阿基米德重写羊皮卷的材料、成像与有边界释读",
@@ -24693,86 +24147,84 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "scholars-vellum",
-            "name": "学者羊皮卷",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/hidden-text.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "palimpsest-folio-tabs",
           "invocation": "click-expand",
           "feedback": "geometry-reflow"
         },
-        "sources": [
-          {
-            "id": "S1",
-            "authority": "The Archimedes Palimpsest Project / The Walters Art Museum",
-            "title": "About the Archimedes Palimpsest",
-            "citation": "Archimedes Palimpsest Project. About the Archimedes Palimpsest: contents, manufacture, and reused parchment structure.",
-            "url": "https://www.archimedespalimpsest.org/about/",
-            "supports": "Documents the April 1229 Greek euchologion, its 174 folios, the tenth-century Archimedes manuscript reused for most leaves, and the cutting, ninety-degree rotation, scraping, and refolding that put undertext across the prayer-book writing."
-          },
-          {
-            "id": "S2",
-            "authority": "The Archimedes Palimpsest Project / The Walters Art Museum",
-            "title": "The Conservation of the Archimedes Palimpsest",
-            "citation": "Quandt, Abigail, and the Archimedes Palimpsest Project. Conservation record for disbinding and imaging preparation.",
-            "url": "https://www.archimedespalimpsest.org/about/conservation.php",
-            "supports": "Explains that safety came before legibility; records disbinding, parchment collagen and mold damage, wax and modern adhesive removal, fragile gutters, forged paintings, support papers, and double-sided conservation frames."
-          },
-          {
-            "id": "S3",
-            "authority": "The Archimedes Palimpsest Project imaging team",
-            "title": "Capturing Images of the Archimedes Palimpsest",
-            "citation": "Easton, Roger, Knox, Keith, Christens-Barry, William, et al. Capture workflow for the Archimedes Palimpsest.",
-            "url": "https://www.archimedespalimpsest.org/about/imaging/capture.php",
-            "supports": "Describes controlled capture with ultraviolet, tungsten, and strobe illumination, high-resolution section imaging, an X-Y stage, stitching, and metadata logging across nearly ninety leaves imaged on both sides."
-          },
-          {
-            "id": "S4",
-            "authority": "The Archimedes Palimpsest Project imaging team",
-            "title": "Multi-Spectral Imaging of the Archimedes Palimpsest",
-            "citation": "Easton, Roger. Overview of multispectral capture, registration, algorithms, and scholarly requirements for the Palimpsest.",
-            "url": "https://www.archimedespalimpsest.org/about/imaging/",
-            "supports": "Defines multispectral imaging as a registered stack of photographs made under different wavelengths and explains how algorithms enhance ink signatures; also records blur, registration artifacts, resolution limits, and scholar feedback on early processing."
-          },
-          {
-            "id": "S5",
-            "authority": "The Archimedes Palimpsest Project imaging team",
-            "title": "Image Processing of the Archimedes Palimpsest",
-            "citation": "Knox, Keith, and collaborators. Pseudocolor processing and ink-separation notes for the Archimedes Palimpsest.",
-            "url": "https://www.archimedespalimpsest.org/about/imaging/processing.php",
-            "supports": "Explains that ultraviolet was especially useful for iron-rich ink, that pseudocolor combined information from several images, and that processed outputs could emphasize undertext or diagrams without becoming a self-interpreting transcription."
-          },
-          {
-            "id": "S6",
-            "authority": "SLAC National Accelerator Laboratory / Stanford Synchrotron Radiation Lightsource",
-            "title": "Illuminating the Archimedes Palimpsest with X-rays",
-            "citation": "SLAC. Imaging with X-Rays: synchrotron X-ray fluorescence imaging of the Archimedes Palimpsest, updated July 28, 2006.",
-            "url": "https://www.slac.stanford.edu/gen/com/slac_xrayimaging.html",
-            "supports": "Describes X-ray fluorescence mapping of iron remaining in the inks, the tuned beam and raster scan, its use on difficult leaves and painted-over areas, and the scholars who compare elemental maps with other evidence to decipher letters."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "page-turn",
           "3->4": "crossfade",
           "4->5": "hard-cut"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "S1",
+              "authority": "The Archimedes Palimpsest Project / The Walters Art Museum",
+              "title": "About the Archimedes Palimpsest",
+              "citation": "Archimedes Palimpsest Project. About the Archimedes Palimpsest: contents, manufacture, and reused parchment structure.",
+              "url": "https://www.archimedespalimpsest.org/about/",
+              "supports": "Documents the April 1229 Greek euchologion, its 174 folios, the tenth-century Archimedes manuscript reused for most leaves, and the cutting, ninety-degree rotation, scraping, and refolding that put undertext across the prayer-book writing."
+            },
+            {
+              "id": "S2",
+              "authority": "The Archimedes Palimpsest Project / The Walters Art Museum",
+              "title": "The Conservation of the Archimedes Palimpsest",
+              "citation": "Quandt, Abigail, and the Archimedes Palimpsest Project. Conservation record for disbinding and imaging preparation.",
+              "url": "https://www.archimedespalimpsest.org/about/conservation.php",
+              "supports": "Explains that safety came before legibility; records disbinding, parchment collagen and mold damage, wax and modern adhesive removal, fragile gutters, forged paintings, support papers, and double-sided conservation frames."
+            },
+            {
+              "id": "S3",
+              "authority": "The Archimedes Palimpsest Project imaging team",
+              "title": "Capturing Images of the Archimedes Palimpsest",
+              "citation": "Easton, Roger, Knox, Keith, Christens-Barry, William, et al. Capture workflow for the Archimedes Palimpsest.",
+              "url": "https://www.archimedespalimpsest.org/about/imaging/capture.php",
+              "supports": "Describes controlled capture with ultraviolet, tungsten, and strobe illumination, high-resolution section imaging, an X-Y stage, stitching, and metadata logging across nearly ninety leaves imaged on both sides."
+            },
+            {
+              "id": "S4",
+              "authority": "The Archimedes Palimpsest Project imaging team",
+              "title": "Multi-Spectral Imaging of the Archimedes Palimpsest",
+              "citation": "Easton, Roger. Overview of multispectral capture, registration, algorithms, and scholarly requirements for the Palimpsest.",
+              "url": "https://www.archimedespalimpsest.org/about/imaging/",
+              "supports": "Defines multispectral imaging as a registered stack of photographs made under different wavelengths and explains how algorithms enhance ink signatures; also records blur, registration artifacts, resolution limits, and scholar feedback on early processing."
+            },
+            {
+              "id": "S5",
+              "authority": "The Archimedes Palimpsest Project imaging team",
+              "title": "Image Processing of the Archimedes Palimpsest",
+              "citation": "Knox, Keith, and collaborators. Pseudocolor processing and ink-separation notes for the Archimedes Palimpsest.",
+              "url": "https://www.archimedespalimpsest.org/about/imaging/processing.php",
+              "supports": "Explains that ultraviolet was especially useful for iron-rich ink, that pseudocolor combined information from several images, and that processed outputs could emphasize undertext or diagrams without becoming a self-interpreting transcription."
+            },
+            {
+              "id": "S6",
+              "authority": "SLAC National Accelerator Laboratory / Stanford Synchrotron Radiation Lightsource",
+              "title": "Illuminating the Archimedes Palimpsest with X-rays",
+              "citation": "SLAC. Imaging with X-Rays: synchrotron X-ray fluorescence imaging of the Archimedes Palimpsest, updated July 28, 2006.",
+              "url": "https://www.slac.stanford.edu/gen/com/slac_xrayimaging.html",
+              "supports": "Describes X-ray fluorescence mapping of iron remaining in the inks, the tuned beam and raster scan, its use on difficult leaves and painted-over areas, and the scholars who compare elemental maps with other evidence to decipher letters."
+            }
+          ]
+        },
+        "modulePath": "../topics/hidden-text.tsx"
       },
       {
         "id": "what-ancients-knew",
-        "topic": {
+        "styleId": "scholars-vellum",
+        "title": {
           "en": "What the Ancients Knew",
           "zh": "古人的智慧"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "What the Ancients Knew",
@@ -24881,10 +24333,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "scholars-vellum",
-            "name": "Scholar's Vellum",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "古人的智慧",
@@ -24993,50 +24442,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "scholars-vellum",
-            "name": "学者羊皮卷",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/what-ancients-knew.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "ancients-folio-counter",
           "invocation": "proximity-reveal",
           "feedback": "mechanical-displacement"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "fade",
           "2->3": "hard-cut",
           "3->4": "hard-cut",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/what-ancients-knew.tsx"
       }
     ]
   },
   {
-    "id": "solar-biennale-poster",
-    "name": {
-      "en": "Solar Biennale Poster",
-      "zh": "日光双年展海报"
+    "style": {
+      "id": "solar-biennale-poster",
+      "name": {
+        "en": "Solar Biennale Poster",
+        "zh": "日光双年展海报"
+      },
+      "band": "editorial-print"
     },
     "topics": [
       {
         "id": "biennale-poster",
-        "topic": {
+        "styleId": "solar-biennale-poster",
+        "title": {
           "en": "Biennale Poster",
           "zh": "双年展"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Cultural programme decks and manifesto statements — warm parchment flooded with solar glow, deep indigo ink, and three-voice typographic discipline",
@@ -25153,10 +24603,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "solar-biennale-poster",
-            "name": "Solar Biennale Poster",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "文化项目演示与宣言陈述——暖色羊皮纸浸润日光辉光，深靛蓝墨水，三声部字体纪律",
@@ -25273,18 +24720,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "solar-biennale-poster",
-            "name": "日光双年展海报",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/biennale-poster.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "biennale-poster-node-ring",
           "invocation": "persistent",
           "feedback": "geometry-reflow"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -25294,20 +24743,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "fade",
-          "3->4": "fade",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/biennale-poster.tsx"
       },
       {
         "id": "public-light",
-        "topic": {
+        "styleId": "solar-biennale-poster",
+        "title": {
           "en": "Public Light",
           "zh": "公共灯光"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Public Light Program",
@@ -25458,10 +24903,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "solar-biennale-poster",
-            "name": "Solar Biennale Poster",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "公共光计划",
@@ -25612,18 +25054,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "solar-biennale-poster",
-            "name": "日光双年展海报",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/public-light.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "public-light-orbit",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "wipe",
+          "3->4": "slide-x",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -25633,20 +25077,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "wipe",
-          "3->4": "slide-x",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/public-light.tsx"
       },
       {
         "id": "iron-from-stars",
-        "topic": {
+        "styleId": "solar-biennale-poster",
+        "title": {
           "en": "Iron from Stars",
           "zh": "恒星炼铁"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Iron from Stars",
@@ -25780,10 +25220,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "solar-biennale-poster",
-            "name": "Solar Biennale Poster",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "恒星炼铁",
@@ -25917,74 +25354,72 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "solar-biennale-poster",
-            "name": "日光双年展海报",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/iron-from-stars.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "solar-orbit-points",
           "invocation": "click-expand",
           "feedback": "mechanical-displacement"
         },
-        "sources": [
-          {
-            "id": "nasa-massive-stars",
-            "authority": "NASA Science / Webb",
-            "title": "Massive Stars: Engines of Creation",
-            "citation": "NASA, ESA, and Leah Hustak (STScI), released 2019; updated 2025.",
-            "url": "https://science.nasa.gov/asset/webb/massive-stars-engines-of-creation-infographic/",
-            "supports": "Supports the massive-star sequence from hydrogen fusion through a multi-shell core, silicon burning, iron-group production, and core collapse.",
-            "boundary": "The infographic is a teaching synthesis: exact shell composition, duration, and reaction networks vary with stellar mass and model assumptions."
-          },
-          {
-            "id": "doe-nucleosynthesis",
-            "authority": "U.S. Department of Energy, Office of Science",
-            "title": "DOE Explains…Nucleosynthesis",
-            "citation": "DOE Office of Science, Nuclear Physics overview of cosmic element formation.",
-            "url": "https://www.energy.gov/science/doe-explainsnucleosynthesis",
-            "supports": "Supports element production up to iron in massive stars and the role of core-collapse supernovae, white-dwarf events, and neutron-star mergers in cosmic enrichment.",
-            "boundary": "This overview names broad source classes; it does not assign a universal event-by-event abundance share to each heavy element."
-          },
-          {
-            "id": "kajino-r-process",
-            "authority": "Progress in Particle and Nuclear Physics",
-            "title": "Current Status of r-Process Nucleosynthesis",
-            "citation": "Kajino et al., Progress in Particle and Nuclear Physics 107 (2019), 109–166, doi:10.1016/j.ppnp.2019.02.008.",
-            "url": "https://arxiv.org/abs/1906.05002",
-            "supports": "Reviews rapid neutron capture, evidence from neutron-star mergers, alternative candidate environments, and unresolved Galactic source contributions.",
-            "boundary": "The review explicitly keeps multiple r-process sites in play; the deck therefore avoids assigning all heavy nuclei to one event class."
-          },
-          {
-            "id": "crawford-rare-isotopes",
-            "authority": "Annual Review of Nuclear and Particle Science",
-            "title": "A Vision for the Science of Rare Isotopes",
-            "citation": "Crawford, Fossez, König, and Spyrou, Annual Review of Nuclear and Particle Science 74 (2024), 141–172.",
-            "url": "https://doi.org/10.1146/annurev-nucl-121423-091501",
-            "supports": "Distinguishes stellar fusion through the iron region from s-, r-, p-, and additional capture or explosive processes used to explain heavier nuclei.",
-            "boundary": "The review emphasizes remaining nuclear-input and astrophysical-site uncertainties, so the final scene labels channels rather than fixed percentages."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "iris-open",
           "2->3": "zoom-through",
           "3->4": "dip-to-color",
           "4->5": "iris-open"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "nasa-massive-stars",
+              "authority": "NASA Science / Webb",
+              "title": "Massive Stars: Engines of Creation",
+              "citation": "NASA, ESA, and Leah Hustak (STScI), released 2019; updated 2025.",
+              "url": "https://science.nasa.gov/asset/webb/massive-stars-engines-of-creation-infographic/",
+              "supports": "Supports the massive-star sequence from hydrogen fusion through a multi-shell core, silicon burning, iron-group production, and core collapse.",
+              "boundary": "The infographic is a teaching synthesis: exact shell composition, duration, and reaction networks vary with stellar mass and model assumptions."
+            },
+            {
+              "id": "doe-nucleosynthesis",
+              "authority": "U.S. Department of Energy, Office of Science",
+              "title": "DOE Explains…Nucleosynthesis",
+              "citation": "DOE Office of Science, Nuclear Physics overview of cosmic element formation.",
+              "url": "https://www.energy.gov/science/doe-explainsnucleosynthesis",
+              "supports": "Supports element production up to iron in massive stars and the role of core-collapse supernovae, white-dwarf events, and neutron-star mergers in cosmic enrichment.",
+              "boundary": "This overview names broad source classes; it does not assign a universal event-by-event abundance share to each heavy element."
+            },
+            {
+              "id": "kajino-r-process",
+              "authority": "Progress in Particle and Nuclear Physics",
+              "title": "Current Status of r-Process Nucleosynthesis",
+              "citation": "Kajino et al., Progress in Particle and Nuclear Physics 107 (2019), 109–166, doi:10.1016/j.ppnp.2019.02.008.",
+              "url": "https://arxiv.org/abs/1906.05002",
+              "supports": "Reviews rapid neutron capture, evidence from neutron-star mergers, alternative candidate environments, and unresolved Galactic source contributions.",
+              "boundary": "The review explicitly keeps multiple r-process sites in play; the deck therefore avoids assigning all heavy nuclei to one event class."
+            },
+            {
+              "id": "crawford-rare-isotopes",
+              "authority": "Annual Review of Nuclear and Particle Science",
+              "title": "A Vision for the Science of Rare Isotopes",
+              "citation": "Crawford, Fossez, König, and Spyrou, Annual Review of Nuclear and Particle Science 74 (2024), 141–172.",
+              "url": "https://doi.org/10.1146/annurev-nucl-121423-091501",
+              "supports": "Distinguishes stellar fusion through the iron region from s-, r-, p-, and additional capture or explosive processes used to explain heavier nuclei.",
+              "boundary": "The review emphasizes remaining nuclear-input and astrophysical-site uncertainties, so the final scene labels channels rather than fixed percentages."
+            }
+          ]
+        },
+        "modulePath": "../topics/iron-from-stars.tsx"
       },
       {
         "id": "festival-slow-ideas",
-        "topic": {
+        "styleId": "solar-biennale-poster",
+        "title": {
           "en": "Festival of Slow Ideas",
           "zh": "慢想节"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Festival of Slow Ideas",
@@ -26097,10 +25532,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "solar-biennale-poster",
-            "name": "Solar Biennale Poster",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "慢想节",
@@ -26213,50 +25645,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "solar-biennale-poster",
-            "name": "日光双年展海报",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/festival-slow-ideas.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "festival-mono-folio",
           "invocation": "proximity-reveal",
           "feedback": "geometry-reflow"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "scale-fade",
           "2->3": "fade",
           "3->4": "fade",
           "4->5": "scale-fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/festival-slow-ideas.tsx"
       }
     ]
   },
   {
-    "id": "duotone-session",
-    "name": {
-      "en": "Duotone Session",
-      "zh": "双调录制"
+    "style": {
+      "id": "duotone-session",
+      "name": {
+        "en": "Duotone Session",
+        "zh": "双调录制"
+      },
+      "band": "editorial-print"
     },
     "topics": [
       {
         "id": "session-poster",
-        "topic": {
+        "styleId": "duotone-session",
+        "title": {
           "en": "Session Poster",
           "zh": "录制海报"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "LP-sleeve session posters — warm black ground, single spot-ink duotone tint, enormous condensed gothic type stacked asymmetrically",
@@ -26373,10 +25806,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "duotone-session",
-            "name": "Duotone Session",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "黑胶封套录制海报——暖色黑底、单一专色双调、巨大的浓缩哥特字体非对称堆叠",
@@ -26493,18 +25923,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "duotone-session",
-            "name": "双调录制",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/session-poster.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "session-poster-node-ring",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -26514,20 +25946,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "scale-fade",
-          "3->4": "scale-fade",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/session-poster.tsx"
       },
       {
         "id": "five-takes",
-        "topic": {
+        "styleId": "duotone-session",
+        "title": {
           "en": "Five Takes",
           "zh": "五个视角"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Five Takes in the Room",
@@ -26675,10 +26103,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "duotone-session",
-            "name": "Duotone Session",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "五次录音同在一室",
@@ -26826,18 +26251,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "duotone-session",
-            "name": "双调录制",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/five-takes.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "vinyl-groove-markers",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "fade",
+          "3->4": "glitch",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -26847,20 +26274,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-x",
-          "2->3": "fade",
-          "3->4": "glitch",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/five-takes.tsx"
       },
       {
         "id": "dance-notation",
-        "topic": {
+        "styleId": "duotone-session",
+        "title": {
           "en": "Dance Notation",
           "zh": "舞谱"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "A Dance Written Twice",
@@ -26993,10 +26416,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "duotone-session",
-            "name": "Duotone Session",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "一支舞的两次书写",
@@ -27129,70 +26549,68 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "duotone-session",
-            "name": "双调录制",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/dance-notation.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "notation-turntable",
           "invocation": "click-expand",
           "feedback": "typographic-emphasis"
         },
-        "sources": [
-          {
-            "authority": "Dance Notation Bureau",
-            "title": "Labanotation Fundamentals",
-            "citation": "Dance Notation Bureau, Labanotation Fundamentals, accessed 2026-07-10.",
-            "url": "https://www.dancenotation.org/labanotation-fundamentals/",
-            "supports": "Supports the four encoding claims used in Scene 2: symbol shape indicates direction, staff placement identifies the body part, shading indicates level, and symbol length indicates duration.",
-            "boundary": "The page is an introductory overview, so the deck uses schematic original symbols and does not present them as a publishable or complete Labanotation score."
-          },
-          {
-            "authority": "Dance Notation Bureau",
-            "title": "Staging from Score",
-            "citation": "Dance Notation Bureau, Staging from Score, accessed 2026-07-10.",
-            "url": "https://www.dancenotation.org/staging-from-score/",
-            "supports": "Supports the reconstruction boundary in Scenes 4 and 5: trained stagers consult detailed scores, while style coaches, rehearsal materials, and production information also contribute to a staged work.",
-            "boundary": "The source describes professional staging practice; it does not justify claiming that any two readers must produce arbitrary or equally valid differences from the same score."
-          },
-          {
-            "authority": "The New York Public Library",
-            "title": "Passacaglia and fugue in C minor — Labanotation research catalog record",
-            "citation": "NYPL Research Catalog, Doris Humphrey, Passacaglia and fugue in C minor, Dance Notation Bureau score, bib b12115887.",
-            "url": "https://www.nypl.org/research/research-catalog/bib/b12115887",
-            "supports": "Supports the archival claim that substantial Labanotation scores are preserved as research objects: the catalog identifies a 151-leaf score, its reconstruction context, notators, and checking history.",
-            "boundary": "The catalog record proves the existence and documented chain of one score; this topic does not reproduce its notation, choreography, dancers, or copyrighted pages."
-          },
-          {
-            "authority": "The Ohio State University Department of Dance",
-            "title": "Dance Notation Bureau Extension Resources — Labanotation",
-            "citation": "Ohio State Department of Dance, DNB Extension Resources: Labanotation, accessed 2026-07-10.",
-            "url": "https://dance.osu.edu/research/dnb/resources",
-            "supports": "Supports the explanation that Labanotation is a structured system whose symbols encode direction, level, timing, and body part on a staff read from bottom to top.",
-            "boundary": "The university resource summarizes the system for learners; the visual examples here remain original teaching diagrams rather than transcriptions of an archived dance."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "focus-swap",
           "2->3": "afterimage",
           "3->4": "push-x",
           "4->5": "afterimage"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "Dance Notation Bureau",
+              "title": "Labanotation Fundamentals",
+              "citation": "Dance Notation Bureau, Labanotation Fundamentals, accessed 2026-07-10.",
+              "url": "https://www.dancenotation.org/labanotation-fundamentals/",
+              "supports": "Supports the four encoding claims used in Scene 2: symbol shape indicates direction, staff placement identifies the body part, shading indicates level, and symbol length indicates duration.",
+              "boundary": "The page is an introductory overview, so the deck uses schematic original symbols and does not present them as a publishable or complete Labanotation score."
+            },
+            {
+              "authority": "Dance Notation Bureau",
+              "title": "Staging from Score",
+              "citation": "Dance Notation Bureau, Staging from Score, accessed 2026-07-10.",
+              "url": "https://www.dancenotation.org/staging-from-score/",
+              "supports": "Supports the reconstruction boundary in Scenes 4 and 5: trained stagers consult detailed scores, while style coaches, rehearsal materials, and production information also contribute to a staged work.",
+              "boundary": "The source describes professional staging practice; it does not justify claiming that any two readers must produce arbitrary or equally valid differences from the same score."
+            },
+            {
+              "authority": "The New York Public Library",
+              "title": "Passacaglia and fugue in C minor — Labanotation research catalog record",
+              "citation": "NYPL Research Catalog, Doris Humphrey, Passacaglia and fugue in C minor, Dance Notation Bureau score, bib b12115887.",
+              "url": "https://www.nypl.org/research/research-catalog/bib/b12115887",
+              "supports": "Supports the archival claim that substantial Labanotation scores are preserved as research objects: the catalog identifies a 151-leaf score, its reconstruction context, notators, and checking history.",
+              "boundary": "The catalog record proves the existence and documented chain of one score; this topic does not reproduce its notation, choreography, dancers, or copyrighted pages."
+            },
+            {
+              "authority": "The Ohio State University Department of Dance",
+              "title": "Dance Notation Bureau Extension Resources — Labanotation",
+              "citation": "Ohio State Department of Dance, DNB Extension Resources: Labanotation, accessed 2026-07-10.",
+              "url": "https://dance.osu.edu/research/dnb/resources",
+              "supports": "Supports the explanation that Labanotation is a structured system whose symbols encode direction, level, timing, and body part on a staff read from bottom to top.",
+              "boundary": "The university resource summarizes the system for learners; the visual examples here remain original teaching diagrams rather than transcriptions of an archived dance."
+            }
+          ]
+        },
+        "modulePath": "../topics/dance-notation.tsx"
       },
       {
         "id": "cut-in-one-take",
-        "topic": {
+        "styleId": "duotone-session",
+        "title": {
           "en": "Cut in One Take",
           "zh": "一条过"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Cut in One Take",
@@ -27306,10 +26724,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "duotone-session",
-            "name": "Duotone Session",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "一条过",
@@ -27423,50 +26838,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "duotone-session",
-            "name": "双调录制",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/cut-in-one-take.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "one-take-track-index",
           "invocation": "proximity-reveal",
           "feedback": "material-color-change"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-y",
           "2->3": "hard-cut",
           "3->4": "slide-y",
           "4->5": "hard-cut"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/cut-in-one-take.tsx"
       }
     ]
   },
   {
-    "id": "riso-print-zine",
-    "name": {
-      "en": "Riso Print Zine",
-      "zh": "孔版印刷杂志"
+    "style": {
+      "id": "riso-print-zine",
+      "name": {
+        "en": "Riso Print Zine",
+        "zh": "孔版印刷杂志"
+      },
+      "band": "editorial-print"
     },
     "topics": [
       {
         "id": "riso-zine",
-        "topic": {
+        "styleId": "riso-print-zine",
+        "title": {
           "en": "Riso Zine",
           "zh": "孔版杂志"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Manifestos and workshop decks — risograph print with 2-3 spot inks, paper grain, misregistration, and three-voice typography: condensed display, quiet body, hand-script",
@@ -27583,10 +26999,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "riso-print-zine",
-            "name": "Riso Print Zine",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "宣言与工作坊演示——孔版印刷，2-3种专色油墨，纸张纹理，套印偏移，三声部字体：浓缩展示、安静正文、手写注记",
@@ -27703,18 +27116,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "riso-print-zine",
-            "name": "孔版印刷杂志",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/riso-zine.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "zine-star-index",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "glitch",
+          "3->4": "glitch",
+          "4->5": "glitch"
         },
         "evidence": {
           "kind": "illustrative",
@@ -27724,20 +27139,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "glitch",
-          "2->3": "glitch",
-          "3->4": "glitch",
-          "4->5": "glitch"
-        }
+        "modulePath": "../topics/riso-zine.tsx"
       },
       {
         "id": "community-print",
-        "topic": {
+        "styleId": "riso-print-zine",
+        "title": {
           "en": "Community Print",
           "zh": "社群印刷"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "A Community Prints Itself",
@@ -27888,10 +27299,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "riso-print-zine",
-            "name": "Riso Print Zine",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "一个社群把自己印出来",
@@ -28042,18 +27450,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "riso-print-zine",
-            "name": "孔版印刷杂志",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/community-print.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "staple-scene-index",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "slide-y",
+          "3->4": "wipe",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -28063,20 +27473,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "glitch",
-          "2->3": "slide-y",
-          "3->4": "wipe",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/community-print.tsx"
       },
       {
         "id": "seven-blues",
-        "topic": {
+        "styleId": "riso-print-zine",
+        "title": {
           "en": "Seven Blues",
           "zh": "七种蓝"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Seven Blues",
@@ -28203,10 +27609,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "riso-print-zine",
-            "name": "Riso Print Zine",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "七种蓝",
@@ -28333,156 +27736,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "riso-print-zine",
-            "name": "孔版印刷杂志",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/seven-blues.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "blue-pigment-swatches",
           "invocation": "proximity-reveal",
           "feedback": "typographic-emphasis"
         },
-        "sources": [
-          {
-            "id": "smithsonian-blue",
-            "accessDate": "2026-07-10",
-            "stamp": "SI/BLUE",
-            "authority": "Smithsonian National Museum of Asian Art",
-            "title": "Blue",
-            "citation": "Smithsonian National Museum of Asian Art, “Blue,” Making Blue and Associations of Blue.",
-            "url": "https://asia.si.edu/explore-art-culture/art-stories/colors/blue/",
-            "supports": "Supports azurite as a copper-bearing mineral whose color changes with grinding, the produced-material account of Egyptian blue, indigo fermentation, and bounded cultural examples for blue.",
-            "boundary": "Used for collection-informed material and cultural-context statements only; it does not establish a universal symbolism or a handling protocol.",
-            "claimIds": [
-              "azurite-copper-carbonate",
-              "azurite-grinding",
-              "indigo-plant-vat",
-              "egyptian-blue-frit",
-              "cultural-context-boundary"
-            ]
-          },
-          {
-            "id": "getty-ultramarine",
-            "accessDate": "2026-07-10",
-            "stamp": "GETTY/ULTRA",
-            "authority": "Getty Research Institute, Art & Architecture Thesaurus",
-            "title": "Ultramarine blue (pigment)",
-            "citation": "Getty Research Institute, Art & Architecture Thesaurus, “ultramarine blue (pigment),” subject ID 300013200.",
-            "url": "https://www.getty.edu/vow/AATFullDisplay?find=bima&logic=AND&note=&page=1&subjectid=300013200",
-            "supports": "Supports natural ultramarine as separated lazurite from lapis lazuli and documents its historically costly, context-specific use in Western medieval and Renaissance painting.",
-            "boundary": "The historical note is not generalized into a global social meaning for ultramarine or for blue as a category.",
-            "claimIds": [
-              "ultramarine-lazurite",
-              "cultural-context-boundary"
-            ]
-          },
-          {
-            "id": "mci-azurite",
-            "accessDate": "2026-07-10",
-            "stamp": "MCI/AZUR",
-            "authority": "Smithsonian Museum Conservation Institute",
-            "title": "Azurite: historical pigment reference abstract",
-            "citation": "Smithsonian Museum Conservation Institute, AATA reference record 43910, azurite as a basic carbonate of copper.",
-            "url": "https://mci.si.edu/node/1299334",
-            "supports": "Supports the material identification of azurite as a basic copper carbonate historically used as a blue pigment.",
-            "boundary": "The abstract is used for mineral identification only; no conservation treatment or exposure guidance is inferred from it.",
-            "claimIds": [
-              "azurite-copper-carbonate"
-            ]
-          },
-          {
-            "id": "getty-indigo",
-            "accessDate": "2026-07-10",
-            "stamp": "GETTY/INDIGO",
-            "authority": "Getty Research Institute, Art & Architecture Thesaurus",
-            "title": "Indigo (colorant)",
-            "citation": "Getty Research Institute, Art & Architecture Thesaurus, “indigo (colorant),” subject ID 300013055.",
-            "url": "https://www.getty.edu/vow/AATFullDisplay?find=bima&logic=AND&note=&page=1&subjectid=300013055",
-            "supports": "Supports indigo as a natural plant colorant recovered from fermented solution and describes oxidation into the familiar blue material.",
-            "boundary": "This source is used to explain a colorant process, not to prescribe a particular historic or contemporary dye recipe.",
-            "claimIds": [
-              "indigo-plant-vat",
-              "indigo-oxidation"
-            ]
-          },
-          {
-            "id": "smithsonian-indigo-vat",
-            "accessDate": "2026-07-10",
-            "stamp": "SI/LEUCO",
-            "authority": "International Biodeterioration & Biodegradation / Smithsonian Research Online",
-            "title": "Proteomic evaluation of the biodegradation of wool fabrics in experimental burials",
-            "citation": "Caroline Solazzo et al., “Proteomic evaluation of the biodegradation of wool fabrics in experimental burials,” International Biodeterioration & Biodegradation 80 (2013): 48–59. doi:10.1016/j.ibiod.2012.11.013.",
-            "url": "https://repository.si.edu/server/api/core/bitstreams/1b558823-42e0-42ac-bcba-cf42e83089fd/content",
-            "supports": "Directly states that indigotin is reduced to leuco-indigo in an alkaline vat and that oxidation returns it to the insoluble colored form.",
-            "boundary": "Used only for the general vat redox mechanism; it does not prescribe a recipe or generalize one practice to every indigo tradition.",
-            "claimIds": [
-              "indigo-oxidation"
-            ]
-          },
-          {
-            "id": "getty-egyptian-blue",
-            "accessDate": "2026-07-10",
-            "stamp": "GETTY/EB",
-            "authority": "Getty Conservation Institute",
-            "title": "Egyptian Blue in Romano-Egyptian Mummy Portraits",
-            "citation": "Gabrielle Thiboutot, “Egyptian Blue in Romano-Egyptian Mummy Portraits,” Getty Publications.",
-            "url": "https://www.getty.edu/publications/mummyportraits/part-one/5/",
-            "supports": "Supports Egyptian blue as calcium copper silicate produced by firing raw materials and its visible-induced near-infrared luminescence used in conservation imaging.",
-            "boundary": "Its historical production and imaging observations do not make any displayed screen swatch a reconstruction of a specific ancient object.",
-            "claimIds": [
-              "egyptian-blue-frit",
-              "egyptian-blue-luminescence",
-              "screen-is-not-material"
-            ]
-          },
-          {
-            "id": "met-cobalt-blue",
-            "accessDate": "2026-07-10",
-            "stamp": "MET/CO",
-            "authority": "The Metropolitan Museum of Art",
-            "title": "Modern Pigments Found in Thomas Cole's Paintings",
-            "citation": "The Metropolitan Museum of Art, “Modern Pigments Found in Thomas Cole's Paintings Shed New Light on the Artist's Practice.”",
-            "url": "https://www.metmuseum.org/pt/perspectives/thomas-cole-conservation",
-            "supports": "Supports cobalt blue as CoO·Al₂O₃, a stable bright-blue pigment available to nineteenth-century painters.",
-            "boundary": "The cited painting case is evidence for this pigment description, not proof of use in every blue object or region.",
-            "claimIds": [
-              "cobalt-aluminate"
-            ]
-          },
-          {
-            "id": "national-gallery-prussian-blue",
-            "accessDate": "2026-07-10",
-            "stamp": "NG/PB",
-            "authority": "The National Gallery, London",
-            "title": "The structure of Prussian blue and the chemistry of its manufacture",
-            "citation": "Joyce H. Townsend and colleagues, National Gallery Technical Bulletin 25, “The Structure of Prussian Blue and the Chemistry of its Manufacture.”",
-            "url": "https://www.nationalgallery.org.uk/upload/pdf/kirby_saunders2004.pdf",
-            "supports": "Supports Prussian blue as a hydrated iron(III) hexacyanoferrate(II) mixed-valence network and explains its intervalence electronic charge-transfer color mechanism.",
-            "boundary": "The chemistry is simplified to a mechanism label; no manufacturing recipe or safety classification is presented.",
-            "claimIds": [
-              "prussian-blue-mixed-valence"
-            ]
-          },
-          {
-            "id": "harvard-structural-color",
-            "accessDate": "2026-07-10",
-            "stamp": "HARVARD/SC",
-            "authority": "Harvard John A. Paulson School of Engineering and Applied Sciences",
-            "title": "Structural color",
-            "citation": "Manoharan Lab, Harvard SEAS, “Structural color.”",
-            "url": "https://www.manoharan.seas.harvard.edu/structural-color",
-            "supports": "Supports structural color as an optical response of ordered or disordered microstructure, including scattering and viewing-angle distinctions rather than pigment absorption alone.",
-            "boundary": "The example is intentionally generic: it does not claim that every blue feather, wing, or manufactured surface uses one identical structural mechanism.",
-            "claimIds": [
-              "structural-blue",
-              "screen-is-not-material"
-            ]
-          }
-        ],
+        "transitionScore": {
+          "1->2": "multi-blind",
+          "2->3": "ink-spread",
+          "3->4": "afterimage",
+          "4->5": "multi-blind"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -28626,22 +27894,18 @@ export const CATALOG_MANIFEST = [
             "en": "Material and process statements are source-backed; the swatches and diagrams are illustrative, not material-color matches or universal cultural meanings of blue.",
             "zh": "材料与工艺陈述有来源支持；色片和图示仅为说明，并非材料颜色等同物，也不代表蓝色具有普遍文化含义。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "multi-blind",
-          "2->3": "ink-spread",
-          "3->4": "afterimage",
-          "4->5": "multi-blind"
-        }
+        "modulePath": "../topics/seven-blues.tsx"
       },
       {
         "id": "make-something-weekly",
-        "topic": {
+        "styleId": "riso-print-zine",
+        "title": {
           "en": "Make Something Weekly",
           "zh": "每周做点"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Make Something Weekly",
@@ -28755,10 +28019,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "riso-print-zine",
-            "name": "Riso Print Zine",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "每周做点",
@@ -28872,50 +28133,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "riso-print-zine",
-            "name": "孔版印刷杂志",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/make-something-weekly.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "weekly-ink-seal",
           "invocation": "proximity-reveal",
           "feedback": "typographic-emphasis"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "page-flip",
           "2->3": "hard-cut",
           "3->4": "page-flip",
           "4->5": "hard-cut"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/make-something-weekly.tsx"
       }
     ]
   },
   {
-    "id": "analog-cutout-collage",
-    "name": {
-      "en": "Analog Cutout Collage",
-      "zh": "模拟剪纸拼贴"
+    "style": {
+      "id": "analog-cutout-collage",
+      "name": {
+        "en": "Analog Cutout Collage",
+        "zh": "模拟剪纸拼贴"
+      },
+      "band": "editorial-print"
     },
     "topics": [
       {
         "id": "cutout-collage",
-        "topic": {
+        "styleId": "analog-cutout-collage",
+        "title": {
           "en": "Cutout Collage",
           "zh": "剪纸拼贴"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Cultural essays and personal narratives — scissor-cut paper fragments pinned and taped, handwritten annotations, paper-stacking shadows",
@@ -29026,10 +28288,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "analog-cutout-collage",
-            "name": "Analog Cutout Collage",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "文化随笔与个人叙事——剪刀剪纸碎片钉贴固定、手写注解、纸张堆叠阴影",
@@ -29140,18 +28399,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "analog-cutout-collage",
-            "name": "模拟剪纸拼贴",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/cutout-collage.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "cutout-scene-numerals",
           "invocation": "persistent",
           "feedback": "typographic-emphasis"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -29161,20 +28422,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "fade",
-          "3->4": "fade",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/cutout-collage.tsx"
       },
       {
         "id": "rebuilt-archive",
-        "topic": {
+        "styleId": "analog-cutout-collage",
+        "title": {
           "en": "Rebuilt Archive",
           "zh": "重组档案"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "The Archive Reassembled",
@@ -29324,10 +28581,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "analog-cutout-collage",
-            "name": "Analog Cutout Collage",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "重组档案",
@@ -29477,18 +28731,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "analog-cutout-collage",
-            "name": "模拟剪纸拼贴",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/rebuilt-archive.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "archive-scrap-wheel",
           "invocation": "persistent",
           "feedback": "geometry-reflow"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "slide-x",
+          "3->4": "wipe",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -29498,20 +28754,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "slide-x",
-          "3->4": "wipe",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/rebuilt-archive.tsx"
       },
       {
         "id": "concealed-objects",
-        "topic": {
+        "styleId": "analog-cutout-collage",
+        "title": {
           "en": "Inside the Wall",
           "zh": "墙中藏物"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Inside the Wall",
@@ -29638,10 +28890,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "analog-cutout-collage",
-            "name": "Analog Cutout Collage",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "墙中藏物",
@@ -29768,160 +29017,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "analog-cutout-collage",
-            "name": "模拟剪纸拼贴",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/concealed-objects.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "wall-cache-fragments",
           "invocation": "click-expand",
           "feedback": "active-glow"
         },
-        "sources": [
-          {
-            "id": "leigh-barton-report",
-            "authority": "Historic England",
-            "title": "Concealed Shoe from Leigh Barton, Churchstow, South Devon",
-            "citation": "J. H. Thornton, 1982, Ancient Monuments Laboratory Report 3736.",
-            "url": "https://historicengland.org.uk/research/results/reports/2145/CONCEALEDSHOEFROMLEIGHBARTONCHURCHSTOWSOUTHDEVON",
-            "accessDate": "2026-07-10",
-            "supports": "Records a roughly 230 mm, right-shaped adult shoe from Leigh Barton, with a repaired sole and upper loss before it was built into plaster; it cautions that exact dating is not possible from the surviving form.",
-            "boundary": "The report describes the object and its condition. It does not identify a wearer or prove why a particular person placed it in the building fabric.",
-            "shortLabel": {
-              "en": "HE · Leigh Barton",
-              "zh": "英格兰遗产 · Leigh Barton"
-            },
-            "claimIds": [
-              "leigh-barton-shoe"
-            ]
-          },
-          {
-            "id": "york-concealed-shoes",
-            "authority": "York Museums Trust",
-            "title": "Concealed Shoes in the York Castle Museum Collection",
-            "citation": "Faye Prior, York Museums Trust, collection research article.",
-            "url": "https://www.yorkmuseumstrust.org.uk/blog/concealed-shoes-in-the-york-castle-museum-collection/",
-            "accessDate": "2026-07-10",
-            "supports": "Documents the Bishopthorpe pair found in a wall during 1996 renovation and the 13 cm Gillygate child shoe found under floorboards in a first-floor bedroom above a shop in 2007, including their wear and repair evidence.",
-            "boundary": "The museum explicitly says it does not know who wore or concealed these shoes. The suggested Bishopthorpe concealment date is presented as a probability, not a witnessed event.",
-            "shortLabel": {
-              "en": "YMT · York shoes",
-              "zh": "约克博物馆 · 鞋履"
-            },
-            "claimIds": [
-              "bishopthorpe-pair",
-              "gillygate-child-shoe",
-              "conservation-context"
-            ]
-          },
-          {
-            "id": "mola-holywell",
-            "authority": "Museum of London Archaeology",
-            "title": "The Holywell witch-bottle",
-            "citation": "MOLA webpage article, “The Holywell witch-bottle.”",
-            "url": "https://www.mola.org.uk/discoveries/news/holywell-witch-bottle",
-            "accessDate": "2026-07-10",
-            "supports": "Records a London stoneware vessel dated about 1670–1710, placed upright below a floor in the doorway of an eighteenth-century house, with about 60 fine bent copper-alloy pins, nail residue, and an unidentified possible wood or bone fragment.",
-            "boundary": "The possible wood-or-bone fragment is not securely identified. MOLA treats the bottle's ritual or protective reading as an archaeological probability, not proof of a named actor's intention.",
-            "shortLabel": {
-              "en": "MOLA · Holywell",
-              "zh": "MOLA · Holywell"
-            },
-            "claimIds": [
-              "holywell-bottle"
-            ]
-          },
-          {
-            "id": "lauderdale-cache",
-            "authority": "London Museum",
-            "title": "Lauderdale House: Witchcraft relics hidden in the wall",
-            "citation": "London Museum, Lauderdale House collection interpretation, 2024.",
-            "url": "https://www.londonmuseum.org.uk/blog/lauderdale-house-witchcraft-relics-hidden-in-the-wall/",
-            "accessDate": "2026-07-10",
-            "supports": "Documents a basket found in 1963 behind a bricked-up wall near a first-floor fireplace: two odd shoes, plaited rush, a broken ceramic candlestick, a broken tazza, and four desiccated chickens; one shoe has been dated to 1650.",
-            "boundary": "The cache is a documented grouping and location, not a biography. Its intended protection, household meaning, and maker cannot be recovered as certain facts from the objects alone.",
-            "shortLabel": {
-              "en": "LM · Lauderdale",
-              "zh": "伦敦博物馆 · Lauderdale"
-            },
-            "claimIds": [
-              "lauderdale-cache"
-            ]
-          },
-          {
-            "id": "avebury-shoe-cache",
-            "authority": "Wiltshire and Swindon History Centre",
-            "title": "Concealed shoes",
-            "citation": "Wiltshire and Swindon History Centre, conservation update for Wiltshire Museum shoes.",
-            "url": "https://wshc.org.uk/concealed-shoes/",
-            "accessDate": "2026-07-10",
-            "supports": "Documents three latchet-tie shoes found in 2022 in a chimney wall of a seventeenth-century Avebury cottage, dating them around 1640–70 and describing evidence retained through conservation assessment.",
-            "boundary": "The source lists several possible purposes for concealed shoes but states that their purpose remains uncertain; unusual material details in the cache are also left unresolved.",
-            "shortLabel": {
-              "en": "WSHC · Avebury",
-              "zh": "WSHC · Avebury"
-            },
-            "claimIds": [
-              "avebury-shoe-cache",
-              "conservation-context"
-            ]
-          },
-          {
-            "id": "carhullan-mark",
-            "authority": "Historic England",
-            "title": "Carhullan farmhouse and barn, Bampton — List Entry 1485219",
-            "citation": "Historic England, National Heritage List for England, List Entry 1485219.",
-            "url": "https://historicengland.org.uk/listing/the-list/list-entry/1485219",
-            "accessDate": "2026-07-10",
-            "supports": "Records a detached stone discovered during renovation at Carhullan farmhouse, inscribed with JL and 1676 within a circle plus rough marks; the listing says the inscriptions are consistent with apotropaic or ritual marks.",
-            "boundary": "“Consistent with” is not a determination of intent. The listing does not establish whether the markings were protective, commemorative, or made by a specific individual.",
-            "shortLabel": {
-              "en": "HE · Carhullan",
-              "zh": "英格兰遗产 · Carhullan"
-            },
-            "claimIds": [
-              "carhullan-mark"
-            ]
-          },
-          {
-            "id": "historic-england-marks",
-            "authority": "Historic England",
-            "title": "What Are Witches’ Marks?",
-            "citation": "Historic England, Discovering Witches’ Marks guidance feature.",
-            "url": "https://historicengland.org.uk/whats-new/features/discovering-witches-marks/what-are-witches-marks",
-            "accessDate": "2026-07-10",
-            "supports": "Explains that ritual-protection or apotropaic marks are often found near doorways, windows, and fireplaces, and notes that the purpose of hexafoils remains disputed even where a protective interpretation is widely used.",
-            "boundary": "The guidance differentiates an interpretive vocabulary from a proven motive. A mark's shape or position cannot by itself establish the belief of a particular historic person.",
-            "shortLabel": {
-              "en": "HE · marks guide",
-              "zh": "英格兰遗产 · 刻痕"
-            },
-            "claimIds": [
-              "marks-interpretation"
-            ]
-          },
-          {
-            "id": "houlbrook-2013",
-            "authority": "Cambridge Archaeological Journal",
-            "title": "Ritual, Recycling and Recontextualization: Putting the Concealed Shoe into Context",
-            "citation": "Ceri Houlbrook, Cambridge Archaeological Journal 23(1), 2013, 99–112.",
-            "url": "https://www.cambridge.org/core/journals/cambridge-archaeological-journal/article/abs/ritual-recycling-and-recontextualization-putting-the-concealed-shoe-into-context/C6F6897C2F8778F6EA30F5DB74305491",
-            "accessDate": "2026-07-10",
-            "supports": "Reviews concealed-shoe evidence and states that, beyond the pattern of old and damaged shoes in unconventional building locations, motivations must be approached as archaeological interpretation because contemporaneous written explanations are absent.",
-            "boundary": "This research supports bounded interpretation, not a single explanation for every shoe, bottle, animal remain, or carved mark in this small evidence set.",
-            "shortLabel": {
-              "en": "CAJ · Houlbrook",
-              "zh": "CAJ · Houlbrook"
-            },
-            "claimIds": [
-              "interpretation-boundary"
-            ]
-          }
-        ],
+        "transitionScore": {
+          "1->2": "paper-fold",
+          "2->3": "card-carousel",
+          "3->4": "push-x",
+          "4->5": "paper-fold"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -30069,22 +29179,18 @@ export const CATALOG_MANIFEST = [
             "en": "Object details and find contexts are source-backed; associations with concealment practices remain bounded interpretations and do not establish a historic person's intent.",
             "zh": "物件细节与发现背景均有来源支持；与藏匿习俗的联系仍属有边界的解释，不能证明某位历史人物的意图。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "paper-fold",
-          "2->3": "card-carousel",
-          "3->4": "push-x",
-          "4->5": "paper-fold"
-        }
+        "modulePath": "../topics/concealed-objects.tsx"
       },
       {
         "id": "piecing-idea-together",
-        "topic": {
+        "styleId": "analog-cutout-collage",
+        "title": {
           "en": "Piecing the Idea Together",
           "zh": "拼出想法"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Piecing the Idea Together",
@@ -30192,10 +29298,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "analog-cutout-collage",
-            "name": "Analog Cutout Collage",
-            "band": "editorial-print"
+            ]
           },
           "zh": {
             "theme": "拼出想法",
@@ -30303,50 +29406,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "analog-cutout-collage",
-            "name": "模拟剪纸拼贴",
-            "band": "editorial-print"
+            ]
           }
         },
-        "modulePath": "../topics/piecing-idea-together.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "collage-pin-pricks",
           "invocation": "click-expand",
           "feedback": "active-glow"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-x",
           "2->3": "scale-fade",
           "3->4": "slide-x",
           "4->5": "scale-fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/piecing-idea-together.tsx"
       }
     ]
   },
   {
-    "id": "woodblock-floating-world",
-    "name": {
-      "en": "Woodblock Floating-World",
-      "zh": "木版浮世绘"
+    "style": {
+      "id": "woodblock-floating-world",
+      "name": {
+        "en": "Woodblock Floating-World",
+        "zh": "木版浮世绘"
+      },
+      "band": "craft-cultural"
     },
     "topics": [
       {
         "id": "woodblock",
-        "topic": {
+        "styleId": "woodblock-floating-world",
+        "title": {
           "en": "Woodblock",
           "zh": "木版画"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Hand-pressed woodblock print on warm paper — flat indigo planes, vermilion seal, one graded sky. Best for cultural storytelling, craft heritage narratives, and decks that need human, hand-made calm.",
@@ -30474,10 +29578,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "woodblock-floating-world",
-            "name": "Woodblock Floating-World",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "暖纸上的手工木版画——靛蓝平面、朱砂印章、一抹晕染天空。最适合文化叙事、工艺传承故事，以及需要人手沉静温度的演示。",
@@ -30605,49 +29706,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "woodblock-floating-world",
-            "name": "木版浮世绘",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/woodblock.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "woodblock-wave-chapter-seals",
           "invocation": "persistent",
           "feedback": "material-color-change"
         },
-        "sources": [
-          {
-            "authority": "British Museum",
-            "title": "Under the Wave off Kanagawa (Kanagawa-oki nami-ura)",
-            "citation": "British Museum collection object 1937,0710,0.147, Katsushika Hokusai, Under the Wave off Kanagawa.",
-            "url": "https://www.britishmuseum.org/collection/object/A_1937-0710-0-147",
-            "supports": "Supports the attribution to Katsushika Hokusai, the Under the Wave off Kanagawa title, its Thirty-six Views of Mt Fuji series, the 1831 production date, color woodblock technique, and a 25.9-centimetre print height."
-          },
-          {
-            "authority": "The Metropolitan Museum of Art",
-            "title": "Art of the Pleasure Quarters and the Ukiyo-e Style",
-            "citation": "The Metropolitan Museum of Art, Timeline of Art History, Art of the Pleasure Quarters and the Ukiyo-e Style.",
-            "url": "https://www.metmuseum.org/pt/essays/art-of-the-pleasure-quarters-and-the-ukiyo-e-style",
-            "supports": "Supports the ukiyo-e context and the dates shown for Katsushika Hokusai (1760–1849) and Utagawa Hiroshige (1797–1858), including their early-nineteenth-century landscape printmaking."
-          },
-          {
-            "authority": "British Museum",
-            "title": "Utamaro, Ten Classes of Women's Physiognomy",
-            "citation": "British Museum collection object 1906,1220,0.329, Kitagawa Utamaro, Ten Classes of Women's Physiognomy.",
-            "url": "https://www.britishmuseum.org/collection/object/A_1906-1220-0-329",
-            "supports": "Supports the Kitagawa Utamaro attribution and Ten Classes of Women's Physiognomy series named in the final artist list."
-          },
-          {
-            "authority": "The Metropolitan Museum of Art",
-            "title": "Utamaro: Songs of the Garden",
-            "citation": "The Metropolitan Museum of Art, Utamaro: Songs of the Garden.",
-            "url": "https://resources.metmuseum.org/resources/metpublications/pdf/Utamaro_Songs_of_the_Garden.pdf",
-            "supports": "Supports the historical lifespan shown for Kitagawa Utamaro (1753–1806) in the final artist list."
-          }
-        ],
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -30686,20 +29759,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "wipe",
-          "2->3": "wipe",
-          "3->4": "wipe",
-          "4->5": "wipe"
-        }
+        "modulePath": "../topics/woodblock.tsx"
       },
       {
         "id": "tide-map",
-        "topic": {
+        "styleId": "woodblock-floating-world",
+        "title": {
           "en": "Tide Map",
           "zh": "潮汐地图"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Tide Map for a Team",
@@ -30842,10 +29911,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "woodblock-floating-world",
-            "name": "Woodblock Floating-World",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "团队潮汐图",
@@ -30988,18 +30054,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "woodblock-floating-world",
-            "name": "木版浮世绘",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/tide-map.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "tide-map-seal-index",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "slide-x",
+          "3->4": "fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -31009,20 +30077,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "wipe",
-          "2->3": "slide-x",
-          "3->4": "fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/tide-map.tsx"
       },
       {
         "id": "whistled-language",
-        "topic": {
+        "styleId": "woodblock-floating-world",
+        "title": {
           "en": "Whistled Language",
           "zh": "口哨语言"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "A Language Carried by Mountains",
@@ -31147,10 +30211,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "woodblock-floating-world",
-            "name": "Woodblock Floating-World",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "山谷传递的语言",
@@ -31275,135 +30336,133 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "woodblock-floating-world",
-            "name": "木版浮世绘",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/whistled-language.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "mountain-peak-array",
           "invocation": "click-expand",
           "feedback": "next-state-preview"
         },
-        "sources": [
-          {
-            "id": "silbo-unesco",
-            "authority": "UNESCO Intangible Cultural Heritage",
-            "title": "Whistled language of the island of La Gomera (Canary Islands), the Silbo Gomero",
-            "citation": "UNESCO Intangible Cultural Heritage. Whistled language of the island of La Gomera (Canary Islands), the Silbo Gomero (Representative List, 2009).",
-            "url": "https://ich.unesco.org/en/RL/whistled-language-of-the-island-of-la-gomera-the-canary-islands-silbo-gomero-00172",
-            "accessDate": "2026-07-10",
-            "supports": "UNESCO identifies Silbo Gomero as a whistled rendering of the islanders’ Spanish. Its description reports two whistled distinctions replacing Spanish vowels and four replacing consonants, and notes teaching in island schools.",
-            "boundary": "This source describes Silbo Gomero on La Gomera. It does not authorize treating all whistled practices as Spanish-derived, reducing the practice to a universal cipher, or inferring the experience of every individual islander.",
-            "claimIds": [
-              "shared-medium-not-global-language",
-              "silbo-spanish-whistle-structure",
-              "silbo-local-transmission"
-            ]
-          },
-          {
-            "id": "silbo-community",
-            "authority": "Cabildo Insular de La Gomera",
-            "title": "The Cabildo recognizes the work of the Asociación Cultural Silbo Gomero and the bearer community",
-            "citation": "Cabildo Insular de La Gomera. El Cabildo pone en valor la labor de la Asociación Cultural Silbo Gomero y la comunidad portadora (2025).",
-            "url": "https://www.lagomera.es/noticia/el-cabildo-pone-en-valor-la-labor-de-la-asociacion-cultural-silbo-gomero-y-la-co",
-            "accessDate": "2026-07-10",
-            "supports": "The island institution names the Asociación Cultural Silbo Gomero and the bearer community as essential to conservation, transmission, and diffusion, including work connected with teaching in classrooms.",
-            "boundary": "This institutional report supports the local transmission and safeguarding context. It does not quantify present speaker competence, prove uniform participation, or replace the community’s own voices with an administrative account.",
-            "claimIds": [
-              "silbo-local-transmission"
-            ]
-          },
-          {
-            "id": "kus-unesco",
-            "authority": "UNESCO Intangible Cultural Heritage",
-            "title": "Whistled language (Türkiye)",
-            "citation": "UNESCO Intangible Cultural Heritage. Whistled language (Türkiye), nomination file No. 00658 (Urgent Safeguarding List, 2017).",
-            "url": "https://ich.unesco.org/en/USL/whistled-language-00658",
-            "accessDate": "2026-07-10",
-            "supports": "UNESCO describes the practice as using whistling to simulate and articulate words, developed in relation to steep mountains, rugged topography, and a need to communicate across a dispersed terrain.",
-            "boundary": "The UNESCO element is a specific safeguarding entry for Türkiye. It does not mean every community in the Black Sea region uses the practice, nor does it establish an interchangeable global model for whistled speech.",
-            "claimIds": [
-              "shared-medium-not-global-language",
-              "kus-terrain-and-words",
-              "kus-contextual-safeguarding"
-            ]
-          },
-          {
-            "id": "kus-safeguarding",
-            "authority": "UNESCO Intergovernmental Committee",
-            "title": "Decision 17.COM 6.A.6 on the status of Whistled language in Türkiye",
-            "citation": "UNESCO Intergovernmental Committee for the Safeguarding of the Intangible Cultural Heritage. Decision 17.COM 6.A.6 (2022).",
-            "url": "https://ich.unesco.org/en/decisions/17.COM/6.A.6",
-            "accessDate": "2026-07-10",
-            "supports": "The Committee records safeguarding through education, training with bearers and practitioners, and community participation; it explicitly warns against decontextualization and misappropriation in transmission beyond bearer communities.",
-            "boundary": "The decision concerns safeguarding measures and community participation. It does not authorize a slide to reproduce speech, claim a single standard practice, or imply that documentation substitutes for living transmission.",
-            "claimIds": [
-              "kus-contextual-safeguarding"
-            ]
-          },
-          {
-            "id": "kuskoy-linguistics",
-            "authority": "De Gruyter Mouton / International Congress of Phonetic Sciences",
-            "title": "Phonetic and Linguistic Study of the Whistled Speech of Kuskoy, Turkey",
-            "citation": "Moles, A. A., & Busnel, R. G. (1972). Phonetic and Linguistic Study of the Whistled Speech of Kuskoy, Turkey. Proceedings of the Seventh International Congress of Phonetic Sciences, 737–742.",
-            "url": "https://www.degruyterbrill.com/document/doi/10.1515/9783110814750-092/html",
-            "accessDate": "2026-07-10",
-            "supports": "This phonetic-linguistic study identifies the Kuskoy practice as whistled speech in Turkey, providing a source-bound basis for distinguishing its speech relationship from Silbo Gomero and the Mazatec field record.",
-            "boundary": "This historical phonetic study concerns Kuskoy and its research setting. It does not describe every Turkish variety, establish a current community census, or replace UNESCO’s safeguarding record for the broader cultural context.",
-            "claimIds": [
-              "shared-medium-not-global-language",
-              "kus-terrain-and-words"
-            ]
-          },
-          {
-            "id": "mazatec-sil-archive",
-            "authority": "SIL Mexico / Instituto Lingüístico de Verano",
-            "title": "Mazateco Whistle Speech",
-            "citation": "SIL Mexico Archives. Mazateco Whistle Speech, George M. Cowan, Language 24(3), 1948, pp. 280–286.",
-            "url": "https://mexico.sil.org/resources/archives/2247",
-            "accessDate": "2026-07-10",
-            "supports": "The SIL Mexico archive identifies Cowan’s 1948 article as a linguistic and sociolinguistic description of Huautla Mazatec whistle speech, including texts transcribed with tone notation and their translations.",
-            "boundary": "The archive catalog identifies one publication and language variety. It should not be expanded into an account of all Mazatec communities, a present-day prevalence estimate, or an invitation to reproduce community speech without permission.",
-            "claimIds": [
-              "mazatec-tone-field-record"
-            ]
-          },
-          {
-            "id": "mazatec-cowan",
-            "authority": "Language / Linguistic Society of America",
-            "title": "Mazateco Whistle Speech",
-            "citation": "Cowan, G. M. (1948). Mazateco Whistle Speech. Language, 24(3), 280–286. https://doi.org/10.2307/410362.",
-            "url": "https://www.cambridge.org/core/journals/language/article/abs/mazateco-whistle-speech/E1596F4BB83751CF1C379C96E8583AB0",
-            "accessDate": "2026-07-10",
-            "supports": "Cowan’s article describes field texts gathered at Río Santiago near Huautla de Jiménez and reports that tone enables a wide lexical range in conversation without the segmental phonemes of ordinary spoken speech.",
-            "boundary": "This is a dated, local field record with named research conditions. The slide keeps its claim tied to that record and does not turn it into a timeless or universal description of Mazatec language, people, or cultural practice.",
-            "claimIds": [
-              "shared-medium-not-global-language",
-              "mazatec-tone-field-record"
-            ]
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "ink-spread",
           "2->3": "crossfade",
           "3->4": "diagonal-pan",
           "4->5": "ink-spread"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "silbo-unesco",
+              "authority": "UNESCO Intangible Cultural Heritage",
+              "title": "Whistled language of the island of La Gomera (Canary Islands), the Silbo Gomero",
+              "citation": "UNESCO Intangible Cultural Heritage. Whistled language of the island of La Gomera (Canary Islands), the Silbo Gomero (Representative List, 2009).",
+              "url": "https://ich.unesco.org/en/RL/whistled-language-of-the-island-of-la-gomera-the-canary-islands-silbo-gomero-00172",
+              "accessDate": "2026-07-10",
+              "supports": "UNESCO identifies Silbo Gomero as a whistled rendering of the islanders’ Spanish. Its description reports two whistled distinctions replacing Spanish vowels and four replacing consonants, and notes teaching in island schools.",
+              "boundary": "This source describes Silbo Gomero on La Gomera. It does not authorize treating all whistled practices as Spanish-derived, reducing the practice to a universal cipher, or inferring the experience of every individual islander.",
+              "claimIds": [
+                "shared-medium-not-global-language",
+                "silbo-spanish-whistle-structure",
+                "silbo-local-transmission"
+              ]
+            },
+            {
+              "id": "silbo-community",
+              "authority": "Cabildo Insular de La Gomera",
+              "title": "The Cabildo recognizes the work of the Asociación Cultural Silbo Gomero and the bearer community",
+              "citation": "Cabildo Insular de La Gomera. El Cabildo pone en valor la labor de la Asociación Cultural Silbo Gomero y la comunidad portadora (2025).",
+              "url": "https://www.lagomera.es/noticia/el-cabildo-pone-en-valor-la-labor-de-la-asociacion-cultural-silbo-gomero-y-la-co",
+              "accessDate": "2026-07-10",
+              "supports": "The island institution names the Asociación Cultural Silbo Gomero and the bearer community as essential to conservation, transmission, and diffusion, including work connected with teaching in classrooms.",
+              "boundary": "This institutional report supports the local transmission and safeguarding context. It does not quantify present speaker competence, prove uniform participation, or replace the community’s own voices with an administrative account.",
+              "claimIds": [
+                "silbo-local-transmission"
+              ]
+            },
+            {
+              "id": "kus-unesco",
+              "authority": "UNESCO Intangible Cultural Heritage",
+              "title": "Whistled language (Türkiye)",
+              "citation": "UNESCO Intangible Cultural Heritage. Whistled language (Türkiye), nomination file No. 00658 (Urgent Safeguarding List, 2017).",
+              "url": "https://ich.unesco.org/en/USL/whistled-language-00658",
+              "accessDate": "2026-07-10",
+              "supports": "UNESCO describes the practice as using whistling to simulate and articulate words, developed in relation to steep mountains, rugged topography, and a need to communicate across a dispersed terrain.",
+              "boundary": "The UNESCO element is a specific safeguarding entry for Türkiye. It does not mean every community in the Black Sea region uses the practice, nor does it establish an interchangeable global model for whistled speech.",
+              "claimIds": [
+                "shared-medium-not-global-language",
+                "kus-terrain-and-words",
+                "kus-contextual-safeguarding"
+              ]
+            },
+            {
+              "id": "kus-safeguarding",
+              "authority": "UNESCO Intergovernmental Committee",
+              "title": "Decision 17.COM 6.A.6 on the status of Whistled language in Türkiye",
+              "citation": "UNESCO Intergovernmental Committee for the Safeguarding of the Intangible Cultural Heritage. Decision 17.COM 6.A.6 (2022).",
+              "url": "https://ich.unesco.org/en/decisions/17.COM/6.A.6",
+              "accessDate": "2026-07-10",
+              "supports": "The Committee records safeguarding through education, training with bearers and practitioners, and community participation; it explicitly warns against decontextualization and misappropriation in transmission beyond bearer communities.",
+              "boundary": "The decision concerns safeguarding measures and community participation. It does not authorize a slide to reproduce speech, claim a single standard practice, or imply that documentation substitutes for living transmission.",
+              "claimIds": [
+                "kus-contextual-safeguarding"
+              ]
+            },
+            {
+              "id": "kuskoy-linguistics",
+              "authority": "De Gruyter Mouton / International Congress of Phonetic Sciences",
+              "title": "Phonetic and Linguistic Study of the Whistled Speech of Kuskoy, Turkey",
+              "citation": "Moles, A. A., & Busnel, R. G. (1972). Phonetic and Linguistic Study of the Whistled Speech of Kuskoy, Turkey. Proceedings of the Seventh International Congress of Phonetic Sciences, 737–742.",
+              "url": "https://www.degruyterbrill.com/document/doi/10.1515/9783110814750-092/html",
+              "accessDate": "2026-07-10",
+              "supports": "This phonetic-linguistic study identifies the Kuskoy practice as whistled speech in Turkey, providing a source-bound basis for distinguishing its speech relationship from Silbo Gomero and the Mazatec field record.",
+              "boundary": "This historical phonetic study concerns Kuskoy and its research setting. It does not describe every Turkish variety, establish a current community census, or replace UNESCO’s safeguarding record for the broader cultural context.",
+              "claimIds": [
+                "shared-medium-not-global-language",
+                "kus-terrain-and-words"
+              ]
+            },
+            {
+              "id": "mazatec-sil-archive",
+              "authority": "SIL Mexico / Instituto Lingüístico de Verano",
+              "title": "Mazateco Whistle Speech",
+              "citation": "SIL Mexico Archives. Mazateco Whistle Speech, George M. Cowan, Language 24(3), 1948, pp. 280–286.",
+              "url": "https://mexico.sil.org/resources/archives/2247",
+              "accessDate": "2026-07-10",
+              "supports": "The SIL Mexico archive identifies Cowan’s 1948 article as a linguistic and sociolinguistic description of Huautla Mazatec whistle speech, including texts transcribed with tone notation and their translations.",
+              "boundary": "The archive catalog identifies one publication and language variety. It should not be expanded into an account of all Mazatec communities, a present-day prevalence estimate, or an invitation to reproduce community speech without permission.",
+              "claimIds": [
+                "mazatec-tone-field-record"
+              ]
+            },
+            {
+              "id": "mazatec-cowan",
+              "authority": "Language / Linguistic Society of America",
+              "title": "Mazateco Whistle Speech",
+              "citation": "Cowan, G. M. (1948). Mazateco Whistle Speech. Language, 24(3), 280–286. https://doi.org/10.2307/410362.",
+              "url": "https://www.cambridge.org/core/journals/language/article/abs/mazateco-whistle-speech/E1596F4BB83751CF1C379C96E8583AB0",
+              "accessDate": "2026-07-10",
+              "supports": "Cowan’s article describes field texts gathered at Río Santiago near Huautla de Jiménez and reports that tone enables a wide lexical range in conversation without the segmental phonemes of ordinary spoken speech.",
+              "boundary": "This is a dated, local field record with named research conditions. The slide keeps its claim tied to that record and does not turn it into a timeless or universal description of Mazatec language, people, or cultural practice.",
+              "claimIds": [
+                "shared-medium-not-global-language",
+                "mazatec-tone-field-record"
+              ]
+            }
+          ]
+        },
+        "modulePath": "../topics/whistled-language.tsx"
       },
       {
         "id": "a-rivers-journey",
-        "topic": {
+        "styleId": "woodblock-floating-world",
+        "title": {
           "en": "A River's Journey",
           "zh": "一条河"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "A River's Journey",
@@ -31529,10 +30588,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "woodblock-floating-world",
-            "name": "Woodblock Floating-World",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "一条河",
@@ -31658,50 +30714,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "woodblock-floating-world",
-            "name": "木版浮世绘",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/a-rivers-journey.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "river-horizon-boat",
           "invocation": "click-expand",
           "feedback": "history-trail"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-x",
           "2->3": "slide-x",
           "3->4": "slide-x",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative river journey: the landscapes, sequence, and wording are a visual narrative rather than a description of one surveyed river system.",
+            "zh": "示例河流旅程：其中景观、顺序与表述均为视觉叙事，并非对某一实测河流系统的描述。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/a-rivers-journey.tsx"
       }
     ]
   },
   {
-    "id": "botanical-specimen-plate",
-    "name": {
-      "en": "Botanical Specimen Plate",
-      "zh": "植物标本板"
+    "style": {
+      "id": "botanical-specimen-plate",
+      "name": {
+        "en": "Botanical Specimen Plate",
+        "zh": "植物标本板"
+      },
+      "band": "craft-cultural"
     },
     "topics": [
       {
         "id": "specimen-plate",
-        "topic": {
+        "styleId": "botanical-specimen-plate",
+        "title": {
           "en": "Specimen Plate",
           "zh": "标本板"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Pressed herbarium sheet under north light — aged paper, iron-gall ink, muted naturalist palette. Best for taxonomy, classification, species catalogs, and systematic comparison.",
@@ -31824,10 +30881,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "botanical-specimen-plate",
-            "name": "Botanical Specimen Plate",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "北窗下的压制植物标本——陈年纸张、铁胆墨水、柔和自然色。最适合分类学、物种编目和系统比较。",
@@ -31950,42 +31004,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "botanical-specimen-plate",
-            "name": "植物标本板",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/specimen-plate.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "specimen-plate-dot-index",
           "invocation": "persistent",
           "feedback": "active-glow"
         },
-        "sources": [
-          {
-            "authority": "Biodiversity Heritage Library",
-            "title": "Caroli Linnaei Species plantarum",
-            "citation": "Biodiversity Heritage Library bibliography 669, Carl von Linné, Species plantarum, 1753.",
-            "url": "https://www.biodiversitylibrary.org/bibliography/669",
-            "supports": "Supports the Carl Linnaeus (1707–1778) and Species Plantarum (1753) reference in the historical collectors list."
-          },
-          {
-            "authority": "Natural History Museum, London",
-            "title": "Daniel Solander: a Linnaean disciple on HMS Endeavour",
-            "citation": "Natural History Museum, Daniel Solander: a Linnaean disciple on HMS Endeavour.",
-            "url": "https://www.nhm.ac.uk/discover/daniel-solander-a-linnaean-disciple-on-hms-endeavour.html",
-            "supports": "Supports the Joseph Banks and Daniel Solander Endeavour collecting context and the later Banks' Florilegium publication history referenced by the collectors scene."
-          },
-          {
-            "authority": "The Metropolitan Museum of Art",
-            "title": "Study of Capers, Gorse, and a Beetle",
-            "citation": "The Metropolitan Museum of Art collection object 2012.83, Maria Sibylla Merian (1647–1717).",
-            "url": "https://www.metmuseum.org/art/collection/search/399922",
-            "supports": "Supports the Maria Sibylla Merian (1647–1717) reference and her documented observational studies of plants and insect metamorphosis."
-          }
-        ],
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -32017,20 +31050,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "fade",
-          "3->4": "fade",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/specimen-plate.tsx"
       },
       {
         "id": "growth-signals",
-        "topic": {
+        "styleId": "botanical-specimen-plate",
+        "title": {
           "en": "Growth Signals",
           "zh": "增长信号"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Classifying Growth Signals",
@@ -32181,10 +31210,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "botanical-specimen-plate",
-            "name": "Botanical Specimen Plate",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "增长信号分类",
@@ -32335,18 +31361,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "botanical-specimen-plate",
-            "name": "植物标本板",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/growth-signals.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "growth-signals-pressed-leaf-index",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "wipe",
+          "3->4": "scale-fade",
+          "4->5": "page-flip"
         },
         "evidence": {
           "kind": "illustrative",
@@ -32356,20 +31384,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "wipe",
-          "3->4": "scale-fade",
-          "4->5": "page-flip"
-        }
+        "modulePath": "../topics/growth-signals.tsx"
       },
       {
         "id": "leaf-stomata",
-        "topic": {
+        "styleId": "botanical-specimen-plate",
+        "title": {
           "en": "Leaf Stomata",
           "zh": "叶片气孔"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "The Leaf’s Smallest Bargain",
@@ -32492,10 +31516,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "botanical-specimen-plate",
-            "name": "Botanical Specimen Plate",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "叶片最小的交换",
@@ -32618,70 +31639,68 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "botanical-specimen-plate",
-            "name": "植物标本板",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/leaf-stomata.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "specimen-registration-marks",
           "invocation": "drag-scrub",
           "feedback": "geometry-reflow"
         },
-        "sources": [
-          {
-            "authority": "OpenStax / Rice University",
-            "title": "Biology 2e — 30.4 Leaves",
-            "citation": "Clark, Choi, and Douglas, Biology 2e, section 30.4, OpenStax, 2018.",
-            "url": "https://openstax.org/books/biology-2e/pages/30-4-leaves",
-            "supports": "Supports the leaf-to-epidermis scale sequence, the paired guard cells surrounding a stomatal pore, and the sub-stomatal air space connecting the pore to the mesophyll.",
-            "boundary": "The illustrations are original explanatory line drawings, not reproductions of the microscopy in the textbook; stomatal form and distribution vary among plant groups and leaf surfaces."
-          },
-          {
-            "authority": "OpenStax / Rice University",
-            "title": "Biology 2e — 30.5 Transport of Water and Solutes in Plants",
-            "citation": "Clark, Choi, and Douglas, Biology 2e, section 30.5, OpenStax, 2018.",
-            "url": "https://openstax.org/books/biology-2e/pages/30-5-transport-of-water-and-solutes-in-plants",
-            "supports": "Supports the central exchange: stomata admit carbon dioxide while open pores also permit water-vapor loss, and guard cells respond to multiple cues including light, leaf water status, and carbon-dioxide concentration.",
-            "boundary": "The Topic describes a regulated trade-off, not a claim that every stoma opens in daylight or that one cue alone fixes aperture across species, tissues, and environmental histories."
-          },
-          {
-            "authority": "University of California, San Diego / The Arabidopsis Book",
-            "title": "The Clickable Guard Cell, Version II",
-            "citation": "Kwak, Mäser, and Schroeder, The Clickable Guard Cell, Version II, UC San Diego and The Arabidopsis Book.",
-            "url": "https://labs.biology.ucsd.edu/schroeder/clickablegc2/",
-            "supports": "Supports the guard-cell framing of the pore and its role in regulating atmospheric carbon-dioxide influx for carbon fixation together with transpiration-related water loss.",
-            "boundary": "The linked model summarizes Arabidopsis guard-cell signaling; this Topic does not imply that every pathway, ion channel, or response magnitude is identical in all vascular plants."
-          },
-          {
-            "authority": "Frontiers in Plant Science / PubMed Central",
-            "title": "Rethinking Guard Cell Metabolism",
-            "citation": "Daloso et al., “Rethinking Guard Cell Metabolism,” Frontiers in Plant Science 7 (2016): 1373.",
-            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5100799/",
-            "supports": "Supports the view of guard-cell aperture as an actively regulated outcome involving ion transport, solute biosynthesis, metabolism, and adjustments in guard-cell volume rather than a binary mechanical switch.",
-            "boundary": "The review emphasizes open questions and metabolic plasticity; the plate intentionally stops at system-level conditions and does not assign a single molecular cause to any drawn aperture."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "iris-open",
           "2->3": "crossfade",
           "3->4": "hard-cut",
           "4->5": "focus-swap"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "OpenStax / Rice University",
+              "title": "Biology 2e — 30.4 Leaves",
+              "citation": "Clark, Choi, and Douglas, Biology 2e, section 30.4, OpenStax, 2018.",
+              "url": "https://openstax.org/books/biology-2e/pages/30-4-leaves",
+              "supports": "Supports the leaf-to-epidermis scale sequence, the paired guard cells surrounding a stomatal pore, and the sub-stomatal air space connecting the pore to the mesophyll.",
+              "boundary": "The illustrations are original explanatory line drawings, not reproductions of the microscopy in the textbook; stomatal form and distribution vary among plant groups and leaf surfaces."
+            },
+            {
+              "authority": "OpenStax / Rice University",
+              "title": "Biology 2e — 30.5 Transport of Water and Solutes in Plants",
+              "citation": "Clark, Choi, and Douglas, Biology 2e, section 30.5, OpenStax, 2018.",
+              "url": "https://openstax.org/books/biology-2e/pages/30-5-transport-of-water-and-solutes-in-plants",
+              "supports": "Supports the central exchange: stomata admit carbon dioxide while open pores also permit water-vapor loss, and guard cells respond to multiple cues including light, leaf water status, and carbon-dioxide concentration.",
+              "boundary": "The Topic describes a regulated trade-off, not a claim that every stoma opens in daylight or that one cue alone fixes aperture across species, tissues, and environmental histories."
+            },
+            {
+              "authority": "University of California, San Diego / The Arabidopsis Book",
+              "title": "The Clickable Guard Cell, Version II",
+              "citation": "Kwak, Mäser, and Schroeder, The Clickable Guard Cell, Version II, UC San Diego and The Arabidopsis Book.",
+              "url": "https://labs.biology.ucsd.edu/schroeder/clickablegc2/",
+              "supports": "Supports the guard-cell framing of the pore and its role in regulating atmospheric carbon-dioxide influx for carbon fixation together with transpiration-related water loss.",
+              "boundary": "The linked model summarizes Arabidopsis guard-cell signaling; this Topic does not imply that every pathway, ion channel, or response magnitude is identical in all vascular plants."
+            },
+            {
+              "authority": "Frontiers in Plant Science / PubMed Central",
+              "title": "Rethinking Guard Cell Metabolism",
+              "citation": "Daloso et al., “Rethinking Guard Cell Metabolism,” Frontiers in Plant Science 7 (2016): 1373.",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5100799/",
+              "supports": "Supports the view of guard-cell aperture as an actively regulated outcome involving ion transport, solute biosynthesis, metabolism, and adjustments in guard-cell volume rather than a binary mechanical switch.",
+              "boundary": "The review emphasizes open questions and metabolic plasticity; the plate intentionally stops at system-level conditions and does not assign a single molecular cause to any drawn aperture."
+            }
+          ]
+        },
+        "modulePath": "../topics/leaf-stomata.tsx"
       },
       {
         "id": "anatomy-of-an-idea",
-        "topic": {
+        "styleId": "botanical-specimen-plate",
+        "title": {
           "en": "Anatomy of an Idea",
           "zh": "想法解剖"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Anatomy of an Idea",
@@ -32799,10 +31818,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "botanical-specimen-plate",
-            "name": "Botanical Specimen Plate",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "想法解剖",
@@ -32920,50 +31936,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "botanical-specimen-plate",
-            "name": "植物标本板",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/anatomy-of-an-idea.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "idea-plate-numerals",
           "invocation": "click-expand",
           "feedback": "next-state-preview"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "page-flip",
           "2->3": "fade",
           "3->4": "fade",
           "4->5": "page-flip"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative idea anatomy: botanical taxonomy, specimen labels, and Latin names are metaphors for reasoning, not biological or taxonomic claims.",
+            "zh": "示例想法解剖：植物分类、标本标签与拉丁名称均为推理隐喻，并非生物学或分类学主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/anatomy-of-an-idea.tsx"
       }
     ]
   },
   {
-    "id": "machine-age-deco",
-    "name": {
-      "en": "Machine-Age Deco",
-      "zh": "机器时代装饰艺术"
+    "style": {
+      "id": "machine-age-deco",
+      "name": {
+        "en": "Machine-Age Deco",
+        "zh": "机器时代装饰艺术"
+      },
+      "band": "craft-cultural"
     },
     "topics": [
       {
         "id": "deco-gala",
-        "topic": {
+        "styleId": "machine-age-deco",
+        "title": {
           "en": "Deco Gala",
           "zh": "装饰仪式"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Ocean liner dining saloon — engineered symmetry, lacquered depth, metallic precision. Best for flagship product launches, brand manifestos, award ceremonies, and moments demanding ceremony and scale.",
@@ -33091,10 +32108,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "machine-age-deco",
-            "name": "Machine-Age Deco",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "远洋邮轮餐厅——工程对称、漆面深邃、金属精密。最适合旗舰产品发布、品牌宣言、颁奖典礼，以及需要仪式感与宏大尺度的时刻。",
@@ -33222,18 +32236,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "machine-age-deco",
-            "name": "机器时代装饰艺术",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/deco-gala.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "deco-gala-diamond-index",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
         },
         "evidence": {
           "kind": "illustrative",
@@ -33243,20 +32259,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "wipe",
-          "2->3": "wipe",
-          "3->4": "wipe",
-          "4->5": "wipe"
-        }
+        "modulePath": "../topics/deco-gala.tsx"
       },
       {
         "id": "infrastructure-gala",
-        "topic": {
+        "styleId": "machine-age-deco",
+        "title": {
           "en": "Infrastructure Gala",
           "zh": "基建庆典"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "The Infrastructure Gala",
@@ -33403,10 +32415,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "machine-age-deco",
-            "name": "Machine-Age Deco",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "基础设施晚会",
@@ -33553,18 +32562,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "machine-age-deco",
-            "name": "机器时代装饰艺术",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/infrastructure-gala.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "brass-elevator",
           "invocation": "persistent",
           "feedback": "mechanical-displacement"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "scale-fade",
+          "3->4": "wipe",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -33574,20 +32585,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-y",
-          "2->3": "scale-fade",
-          "3->4": "wipe",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/infrastructure-gala.tsx"
       },
       {
         "id": "reinforced-concrete",
-        "topic": {
+        "styleId": "machine-age-deco",
+        "title": {
           "en": "Reinforced Concrete",
           "zh": "钢筋混凝土"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Concrete's Two Strengths",
@@ -33706,10 +32713,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "machine-age-deco",
-            "name": "Machine-Age Deco",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "混凝土的两种力量",
@@ -33828,101 +32832,99 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "machine-age-deco",
-            "name": "机器时代装饰艺术",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/reinforced-concrete.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "load-ruler",
           "invocation": "drag-scrub",
           "feedback": "material-color-change"
         },
-        "sources": [
-          {
-            "id": "nist-composite-beam-strain",
-            "authority": "National Institute of Standards and Technology",
-            "title": "Monitoring early-age shrinkage strain and temperature distributions in full-scale steel-concrete composite beams with distributed fiber optic sensors",
-            "citation": "Bao, Y., Hoehler, M., Choe, L., Klegseth, M., & Chen, G. (2017). Monitoring early-age shrinkage strain and temperature distributions in full-scale steel-concrete composite beams with distributed fiber optic sensors. Proceedings of the 11th International Workshop on Structural Health Monitoring.",
-            "url": "https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=923619",
-            "supports": "Concrete is weak in tension relative to compression; steel can serve as tension reinforcement; chemical and mechanical bond transfer force; comparable thermal expansion supports the integrity of steel-reinforced concrete.",
-            "boundary": "The source discusses material and composite-action principles. It does not supply member dimensions, bar selection, spacing, cover, load capacity, or construction instructions for this diagram.",
-            "claimIds": [
-              "concrete-compression",
-              "concrete-tension",
-              "steel-concrete-bond",
-              "compatible-thermal-movement",
-              "safety-boundary"
-            ]
-          },
-          {
-            "id": "aci-e2-reinforcement",
-            "authority": "American Concrete Institute",
-            "title": "Reinforcement for Concrete, ACI Education Bulletin E2-00",
-            "citation": "ACI Committee E-701. (2000; reapproved 2006). Reinforcement for Concrete—Materials and Applications (ACI Education Bulletin E2-00).",
-            "url": "https://www.concrete.org/portals/0/files/pdf/fe2-00.pdf",
-            "supports": "Plain concrete has much lower tensile than compressive strength; in beam action reinforcement resists tension, while bond and similar thermal movement enable steel and concrete to act together.",
-            "boundary": "This educational bulletin explains principles and shows why placement matters. The slide deliberately omits its design-code context and must not be read as placement or detailing guidance.",
-            "claimIds": [
-              "concrete-compression",
-              "concrete-tension",
-              "steel-concrete-bond",
-              "compatible-thermal-movement",
-              "crack-control",
-              "safety-boundary"
-            ]
-          },
-          {
-            "id": "fhwa-reinforcing-bar-practices",
-            "authority": "Federal Highway Administration",
-            "title": "FHWA-HRT-16-012: National Changes in Bridge Practices for Reinforcing Bars",
-            "citation": "Lane, S., & Kleinhans, D. (2016). FHWA LTBP Summary—National Changes in Bridge Practices for Reinforcing Bars (FHWA-HRT-16-012). Federal Highway Administration.",
-            "url": "https://www.fhwa.dot.gov/publications/research/infrastructure/structures/ltbp/16012/index.cfm",
-            "supports": "Where plain concrete is sufficiently tensioned it tends to crack, so reinforcing bars help carry tensile stress; flexure creates tension regions, while creep, shrinkage, and thermal effects can also matter.",
-            "boundary": "The FHWA material addresses bridge practice. It supports the conservative tension-and-cracking explanation, not a universal claim about the location, timing, or width of cracks in a specific member.",
-            "claimIds": [
-              "concrete-compression",
-              "concrete-tension",
-              "crack-control",
-              "safety-boundary"
-            ]
-          },
-          {
-            "id": "asce-tension-member-cracks",
-            "authority": "ASCE Journal of Structural Engineering",
-            "title": "Crack Analysis of Reinforced Concrete Tension Members",
-            "citation": "Chan, H. C., Cheung, Y. K., & Huang, Y. P. (1992). Crack Analysis of Reinforced Concrete Tension Members. Journal of Structural Engineering, 118(8), 2118–2132. https://doi.org/10.1061/(ASCE)0733-9445(1992)118:8(2118).",
-            "url": "https://ascelibrary.org/doi/10.1061/%28ASCE%290733-9445%281992%29118%3A8%282118%29",
-            "supports": "Crack analysis for reinforced-concrete tension members treats tension stiffening and bond-stress distribution as consequential to crack strength and member elongation.",
-            "boundary": "This research article motivates the slide's bond-and-crack-control language. It is not used to infer a crack width, reinforcement amount, or a design outcome for a real structure.",
-            "claimIds": [
-              "concrete-tension",
-              "steel-concrete-bond",
-              "crack-control",
-              "safety-boundary"
-            ]
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "split-merge",
           "2->3": "dolly-pull",
           "3->4": "grid-reveal",
           "4->5": "focus-swap"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "nist-composite-beam-strain",
+              "authority": "National Institute of Standards and Technology",
+              "title": "Monitoring early-age shrinkage strain and temperature distributions in full-scale steel-concrete composite beams with distributed fiber optic sensors",
+              "citation": "Bao, Y., Hoehler, M., Choe, L., Klegseth, M., & Chen, G. (2017). Monitoring early-age shrinkage strain and temperature distributions in full-scale steel-concrete composite beams with distributed fiber optic sensors. Proceedings of the 11th International Workshop on Structural Health Monitoring.",
+              "url": "https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=923619",
+              "supports": "Concrete is weak in tension relative to compression; steel can serve as tension reinforcement; chemical and mechanical bond transfer force; comparable thermal expansion supports the integrity of steel-reinforced concrete.",
+              "boundary": "The source discusses material and composite-action principles. It does not supply member dimensions, bar selection, spacing, cover, load capacity, or construction instructions for this diagram.",
+              "claimIds": [
+                "concrete-compression",
+                "concrete-tension",
+                "steel-concrete-bond",
+                "compatible-thermal-movement",
+                "safety-boundary"
+              ]
+            },
+            {
+              "id": "aci-e2-reinforcement",
+              "authority": "American Concrete Institute",
+              "title": "Reinforcement for Concrete, ACI Education Bulletin E2-00",
+              "citation": "ACI Committee E-701. (2000; reapproved 2006). Reinforcement for Concrete—Materials and Applications (ACI Education Bulletin E2-00).",
+              "url": "https://www.concrete.org/portals/0/files/pdf/fe2-00.pdf",
+              "supports": "Plain concrete has much lower tensile than compressive strength; in beam action reinforcement resists tension, while bond and similar thermal movement enable steel and concrete to act together.",
+              "boundary": "This educational bulletin explains principles and shows why placement matters. The slide deliberately omits its design-code context and must not be read as placement or detailing guidance.",
+              "claimIds": [
+                "concrete-compression",
+                "concrete-tension",
+                "steel-concrete-bond",
+                "compatible-thermal-movement",
+                "crack-control",
+                "safety-boundary"
+              ]
+            },
+            {
+              "id": "fhwa-reinforcing-bar-practices",
+              "authority": "Federal Highway Administration",
+              "title": "FHWA-HRT-16-012: National Changes in Bridge Practices for Reinforcing Bars",
+              "citation": "Lane, S., & Kleinhans, D. (2016). FHWA LTBP Summary—National Changes in Bridge Practices for Reinforcing Bars (FHWA-HRT-16-012). Federal Highway Administration.",
+              "url": "https://www.fhwa.dot.gov/publications/research/infrastructure/structures/ltbp/16012/index.cfm",
+              "supports": "Where plain concrete is sufficiently tensioned it tends to crack, so reinforcing bars help carry tensile stress; flexure creates tension regions, while creep, shrinkage, and thermal effects can also matter.",
+              "boundary": "The FHWA material addresses bridge practice. It supports the conservative tension-and-cracking explanation, not a universal claim about the location, timing, or width of cracks in a specific member.",
+              "claimIds": [
+                "concrete-compression",
+                "concrete-tension",
+                "crack-control",
+                "safety-boundary"
+              ]
+            },
+            {
+              "id": "asce-tension-member-cracks",
+              "authority": "ASCE Journal of Structural Engineering",
+              "title": "Crack Analysis of Reinforced Concrete Tension Members",
+              "citation": "Chan, H. C., Cheung, Y. K., & Huang, Y. P. (1992). Crack Analysis of Reinforced Concrete Tension Members. Journal of Structural Engineering, 118(8), 2118–2132. https://doi.org/10.1061/(ASCE)0733-9445(1992)118:8(2118).",
+              "url": "https://ascelibrary.org/doi/10.1061/%28ASCE%290733-9445%281992%29118%3A8%282118%29",
+              "supports": "Crack analysis for reinforced-concrete tension members treats tension stiffening and bond-stress distribution as consequential to crack strength and member elongation.",
+              "boundary": "This research article motivates the slide's bond-and-crack-control language. It is not used to infer a crack width, reinforcement amount, or a design outcome for a real structure.",
+              "claimIds": [
+                "concrete-tension",
+                "steel-concrete-bond",
+                "crack-control",
+                "safety-boundary"
+              ]
+            }
+          ]
+        },
+        "modulePath": "../topics/reinforced-concrete.tsx"
       },
       {
         "id": "grand-unveiling",
-        "topic": {
+        "styleId": "machine-age-deco",
+        "title": {
           "en": "The Grand Unveiling",
           "zh": "盛大揭幕"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "The Grand Unveiling",
@@ -34037,10 +33039,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "machine-age-deco",
-            "name": "Machine-Age Deco",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "盛大揭幕",
@@ -34155,50 +33154,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "machine-age-deco",
-            "name": "机器时代装饰艺术",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/grand-unveiling.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "unveiling-gate-dial",
           "invocation": "click-expand",
           "feedback": "mechanical-displacement"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "scale-fade",
           "2->3": "scale-fade",
           "3->4": "slide-y",
           "4->5": "scale-fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/grand-unveiling.tsx"
       }
     ]
   },
   {
-    "id": "expedition-screenprint",
-    "name": {
-      "en": "Expedition Screenprint",
-      "zh": "探险丝网印"
+    "style": {
+      "id": "expedition-screenprint",
+      "name": {
+        "en": "Expedition Screenprint",
+        "zh": "探险丝网印"
+      },
+      "band": "craft-cultural"
     },
     "topics": [
       {
         "id": "expedition-print",
-        "topic": {
+        "styleId": "expedition-screenprint",
+        "title": {
           "en": "Expedition Print",
           "zh": "探险海报"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "WPA poster fresh off the silkscreen — flat warm ink planes, visible grain, a horizon you can feel. Best for product launches with public-good angle, geographic themes, and community initiatives.",
@@ -34314,10 +33314,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "expedition-screenprint",
-            "name": "Expedition Screenprint",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "刚从丝网印机取下的 WPA 海报——温暖平面墨色、可见油墨颗粒、可感知的地平线。最适合公益角度的产品发布、地理主题和社区倡议。",
@@ -34433,18 +33430,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "expedition-screenprint",
-            "name": "探险丝网印",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/expedition-print.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "expedition-print-scene-index",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
         },
         "evidence": {
           "kind": "illustrative",
@@ -34454,20 +33453,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "wipe",
-          "2->3": "wipe",
-          "3->4": "wipe",
-          "4->5": "wipe"
-        }
+        "modulePath": "../topics/expedition-print.tsx"
       },
       {
         "id": "field-route",
-        "topic": {
+        "styleId": "expedition-screenprint",
+        "title": {
           "en": "Field Route",
           "zh": "现场路线"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Field Route to the Signal",
@@ -34615,10 +33610,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "expedition-screenprint",
-            "name": "Expedition Screenprint",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "通往信号的野外路线",
@@ -34766,18 +33758,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "expedition-screenprint",
-            "name": "探险丝网印",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/field-route.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "field-route-coordinate-rail",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "wipe",
+          "3->4": "fade",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -34787,20 +33781,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-x",
-          "2->3": "wipe",
-          "3->4": "fade",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/field-route.tsx"
       },
       {
         "id": "saharan-dust",
-        "topic": {
+        "styleId": "expedition-screenprint",
+        "title": {
           "en": "Saharan Dust",
           "zh": "撒哈拉尘"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Saharan Dust Across the Atlantic",
@@ -34926,10 +33916,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "expedition-screenprint",
-            "name": "Expedition Screenprint",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "撒哈拉尘埃横渡大西洋",
@@ -35055,73 +34042,71 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "expedition-screenprint",
-            "name": "探险丝网印",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/saharan-dust.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "dust-arc",
           "invocation": "click-expand",
           "feedback": "material-color-change"
         },
-        "sources": [
-          {
-            "authority": "NASA Earth Observatory",
-            "title": "Dust in the Bodélé Depression",
-            "citation": "MODIS observation note, 2004",
-            "url": "https://earthobservatory.nasa.gov/images/4452/dust-in-the-bodele-depression",
-            "supports": "The Bodélé Depression in northern Chad is one highly active wind-blown dust source, where terrain channels winds across loose lake-bed material."
-          },
-          {
-            "authority": "NASA",
-            "title": "NASA Satellite Reveals How Much Saharan Dust Feeds Amazon’s Plants",
-            "citation": "CALIPSO mission feature, 2015",
-            "url": "https://www.nasa.gov/missions/calipso/nasa-satellite-reveals-how-much-saharan-dust-feeds-amazons-plants/",
-            "supports": "CALIOP lidar returns distinguish dust by optical properties and reveal the three-dimensional trans-Atlantic aerosol pathway over multiple years."
-          },
-          {
-            "authority": "Geophysical Research Letters",
-            "title": "The fertilizing role of African dust in the Amazon rainforest",
-            "citation": "Yu et al., 2015, doi:10.1002/2015GL063040",
-            "url": "https://acd-ext.gsfc.nasa.gov/People/Chin/papers/Yu_grl_2015.pdf",
-            "supports": "A seven-year CALIOP record supports African dust deposition over the Amazon and reports significant interannual variation rather than a fixed annual shipment."
-          },
-          {
-            "authority": "NASA",
-            "title": "NASA, CNES Space Laser Measures Massive Saharan Dust Plume",
-            "citation": "CALIPSO observation feature, 2020",
-            "url": "https://www.nasa.gov/earth/nasa-cnes-space-laser-measures-massive-saharan-dust-plume/",
-            "supports": "Satellite observations combine vertical and horizontal views to track Saharan dust within a warm, dry air mass across the Atlantic."
-          },
-          {
-            "authority": "Global Biogeochemical Cycles",
-            "title": "Characterizing and Quantifying African Dust Transport and Deposition to South America",
-            "citation": "Prospero et al., 2020, doi:10.1029/2020GB006536",
-            "url": "https://doi.org/10.1029/2020GB006536",
-            "supports": "Long-running sampling and source analysis complicate any single-source or simple-fertilizer story; source regions, trajectories, and nutrient consequences require qualification."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "diagonal-pan",
           "2->3": "ink-spread",
           "3->4": "push-x",
           "4->5": "ink-spread"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "NASA Earth Observatory",
+              "title": "Dust in the Bodélé Depression",
+              "citation": "MODIS observation note, 2004",
+              "url": "https://earthobservatory.nasa.gov/images/4452/dust-in-the-bodele-depression",
+              "supports": "The Bodélé Depression in northern Chad is one highly active wind-blown dust source, where terrain channels winds across loose lake-bed material."
+            },
+            {
+              "authority": "NASA",
+              "title": "NASA Satellite Reveals How Much Saharan Dust Feeds Amazon’s Plants",
+              "citation": "CALIPSO mission feature, 2015",
+              "url": "https://www.nasa.gov/missions/calipso/nasa-satellite-reveals-how-much-saharan-dust-feeds-amazons-plants/",
+              "supports": "CALIOP lidar returns distinguish dust by optical properties and reveal the three-dimensional trans-Atlantic aerosol pathway over multiple years."
+            },
+            {
+              "authority": "Geophysical Research Letters",
+              "title": "The fertilizing role of African dust in the Amazon rainforest",
+              "citation": "Yu et al., 2015, doi:10.1002/2015GL063040",
+              "url": "https://acd-ext.gsfc.nasa.gov/People/Chin/papers/Yu_grl_2015.pdf",
+              "supports": "A seven-year CALIOP record supports African dust deposition over the Amazon and reports significant interannual variation rather than a fixed annual shipment."
+            },
+            {
+              "authority": "NASA",
+              "title": "NASA, CNES Space Laser Measures Massive Saharan Dust Plume",
+              "citation": "CALIPSO observation feature, 2020",
+              "url": "https://www.nasa.gov/earth/nasa-cnes-space-laser-measures-massive-saharan-dust-plume/",
+              "supports": "Satellite observations combine vertical and horizontal views to track Saharan dust within a warm, dry air mass across the Atlantic."
+            },
+            {
+              "authority": "Global Biogeochemical Cycles",
+              "title": "Characterizing and Quantifying African Dust Transport and Deposition to South America",
+              "citation": "Prospero et al., 2020, doi:10.1029/2020GB006536",
+              "url": "https://doi.org/10.1029/2020GB006536",
+              "supports": "Long-running sampling and source analysis complicate any single-source or simple-fertilizer story; source regions, trajectories, and nutrient consequences require qualification."
+            }
+          ]
+        },
+        "modulePath": "../topics/saharan-dust.tsx"
       },
       {
         "id": "mapping-unknown-ground",
-        "topic": {
+        "styleId": "expedition-screenprint",
+        "title": {
           "en": "Mapping Unknown Ground",
           "zh": "勘探未知"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Mapping Unknown Ground",
@@ -35235,10 +34220,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "expedition-screenprint",
-            "name": "Expedition Screenprint",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "勘探未知",
@@ -35352,50 +34334,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "expedition-screenprint",
-            "name": "探险丝网印",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/mapping-unknown-ground.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "expedition-altitude-scale",
           "invocation": "click-expand",
           "feedback": "geometry-reflow"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-x",
           "2->3": "slide-y",
           "3->4": "slide-x",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/mapping-unknown-ground.tsx"
       }
     ]
   },
   {
-    "id": "cassette-era-packaging",
-    "name": {
-      "en": "Cassette-Era Packaging",
-      "zh": "卡带时代包装"
+    "style": {
+      "id": "cassette-era-packaging",
+      "name": {
+        "en": "Cassette-Era Packaging",
+        "zh": "卡带时代包装"
+      },
+      "band": "craft-cultural"
     },
     "topics": [
       {
         "id": "cassette-pack",
-        "topic": {
+        "styleId": "cassette-era-packaging",
+        "title": {
           "en": "Cassette Pack",
           "zh": "卡带包装"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "1970s Japanese audio catalogue — warm cream paper, diagonal rainbow ribbon, dense spec-sheet. Best for product launches with retro-tech nostalgia and indie tool releases.",
@@ -35524,10 +34507,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cassette-era-packaging",
-            "name": "Cassette-Era Packaging",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "1970 年代日本音响产品目录——暖奶油纸、对角彩虹带、密集规格表。最适合复古科技怀旧的产品发布和独立工具发布。",
@@ -35656,18 +34636,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cassette-era-packaging",
-            "name": "卡带时代包装",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/cassette-pack.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "cassette-pack-controls",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -35677,20 +34659,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "scale-fade",
-          "3->4": "scale-fade",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/cassette-pack.tsx"
       },
       {
         "id": "release-mixtape",
-        "topic": {
+        "styleId": "cassette-era-packaging",
+        "title": {
           "en": "Release Mixtape",
           "zh": "发布混音"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "The Release Mixtape",
@@ -35833,10 +34811,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cassette-era-packaging",
-            "name": "Cassette-Era Packaging",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "发行混音带",
@@ -35979,18 +34954,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cassette-era-packaging",
-            "name": "卡带时代包装",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/release-mixtape.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "release-mixtape-counter",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "glitch",
+          "3->4": "slide-y",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -36000,20 +34977,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-x",
-          "2->3": "glitch",
-          "3->4": "slide-y",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/release-mixtape.tsx"
       },
       {
         "id": "ice-core-archive",
-        "topic": {
+        "styleId": "cassette-era-packaging",
+        "title": {
           "en": "Ice-Core Archive",
           "zh": "冰芯档案"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Ice-Core Archive",
@@ -36140,10 +35113,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cassette-era-packaging",
-            "name": "Cassette-Era Packaging",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "冰芯档案",
@@ -36270,129 +35240,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cassette-era-packaging",
-            "name": "卡带时代包装",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/ice-core-archive.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "ice-core-tape-reels",
           "invocation": "drag-scrub",
           "feedback": "active-glow"
         },
-        "sources": [
-          {
-            "id": "noaa-ncei-ice-core-proxies",
-            "authority": "NOAA National Centers for Environmental Information",
-            "shortLabel": "NOAA NCEI",
-            "title": "Ice Core Paleoclimatology Archive",
-            "citation": "NOAA National Centers for Environmental Information. Ice Core: World Data Service for Paleoclimatology overview.",
-            "url": "https://www.ncei.noaa.gov/products/paleoclimatology/ice-core",
-            "accessDate": "2026-07-10",
-            "supports": "NOAA's ice-core archive describes oxygen isotopes, methane concentrations, dust content, and many other parameters as proxy climate indicators preserved in ice-core data collections.",
-            "boundary": "This archive overview establishes that ice cores hold multiple proxy categories. It does not license a universal conversion from any one category to temperature, a single site history, or a specific numeric reconstruction.",
-            "claimIds": [
-              "dust-aerosol-record",
-              "archive-not-single-thermometer"
-            ]
-          },
-          {
-            "id": "nasa-ice-core-record",
-            "authority": "NASA Earth Observatory",
-            "shortLabel": "NASA EO",
-            "title": "Paleoclimatology: The Ice Core Record",
-            "citation": "NASA Earth Observatory. Paleoclimatology: The Ice Core Record. NASA Science.",
-            "url": "https://science.nasa.gov/earth/earth-observatory/paleoclimatology-the-ice-core-record/",
-            "accessDate": "2026-07-10",
-            "supports": "NASA explains that trapped air bubbles provide a record of past atmospheric composition and that volcanic ash can be trapped in ice along with snow and dust.",
-            "boundary": "The page supports the physical presence of gas and volcanic material in ice. It does not make every bubble exactly contemporaneous with its enclosing ice or identify a volcanic source from an ash or chemical layer alone.",
-            "claimIds": [
-              "trapped-air-composition",
-              "event-marker-chemistry",
-              "archive-not-single-thermometer"
-            ]
-          },
-          {
-            "id": "noaa-climate-ice-core-study",
-            "authority": "NOAA Climate.gov",
-            "shortLabel": "NOAA Climate",
-            "title": "Climate at the core: how scientists study ice cores to reveal Earth's climate history",
-            "citation": "NOAA Climate.gov. Climate at the core: how scientists study ice cores to reveal Earth's climate history.",
-            "url": "https://www.climate.gov/news-features/climate-tech/climate-core-how-scientists-study-ice-cores-reveal-earths-climate",
-            "accessDate": "2026-07-10",
-            "supports": "NOAA Climate.gov describes dust, air bubbles, sea salts, volcanic ash, and soot as materials preserved in ice, and explains that oxygen-isotope ratios provide temperature-related climate evidence.",
-            "boundary": "The explanatory article is used for category-level physical meaning. The slide deliberately does not turn isotope, dust, salt, or ash signals into a site-independent temperature series or exact event attribution.",
-            "claimIds": [
-              "water-isotope-proxy",
-              "dust-aerosol-record",
-              "event-marker-chemistry",
-              "archive-not-single-thermometer"
-            ]
-          },
-          {
-            "id": "fischer-dust-transport",
-            "authority": "Reviews of Geophysics",
-            "shortLabel": "Fischer 2007",
-            "title": "Glacial/interglacial changes in mineral dust and sea-salt records in polar ice cores: Sources, transport, and deposition",
-            "citation": "Fischer, H., et al. (2007). Glacial/interglacial changes in mineral dust and sea-salt records in polar ice cores: Sources, transport, and deposition. Reviews of Geophysics, 45. https://doi.org/10.1029/2005RG000192.",
-            "url": "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2005RG000192",
-            "accessDate": "2026-07-10",
-            "supports": "This peer-reviewed review explains that mineral dust and sea-salt in polar ice-core records reflect linked source, atmospheric transport, and wet or dry deposition processes, so concentration changes cannot be assigned to one climate cause by themselves.",
-            "boundary": "The review treats site- and process-dependent aerosol records. It supports keeping dust interpretation conditional; it does not identify the provenance, wind history, or climate state of the schematic dust lane in this topic.",
-            "claimIds": [
-              "dust-aerosol-record"
-            ]
-          },
-          {
-            "id": "bender-gas-ice-age",
-            "authority": "Journal of Geophysical Research: Atmospheres",
-            "shortLabel": "Bender 2006",
-            "title": "Gas age–ice age differences and the chronology of the Vostok ice core, 0–100 ka",
-            "citation": "Bender, M. L., et al. (2006). Gas age–ice age differences and the chronology of the Vostok ice core, 0–100 ka. Journal of Geophysical Research: Atmospheres. https://doi.org/10.1029/2005JD006488.",
-            "url": "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2005JD006488",
-            "accessDate": "2026-07-10",
-            "supports": "The paper states that air is trapped after firn densification, so gas is younger than enclosing ice, and discusses how the gas-age/ice-age difference introduces chronology uncertainty.",
-            "boundary": "Its Vostok discussion does not set one gas-age offset for all sites or depths. The visual therefore shows a relationship and uncertainty boundary, not a universal age correction.",
-            "claimIds": [
-              "trapped-air-composition",
-              "age-model-resolution"
-            ]
-          },
-          {
-            "id": "van-der-wel-isotope-diffusion",
-            "authority": "The Cryosphere",
-            "shortLabel": "TC 2015",
-            "title": "Estimation and calibration of the water isotope differential diffusion length in ice core records",
-            "citation": "van der Wel, G., Fischer, H., Oerter, H., Meyer, H., & Meijer, H. A. J. (2015). Estimation and calibration of the water isotope differential diffusion length in ice core records. The Cryosphere, 9, 1601–1616. https://doi.org/10.5194/tc-9-1601-2015.",
-            "url": "https://tc.copernicus.org/articles/9/1601/2015/",
-            "accessDate": "2026-07-10",
-            "supports": "This peer-reviewed study explains that stable-water-isotope information is affected by diffusion during firnification and that diffusion length depends on firn temperature and accumulation rate.",
-            "boundary": "The paper supports a resolution and interpretation limit for isotope records. It does not support reading a schematic isotope strip as a calibrated temperature reconstruction.",
-            "claimIds": [
-              "water-isotope-proxy",
-              "archive-not-single-thermometer"
-            ]
-          },
-          {
-            "id": "winski-sp19-chronology",
-            "authority": "Climate of the Past",
-            "shortLabel": "SP19 2019",
-            "title": "The SP19 chronology for the South Pole Ice Core – Part 1: volcanic matching and annual layer counting",
-            "citation": "Winski, D. A., et al. (2019). The SP19 chronology for the South Pole Ice Core – Part 1: volcanic matching and annual layer counting. Climate of the Past, 15, 1793–1808. https://doi.org/10.5194/cp-15-1793-2019.",
-            "url": "https://cp.copernicus.org/articles/15/1793/2019/",
-            "accessDate": "2026-07-10",
-            "supports": "The SP19 chronology combines annual layer counting with volcanic matching; it documents sulfate and electrical-conductivity volcanic horizons and explains that annual layers can become too thin to resolve consistently, increasing interpolation uncertainty.",
-            "boundary": "This is a South Pole core chronology, not a template that makes all ice-core age models equally precise. The slide uses it to show why tie points and unresolved intervals must remain visible.",
-            "claimIds": [
-              "event-marker-chemistry",
-              "age-model-resolution",
-              "archive-not-single-thermometer"
-            ]
-          }
-        ],
+        "transitionScore": {
+          "1->2": "scanline",
+          "2->3": "push-y",
+          "3->4": "afterimage",
+          "4->5": "hard-cut"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -36509,22 +35371,18 @@ export const CATALOG_MANIFEST = [
             "en": "Ice cores preserve multiple proxy records; no one channel is a direct, universal temperature dial.",
             "zh": "冰芯保存多种代理记录；任何单一通道都不是直接且通用的温度刻度。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scanline",
-          "2->3": "push-y",
-          "3->4": "afterimage",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/ice-core-archive.tsx"
       },
       {
         "id": "greatest-hits-vol1",
-        "topic": {
+        "styleId": "cassette-era-packaging",
+        "title": {
           "en": "Greatest Hits, Vol. 1",
           "zh": "精选辑一"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Greatest Hits, Vol. 1",
@@ -36650,10 +35508,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cassette-era-packaging",
-            "name": "Cassette-Era Packaging",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "精选辑一",
@@ -36779,50 +35634,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "cassette-era-packaging",
-            "name": "卡带时代包装",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/greatest-hits-vol1.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "cassette-tape-counter",
           "invocation": "click-expand",
           "feedback": "material-color-change"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "slide-y",
           "3->4": "slide-y",
           "4->5": "hard-cut"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/greatest-hits-vol1.tsx"
       }
     ]
   },
   {
-    "id": "neo-brutalist-bulletin",
-    "name": {
-      "en": "Neo-Brutalist Bulletin",
-      "zh": "新粗野公告"
+    "style": {
+      "id": "neo-brutalist-bulletin",
+      "name": {
+        "en": "Neo-Brutalist Bulletin",
+        "zh": "新粗野公告"
+      },
+      "band": "craft-cultural"
     },
     "topics": [
       {
         "id": "brutalist-bulletin",
-        "topic": {
+        "styleId": "neo-brutalist-bulletin",
+        "title": {
           "en": "Brutalist Bulletin",
           "zh": "粗野公告"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Protest poster taped to concrete — thick black rules, hard offset shadows, one electric accent. Best for product launches, process overviews, comparison decks, and dense stats that need to feel bold and human.",
@@ -36939,10 +35795,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "neo-brutalist-bulletin",
-            "name": "Neo-Brutalist Bulletin",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "贴在混凝土墙上的抗议海报——粗黑线条、硬边投影、一道电光强调色。最适合产品发布、流程概览、对比表格，以及需要大胆人性化呈现的密集数据。",
@@ -37059,18 +35912,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "neo-brutalist-bulletin",
-            "name": "新粗野公告",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/brutalist-bulletin.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "brutalist-bulletin-tabs",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "slide-x",
+          "3->4": "slide-x",
+          "4->5": "slide-x"
         },
         "evidence": {
           "kind": "illustrative",
@@ -37080,20 +35935,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-x",
-          "2->3": "slide-x",
-          "3->4": "slide-x",
-          "4->5": "slide-x"
-        }
+        "modulePath": "../topics/brutalist-bulletin.tsx"
       },
       {
         "id": "hard-thing",
-        "topic": {
+        "styleId": "neo-brutalist-bulletin",
+        "title": {
           "en": "Hard Thing",
           "zh": "难事发布"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Shipping the Hard Thing",
@@ -37260,10 +36111,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "neo-brutalist-bulletin",
-            "name": "Neo-Brutalist Bulletin",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "把难的东西发出去",
@@ -37430,18 +36278,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "neo-brutalist-bulletin",
-            "name": "新粗野公告",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/hard-thing.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "hard-thing-concrete-tabs",
           "invocation": "persistent",
           "feedback": "mechanical-displacement"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "slide-x",
+          "3->4": "wipe",
+          "4->5": "glitch"
         },
         "evidence": {
           "kind": "illustrative",
@@ -37451,20 +36301,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "hard-cut",
-          "2->3": "slide-x",
-          "3->4": "wipe",
-          "4->5": "glitch"
-        }
+        "modulePath": "../topics/hard-thing.tsx"
       },
       {
         "id": "sinking-delta",
-        "topic": {
+        "styleId": "neo-brutalist-bulletin",
+        "title": {
           "en": "Sinking Delta",
           "zh": "下沉三角洲"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Sinking Delta: Mississippi Delta",
@@ -37586,10 +36432,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "neo-brutalist-bulletin",
-            "name": "Neo-Brutalist Bulletin",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "下沉三角洲：密西西比河三角洲",
@@ -37711,87 +36554,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "neo-brutalist-bulletin",
-            "name": "新粗野公告",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/sinking-delta.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "delta-distributary-blocks",
           "invocation": "drag-scrub",
           "feedback": "mechanical-displacement"
         },
-        "sources": [
-          {
-            "id": "usgs-coastal-louisiana-land-loss-2024",
-            "claimIds": [
-              "scene-1-regional-land-loss"
-            ],
-            "authority": "U.S. Geological Survey",
-            "title": "USGS scientists find new relationship between elevation change and wetland loss in Mississippi River Delta",
-            "citation": "U.S. Geological Survey, June 26, 2024.",
-            "url": "https://www.usgs.gov/news/state-news-release/usgs-scientists-find-new-relationship-between-elevation-change-and-wetland",
-            "supports": "Supports the dated, coastal-Louisiana-wide estimate of more than 2,000 square miles of land lost from 1932 to 2016 and the finding that edge erosion can coexist with elevation gain.",
-            "boundary": "This is a coastal Louisiana total, not a Mississippi Delta-only shoreline polygon. The Topic labels that scope and date range and does not apportion the loss among individual drivers."
-          },
-          {
-            "id": "usgs-wetland-loss-processes-2010",
-            "claimIds": [
-              "scene-1-multi-force-balance",
-              "scene-2-sediment-input-limit",
-              "scene-4-routing-not-sole-cause"
-            ],
-            "authority": "U.S. Geological Survey",
-            "title": "Sea-Level Rise, Subsidence, and Wetland Loss",
-            "citation": "U.S. Geological Survey Ecosystems Mission Area, August 31, 2010.",
-            "url": "https://www.usgs.gov/media/videos/sea-level-rise-subsidence-and-wetland-loss",
-            "supports": "Supports the Mississippi River Delta framing that compaction and dewatering, reduced sediment delivery after leveeing, canals, hurricanes, and sea-level rise combine in wetland loss.",
-            "boundary": "This is a process overview, not a time-specific attribution model. It does not quantify every contributor or predict the result of a single restoration project."
-          },
-          {
-            "id": "cpra-deep-subsidence-2023",
-            "claimIds": [
-              "scene-1-multi-force-balance",
-              "scene-3-spatial-subsidence",
-              "scene-4-routing-not-sole-cause"
-            ],
-            "authority": "Louisiana Coastal Protection and Restoration Authority",
-            "title": "2023 Coastal Master Plan Data Access Portal — Deep Subsidence",
-            "citation": "Louisiana CPRA, 2023 Coastal Master Plan Data Access Portal.",
-            "url": "https://mpdap.coastal.la.gov/dataset/deep-subsidence",
-            "supports": "Supports keeping deep subsidence, spatially variable shallow subsidence, mineral deposition, and organic accretion as separate coastal-Louisiana model components.",
-            "boundary": "The portal is a planning dataset rather than a direct measurement of every Mississippi Delta marsh. This Topic therefore shows no single observed subsidence rate."
-          },
-          {
-            "id": "nature-holocene-compaction-2008",
-            "claimIds": [
-              "scene-1-multi-force-balance",
-              "scene-3-spatial-subsidence"
-            ],
-            "authority": "Nature Geoscience",
-            "title": "Mississippi Delta subsidence primarily caused by compaction of Holocene strata",
-            "citation": "Törnqvist et al., Nature Geoscience 1, 173–176, 2008.",
-            "url": "https://www.nature.com/articles/ngeo129",
-            "supports": "Supports the claim that compaction of Holocene strata contributes substantially to relative sea-level rise and wetland loss in the Mississippi Delta, with rates dependent on place and timescale.",
-            "boundary": "The core-based result is not a uniform present-day rate across the delta. The cross-section is an original teaching diagram, not a measured local stratigraphic profile."
-          },
-          {
-            "id": "cpra-adaptive-coastal-plan",
-            "claimIds": [
-              "scene-2-sediment-input-limit",
-              "scene-5-adaptive-restoration-portfolio"
-            ],
-            "authority": "Louisiana Coastal Protection and Restoration Authority",
-            "title": "Our Plan — Louisiana's Coastal Master Plan",
-            "citation": "Louisiana CPRA, Our Plan, accessed July 10, 2026.",
-            "url": "https://coastal.la.gov/our-plan/",
-            "supports": "Supports treating coastal restoration as an adaptive systems portfolio: coordinating project synergies, acknowledging limited sediment supply and access, and considering natural-process and dredging options as conditions change.",
-            "boundary": "This statewide planning page describes principles and strategy families, not the current status, viability, funding, permitting, construction, or outcome of any named project."
-          }
-        ],
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "grid-reveal",
+          "3->4": "diagonal-pan",
+          "4->5": "hard-cut"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -37866,22 +36643,18 @@ export const CATALOG_MANIFEST = [
             "en": "Coastal Louisiana and Mississippi Delta evidence describes regional, multi-force processes; it does not imply one rate, cause, or guaranteed project outcome.",
             "zh": "沿海路易斯安那州与密西西比河三角洲证据描述的是区域、多因素过程；它不意味着单一速率、单一成因或有保证的项目结果。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "hard-cut",
-          "2->3": "grid-reveal",
-          "3->4": "diagonal-pan",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/sinking-delta.tsx"
       },
       {
         "id": "read-before-merge",
-        "topic": {
+        "styleId": "neo-brutalist-bulletin",
+        "title": {
           "en": "Read This Before You Merge",
           "zh": "合并前必读"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Read This Before You Merge",
@@ -38006,10 +36779,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "neo-brutalist-bulletin",
-            "name": "Neo-Brutalist Bulletin",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "合并前必读",
@@ -38134,50 +36904,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "neo-brutalist-bulletin",
-            "name": "新粗野公告",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/read-before-merge.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "merge-page-chips",
           "invocation": "click-expand",
           "feedback": "typographic-emphasis"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "slide-x",
           "3->4": "hard-cut",
           "4->5": "slide-x"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/read-before-merge.tsx"
       }
     ]
   },
   {
-    "id": "red-wedge-agitprop",
-    "name": {
-      "en": "Red-Wedge Agitprop",
-      "zh": "红楔宣传画"
+    "style": {
+      "id": "red-wedge-agitprop",
+      "name": {
+        "en": "Red-Wedge Agitprop",
+        "zh": "红楔宣传画"
+      },
+      "band": "craft-cultural"
     },
     "topics": [
       {
         "id": "red-wedge",
-        "topic": {
+        "styleId": "red-wedge-agitprop",
+        "title": {
           "en": "Red Wedge",
           "zh": "红楔海报"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Political poster at dawn — red wedge driving into black, type as structural beams, diagonal thrust. Best for launches, calls to action, movement-building, and content that needs to galvanize rather than persuade.",
@@ -38305,10 +37076,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "red-wedge-agitprop",
-            "name": "Red-Wedge Agitprop",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "黎明时分的政治海报——红楔切入黑暗、字体即结构梁、对角线冲击力。最适合发布、行动号召、运动建设，以及需要激励而非说服的内容。",
@@ -38436,18 +37204,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "red-wedge-agitprop",
-            "name": "红楔宣传画",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/red-wedge.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "rally-scene-dots",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "slide-y"
         },
         "evidence": {
           "kind": "illustrative",
@@ -38457,20 +37227,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-y",
-          "2->3": "slide-y",
-          "3->4": "slide-y",
-          "4->5": "slide-y"
-        }
+        "modulePath": "../topics/red-wedge.tsx"
       },
       {
         "id": "org-move",
-        "topic": {
+        "styleId": "red-wedge-agitprop",
+        "title": {
           "en": "Org Move",
           "zh": "组织移动"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Move the Org Chart",
@@ -38615,10 +37381,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "red-wedge-agitprop",
-            "name": "Red-Wedge Agitprop",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "移动组织图",
@@ -38763,18 +37526,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "red-wedge-agitprop",
-            "name": "红楔宣传画",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/org-move.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "org-wedge-rail",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "glitch",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -38784,20 +37549,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-x",
-          "2->3": "glitch",
-          "3->4": "scale-fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/org-move.tsx"
       },
       {
         "id": "pneumatic-post",
-        "topic": {
+        "styleId": "red-wedge-agitprop",
+        "title": {
           "en": "Pneumatic Post",
           "zh": "气动邮政"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Pneumatic Post: Paris 1866—1984",
@@ -38925,10 +37686,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "red-wedge-agitprop",
-            "name": "Red-Wedge Agitprop",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "气动邮政：巴黎 1866—1984",
@@ -39056,70 +37814,68 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "red-wedge-agitprop",
-            "name": "红楔宣传画",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/pneumatic-post.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "pneumatic-tube",
           "invocation": "drag-scrub",
           "feedback": "typographic-emphasis"
         },
-        "sources": [
-          {
-            "authority": "Comité pour l’histoire de la Poste",
-            "title": "Le réseau avant l’heure : la Poste pneumatique à Paris (1866–1984)",
-            "citation": "Elisa Le Briand and Anne-Laure Cermak, Les Cahiers pour l’histoire de la Poste, no. 6, 2006.",
-            "url": "https://comitehistoire.laposte.fr/wp-content/uploads/2006/05/Cahiers-pour-lhistoire-6-CHP.pdf",
-            "supports": "Supports the Paris-only chronology, the first Bourse-area trials, the underground tube topology, force stations, manual handling, maintenance access, incidents, and the long decline of the service.",
-            "boundary": "The network changed repeatedly over almost 120 years. The route plate is a newly drawn teaching topology, not a reconstruction of one dated engineering plan or a claim that a capsule crossed the whole city without transfer."
-          },
-          {
-            "authority": "Comité pour l’histoire de la Poste",
-            "title": "Il y a 140 ans, la naissance de la Poste pneumatique",
-            "citation": "Comité pour l’histoire de la Poste, Anniversaire postal no. 4, 2006.",
-            "url": "https://comitehistoire.laposte.fr/publication/il-y-a-140-ans-la-naissance-de-la-poste-pneumatique/",
-            "supports": "Supports the December 1866 trial, the 1879 opening to private correspondence, roughly 400 kilometres of tubes in the twentieth century, compacted bundles inside cursors, the reported 800 metres-per-minute tube speed, and the 30 March 1984 stop.",
-            "boundary": "The cited 800 m/min is cursor speed in a tube, not guaranteed door-to-door delivery time or unrestricted capacity; sorting, transfers, final delivery, tube condition, and blockages remained outside that number."
-          },
-          {
-            "authority": "Comité pour l’histoire de la Poste / Université Paris IV Sorbonne",
-            "title": "La Poste pneumatique, un système original d’acheminement rapide du courrier",
-            "citation": "Anne-Laure Cermak, master’s research directed by Jean-Pierre Chaline, Université Paris IV Sorbonne, 2003.",
-            "url": "https://comitehistoire.laposte.fr/recherche/la-poste-pneumatique-un-systeme-original-dacheminement-rapide-du-courrier-lexemple-du-reseau-de-paris-des-origines-a-sa-suppression-1866-1984/",
-            "supports": "Supports the steel-tube and cylindrical-cursor mechanism driven by pressure difference, the postal/telegraph operating split, the Bourse–Grenelle expansion, less-than-an-hour service claims, and the roles of aging infrastructure, economics, telephone, and telex in decline.",
-            "boundary": "Its 450 km maximum and the commemorative publication’s rounded 400 km describe network extent at broad historical scale; this Topic therefore says ABOUT 400 KM instead of presenting a spurious exact map total."
-          },
-          {
-            "authority": "Bibliothèque nationale de France",
-            "title": "La poste pneumatique de Paris — catalogue record",
-            "citation": "BnF Catalogue général, record FRBNF47124638B for Hervé Barbelin, La poste pneumatique de Paris.",
-            "url": "https://catalogue.bnf.fr/ark:/12148/cb47124638b",
-            "supports": "Supports the public-service boundary from 1 May 1879 to 30 March 1984 and identifies the surviving postal stationery, technical, economic, and social record as distinct forms of evidence.",
-            "boundary": "The final blue note is explicitly labeled as a reconstructed teaching form. It borrows only the folded-card logic and does not claim to reproduce any BnF-held item, handwriting, rate, address, or postmark."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "diagonal-pan",
           "2->3": "split-merge",
           "3->4": "dip-to-color",
           "4->5": "diagonal-pan"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "Comité pour l’histoire de la Poste",
+              "title": "Le réseau avant l’heure : la Poste pneumatique à Paris (1866–1984)",
+              "citation": "Elisa Le Briand and Anne-Laure Cermak, Les Cahiers pour l’histoire de la Poste, no. 6, 2006.",
+              "url": "https://comitehistoire.laposte.fr/wp-content/uploads/2006/05/Cahiers-pour-lhistoire-6-CHP.pdf",
+              "supports": "Supports the Paris-only chronology, the first Bourse-area trials, the underground tube topology, force stations, manual handling, maintenance access, incidents, and the long decline of the service.",
+              "boundary": "The network changed repeatedly over almost 120 years. The route plate is a newly drawn teaching topology, not a reconstruction of one dated engineering plan or a claim that a capsule crossed the whole city without transfer."
+            },
+            {
+              "authority": "Comité pour l’histoire de la Poste",
+              "title": "Il y a 140 ans, la naissance de la Poste pneumatique",
+              "citation": "Comité pour l’histoire de la Poste, Anniversaire postal no. 4, 2006.",
+              "url": "https://comitehistoire.laposte.fr/publication/il-y-a-140-ans-la-naissance-de-la-poste-pneumatique/",
+              "supports": "Supports the December 1866 trial, the 1879 opening to private correspondence, roughly 400 kilometres of tubes in the twentieth century, compacted bundles inside cursors, the reported 800 metres-per-minute tube speed, and the 30 March 1984 stop.",
+              "boundary": "The cited 800 m/min is cursor speed in a tube, not guaranteed door-to-door delivery time or unrestricted capacity; sorting, transfers, final delivery, tube condition, and blockages remained outside that number."
+            },
+            {
+              "authority": "Comité pour l’histoire de la Poste / Université Paris IV Sorbonne",
+              "title": "La Poste pneumatique, un système original d’acheminement rapide du courrier",
+              "citation": "Anne-Laure Cermak, master’s research directed by Jean-Pierre Chaline, Université Paris IV Sorbonne, 2003.",
+              "url": "https://comitehistoire.laposte.fr/recherche/la-poste-pneumatique-un-systeme-original-dacheminement-rapide-du-courrier-lexemple-du-reseau-de-paris-des-origines-a-sa-suppression-1866-1984/",
+              "supports": "Supports the steel-tube and cylindrical-cursor mechanism driven by pressure difference, the postal/telegraph operating split, the Bourse–Grenelle expansion, less-than-an-hour service claims, and the roles of aging infrastructure, economics, telephone, and telex in decline.",
+              "boundary": "Its 450 km maximum and the commemorative publication’s rounded 400 km describe network extent at broad historical scale; this Topic therefore says ABOUT 400 KM instead of presenting a spurious exact map total."
+            },
+            {
+              "authority": "Bibliothèque nationale de France",
+              "title": "La poste pneumatique de Paris — catalogue record",
+              "citation": "BnF Catalogue général, record FRBNF47124638B for Hervé Barbelin, La poste pneumatique de Paris.",
+              "url": "https://catalogue.bnf.fr/ark:/12148/cb47124638b",
+              "supports": "Supports the public-service boundary from 1 May 1879 to 30 March 1984 and identifies the surviving postal stationery, technical, economic, and social record as distinct forms of evidence.",
+              "boundary": "The final blue note is explicitly labeled as a reconstructed teaching form. It borrows only the folded-card logic and does not claim to reproduce any BnF-held item, handwriting, rate, address, or postmark."
+            }
+          ]
+        },
+        "modulePath": "../topics/pneumatic-post.tsx"
       },
       {
         "id": "refactor-the-system",
-        "topic": {
+        "styleId": "red-wedge-agitprop",
+        "title": {
           "en": "Refactor the System",
           "zh": "重构体制"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Refactor the System",
@@ -39238,10 +37994,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "red-wedge-agitprop",
-            "name": "Red-Wedge Agitprop",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "重构体制",
@@ -39360,50 +38113,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "red-wedge-agitprop",
-            "name": "红楔宣传画",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/refactor-the-system.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "refactor-progress-wedge",
           "invocation": "drag-scrub",
           "feedback": "active-glow"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "glitch",
           "2->3": "hard-cut",
           "3->4": "glitch",
           "4->5": "hard-cut"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/refactor-the-system.tsx"
       }
     ]
   },
   {
-    "id": "mechanical-scoring-funnel",
-    "name": {
-      "en": "Mechanical Scoring Funnel",
-      "zh": "机械评分漏斗"
+    "style": {
+      "id": "mechanical-scoring-funnel",
+      "name": {
+        "en": "Mechanical Scoring Funnel",
+        "zh": "机械评分漏斗"
+      },
+      "band": "craft-cultural"
     },
     "topics": [
       {
         "id": "scoring-funnel",
-        "topic": {
+        "styleId": "mechanical-scoring-funnel",
+        "title": {
           "en": "Scoring Funnel",
           "zh": "评分漏斗"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Colorful pinball machine — dark playfield, saturated coded lanes, scoreboard numbers ticking. Best for categorization, multi-stage filtering, scoring, and prioritization where making the sorting feel active beats a static list.",
@@ -39532,10 +38286,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mechanical-scoring-funnel",
-            "name": "Mechanical Scoring Funnel",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "彩色弹球机——深色赛场、饱和编码通道、记分牌数字跳动。最适合分类、多阶段过滤、评分和优先级排序，让排序过程动起来胜过静态列表。",
@@ -39664,18 +38415,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mechanical-scoring-funnel",
-            "name": "机械评分漏斗",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/scoring-funnel.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "scoring-funnel-step-lights",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
         },
         "evidence": {
           "kind": "illustrative",
@@ -39685,20 +38438,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "wipe",
-          "2->3": "wipe",
-          "3->4": "wipe",
-          "4->5": "wipe"
-        }
+        "modulePath": "../topics/scoring-funnel.tsx"
       },
       {
         "id": "priority-score",
-        "topic": {
+        "styleId": "mechanical-scoring-funnel",
+        "title": {
           "en": "Priority Score",
           "zh": "优先评分"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Prioritize Without Debate",
@@ -39850,10 +38599,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mechanical-scoring-funnel",
-            "name": "Mechanical Scoring Funnel",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "无需争论，优先排序",
@@ -40005,18 +38751,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mechanical-scoring-funnel",
-            "name": "机械评分漏斗",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/priority-score.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "pinball-lane-lights",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "wipe",
+          "3->4": "glitch",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -40026,20 +38774,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-y",
-          "2->3": "wipe",
-          "3->4": "glitch",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/priority-score.tsx"
       },
       {
         "id": "snowflake-branches",
-        "topic": {
+        "styleId": "mechanical-scoring-funnel",
+        "title": {
           "en": "Snowflake Branches",
           "zh": "雪花分支"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "How a Snowflake Chooses Its Branches",
@@ -40167,10 +38911,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mechanical-scoring-funnel",
-            "name": "Mechanical Scoring Funnel",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "雪花如何长出分支",
@@ -40298,61 +39039,59 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mechanical-scoring-funnel",
-            "name": "机械评分漏斗",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/snowflake-branches.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "crystal-morphology-dial",
           "invocation": "keyboard-focus",
           "feedback": "history-trail"
         },
-        "sources": [
-          {
-            "authority": "NOAA National Environmental Satellite, Data, and Information Service",
-            "title": "How Do Snowflakes Form?",
-            "url": "https://www.nesdis.noaa.gov/about/k-12-education/ice-snow/how-do-snowflakes-form",
-            "supports": "Supports vapor deposition, the six-sided ice structure, branch-tip growth, and the role of changing temperature and moisture through a crystal's history."
-          },
-          {
-            "authority": "California Institute of Technology — CaltechAUTHORS",
-            "citation": "Libbrecht, K. G. (2005), The physics of snow crystals, Reports on Progress in Physics 68",
-            "url": "https://authors.library.caltech.edu/records/70qmc-09861",
-            "supports": "Peer-reviewed review supporting vapor-phase crystal growth, temperature-dependent morphology, diffusion, surface attachment kinetics, and growth instabilities."
-          },
-          {
-            "authority": "Hokkaido University Institute of Low Temperature Science",
-            "title": "Fundamental patterns of snow crystals",
-            "url": "https://www2.lowtem.hokudai.ac.jp/ptdice/english/ss2.html",
-            "supports": "Supports the Nakaya morphology axes: habit changes with temperature and increasing morphological instability with supersaturation."
-          },
-          {
-            "citation": "Libbrecht, K. G. (2023), A Taxonomy of Snow Crystal Growth Behaviors: 2. Quantifying the Nakaya Diagram",
-            "url": "https://arxiv.org/abs/2306.13087",
-            "supports": "Original controlled-growth dataset supporting a range of crystal morphologies produced under known temperature and supersaturation conditions."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "grid-reveal",
           "2->3": "push-y",
           "3->4": "afterimage",
           "4->5": "push-y"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "NOAA National Environmental Satellite, Data, and Information Service",
+              "title": "How Do Snowflakes Form?",
+              "url": "https://www.nesdis.noaa.gov/about/k-12-education/ice-snow/how-do-snowflakes-form",
+              "supports": "Supports vapor deposition, the six-sided ice structure, branch-tip growth, and the role of changing temperature and moisture through a crystal's history."
+            },
+            {
+              "authority": "California Institute of Technology — CaltechAUTHORS",
+              "citation": "Libbrecht, K. G. (2005), The physics of snow crystals, Reports on Progress in Physics 68",
+              "url": "https://authors.library.caltech.edu/records/70qmc-09861",
+              "supports": "Peer-reviewed review supporting vapor-phase crystal growth, temperature-dependent morphology, diffusion, surface attachment kinetics, and growth instabilities."
+            },
+            {
+              "authority": "Hokkaido University Institute of Low Temperature Science",
+              "title": "Fundamental patterns of snow crystals",
+              "url": "https://www2.lowtem.hokudai.ac.jp/ptdice/english/ss2.html",
+              "supports": "Supports the Nakaya morphology axes: habit changes with temperature and increasing morphological instability with supersaturation."
+            },
+            {
+              "citation": "Libbrecht, K. G. (2023), A Taxonomy of Snow Crystal Growth Behaviors: 2. Quantifying the Nakaya Diagram",
+              "url": "https://arxiv.org/abs/2306.13087",
+              "supports": "Original controlled-growth dataset supporting a range of crystal morphologies produced under known temperature and supersaturation conditions."
+            }
+          ]
+        },
+        "modulePath": "../topics/snowflake-branches.tsx"
       },
       {
         "id": "triage-the-backlog",
-        "topic": {
+        "styleId": "mechanical-scoring-funnel",
+        "title": {
           "en": "Triage the Backlog",
           "zh": "需求分拣"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Triage the Backlog",
@@ -40479,10 +39218,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mechanical-scoring-funnel",
-            "name": "Mechanical Scoring Funnel",
-            "band": "craft-cultural"
+            ]
           },
           "zh": {
             "theme": "需求分拣",
@@ -40609,50 +39345,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mechanical-scoring-funnel",
-            "name": "机械评分漏斗",
-            "band": "craft-cultural"
+            ]
           }
         },
-        "modulePath": "../topics/triage-the-backlog.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "backlog-stage-lanes",
           "invocation": "drag-scrub",
           "feedback": "history-trail"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-y",
           "2->3": "slide-y",
           "3->4": "slide-y",
           "4->5": "scale-fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/triage-the-backlog.tsx"
       }
     ]
   },
   {
-    "id": "liquid-glass",
-    "name": {
-      "en": "Liquid Glass",
-      "zh": "液态玻璃"
+    "style": {
+      "id": "liquid-glass",
+      "name": {
+        "en": "Liquid Glass",
+        "zh": "液态玻璃"
+      },
+      "band": "contemporary-digital"
     },
     "topics": [
       {
         "id": "liquid-glass",
-        "topic": {
+        "styleId": "liquid-glass",
+        "title": {
           "en": "Liquid Glass",
           "zh": "液态玻璃"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Product Showcase — museum vitrine glass panels revealing layered content with spatial depth and refined confidence",
@@ -40760,10 +39497,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "liquid-glass",
-            "name": "Liquid Glass",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "产品展示——博物馆展柜玻璃面板，以空间深度和精致质感揭示分层内容",
@@ -40871,18 +39605,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "liquid-glass",
-            "name": "液态玻璃",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/liquid-glass.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "liquid-glass-scene-dots",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -40892,20 +39628,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "scale-fade",
-          "3->4": "scale-fade",
-          "4->5": "scale-fade"
-        }
+        "modulePath": "../topics/liquid-glass.tsx"
       },
       {
         "id": "spatial-brief",
-        "topic": {
+        "styleId": "liquid-glass",
+        "title": {
           "en": "Spatial Brief",
           "zh": "空间简报"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Spatial Product Brief",
@@ -41052,10 +39784,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "liquid-glass",
-            "name": "Liquid Glass",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "空间产品简报",
@@ -41202,18 +39931,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "liquid-glass",
-            "name": "液态玻璃",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/spatial-brief.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "glass-chip-nav",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "slide-x",
+          "3->4": "wipe",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -41223,20 +39954,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "slide-x",
-          "3->4": "wipe",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/spatial-brief.tsx"
       },
       {
         "id": "safety-glass",
-        "topic": {
+        "styleId": "liquid-glass",
+        "title": {
           "en": "Safety Glass",
           "zh": "夹层玻璃"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Cracked, Still Holding",
@@ -41355,10 +40082,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "liquid-glass",
-            "name": "Liquid Glass",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "裂了，仍然连在一起",
@@ -41477,78 +40201,76 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "liquid-glass",
-            "name": "液态玻璃",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/safety-glass.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "glass-lamina-stack",
           "invocation": "drag-scrub",
           "feedback": "history-trail"
         },
-        "sources": [
-          {
-            "authority": "U.S. National Highway Traffic Safety Administration",
-            "title": "FMVSS interpretation nht76-4.40 — tempered versus laminated windshields",
-            "citation": "NHTSA, interpretation nht76-4.40, March 10, 1976.",
-            "url": "https://www.nhtsa.gov/interpretations/nht76-440",
-            "supports": "Supports the automotive-windshield distinction: a cracked laminate retains material through its plastic interlayer and can deflect, while tempered windshield glass does not provide the same post-breakage retention.",
-            "boundary": "This is a historical U.S. automotive-windshield interpretation, not a universal product specification or a claim that every laminate, loading case, or modern interlayer performs identically."
-          },
-          {
-            "authority": "Whole Building Design Guide / National Institute of Building Sciences",
-            "title": "Retrofitting Existing Buildings to Resist Explosive Threats",
-            "citation": "WBDG, section B: Laminated Glass.",
-            "url": "https://www.wbdg.org/resources/retrofitting-existing-buildings-resist-explosive-threats",
-            "supports": "Supports the common build-up of two or more glass pieces bonded by a tough polymer interlayer and the tendency of fractured pieces to adhere to that interlayer rather than fall freely.",
-            "boundary": "The cited page addresses blast-hazard mitigation in buildings; this Topic borrows only its material description and does not offer blast design, installation, framing, or sealant guidance."
-          },
-          {
-            "authority": "U.S. Consumer Product Safety Commission",
-            "title": "Final Rule to Amend the Safety Standard for Architectural Glazing Materials",
-            "citation": "CPSC, 16 C.F.R. Part 1201 briefing package and final-rule draft, 2016.",
-            "url": "https://www.cpsc.gov/s3fs-public/FinalRuleAmendSafetyStandardArchitecturalGlazingMaterials.pdf",
-            "supports": "Supports that architectural safety glazing is performance-tested to reduce injury from failure or fracture and that laminating and tempering are distinct strengthening or safety-glazing processes.",
-            "boundary": "The rule covers specified architectural products and test methods; this explanatory artwork is not a compliance determination, code summary, product selection guide, or substitute for the applicable standard."
-          },
-          {
-            "authority": "National Glass Association",
-            "title": "GANA Glazing Manual, 2022 edition",
-            "citation": "National Glass Association, GANA Glazing Manual, Laminated Glazing Materials, 2022.",
-            "url": "https://www.glass.org/sites/default/files/2023-01/GANA_Glazing_Manual_2022_pw.pdf",
-            "supports": "Supports the definition of laminated glass as two or more glass lites permanently bonded with one or more interlayers and identifies post-breakage support and fragment retention as a central characteristic.",
-            "boundary": "The manual describes several glass, plastic, resin, PVB, and ionomer combinations; the drawn three-layer PVB section is one conceptual example and is explicitly not to scale."
-          },
-          {
-            "authority": "Kuraray Co., Ltd.",
-            "title": "Notice Concerning Start of Full Operations at Expanded PVB Film Facility in Europe",
-            "citation": "Kuraray, September 27, 2007.",
-            "url": "https://www.kuraray.com/global-en/news/2007/0927/",
-            "supports": "Supports PVB film as a transparent, adhesive, membrane-like interlayer used in laminated glass to reduce flying fragments under heavy impact in automotive and architectural applications.",
-            "boundary": "This manufacturer source supports the qualitative PVB mechanism only; no proprietary performance number, thickness, construction detail, or suitability recommendation is reproduced here."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "focus-swap",
           "2->3": "zoom-through",
           "3->4": "split-merge",
           "4->5": "focus-swap"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "U.S. National Highway Traffic Safety Administration",
+              "title": "FMVSS interpretation nht76-4.40 — tempered versus laminated windshields",
+              "citation": "NHTSA, interpretation nht76-4.40, March 10, 1976.",
+              "url": "https://www.nhtsa.gov/interpretations/nht76-440",
+              "supports": "Supports the automotive-windshield distinction: a cracked laminate retains material through its plastic interlayer and can deflect, while tempered windshield glass does not provide the same post-breakage retention.",
+              "boundary": "This is a historical U.S. automotive-windshield interpretation, not a universal product specification or a claim that every laminate, loading case, or modern interlayer performs identically."
+            },
+            {
+              "authority": "Whole Building Design Guide / National Institute of Building Sciences",
+              "title": "Retrofitting Existing Buildings to Resist Explosive Threats",
+              "citation": "WBDG, section B: Laminated Glass.",
+              "url": "https://www.wbdg.org/resources/retrofitting-existing-buildings-resist-explosive-threats",
+              "supports": "Supports the common build-up of two or more glass pieces bonded by a tough polymer interlayer and the tendency of fractured pieces to adhere to that interlayer rather than fall freely.",
+              "boundary": "The cited page addresses blast-hazard mitigation in buildings; this Topic borrows only its material description and does not offer blast design, installation, framing, or sealant guidance."
+            },
+            {
+              "authority": "U.S. Consumer Product Safety Commission",
+              "title": "Final Rule to Amend the Safety Standard for Architectural Glazing Materials",
+              "citation": "CPSC, 16 C.F.R. Part 1201 briefing package and final-rule draft, 2016.",
+              "url": "https://www.cpsc.gov/s3fs-public/FinalRuleAmendSafetyStandardArchitecturalGlazingMaterials.pdf",
+              "supports": "Supports that architectural safety glazing is performance-tested to reduce injury from failure or fracture and that laminating and tempering are distinct strengthening or safety-glazing processes.",
+              "boundary": "The rule covers specified architectural products and test methods; this explanatory artwork is not a compliance determination, code summary, product selection guide, or substitute for the applicable standard."
+            },
+            {
+              "authority": "National Glass Association",
+              "title": "GANA Glazing Manual, 2022 edition",
+              "citation": "National Glass Association, GANA Glazing Manual, Laminated Glazing Materials, 2022.",
+              "url": "https://www.glass.org/sites/default/files/2023-01/GANA_Glazing_Manual_2022_pw.pdf",
+              "supports": "Supports the definition of laminated glass as two or more glass lites permanently bonded with one or more interlayers and identifies post-breakage support and fragment retention as a central characteristic.",
+              "boundary": "The manual describes several glass, plastic, resin, PVB, and ionomer combinations; the drawn three-layer PVB section is one conceptual example and is explicitly not to scale."
+            },
+            {
+              "authority": "Kuraray Co., Ltd.",
+              "title": "Notice Concerning Start of Full Operations at Expanded PVB Film Facility in Europe",
+              "citation": "Kuraray, September 27, 2007.",
+              "url": "https://www.kuraray.com/global-en/news/2007/0927/",
+              "supports": "Supports PVB film as a transparent, adhesive, membrane-like interlayer used in laminated glass to reduce flying fragments under heavy impact in automotive and architectural applications.",
+              "boundary": "This manufacturer source supports the qualitative PVB mechanism only; no proprietary performance number, thickness, construction detail, or suitability recommendation is reproduced here."
+            }
+          ]
+        },
+        "modulePath": "../topics/safety-glass.tsx"
       },
       {
         "id": "layers-of-a-product",
-        "topic": {
+        "styleId": "liquid-glass",
+        "title": {
           "en": "Layers of a Product",
           "zh": "产品的层"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Layers of a Product",
@@ -41658,10 +40380,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "liquid-glass",
-            "name": "Liquid Glass",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "产品的层",
@@ -41771,50 +40490,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "liquid-glass",
-            "name": "液态玻璃",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/layers-of-a-product.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "product-layer-stack",
           "invocation": "drag-scrub",
           "feedback": "next-state-preview"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "fade",
           "2->3": "scale-fade",
           "3->4": "scale-fade",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/layers-of-a-product.tsx"
       }
     ]
   },
   {
-    "id": "retro-windows",
-    "name": {
-      "en": "Retro Windows",
-      "zh": "复古 Windows"
+    "style": {
+      "id": "retro-windows",
+      "name": {
+        "en": "Retro Windows",
+        "zh": "复古 Windows"
+      },
+      "band": "contemporary-digital"
     },
     "topics": [
       {
         "id": "retro-desktop",
-        "topic": {
+        "styleId": "retro-windows",
+        "title": {
           "en": "Retro Desktop",
           "zh": "复古桌面"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Nostalgic Computing — Win9x desktop costume with bevel depth, navy sole accent, CRT scanlines and dense application-UI body",
@@ -41925,10 +40645,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "retro-windows",
-            "name": "Retro Windows",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "怀旧计算——Windows 9x 桌面装扮，斜面深度、海军蓝主色、CRT 扫描线和密集应用界面",
@@ -42039,18 +40756,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "retro-windows",
-            "name": "复古 Windows",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/retro-desktop.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "retro-desktop-scene-indicators",
           "invocation": "persistent",
           "feedback": "typographic-emphasis"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "hard-cut",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -42060,20 +40779,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "hard-cut",
-          "2->3": "hard-cut",
-          "3->4": "hard-cut",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/retro-desktop.tsx"
       },
       {
         "id": "toolchain-desk",
-        "topic": {
+        "styleId": "retro-windows",
+        "title": {
           "en": "Toolchain Desk",
           "zh": "工具桌面"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "The Toolchain Desktop",
@@ -42223,10 +40938,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "retro-windows",
-            "name": "Retro Windows",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "工具链桌面",
@@ -42376,18 +41088,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "retro-windows",
-            "name": "复古 Windows",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/toolchain-desk.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "toolchain-taskbar",
           "invocation": "persistent",
           "feedback": "mechanical-displacement"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "glitch",
+          "3->4": "slide-x",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -42397,20 +41111,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "hard-cut",
-          "2->3": "glitch",
-          "3->4": "slide-x",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/toolchain-desk.tsx"
       },
       {
         "id": "voyager-boundary",
-        "topic": {
+        "styleId": "retro-windows",
+        "title": {
           "en": "Voyager Boundary",
           "zh": "日球层边界"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Voyager at the Heliopause",
@@ -42538,10 +41248,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "retro-windows",
-            "name": "Retro Windows",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "旅行者号穿越日球层边界",
@@ -42669,68 +41376,66 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "retro-windows",
-            "name": "复古 Windows",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/voyager-boundary.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "telemetry-trail",
           "invocation": "keyboard-focus",
           "feedback": "active-glow"
         },
-        "sources": [
-          {
-            "authority": "NASA Science / Jet Propulsion Laboratory",
-            "title": "Voyager Interstellar Mission",
-            "url": "https://science.nasa.gov/mission/voyager/interstellar-mission/",
-            "supports": "Termination-shock and heliopause crossing dates, the heliosheath sequence, Voyager 1's missing direct plasma measurement, and Voyager 2's direct plasma confirmation."
-          },
-          {
-            "authority": "NASA Science / Jet Propulsion Laboratory",
-            "title": "Where Are Voyager 1 and Voyager 2 Now?",
-            "url": "https://science.nasa.gov/mission/voyager/where-are-voyager-1-and-voyager-2-now/",
-            "supports": "The instrument roster shown in Scene 5, explicitly timestamped to NASA's April 17, 2026 status update."
-          },
-          {
-            "authority": "NASA Science / Jet Propulsion Laboratory",
-            "title": "Oort Cloud and Scale of the Solar System",
-            "url": "https://science.nasa.gov/resource/oort-cloud-and-scale-of-the-solar-system-infographic/",
-            "supports": "The heliopause marks the outer solar-wind boundary, while a common Solar System definition extends to the much more distant Oort Cloud; crossing the heliopause does not mean solar gravity has a finite endpoint there."
-          },
-          {
-            "authority": "NASA Science / Jet Propulsion Laboratory",
-            "title": "Voyager 1 Mission",
-            "url": "https://science.nasa.gov/mission/voyager/voyager-1/",
-            "supports": "Voyager 1's launch, Jupiter and Saturn route, termination-shock passage, and 2012 entry into interstellar space."
-          },
-          {
-            "authority": "NASA Science / Jet Propulsion Laboratory",
-            "title": "Voyager 2 Mission",
-            "url": "https://science.nasa.gov/mission/voyager/voyager-2/",
-            "supports": "Voyager 2's distinct route past all four giant planets before its later interstellar mission."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "scanline",
           "3->4": "glitch",
           "4->5": "push-x"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "NASA Science / Jet Propulsion Laboratory",
+              "title": "Voyager Interstellar Mission",
+              "url": "https://science.nasa.gov/mission/voyager/interstellar-mission/",
+              "supports": "Termination-shock and heliopause crossing dates, the heliosheath sequence, Voyager 1's missing direct plasma measurement, and Voyager 2's direct plasma confirmation."
+            },
+            {
+              "authority": "NASA Science / Jet Propulsion Laboratory",
+              "title": "Where Are Voyager 1 and Voyager 2 Now?",
+              "url": "https://science.nasa.gov/mission/voyager/where-are-voyager-1-and-voyager-2-now/",
+              "supports": "The instrument roster shown in Scene 5, explicitly timestamped to NASA's April 17, 2026 status update."
+            },
+            {
+              "authority": "NASA Science / Jet Propulsion Laboratory",
+              "title": "Oort Cloud and Scale of the Solar System",
+              "url": "https://science.nasa.gov/resource/oort-cloud-and-scale-of-the-solar-system-infographic/",
+              "supports": "The heliopause marks the outer solar-wind boundary, while a common Solar System definition extends to the much more distant Oort Cloud; crossing the heliopause does not mean solar gravity has a finite endpoint there."
+            },
+            {
+              "authority": "NASA Science / Jet Propulsion Laboratory",
+              "title": "Voyager 1 Mission",
+              "url": "https://science.nasa.gov/mission/voyager/voyager-1/",
+              "supports": "Voyager 1's launch, Jupiter and Saturn route, termination-shock passage, and 2012 entry into interstellar space."
+            },
+            {
+              "authority": "NASA Science / Jet Propulsion Laboratory",
+              "title": "Voyager 2 Mission",
+              "url": "https://science.nasa.gov/mission/voyager/voyager-2/",
+              "supports": "Voyager 2's distinct route past all four giant planets before its later interstellar mission."
+            }
+          ]
+        },
+        "modulePath": "../topics/voyager-boundary.tsx"
       },
       {
         "id": "setup-exe",
-        "topic": {
+        "styleId": "retro-windows",
+        "title": {
           "en": "Setup.exe",
           "zh": "安装向导"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Setup.exe",
@@ -42840,10 +41545,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "retro-windows",
-            "name": "Retro Windows",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "安装向导",
@@ -42953,50 +41655,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "retro-windows",
-            "name": "复古 Windows",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/setup-exe.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "setup-wizard-controls",
           "invocation": "drag-scrub",
           "feedback": "mechanical-displacement"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "hard-cut",
           "3->4": "glitch",
           "4->5": "hard-cut"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/setup-exe.tsx"
       }
     ]
   },
   {
-    "id": "mid-century-grove",
-    "name": {
-      "en": "Mid-Century Grove",
-      "zh": "中世纪林间"
+    "style": {
+      "id": "mid-century-grove",
+      "name": {
+        "en": "Mid-Century Grove",
+        "zh": "中世纪林间"
+      },
+      "band": "contemporary-digital"
     },
     "topics": [
       {
         "id": "botanical-brand",
-        "topic": {
+        "styleId": "mid-century-grove",
+        "title": {
           "en": "Botanical Brand",
           "zh": "植物品牌"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Brand Storytelling — botanical specimen card aesthetic with deep forest ground, warm cream text, rust-orange accent and classical serif",
@@ -43109,10 +41812,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mid-century-grove",
-            "name": "Mid-Century Grove",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "品牌叙事——植物标本卡美学，深森林底色、温暖奶油文字、铁锈橙点缀和古典衬线体",
@@ -43225,18 +41925,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mid-century-grove",
-            "name": "中世纪林间",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/botanical-brand.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "botanical-brand-scene-indicators",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "glitch",
+          "3->4": "glitch",
+          "4->5": "glitch"
         },
         "evidence": {
           "kind": "illustrative",
@@ -43246,20 +41948,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "glitch",
-          "2->3": "glitch",
-          "3->4": "glitch",
-          "4->5": "glitch"
-        }
+        "modulePath": "../topics/botanical-brand.tsx"
       },
       {
         "id": "calm-growth",
-        "topic": {
+        "styleId": "mid-century-grove",
+        "title": {
           "en": "Calm Growth",
           "zh": "冷静增长"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "A Calmer Growth Model",
@@ -43408,10 +42106,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mid-century-grove",
-            "name": "Mid-Century Grove",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "更平静的增长模型",
@@ -43560,18 +42255,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mid-century-grove",
-            "name": "中世纪林间",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/calm-growth.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "calm-growth-wooden-bead-rail",
           "invocation": "persistent",
           "feedback": "mechanical-displacement"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-y",
+          "3->4": "scale-fade",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -43581,20 +42278,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "slide-y",
-          "3->4": "scale-fade",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/calm-growth.tsx"
       },
       {
         "id": "monarch-migration",
-        "topic": {
+        "styleId": "mid-century-grove",
+        "title": {
           "en": "Monarch Migration",
           "zh": "帝王蝶迁徙"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Four Generations, One Migration",
@@ -43720,10 +42413,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mid-century-grove",
-            "name": "Mid-Century Grove",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "四代完成一次迁徙",
@@ -43849,70 +42539,68 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mid-century-grove",
-            "name": "中世纪林间",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/monarch-migration.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "seasonal-halo",
           "invocation": "keyboard-focus",
           "feedback": "material-color-change"
         },
-        "sources": [
-          {
-            "authority": "U.S. Fish and Wildlife Service",
-            "title": "Monarch Butterfly Species Status Assessment Report, Version 2.3",
-            "citation": "U.S. Fish and Wildlife Service. 2024. Monarch Butterfly (Danaus plexippus) Species Status Assessment Report, Version 2.3.",
-            "url": "https://www.fws.gov/sites/default/files/documents/2025-01/ssa_monarch-butterfly_2024.pdf",
-            "supports": "Supports the explicit separation of eastern and western North American migratory populations, their distinct Mexico and California overwintering geographies, and the habitat, insecticide, and climate pressures named in the final forest scene.",
-            "boundary": "The assessment treats population pathways and risks at continental scale; this Topic follows the eastern population's main Mexico route and does not imply that every individual, year, or alternative wintering behavior follows one identical line."
-          },
-          {
-            "authority": "U.S. National Park Service",
-            "title": "Continental Nomads: Monarch Butterflies",
-            "citation": "U.S. National Park Service. 2019. Continental Nomads: Monarch Butterflies.",
-            "url": "https://www.nps.gov/subjects/pollinators/migratingmonarchs.htm",
-            "supports": "Supports the relay framing: eastern monarchs move north across breeding generations, while the last generation of the season can live much longer and attempts the complete southbound journey to Mexico.",
-            "boundary": "The page is an educational overview rather than an annual route forecast; the animation therefore uses broad seasonal stages and labels western monarch migration as a separate route instead of merging it into the eastern map."
-          },
-          {
-            "authority": "Proceedings of the Royal Society B",
-            "title": "Tracking multi-generational colonization of the breeding grounds by monarch butterflies in eastern North America",
-            "citation": "Flockhart, D. T. T., et al. 2013. Proceedings of the Royal Society B 280: 20131087. doi:10.1098/rspb.2013.1087.",
-            "url": "https://doi.org/10.1098/rspb.2013.1087",
-            "supports": "Supports multi-generational recolonization of eastern North American breeding grounds and the use of geographically distinct generation markers rather than depicting one butterfly completing the annual north-and-south circuit.",
-            "boundary": "The isotope-based assignments describe sampled cohorts and broad source regions; the Topic avoids fixed annual borders, a universal generation count, or a claim that each year's distribution reaches the same northern extent."
-          },
-          {
-            "authority": "Proceedings of the Royal Society B",
-            "title": "Juvenile hormone regulation of longevity in the migratory monarch butterfly",
-            "citation": "Herman, W. S., and M. Tatar. 2001. Proceedings of the Royal Society B 268: 2509–2514. doi:10.1098/rspb.2001.1765.",
-            "url": "https://doi.org/10.1098/rspb.2001.1765",
-            "supports": "Supports the contrast between shorter-lived summer adults and longer-lived eastern migrants, including the association between reproductive diapause, endocrine regulation, and persistence through migration and overwintering.",
-            "boundary": "The study combines field context with controlled experiments; the Topic calls the autumn cohort long-lived without turning one reported lifespan or one hormonal mechanism into a guaranteed outcome for every migrant."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "push-y",
           "2->3": "push-x",
           "3->4": "focus-swap",
           "4->5": "push-y"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "U.S. Fish and Wildlife Service",
+              "title": "Monarch Butterfly Species Status Assessment Report, Version 2.3",
+              "citation": "U.S. Fish and Wildlife Service. 2024. Monarch Butterfly (Danaus plexippus) Species Status Assessment Report, Version 2.3.",
+              "url": "https://www.fws.gov/sites/default/files/documents/2025-01/ssa_monarch-butterfly_2024.pdf",
+              "supports": "Supports the explicit separation of eastern and western North American migratory populations, their distinct Mexico and California overwintering geographies, and the habitat, insecticide, and climate pressures named in the final forest scene.",
+              "boundary": "The assessment treats population pathways and risks at continental scale; this Topic follows the eastern population's main Mexico route and does not imply that every individual, year, or alternative wintering behavior follows one identical line."
+            },
+            {
+              "authority": "U.S. National Park Service",
+              "title": "Continental Nomads: Monarch Butterflies",
+              "citation": "U.S. National Park Service. 2019. Continental Nomads: Monarch Butterflies.",
+              "url": "https://www.nps.gov/subjects/pollinators/migratingmonarchs.htm",
+              "supports": "Supports the relay framing: eastern monarchs move north across breeding generations, while the last generation of the season can live much longer and attempts the complete southbound journey to Mexico.",
+              "boundary": "The page is an educational overview rather than an annual route forecast; the animation therefore uses broad seasonal stages and labels western monarch migration as a separate route instead of merging it into the eastern map."
+            },
+            {
+              "authority": "Proceedings of the Royal Society B",
+              "title": "Tracking multi-generational colonization of the breeding grounds by monarch butterflies in eastern North America",
+              "citation": "Flockhart, D. T. T., et al. 2013. Proceedings of the Royal Society B 280: 20131087. doi:10.1098/rspb.2013.1087.",
+              "url": "https://doi.org/10.1098/rspb.2013.1087",
+              "supports": "Supports multi-generational recolonization of eastern North American breeding grounds and the use of geographically distinct generation markers rather than depicting one butterfly completing the annual north-and-south circuit.",
+              "boundary": "The isotope-based assignments describe sampled cohorts and broad source regions; the Topic avoids fixed annual borders, a universal generation count, or a claim that each year's distribution reaches the same northern extent."
+            },
+            {
+              "authority": "Proceedings of the Royal Society B",
+              "title": "Juvenile hormone regulation of longevity in the migratory monarch butterfly",
+              "citation": "Herman, W. S., and M. Tatar. 2001. Proceedings of the Royal Society B 268: 2509–2514. doi:10.1098/rspb.2001.1765.",
+              "url": "https://doi.org/10.1098/rspb.2001.1765",
+              "supports": "Supports the contrast between shorter-lived summer adults and longer-lived eastern migrants, including the association between reproductive diapause, endocrine regulation, and persistence through migration and overwintering.",
+              "boundary": "The study combines field context with controlled experiments; the Topic calls the autumn cohort long-lived without turning one reported lifespan or one hormonal mechanism into a guaranteed outcome for every migrant."
+            }
+          ]
+        },
+        "modulePath": "../topics/monarch-migration.tsx"
       },
       {
         "id": "growing-slowly-on-purpose",
-        "topic": {
+        "styleId": "mid-century-grove",
+        "title": {
           "en": "Growing Slowly on Purpose",
           "zh": "慢成长"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Growing Slowly on Purpose",
@@ -44032,10 +42720,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mid-century-grove",
-            "name": "Mid-Century Grove",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "慢成长",
@@ -44155,50 +42840,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "mid-century-grove",
-            "name": "中世纪林间",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/growing-slowly-on-purpose.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "grove-rust-mark",
           "invocation": "drag-scrub",
           "feedback": "geometry-reflow"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "fade",
           "2->3": "slide-y",
           "3->4": "slide-y",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/growing-slowly-on-purpose.tsx"
       }
     ]
   },
   {
-    "id": "after-hours-luxe",
-    "name": {
-      "en": "After-Hours Luxe",
-      "zh": "深夜奢华"
+    "style": {
+      "id": "after-hours-luxe",
+      "name": {
+        "en": "After-Hours Luxe",
+        "zh": "深夜奢华"
+      },
+      "band": "contemporary-digital"
     },
     "topics": [
       {
         "id": "after-hours",
-        "topic": {
+        "styleId": "after-hours-luxe",
+        "title": {
           "en": "Luxe Reveal",
           "zh": "奢华揭幕"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Brand Reveal & Premium Launch — late-night hotel bar atmosphere with warm black ground, pearl-cream insets and single hot-magenta accent",
@@ -44309,10 +42995,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "after-hours-luxe",
-            "name": "After-Hours Luxe",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "品牌发布与高端揭幕——深夜酒店酒吧氛围，暖黑底色、珍珠奶油内嵌、单一热洋红点缀",
@@ -44423,18 +43106,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "after-hours-luxe",
-            "name": "深夜奢华",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/after-hours.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "after-hours-scene-indicators",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -44444,20 +43129,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "fade",
-          "3->4": "fade",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/after-hours.tsx"
       },
       {
         "id": "beta-salon",
-        "topic": {
+        "styleId": "after-hours-luxe",
+        "title": {
           "en": "Beta Salon",
           "zh": "内测沙龙"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Private Beta Salon",
@@ -44609,10 +43290,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "after-hours-luxe",
-            "name": "After-Hours Luxe",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "私享 Beta 沙龙",
@@ -44764,18 +43442,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "after-hours-luxe",
-            "name": "深夜奢华",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/beta-salon.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "beta-salon-coaster-picker",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "wipe",
+          "3->4": "fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -44785,20 +43465,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "wipe",
-          "3->4": "fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/beta-salon.tsx"
       },
       {
         "id": "urushi-cure",
-        "topic": {
+        "styleId": "after-hours-luxe",
+        "title": {
           "en": "Urushi Cure",
           "zh": "漆的固化"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Urushi Cure",
@@ -44939,10 +43615,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "after-hours-luxe",
-            "name": "After-Hours Luxe",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "漆的固化",
@@ -45083,68 +43756,66 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "after-hours-luxe",
-            "name": "深夜奢华",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/urushi-cure.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "lacquer-sheen-loci",
           "invocation": "gesture-hold",
           "feedback": "typographic-emphasis"
         },
-        "sources": [
-          {
-            "authority": "Getty Research Institute, Art & Architecture Thesaurus",
-            "title": "Urushi (lacquer material)",
-            "url": "https://www.getty.edu/vow/AATFullDisplay?find=urushi&logic=AND&note=&subjectid=300265172",
-            "supports": "Defines urushi as a specific tree-derived coating containing urushiol, laccase, polysaccharides and water that solidifies by oxidative polymerization in humid air; also notes that finishes may be polished or matte."
-          },
-          {
-            "authority": "The Metropolitan Museum of Art",
-            "title": "Lacquerware of East Asia",
-            "url": "https://www.metmuseum.org/essays/lacquerware-of-east-asia",
-            "supports": "Documents purification, thin-coat application, warm humid draft-free curing cabinets, and the fact that some high-quality traditions build many coats."
-          },
-          {
-            "authority": "Smithsonian Museum Conservation Institute",
-            "citation": "Weintraub, Tsujimoto & Walters, Urushi and conservation: the use of Japanese lacquer in the restoration of Japanese art, Ars Orientalis 11, 39–62.",
-            "url": "https://mci.si.edu/node/1276306",
-            "supports": "Supports the material-safety boundary that uncured urushi exposure can cause dermatitis and that urushi practice belongs to a specific conservation and craft tradition."
-          },
-          {
-            "authority": "Tokyo National Research Institute for Cultural Properties / CiNii Research",
-            "citation": "Ogawa & Hayakawa (2016), Effects of K2[CuCl4]·2H2O on Urushi Polymerization under Low Temperature and Humidity Conditions, DOI 10.18953/00003904.",
-            "url": "https://cir.nii.ac.jp/crid/1390853649777156736",
-            "supports": "Reports 20–30 °C and 70–80% RH as a general reference for conventional urushi hardening, while experimentally studying altered formulations and lower-condition curing—evidence that the range is not a universal recipe."
-          },
-          {
-            "authority": "Scientific Reports / National Library of Medicine",
-            "citation": "Polymerization mechanism of natural lacquer sap with special phase structure, Scientific Reports 10 (2020).",
-            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7393129/",
-            "supports": "Supports the laccase-catalyzed oxidation of urushiol under humid conditions and subsequent coupling and cross-linking that form a three-dimensional lacquer film."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "focus-swap",
           "2->3": "ink-spread",
           "3->4": "iris-open",
           "4->5": "focus-swap"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "Getty Research Institute, Art & Architecture Thesaurus",
+              "title": "Urushi (lacquer material)",
+              "url": "https://www.getty.edu/vow/AATFullDisplay?find=urushi&logic=AND&note=&subjectid=300265172",
+              "supports": "Defines urushi as a specific tree-derived coating containing urushiol, laccase, polysaccharides and water that solidifies by oxidative polymerization in humid air; also notes that finishes may be polished or matte."
+            },
+            {
+              "authority": "The Metropolitan Museum of Art",
+              "title": "Lacquerware of East Asia",
+              "url": "https://www.metmuseum.org/essays/lacquerware-of-east-asia",
+              "supports": "Documents purification, thin-coat application, warm humid draft-free curing cabinets, and the fact that some high-quality traditions build many coats."
+            },
+            {
+              "authority": "Smithsonian Museum Conservation Institute",
+              "citation": "Weintraub, Tsujimoto & Walters, Urushi and conservation: the use of Japanese lacquer in the restoration of Japanese art, Ars Orientalis 11, 39–62.",
+              "url": "https://mci.si.edu/node/1276306",
+              "supports": "Supports the material-safety boundary that uncured urushi exposure can cause dermatitis and that urushi practice belongs to a specific conservation and craft tradition."
+            },
+            {
+              "authority": "Tokyo National Research Institute for Cultural Properties / CiNii Research",
+              "citation": "Ogawa & Hayakawa (2016), Effects of K2[CuCl4]·2H2O on Urushi Polymerization under Low Temperature and Humidity Conditions, DOI 10.18953/00003904.",
+              "url": "https://cir.nii.ac.jp/crid/1390853649777156736",
+              "supports": "Reports 20–30 °C and 70–80% RH as a general reference for conventional urushi hardening, while experimentally studying altered formulations and lower-condition curing—evidence that the range is not a universal recipe."
+            },
+            {
+              "authority": "Scientific Reports / National Library of Medicine",
+              "citation": "Polymerization mechanism of natural lacquer sap with special phase structure, Scientific Reports 10 (2020).",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7393129/",
+              "supports": "Supports the laccase-catalyzed oxidation of urushiol under humid conditions and subsequent coupling and cross-linking that form a three-dimensional lacquer film."
+            }
+          ]
+        },
+        "modulePath": "../topics/urushi-cure.tsx"
       },
       {
         "id": "the-midnight-release",
-        "topic": {
+        "styleId": "after-hours-luxe",
+        "title": {
           "en": "The Midnight Release",
           "zh": "午夜上线"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "The Midnight Release",
@@ -45262,10 +43933,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "after-hours-luxe",
-            "name": "After-Hours Luxe",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "午夜上线",
@@ -45383,50 +44051,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "after-hours-luxe",
-            "name": "深夜奢华",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/the-midnight-release.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "midnight-hairline-index",
           "invocation": "drag-scrub",
           "feedback": "material-color-change"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "fade",
           "2->3": "scale-fade",
           "3->4": "fade",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/the-midnight-release.tsx"
       }
     ]
   },
   {
-    "id": "operating-manual",
-    "name": {
-      "en": "Operating Manual",
-      "zh": "操作手册"
+    "style": {
+      "id": "operating-manual",
+      "name": {
+        "en": "Operating Manual",
+        "zh": "操作手册"
+      },
+      "band": "contemporary-digital"
     },
     "topics": [
       {
         "id": "manual",
-        "topic": {
+        "styleId": "operating-manual",
+        "title": {
           "en": "Runbook Manual",
           "zh": "运行手册"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Runbook & Procedure Guides — industrial terminal aesthetic with monospace throughout, warning-amber accent and crisp sequential output",
@@ -45541,10 +44210,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "operating-manual",
-            "name": "Operating Manual",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "运行手册与程序指南——工业终端美学，全程等宽字体，警示琥珀色点缀，清晰顺序输出",
@@ -45659,18 +44325,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "operating-manual",
-            "name": "操作手册",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/manual.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "terminal-function-index",
           "invocation": "persistent",
           "feedback": "typographic-emphasis"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "hard-cut",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -45678,22 +44346,18 @@ export const CATALOG_MANIFEST = [
             "en": "Illustrative terminal scenario: commands, system readings, procedures, and outcomes are presentation examples, not operational instructions or external factual claims.",
             "zh": "示例终端场景：命令、系统读数、流程和结果均为演示内容，不构成操作指令或外部事实主张。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "hard-cut",
-          "2->3": "hard-cut",
-          "3->4": "hard-cut",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/manual.tsx"
       },
       {
         "id": "habit-runbook",
-        "topic": {
+        "styleId": "operating-manual",
+        "title": {
           "en": "Habit Runbook",
           "zh": "习惯手册"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Runbook for the New Habit",
@@ -45847,10 +44511,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "operating-manual",
-            "name": "Operating Manual",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "新习惯运行手册",
@@ -46004,18 +44665,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "operating-manual",
-            "name": "操作手册",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/habit-runbook.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "habit-runbook-index",
           "invocation": "persistent",
           "feedback": "typographic-emphasis"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "slide-y",
+          "3->4": "glitch",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -46023,22 +44686,18 @@ export const CATALOG_MANIFEST = [
             "en": "Illustrative habit runbook: triggers, steps, guardrails, and outcomes are presentation examples, not clinical, behavioral, or operational guidance.",
             "zh": "示例习惯手册：触发器、步骤、护栏和结果均为演示内容，不构成临床、行为或操作建议。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "hard-cut",
-          "2->3": "slide-y",
-          "3->4": "glitch",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/habit-runbook.tsx"
       },
       {
         "id": "escapement",
-        "topic": {
+        "styleId": "operating-manual",
+        "title": {
           "en": "The Escapement",
           "zh": "擒纵器"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Anchor Escapement Cutaway",
@@ -46157,10 +44816,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "operating-manual",
-            "name": "Operating Manual",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "锚形擒纵机构剖解",
@@ -46279,45 +44935,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "operating-manual",
-            "name": "操作手册",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/escapement.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "gear-tooth-register",
           "invocation": "keyboard-focus",
           "feedback": "typographic-emphasis"
         },
-        "sources": [
-          {
-            "authority": "Smithsonian National Air and Space Museum · Time and Navigation",
-            "title": "Mechanical Clock",
-            "url": "https://timeandnavigation.si.edu/timeline2/1000",
-            "supports": "Defines the escapement as the clock's regulating brake, releasing power from a falling weight or unwinding spring at a controlled rate."
-          },
-          {
-            "authority": "National Institute of Standards and Technology",
-            "title": "Everyday Time and Atomic Time: Part 3",
-            "url": "https://www.nist.gov/blogs/taking-measure/everyday-time-and-atomic-time-part-3",
-            "supports": "Explains that a pendulum-clock escapement advances a toothed wheel discretely and gives the pendulum a gentle push to replace frictional losses."
-          },
-          {
-            "authority": "Science Museum Group Collection",
-            "title": "Anchor escapement collection records",
-            "url": "https://collection.sciencemuseumgroup.org.uk/search/objects/object_type/anchor-escapement",
-            "supports": "Documents surviving anchor-escapement models and longcase-clock movements, grounding the selected mechanism in real museum objects."
-          },
-          {
-            "authority": "Getty Research Institute · Art & Architecture Thesaurus",
-            "title": "Anchor escapements",
-            "url": "https://www.getty.edu/vow/AATFullDisplay?find=&logic=AND&note=chinese&subjectid=300197628",
-            "supports": "Defines anchor escapements by wedge-shaped pallets engaging an escape wheel and notes the recoil that distinguishes this selected type."
-          }
-        ],
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "linear-wipe",
+          "3->4": "iris-open",
+          "4->5": "focus-swap"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -46350,22 +44982,18 @@ export const CATALOG_MANIFEST = [
             "en": "Illustrative mechanical schematic: the recoil anchor escapement diagrams are conceptual, not to scale, and not a precision-adjustment recipe.",
             "zh": "示意性机械图：反冲式锚形擒纵图仅用于概念说明，不按比例绘制，也不是精密调校配方。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "hard-cut",
-          "2->3": "linear-wipe",
-          "3->4": "iris-open",
-          "4->5": "focus-swap"
-        }
+        "modulePath": "../topics/escapement.tsx"
       },
       {
         "id": "rotate-the-secrets",
-        "topic": {
+        "styleId": "operating-manual",
+        "title": {
           "en": "Rotate the Secrets",
           "zh": "轮换密钥"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Rotate the Secrets",
@@ -46482,10 +45110,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "operating-manual",
-            "name": "Operating Manual",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "轮换密钥",
@@ -46602,50 +45227,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "operating-manual",
-            "name": "操作手册",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/rotate-the-secrets.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "rotation-command-status",
           "invocation": "drag-scrub",
           "feedback": "typographic-emphasis"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "slide-y",
           "3->4": "slide-y",
           "4->5": "hard-cut"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative security runbook: paths, version numbers, replica counts, commands, and outcomes are presentation examples; use an approved procedure for real credential rotation.",
+            "zh": "示例安全手册：路径、版本号、副本数量、命令和结果均为演示内容；实际凭据轮换应遵循已批准的流程。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/rotate-the-secrets.tsx"
       }
     ]
   },
   {
-    "id": "widescreen-title-card",
-    "name": {
-      "en": "Widescreen Title Card",
-      "zh": "宽屏标题卡"
+    "style": {
+      "id": "widescreen-title-card",
+      "name": {
+        "en": "Widescreen Title Card",
+        "zh": "宽屏标题卡"
+      },
+      "band": "contemporary-digital"
     },
     "topics": [
       {
         "id": "title-card",
-        "topic": {
+        "styleId": "widescreen-title-card",
+        "title": {
           "en": "Title Card",
           "zh": "宽屏片头"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Section Titles & Chapter Transitions — cinematic letterbox framing with graded still ground, film-poster title treatment and credit-like supporting text",
@@ -46761,10 +45387,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "widescreen-title-card",
-            "name": "Widescreen Title Card",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "章节标题与过渡——宽屏信箱式构图，分级剧照底色，电影海报式标题处理，演职员表式辅助文字",
@@ -46880,18 +45503,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "widescreen-title-card",
-            "name": "宽屏标题卡",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/title-card.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "title-card-scene-dots",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -46899,22 +45524,18 @@ export const CATALOG_MANIFEST = [
             "en": "Illustrative film-title scenario: names, credits, chapters, quotations, and release framing are presentation fiction, not external factual claims.",
             "zh": "示例电影片头场景：名称、演职员、章节、引言和发行信息均为演示虚构内容，并非外部事实主张。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "fade",
-          "3->4": "fade",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/title-card.tsx"
       },
       {
         "id": "system-acts",
-        "topic": {
+        "styleId": "widescreen-title-card",
+        "title": {
           "en": "System Acts",
           "zh": "系统五幕"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Five Acts of a System",
@@ -47063,10 +45684,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "widescreen-title-card",
-            "name": "Widescreen Title Card",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "系统五幕",
@@ -47215,18 +45833,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "widescreen-title-card",
-            "name": "宽屏标题卡",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/system-acts.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "letterbox-cue-marks",
           "invocation": "persistent",
           "feedback": "typographic-emphasis"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-x",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -47234,22 +45854,18 @@ export const CATALOG_MANIFEST = [
             "en": "Illustrative systems narrative: titles, signals, loops, and rules are conceptual metaphors, not claims about a specific system.",
             "zh": "示例系统叙事：标题、信号、循环和规则均为概念隐喻，并非针对特定系统的事实主张。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "slide-x",
-          "3->4": "scale-fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/system-acts.tsx"
       },
       {
         "id": "whale-fall",
-        "topic": {
+        "styleId": "widescreen-title-card",
+        "title": {
           "en": "Whale Fall",
           "zh": "鲸落"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Whale Fall: Deep-Sea Succession",
@@ -47375,10 +45991,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "widescreen-title-card",
-            "name": "Widescreen Title Card",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "鲸落：深海接替",
@@ -47504,49 +46117,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "widescreen-title-card",
-            "name": "宽屏标题卡",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/whale-fall.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "whale-fall-filmstrip",
           "invocation": "keyboard-focus",
           "feedback": "next-state-preview"
         },
-        "sources": [
-          {
-            "authority": "NOAA Ocean Exploration",
-            "title": "Whale falls, wood, or kelp: A bonanza for life in the deep sea",
-            "url": "https://oceanexplorer.noaa.gov/edu/oceanage/04baco_taylor/media/smithwhalefalls.pdf",
-            "supports": "Supports the broad succession from soft-tissue scavenging through enriched sediment to long-lived sulfide-based communities, including the months-to-decades range used in the scene notes.",
-            "boundary": "The expedition summary describes observed and expected ranges at particular study sites; this Topic therefore avoids presenting those durations as a universal clock for every carcass and depth."
-          },
-          {
-            "authority": "Monterey Bay Aquarium Research Institute (MBARI)",
-            "title": "Whale falls—Islands of abundance and diversity in the deep sea",
-            "url": "https://www.mbari.org/news/whale-falls-islands-of-abundance-and-diversity-in-the-deep-sea/",
-            "supports": "Supports rapid arrival of mobile scavengers, subsequent enrichment-opportunist assemblages, and a sulfophilic community powered by microbial processing of lipids within whale bones.",
-            "boundary": "The article reports Monterey and Southern California observations and uses representative stage descriptions; species, rates, and the clarity of each stage vary beyond those observed falls."
-          },
-          {
-            "citation": "Smith, C. R. et al. (2015), Annual Review of Marine Science 7, 571–596. doi:10.1146/annurev-marine-010213-135144",
-            "title": "Whale-Fall Ecosystems: Recent Insights into Ecology, Paleoecology, and Evolution",
-            "url": "https://doi.org/10.1146/annurev-marine-010213-135144",
-            "supports": "Supports whale falls as organic- and sulfide-rich habitat islands and describes overlapping successional assemblages whose expression varies with carcass size, water depth, and environmental conditions.",
-            "boundary": "The review explicitly frames succession as overlapping and variable, so the five scenes are an explanatory sequence rather than a claim that every site passes through sharply separated stages."
-          },
-          {
-            "authority": "Monterey Bay Aquarium Research Institute (MBARI)",
-            "title": "Fleshing out the life histories of dead whales",
-            "url": "https://www.mbari.org/news/fleshing-out-the-life-histories-of-dead-whales/",
-            "supports": "Supports repeated ROV observations of experimental whale falls and the distinction between widespread deep-sea animals and abundant bone specialists such as Osedax worms at individual sites.",
-            "boundary": "The study followed five carcasses in Monterey Canyon; the Topic uses it to show local evidence and specialist niches, not to imply that the same fauna colonize every whale fall worldwide."
-          }
-        ],
+        "transitionScore": {
+          "1->2": "dip-to-color",
+          "2->3": "dolly-pull",
+          "3->4": "focus-swap",
+          "4->5": "crossfade"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -47583,22 +46168,18 @@ export const CATALOG_MANIFEST = [
             "en": "Evidence boundary: whale-fall succession is an explanatory sequence drawn from particular observed sites; stages, durations, species, and conditions overlap and vary by carcass and setting. The original scientific illustrations simplify processes and are not to scale.",
             "zh": "证据边界：鲸落接替是基于特定观测地点的解释性序列；阶段、时长、物种和条件会随鲸体与环境重叠并变化。原创科学示意图简化了过程，且不按比例绘制。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "dip-to-color",
-          "2->3": "dolly-pull",
-          "3->4": "focus-swap",
-          "4->5": "crossfade"
-        }
+        "modulePath": "../topics/whale-fall.tsx"
       },
       {
         "id": "chapter-zero",
-        "topic": {
+        "styleId": "widescreen-title-card",
+        "title": {
           "en": "Chapter Zero",
           "zh": "第零章"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Chapter Zero",
@@ -47706,10 +46287,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "widescreen-title-card",
-            "name": "Widescreen Title Card",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "第零章",
@@ -47817,47 +46395,48 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "widescreen-title-card",
-            "name": "宽屏标题卡",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/chapter-zero.tsx",
         "navigation": {
           "mode": "none"
-        },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
         },
         "transitionScore": {
           "1->2": "fade",
           "2->3": "scale-fade",
           "3->4": "fade",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative title-card scenario: the reel, opening credit, cast, and closing text are presentation fiction, not external factual claims.",
+            "zh": "示例标题卡场景：卷标、开场字幕、演职和收尾文字均为演示虚构内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/chapter-zero.tsx"
       }
     ]
   },
   {
-    "id": "blackboard-chalk-talk",
-    "name": {
-      "en": "Blackboard Chalk Talk",
-      "zh": "黑板粉笔演讲"
+    "style": {
+      "id": "blackboard-chalk-talk",
+      "name": {
+        "en": "Blackboard Chalk Talk",
+        "zh": "黑板粉笔演讲"
+      },
+      "band": "contemporary-digital"
     },
     "topics": [
       {
         "id": "chalk-talk",
-        "topic": {
+        "styleId": "blackboard-chalk-talk",
+        "title": {
           "en": "Chalk Talk",
           "zh": "粉笔推导"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Live Derivation — dark matte chalkboard with soft off-white marks, hand-drawn diagrams and worked formulas, reasoning built up stroke by stroke",
@@ -47973,10 +46552,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "blackboard-chalk-talk",
-            "name": "Blackboard Chalk Talk",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "实时推导——深色哑光黑板配柔和粉白粉笔痕迹，手绘图表和推导公式，逐笔构建推理过程",
@@ -48092,18 +46668,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "blackboard-chalk-talk",
-            "name": "黑板粉笔演讲",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/chalk-talk.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "chalk-talk-scene-dots",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "hard-cut",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -48113,20 +46691,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "hard-cut",
-          "2->3": "hard-cut",
-          "3->4": "hard-cut",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/chalk-talk.tsx"
       },
       {
         "id": "shortcut",
-        "topic": {
+        "styleId": "blackboard-chalk-talk",
+        "title": {
           "en": "Shortcut",
           "zh": "快捷路径"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Derive the Shortcut",
@@ -48286,10 +46860,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "blackboard-chalk-talk",
-            "name": "Blackboard Chalk Talk",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "推导捷径",
@@ -48449,18 +47020,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "blackboard-chalk-talk",
-            "name": "黑板粉笔演讲",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/shortcut.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "chalk-tick-navigation",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "slide-y",
+          "3->4": "fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -48470,20 +47043,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "wipe",
-          "2->3": "slide-y",
-          "3->4": "fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/shortcut.tsx"
       },
       {
         "id": "hearing-path",
-        "topic": {
+        "styleId": "blackboard-chalk-talk",
+        "title": {
           "en": "How Hearing Begins",
           "zh": "听觉起点"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "From Air to Hearing",
@@ -48610,10 +47179,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "blackboard-chalk-talk",
-            "name": "Blackboard Chalk Talk",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "从空气到听觉",
@@ -48740,66 +47306,64 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "blackboard-chalk-talk",
-            "name": "黑板粉笔演讲",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/hearing-path.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "auditory-pathway",
           "invocation": "gesture-hold",
           "feedback": "history-trail"
         },
-        "sources": [
-          {
-            "authority": "NIH / National Institute on Deafness and Other Communication Disorders",
-            "title": "How Do We Hear?",
-            "citation": "NIDCD. How Do We Hear? Updated March 16, 2022.",
-            "url": "https://www.nidcd.nih.gov/health/how-do-we-hear",
-            "supports": "The outer-to-middle-to-inner-ear sequence, cochlear traveling wave, place dependence, stereocilia bending, electrical signaling, and auditory-nerve handoff."
-          },
-          {
-            "authority": "National Library of Medicine / NCBI Bookshelf",
-            "title": "The Middle Ear",
-            "citation": "Purves D, Augustine GJ, Fitzpatrick D, et al., editors. Neuroscience. 2nd ed. Sinauer Associates; 2001. The Middle Ear.",
-            "url": "https://www.ncbi.nlm.nih.gov/books/NBK11076/",
-            "supports": "The middle ear matches airborne sound to cochlear fluid through tympanic-to-oval-window area concentration and ossicular lever action."
-          },
-          {
-            "authority": "Hearing Research / PubMed Central",
-            "title": "Von Békésy and cochlear mechanics",
-            "citation": "Olson ES, Duifhuis H, Steele CR. Hearing Research. 2012;293(1–2):31–43. doi:10.1016/j.heares.2012.04.017.",
-            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3572775/",
-            "supports": "The basilar-membrane traveling wave is a central organizing feature of cochlear mechanical processing, while the living cochlea adds active amplification."
-          },
-          {
-            "authority": "Comprehensive Physiology / PubMed Central",
-            "title": "Hair Cell Transduction, Tuning, and Synaptic Transmission in the Mammalian Cochlea",
-            "citation": "Fettiplace R. Comprehensive Physiology. 2017;7(4):1197–1227. doi:10.1002/cphy.c160049.",
-            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5658794/",
-            "supports": "Hair-bundle deflection activates mechanotransduction channels; inner hair cells provide the principal electrical input to auditory-nerve fibers, while outer hair cells amplify mechanics."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "linear-wipe",
           "2->3": "push-x",
           "3->4": "dip-to-color",
           "4->5": "linear-wipe"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "NIH / National Institute on Deafness and Other Communication Disorders",
+              "title": "How Do We Hear?",
+              "citation": "NIDCD. How Do We Hear? Updated March 16, 2022.",
+              "url": "https://www.nidcd.nih.gov/health/how-do-we-hear",
+              "supports": "The outer-to-middle-to-inner-ear sequence, cochlear traveling wave, place dependence, stereocilia bending, electrical signaling, and auditory-nerve handoff."
+            },
+            {
+              "authority": "National Library of Medicine / NCBI Bookshelf",
+              "title": "The Middle Ear",
+              "citation": "Purves D, Augustine GJ, Fitzpatrick D, et al., editors. Neuroscience. 2nd ed. Sinauer Associates; 2001. The Middle Ear.",
+              "url": "https://www.ncbi.nlm.nih.gov/books/NBK11076/",
+              "supports": "The middle ear matches airborne sound to cochlear fluid through tympanic-to-oval-window area concentration and ossicular lever action."
+            },
+            {
+              "authority": "Hearing Research / PubMed Central",
+              "title": "Von Békésy and cochlear mechanics",
+              "citation": "Olson ES, Duifhuis H, Steele CR. Hearing Research. 2012;293(1–2):31–43. doi:10.1016/j.heares.2012.04.017.",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3572775/",
+              "supports": "The basilar-membrane traveling wave is a central organizing feature of cochlear mechanical processing, while the living cochlea adds active amplification."
+            },
+            {
+              "authority": "Comprehensive Physiology / PubMed Central",
+              "title": "Hair Cell Transduction, Tuning, and Synaptic Transmission in the Mammalian Cochlea",
+              "citation": "Fettiplace R. Comprehensive Physiology. 2017;7(4):1197–1227. doi:10.1002/cphy.c160049.",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5658794/",
+              "supports": "Hair-bundle deflection activates mechanotransduction channels; inner hair cells provide the principal electrical input to auditory-nerve fibers, while outer hair cells amplify mechanics."
+            }
+          ]
+        },
+        "modulePath": "../topics/hearing-path.tsx"
       },
       {
         "id": "deriving-big-o",
-        "topic": {
+        "styleId": "blackboard-chalk-talk",
+        "title": {
           "en": "Deriving Big-O",
           "zh": "推导复杂度"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Deriving Big-O",
@@ -48918,10 +47482,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "blackboard-chalk-talk",
-            "name": "Blackboard Chalk Talk",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "推导复杂度",
@@ -49040,50 +47601,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "blackboard-chalk-talk",
-            "name": "黑板粉笔演讲",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/deriving-big-o.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "chalk-step-line",
           "invocation": "keyboard-focus",
           "feedback": "active-glow"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "wipe",
           "2->3": "wipe",
           "3->4": "wipe",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative Big-O derivation: the nested-loop example teaches asymptotic reasoning and is not a performance measurement of a running system.",
+            "zh": "示例 Big-O 推导：嵌套循环案例用于讲解渐近推理，并非运行系统的性能测量。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/deriving-big-o.tsx"
       }
     ]
   },
   {
-    "id": "arcade-boss-fight",
-    "name": {
-      "en": "Arcade Boss Fight",
-      "zh": "街机 Boss 战"
+    "style": {
+      "id": "arcade-boss-fight",
+      "name": {
+        "en": "Arcade Boss Fight",
+        "zh": "街机 Boss 战"
+      },
+      "band": "contemporary-digital"
     },
     "topics": [
       {
         "id": "boss-fight",
-        "topic": {
+        "styleId": "arcade-boss-fight",
+        "title": {
           "en": "Boss Fight",
           "zh": "Boss 战"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Risk Framing — retro arcade screen reframing technical challenge as boss battle, power-ups as goals, HUD-style status readouts with pixel neon colors",
@@ -49199,10 +47761,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "arcade-boss-fight",
-            "name": "Arcade Boss Fight",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "风险框架——复古街机屏幕将技术挑战重新演绎为 Boss 战，道具即目标，HUD 风格状态读数配像素霓虹色彩",
@@ -49318,18 +47877,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "arcade-boss-fight",
-            "name": "街机 Boss 战",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/boss-fight.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "boss-fight-scene-dots",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "glitch",
+          "3->4": "glitch",
+          "4->5": "glitch"
         },
         "evidence": {
           "kind": "illustrative",
@@ -49339,20 +47900,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "glitch",
-          "2->3": "glitch",
-          "3->4": "glitch",
-          "4->5": "glitch"
-        }
+        "modulePath": "../topics/boss-fight.tsx"
       },
       {
         "id": "latency-boss",
-        "topic": {
+        "styleId": "arcade-boss-fight",
+        "title": {
           "en": "Latency Boss",
           "zh": "延迟 Boss"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Defeat the Latency Boss",
@@ -49537,10 +48094,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "arcade-boss-fight",
-            "name": "Arcade Boss Fight",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "击败延迟 Boss",
@@ -49725,18 +48279,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "arcade-boss-fight",
-            "name": "街机 Boss 战",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/latency-boss.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "life-pip-level-navigation",
           "invocation": "persistent",
           "feedback": "history-trail"
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "slide-x",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -49746,20 +48302,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "glitch",
-          "2->3": "slide-x",
-          "3->4": "scale-fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/latency-boss.tsx"
       },
       {
         "id": "egg-mimicry",
-        "topic": {
+        "styleId": "arcade-boss-fight",
+        "title": {
           "en": "Egg Mimicry",
           "zh": "卵拟态"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Egg Mimicry: Cuckoo and Great Reed Warbler",
@@ -49879,10 +48431,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "arcade-boss-fight",
-            "name": "Arcade Boss Fight",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "普通杜鹃与大苇莺的卵拟态",
@@ -50002,111 +48551,109 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "arcade-boss-fight",
-            "name": "街机 Boss 战",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/egg-mimicry.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "nest-map",
           "invocation": "keyboard-focus",
           "feedback": "geometry-reflow"
         },
-        "sources": [
-          {
-            "id": "abolins-abols-2019",
-            "accessDate": "2026-07-10",
-            "authority": "Behavioural Processes / PubMed",
-            "title": "Anti-parasitic egg rejection by great reed warblers tracks differences along an eggshell color gradient",
-            "citation": "Abolins-Abols M, Hanley D, Moskát C, Grim T, Hauber ME. Behavioural Processes 166 (2019) 103902. doi:10.1016/j.beproc.2019.103902.",
-            "url": "https://pubmed.ncbi.nlm.nih.gov/31283976/",
-            "supports": "At Apaj, central Hungary, during 2016 and 2017 in early May to early June, researchers introduced 46 3D-printed model eggs spanning blue-green to brown coloration. Great reed warblers rejected 41 of 46 models; browner models had higher rejection probability, while maculation was not the explanatory predictor in the tested models.",
-            "boundary": "This is a model-egg response experiment in one great reed warbler population. It does not measure lifetime fitness, every cue a host can use, or every common-cuckoo host race.",
-            "claimIds": [
-              "apaj-field-protocol",
-              "colour-gradient-response",
-              "arms-race-boundary"
-            ],
-            "shortLabel": {
-              "en": "Abolins-Abols et al. 2019",
-              "zh": "Abolins-Abols 等，2019"
-            }
-          },
-          {
-            "id": "moskat-2010",
-            "accessDate": "2026-07-10",
-            "authority": "Journal of Experimental Biology / PubMed",
-            "title": "Discordancy or template-based recognition? Dissecting the cognitive basis of the rejection of foreign eggs in hosts of avian brood parasites",
-            "citation": "Moskát C, Bán M, Székely T, et al. Journal of Experimental Biology 213 (2010) 1975–1982. doi:10.1242/jeb.040394.",
-            "url": "https://pubmed.ncbi.nlm.nih.gov/20472785/",
-            "supports": "Manipulated-clutch experiments with great reed warblers, a common-cuckoo host, supported both discordancy and recognition-template mechanisms. In a condition where manipulated eggs were the majority but a minority of own eggs remained, the study reported rejection of own eggs and manipulated eggs above controls, exposing a recognition-error cost rather than a cost-free defence.",
-            "boundary": "The experiment isolates cognitive decision cues under a manipulated clutch. It should not be read as a direct estimate of natural acceptance or rejection frequencies in every location or season.",
-            "claimIds": [
-              "recognition-error-cost",
-              "arms-race-boundary"
-            ],
-            "shortLabel": {
-              "en": "Moskát et al. 2010",
-              "zh": "Moskát 等，2010"
-            }
-          },
-          {
-            "id": "cherry-bennett-moskat-2007",
-            "accessDate": "2026-07-10",
-            "authority": "Journal of Evolutionary Biology / PubMed",
-            "title": "Do cuckoos choose nests of great reed warblers on the basis of host egg appearance?",
-            "citation": "Cherry MI, Bennett ATD, Moskát C. Journal of Evolutionary Biology 20 (2007) 1218–1222. doi:10.1111/j.1420-9101.2007.01308.x.",
-            "url": "https://pubmed.ncbi.nlm.nih.gov/17465931/",
-            "supports": "By comparing naturally and experimentally parasitized great reed warbler nests, the authors found naturally parasitized cuckoo eggs were more similar to host eggs in measured visual features. The result supports the possibility that choice among nests within a population can improve egg matching.",
-            "boundary": "The authors frame nest choice as evidence from a comparison, not proof that every cuckoo laying event is visually selected or that matching alone explains host outcomes.",
-            "claimIds": [
-              "within-population-matching",
-              "arms-race-boundary"
-            ],
-            "shortLabel": {
-              "en": "Cherry, Bennett & Moskát 2007",
-              "zh": "Cherry、Bennett 与 Moskát，2007"
-            }
-          },
-          {
-            "id": "honza-et-al-2014",
-            "accessDate": "2026-07-10",
-            "authority": "Proceedings of the Royal Society B / PubMed Central",
-            "title": "Brood parasites lay eggs matching the appearance of host clutches",
-            "citation": "Honza M, Šulc M, Jelínek V, Požgayová M, Procházka P. Proceedings of the Royal Society B 281 (2014) 20132665. doi:10.1098/rspb.2013.2665.",
-            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3843844/",
-            "supports": "The study tested whether common cuckoos select host nests within a population to improve egg matching. It reported better chromatic matching in naturally parasitized nests than in nearest active non-parasitized neighbours, while not finding matching in achromatic spectral characteristics.",
-            "boundary": "This evidence distinguishes chromatic from achromatic results in its study system. It does not license a simplified claim that all egg traits, hosts, or cuckoo populations follow one matching rule.",
-            "claimIds": [
-              "within-population-matching",
-              "arms-race-boundary"
-            ],
-            "shortLabel": {
-              "en": "Honza et al. 2014",
-              "zh": "Honza 等，2014"
-            }
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "push-x",
           "2->3": "glitch",
           "3->4": "split-merge",
           "4->5": "push-x"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "abolins-abols-2019",
+              "accessDate": "2026-07-10",
+              "authority": "Behavioural Processes / PubMed",
+              "title": "Anti-parasitic egg rejection by great reed warblers tracks differences along an eggshell color gradient",
+              "citation": "Abolins-Abols M, Hanley D, Moskát C, Grim T, Hauber ME. Behavioural Processes 166 (2019) 103902. doi:10.1016/j.beproc.2019.103902.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/31283976/",
+              "supports": "At Apaj, central Hungary, during 2016 and 2017 in early May to early June, researchers introduced 46 3D-printed model eggs spanning blue-green to brown coloration. Great reed warblers rejected 41 of 46 models; browner models had higher rejection probability, while maculation was not the explanatory predictor in the tested models.",
+              "boundary": "This is a model-egg response experiment in one great reed warbler population. It does not measure lifetime fitness, every cue a host can use, or every common-cuckoo host race.",
+              "claimIds": [
+                "apaj-field-protocol",
+                "colour-gradient-response",
+                "arms-race-boundary"
+              ],
+              "shortLabel": {
+                "en": "Abolins-Abols et al. 2019",
+                "zh": "Abolins-Abols 等，2019"
+              }
+            },
+            {
+              "id": "moskat-2010",
+              "accessDate": "2026-07-10",
+              "authority": "Journal of Experimental Biology / PubMed",
+              "title": "Discordancy or template-based recognition? Dissecting the cognitive basis of the rejection of foreign eggs in hosts of avian brood parasites",
+              "citation": "Moskát C, Bán M, Székely T, et al. Journal of Experimental Biology 213 (2010) 1975–1982. doi:10.1242/jeb.040394.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/20472785/",
+              "supports": "Manipulated-clutch experiments with great reed warblers, a common-cuckoo host, supported both discordancy and recognition-template mechanisms. In a condition where manipulated eggs were the majority but a minority of own eggs remained, the study reported rejection of own eggs and manipulated eggs above controls, exposing a recognition-error cost rather than a cost-free defence.",
+              "boundary": "The experiment isolates cognitive decision cues under a manipulated clutch. It should not be read as a direct estimate of natural acceptance or rejection frequencies in every location or season.",
+              "claimIds": [
+                "recognition-error-cost",
+                "arms-race-boundary"
+              ],
+              "shortLabel": {
+                "en": "Moskát et al. 2010",
+                "zh": "Moskát 等，2010"
+              }
+            },
+            {
+              "id": "cherry-bennett-moskat-2007",
+              "accessDate": "2026-07-10",
+              "authority": "Journal of Evolutionary Biology / PubMed",
+              "title": "Do cuckoos choose nests of great reed warblers on the basis of host egg appearance?",
+              "citation": "Cherry MI, Bennett ATD, Moskát C. Journal of Evolutionary Biology 20 (2007) 1218–1222. doi:10.1111/j.1420-9101.2007.01308.x.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/17465931/",
+              "supports": "By comparing naturally and experimentally parasitized great reed warbler nests, the authors found naturally parasitized cuckoo eggs were more similar to host eggs in measured visual features. The result supports the possibility that choice among nests within a population can improve egg matching.",
+              "boundary": "The authors frame nest choice as evidence from a comparison, not proof that every cuckoo laying event is visually selected or that matching alone explains host outcomes.",
+              "claimIds": [
+                "within-population-matching",
+                "arms-race-boundary"
+              ],
+              "shortLabel": {
+                "en": "Cherry, Bennett & Moskát 2007",
+                "zh": "Cherry、Bennett 与 Moskát，2007"
+              }
+            },
+            {
+              "id": "honza-et-al-2014",
+              "accessDate": "2026-07-10",
+              "authority": "Proceedings of the Royal Society B / PubMed Central",
+              "title": "Brood parasites lay eggs matching the appearance of host clutches",
+              "citation": "Honza M, Šulc M, Jelínek V, Požgayová M, Procházka P. Proceedings of the Royal Society B 281 (2014) 20132665. doi:10.1098/rspb.2013.2665.",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3843844/",
+              "supports": "The study tested whether common cuckoos select host nests within a population to improve egg matching. It reported better chromatic matching in naturally parasitized nests than in nearest active non-parasitized neighbours, while not finding matching in achromatic spectral characteristics.",
+              "boundary": "This evidence distinguishes chromatic from achromatic results in its study system. It does not license a simplified claim that all egg traits, hosts, or cuckoo populations follow one matching rule.",
+              "claimIds": [
+                "within-population-matching",
+                "arms-race-boundary"
+              ],
+              "shortLabel": {
+                "en": "Honza et al. 2014",
+                "zh": "Honza 等，2014"
+              }
+            }
+          ]
+        },
+        "modulePath": "../topics/egg-mimicry.tsx"
       },
       {
         "id": "defeating-tech-debt",
-        "topic": {
+        "styleId": "arcade-boss-fight",
+        "title": {
           "en": "Defeating Tech Debt",
           "zh": "打败技术债"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Defeating Tech Debt",
@@ -50227,10 +48774,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "arcade-boss-fight",
-            "name": "Arcade Boss Fight",
-            "band": "contemporary-digital"
+            ]
           },
           "zh": {
             "theme": "打败技术债",
@@ -50351,50 +48895,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "arcade-boss-fight",
-            "name": "街机 Boss 战",
-            "band": "contemporary-digital"
+            ]
           }
         },
-        "modulePath": "../topics/defeating-tech-debt.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "arcade-stage-hud",
           "invocation": "keyboard-focus",
           "feedback": "history-trail"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "glitch",
           "2->3": "hard-cut",
           "3->4": "glitch",
           "4->5": "hard-cut"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative technical-debt boss fight: system age, code size, damage, score, and release outcomes are presentation examples, not operational measurements.",
+            "zh": "示例技术债 Boss 战：系统年龄、代码规模、伤害、得分和发布结果均为演示内容，并非运营测量数据。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/defeating-tech-debt.tsx"
       }
     ]
   },
   {
-    "id": "research-memo",
-    "name": {
-      "en": "Research Memo",
-      "zh": "研究备忘录"
+    "style": {
+      "id": "research-memo",
+      "name": {
+        "en": "Research Memo",
+        "zh": "研究备忘录"
+      },
+      "band": "text-report"
     },
     "topics": [
       {
         "id": "research-memo",
-        "topic": {
+        "styleId": "research-memo",
+        "title": {
           "en": "Research Memo",
           "zh": "研究备忘"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Research findings, executive summaries, evidence-led readouts — calm authoritative evidence-first",
@@ -50508,10 +49053,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "research-memo",
-            "name": "Research Memo",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "研究成果、执行摘要、证据导向的汇报——冷静权威、证据为先",
@@ -50625,18 +49167,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "research-memo",
-            "name": "研究备忘录",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/research-memo.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "research-memo-page-index",
           "invocation": "persistent",
           "feedback": "typographic-emphasis"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "hard-cut",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -50646,20 +49190,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "hard-cut",
-          "2->3": "hard-cut",
-          "3->4": "hard-cut",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/research-memo.tsx"
       },
       {
         "id": "small-team",
-        "topic": {
+        "styleId": "research-memo",
+        "title": {
           "en": "Small Team",
           "zh": "小团队证据"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Evidence for a Smaller Team: question, method, findings, recommendation, memo line",
@@ -50777,10 +49317,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "research-memo",
-            "name": "Research Memo",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "小团队证据：问题、方法、发现、建议、备忘录结论",
@@ -50898,18 +49435,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "research-memo",
-            "name": "研究备忘录",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/small-team.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "small-team-memo-tabs",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "wipe",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -50919,20 +49458,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "wipe",
-          "3->4": "scale-fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/small-team.tsx"
       },
       {
         "id": "impact-evidence",
-        "topic": {
+        "styleId": "research-memo",
+        "title": {
           "en": "Impact Evidence",
           "zh": "撞击证据"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Impact evidence: a traceable, cross-medium, bounded scientific case",
@@ -51057,10 +49592,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "research-memo",
-            "name": "Research Memo",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "撞击证据：跨介质、可追溯且有边界的科学证据链",
@@ -51185,80 +49717,78 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "research-memo",
-            "name": "研究备忘录",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/impact-evidence.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "impact-citation-chain",
           "invocation": "click-expand",
           "feedback": "history-trail"
         },
-        "sources": [
-          {
-            "id": "S1",
-            "authority": "U.S. Department of Energy, Office of Scientific and Technical Information / Science",
-            "citation": "Alvarez, L. W., Alvarez, W., Asaro, F. & Michel, H. V. (1980). Extraterrestrial cause for the Cretaceous-Tertiary extinction. Science 208, 1095–1108. DOI 10.1126/science.208.4448.1095.",
-            "url": "https://www.osti.gov/biblio/5729041",
-            "supports": "Reports boundary-layer iridium enrichments in Italy, Denmark, and New Zealand and presents the impact hypothesis. The paper is the opening hypothesis and measurement record, not the whole later consensus."
-          },
-          {
-            "id": "S2",
-            "authority": "U.S. Geological Survey Publications Warehouse",
-            "citation": "Bohor, B. F. (1990). Shock-induced microdeformations in quartz and other mineralogical indications of an impact event at the Cretaceous-Tertiary boundary. Tectonophysics 171. DOI 10.1016/0040-1951(90)90110-T.",
-            "url": "https://www.usgs.gov/publications/shock-induced-microdeformations-quartz-and-other-mineralogical-indications-impact",
-            "supports": "Documents multiple planar shock features in quartz and the boundary-clay association of shocked grains, altered glass, spinel, and spherules. Diagrammatic specimens in this Topic are explanatory, not observations."
-          },
-          {
-            "id": "S3",
-            "authority": "International Ocean Discovery Program / International Continental Scientific Drilling Program",
-            "citation": "Gulick, S. et al. (2017). Expedition 364 summary: Chicxulub—Drilling the K-Pg Impact Crater. Proceedings of the IODP 364. DOI 10.14379/iodp.proc.364.101.2017.",
-            "url": "https://publications.iodp.org/proceedings/364/101/364_101.html",
-            "supports": "Reports Hole M0077A through the Chicxulub peak ring, core recovery from 505.70 to 1334.69 m below seafloor at about 99%, and study of suevite, impact melt, fractured basement, shock, and geophysical logs."
-          },
-          {
-            "id": "S4",
-            "authority": "U.S. Geological Survey Publications Warehouse / Nature",
-            "citation": "Sharpton, V. L. et al. (1992). New links between the Chicxulub impact structure and the Cretaceous/Tertiary boundary. Nature 359, 819–821. DOI 10.1038/359819a0.",
-            "url": "https://www.usgs.gov/publications/new-links-between-chicxulub-impact-structure-and-cretaceoustertiary-boundary",
-            "supports": "Links Chicxulub core materials to worldwide boundary ejecta through shocked fragments, melt-rock chemistry, iridium, and age evidence. It supports source-crater correlation, not every extinction mechanism by itself."
-          },
-          {
-            "id": "S5",
-            "authority": "Science / U.S. National Library of Medicine",
-            "citation": "Schulte, P. et al. (2010). The Chicxulub asteroid impact and mass extinction at the Cretaceous-Paleogene boundary. Science 327, 1214–1218. DOI 10.1126/science.1177265.",
-            "url": "https://pubmed.ncbi.nlm.nih.gov/20203042/",
-            "supports": "Synthesizes global stratigraphy, ejecta, crater evidence, timing, fossil patterns, and modeled perturbations; concludes the Chicxulub impact triggered the mass extinction. This is a synthesis across evidence, not an appeal to one investigator."
-          },
-          {
-            "id": "S6",
-            "authority": "Science / U.S. National Library of Medicine",
-            "citation": "Hull, P. M. et al. (2020). On impact and volcanism across the Cretaceous-Paleogene boundary. Science 367, 266–272. DOI 10.1126/science.aay5055.",
-            "url": "https://pubmed.ncbi.nlm.nih.gov/31949074/",
-            "supports": "Separates impact and volcanic forcing across the boundary and preserves a bounded interpretation: impact is the principal extinction trigger in the analyzed record, while volcanism remains relevant to broader climate and recovery history."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "crossfade",
           "3->4": "focus-swap",
           "4->5": "hard-cut"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "S1",
+              "authority": "U.S. Department of Energy, Office of Scientific and Technical Information / Science",
+              "citation": "Alvarez, L. W., Alvarez, W., Asaro, F. & Michel, H. V. (1980). Extraterrestrial cause for the Cretaceous-Tertiary extinction. Science 208, 1095–1108. DOI 10.1126/science.208.4448.1095.",
+              "url": "https://www.osti.gov/biblio/5729041",
+              "supports": "Reports boundary-layer iridium enrichments in Italy, Denmark, and New Zealand and presents the impact hypothesis. The paper is the opening hypothesis and measurement record, not the whole later consensus."
+            },
+            {
+              "id": "S2",
+              "authority": "U.S. Geological Survey Publications Warehouse",
+              "citation": "Bohor, B. F. (1990). Shock-induced microdeformations in quartz and other mineralogical indications of an impact event at the Cretaceous-Tertiary boundary. Tectonophysics 171. DOI 10.1016/0040-1951(90)90110-T.",
+              "url": "https://www.usgs.gov/publications/shock-induced-microdeformations-quartz-and-other-mineralogical-indications-impact",
+              "supports": "Documents multiple planar shock features in quartz and the boundary-clay association of shocked grains, altered glass, spinel, and spherules. Diagrammatic specimens in this Topic are explanatory, not observations."
+            },
+            {
+              "id": "S3",
+              "authority": "International Ocean Discovery Program / International Continental Scientific Drilling Program",
+              "citation": "Gulick, S. et al. (2017). Expedition 364 summary: Chicxulub—Drilling the K-Pg Impact Crater. Proceedings of the IODP 364. DOI 10.14379/iodp.proc.364.101.2017.",
+              "url": "https://publications.iodp.org/proceedings/364/101/364_101.html",
+              "supports": "Reports Hole M0077A through the Chicxulub peak ring, core recovery from 505.70 to 1334.69 m below seafloor at about 99%, and study of suevite, impact melt, fractured basement, shock, and geophysical logs."
+            },
+            {
+              "id": "S4",
+              "authority": "U.S. Geological Survey Publications Warehouse / Nature",
+              "citation": "Sharpton, V. L. et al. (1992). New links between the Chicxulub impact structure and the Cretaceous/Tertiary boundary. Nature 359, 819–821. DOI 10.1038/359819a0.",
+              "url": "https://www.usgs.gov/publications/new-links-between-chicxulub-impact-structure-and-cretaceoustertiary-boundary",
+              "supports": "Links Chicxulub core materials to worldwide boundary ejecta through shocked fragments, melt-rock chemistry, iridium, and age evidence. It supports source-crater correlation, not every extinction mechanism by itself."
+            },
+            {
+              "id": "S5",
+              "authority": "Science / U.S. National Library of Medicine",
+              "citation": "Schulte, P. et al. (2010). The Chicxulub asteroid impact and mass extinction at the Cretaceous-Paleogene boundary. Science 327, 1214–1218. DOI 10.1126/science.1177265.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/20203042/",
+              "supports": "Synthesizes global stratigraphy, ejecta, crater evidence, timing, fossil patterns, and modeled perturbations; concludes the Chicxulub impact triggered the mass extinction. This is a synthesis across evidence, not an appeal to one investigator."
+            },
+            {
+              "id": "S6",
+              "authority": "Science / U.S. National Library of Medicine",
+              "citation": "Hull, P. M. et al. (2020). On impact and volcanism across the Cretaceous-Paleogene boundary. Science 367, 266–272. DOI 10.1126/science.aay5055.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/31949074/",
+              "supports": "Separates impact and volcanic forcing across the boundary and preserves a bounded interpretation: impact is the principal extinction trigger in the analyzed record, while volcanism remains relevant to broader climate and recovery history."
+            }
+          ]
+        },
+        "modulePath": "../topics/impact-evidence.tsx"
       },
       {
         "id": "why-users-churn",
-        "topic": {
+        "styleId": "research-memo",
+        "title": {
           "en": "Why Users Churn",
           "zh": "用户流失"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Why Users Churn",
@@ -51373,10 +49903,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "research-memo",
-            "name": "Research Memo",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "用户流失",
@@ -51491,20 +50018,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "research-memo",
-            "name": "研究备忘录",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/why-users-churn.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "churn-section-spine",
           "invocation": "keyboard-focus",
           "feedback": "next-state-preview"
         },
-        "topicSet": "curated",
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "fade"
+        },
         "evidence": {
           "kind": "illustrative",
           "boundary": {
@@ -51513,29 +50041,28 @@ export const CATALOG_MANIFEST = [
           },
           "display": "stage"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "slide-y",
-          "3->4": "slide-y",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/why-users-churn.tsx"
       }
     ]
   },
   {
-    "id": "decision-record",
-    "name": {
-      "en": "Decision Record",
-      "zh": "决策记录"
+    "style": {
+      "id": "decision-record",
+      "name": {
+        "en": "Decision Record",
+        "zh": "决策记录"
+      },
+      "band": "text-report"
     },
     "topics": [
       {
         "id": "decision-record",
-        "topic": {
+        "styleId": "decision-record",
+        "title": {
           "en": "Decision Record",
           "zh": "决策记录"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Technical decisions, trade-offs, and architectural boundaries — structured reasoning blocks with procedural formality",
@@ -51647,10 +50174,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "decision-record",
-            "name": "Decision Record",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "技术决策、权衡分析与架构边界——结构化推理块，程序化工整风格",
@@ -51762,18 +50286,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "decision-record",
-            "name": "决策记录",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/decision-record.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "decision-record-section-index",
           "invocation": "persistent",
           "feedback": "typographic-emphasis"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
         },
         "evidence": {
           "kind": "illustrative",
@@ -51783,20 +50309,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "wipe",
-          "2->3": "wipe",
-          "3->4": "wipe",
-          "4->5": "wipe"
-        }
+        "modulePath": "../topics/decision-record.tsx"
       },
       {
         "id": "boundary",
-        "topic": {
+        "styleId": "decision-record",
+        "title": {
           "en": "Boundary",
           "zh": "边界选择"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Choose the Boundary",
@@ -51928,10 +50450,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "decision-record",
-            "name": "Decision Record",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "选择边界",
@@ -52063,18 +50582,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "decision-record",
-            "name": "决策记录",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/boundary.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "boundary-adr-sidebar",
           "invocation": "persistent",
           "feedback": "typographic-emphasis"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-y",
+          "3->4": "wipe",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -52084,20 +50605,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "slide-y",
-          "3->4": "wipe",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/boundary.tsx"
       },
       {
         "id": "standard-time",
-        "topic": {
+        "styleId": "decision-record",
+        "title": {
           "en": "Standard Time",
           "zh": "标准时"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Standard Time: a staged British railway-time adoption",
@@ -52218,10 +50735,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "decision-record",
-            "name": "Decision Record",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "标准时：19 世纪英国铁路时间的协商式采用",
@@ -52342,101 +50856,99 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "decision-record",
-            "name": "决策记录",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/standard-time.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "time-standard-clauses",
           "invocation": "drag-scrub",
           "feedback": "next-state-preview"
         },
-        "sources": [
-          {
-            "id": "S1",
-            "authority": "Royal Museums Greenwich",
-            "title": "A time before Greenwich Mean Time",
-            "citation": "Royal Museums Greenwich. A time before Greenwich Mean Time. Accessed 2026-07-10.",
-            "accessDate": "2026-07-10",
-            "url": "https://www.rmg.co.uk/stories/time/time-greenwich-mean-time-confusing-case-travellers-watch",
-            "supports": "Explains that early nineteenth-century Britain used local mean time regulated by the Sun; local time varied east to west. It records mixed railway times, the Railway Clearing House recommendation in 1847, Greenwich electrical signals to Lewisham from 1852, telegraphic distribution through railways, and the later legal status of Greenwich time in 1880.",
-            "boundary": "This museum history supports a bounded account of British railway and public-time practice. It does not make one company, one inventor, or one statute the sole cause of every clock change, and it is not evidence for a single global timetable story.",
-            "claimIds": [
-              "local-solar-time",
-              "railway-time-friction",
-              "greenwich-telegraph",
-              "adoption-process",
-              "public-clock-consequence"
-            ]
-          },
-          {
-            "id": "S2",
-            "authority": "Science Museum Group",
-            "title": "Standardising time: Railways and the electric telegraph",
-            "citation": "Science Museum Group. Standardising time: Railways and the electric telegraph. Accessed 2026-07-10.",
-            "accessDate": "2026-07-10",
-            "url": "https://www.sciencemuseum.org.uk/objects-and-stories/standardising-time-railways-and-electric-telegraph",
-            "supports": "Publishes the 1841 Great Western Railway timetable note: London time was 11 minutes before Bath and Bristol time. It describes local solar time, the 1852 national telegraph distribution of Greenwich time, and reports that by 1855 nearly all public authorities set clocks to railway time.",
-            "boundary": "The 1841 timetable is a precisely cited Great Western example, not a measurement of every railway or a claim that all travellers experienced the same difficulty. The 1855 statement concerns public authorities such as churches and town halls, not an instant uniform reset of every private clock.",
-            "claimIds": [
-              "local-solar-time",
-              "railway-time-friction",
-              "greenwich-telegraph",
-              "adoption-process",
-              "public-clock-consequence"
-            ]
-          },
-          {
-            "id": "S3",
-            "authority": "UK Government / legislation.gov.uk",
-            "title": "Statutes (Definition of Time) Act, 1880 (43 & 44 Vict. c. 9)",
-            "citation": "Statutes (Definition of Time) Act, 1880, 43 & 44 Vict. c. 9, 2 August 1880. Official historical PDF via legislation.gov.uk.",
-            "accessDate": "2026-07-10",
-            "url": "https://www.legislation.gov.uk/ukpga/Vict/43-44/9/pdfs/ukpga_18800009_en.pdf",
-            "supports": "The Act states that, unless specifically stated otherwise, expressions of time in Acts of Parliament, deeds, and other legal instruments mean Greenwich mean time in Great Britain; it is dated 2 August 1880.",
-            "boundary": "The statutory text governs the interpretation of time expressions in named legal instruments. It does not say that every physical clock changed on that date, so the Topic treats it as one legal record within a staged adoption process.",
-            "claimIds": [
-              "adoption-process",
-              "legal-meaning"
-            ]
-          },
-          {
-            "id": "S4",
-            "authority": "Royal Museums Greenwich",
-            "title": "History of Royal Observatory Greenwich | Home of GMT",
-            "citation": "Royal Museums Greenwich. History of Royal Observatory Greenwich | Home of GMT. Accessed 2026-07-10.",
-            "accessDate": "2026-07-10",
-            "url": "https://www.rmg.co.uk/stories/space-astronomy/history-royal-observatory?page=1",
-            "supports": "States that by the 1840s most railway companies had adopted Greenwich Mean Time, and that a new electrical clock system at the Observatory transmitted signals by telegraph in 1852. It places the British legal standard in 1880 and distinguishes the 1884 International Meridian Conference as a subsequent international development.",
-            "boundary": "This history supports a chronology of British adoption and a careful separation from later international arrangements. It does not justify presenting British railway time as a one-step creation of all modern time zones.",
-            "claimIds": [
-              "greenwich-telegraph",
-              "adoption-process",
-              "public-clock-consequence"
-            ]
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "crossfade",
           "3->4": "page-turn",
           "4->5": "crossfade"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "S1",
+              "authority": "Royal Museums Greenwich",
+              "title": "A time before Greenwich Mean Time",
+              "citation": "Royal Museums Greenwich. A time before Greenwich Mean Time. Accessed 2026-07-10.",
+              "accessDate": "2026-07-10",
+              "url": "https://www.rmg.co.uk/stories/time/time-greenwich-mean-time-confusing-case-travellers-watch",
+              "supports": "Explains that early nineteenth-century Britain used local mean time regulated by the Sun; local time varied east to west. It records mixed railway times, the Railway Clearing House recommendation in 1847, Greenwich electrical signals to Lewisham from 1852, telegraphic distribution through railways, and the later legal status of Greenwich time in 1880.",
+              "boundary": "This museum history supports a bounded account of British railway and public-time practice. It does not make one company, one inventor, or one statute the sole cause of every clock change, and it is not evidence for a single global timetable story.",
+              "claimIds": [
+                "local-solar-time",
+                "railway-time-friction",
+                "greenwich-telegraph",
+                "adoption-process",
+                "public-clock-consequence"
+              ]
+            },
+            {
+              "id": "S2",
+              "authority": "Science Museum Group",
+              "title": "Standardising time: Railways and the electric telegraph",
+              "citation": "Science Museum Group. Standardising time: Railways and the electric telegraph. Accessed 2026-07-10.",
+              "accessDate": "2026-07-10",
+              "url": "https://www.sciencemuseum.org.uk/objects-and-stories/standardising-time-railways-and-electric-telegraph",
+              "supports": "Publishes the 1841 Great Western Railway timetable note: London time was 11 minutes before Bath and Bristol time. It describes local solar time, the 1852 national telegraph distribution of Greenwich time, and reports that by 1855 nearly all public authorities set clocks to railway time.",
+              "boundary": "The 1841 timetable is a precisely cited Great Western example, not a measurement of every railway or a claim that all travellers experienced the same difficulty. The 1855 statement concerns public authorities such as churches and town halls, not an instant uniform reset of every private clock.",
+              "claimIds": [
+                "local-solar-time",
+                "railway-time-friction",
+                "greenwich-telegraph",
+                "adoption-process",
+                "public-clock-consequence"
+              ]
+            },
+            {
+              "id": "S3",
+              "authority": "UK Government / legislation.gov.uk",
+              "title": "Statutes (Definition of Time) Act, 1880 (43 & 44 Vict. c. 9)",
+              "citation": "Statutes (Definition of Time) Act, 1880, 43 & 44 Vict. c. 9, 2 August 1880. Official historical PDF via legislation.gov.uk.",
+              "accessDate": "2026-07-10",
+              "url": "https://www.legislation.gov.uk/ukpga/Vict/43-44/9/pdfs/ukpga_18800009_en.pdf",
+              "supports": "The Act states that, unless specifically stated otherwise, expressions of time in Acts of Parliament, deeds, and other legal instruments mean Greenwich mean time in Great Britain; it is dated 2 August 1880.",
+              "boundary": "The statutory text governs the interpretation of time expressions in named legal instruments. It does not say that every physical clock changed on that date, so the Topic treats it as one legal record within a staged adoption process.",
+              "claimIds": [
+                "adoption-process",
+                "legal-meaning"
+              ]
+            },
+            {
+              "id": "S4",
+              "authority": "Royal Museums Greenwich",
+              "title": "History of Royal Observatory Greenwich | Home of GMT",
+              "citation": "Royal Museums Greenwich. History of Royal Observatory Greenwich | Home of GMT. Accessed 2026-07-10.",
+              "accessDate": "2026-07-10",
+              "url": "https://www.rmg.co.uk/stories/space-astronomy/history-royal-observatory?page=1",
+              "supports": "States that by the 1840s most railway companies had adopted Greenwich Mean Time, and that a new electrical clock system at the Observatory transmitted signals by telegraph in 1852. It places the British legal standard in 1880 and distinguishes the 1884 International Meridian Conference as a subsequent international development.",
+              "boundary": "This history supports a chronology of British adoption and a careful separation from later international arrangements. It does not justify presenting British railway time as a one-step creation of all modern time zones.",
+              "claimIds": [
+                "greenwich-telegraph",
+                "adoption-process",
+                "public-clock-consequence"
+              ]
+            }
+          ]
+        },
+        "modulePath": "../topics/standard-time.tsx"
       },
       {
         "id": "why-we-chose-monorepo",
-        "topic": {
+        "styleId": "decision-record",
+        "title": {
           "en": "Why We Chose Monorepo",
           "zh": "选单仓库"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Why We Chose Monorepo",
@@ -52556,10 +51068,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "decision-record",
-            "name": "Decision Record",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "为什么选择单一代码仓库",
@@ -52679,50 +51188,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "decision-record",
-            "name": "决策记录",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/why-we-chose-monorepo.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "monorepo-decision-stepper",
           "invocation": "keyboard-focus",
           "feedback": "mechanical-displacement"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-x",
           "2->3": "slide-x",
           "3->4": "fade",
           "4->5": "scale-fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非经外部核验的事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/why-we-chose-monorepo.tsx"
       }
     ]
   },
   {
-    "id": "maintainer-issue-brief",
-    "name": {
-      "en": "Maintainer Issue Brief",
-      "zh": "维护者问题简报"
+    "style": {
+      "id": "maintainer-issue-brief",
+      "name": {
+        "en": "Maintainer Issue Brief",
+        "zh": "维护者问题简报"
+      },
+      "band": "text-report"
     },
     "topics": [
       {
         "id": "issue-brief",
-        "topic": {
+        "styleId": "maintainer-issue-brief",
+        "title": {
           "en": "Issue Brief",
           "zh": "问题简报"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Engineering task handoff — developer ticket sensibility with status colors, sharp headings, and action-oriented structure",
@@ -52836,10 +51346,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "maintainer-issue-brief",
-            "name": "Maintainer Issue Brief",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "工程任务交接——开发者工单风格，状态色彩、清晰标题、行动导向结构",
@@ -52953,13 +51460,9 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "maintainer-issue-brief",
-            "name": "维护者问题简报",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/issue-brief.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "issue-brief-section-tabs",
@@ -52971,15 +51474,20 @@ export const CATALOG_MANIFEST = [
           "2->3": "wipe",
           "3->4": "wipe",
           "4->5": "wipe"
-        }
+        },
+        "evidence": {
+          "kind": "none"
+        },
+        "modulePath": "../topics/issue-brief.tsx"
       },
       {
         "id": "agent-pickup",
-        "topic": {
+        "styleId": "maintainer-issue-brief",
+        "title": {
           "en": "Agent Pickup",
           "zh": "Agent 接手"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Ready for Agent Pickup",
@@ -53104,10 +51612,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "maintainer-issue-brief",
-            "name": "Maintainer Issue Brief",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "可交给 Agent 接手",
@@ -53232,13 +51737,9 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "maintainer-issue-brief",
-            "name": "维护者问题简报",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/agent-pickup.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "agent-pickup-status-chips",
@@ -53250,15 +51751,20 @@ export const CATALOG_MANIFEST = [
           "2->3": "slide-y",
           "3->4": "wipe",
           "4->5": "hard-cut"
-        }
+        },
+        "evidence": {
+          "kind": "none"
+        },
+        "modulePath": "../topics/agent-pickup.tsx"
       },
       {
         "id": "ozone-hole",
-        "topic": {
+        "styleId": "maintainer-issue-brief",
+        "title": {
           "en": "Ozone Hole",
           "zh": "臭氧洞"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Ozone Hole: Evidence Closed",
@@ -53383,10 +51889,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "maintainer-issue-brief",
-            "name": "Maintainer Issue Brief",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "臭氧洞：证据闭环",
@@ -53511,85 +52014,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "maintainer-issue-brief",
-            "name": "维护者问题简报",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/ozone-hole.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "ozone-issue-states",
           "invocation": "keyboard-focus",
           "feedback": "mechanical-displacement"
         },
-        "sources": [
-          {
-            "id": "S1",
-            "authority": "British Antarctic Survey",
-            "title": "The ozone hole discovery",
-            "citation": "British Antarctic Survey. The ozone hole discovery. History feature, accessed 10 July 2026.",
-            "url": "https://www.bas.ac.uk/about/history/ozone-hole-discovery/",
-            "supports": "Documents the 1985 BAS discovery, recurring Antarctic spring depletion, Halley observations, subsequent NASA satellite confirmation, and the policy response."
-          },
-          {
-            "id": "S2",
-            "authority": "British Antarctic Survey Polar Data Centre",
-            "title": "Provisional monthly mean ozone values for Halley between 1956 and 1985",
-            "citation": "Shanklin, J. (2017). Provisional monthly mean ozone values for Halley between 1956 and 1985, Version 1.0. DOI 10.5285/d16ac510-3b63-41c0-a6b6-a85bc2ca4d7e.",
-            "url": "https://data.bas.ac.uk/full-record.php?id=GB%2FNERC%2FBAS%2FPDC%2F00951",
-            "supports": "Provides the Halley monthly mean total-ozone record in Dobson Units and states observation-season, low-sun, coefficient-correction, and atmospheric-assumption quality limits."
-          },
-          {
-            "id": "S3",
-            "authority": "NASA Goddard Space Flight Center, Ozone Watch",
-            "title": "History of the Ozone Hole",
-            "citation": "NASA Ozone Watch. History of the Ozone Hole. Page updated 23 September 2024.",
-            "url": "https://ozonewatch.gsfc.nasa.gov/facts/history_SH.html",
-            "supports": "Places the Halley record, the 1985 publication, the 1986 TOMS and SBUV regional confirmation, polar stratospheric clouds, and later aircraft chlorine observations in one evidence chronology."
-          },
-          {
-            "id": "S4",
-            "authority": "NASA Technical Reports Server / Comptes Rendus Geoscience",
-            "title": "The discovery of the Antarctic Ozone Hole",
-            "citation": "Bhartia, P. K. & McPeters, R. D. (2018). The discovery of the Antarctic Ozone Hole. C. R. Geoscience 350, 335–340.",
-            "url": "https://ntrs.nasa.gov/api/citations/20190002263/downloads/20190002263.pdf",
-            "supports": "Explains why extreme 1983 Antarctic retrievals outside the original 200–650 DU standard-profile range were flagged and how low-ozone profiles enabled reprocessing and map comparison."
-          },
-          {
-            "id": "S5",
-            "authority": "NASA Goddard Space Flight Center, Ozone Watch",
-            "title": "What is the Ozone Hole?",
-            "citation": "NASA Ozone Watch. What is the Ozone Hole? Page updated 23 September 2024.",
-            "url": "https://ozonewatch.gsfc.nasa.gov/facts/hole_SH.html",
-            "supports": "Defines the ozone hole as a seasonal Antarctic stratospheric region at or below 220 Dobson Units, not a zero-ozone opening, and summarizes chlorine- and bromine-catalyzed loss."
-          },
-          {
-            "id": "S6",
-            "authority": "WMO, UNEP, NOAA, NASA, and the European Commission",
-            "title": "Scientific Assessment of Ozone Depletion: 2022 — Executive Summary",
-            "citation": "Scientific Assessment of Ozone Depletion: 2022 — Executive Summary.",
-            "url": "https://public.wmo.int/sites/default/files/2023-03/Scientific-Assessment-of-Ozone-Depletion-2022-Executive-Summary.pdf",
-            "supports": "Reports declining controlled ozone-depleting substances, Antarctic ozone recovery with substantial interannual variability, and conditional return to 1980 total-column values around 2066."
-          },
-          {
-            "id": "S7",
-            "authority": "NASA and NOAA",
-            "title": "NASA, NOAA Rank 2025 Ozone Hole as 5th Smallest Since 1992",
-            "citation": "Younger, S. NASA Earth Science News Team, 24 November 2025; updated 18 March 2026.",
-            "url": "https://science.nasa.gov/earth/nasa-noaa-rank-2025-ozone-hole-as-5th-smallest-since-1992/",
-            "supports": "Provides the latest completed Antarctic season status available during authoring and explicitly separates gradual recovery from temperature, weather, and polar-vortex variability."
-          },
-          {
-            "id": "S8",
-            "authority": "UNEP Ozone Secretariat",
-            "title": "Decision XXXV/3: Potential areas of focus for the 2026 quadrennial reports",
-            "citation": "Meeting of the Parties to the Montreal Protocol, Decision XXXV/3, 2023.",
-            "url": "https://ozone.unep.org/treaties/montreal-protocol/meetings/thirty-fifth-meeting-parties/decisions/decision-xxxv3-potential-areas-focus-2026-quadrennial-reports-environmental-effects-assessment-panel",
-            "supports": "Establishes that the 2026 quadrennial assessment reports are to be submitted by 31 December 2026, so the 2022 assessment remains the latest completed assessment during authoring."
-          }
-        ],
+        "transitionScore": {
+          "1->2": "linear-wipe",
+          "2->3": "hard-cut",
+          "3->4": "crossfade",
+          "4->5": "linear-wipe"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -53662,22 +52101,18 @@ export const CATALOG_MANIFEST = [
             "en": "This issue view omits transport detail, bromine coupling, denitrification, and full reaction kinetics.",
             "zh": "这份 issue 视图省略了输送细节、溴耦合、反硝化与完整反应动力学。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "linear-wipe",
-          "2->3": "hard-cut",
-          "3->4": "crossfade",
-          "4->5": "linear-wipe"
-        }
+        "modulePath": "../topics/ozone-hole.tsx"
       },
       {
         "id": "flaky-test-root-cause",
-        "topic": {
+        "styleId": "maintainer-issue-brief",
+        "title": {
           "en": "Flaky Test, Root Cause",
           "zh": "不稳定测试"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Flaky Test, Root Cause",
@@ -53794,10 +52229,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "maintainer-issue-brief",
-            "name": "Maintainer Issue Brief",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "不稳定测试",
@@ -53914,50 +52346,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "maintainer-issue-brief",
-            "name": "维护者问题简报",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/flaky-test-root-cause.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "flaky-ticket-status",
           "invocation": "keyboard-focus",
           "feedback": "geometry-reflow"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "slide-y",
           "3->4": "slide-x",
           "4->5": "hard-cut"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative maintainer incident: repository names, failure rates, timings, issue history, and remediation outcomes are authored examples, not measurements from a real project.",
+            "zh": "示例维护事件：仓库名称、失败率、耗时、问题历史和修复结果均为创作示例，并非真实项目的测量数据。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/flaky-test-root-cause.tsx"
       }
     ]
   },
   {
-    "id": "field-notes-report",
-    "name": {
-      "en": "Field Notes Report",
-      "zh": "田野笔记报告"
+    "style": {
+      "id": "field-notes-report",
+      "name": {
+        "en": "Field Notes Report",
+        "zh": "田野笔记报告"
+      },
+      "band": "text-report"
     },
     "topics": [
       {
         "id": "field-notes",
-        "topic": {
+        "styleId": "field-notes-report",
+        "title": {
           "en": "Field Notes",
           "zh": "田野笔记"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "User-research observations and physical setup notes — notebook sensibility with warm aged-paper tone",
@@ -54064,10 +52497,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "field-notes-report",
-            "name": "Field Notes Report",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "用户研究观察和物理环境记录——温暖陈年纸张色调的笔记本风格",
@@ -54172,13 +52602,9 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "field-notes-report",
-            "name": "田野笔记报告",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/field-notes.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "field-notes-page-tabs",
@@ -54190,15 +52616,20 @@ export const CATALOG_MANIFEST = [
           "2->3": "fade",
           "3->4": "fade",
           "4->5": "fade"
-        }
+        },
+        "evidence": {
+          "kind": "none"
+        },
+        "modulePath": "../topics/field-notes.tsx"
       },
       {
         "id": "platform-study",
-        "topic": {
+        "styleId": "field-notes-report",
+        "title": {
           "en": "Platform Study",
           "zh": "站台研究"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Station Platform Study",
@@ -54337,10 +52768,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "field-notes-report",
-            "name": "Field Notes Report",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "站台平台观察",
@@ -54479,13 +52907,9 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "field-notes-report",
-            "name": "田野笔记报告",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/platform-study.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "platform-study-edge-flags",
@@ -54497,15 +52921,20 @@ export const CATALOG_MANIFEST = [
           "2->3": "slide-y",
           "3->4": "scale-fade",
           "4->5": "page-flip"
-        }
+        },
+        "evidence": {
+          "kind": "none"
+        },
+        "modulePath": "../topics/platform-study.tsx"
       },
       {
         "id": "ancient-sound",
-        "topic": {
+        "styleId": "field-notes-report",
+        "title": {
           "en": "Ancient Sound",
           "zh": "古代声音"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Ancient Sound",
@@ -54632,10 +53061,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "field-notes-report",
-            "name": "Field Notes Report",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "古代声音",
@@ -54762,104 +53188,21 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "field-notes-report",
-            "name": "田野笔记报告",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/ancient-sound.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "instrument-field-cards",
           "invocation": "gesture-hold",
           "feedback": "mechanical-displacement"
         },
-        "sources": [
-          {
-            "id": "stanford-overview",
-            "claimIds": [
-              "site-complex"
-            ],
-            "authority": "Stanford University CCRMA",
-            "title": "Chavín de Huántar Archaeological Acoustics Project",
-            "citation": "Stanford CCRMA and Archaeology/Anthropology project overview, initiated 2007.",
-            "url": "https://ccrma.stanford.edu/groups/chavin/",
-            "supports": "Identifies the authorized interdisciplinary field project and its study of Chavín architecture, sound-producing instruments, and setting."
-          },
-          {
-            "id": "stanford-method",
-            "claimIds": [
-              "artifact-experiment",
-              "measurement-layout",
-              "possible-experience"
-            ],
-            "authority": "Stanford University CCRMA",
-            "title": "Integrative Archaeoacoustics",
-            "citation": "Chavín de Huántar Archaeological Acoustics Project methods page.",
-            "url": "https://ccrma.stanford.edu/groups/chavin/project.html",
-            "supports": "Explains measurement of extant architecture and artifact instruments, comparison with replicas, psychoacoustic experiments, and auralization as exploratory methods."
-          },
-          {
-            "id": "stanford-pututus",
-            "claimIds": [
-              "pututu-count",
-              "artifact-experiment"
-            ],
-            "authority": "Stanford University CCRMA",
-            "title": "Archaeomusicology of the Chavín Pututus",
-            "citation": "Chavín project instrument research page, updated with 2008 and 2019 work.",
-            "url": "https://ccrma.stanford.edu/groups/chavin/pututus.html",
-            "supports": "Documents 21 excavated Titanostrombus galeatus pututus, their archaeological contexts, artifact measurements, performance experiments, and replica comparisons."
-          },
-          {
-            "id": "jasa-galleries",
-            "claimIds": [
-              "measurement-layout",
-              "ofrendas-dimensions",
-              "impulse-findings"
-            ],
-            "authority": "The Journal of the Acoustical Society of America",
-            "title": "On the Acoustics of the Underground Galleries of Ancient Chavín de Huántar, Peru",
-            "citation": "Abel, Rick, Huang, Kolar, Smith, and Chowning. JASA 123(5), 3605 (2008). DOI 10.1121/1.2934780.",
-            "url": "https://doi.org/10.1121/1.2934780",
-            "supports": "Reports the three-gallery measurement setup, 10 source and 27 receiver positions, Ofrendas alcove dimensions, short reverberation, dense early reflections, and wide soundfields."
-          },
-          {
-            "id": "time-and-mind",
-            "claimIds": [
-              "possible-experience"
-            ],
-            "authority": "Time and Mind: The Journal of Archaeology, Consciousness and Culture",
-            "title": "Sensing sonically at Andean Formative Chavín de Huántar, Perú",
-            "citation": "Kolar, Miriam A. Time and Mind 10(1), 2017. DOI 10.1080/1751696X.2016.1272257.",
-            "url": "https://doi.org/10.1080/1751696X.2016.1272257",
-            "supports": "Frames acoustic and perceptual experiments as evidence for estimating possible ancient sonic experiences rather than direct recovery of a singular past event."
-          },
-          {
-            "id": "yale-pututus",
-            "claimIds": [
-              "pututu-count",
-              "possible-experience"
-            ],
-            "authority": "Yale Journal of Music & Religion",
-            "title": "Conch Calls into the Anthropocene: Pututus as Instruments of Human-Environmental Relations at Monumental Chavín",
-            "citation": "Kolar, Miriam A. Yale Journal of Music & Religion 5(2), Article 4 (2019). DOI 10.17132/2377-231X.1151.",
-            "url": "https://doi.org/10.17132/2377-231X.1151",
-            "supports": "Reviews the material, acoustic, performative, and contextual evidence for Chavín pututus while explicitly acknowledging archaeological uncertainty."
-          },
-          {
-            "id": "unesco-site",
-            "claimIds": [
-              "site-complex"
-            ],
-            "authority": "UNESCO World Heritage Centre",
-            "title": "Chavin (Archaeological Site)",
-            "citation": "World Heritage List entry 330, inscribed 1985; official site synthesis and conservation record.",
-            "url": "https://whc.unesco.org/en/list/330/",
-            "supports": "Documents the site’s terraces, plazas, dressed-stone structures, complex internal galleries, vents, drains, chronology, and protected status."
-          }
-        ],
+        "transitionScore": {
+          "1->2": "page-turn",
+          "2->3": "crossfade",
+          "3->4": "page-turn",
+          "4->5": "hard-cut"
+        },
         "evidence": {
           "kind": "mixed",
           "sources": [
@@ -54951,22 +53294,18 @@ export const CATALOG_MANIFEST = [
             "en": "No generated track here claims to be ‘the real ancient sound.’ A reconstruction is an argument with parameters, not an audio time machine.",
             "zh": "这里没有任何生成音轨被称作“真实古声”。重建是带参数的论证，不是声音时光机。"
           },
-          "display": "stage"
+          "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "page-turn",
-          "2->3": "crossfade",
-          "3->4": "page-turn",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/ancient-sound.tsx"
       },
       {
         "id": "shadowing-support",
-        "topic": {
+        "styleId": "field-notes-report",
+        "title": {
           "en": "A Day Shadowing Support",
           "zh": "跟班客服"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "A Day Shadowing Support",
@@ -55077,10 +53416,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "field-notes-report",
-            "name": "Field Notes Report",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "跟班客服",
@@ -55191,50 +53527,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "field-notes-report",
-            "name": "田野笔记报告",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/shadowing-support.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "support-notebook-folio",
           "invocation": "keyboard-focus",
           "feedback": "material-color-change"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "page-flip",
           "2->3": "slide-y",
           "3->4": "slide-y",
           "4->5": "page-flip"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative support-shadowing report: people, conversations, tickets, timings, counts, and findings are authored examples, not observations from a real study.",
+            "zh": "示例客服跟班报告：人物、对话、工单、时间、数量和发现均为创作示例，并非真实研究的观察结果。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/shadowing-support.tsx"
       }
     ]
   },
   {
-    "id": "annotated-source-diff",
-    "name": {
-      "en": "Annotated Source & Diff",
-      "zh": "注解源码与差异"
+    "style": {
+      "id": "annotated-source-diff",
+      "name": {
+        "en": "Annotated Source & Diff",
+        "zh": "注解源码与差异"
+      },
+      "band": "text-report"
     },
     "topics": [
       {
         "id": "source-diff",
-        "topic": {
+        "styleId": "annotated-source-diff",
+        "title": {
           "en": "Source Diff",
           "zh": "源码差异"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Before/after code transformations with annotated explanations and line-by-line diff",
@@ -55360,10 +53697,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "annotated-source-diff",
-            "name": "Annotated Source & Diff",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "前后代码变换，含注解说明和逐行差异对比",
@@ -55487,18 +53821,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "annotated-source-diff",
-            "name": "注解源码与差异",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/source-diff.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "source-diff-bottom-nav",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "slide-y"
         },
         "evidence": {
           "kind": "illustrative",
@@ -55508,20 +53844,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-y",
-          "2->3": "slide-y",
-          "3->4": "slide-y",
-          "4->5": "slide-y"
-        }
+        "modulePath": "../topics/source-diff.tsx"
       },
       {
         "id": "flow-rewrite",
-        "topic": {
+        "styleId": "annotated-source-diff",
+        "title": {
           "en": "Flow Rewrite",
           "zh": "流程重写"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Rewrite the Broken Flow",
@@ -55646,10 +53978,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "annotated-source-diff",
-            "name": "Annotated Source & Diff",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "重写断裂流程",
@@ -55774,18 +54103,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "annotated-source-diff",
-            "name": "注解源码与差异",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/flow-rewrite.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "flow-rewrite-hunk-navigator",
           "invocation": "persistent",
           "feedback": "typographic-emphasis"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "wipe",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -55795,20 +54126,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "slide-x",
-          "2->3": "wipe",
-          "3->4": "scale-fade",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/flow-rewrite.tsx"
       },
       {
         "id": "reading-rosetta",
-        "topic": {
+        "styleId": "annotated-source-diff",
+        "title": {
           "en": "Reading Rosetta",
           "zh": "破译罗塞塔"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Reading Rosetta",
@@ -55934,10 +54261,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "annotated-source-diff",
-            "name": "Annotated Source & Diff",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "破译罗塞塔",
@@ -56063,138 +54387,136 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "annotated-source-diff",
-            "name": "注解源码与差异",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/reading-rosetta.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "rosetta-symbol-minimap",
           "invocation": "gesture-hold",
           "feedback": "geometry-reflow"
         },
-        "sources": [
-          {
-            "id": "british-museum-rosetta",
-            "ref": "BM-01",
-            "claimIds": [
-              "registers-and-provenance",
-              "two-languages-three-scripts",
-              "decree-and-fragment",
-              "provenance-and-claim",
-              "parallel-sections",
-              "cartouche-anchor"
-            ],
-            "authority": "British Museum",
-            "title": "The Rosetta Stone: everything you need to know",
-            "citation": "British Museum, collection research article, accessed 10 July 2026.",
-            "url": "https://www.britishmuseum.org/blog/everything-you-ever-wanted-know-about-rosetta-stone",
-            "supports": "The 196 BCE decree, two Egyptian scripts plus Greek, surviving line counts, Ptolemy cartouche, discovery, 1801 British acquisition account, and display since 1802."
-          },
-          {
-            "id": "british-museum-eureka",
-            "ref": "BM-02",
-            "claimIds": [
-              "cartouche-anchor",
-              "contribution-chain",
-              "coptic-and-grammar",
-              "verification-beyond-1822",
-              "verified-reading"
-            ],
-            "authority": "British Museum",
-            "title": "Eureka! Finding the key to ancient Egypt",
-            "citation": "British Museum, decipherment research article, 2022.",
-            "url": "https://www.britishmuseum.org/blog/eureka-finding-key-ancient-egypt",
-            "supports": "Young and Champollion's overlapping phonetic work, the Ptolemy and Cleopatra name comparisons, Coptic evidence, determinatives, later tests, and the 1824 Précis."
-          },
-          {
-            "id": "champollion-dacier",
-            "ref": "BNF-01",
-            "claimIds": [
-              "contribution-chain",
-              "verification-beyond-1822",
-              "verified-reading"
-            ],
-            "authority": "Bibliothèque nationale de France",
-            "title": "Lettre à M. Dacier relative à l'alphabet des hiéroglyphes phonétiques",
-            "citation": "Jean-François Champollion, Paris: Firmin-Didot, 1822, 52 pages and 16 plates.",
-            "url": "https://gallica.bnf.fr/ark:/12148/bpt6k1040333p",
-            "supports": "Champollion's original published proposal for phonetic hieroglyphs used in Greek and Roman royal names and titles; evidence for an 1822 milestone rather than an instant total translation."
-          },
-          {
-            "id": "young-account",
-            "ref": "IA-01",
-            "claimIds": [
-              "contribution-chain",
-              "verification-beyond-1822",
-              "verified-reading"
-            ],
-            "authority": "Internet Archive / Harvard University scan",
-            "title": "Thomas Young, An Account of Some Recent Discoveries in Hieroglyphical Literature",
-            "citation": "Thomas Young, London: John Murray, 1823, public-domain library scan.",
-            "url": "https://archive.org/details/anaccountsomere00youngoog",
-            "supports": "Young's own account of his alphabet, the extension attributed to Champollion, and the priority dispute that documents overlapping rather than single-hero work."
-          },
-          {
-            "id": "bnf-decipherment-chain",
-            "ref": "BNF-02",
-            "claimIds": [
-              "contribution-chain"
-            ],
-            "authority": "Bibliothèque nationale de France · Gallica",
-            "title": "Hiéroglyphes et autres écritures égyptiennes",
-            "citation": "Gallica thematic research selection on Egyptian scripts and decipherment.",
-            "url": "https://gallica.bnf.fr/selections/fr/html/hieroglyphes-et-autres-ecritures-egyptiennes",
-            "supports": "The documented sequence involving David Åkerblad, Thomas Young, and the Champollion brothers, plus the relation between hieroglyphic, hieratic, and Demotic writing."
-          },
-          {
-            "id": "digital-rosetta-stone",
-            "ref": "DRS-01",
-            "claimIds": [
-              "two-languages-three-scripts",
-              "parallel-sections",
-              "verified-reading"
-            ],
-            "authority": "Leipzig University / British Museum / University of Florida",
-            "title": "The Digital Rosetta Stone",
-            "citation": "Digital Rosetta Stone project, Leipzig University, accessed 10 July 2026.",
-            "url": "https://www.digital-rosetta-stone.org/",
-            "supports": "Three versions of the same decree in Ancient Egyptian and Ancient Greek, plus current digital text, text-image and textual alignment, translations, and linguistic annotation for teaching and research."
-          },
-          {
-            "id": "cultural-property-dispute",
-            "ref": "CGU-01",
-            "claimIds": [
-              "registers-and-provenance",
-              "provenance-and-claim"
-            ],
-            "authority": "Claremont Graduate University",
-            "title": "Cultural Property Disputes Resource: Egyptian Rosetta Stone",
-            "citation": "Cultural Property Disputes Resource, case record, accessed 10 July 2026.",
-            "url": "https://research.cgu.edu/cultural-property-disputes-resource/cpdr/rosetta-stone/",
-            "supports": "The 1801 handover after French surrender, current British Museum location, and the Egyptian government claim recorded as unresolved."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "focus-swap",
           "3->4": "crossfade",
           "4->5": "hard-cut"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "british-museum-rosetta",
+              "ref": "BM-01",
+              "claimIds": [
+                "registers-and-provenance",
+                "two-languages-three-scripts",
+                "decree-and-fragment",
+                "provenance-and-claim",
+                "parallel-sections",
+                "cartouche-anchor"
+              ],
+              "authority": "British Museum",
+              "title": "The Rosetta Stone: everything you need to know",
+              "citation": "British Museum, collection research article, accessed 10 July 2026.",
+              "url": "https://www.britishmuseum.org/blog/everything-you-ever-wanted-know-about-rosetta-stone",
+              "supports": "The 196 BCE decree, two Egyptian scripts plus Greek, surviving line counts, Ptolemy cartouche, discovery, 1801 British acquisition account, and display since 1802."
+            },
+            {
+              "id": "british-museum-eureka",
+              "ref": "BM-02",
+              "claimIds": [
+                "cartouche-anchor",
+                "contribution-chain",
+                "coptic-and-grammar",
+                "verification-beyond-1822",
+                "verified-reading"
+              ],
+              "authority": "British Museum",
+              "title": "Eureka! Finding the key to ancient Egypt",
+              "citation": "British Museum, decipherment research article, 2022.",
+              "url": "https://www.britishmuseum.org/blog/eureka-finding-key-ancient-egypt",
+              "supports": "Young and Champollion's overlapping phonetic work, the Ptolemy and Cleopatra name comparisons, Coptic evidence, determinatives, later tests, and the 1824 Précis."
+            },
+            {
+              "id": "champollion-dacier",
+              "ref": "BNF-01",
+              "claimIds": [
+                "contribution-chain",
+                "verification-beyond-1822",
+                "verified-reading"
+              ],
+              "authority": "Bibliothèque nationale de France",
+              "title": "Lettre à M. Dacier relative à l'alphabet des hiéroglyphes phonétiques",
+              "citation": "Jean-François Champollion, Paris: Firmin-Didot, 1822, 52 pages and 16 plates.",
+              "url": "https://gallica.bnf.fr/ark:/12148/bpt6k1040333p",
+              "supports": "Champollion's original published proposal for phonetic hieroglyphs used in Greek and Roman royal names and titles; evidence for an 1822 milestone rather than an instant total translation."
+            },
+            {
+              "id": "young-account",
+              "ref": "IA-01",
+              "claimIds": [
+                "contribution-chain",
+                "verification-beyond-1822",
+                "verified-reading"
+              ],
+              "authority": "Internet Archive / Harvard University scan",
+              "title": "Thomas Young, An Account of Some Recent Discoveries in Hieroglyphical Literature",
+              "citation": "Thomas Young, London: John Murray, 1823, public-domain library scan.",
+              "url": "https://archive.org/details/anaccountsomere00youngoog",
+              "supports": "Young's own account of his alphabet, the extension attributed to Champollion, and the priority dispute that documents overlapping rather than single-hero work."
+            },
+            {
+              "id": "bnf-decipherment-chain",
+              "ref": "BNF-02",
+              "claimIds": [
+                "contribution-chain"
+              ],
+              "authority": "Bibliothèque nationale de France · Gallica",
+              "title": "Hiéroglyphes et autres écritures égyptiennes",
+              "citation": "Gallica thematic research selection on Egyptian scripts and decipherment.",
+              "url": "https://gallica.bnf.fr/selections/fr/html/hieroglyphes-et-autres-ecritures-egyptiennes",
+              "supports": "The documented sequence involving David Åkerblad, Thomas Young, and the Champollion brothers, plus the relation between hieroglyphic, hieratic, and Demotic writing."
+            },
+            {
+              "id": "digital-rosetta-stone",
+              "ref": "DRS-01",
+              "claimIds": [
+                "two-languages-three-scripts",
+                "parallel-sections",
+                "verified-reading"
+              ],
+              "authority": "Leipzig University / British Museum / University of Florida",
+              "title": "The Digital Rosetta Stone",
+              "citation": "Digital Rosetta Stone project, Leipzig University, accessed 10 July 2026.",
+              "url": "https://www.digital-rosetta-stone.org/",
+              "supports": "Three versions of the same decree in Ancient Egyptian and Ancient Greek, plus current digital text, text-image and textual alignment, translations, and linguistic annotation for teaching and research."
+            },
+            {
+              "id": "cultural-property-dispute",
+              "ref": "CGU-01",
+              "claimIds": [
+                "registers-and-provenance",
+                "provenance-and-claim"
+              ],
+              "authority": "Claremont Graduate University",
+              "title": "Cultural Property Disputes Resource: Egyptian Rosetta Stone",
+              "citation": "Cultural Property Disputes Resource, case record, accessed 10 July 2026.",
+              "url": "https://research.cgu.edu/cultural-property-disputes-resource/cpdr/rosetta-stone/",
+              "supports": "The 1801 handover after French surrender, current British Museum location, and the Egyptian government claim recorded as unresolved."
+            }
+          ]
+        },
+        "modulePath": "../topics/reading-rosetta.tsx"
       },
       {
         "id": "killing-a-god-object",
-        "topic": {
+        "styleId": "annotated-source-diff",
+        "title": {
           "en": "Killing a God Object",
           "zh": "拆解巨类"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Killing a God Object",
@@ -56322,10 +54644,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "annotated-source-diff",
-            "name": "Annotated Source & Diff",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "拆解巨类",
@@ -56453,50 +54772,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "annotated-source-diff",
-            "name": "注解源码与差异",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/killing-a-god-object.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "god-object-diff-toggle",
           "invocation": "keyboard-focus",
           "feedback": "typographic-emphasis"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-y",
           "2->3": "slide-y",
           "3->4": "wipe",
           "4->5": "slide-y"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/killing-a-god-object.tsx"
       }
     ]
   },
   {
-    "id": "checklist-ledger",
-    "name": {
-      "en": "Checklist Ledger",
-      "zh": "检查清单台账"
+    "style": {
+      "id": "checklist-ledger",
+      "name": {
+        "en": "Checklist Ledger",
+        "zh": "检查清单台账"
+      },
+      "band": "text-report"
     },
     "topics": [
       {
         "id": "checklist-ledger",
-        "topic": {
+        "styleId": "checklist-ledger",
+        "title": {
           "en": "Checklist",
           "zh": "检查清单"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Readiness checks and acceptance criteria — uniform aligned checkable list with calm confirming green",
@@ -56621,10 +54941,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "checklist-ledger",
-            "name": "Checklist Ledger",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "就绪检查和验收标准——统一对齐的可勾选列表，平静确认绿色",
@@ -56747,18 +55064,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "checklist-ledger",
-            "name": "检查清单台账",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/checklist-ledger.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "checklist-ledger-bottom-nav",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "hard-cut",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -56768,20 +55087,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "hard-cut",
-          "2->3": "hard-cut",
-          "3->4": "hard-cut",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/checklist-ledger.tsx"
       },
       {
         "id": "launch-ledger",
-        "topic": {
+        "styleId": "checklist-ledger",
+        "title": {
           "en": "Launch Ledger",
           "zh": "发布台账"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Launch Gate Ledger",
@@ -56912,10 +55227,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "checklist-ledger",
-            "name": "Checklist Ledger",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "上线闸口账本",
@@ -57046,18 +55358,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "checklist-ledger",
-            "name": "检查清单台账",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/launch-ledger.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "launch-ledger-rail",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-y",
+          "3->4": "wipe",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -57067,20 +55381,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "fade",
-          "2->3": "slide-y",
-          "3->4": "wipe",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/launch-ledger.tsx"
       },
       {
         "id": "pigment-without-touch",
-        "topic": {
+        "styleId": "checklist-ledger",
+        "title": {
           "en": "Pigment Without Touch",
           "zh": "无损识色"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Pigment Without Touch",
@@ -57207,10 +55517,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "checklist-ledger",
-            "name": "Checklist Ledger",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "无损识色",
@@ -57337,116 +55644,114 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "checklist-ledger",
-            "name": "检查清单台账",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/pigment-without-touch.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "pigment-swatch-rail",
           "invocation": "gesture-hold",
           "feedback": "active-glow"
         },
-        "sources": [
-          {
-            "id": "mauritshuis-girl-in-the-spotlight",
-            "stamp": "MRT/GITS-2018",
-            "claimIds": [
-              "object-study-2018",
-              "no-new-sampling-boundary"
-            ],
-            "authority": "Mauritshuis",
-            "title": "The Girl in the Spotlight",
-            "citation": "Mauritshuis. The Girl in the Spotlight. Technical examination conducted 26 February–11 March 2018.",
-            "url": "https://www.mauritshuis.nl/en/what-s-on/exhibitions/exhibitions-from-the-past/the-girl-in-the-spotlight",
-            "supports": "The public 2018 research project, its question about Vermeer’s materials and process, and its use of newer non-invasive technical-analysis methods without a restoration treatment."
-          },
-          {
-            "id": "mauritshuis-examination-methods",
-            "stamp": "MRT/METHODS",
-            "claimIds": [
-              "registered-multimodal-records",
-              "ma-xrf-element-distribution",
-              "xray-nir-layer-record",
-              "element-map-not-pigment-label",
-              "mercury-vermilion-context"
-            ],
-            "authority": "Mauritshuis",
-            "title": "Examination Methods",
-            "citation": "Mauritshuis. Examination Methods. Girl with a Blog / The Girl in the Spotlight research dossier.",
-            "url": "https://www.mauritshuis.nl/en/our-collection/restoration-and-research/closer-to-vermeer-and-the-girl/girl-with-a-blog/examination-methods",
-            "supports": "What X-radiography, MA-XRF, near-infrared imaging, digital microscopy, and related methods measure on the painting, including element distribution, density, subsurface structure, and surface detail."
-          },
-          {
-            "id": "delaney-2020-pigment-distribution",
-            "stamp": "HS/PIGMENT-2020",
-            "claimIds": [
-              "registered-multimodal-records",
-              "ma-xrf-element-distribution",
-              "ris-fis-fors-complementarity",
-              "element-map-not-pigment-label",
-              "mercury-vermilion-context",
-              "red-lake-ris-nondetection",
-              "red-lake-fors-fis-evidence",
-              "potassium-ambiguity",
-              "red-lake-bounded-support",
-              "headscarf-ultramarine-lead-white",
-              "conservation-record-boundary"
-            ],
-            "authority": "Heritage Science / National Gallery of Art and Mauritshuis",
-            "title": "Mapping the pigment distribution of Vermeer’s Girl with a Pearl Earring",
-            "citation": "Delaney, J. K., Dooley, K. A., van Loon, A., & Vandivere, A. Heritage Science 8, 4 (2020). doi:10.1186/s40494-019-0348-9.",
-            "url": "https://www.nature.com/articles/s40494-019-0348-9",
-            "supports": "The complementary use of RIS, FIS, FORS, and MA-XRF; pigment-distribution conclusions; matrix effects; the red-lake non-detection versus weak-site evidence; and the ambiguity of potassium as a material marker."
-          },
-          {
-            "id": "van-loon-2019-skin-tones",
-            "stamp": "HS/SKIN-2019",
-            "claimIds": [
-              "registered-multimodal-records",
-              "ma-xrf-element-distribution",
-              "conservation-record-boundary"
-            ],
-            "authority": "Heritage Science / Rijksmuseum and Mauritshuis",
-            "title": "Beauty is skin deep: the skin tones of Vermeer’s Girl with a Pearl Earring",
-            "citation": "van Loon, A., Vandivere, A., Delaney, J. K., et al. Heritage Science 7, 102 (2019). doi:10.1186/s40494-019-0344-0.",
-            "url": "https://www.nature.com/articles/s40494-019-0344-0",
-            "supports": "MA-XRF as elemental information from surface and subsurface layers, RIS as complementary molecular information, and the registered comparison of maps and microscopy needed for bounded layer interpretation."
-          },
-          {
-            "id": "elkhuizen-2019-3d-scanning",
-            "stamp": "HS/3D-2019",
-            "claimIds": [
-              "surface-topography-record",
-              "conservation-record-boundary"
-            ],
-            "authority": "Heritage Science / Delft University of Technology and Mauritshuis",
-            "title": "Comparison of three 3D scanning techniques for paintings, as applied to Vermeer’s Girl with a Pearl Earring",
-            "citation": "Elkhuizen, W. S., Callewaert, T. W. J., Leonhardt, E., et al. Heritage Science 7, 89 (2019). doi:10.1186/s40494-019-0331-5.",
-            "url": "https://www.nature.com/articles/s40494-019-0331-5",
-            "supports": "MS-OCT, 3D digital microscopy, and fringe-encoded scanning as non-invasive surface-topography records, plus their resolution, field-of-view, stitching, and capture-time trade-offs."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "crossfade",
           "2->3": "hard-cut",
           "3->4": "linear-wipe",
           "4->5": "crossfade"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "mauritshuis-girl-in-the-spotlight",
+              "stamp": "MRT/GITS-2018",
+              "claimIds": [
+                "object-study-2018",
+                "no-new-sampling-boundary"
+              ],
+              "authority": "Mauritshuis",
+              "title": "The Girl in the Spotlight",
+              "citation": "Mauritshuis. The Girl in the Spotlight. Technical examination conducted 26 February–11 March 2018.",
+              "url": "https://www.mauritshuis.nl/en/what-s-on/exhibitions/exhibitions-from-the-past/the-girl-in-the-spotlight",
+              "supports": "The public 2018 research project, its question about Vermeer’s materials and process, and its use of newer non-invasive technical-analysis methods without a restoration treatment."
+            },
+            {
+              "id": "mauritshuis-examination-methods",
+              "stamp": "MRT/METHODS",
+              "claimIds": [
+                "registered-multimodal-records",
+                "ma-xrf-element-distribution",
+                "xray-nir-layer-record",
+                "element-map-not-pigment-label",
+                "mercury-vermilion-context"
+              ],
+              "authority": "Mauritshuis",
+              "title": "Examination Methods",
+              "citation": "Mauritshuis. Examination Methods. Girl with a Blog / The Girl in the Spotlight research dossier.",
+              "url": "https://www.mauritshuis.nl/en/our-collection/restoration-and-research/closer-to-vermeer-and-the-girl/girl-with-a-blog/examination-methods",
+              "supports": "What X-radiography, MA-XRF, near-infrared imaging, digital microscopy, and related methods measure on the painting, including element distribution, density, subsurface structure, and surface detail."
+            },
+            {
+              "id": "delaney-2020-pigment-distribution",
+              "stamp": "HS/PIGMENT-2020",
+              "claimIds": [
+                "registered-multimodal-records",
+                "ma-xrf-element-distribution",
+                "ris-fis-fors-complementarity",
+                "element-map-not-pigment-label",
+                "mercury-vermilion-context",
+                "red-lake-ris-nondetection",
+                "red-lake-fors-fis-evidence",
+                "potassium-ambiguity",
+                "red-lake-bounded-support",
+                "headscarf-ultramarine-lead-white",
+                "conservation-record-boundary"
+              ],
+              "authority": "Heritage Science / National Gallery of Art and Mauritshuis",
+              "title": "Mapping the pigment distribution of Vermeer’s Girl with a Pearl Earring",
+              "citation": "Delaney, J. K., Dooley, K. A., van Loon, A., & Vandivere, A. Heritage Science 8, 4 (2020). doi:10.1186/s40494-019-0348-9.",
+              "url": "https://www.nature.com/articles/s40494-019-0348-9",
+              "supports": "The complementary use of RIS, FIS, FORS, and MA-XRF; pigment-distribution conclusions; matrix effects; the red-lake non-detection versus weak-site evidence; and the ambiguity of potassium as a material marker."
+            },
+            {
+              "id": "van-loon-2019-skin-tones",
+              "stamp": "HS/SKIN-2019",
+              "claimIds": [
+                "registered-multimodal-records",
+                "ma-xrf-element-distribution",
+                "conservation-record-boundary"
+              ],
+              "authority": "Heritage Science / Rijksmuseum and Mauritshuis",
+              "title": "Beauty is skin deep: the skin tones of Vermeer’s Girl with a Pearl Earring",
+              "citation": "van Loon, A., Vandivere, A., Delaney, J. K., et al. Heritage Science 7, 102 (2019). doi:10.1186/s40494-019-0344-0.",
+              "url": "https://www.nature.com/articles/s40494-019-0344-0",
+              "supports": "MA-XRF as elemental information from surface and subsurface layers, RIS as complementary molecular information, and the registered comparison of maps and microscopy needed for bounded layer interpretation."
+            },
+            {
+              "id": "elkhuizen-2019-3d-scanning",
+              "stamp": "HS/3D-2019",
+              "claimIds": [
+                "surface-topography-record",
+                "conservation-record-boundary"
+              ],
+              "authority": "Heritage Science / Delft University of Technology and Mauritshuis",
+              "title": "Comparison of three 3D scanning techniques for paintings, as applied to Vermeer’s Girl with a Pearl Earring",
+              "citation": "Elkhuizen, W. S., Callewaert, T. W. J., Leonhardt, E., et al. Heritage Science 7, 89 (2019). doi:10.1186/s40494-019-0331-5.",
+              "url": "https://www.nature.com/articles/s40494-019-0331-5",
+              "supports": "MS-OCT, 3D digital microscopy, and fringe-encoded scanning as non-invasive surface-topography records, plus their resolution, field-of-view, stitching, and capture-time trade-offs."
+            }
+          ]
+        },
+        "modulePath": "../topics/pigment-without-touch.tsx"
       },
       {
         "id": "close-the-quarter",
-        "topic": {
+        "styleId": "checklist-ledger",
+        "title": {
           "en": "Close the Quarter",
           "zh": "季度结账"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Close the Quarter",
@@ -57574,10 +55879,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "checklist-ledger",
-            "name": "Checklist Ledger",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "季度结账",
@@ -57705,50 +56007,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "checklist-ledger",
-            "name": "检查清单台账",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/close-the-quarter.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "quarter-close-meter",
           "invocation": "gesture-hold",
           "feedback": "active-glow"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "slide-y",
           "2->3": "slide-y",
           "3->4": "fade",
           "4->5": "hard-cut"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/close-the-quarter.tsx"
       }
     ]
   },
   {
-    "id": "context-bento-box",
-    "name": {
-      "en": "Context Bento Box",
-      "zh": "上下文便当盒"
+    "style": {
+      "id": "context-bento-box",
+      "name": {
+        "en": "Context Bento Box",
+        "zh": "上下文便当盒"
+      },
+      "band": "text-report"
     },
     "topics": [
       {
         "id": "context-bento",
-        "topic": {
+        "styleId": "context-bento-box",
+        "title": {
           "en": "Context Bento",
           "zh": "上下文盒"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Structured context with distinct compartments — goals, constraints, risks, and tests on deep warm lacquer-black ground",
@@ -57876,10 +56179,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "context-bento-box",
-            "name": "Context Bento Box",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "独立隔间的结构化上下文——深暖漆黑色调上的目标、约束、风险和测试",
@@ -58004,18 +56304,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "context-bento-box",
-            "name": "上下文便当盒",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/context-bento.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "context-bento-scene-index",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
         },
         "evidence": {
           "kind": "illustrative",
@@ -58025,20 +56327,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "wipe",
-          "2->3": "wipe",
-          "3->4": "wipe",
-          "4->5": "wipe"
-        }
+        "modulePath": "../topics/context-bento.tsx"
       },
       {
         "id": "handoff-box",
-        "topic": {
+        "styleId": "context-bento-box",
+        "title": {
           "en": "Handoff Box",
           "zh": "交接盒"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "Handoff in Six Compartments",
@@ -58166,10 +56464,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "context-bento-box",
-            "name": "Context Bento Box",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "六格交接",
@@ -58297,18 +56592,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "context-bento-box",
-            "name": "上下文便当盒",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/handoff-box.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "handoff-compartment-selector",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "wipe",
+          "3->4": "slide-x",
+          "4->5": "fade"
         },
         "evidence": {
           "kind": "illustrative",
@@ -58318,20 +56615,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "wipe",
-          "3->4": "slide-x",
-          "4->5": "fade"
-        }
+        "modulePath": "../topics/handoff-box.tsx"
       },
       {
         "id": "lichen-partners",
-        "topic": {
+        "styleId": "context-bento-box",
+        "title": {
           "en": "Lichen Partners",
           "zh": "地衣伙伴"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "Lichen Partners",
@@ -58458,10 +56751,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "context-bento-box",
-            "name": "Context Bento Box",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "地衣伙伴",
@@ -58586,99 +56876,97 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "context-bento-box",
-            "name": "上下文便当盒",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/lichen-partners.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "lichen-compartments",
           "invocation": "gesture-hold",
           "feedback": "material-color-change"
         },
-        "sources": [
-          {
-            "id": "s1-smithsonian",
-            "authority": "Smithsonian National Museum of Natural History",
-            "title": "What's a Lichen? How a Smithsonian Scientist Studies a Unique Symbiosis",
-            "citation": "Smithsonian Learning Lab, National Museum of Natural History, updated 2025.",
-            "url": "https://learninglab.si.edu/collections/whats-a-lichen-how-a-smithsonian-scientist-studies-a-unique-symbiosis/E9fRnD5DoKRbF4ME",
-            "supports": "The lichen thallus is the fungal-algal house; algae make sugar by photosynthesis, fungi provide shelter, and lichenization is a fungal lifestyle whose name follows the fungal component.",
-            "accessDate": "2026-07-10",
-            "claimIds": [
-              "fungal-framework",
-              "photosynthetic-partner",
-              "core-exchange",
-              "fungal-naming"
-            ]
-          },
-          {
-            "id": "s2-usfs",
-            "authority": "USDA Forest Service",
-            "title": "National Atlas of Epiphytic Lichens in Forested Habitats of the United States",
-            "citation": "USDA Forest Service, National Atlas of Epiphytic Lichens, introduction.",
-            "url": "https://www.fs.usda.gov/sites/default/files/fs_media/fs_document/Lichen-Atlas.pdf",
-            "supports": "The main partners are a fungus and one or more photobionts, including green algae, cyanobacteria, or both; fungal cells surround photobionts and other organisms occur in some lichens.",
-            "accessDate": "2026-07-10",
-            "claimIds": [
-              "fungal-framework",
-              "photosynthetic-partner",
-              "stratified-thallus",
-              "core-exchange",
-              "scope-boundary"
-            ]
-          },
-          {
-            "id": "s3-spribille",
-            "authority": "Science / PubMed Central",
-            "title": "Basidiomycete yeasts in the cortex of ascomycete macrolichens",
-            "citation": "Spribille T, et al. Science. 2016;353:488–492. doi:10.1126/science.aaf8287.",
-            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5793994/",
-            "supports": "In studied ascomycete macrolichens, the authors reported specific basidiomycete yeasts embedded in the cortex and linked their abundance with phenotype variation; this is not a claim about every lichen.",
-            "accessDate": "2026-07-10",
-            "claimIds": [
-              "yeast-cortex-case",
-              "scope-boundary"
-            ]
-          },
-          {
-            "id": "s4-review",
-            "authority": "Frontiers in Microbiology",
-            "title": "Understanding Microbial Multi-Species Symbioses",
-            "citation": "Aschenbrenner IA, Cernava T, Berg G, Grube M. Front Microbiol. 2016;7:180. doi:10.3389/fmicb.2016.00180.",
-            "url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2016.00180/full",
-            "supports": "This review distinguishes stratified and non-stratified thalli, describes fungal and photobiont roles, and reviews lichen-associated bacterial communities whose composition and functions depend on study system and context.",
-            "accessDate": "2026-07-10",
-            "claimIds": [
-              "fungal-framework",
-              "photosynthetic-partner",
-              "stratified-thallus",
-              "core-exchange",
-              "bacterial-microbiome-case",
-              "scope-boundary"
-            ]
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "grid-reveal",
           "2->3": "focus-swap",
           "3->4": "iris-open",
           "4->5": "grid-reveal"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "id": "s1-smithsonian",
+              "authority": "Smithsonian National Museum of Natural History",
+              "title": "What's a Lichen? How a Smithsonian Scientist Studies a Unique Symbiosis",
+              "citation": "Smithsonian Learning Lab, National Museum of Natural History, updated 2025.",
+              "url": "https://learninglab.si.edu/collections/whats-a-lichen-how-a-smithsonian-scientist-studies-a-unique-symbiosis/E9fRnD5DoKRbF4ME",
+              "supports": "The lichen thallus is the fungal-algal house; algae make sugar by photosynthesis, fungi provide shelter, and lichenization is a fungal lifestyle whose name follows the fungal component.",
+              "accessDate": "2026-07-10",
+              "claimIds": [
+                "fungal-framework",
+                "photosynthetic-partner",
+                "core-exchange",
+                "fungal-naming"
+              ]
+            },
+            {
+              "id": "s2-usfs",
+              "authority": "USDA Forest Service",
+              "title": "National Atlas of Epiphytic Lichens in Forested Habitats of the United States",
+              "citation": "USDA Forest Service, National Atlas of Epiphytic Lichens, introduction.",
+              "url": "https://www.fs.usda.gov/sites/default/files/fs_media/fs_document/Lichen-Atlas.pdf",
+              "supports": "The main partners are a fungus and one or more photobionts, including green algae, cyanobacteria, or both; fungal cells surround photobionts and other organisms occur in some lichens.",
+              "accessDate": "2026-07-10",
+              "claimIds": [
+                "fungal-framework",
+                "photosynthetic-partner",
+                "stratified-thallus",
+                "core-exchange",
+                "scope-boundary"
+              ]
+            },
+            {
+              "id": "s3-spribille",
+              "authority": "Science / PubMed Central",
+              "title": "Basidiomycete yeasts in the cortex of ascomycete macrolichens",
+              "citation": "Spribille T, et al. Science. 2016;353:488–492. doi:10.1126/science.aaf8287.",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5793994/",
+              "supports": "In studied ascomycete macrolichens, the authors reported specific basidiomycete yeasts embedded in the cortex and linked their abundance with phenotype variation; this is not a claim about every lichen.",
+              "accessDate": "2026-07-10",
+              "claimIds": [
+                "yeast-cortex-case",
+                "scope-boundary"
+              ]
+            },
+            {
+              "id": "s4-review",
+              "authority": "Frontiers in Microbiology",
+              "title": "Understanding Microbial Multi-Species Symbioses",
+              "citation": "Aschenbrenner IA, Cernava T, Berg G, Grube M. Front Microbiol. 2016;7:180. doi:10.3389/fmicb.2016.00180.",
+              "url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2016.00180/full",
+              "supports": "This review distinguishes stratified and non-stratified thalli, describes fungal and photobiont roles, and reviews lichen-associated bacterial communities whose composition and functions depend on study system and context.",
+              "accessDate": "2026-07-10",
+              "claimIds": [
+                "fungal-framework",
+                "photosynthetic-partner",
+                "stratified-thallus",
+                "core-exchange",
+                "bacterial-microbiome-case",
+                "scope-boundary"
+              ]
+            }
+          ]
+        },
+        "modulePath": "../topics/lichen-partners.tsx"
       },
       {
         "id": "everything-the-intern-needs",
-        "topic": {
+        "styleId": "context-bento-box",
+        "title": {
           "en": "Everything the Intern Needs",
           "zh": "新人须知"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "Everything the Intern Needs",
@@ -58800,10 +57088,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "context-bento-box",
-            "name": "Context Bento Box",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "新人须知",
@@ -58925,50 +57210,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "context-bento-box",
-            "name": "上下文便当盒",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/everything-the-intern-needs.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "intern-bento-selector",
           "invocation": "gesture-hold",
           "feedback": "history-trail"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "scale-fade",
           "2->3": "scale-fade",
           "3->4": "fade",
           "4->5": "scale-fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/everything-the-intern-needs.tsx"
       }
     ]
   },
   {
-    "id": "object-metaphor-hero",
-    "name": {
-      "en": "Object Metaphor Hero",
-      "zh": "物体隐喻主视觉"
+    "style": {
+      "id": "object-metaphor-hero",
+      "name": {
+        "en": "Object Metaphor Hero",
+        "zh": "物体隐喻主视觉"
+      },
+      "band": "text-report"
     },
     "topics": [
       {
         "id": "object-metaphor",
-        "topic": {
+        "styleId": "object-metaphor-hero",
+        "title": {
           "en": "Object Hero",
           "zh": "物体主视觉"
         },
-        "model": "Doubao-Seed-Evolving",
+        "modelId": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
             "theme": "Tangible physical object as anchor for abstract system concept",
@@ -59086,10 +57372,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "object-metaphor-hero",
-            "name": "Object Metaphor Hero",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "以有形物理物体为锚点呈现抽象系统概念",
@@ -59207,18 +57490,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "object-metaphor-hero",
-            "name": "物体隐喻主视觉",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/object-metaphor.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "object-metaphor-scene-index",
           "invocation": "persistent",
           "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
         },
         "evidence": {
           "kind": "illustrative",
@@ -59228,20 +57513,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "wipe",
-          "2->3": "wipe",
-          "3->4": "wipe",
-          "4->5": "wipe"
-        }
+        "modulePath": "../topics/object-metaphor.tsx"
       },
       {
         "id": "recovery-kit",
-        "topic": {
+        "styleId": "object-metaphor-hero",
+        "title": {
           "en": "Recovery Kit",
           "zh": "恢复工具包"
         },
-        "model": "GPT 5.5",
+        "modelId": "GPT 5.5",
         "metadata": {
           "en": {
             "theme": "The Recovery Kit",
@@ -59367,10 +57648,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "object-metaphor-hero",
-            "name": "Object Metaphor Hero",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "恢复工具包",
@@ -59496,18 +57774,20 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "object-metaphor-hero",
-            "name": "物体隐喻主视觉",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/recovery-kit.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "recovery-kit-orbit",
           "invocation": "persistent",
           "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "slide-y",
+          "3->4": "wipe",
+          "4->5": "hard-cut"
         },
         "evidence": {
           "kind": "illustrative",
@@ -59517,20 +57797,16 @@ export const CATALOG_MANIFEST = [
           },
           "display": "envelope"
         },
-        "transitionScore": {
-          "1->2": "scale-fade",
-          "2->3": "slide-y",
-          "3->4": "wipe",
-          "4->5": "hard-cut"
-        }
+        "modulePath": "../topics/recovery-kit.tsx"
       },
       {
         "id": "cocoon-to-cloth",
-        "topic": {
+        "styleId": "object-metaphor-hero",
+        "title": {
           "en": "Cocoon to Cloth",
           "zh": "茧到织物"
         },
-        "model": "GPT 5.6 Sol",
+        "modelId": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "theme": "From Cocoon to Cloth",
@@ -59669,10 +57945,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "object-metaphor-hero",
-            "name": "Object Metaphor Hero",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "从蚕茧到织物",
@@ -59811,70 +58084,68 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "object-metaphor-hero",
-            "name": "物体隐喻主视觉",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/cocoon-to-cloth.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "silk-spindle",
           "invocation": "gesture-hold",
           "feedback": "next-state-preview"
         },
-        "sources": [
-          {
-            "authority": "Food and Agriculture Organization of the United Nations",
-            "title": "Silk reeling and testing manual — Characteristics of the cocoon",
-            "citation": "FAO Agricultural Services Bulletin 136, chapter 2 (1999)",
-            "url": "https://www.fao.org/4/x2099e/x2099e03.htm",
-            "supports": "The cocoon filament has a fibroin core covered by sericin; cocoon properties vary by type."
-          },
-          {
-            "authority": "Food and Agriculture Organization of the United Nations",
-            "title": "Silk reeling and testing manual — Cocoon cooking",
-            "citation": "FAO Agricultural Services Bulletin 136, chapter 5 (1999)",
-            "url": "https://www.fao.org/4/x2099e/x2099e06.htm",
-            "supports": "Heat, water, and steam soften sericin in preparation for reeling; conditions require control."
-          },
-          {
-            "authority": "Smithsonian National Museum of American History",
-            "title": "From hanging on by a thread, to buying a thread",
-            "url": "https://americanhistory.si.edu/explore/stories/hanging-thread-buying-thread-rise-us-silk-industry",
-            "supports": "Cocoons are heated in water before filaments are reeled, and silk manufacture depends on workers and machinery."
-          },
-          {
-            "authority": "The Metropolitan Museum of Art",
-            "title": "Textile Production in Europe: Silk, 1600–1800",
-            "url": "https://www.metmuseum.org/essays/textile-production-in-europe-silk-1600-1800",
-            "supports": "Patterned silk production required skilled labor, prepared warp, inserted weft, specialized looms, and linked crafts."
-          },
-          {
-            "authority": "Victoria and Albert Museum",
-            "title": "What is tapestry?",
-            "url": "https://www.vam.ac.uk/articles/what-is-tapestry",
-            "supports": "A loom holds warp under tension while weft passes through it; weaving is labor-intensive and structurally varied."
-          }
-        ],
-        "evidence": {
-          "kind": "facts"
-        },
         "transitionScore": {
           "1->2": "iris-open",
           "2->3": "split-merge",
           "3->4": "zoom-through",
           "4->5": "iris-open"
-        }
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "authority": "Food and Agriculture Organization of the United Nations",
+              "title": "Silk reeling and testing manual — Characteristics of the cocoon",
+              "citation": "FAO Agricultural Services Bulletin 136, chapter 2 (1999)",
+              "url": "https://www.fao.org/4/x2099e/x2099e03.htm",
+              "supports": "The cocoon filament has a fibroin core covered by sericin; cocoon properties vary by type."
+            },
+            {
+              "authority": "Food and Agriculture Organization of the United Nations",
+              "title": "Silk reeling and testing manual — Cocoon cooking",
+              "citation": "FAO Agricultural Services Bulletin 136, chapter 5 (1999)",
+              "url": "https://www.fao.org/4/x2099e/x2099e06.htm",
+              "supports": "Heat, water, and steam soften sericin in preparation for reeling; conditions require control."
+            },
+            {
+              "authority": "Smithsonian National Museum of American History",
+              "title": "From hanging on by a thread, to buying a thread",
+              "url": "https://americanhistory.si.edu/explore/stories/hanging-thread-buying-thread-rise-us-silk-industry",
+              "supports": "Cocoons are heated in water before filaments are reeled, and silk manufacture depends on workers and machinery."
+            },
+            {
+              "authority": "The Metropolitan Museum of Art",
+              "title": "Textile Production in Europe: Silk, 1600–1800",
+              "url": "https://www.metmuseum.org/essays/textile-production-in-europe-silk-1600-1800",
+              "supports": "Patterned silk production required skilled labor, prepared warp, inserted weft, specialized looms, and linked crafts."
+            },
+            {
+              "authority": "Victoria and Albert Museum",
+              "title": "What is tapestry?",
+              "url": "https://www.vam.ac.uk/articles/what-is-tapestry",
+              "supports": "A loom holds warp under tension while weft passes through it; weaving is labor-intensive and structurally varied."
+            }
+          ]
+        },
+        "modulePath": "../topics/cocoon-to-cloth.tsx"
       },
       {
         "id": "onboarding-toolkit",
-        "topic": {
+        "styleId": "object-metaphor-hero",
+        "title": {
           "en": "The Onboarding Toolkit",
           "zh": "入职工具包"
         },
-        "model": "Claude Opus 4.8",
+        "modelId": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "theme": "The Onboarding Toolkit",
@@ -59996,10 +58267,7 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "object-metaphor-hero",
-            "name": "Object Metaphor Hero",
-            "band": "text-report"
+            ]
           },
           "zh": {
             "theme": "入职工具包",
@@ -60121,34 +58389,31 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ],
-            "id": "object-metaphor-hero",
-            "name": "物体隐喻主视觉",
-            "band": "text-report"
+            ]
           }
         },
-        "modulePath": "../topics/onboarding-toolkit.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "onboarding-kit-slots",
           "invocation": "gesture-hold",
           "feedback": "next-state-preview"
         },
-        "topicSet": "curated",
-        "evidence": {
-          "kind": "illustrative",
-          "boundary": {
-            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
-            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
-          }
-        },
         "transitionScore": {
           "1->2": "page-flip",
           "2->3": "scale-fade",
           "3->4": "fade",
           "4->5": "scale-fade"
-        }
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/onboarding-toolkit.tsx"
       }
     ]
   }
-] as unknown as CatalogStyleManifest[];
+] as unknown as readonly CatalogStyleGroup[];

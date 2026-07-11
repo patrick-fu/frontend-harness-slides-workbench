@@ -7,8 +7,8 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { BeatLayoutMode } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { BeatLayoutMode } from "../components/stage/SpatialSceneTrack";
 import styles from "./margin-argument.module.css";
 
 type Language = "en" | "zh";

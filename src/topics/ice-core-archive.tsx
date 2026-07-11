@@ -13,18 +13,17 @@ import {
   type TopicTransitionScore,
 } from "../domain/topic";
 import type { Source } from "../domain/evidence";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
   SceneTransitionModifierMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./ice-core-archive.module.css";
 
 type Lang = "en" | "zh";
 type SceneId = 1 | 2 | 3 | 4 | 5;
 
-const STYLE_ID = "cassette-era-packaging";
 const TOPIC_ID = "ice-core-archive";
 const SCENE_IDS = [1, 2, 3, 4, 5] as const;
 
@@ -1398,7 +1397,6 @@ function TopicStage({
     <div
       className={[styles.root, settled ? styles.settled : ""].join(" ")}
       data-topic-id={TOPIC_ID}
-      data-style-id={STYLE_ID}
       data-language={language}
       data-motion={settled ? "off" : "on"}
       data-settled={settled ? "true" : "false"}
@@ -1440,7 +1438,7 @@ function TopicStage({
 
 export default defineTopic({
   id: TOPIC_ID,
-  styleId: STYLE_ID,
+  styleId: "cassette-era-packaging",
   title: {
     en: "Ice-Core Archive",
     zh: "冰芯档案",
@@ -1457,6 +1455,6 @@ export default defineTopic({
       en: "Ice cores preserve multiple proxy records; no one channel is a direct, universal temperature dial.",
       zh: "冰芯保存多种代理记录；任何单一通道都不是直接且通用的温度刻度。",
     },
-    display: "stage",
+  display: "envelope",
   },
 });

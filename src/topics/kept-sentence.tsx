@@ -9,7 +9,7 @@ import {
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 
 type Language = "en" | "zh";
 type SceneId = 1 | 2 | 3 | 4 | 5;
@@ -1498,7 +1498,6 @@ function TopicStage({
     <section
       aria-label={activeContent.title}
       lang={language}
-      data-style-id="spotlight-quote-poster"
       data-topic-id="kept-sentence"
       data-motion={motionDisabled ? "off" : "on"}
       style={rootStyle}

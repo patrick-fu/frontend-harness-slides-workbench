@@ -7,12 +7,12 @@ import {
 } from "../domain/topic";
 import SpatialSceneTrack, {
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./human-reviews-ai.module.css";
 
 /* ------------------------------------------------------------------ *
- * Collaborative Pairing Board â€” v3
+ * Collaborative Pairing Board â€
  * Human <-> AI code review as a two-party division of labor with a
  * shared center seam and visible sync points. Clean light neutral
  * ground, one calm professional accent (blue), even-handed neutral
@@ -738,7 +738,6 @@ function TopicStage({
     <div
       className={styles.root}
       data-static={still ? "true" : "false"}
-      data-style-id="collaborative-pairing-board"
       data-topic-id="human-reviews-ai"
       style={{ "--stage": "1" } as CSSProperties}
     >

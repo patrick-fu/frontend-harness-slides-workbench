@@ -16,7 +16,7 @@ import type { Source } from "../domain/evidence";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./elevator-counterweight.module.css";
 
 type Language = "en" | "zh";
@@ -1061,7 +1061,6 @@ function TopicStage({
   return (
     <div
       className={[styles.root, noMotion ? styles.motionOff : ""].filter(Boolean).join(" ")}
-      data-style-id="collaborative-pairing-board"
       data-topic-id="elevator-counterweight"
       data-motion={noMotion ? "off" : "on"}
     >

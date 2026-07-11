@@ -9,7 +9,7 @@ import { useFLIP } from "../hooks/useFLIP";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./product-cover.module.css";
 
 type Lang = "en" | "zh";
@@ -501,7 +501,15 @@ function IssueStrip({
   onNavigate?: (scene: number, beat: number) => void;
 }) {
   return (
-    <nav className={styles.issueStrip} aria-label="Magazine issue navigation">
+    <nav
+      className={styles.issueStrip}
+      aria-label="Magazine issue navigation"
+      data-topic-navigation="true"
+      data-navigation-geometry="typographic-index"
+      data-navigation-carrier="product-cover-issue-strip"
+      data-navigation-invocation="persistent"
+      data-navigation-feedback="typographic-emphasis"
+    >
       <div className={styles.issueStripLabel}>
         {language === "zh" ? "期号导航" : "Issue strip"}
       </div>

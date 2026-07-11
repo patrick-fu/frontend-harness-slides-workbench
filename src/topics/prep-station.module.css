@@ -1,4 +1,4 @@
-/* ─── Style 13: Kitchen Prep Station ─────────────────────────────────────
+/* ─── Kitchen Prep Station ─────────────────────────────────────
    Warm orange-tinted cream counter. Earthy kitchen accents — terracotta,
    wood browns, herb greens. Hands-on prep station feel.
    All sizing in cqw/cqh. No px/vw/vh.
@@ -10,8 +10,8 @@
   position: relative;
   overflow: hidden;
   user-select: none;
-  background: var(--style-13-bg, #fdf2e5);
-  color: var(--style-13-ink, #3d2b1f);
+  background: var(--topic-bg, #fdf2e5);
+  color: var(--topic-ink, #3d2b1f);
   font-family: "Nunito", "Inter", system-ui, -apple-system, sans-serif;
 }
 
@@ -109,13 +109,13 @@
   font-weight: 800;
   line-height: 1.0;
   margin: 0;
-  color: var(--style-13-ink, #3d2b1f);
+  color: var(--topic-ink, #3d2b1f);
   transform: rotate(-2deg);
 }
 
 .boardTitle em {
   font-style: normal;
-  color: var(--style-13-accent, #c1622f);
+  color: var(--topic-accent, #c1622f);
 }
 
 .boardSub {
@@ -124,7 +124,7 @@
   font-weight: 400;
   line-height: 1.4;
   margin-top: 3cqh;
-  color: var(--style-13-muted, #7a6655);
+  color: var(--topic-muted, #7a6655);
   max-width: 55cqw;
 }
 
@@ -138,7 +138,7 @@
   margin-top: 4cqh;
   padding: 0.8cqh 2.5cqw;
   background: rgba(193, 98, 47, 0.12);
-  color: var(--style-13-accent, #c1622f);
+  color: var(--topic-accent, #c1622f);
   border-radius: 3cqw;
 }
 
@@ -161,13 +161,13 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--style-13-accent, #c1622f);
+  color: var(--topic-accent, #c1622f);
 }
 
 .boardHeading {
   font-size: 5cqw;
   font-weight: 800;
-  color: var(--style-13-ink, #3d2b1f);
+  color: var(--topic-ink, #3d2b1f);
   margin: 0.5cqh 0 0 0;
 }
 
@@ -235,7 +235,7 @@
   font-size: 2.6cqw;
   font-weight: 800;
   line-height: 1.15;
-  color: var(--style-13-ink, #3d2b1f);
+  color: var(--topic-ink, #3d2b1f);
 }
 
 .noteSub {
@@ -405,7 +405,7 @@
   font-family: "Nunito", "Inter", system-ui, sans-serif;
   font-size: 2cqw;
   font-weight: 800;
-  color: var(--style-13-accent, #c1622f);
+  color: var(--topic-accent, #c1622f);
   min-width: 5cqw;
 }
 
@@ -423,7 +423,7 @@
 .closingNote {
   width: 40cqw;
   height: 30cqh;
-  background: var(--style-13-panel, #fff8ee);
+  background: var(--topic-panel, #fff8ee);
   padding: 4cqh 4cqw;
   display: flex;
   flex-direction: column;
@@ -464,20 +464,20 @@
   font-size: 5cqw;
   font-weight: 800;
   line-height: 1.1;
-  color: var(--style-13-ink, #3d2b1f);
+  color: var(--topic-ink, #3d2b1f);
   margin: 0;
 }
 
 .closingNoteText em {
   font-style: normal;
-  color: var(--style-13-accent, #c1622f);
+  color: var(--topic-accent, #c1622f);
 }
 
 .closingNoteSub {
   font-family: "Nunito", "Inter", system-ui, sans-serif;
   font-size: 1.6cqw;
   font-weight: 400;
-  color: var(--style-13-muted, #7a6655);
+  color: var(--topic-muted, #7a6655);
   margin-top: 2cqh;
 }
 
@@ -499,7 +499,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  background: var(--style-13-ink, #3d2b1f);
+  background: var(--topic-ink, #3d2b1f);
   opacity: 0.2;
   transition:
     opacity 0.3s ease,
@@ -515,7 +515,7 @@
 .navDotActive {
   opacity: 0.7;
   transform: scale(1.3);
-  background: var(--style-13-accent, #c1622f);
+  background: var(--topic-accent, #c1622f);
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */

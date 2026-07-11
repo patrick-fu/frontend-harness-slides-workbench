@@ -1,18 +1,18 @@
-/* Style 30: Neo-Brutalist Bulletin — Craft & Cultural */
+/* Neo-Brutalist Bulletin — Craft & Cultural */
 /* Protest poster on concrete — thick black rules, hard offset shadows, electric accent */
 
 .root {
-  --style-30-bg: #f5f0e8;
-  --style-30-ink: #1a1a1a;
-  --style-30-panel: #ebe5da;
-  --style-30-accent: #d43a2a;
-  --style-30-shadow: #1a1a1a;
+  --topic-bg: #f5f0e8;
+  --topic-ink: #1a1a1a;
+  --topic-panel: #ebe5da;
+  --topic-accent: #d43a2a;
+  --topic-shadow: #1a1a1a;
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
-  background: var(--style-30-bg);
-  color: var(--style-30-ink);
+  background: var(--topic-bg);
+  color: var(--topic-ink);
   font-family: "Bebas Neue", "Inter", system-ui, sans-serif;
 }
 
@@ -124,7 +124,7 @@
   right: 5cqw;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--style-30-ink);
+  color: var(--topic-ink);
   opacity: 0.12;
   pointer-events: none;
 }
@@ -142,23 +142,23 @@
   line-height: 0.85;
   margin: 0;
   letter-spacing: 0.04em;
-  color: var(--style-30-ink);
+  color: var(--topic-ink);
   text-transform: uppercase;
 }
 
 .titleBar {
   width: 25cqw;
   height: 1.2cqh;
-  background: var(--style-30-accent);
+  background: var(--topic-accent);
   margin: 2.5cqh 0;
-  box-shadow: 0.4cqh 0.4cqh 0 0 var(--style-30-shadow);
+  box-shadow: 0.4cqh 0.4cqh 0 0 var(--topic-shadow);
 }
 
 .titleSub {
   font-size: 3.2cqh;
   font-weight: 400;
   margin: 0;
-  color: var(--style-30-ink);
+  color: var(--topic-ink);
   opacity: 0.7;
   font-family: "Inter", system-ui, sans-serif;
   line-height: 1.4;
@@ -180,8 +180,8 @@
   font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--style-30-bg);
-  background: var(--style-30-ink);
+  color: var(--topic-bg);
+  background: var(--topic-ink);
   font-family: "JetBrains Mono", "Inter", system-ui, monospace;
   padding: 0.6cqh 1.5cqw;
   margin-bottom: 2cqh;
@@ -192,7 +192,7 @@
   font-size: 6cqh;
   font-weight: 400;
   margin: 0 0 3cqh;
-  color: var(--style-30-ink);
+  color: var(--topic-ink);
   line-height: 1;
   letter-spacing: 0.02em;
 }
@@ -210,9 +210,9 @@
   gap: 2cqw;
   align-items: center;
   padding: 2cqh 2cqw;
-  background: var(--style-30-panel);
-  border: 0.3cqh solid var(--style-30-ink);
-  box-shadow: 0.5cqh 0.5cqh 0 0 var(--style-30-shadow);
+  background: var(--topic-panel);
+  border: 0.3cqh solid var(--topic-ink);
+  box-shadow: 0.5cqh 0.5cqh 0 0 var(--topic-shadow);
   opacity: 0;
   transform: translateX(-2cqw);
   transition: opacity 0.3s steps(2, end), transform 0.3s steps(2, end);
@@ -226,7 +226,7 @@
 .artistPortrait {
   font-size: 5cqh;
   font-weight: 400;
-  color: var(--style-30-accent);
+  color: var(--topic-accent);
   font-family: "Bebas Neue", sans-serif;
   text-align: center;
 }
@@ -239,14 +239,14 @@
 .artistName {
   font-size: 3.8cqh;
   font-weight: 400;
-  color: var(--style-30-ink);
+  color: var(--topic-ink);
   line-height: 1.1;
   letter-spacing: 0.04em;
 }
 
 .artistYears {
   font-size: 2.2cqh;
-  color: var(--style-30-ink);
+  color: var(--topic-ink);
   font-family: "Inter", system-ui, sans-serif;
   margin-top: 0.3cqh;
   opacity: 0.6;
@@ -254,8 +254,8 @@
 
 .artistStyle {
   font-size: 1.8cqh;
-  color: var(--style-30-bg);
-  background: var(--style-30-ink);
+  color: var(--topic-bg);
+  background: var(--topic-ink);
   font-family: "JetBrains Mono", monospace;
   font-weight: 600;
   padding: 0.5cqh 1cqw;
@@ -282,9 +282,9 @@
 }
 
 .themeCard {
-  background: var(--style-30-panel);
-  border: 0.3cqh solid var(--style-30-ink);
-  box-shadow: 0.5cqh 0.5cqh 0 0 var(--style-30-shadow);
+  background: var(--topic-panel);
+  border: 0.3cqh solid var(--topic-ink);
+  box-shadow: 0.5cqh 0.5cqh 0 0 var(--topic-shadow);
   padding: 2.5cqh 2cqw;
   display: flex;
   flex-direction: column;
@@ -302,7 +302,7 @@
 .themeTitle {
   font-size: 2.8cqh;
   font-weight: 400;
-  color: var(--style-30-ink);
+  color: var(--topic-ink);
   margin-bottom: 1.5cqh;
   font-family: "Bebas Neue", sans-serif;
   letter-spacing: 0.08em;
@@ -319,7 +319,7 @@
 .compUs {
   font-size: 4.5cqh;
   font-weight: 400;
-  color: var(--style-30-accent);
+  color: var(--topic-accent);
   font-family: "Bebas Neue", sans-serif;
   line-height: 1;
 }
@@ -327,7 +327,7 @@
 .compThem {
   font-size: 2.8cqh;
   font-weight: 400;
-  color: var(--style-30-ink);
+  color: var(--topic-ink);
   font-family: "Bebas Neue", sans-serif;
   opacity: 0.4;
   line-height: 1;
@@ -340,8 +340,8 @@
   font-weight: 600;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--style-30-bg);
-  background: var(--style-30-accent);
+  color: var(--topic-bg);
+  background: var(--topic-accent);
   font-family: "JetBrains Mono", monospace;
   padding: 0.5cqh 1.2cqw;
   align-self: flex-start;
@@ -366,10 +366,10 @@
 
 .statBlock {
   text-align: left;
-  border: 0.3cqh solid var(--style-30-ink);
+  border: 0.3cqh solid var(--topic-ink);
   padding: 2cqh 2.5cqw;
-  background: var(--style-30-panel);
-  box-shadow: 0.5cqh 0.5cqh 0 0 var(--style-30-shadow);
+  background: var(--topic-panel);
+  box-shadow: 0.5cqh 0.5cqh 0 0 var(--topic-shadow);
   opacity: 0;
   transition: opacity 0.3s steps(2, end);
 }
@@ -382,7 +382,7 @@
   display: block;
   font-size: 8cqh;
   font-weight: 400;
-  color: var(--style-30-ink);
+  color: var(--topic-ink);
   line-height: 1;
   font-family: "Bebas Neue", sans-serif;
   letter-spacing: 0.02em;
@@ -391,7 +391,7 @@
 .statLabel {
   display: block;
   font-size: 2cqh;
-  color: var(--style-30-ink);
+  color: var(--topic-ink);
   opacity: 0.6;
   margin-top: 0.8cqh;
   font-family: "Inter", system-ui, sans-serif;
@@ -426,7 +426,7 @@
 .sunSmall {
   width: 15cqh;
   height: 15cqh;
-  color: var(--style-30-ink);
+  color: var(--topic-ink);
   margin-bottom: 3cqh;
   opacity: 0.15;
 }
@@ -435,7 +435,7 @@
   font-size: 9cqh;
   font-weight: 400;
   margin: 0;
-  color: var(--style-30-ink);
+  color: var(--topic-ink);
   text-align: center;
   line-height: 1;
   font-family: "Bebas Neue", sans-serif;
@@ -443,12 +443,12 @@
 }
 
 .closingAccent {
-  color: var(--style-30-accent);
+  color: var(--topic-accent);
 }
 
 .closingSub {
   font-size: 2.6cqh;
-  color: var(--style-30-ink);
+  color: var(--topic-ink);
   opacity: 0.6;
   margin-top: 2.5cqh;
   font-family: "Inter", system-ui, sans-serif;
@@ -469,27 +469,27 @@
 .navItem {
   width: 5cqh;
   height: 5cqh;
-  border: 0.3cqh solid var(--style-30-ink);
-  background: var(--style-30-bg);
+  border: 0.3cqh solid var(--topic-ink);
+  background: var(--topic-bg);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  box-shadow: 0.3cqh 0.3cqh 0 0 var(--style-30-shadow);
+  box-shadow: 0.3cqh 0.3cqh 0 0 var(--topic-shadow);
   transition: background 0.15s steps(2, end), transform 0.15s steps(2, end);
 }
 
-.navItem:hover { background: var(--style-30-ink); transform: translate(0.15cqh, 0.15cqh); box-shadow: 0.15cqh 0.15cqh 0 0 var(--style-30-shadow); }
-.navItem:hover .navBar { color: var(--style-30-bg); }
+.navItem:hover { background: var(--topic-ink); transform: translate(0.15cqh, 0.15cqh); box-shadow: 0.15cqh 0.15cqh 0 0 var(--topic-shadow); }
+.navItem:hover .navBar { color: var(--topic-bg); }
 
-.navItemActive { background: var(--style-30-accent); border-color: var(--style-30-ink); }
-.navItemActive .navBar { color: var(--style-30-bg); }
+.navItemActive { background: var(--topic-accent); border-color: var(--topic-ink); }
+.navItemActive .navBar { color: var(--topic-bg); }
 
 .navBar {
   font-size: 2.4cqh;
   font-weight: 400;
-  color: var(--style-30-ink);
+  color: var(--topic-ink);
   font-family: "Bebas Neue", sans-serif;
   transition: color 0.15s steps(2, end);
 }

@@ -6,8 +6,8 @@ import {
   type TopicNavigation,
   type TopicStageProps,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 
 const SANS = "'Inter', 'Noto Sans SC', system-ui, -apple-system, sans-serif";
 const MONO =
@@ -1145,5 +1145,12 @@ export default defineTopic({
   metadata,
   navigation: NAVIGATION,
   transitionScore: TRANSITION_SCORE,
-  evidence: { kind: "none" },
+  evidence: {
+    kind: "illustrative",
+    boundary: {
+      en: "Illustrative maintainer incident: repository names, failure rates, timings, issue history, and remediation outcomes are authored examples, not measurements from a real project.",
+      zh: "示例维护事件：仓库名称、失败率、耗时、问题历史和修复结果均为创作示例，并非真实项目的测量数据。",
+    },
+    display: "envelope",
+  },
 });

@@ -5,11 +5,11 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./system-acts.module.css";
 
 type Language = TopicStageProps["language"];
@@ -55,7 +55,7 @@ const EVIDENCE = {
     en: "Illustrative systems narrative: titles, signals, loops, and rules are conceptual metaphors, not claims about a specific system.",
     zh: "示例系统叙事：标题、信号、循环和规则均为概念隐喻，并非针对特定系统的事实主张。",
   },
-  display: "stage",
+  display: "envelope",
 } as const;
 
 const BEAT_LAYOUT_MODES: Record<SceneId, BeatLayoutMode> = {
@@ -642,7 +642,6 @@ function TopicStage({
       ]
         .filter(Boolean)
         .join(" ")}
-      data-style-id="widescreen-title-card"
       data-topic-id="system-acts"
       data-current-scene={safeScene}
       aria-label={copy.title}

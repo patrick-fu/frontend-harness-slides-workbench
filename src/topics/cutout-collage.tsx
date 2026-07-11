@@ -5,7 +5,7 @@ import {
   type TopicMetadata,
   type TopicStageProps,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import styles from "./cutout-collage.module.css";
 
 // ─── Content ────────────────────────────────────────────────────────────────

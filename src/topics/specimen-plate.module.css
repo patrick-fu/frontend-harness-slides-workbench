@@ -1,18 +1,18 @@
-/* Style 26: Botanical Specimen Plate — Craft & Cultural */
+/* Botanical Specimen Plate — Craft & Cultural */
 /* Herbarium sheet: aged paper, iron-gall sepia ink, muted naturalist palette */
 
 .root {
-  --style-26-bg: #f0e6d2;
-  --style-26-ink: #3d2b1f;
-  --style-26-panel: #e8dcc4;
-  --style-26-seal: #8a3a2a;
-  --style-26-green: #5a7a4a;
+  --topic-bg: #f0e6d2;
+  --topic-ink: #3d2b1f;
+  --topic-panel: #e8dcc4;
+  --topic-seal: #8a3a2a;
+  --topic-green: #5a7a4a;
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
-  background: var(--style-26-bg);
-  color: var(--style-26-ink);
+  background: var(--topic-bg);
+  color: var(--topic-ink);
   font-family: "Cormorant Garamond", "Noto Serif SC", "Inter", system-ui, serif;
 }
 
@@ -133,7 +133,7 @@
   font-weight: 900;
   line-height: 1;
   margin: 0;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   letter-spacing: 0.1em;
 }
 
@@ -143,7 +143,7 @@
   margin: 1.5cqh 0 0;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   opacity: 0.5;
   font-family: "Inter", system-ui, sans-serif;
 }
@@ -151,7 +151,7 @@
 .inkDrop {
   width: 2cqh;
   height: 2cqh;
-  background: var(--style-26-ink);
+  background: var(--topic-ink);
   border-radius: 50%;
   margin: 3cqh auto;
   opacity: 0.6;
@@ -161,7 +161,7 @@
   font-size: 3cqh;
   font-weight: 400;
   margin: 0;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   opacity: 0.65;
   font-family: "Inter", system-ui, sans-serif;
 }
@@ -181,7 +181,7 @@
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   opacity: 0.5;
   font-family: "Inter", system-ui, sans-serif;
   margin-bottom: 1cqh;
@@ -191,7 +191,7 @@
   font-size: 5.5cqh;
   font-weight: 700;
   margin: 0 0 4cqh;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
 }
 
 .treasuresGrid {
@@ -202,13 +202,13 @@
 }
 
 .treasureCard {
-  background: var(--style-26-panel);
+  background: var(--topic-panel);
   padding: 3cqh 1.5cqw;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  border-top: 0.4cqh solid var(--style-26-ink);
+  border-top: 0.4cqh solid var(--topic-ink);
   opacity: 0;
   transform: translateY(2cqh);
   transition: opacity 0.8s ease, transform 0.8s ease;
@@ -223,14 +223,14 @@
   font-size: 9cqh;
   font-weight: 900;
   line-height: 1;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   margin-bottom: 1.5cqh;
 }
 
 .treasureName {
   font-size: 3cqh;
   font-weight: 700;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   font-family: "Inter", system-ui, sans-serif;
   margin-bottom: 0.8cqh;
 }
@@ -238,7 +238,7 @@
 .treasureDesc {
   font-size: 2cqh;
   line-height: 1.5;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   opacity: 0.65;
   margin: 0;
   font-family: "Inter", system-ui, sans-serif;
@@ -278,7 +278,7 @@
   left: 0;
   right: 0;
   height: 20cqh;
-  background: linear-gradient(to top, var(--style-26-bg) 0%, transparent 100%);
+  background: linear-gradient(to top, var(--topic-bg) 0%, transparent 100%);
   pointer-events: none;
 }
 
@@ -293,7 +293,7 @@
 .poemText {
   font-size: 4.5cqh;
   font-weight: 700;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   margin: 0;
   line-height: 1.6;
   writing-mode: vertical-rl;
@@ -301,7 +301,7 @@
 
 .poemEn {
   font-size: 2cqh;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   opacity: 0.5;
   margin: 1cqh 0 0;
   font-family: "Inter", system-ui, sans-serif;
@@ -344,7 +344,7 @@
   gap: 2cqw;
   align-items: baseline;
   padding: 2cqh 2cqw;
-  border-bottom: 0.15cqh solid var(--style-26-ink);
+  border-bottom: 0.15cqh solid var(--topic-ink);
   opacity: 0;
   transform: translateX(-1.5cqw);
   transition: opacity 0.7s ease, transform 0.7s ease;
@@ -358,19 +358,19 @@
 .masterName {
   font-size: 3.8cqh;
   font-weight: 700;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
 }
 
 .masterEra {
   font-size: 2.4cqh;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   opacity: 0.55;
   font-family: "Inter", system-ui, sans-serif;
 }
 
 .masterWork {
   font-size: 2.6cqh;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   opacity: 0.7;
   font-family: "Inter", system-ui, sans-serif;
   font-style: italic;
@@ -399,20 +399,20 @@
   font-size: 7cqh;
   font-weight: 700;
   margin: 0;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   text-align: center;
   line-height: 1.4;
 }
 
 .closingAccent {
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   opacity: 0.6;
   font-weight: 400;
 }
 
 .closingSub {
   font-size: 2.8cqh;
-  color: var(--style-26-ink);
+  color: var(--topic-ink);
   opacity: 0.5;
   margin-top: 2.5cqh;
   font-family: "Inter", system-ui, sans-serif;
@@ -425,7 +425,7 @@
   right: 10cqw;
   padding: 1.2cqh 1.8cqw;
   background: transparent;
-  color: var(--style-26-seal);
+  color: var(--topic-seal);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -433,7 +433,7 @@
   font-weight: 600;
   font-family: "Cormorant Garamond", serif;
   font-style: italic;
-  border: 0.15cqh solid var(--style-26-seal);
+  border: 0.15cqh solid var(--topic-seal);
   border-radius: 0.3cqh;
   opacity: 0.7;
   letter-spacing: 0.05em;
@@ -454,7 +454,7 @@
 .navItem {
   width: 3.5cqh;
   height: 3.5cqh;
-  border: 0.2cqh solid var(--style-26-ink);
+  border: 0.2cqh solid var(--topic-ink);
   background: transparent;
   cursor: pointer;
   display: flex;
@@ -465,16 +465,16 @@
   transition: background 0.3s ease;
 }
 
-.navItem:hover { background: var(--style-26-ink); }
-.navItem:hover .navDot { background: var(--style-26-bg); }
+.navItem:hover { background: var(--topic-ink); }
+.navItem:hover .navDot { background: var(--topic-bg); }
 
-.navItemActive { background: var(--style-26-ink); }
-.navItemActive .navDot { background: var(--style-26-bg); }
+.navItemActive { background: var(--topic-ink); }
+.navItemActive .navDot { background: var(--topic-bg); }
 
 .navDot {
   width: 1.2cqh;
   height: 1.2cqh;
-  background: var(--style-26-ink);
+  background: var(--topic-ink);
   border-radius: 50%;
   transition: background 0.3s ease;
 }

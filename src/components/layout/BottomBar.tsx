@@ -1,7 +1,7 @@
-import type { SceneMetadata } from "../../types";
+import type { TopicMetadata } from "../../domain/topic";
 
 export interface BottomBarProps {
-  scenes: SceneMetadata[];
+  scenes: TopicMetadata["scenes"];
   currentScene: number;
   currentBeat: number;
   onPrev: () => void;

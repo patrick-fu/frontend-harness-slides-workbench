@@ -5,8 +5,8 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
-import type { SceneTransitionMap } from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
+import type { SceneTransitionMap } from "../components/stage/SpatialSceneTrack";
 import styles from "./why-we-chose-monorepo.module.css";
 
 /* ── Design DNA: Decision Record ──────────────────────────────────────────
@@ -672,7 +672,6 @@ function TopicStage({
   return (
     <div
       data-topic-id="why-we-chose-monorepo"
-      data-style-id="decision-record"
       style={{
         width: "100%",
         height: "100%",

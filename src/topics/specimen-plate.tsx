@@ -6,12 +6,12 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import styles from "./specimen-plate.module.css";
 
 function useFonts() {
   useEffect(() => {
-    const id = "style-26-fonts";
+    const id = "specimen-plate-fonts";
     if (document.getElementById(id)) return;
     const link = document.createElement("link");
     link.id = id;

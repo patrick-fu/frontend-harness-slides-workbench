@@ -9,11 +9,11 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 import styles from "./rogue-wave.module.css";
 
 type Language = TopicStageProps["language"];
@@ -1178,7 +1178,6 @@ function TopicStage({
         .filter(Boolean)
         .join(" ")}
       data-topic-id="rogue-wave"
-      data-style-id="front-page-broadsheet"
       data-motion={motionDisabled ? "off" : "restrained"}
     >
       <SpatialSceneTrack

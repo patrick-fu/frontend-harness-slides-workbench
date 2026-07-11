@@ -1,11 +1,11 @@
 import { useCallback, useMemo, useState, type MouseEvent } from "react";
-import type { StyleRegistryEntry } from "../types";
+import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
 import {
   buildCatalogTopics,
   filterCatalogTopics,
   getCatalogFacetCounts,
   type CatalogFilters,
-  type CatalogTopic,
+  type CatalogTopicEntry,
 } from "../utils/catalog-filter";
 import { modelColor } from "../utils/model-color";
 import { getShowcaseThumbnail } from "../data/showcase-thumbnails";
@@ -15,7 +15,7 @@ import FilterPanel, { type FilterOption } from "./FilterPanel";
 export type { CatalogFilters as OverviewFilters } from "../utils/catalog-filter";
 
 export interface OverviewViewProps {
-  registry: StyleRegistryEntry[];
+  registry: readonly RuntimeStyleGroup[];
   language: "en" | "zh";
   /** URL-owned Catalog facets. Overview never serializes them itself. */
   filters: CatalogFilters;
@@ -26,7 +26,7 @@ export interface OverviewViewProps {
   /** Handles an ordinary left-click so the shell can retain Catalog scroll state. */
   onOpenTopic: (styleId: string, topicId: string) => void;
   /** Warms the exact Stage chunk when intent is visible, without navigating. */
-  onPrefetchTopic?: (styleId: string, topicId: string) => void;
+  onPrefetchTopic?: (topicId: string) => void;
 }
 
 function toggleValue(values: string[], value: string): string[] {
@@ -66,16 +66,18 @@ function isPlainPrimaryClick(event: MouseEvent<HTMLAnchorElement>) {
 }
 
 interface TopicCardProps {
-  topic: CatalogTopic;
+  topic: CatalogTopicEntry;
+  language: "en" | "zh";
   href: string;
   isStyleGroupStart: boolean;
   styleNumber: string;
   onOpenTopic: (styleId: string, topicId: string) => void;
-  onPrefetchTopic?: (styleId: string, topicId: string) => void;
+  onPrefetchTopic?: (topicId: string) => void;
 }
 
 function TopicCard({
   topic,
+  language,
   href,
   isStyleGroupStart,
   styleNumber,
@@ -83,31 +85,31 @@ function TopicCard({
   onPrefetchTopic,
 }: TopicCardProps) {
   const [isThumbnailLoaded, setIsThumbnailLoaded] = useState(false);
-  const thumbnailSrc = getShowcaseThumbnail(topic.styleId, topic.topicId);
-  const cardLabel = `${topic.styleName}: ${topic.topicName}, ${topic.model}`;
+  const thumbnailSrc = getShowcaseThumbnail(topic.topic.id);
+  const cardLabel = `${topic.style.name[language]}: ${topic.topic.title[language]}, ${topic.topic.modelId}`;
 
   const handleOpen = useCallback(
     (event: MouseEvent<HTMLAnchorElement>) => {
       if (!isPlainPrimaryClick(event)) return;
       event.preventDefault();
-      onOpenTopic(topic.styleId, topic.topicId);
+      onOpenTopic(topic.style.id, topic.topic.id);
     },
-    [onOpenTopic, topic.styleId, topic.topicId],
+    [onOpenTopic, topic.style.id, topic.topic.id],
   );
 
   return (
     <article
       data-testid="topic-card"
-      data-topic-key={`${topic.styleId}/${topic.topicId}`}
+      data-topic-key={`${topic.style.id}/${topic.topic.id}`}
       className="min-w-0"
     >
       <a
         href={href}
         aria-label={cardLabel}
         onClick={handleOpen}
-        onMouseEnter={() => onPrefetchTopic?.(topic.styleId, topic.topicId)}
-        onFocus={() => onPrefetchTopic?.(topic.styleId, topic.topicId)}
-        onTouchStart={() => onPrefetchTopic?.(topic.styleId, topic.topicId)}
+        onMouseEnter={() => onPrefetchTopic?.(topic.topic.id)}
+        onFocus={() => onPrefetchTopic?.(topic.topic.id)}
+        onTouchStart={() => onPrefetchTopic?.(topic.topic.id)}
         className={[
           "group block overflow-hidden rounded-2xl border border-ink/12 bg-panel shadow-sm transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-ink/28 hover:shadow-md focus-visible:outline-offset-4",
           isStyleGroupStart ? "border-l-2" : "",
@@ -128,17 +130,17 @@ function TopicCard({
             className="absolute inset-0 flex items-end bg-[radial-gradient(circle_at_82%_14%,rgba(255,255,255,0.25),transparent_36%)] p-4"
           >
             <span className="min-w-0 max-w-[78%]" style={{ color: topic.metadata.colors.ink }}>
-              <span className="block truncate text-sm font-semibold">{topic.topicName}</span>
+              <span className="block truncate text-sm font-semibold">{topic.topic.title[language]}</span>
               <span className="mt-1 flex items-center gap-1.5 font-mono text-[9px] opacity-65">
-                <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: modelColor(topic.model) }} />
-                <span className="truncate">{topic.model}</span>
+                <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: modelColor(topic.topic.modelId) }} />
+                <span className="truncate">{topic.topic.modelId}</span>
               </span>
             </span>
           </div>
           {thumbnailSrc && (
             <img
               src={thumbnailSrc}
-              alt={`${topic.topicName} thumbnail`}
+              alt={`${topic.topic.title[language]} thumbnail`}
               loading="lazy"
               decoding="async"
               onLoad={() => setIsThumbnailLoaded(true)}
@@ -151,28 +153,28 @@ function TopicCard({
           )}
           {isStyleGroupStart && (
             <div
-              data-testid={`style-group-marker-${topic.styleId}`}
+              data-testid={`style-group-marker-${topic.style.id}`}
               className="absolute left-3 top-3 max-w-[calc(100%-1.5rem)] truncate rounded-full border border-white/25 bg-black/55 px-2.5 py-1 text-[10px] font-semibold tracking-[0.08em] text-white shadow-sm backdrop-blur-sm"
             >
-              {styleNumber} · {topic.styleName}
+              {styleNumber} · {topic.style.name[language]}
             </div>
           )}
         </div>
 
         <div className="flex h-11 min-w-0 items-center gap-2 px-3">
           <span className="min-w-0 flex-1 truncate text-xs font-semibold text-ink">
-            {topic.topicName}
+            {topic.topic.title[language]}
           </span>
           <span
             aria-hidden="true"
             className="h-1.5 w-1.5 shrink-0 rounded-full"
-            style={{ backgroundColor: modelColor(topic.model) }}
+            style={{ backgroundColor: modelColor(topic.topic.modelId) }}
           />
           <span
-            title={topic.model}
+            title={topic.topic.modelId}
             className="max-w-[40%] shrink truncate font-mono text-[10px] text-ink/55"
           >
-            {topic.model}
+            {topic.topic.modelId}
           </span>
         </div>
       </a>
@@ -194,11 +196,11 @@ export default function OverviewView({
     [language, registry],
   );
   const knownBands = useMemo(
-    () => new Set<string>(allTopics.map((topic) => topic.band)),
+    () => new Set<string>(allTopics.map((topic) => topic.style.band)),
     [allTopics],
   );
   const knownModels = useMemo(
-    () => new Set(allTopics.map((topic) => topic.model)),
+    () => new Set<string>(allTopics.map((topic) => topic.topic.modelId)),
     [allTopics],
   );
   const unavailableBands = filters.bands.filter((band) => !knownBands.has(band));
@@ -219,21 +221,21 @@ export default function OverviewView({
     [allTopics, filters],
   );
   const totalStyles = useMemo(
-    () => new Set(allTopics.map((topic) => topic.styleId)).size,
+    () => new Set(allTopics.map((topic) => topic.style.id)).size,
     [allTopics],
   );
   const styleNumbers = useMemo(
     () =>
       new Map(
-        registry.map((style, index) => [
-          style.id,
+        registry.map((group, index) => [
+          group.style.id,
           String(index + 1).padStart(2, "0"),
         ]),
       ),
     [registry],
   );
   const visibleStyles = useMemo(
-    () => new Set(visibleTopics.map((topic) => topic.styleId)).size,
+    () => new Set(visibleTopics.map((topic) => topic.style.id)).size,
     [visibleTopics],
   );
   const bandOptions = useMemo<FilterOption[]>(() => {
@@ -252,9 +254,9 @@ export default function OverviewView({
   }, [facetCounts.bands, language]);
   const modelOptions = useMemo<FilterOption[]>(
     () =>
-      facetCounts.models.map(({ model, count }) => ({
-        value: model,
-        label: model,
+      facetCounts.models.map(({ modelId, count }) => ({
+        value: modelId,
+        label: modelId,
         count,
         disabled: count === 0,
       })),
@@ -374,15 +376,16 @@ export default function OverviewView({
               }}
             >
               {visibleTopics.map((topic) => {
-                const isStyleGroupStart = lastStyleId !== topic.styleId;
-                lastStyleId = topic.styleId;
+                const isStyleGroupStart = lastStyleId !== topic.style.id;
+                lastStyleId = topic.style.id;
                 return (
                   <TopicCard
-                    key={`${topic.styleId}/${topic.topicId}`}
+                    key={`${topic.style.id}/${topic.topic.id}`}
                     topic={topic}
-                    href={getTopicHref(topic.styleId, topic.topicId)}
+                    language={language}
+                    href={getTopicHref(topic.style.id, topic.topic.id)}
                     isStyleGroupStart={isStyleGroupStart}
-                    styleNumber={styleNumbers.get(topic.styleId) ?? ""}
+                    styleNumber={styleNumbers.get(topic.style.id) ?? ""}
                     onOpenTopic={onOpenTopic}
                     onPrefetchTopic={onPrefetchTopic}
                   />

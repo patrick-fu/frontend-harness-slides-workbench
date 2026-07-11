@@ -6,7 +6,7 @@ import {
   type TopicStageProps,
   type TopicTransitionScore,
 } from "../domain/topic";
-import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import SpatialSceneTrack from "../components/stage/SpatialSceneTrack";
 import styles from "./mixing-console.module.css";
 import { useFLIP } from "../hooks/useFLIP";
 
@@ -14,7 +14,7 @@ import { useFLIP } from "../hooks/useFLIP";
 
 function useFonts() {
   useEffect(() => {
-    const id = "style-15-fonts";
+    const id = "mixing-console-fonts";
     if (document.getElementById(id)) return;
     const link = document.createElement("link");
     link.id = id;

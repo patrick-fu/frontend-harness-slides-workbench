@@ -50,7 +50,7 @@ const BEAT_COUNTS: Record<number, number> = {
   5: 1,
 };
 
-describe("Style 02: Swiss Precision — render coverage", () => {
+describe("Swiss Grid — render coverage", () => {
   it("renders all 5 scenes × all beats without throwing", () => {
     for (let scene = 1; scene <= 5; scene++) {
       const beats = BEAT_COUNTS[scene];
@@ -61,7 +61,7 @@ describe("Style 02: Swiss Precision — render coverage", () => {
   });
 });
 
-describe("Style 02: Swiss Precision — thumbnail mode", () => {
+describe("Swiss Grid — thumbnail mode", () => {
   it("renders no nav buttons when isThumbnail=true", () => {
     renderStage({ isThumbnail: true, onNavigate: undefined });
     const navBtns = screen
@@ -77,7 +77,7 @@ describe("Style 02: Swiss Precision — thumbnail mode", () => {
   });
 });
 
-describe("Style 02: Swiss Precision — navigation presence", () => {
+describe("Swiss Grid — navigation presence", () => {
   it("renders 5 nav buttons when not in thumbnail mode", () => {
     renderStage({ isThumbnail: false });
     const navBtns = screen
@@ -89,7 +89,7 @@ describe("Style 02: Swiss Precision — navigation presence", () => {
   });
 });
 
-describe("Style 02: Swiss Precision — navigation behavior", () => {
+describe("Swiss Grid — navigation behavior", () => {
   it("clicking nav calls onNavigate with (sceneId, 0)", () => {
     const { onNavigate } = renderStage({ scene: 1, beat: 0 });
     const btn = screen
@@ -101,7 +101,7 @@ describe("Style 02: Swiss Precision — navigation behavior", () => {
   });
 });
 
-describe("Style 02: Swiss Precision — overflow check", () => {
+describe("Swiss Grid — overflow check", () => {
   it("does not overflow the Stage", () => {
     for (let scene = 1; scene <= 5; scene++) {
       const beats = BEAT_COUNTS[scene];
@@ -115,7 +115,7 @@ describe("Style 02: Swiss Precision — overflow check", () => {
   });
 });
 
-describe("Style 02: Swiss Precision — metadata structure", () => {
+describe("Swiss Grid — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
     expect(definition.styleId).toBe("objective-swiss-grid");

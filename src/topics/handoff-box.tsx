@@ -8,7 +8,7 @@ import {
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "../styles/SpatialSceneTrack";
+} from "../components/stage/SpatialSceneTrack";
 
 type Language = "en" | "zh";
 type SceneId = 1 | 2 | 3 | 4 | 5;
