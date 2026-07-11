@@ -14,6 +14,14 @@ _Avoid_: Slide, deck, version
 A unique, self-contained presentation with its own bilingual title that combines subject matter with a Style. It is independently addressable and does not belong to a model batch or version family.
 _Avoid_: Slide, deck, version, variant, Topic Set member
 
+**Topic ID（题材标识）**:
+The globally unique, stable semantic identifier of one Topic. It is sufficient
+to select the Topic in authoring tools and names the Topic's implementation,
+focused test, optional CSS module, and showcase WebP. Moving the Topic between
+Styles does not change its Topic ID; public Navigation State still addresses
+the Topic with its Style and Topic ID.
+_Avoid_: Style-local ID, generated suffix, ordinal, model-qualified ID
+
 **Band（风格族）**:
 A high-level visual family that groups related Styles. It classifies visual identity rather than subject matter.
 _Avoid_: Content Territory
@@ -25,11 +33,23 @@ A major narrative unit within a Topic. It contains a coherent part of the Topic'
 A meaningful story state within a Scene. It changes audience understanding rather than merely decorating a transition.
 
 **Model ID（模型标识）**:
-A provenance label that records which model authored a Topic. It is descriptive metadata, not a collection identity or an authoring contract.
-_Avoid_: Version, batch, Topic Set
+The canonical, exact provenance label that records which model authored a
+Topic. An explicit Model ID registry defines allowed values; Topics must match
+one exactly. It permits no aliases or normalization and is descriptive
+metadata, not a collection identity or an authoring contract. Catalog filters
+show only values used by the Topic Registry and order them by first Topic
+appearance rather than by the Model ID registry.
+_Avoid_: Version, batch, Topic Set, normalized alias
+
+The corresponding public contract field is always `modelId`. The shorter
+`model` field is not part of the domain vocabulary.
 
 **Registry（注册表）**:
-The canonical ordered collection of Style Groups and their Topics. It supplies Catalog Order without becoming part of Topic identity.
+The canonical author-maintained two-dimensional collection of Topics. Its
+outer arrays order Style Groups and each inner array orders Topics of exactly
+one Style. It is the sole hand-edited source of Catalog Order; the Manifest,
+runtime Registry, and Stage loading map derive from it without becoming part
+of Topic identity.
 
 **Catalog Order（目录顺序）**:
 The sequence produced by ordered Style Groups and the ordered Topics inside each group. It controls Catalog presentation and sequential Player navigation but carries no identity or priority meaning.
@@ -49,6 +69,13 @@ _Avoid_: Lab View
 **Stage（舞台）**:
 The bounded presentation canvas that displays a Topic. It preserves the Topic's visual composition as the focus of viewing.
 _Avoid_: Page, browser viewport
+
+**TopicStage（题材舞台组件）**:
+The module-local React component that renders one Topic on the Stage. Every
+Topic implementation uses this same internal component name; Topic identity
+lives in its module basename and TopicDefinition rather than the component
+symbol.
+_Avoid_: Topic-named component, Style component, versioned component
 
 **Envelope（外壳）**:
 The Workbench interface surrounding the Stage. It holds global and Player controls without becoming Topic content.
@@ -114,45 +141,15 @@ Continuous Player progression from one Topic to another. It keeps narrative move
 **Share Link（分享链接）**:
 A portable reference to a Navigation State. It opens the same selected context for another viewer.
 
-### Curation
+### Topic protocols
 
 **Evidence（证据边界）**:
-The declaration that classifies Topic claims as source-backed facts or as an
-illustrative scenario, including the localized boundary that prevents examples
-from being mistaken for measured facts.
-
-**Content Territory（内容疆域）**:
-A subject-area partition that places a Topic within a Topic Set. It is independent of Style and Band.
-_Avoid_: Band
-
-**Narrative Archetype（叙事原型）**:
-The story logic that organizes a Topic's Scenes. It is independent of Content Territory and Style.
-_Avoid_: Layout template, transition preset
-
-**Viewing Mode（观看模式）**:
-The intended reading or viewing profile of a Topic. It guides density and readability rather than visual identity.
-_Avoid_: Style category, Visual Engine
-
-**Visual Engine（主视觉引擎）**:
-The dominant visual medium or mechanism through which a Topic expresses its subject. It is independent of Viewing Mode and Intensity.
-_Avoid_: Animation style
-
-**Motion Language（动画语言）**:
-The material-specific vocabulary for temporal change within a Topic. It describes how content reveals or transforms.
-_Avoid_: Transition
-
-**Intensity（运动强度）**:
-The intended ceiling for a Topic's visual change. It represents an attention budget rather than speed or quality.
-_Avoid_: Speed, spectacle score
-
-**Navigation Language（导航语言）**:
-The geometry and feedback character of a Topic's Internal Navigation. It is distinct from Player Transport.
-_Avoid_: Navigation bar
+The explicit declaration that a Topic has no external claim, presents an
+illustrative scenario, makes source-backed factual claims, or mixes sourced
+facts with illustrative material. Illustrative and mixed Evidence include the
+localized boundary that prevents examples from being mistaken for measured
+facts; factual and mixed Evidence own their Sources.
 
 **Transition Score（转场乐谱）**:
 The authored sequence of scene-to-scene transitions within a Topic. It gives narrative movement a deliberate rhythm.
 _Avoid_: Global transition preset
-
-**Signature Effect（签名效果）**:
-A rare bespoke visual change that embodies a Topic's visual metaphor. It is an accent rather than a general transition pattern.
-_Avoid_: Decorative one-off effect

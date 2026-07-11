@@ -17,3 +17,9 @@ Repeated declarations drift, while inferred identity couples naming to storage o
 ## Consequences
 
 Overview, Player, search, and navigation resolve Style identity through the canonical map. Topic metadata retains Topic-specific presentation data, and the two-dimensional Topic Registry remains the only source of Style Group and Topic order.
+
+The unified-contract migration preserves the existing Style IDs, Catalog
+bilingual names, Bands, and semantic Topic titles. It moves those canonical
+Style values into the map and removes duplicated Topic Metadata declarations
+without rewriting Catalog or presentation copy except to remove structural
+ordinal, version, or batch wording.
