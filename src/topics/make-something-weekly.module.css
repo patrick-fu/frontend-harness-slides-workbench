@@ -1,0 +1,270 @@
+/* Riso Print Zine — "Make Something Weekly"
+   Warm aged-stock ground, 2 spot inks + muddy overprint, grain on every slide,
+   misregistration + rotated stamps, blunt print-registration motion.
+   Layout dimensions in cqw/cqh only. */
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Work Sans", "Noto Sans SC", sans-serif;
+}
+
+/* reduced-motion / thumbnail kill switch */
+.root[data-reduced="true"] *,
+.root[data-reduced="true"] *::before,
+.root[data-reduced="true"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+/* fine paper grain layer over the whole stage */
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  mix-blend-mode: multiply;
+  opacity: 0.16;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 16cqw 16cqw;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 7cqh 8cqw;
+  box-sizing: border-box;
+}
+
+/* ---- shared type voices ---- */
+.kicker {
+  font-family: "Work Sans", "Noto Sans SC", sans-serif;
+  font-weight: 600;
+  font-size: 1.5cqw;
+  letter-spacing: 0.5cqw;
+  text-transform: uppercase;
+}
+.script {
+  font-family: "Caveat", "Noto Sans SC", cursive;
+  font-weight: 700;
+  line-height: 1;
+}
+.body {
+  font-family: "Work Sans", "Noto Sans SC", sans-serif;
+  font-weight: 500;
+  line-height: 1.32;
+}
+
+/* ---- misregistered title ---- */
+.mis {
+  position: relative;
+  display: inline-block;
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+.misBack {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(0.55cqw, 0.5cqh);
+  animation: drift 7s ease-in-out infinite;
+}
+.misFront { position: relative; display: block; }
+
+@keyframes drift {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(0.35cqw, -0.25cqh); }
+  50%  { transform: translate(-0.3cqw, 0.3cqh); }
+  75%  { transform: translate(0.28cqw, 0.18cqh); }
+  100% { transform: translate(0, 0); }
+}
+
+/* jerky settle-with-offset entrance (single-beat scenes) */
+.enter { animation: rise 460ms steps(5, end) both; }
+@keyframes rise {
+  0%   { opacity: 0; transform: translateY(2cqh) rotate(-1deg); }
+  60%  { opacity: 1; transform: translateY(-0.5cqh) rotate(0.4deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+
+/* ---- Scene 1 : cover ---- */
+.cover { display: flex; flex-direction: column; height: 100%; justify-content: space-between; }
+.coverTop { display: flex; justify-content: space-between; align-items: flex-start; }
+.coverTitle { font-size: 15cqw; }
+.coverScript { font-size: 4.4cqw; }
+.coverFoot {
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  font-size: 2.4cqw;
+  letter-spacing: 0.4cqw;
+  text-transform: uppercase;
+}
+.coverBar { height: 1.1cqh; width: 44cqw; }
+
+/* ---- Scene 2 : manifesto ---- */
+.manifestoStack {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6cqh;
+  height: 100%;
+  justify-content: center;
+  max-width: 82cqw;
+}
+.manifestoSlab {
+  position: absolute;
+  left: 4cqw;
+  top: 14cqh;
+  width: 70cqw;
+  height: 62cqh;
+  transform: rotate(-2.2deg);
+  z-index: 0;
+}
+.manifestoLine  { font-family: "Anton", "Noto Sans SC", sans-serif; font-weight: 900; font-size: 11cqw; line-height: 0.86; text-transform: uppercase; }
+.manifestoLine2 { font-family: "Anton", "Noto Sans SC", sans-serif; font-weight: 900; font-size: 11cqw; line-height: 0.86; text-transform: uppercase; }
+.manifestoBody  { font-size: 2cqw; max-width: 52cqw; }
+.tape {
+  position: absolute;
+  z-index: 6;
+  top: 20cqh;
+  right: 6cqw;
+  transform: rotate(9deg);
+  padding: 1.1cqh 2.2cqw;
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  font-size: 1.8cqw;
+  letter-spacing: 0.3cqw;
+  text-transform: uppercase;
+  animation: tapein 520ms steps(4, end) both;
+}
+@keyframes tapein {
+  0% { opacity: 0; transform: rotate(9deg) translateY(-3cqh); }
+  100% { opacity: 1; transform: rotate(9deg) translateY(0); }
+}
+
+/* ---- Scene 3 : method (reserved) ---- */
+.methodHead { font-family: "Anton", "Noto Sans SC", sans-serif; font-weight: 900; font-size: 4cqw; text-transform: uppercase; margin-bottom: 3cqh; letter-spacing: 0.2cqw; }
+.methodRow { display: flex; gap: 3cqw; align-items: stretch; height: 66cqh; }
+.methodPanel {
+  position: relative;
+  flex: 1;
+  padding: 3.4cqh 2.4cqw;
+  box-sizing: border-box;
+  transition: opacity 320ms steps(4, end), transform 320ms steps(4, end);
+  opacity: 0.42;
+  transform: translateY(1.4cqh) rotate(var(--tilt, 0deg));
+}
+.methodPanel[data-active="true"] {
+  opacity: 1;
+  transform: translateY(0) rotate(var(--tilt, 0deg)) scale(1.03);
+}
+.methodStamp {
+  position: absolute;
+  top: -2.6cqh;
+  right: -1cqw;
+  width: 8cqw;
+  height: 8cqw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  font-size: 3cqw;
+  transform: rotate(-11deg);
+}
+.methodTitle { font-family: "Anton", "Noto Sans SC", sans-serif; font-weight: 900; font-size: 5.2cqw; text-transform: uppercase; line-height: 0.92; margin: 0 0 2cqh; }
+.methodBody { font-size: 1.7cqw; }
+
+/* ---- Scene 4 : gallery (motion) ---- */
+.galleryHead { font-family: "Anton", "Noto Sans SC", sans-serif; font-weight: 900; font-size: 4cqw; text-transform: uppercase; letter-spacing: 0.2cqw; }
+.galleryWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.4cqh 0;
+  align-content: center;
+  height: 70cqh;
+  padding-top: 1cqh;
+}
+.sample {
+  width: 26cqw;
+  height: 30cqh;
+  margin-left: -3cqw;
+  padding: 2cqh 1.8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: rotate(var(--tilt, 0deg));
+}
+.sampleTag { font-family: "Work Sans", "Noto Sans SC", sans-serif; font-weight: 700; font-size: 1.5cqw; letter-spacing: 0.3cqw; text-transform: uppercase; }
+.sampleLabel { font-family: "Anton", "Noto Sans SC", sans-serif; font-weight: 900; font-size: 3cqw; line-height: 0.94; text-transform: uppercase; }
+.sampleSwatch { height: 8cqh; width: 100%; }
+.byline { position: absolute; bottom: 5cqh; right: 8cqw; font-family: "Caveat", "Noto Sans SC", cursive; font-weight: 700; font-size: 3.6cqw; transform: rotate(-4deg); z-index: 8; }
+
+/* ---- Scene 5 : colophon ---- */
+.colophon { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; gap: 3cqh; }
+.seal {
+  width: 26cqw;
+  height: 26cqw;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-7deg);
+  animation: press 620ms steps(4, end) both;
+}
+.sealMark { font-family: "Anton", "Noto Sans SC", sans-serif; font-weight: 900; font-size: 6.4cqw; text-transform: uppercase; line-height: 0.9; }
+.sealSub { font-family: "Work Sans", "Noto Sans SC", sans-serif; font-weight: 700; font-size: 1.4cqw; letter-spacing: 0.4cqw; text-transform: uppercase; margin-top: 0.6cqh; }
+.colTitle { font-family: "Anton", "Noto Sans SC", sans-serif; font-weight: 900; font-size: 6cqw; text-transform: uppercase; line-height: 0.9; }
+.colLines { font-family: "Work Sans", "Noto Sans SC", sans-serif; font-weight: 600; font-size: 1.6cqw; letter-spacing: 0.24cqw; text-transform: uppercase; line-height: 2; }
+.colScript { font-family: "Caveat", "Noto Sans SC", cursive; font-weight: 700; font-size: 3.6cqw; }
+
+@keyframes press {
+  0%   { opacity: 0; transform: rotate(-7deg) scale(0.55); }
+  55%  { opacity: 1; transform: rotate(-7deg) scale(1.14); }
+  72%  { transform: rotate(-7deg) scale(0.95); }
+  100% { transform: rotate(-7deg) scale(1); }
+}
+
+/* ---- Nav : stamped page-counter seal ---- */
+.navSeal {
+  position: absolute;
+  z-index: 60;
+  right: 3.4cqw;
+  bottom: 4cqh;
+  width: 11cqw;
+  height: 11cqw;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transform: rotate(-6deg);
+}
+.navRing {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.navNum { font-family: "Anton", "Noto Sans SC", sans-serif; font-weight: 900; font-size: 4.6cqw; line-height: 0.9; }
+.navLabel { font-family: "Work Sans", "Noto Sans SC", sans-serif; font-weight: 700; font-size: 1cqw; letter-spacing: 0.24cqw; text-transform: uppercase; margin-top: 0.3cqh; }
+.navPress { animation: press 480ms steps(4, end) both; }

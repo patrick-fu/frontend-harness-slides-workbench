@@ -1,0 +1,553 @@
+/* ── Style 22: Duotone Session ────────────────────────────────────────── */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--session-poster-bg, #1c1c20);
+  color: var(--session-poster-ink, #f0ece4);
+  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
+}
+
+/* ── Scene-to-scene transition: percussive snap ─────────────────────────
+   Outgoing: quick fade + slight scale-down
+   Incoming: sharp slide-up, decisive easing
+   Duration: 500ms total
+   ──────────────────────────────────────────────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.enterAnim {
+  animation: sessionEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  z-index: 2;
+}
+
+@keyframes sessionEnter {
+  from {
+    transform: translateY(4%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.exitAnim {
+  animation: sessionExit 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+  z-index: 1;
+}
+
+@keyframes sessionExit {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-3%);
+    opacity: 0;
+  }
+}
+
+/* ── Scene 1: Session Title (LP Sleeve) ────────────────────────────────── */
+
+.journalTitlePage {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Duotone photo area — occupies left 55% of canvas */
+.duotonePhotoArea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55%;
+  height: 100%;
+  /* Simulated duotone: B&W photo + ember tint overlay */
+  background:
+    linear-gradient(
+      135deg,
+      rgba(212, 100, 74, 0.35) 0%,
+      rgba(212, 100, 74, 0.15) 50%,
+      rgba(28, 28, 32, 0.6) 100%
+    ),
+    linear-gradient(
+      160deg,
+      #3a3a40 0%,
+      #2a2a30 30%,
+      #1e1e22 60%,
+      #28282e 100%
+    );
+}
+
+.duotonePhotoArea::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Ember tint wash — the duotone identity */
+  background: rgba(212, 100, 74, 0.12);
+  mix-blend-mode: multiply;
+}
+
+.sessionContent {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 5cqh 5cqw 5cqh 5cqw;
+  margin-left: 50%;
+}
+
+.sessionLabel {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.4cqh;
+  color: #d4644a;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-weight: 500;
+  margin-bottom: 2cqh;
+}
+
+.sessionTitle {
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
+  font-size: 11cqh;
+  font-weight: 700;
+  line-height: 0.92;
+  color: var(--session-poster-ink, #f0ece4);
+  margin: 0 0 2.5cqh 0;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.sessionSubtitle {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 2.2cqh;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--session-poster-ink, #f0ece4);
+  opacity: 0.6;
+  margin: 0 0 3cqh 0;
+}
+
+.sessionCatalog {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.3cqh;
+  color: var(--session-poster-ink, #f0ece4);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  opacity: 0.35;
+  font-weight: 400;
+  border-top: 0.04cqh solid rgba(240, 236, 228, 0.15);
+  padding-top: 1.5cqh;
+}
+
+/* ── Scene 2: Featured Artist ─────────────────────────────────────────── */
+
+.abstractScene {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.artistPhoto {
+  position: relative;
+  /* Duotone photo simulation */
+  background:
+    linear-gradient(
+      170deg,
+      rgba(212, 100, 74, 0.3) 0%,
+      rgba(212, 100, 74, 0.1) 40%,
+      rgba(28, 28, 32, 0.5) 100%
+    ),
+    linear-gradient(
+      150deg,
+      #353538 0%,
+      #28282e 35%,
+      #1e1e22 70%,
+      #2a2a30 100%
+    );
+}
+
+.artistPhoto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(212, 100, 74, 0.1);
+  mix-blend-mode: multiply;
+}
+
+.artistInfo {
+  padding: 5cqh 5cqw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.artistLabel {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.3cqh;
+  color: #d4644a;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-weight: 500;
+  margin-bottom: 2.5cqh;
+}
+
+.artistName {
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
+  font-size: 8cqh;
+  font-weight: 700;
+  line-height: 0.95;
+  color: var(--session-poster-ink, #f0ece4);
+  margin: 0 0 1.5cqh 0;
+  text-transform: uppercase;
+}
+
+.artistCredit {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 2.2cqh;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--session-poster-ink, #f0ece4);
+  opacity: 0.65;
+  margin: 0 0 3cqh 0;
+}
+
+.artistBio {
+  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
+  font-size: 2cqh;
+  line-height: 1.65;
+  color: var(--session-poster-ink, #f0ece4);
+  font-weight: 300;
+  max-width: 38cqw;
+}
+
+/* ── Scene 3: Track Listing ───────────────────────────────────────────── */
+
+.methodScene {
+  width: 100%;
+  height: 100%;
+  padding: 5cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.methodSectionHead {
+  border-bottom: 0.06cqh solid rgba(240, 236, 228, 0.12);
+  padding-bottom: 1.5cqh;
+  margin-bottom: 3cqh;
+}
+
+.lineupLabel {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.3cqh;
+  color: #d4644a;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-weight: 500;
+  margin-bottom: 0.8cqh;
+}
+
+.lineupTitle {
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
+  font-size: 6cqh;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--session-poster-ink, #f0ece4);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.trackList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.trackItem {
+  display: flex;
+  align-items: baseline;
+  gap: 2.5cqw;
+  padding: 1.8cqh 0;
+  border-bottom: 0.04cqh solid rgba(240, 236, 228, 0.08);
+}
+
+.trackItem:first-child {
+  border-top: 0.04cqh solid rgba(240, 236, 228, 0.08);
+}
+
+.trackNum {
+  font-family: "Oswald", "Impact", sans-serif;
+  font-size: 2.8cqh;
+  font-weight: 700;
+  color: #d4644a;
+  min-width: 4cqw;
+  line-height: 1;
+}
+
+.trackTitle {
+  flex: 1;
+  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
+  font-size: 2.4cqh;
+  font-weight: 400;
+  color: var(--session-poster-ink, #f0ece4);
+}
+
+.trackDuration {
+  font-family: "Inter", "Courier New", monospace;
+  font-size: 1.8cqh;
+  color: var(--session-poster-ink, #f0ece4);
+  opacity: 0.4;
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+}
+
+/* ── Scene 4: Technical Specs ─────────────────────────────────────────── */
+
+.resultsScene {
+  width: 100%;
+  height: 100%;
+  padding: 5cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.resultsHeader {
+  border-bottom: 0.06cqh solid rgba(240, 236, 228, 0.12);
+  padding-bottom: 1.5cqh;
+  margin-bottom: 3cqh;
+}
+
+.specsLabel {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.3cqh;
+  color: #d4644a;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-weight: 500;
+  margin-bottom: 0.8cqh;
+}
+
+.specsTitle {
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
+  font-size: 5.5cqh;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--session-poster-ink, #f0ece4);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.specsList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--session-poster-panel, #252530);
+  padding: 2cqh 3cqw;
+}
+
+.specItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1.5cqh 0;
+  border-bottom: 0.04cqh solid rgba(240, 236, 228, 0.06);
+}
+
+.specItem:last-child {
+  border-bottom: none;
+}
+
+.specItemLabel {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.6cqh;
+  color: var(--session-poster-ink, #f0ece4);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.45;
+  font-weight: 500;
+}
+
+.specItemValue {
+  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
+  font-size: 2.2cqh;
+  color: var(--session-poster-ink, #f0ece4);
+  font-weight: 400;
+}
+
+/* ── Scene 5: Closing Manifesto ───────────────────────────────────────── */
+
+.conclusionScene {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Full-bleed duotone background for closing */
+.closingDuotoneBg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(212, 100, 74, 0.2) 0%,
+      rgba(212, 100, 74, 0.05) 50%,
+      transparent 100%
+    ),
+    linear-gradient(
+      160deg,
+      #2e2e34 0%,
+      #222228 40%,
+      #1a1a1e 100%
+    );
+}
+
+.closingContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 8cqw;
+}
+
+.closingStatement {
+  font-family: "Oswald", "cjk:Noto Serif SC", "Impact", sans-serif;
+  font-size: 9cqh;
+  font-weight: 700;
+  line-height: 0.95;
+  color: var(--session-poster-ink, #f0ece4);
+  margin: 0 0 4cqh 0;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.closingCredit {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 2cqh;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--session-poster-ink, #f0ece4);
+  opacity: 0.5;
+  margin: 0;
+}
+
+/* ── Navigation indicators ─────────────────────────────────────────────── */
+
+.navIndicators {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.navIndicator {
+  position: absolute;
+  pointer-events: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.12;
+  transition: opacity 0.3s ease;
+}
+
+.navIndicator:hover {
+  opacity: 0.35;
+}
+
+.navIndicatorActive {
+  opacity: 0.25;
+}
+
+.navIndicatorActive:hover {
+  opacity: 0.5;
+}
+
+.navIndicator:nth-child(1) {
+  top: 6cqh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navIndicator:nth-child(2) {
+  top: 28cqh;
+  right: 5cqw;
+}
+
+.navIndicator:nth-child(3) {
+  bottom: 16cqh;
+  right: 10cqw;
+}
+
+.navIndicator:nth-child(4) {
+  bottom: 16cqh;
+  left: 10cqw;
+}
+
+.navIndicator:nth-child(5) {
+  top: 28cqh;
+  left: 5cqw;
+}
+
+.navIndicatorNum {
+  display: block;
+  font-family: "Oswald", "Impact", sans-serif;
+  font-size: 2.2cqh;
+  font-weight: 700;
+  color: var(--session-poster-ink, #f0ece4);
+  text-transform: uppercase;
+}
+
+.navIndicatorActive .navIndicatorNum {
+  color: #d4644a;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+.reducedMotion .sceneLayer,
+.reducedMotion .navIndicator {
+  transition-duration: 0s !important;
+}
+
+.reducedMotion .enterAnim,
+.reducedMotion .exitAnim {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+
+.reducedMotion .enterAnim {
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+.reducedMotion .exitAnim {
+  transform: none !important;
+  opacity: 0 !important;
+}
+
+/* ── Thumbnail mode ─────────────────────────────────────────────────────── */
+
+.thumbnail .navIndicators {
+  display: none;
+}

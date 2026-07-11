@@ -6,9 +6,10 @@ export type TopicDefinitionLoaders = Record<
   () => Promise<TopicDefinition>
 >;
 
-const topicModules = import.meta.glob<TopicDefinition>("../topics/*.tsx", {
-  import: "default",
-}) as TopicDefinitionLoaders;
+const topicModules = import.meta.glob<TopicDefinition>(
+  ["../topics/*.tsx", "!../topics/*.test.tsx"],
+  { import: "default" },
+) as TopicDefinitionLoaders;
 
 export function createTopicStageResolver(
   modules: TopicDefinitionLoaders = topicModules,

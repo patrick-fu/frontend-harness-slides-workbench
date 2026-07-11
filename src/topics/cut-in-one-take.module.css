@@ -1,0 +1,533 @@
+/* Duotone Session — "Cut in One Take"
+   Blue Note LP-sleeve record of a single perfect take.
+   Warm black ground, ONE flat cobalt spot ink over a B&W-feeling frame,
+   enormous condensed gothic, sparse high-contrast serif credits.
+   Flat ink only: no glow, no gradient-as-depth. cqw/cqh only. */
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--ds-bg);
+  color: var(--ds-ink);
+  font-family: var(--ds-gothic);
+  /* faint warm-stock tooth so the black reads as ink, not a void */
+  background-image:
+    repeating-linear-gradient(
+      93deg,
+      rgba(255, 255, 255, 0.012) 0 0.15cqw,
+      rgba(0, 0, 0, 0) 0.15cqw 2.2cqw
+    );
+}
+
+/* ---- panels ---- */
+.panel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ---- duotone frame (evokes a single-ink photo, no external image) ---- */
+.frame {
+  position: absolute;
+  background-color: #0d0a06;
+  overflow: hidden;
+  z-index: 0;
+}
+.frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* the cobalt "light on the subject" — the single spot ink */
+  background:
+    radial-gradient(
+      66cqw 92cqh at 58% 34%,
+      rgba(46, 86, 230, 0.66) 0%,
+      rgba(46, 86, 230, 0.24) 40%,
+      rgba(13, 10, 6, 0) 72%
+    );
+}
+.frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* printed-halftone rake so it reads as a duotone photo, not a smooth glow */
+  background-image: repeating-linear-gradient(
+    118deg,
+    rgba(46, 86, 230, 0.12) 0 0.5cqw,
+    rgba(13, 10, 6, 0) 0.5cqw 1.55cqw
+  );
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+/* stylized vocalist-at-mic silhouette, cut flat from the ink */
+.sil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.silBody {
+  position: absolute;
+  left: 30%;
+  bottom: 0;
+  width: 44cqw;
+  height: 52cqh;
+  background: #0a0703;
+  border-radius: 22cqw 22cqw 0 0;
+}
+.silHead {
+  position: absolute;
+  left: 44%;
+  bottom: 42cqh;
+  width: 15cqw;
+  height: 15cqw;
+  background: #0a0703;
+  border-radius: 50%;
+}
+.micStand {
+  position: absolute;
+  left: 24%;
+  bottom: 0;
+  width: 1.3cqw;
+  height: 60cqh;
+  background: #0a0703;
+}
+.micHead {
+  position: absolute;
+  left: 20%;
+  bottom: 54cqh;
+  width: 6.5cqw;
+  height: 10cqh;
+  background: #0a0703;
+  border: 0.4cqw solid rgba(46, 86, 230, 0.55);
+  border-radius: 50%;
+}
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-image:
+    radial-gradient(rgba(0, 0, 0, 0.22) 0.12cqw, rgba(0, 0, 0, 0) 0.13cqw);
+  background-size: 0.9cqw 0.9cqw;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+}
+
+/* ---- type ---- */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9cqw;
+  font-family: var(--ds-gothic);
+  font-weight: 600;
+  font-size: 1.5cqw;
+  letter-spacing: 0.55cqw;
+  text-transform: uppercase;
+  color: var(--ds-ink);
+  opacity: 0.86;
+}
+.tick {
+  width: 1.2cqw;
+  height: 1.2cqw;
+  background: var(--ds-spot);
+  flex: none;
+}
+.sceneTag {
+  font-family: var(--ds-gothic);
+  font-weight: 500;
+  font-size: 1.25cqw;
+  letter-spacing: 0.4cqw;
+  text-transform: uppercase;
+  color: var(--ds-spot);
+}
+.big {
+  font-family: var(--ds-gothic);
+  font-weight: 700;
+  font-size: 24cqw;
+  line-height: 0.8;
+  letter-spacing: -0.35cqw;
+  text-transform: uppercase;
+  color: var(--ds-ink);
+  margin: 0;
+  transform: scaleX(0.92); /* push the gothic condensed */
+  transform-origin: left center;
+  white-space: nowrap;
+}
+.bigLang[data-lang="zh"] {
+  transform: scaleX(1);
+  letter-spacing: 0.2cqw;
+}
+.credit {
+  font-family: var(--ds-serif);
+  font-weight: 600;
+  font-style: italic;
+  font-size: 2.3cqw;
+  line-height: 1.15;
+  color: var(--ds-ink);
+  margin: 0;
+  max-width: 46cqw;
+}
+
+/* ---- scene 1 : the sleeve ---- */
+.s1frame {
+  top: 0;
+  right: 0;
+  width: 60cqw;
+  height: 100cqh;
+}
+.s1block {
+  position: absolute;
+  left: 5cqw;
+  bottom: 12cqh;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2cqh;
+  align-items: flex-start;
+}
+
+/* ---- scene 2 : the setup ---- */
+.s2frame {
+  top: 0;
+  left: 0;
+  width: 44cqw;
+  height: 62cqh;
+}
+.s2head {
+  position: absolute;
+  right: 5cqw;
+  top: 9cqh;
+  z-index: 3;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6cqh;
+  align-items: flex-end;
+}
+.band {
+  position: absolute;
+  left: 0;
+  bottom: 12cqh;
+  z-index: 3;
+  width: 100cqw;
+  padding: 2.4cqh 6cqw;
+  background: #100b06;
+  border-top: 0.15cqw solid rgba(46, 86, 230, 0.6);
+  border-bottom: 0.15cqw solid rgba(46, 86, 230, 0.6);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3cqw;
+  transform: translateX(-11cqw);
+  opacity: 0;
+}
+.panel[data-active="true"] .band {
+  animation: slideBand 0.52s cubic-bezier(0.2, 0.85, 0.15, 1) both;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7cqh;
+  opacity: 0.4;
+  transition: opacity 0.34s ease, color 0.34s ease;
+}
+.field[data-lit="true"] {
+  opacity: 1;
+}
+.fieldKey {
+  font-family: var(--ds-gothic);
+  font-weight: 600;
+  font-size: 1.15cqw;
+  letter-spacing: 0.32cqw;
+  text-transform: uppercase;
+  color: var(--ds-spot);
+}
+.fieldVal {
+  font-family: var(--ds-serif);
+  font-weight: 600;
+  font-size: 1.95cqw;
+  color: var(--ds-ink);
+}
+
+/* ---- scene 3 : the take ---- */
+.s3frame {
+  top: 0;
+  right: 0;
+  width: 26cqw;
+  height: 100cqh;
+}
+.s3block {
+  position: absolute;
+  left: 6cqw;
+  top: 50cqh;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+  align-items: flex-start;
+}
+.slate {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4cqw;
+  padding: 1.1cqh 1.8cqw;
+  background: var(--ds-spot);
+  color: #0a0703;
+  font-family: var(--ds-gothic);
+  font-weight: 700;
+  font-size: 2cqw;
+  letter-spacing: 0.3cqw;
+  text-transform: uppercase;
+}
+.slateStripe {
+  width: 5cqw;
+  height: 2.4cqh;
+  background: repeating-linear-gradient(
+    -52deg,
+    #0a0703 0 0.9cqw,
+    var(--ds-spot) 0.9cqw 1.8cqw
+  );
+}
+
+/* ---- scene 4 : the groove ---- */
+.s4frame {
+  top: 6cqh;
+  right: 6cqw;
+  width: 30cqw;
+  height: 34cqh;
+}
+.s4head {
+  position: absolute;
+  left: 6cqw;
+  top: 8cqh;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4cqh;
+  align-items: flex-start;
+}
+.shelf {
+  position: absolute;
+  left: 0;
+  bottom: 11cqh;
+  z-index: 3;
+  width: 100cqw;
+  padding: 2.6cqh 6cqw 3cqh;
+  background: #0f0a05;
+  border-top: 0.15cqw solid rgba(46, 86, 230, 0.55);
+}
+.rows {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: grid;
+  grid-template-columns: 6cqw 1fr 12cqw;
+  align-items: baseline;
+  gap: 2cqw;
+  padding: 0.75cqh 0;
+  border-bottom: 0.1cqw solid rgba(243, 236, 224, 0.14);
+  opacity: 0.62;
+  transition: opacity 0.34s ease, background-color 0.34s ease;
+}
+.row[data-keeper="true"][data-lit="true"] {
+  opacity: 1;
+  background: rgba(46, 86, 230, 0.16);
+}
+.rowNum {
+  font-family: var(--ds-gothic);
+  font-weight: 700;
+  font-size: 1.7cqw;
+  letter-spacing: 0.15cqw;
+  color: var(--ds-spot);
+}
+.rowTitle {
+  font-family: var(--ds-serif);
+  font-weight: 600;
+  font-size: 2.5cqw;
+  color: var(--ds-ink);
+}
+.rowTime {
+  justify-self: end;
+  font-family: var(--ds-gothic);
+  font-weight: 500;
+  font-size: 1.7cqw;
+  letter-spacing: 0.1cqw;
+  color: var(--ds-ink);
+  opacity: 0.82;
+}
+
+/* ---- scene 5 : pressed ---- */
+.s5frame {
+  top: 0;
+  left: 0;
+  width: 52cqw;
+  height: 100cqh;
+}
+.s5block {
+  position: absolute;
+  right: 5cqw;
+  top: 12cqh;
+  z-index: 3;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2.4cqh;
+}
+.creditsSet {
+  display: flex;
+  flex-direction: column;
+  gap: 1cqh;
+  align-items: flex-end;
+}
+.creditLine {
+  font-family: var(--ds-serif);
+  font-weight: 600;
+  font-size: 2.1cqw;
+  color: var(--ds-ink);
+  margin: 0;
+}
+.stamp {
+  margin-top: 1.4cqh;
+  align-self: flex-end;
+  padding: 0.9cqh 1.6cqw;
+  border: 0.2cqw solid var(--ds-spot);
+  color: var(--ds-spot);
+  font-family: var(--ds-gothic);
+  font-weight: 700;
+  font-size: 1.5cqw;
+  letter-spacing: 0.4cqw;
+  text-transform: uppercase;
+}
+
+/* ---- entrance snaps (percussive, decisive) ---- */
+.panel[data-active="true"] .snap {
+  animation: snapIn 0.46s cubic-bezier(0.2, 0.85, 0.12, 1) both;
+}
+.panel[data-active="true"] .snap2 {
+  animation: snapIn 0.46s cubic-bezier(0.2, 0.85, 0.12, 1) both;
+  animation-delay: 0.08s;
+}
+.panel[data-active="true"] .inkPop {
+  animation: inkPop 0.34s cubic-bezier(0.18, 0.8, 0.2, 1) both;
+}
+
+@keyframes snapIn {
+  from {
+    transform: translateY(2.2cqh);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideBand {
+  from {
+    transform: translateX(-11cqw);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes inkPop {
+  from {
+    transform: scale(0.86);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ---- LP track-index nav (bespoke) ---- */
+.nav {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 20;
+  width: 100cqw;
+  height: 9cqh;
+  padding: 0 5cqw;
+  background: #0c0804;
+  border-top: 0.15cqw solid rgba(46, 86, 230, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 3.4cqw;
+}
+.navSide {
+  font-family: var(--ds-gothic);
+  font-weight: 700;
+  font-size: 1.5cqw;
+  letter-spacing: 0.4cqw;
+  text-transform: uppercase;
+  color: var(--ds-spot);
+  flex: none;
+}
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 2.6cqw;
+  flex: 1;
+}
+.navItem {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.8cqw;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.28s ease;
+}
+.navItem[data-cur="true"] {
+  opacity: 1;
+}
+.navNum {
+  font-family: var(--ds-gothic);
+  font-weight: 700;
+  font-size: 1.5cqw;
+  letter-spacing: 0.12cqw;
+  color: var(--ds-ink);
+}
+.navItem[data-cur="true"] .navNum {
+  color: var(--ds-spot);
+}
+.navName {
+  font-family: var(--ds-serif);
+  font-weight: 600;
+  font-size: 1.5cqw;
+  color: var(--ds-ink);
+}
+.navDot {
+  width: 1cqw;
+  height: 1cqw;
+  border-radius: 50%;
+  border: 0.15cqw solid rgba(243, 236, 224, 0.4);
+}
+.navItem[data-cur="true"] .navDot {
+  background: var(--ds-spot);
+  border-color: var(--ds-spot);
+}
+
+/* ---- reduced motion / thumbnail : settle to final, no animation ---- */
+.root[data-motion="off"] *,
+.root[data-motion="off"] *::before,
+.root[data-motion="off"] *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+}
+.root[data-motion="off"] .band {
+  transform: translateX(0);
+  opacity: 1;
+}

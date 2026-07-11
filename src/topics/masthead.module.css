@@ -1,0 +1,529 @@
+/* ── Masthead ──────────────────────────────────────── */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--masthead-bg, #1a3a2a);
+  color: var(--masthead-ink, #f5f0e6);
+  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
+  perspective: 2500px;
+}
+
+/* ── Scene-to-Scene: Book Spread Turn (two pages flip together) ───────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  backface-visibility: hidden;
+}
+
+/* Outgoing spread: both pages rotate away from center spine */
+.exitAnim {
+  animation: bookSpreadExit 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: center center;
+  z-index: 2;
+}
+
+@keyframes bookSpreadExit {
+  0% {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotateY(170deg);
+    opacity: 0;
+  }
+}
+
+/* Incoming spread: rotates in from behind */
+.enterAnim {
+  animation: bookSpreadEnter 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+  transform-origin: center center;
+  z-index: 1;
+}
+
+@keyframes bookSpreadEnter {
+  0% {
+    transform: rotateY(-170deg);
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+/* Center spine shadow during transition */
+.exitAnim::before,
+.enterAnim::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(0, 0, 0, 0.08) 20%,
+    rgba(0, 0, 0, 0.12) 50%,
+    rgba(0, 0, 0, 0.08) 80%,
+    transparent
+  );
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ── Transition track ──────────────────────────────────────────────────── */
+
+.track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10cqw;
+}
+
+.animateSceneEnter {
+  animation: sceneEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes sceneEnter {
+  from {
+    opacity: 0;
+    transform: translateY(1.5cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Scene 1: Title ─────────────────────────────────────────────────────── */
+
+.journalMasthead {
+  text-align: center;
+  width: 100%;
+}
+
+.journalOrnament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2cqw;
+  margin-bottom: 3cqh;
+}
+
+.journalOrnamentLine {
+  flex: 0 0 8cqw;
+  height: 0.08cqh;
+  background: var(--masthead-ink, #f5f0e6);
+  opacity: 0.3;
+}
+
+.journalOrnamentSymbol {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 3cqh;
+  color: var(--masthead-ink, #f5f0e6);
+  opacity: 0.4;
+}
+
+.journalTitle {
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 9cqh;
+  font-weight: 900;
+  font-style: normal;
+  line-height: 1.1;
+  color: var(--masthead-ink, #f5f0e6);
+  margin: 0;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+
+.journalSubtitle {
+  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
+  font-size: 2.8cqh;
+  font-weight: 400;
+  color: var(--masthead-ink, #f5f0e6);
+  text-align: center;
+  margin-top: 2cqh;
+  opacity: 0.6;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.journalVolume {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.8cqh;
+  color: var(--masthead-ink, #f5f0e6);
+  text-align: center;
+  margin-top: 4cqh;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+/* ── Scene 2: Excerpt with drop cap ─────────────────────────────────────── */
+
+.excerptContainer {
+  width: 100%;
+  max-width: 65cqw;
+  text-align: center;
+}
+
+.excerptLabel {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.8cqh;
+  color: var(--masthead-ink, #f5f0e6);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-bottom: 3cqh;
+  opacity: 0.5;
+  font-weight: 500;
+}
+
+.excerptDividerTop {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4cqh;
+}
+
+.excerptDividerTop::before,
+.excerptDividerTop::after {
+  content: "";
+  flex: 1;
+  height: 0.06cqh;
+  background: var(--masthead-ink, #f5f0e6);
+  opacity: 0.2;
+  max-width: 15cqw;
+}
+
+.excerptDividerDiamond {
+  width: 1.2cqh;
+  height: 1.2cqh;
+  background: var(--masthead-ink, #f5f0e6);
+  opacity: 0.3;
+  transform: rotate(45deg);
+  margin: 0 2cqw;
+}
+
+.excerptText {
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 3.2cqh;
+  line-height: 1.7;
+  color: var(--masthead-ink, #f5f0e6);
+  text-align: justify;
+  margin: 0;
+  hyphens: auto;
+}
+
+.excerptText::first-letter {
+  float: left;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 10cqh;
+  line-height: 0.75;
+  font-weight: 900;
+  font-style: normal;
+  color: var(--masthead-ink, #f5f0e6);
+  margin-right: 0.8cqw;
+  margin-top: 1cqh;
+}
+
+.excerptAttribution {
+  font-family: "Inter", "cjk:Noto Serif SC", system-ui, sans-serif;
+  font-size: 2.2cqh;
+  font-style: normal;
+  color: var(--masthead-ink, #f5f0e6);
+  text-align: right;
+  margin-top: 3cqh;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.excerptDividerBottom {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4cqh;
+}
+
+.excerptDividerBottom::before,
+.excerptDividerBottom::after {
+  content: "";
+  flex: 1;
+  height: 0.06cqh;
+  background: var(--masthead-ink, #f5f0e6);
+  opacity: 0.15;
+  max-width: 10cqw;
+}
+
+/* ── Scene 3: Poem / centered verse ─────────────────────────────────────── */
+
+.poemContainer {
+  text-align: center;
+  width: 100%;
+}
+
+.poemTitle {
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 4cqh;
+  font-weight: 900;
+  font-style: normal;
+  color: var(--masthead-ink, #f5f0e6);
+  margin: 0 0 1cqh 0;
+}
+
+.poemAuthor {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 2cqh;
+  color: var(--masthead-ink, #f5f0e6);
+  opacity: 0.5;
+  margin-bottom: 5cqh;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.poemStanza {
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2.8cqh;
+  line-height: 1.8;
+  color: var(--masthead-ink, #f5f0e6);
+  margin: 0 0 3cqh 0;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.poemStanza em {
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* ── Scene 4: Essay columns ─────────────────────────────────────────────── */
+
+.essayContainer {
+  width: 100%;
+  max-width: 75cqw;
+}
+
+.essayHeader {
+  text-align: center;
+  margin-bottom: 4cqh;
+}
+
+.essayKicker {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.8cqh;
+  color: var(--masthead-ink, #f5f0e6);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-weight: 500;
+  opacity: 0.5;
+  margin-bottom: 1.5cqh;
+}
+
+.essayHeadline {
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 5.5cqh;
+  font-weight: 900;
+  font-style: normal;
+  line-height: 1.15;
+  color: var(--masthead-ink, #f5f0e6);
+  margin: 0;
+}
+
+.essayBody {
+  column-count: 2;
+  column-gap: 5cqw;
+  column-rule: 0.04cqh solid rgba(245, 240, 230, 0.15);
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 2.2cqh;
+  line-height: 1.65;
+  color: var(--masthead-ink, #f5f0e6);
+  text-align: justify;
+  hyphens: auto;
+}
+
+.essayBody p {
+  margin: 0 0 1.5cqh 0;
+}
+
+.essayBody p:first-child::first-letter {
+  float: left;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 7cqh;
+  line-height: 0.8;
+  font-weight: 900;
+  font-style: normal;
+  margin-right: 0.5cqw;
+  margin-top: 0.5cqh;
+}
+
+/* ── Scene 5: Colophon / closing ────────────────────────────────────────── */
+
+.colophonContainer {
+  text-align: center;
+  width: 100%;
+}
+
+.colophonOrnament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5cqw;
+  margin-bottom: 5cqh;
+}
+
+.colophonOrnament::before,
+.colophonOrnament::after {
+  content: "";
+  width: 6cqw;
+  height: 0.06cqh;
+  background: var(--masthead-ink, #f5f0e6);
+  opacity: 0.25;
+}
+
+.colophonSymbol {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 4cqh;
+  color: var(--masthead-ink, #f5f0e6);
+  opacity: 0.35;
+}
+
+.colophonText {
+  font-family: "Playfair Display", "cjk:Noto Serif SC", Georgia, serif;
+  font-size: 5cqh;
+  font-weight: 900;
+  font-style: normal;
+  line-height: 1.4;
+  color: var(--masthead-ink, #f5f0e6);
+  margin: 0 0 3cqh 0;
+}
+
+.colophonNote {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 2cqh;
+  color: var(--masthead-ink, #f5f0e6);
+  opacity: 0.45;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* ── Navigation indicators (360° spatial) ───────────────────────────────── */
+
+.navIndicators {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.navIndicator {
+  position: absolute;
+  pointer-events: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.1;
+  transition: opacity 0.3s ease;
+}
+
+.navIndicator:hover {
+  opacity: 0.35;
+}
+
+.navIndicatorActive {
+  opacity: 0.2;
+}
+
+.navIndicatorActive:hover {
+  opacity: 0.5;
+}
+
+/* Position 5 indicators in a circular spatial dispersal */
+.navIndicator:nth-child(1) {
+  top: 8cqh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navIndicator:nth-child(2) {
+  top: 30cqh;
+  right: 6cqw;
+}
+
+.navIndicator:nth-child(3) {
+  bottom: 20cqh;
+  right: 12cqw;
+}
+
+.navIndicator:nth-child(4) {
+  bottom: 20cqh;
+  left: 12cqw;
+}
+
+.navIndicator:nth-child(5) {
+  top: 30cqh;
+  left: 6cqw;
+}
+
+.navIndicatorDot {
+  display: block;
+  width: 1.2cqh;
+  height: 1.2cqh;
+  border-radius: 50%;
+  background: var(--masthead-ink, #f5f0e6);
+  border: 0.15cqh solid var(--masthead-ink, #f5f0e6);
+}
+
+.navIndicatorActive .navIndicatorDot {
+  background: transparent;
+  border-color: var(--masthead-ink, #f5f0e6);
+  transform: scale(1.4);
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+.reducedMotion .track,
+.reducedMotion .navIndicator,
+.reducedMotion .sceneLayer {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}
+
+.reducedMotion .animateSceneEnter,
+.reducedMotion .exitAnim,
+.reducedMotion .enterAnim {
+  animation: none !important;
+}
+
+.reducedMotion .exitAnim::before,
+.reducedMotion .enterAnim::before {
+  display: none;
+}
+
+/* ── Thumbnail mode ─────────────────────────────────────────────────────── */
+
+.thumbnail .navIndicators {
+  display: none;
+}

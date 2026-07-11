@@ -1,0 +1,260 @@
+/* Scholar's Vellum (What the Ancients Knew)
+   Candlelit manuscript on a warm-dark library wall. All sizing in cqw/cqh. */
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #1b1823;
+  color: #e9d8b4;
+  font-family: "Alegreya Sans", "Noto Sans SC", sans-serif;
+
+  --serif: "Cormorant Garamond", "Noto Serif SC", serif;
+  --sans: "Alegreya Sans", "Noto Sans SC", sans-serif;
+  --mono: "Courier Prime", "Noto Sans SC", monospace;
+  --amber: #e9d8b4;
+  --amber-bright: #f3c87b;
+  --jewel: #6f9a92;
+  --dim: rgba(233, 216, 180, 0.3);
+}
+
+/* Stillness: kill all motion for reduced-motion + thumbnails. */
+.still *,
+.still *::before,
+.still *::after {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 12cqh 15cqw;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* ── Scene 1 · Frontispiece ─────────────────────────────── */
+.frontis {
+  max-width: 68cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3cqh;
+}
+.kicker {
+  font-family: var(--mono);
+  font-size: 1.5cqh;
+  letter-spacing: 0.55cqw;
+  text-transform: uppercase;
+  color: var(--jewel);
+}
+.title {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 9cqh;
+  line-height: 1.02;
+  color: var(--amber);
+}
+.sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 3cqh;
+  color: var(--dim);
+}
+
+/* ── Scene 2 · The Claim ────────────────────────────────── */
+.claim {
+  position: relative;
+  max-width: 72cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.2cqh;
+}
+.quoteGlyph {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13cqh;
+  line-height: 0.55;
+  height: 6.5cqh;
+  color: var(--jewel);
+}
+.quote {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 5.4cqh;
+  line-height: 1.28;
+  color: var(--amber);
+}
+.attribution {
+  min-height: 2.4cqh;
+  font-family: var(--mono);
+  font-size: 1.7cqh;
+  letter-spacing: 0.25cqw;
+  text-transform: uppercase;
+  color: var(--jewel);
+  transition: opacity 0.6s ease;
+}
+
+/* ── Scene 3 · The Evidence ─────────────────────────────── */
+.evidence {
+  max-width: 66cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.6cqh;
+  text-align: left;
+}
+.evHeading {
+  font-family: var(--mono);
+  font-size: 1.6cqh;
+  letter-spacing: 0.4cqw;
+  text-transform: uppercase;
+  color: var(--jewel);
+}
+.evRow {
+  display: grid;
+  grid-template-columns: 5.5cqw 1fr;
+  align-items: baseline;
+  gap: 1.8cqw;
+  transition: opacity 0.6s ease;
+}
+.evNum {
+  font-family: var(--mono);
+  font-size: 2.2cqh;
+  color: var(--jewel);
+}
+.evText {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 3.3cqh;
+  line-height: 1.3;
+  color: var(--amber);
+}
+
+/* ── Scene 4 · The Gloss ────────────────────────────────── */
+.gloss {
+  max-width: 74cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3cqh;
+}
+.glossLine {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 6cqh;
+  line-height: 1.25;
+  color: var(--amber);
+}
+.glossItalic {
+  font-style: italic;
+  color: var(--amber);
+}
+.glossRoman {
+  font-style: normal;
+  color: var(--amber-bright);
+  transition: color 0.5s ease;
+}
+.glossCaption {
+  font-family: var(--mono);
+  font-size: 1.6cqh;
+  letter-spacing: 0.35cqw;
+  text-transform: uppercase;
+  color: var(--jewel);
+}
+
+/* ── Scene 5 · Colophon ─────────────────────────────────── */
+.colophon {
+  max-width: 64cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.5cqh;
+}
+.closing {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 4.8cqh;
+  line-height: 1.3;
+  color: var(--amber);
+}
+.finis {
+  font-family: var(--mono);
+  font-size: 1.7cqh;
+  letter-spacing: 0.4cqw;
+  text-transform: uppercase;
+  color: var(--jewel);
+}
+
+/* ── Signature pin-annotation (every slide) ─────────────── */
+.pin {
+  position: absolute;
+  left: 4cqw;
+  bottom: 5cqh;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6cqh;
+  text-align: left;
+  pointer-events: none;
+}
+.pinTitle {
+  font-family: var(--mono);
+  font-size: 1.4cqh;
+  letter-spacing: 0.35cqw;
+  text-transform: uppercase;
+  color: var(--jewel);
+}
+.pinLine {
+  font-family: var(--mono);
+  font-size: 1.4cqh;
+  letter-spacing: 0.12cqw;
+  color: var(--dim);
+}
+
+/* ── Folio spine (nav prototype) ────────────────────────── */
+.spine {
+  position: absolute;
+  left: 2.4cqw;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6cqh;
+  padding: 2cqh 0 2cqh 1.2cqw;
+  border-left: 0.1cqw solid rgba(111, 154, 146, 0.35);
+}
+.folio,
+.folioActive {
+  padding: 0.4cqh 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 1.6cqh;
+  letter-spacing: 0.1cqw;
+  transition: color 0.4s ease;
+}
+.folio {
+  color: rgba(111, 154, 146, 0.5);
+}
+.folio:hover {
+  color: var(--jewel);
+}
+.folioActive {
+  color: var(--amber-bright);
+}

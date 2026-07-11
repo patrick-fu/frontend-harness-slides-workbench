@@ -20242,9 +20242,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "front-page-broadsheet",
-            "band": "editorial-print",
-            "name": "Front-Page Broadsheet",
             "theme": "Narrative-heavy briefings and long-form story arcs — dense newsprint authority with nameplate journalism gravitas",
             "densityLabel": "Reading-First",
             "heroScene": 3,
@@ -20362,12 +20359,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "front-page-broadsheet",
+            "name": "Front-Page Broadsheet",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "front-page-broadsheet",
-            "band": "editorial-print",
-            "name": "头版大报",
             "theme": "叙事型深度报道与长篇故事弧线——密集新闻纸权威感配以报头式新闻庄重感",
             "densityLabel": "阅读优先",
             "heroScene": 3,
@@ -20485,10 +20482,25 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "front-page-broadsheet",
+            "name": "头版大报",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./17-editorial-broadsheet.tsx"
+        "modulePath": "../topics/broadsheet.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "broadsheet-scene-dots",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "page-flip",
+          "2->3": "page-flip",
+          "3->4": "page-flip",
+          "4->5": "page-flip"
+        }
       },
       {
         "id": "after-launch",
@@ -20499,9 +20511,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "front-page-broadsheet",
-            "band": "editorial-print",
-            "name": "Front Page Broadsheet",
             "theme": "The Morning After Launch",
             "densityLabel": "Dense Reading",
             "heroScene": 2,
@@ -20647,12 +20656,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "front-page-broadsheet",
+            "name": "Front-Page Broadsheet",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "front-page-broadsheet",
-            "band": "editorial-print",
-            "name": "头版大报",
             "theme": "发布后的清晨",
             "densityLabel": "高密阅读",
             "heroScene": 2,
@@ -20798,10 +20807,25 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "front-page-broadsheet",
+            "name": "头版大报",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./17-morning-after-launch.tsx"
+        "modulePath": "../topics/after-launch.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "launch-folio-navigation",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "transitionScore": {
+          "1->2": "page-flip",
+          "2->3": "slide-y",
+          "3->4": "wipe",
+          "4->5": "fade"
+        }
       },
       {
         "id": "rogue-wave",
@@ -20812,9 +20836,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "front-page-broadsheet",
-            "band": "editorial-print",
-            "name": "Front-Page Broadsheet",
             "theme": "The Rogue Wave File",
             "densityLabel": "Dense Reading",
             "heroScene": 3,
@@ -20933,12 +20954,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "front-page-broadsheet",
+            "name": "Front-Page Broadsheet",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "front-page-broadsheet",
-            "band": "editorial-print",
-            "name": "头版大报",
             "theme": "怪浪档案",
             "densityLabel": "高密阅读",
             "heroScene": 3,
@@ -21057,10 +21078,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "front-page-broadsheet",
+            "name": "头版大报",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./18-rogue-wave.tsx",
+        "modulePath": "../topics/rogue-wave.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "wavefront-clipping-deck",
@@ -21109,6 +21133,9 @@ export const CATALOG_MANIFEST = [
             "boundary": "This is a synthesis of candidate mechanisms and observations, not a diagnostic that can assign a mechanism to one wave without directional spectra and local current measurements."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "page-turn",
           "2->3": "hard-cut",
@@ -21125,9 +21152,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "front-page-broadsheet",
-            "band": "editorial-print",
-            "name": "Front-Page Broadsheet",
             "theme": "The Day the Feed Stopped",
             "densityLabel": "Dense · Multi-column",
             "heroScene": 2,
@@ -21239,12 +21263,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "front-page-broadsheet",
+            "name": "Front-Page Broadsheet",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "front-page-broadsheet",
-            "band": "editorial-print",
-            "name": "头版大报",
             "theme": "信息流停摆",
             "densityLabel": "高密度 · 多栏",
             "heroScene": 2,
@@ -21356,10 +21380,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "front-page-broadsheet",
+            "name": "头版大报",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./day-feed-stopped.tsx",
+        "modulePath": "../topics/day-feed-stopped.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "feed-page-spine",
@@ -21399,9 +21426,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "magazine-masthead",
-            "band": "editorial-print",
-            "name": "Magazine Masthead",
             "theme": "Deck covers and section thresholds with editorial gravitas — saturated color field, theatrical serif, and masthead authority",
             "densityLabel": "Reading-First",
             "heroScene": 2,
@@ -21515,12 +21539,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "magazine-masthead",
+            "name": "Magazine Masthead",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "magazine-masthead",
-            "band": "editorial-print",
-            "name": "杂志刊头",
             "theme": "封面与章节门槛——饱和色域、戏剧化衬线字体与刊头式出版权威感",
             "densityLabel": "阅读优先",
             "heroScene": 2,
@@ -21634,10 +21658,25 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "magazine-masthead",
+            "name": "杂志刊头",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./18-literary-review.tsx"
+        "modulePath": "../topics/masthead.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "masthead-scene-dots",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
+        }
       },
       {
         "id": "product-cover",
@@ -21648,9 +21687,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "magazine-masthead",
-            "band": "editorial-print",
-            "name": "Magazine Masthead",
             "theme": "A Product Gets a Cover",
             "densityLabel": "Medium-full",
             "heroScene": 1,
@@ -21790,12 +21826,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "magazine-masthead",
+            "name": "Magazine Masthead",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "magazine-masthead",
-            "band": "editorial-print",
-            "name": "杂志刊头",
             "theme": "一个产品登上封面",
             "densityLabel": "中高密度",
             "heroScene": 1,
@@ -21935,10 +21971,25 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "magazine-masthead",
+            "name": "杂志刊头",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./18-product-gets-cover.tsx"
+        "modulePath": "../topics/product-cover.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "product-cover-issue-strip",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "page-flip",
+          "3->4": "slide-x",
+          "4->5": "fade"
+        }
       },
       {
         "id": "moth-experiment",
@@ -21949,9 +22000,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "magazine-masthead",
-            "band": "editorial-print",
-            "name": "Magazine Masthead",
             "theme": "The Moth Experiment, Reopened",
             "densityLabel": "Editorial Reading",
             "heroScene": 1,
@@ -22078,12 +22126,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "magazine-masthead",
+            "name": "Magazine Masthead",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "magazine-masthead",
-            "band": "editorial-print",
-            "name": "杂志刊头",
             "theme": "重审桦尺蛾实验",
             "densityLabel": "编辑阅读",
             "heroScene": 1,
@@ -22210,10 +22258,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "magazine-masthead",
+            "name": "杂志刊头",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./magazine-masthead-moth-experiment.tsx",
+        "modulePath": "../topics/moth-experiment.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "moth-specimen-cards",
@@ -22291,6 +22342,9 @@ export const CATALOG_MANIFEST = [
             "boundary": "This review synthesizes a case study; it does not make a single photograph, a single release, or an individual researcher into the whole evidentiary history of industrial melanism."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "iris-open",
           "2->3": "crossfade",
@@ -22307,9 +22361,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "magazine-masthead",
-            "band": "editorial-print",
-            "name": "Magazine Masthead",
             "theme": "The Comeback Issue",
             "densityLabel": "Theatrical cover",
             "heroScene": 1,
@@ -22419,12 +22470,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "magazine-masthead",
+            "name": "Magazine Masthead",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "magazine-masthead",
-            "band": "editorial-print",
-            "name": "杂志刊头",
             "theme": "回归特刊",
             "densityLabel": "刊面戏剧",
             "heroScene": 1,
@@ -22534,10 +22585,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "magazine-masthead",
+            "name": "杂志刊头",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./comeback-issue.tsx",
+        "modulePath": "../topics/comeback-issue.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "comeback-issue-spine",
@@ -22577,9 +22631,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "warm-editorial-feature",
-            "band": "editorial-print",
-            "name": "Warm Editorial Feature",
             "theme": "Narrative-driven thought-leadership and personal essays — warm cream paper with literary serif voice and generous margins",
             "densityLabel": "Data-Dense",
             "heroScene": 3,
@@ -22686,12 +22737,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "warm-editorial-feature",
+            "name": "Warm Editorial Feature",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "warm-editorial-feature",
-            "band": "editorial-print",
-            "name": "暖色专题特稿",
             "theme": "叙事型思想领导力与个人随笔——暖色奶油纸配以文学衬线字体与充裕留白",
             "densityLabel": "数据密集",
             "heroScene": 3,
@@ -22798,10 +22849,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "warm-editorial-feature",
+            "name": "暖色专题特稿",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./19-financial-times.tsx"
+        "modulePath": "../topics/editorial-feature.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "editorial-feature-perimeter-marks",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative editorial feature: market figures, earnings rows, and analysis outcomes are presentation examples, not measured reporting.",
+            "zh": "示例专题特稿：市场数字、收益条目与分析结论均为演示内容，并非实测报道。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "slide-x",
+          "3->4": "slide-x",
+          "4->5": "slide-x"
+        }
       },
       {
         "id": "useful-week",
@@ -22812,9 +22886,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "warm-editorial-feature",
-            "band": "editorial-print",
-            "name": "Warm Editorial Feature",
             "theme": "Notes from a Useful Week",
             "densityLabel": "Reading-first",
             "heroScene": 1,
@@ -22962,12 +23033,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "warm-editorial-feature",
+            "name": "Warm Editorial Feature",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "warm-editorial-feature",
-            "band": "editorial-print",
-            "name": "暖调长篇特写",
             "theme": "有用一周的札记",
             "densityLabel": "阅读优先",
             "heroScene": 1,
@@ -23115,10 +23186,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "warm-editorial-feature",
+            "name": "暖色专题特稿",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./19-useful-week-notes.tsx"
+        "modulePath": "../topics/useful-week.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "useful-week-chapter-tabs",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative personal essay: the week, scenes, and outcomes are presentation examples, not an account of a documented person or event.",
+            "zh": "示例个人随笔：这一周、场景与结果均为演示内容，并非对已记录人物或事件的叙述。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-y",
+          "3->4": "scale-fade",
+          "4->5": "page-flip"
+        }
       },
       {
         "id": "oral-to-written",
@@ -23129,9 +23223,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "warm-editorial-feature",
-            "band": "editorial-print",
-            "name": "Warm Editorial Feature",
             "theme": "Oral to Written",
             "densityLabel": "Editorial reading",
             "heroScene": 3,
@@ -23263,12 +23354,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "warm-editorial-feature",
+            "name": "Warm Editorial Feature",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "warm-editorial-feature",
-            "band": "editorial-print",
-            "name": "暖调长篇特写",
             "theme": "史诗成文",
             "densityLabel": "编辑阅读",
             "heroScene": 3,
@@ -23400,10 +23491,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "warm-editorial-feature",
+            "name": "暖色专题特稿",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./warm-editorial-feature-oral-to-written.tsx",
+        "modulePath": "../topics/oral-to-written.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "oral-written-chapter-labels",
@@ -23466,6 +23560,9 @@ export const CATALOG_MANIFEST = [
             "boundary": "Rights can differ by item and jurisdiction. This demo therefore paraphrases verified facts and reproduces no archive audio, transcript, photograph, or facsimile."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "linear-wipe",
           "2->3": "page-turn",
@@ -23482,9 +23579,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "warm-editorial-feature",
-            "band": "editorial-print",
-            "name": "Warm Editorial Feature",
             "theme": "A Letter to My Past Self",
             "densityLabel": "Airy · long-form",
             "heroScene": 3,
@@ -23589,12 +23683,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "warm-editorial-feature",
+            "name": "Warm Editorial Feature",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "warm-editorial-feature",
-            "band": "editorial-print",
-            "name": "暖色专题特稿",
             "theme": "写给过去",
             "densityLabel": "疏朗 · 长文",
             "heroScene": 3,
@@ -23699,10 +23793,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "warm-editorial-feature",
+            "name": "暖色专题特稿",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./letter-to-past-self.tsx",
+        "modulePath": "../topics/letter-to-past-self.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "past-self-folio",
@@ -23742,9 +23839,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "scholars-vellum",
-            "band": "editorial-print",
-            "name": "Scholar's Vellum",
             "theme": "Research essays and reflective decks — warm-dark library wall with candlelit amber-cream italic serif and dusty teal annotations",
             "densityLabel": "Reading-First",
             "heroScene": 3,
@@ -23859,12 +23953,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "scholars-vellum",
+            "name": "Scholar's Vellum",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "scholars-vellum",
-            "band": "editorial-print",
-            "name": "学者羊皮卷",
             "theme": "研究随笔与反思型演示——暖色深色图书馆墙配以烛光琥珀米色斜体衬线与灰青色注解",
             "densityLabel": "阅读优先",
             "heroScene": 3,
@@ -23979,10 +24073,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "scholars-vellum",
+            "name": "学者羊皮卷",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./20-national-geographic.tsx"
+        "modulePath": "../topics/scholar-notes.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "scholar-notes-perimeter-dots",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative research essay: propositions, diagrams, and quoted conclusions are presentation examples, not externally verified scholarship.",
+            "zh": "示例研究随笔：命题、图示与引文结论均为演示内容，并非经外部核实的学术成果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "margin-argument",
@@ -23993,9 +24110,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "scholars-vellum",
-            "band": "editorial-print",
-            "name": "Scholars' Vellum",
             "theme": "The Argument in the Margins",
             "densityLabel": "Reserved Reading",
             "heroScene": 3,
@@ -24144,12 +24258,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "scholars-vellum",
+            "name": "Scholar's Vellum",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "scholars-vellum",
-            "band": "editorial-print",
-            "name": "学者羊皮纸",
             "theme": "页边的论证",
             "densityLabel": "留白阅读",
             "heroScene": 3,
@@ -24298,10 +24412,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "scholars-vellum",
+            "name": "学者羊皮卷",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./20-argument-in-margins.tsx"
+        "modulePath": "../topics/margin-argument.tsx",
+        "navigation": {
+          "geometry": "card-miniature",
+          "carrier": "margin-argument-bookmarks",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative argument exercise: thesis, counterclaim, and conclusion are presentation examples, not attributed scholarly claims.",
+            "zh": "示例论证练习：论点、反驳与结论均为演示内容，并非署名学术主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "wipe",
+          "3->4": "page-flip",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "hidden-text",
@@ -24312,9 +24449,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "scholars-vellum",
-            "band": "editorial-print",
-            "name": "Scholars' Vellum",
             "theme": "The text under the text: material, imaging, and bounded reading of the Archimedes Palimpsest",
             "densityLabel": "Editorial reading · Medium-high",
             "heroScene": 3,
@@ -24434,12 +24568,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "scholars-vellum",
+            "name": "Scholar's Vellum",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "scholars-vellum",
-            "band": "editorial-print",
-            "name": "学者羊皮卷",
             "theme": "文字下面的文字：阿基米德重写羊皮卷的材料、成像与有边界释读",
             "densityLabel": "编辑阅读 · 中高密度",
             "heroScene": 3,
@@ -24559,10 +24693,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "scholars-vellum",
+            "name": "学者羊皮卷",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./scholars-vellum-hidden-text.tsx",
+        "modulePath": "../topics/hidden-text.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "palimpsest-folio-tabs",
@@ -24619,6 +24756,9 @@ export const CATALOG_MANIFEST = [
             "supports": "Describes X-ray fluorescence mapping of iron remaining in the inks, the tuned beam and raster scan, its use on difficult leaves and painted-over areas, and the scholars who compare elemental maps with other evidence to decipher letters."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "page-turn",
@@ -24635,9 +24775,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "scholars-vellum",
-            "band": "editorial-print",
-            "name": "Scholar's Vellum",
             "theme": "What the Ancients Knew",
             "densityLabel": "Low · one thought per page",
             "heroScene": 1,
@@ -24744,12 +24881,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "scholars-vellum",
+            "name": "Scholar's Vellum",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "scholars-vellum",
-            "band": "editorial-print",
-            "name": "学者羊皮卷",
             "theme": "古人的智慧",
             "densityLabel": "低密度 · 一页一念",
             "heroScene": 1,
@@ -24856,10 +24993,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "scholars-vellum",
+            "name": "学者羊皮卷",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./what-ancients-knew.tsx",
+        "modulePath": "../topics/what-ancients-knew.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "ancients-folio-counter",
@@ -24899,9 +25039,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "solar-biennale-poster",
-            "band": "editorial-print",
-            "name": "Solar Biennale Poster",
             "theme": "Cultural programme decks and manifesto statements — warm parchment flooded with solar glow, deep indigo ink, and three-voice typographic discipline",
             "densityLabel": "Airy",
             "heroScene": 2,
@@ -25016,12 +25153,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "solar-biennale-poster",
+            "name": "Solar Biennale Poster",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "solar-biennale-poster",
-            "band": "editorial-print",
-            "name": "日光双年展海报",
             "theme": "文化项目演示与宣言陈述——暖色羊皮纸浸润日光辉光，深靛蓝墨水，三声部字体纪律",
             "densityLabel": "疏朗",
             "heroScene": 2,
@@ -25136,10 +25273,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "solar-biennale-poster",
+            "name": "日光双年展海报",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./21-vogue-editorial.tsx"
+        "modulePath": "../topics/biennale-poster.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "biennale-poster-node-ring",
+          "invocation": "persistent",
+          "feedback": "geometry-reflow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative cultural programme: names, dates, people, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例文化项目：其中名称、日期、人物和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
+        }
       },
       {
         "id": "public-light",
@@ -25150,9 +25310,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "solar-biennale-poster",
-            "band": "editorial-print",
-            "name": "Solar Biennale Poster",
             "theme": "Public Light Program",
             "densityLabel": "Poster-led",
             "heroScene": 1,
@@ -25301,12 +25458,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "solar-biennale-poster",
+            "name": "Solar Biennale Poster",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "solar-biennale-poster",
-            "band": "editorial-print",
-            "name": "太阳双年展海报",
             "theme": "公共光计划",
             "densityLabel": "海报式",
             "heroScene": 1,
@@ -25455,10 +25612,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "solar-biennale-poster",
+            "name": "日光双年展海报",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./21-public-light-program.tsx"
+        "modulePath": "../topics/public-light.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "public-light-orbit",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative public-art programme: names, schedules, locations, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例公共艺术项目：其中名称、日程、地点和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "wipe",
+          "3->4": "slide-x",
+          "4->5": "fade"
+        }
       },
       {
         "id": "iron-from-stars",
@@ -25469,9 +25649,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "solar-biennale-poster",
-            "band": "editorial-print",
-            "name": "Solar Biennale Poster",
             "theme": "Iron from Stars",
             "densityLabel": "Stage impact",
             "heroScene": 3,
@@ -25603,12 +25780,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "solar-biennale-poster",
+            "name": "Solar Biennale Poster",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "solar-biennale-poster",
-            "band": "editorial-print",
-            "name": "太阳双年展海报",
             "theme": "恒星炼铁",
             "densityLabel": "舞台冲击",
             "heroScene": 3,
@@ -25740,10 +25917,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "solar-biennale-poster",
+            "name": "日光双年展海报",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./solar-biennale-poster-iron-from-stars.tsx",
+        "modulePath": "../topics/iron-from-stars.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "solar-orbit-points",
@@ -25788,6 +25968,9 @@ export const CATALOG_MANIFEST = [
             "boundary": "The review emphasizes remaining nuclear-input and astrophysical-site uncertainties, so the final scene labels channels rather than fixed percentages."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "iris-open",
           "2->3": "zoom-through",
@@ -25804,9 +25987,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "solar-biennale-poster",
-            "band": "editorial-print",
-            "name": "Solar Biennale Poster",
             "theme": "Festival of Slow Ideas",
             "densityLabel": "Poster · Sparse",
             "heroScene": 1,
@@ -25917,12 +26097,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "solar-biennale-poster",
+            "name": "Solar Biennale Poster",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "solar-biennale-poster",
-            "band": "editorial-print",
-            "name": "日光双年展海报",
             "theme": "慢想节",
             "densityLabel": "海报 · 疏朗",
             "heroScene": 1,
@@ -26033,10 +26213,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "solar-biennale-poster",
+            "name": "日光双年展海报",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./festival-slow-ideas.tsx",
+        "modulePath": "../topics/festival-slow-ideas.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "festival-mono-folio",
@@ -26076,9 +26259,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "duotone-session",
-            "band": "editorial-print",
-            "name": "Duotone Session",
             "theme": "LP-sleeve session posters — warm black ground, single spot-ink duotone tint, enormous condensed gothic type stacked asymmetrically",
             "densityLabel": "Visual-First",
             "heroScene": 1,
@@ -26193,12 +26373,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "duotone-session",
+            "name": "Duotone Session",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "duotone-session",
-            "band": "editorial-print",
-            "name": "双调录制",
             "theme": "黑胶封套录制海报——暖色黑底、单一专色双调、巨大的浓缩哥特字体非对称堆叠",
             "densityLabel": "视觉优先",
             "heroScene": 1,
@@ -26313,10 +26493,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "duotone-session",
+            "name": "双调录制",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./22-academic-journal.tsx"
+        "modulePath": "../topics/session-poster.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "session-poster-node-ring",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative recording-session poster: names, dates, credits, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例录制海报：其中名称、日期、署名和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "five-takes",
@@ -26327,9 +26530,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "duotone-session",
-            "band": "editorial-print",
-            "name": "Duotone Session",
             "theme": "Five Takes in the Room",
             "densityLabel": "Poster-density",
             "heroScene": 1,
@@ -26475,12 +26675,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "duotone-session",
+            "name": "Duotone Session",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "duotone-session",
-            "band": "editorial-print",
-            "name": "双色录音场",
             "theme": "五次录音同在一室",
             "densityLabel": "海报式中密度",
             "heroScene": 1,
@@ -26626,10 +26826,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "duotone-session",
+            "name": "双调录制",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./22-five-takes-room.tsx"
+        "modulePath": "../topics/five-takes.tsx",
+        "navigation": {
+          "geometry": "object-controller",
+          "carrier": "vinyl-groove-markers",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative recording-room study: names, credits, takes, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例录音室研究：其中名称、署名、录制片段和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "fade",
+          "3->4": "glitch",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "dance-notation",
@@ -26640,9 +26863,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "duotone-session",
-            "band": "editorial-print",
-            "name": "Duotone Session",
             "theme": "A Dance Written Twice",
             "densityLabel": "Stage impact",
             "heroScene": 3,
@@ -26773,12 +26993,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "duotone-session",
+            "name": "Duotone Session",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "duotone-session",
-            "band": "editorial-print",
-            "name": "双色录制",
             "theme": "一支舞的两次书写",
             "densityLabel": "舞台冲击",
             "heroScene": 3,
@@ -26909,10 +27129,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "duotone-session",
+            "name": "双调录制",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./duotone-session-dance-notation.tsx",
+        "modulePath": "../topics/dance-notation.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "notation-turntable",
@@ -26953,6 +27176,9 @@ export const CATALOG_MANIFEST = [
             "boundary": "The university resource summarizes the system for learners; the visual examples here remain original teaching diagrams rather than transcriptions of an archived dance."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "focus-swap",
           "2->3": "afterimage",
@@ -26969,9 +27195,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "duotone-session",
-            "band": "editorial-print",
-            "name": "Duotone Session",
             "theme": "Cut in One Take",
             "densityLabel": "Bold · Photographic",
             "heroScene": 3,
@@ -27083,12 +27306,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "duotone-session",
+            "name": "Duotone Session",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "duotone-session",
-            "band": "editorial-print",
-            "name": "双调录制",
             "theme": "一条过",
             "densityLabel": "浓烈 · 影像",
             "heroScene": 3,
@@ -27200,10 +27423,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "duotone-session",
+            "name": "双调录制",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./cut-in-one-take.tsx",
+        "modulePath": "../topics/cut-in-one-take.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "one-take-track-index",
@@ -27243,9 +27469,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "riso-print-zine",
-            "band": "editorial-print",
-            "name": "Riso Print Zine",
             "theme": "Manifestos and workshop decks — risograph print with 2-3 spot inks, paper grain, misregistration, and three-voice typography: condensed display, quiet body, hand-script",
             "densityLabel": "Chaotic",
             "heroScene": 2,
@@ -27360,12 +27583,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "riso-print-zine",
+            "name": "Riso Print Zine",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "riso-print-zine",
-            "band": "editorial-print",
-            "name": "孔版印刷杂志",
             "theme": "宣言与工作坊演示——孔版印刷，2-3种专色油墨，纸张纹理，套印偏移，三声部字体：浓缩展示、安静正文、手写注记",
             "densityLabel": "混搭",
             "heroScene": 2,
@@ -27480,10 +27703,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "riso-print-zine",
+            "name": "孔版印刷杂志",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./23-zine-culture.tsx"
+        "modulePath": "../topics/riso-zine.tsx",
+        "navigation": {
+          "geometry": "ambient",
+          "carrier": "zine-star-index",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative zine: its issue, band names, interview, and manifesto are authored presentation content, not reporting on actual artists or events.",
+            "zh": "示例杂志：其中期号、乐队名称、采访和宣言均为创作展示内容，并非对真实艺人或事件的报道。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "glitch",
+          "3->4": "glitch",
+          "4->5": "glitch"
+        }
       },
       {
         "id": "community-print",
@@ -27494,9 +27740,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "riso-print-zine",
-            "band": "editorial-print",
-            "name": "Riso Print Zine",
             "theme": "A Community Prints Itself",
             "densityLabel": "Medium-high density",
             "heroScene": 1,
@@ -27645,12 +27888,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "riso-print-zine",
+            "name": "Riso Print Zine",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "riso-print-zine",
-            "band": "editorial-print",
-            "name": "孔版印刷小志",
             "theme": "一个社群把自己印出来",
             "densityLabel": "中高密度",
             "heroScene": 1,
@@ -27799,10 +28042,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "riso-print-zine",
+            "name": "孔版印刷杂志",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./23-community-prints-itself.tsx"
+        "modulePath": "../topics/community-print.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "staple-scene-index",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative community-print scenario: the issue, workshop, contributors, and print outcomes are authored presentation content, not a report of an actual publication or event.",
+            "zh": "示例社群印刷场景：其中期刊、工作坊、参与者和印刷结果均为创作展示内容，并非对真实出版物或活动的报道。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "slide-y",
+          "3->4": "wipe",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "seven-blues",
@@ -27813,9 +28079,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "riso-print-zine",
-            "band": "editorial-print",
-            "name": "Riso Print Zine",
             "theme": "Seven Blues",
             "densityLabel": "Visual narrative",
             "heroScene": 1,
@@ -27940,12 +28203,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "riso-print-zine",
+            "name": "Riso Print Zine",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "riso-print-zine",
-            "band": "editorial-print",
-            "name": "孔版印刷小志",
             "theme": "七种蓝",
             "densityLabel": "视觉叙事",
             "heroScene": 1,
@@ -28070,10 +28333,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "riso-print-zine",
+            "name": "孔版印刷杂志",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./riso-print-zine-seven-blues.tsx",
+        "modulePath": "../topics/seven-blues.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "blue-pigment-swatches",
@@ -28217,6 +28483,151 @@ export const CATALOG_MANIFEST = [
             ]
           }
         ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "id": "smithsonian-blue",
+              "accessDate": "2026-07-10",
+              "stamp": "SI/BLUE",
+              "authority": "Smithsonian National Museum of Asian Art",
+              "title": "Blue",
+              "citation": "Smithsonian National Museum of Asian Art, “Blue,” Making Blue and Associations of Blue.",
+              "url": "https://asia.si.edu/explore-art-culture/art-stories/colors/blue/",
+              "supports": "Supports azurite as a copper-bearing mineral whose color changes with grinding, the produced-material account of Egyptian blue, indigo fermentation, and bounded cultural examples for blue.",
+              "boundary": "Used for collection-informed material and cultural-context statements only; it does not establish a universal symbolism or a handling protocol.",
+              "claimIds": [
+                "azurite-copper-carbonate",
+                "azurite-grinding",
+                "indigo-plant-vat",
+                "egyptian-blue-frit",
+                "cultural-context-boundary"
+              ]
+            },
+            {
+              "id": "getty-ultramarine",
+              "accessDate": "2026-07-10",
+              "stamp": "GETTY/ULTRA",
+              "authority": "Getty Research Institute, Art & Architecture Thesaurus",
+              "title": "Ultramarine blue (pigment)",
+              "citation": "Getty Research Institute, Art & Architecture Thesaurus, “ultramarine blue (pigment),” subject ID 300013200.",
+              "url": "https://www.getty.edu/vow/AATFullDisplay?find=bima&logic=AND&note=&page=1&subjectid=300013200",
+              "supports": "Supports natural ultramarine as separated lazurite from lapis lazuli and documents its historically costly, context-specific use in Western medieval and Renaissance painting.",
+              "boundary": "The historical note is not generalized into a global social meaning for ultramarine or for blue as a category.",
+              "claimIds": [
+                "ultramarine-lazurite",
+                "cultural-context-boundary"
+              ]
+            },
+            {
+              "id": "mci-azurite",
+              "accessDate": "2026-07-10",
+              "stamp": "MCI/AZUR",
+              "authority": "Smithsonian Museum Conservation Institute",
+              "title": "Azurite: historical pigment reference abstract",
+              "citation": "Smithsonian Museum Conservation Institute, AATA reference record 43910, azurite as a basic carbonate of copper.",
+              "url": "https://mci.si.edu/node/1299334",
+              "supports": "Supports the material identification of azurite as a basic copper carbonate historically used as a blue pigment.",
+              "boundary": "The abstract is used for mineral identification only; no conservation treatment or exposure guidance is inferred from it.",
+              "claimIds": [
+                "azurite-copper-carbonate"
+              ]
+            },
+            {
+              "id": "getty-indigo",
+              "accessDate": "2026-07-10",
+              "stamp": "GETTY/INDIGO",
+              "authority": "Getty Research Institute, Art & Architecture Thesaurus",
+              "title": "Indigo (colorant)",
+              "citation": "Getty Research Institute, Art & Architecture Thesaurus, “indigo (colorant),” subject ID 300013055.",
+              "url": "https://www.getty.edu/vow/AATFullDisplay?find=bima&logic=AND&note=&page=1&subjectid=300013055",
+              "supports": "Supports indigo as a natural plant colorant recovered from fermented solution and describes oxidation into the familiar blue material.",
+              "boundary": "This source is used to explain a colorant process, not to prescribe a particular historic or contemporary dye recipe.",
+              "claimIds": [
+                "indigo-plant-vat",
+                "indigo-oxidation"
+              ]
+            },
+            {
+              "id": "smithsonian-indigo-vat",
+              "accessDate": "2026-07-10",
+              "stamp": "SI/LEUCO",
+              "authority": "International Biodeterioration & Biodegradation / Smithsonian Research Online",
+              "title": "Proteomic evaluation of the biodegradation of wool fabrics in experimental burials",
+              "citation": "Caroline Solazzo et al., “Proteomic evaluation of the biodegradation of wool fabrics in experimental burials,” International Biodeterioration & Biodegradation 80 (2013): 48–59. doi:10.1016/j.ibiod.2012.11.013.",
+              "url": "https://repository.si.edu/server/api/core/bitstreams/1b558823-42e0-42ac-bcba-cf42e83089fd/content",
+              "supports": "Directly states that indigotin is reduced to leuco-indigo in an alkaline vat and that oxidation returns it to the insoluble colored form.",
+              "boundary": "Used only for the general vat redox mechanism; it does not prescribe a recipe or generalize one practice to every indigo tradition.",
+              "claimIds": [
+                "indigo-oxidation"
+              ]
+            },
+            {
+              "id": "getty-egyptian-blue",
+              "accessDate": "2026-07-10",
+              "stamp": "GETTY/EB",
+              "authority": "Getty Conservation Institute",
+              "title": "Egyptian Blue in Romano-Egyptian Mummy Portraits",
+              "citation": "Gabrielle Thiboutot, “Egyptian Blue in Romano-Egyptian Mummy Portraits,” Getty Publications.",
+              "url": "https://www.getty.edu/publications/mummyportraits/part-one/5/",
+              "supports": "Supports Egyptian blue as calcium copper silicate produced by firing raw materials and its visible-induced near-infrared luminescence used in conservation imaging.",
+              "boundary": "Its historical production and imaging observations do not make any displayed screen swatch a reconstruction of a specific ancient object.",
+              "claimIds": [
+                "egyptian-blue-frit",
+                "egyptian-blue-luminescence",
+                "screen-is-not-material"
+              ]
+            },
+            {
+              "id": "met-cobalt-blue",
+              "accessDate": "2026-07-10",
+              "stamp": "MET/CO",
+              "authority": "The Metropolitan Museum of Art",
+              "title": "Modern Pigments Found in Thomas Cole's Paintings",
+              "citation": "The Metropolitan Museum of Art, “Modern Pigments Found in Thomas Cole's Paintings Shed New Light on the Artist's Practice.”",
+              "url": "https://www.metmuseum.org/pt/perspectives/thomas-cole-conservation",
+              "supports": "Supports cobalt blue as CoO·Al₂O₃, a stable bright-blue pigment available to nineteenth-century painters.",
+              "boundary": "The cited painting case is evidence for this pigment description, not proof of use in every blue object or region.",
+              "claimIds": [
+                "cobalt-aluminate"
+              ]
+            },
+            {
+              "id": "national-gallery-prussian-blue",
+              "accessDate": "2026-07-10",
+              "stamp": "NG/PB",
+              "authority": "The National Gallery, London",
+              "title": "The structure of Prussian blue and the chemistry of its manufacture",
+              "citation": "Joyce H. Townsend and colleagues, National Gallery Technical Bulletin 25, “The Structure of Prussian Blue and the Chemistry of its Manufacture.”",
+              "url": "https://www.nationalgallery.org.uk/upload/pdf/kirby_saunders2004.pdf",
+              "supports": "Supports Prussian blue as a hydrated iron(III) hexacyanoferrate(II) mixed-valence network and explains its intervalence electronic charge-transfer color mechanism.",
+              "boundary": "The chemistry is simplified to a mechanism label; no manufacturing recipe or safety classification is presented.",
+              "claimIds": [
+                "prussian-blue-mixed-valence"
+              ]
+            },
+            {
+              "id": "harvard-structural-color",
+              "accessDate": "2026-07-10",
+              "stamp": "HARVARD/SC",
+              "authority": "Harvard John A. Paulson School of Engineering and Applied Sciences",
+              "title": "Structural color",
+              "citation": "Manoharan Lab, Harvard SEAS, “Structural color.”",
+              "url": "https://www.manoharan.seas.harvard.edu/structural-color",
+              "supports": "Supports structural color as an optical response of ordered or disordered microstructure, including scattering and viewing-angle distinctions rather than pigment absorption alone.",
+              "boundary": "The example is intentionally generic: it does not claim that every blue feather, wing, or manufactured surface uses one identical structural mechanism.",
+              "claimIds": [
+                "structural-blue",
+                "screen-is-not-material"
+              ]
+            }
+          ],
+          "boundary": {
+            "en": "Material and process statements are source-backed; the swatches and diagrams are illustrative, not material-color matches or universal cultural meanings of blue.",
+            "zh": "材料与工艺陈述有来源支持；色片和图示仅为说明，并非材料颜色等同物，也不代表蓝色具有普遍文化含义。"
+          },
+          "display": "stage"
+        },
         "transitionScore": {
           "1->2": "multi-blind",
           "2->3": "ink-spread",
@@ -28233,9 +28644,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "riso-print-zine",
-            "band": "editorial-print",
-            "name": "Riso Print Zine",
             "theme": "Make Something Weekly",
             "densityLabel": "Medium-high collage",
             "heroScene": 1,
@@ -28347,12 +28755,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "riso-print-zine",
+            "name": "Riso Print Zine",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "riso-print-zine",
-            "band": "editorial-print",
-            "name": "孔版印刷杂志",
             "theme": "每周做点",
             "densityLabel": "中高密度拼贴",
             "heroScene": 1,
@@ -28464,10 +28872,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "riso-print-zine",
+            "name": "孔版印刷杂志",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./make-something-weekly.tsx",
+        "modulePath": "../topics/make-something-weekly.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "weekly-ink-seal",
@@ -28507,9 +28918,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "analog-cutout-collage",
-            "band": "editorial-print",
-            "name": "Analog Cutout Collage",
             "theme": "Cultural essays and personal narratives — scissor-cut paper fragments pinned and taped, handwritten annotations, paper-stacking shadows",
             "densityLabel": "Fragmentary",
             "heroScene": 3,
@@ -28618,12 +29026,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "analog-cutout-collage",
+            "name": "Analog Cutout Collage",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "analog-cutout-collage",
-            "band": "editorial-print",
-            "name": "模拟剪纸拼贴",
             "theme": "文化随笔与个人叙事——剪刀剪纸碎片钉贴固定、手写注解、纸张堆叠阴影",
             "densityLabel": "碎片",
             "heroScene": 3,
@@ -28732,10 +29140,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "analog-cutout-collage",
+            "name": "模拟剪纸拼贴",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./24-manuscript-scroll.tsx"
+        "modulePath": "../topics/cutout-collage.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "cutout-scene-numerals",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative collage essay: fragments, notebook lines, clippings, and attributions are authored presentation content, not sourced archival records.",
+            "zh": "示例拼贴随笔：其中碎片、笔记、剪报和署名均为创作展示内容，并非有出处的档案记录。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
+        }
       },
       {
         "id": "rebuilt-archive",
@@ -28746,9 +29177,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "analog-cutout-collage",
-            "band": "editorial-print",
-            "name": "Analog Cutout Collage",
             "theme": "The Archive Reassembled",
             "densityLabel": "Medium-dense / Handmade",
             "heroScene": 5,
@@ -28896,12 +29324,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "analog-cutout-collage",
+            "name": "Analog Cutout Collage",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "analog-cutout-collage",
-            "band": "editorial-print",
-            "name": "模拟剪贴拼贴",
             "theme": "重组档案",
             "densityLabel": "中高密度 / 手作",
             "heroScene": 5,
@@ -29049,10 +29477,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "analog-cutout-collage",
+            "name": "模拟剪纸拼贴",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./24-archive-reassembled.tsx"
+        "modulePath": "../topics/rebuilt-archive.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "archive-scrap-wheel",
+          "invocation": "persistent",
+          "feedback": "geometry-reflow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative archive-reassembly scenario: fragments, dates, initials, and narrative connections are authored presentation devices, not documented archival provenance.",
+            "zh": "示例档案重组场景：其中碎片、日期、姓名首字母和叙事连接均为创作展示手法，并非有记录的档案来源。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "slide-x",
+          "3->4": "wipe",
+          "4->5": "fade"
+        }
       },
       {
         "id": "concealed-objects",
@@ -29063,9 +29514,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "analog-cutout-collage",
-            "band": "craft-cultural",
-            "name": "Analog Cutout Collage",
             "theme": "Inside the Wall",
             "densityLabel": "Medium-dense / Evidence collage",
             "heroScene": 1,
@@ -29190,12 +29638,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "analog-cutout-collage",
+            "name": "Analog Cutout Collage",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "analog-cutout-collage",
-            "band": "craft-cultural",
-            "name": "模拟剪纸拼贴",
             "theme": "墙中藏物",
             "densityLabel": "中高密度 / 证据拼贴",
             "heroScene": 1,
@@ -29320,10 +29768,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "analog-cutout-collage",
+            "name": "模拟剪纸拼贴",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./analog-cutout-collage-concealed-objects.tsx",
+        "modulePath": "../topics/concealed-objects.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "wall-cache-fragments",
@@ -29471,6 +29922,155 @@ export const CATALOG_MANIFEST = [
             ]
           }
         ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "id": "leigh-barton-report",
+              "authority": "Historic England",
+              "title": "Concealed Shoe from Leigh Barton, Churchstow, South Devon",
+              "citation": "J. H. Thornton, 1982, Ancient Monuments Laboratory Report 3736.",
+              "url": "https://historicengland.org.uk/research/results/reports/2145/CONCEALEDSHOEFROMLEIGHBARTONCHURCHSTOWSOUTHDEVON",
+              "accessDate": "2026-07-10",
+              "supports": "Records a roughly 230 mm, right-shaped adult shoe from Leigh Barton, with a repaired sole and upper loss before it was built into plaster; it cautions that exact dating is not possible from the surviving form.",
+              "boundary": "The report describes the object and its condition. It does not identify a wearer or prove why a particular person placed it in the building fabric.",
+              "shortLabel": {
+                "en": "HE · Leigh Barton",
+                "zh": "英格兰遗产 · Leigh Barton"
+              },
+              "claimIds": [
+                "leigh-barton-shoe"
+              ]
+            },
+            {
+              "id": "york-concealed-shoes",
+              "authority": "York Museums Trust",
+              "title": "Concealed Shoes in the York Castle Museum Collection",
+              "citation": "Faye Prior, York Museums Trust, collection research article.",
+              "url": "https://www.yorkmuseumstrust.org.uk/blog/concealed-shoes-in-the-york-castle-museum-collection/",
+              "accessDate": "2026-07-10",
+              "supports": "Documents the Bishopthorpe pair found in a wall during 1996 renovation and the 13 cm Gillygate child shoe found under floorboards in a first-floor bedroom above a shop in 2007, including their wear and repair evidence.",
+              "boundary": "The museum explicitly says it does not know who wore or concealed these shoes. The suggested Bishopthorpe concealment date is presented as a probability, not a witnessed event.",
+              "shortLabel": {
+                "en": "YMT · York shoes",
+                "zh": "约克博物馆 · 鞋履"
+              },
+              "claimIds": [
+                "bishopthorpe-pair",
+                "gillygate-child-shoe",
+                "conservation-context"
+              ]
+            },
+            {
+              "id": "mola-holywell",
+              "authority": "Museum of London Archaeology",
+              "title": "The Holywell witch-bottle",
+              "citation": "MOLA webpage article, “The Holywell witch-bottle.”",
+              "url": "https://www.mola.org.uk/discoveries/news/holywell-witch-bottle",
+              "accessDate": "2026-07-10",
+              "supports": "Records a London stoneware vessel dated about 1670–1710, placed upright below a floor in the doorway of an eighteenth-century house, with about 60 fine bent copper-alloy pins, nail residue, and an unidentified possible wood or bone fragment.",
+              "boundary": "The possible wood-or-bone fragment is not securely identified. MOLA treats the bottle's ritual or protective reading as an archaeological probability, not proof of a named actor's intention.",
+              "shortLabel": {
+                "en": "MOLA · Holywell",
+                "zh": "MOLA · Holywell"
+              },
+              "claimIds": [
+                "holywell-bottle"
+              ]
+            },
+            {
+              "id": "lauderdale-cache",
+              "authority": "London Museum",
+              "title": "Lauderdale House: Witchcraft relics hidden in the wall",
+              "citation": "London Museum, Lauderdale House collection interpretation, 2024.",
+              "url": "https://www.londonmuseum.org.uk/blog/lauderdale-house-witchcraft-relics-hidden-in-the-wall/",
+              "accessDate": "2026-07-10",
+              "supports": "Documents a basket found in 1963 behind a bricked-up wall near a first-floor fireplace: two odd shoes, plaited rush, a broken ceramic candlestick, a broken tazza, and four desiccated chickens; one shoe has been dated to 1650.",
+              "boundary": "The cache is a documented grouping and location, not a biography. Its intended protection, household meaning, and maker cannot be recovered as certain facts from the objects alone.",
+              "shortLabel": {
+                "en": "LM · Lauderdale",
+                "zh": "伦敦博物馆 · Lauderdale"
+              },
+              "claimIds": [
+                "lauderdale-cache"
+              ]
+            },
+            {
+              "id": "avebury-shoe-cache",
+              "authority": "Wiltshire and Swindon History Centre",
+              "title": "Concealed shoes",
+              "citation": "Wiltshire and Swindon History Centre, conservation update for Wiltshire Museum shoes.",
+              "url": "https://wshc.org.uk/concealed-shoes/",
+              "accessDate": "2026-07-10",
+              "supports": "Documents three latchet-tie shoes found in 2022 in a chimney wall of a seventeenth-century Avebury cottage, dating them around 1640–70 and describing evidence retained through conservation assessment.",
+              "boundary": "The source lists several possible purposes for concealed shoes but states that their purpose remains uncertain; unusual material details in the cache are also left unresolved.",
+              "shortLabel": {
+                "en": "WSHC · Avebury",
+                "zh": "WSHC · Avebury"
+              },
+              "claimIds": [
+                "avebury-shoe-cache",
+                "conservation-context"
+              ]
+            },
+            {
+              "id": "carhullan-mark",
+              "authority": "Historic England",
+              "title": "Carhullan farmhouse and barn, Bampton — List Entry 1485219",
+              "citation": "Historic England, National Heritage List for England, List Entry 1485219.",
+              "url": "https://historicengland.org.uk/listing/the-list/list-entry/1485219",
+              "accessDate": "2026-07-10",
+              "supports": "Records a detached stone discovered during renovation at Carhullan farmhouse, inscribed with JL and 1676 within a circle plus rough marks; the listing says the inscriptions are consistent with apotropaic or ritual marks.",
+              "boundary": "“Consistent with” is not a determination of intent. The listing does not establish whether the markings were protective, commemorative, or made by a specific individual.",
+              "shortLabel": {
+                "en": "HE · Carhullan",
+                "zh": "英格兰遗产 · Carhullan"
+              },
+              "claimIds": [
+                "carhullan-mark"
+              ]
+            },
+            {
+              "id": "historic-england-marks",
+              "authority": "Historic England",
+              "title": "What Are Witches’ Marks?",
+              "citation": "Historic England, Discovering Witches’ Marks guidance feature.",
+              "url": "https://historicengland.org.uk/whats-new/features/discovering-witches-marks/what-are-witches-marks",
+              "accessDate": "2026-07-10",
+              "supports": "Explains that ritual-protection or apotropaic marks are often found near doorways, windows, and fireplaces, and notes that the purpose of hexafoils remains disputed even where a protective interpretation is widely used.",
+              "boundary": "The guidance differentiates an interpretive vocabulary from a proven motive. A mark's shape or position cannot by itself establish the belief of a particular historic person.",
+              "shortLabel": {
+                "en": "HE · marks guide",
+                "zh": "英格兰遗产 · 刻痕"
+              },
+              "claimIds": [
+                "marks-interpretation"
+              ]
+            },
+            {
+              "id": "houlbrook-2013",
+              "authority": "Cambridge Archaeological Journal",
+              "title": "Ritual, Recycling and Recontextualization: Putting the Concealed Shoe into Context",
+              "citation": "Ceri Houlbrook, Cambridge Archaeological Journal 23(1), 2013, 99–112.",
+              "url": "https://www.cambridge.org/core/journals/cambridge-archaeological-journal/article/abs/ritual-recycling-and-recontextualization-putting-the-concealed-shoe-into-context/C6F6897C2F8778F6EA30F5DB74305491",
+              "accessDate": "2026-07-10",
+              "supports": "Reviews concealed-shoe evidence and states that, beyond the pattern of old and damaged shoes in unconventional building locations, motivations must be approached as archaeological interpretation because contemporaneous written explanations are absent.",
+              "boundary": "This research supports bounded interpretation, not a single explanation for every shoe, bottle, animal remain, or carved mark in this small evidence set.",
+              "shortLabel": {
+                "en": "CAJ · Houlbrook",
+                "zh": "CAJ · Houlbrook"
+              },
+              "claimIds": [
+                "interpretation-boundary"
+              ]
+            }
+          ],
+          "boundary": {
+            "en": "Object details and find contexts are source-backed; associations with concealment practices remain bounded interpretations and do not establish a historic person's intent.",
+            "zh": "物件细节与发现背景均有来源支持；与藏匿习俗的联系仍属有边界的解释，不能证明某位历史人物的意图。"
+          },
+          "display": "stage"
+        },
         "transitionScore": {
           "1->2": "paper-fold",
           "2->3": "card-carousel",
@@ -29487,9 +30087,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "analog-cutout-collage",
-            "band": "editorial-print",
-            "name": "Analog Cutout Collage",
             "theme": "Piecing the Idea Together",
             "densityLabel": "Layered / tactile",
             "heroScene": 2,
@@ -29595,12 +30192,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "analog-cutout-collage",
+            "name": "Analog Cutout Collage",
+            "band": "editorial-print"
           },
           "zh": {
-            "id": "analog-cutout-collage",
-            "band": "editorial-print",
-            "name": "模拟剪纸拼贴",
             "theme": "拼出想法",
             "densityLabel": "分层 / 触感",
             "heroScene": 2,
@@ -29706,10 +30303,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "analog-cutout-collage",
+            "name": "模拟剪纸拼贴",
+            "band": "editorial-print"
           }
         },
-        "modulePath": "./piecing-idea-together.tsx",
+        "modulePath": "../topics/piecing-idea-together.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "collage-pin-pricks",

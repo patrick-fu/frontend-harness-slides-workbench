@@ -1,0 +1,1086 @@
+.root {
+  --seven-blues-bg: #f5e8be;
+  --seven-blues-ink: #171914;
+  --seven-blues-ultra: #173f99;
+  --seven-blues-azure: #007f98;
+  --seven-blues-cyan: #00a9b7;
+  --seven-blues-red: #f05545;
+  --seven-blues-paper-shadow: #c9b57e;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: size;
+  isolation: isolate;
+  background-color: var(--seven-blues-bg);
+  color: var(--seven-blues-ink);
+  font-family: "Arial Narrow", "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+}
+
+.root * {
+  box-sizing: border-box;
+}
+
+.paperGrain {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.3;
+  mix-blend-mode: multiply;
+}
+
+.registerMark,
+.registerMark::before,
+.registerMark::after {
+  position: absolute;
+  width: 3.4cqw;
+  height: 3.4cqw;
+  border: 0.16cqw solid var(--seven-blues-red);
+  content: "";
+  pointer-events: none;
+}
+
+.registerMark {
+  right: 3.1cqw;
+  top: 3cqh;
+  z-index: 7;
+  transform: rotate(4deg);
+}
+
+.registerMark::before {
+  left: -0.55cqw;
+  top: 0.35cqh;
+  border-color: var(--seven-blues-cyan);
+}
+
+.registerMark::after {
+  left: 0.4cqw;
+  top: -0.25cqh;
+  border-color: var(--seven-blues-ultra);
+}
+
+.sceneTrack {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 20cqh minmax(0, 1fr) 16cqh;
+  gap: 1.6cqh;
+  padding: 4.2cqh 6.2cqw 3.6cqh;
+  overflow: hidden;
+}
+
+.scene::before {
+  position: absolute;
+  inset: 2.7cqh 3.1cqw 2.5cqh;
+  border: 0.14cqw solid var(--seven-blues-ultra);
+  content: "";
+  opacity: 0.64;
+  pointer-events: none;
+  transform: rotate(-0.34deg);
+}
+
+.scene::after {
+  position: absolute;
+  inset: 3.25cqh 3.7cqw 1.85cqh 2.5cqw;
+  border: 0.12cqw solid var(--seven-blues-red);
+  content: "";
+  opacity: 0.52;
+  pointer-events: none;
+  transform: rotate(0.5deg);
+}
+
+.header {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 16cqw minmax(0, 1fr) 9cqw;
+  grid-template-rows: auto 1fr;
+  column-gap: 2.1cqw;
+  min-width: 0;
+}
+
+.kicker {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: start;
+  width: fit-content;
+  margin: 0;
+  padding: 1.15cqh 1.25cqw 0.9cqh;
+  background-color: var(--seven-blues-ink);
+  color: var(--seven-blues-bg);
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 0.92cqw;
+  font-weight: 700;
+  letter-spacing: 0.08cqw;
+  line-height: 1;
+  transform: rotate(-1.9deg);
+}
+
+.sceneNumber {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  align-self: start;
+  width: 7.3cqw;
+  margin: 0;
+  padding: 0.7cqh 0 0.45cqh;
+  background-color: var(--seven-blues-red);
+  color: var(--seven-blues-bg);
+  font-size: 3.3cqw;
+  font-stretch: condensed;
+  font-weight: 900;
+  letter-spacing: -0.12cqw;
+  line-height: 0.76;
+  text-align: center;
+  transform: rotate(2.4deg);
+}
+
+.sceneNumber::first-letter {
+  color: var(--seven-blues-cyan);
+}
+
+.titleBlock {
+  grid-column: 2 / span 2;
+  grid-row: 2;
+  align-self: end;
+  min-width: 0;
+}
+
+.titleBlock h1 {
+  max-width: 68cqw;
+  margin: 0;
+  color: var(--seven-blues-ink);
+  font-size: min(8.5cqw, 14.3cqh);
+  font-stretch: condensed;
+  font-weight: 950;
+  letter-spacing: -0.42cqw;
+  line-height: 0.76;
+  text-transform: uppercase;
+  transform: rotate(-0.6deg);
+}
+
+.titleBlock h1::first-line {
+  text-shadow: -0.22cqw 0.16cqh 0 var(--seven-blues-cyan),
+    0.22cqw -0.12cqh 0 var(--seven-blues-red);
+}
+
+.deck {
+  max-width: 56cqw;
+  margin: 1.25cqh 0 0;
+  color: var(--seven-blues-ink);
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 1.13cqw;
+  font-weight: 700;
+  line-height: 1.28;
+  overflow-wrap: anywhere;
+}
+
+.sceneBody {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.footer {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  align-items: end;
+  gap: 2.5cqw;
+  min-width: 0;
+}
+
+.beatLine {
+  display: grid;
+  grid-template-columns: 3.4cqw minmax(0, 1fr);
+  column-gap: 0.9cqw;
+  row-gap: 0.38cqh;
+  max-width: 42cqw;
+  margin: 0;
+  min-width: 0;
+  font-family: "Courier New", "Noto Sans SC", monospace;
+}
+
+.beatLine span {
+  grid-row: 1 / span 2;
+  align-self: start;
+  padding: 0.7cqh 0.35cqw 0.45cqh;
+  background-color: var(--seven-blues-ultra);
+  color: var(--seven-blues-bg);
+  font-size: 1.34cqw;
+  font-weight: 900;
+  line-height: 0.78;
+  text-align: center;
+  transform: rotate(-2deg);
+}
+
+.beatLine strong {
+  overflow-wrap: anywhere;
+  font-size: 1.08cqw;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.beatLine em {
+  color: rgba(23, 25, 20, 0.72);
+  font-size: 0.82cqw;
+  font-style: normal;
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+}
+
+.footerRight {
+  display: grid;
+  justify-items: end;
+  gap: 0.6cqh;
+  min-width: 0;
+}
+
+.boundary {
+  max-width: 52cqw;
+  margin: 0;
+  color: rgba(23, 25, 20, 0.78);
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 0.72cqw;
+  font-weight: 700;
+  line-height: 1.16;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.sourceStamp {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45cqw 0.62cqw;
+  max-width: 56cqw;
+  min-width: 0;
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 0.61cqw;
+  font-weight: 800;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.sourceWord {
+  color: var(--seven-blues-red);
+  letter-spacing: 0.06cqw;
+}
+
+.sourceStamp a {
+  color: var(--seven-blues-ultra);
+  text-decoration: none;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 0.1cqh;
+  text-underline-offset: 0.25cqh;
+}
+
+.sourceStamp a:focus-visible {
+  outline: 0.15cqw solid var(--seven-blues-red);
+  outline-offset: 0.22cqw;
+}
+
+/* Scene 1 — blue field */
+
+.blueFieldArt {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  border: 0.18cqw solid var(--seven-blues-ink);
+  background-color: var(--seven-blues-ultra);
+  box-shadow: 0.7cqw 0.75cqh 0 var(--seven-blues-paper-shadow);
+  transform: rotate(-0.46deg);
+}
+
+.blueFieldPrint {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.blueFieldType {
+  position: absolute;
+  left: 5.2cqw;
+  top: 3.1cqh;
+  display: flex;
+  align-items: flex-end;
+  gap: 3.2cqw;
+  color: var(--seven-blues-bg);
+  font-size: min(17cqw, 25cqh);
+  font-stretch: condensed;
+  font-weight: 950;
+  letter-spacing: -1.2cqw;
+  line-height: 0.68;
+  mix-blend-mode: screen;
+  transform: rotate(-2.3deg);
+}
+
+.blueFieldType span:last-child {
+  color: var(--seven-blues-red);
+  font-size: min(9cqw, 14cqh);
+  letter-spacing: -0.45cqw;
+  transform: translateY(-0.7cqh) rotate(5deg);
+}
+
+.blueCuts {
+  position: absolute;
+  left: 2.6cqw;
+  right: 2.6cqw;
+  bottom: 2.3cqh;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: end;
+  gap: 0.65cqw;
+}
+
+.blueCut {
+  min-width: 0;
+  min-height: 10.3cqh;
+  border: 0.12cqw solid var(--seven-blues-ink);
+  background-color: var(--seven-blues-bg);
+  color: var(--seven-blues-ink);
+  opacity: 0.12;
+  transform: translateY(2.3cqh) rotate(-1.2deg);
+  transition:
+    opacity 240ms steps(3, end),
+    transform 320ms cubic-bezier(0.2, 0.86, 0.28, 1.08);
+}
+
+.blueCut:nth-child(2n) {
+  transform: translateY(2.3cqh) rotate(1.6deg);
+}
+
+.blueCut:nth-child(3n) {
+  background-color: var(--seven-blues-cyan);
+}
+
+.blueCut:nth-child(4n) {
+  background-color: var(--seven-blues-red);
+}
+
+.blueCut[data-visible="true"] {
+  opacity: 0.95;
+  transform: translateY(0) rotate(-1.2deg);
+}
+
+.blueCut:nth-child(2n)[data-visible="true"] {
+  transform: translateY(0) rotate(1.6deg);
+}
+
+.blueCut span {
+  display: block;
+  padding: 1.25cqh 0.6cqw;
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 0.7cqw;
+  font-weight: 900;
+  line-height: 1.06;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+}
+
+/* Scene 2 — mineral pairs */
+
+.mineralPairs {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 15cqw;
+  grid-template-rows: minmax(0, 1fr) 8cqh;
+  gap: 1.7cqw;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.mineralPlate {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: end;
+  gap: 0.9cqw;
+  min-width: 0;
+  min-height: 0;
+  padding: 1.5cqh 1.15cqw 1.1cqh;
+  overflow: hidden;
+  border: 0.2cqw solid var(--seven-blues-ink);
+  background-color: rgba(23, 63, 153, 0.16);
+  transform: rotate(-1.1deg);
+}
+
+.azuritePlate {
+  background-color: rgba(0, 169, 183, 0.19);
+  transform: rotate(1.25deg);
+}
+
+.mineralPlate::after {
+  position: absolute;
+  inset: 1.1cqh 0.9cqw;
+  border: 0.12cqw dashed var(--seven-blues-red);
+  content: "";
+  opacity: 0.6;
+  pointer-events: none;
+  transform: rotate(1.4deg);
+}
+
+.mineralPlate svg {
+  width: 100%;
+  height: 100%;
+  min-height: 22cqh;
+  overflow: visible;
+}
+
+.mineralPlate > div {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  padding-bottom: 1.2cqh;
+}
+
+.plateIndex {
+  width: fit-content;
+  margin: 0 0 1.2cqh;
+  padding: 0.55cqh 0.55cqw 0.4cqh;
+  background-color: var(--seven-blues-red);
+  color: var(--seven-blues-bg);
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 0.76cqw;
+  font-weight: 900;
+  line-height: 1;
+  transform: rotate(-3deg);
+}
+
+.mineralPlate h2 {
+  margin: 0;
+  font-size: 2.45cqw;
+  font-stretch: condensed;
+  font-weight: 950;
+  letter-spacing: -0.1cqw;
+  line-height: 0.86;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.mineralPlate p:last-child {
+  margin: 1.2cqh 0 0;
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 0.81cqw;
+  font-weight: 700;
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+}
+
+.grindStrip {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: center;
+  display: grid;
+  justify-items: center;
+  gap: 1.15cqh;
+  min-height: 30cqh;
+  padding: 2.2cqh 1cqw;
+  border-left: 0.16cqw dashed var(--seven-blues-ink);
+  color: var(--seven-blues-ink);
+  opacity: 0.14;
+  transform: translateX(1.5cqw);
+  transition:
+    opacity 220ms steps(3, end),
+    transform 300ms cubic-bezier(0.2, 0.86, 0.28, 1.08);
+}
+
+.grindStrip[data-visible="true"] {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.grindStrip span {
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 0.7cqw;
+  font-weight: 900;
+  line-height: 1.15;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.grindStrip i {
+  display: block;
+  width: 2.5cqw;
+  height: 2.5cqw;
+  border-radius: 50%;
+  background-color: var(--seven-blues-cyan);
+  box-shadow: 0.35cqw 0.32cqh 0 var(--seven-blues-red);
+}
+
+.grindStrip i:nth-of-type(2) {
+  width: 1.6cqw;
+  height: 1.6cqw;
+}
+
+.grindStrip i:nth-of-type(3) {
+  width: 0.82cqw;
+  height: 0.82cqw;
+}
+
+.grainBoundary {
+  grid-column: 1 / span 2;
+  grid-row: 2;
+  align-self: end;
+  width: fit-content;
+  max-width: 46cqw;
+  margin: 0;
+  padding: 1cqh 1.2cqw 0.8cqh;
+  background-color: var(--seven-blues-ink);
+  color: var(--seven-blues-bg);
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 0.9cqw;
+  font-weight: 800;
+  line-height: 1.05;
+  opacity: 0.1;
+  transform: translateY(1.2cqh) rotate(-1deg);
+  transition:
+    opacity 220ms steps(3, end),
+    transform 300ms cubic-bezier(0.2, 0.86, 0.28, 1.08);
+}
+
+.grainBoundary[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0) rotate(-1deg);
+}
+
+/* Scene 3 — plant vat */
+
+.indigoVat {
+  display: grid;
+  grid-template-columns: minmax(0, 1.38fr) minmax(16cqw, 0.62fr);
+  gap: 2.3cqw;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.vatArt {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 0.19cqw solid var(--seven-blues-ink);
+  background-color: #d9e2b1;
+  transform: rotate(-0.7deg);
+}
+
+.vatArt::before,
+.vatArt::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.vatArt::before {
+  left: 4.6cqw;
+  top: 1.1cqh;
+  width: 31cqw;
+  height: 1.7cqh;
+  background-color: var(--seven-blues-red);
+  opacity: 0.7;
+  transform: rotate(-3deg);
+}
+
+.vatArt::after {
+  bottom: 1.5cqh;
+  right: 3.1cqw;
+  width: 13cqw;
+  height: 6cqh;
+  border: 0.15cqw dashed var(--seven-blues-cyan);
+  transform: rotate(4deg);
+}
+
+.vatArt svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.vatState {
+  position: absolute;
+  left: 4.3cqw;
+  bottom: 2.2cqh;
+  max-width: 18cqw;
+  padding: 0.75cqh 0.9cqw 0.55cqh;
+  background-color: var(--seven-blues-bg);
+  color: var(--seven-blues-ink);
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 0.94cqw;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+
+.vatNotes {
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 1.2cqh;
+  min-width: 0;
+  min-height: 0;
+}
+
+.vatNote {
+  display: flex;
+  align-items: end;
+  margin: 0;
+  min-width: 0;
+  padding: 2.2cqh 1.8cqw;
+  border: 0.17cqw solid var(--seven-blues-ink);
+  background-color: var(--seven-blues-bg);
+  color: var(--seven-blues-ink);
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 1.08cqw;
+  font-weight: 800;
+  line-height: 1.24;
+  overflow-wrap: anywhere;
+  opacity: 0.13;
+  transform: translateY(1.7cqh) rotate(1.1deg);
+  transition:
+    opacity 220ms steps(3, end),
+    transform 320ms cubic-bezier(0.2, 0.86, 0.28, 1.08);
+}
+
+.vatNote:first-child {
+  background-color: #b8bf6c;
+  transform: translateY(0) rotate(-1.2deg);
+  opacity: 1;
+}
+
+.vatNote[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0) rotate(1.1deg);
+}
+
+/* Scene 4 — synthetic mechanism comparison */
+
+.syntheticLab {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 1.5cqw 1.8cqh;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.mechanismTile {
+  position: relative;
+  display: grid;
+  grid-template-columns: 20cqw minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  align-items: center;
+  column-gap: 1.2cqw;
+  min-width: 0;
+  min-height: 0;
+  padding: 1.1cqh 1.2cqw;
+  overflow: hidden;
+  border: 0.18cqw solid var(--seven-blues-ink);
+  background-color: rgba(245, 232, 190, 0.84);
+  transform: rotate(-0.65deg);
+}
+
+.mechanismTile:nth-child(2n) {
+  transform: rotate(0.8deg);
+}
+
+.mechanismTile::after {
+  position: absolute;
+  right: 1.1cqw;
+  top: 1.1cqh;
+  width: 8cqw;
+  height: 2.2cqh;
+  background-color: var(--seven-blues-red);
+  content: "";
+  opacity: 0.62;
+  transform: rotate(5deg);
+}
+
+.mechanismTile svg {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  width: 100%;
+  max-height: 20cqh;
+}
+
+.mechanismTile h2 {
+  grid-column: 2;
+  align-self: end;
+  margin: 0;
+  color: var(--seven-blues-ink);
+  font-size: 2.15cqw;
+  font-stretch: condensed;
+  font-weight: 950;
+  letter-spacing: -0.1cqw;
+  line-height: 0.84;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.mechanismTile p {
+  grid-column: 2;
+  align-self: start;
+  margin: 0.65cqh 0 0;
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 0.7cqw;
+  font-weight: 800;
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+}
+
+.egyptianTile {
+  background-color: rgba(0, 169, 183, 0.12);
+}
+
+.cobaltTile {
+  background-color: rgba(23, 63, 153, 0.14);
+}
+
+.prussianTile {
+  background-color: rgba(13, 51, 127, 0.12);
+}
+
+.structuralTile {
+  background-color: rgba(0, 169, 183, 0.18);
+}
+
+/* Scene 5 — folded swatch wall */
+
+.stillScene .header {
+  z-index: 4;
+}
+
+.stillScene .titleBlock h1 {
+  font-size: min(7.15cqw, 12cqh);
+  letter-spacing: -0.34cqw;
+  line-height: 0.8;
+  white-space: nowrap;
+}
+
+.stillScene .deck {
+  margin-top: 0.85cqh;
+  font-size: 1.02cqw;
+  line-height: 1.2;
+}
+
+.swatchWall {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 0.75cqw;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding-bottom: 7.5cqh;
+}
+
+.finalSwatch {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  min-width: 0;
+  min-height: 0;
+  padding: 1.25cqh 0.72cqw 1cqh;
+  overflow: hidden;
+  border: 0.18cqw solid var(--seven-blues-ink);
+  background-color: var(--seven-blues-bg);
+  transform: rotate(-1.2deg);
+}
+
+.finalSwatch:nth-child(2n) {
+  transform: rotate(1.25deg) translateY(1cqh);
+}
+
+.finalSwatch:nth-child(3n) {
+  background-color: rgba(0, 169, 183, 0.24);
+}
+
+.finalSwatch:nth-child(4n) {
+  background-color: rgba(23, 63, 153, 0.23);
+}
+
+.finalSwatch::after {
+  position: absolute;
+  bottom: 0;
+  left: -0.4cqw;
+  width: 105%;
+  height: 1.55cqh;
+  background-color: var(--seven-blues-red);
+  content: "";
+  opacity: 0.72;
+  transform: rotate(-2deg);
+}
+
+.swatchNo {
+  position: relative;
+  z-index: 2;
+  display: block;
+  color: var(--seven-blues-red);
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 0.72cqw;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.swatchInk {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 0.7cqh;
+  min-height: 0;
+  padding: 1.2cqh 0;
+}
+
+.swatchInk i {
+  display: block;
+  width: 100%;
+  height: 2.2cqh;
+  background-color: var(--seven-blues-ultra);
+  transform: rotate(-5deg);
+}
+
+.swatchInk i:nth-child(2) {
+  width: 82%;
+  background-color: var(--seven-blues-cyan);
+  transform: rotate(4deg) translateX(0.4cqw);
+}
+
+.swatchInk i:nth-child(3) {
+  width: 65%;
+  background-color: var(--seven-blues-red);
+  transform: rotate(-2deg);
+}
+
+.finalSwatch h2 {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-size: 1.24cqw;
+  font-stretch: condensed;
+  font-weight: 950;
+  letter-spacing: -0.06cqw;
+  line-height: 0.84;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.finalSwatch p {
+  position: relative;
+  z-index: 2;
+  margin: 0.75cqh 0 0;
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 0.57cqw;
+  font-weight: 800;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.screenBoundary {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 1.15cqh 1.4cqw 0.85cqh;
+  border: 0.17cqw solid var(--seven-blues-ink);
+  background-color: var(--seven-blues-ink);
+  color: var(--seven-blues-bg);
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 0.96cqw;
+  font-weight: 800;
+  line-height: 1.12;
+  text-align: center;
+  transform: rotate(-0.2deg);
+  overflow-wrap: anywhere;
+}
+
+.stillScene .finalSwatch,
+.stillScene .screenBoundary {
+  transition: none;
+}
+
+/* Card/miniature swatch navigation */
+
+.swatchNavigation {
+  position: absolute;
+  right: 3.3cqw;
+  top: 50%;
+  z-index: 12;
+  display: grid;
+  justify-items: end;
+  gap: 0.7cqh;
+  transform: translateY(-50%);
+}
+
+.navHint {
+  color: var(--seven-blues-ink);
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  font-size: 0.55cqw;
+  font-weight: 900;
+  letter-spacing: 0.04cqw;
+  line-height: 1;
+  opacity: 0.72;
+  transform: rotate(2deg);
+}
+
+.swatchNavList {
+  display: grid;
+  gap: 0.85cqh;
+}
+
+.swatchButton {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.4cqw 2.5cqw minmax(0, 10cqw);
+  align-items: center;
+  gap: 0.45cqw;
+  width: 15.2cqw;
+  min-height: 3.5cqh;
+  padding: 0.42cqh 0.46cqw;
+  overflow: hidden;
+  border: 0.12cqw solid var(--seven-blues-ink);
+  border-radius: 0;
+  background-color: var(--seven-blues-bg);
+  color: var(--seven-blues-ink);
+  cursor: pointer;
+  font-family: "Courier New", "Noto Sans SC", monospace;
+  text-align: left;
+  transform: rotate(-1.25deg);
+  transition:
+    width 220ms steps(3, end),
+    transform 220ms steps(3, end),
+    background-color 220ms steps(3, end);
+}
+
+.swatchButton:nth-child(2n) {
+  transform: rotate(1.3deg);
+}
+
+.swatchButton:hover,
+.swatchButton[data-revealed="true"],
+.swatchButton:focus-visible {
+  width: 23cqw;
+  background-color: var(--seven-blues-cyan);
+  transform: translateX(-0.9cqw) rotate(-1.25deg);
+}
+
+.swatchButton:nth-child(2n):hover,
+.swatchButton:nth-child(2n)[data-revealed="true"],
+.swatchButton:nth-child(2n):focus-visible {
+  transform: translateX(-0.9cqw) rotate(1.3deg);
+}
+
+.swatchButton[data-current="true"] {
+  background-color: var(--seven-blues-ink);
+  color: var(--seven-blues-bg);
+}
+
+.swatchButton:focus-visible {
+  outline: 0.19cqw solid var(--seven-blues-red);
+  outline-offset: 0.26cqw;
+}
+
+.navMiniInk {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 0.32cqh;
+  width: 2.1cqw;
+  height: 2.1cqw;
+  background-color: var(--seven-blues-ultra);
+  transform: rotate(-4deg);
+}
+
+.navMiniInk i {
+  display: block;
+  width: 78%;
+  height: 0.33cqh;
+  background-color: var(--seven-blues-red);
+  transform: translateX(0.35cqw) rotate(6deg);
+}
+
+.navMiniInk i:nth-child(2) {
+  width: 92%;
+  background-color: var(--seven-blues-cyan);
+  transform: translateX(-0.14cqw) rotate(-4deg);
+}
+
+.navNumber {
+  font-size: 1.12cqw;
+  font-weight: 950;
+  letter-spacing: -0.06cqw;
+  line-height: 1;
+}
+
+.navLabel {
+  min-width: 0;
+  font-size: 0.65cqw;
+  font-weight: 900;
+  line-height: 1.03;
+  opacity: 0;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+  transition: opacity 180ms steps(2, end);
+}
+
+.swatchButton:hover .navLabel,
+.swatchButton[data-revealed="true"] .navLabel,
+.swatchButton:focus-visible .navLabel {
+  opacity: 1;
+}
+
+.settled .blueCut,
+.settled .grindStrip,
+.settled .grainBoundary,
+.settled .vatNote,
+.settled .swatchButton,
+.settled .navLabel {
+  transition-duration: 0s;
+}
+
+.settled .blueCut[data-visible="false"],
+.settled .grindStrip[data-visible="false"],
+.settled .grainBoundary[data-visible="false"],
+.settled .vatNote[data-visible="false"] {
+  opacity: 0.14;
+}
+
+:global(html[data-frozen="true"]) .root *,
+:global(html[data-frozen="true"]) .root *::before,
+:global(html[data-frozen="true"]) .root *::after {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root *,
+  .root *::before,
+  .root *::after {
+    animation-duration: 0s;
+    transition-duration: 0s;
+  }
+}

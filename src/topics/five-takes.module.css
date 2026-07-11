@@ -1,0 +1,478 @@
+.root {
+  --five-takes-bg: #151311;
+  --five-takes-ink: #f2ead8;
+  --five-takes-muted: #8f8777;
+  --five-takes-line: #615848;
+  --five-takes-panel: #1f55b7;
+  --five-takes-black: #0d0b0a;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  overflow: hidden;
+  background: var(--five-takes-bg);
+  color: var(--five-takes-ink);
+  font-family: "Noto Serif", "Noto Serif SC", Georgia, serif;
+  letter-spacing: 0;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  padding: 5cqh 5cqw 6cqh;
+  background: var(--five-takes-bg);
+}
+
+.scene::before {
+  content: "";
+  position: absolute;
+  inset: 3cqh 3cqw;
+  border: 0.08cqw solid var(--five-takes-line);
+  opacity: 0.36;
+  pointer-events: none;
+}
+
+.sceneGrid {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  gap: 2cqw;
+  transition:
+    transform 360ms cubic-bezier(0.2, 0, 0, 1),
+    opacity 260ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.titleBlock {
+  align-self: end;
+  min-width: 0;
+  text-transform: uppercase;
+  color: var(--five-takes-ink);
+}
+
+.eyebrow {
+  margin: 0 0 1.2cqh;
+  color: var(--five-takes-panel);
+  font-family: Oswald, "Arial Narrow", sans-serif;
+  font-size: 2.1cqw;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.titleBlock h1 {
+  margin: 0;
+  font-family: Oswald, "Arial Narrow", sans-serif;
+  font-size: 11.8cqw;
+  font-weight: 700;
+  line-height: 0.82;
+  letter-spacing: 0;
+}
+
+.titleBlock h1 span {
+  display: block;
+}
+
+.photoPlate {
+  position: relative;
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+  background: var(--five-takes-panel);
+  overflow: hidden;
+  border: 0.12cqw solid var(--five-takes-bg);
+}
+
+.photoPlate svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.photoPlate figcaption {
+  position: absolute;
+  left: 1.2cqw;
+  bottom: 1.2cqh;
+  max-width: 80%;
+  margin: 0;
+  color: var(--five-takes-ink);
+  font-family: Oswald, "Arial Narrow", sans-serif;
+  font-size: 1.2cqw;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  opacity: 0.84;
+}
+
+.copyBand {
+  align-self: end;
+  min-width: 0;
+  border-top: 0.14cqw solid var(--five-takes-line);
+  padding-top: 1.8cqh;
+}
+
+.serifLine,
+.bodyLine,
+.creditLine {
+  margin: 0;
+}
+
+.serifLine {
+  max-width: 42cqw;
+  font-size: 2.9cqw;
+  line-height: 1.05;
+  color: var(--five-takes-ink);
+}
+
+.bodyLine {
+  max-width: 44cqw;
+  margin-top: 1.8cqh;
+  color: var(--five-takes-muted);
+  font-size: 1.55cqw;
+  line-height: 1.32;
+}
+
+.creditLine {
+  margin-top: 2.1cqh;
+  color: var(--five-takes-ink);
+  font-family: Oswald, "Arial Narrow", sans-serif;
+  font-size: 1.35cqw;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.revealStack {
+  align-self: end;
+  display: grid;
+  gap: 1.2cqh;
+  min-width: 0;
+}
+
+.revealItem {
+  display: grid;
+  grid-template-columns: 8cqw 1fr;
+  gap: 1.2cqw;
+  align-items: start;
+  padding: 1.35cqh 1.2cqw;
+  border: 0.08cqw solid var(--five-takes-line);
+  background: var(--five-takes-black);
+  animation: revealSnap 320ms cubic-bezier(0.2, 0, 0, 1) both;
+  animation-delay: calc(var(--beat-index) * 80ms);
+}
+
+.revealItem strong {
+  color: var(--five-takes-panel);
+  font-family: Oswald, "Arial Narrow", sans-serif;
+  font-size: 1.3cqw;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.revealItem span {
+  color: var(--five-takes-ink);
+  font-size: 1.38cqw;
+  line-height: 1.18;
+}
+
+.beatMarkers {
+  position: absolute;
+  left: 5cqw;
+  bottom: 2.6cqh;
+  z-index: 2;
+  display: flex;
+  gap: 0.7cqw;
+  align-items: center;
+}
+
+.beatMarker {
+  width: 2.4cqw;
+  height: 0.45cqh;
+  background: var(--five-takes-line);
+  opacity: 0.42;
+  transition:
+    opacity 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.beatMarkerActive {
+  background: var(--five-takes-panel);
+  opacity: 1;
+  transform: translateY(-0.3cqh);
+}
+
+.grooveNav {
+  position: absolute;
+  right: 4.2cqw;
+  bottom: 3cqh;
+  z-index: 5;
+  width: 16cqw;
+  height: 16cqw;
+}
+
+.grooveRings {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.grooveRings span {
+  position: absolute;
+  border: 0.08cqw solid var(--five-takes-line);
+  opacity: 0.5;
+  border-radius: 50%;
+}
+
+.grooveRings span:nth-child(1) {
+  width: 15cqw;
+  height: 15cqw;
+}
+
+.grooveRings span:nth-child(2) {
+  width: 11.2cqw;
+  height: 11.2cqw;
+}
+
+.grooveRings span:nth-child(3) {
+  width: 7.2cqw;
+  height: 7.2cqw;
+}
+
+.navMarkers {
+  position: absolute;
+  inset: 0;
+}
+
+.navMarker {
+  position: absolute;
+  width: 2.5cqw;
+  height: 2.5cqw;
+  display: grid;
+  place-items: center;
+  border: 0.1cqw solid var(--five-takes-line);
+  border-radius: 50%;
+  background: var(--five-takes-bg);
+  color: var(--five-takes-muted);
+  font-family: Oswald, "Arial Narrow", sans-serif;
+  font-size: 1.2cqw;
+  line-height: 1;
+  letter-spacing: 0;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.navMarker:nth-child(1) {
+  left: 6.75cqw;
+  top: 0.2cqw;
+}
+
+.navMarker:nth-child(2) {
+  right: 0.9cqw;
+  top: 5cqw;
+}
+
+.navMarker:nth-child(3) {
+  right: 3.2cqw;
+  bottom: 0.8cqw;
+}
+
+.navMarker:nth-child(4) {
+  left: 3.2cqw;
+  bottom: 0.8cqw;
+}
+
+.navMarker:nth-child(5) {
+  left: 0.9cqw;
+  top: 5cqw;
+}
+
+.navMarkerActive {
+  background: var(--five-takes-panel);
+  border-color: var(--five-takes-panel);
+  color: var(--five-takes-ink);
+  transform: scale(1.12);
+}
+
+.navMarker:focus-visible {
+  outline: 0.16cqw solid var(--five-takes-ink);
+  outline-offset: 0.25cqw;
+}
+
+.sceneSleeve .sceneGrid {
+  grid-template-columns: 38cqw 1fr;
+  grid-template-rows: 64cqh 1fr;
+}
+
+.sceneSleeve .titleBlock {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.sceneSleeve .photoPlate {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.sceneSleeve .copyBand {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.sceneSleeve .revealStack {
+  position: absolute;
+  left: 38cqw;
+  bottom: 0;
+  width: 28cqw;
+}
+
+.sceneTake .sceneGrid {
+  grid-template-columns: 47cqw 1fr;
+  grid-template-rows: 36cqh 1fr;
+}
+
+.sceneTake .photoPlate {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+
+.sceneTake .titleBlock {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.sceneTake .copyBand {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+}
+
+.sceneTake .revealStack {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: end;
+}
+
+.sceneNote .sceneGrid {
+  grid-template-columns: 34cqw 28cqw 1fr;
+  grid-template-rows: 36cqh 1fr;
+}
+
+.sceneNote .titleBlock {
+  grid-column: 1 / span 2;
+  grid-row: 1;
+}
+
+.sceneNote .photoPlate {
+  grid-column: 2 / span 2;
+  grid-row: 1 / span 2;
+  opacity: 0.86;
+}
+
+.sceneNote .copyBand {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+}
+
+.sceneNote .revealStack {
+  grid-column: 3;
+  grid-row: 2;
+  align-self: end;
+}
+
+.sceneMix .sceneGrid {
+  grid-template-columns: 34cqw 1fr;
+  grid-template-rows: 32cqh 1fr 20cqh;
+}
+
+.sceneMix .titleBlock {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.sceneMix .photoPlate {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+}
+
+.sceneMix .copyBand {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+}
+
+.sceneMix .revealStack {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.sceneMix .revealItem:nth-child(2) {
+  transform: translateX(1.6cqw);
+}
+
+.sceneMix .revealItem:nth-child(3) {
+  transform: translateX(3.2cqw);
+}
+
+.sceneLiner .sceneGrid {
+  grid-template-columns: 52cqw 1fr;
+  grid-template-rows: 42cqh 1fr;
+}
+
+.sceneLiner .titleBlock {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+}
+
+.sceneLiner .photoPlate {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.sceneLiner .copyBand {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
+}
+
+.sceneLiner .revealStack {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+}
+
+.noMotion *,
+.noMotion *::before,
+.noMotion *::after {
+  transition-duration: 0s;
+  animation-duration: 0s;
+  animation-delay: 0s;
+}
+
+@keyframes revealSnap {
+  from {
+    opacity: 0;
+    transform: translateY(2cqh);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

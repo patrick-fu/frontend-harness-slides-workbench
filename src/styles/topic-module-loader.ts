@@ -13,6 +13,7 @@ const topicModules = import.meta.glob<TopicModuleDefault>(
     "./*.tsx",
     "../topics/*.tsx",
     "!./*.test.tsx",
+    "!../topics/*.test.tsx",
     "!./__test-template.tsx",
   ],
   { import: "default" },

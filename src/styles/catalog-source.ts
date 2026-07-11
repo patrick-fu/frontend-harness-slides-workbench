@@ -74,46 +74,38 @@ import debugBoardDefinition from "../topics/debug-board";
 import learningIncidentDefinition from "../topics/learning-incident";
 import acousticCrackDefinition from "../topics/acoustic-crack";
 import safeToDeployDefinition from "../topics/safe-to-deploy";
-import EditorialBroadsheet17, {
-  getMetadata as getMetadata17,
-} from "./17-editorial-broadsheet";
-import LiteraryReview18, {
-  getMetadata as getMetadata18,
-} from "./18-literary-review";
-import FinancialTimes19, {
-  getMetadata as getMetadata19,
-} from "./19-financial-times";
-import NationalGeographic20, {
-  getMetadata as getMetadata20,
-} from "./20-national-geographic";
-import VogueEditorial21, {
-  getMetadata as getMetadata21,
-} from "./21-vogue-editorial";
-import AcademicJournal22, {
-  getMetadata as getMetadata22,
-} from "./22-academic-journal";
-import ZineCulture23, {
-  getMetadata as getMetadata23,
-} from "./23-zine-culture";
-import ManuscriptScroll24, {
-  getMetadata as getMetadata24,
-} from "./24-manuscript-scroll";
-import { morningAfterLaunchTopic } from "./17-morning-after-launch";
-import { rogueWaveTopic } from "./18-rogue-wave";
-import { productGetsCoverTopic } from "./18-product-gets-cover";
-import { mothExperimentTopic } from "./magazine-masthead-moth-experiment";
-import { usefulWeekNotesTopic } from "./19-useful-week-notes";
-import { oralToWrittenTopic } from "./warm-editorial-feature-oral-to-written";
-import { argumentInMarginsTopic } from "./20-argument-in-margins";
-import { hiddenTextTopic } from "./scholars-vellum-hidden-text";
-import { publicLightProgramTopic } from "./21-public-light-program";
-import { ironFromStarsTopic } from "./solar-biennale-poster-iron-from-stars";
-import { fiveTakesRoomTopic } from "./22-five-takes-room";
-import { danceNotationTopic } from "./duotone-session-dance-notation";
-import { communityPrintsItselfTopic } from "./23-community-prints-itself";
-import { archiveReassembledTopic } from "./24-archive-reassembled";
-import { sevenBluesTopic } from "./riso-print-zine-seven-blues";
-import { concealedObjectsTopic } from "./analog-cutout-collage-concealed-objects";
+import broadsheetDefinition from "../topics/broadsheet";
+import afterLaunchDefinition from "../topics/after-launch";
+import rogueWaveDefinition from "../topics/rogue-wave";
+import dayFeedStoppedDefinition from "../topics/day-feed-stopped";
+import mastheadDefinition from "../topics/masthead";
+import productCoverDefinition from "../topics/product-cover";
+import mothExperimentDefinition from "../topics/moth-experiment";
+import comebackIssueDefinition from "../topics/comeback-issue";
+import editorialFeatureDefinition from "../topics/editorial-feature";
+import usefulWeekDefinition from "../topics/useful-week";
+import oralToWrittenDefinition from "../topics/oral-to-written";
+import letterToPastSelfDefinition from "../topics/letter-to-past-self";
+import scholarNotesDefinition from "../topics/scholar-notes";
+import marginArgumentDefinition from "../topics/margin-argument";
+import hiddenTextDefinition from "../topics/hidden-text";
+import whatAncientsKnewDefinition from "../topics/what-ancients-knew";
+import biennalePosterDefinition from "../topics/biennale-poster";
+import publicLightDefinition from "../topics/public-light";
+import ironFromStarsDefinition from "../topics/iron-from-stars";
+import festivalSlowIdeasDefinition from "../topics/festival-slow-ideas";
+import sessionPosterDefinition from "../topics/session-poster";
+import fiveTakesDefinition from "../topics/five-takes";
+import danceNotationDefinition from "../topics/dance-notation";
+import cutInOneTakeDefinition from "../topics/cut-in-one-take";
+import risoZineDefinition from "../topics/riso-zine";
+import communityPrintDefinition from "../topics/community-print";
+import sevenBluesDefinition from "../topics/seven-blues";
+import makeSomethingWeeklyDefinition from "../topics/make-something-weekly";
+import cutoutCollageDefinition from "../topics/cutout-collage";
+import rebuiltArchiveDefinition from "../topics/rebuilt-archive";
+import concealedObjectsDefinition from "../topics/concealed-objects";
+import piecingIdeaTogetherDefinition from "../topics/piecing-idea-together";
 import WoodblockPrint25, {
   getMetadata as getMetadata25,
 } from "./25-woodblock-print";
@@ -236,14 +228,6 @@ import { recoveryKitTopic } from "./48-recovery-kit";
 import { cocoonToClothTopic } from "./49-cocoon-to-cloth";
 
 // ─── Curated Topic Set ──────────────────────────────────────────────────
-import { dayFeedStoppedTopic } from "./day-feed-stopped";
-import { comebackIssueTopic } from "./comeback-issue";
-import { letterToPastSelfTopic } from "./letter-to-past-self";
-import { whatAncientsKnewTopic } from "./what-ancients-knew";
-import { festivalSlowIdeasTopic } from "./festival-slow-ideas";
-import { cutInOneTakeTopic } from "./cut-in-one-take";
-import { makeSomethingWeeklyTopic } from "./make-something-weekly";
-import { piecingIdeaTogetherTopic } from "./piecing-idea-together";
 import { aRiversJourneyTopic } from "./a-rivers-journey";
 import { anatomyOfAnIdeaTopic } from "./anatomy-of-an-idea";
 import { grandUnveilingTopic } from "./grand-unveiling";
@@ -443,102 +427,78 @@ export const STYLE_CATALOG_SOURCE: StyleRegistryEntry[] = [
     ].map(toMigratingStyleTopic),
   ),
   // Editorial & Print: 17-24
-  buildEntry("front-page-broadsheet", [
-    {
-      id: "broadsheet",
-      topic: { en: "Broadsheet", zh: "大报头版" },
-      model: "Doubao-Seed-Evolving",
-      component: EditorialBroadsheet17,
-      getMetadata: getMetadata17,
-    },
-    morningAfterLaunchTopic,
-    rogueWaveTopic,
-    dayFeedStoppedTopic,
-  ]),
-  buildEntry("magazine-masthead", [
-    {
-      id: "masthead",
-      topic: { en: "Masthead", zh: "杂志刊头" },
-      model: "Doubao-Seed-Evolving",
-      component: LiteraryReview18,
-      getMetadata: getMetadata18,
-    },
-    productGetsCoverTopic,
-    mothExperimentTopic,
-    comebackIssueTopic,
-  ]),
-  buildEntry("warm-editorial-feature", [
-    {
-      id: "editorial-feature",
-      topic: { en: "Editorial Feature", zh: "专题特稿" },
-      model: "Doubao-Seed-Evolving",
-      component: FinancialTimes19,
-      getMetadata: getMetadata19,
-    },
-    usefulWeekNotesTopic,
-    oralToWrittenTopic,
-    letterToPastSelfTopic,
-  ]),
-  buildEntry("scholars-vellum", [
-    {
-      id: "scholar-notes",
-      topic: { en: "Scholar Notes", zh: "学者笔记" },
-      model: "Doubao-Seed-Evolving",
-      component: NationalGeographic20,
-      getMetadata: getMetadata20,
-    },
-    argumentInMarginsTopic,
-    hiddenTextTopic,
-    whatAncientsKnewTopic,
-  ]),
-  buildEntry("solar-biennale-poster", [
-    {
-      id: "biennale-poster",
-      topic: { en: "Biennale Poster", zh: "双年展" },
-      model: "Doubao-Seed-Evolving",
-      component: VogueEditorial21,
-      getMetadata: getMetadata21,
-    },
-    publicLightProgramTopic,
-    ironFromStarsTopic,
-    festivalSlowIdeasTopic,
-  ]),
-  buildEntry("duotone-session", [
-    {
-      id: "session-poster",
-      topic: { en: "Session Poster", zh: "录制海报" },
-      model: "Doubao-Seed-Evolving",
-      component: AcademicJournal22,
-      getMetadata: getMetadata22,
-    },
-    fiveTakesRoomTopic,
-    danceNotationTopic,
-    cutInOneTakeTopic,
-  ]),
-  buildEntry("riso-print-zine", [
-    {
-      id: "riso-zine",
-      topic: { en: "Riso Zine", zh: "孔版杂志" },
-      model: "Doubao-Seed-Evolving",
-      component: ZineCulture23,
-      getMetadata: getMetadata23,
-    },
-    communityPrintsItselfTopic,
-    sevenBluesTopic,
-    makeSomethingWeeklyTopic,
-  ]),
-  buildEntry("analog-cutout-collage", [
-    {
-      id: "cutout-collage",
-      topic: { en: "Cutout Collage", zh: "剪纸拼贴" },
-      model: "Doubao-Seed-Evolving",
-      component: ManuscriptScroll24,
-      getMetadata: getMetadata24,
-    },
-    archiveReassembledTopic,
-    concealedObjectsTopic,
-    piecingIdeaTogetherTopic,
-  ]),
+  buildEntry(
+    "front-page-broadsheet",
+    [
+      broadsheetDefinition,
+      afterLaunchDefinition,
+      rogueWaveDefinition,
+      dayFeedStoppedDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "magazine-masthead",
+    [
+      mastheadDefinition,
+      productCoverDefinition,
+      mothExperimentDefinition,
+      comebackIssueDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "warm-editorial-feature",
+    [
+      editorialFeatureDefinition,
+      usefulWeekDefinition,
+      oralToWrittenDefinition,
+      letterToPastSelfDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "scholars-vellum",
+    [
+      scholarNotesDefinition,
+      marginArgumentDefinition,
+      hiddenTextDefinition,
+      whatAncientsKnewDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "solar-biennale-poster",
+    [
+      biennalePosterDefinition,
+      publicLightDefinition,
+      ironFromStarsDefinition,
+      festivalSlowIdeasDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "duotone-session",
+    [
+      sessionPosterDefinition,
+      fiveTakesDefinition,
+      danceNotationDefinition,
+      cutInOneTakeDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "riso-print-zine",
+    [
+      risoZineDefinition,
+      communityPrintDefinition,
+      sevenBluesDefinition,
+      makeSomethingWeeklyDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "analog-cutout-collage",
+    [
+      cutoutCollageDefinition,
+      rebuiltArchiveDefinition,
+      concealedObjectsDefinition,
+      piecingIdeaTogetherDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
   // Craft & Cultural Traditions: 25-32
   buildEntry("woodblock-floating-world", [
     {

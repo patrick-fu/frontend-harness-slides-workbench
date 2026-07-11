@@ -1,0 +1,170 @@
+/* Analog Cutout Collage. Warm paper desk, torn edges, paper-stacking shadows. */
+
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: #2b2118;
+  background-color: #e7dcc4;
+  background-image:
+    radial-gradient(circle at 18% 24%, rgba(176, 146, 96, 0.12), transparent 16%),
+    radial-gradient(circle at 74% 62%, rgba(150, 120, 82, 0.10), transparent 18%),
+    radial-gradient(circle at 44% 82%, rgba(120, 92, 60, 0.08), transparent 14%),
+    radial-gradient(circle at 88% 14%, rgba(120, 92, 60, 0.07), transparent 12%),
+    repeating-linear-gradient(94deg, rgba(150, 120, 80, 0.05) 0 0.12cqw, transparent 0.12cqw 0.62cqw),
+    repeating-linear-gradient(3deg, rgba(130, 104, 70, 0.04) 0 0.1cqw, transparent 0.1cqw 0.9cqw);
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Scrap = outer positioner (FLIP + entrance), inner = torn paper */
+.scrap {
+  position: absolute;
+}
+
+.paper {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0.35cqw 0.6cqh 0.5cqw rgba(72, 46, 22, 0.36));
+}
+
+.pad {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 1.6cqh 2cqw;
+  display: flex;
+  align-items: center;
+}
+
+.frag {
+  font-family: "Source Serif 4", "Noto Serif SC", serif;
+  font-weight: 600;
+  font-size: 2.7cqh;
+  line-height: 1.34;
+}
+
+.body {
+  font-family: "Source Serif 4", "Noto Serif SC", serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+.hand {
+  font-family: "Caveat", "Ma Shan Zheng", cursive;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.smallHand {
+  font-family: "Caveat", "Ma Shan Zheng", cursive;
+  font-weight: 700;
+  font-size: 3.6cqh;
+  color: #efe6d0;
+}
+
+/* Fasteners */
+.tape {
+  position: absolute;
+  z-index: 20;
+  background: rgba(216, 198, 150, 0.5);
+  box-shadow: inset 0 0 0.24cqw rgba(255, 255, 255, 0.3);
+  mix-blend-mode: multiply;
+  clip-path: polygon(4% 0%, 100% 6%, 96% 100%, 0% 92%);
+}
+
+.pin {
+  position: absolute;
+  z-index: 22;
+  width: 1.5cqw;
+  height: 1.5cqw;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, #ffd9c8, #c0392b 58%, #7a2318);
+  box-shadow: 0.12cqw 0.18cqh 0.32cqw rgba(0, 0, 0, 0.4);
+}
+
+/* Hand-drawn connective arrows (scene 3) */
+.arrows {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 8;
+  pointer-events: none;
+  transition: opacity 420ms cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.arrowPath {
+  fill: none;
+  stroke: #6e2317;
+  stroke-width: 0.55;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Entrance: hand placing a scrap — quick uneven settle + overshoot */
+.land {
+  animation: scrapLand 460ms cubic-bezier(0.22, 1.25, 0.4, 1) both;
+}
+
+@keyframes scrapLand {
+  0% {
+    opacity: 0;
+    transform: translate3d(0.4cqw, -1.8cqh, 0);
+  }
+  55% {
+    opacity: 1;
+    transform: translate3d(0, 0.55cqh, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Navigation: pin-prick scene index; active pin pressed in */
+.nav {
+  position: absolute;
+  right: 2.4cqw;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+  padding: 1.8cqh 1.1cqw;
+  background: rgba(216, 195, 156, 0.62);
+  clip-path: polygon(6% 2%, 96% 5%, 92% 96%, 4% 92%);
+  filter: drop-shadow(0.2cqw 0.4cqh 0.4cqw rgba(72, 46, 22, 0.3));
+}
+
+.navPin {
+  width: 1.9cqw;
+  height: 1.9cqw;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: radial-gradient(circle at 34% 30%, #f3e6cf, #b9a06f 64%, #7c6842);
+  box-shadow: 0.08cqw 0.16cqh 0.26cqw rgba(0, 0, 0, 0.32);
+  transition: transform 160ms cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+.navPinActive {
+  background: radial-gradient(circle at 40% 34%, #e08a5a, #a8402a 58%, #6e2317);
+  box-shadow: inset 0.12cqw 0.16cqh 0.3cqw rgba(0, 0, 0, 0.55);
+  transform: scale(0.8);
+}
+
+/* Reduced motion / thumbnail: kill all animation, settle to final layout */
+.root[data-motion="off"] * {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+}

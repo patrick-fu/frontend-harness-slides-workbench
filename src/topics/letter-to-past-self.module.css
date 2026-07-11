@@ -1,0 +1,329 @@
+/* Warm Editorial Feature · "A Letter to My Past Self"
+   Warm cream paper, oldstyle serif italic display, humanist sans body.
+   All layout dimensions in cqw/cqh only. Flat paper, hairline rules. */
+
+.root {
+  --paper: #f3ebda;
+  --paper-lift: #faf3e4;
+  --ink: #2e2a24;
+  --ink-soft: #5b5248;
+  --hair: rgba(46, 42, 36, 0.22);
+  --sage: #8d9c7b;
+  --sage-ink: #464b38;
+  --blush: #c7a199;
+  --lemon: #c6b26a;
+  --serif: "Playfair Display", "Noto Serif SC", Georgia, "Songti SC", serif;
+  --sans: "Source Sans 3", "Noto Sans SC", system-ui, sans-serif;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  overflow: hidden;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  padding: 11cqh 13cqw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Reveal helper — quiet fade + settle, like a turning page */
+.reveal {
+  transition: opacity 640ms ease, transform 720ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.root[data-reduced="true"] .reveal,
+.root[data-reduced="true"] .folioReveal,
+.root[data-reduced="true"] .folioCurrent {
+  transition: none !important;
+}
+
+.root[data-reduced="true"] *,
+.root[data-reduced="true"] *::before,
+.root[data-reduced="true"] *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+}
+
+/* ── Scene 1 · The opening ─────────────────────────────────────── */
+.opening {
+  justify-content: center;
+}
+
+.kicker {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.7cqw;
+  letter-spacing: 0.42cqw;
+  color: var(--ink-soft);
+  margin: 0 0 2.6cqh;
+  text-transform: lowercase;
+}
+
+.title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 8.2cqw;
+  line-height: 1.02;
+  letter-spacing: -0.06cqw;
+  color: var(--ink);
+  max-width: 62cqw;
+  margin: 0;
+}
+
+.rule {
+  height: 0.16cqh;
+  width: 24cqw;
+  background: var(--sage);
+  border: none;
+  margin: 4.4cqh 0 3.2cqh;
+}
+
+.byline {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 2cqw;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 46cqw;
+  margin: 0;
+}
+
+/* ── Scene 2 · The regret (reserved) ───────────────────────────── */
+.regret {
+  justify-content: center;
+}
+
+.regretInner {
+  position: static;
+  width: 100%;
+}
+
+.bodyCol {
+  max-width: 44cqw;
+}
+
+.bodyText {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 1.95cqw;
+  line-height: 1.62;
+  color: var(--ink);
+  margin: 0;
+}
+
+.bodyTail {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 1.95cqw;
+  line-height: 1.62;
+  color: var(--ink-soft);
+  max-width: 44cqw;
+  margin: 2.6cqh 0 0;
+}
+
+.pullOffset {
+  position: absolute;
+  top: 15cqh;
+  right: -6cqw;
+  width: 30cqw;
+  padding-left: 1.8cqw;
+  border-left: 0.3cqw solid var(--blush);
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.pullOffset p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 3.4cqw;
+  line-height: 1.22;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* ── Scene 3 · The turning point (motion / FLIP) ───────────────── */
+.turning {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.turnGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4cqh;
+  max-width: 70cqw;
+}
+
+.turnMark {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 6.5cqw;
+  line-height: 0.5;
+  color: var(--lemon);
+}
+
+.turnQuote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 5cqw;
+  line-height: 1.2;
+  letter-spacing: -0.04cqw;
+  color: var(--ink);
+  margin: 0;
+}
+
+.turnAttr {
+  font-family: var(--sans);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.7cqw;
+  letter-spacing: 0.12cqw;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ── Scene 4 · The lesson (reserved) ───────────────────────────── */
+.lesson {
+  justify-content: center;
+}
+
+.lessonCol {
+  max-width: 50cqw;
+}
+
+.lessonKicker {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.7cqw;
+  letter-spacing: 0.34cqw;
+  color: var(--ink-soft);
+  margin: 0 0 2.4cqh;
+  text-transform: lowercase;
+}
+
+.accentWord {
+  font-weight: 600;
+  color: var(--sage-ink);
+  border-bottom: 0.32cqw solid var(--sage);
+  padding-bottom: 0.2cqh;
+  white-space: nowrap;
+}
+
+/* ── Scene 5 · The sign-off ────────────────────────────────────── */
+.signoff {
+  justify-content: center;
+}
+
+.signRule {
+  height: 0.14cqh;
+  width: 10cqw;
+  background: var(--blush);
+  border: none;
+  margin: 0 0 3.4cqh;
+}
+
+.closing {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 4cqw;
+  line-height: 1.28;
+  color: var(--ink);
+  max-width: 62cqw;
+  margin: 0;
+}
+
+.signature {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 2.1cqw;
+  color: var(--ink-soft);
+  margin: 4.2cqh 0 0;
+}
+
+/* ── Navigation · N7 ghost / hover-reveal folio ────────────────── */
+.folio {
+  position: absolute;
+  right: 3.2cqw;
+  bottom: 3.6cqh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1cqh;
+  font-family: var(--serif);
+  font-style: italic;
+  user-select: none;
+  z-index: 5;
+}
+
+.folioReveal {
+  display: flex;
+  gap: 1.4cqw;
+  opacity: 0;
+  transform: translateY(0.8cqh);
+  pointer-events: none;
+  transition: opacity 460ms ease, transform 460ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.folio:hover .folioReveal,
+.folio:focus-within .folioReveal {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.folioDot {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.5cqw;
+  color: var(--ink-soft);
+  opacity: 0.5;
+  padding: 0;
+  transition: opacity 260ms ease, color 260ms ease;
+}
+
+.folioDot:hover {
+  opacity: 1;
+}
+
+.folioActive {
+  color: var(--ink);
+  opacity: 1;
+  border-bottom: 0.18cqh solid var(--blush);
+  padding-bottom: 0.2cqh;
+}
+
+.folioCurrent {
+  font-size: 1.7cqw;
+  letter-spacing: 0.2cqw;
+  color: var(--ink);
+  opacity: 0.14;
+  transition: opacity 500ms ease;
+}
+
+.folio:hover .folioCurrent,
+.folio:focus-within .folioCurrent {
+  opacity: 0.5;
+}
