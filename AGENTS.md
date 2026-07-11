@@ -87,6 +87,13 @@ isolated Stage.
 
 All shareable state lives in query parameters, never in URL fragments.
 
+`src/navigation` is the only routing and History authority. It parses,
+normalizes, serializes, clamps against Topic metadata, moves through Registry
+order, and chooses push versus replace through browser or in-memory History
+adapters. App, Catalog, Player, keyboard, click, and touch callers dispatch
+semantic Navigation Intents; do not add partial URL setters, direct query
+mutation, or a second movement helper.
+
 - view=overview selects the Catalog and view=lab selects the Player.
 - topic identifies the Topic; style records its canonical current Style and is
   replaced from TopicDefinition.styleId when stale.
@@ -102,9 +109,10 @@ Topic metadata rather than against fixed counts.
 Entering the Player from the Catalog and returning across surfaces create
 history entries. Style or Topic changes within the Player, filters, scene,
 beat, language, Pure Mode, Frozen state, and stale-Style canonicalization
-replace the current entry. Use an explicit history override only when the
-interaction needs different user-visible back/forward behavior. Keep popstate
-synchronized with query state.
+replace the current entry. Keep popstate synchronized with query state.
+Catalog scroll position is non-shareable return context stored under the
+Navigation namespace in `history.state`; preserve unrelated History state when
+updating it.
 
 ## Catalog, manifest, lazy Stages, and thumbnails
 

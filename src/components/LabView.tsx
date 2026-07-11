@@ -16,13 +16,10 @@ import { useKeyboard } from "../hooks/useKeyboard";
 import { useStageScale } from "../hooks/useStageScale";
 import { useTouchNav } from "../hooks/useTouchNav";
 import {
-  computeNext,
-  computePrev,
   getStageTapNavigationDirection,
-  jumpScene,
   STAGE_PREVIOUS_ZONE_RATIO,
-  type NavTarget,
-} from "../utils/navigation";
+  type NavigationIntent,
+} from "../navigation";
 import BottomBar from "./layout/BottomBar";
 import PureModeOverlay from "./PureModeOverlay";
 import CrossTopicNotice from "./chrome/CrossTopicNotice";
@@ -38,7 +35,7 @@ export interface LabViewProps {
   language: "en" | "zh";
   frozen: boolean;
   announceTopic: boolean;
-  onNavigate: (target: NavTarget) => void;
+  onNavigate: (intent: NavigationIntent) => void;
   onAnnouncementDone: () => void;
   onExitPure: () => void;
   onGoOverview: () => void;
@@ -154,27 +151,29 @@ export default function LabView({
   }, [found, loadTopicStage, prefetchAdjacentTopics, retryToken, topicId, topicKey]);
 
   const handleNext = useCallback(() => {
-    const target = computeNext(registry, styleId, topicId, scene, beat, isPureMode);
-    if (target) onNavigate(target);
-  }, [beat, isPureMode, onNavigate, registry, scene, styleId, topicId]);
+    onNavigate({ type: "move", direction: "next" });
+  }, [onNavigate]);
   const handlePrev = useCallback(() => {
-    const target = computePrev(registry, styleId, topicId, scene, beat, isPureMode);
-    if (target) onNavigate(target);
-  }, [beat, isPureMode, onNavigate, registry, scene, styleId, topicId]);
+    onNavigate({ type: "move", direction: "prev" });
+  }, [onNavigate]);
   const handleJumpScene = useCallback(
     (targetScene: number) =>
-      onNavigate(jumpScene(registry, styleId, topicId, targetScene)),
-    [onNavigate, registry, styleId, topicId],
+      onNavigate({ type: "jump-scene", scene: targetScene }),
+    [onNavigate],
   );
   const handleJumpBeat = useCallback(
     (targetBeat: number) =>
-      onNavigate({ styleId, topicId, scene, beat: targetBeat }),
-    [onNavigate, scene, styleId, topicId],
+      onNavigate({ type: "jump-position", scene, beat: targetBeat }),
+    [onNavigate, scene],
   );
   const handleStageNavigate = useCallback(
     (targetScene: number, targetBeat: number) =>
-      onNavigate({ styleId, topicId, scene: targetScene, beat: targetBeat }),
-    [onNavigate, styleId, topicId],
+      onNavigate({
+        type: "jump-position",
+        scene: targetScene,
+        beat: targetBeat,
+      }),
+    [onNavigate],
   );
 
   useKeyboard({

@@ -145,11 +145,11 @@ describe("LabView Player seam", () => {
 
     expect(props.onNavigate).toHaveBeenNthCalledWith(
       1,
-      expect.objectContaining({ scene: 1, beat: 0 }),
+      { type: "move", direction: "prev" },
     );
     expect(props.onNavigate).toHaveBeenNthCalledWith(
       2,
-      expect.objectContaining({ scene: 3, beat: 0 }),
+      { type: "move", direction: "next" },
     );
   });
 

@@ -145,7 +145,7 @@ describe("Workbench URL, history, and sharing contract", () => {
 
     await waitFor(() => expect(screen.getByTestId("lab-view")).toBeVisible());
     expect(pushState).toHaveBeenCalledTimes(1);
-    expect(replaceState).not.toHaveBeenCalled();
+    expect(replaceState).toHaveBeenCalledTimes(1);
     expect(params().get("view")).toBe("lab");
 
     act(() => window.history.back());
@@ -174,6 +174,35 @@ describe("Workbench URL, history, and sharing contract", () => {
     expect(replaceState).not.toHaveBeenCalled();
   });
 
+  it("restores Catalog scroll context between same-view History entries", async () => {
+    const scrollTo = vi.fn();
+    Object.defineProperty(HTMLElement.prototype, "scrollTo", {
+      configurable: true,
+      value: scrollTo,
+    });
+    window.history.replaceState(
+      { navigation: { catalog: { scrollTop: 120 } } },
+      "",
+      "/?view=overview&band=first-context",
+    );
+    render(<App />);
+    await waitFor(() =>
+      expect(scrollTo).toHaveBeenLastCalledWith({ top: 120, behavior: "auto" }),
+    );
+
+    scrollTo.mockClear();
+    window.history.pushState(
+      { navigation: { catalog: { scrollTop: 560 } } },
+      "",
+      "/?view=overview&band=second-context",
+    );
+    act(() => window.dispatchEvent(new PopStateEvent("popstate")));
+
+    await waitFor(() =>
+      expect(scrollTo).toHaveBeenLastCalledWith({ top: 560, behavior: "auto" }),
+    );
+  });
+
   it("replaces the current destination when sequential navigation crosses a Topic boundary", () => {
     setRoute(
       "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=5&beat=0",
@@ -190,6 +219,38 @@ describe("Workbench URL, history, and sharing contract", () => {
     expect(params().get("beat")).toBe("0");
     expect(replaceState).toHaveBeenCalledTimes(1);
     expect(pushState).not.toHaveBeenCalled();
+  });
+
+  it("replaces a deliberate Topic change inside the Player", async () => {
+    setRoute(PRODUCT_ROUTE);
+    render(<App />);
+    const pushState = vi.spyOn(window.history, "pushState");
+    const replaceState = vi.spyOn(window.history, "replaceState");
+
+    fireEvent.click(screen.getByRole("button", { name: /Product Keynote/ }));
+    fireEvent.click(
+      screen.getByRole("menuitemradio", { name: /Quiet Launch/ }),
+    );
+
+    await waitFor(() => expect(params().get("topic")).toBe("quiet-launch"));
+    expect(params().get("style")).toBe("minimal-product-keynote");
+    expect(params().get("scene")).toBe("1");
+    expect(params().get("beat")).toBe("0");
+    expect(replaceState).toHaveBeenCalledTimes(1);
+    expect(pushState).not.toHaveBeenCalled();
+  });
+
+  it("clamps malformed Scene and Beat values against Topic metadata", async () => {
+    setRoute(
+      "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=999&beat=999",
+    );
+    const replaceState = vi.spyOn(window.history, "replaceState");
+
+    render(<App />);
+
+    await waitFor(() => expect(params().get("scene")).toBe("5"));
+    expect(params().get("beat")).toBe("0");
+    expect(replaceState).toHaveBeenCalledTimes(1);
   });
 
   it("resolves a stale Style query from the global Topic ID without adding History", async () => {

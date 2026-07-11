@@ -5,8 +5,6 @@ import {
   RUNTIME_REGISTRY,
   createRuntimeRegistry,
   findRuntimeTopic,
-  getNextRuntimeTopic,
-  getPreviousRuntimeTopic,
 } from "./runtime-registry";
 import { createTopicCatalog } from "./topic-catalog";
 
@@ -68,8 +66,6 @@ describe("createRuntimeRegistry", () => {
 
     expect(entry?.style.id).toBe(first.styleId);
     expect(entry?.topic).toBe(first);
-    expect(getNextRuntimeTopic(first.id)).not.toBeNull();
-    expect(getPreviousRuntimeTopic(first.id)).not.toBeNull();
     expect(findRuntimeTopic("missing-topic")).toBeNull();
   });
 });

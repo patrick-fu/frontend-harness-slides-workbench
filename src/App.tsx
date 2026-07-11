@@ -19,14 +19,14 @@ import OverviewView from "./components/OverviewView";
 import PortraitHint from "./components/PortraitHint";
 import { useFontPreload } from "./hooks/useFontPreload";
 import { useKeyboard } from "./hooks/useKeyboard";
-import { useUrlState } from "./hooks/useUrlState";
+import { useNavigationState } from "./navigation/useNavigationState";
+import type { NavigationIntent } from "./navigation";
 import {
   findRuntimeTopic,
   loadRuntimeTopicStage,
   prefetchAdjacentRuntimeTopics,
   RUNTIME_REGISTRY,
 } from "./catalog/runtime-registry";
-import type { NavTarget } from "./utils/navigation";
 
 const RECENT_TOPICS_KEY = "fhsw:recent-topics";
 
@@ -43,7 +43,12 @@ function AppContent() {
   const { language, resolvedLanguage, setLanguage } = useLanguage();
   const { theme, setTheme, resolvedTheme } = useTheme();
   const { reducedMotion } = useReducedMotion();
-  const [urlState, setUrlState] = useUrlState();
+  const {
+    state: urlState,
+    dispatch: dispatchNavigation,
+    href: getNavigationHref,
+    catalogScrollTop,
+  } = useNavigationState(RUNTIME_REGISTRY);
   const displayLanguage = urlState.lang ?? resolvedLanguage;
   const [libraryOpen, setLibraryOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
@@ -53,6 +58,7 @@ function AppContent() {
   const [isFullscreen, setIsFullscreen] = useState(Boolean(document.fullscreenElement));
   const [recentTopics, setRecentTopics] = useState(readRecentTopics);
   const catalogScrollRef = useRef<HTMLDivElement>(null);
+  const skipNextCatalogScrollRestoreRef = useRef(false);
 
   useFontPreload(RUNTIME_REGISTRY, displayLanguage);
 
@@ -66,17 +72,6 @@ function AppContent() {
   const activeStyle = activeTopicEntry?.style ?? null;
   const activeTopic = activeTopicEntry?.topic ?? null;
   const resolvedStyleId = activeTopic?.styleId ?? urlState.styleId;
-
-  useEffect(() => {
-    if (!activeTopic) return;
-
-    const params = new URLSearchParams(window.location.search);
-    if (!params.has("topic")) return;
-    const styleIds = params.getAll("style");
-    if (styleIds.length === 1 && styleIds[0] === activeTopic.styleId) return;
-
-    setUrlState({ styleId: activeTopic.styleId }, { history: "replace" });
-  }, [activeTopic, setUrlState]);
 
   useEffect(() => {
     const base = displayLanguage === "zh" ? "FH Slides 工作台" : "FH Slides Workbench";
@@ -101,16 +96,19 @@ function AppContent() {
   }, [activeStyle, activeTopic, urlState.view]);
 
   useEffect(() => {
-    if (!activeTopic) return;
-    const metadata = activeTopic.metadata[displayLanguage];
-    const targetScene = metadata.scenes.find((item) => item.id === urlState.scene) ?? metadata.scenes[0];
-    if (!targetScene) return;
-    const lastBeat = targetScene.beats[targetScene.beats.length - 1]?.id ?? 0;
-    const nextBeat = Math.min(Math.max(0, urlState.beat), lastBeat);
-    if (targetScene.id !== urlState.scene || nextBeat !== urlState.beat) {
-      setUrlState({ scene: targetScene.id, beat: nextBeat }, { history: "replace" });
+    if (skipNextCatalogScrollRestoreRef.current) {
+      skipNextCatalogScrollRestoreRef.current = false;
+      return;
     }
-  }, [activeTopic, displayLanguage, setUrlState, urlState.beat, urlState.scene]);
+    if (urlState.view !== "overview" || catalogScrollTop === null) return;
+    const scroller = catalogScrollRef.current;
+    if (!scroller) return;
+    if (typeof scroller.scrollTo === "function") {
+      scroller.scrollTo({ top: catalogScrollTop, behavior: "auto" });
+    } else {
+      scroller.scrollTop = catalogScrollTop;
+    }
+  }, [catalogScrollTop, urlState.view]);
 
   useEffect(() => {
     const handler = () => setIsFullscreen(Boolean(document.fullscreenElement));
@@ -133,86 +131,84 @@ function AppContent() {
 
   const goOverview = useCallback(() => {
     setLibraryOpen(false);
-    setUrlState({ view: "overview", pureMode: false }, { history: "push" });
-  }, [setUrlState]);
+    dispatchNavigation({ type: "show-overview" });
+  }, [dispatchNavigation]);
   const goHome = useCallback(() => {
-    setUrlState({ view: "overview", bands: [], models: [], pureMode: false }, { history: "replace" });
+    skipNextCatalogScrollRestoreRef.current = catalogScrollTop !== 0;
+    dispatchNavigation({ type: "reset-catalog" });
     catalogScrollRef.current?.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
-  }, [reducedMotion, setUrlState]);
+  }, [catalogScrollTop, dispatchNavigation, reducedMotion]);
   const selectTopic = useCallback(
-    (styleId: string, topicId: string) => {
+    (_styleId: string, topicId: string) => {
       setLibraryOpen(false);
       setPaletteOpen(false);
-      setUrlState(
-        { view: "lab", styleId, topicId, scene: 1, beat: 0, pureMode: false },
-        { history: "push" },
-      );
+      dispatchNavigation({
+        type: "open-topic",
+        topicId,
+        catalogScrollTop: catalogScrollRef.current?.scrollTop,
+      });
     },
-    [setUrlState],
+    [dispatchNavigation],
   );
   const navigate = useCallback(
-    (target: NavTarget) => {
-      const crossedTopic = target.styleId !== urlState.styleId || target.topicId !== urlState.topicId;
-      setUrlState(
-        {
-          styleId: target.styleId,
-          topicId: target.topicId,
-          scene: target.scene,
-          beat: target.beat,
-        },
-        { history: "replace" },
-      );
-      if (crossedTopic) setAnnounceTopic(true);
+    (intent: NavigationIntent) => {
+      const next = dispatchNavigation(intent);
+      if (next.topicId !== urlState.topicId) setAnnounceTopic(true);
     },
-    [setUrlState, urlState.styleId, urlState.topicId],
+    [dispatchNavigation, urlState.topicId],
   );
 
   const updateFilters = useCallback(
     (next: { bands: string[]; models: string[] }) =>
-      setUrlState(next, { history: "replace" }),
-    [setUrlState],
+      dispatchNavigation({ type: "set-filters", ...next }),
+    [dispatchNavigation],
   );
 
   const getTopicHref = useCallback(
-    (styleId: string, topicId: string) => {
-      const params = new URLSearchParams(window.location.search);
-      params.set("view", "lab");
-      params.set("style", styleId);
-      params.set("topic", topicId);
-      params.set("scene", "1");
-      params.set("beat", "0");
-      params.delete("pure");
-      return `${window.location.pathname}?${params.toString()}`;
-    },
-    [],
+    (_styleId: string, topicId: string) =>
+      getNavigationHref({ type: "open-topic", topicId }),
+    [getNavigationHref],
   );
 
   const handleLanguageChange = useCallback(
     (mode: "auto" | "en" | "zh") => {
       setLanguage(mode);
-      setUrlState({ lang: mode === "auto" ? null : mode }, { history: "replace" });
+      dispatchNavigation({
+        type: "set-language",
+        language: mode === "auto" ? null : mode,
+      });
     },
-    [setLanguage, setUrlState],
+    [dispatchNavigation, setLanguage],
   );
   const copyLink = useCallback(async () => {
-    const url = new URL(window.location.href);
-    url.searchParams.set("lang", displayLanguage);
+    const url = new URL(
+      getNavigationHref({
+        type: "set-language",
+        language: displayLanguage,
+      }),
+      window.location.origin,
+    );
     try {
       await navigator.clipboard.writeText(url.toString());
       setToast(displayLanguage === "zh" ? "链接已复制" : "Link copied");
     } catch {
       setToast(displayLanguage === "zh" ? "复制失败" : "Copy failed");
     }
-  }, [displayLanguage]);
+  }, [displayLanguage, getNavigationHref]);
   const shareLink = useCallback(async () => {
-    const url = new URL(window.location.href);
-    url.searchParams.set("lang", displayLanguage);
+    const url = new URL(
+      getNavigationHref({
+        type: "set-language",
+        language: displayLanguage,
+      }),
+      window.location.origin,
+    );
     try {
       await navigator.share({ title: document.title, url: url.toString() });
     } catch {
       // Native share cancellation is not an error state.
     }
-  }, [displayLanguage]);
+  }, [displayLanguage, getNavigationHref]);
   const toggleFullscreen = useCallback(async () => {
     try {
       if (document.fullscreenElement) await document.exitFullscreen();
@@ -223,8 +219,8 @@ function AppContent() {
   }, [displayLanguage]);
   const exitPure = useCallback(() => {
     if (document.fullscreenElement) return;
-    setUrlState({ pureMode: false }, { history: "replace" });
-  }, [setUrlState]);
+    dispatchNavigation({ type: "set-pure", pureMode: false });
+  }, [dispatchNavigation]);
 
   const controls = (view: "overview" | "lab") => (
     <GlobalControls
@@ -288,7 +284,9 @@ function AppContent() {
                 onLibrary={() => setLibraryOpen(true)}
                 onSearch={openPalette}
                 onSelectTopic={(topicId) => activeStyle && selectTopic(activeStyle.id, topicId)}
-                onPresent={() => setUrlState({ pureMode: true }, { history: "replace" })}
+                onPresent={() =>
+                  dispatchNavigation({ type: "set-pure", pureMode: true })
+                }
                 controls={controls("lab")}
               />
             )}

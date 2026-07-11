@@ -4,7 +4,7 @@ import {
   getStageTapNavigationDirection,
   getSwipeNavigationDirection,
   SWIPE_NAVIGATION_THRESHOLD,
-} from "../utils/navigation";
+} from "../navigation";
 
 export interface UseTouchNavOptions {
   /** Reference to the element to attach touch listeners to. */

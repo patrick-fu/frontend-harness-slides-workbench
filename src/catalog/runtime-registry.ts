@@ -139,30 +139,6 @@ export async function prefetchAdjacentRuntimeTopics(
   );
 }
 
-export function getNextRuntimeTopic(
-  topicId: string,
-): RuntimeTopicEntry | null {
-  const index = RUNTIME_TOPIC_ENTRIES.findIndex(
-    (entry) => entry.topic.id === topicId,
-  );
-  if (index < 0 || RUNTIME_TOPIC_ENTRIES.length === 0) return null;
-  return RUNTIME_TOPIC_ENTRIES[(index + 1) % RUNTIME_TOPIC_ENTRIES.length] ?? null;
-}
-
-export function getPreviousRuntimeTopic(
-  topicId: string,
-): RuntimeTopicEntry | null {
-  const index = RUNTIME_TOPIC_ENTRIES.findIndex(
-    (entry) => entry.topic.id === topicId,
-  );
-  if (index < 0 || RUNTIME_TOPIC_ENTRIES.length === 0) return null;
-  return (
-    RUNTIME_TOPIC_ENTRIES[
-      (index - 1 + RUNTIME_TOPIC_ENTRIES.length) % RUNTIME_TOPIC_ENTRIES.length
-    ] ?? null
-  );
-}
-
 export function getTotalTopicCount(): number {
   return RUNTIME_TOPIC_ENTRIES.length;
 }
