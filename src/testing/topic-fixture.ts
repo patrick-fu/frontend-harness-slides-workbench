@@ -1,3 +1,4 @@
+import { createElement } from "react";
 import { defineTopic, type TopicDefinition } from "../domain/topic";
 import type { ModelId } from "../domain/model";
 
@@ -34,7 +35,7 @@ export function makeTopicDefinition({
   };
 
   function TopicStage() {
-    return null;
+    return createElement("div", { "data-fixture-stage": "true" });
   }
 
   return defineTopic({
