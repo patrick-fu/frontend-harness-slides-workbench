@@ -1,6 +1,6 @@
 /**
  * Style 06 · Kinetic Type Punchline · v3 — "Ship It"
- * Band: minimal-keynote · Model: Claude-Opus-4.8
+ * Band: minimal-keynote · Model: GPT 5.6 Sol
  *
  * A loud graphic poster where words ARE the image. Two-tone figure/ground:
  * a deep-black hard field carries off-white condensed uppercase display type,
@@ -19,23 +19,6 @@ import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./ship-it.module.css";
-
-/* ---------------------------------------------------------------- fonts --- */
-
-const FONT_LINK_ID = "font-06-ship-it-v3";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+SC:wght@900&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ------------------------------------------------------------- content --- */
 
@@ -263,7 +246,6 @@ function ShipItV3({
   isThumbnail,
   reducedMotion,
 }: BespokeStyleProps) {
-  useFonts();
   const off = reducedMotion || isThumbnail;
 
   return (
@@ -314,7 +296,7 @@ const META: Record<Lang, StyleMetadata> = {
     colors: { bg: "#0b0b0b", ink: "#f4f1e8", panel: "#ffe800" },
     typography: { header: "Anton", body: "Anton" },
     tags: ["confrontational", "kinetic", "high-contrast", "two-tone", "percussive"],
-    fonts: ["Anton", "cjk:Noto Sans SC"],
+    fonts: ["Anton:wght@400", "cjk:Noto Sans SC:wght@900"],
     scenes: [
       {
         id: 1,
@@ -417,7 +399,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const shipItTopic = defineStyleTopic({
   id: "ship-it",
   topic: { en: "Ship It", zh: "发布" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: ShipItV3,
   getMetadata,
 });

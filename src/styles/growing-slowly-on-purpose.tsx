@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import type { CSSProperties } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -107,20 +107,6 @@ const COPY = {
 };
 
 type Copy = typeof COPY.en;
-
-/* ── Fonts: one deduped Google Fonts link ── */
-function useFonts(): void {
-  useEffect(() => {
-    const id = "grove-v3-fonts";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Spectral:ital,wght@0,300;0,400;1,400&family=Archivo:wght@500;600&family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@500&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 const kickerStyle: CSSProperties = {
   fontFamily: FONT_LABEL,
@@ -375,7 +361,11 @@ function GhostNav({
 }) {
   if (isThumbnail) return null;
   return (
-    <div className={styles.ghostNav} style={{ position: "absolute", left: "9cqw", bottom: "5cqh", display: "flex", gap: "1.4cqw", alignItems: "center", zIndex: 20 }}>
+    <div
+      {...curatedNavigationAttributes("mid-century-grove", "growing-slowly-on-purpose")}
+      className={styles.ghostNav}
+      style={{ position: "absolute", left: "9cqw", bottom: "5cqh", display: "flex", gap: "1.4cqw", alignItems: "center", zIndex: 20 }}
+    >
       {labels.map((label, i) => {
         const n = i + 1;
         const active = n === scene;
@@ -414,7 +404,6 @@ const TRANSITIONS: SceneTransitionMap = {
 };
 
 function GrowingSlowlyOnPurpose({ scene, beat, language, isThumbnail, reducedMotion, onNavigate }: BespokeStyleProps) {
-  useFonts();
   const c = COPY[language];
   const still = reducedMotion || isThumbnail;
 
@@ -463,7 +452,13 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     colors: { bg: GREEN, ink: CREAM, panel: CREAM_PANEL },
     typography: { header: "Fraunces", body: "Spectral" },
     tags: ["warm", "botanical", "cultivated", "patient", "serif", "green", "cream", "rust-accent", "sparse", "organic-motion", "mid-century"],
-    fonts: ["Fraunces", "Spectral", "Archivo", "cjk:Noto Serif SC", "cjk:Noto Sans SC"],
+    fonts: [
+      "Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400",
+      "Spectral:ital,wght@0,300;0,400;1,400",
+      "Archivo:wght@500;600",
+      "cjk:Noto Serif SC:wght@400;600",
+      "cjk:Noto Sans SC:wght@500",
+    ],
     scenes: [
       {
         id: 1,
@@ -508,7 +503,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const GrowingSlowlyOnPurposeTopic = defineStyleTopic({
   id: "growing-slowly-on-purpose",
   topic: { en: "Growing Slowly on Purpose", zh: "慢成长" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: GrowingSlowlyOnPurpose,
   getMetadata,
 });

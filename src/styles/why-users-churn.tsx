@@ -1,8 +1,11 @@
-import { useEffect } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { defineStyleTopic } from "./topic";
+import {
+  curatedNavigationAttributes,
+  SYNTHETIC_CHURN_DATASET_EVIDENCE,
+} from "./curated-topic-contract";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./why-users-churn.module.css";
 
@@ -14,21 +17,6 @@ const INK_SOFT = "#5d574d";
 const INK_FAINT = "#8c857a";
 const RULE = "#d8d3c6";
 const ACCENT = "#8f2c1e";
-
-const FONT_LINK_ID = "memo-fonts-why-users-churn-v3";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@500;600&family=Noto+Sans+SC:wght@400;500&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 const serif = (lang: Lang): string =>
   lang === "zh"
@@ -115,7 +103,7 @@ const COPY = {
       closing: "Retention is won early, or it is not won at all.",
       signoff: "Growth & Insights · Q3 2026",
     },
-    sourceMark: "Source: cohort analysis, n = 48,210",
+    sourceMark: SYNTHETIC_CHURN_DATASET_EVIDENCE.boundary.en,
   },
   zh: {
     sections: ["报头", "核心结论", "支撑证据", "原因解读", "行动建议"],
@@ -182,7 +170,7 @@ const COPY = {
       closing: "留存要么赢在早期，要么根本赢不了。",
       signoff: "增长与洞察团队 · 2026 Q3",
     },
-    sourceMark: "来源：群组分析，n = 48,210",
+    sourceMark: SYNTHETIC_CHURN_DATASET_EVIDENCE.boundary.zh,
   },
 };
 
@@ -689,6 +677,7 @@ function NavSpine({
   if (isThumbnail) return null;
   return (
     <footer
+      {...curatedNavigationAttributes("research-memo", "why-users-churn")}
       style={{
         position: "absolute",
         left: 0,
@@ -703,6 +692,8 @@ function NavSpine({
       }}
     >
       <span
+        role="note"
+        data-topic-evidence-boundary="true"
         style={{
           fontFamily: sans(lang),
           fontSize: "1.35cqh",
@@ -756,7 +747,6 @@ function WhyUsersChurnV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const lang: Lang = language;
   const copy: Copy = COPY[lang];
   const rm = reducedMotion || isThumbnail;
@@ -808,7 +798,12 @@ export function getMetadata(lang: Lang): StyleMetadata {
       lang === "zh"
         ? ["冷静", "权威", "证据优先", "克制", "近乎无深度", "安静动效", "研究备忘"]
         : ["calm", "authoritative", "evidence-first", "restrained", "near-flat", "quiet-motion", "memo"],
-    fonts: ["Fraunces", "Inter", "cjk:Noto Serif SC", "cjk:Noto Sans SC"],
+    fonts: [
+      "Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600",
+      "Inter:wght@400;500;600",
+      "cjk:Noto Serif SC:wght@500;600",
+      "cjk:Noto Sans SC:wght@400;500",
+    ],
     scenes: [
       {
         id: 1,
@@ -881,7 +876,7 @@ export default WhyUsersChurnV3;
 export const WhyUsersChurnTopic = defineStyleTopic({
   id: "why-users-churn",
   topic: { en: "Why Users Churn", zh: "用户流失" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: WhyUsersChurnV3,
   getMetadata,
 });

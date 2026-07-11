@@ -1,8 +1,8 @@
-import { useEffect } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./why-we-chose-monorepo.module.css";
 
@@ -175,19 +175,6 @@ const COPY = {
 
 type Copy = typeof COPY.en;
 
-function useFonts(): void {
-  useEffect(() => {
-    const id = "font-adr-monorepo-v3";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
-
 const scenePad: CSSProperties = {
   position: "absolute",
   inset: 0,
@@ -329,7 +316,10 @@ function Stepper({
   const total = steps.length;
   const fill = total > 1 ? (scene - 1) / (total - 1) : 0;
   return (
-    <nav style={{ padding: "1.9cqh 3.6cqw 2.2cqh" }}>
+    <nav
+      {...curatedNavigationAttributes("decision-record", "why-we-chose-monorepo")}
+      style={{ padding: "1.9cqh 3.6cqw 2.2cqh" }}
+    >
       <div style={{ position: "relative", display: "flex", justifyContent: "space-between" }}>
         <div
           style={{
@@ -666,7 +656,6 @@ export default function WhyWeChoseMonorepo({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps): ReactNode {
-  useFonts();
   const t = COPY[language];
   const motionOn = !(reducedMotion || isThumbnail);
   const status = scene >= 5 ? { text: t.statusAccepted, color: GREEN } : { text: t.statusProposed, color: BLUE };
@@ -814,7 +803,11 @@ export function getMetadata(lang: Lang): StyleMetadata {
       "adr",
       "trade-off-matrix",
     ],
-    fonts: ["IBM Plex Mono", "IBM Plex Sans", "cjk:Noto Sans SC"],
+    fonts: [
+      "IBM Plex Mono:wght@400;500;600",
+      "IBM Plex Sans:wght@400;500;600;700",
+      "cjk:Noto Sans SC:wght@400;500;700",
+    ],
     scenes: c.sceneMeta.map((sc, i) => ({
       id: i + 1,
       title: sc.title,
@@ -826,7 +819,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const WhyWeChoseMonorepoTopic = defineStyleTopic({
   id: "why-we-chose-monorepo",
   topic: { en: "Why We Chose Monorepo", zh: "选单仓库" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: WhyWeChoseMonorepo,
   getMetadata,
 });

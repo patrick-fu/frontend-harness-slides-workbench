@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -98,19 +98,6 @@ const TRANSITIONS: SceneTransitionMap = {
   "3->4": "slide-y",
   "4->5": "scale-fade",
 };
-
-function useFonts() {
-  useEffect(() => {
-    const id = "fonts-msf-v3";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+SC:wght@500;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 const clampBeat = (scene: number, beat: number) =>
   Math.max(0, Math.min(beat, BEATS[scene - 1] - 1));
@@ -347,7 +334,11 @@ function LaneNav({ scene, isThumbnail, onNavigate }: {
 }) {
   if (isThumbnail) return null;
   return (
-    <nav className={s.nav} aria-label="scene stages">
+    <nav
+      {...curatedNavigationAttributes("mechanical-scoring-funnel", "triage-the-backlog")}
+      className={s.nav}
+      aria-label="scene stages"
+    >
       {[1, 2, 3, 4, 5].map((n) => (
         <button
           key={n}
@@ -375,7 +366,6 @@ const MechanicalScoringFunnelV3: React.FC<BespokeStyleProps> = ({
   reducedMotion,
   onNavigate,
 }) => {
-  useFonts();
   const reduced = reducedMotion || isThumbnail;
 
   return (
@@ -419,7 +409,12 @@ export function getMetadata(lang: Lang): StyleMetadata {
       lang === "en"
         ? ["playful", "systematic", "evaluative", "dark-playfield", "coded-accents", "kinetic", "arcade-adjacent"]
         : ["playful", "systematic", "evaluative", "dark-playfield", "coded-accents", "kinetic", "arcade-adjacent"],
-    fonts: ["Chakra Petch", "Rajdhani", "JetBrains Mono", "cjk:Noto Sans SC"],
+    fonts: [
+      "Chakra Petch:wght@500;700",
+      "Rajdhani:wght@500;600;700",
+      "JetBrains Mono:wght@500;700",
+      "cjk:Noto Sans SC:wght@500;700",
+    ],
     scenes: c.scenes.map((sc, si) => ({
       id: si + 1,
       title: sc.title,
@@ -436,7 +431,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const mechanicalScoringFunnelTopic = defineStyleTopic({
   id: "triage-the-backlog",
   topic: { en: "Triage the Backlog", zh: "需求分拣" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: MechanicalScoringFunnelV3,
   getMetadata,
 });

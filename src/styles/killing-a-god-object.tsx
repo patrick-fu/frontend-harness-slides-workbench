@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -186,20 +186,6 @@ const COPY = {
     },
   },
 };
-
-/* ── font injection ─────────────────────────────────────────────────────── */
-function useFonts(): void {
-  useEffect(() => {
-    const id = "style45-god-object-v3-fonts";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── shared frame ───────────────────────────────────────────────────────── */
 interface FrameProps {
@@ -850,6 +836,7 @@ function DiffToggleNav({
 
   return (
     <div
+      {...curatedNavigationAttributes("annotated-source-diff", "killing-a-god-object")}
       style={{
         position: "absolute",
         bottom: "3cqh",
@@ -936,7 +923,6 @@ function KillingAGodObjectV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const motionOn = !(reducedMotion || isThumbnail);
 
   const renderScene = (sceneId: number, sceneBeat: number, isActive: boolean): ReactNode => {
@@ -1003,7 +989,11 @@ export function getMetadata(lang: Lang): StyleMetadata {
       "refactor",
       "reserved-motion",
     ],
-    fonts: ["JetBrains Mono", "Inter", "cjk:Noto Sans SC"],
+    fonts: [
+      "JetBrains Mono:wght@400;500;700",
+      "Inter:wght@400;500;600;700",
+      "cjk:Noto Sans SC:wght@400;500;700",
+    ],
     scenes: [
       {
         id: 1,
@@ -1073,7 +1063,7 @@ export default KillingAGodObjectV3;
 export const KillingAGodObjectTopic = defineStyleTopic({
   id: "killing-a-god-object",
   topic: { en: "Killing a God Object", zh: "拆解巨类" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: KillingAGodObjectV3,
   getMetadata,
 });

@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import type { CSSProperties } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -16,9 +16,6 @@ import styles from "./human-reviews-ai.module.css";
  * ------------------------------------------------------------------ */
 
 const STYLE_ID = "collaborative-pairing-board";
-const FONT_LINK_ID = "font-collaborative-pairing-board-v3";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap";
 
 const TRANSITIONS: SceneTransitionMap = {
   "1->2": "slide-x",
@@ -29,17 +26,6 @@ const TRANSITIONS: SceneTransitionMap = {
 
 const BEAT_LAYOUT_MODES = { 2: "reserved", 3: "reserved", 4: "motion" } as const;
 const SCENE_IDS = [1, 2, 3, 4, 5];
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ---- Icons ------------------------------------------------------- */
 function HumanIcon() {
@@ -365,7 +351,11 @@ export function getMetadata(lang: Lang): StyleMetadata {
       "calm-motion",
       lang === "en" ? "pairing" : "配对",
     ],
-    fonts: ["Inter", "IBM Plex Mono", "cjk:Noto Sans SC"],
+    fonts: [
+      "Inter:wght@400;500;600;700",
+      "IBM Plex Mono:wght@400;500",
+      "cjk:Noto Sans SC:wght@400;500;700",
+    ],
     scenes: c.scenes.map((scene, si) => ({
       id: si + 1,
       title: scene.title,
@@ -681,7 +671,11 @@ function SeamNav({
   if (isThumbnail) return null;
   const side = activeSide(scene, beat);
   return (
-    <nav className={styles.nav} aria-label="scene navigation">
+    <nav
+      {...curatedNavigationAttributes("collaborative-pairing-board", "human-reviews-ai")}
+      className={styles.nav}
+      aria-label="scene navigation"
+    >
       {SCENE_IDS.map((id) => {
         const current = id === scene;
         return (
@@ -721,7 +715,6 @@ export default function CollaborativePairingBoardV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const still = reducedMotion || isThumbnail;
 
   return (
@@ -762,7 +755,7 @@ export default function CollaborativePairingBoardV3({
 export const humanReviewsAiTopic = defineStyleTopic({
   id: "human-reviews-ai",
   topic: { en: "Human Reviews the AI", zh: "人审 AI" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: CollaborativePairingBoardV3,
   getMetadata,
 });

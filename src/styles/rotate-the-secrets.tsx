@@ -1,26 +1,10 @@
-import { useEffect } from "react";
 import type { CSSProperties } from "react";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./rotate-the-secrets.module.css";
-
-/* ─── fonts ─────────────────────────────────────────────────────── */
-const FONT_ID = "font-op-manual-v3";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=JetBrains+Mono:wght@700;800&family=Noto+Sans+SC:wght@400;700&display=swap";
-
-function useFonts(): void {
-  useEffect(() => {
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ─── theme tokens ──────────────────────────────────────────────── */
 type CssVars = CSSProperties & Record<`--${string}`, string>;
@@ -137,7 +121,11 @@ function StatusBar({
   if (isThumbnail) return null;
   const c = COPY[language];
   return (
-    <div className={styles.statusBar} onClick={(e) => e.stopPropagation()}>
+    <div
+      {...curatedNavigationAttributes("operating-manual", "rotate-the-secrets")}
+      className={styles.statusBar}
+      onClick={(e) => e.stopPropagation()}
+    >
       <span className={styles.prompt}>ops@runbook:~$</span>
       <span className={styles.stepTag}>{c.step(scene)}</span>
       <span className={styles.blink}>▋</span>
@@ -333,7 +321,6 @@ function RotateTheSecretsV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const c = COPY[language];
   const still = reducedMotion || isThumbnail;
 
@@ -394,7 +381,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       "crisp-motion",
       "command",
     ],
-    fonts: ["JetBrains Mono", "IBM Plex Mono", "cjk:Noto Sans SC"],
+    fonts: [
+      "JetBrains Mono:wght@700;800",
+      "IBM Plex Mono:wght@400;600;700",
+      "cjk:Noto Sans SC:wght@400;700",
+    ],
     scenes: [
       {
         id: 1,
@@ -489,7 +480,7 @@ export default RotateTheSecretsV3;
 export const RotateTheSecretsTopic = defineStyleTopic({
   id: "rotate-the-secrets",
   topic: { en: "Rotate the Secrets", zh: "轮换密钥" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: RotateTheSecretsV3,
   getMetadata,
 });

@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./piecing-idea-together.module.css";
 
@@ -14,21 +15,6 @@ const TRANSITIONS: SceneTransitionMap = {
   "3->4": "slide-x",
   "4->5": "scale-fade",
 };
-
-const FONT_ID = "collage-v3-fonts";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600&family=Source+Serif+4:ital,wght@0,400;0,600;0,700&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── Palette (earthy found materials) ───────────────────────────────── */
 
@@ -498,7 +484,10 @@ function PinNav({
   if (isThumbnail) return null;
   const scenes = TEXT[language].scenes;
   return (
-    <div className={styles.nav}>
+    <div
+      {...curatedNavigationAttributes("analog-cutout-collage", "piecing-idea-together")}
+      className={styles.nav}
+    >
       {scenes.map((s, i) => {
         const target = i + 1;
         const active = target === scene;
@@ -530,7 +519,6 @@ function AnalogCutoutCollageV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const off = reducedMotion || isThumbnail;
   return (
     <div className={styles.root} data-motion={off ? "off" : "on"}>
@@ -571,7 +559,12 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     colors: { bg: CLR.bg, ink: CLR.ink, panel: CLR.panel },
     typography: { header: "Caveat", body: "Source Serif 4" },
     tags: L.tags,
-    fonts: ["Caveat", "Source Serif 4", "cjk:Noto Serif SC", "cjk:Ma Shan Zheng"],
+    fonts: [
+      "Caveat:wght@400;700",
+      "Source Serif 4:ital,wght@0,400;0,600;0,700",
+      "cjk:Noto Serif SC:wght@400;600",
+      "cjk:Ma Shan Zheng:wght@400",
+    ],
     scenes: L.scenes.map((s, i) => ({
       id: i + 1,
       title: s.title,
@@ -588,7 +581,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const piecingIdeaTogetherTopic = defineStyleTopic({
   id: "piecing-idea-together",
   topic: { en: "Piecing the Idea Together", zh: "拼出想法" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: AnalogCutoutCollageV3,
   getMetadata,
 });

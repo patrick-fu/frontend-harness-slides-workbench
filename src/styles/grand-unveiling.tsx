@@ -1,32 +1,10 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./grand-unveiling.module.css";
-
-/* ============================================================
-   Machine-Age Deco — v3 · "The Grand Unveiling"
-   Midnight lacquer ground, one flat gold ink tracing frames,
-   strict bilateral symmetry about a vertical axis. Monumental,
-   low density, slow and stately motion. cqw/cqh only.
-   ============================================================ */
-
-const FONT_ID = "fonts-machine-age-deco-v3";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Josefin+Sans:wght@300;400;600&family=Noto+Serif+SC:wght@400;600;700&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ---------- bilingual content (deliberately NOT `as const`) ---------- */
 type Beat = { action: string; title: string; body: string };
@@ -494,7 +472,11 @@ function GateIndex({
   onNavigate?: (scene: number, beat: number) => void;
 }) {
   return (
-    <nav className={styles.gateIndex} aria-label="scene index">
+    <nav
+      {...curatedNavigationAttributes("machine-age-deco", "grand-unveiling")}
+      className={styles.gateIndex}
+      aria-label="scene index"
+    >
       {GATE_LABELS.map((label, i) => {
         const target = i + 1;
         const active = target === scene;
@@ -530,7 +512,6 @@ function GrandUnveilingV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const c = CONTENT[language];
   const still = reducedMotion || isThumbnail;
 
@@ -599,7 +580,11 @@ export function getMetadata(lang: Lang): StyleMetadata {
       "metallic",
       "stately",
     ],
-    fonts: ["Cinzel", "Josefin Sans", "cjk:Noto Serif SC"],
+    fonts: [
+      "Cinzel:wght@500;600;700",
+      "Josefin Sans:wght@300;400;600",
+      "cjk:Noto Serif SC:wght@400;600;700",
+    ],
     scenes: c.scenes.map((s, si) => ({
       id: si + 1,
       title: s.title,
@@ -616,7 +601,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const grandUnveilingTopic = defineStyleTopic({
   id: "grand-unveiling",
   topic: { en: "The Grand Unveiling", zh: "盛大揭幕" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: GrandUnveilingV3,
   getMetadata,
 });

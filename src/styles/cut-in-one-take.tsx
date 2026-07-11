@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -17,26 +17,6 @@ const SPOT = "#2e56e6"; // single flat spot ink: cobalt
 const BG = "#0d0a06"; // rich warm black — never pure screen black
 const INK = "#f3ece0"; // warm printed off-white
 const PANEL = "#100b06";
-
-/* ── fonts ── */
-const FONT_ID = "ds-fonts-v3-22";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?" +
-  "family=Oswald:wght@500;600;700&" +
-  "family=Playfair+Display:ital,wght@0,600;0,700;1,600&" +
-  "family=Noto+Sans+SC:wght@700;900&" +
-  "family=Noto+Serif+SC:wght@600;700&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── copy ── */
 interface Copy {
@@ -384,7 +364,11 @@ function TrackIndex({
   if (isThumbnail) return null;
   const c = COPY[lang];
   return (
-    <nav className={styles.nav} aria-label="LP track index">
+    <nav
+      {...curatedNavigationAttributes("duotone-session", "cut-in-one-take")}
+      className={styles.nav}
+      aria-label="LP track index"
+    >
       <span className={styles.navSide}>{c.navSide}</span>
       <div className={styles.navList}>
         {c.navNames.map((name, i) => {
@@ -430,7 +414,6 @@ function CutInOneTakeV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const lang: Lang = language === "zh" ? "zh" : "en";
   const motionOff = reducedMotion || isThumbnail;
 
@@ -489,7 +472,12 @@ export function getMetadata(lang: Lang): StyleMetadata {
     colors: { bg: BG, ink: INK, panel: PANEL },
     typography: { header: "Oswald", body: "Playfair Display" },
     tags: ["cool", "disciplined", "photo-first", "duotone", "condensed-gothic", "percussive"],
-    fonts: ["Oswald", "Playfair Display", "cjk:Noto Sans SC", "cjk:Noto Serif SC"],
+    fonts: [
+      "Oswald:wght@500;600;700",
+      "Playfair Display:ital,wght@0,600;0,700;1,600",
+      "cjk:Noto Sans SC:wght@700;900",
+      "cjk:Noto Serif SC:wght@600;700",
+    ],
     scenes: [
       {
         id: 1,
@@ -536,7 +524,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
   const zh: StyleMetadata = {
     id: "duotone-session",
     band: "editorial-print",
-    name: "Duotone Session",
+    name: "双调录制",
     theme: "\u4e00\u6761\u8fc7",
     densityLabel: "\u6d53\u70c8 \u00b7 \u5f71\u50cf",
     heroScene: 3,
@@ -593,7 +581,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const cutInOneTakeTopic = defineStyleTopic({
   id: "cut-in-one-take",
   topic: { en: "Cut in One Take", zh: "\u4e00\u6761\u8fc7" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: CutInOneTakeV3,
   getMetadata,
 });

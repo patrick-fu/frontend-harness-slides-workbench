@@ -110,6 +110,8 @@ export default function SpatialSceneTrack({
   const transitionKeyRef = useRef(0);
   const [activeTransition, setActiveTransition] =
     useState<ActiveTransition | null>(null);
+  const [settledTransitionKind, setSettledTransitionKind] =
+    useState<SceneTransitionKind>(fallbackTransitionKind);
   const resolveTransitionKind = (
     fromScene: number,
     toScene: number,
@@ -124,8 +126,11 @@ export default function SpatialSceneTrack({
     lastSceneRef.current !== scene
       ? resolveTransitionKind(lastSceneRef.current, scene)
       : fallbackTransitionKind;
-  const effectiveTransitionKind =
-    activeTransition?.transitionKind ?? pendingTransitionKind;
+  const effectiveTransitionKind = activeTransition?.transitionKind ?? (
+    lastSceneRef.current !== scene
+      ? pendingTransitionKind
+      : settledTransitionKind
+  );
   const pendingTransitionModifier =
     lastSceneRef.current !== scene
       ? resolveTransitionModifier(lastSceneRef.current, scene)
@@ -151,6 +156,8 @@ export default function SpatialSceneTrack({
           : "forward";
       const nextTransitionKind = resolveTransitionKind(lastScene, scene);
       const nextTransitionModifier = resolveTransitionModifier(lastScene, scene);
+
+      setSettledTransitionKind(nextTransitionKind);
 
       if (reducedMotion || nextTransitionKind === "hard-cut") {
         setActiveTransition(null);

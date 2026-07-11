@@ -122,6 +122,10 @@ Topic before writing code.
   behavior tests beside the implementation.
 - Register every new or moved Topic in catalog-source.ts. Do not hand-edit the
   runtime registry or generated manifest to bypass the authoring catalog.
+- Keep coordinated Topic Set contracts in source beside catalog integration.
+  Apply their topicSet, navigation, transition score, and evidence with any
+  required sources there; do not recreate assignment matrices or version
+  identities in Markdown.
 - Metadata must satisfy the current type and protocol tests. Keep its Style ID
   correct, provide localized names and copy, describe every scene/beat state,
   and derive loops, progress, and navigation bounds from metadata.
@@ -156,6 +160,9 @@ Keep claim-bearing Topic content traceable.
   supports statement that names the claim and any relevant boundary.
 - Do not invent citations, turn a broad source into support for an unsupported
   claim, or conceal uncertainty in presentation copy.
+- Evidence classifies claim interpretation: fact evidence needs supporting
+  sources, while illustrative content needs a bilingual boundary that prevents
+  examples from being presented as measured facts.
 - For Topic protocols that require sources, navigation, or a transition score,
   satisfy the current protocol tests rather than weakening the shared schema.
 - Internal navigation belongs to the Topic's visual language. It must request
@@ -208,6 +215,10 @@ removing obsolete generated assets.
 npm run ci is the repository's standard non-browser gate: typecheck, build,
 unit tests, and static-thumbnail verification. Keep GitHub Actions aligned to
 this script instead of duplicating its subcommands.
+
+For a coordinated Topic Set, the browser audit covers every Topic's English
+and Chinese Hero Final Frame in Frozen mode: exact target resolution, no page
+or console errors, active content, no Stage overflow, and a settled capture.
 
 ## Public repository hygiene
 

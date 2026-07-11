@@ -1,35 +1,10 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./festival-slow-ideas.module.css";
-
-/* ── Solar Biennale Poster · v3 "Festival of Slow Ideas" ──
-   Warm parchment ground, one solar-yellow atmosphere, single deep indigo ink.
-   Three type voices: Playfair Display (serif display), Archivo (sans
-   annotation), Space Mono (data). Depth from light + hairline rules only.
-   Slow, atmospheric motion. Sizing is cqw/cqh only. */
-
-const FONT_LINK_ID = "solar-biennale-poster-v3-fonts";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?" +
-  "family=Archivo:wght@400;600;700&" +
-  "family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400;1,700&" +
-  "family=Space+Mono:wght@400;700&" +
-  "family=Noto+Serif+SC:wght@400;700;900&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 const PALETTE = {
   parchment: "#F4E9CE",
@@ -316,6 +291,7 @@ function PageMark({
   const next = (scene % SCENE_TOTAL) + 1;
   return (
     <button
+      {...curatedNavigationAttributes("solar-biennale-poster", "festival-slow-ideas")}
       type="button"
       className={styles.pageMark}
       aria-label={`Page ${scene} of ${SCENE_TOTAL}`}
@@ -348,7 +324,6 @@ function SolarBiennalePosterV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const still = reducedMotion || isThumbnail;
   return (
     <div
@@ -401,7 +376,12 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     tags: en
       ? ["contemplative", "warm", "editorial", "solar", "slow-motion"]
       : ["沉思", "温暖", "编辑设计", "日光", "慢速动效"],
-    fonts: ["Playfair Display", "Archivo", "Space Mono", "cjk:Noto Serif SC"],
+    fonts: [
+      "Playfair Display:ital,wght@0,400;0,700;0,800;1,400;1,700",
+      "Archivo:wght@400;600;700",
+      "Space Mono:wght@400;700",
+      "cjk:Noto Serif SC:wght@400;700;900",
+    ],
     scenes: [
       {
         id: 1,
@@ -500,7 +480,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const festivalSlowIdeasTopic = defineStyleTopic({
   id: "festival-slow-ideas",
   topic: { en: "Festival of Slow Ideas", zh: "慢想节" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: SolarBiennalePosterV3,
   getMetadata,
 });

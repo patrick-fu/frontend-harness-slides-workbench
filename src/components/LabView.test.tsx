@@ -44,6 +44,22 @@ const registry: StyleRegistryEntry[] = [
   },
 ];
 
+const illustrativeRegistry: StyleRegistryEntry[] = [
+  {
+    ...registry[0],
+    topics: registry[0].topics.map((topic) => ({
+      ...topic,
+      evidence: {
+        kind: "illustrative" as const,
+        boundary: {
+          en: "Illustrative English boundary.",
+          zh: "中文示例边界。",
+        },
+      },
+    })),
+  },
+];
+
 function setup(overrides: Partial<React.ComponentProps<typeof LabView>> = {}) {
   const props: React.ComponentProps<typeof LabView> = {
     registry,
@@ -120,6 +136,16 @@ describe("LabView Player seam", () => {
     expect(vi.mocked(useKeyboard)).toHaveBeenCalledWith(
       expect.objectContaining({ onCommandPalette: undefined, onHelp: undefined }),
     );
+  });
+
+  it("keeps the localized illustrative evidence boundary visible in Pure Mode", () => {
+    setup({
+      registry: illustrativeRegistry,
+      isPureMode: true,
+      language: "zh",
+    });
+
+    expect(screen.getByRole("note")).toHaveTextContent("中文示例边界。");
   });
 
   it("enables direct-touch navigation only for coarse mobile screens", async () => {

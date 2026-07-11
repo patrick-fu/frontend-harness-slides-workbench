@@ -1,18 +1,6 @@
-/**
- * Soft Pastel Friendly — v3
- * Topic: Your First Week Here / 入职第一周
- *
- * A gentle new-hire week-one onboarding guide. Warm bone/peach ground, low-
- * saturation pastels, one half-step-forward peach accent, rounded pill/squircle
- * geometry everywhere, soft diffused depth, gentle spring-bounce motion.
- *
- * Isolation: authored from the Soft Pastel Friendly DNA + assignment only.
- * Stage rules: cqw/cqh only for layout. SpatialSceneTrack owns transitions.
- */
-
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -32,22 +20,6 @@ const COLORS = {
   butter: "#FBEEC6",
   blush: "#F8D9DE",
 };
-
-/* ------------------------------------------------------------------ */
-/* Fonts — rounded display (Quicksand) + humanist body (Nunito Sans)   */
-/* ------------------------------------------------------------------ */
-const FONT_LINK_ID = "fw-soft-pastel-fonts";
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&family=Noto+Sans+SC:wght@500;600;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ------------------------------------------------------------------ */
 /* Content (bilingual)                                                 */
@@ -394,7 +366,11 @@ function DayDrum({
   const offset = DRUM_CENTER - (scene - 1) * DAY_ROW;
 
   return (
-    <div className={styles.drum} onClick={(e) => e.stopPropagation()}>
+    <div
+      {...curatedNavigationAttributes("soft-pastel-friendly", "first-week-here")}
+      className={styles.drum}
+      onClick={(e) => e.stopPropagation()}
+    >
       <span className={styles.drumLabel}>{language === "en" ? "Week 1" : "第一周"}</span>
       <div className={styles.drumWindow}>
         <div
@@ -449,7 +425,6 @@ function FirstWeekHereV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const still = reducedMotion || isThumbnail;
 
   return (
@@ -512,7 +487,11 @@ export function getMetadata(lang: Lang): StyleMetadata {
     tags: isEn
       ? ["friendly", "warm", "pastel", "rounded", "gentle-spring"]
       : ["友好", "温暖", "粉彩", "圆润", "柔和弹性"],
-    fonts: ["Quicksand", "Nunito Sans", "cjk:Noto Sans SC"],
+    fonts: [
+      "Quicksand:wght@500;600;700",
+      "Nunito Sans:wght@400;600;700",
+      "cjk:Noto Sans SC:wght@500;600;700",
+    ],
     scenes: [
       {
         id: 1,
@@ -605,7 +584,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const firstWeekHereTopic = defineStyleTopic({
   id: "first-week-here",
   topic: { en: "Your First Week Here", zh: "入职第一周" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: FirstWeekHereV3,
   getMetadata,
 });

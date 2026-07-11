@@ -1,8 +1,8 @@
-import { useEffect } from "react";
 import type { ReactNode } from "react";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import { useFLIP } from "../hooks/useFLIP";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./greatest-hits-vol1.module.css";
@@ -22,21 +22,6 @@ const F_HERO = '"Anton", "Noto Sans SC", sans-serif';
 const F_COND = '"Oswald", "Noto Sans SC", sans-serif';
 const F_BODY = '"Work Sans", "Noto Sans SC", sans-serif';
 const F_MONO = '"IBM Plex Mono", "Noto Sans SC", monospace';
-
-const FONT_LINK =
-  "https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@500;700;900&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    const id = "gh-vol1-v3-fonts";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href = FONT_LINK;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── bilingual content (NOT `as const`) ── */
 interface Row {
@@ -204,6 +189,7 @@ function TapeCounter({
   return (
     <>
       <div
+        {...curatedNavigationAttributes("cassette-era-packaging", "greatest-hits-vol1")}
         style={{
           position: "absolute",
           top: "5cqh",
@@ -773,7 +759,6 @@ const TRANSITIONS: SceneTransitionMap = {
 
 function GreatestHitsVol1V3(props: BespokeStyleProps) {
   const { scene, beat, language, isThumbnail, reducedMotion, onNavigate } = props;
-  useFonts();
   const motionOff = reducedMotion || isThumbnail;
   const lang: Lang = language === "zh" ? "zh" : "en";
 
@@ -851,7 +836,13 @@ export function getMetadata(lang: Lang): StyleMetadata {
     tags: en
       ? ["nostalgic", "precise", "catalogue-dense", "cream-and-ink", "mechanical"]
       : ["怀旧", "精确", "目录高密度", "米色与棕墨", "机械感"],
-    fonts: ["Anton", "Oswald", "Work Sans", "IBM Plex Mono", "cjk:Noto Sans SC"],
+    fonts: [
+      "Anton:wght@400",
+      "Oswald:wght@500;600;700",
+      "Work Sans:wght@400;500;600",
+      "IBM Plex Mono:wght@400;500;600",
+      "cjk:Noto Sans SC:wght@500;700;900",
+    ],
     scenes: [
       {
         id: 1,
@@ -976,7 +967,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const greatestHitsVol1Topic = defineStyleTopic({
   id: "greatest-hits-vol1",
   topic: { en: "Greatest Hits, Vol. 1", zh: "精选辑一" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: GreatestHitsVol1V3,
   getMetadata,
 });

@@ -1,32 +1,11 @@
-import { useEffect, type CSSProperties, type ReactNode } from "react";
+import { type CSSProperties, type ReactNode } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./shadowing-support.module.css";
-
-/* ────────────────────────────────────────────────────────────────────────
-   Style 44 — Field Notes Report — v3 "A Day Shadowing Support"
-   A researcher's notebook from a day spent shadowing a support team.
-   Aged-paper ground, sepia writing, one terracotta accent, hand-paced motion.
-   ──────────────────────────────────────────────────────────────────────── */
-
-const FONT_LINK_ID = "font-44-shadowing-support-v3";
-
-function useFonts(): void {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700" +
-      "&family=Lora:ital,wght@0,400;0,500;1,400" +
-      "&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 const handFont = (lang: "en" | "zh"): string =>
   lang === "zh"
@@ -188,7 +167,11 @@ function Folio({
   if (isThumbnail) return null;
   const c = COPY[language];
   return (
-    <div className={styles.folio} style={{ fontFamily: handFont(language) }}>
+    <div
+      {...curatedNavigationAttributes("field-notes-report", "shadowing-support")}
+      className={styles.folio}
+      style={{ fontFamily: handFont(language) }}
+    >
       <span className={styles.folioWord}>{c.folioWord}</span>
       <div className={styles.folioNums}>
         {Array.from({ length: TOTAL_SCENES }, (_, i) => i + 1).map((n) => (
@@ -577,7 +560,6 @@ function ShadowingSupportV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps): ReactNode {
-  useFonts();
   const reduced = reducedMotion || isThumbnail;
 
   return (
@@ -651,7 +633,12 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
           "阅读优先",
           "柔和动效",
         ],
-    fonts: ["Caveat", "Lora", "cjk:Ma Shan Zheng", "cjk:Noto Serif SC"],
+    fonts: [
+      "Caveat:wght@400;600;700",
+      "Lora:ital,wght@0,400;0,500;1,400",
+      "cjk:Ma Shan Zheng:wght@400",
+      "cjk:Noto Serif SC:wght@400;600",
+    ],
     scenes: [
       {
         id: 1,
@@ -740,7 +727,7 @@ export default ShadowingSupportV3;
 export const ShadowingSupportTopic = defineStyleTopic({
   id: "shadowing-support",
   topic: { en: "A Day Shadowing Support", zh: "跟班客服" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: ShadowingSupportV3,
   getMetadata,
 });

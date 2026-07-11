@@ -183,6 +183,100 @@ describe("useKeyboard", () => {
     editable.remove();
   });
 
+  it("leaves Space available to a focused native button", () => {
+    const onSpace = vi.fn();
+    const button = document.createElement("button");
+    document.body.appendChild(button);
+    button.focus();
+
+    renderHook(() => useKeyboard({ onSpace }));
+
+    const space = new KeyboardEvent("keydown", {
+      key: " ",
+      bubbles: true,
+      cancelable: true,
+    });
+    act(() => button.dispatchEvent(space));
+
+    expect(onSpace).not.toHaveBeenCalled();
+    expect(space.defaultPrevented).toBe(false);
+    button.remove();
+  });
+
+  it("keeps Cmd/Ctrl+K available from a focused native button", () => {
+    const onCommandPalette = vi.fn();
+    const button = document.createElement("button");
+    document.body.appendChild(button);
+    button.focus();
+
+    renderHook(() => useKeyboard({ onCommandPalette }));
+
+    const ctrlK = new KeyboardEvent("keydown", {
+      key: "k",
+      ctrlKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    const metaK = new KeyboardEvent("keydown", {
+      key: "k",
+      metaKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    act(() => {
+      button.dispatchEvent(ctrlK);
+      button.dispatchEvent(metaK);
+    });
+
+    expect(onCommandPalette).toHaveBeenCalledTimes(2);
+    expect(ctrlK.defaultPrevented).toBe(true);
+    expect(metaK.defaultPrevented).toBe(true);
+    button.remove();
+  });
+
+  it("leaves Arrow navigation available to a focused native link", () => {
+    const onArrowRight = vi.fn();
+    const link = document.createElement("a");
+    link.href = "#scene-4";
+    document.body.appendChild(link);
+    link.focus();
+
+    renderHook(() => useKeyboard({ onArrowRight }));
+
+    const arrow = new KeyboardEvent("keydown", {
+      key: "ArrowRight",
+      bubbles: true,
+      cancelable: true,
+    });
+    act(() => link.dispatchEvent(arrow));
+
+    expect(onArrowRight).not.toHaveBeenCalled();
+    expect(arrow.defaultPrevented).toBe(false);
+    link.remove();
+  });
+
+  it("leaves Space available to a focused native disclosure control", () => {
+    const onSpace = vi.fn();
+    const details = document.createElement("details");
+    const summary = document.createElement("summary");
+    details.appendChild(summary);
+    document.body.appendChild(details);
+    summary.focus();
+
+    renderHook(() => useKeyboard({ onSpace }));
+
+    const space = new KeyboardEvent("keydown", {
+      key: " ",
+      bubbles: true,
+      cancelable: true,
+    });
+    act(() => summary.dispatchEvent(space));
+
+    expect(onSpace).not.toHaveBeenCalled();
+    expect(space.defaultPrevented).toBe(false);
+    details.remove();
+  });
+
   it("suppresses presentation shortcuts while a menu owns focus", () => {
     const onArrowRight = vi.fn();
     const onCommandPalette = vi.fn();

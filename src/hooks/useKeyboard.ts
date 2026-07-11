@@ -73,8 +73,24 @@ export function useKeyboard({
       );
     }
 
+    function isPresentationShortcutSuppressed(
+      target: EventTarget | null,
+    ): boolean {
+      if (!(target instanceof Element)) return false;
+      return Boolean(target.closest("button,a[href],summary"));
+    }
+
     function handleKeyDown(e: KeyboardEvent) {
       if (isShortcutSuppressed(e.target)) return;
+      if (
+        (e.key === "ArrowRight" ||
+          e.key === "ArrowLeft" ||
+          e.key === " " ||
+          e.key === "Spacebar") &&
+        isPresentationShortcutSuppressed(e.target)
+      ) {
+        return;
+      }
 
       if (
         (e.metaKey || e.ctrlKey) &&

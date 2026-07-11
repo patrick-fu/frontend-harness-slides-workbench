@@ -5,6 +5,7 @@ import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 
 /* ── Palette: warm natural material tones (sand, leather, wood, brass) ── */
 const P = {
@@ -25,31 +26,22 @@ const P = {
 };
 
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
-const FONT_ID = "font-onboarding-toolkit-v3";
 
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@500;600&family=Noto+Sans+SC:wght@400;500&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
-
-function useEntered(isActive: boolean): boolean {
+function useEntered(isActive: boolean, settled: boolean): boolean {
   const [entered, setEntered] = useState(false);
   useEffect(() => {
     if (!isActive) {
       setEntered(false);
       return;
     }
+    if (settled) {
+      setEntered(true);
+      return;
+    }
     const id = requestAnimationFrame(() => setEntered(true));
     return () => cancelAnimationFrame(id);
-  }, [isActive]);
-  return entered;
+  }, [isActive, settled]);
+  return settled ? isActive : entered;
 }
 
 /* ── Bilingual content (no `as const`; see Copy type below) ── */
@@ -273,12 +265,20 @@ interface SceneProps {
   isThumbnail: boolean;
 }
 
-function Scene({ scene, beat, isActive, language, reducedMotion, isThumbnail }: SceneProps) {
+function Scene({
+  scene,
+  beat,
+  isActive,
+  language,
+  reducedMotion: requestedReducedMotion,
+  isThumbnail,
+}: SceneProps) {
   const c: Copy = COPY[language];
   const fontTitle = language === "zh" ? '"Noto Serif SC", "Fraunces", serif' : '"Fraunces", "Noto Serif SC", serif';
   const fontLabel = language === "zh" ? '"Noto Sans SC", "Inter", sans-serif' : '"Inter", "Noto Sans SC", sans-serif';
-  const entered = useEntered(isActive);
-  const still = reducedMotion || isThumbnail;
+  const reducedMotion = requestedReducedMotion || isThumbnail;
+  const still = reducedMotion;
+  const entered = useEntered(isActive, still);
 
   const sc = c.scenes[scene - 1];
   const b = Math.min(beat, sc.beats.length - 1);
@@ -627,6 +627,7 @@ function CompartmentIndex({
   const fontLabel = language === "zh" ? '"Noto Sans SC", "Inter", sans-serif' : '"Inter", "Noto Sans SC", sans-serif';
   return (
     <div
+      {...curatedNavigationAttributes("object-metaphor-hero", "onboarding-toolkit")}
       onClick={(e) => e.stopPropagation()}
       style={{
         position: "absolute",
@@ -680,7 +681,6 @@ function CompartmentIndex({
 }
 
 function OnboardingToolkitV3({ scene, beat, language, isThumbnail, reducedMotion, onNavigate }: BespokeStyleProps) {
-  useFonts();
   return (
     <div
       data-style="onboarding-toolkit-v3"
@@ -728,7 +728,12 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     colors: { bg: P.bg, ink: P.ink, panel: P.kraft },
     typography: { header: "Fraunces", body: "Inter" },
     tags: ["warm", "tactile", "crafted", "material", "kraft", "object-metaphor", "calm-motion", "text-report"],
-    fonts: ["Fraunces", "Inter", "cjk:Noto Serif SC", "cjk:Noto Sans SC"],
+    fonts: [
+      "Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600",
+      "Inter:wght@400;500;600",
+      "cjk:Noto Serif SC:wght@500;600",
+      "cjk:Noto Sans SC:wght@400;500",
+    ],
     scenes: c.scenes.map((s, i) => ({
       id: i + 1,
       title: s.title,
@@ -742,7 +747,7 @@ export default OnboardingToolkitV3;
 export const OnboardingToolkitTopic = defineStyleTopic({
   id: "onboarding-toolkit",
   topic: { en: "The Onboarding Toolkit", zh: "入职工具包" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: OnboardingToolkitV3,
   getMetadata,
 });

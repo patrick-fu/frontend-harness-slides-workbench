@@ -1,35 +1,10 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./letter-to-past-self.module.css";
-
-/* ══════════════════════════════════════════════════════════════════
-   Warm Editorial Feature — v3 · "A Letter to My Past Self"
-   A first-person long-form magazine feature: one idea breathing across
-   warm cream paper, oversized pull-quotes drifting into the margin.
-   ══════════════════════════════════════════════════════════════════ */
-
-const FONT_ID = "warm-editorial-feature-v3-fonts";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?" +
-  "family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&" +
-  "family=Source+Sans+3:ital,wght@0,300;0,400;1,300&" +
-  "family=Noto+Serif+SC:wght@500;600;700&" +
-  "family=Noto+Sans+SC:wght@300;400&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 const TRANSITIONS: SceneTransitionMap = {
   "1->2": "fade",
@@ -130,7 +105,11 @@ function GhostFolio({
     onNavigate?.(target, 0);
   };
   return (
-    <nav className={styles.folio} aria-label="folio navigation">
+    <nav
+      {...curatedNavigationAttributes("warm-editorial-feature", "letter-to-past-self")}
+      className={styles.folio}
+      aria-label="folio navigation"
+    >
       <div className={styles.folioReveal}>
         {ROMAN.map((label, i) => {
           const target = i + 1;
@@ -311,7 +290,6 @@ function WarmEditorialFeatureV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const still = reducedMotion || isThumbnail;
 
   return (
@@ -513,10 +491,10 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     typography: { header: "Playfair Display", body: "Source Sans 3" },
     tags: ["literary", "unhurried", "airy", "warm-cream", "quiet-motion"],
     fonts: [
-      "Playfair Display",
-      "Source Sans 3",
-      "cjk:Noto Serif SC",
-      "cjk:Noto Sans SC",
+      "Playfair Display:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700",
+      "Source Sans 3:ital,wght@0,300;0,400;1,300",
+      "cjk:Noto Serif SC:wght@500;600;700",
+      "cjk:Noto Sans SC:wght@300;400",
     ],
     scenes: m.scenes.map((s, si) => ({
       id: si + 1,
@@ -534,7 +512,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const letterToPastSelfTopic = defineStyleTopic({
   id: "letter-to-past-self",
   topic: { en: "A Letter to My Past Self", zh: "写给过去" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: WarmEditorialFeatureV3,
   getMetadata,
 });

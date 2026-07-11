@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -25,21 +25,6 @@ const PALETTE = {
   malachite: "#2f7d5b",
   vermilion: "#c33a2b",
 };
-
-const FONT_LINK_ID = "woodblock-floating-world-v3-fonts";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Serif+SC:wght@700&family=Noto+Sans+SC:wght@400;500&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── Bilingual copy (plain object — NO `as const`, keeps en/zh widened) ─────── */
 interface BeatCopy {
@@ -563,7 +548,11 @@ function HorizonNav({
   if (isThumbnail) return null;
   const boatLeft = NAV_STOPS[Math.min(Math.max(scene, 1), 5) - 1];
   return (
-    <div className={styles.nav} aria-hidden>
+    <div
+      {...curatedNavigationAttributes("woodblock-floating-world", "a-rivers-journey")}
+      className={styles.nav}
+      aria-hidden
+    >
       <div className={styles.navRiver} />
       {NAV_STOPS.map((pos, i) => (
         <button
@@ -601,7 +590,6 @@ function HorizonNav({
 /* ── Root ───────────────────────────────────────────────────────────────── */
 function WoodblockFloatingWorldV3(props: BespokeStyleProps) {
   const { scene, beat, language, isThumbnail, reducedMotion, onNavigate } = props;
-  useFonts();
   const still = reducedMotion || isThumbnail;
   const lang = COPY[language];
 
@@ -659,7 +647,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   return {
     id: STYLE_ID,
     band: BAND,
-    name: NAME,
+    name: lang === "zh" ? "木版浮世绘" : NAME,
     theme: c.theme,
     densityLabel: c.densityLabel,
     heroScene: 3,
@@ -674,10 +662,10 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       "asymmetric",
     ],
     fonts: [
-      "Shippori Mincho",
-      "Zen Kaku Gothic New",
-      "cjk:Noto Serif SC",
-      "cjk:Noto Sans SC",
+      "Shippori Mincho:wght@500;700",
+      "Zen Kaku Gothic New:wght@400;500;700",
+      "cjk:Noto Serif SC:wght@700",
+      "cjk:Noto Sans SC:wght@400;500",
     ],
     scenes: c.scenes.map((s, si) => ({
       id: si + 1,
@@ -695,7 +683,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const aRiversJourneyTopic = defineStyleTopic({
   id: "a-rivers-journey",
   topic: { en: COPY.en.theme, zh: COPY.zh.theme },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: WoodblockFloatingWorldV3,
   getMetadata,
 });

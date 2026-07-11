@@ -244,6 +244,11 @@ export default function LabView({
     onNavigate: handleStyleInternalNavigate,
   };
   const styleNumber = registry.findIndex((entry) => entry.id === found.style.id) + 1;
+  const illustrativeBoundary =
+    found.topic.evidence?.kind === "illustrative" &&
+    found.topic.evidence.display !== "stage"
+      ? found.topic.evidence.boundary[language]
+      : null;
 
   return (
     <div data-testid="lab-view" className="flex h-full w-full min-h-0 flex-col">
@@ -289,7 +294,35 @@ export default function LabView({
               }}
             >
               {StyleComponent ? (
-                <StyleComponent {...styleProps} />
+                <>
+                  <StyleComponent {...styleProps} />
+                  {illustrativeBoundary && (
+                    <div
+                      role="note"
+                      data-topic-evidence-boundary="true"
+                      className="pointer-events-none absolute flex justify-center"
+                      style={{
+                        left: "1.25cqw",
+                        right: "1.25cqw",
+                        bottom: "1.5cqh",
+                        zIndex: 70,
+                      }}
+                    >
+                      <span
+                        className="border border-white/20 bg-black/70 text-center font-sans text-white/90 shadow-lg backdrop-blur-sm"
+                        style={{
+                          maxWidth: "92cqw",
+                          padding: "0.55cqh 0.75cqw",
+                          borderRadius: "0.4cqw",
+                          fontSize: "1.3cqh",
+                          lineHeight: 1.35,
+                        }}
+                      >
+                        {illustrativeBoundary}
+                      </span>
+                    </div>
+                  )}
+                </>
               ) : activeLoadState.status === "error" ? (
                 <div
                   className="grid h-full w-full place-items-center p-16 text-center"

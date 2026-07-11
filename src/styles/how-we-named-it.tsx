@@ -6,32 +6,23 @@
 // Stage is 1920x1080; all layout sizing uses cqw/cqh. Emoji are plain Unicode
 // text inside <span> nodes — no icon fonts, no pseudo-element emoji.
 
-import { useEffect, useRef } from "react";
+// 07 · Sketch Board Emoji · v3 · "How We Named It"
+// A warm workshop-whiteboard telling of a product-naming session: candidate
+// notes get dumped up, debated with emoji reactions, shortlisted with hand
+// circles, and one name wins. Built from the Sketch Board Emoji DNA.
+//
+// Stage is 1920x1080; all layout sizing uses cqw/cqh. Emoji are plain Unicode
+// text inside <span> nodes — no icon fonts, no pseudo-element emoji.
+import { useRef } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./how-we-named-it.module.css";
 
 type Lang = "en" | "zh";
-
-// ── fonts ────────────────────────────────────────────────────────────────
-const FONT_LINK_ID = "font-sketch-board-emoji-v3";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Caveat:wght@400;700" +
-  "&family=Inter:wght@400;500;600;700&family=Zhi+Mang+Xing&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 // ── content tables (EN / ZH kept structurally identical) ───────────────────
 const NOTE_NAMES: Record<Lang, string[]> = {
@@ -195,7 +186,11 @@ export function getMetadata(lang: Lang): StyleMetadata {
     tags: en
       ? ["warm", "playful", "hand-drawn", "workshop", "loose", "gentle-motion"]
       : ["温暖", "俏皮", "手绘", "工作坊", "松散", "柔和动效"],
-    fonts: ["Caveat", "Inter", "cjk:Zhi Mang Xing"],
+    fonts: [
+      "Caveat:wght@400;700",
+      "Inter:wght@400;500;600;700",
+      "cjk:Zhi Mang Xing:wght@400",
+    ],
     scenes,
   };
 }
@@ -454,7 +449,11 @@ function ConnectorTrailNav({
   if (isThumbnail) return null;
   const nodes = [1, 2, 3, 4, 5];
   return (
-    <nav className={styles.nav} aria-label="scenes">
+    <nav
+      {...curatedNavigationAttributes("sketch-board-emoji", "how-we-named-it")}
+      className={styles.nav}
+      aria-label="scenes"
+    >
       <div className={styles.navTrail}>
         {nodes.map((n) => (
           <div className={styles.navItem} key={n}>
@@ -506,7 +505,6 @@ function SketchBoardEmojiV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const rootRef = useRef<HTMLDivElement>(null);
   const still = reducedMotion || isThumbnail;
 
@@ -559,7 +557,7 @@ export default SketchBoardEmojiV3;
 export const sketchBoardEmojiTopic = defineStyleTopic({
   id: "how-we-named-it",
   topic: { en: "How We Named It", zh: "起名字" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: SketchBoardEmojiV3,
   getMetadata,
 });

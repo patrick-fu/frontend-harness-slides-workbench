@@ -1,19 +1,7 @@
-/**
- * 09 · Subway Map of Intent · v3 — "Three Teams, One Launch"
- *
- * Three teams (design / engineering / marketing) drawn as three transit lines
- * that converge on one interchange station: launch day. Light signage ground,
- * three distinct functional line colors, flat diagrammatic depth, motion that
- * travels along the tracks (lines draw station-to-station, nothing off-track).
- *
- * Isolation: authored only from the shared brief + the Subway Map of Intent DNA.
- * No other style, registry, or workbench file was consulted.
- */
-
-import { useEffect } from "react";
 import type { ReactNode } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -31,9 +19,6 @@ const ENGINEER = "#2E6BE6"; // blue line
 const MARKET = "#F5A524"; // amber line
 
 const LINE_FONT = "Inter";
-const FONT_LINK_ID = "font-subway-map-intent-v3";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap";
 
 const BEATS = [1, 3, 3, 2, 1] as const;
 
@@ -94,18 +79,6 @@ const TEAMS: Team[] = [
 ];
 
 const TRUNK = "M128,54 H176";
-
-/* ── Font loader (dedup guarded) ──────────────────────────────────────── */
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── The network map — flat, diagrammatic, one legible plane ──────────── */
 type MapProps = {
@@ -871,11 +844,13 @@ function SceneTerminus({ lang }: { lang: "en" | "zh" }) {
 function RouteNav({
   scene,
   isThumbnail,
+  settled,
   onNavigate,
   lang,
 }: {
   scene: number;
   isThumbnail: boolean;
+  settled: boolean;
   onNavigate?: (scene: number, beat: number) => void;
   lang: "en" | "zh";
 }) {
@@ -887,6 +862,7 @@ function RouteNav({
   const fillPct = ((scene - 1) / 4) * 100;
   return (
     <div
+      {...curatedNavigationAttributes("subway-map-of-intent", "three-teams-launch")}
       onClick={(e) => e.stopPropagation()}
       style={{
         position: "absolute",
@@ -912,6 +888,7 @@ function RouteNav({
       />
       {/* filled connector up to current station */}
       <div
+        data-route-progress="true"
         style={{
           position: "absolute",
           left: "2cqw",
@@ -919,7 +896,7 @@ function RouteNav({
           height: "0.5cqh",
           borderRadius: "0.5cqh",
           background: `linear-gradient(90deg, ${DESIGN}, ${ENGINEER}, ${MARKET})`,
-          transition: "width 420ms cubic-bezier(0.4,0,0.2,1)",
+          transition: settled ? "none" : "width 420ms cubic-bezier(0.4,0,0.2,1)",
         }}
       />
       <div
@@ -1001,7 +978,6 @@ function ThreeTeamsLaunchV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const settle = reducedMotion || isThumbnail;
   const total = String(BEATS.length).padStart(2, "0");
 
@@ -1099,6 +1075,7 @@ function ThreeTeamsLaunchV3({
       <RouteNav
         scene={scene}
         isThumbnail={isThumbnail}
+        settled={settle}
         onNavigate={onNavigate}
         lang={language}
       />
@@ -1121,7 +1098,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     tags: en
       ? ["calm", "systematic", "structured", "diagrammatic", "light", "multi-track"]
       : ["沉静", "系统", "有序", "图解", "明亮", "多线"],
-    fonts: ["Inter"],
+    fonts: ["Inter:wght@400;500;600;700;800"],
     scenes: [
       {
         id: 1,
@@ -1234,7 +1211,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const threeTeamsLaunchTopic = defineStyleTopic({
   id: "three-teams-launch",
   topic: { en: "Three Teams, One Launch", zh: "三队一发" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: ThreeTeamsLaunchV3,
   getMetadata,
 });

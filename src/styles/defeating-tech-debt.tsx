@@ -1,8 +1,8 @@
-import { useEffect } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import { useFLIP } from "../hooks/useFLIP";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./defeating-tech-debt.module.css";
@@ -20,20 +20,6 @@ const DIM = "#33405e";
 const DISPLAY = '"Press Start 2P", "Noto Sans SC", monospace';
 const LABEL = '"Silkscreen", "Noto Sans SC", monospace';
 const BODY = '"VT323", "Noto Sans SC", monospace';
-
-/* ── fonts ───────────────────────────────────────────────────────── */
-const FONT_LINK_ID = "arcade-boss-fight-v3-fonts";
-function useFonts(): void {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&family=Noto+Sans+SC:wght@400;700;900&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── bilingual content (no `as const` — breaks build) ────────────── */
 const COPY = {
@@ -461,6 +447,7 @@ function StageNav({
 }): ReactNode {
   return (
     <div
+      {...curatedNavigationAttributes("arcade-boss-fight", "defeating-tech-debt")}
       style={{
         display: "flex",
         gap: "0.8cqw",
@@ -521,7 +508,6 @@ function DefeatingTechDebtV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps): ReactNode {
-  useFonts();
   const reduced = reducedMotion || isThumbnail;
   const c = COPY[language];
 
@@ -616,7 +602,12 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       "boss-fight",
       "contemporary-digital",
     ],
-    fonts: ["Press Start 2P", "Silkscreen", "VT323", "cjk:Noto Sans SC"],
+    fonts: [
+      "Press Start 2P:wght@400",
+      "Silkscreen:wght@400;700",
+      "VT323:wght@400",
+      "cjk:Noto Sans SC:wght@400;700;900",
+    ],
     scenes,
   };
 }
@@ -626,7 +617,7 @@ export default DefeatingTechDebtV3;
 export const DefeatingTechDebtTopic = defineStyleTopic({
   id: "defeating-tech-debt",
   topic: { en: "Defeating Tech Debt", zh: "\u6253\u8d25\u6280\u672f\u503a" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: DefeatingTechDebtV3,
   getMetadata,
 });

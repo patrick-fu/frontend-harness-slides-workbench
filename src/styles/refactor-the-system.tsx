@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -211,23 +211,6 @@ const CONTENT: Record<"en" | "zh", Locale> = {
   },
 };
 
-// ---------------------------------------------------------------------------
-// Fonts — inject once via a deduped Google Fonts <link>.
-// ---------------------------------------------------------------------------
-
-function useFonts(): void {
-  useEffect(() => {
-    const id = "rwa-v3-fonts";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Noto+Sans+SC:wght@700;900&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
-
 const clampBeat = (beat: number, len: number): number =>
   Math.min(Math.max(beat, 0), len - 1);
 
@@ -394,7 +377,7 @@ function ProgressWedge({
 }) {
   const fillPct = (scene / 5) * 100;
   return (
-    <div className={styles.nav}>
+    <div {...curatedNavigationAttributes("red-wedge-agitprop", "refactor-the-system")} className={styles.nav}>
       <div className={styles.navTrack}>
         <div className={styles.navFill} style={{ width: `${fillPct}%` }} />
         {[1, 2, 3, 4, 5].map((n) => (
@@ -428,7 +411,6 @@ function RedWedgeAgitpropV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const frozen = reducedMotion || isThumbnail;
   const locale = CONTENT[language] ?? CONTENT.en;
 
@@ -501,7 +483,11 @@ export function getMetadata(language: "en" | "zh"): StyleMetadata {
     tags: isEn
       ? ["urgent", "confrontational", "diagonal", "flat-color", "montage", "kinetic"]
       : ["紧迫", "对抗", "对角", "平涂", "拼贴", "凌厉"],
-    fonts: ["Anton", "Archivo Black", "cjk:Noto Sans SC"],
+    fonts: [
+      "Anton:wght@400",
+      "Archivo Black:wght@400",
+      "cjk:Noto Sans SC:wght@700;900",
+    ],
     scenes: locale.scenes.map((sc, i) => ({
       id: i + 1,
       title: sc.title,
@@ -518,7 +504,7 @@ export function getMetadata(language: "en" | "zh"): StyleMetadata {
 export const refactorTheSystemTopic = defineStyleTopic({
   id: "refactor-the-system",
   topic: { en: "Refactor the System", zh: "重构体制" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: RedWedgeAgitpropV3,
   getMetadata,
 });

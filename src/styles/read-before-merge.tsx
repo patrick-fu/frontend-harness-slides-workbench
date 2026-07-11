@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -11,21 +11,6 @@ const PAPER = "#F1E8D6"; // warm off-white paper ground — never white, never d
 const INK = "#141210"; // near-black, does the structural border work
 const PANEL = "#FCF7EA"; // slightly lifted paper for elevated cards
 const ACCENT = "#C6F82A"; // acidic high-voltage lime — one region per slide
-
-const FONTS_LINK =
-  "https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+SC:wght@400;700;900&family=Space+Grotesk:wght@400;500;700&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    const id = "fonts-neo-brutalist-bulletin-v3";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href = FONTS_LINK;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── Bilingual content (plain object — no `as const`) ──────────────────── */
 type Lang = "en" | "zh";
@@ -616,6 +601,7 @@ function BulletinNav({ scene, isThumbnail, onNavigate }: NavProps) {
   if (isThumbnail) return null;
   return (
     <div
+      {...curatedNavigationAttributes("neo-brutalist-bulletin", "read-before-merge")}
       style={{
         position: "absolute",
         bottom: "3cqh",
@@ -676,7 +662,6 @@ function ReadBeforeMergeV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const motionOff = reducedMotion || isThumbnail;
   const lang: Lang = language === "zh" ? "zh" : "en";
 
@@ -727,7 +712,11 @@ export function getMetadata(language: Lang): StyleMetadata {
     colors: { bg: PAPER, ink: INK, panel: PANEL },
     typography: { header: "Archivo Black", body: "Space Grotesk" },
     tags: d.meta.tags,
-    fonts: ["Archivo Black", "Space Grotesk", "cjk:Noto Sans SC"],
+    fonts: [
+      "Archivo Black:wght@400",
+      "Space Grotesk:wght@400;500;700",
+      "cjk:Noto Sans SC:wght@400;700;900",
+    ],
     scenes: d.meta.scenes.map((s, si) => ({
       id: si + 1,
       title: s.title,
@@ -744,7 +733,7 @@ export function getMetadata(language: Lang): StyleMetadata {
 export const readBeforeMergeTopic = defineStyleTopic({
   id: "read-before-merge",
   topic: { en: "Read This Before You Merge", zh: "合并前必读" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: ReadBeforeMergeV3,
   getMetadata,
 });

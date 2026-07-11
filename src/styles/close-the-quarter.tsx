@@ -1,31 +1,10 @@
-import { useEffect } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import styles from "./close-the-quarter.module.css";
-
-/* ────────────────────────────────────────────────────────────────────────
- * Style 46 · "Checklist Ledger" · v3 topic "Close the Quarter"
- * A plain, trustworthy quarter-end close ledger: formal header, strict
- * checkable rows, calm confirming green, flat ledger depth, cumulative motion.
- * ──────────────────────────────────────────────────────────────────────── */
-
-const FONT_LINK_ID = "font-checklist-ledger-v3";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+SC:wght@400;500&family=Noto+Serif+SC:wght@500;600&display=swap";
-
-function useFonts(): void {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 type Lang = "en" | "zh";
 
@@ -443,7 +422,10 @@ function CompletenessMeter({
   onNavigate?: (scene: number, beat: number) => void;
 }): ReactNode {
   return (
-    <div className={styles.meter}>
+    <div
+      {...curatedNavigationAttributes("checklist-ledger", "close-the-quarter")}
+      className={styles.meter}
+    >
       <span className={styles.meterLabel}>{copy.meterLabel}</span>
       <div className={styles.dots}>
         {[1, 2, 3, 4, 5].map((n) => (
@@ -476,7 +458,6 @@ function CloseTheQuarter({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps): ReactNode {
-  useFonts();
   const copy = COPY[language];
   const calm = reducedMotion || isThumbnail;
 
@@ -701,7 +682,12 @@ export function getMetadata(lang: Lang): StyleMetadata {
       "calm-motion",
       lang === "en" ? "checklist" : "检查清单",
     ],
-    fonts: ["IBM Plex Sans", "IBM Plex Serif", "cjk:Noto Serif SC", "cjk:Noto Sans SC"],
+    fonts: [
+      "IBM Plex Sans:wght@400;500;600",
+      "IBM Plex Serif:ital,wght@0,400;0,500;0,600;1,400",
+      "cjk:Noto Serif SC:wght@500;600",
+      "cjk:Noto Sans SC:wght@400;500",
+    ],
     scenes: t.scenes.map((s, i) => ({
       id: i + 1,
       title: s.title,
@@ -720,7 +706,7 @@ export default CloseTheQuarter;
 export const CloseTheQuarterTopic = defineStyleTopic({
   id: "close-the-quarter",
   topic: { en: "Close the Quarter", zh: "季度结账" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: CloseTheQuarter,
   getMetadata,
 });

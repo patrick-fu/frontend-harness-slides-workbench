@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
@@ -239,20 +238,6 @@ const closingStyle: CSSProperties = {
   color: "rgba(214,205,185,0.6)",
 };
 
-/* ── Fonts ─────────────────────────────────────────────────────────── */
-function useFonts(): void {
-  useEffect(() => {
-    const id = "font-chapter-zero-v3";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600&family=Noto+Sans+SC:wght@300;400&family=Noto+Serif+SC:wght@500;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
-
 /* ── Cinematic frame: letterbox bars + graded still as ground ──────── */
 interface FrameProps {
   kenBurns?: boolean;
@@ -480,7 +465,12 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     colors: { bg: "#080604", ink: "#f3ebdd", panel: "#14110b" },
     typography: { header: "Bebas Neue", body: "Barlow Condensed" },
     tags: TAGS,
-    fonts: ["Bebas Neue", "Barlow Condensed", "cjk:Noto Serif SC", "cjk:Noto Sans SC"],
+    fonts: [
+      "Bebas Neue:wght@400",
+      "Barlow Condensed:wght@300;400;600",
+      "cjk:Noto Serif SC:wght@500;700",
+      "cjk:Noto Sans SC:wght@300;400",
+    ],
     scenes: c.scenes,
   };
 }
@@ -493,7 +483,6 @@ export default function ChapterZeroV3({
   isThumbnail,
   reducedMotion,
 }: BespokeStyleProps) {
-  useFonts();
   const reduce = reducedMotion || isThumbnail;
   return (
     <div className={styles.root} data-rm={reduce ? "true" : undefined}>
@@ -527,7 +516,7 @@ export default function ChapterZeroV3({
 export const ChapterZeroTopic = defineStyleTopic({
   id: "chapter-zero",
   topic: { en: "Chapter Zero", zh: "第零章" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: ChapterZeroV3,
   getMetadata,
 });

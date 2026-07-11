@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import type { CSSProperties } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -241,20 +241,6 @@ const COPY: Record<Lang, Copy> = {
   },
 };
 
-/* ── fonts ───────────────────────────────────────────────────────────────── */
-function useFonts() {
-  useEffect(() => {
-    const id = "font-studio-mixing-console-v3";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
-
 /* ── shared meter ──────────────────────────────────────────────────────────── */
 function Meter({
   value,
@@ -324,7 +310,7 @@ function TitleScene({ lang }: { lang: Lang }) {
       <div className={styles.titleTop}>
         <span className={styles.powerLed} />
         <span className={styles.kicker}>{c.kicker}</span>
-        <span className={styles.modelBadge}>Claude-Opus-4.8</span>
+        <span className={styles.modelBadge}>GPT 5.6 Sol</span>
       </div>
       <h1 className={styles.title}>{b.title}</h1>
       <p className={styles.subtitle}>{b.body}</p>
@@ -544,7 +530,7 @@ function ChannelNav({
 }) {
   if (isThumbnail) return null;
   return (
-    <div className={styles.nav}>
+    <div {...curatedNavigationAttributes("studio-mixing-console", "tuning-the-model")} className={styles.nav}>
       {NAV_LABELS[lang].map((label, i) => {
         const sc = i + 1;
         const active = sc === scene;
@@ -580,7 +566,6 @@ function StudioMixingConsoleV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const reduced = reducedMotion || isThumbnail;
   return (
     <div className={styles.root} data-reduced={reduced}>
@@ -641,7 +626,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
       lang === "en"
         ? ["professional", "tactile", "precise", "studio-dark", "mechanical"]
         : ["专业", "硬件质感", "精确", "录音棚暗色", "机械"],
-    fonts: ["Space Mono", "cjk:Noto Sans SC"],
+    fonts: ["Space Mono:wght@400;700", "cjk:Noto Sans SC:wght@400;700"],
     scenes: c.scenes.map((s, si) => ({
       id: si + 1,
       title: s.title,
@@ -658,7 +643,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const tuningTheModelTopic = defineStyleTopic({
   id: "tuning-the-model",
   topic: { en: "Tuning the Model", zh: "调模型" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: StudioMixingConsoleV3,
   getMetadata,
 });

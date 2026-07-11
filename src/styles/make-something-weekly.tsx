@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { CSSProperties } from "react";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -12,23 +13,7 @@ const PAPER = "#ECE2C8"; // warm cream/khaki ground, never white
 const INK = "#2B2620"; // warm near-black body ink
 const RED = "#E14434"; // spot ink 1 — vermilion, carries emphasis
 const BLUE = "#1C4C6B"; // spot ink 2 — teal-blue, carries structure
-const OVER = "#5B3A46"; // celebrated muddy overprint where inks meet
-
-const FONT_ID = "riso-zine-v3-fonts";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@700&family=Work+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
+const OVER = "#5B3A46";
 
 type Lang = "en" | "zh";
 const pick = (lang: Lang, en: string, zh: string) => (lang === "en" ? en : zh);
@@ -373,6 +358,7 @@ function PageSeal({
 
   return (
     <button
+      {...curatedNavigationAttributes("riso-print-zine", "make-something-weekly")}
       type="button"
       className={styles.navSeal}
       aria-label={`page ${scene}, press to advance`}
@@ -403,7 +389,6 @@ function RisoPrintZineV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const lang: Lang = language === "zh" ? "zh" : "en";
   const frozen = reducedMotion || isThumbnail;
 
@@ -604,7 +589,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
   return {
     id: "riso-print-zine",
     band: "editorial-print",
-    name: "Riso Print Zine",
+    name: lang === "zh" ? "孔版印刷杂志" : "Riso Print Zine",
     theme: copy.theme,
     densityLabel: copy.densityLabel,
     heroScene: 1,
@@ -614,7 +599,12 @@ export function getMetadata(lang: Lang): StyleMetadata {
       lang === "en"
         ? ["warm", "scrappy", "handmade", "risograph", "two-ink", "print-registration"]
         : ["温暖", "手作", "粗粝", "孔版印刷", "双色", "套印偏移"],
-    fonts: ["Anton", "Caveat", "Work Sans", "cjk:Noto Sans SC"],
+    fonts: [
+      "Anton:wght@400",
+      "Caveat:wght@700",
+      "Work Sans:wght@400;500;600;700",
+      "cjk:Noto Sans SC:wght@400;500;700",
+    ],
     scenes: copy.scenes.map((s, si) => ({
       id: si + 1,
       title: s.title,
@@ -631,7 +621,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const makeSomethingWeeklyTopic = defineStyleTopic({
   id: "make-something-weekly",
   topic: { en: "Make Something Weekly", zh: "每周做点" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: RisoPrintZineV3,
   getMetadata,
 });

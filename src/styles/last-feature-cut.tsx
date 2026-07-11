@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -21,19 +21,6 @@ const TRANSITIONS: SceneTransitionMap = {
   "3->4": "scale-fade",
   "4->5": "fade",
 };
-
-const FONT_LINK_ID = "font-minimal-product-keynote-v3";
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Noto+Serif+SC:wght@300;500&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 function pad(n: number): string {
   return n < 10 ? `0${n}` : `${n}`;
@@ -212,7 +199,7 @@ function GhostNav({
 }) {
   if (isThumbnail) return null;
   return (
-    <div className={styles.nav}>
+    <div {...curatedNavigationAttributes("minimal-product-keynote", "last-feature-cut")} className={styles.nav}>
       {[1, 2, 3, 4, 5].map((n) => (
         <button
           key={n}
@@ -240,7 +227,6 @@ function LastFeatureCutV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const t = COPY[language];
   const motionOff = reducedMotion || isThumbnail;
 
@@ -306,7 +292,10 @@ export function getMetadata(language: "en" | "zh"): StyleMetadata {
     colors: { bg: "#F4F0E8", ink: "#141210", panel: "#EBE5D9" },
     typography: { header: "Fraunces", body: "Fraunces" },
     tags: ["minimal", "reverent", "value-extreme", "negative-space", "calm-slow"],
-    fonts: ["Fraunces", "cjk:Noto Serif SC"],
+    fonts: [
+      "Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600",
+      "cjk:Noto Serif SC:wght@300;500",
+    ],
     scenes: [
       {
         id: 1,
@@ -502,7 +491,7 @@ export function getMetadata(language: "en" | "zh"): StyleMetadata {
 export const lastFeatureCutTopic = defineStyleTopic({
   id: "last-feature-cut",
   topic: { en: "The Last Feature We Cut", zh: "删掉的功能" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: LastFeatureCutV3,
   getMetadata,
 });

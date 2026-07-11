@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import styles from "./anatomy-of-an-idea.module.css";
@@ -10,21 +10,6 @@ import styles from "./anatomy-of-an-idea.module.css";
    taxonomic label furniture, aged-paper stillness. Layout in cqw/cqh only. */
 
 type Lang = "en" | "zh";
-
-const FONT_LINK_ID = "font-botanical-specimen-plate-v3";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Serif+SC:wght@400;500&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 const NUMERALS = ["I", "II", "III", "IV", "V"];
 
@@ -451,7 +436,11 @@ function PlateSpine({
 }) {
   const plate = CONTENT[language].plate;
   return (
-    <nav className={styles.spine} aria-label="plates">
+    <nav
+      {...curatedNavigationAttributes("botanical-specimen-plate", "anatomy-of-an-idea")}
+      className={styles.spine}
+      aria-label="plates"
+    >
       {NUMERALS.map((n, i) => {
         const target = i + 1;
         return (
@@ -482,7 +471,6 @@ const TRANSITIONS: SceneTransitionMap = {
 
 function BotanicalSpecimenPlateV3(props: BespokeStyleProps) {
   const { scene, beat, language, isThumbnail, reducedMotion, onNavigate } = props;
-  useFonts();
   const stillness = reducedMotion || isThumbnail;
 
   return (
@@ -530,7 +518,10 @@ export function getMetadata(lang: Lang): StyleMetadata {
       body: "EB Garamond",
     },
     tags,
-    fonts: ["EB Garamond", "cjk:Noto Serif SC"],
+    fonts: [
+      "EB Garamond:ital,wght@0,400;0,500;1,400;1,500",
+      "cjk:Noto Serif SC:wght@400;500",
+    ],
     scenes: t.scenes.map((sc, i) => ({
       id: i + 1,
       title: sc.title,
@@ -550,7 +541,7 @@ export const anatomyOfAnIdeaTopic = defineStyleTopic({
     en: "Anatomy of an Idea",
     zh: "想法解剖",
   },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: BotanicalSpecimenPlateV3,
   getMetadata,
 });

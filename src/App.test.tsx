@@ -1,6 +1,12 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import App from "./App";
+import { CATALOG_MANIFEST } from "./styles/catalog-manifest.generated";
+
+const CATALOG_TOPIC_COUNT = CATALOG_MANIFEST.reduce(
+  (total, style) => total + style.topics.length,
+  0,
+);
 
 beforeEach(() => {
   window.history.replaceState(null, "", "/");
@@ -12,9 +18,11 @@ describe("Workbench Catalog + Player", () => {
   it("opens as a complete Topic Catalog", () => {
     render(<App />);
     expect(screen.getByTestId("overview-view")).toBeVisible();
-    expect(screen.getAllByTestId("topic-card")).toHaveLength(194);
+    expect(screen.getAllByTestId("topic-card")).toHaveLength(
+      CATALOG_TOPIC_COUNT,
+    );
     expect(screen.getByTestId("catalog-summary")).toHaveTextContent(
-      "All 194 Topics · 49 Styles",
+      `All ${CATALOG_TOPIC_COUNT} Topics · ${CATALOG_MANIFEST.length} Styles`,
     );
   });
 

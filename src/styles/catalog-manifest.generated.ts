@@ -863,7 +863,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Last Feature We Cut",
           "zh": "删掉的功能"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "minimal-product-keynote",
@@ -889,8 +889,8 @@ export const CATALOG_MANIFEST = [
               "calm-slow"
             ],
             "fonts": [
-              "Fraunces",
-              "cjk:Noto Serif SC"
+              "Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600",
+              "cjk:Noto Serif SC:wght@300;500"
             ],
             "scenes": [
               {
@@ -1094,7 +1094,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./last-feature-cut.tsx"
+        "modulePath": "./last-feature-cut.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "feature-cut-whisper",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "fade",
+          "3->4": "scale-fade",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -2014,7 +2034,7 @@ export const CATALOG_MANIFEST = [
           "en": "Anatomy of a Timetable",
           "zh": "时刻表解剖"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "objective-swiss-grid",
@@ -2048,8 +2068,8 @@ export const CATALOG_MANIFEST = [
               "flush-left"
             ],
             "fonts": [
-              "Archivo",
-              "cjk:Noto Sans SC"
+              "Archivo:wght@400;500;600;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -2261,7 +2281,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./anatomy-timetable.tsx"
+        "modulePath": "./anatomy-timetable.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "timetable-coordinate-marker",
+          "invocation": "persistent",
+          "feedback": "history-trail"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "slide-y",
+          "3->4": "hard-cut",
+          "4->5": "slide-y"
+        }
       }
     ]
   },
@@ -3189,7 +3229,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Beauty of the Unfinished",
           "zh": "未完成之美"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "wabi-sabi-ceramic",
@@ -3216,9 +3256,9 @@ export const CATALOG_MANIFEST = [
               "humanist-serif"
             ],
             "fonts": [
-              "Fraunces",
-              "Newsreader",
-              "cjk:Noto Serif SC"
+              "Fraunces:opsz,wght@9..144,300..500",
+              "Newsreader:opsz,wght@6..72,300..500",
+              "cjk:Noto Serif SC:wght@300;400;500"
             ],
             "scenes": [
               {
@@ -3332,9 +3372,9 @@ export const CATALOG_MANIFEST = [
               "人文衬线"
             ],
             "fonts": [
-              "Fraunces",
-              "Newsreader",
-              "cjk:Noto Serif SC"
+              "Fraunces:opsz,wght@9..144,300..500",
+              "Newsreader:opsz,wght@6..72,300..500",
+              "cjk:Noto Serif SC:wght@300;400;500"
             ],
             "scenes": [
               {
@@ -3424,7 +3464,24 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./beauty-unfinished.tsx"
+        "modulePath": "./beauty-unfinished.tsx",
+        "navigation": {
+          "mode": "none"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "slide-x",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -4320,7 +4377,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Rubber Duck",
           "zh": "橡皮鸭"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "interactive-dialogue-stage",
@@ -4347,8 +4404,8 @@ export const CATALOG_MANIFEST = [
               "sparse"
             ],
             "fonts": [
-              "JetBrains Mono",
-              "cjk:Noto Sans SC"
+              "JetBrains Mono:wght@400;500;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -4468,8 +4525,8 @@ export const CATALOG_MANIFEST = [
               "sparse"
             ],
             "fonts": [
-              "JetBrains Mono",
-              "cjk:Noto Sans SC"
+              "JetBrains Mono:wght@400;500;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -4565,7 +4622,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./rubber-duck.tsx"
+        "modulePath": "./rubber-duck.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "duck-turn-stepper",
+          "invocation": "persistent",
+          "feedback": "next-state-preview"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "fade",
+          "4->5": "scale-fade"
+        }
       }
     ]
   },
@@ -5467,7 +5544,7 @@ export const CATALOG_MANIFEST = [
           "en": "Drawing a Bridge",
           "zh": "桥的设计"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "cyanotype-drafting-table",
@@ -5494,8 +5571,8 @@ export const CATALOG_MANIFEST = [
               "blueprint"
             ],
             "fonts": [
-              "Space Mono",
-              "cjk:Noto Sans SC"
+              "Space Mono:wght@400;700",
+              "cjk:Noto Sans SC:wght@400;700"
             ],
             "scenes": [
               {
@@ -5615,8 +5692,8 @@ export const CATALOG_MANIFEST = [
               "蓝图"
             ],
             "fonts": [
-              "Space Mono",
-              "cjk:Noto Sans SC"
+              "Space Mono:wght@400;700",
+              "cjk:Noto Sans SC:wght@400;700"
             ],
             "scenes": [
               {
@@ -5712,7 +5789,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./drawing-a-bridge.tsx"
+        "modulePath": "./drawing-a-bridge.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "bridge-revision-index",
+          "invocation": "persistent",
+          "feedback": "mechanical-displacement"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "slide-x",
+          "4->5": "hard-cut"
+        }
       }
     ]
   },
@@ -6607,7 +6704,7 @@ export const CATALOG_MANIFEST = [
           "en": "Ship It",
           "zh": "发布"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "kinetic-type-punchline",
@@ -6633,8 +6730,8 @@ export const CATALOG_MANIFEST = [
               "percussive"
             ],
             "fonts": [
-              "Anton",
-              "cjk:Noto Sans SC"
+              "Anton:wght@400",
+              "cjk:Noto Sans SC:wght@900"
             ],
             "scenes": [
               {
@@ -6826,7 +6923,24 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./ship-it.tsx"
+        "modulePath": "./ship-it.tsx",
+        "navigation": {
+          "mode": "none"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "glitch",
+          "3->4": "hard-cut",
+          "4->5": "glitch"
+        }
       }
     ]
   },
@@ -7766,7 +7880,7 @@ export const CATALOG_MANIFEST = [
           "en": "How We Named It",
           "zh": "起名字"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "sketch-board-emoji",
@@ -7793,9 +7907,9 @@ export const CATALOG_MANIFEST = [
               "gentle-motion"
             ],
             "fonts": [
-              "Caveat",
-              "Inter",
-              "cjk:Zhi Mang Xing"
+              "Caveat:wght@400;700",
+              "Inter:wght@400;500;600;700",
+              "cjk:Zhi Mang Xing:wght@400"
             ],
             "scenes": [
               {
@@ -7903,9 +8017,9 @@ export const CATALOG_MANIFEST = [
               "柔和动效"
             ],
             "fonts": [
-              "Caveat",
-              "Inter",
-              "cjk:Zhi Mang Xing"
+              "Caveat:wght@400;700",
+              "Inter:wght@400;500;600;700",
+              "cjk:Zhi Mang Xing:wght@400"
             ],
             "scenes": [
               {
@@ -7989,7 +8103,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./how-we-named-it.tsx"
+        "modulePath": "./how-we-named-it.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "naming-connector-trail",
+          "invocation": "persistent",
+          "feedback": "geometry-reflow"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "slide-x",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
+        }
       }
     ]
   },
@@ -8896,7 +9030,7 @@ export const CATALOG_MANIFEST = [
           "en": "On Quitting Well",
           "zh": "好好离开"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "spotlight-quote-poster",
@@ -8922,8 +9056,8 @@ export const CATALOG_MANIFEST = [
               "slow"
             ],
             "fonts": [
-              "Cormorant Garamond",
-              "cjk:Noto Serif SC"
+              "Cormorant Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600",
+              "cjk:Noto Serif SC:wght@400;500;600"
             ],
             "scenes": [
               {
@@ -9042,8 +9176,8 @@ export const CATALOG_MANIFEST = [
               "缓慢"
             ],
             "fonts": [
-              "Cormorant Garamond",
-              "cjk:Noto Serif SC"
+              "Cormorant Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600",
+              "cjk:Noto Serif SC:wght@400;500;600"
             ],
             "scenes": [
               {
@@ -9139,7 +9273,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./on-quitting-well.tsx"
+        "modulePath": "./on-quitting-well.tsx",
+        "navigation": {
+          "geometry": "ambient",
+          "carrier": "quitting-folio-glow",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "scale-fade",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -10039,7 +10193,7 @@ export const CATALOG_MANIFEST = [
           "en": "Three Teams, One Launch",
           "zh": "三队一发"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "subway-map-of-intent",
@@ -10066,7 +10220,7 @@ export const CATALOG_MANIFEST = [
               "multi-track"
             ],
             "fonts": [
-              "Inter"
+              "Inter:wght@400;500;600;700;800"
             ],
             "scenes": [
               {
@@ -10186,7 +10340,7 @@ export const CATALOG_MANIFEST = [
               "多线"
             ],
             "fonts": [
-              "Inter"
+              "Inter:wght@400;500;600;700;800"
             ],
             "scenes": [
               {
@@ -10282,7 +10436,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./three-teams-launch.tsx"
+        "modulePath": "./three-teams-launch.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "launch-route-line",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "slide-x",
+          "3->4": "scale-fade",
+          "4->5": "slide-x"
+        }
       }
     ]
   },
@@ -11289,7 +11463,7 @@ export const CATALOG_MANIFEST = [
           "en": "Build vs Buy vs Borrow",
           "zh": "自建还是买"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "benchmark-matrix",
@@ -11315,8 +11489,8 @@ export const CATALOG_MANIFEST = [
               "clarifying motion"
             ],
             "fonts": [
-              "Inter",
-              "cjk:Noto Sans SC"
+              "Inter:wght@400;500;600;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -11435,8 +11609,8 @@ export const CATALOG_MANIFEST = [
               "澄清式动效"
             ],
             "fonts": [
-              "Inter",
-              "cjk:Noto Sans SC"
+              "Inter:wght@400;500;600;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -11532,7 +11706,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./build-buy-borrow.tsx"
+        "modulePath": "./build-buy-borrow.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "decision-dot-row",
+          "invocation": "auto-hide",
+          "feedback": "active-glow"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "fade",
+          "4->5": "scale-fade"
+        }
       }
     ]
   },
@@ -12444,7 +12638,7 @@ export const CATALOG_MANIFEST = [
           "en": "Where the Request Goes",
           "zh": "请求去哪了"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "signal-pipeline-flow",
@@ -12470,8 +12664,8 @@ export const CATALOG_MANIFEST = [
               "monospace"
             ],
             "fonts": [
-              "JetBrains Mono",
-              "IBM Plex Mono"
+              "JetBrains Mono:wght@400;600;700",
+              "IBM Plex Mono:wght@400;500;600"
             ],
             "scenes": [
               {
@@ -12563,7 +12757,7 @@ export const CATALOG_MANIFEST = [
           "zh": {
             "id": "signal-pipeline-flow",
             "band": "balanced-hybrid",
-            "name": "Signal Pipeline Flow",
+            "name": "信号管道流",
             "theme": "请求去哪了",
             "densityLabel": "系统图 · 路由流",
             "heroScene": 3,
@@ -12675,7 +12869,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./where-request-goes.tsx"
+        "modulePath": "./where-request-goes.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "request-stage-stepper",
+          "invocation": "auto-hide",
+          "feedback": "history-trail"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "slide-x",
+          "3->4": "glitch",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -14197,7 +14411,7 @@ export const CATALOG_MANIFEST = [
           "en": "Your First Week Here",
           "zh": "入职第一周"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "soft-pastel-friendly",
@@ -14223,9 +14437,9 @@ export const CATALOG_MANIFEST = [
               "gentle-spring"
             ],
             "fonts": [
-              "Quicksand",
-              "Nunito Sans",
-              "cjk:Noto Sans SC"
+              "Quicksand:wght@500;600;700",
+              "Nunito Sans:wght@400;600;700",
+              "cjk:Noto Sans SC:wght@500;600;700"
             ],
             "scenes": [
               {
@@ -14338,9 +14552,9 @@ export const CATALOG_MANIFEST = [
               "柔和弹性"
             ],
             "fonts": [
-              "Quicksand",
-              "Nunito Sans",
-              "cjk:Noto Sans SC"
+              "Quicksand:wght@500;600;700",
+              "Nunito Sans:wght@400;600;700",
+              "cjk:Noto Sans SC:wght@500;600;700"
             ],
             "scenes": [
               {
@@ -14430,7 +14644,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./first-week-here.tsx"
+        "modulePath": "./first-week-here.tsx",
+        "navigation": {
+          "geometry": "object-controller",
+          "carrier": "week-day-picker",
+          "invocation": "auto-hide",
+          "feedback": "next-state-preview"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "scale-fade"
+        }
       }
     ]
   },
@@ -15340,7 +15574,7 @@ export const CATALOG_MANIFEST = [
           "en": "From Raw Logs to Report",
           "zh": "日志到报告"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "kitchen-prep-station",
@@ -15367,9 +15601,9 @@ export const CATALOG_MANIFEST = [
               "cozy"
             ],
             "fonts": [
-              "Fraunces",
-              "Baloo 2",
-              "cjk:Noto Serif SC"
+              "Fraunces:opsz,wght@9..144,500;9..144,700",
+              "Baloo 2:wght@500;600;700",
+              "cjk:Noto Serif SC:wght@500;700"
             ],
             "scenes": [
               {
@@ -15455,7 +15689,7 @@ export const CATALOG_MANIFEST = [
           "zh": {
             "id": "kitchen-prep-station",
             "band": "balanced-hybrid",
-            "name": "Kitchen Prep Station",
+            "name": "厨房备料台",
             "theme": "日志到报告",
             "densityLabel": "备料台 · 五步",
             "heroScene": 4,
@@ -15477,9 +15711,9 @@ export const CATALOG_MANIFEST = [
               "暖色"
             ],
             "fonts": [
-              "Fraunces",
-              "Baloo 2",
-              "cjk:Noto Serif SC"
+              "Fraunces:opsz,wght@9..144,500;9..144,700",
+              "Baloo 2:wght@500;600;700",
+              "cjk:Noto Serif SC:wght@500;700"
             ],
             "scenes": [
               {
@@ -15563,7 +15797,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./raw-logs-to-report.tsx"
+        "modulePath": "./raw-logs-to-report.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "report-recipe-rail",
+          "invocation": "auto-hide",
+          "feedback": "mechanical-displacement"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "slide-x",
+          "4->5": "scale-fade"
+        }
       }
     ]
   },
@@ -16461,7 +16715,7 @@ export const CATALOG_MANIFEST = [
           "en": "Human Reviews the AI",
           "zh": "人审 AI"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "collaborative-pairing-board",
@@ -16490,9 +16744,9 @@ export const CATALOG_MANIFEST = [
               "pairing"
             ],
             "fonts": [
-              "Inter",
-              "IBM Plex Mono",
-              "cjk:Noto Sans SC"
+              "Inter:wght@400;500;600;700",
+              "IBM Plex Mono:wght@400;500",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -16602,9 +16856,9 @@ export const CATALOG_MANIFEST = [
               "配对"
             ],
             "fonts": [
-              "Inter",
-              "IBM Plex Mono",
-              "cjk:Noto Sans SC"
+              "Inter:wght@400;500;600;700",
+              "IBM Plex Mono:wght@400;500",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -16688,7 +16942,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./human-reviews-ai.tsx"
+        "modulePath": "./human-reviews-ai.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "review-seam-tabs",
+          "invocation": "auto-hide",
+          "feedback": "geometry-reflow"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "slide-x",
+          "3->4": "fade",
+          "4->5": "scale-fade"
+        }
       }
     ]
   },
@@ -17554,7 +17828,7 @@ export const CATALOG_MANIFEST = [
           "en": "Tuning the Model",
           "zh": "调模型"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "studio-mixing-console",
@@ -17580,8 +17854,8 @@ export const CATALOG_MANIFEST = [
               "mechanical"
             ],
             "fonts": [
-              "Space Mono",
-              "cjk:Noto Sans SC"
+              "Space Mono:wght@400;700",
+              "cjk:Noto Sans SC:wght@400;700"
             ],
             "scenes": [
               {
@@ -17694,8 +17968,8 @@ export const CATALOG_MANIFEST = [
               "机械"
             ],
             "fonts": [
-              "Space Mono",
-              "cjk:Noto Sans SC"
+              "Space Mono:wght@400;700",
+              "cjk:Noto Sans SC:wght@400;700"
             ],
             "scenes": [
               {
@@ -17785,7 +18059,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./tuning-the-model.tsx"
+        "modulePath": "./tuning-the-model.tsx",
+        "navigation": {
+          "geometry": "object-controller",
+          "carrier": "model-channel-selector",
+          "invocation": "auto-hide",
+          "feedback": "material-color-change"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "hard-cut",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -18721,7 +19015,7 @@ export const CATALOG_MANIFEST = [
           "en": "Is It Safe to Deploy?",
           "zh": "能发布吗"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "debug-reaction-board",
@@ -18747,8 +19041,8 @@ export const CATALOG_MANIFEST = [
               "state-driven"
             ],
             "fonts": [
-              "JetBrains Mono",
-              "cjk:Noto Sans SC"
+              "JetBrains Mono:wght@400;500;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -18952,7 +19246,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./safe-to-deploy.tsx"
+        "modulePath": "./safe-to-deploy.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "deploy-status-ticks",
+          "invocation": "auto-hide",
+          "feedback": "typographic-emphasis"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "slide-x",
+          "4->5": "glitch"
+        }
       }
     ]
   },
@@ -19852,7 +20166,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Day the Feed Stopped",
           "zh": "信息流停摆"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "front-page-broadsheet",
@@ -19879,10 +20193,10 @@ export const CATALOG_MANIFEST = [
               "print-motion"
             ],
             "fonts": [
-              "Playfair Display",
-              "Source Serif 4",
-              "Archivo",
-              "cjk:Noto Serif SC"
+              "Playfair Display:wght@700;800;900",
+              "Source Serif 4:ital,wght@0,400;0,600;1,400",
+              "Archivo:wght@600;700",
+              "cjk:Noto Serif SC:wght@400;600;700"
             ],
             "scenes": [
               {
@@ -19974,7 +20288,7 @@ export const CATALOG_MANIFEST = [
           "zh": {
             "id": "front-page-broadsheet",
             "band": "editorial-print",
-            "name": "Front-Page Broadsheet",
+            "name": "头版大报",
             "theme": "信息流停摆",
             "densityLabel": "高密度 · 多栏",
             "heroScene": 2,
@@ -19996,10 +20310,10 @@ export const CATALOG_MANIFEST = [
               "print-motion"
             ],
             "fonts": [
-              "Playfair Display",
-              "Source Serif 4",
-              "Archivo",
-              "cjk:Noto Serif SC"
+              "Playfair Display:wght@700;800;900",
+              "Source Serif 4:ital,wght@0,400;0,600;1,400",
+              "Archivo:wght@600;700",
+              "cjk:Noto Serif SC:wght@400;600;700"
             ],
             "scenes": [
               {
@@ -20089,7 +20403,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./day-feed-stopped.tsx"
+        "modulePath": "./day-feed-stopped.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "feed-page-spine",
+          "invocation": "proximity-reveal",
+          "feedback": "active-glow"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "page-flip",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "page-flip"
+        }
       }
     ]
   },
@@ -21014,7 +21348,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Comeback Issue",
           "zh": "回归特刊"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "magazine-masthead",
@@ -21040,9 +21374,9 @@ export const CATALOG_MANIFEST = [
               "print-settled"
             ],
             "fonts": [
-              "Playfair Display",
-              "Archivo",
-              "cjk:Noto Serif SC"
+              "Playfair Display:wght@700;900",
+              "Archivo:wght@500;600;700",
+              "cjk:Noto Serif SC:wght@700;900"
             ],
             "scenes": [
               {
@@ -21155,9 +21489,9 @@ export const CATALOG_MANIFEST = [
               "沉稳"
             ],
             "fonts": [
-              "Playfair Display",
-              "Archivo",
-              "cjk:Noto Serif SC"
+              "Playfair Display:wght@700;900",
+              "Archivo:wght@500;600;700",
+              "cjk:Noto Serif SC:wght@700;900"
             ],
             "scenes": [
               {
@@ -21247,7 +21581,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./comeback-issue.tsx"
+        "modulePath": "./comeback-issue.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "comeback-issue-spine",
+          "invocation": "proximity-reveal",
+          "feedback": "history-trail"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "page-flip",
+          "2->3": "scale-fade",
+          "3->4": "page-flip",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -22169,7 +22523,7 @@ export const CATALOG_MANIFEST = [
           "en": "A Letter to My Past Self",
           "zh": "写给过去"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "warm-editorial-feature",
@@ -22195,10 +22549,10 @@ export const CATALOG_MANIFEST = [
               "quiet-motion"
             ],
             "fonts": [
-              "Playfair Display",
-              "Source Sans 3",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Playfair Display:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700",
+              "Source Sans 3:ital,wght@0,300;0,400;1,300",
+              "cjk:Noto Serif SC:wght@500;600;700",
+              "cjk:Noto Sans SC:wght@300;400"
             ],
             "scenes": [
               {
@@ -22305,10 +22659,10 @@ export const CATALOG_MANIFEST = [
               "quiet-motion"
             ],
             "fonts": [
-              "Playfair Display",
-              "Source Sans 3",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Playfair Display:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700",
+              "Source Sans 3:ital,wght@0,300;0,400;1,300",
+              "cjk:Noto Serif SC:wght@500;600;700",
+              "cjk:Noto Sans SC:wght@300;400"
             ],
             "scenes": [
               {
@@ -22392,7 +22746,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./letter-to-past-self.tsx"
+        "modulePath": "./letter-to-past-self.tsx",
+        "navigation": {
+          "geometry": "ambient",
+          "carrier": "past-self-folio",
+          "invocation": "proximity-reveal",
+          "feedback": "next-state-preview"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "slide-x",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -23302,7 +23676,7 @@ export const CATALOG_MANIFEST = [
           "en": "What the Ancients Knew",
           "zh": "古人的智慧"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "scholars-vellum",
@@ -23329,11 +23703,11 @@ export const CATALOG_MANIFEST = [
               "stillness"
             ],
             "fonts": [
-              "Cormorant Garamond",
-              "Alegreya Sans",
-              "Courier Prime",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Cormorant Garamond:ital,wght@1,500;1,600",
+              "Alegreya Sans:wght@400;500",
+              "Courier Prime:wght@400",
+              "cjk:Noto Serif SC:wght@400;500",
+              "cjk:Noto Sans SC:wght@400;500"
             ],
             "scenes": [
               {
@@ -23441,11 +23815,11 @@ export const CATALOG_MANIFEST = [
               "静止"
             ],
             "fonts": [
-              "Cormorant Garamond",
-              "Alegreya Sans",
-              "Courier Prime",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Cormorant Garamond:ital,wght@1,500;1,600",
+              "Alegreya Sans:wght@400;500",
+              "Courier Prime:wght@400",
+              "cjk:Noto Serif SC:wght@400;500",
+              "cjk:Noto Sans SC:wght@400;500"
             ],
             "scenes": [
               {
@@ -23529,7 +23903,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./what-ancients-knew.tsx"
+        "modulePath": "./what-ancients-knew.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "ancients-folio-counter",
+          "invocation": "proximity-reveal",
+          "feedback": "mechanical-displacement"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "hard-cut",
+          "3->4": "hard-cut",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -24451,7 +24845,7 @@ export const CATALOG_MANIFEST = [
           "en": "Festival of Slow Ideas",
           "zh": "慢想节"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "solar-biennale-poster",
@@ -24477,10 +24871,10 @@ export const CATALOG_MANIFEST = [
               "slow-motion"
             ],
             "fonts": [
-              "Playfair Display",
-              "Archivo",
-              "Space Mono",
-              "cjk:Noto Serif SC"
+              "Playfair Display:ital,wght@0,400;0,700;0,800;1,400;1,700",
+              "Archivo:wght@400;600;700",
+              "Space Mono:wght@400;700",
+              "cjk:Noto Serif SC:wght@400;700;900"
             ],
             "scenes": [
               {
@@ -24593,10 +24987,10 @@ export const CATALOG_MANIFEST = [
               "慢速动效"
             ],
             "fonts": [
-              "Playfair Display",
-              "Archivo",
-              "Space Mono",
-              "cjk:Noto Serif SC"
+              "Playfair Display:ital,wght@0,400;0,700;0,800;1,400;1,700",
+              "Archivo:wght@400;600;700",
+              "Space Mono:wght@400;700",
+              "cjk:Noto Serif SC:wght@400;700;900"
             ],
             "scenes": [
               {
@@ -24686,7 +25080,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./festival-slow-ideas.tsx"
+        "modulePath": "./festival-slow-ideas.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "festival-mono-folio",
+          "invocation": "proximity-reveal",
+          "feedback": "geometry-reflow"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "scale-fade"
+        }
       }
     ]
   },
@@ -25596,7 +26010,7 @@ export const CATALOG_MANIFEST = [
           "en": "Cut in One Take",
           "zh": "一条过"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "duotone-session",
@@ -25623,10 +26037,10 @@ export const CATALOG_MANIFEST = [
               "percussive"
             ],
             "fonts": [
-              "Oswald",
-              "Playfair Display",
-              "cjk:Noto Sans SC",
-              "cjk:Noto Serif SC"
+              "Oswald:wght@500;600;700",
+              "Playfair Display:ital,wght@0,600;0,700;1,600",
+              "cjk:Noto Sans SC:wght@700;900",
+              "cjk:Noto Serif SC:wght@600;700"
             ],
             "scenes": [
               {
@@ -25718,7 +26132,7 @@ export const CATALOG_MANIFEST = [
           "zh": {
             "id": "duotone-session",
             "band": "editorial-print",
-            "name": "Duotone Session",
+            "name": "双调录制",
             "theme": "一条过",
             "densityLabel": "浓烈 · 影像",
             "heroScene": 3,
@@ -25833,7 +26247,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./cut-in-one-take.tsx"
+        "modulePath": "./cut-in-one-take.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "one-take-track-index",
+          "invocation": "proximity-reveal",
+          "feedback": "material-color-change"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "hard-cut",
+          "3->4": "slide-y",
+          "4->5": "hard-cut"
+        }
       }
     ]
   },
@@ -26840,7 +27274,7 @@ export const CATALOG_MANIFEST = [
           "en": "Make Something Weekly",
           "zh": "每周做点"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "riso-print-zine",
@@ -26867,10 +27301,10 @@ export const CATALOG_MANIFEST = [
               "print-registration"
             ],
             "fonts": [
-              "Anton",
-              "Caveat",
-              "Work Sans",
-              "cjk:Noto Sans SC"
+              "Anton:wght@400",
+              "Caveat:wght@700",
+              "Work Sans:wght@400;500;600;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -26962,7 +27396,7 @@ export const CATALOG_MANIFEST = [
           "zh": {
             "id": "riso-print-zine",
             "band": "editorial-print",
-            "name": "Riso Print Zine",
+            "name": "孔版印刷杂志",
             "theme": "每周做点",
             "densityLabel": "中高密度拼贴",
             "heroScene": 1,
@@ -26984,10 +27418,10 @@ export const CATALOG_MANIFEST = [
               "套印偏移"
             ],
             "fonts": [
-              "Anton",
-              "Caveat",
-              "Work Sans",
-              "cjk:Noto Sans SC"
+              "Anton:wght@400",
+              "Caveat:wght@700",
+              "Work Sans:wght@400;500;600;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -27077,7 +27511,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./make-something-weekly.tsx"
+        "modulePath": "./make-something-weekly.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "weekly-ink-seal",
+          "invocation": "proximity-reveal",
+          "feedback": "typographic-emphasis"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "page-flip",
+          "2->3": "hard-cut",
+          "3->4": "page-flip",
+          "4->5": "hard-cut"
+        }
       }
     ]
   },
@@ -28074,7 +28528,7 @@ export const CATALOG_MANIFEST = [
           "en": "Piecing the Idea Together",
           "zh": "拼出想法"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "analog-cutout-collage",
@@ -28101,10 +28555,10 @@ export const CATALOG_MANIFEST = [
               "restless"
             ],
             "fonts": [
-              "Caveat",
-              "Source Serif 4",
-              "cjk:Noto Serif SC",
-              "cjk:Ma Shan Zheng"
+              "Caveat:wght@400;700",
+              "Source Serif 4:ital,wght@0,400;0,600;0,700",
+              "cjk:Noto Serif SC:wght@400;600",
+              "cjk:Ma Shan Zheng:wght@400"
             ],
             "scenes": [
               {
@@ -28212,10 +28666,10 @@ export const CATALOG_MANIFEST = [
               "躁动"
             ],
             "fonts": [
-              "Caveat",
-              "Source Serif 4",
-              "cjk:Noto Serif SC",
-              "cjk:Ma Shan Zheng"
+              "Caveat:wght@400;700",
+              "Source Serif 4:ital,wght@0,400;0,600;0,700",
+              "cjk:Noto Serif SC:wght@400;600",
+              "cjk:Ma Shan Zheng:wght@400"
             ],
             "scenes": [
               {
@@ -28299,7 +28753,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./piecing-idea-together.tsx"
+        "modulePath": "./piecing-idea-together.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "collage-pin-pricks",
+          "invocation": "click-expand",
+          "feedback": "active-glow"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "scale-fade",
+          "3->4": "slide-x",
+          "4->5": "scale-fade"
+        }
       }
     ]
   },
@@ -29270,7 +29744,7 @@ export const CATALOG_MANIFEST = [
           "en": "A River's Journey",
           "zh": "一条河"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "woodblock-floating-world",
@@ -29297,10 +29771,10 @@ export const CATALOG_MANIFEST = [
               "asymmetric"
             ],
             "fonts": [
-              "Shippori Mincho",
-              "Zen Kaku Gothic New",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Shippori Mincho:wght@500;700",
+              "Zen Kaku Gothic New:wght@400;500;700",
+              "cjk:Noto Serif SC:wght@700",
+              "cjk:Noto Sans SC:wght@400;500"
             ],
             "scenes": [
               {
@@ -29404,7 +29878,7 @@ export const CATALOG_MANIFEST = [
           "zh": {
             "id": "woodblock-floating-world",
             "band": "craft-cultural",
-            "name": "Woodblock Floating-World",
+            "name": "木版浮世绘",
             "theme": "一条河",
             "densityLabel": "疏朗 · 静谧",
             "heroScene": 3,
@@ -29426,10 +29900,10 @@ export const CATALOG_MANIFEST = [
               "asymmetric"
             ],
             "fonts": [
-              "Shippori Mincho",
-              "Zen Kaku Gothic New",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Shippori Mincho:wght@500;700",
+              "Zen Kaku Gothic New:wght@400;500;700",
+              "cjk:Noto Serif SC:wght@700",
+              "cjk:Noto Sans SC:wght@400;500"
             ],
             "scenes": [
               {
@@ -29531,7 +30005,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./a-rivers-journey.tsx"
+        "modulePath": "./a-rivers-journey.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "river-horizon-boat",
+          "invocation": "click-expand",
+          "feedback": "history-trail"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "slide-x",
+          "3->4": "slide-x",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -30439,7 +30933,7 @@ export const CATALOG_MANIFEST = [
           "en": "Anatomy of an Idea",
           "zh": "想法解剖"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "botanical-specimen-plate",
@@ -30466,8 +30960,8 @@ export const CATALOG_MANIFEST = [
               "barely-motion"
             ],
             "fonts": [
-              "EB Garamond",
-              "cjk:Noto Serif SC"
+              "EB Garamond:ital,wght@0,400;0,500;1,400;1,500",
+              "cjk:Noto Serif SC:wght@400;500"
             ],
             "scenes": [
               {
@@ -30587,8 +31081,8 @@ export const CATALOG_MANIFEST = [
               "近乎无动"
             ],
             "fonts": [
-              "EB Garamond",
-              "cjk:Noto Serif SC"
+              "EB Garamond:ital,wght@0,400;0,500;1,400;1,500",
+              "cjk:Noto Serif SC:wght@400;500"
             ],
             "scenes": [
               {
@@ -30684,7 +31178,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./anatomy-of-an-idea.tsx"
+        "modulePath": "./anatomy-of-an-idea.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "idea-plate-numerals",
+          "invocation": "click-expand",
+          "feedback": "next-state-preview"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "page-flip",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "page-flip"
+        }
       }
     ]
   },
@@ -31617,7 +32131,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Grand Unveiling",
           "zh": "盛大揭幕"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "machine-age-deco",
@@ -31646,9 +32160,9 @@ export const CATALOG_MANIFEST = [
               "stately"
             ],
             "fonts": [
-              "Cinzel",
-              "Josefin Sans",
-              "cjk:Noto Serif SC"
+              "Cinzel:wght@500;600;700",
+              "Josefin Sans:wght@300;400;600",
+              "cjk:Noto Serif SC:wght@400;600;700"
             ],
             "scenes": [
               {
@@ -31764,9 +32278,9 @@ export const CATALOG_MANIFEST = [
               "stately"
             ],
             "fonts": [
-              "Cinzel",
-              "Josefin Sans",
-              "cjk:Noto Serif SC"
+              "Cinzel:wght@500;600;700",
+              "Josefin Sans:wght@300;400;600",
+              "cjk:Noto Serif SC:wght@400;600;700"
             ],
             "scenes": [
               {
@@ -31856,7 +32370,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./grand-unveiling.tsx"
+        "modulePath": "./grand-unveiling.tsx",
+        "navigation": {
+          "geometry": "object-controller",
+          "carrier": "unveiling-gate-dial",
+          "invocation": "click-expand",
+          "feedback": "mechanical-displacement"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "slide-y",
+          "4->5": "scale-fade"
+        }
       }
     ]
   },
@@ -32753,7 +33287,7 @@ export const CATALOG_MANIFEST = [
           "en": "Mapping Unknown Ground",
           "zh": "勘探未知"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "expedition-screenprint",
@@ -32780,10 +33314,10 @@ export const CATALOG_MANIFEST = [
               "static-drift"
             ],
             "fonts": [
-              "Bebas Neue",
-              "Oswald",
-              "Archivo Narrow",
-              "cjk:Noto Sans SC"
+              "Bebas Neue:wght@400",
+              "Oswald:wght@500;600",
+              "Archivo Narrow:wght@500;600",
+              "cjk:Noto Sans SC:wght@500;700"
             ],
             "scenes": [
               {
@@ -32897,10 +33431,10 @@ export const CATALOG_MANIFEST = [
               "静态微移"
             ],
             "fonts": [
-              "Bebas Neue",
-              "Oswald",
-              "Archivo Narrow",
-              "cjk:Noto Sans SC"
+              "Bebas Neue:wght@400",
+              "Oswald:wght@500;600",
+              "Archivo Narrow:wght@500;600",
+              "cjk:Noto Sans SC:wght@500;700"
             ],
             "scenes": [
               {
@@ -32990,7 +33524,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./mapping-unknown-ground.tsx"
+        "modulePath": "./mapping-unknown-ground.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "expedition-altitude-scale",
+          "invocation": "click-expand",
+          "feedback": "geometry-reflow"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "slide-y",
+          "3->4": "slide-x",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -33978,7 +34532,7 @@ export const CATALOG_MANIFEST = [
           "en": "Greatest Hits, Vol. 1",
           "zh": "精选辑一"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "cassette-era-packaging",
@@ -34004,11 +34558,11 @@ export const CATALOG_MANIFEST = [
               "mechanical"
             ],
             "fonts": [
-              "Anton",
-              "Oswald",
-              "Work Sans",
-              "IBM Plex Mono",
-              "cjk:Noto Sans SC"
+              "Anton:wght@400",
+              "Oswald:wght@500;600;700",
+              "Work Sans:wght@400;500;600",
+              "IBM Plex Mono:wght@400;500;600",
+              "cjk:Noto Sans SC:wght@500;700;900"
             ],
             "scenes": [
               {
@@ -34133,11 +34687,11 @@ export const CATALOG_MANIFEST = [
               "机械感"
             ],
             "fonts": [
-              "Anton",
-              "Oswald",
-              "Work Sans",
-              "IBM Plex Mono",
-              "cjk:Noto Sans SC"
+              "Anton:wght@400",
+              "Oswald:wght@500;600;700",
+              "Work Sans:wght@400;500;600",
+              "IBM Plex Mono:wght@400;500;600",
+              "cjk:Noto Sans SC:wght@500;700;900"
             ],
             "scenes": [
               {
@@ -34239,7 +34793,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./greatest-hits-vol1.tsx"
+        "modulePath": "./greatest-hits-vol1.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "cassette-tape-counter",
+          "invocation": "click-expand",
+          "feedback": "material-color-change"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "hard-cut"
+        }
       }
     ]
   },
@@ -35199,7 +35773,7 @@ export const CATALOG_MANIFEST = [
           "en": "Read This Before You Merge",
           "zh": "合并前必读"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "neo-brutalist-bulletin",
@@ -35226,9 +35800,9 @@ export const CATALOG_MANIFEST = [
               "Uppercase"
             ],
             "fonts": [
-              "Archivo Black",
-              "Space Grotesk",
-              "cjk:Noto Sans SC"
+              "Archivo Black:wght@400",
+              "Space Grotesk:wght@400;500;700",
+              "cjk:Noto Sans SC:wght@400;700;900"
             ],
             "scenes": [
               {
@@ -35354,9 +35928,9 @@ export const CATALOG_MANIFEST = [
               "全大写"
             ],
             "fonts": [
-              "Archivo Black",
-              "Space Grotesk",
-              "cjk:Noto Sans SC"
+              "Archivo Black:wght@400",
+              "Space Grotesk:wght@400;500;700",
+              "cjk:Noto Sans SC:wght@400;700;900"
             ],
             "scenes": [
               {
@@ -35458,7 +36032,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./read-before-merge.tsx"
+        "modulePath": "./read-before-merge.tsx",
+        "navigation": {
+          "geometry": "card-miniature",
+          "carrier": "merge-page-chips",
+          "invocation": "click-expand",
+          "feedback": "typographic-emphasis"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "slide-x",
+          "3->4": "hard-cut",
+          "4->5": "slide-x"
+        }
       }
     ]
   },
@@ -36374,7 +36968,7 @@ export const CATALOG_MANIFEST = [
           "en": "Refactor the System",
           "zh": "重构体制"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "red-wedge-agitprop",
@@ -36401,9 +36995,9 @@ export const CATALOG_MANIFEST = [
               "kinetic"
             ],
             "fonts": [
-              "Anton",
-              "Archivo Black",
-              "cjk:Noto Sans SC"
+              "Anton:wght@400",
+              "Archivo Black:wght@400",
+              "cjk:Noto Sans SC:wght@700;900"
             ],
             "scenes": [
               {
@@ -36523,9 +37117,9 @@ export const CATALOG_MANIFEST = [
               "凌厉"
             ],
             "fonts": [
-              "Anton",
-              "Archivo Black",
-              "cjk:Noto Sans SC"
+              "Anton:wght@400",
+              "Archivo Black:wght@400",
+              "cjk:Noto Sans SC:wght@700;900"
             ],
             "scenes": [
               {
@@ -36621,7 +37215,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./refactor-the-system.tsx"
+        "modulePath": "./refactor-the-system.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "refactor-progress-wedge",
+          "invocation": "drag-scrub",
+          "feedback": "active-glow"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "hard-cut",
+          "3->4": "glitch",
+          "4->5": "hard-cut"
+        }
       }
     ]
   },
@@ -37544,7 +38158,7 @@ export const CATALOG_MANIFEST = [
           "en": "Triage the Backlog",
           "zh": "需求分拣"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "mechanical-scoring-funnel",
@@ -37572,10 +38186,10 @@ export const CATALOG_MANIFEST = [
               "arcade-adjacent"
             ],
             "fonts": [
-              "Chakra Petch",
-              "Rajdhani",
-              "JetBrains Mono",
-              "cjk:Noto Sans SC"
+              "Chakra Petch:wght@500;700",
+              "Rajdhani:wght@500;600;700",
+              "JetBrains Mono:wght@500;700",
+              "cjk:Noto Sans SC:wght@500;700"
             ],
             "scenes": [
               {
@@ -37702,10 +38316,10 @@ export const CATALOG_MANIFEST = [
               "arcade-adjacent"
             ],
             "fonts": [
-              "Chakra Petch",
-              "Rajdhani",
-              "JetBrains Mono",
-              "cjk:Noto Sans SC"
+              "Chakra Petch:wght@500;700",
+              "Rajdhani:wght@500;600;700",
+              "JetBrains Mono:wght@500;700",
+              "cjk:Noto Sans SC:wght@500;700"
             ],
             "scenes": [
               {
@@ -37807,7 +38421,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./triage-the-backlog.tsx"
+        "modulePath": "./triage-the-backlog.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "backlog-stage-lanes",
+          "invocation": "drag-scrub",
+          "feedback": "history-trail"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "scale-fade"
+        }
       }
     ]
   },
@@ -38677,7 +39311,7 @@ export const CATALOG_MANIFEST = [
           "en": "Layers of a Product",
           "zh": "产品的层"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "liquid-glass",
@@ -38708,8 +39342,8 @@ export const CATALOG_MANIFEST = [
               "product"
             ],
             "fonts": [
-              "Inter",
-              "cjk:Noto Sans SC"
+              "Inter:wght@400;600;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -38821,8 +39455,8 @@ export const CATALOG_MANIFEST = [
               "product"
             ],
             "fonts": [
-              "Inter",
-              "cjk:Noto Sans SC"
+              "Inter:wght@400;600;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -38906,7 +39540,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./layers-of-a-product.tsx"
+        "modulePath": "./layers-of-a-product.tsx",
+        "navigation": {
+          "geometry": "object-controller",
+          "carrier": "product-layer-stack",
+          "invocation": "drag-scrub",
+          "feedback": "next-state-preview"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -39796,7 +40450,7 @@ export const CATALOG_MANIFEST = [
           "en": "Setup.exe",
           "zh": "安装向导"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "retro-windows",
@@ -39826,9 +40480,9 @@ export const CATALOG_MANIFEST = [
             ],
             "fonts": [
               "Tahoma",
-              "VT323",
-              "Press Start 2P",
-              "cjk:Noto Sans SC"
+              "VT323:wght@400",
+              "Press Start 2P:wght@400",
+              "cjk:Noto Sans SC:wght@400;700"
             ],
             "scenes": [
               {
@@ -39939,9 +40593,9 @@ export const CATALOG_MANIFEST = [
             ],
             "fonts": [
               "Tahoma",
-              "VT323",
-              "Press Start 2P",
-              "cjk:Noto Sans SC"
+              "VT323:wght@400",
+              "Press Start 2P:wght@400",
+              "cjk:Noto Sans SC:wght@400;700"
             ],
             "scenes": [
               {
@@ -40025,7 +40679,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./setup-exe.tsx"
+        "modulePath": "./setup-exe.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "setup-wizard-controls",
+          "invocation": "drag-scrub",
+          "feedback": "mechanical-displacement"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "glitch",
+          "4->5": "hard-cut"
+        }
       }
     ]
   },
@@ -40915,7 +41589,7 @@ export const CATALOG_MANIFEST = [
           "en": "Growing Slowly on Purpose",
           "zh": "慢成长"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "mid-century-grove",
@@ -40947,11 +41621,11 @@ export const CATALOG_MANIFEST = [
               "mid-century"
             ],
             "fonts": [
-              "Fraunces",
-              "Spectral",
-              "Archivo",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400",
+              "Spectral:ital,wght@0,300;0,400;1,400",
+              "Archivo:wght@500;600",
+              "cjk:Noto Serif SC:wght@400;600",
+              "cjk:Noto Sans SC:wght@500"
             ],
             "scenes": [
               {
@@ -41070,11 +41744,11 @@ export const CATALOG_MANIFEST = [
               "mid-century"
             ],
             "fonts": [
-              "Fraunces",
-              "Spectral",
-              "Archivo",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400",
+              "Spectral:ital,wght@0,300;0,400;1,400",
+              "Archivo:wght@500;600",
+              "cjk:Noto Serif SC:wght@400;600",
+              "cjk:Noto Sans SC:wght@500"
             ],
             "scenes": [
               {
@@ -41164,7 +41838,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./growing-slowly-on-purpose.tsx"
+        "modulePath": "./growing-slowly-on-purpose.tsx",
+        "navigation": {
+          "geometry": "ambient",
+          "carrier": "grove-rust-mark",
+          "invocation": "drag-scrub",
+          "feedback": "geometry-reflow"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -42084,7 +42778,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Midnight Release",
           "zh": "午夜上线"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "after-hours-luxe",
@@ -42114,11 +42808,11 @@ export const CATALOG_MANIFEST = [
               "asymmetric"
             ],
             "fonts": [
-              "Playfair Display",
-              "Jost",
-              "Space Mono",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Playfair Display:ital,wght@0,400;0,600;1,500",
+              "Jost:wght@300;400",
+              "Space Mono:wght@400;700",
+              "cjk:Noto Serif SC:wght@500;700",
+              "cjk:Noto Sans SC:wght@300;400"
             ],
             "scenes": [
               {
@@ -42235,11 +42929,11 @@ export const CATALOG_MANIFEST = [
               "非对称"
             ],
             "fonts": [
-              "Playfair Display",
-              "Jost",
-              "Space Mono",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Playfair Display:ital,wght@0,400;0,600;1,500",
+              "Jost:wght@300;400",
+              "Space Mono:wght@400;700",
+              "cjk:Noto Serif SC:wght@500;700",
+              "cjk:Noto Sans SC:wght@300;400"
             ],
             "scenes": [
               {
@@ -42329,7 +43023,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./the-midnight-release.tsx"
+        "modulePath": "./the-midnight-release.tsx",
+        "navigation": {
+          "geometry": "ambient",
+          "carrier": "midnight-hairline-index",
+          "invocation": "drag-scrub",
+          "feedback": "material-color-change"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "scale-fade",
+          "3->4": "fade",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -43211,7 +43925,7 @@ export const CATALOG_MANIFEST = [
           "en": "Rotate the Secrets",
           "zh": "轮换密钥"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "operating-manual",
@@ -43242,9 +43956,9 @@ export const CATALOG_MANIFEST = [
               "command"
             ],
             "fonts": [
-              "JetBrains Mono",
-              "IBM Plex Mono",
-              "cjk:Noto Sans SC"
+              "JetBrains Mono:wght@700;800",
+              "IBM Plex Mono:wght@400;600;700",
+              "cjk:Noto Sans SC:wght@400;700"
             ],
             "scenes": [
               {
@@ -43362,9 +44076,9 @@ export const CATALOG_MANIFEST = [
               "command"
             ],
             "fonts": [
-              "JetBrains Mono",
-              "IBM Plex Mono",
-              "cjk:Noto Sans SC"
+              "JetBrains Mono:wght@700;800",
+              "IBM Plex Mono:wght@400;600;700",
+              "cjk:Noto Sans SC:wght@400;700"
             ],
             "scenes": [
               {
@@ -43454,7 +44168,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./rotate-the-secrets.tsx"
+        "modulePath": "./rotate-the-secrets.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "rotation-command-status",
+          "invocation": "drag-scrub",
+          "feedback": "typographic-emphasis"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "hard-cut"
+        }
       }
     ]
   },
@@ -44346,7 +45080,7 @@ export const CATALOG_MANIFEST = [
           "en": "Chapter Zero",
           "zh": "第零章"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "widescreen-title-card",
@@ -44379,10 +45113,10 @@ export const CATALOG_MANIFEST = [
               "opening-credit"
             ],
             "fonts": [
-              "Bebas Neue",
-              "Barlow Condensed",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Bebas Neue:wght@400",
+              "Barlow Condensed:wght@300;400;600",
+              "cjk:Noto Serif SC:wght@500;700",
+              "cjk:Noto Sans SC:wght@300;400"
             ],
             "scenes": [
               {
@@ -44490,10 +45224,10 @@ export const CATALOG_MANIFEST = [
               "opening-credit"
             ],
             "fonts": [
-              "Bebas Neue",
-              "Barlow Condensed",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Bebas Neue:wght@400",
+              "Barlow Condensed:wght@300;400;600",
+              "cjk:Noto Serif SC:wght@500;700",
+              "cjk:Noto Sans SC:wght@300;400"
             ],
             "scenes": [
               {
@@ -44571,7 +45305,24 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./chapter-zero.tsx"
+        "modulePath": "./chapter-zero.tsx",
+        "navigation": {
+          "mode": "none"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "scale-fade",
+          "3->4": "fade",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -45487,7 +46238,7 @@ export const CATALOG_MANIFEST = [
           "en": "Deriving Big-O",
           "zh": "推导复杂度"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "blackboard-chalk-talk",
@@ -45518,11 +46269,11 @@ export const CATALOG_MANIFEST = [
               "derivation"
             ],
             "fonts": [
-              "Caveat",
-              "Gochi Hand",
-              "Azeret Mono",
-              "cjk:Zhi Mang Xing",
-              "cjk:Long Cang"
+              "Caveat:wght@400;700",
+              "Gochi Hand:wght@400",
+              "Azeret Mono:wght@300;400;500",
+              "cjk:Zhi Mang Xing:wght@400",
+              "cjk:Long Cang:wght@400"
             ],
             "scenes": [
               {
@@ -45640,11 +46391,11 @@ export const CATALOG_MANIFEST = [
               "derivation"
             ],
             "fonts": [
-              "Caveat",
-              "Gochi Hand",
-              "Azeret Mono",
-              "cjk:Zhi Mang Xing",
-              "cjk:Long Cang"
+              "Caveat:wght@400;700",
+              "Gochi Hand:wght@400",
+              "Azeret Mono:wght@300;400;500",
+              "cjk:Zhi Mang Xing:wght@400",
+              "cjk:Long Cang:wght@400"
             ],
             "scenes": [
               {
@@ -45734,7 +46485,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./deriving-big-o.tsx"
+        "modulePath": "./deriving-big-o.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "chalk-step-line",
+          "invocation": "keyboard-focus",
+          "feedback": "active-glow"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -46731,7 +47502,7 @@ export const CATALOG_MANIFEST = [
           "en": "Defeating Tech Debt",
           "zh": "打败技术债"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "arcade-boss-fight",
@@ -46765,10 +47536,10 @@ export const CATALOG_MANIFEST = [
               "contemporary-digital"
             ],
             "fonts": [
-              "Press Start 2P",
-              "Silkscreen",
-              "VT323",
-              "cjk:Noto Sans SC"
+              "Press Start 2P:wght@400",
+              "Silkscreen:wght@400;700",
+              "VT323:wght@400",
+              "cjk:Noto Sans SC:wght@400;700;900"
             ],
             "scenes": [
               {
@@ -46889,10 +47660,10 @@ export const CATALOG_MANIFEST = [
               "contemporary-digital"
             ],
             "fonts": [
-              "Press Start 2P",
-              "Silkscreen",
-              "VT323",
-              "cjk:Noto Sans SC"
+              "Press Start 2P:wght@400",
+              "Silkscreen:wght@400;700",
+              "VT323:wght@400",
+              "cjk:Noto Sans SC:wght@400;700;900"
             ],
             "scenes": [
               {
@@ -46982,7 +47753,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./defeating-tech-debt.tsx"
+        "modulePath": "./defeating-tech-debt.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "arcade-stage-hud",
+          "invocation": "keyboard-focus",
+          "feedback": "history-trail"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "hard-cut",
+          "3->4": "glitch",
+          "4->5": "hard-cut"
+        }
       }
     ]
   },
@@ -47820,7 +48611,7 @@ export const CATALOG_MANIFEST = [
           "en": "Why Users Churn",
           "zh": "用户流失"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "research-memo",
@@ -47848,10 +48639,10 @@ export const CATALOG_MANIFEST = [
               "memo"
             ],
             "fonts": [
-              "Fraunces",
-              "Inter",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600",
+              "Inter:wght@400;500;600",
+              "cjk:Noto Serif SC:wght@500;600",
+              "cjk:Noto Sans SC:wght@400;500"
             ],
             "scenes": [
               {
@@ -47966,10 +48757,10 @@ export const CATALOG_MANIFEST = [
               "研究备忘"
             ],
             "fonts": [
-              "Fraunces",
-              "Inter",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600",
+              "Inter:wght@400;500;600",
+              "cjk:Noto Serif SC:wght@500;600",
+              "cjk:Noto Sans SC:wght@400;500"
             ],
             "scenes": [
               {
@@ -48059,7 +48850,28 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./why-users-churn.tsx"
+        "modulePath": "./why-users-churn.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "churn-section-spine",
+          "invocation": "keyboard-focus",
+          "feedback": "next-state-preview"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative synthetic dataset: all cohort sizes, rates, ratios, and recommendations in this Topic are examples, not measured outcomes.",
+            "zh": "示例合成数据集：本 Topic 中的所有群组规模、比率、倍率和建议均为示例，并非实测结果。"
+          },
+          "display": "stage"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "fade"
+        }
       }
     ]
   },
@@ -48934,7 +49746,7 @@ export const CATALOG_MANIFEST = [
           "en": "Why We Chose Monorepo",
           "zh": "选单仓库"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "decision-record",
@@ -48968,9 +49780,9 @@ export const CATALOG_MANIFEST = [
               "trade-off-matrix"
             ],
             "fonts": [
-              "IBM Plex Mono",
-              "IBM Plex Sans",
-              "cjk:Noto Sans SC"
+              "IBM Plex Mono:wght@400;500;600",
+              "IBM Plex Sans:wght@400;500;600;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -49091,9 +49903,9 @@ export const CATALOG_MANIFEST = [
               "trade-off-matrix"
             ],
             "fonts": [
-              "IBM Plex Mono",
-              "IBM Plex Sans",
-              "cjk:Noto Sans SC"
+              "IBM Plex Mono:wght@400;500;600",
+              "IBM Plex Sans:wght@400;500;600;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -49183,7 +49995,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./why-we-chose-monorepo.tsx"
+        "modulePath": "./why-we-chose-monorepo.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "monorepo-decision-stepper",
+          "invocation": "keyboard-focus",
+          "feedback": "mechanical-displacement"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "slide-x",
+          "3->4": "fade",
+          "4->5": "scale-fade"
+        }
       }
     ]
   },
@@ -50057,7 +50889,7 @@ export const CATALOG_MANIFEST = [
           "en": "Flaky Test, Root Cause",
           "zh": "不稳定测试"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "maintainer-issue-brief",
@@ -50088,9 +50920,9 @@ export const CATALOG_MANIFEST = [
               "crisp-motion"
             ],
             "fonts": [
-              "Inter",
-              "JetBrains Mono",
-              "cjk:Noto Sans SC"
+              "Inter:wght@400;500;600;700;800",
+              "JetBrains Mono:wght@400;500;600;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -50208,9 +51040,9 @@ export const CATALOG_MANIFEST = [
               "维护者"
             ],
             "fonts": [
-              "Inter",
-              "JetBrains Mono",
-              "cjk:Noto Sans SC"
+              "Inter:wght@400;500;600;700;800",
+              "JetBrains Mono:wght@400;500;600;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -50300,7 +51132,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./flaky-test-root-cause.tsx"
+        "modulePath": "./flaky-test-root-cause.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "flaky-ticket-status",
+          "invocation": "keyboard-focus",
+          "feedback": "geometry-reflow"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "slide-y",
+          "3->4": "slide-x",
+          "4->5": "hard-cut"
+        }
       }
     ]
   },
@@ -51209,7 +52061,7 @@ export const CATALOG_MANIFEST = [
           "en": "A Day Shadowing Support",
           "zh": "跟班客服"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "field-notes-report",
@@ -51239,10 +52091,10 @@ export const CATALOG_MANIFEST = [
               "gentle-motion"
             ],
             "fonts": [
-              "Caveat",
-              "Lora",
-              "cjk:Ma Shan Zheng",
-              "cjk:Noto Serif SC"
+              "Caveat:wght@400;600;700",
+              "Lora:ital,wght@0,400;0,500;1,400",
+              "cjk:Ma Shan Zheng:wght@400",
+              "cjk:Noto Serif SC:wght@400;600"
             ],
             "scenes": [
               {
@@ -51353,10 +52205,10 @@ export const CATALOG_MANIFEST = [
               "柔和动效"
             ],
             "fonts": [
-              "Caveat",
-              "Lora",
-              "cjk:Ma Shan Zheng",
-              "cjk:Noto Serif SC"
+              "Caveat:wght@400;600;700",
+              "Lora:ital,wght@0,400;0,500;1,400",
+              "cjk:Ma Shan Zheng:wght@400",
+              "cjk:Noto Serif SC:wght@400;600"
             ],
             "scenes": [
               {
@@ -51440,7 +52292,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./shadowing-support.tsx"
+        "modulePath": "./shadowing-support.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "support-notebook-folio",
+          "invocation": "keyboard-focus",
+          "feedback": "material-color-change"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "page-flip",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "page-flip"
+        }
       }
     ]
   },
@@ -52374,7 +53246,7 @@ export const CATALOG_MANIFEST = [
           "en": "Killing a God Object",
           "zh": "拆解巨类"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "annotated-source-diff",
@@ -52404,9 +53276,9 @@ export const CATALOG_MANIFEST = [
               "reserved-motion"
             ],
             "fonts": [
-              "JetBrains Mono",
-              "Inter",
-              "cjk:Noto Sans SC"
+              "JetBrains Mono:wght@400;500;700",
+              "Inter:wght@400;500;600;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -52535,9 +53407,9 @@ export const CATALOG_MANIFEST = [
               "reserved-motion"
             ],
             "fonts": [
-              "JetBrains Mono",
-              "Inter",
-              "cjk:Noto Sans SC"
+              "JetBrains Mono:wght@400;500;700",
+              "Inter:wght@400;500;600;700",
+              "cjk:Noto Sans SC:wght@400;500;700"
             ],
             "scenes": [
               {
@@ -52639,7 +53511,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./killing-a-god-object.tsx"
+        "modulePath": "./killing-a-god-object.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "god-object-diff-toggle",
+          "invocation": "keyboard-focus",
+          "feedback": "typographic-emphasis"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "wipe",
+          "4->5": "slide-y"
+        }
       }
     ]
   },
@@ -53563,7 +54455,7 @@ export const CATALOG_MANIFEST = [
           "en": "Close the Quarter",
           "zh": "季度结账"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "checklist-ledger",
@@ -53592,10 +54484,10 @@ export const CATALOG_MANIFEST = [
               "checklist"
             ],
             "fonts": [
-              "IBM Plex Sans",
-              "IBM Plex Serif",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "IBM Plex Sans:wght@400;500;600",
+              "IBM Plex Serif:ital,wght@0,400;0,500;0,600;1,400",
+              "cjk:Noto Serif SC:wght@500;600",
+              "cjk:Noto Sans SC:wght@400;500"
             ],
             "scenes": [
               {
@@ -53723,10 +54615,10 @@ export const CATALOG_MANIFEST = [
               "检查清单"
             ],
             "fonts": [
-              "IBM Plex Sans",
-              "IBM Plex Serif",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "IBM Plex Sans:wght@400;500;600",
+              "IBM Plex Serif:ital,wght@0,400;0,500;0,600;1,400",
+              "cjk:Noto Serif SC:wght@500;600",
+              "cjk:Noto Sans SC:wght@400;500"
             ],
             "scenes": [
               {
@@ -53828,7 +54720,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./close-the-quarter.tsx"
+        "modulePath": "./close-the-quarter.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "quarter-close-meter",
+          "invocation": "gesture-hold",
+          "feedback": "active-glow"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "fade",
+          "4->5": "hard-cut"
+        }
       }
     ]
   },
@@ -54732,7 +55644,7 @@ export const CATALOG_MANIFEST = [
           "en": "Everything the Intern Needs",
           "zh": "新人须知"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "context-bento-box",
@@ -54760,11 +55672,11 @@ export const CATALOG_MANIFEST = [
               "bento"
             ],
             "fonts": [
-              "Source Serif 4",
-              "Source Sans 3",
-              "IBM Plex Mono",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Source Serif 4:ital,wght@0,400;0,500;1,400",
+              "Source Sans 3:wght@400;600",
+              "IBM Plex Mono:wght@400",
+              "cjk:Noto Serif SC:wght@400;500",
+              "cjk:Noto Sans SC:wght@400;600"
             ],
             "scenes": [
               {
@@ -54885,11 +55797,11 @@ export const CATALOG_MANIFEST = [
               "便当盒"
             ],
             "fonts": [
-              "Source Serif 4",
-              "Source Sans 3",
-              "IBM Plex Mono",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Source Serif 4:ital,wght@0,400;0,500;1,400",
+              "Source Sans 3:wght@400;600",
+              "IBM Plex Mono:wght@400",
+              "cjk:Noto Serif SC:wght@400;500",
+              "cjk:Noto Sans SC:wght@400;600"
             ],
             "scenes": [
               {
@@ -54985,7 +55897,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./everything-the-intern-needs.tsx"
+        "modulePath": "./everything-the-intern-needs.tsx",
+        "navigation": {
+          "geometry": "object-controller",
+          "carrier": "intern-bento-selector",
+          "invocation": "gesture-hold",
+          "feedback": "history-trail"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "fade",
+          "4->5": "scale-fade"
+        }
       }
     ]
   },
@@ -55865,7 +56797,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Onboarding Toolkit",
           "zh": "入职工具包"
         },
-        "model": "Claude Opus 4.8",
+        "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
             "id": "object-metaphor-hero",
@@ -55894,10 +56826,10 @@ export const CATALOG_MANIFEST = [
               "text-report"
             ],
             "fonts": [
-              "Fraunces",
-              "Inter",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600",
+              "Inter:wght@400;500;600",
+              "cjk:Noto Serif SC:wght@500;600",
+              "cjk:Noto Sans SC:wght@400;500"
             ],
             "scenes": [
               {
@@ -56019,10 +56951,10 @@ export const CATALOG_MANIFEST = [
               "text-report"
             ],
             "fonts": [
-              "Fraunces",
-              "Inter",
-              "cjk:Noto Serif SC",
-              "cjk:Noto Sans SC"
+              "Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600",
+              "Inter:wght@400;500;600",
+              "cjk:Noto Serif SC:wght@500;600",
+              "cjk:Noto Sans SC:wght@400;500"
             ],
             "scenes": [
               {
@@ -56118,7 +57050,27 @@ export const CATALOG_MANIFEST = [
             ]
           }
         },
-        "modulePath": "./onboarding-toolkit.tsx"
+        "modulePath": "./onboarding-toolkit.tsx",
+        "navigation": {
+          "geometry": "object-controller",
+          "carrier": "onboarding-kit-slots",
+          "invocation": "gesture-hold",
+          "feedback": "next-state-preview"
+        },
+        "topicSet": "curated",
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          }
+        },
+        "transitionScore": {
+          "1->2": "page-flip",
+          "2->3": "scale-fade",
+          "3->4": "fade",
+          "4->5": "scale-fade"
+        }
       }
     ]
   }

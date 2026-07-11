@@ -1,32 +1,10 @@
-/* 04 · Interactive Dialogue Stage · v3 — "The Rubber Duck"
-   Rubber-duck debugging staged as turn-taking: the engineer speaks, the duck
-   listens (silent, present). Dark cool stage; the ACTIVE speaker owns a warm
-   coral (engineer) or rubber-yellow (duck) glow; inactive turns dim to dark.
-   Monospace transcript voice. cqw/cqh only. */
-
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./rubber-duck.module.css";
-
-/* ── fonts ─────────────────────────────────────────────────────────────── */
-const FONT_ID = "font-04-rubber-duck-v3";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── beat counts ───────────────────────────────────────────────────────── */
 const BEATS = [1, 2, 2, 3, 2] as const; // scenes 1..5
@@ -305,7 +283,13 @@ function ConversationStepper({
   };
 
   return (
-    <div className={styles.stepper} onClick={advance} role="button" aria-label="next turn">
+    <div
+      {...curatedNavigationAttributes("interactive-dialogue-stage", "rubber-duck")}
+      className={styles.stepper}
+      onClick={advance}
+      role="button"
+      aria-label="next turn"
+    >
       <span className={styles.stepDotWrap}>
         <span className={`${styles.dot} ${styles.dotEng}`} data-active={speaker === "eng"} />
         <span className={styles.stepLabel} data-on={speaker === "eng"}>
@@ -333,7 +317,6 @@ function RubberDuckV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const c = COPY[language];
   const staticMode = reducedMotion || isThumbnail;
 
@@ -434,7 +417,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
     colors: { bg: "#080b14", ink: "#e9eef7", panel: "#141b28" },
     typography: { header: "JetBrains Mono", body: "JetBrains Mono" },
     tags: ["conversational", "cinematic", "dark", "monospace", "turn-based", "sparse"],
-    fonts: ["JetBrains Mono", "cjk:Noto Sans SC"],
+    fonts: ["JetBrains Mono:wght@400;500;700", "cjk:Noto Sans SC:wght@400;500;700"],
     scenes: t.s.map((sc, i) => ({
       id: i + 1,
       title: sc.title,
@@ -446,7 +429,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const rubberDuckTopic = defineStyleTopic({
   id: "rubber-duck",
   topic: { en: "The Rubber Duck", zh: "橡皮鸭" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: RubberDuckV3,
   getMetadata,
 });

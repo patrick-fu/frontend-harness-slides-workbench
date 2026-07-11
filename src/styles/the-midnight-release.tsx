@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -17,20 +17,6 @@ const CREAM = "#f4ede0";
 const SERIF = '"Playfair Display", "Noto Serif SC", serif';
 const SANS = '"Jost", "Noto Sans SC", sans-serif';
 const MONO = '"Space Mono", "Noto Sans SC", monospace';
-
-const FONT_ID = "font-midnight-release-v3";
-
-function useFonts(): void {
-  useEffect(() => {
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,500&family=Jost:wght@300;400&family=Space+Mono:wght@400;700&family=Noto+Serif+SC:wght@500;700&family=Noto+Sans+SC:wght@300;400&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── Bilingual content (no `as const` — it breaks the build) ── */
 const COPY = {
@@ -494,7 +480,11 @@ function GhostNav({
 }) {
   if (isThumbnail) return null;
   return (
-    <nav className={styles.nav} aria-label="scene index">
+    <nav
+      {...curatedNavigationAttributes("after-hours-luxe", "the-midnight-release")}
+      className={styles.nav}
+      aria-label="scene index"
+    >
       {labels.map((label, i) => {
         const n = i + 1;
         return (
@@ -526,7 +516,6 @@ function TheMidnightRelease({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const copy = COPY[language];
   const rm = reducedMotion || isThumbnail;
   return (
@@ -576,7 +565,13 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     tags: en
       ? ["sultry", "luxe", "editorial", "nocturnal", "warm-black", "magenta-accent", "serif-display", "slow-motion", "asymmetric"]
       : ["性感", "奢华", "编辑感", "夜色", "暖黑", "品红点缀", "衬线大标题", "慢速动效", "非对称"],
-    fonts: ["Playfair Display", "Jost", "Space Mono", "cjk:Noto Serif SC", "cjk:Noto Sans SC"],
+    fonts: [
+      "Playfair Display:ital,wght@0,400;0,600;1,500",
+      "Jost:wght@300;400",
+      "Space Mono:wght@400;700",
+      "cjk:Noto Serif SC:wght@500;700",
+      "cjk:Noto Sans SC:wght@300;400",
+    ],
     scenes: [
       {
         id: 1,
@@ -624,7 +619,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const TheMidnightReleaseTopic = defineStyleTopic({
   id: "the-midnight-release",
   topic: { en: "The Midnight Release", zh: "午夜上线" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: TheMidnightRelease,
   getMetadata,
 });

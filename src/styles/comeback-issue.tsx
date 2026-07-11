@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -14,21 +14,7 @@ import styles from "./comeback-issue.module.css";
 
 const FIELD = "#B11226"; // saturated crimson editorial field (dominant)
 const PAPER = "#F2E7D2"; // warm paper alternate
-const INK = "#17110E"; // dark structural ink
-
-const FONT_LINK_ID = "font-comeback-issue-v3";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Archivo:wght@500;600;700&family=Noto+Serif+SC:wght@700;900&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
+const INK = "#17110E";
 
 /* ── content ─────────────────────────────────────────────────────────── */
 type Copy = {
@@ -294,7 +280,10 @@ function NavSpine({
   const c = COPY[lang];
   const page = `P.0${scene}`;
   return (
-    <div className={styles.navSpine}>
+    <div
+      {...curatedNavigationAttributes("magazine-masthead", "comeback-issue")}
+      className={styles.navSpine}
+    >
       <span className={styles.navIssue}>ISSUE 03</span>
       <span className={styles.navSep}>·</span>
       <span className={styles.navIssue}>{page}</span>
@@ -336,7 +325,6 @@ function ComebackIssueV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const still = reducedMotion || isThumbnail;
 
   return (
@@ -405,7 +393,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     tags: en
       ? ["theatrical", "editorial", "authoritative", "triad", "print-settled"]
       : ["戏剧", "编辑", "权威", "三色", "沉稳"],
-    fonts: ["Playfair Display", "Archivo", "cjk:Noto Serif SC"],
+    fonts: [
+      "Playfair Display:wght@700;900",
+      "Archivo:wght@500;600;700",
+      "cjk:Noto Serif SC:wght@700;900",
+    ],
     scenes: [
       {
         id: 1,
@@ -500,7 +492,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const comebackIssueTopic = defineStyleTopic({
   id: "comeback-issue",
   topic: { en: "The Comeback Issue", zh: "回归特刊" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: ComebackIssueV3,
   getMetadata,
 });

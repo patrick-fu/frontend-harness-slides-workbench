@@ -1,8 +1,8 @@
-import { useEffect } from "react";
 import type { ReactNode } from "react";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 
 /* ─────────────────────────────────────────────────────────────
@@ -162,21 +162,6 @@ const COPY = {
 };
 
 type Copy = typeof COPY.en;
-
-/* ── fonts ──────────────────────────────────────────────────────── */
-
-function useFonts() {
-  useEffect(() => {
-    const id = "fonts-flaky-test-root-cause-v3";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── shared pieces ──────────────────────────────────────────────── */
 
@@ -814,6 +799,7 @@ function StatusBar({
   const resolved = scene >= 5;
   return (
     <div
+      {...curatedNavigationAttributes("maintainer-issue-brief", "flaky-test-root-cause")}
       style={{
         position: "absolute",
         left: "6cqw",
@@ -889,7 +875,6 @@ function FlakyTestRootCause({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const t = COPY[language];
   const still = reducedMotion || isThumbnail;
   return (
@@ -1132,7 +1117,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
           "干脆利落",
           "维护者",
         ],
-    fonts: ["Inter", "JetBrains Mono", "cjk:Noto Sans SC"],
+    fonts: [
+      "Inter:wght@400;500;600;700;800",
+      "JetBrains Mono:wght@400;500;600;700",
+      "cjk:Noto Sans SC:wght@400;500;700",
+    ],
     scenes: en ? EN_SCENES : ZH_SCENES,
   };
 }
@@ -1142,7 +1131,7 @@ export default FlakyTestRootCause;
 export const FlakyTestRootCauseTopic = defineStyleTopic({
   id: "flaky-test-root-cause",
   topic: { en: "Flaky Test, Root Cause", zh: "不稳定测试" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: FlakyTestRootCause,
   getMetadata,
 });

@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type {
   BeatLayoutMode,
@@ -16,7 +16,7 @@ import styles from "./anatomy-timetable.module.css";
    Flush-left ragged-right. Flat surface. cqw/cqh units only.
    ──────────────────────────────────────────────────────────────────────── */
 
-const MODEL = "Claude Opus 4.8";
+const MODEL = "GPT 5.6 Sol";
 const STYLE_ID = "objective-swiss-grid";
 
 // Grid module: 8 columns × 8 baselines. Column letters A–H.
@@ -44,20 +44,6 @@ const BEAT_LAYOUT_MODES: Partial<Record<number, BeatLayoutMode>> = {
 };
 
 type Lang = "en" | "zh";
-
-/* ── Fonts: single neutral grotesque (Archivo) + CJK grotesque (Noto Sans SC) ── */
-function useFonts() {
-  useEffect(() => {
-    const id = "font-objective-swiss-grid-v3";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 const pad2 = (n: number) => n.toString().padStart(2, "0");
 
@@ -244,7 +230,11 @@ function GridDatumNav({
   const letter = COL_LETTERS[(scene - 1) % COL_LETTERS.length];
   const row = beat + 1;
   return (
-    <div className={styles.nav} aria-label={COPY[language].navHere}>
+    <div
+      {...curatedNavigationAttributes("objective-swiss-grid", "anatomy-timetable")}
+      className={styles.nav}
+      aria-label={COPY[language].navHere}
+    >
       <span className={styles.navLabel}>{COPY[language].navHere}</span>
       <span className={styles.navCoord}>
         {letter}
@@ -514,7 +504,6 @@ function ObjectiveSwissGridV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const still = reducedMotion || isThumbnail;
   const lang: Lang = language === "zh" ? "zh" : "en";
 
@@ -587,7 +576,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       "precise",
       "flush-left",
     ],
-    fonts: ["Archivo", "cjk:Noto Sans SC"],
+    fonts: ["Archivo:wght@400;500;600;700", "cjk:Noto Sans SC:wght@400;500;700"],
     scenes: [
       {
         id: 1,

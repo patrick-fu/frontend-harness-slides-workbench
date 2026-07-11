@@ -1,26 +1,9 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./beauty-unfinished.module.css";
-
-/* ── fonts ──────────────────────────────────────────────────────────────── */
-const FONT_ID = "wabi-sabi-ceramic-v3-fonts";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..500&family=Newsreader:opsz,wght@6..72,300..500&family=Noto+Serif+SC:wght@300;400;500&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── transitions (exact per assignment) ─────────────────────────────────── */
 const TRANSITIONS: SceneTransitionMap = {
@@ -285,7 +268,6 @@ function SceneRest({ language, still, isActive }: SceneProps) {
 /* ── root component ─────────────────────────────────────────────────────── */
 function BeautyUnfinishedV3(props: BespokeStyleProps) {
   const { scene, beat, language, isThumbnail, reducedMotion } = props;
-  useFonts();
   const still = reducedMotion || isThumbnail;
 
   return (
@@ -340,7 +322,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     tags: en
       ? ["contemplative", "earthen", "ma-negative-space", "kintsugi-indigo", "slow-settling", "humanist-serif"]
       : ["沉思", "土质", "留白之美", "金缮靛蓝", "缓慢沉降", "人文衬线"],
-    fonts: ["Fraunces", "Newsreader", "cjk:Noto Serif SC"],
+    fonts: [
+      "Fraunces:opsz,wght@9..144,300..500",
+      "Newsreader:opsz,wght@6..72,300..500",
+      "cjk:Noto Serif SC:wght@300;400;500",
+    ],
     scenes: [
       {
         id: 1,
@@ -437,7 +423,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const beautyUnfinishedTopic = defineStyleTopic({
   id: "beauty-unfinished",
   topic: { en: "The Beauty of the Unfinished", zh: "未完成之美" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: BeautyUnfinishedV3,
   getMetadata,
 });

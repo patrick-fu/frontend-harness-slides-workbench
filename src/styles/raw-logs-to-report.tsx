@@ -1,31 +1,10 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./raw-logs-to-report.module.css";
-
-/* ============================================================
-   Kitchen Prep Station — v3
-   styleId 13 · band balanced-hybrid · topic "From Raw Logs to Report"
-   Raw noisy logs -> plated clean report. Warm prep-station DNA.
-   ============================================================ */
-
-const FONT_ID = "kp-v3-fonts";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Baloo+2:wght@500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 const TRANSITIONS: SceneTransitionMap = {
   "1->2": "wipe",
@@ -228,7 +207,11 @@ function RecipeRail({
 }) {
   if (isThumbnail) return null;
   return (
-    <nav className={styles.rail} aria-label="Recipe steps">
+    <nav
+      {...curatedNavigationAttributes("kitchen-prep-station", "raw-logs-to-report")}
+      className={styles.rail}
+      aria-label="Recipe steps"
+    >
       {RAIL_STEPS.map((step, i) => {
         const active =
           scene === step.scene ||
@@ -456,7 +439,6 @@ function SceneServed({ copy }: { copy: Copy }) {
 
 function KitchenPrepStationV3(props: BespokeStyleProps) {
   const { scene, beat, language, isThumbnail, reducedMotion, onNavigate } = props;
-  useFonts();
   const copy = copyFor(language);
   const staticMode = reducedMotion || isThumbnail;
 
@@ -536,7 +518,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   return {
     id: "kitchen-prep-station",
     band: "balanced-hybrid",
-    name: "Kitchen Prep Station",
+    name: t ? "厨房备料台" : "Kitchen Prep Station",
     theme: t ? "日志到报告" : "From Raw Logs to Report",
     densityLabel: t ? "备料台 · 五步" : "Prep station · five steps",
     heroScene: 4,
@@ -548,7 +530,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     tags: t
       ? ["温暖", "手作", "厨房", "从生到熟", "适中密度", "暖色"]
       : ["warm", "hands-on", "kitchen", "raw-to-refined", "balanced", "cozy"],
-    fonts: ["Fraunces", "Baloo 2", "cjk:Noto Serif SC"],
+    fonts: [
+      "Fraunces:opsz,wght@9..144,500;9..144,700",
+      "Baloo 2:wght@500;600;700",
+      "cjk:Noto Serif SC:wght@500;700",
+    ],
     scenes: [
       {
         id: 1,
@@ -651,7 +637,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const kitchenPrepStationTopic = defineStyleTopic({
   id: "raw-logs-to-report",
   topic: { en: "From Raw Logs to Report", zh: "日志到报告" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: KitchenPrepStationV3,
   getMetadata,
 });

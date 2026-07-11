@@ -27,7 +27,9 @@ function buildTopic(manifest: CatalogTopicManifest): LoadableStyleTopic {
       default: await loadTopicComponent(loadComponent),
     })),
     navigation: manifest.navigation,
+    topicSet: manifest.topicSet,
     sources: manifest.sources,
+    evidence: manifest.evidence,
     transitionScore: manifest.transitionScore,
   };
 }

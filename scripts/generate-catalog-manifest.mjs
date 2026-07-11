@@ -72,7 +72,9 @@ async function main() {
           },
           modulePath: matchingModule.path,
           navigation: topic.navigation,
+          topicSet: topic.topicSet,
           sources: topic.sources,
+          evidence: topic.evidence,
           transitionScore: topic.transitionScore,
         };
       }),

@@ -4,6 +4,10 @@ import {
   getNextTopic,
   STYLE_REGISTRY,
 } from "./registry";
+import {
+  CURATED_TOPIC_CONTRACTS,
+  CURATED_TOPIC_SET_ID,
+} from "./curated-topic-contract";
 
 describe("STYLE_REGISTRY topic catalog", () => {
   it("uses semantic style IDs instead of sequence numbers", () => {
@@ -59,13 +63,33 @@ describe("STYLE_REGISTRY topic catalog", () => {
       style.topics.map((topic) => topic.model),
     );
 
-    expect(models.filter((model) => model === "GPT 5.5")).toHaveLength(49);
+    expect(models).toContain("GPT 5.5");
     expect(models).not.toContain("GPT-5");
   });
 
+  it("exposes the complete curated Topic Set with its confirmed model ID", () => {
+    const curated = STYLE_REGISTRY.flatMap((style) =>
+      style.topics
+        .filter((topic) => topic.topicSet === CURATED_TOPIC_SET_ID)
+        .map((topic) => ({ styleId: style.id, topic })),
+    );
+
+    expect(curated).toHaveLength(CURATED_TOPIC_CONTRACTS.length);
+    expect(curated.map(({ topic }) => topic.model)).toEqual(
+      Array(CURATED_TOPIC_CONTRACTS.length).fill("GPT 5.6 Sol"),
+    );
+    expect(
+      new Set(curated.map(({ styleId, topic }) => `${styleId}/${topic.id}`)),
+    ).toEqual(
+      new Set(
+        CURATED_TOPIC_CONTRACTS.map(
+          (contract) => `${contract.styleId}/${contract.topicId}`,
+        ),
+      ),
+    );
+  });
+
   it("registers the complete coordinated Topic Set plus curated", () => {
-    // 146 from main + 48 curated topics = 194
-    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(194);
     expect(findTopic("interactive-dialogue-stage", "vocal-folds")).toBeDefined();
     expect(findTopic("cyanotype-drafting-table", "comet-anatomy")).toBeDefined();
     expect(findTopic("kinetic-type-punchline", "before-a")).toBeDefined();

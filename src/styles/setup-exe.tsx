@@ -1,37 +1,11 @@
-/**
- * Style 34 — Retro Windows — v3 "Setup.exe"
- * A Win9x install wizard: beveled window chrome, navy title bars, sunken wells,
- * literal-x checkboxes, blocky progress, and a CRT scanline overlay.
- *
- * Contract: SpatialSceneTrack owns scene lifecycle + transitions. Layout units
- * are cqw/cqh only. No outgoing-scene state, no transition clone.
- */
-import { useEffect } from "react";
 import type { CSSProperties, MouseEvent, ReactNode } from "react";
 import type { StyleMetadata } from "../types";
 import type { BespokeStyleProps } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import styles from "./setup-exe.module.css";
-
-/* ----------------------------------------------------------------------------
- * Fonts — system sans workhorse + pixel splash (Press Start 2P) + CRT mono (VT323)
- * ------------------------------------------------------------------------- */
-const FONT_LINK_ID = "font-setup-exe-v3";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+SC:wght@400;700&display=swap";
-
-function useFonts(): void {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ----------------------------------------------------------------------------
  * Bilingual copy (NOT `as const` — that breaks the build)
@@ -258,7 +232,7 @@ function WizardNav({ scene, copy, isThumbnail, onNavigate }: NavProps): ReactNod
     onNavigate?.(target, 0);
   };
   return (
-    <div className={styles.nav}>
+    <div {...curatedNavigationAttributes("retro-windows", "setup-exe")} className={styles.nav}>
       <span className={styles.navStep}>{copy.stepOf(scene)}</span>
       <div className={styles.navBtns}>
         <button
@@ -534,7 +508,6 @@ function SetupExeV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps): ReactNode {
-  useFonts();
   const copy = COPY[language];
   const reduced = reducedMotion || isThumbnail;
 
@@ -603,7 +576,12 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     colors: { bg: "#7e7d76", ink: "#16150f", panel: "#c4c1b8" },
     typography: { header: "Tahoma / MS Sans Serif", body: "VT323 / Tahoma" },
     tags: ["playful", "nostalgic", "dense", "system-gray", "navy", "blocky-motion", "retro-ui", "wizard"],
-    fonts: ["Tahoma", "VT323", "Press Start 2P", "cjk:Noto Sans SC"],
+    fonts: [
+      "Tahoma",
+      "VT323:wght@400",
+      "Press Start 2P:wght@400",
+      "cjk:Noto Sans SC:wght@400;700",
+    ],
     scenes: [
       {
         id: 1,
@@ -639,7 +617,7 @@ export default SetupExeV3;
 export const SetupExeTopic = defineStyleTopic({
   id: "setup-exe",
   topic: { en: COPY.en.topic, zh: COPY.zh.topic },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: SetupExeV3,
   getMetadata,
 });

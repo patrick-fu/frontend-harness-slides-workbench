@@ -1,8 +1,8 @@
-import { useEffect } from "react";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import styles from "./drawing-a-bridge.module.css";
 
@@ -151,20 +151,6 @@ const ZH: Pack = {
 };
 
 const PACKS: Record<"en" | "zh", Pack> = { en: EN, zh: ZH };
-
-/* ───────────────────────── fonts ───────────────────────── */
-function useFonts() {
-  useEffect(() => {
-    const id = "font-cyanotype-v3";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ───────────────────────── diagram primitives ───────────────────────── */
 function DLine(props: {
@@ -422,7 +408,6 @@ const TRANSITIONS: SceneTransitionMap = {
 function CyanotypeDraftingTableV3({
   scene, beat, language, isThumbnail, reducedMotion, onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const pack = PACKS[language];
   const still = reducedMotion || isThumbnail;
 
@@ -466,7 +451,11 @@ function CyanotypeDraftingTableV3({
 
       {/* revision-index navigation prototype */}
       {!isThumbnail && (
-        <nav className={styles.revIndex} aria-label={pack.navTitle}>
+        <nav
+          {...curatedNavigationAttributes("cyanotype-drafting-table", "drawing-a-bridge")}
+          className={styles.revIndex}
+          aria-label={pack.navTitle}
+        >
           <div className={styles.revTitle}>{pack.navTitle}</div>
           <div className={styles.revRow}>
             {[1, 2, 3, 4, 5].map((s) => (
@@ -506,7 +495,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       lang === "en"
         ? ["serene", "meticulous", "high-density", "prussian-monochrome", "mechanical-motion", "blueprint"]
         : ["沉静", "精细", "高密度", "普鲁士蓝单色", "机械式动效", "蓝图"],
-    fonts: ["Space Mono", "cjk:Noto Sans SC"],
+    fonts: ["Space Mono:wght@400;700", "cjk:Noto Sans SC:wght@400;700"],
     scenes: pack.scenes.map((s, si) => ({
       id: si + 1,
       title: s.title,
@@ -523,7 +512,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const drawingABridgeTopic = defineStyleTopic({
   id: "drawing-a-bridge",
   topic: { en: "Drawing a Bridge", zh: "桥的设计" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: CyanotypeDraftingTableV3,
   getMetadata,
 });

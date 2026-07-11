@@ -3,9 +3,14 @@
 // shadow. Luminous serif text, one muted gold accent, dominant emptiness.
 // Written from DNA + assignment only. cqw/cqh units; Envelope owns responsive.
 
-import React, { useEffect } from "react";
+// 08 · On Quitting Well · v3 — "Spotlight Quote Poster" / 聚光引言海报
+// A darkened stage; a single soft pool of light lifts one statement out of the
+// shadow. Luminous serif text, one muted gold accent, dominant emptiness.
+// Written from DNA + assignment only. cqw/cqh units; Envelope owns responsive.
+import React from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -86,20 +91,6 @@ const CONTENT = {
 } as const;
 
 type Content = (typeof CONTENT)[Lang];
-
-// ── Fonts: high-contrast literary serif + CJK serif ─────────────────────────
-function useFonts() {
-  useEffect(() => {
-    const id = "font-spotlight-quote-v3";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Noto+Serif+SC:wght@400;500;600&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 // The single pool of light. It drifts (never cuts) as scene/beat change.
 type Spot = { sx: string; sy: string; lit: number };
@@ -284,7 +275,11 @@ function GhostIndex({
   if (isThumbnail) return null; // hide in overview cards
   const roman = ["i", "ii", "iii", "iv", "v"];
   return (
-    <nav className={styles.nav} aria-label="scene index">
+    <nav
+      {...curatedNavigationAttributes("spotlight-quote-poster", "on-quitting-well")}
+      className={styles.nav}
+      aria-label="scene index"
+    >
       {roman.map((r, i) => (
         <button
           key={r}
@@ -319,7 +314,6 @@ export default function OnQuittingWellV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const still = reducedMotion || isThumbnail;
   const c = CONTENT[language];
   const spot = still ? { sx: "50%", sy: "46%", lit: 0.95 } : getSpotlight(scene, beat);
@@ -425,7 +419,10 @@ export function getMetadata(language: Lang): StyleMetadata {
     colors: { bg: "#0a090c", ink: "#f3eee4", panel: "#14101a" },
     typography: { header: "Cormorant Garamond", body: "Cormorant Garamond" },
     tags: [...c.tags],
-    fonts: ["Cormorant Garamond", "cjk:Noto Serif SC"],
+    fonts: [
+      "Cormorant Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600",
+      "cjk:Noto Serif SC:wght@400;500;600",
+    ],
     scenes: buildScenes(c),
   } as StyleMetadata;
 }
@@ -433,7 +430,7 @@ export function getMetadata(language: Lang): StyleMetadata {
 export const onQuittingWellTopic = defineStyleTopic({
   id: "on-quitting-well",
   topic: { en: "On Quitting Well", zh: "好好离开" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: OnQuittingWellV3,
   getMetadata,
 });

@@ -133,6 +133,19 @@ export interface TopicNavigationProfile {
   feedback: (typeof TOPIC_NAVIGATION_FEEDBACK)[number];
 }
 
+/** An intentional absence of internal navigation, not an omitted contract. */
+export interface TopicNavigationNone {
+  mode: "none";
+}
+
+export type TopicNavigation = TopicNavigationProfile | TopicNavigationNone;
+
+export function hasVisibleTopicNavigation(
+  navigation: TopicNavigation | undefined,
+): navigation is TopicNavigationProfile {
+  return Boolean(navigation && !("mode" in navigation));
+}
+
 /** One claim-scoped, traceable source in a coordinated Topic facts packet. */
 export interface TopicSource {
   authority?: string;
@@ -141,6 +154,18 @@ export interface TopicSource {
   url: string;
   supports: string;
 }
+
+/** Sources remain the single fact record; evidence classifies their interpretation. */
+export type TopicEvidence =
+  | {
+      kind: "facts";
+    }
+  | {
+      kind: "illustrative";
+      boundary: { en: string; zh: string };
+      /** The Envelope displays the boundary unless the Topic owns it in-Stage. */
+      display?: "envelope" | "stage";
+    };
 
 export interface TopicTransitionScore {
   "1->2": SceneTransitionKind;
@@ -164,9 +189,13 @@ export interface StyleTopic {
   /** Returns localized metadata for this topic. */
   getMetadata: (lang: "en" | "zh") => StyleMetadata;
   /** Optional for legacy topics; required by coordinated Topic Set protocols. */
-  navigation?: TopicNavigationProfile;
-  /** Optional for legacy topics; coordinated Topic Sets carry at least 3. */
+  navigation?: TopicNavigation;
+  /** Identifies a coordinated Topic Set without introducing version aliases. */
+  topicSet?: string;
+  /** Source-backed claims cite traceable records; illustrative Topics may omit them. */
   sources?: readonly TopicSource[];
+  /** Distinguishes source-backed facts from intentionally illustrative content. */
+  evidence?: TopicEvidence;
   /** Four authored scene edges; optional for legacy topics. */
   transitionScore?: Readonly<TopicTransitionScore>;
 }
@@ -179,8 +208,10 @@ export interface CatalogTopicManifest {
   metadata: Record<"en" | "zh", StyleMetadata>;
   /** Vite-relative path to the Topic module's default component export. */
   modulePath: string;
-  navigation?: TopicNavigationProfile;
+  navigation?: TopicNavigation;
+  topicSet?: string;
   sources?: readonly TopicSource[];
+  evidence?: TopicEvidence;
   transitionScore?: Readonly<TopicTransitionScore>;
 }
 

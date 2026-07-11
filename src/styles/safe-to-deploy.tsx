@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -112,20 +112,6 @@ const COPY = {
     },
   },
 } as const;
-
-/* ── fonts ──────────────────────────────────────────────────────────────── */
-function useFonts() {
-  useEffect(() => {
-    const id = "font-debug-reaction-board-v3";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── status badge ───────────────────────────────────────────────────────── */
 function Badge({ status, lang }: { status: Status; lang: Lang }) {
@@ -327,7 +313,7 @@ function StatusTicks({
 }) {
   if (isThumbnail) return null;
   return (
-    <div className={styles.nav}>
+    <div {...curatedNavigationAttributes("debug-reaction-board", "safe-to-deploy")} className={styles.nav}>
       {[1, 2, 3, 4, 5].map((n) => (
         <button
           key={n}
@@ -356,7 +342,6 @@ const TRANSITIONS: SceneTransitionMap = {
 
 /* ── component ─────────────────────────────────────────────────────────────── */
 function DebugReactionBoardV3({ scene, beat, language, isThumbnail, reducedMotion, onNavigate }: BespokeStyleProps) {
-  useFonts();
   const lang: Lang = language === "zh" ? "zh" : "en";
   const t = COPY[lang];
   const noMotion = reducedMotion || isThumbnail;
@@ -399,7 +384,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
       colors: { bg: "#0a0d12", ink: "#c9d1d9", panel: "#12181f" },
       typography: { header: "JetBrains Mono", body: "JetBrains Mono" },
       tags: ["developer", "diagnostic", "dark", "traffic-light", "state-driven"],
-      fonts: ["JetBrains Mono", "cjk:Noto Sans SC"],
+      fonts: ["JetBrains Mono:wght@400;500;700", "cjk:Noto Sans SC:wght@400;500;700"],
       scenes: [
         {
           id: 1,
@@ -494,7 +479,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const safeToDeployTopic = defineStyleTopic({
   id: "safe-to-deploy",
   topic: { en: "Is It Safe to Deploy?", zh: "能发布吗" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: DebugReactionBoardV3,
   getMetadata,
 });

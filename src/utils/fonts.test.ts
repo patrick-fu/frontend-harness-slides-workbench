@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import type { StyleRegistryEntry, StyleMetadata } from "../types";
+import { STYLE_CATALOG_SOURCE } from "../styles/catalog-source";
 import { collectAllFonts, buildGoogleFontsUrl, isCJKFont } from "./fonts";
 
 // ---------------------------------------------------------------------------
@@ -186,6 +187,73 @@ describe("buildGoogleFontsUrl", () => {
   it("always requests weights 400 and 700", () => {
     const url = buildGoogleFontsUrl(["Montserrat"]);
     expect(url).toContain("wght@400;700");
+  });
+
+  it("preserves an explicit variable-font axis descriptor from metadata", () => {
+    const url = buildGoogleFontsUrl([
+      "Fraunces:opsz,wght@9..144,300..500",
+      "Newsreader:opsz,wght@6..72,300..500",
+    ]);
+
+    expect(url).toBe(
+      "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..500&family=Newsreader:opsz,wght@6..72,300..500&display=swap",
+    );
+  });
+
+  it("preserves an explicit static-face weight descriptor", () => {
+    expect(buildGoogleFontsUrl(["Archivo Black:wght@400"])).toBe(
+      "https://fonts.googleapis.com/css2?family=Archivo+Black:wght@400&display=swap",
+    );
+  });
+
+  it("merges a legacy family with its explicit descriptor", () => {
+    expect(
+      buildGoogleFontsUrl(["Inter", "Inter:wght@300;500;600"]),
+    ).toBe(
+      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap",
+    );
+  });
+
+  it("falls back to legacy weights for a malformed descriptor", () => {
+    expect(buildGoogleFontsUrl(["Inter:wght"])).toBe(
+      "https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap",
+    );
+  });
+
+  it("leaves local and system fallback families out of Google Fonts requests", () => {
+    expect(buildGoogleFontsUrl(["Inter", "SF Mono", "PingFang SC"])).toBe(
+      "https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap",
+    );
+    expect(buildGoogleFontsUrl(["system-ui", "Menlo"])).toBe("");
+  });
+
+  it("keeps a CJK descriptor after language normalization", () => {
+    const registry = [
+      makeEntry("style-a", ["cjk:Noto Serif SC:wght@300;400;500"]),
+    ];
+
+    expect(collectAllFonts(registry, "zh")).toEqual([
+      "Noto Serif SC:wght@300;400;500",
+    ]);
+    expect(buildGoogleFontsUrl(collectAllFonts(registry, "zh"))).toBe(
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&display=swap",
+    );
+  });
+
+  it("emits one selector per authored family across the full source catalog", () => {
+    const url = buildGoogleFontsUrl(
+      collectAllFonts(STYLE_CATALOG_SOURCE, "zh"),
+    );
+    const families = new URL(url).searchParams
+      .getAll("family")
+      .map((selector) => selector.split(":")[0].toLowerCase());
+
+    expect(new Set(families).size).toBe(families.length);
+    expect(
+      new URL(url).searchParams.getAll("family"),
+    ).toContain(
+      "Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400",
+    );
   });
 
   it("always appends display=swap", () => {

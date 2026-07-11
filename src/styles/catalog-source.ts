@@ -1,5 +1,12 @@
 import type { StyleRegistryEntry } from "../types";
-import { buildStyleRegistryEntry } from "./topic";
+import {
+  buildStyleRegistryEntry,
+  type StyleTopicModule,
+} from "./topic";
+import {
+  hasCuratedTopicContract,
+  withCuratedTopicContract,
+} from "./curated-topic-contract";
 import ExecutiveSilence01, {
   getMetadata as getMetadata01,
 } from "./01-executive-silence";
@@ -243,7 +250,7 @@ import { lichenPartnersTopic } from "./context-bento-box-lichen-partners";
 import { recoveryKitTopic } from "./48-recovery-kit";
 import { cocoonToClothTopic } from "./49-cocoon-to-cloth";
 
-// ─── Curated topics (Claude Opus 4.8) ───────────────────────────────────
+// ─── Curated Topic Set ──────────────────────────────────────────────────
 import { lastFeatureCutTopic } from "./last-feature-cut";
 import { objectiveSwissGridTopic } from "./anatomy-timetable";
 import { beautyUnfinishedTopic } from "./beauty-unfinished";
@@ -293,7 +300,15 @@ import { CloseTheQuarterTopic } from "./close-the-quarter";
 import { EverythingTheInternNeedsTopic } from "./everything-the-intern-needs";
 import { OnboardingToolkitTopic } from "./onboarding-toolkit";
 
-const buildEntry = buildStyleRegistryEntry;
+const buildEntry = (styleId: string, topics: StyleTopicModule[]) =>
+  buildStyleRegistryEntry(
+    styleId,
+    topics.map((topic) =>
+      hasCuratedTopicContract(styleId, topic.id)
+        ? withCuratedTopicContract(styleId, topic)
+        : topic,
+    ),
+  );
 
 // ─── Registry ───────────────────────────────────────────────────────────────
 
@@ -893,4 +908,3 @@ export const STYLE_CATALOG_SOURCE: StyleRegistryEntry[] = [
     OnboardingToolkitTopic,
   ]),
 ];
-

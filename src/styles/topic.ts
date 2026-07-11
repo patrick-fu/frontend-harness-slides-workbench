@@ -3,11 +3,13 @@ import type {
   StyleRegistryEntry,
   StyleTopic,
   TopicComponent,
-  TopicNavigationProfile,
+  TopicEvidence,
+  TopicNavigation,
   TopicSource,
   TopicTransitionScore,
 } from "../types";
 import {
+  hasVisibleTopicNavigation,
   TOPIC_NAVIGATION_FEEDBACK,
   TOPIC_NAVIGATION_GEOMETRIES,
   TOPIC_NAVIGATION_INVOCATIONS,
@@ -27,8 +29,10 @@ export interface StyleTopicModule {
   model: string;
   component: TopicComponent;
   getMetadata: StyleTopic["getMetadata"];
-  navigation?: TopicNavigationProfile;
+  navigation?: TopicNavigation;
+  topicSet?: string;
   sources?: readonly TopicSource[];
+  evidence?: TopicEvidence;
   transitionScore?: Readonly<TopicTransitionScore>;
 }
 
@@ -62,9 +66,15 @@ function validateTopic(id: string, topic: StyleTopic["topic"] | undefined): void
 
 function validateNavigation(
   topicId: string,
-  navigation: TopicNavigationProfile | undefined,
+  navigation: TopicNavigation | undefined,
 ): void {
   if (!navigation) return;
+  if (!hasVisibleTopicNavigation(navigation)) {
+    if (navigation.mode !== "none") {
+      throw new Error(`Topic "${topicId}" uses an unsupported navigation mode.`);
+    }
+    return;
+  }
   if (!TOPIC_ID_PATTERN.test(navigation.carrier)) {
     throw new Error(
       `Topic "${topicId}" navigation carrier must be a lowercase slug.`,
@@ -79,10 +89,37 @@ function validateNavigation(
   }
 }
 
+function validateTopicSet(id: string, topicSet: string | undefined): void {
+  if (topicSet && !TOPIC_ID_PATTERN.test(topicSet)) {
+    throw new Error(`Topic "${id}" topicSet must be a lowercase slug.`);
+  }
+}
+
+function validateEvidence(
+  id: string,
+  evidence: TopicEvidence | undefined,
+  sources: readonly TopicSource[] | undefined,
+): void {
+  if (!evidence) return;
+  if (evidence.kind === "facts") {
+    if (!sources?.length) {
+      throw new Error(`Topic "${id}" fact evidence must include a source.`);
+    }
+    return;
+  }
+  if (!evidence.boundary.en.trim() || !evidence.boundary.zh.trim()) {
+    throw new Error(
+      `Topic "${id}" illustrative evidence must state English and Chinese boundaries.`,
+    );
+  }
+}
+
 export function defineStyleTopic(module: StyleTopicModule): StyleTopicModule {
   validateTopicId(module.id);
   validateTopic(module.id, module.topic);
   validateNavigation(module.id, module.navigation);
+  validateTopicSet(module.id, module.topicSet);
+  validateEvidence(module.id, module.evidence, module.sources);
   if (!module.model.trim()) {
     throw new Error(`Topic "${module.id}" must define a model.`);
   }
@@ -103,6 +140,8 @@ function buildTopic(
   validateTopicId(input.id);
   validateTopic(input.id, input.topic);
   validateNavigation(input.id, input.navigation);
+  validateTopicSet(input.id, input.topicSet);
+  validateEvidence(input.id, input.evidence, input.sources);
 
   return {
     topic: {
@@ -113,7 +152,9 @@ function buildTopic(
       loadComponent: async () => input.component,
       getMetadata: input.getMetadata,
       navigation: input.navigation,
+      topicSet: input.topicSet,
       sources: input.sources,
+      evidence: input.evidence,
       transitionScore: input.transitionScore,
     },
     name: { en: metaEn.name, zh: metaZh.name },

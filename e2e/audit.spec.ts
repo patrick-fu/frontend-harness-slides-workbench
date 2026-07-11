@@ -1,328 +1,16 @@
 import { test, expect, Page } from "@playwright/test";
 import { CATALOG_MANIFEST } from "../src/styles/catalog-manifest.generated";
+import { CURATED_TOPIC_CONTRACTS } from "../src/styles/curated-topic-contract";
 
-// ── Style beat count metadata ──────────────────────────────────────────────
+const CATALOG_TOPIC_COUNT = CATALOG_MANIFEST.reduce(
+  (total, style) => total + style.topics.length,
+  0,
+);
 
-interface StyleBeatInfo {
-  id: string;
-  beats: Record<number, number>; // sceneId -> beat count
-}
+const CURATED_TOPIC_KEYS = CURATED_TOPIC_CONTRACTS.map(
+  ({ styleId, topicId }) => ({ styleId, topicId }),
+);
 
-const STYLE_BEATS: StyleBeatInfo[] = [
-  { id: "minimal-product-keynote", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "objective-swiss-grid", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "wabi-sabi-ceramic", beats: { 1: 1, 2: 2, 3: 2, 4: 3, 5: 1 } },
-  { id: "interactive-dialogue-stage", beats: { 1: 1, 2: 2, 3: 2, 4: 3, 5: 2 } },
-  { id: "cyanotype-drafting-table", beats: { 1: 1, 2: 3, 3: 2, 4: 3, 5: 1 } },
-  { id: "kinetic-type-punchline", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
-  { id: "sketch-board-emoji", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
-  { id: "spotlight-quote-poster", beats: { 1: 2, 2: 2, 3: 2, 4: 3, 5: 1 } },
-  { id: "subway-map-of-intent", beats: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 } },
-  { id: "benchmark-matrix", beats: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 } },
-  { id: "signal-pipeline-flow", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
-  { id: "engineering-whiteboard-explainer", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 2 } },
-  { id: "soft-pastel-friendly", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
-  { id: "kitchen-prep-station", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
-  { id: "collaborative-pairing-board", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
-  { id: "studio-mixing-console", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
-  { id: "debug-reaction-board", beats: { 1: 1, 2: 3, 3: 2, 4: 3, 5: 1 } },
-  { id: "front-page-broadsheet", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "magazine-masthead", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "warm-editorial-feature", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
-  { id: "scholars-vellum", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "solar-biennale-poster", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "duotone-session", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 2 } },
-  { id: "riso-print-zine", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "analog-cutout-collage", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
-  { id: "woodblock-floating-world", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
-  { id: "botanical-specimen-plate", beats: { 1: 1, 2: 3, 3: 2, 4: 3, 5: 1 } },
-  { id: "machine-age-deco", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
-  { id: "expedition-screenprint", beats: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 } },
-  { id: "cassette-era-packaging", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
-  { id: "neo-brutalist-bulletin", beats: { 1: 1, 2: 3, 3: 3, 4: 2, 5: 1 } },
-  { id: "red-wedge-agitprop", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
-  { id: "mechanical-scoring-funnel", beats: { 1: 1, 2: 3, 3: 3, 4: 3, 5: 1 } },
-  { id: "liquid-glass", beats: { 1: 1, 2: 2, 3: 3, 4: 1, 5: 1 } },
-  { id: "retro-windows", beats: { 1: 1, 2: 2, 3: 3, 4: 1, 5: 1 } },
-  { id: "mid-century-grove", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 1 } },
-  { id: "after-hours-luxe", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
-  { id: "operating-manual", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "widescreen-title-card", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "blackboard-chalk-talk", beats: { 1: 1, 2: 2, 3: 2, 4: 1, 5: 3 } },
-  { id: "arcade-boss-fight", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "research-memo", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "decision-record", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "maintainer-issue-brief", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 } },
-  { id: "field-notes-report", beats: { 1: 1, 2: 2, 3: 2, 4: 2, 5: 1 } },
-  { id: "annotated-source-diff", beats: { 1: 1, 2: 2, 3: 3, 4: 2, 5: 3 } },
-  { id: "checklist-ledger", beats: { 1: 1, 2: 2, 3: 3, 4: 3, 5: 2 } },
-  { id: "context-bento-box", beats: { 1: 1, 2: 2, 3: 3, 4: 3, 5: 2 } },
-  { id: "object-metaphor-hero", beats: { 1: 1, 2: 3, 3: 2, 4: 2, 5: 2 } },
-];
-
-const ALL_STYLE_IDS = STYLE_BEATS.map((s) => s.id);
-const PRIMARY_TOPIC_BY_STYLE: Record<string, string> = {
-  "minimal-product-keynote": "product-keynote",
-  "objective-swiss-grid": "swiss-grid",
-  "wabi-sabi-ceramic": "ceramic-calm",
-  "interactive-dialogue-stage": "dialogue-stage",
-  "cyanotype-drafting-table": "blueprint",
-  "kinetic-type-punchline": "type-poster",
-  "sketch-board-emoji": "workshop-board",
-  "spotlight-quote-poster": "quote-poster",
-  "subway-map-of-intent": "subway-flow",
-  "benchmark-matrix": "benchmark",
-  "signal-pipeline-flow": "pipeline",
-  "engineering-whiteboard-explainer": "from-prompt-to-patch",
-  "soft-pastel-friendly": "friendly-onboard",
-  "kitchen-prep-station": "prep-station",
-  "collaborative-pairing-board": "pairing-board",
-  "studio-mixing-console": "mixing-console",
-  "debug-reaction-board": "debug-board",
-  "front-page-broadsheet": "broadsheet",
-  "magazine-masthead": "masthead",
-  "warm-editorial-feature": "editorial-feature",
-  "scholars-vellum": "scholar-notes",
-  "solar-biennale-poster": "biennale-poster",
-  "duotone-session": "session-poster",
-  "riso-print-zine": "riso-zine",
-  "analog-cutout-collage": "cutout-collage",
-  "woodblock-floating-world": "woodblock",
-  "botanical-specimen-plate": "specimen-plate",
-  "machine-age-deco": "deco-gala",
-  "expedition-screenprint": "expedition-print",
-  "cassette-era-packaging": "cassette-pack",
-  "neo-brutalist-bulletin": "brutalist-bulletin",
-  "red-wedge-agitprop": "red-wedge",
-  "mechanical-scoring-funnel": "scoring-funnel",
-  "liquid-glass": "liquid-glass",
-  "retro-windows": "retro-desktop",
-  "mid-century-grove": "botanical-brand",
-  "after-hours-luxe": "after-hours",
-  "operating-manual": "manual",
-  "widescreen-title-card": "title-card",
-  "blackboard-chalk-talk": "chalk-talk",
-  "arcade-boss-fight": "boss-fight",
-  "research-memo": "research-memo",
-  "decision-record": "decision-record",
-  "maintainer-issue-brief": "issue-brief",
-  "field-notes-report": "field-notes",
-  "annotated-source-diff": "source-diff",
-  "checklist-ledger": "checklist-ledger",
-  "context-bento-box": "context-bento",
-  "object-metaphor-hero": "object-metaphor",
-};
-const SECONDARY_TOPIC_BY_STYLE: Record<string, string> = {
-  "minimal-product-keynote": "quiet-launch",
-  "objective-swiss-grid": "clean-metrics",
-  "wabi-sabi-ceramic": "repair-strategy",
-  "interactive-dialogue-stage": "better-question",
-  "cyanotype-drafting-table": "resilience-plan",
-  "kinetic-type-punchline": "one-constraint",
-  "sketch-board-emoji": "human-loop",
-  "spotlight-quote-poster": "kept-sentence",
-  "subway-map-of-intent": "release-tracks",
-  "benchmark-matrix": "durable-tool",
-  "signal-pipeline-flow": "event-insight",
-  "soft-pastel-friendly": "breathing-onboard",
-  "kitchen-prep-station": "clean-brief",
-  "collaborative-pairing-board": "shared-artifact",
-  "studio-mixing-console": "operating-model",
-  "debug-reaction-board": "learning-incident",
-  "front-page-broadsheet": "after-launch",
-  "magazine-masthead": "product-cover",
-  "warm-editorial-feature": "useful-week",
-  "scholars-vellum": "margin-argument",
-  "solar-biennale-poster": "public-light",
-  "duotone-session": "five-takes",
-  "riso-print-zine": "community-print",
-  "analog-cutout-collage": "rebuilt-archive",
-  "woodblock-floating-world": "tide-map",
-  "botanical-specimen-plate": "growth-signals",
-  "machine-age-deco": "infrastructure-gala",
-  "expedition-screenprint": "field-route",
-  "cassette-era-packaging": "release-mixtape",
-  "neo-brutalist-bulletin": "hard-thing",
-  "red-wedge-agitprop": "org-move",
-  "mechanical-scoring-funnel": "priority-score",
-  "liquid-glass": "spatial-brief",
-  "retro-windows": "toolchain-desk",
-  "mid-century-grove": "calm-growth",
-  "after-hours-luxe": "beta-salon",
-  "operating-manual": "habit-runbook",
-  "widescreen-title-card": "system-acts",
-  "blackboard-chalk-talk": "shortcut",
-  "arcade-boss-fight": "latency-boss",
-  "research-memo": "small-team",
-  "decision-record": "boundary",
-  "maintainer-issue-brief": "agent-pickup",
-  "field-notes-report": "platform-study",
-  "annotated-source-diff": "flow-rewrite",
-  "checklist-ledger": "launch-ledger",
-  "context-bento-box": "handoff-box",
-  "object-metaphor-hero": "recovery-kit",
-};
-const COORDINATED_TOPIC_BY_STYLE: Record<string, string> = {
-  "minimal-product-keynote": "presolar-grain",
-  "wabi-sabi-ceramic": "stone-to-soil",
-  "interactive-dialogue-stage": "vocal-folds",
-  "cyanotype-drafting-table": "comet-anatomy",
-  "kinetic-type-punchline": "before-a",
-  "sketch-board-emoji": "stadium-wave",
-  "subway-map-of-intent": "tea-cha-routes",
-  "signal-pipeline-flow": "district-heat",
-  "engineering-whiteboard-explainer": "water-tower",
-  "soft-pastel-friendly": "chrysalis-rebuild",
-  "kitchen-prep-station": "cocoa-fermentation",
-  "studio-mixing-console": "tidal-time",
-  "front-page-broadsheet": "rogue-wave",
-  "warm-editorial-feature": "oral-to-written",
-  "scholars-vellum": "hidden-text",
-  "solar-biennale-poster": "iron-from-stars",
-  "duotone-session": "dance-notation",
-  "botanical-specimen-plate": "leaf-stomata",
-  "mechanical-scoring-funnel": "snowflake-branches",
-  "expedition-screenprint": "saharan-dust",
-  "red-wedge-agitprop": "pneumatic-post",
-  "liquid-glass": "safety-glass",
-  "retro-windows": "voyager-boundary",
-  "mid-century-grove": "monarch-migration",
-  "after-hours-luxe": "urushi-cure",
-  "operating-manual": "escapement",
-  "widescreen-title-card": "whale-fall",
-  "research-memo": "impact-evidence",
-  "maintainer-issue-brief": "ozone-hole",
-  "spotlight-quote-poster": "freedive",
-  "benchmark-matrix": "natural-clocks",
-  "collaborative-pairing-board": "elevator-counterweight",
-  "debug-reaction-board": "acoustic-crack",
-  "magazine-masthead": "moth-experiment",
-  "machine-age-deco": "reinforced-concrete",
-  "neo-brutalist-bulletin": "sinking-delta",
-  "field-notes-report": "ancient-sound",
-  "annotated-source-diff": "reading-rosetta",
-  "checklist-ledger": "pigment-without-touch",
-  "objective-swiss-grid": "bridge-movement",
-  "riso-print-zine": "seven-blues",
-  "analog-cutout-collage": "concealed-objects",
-  "woodblock-floating-world": "whistled-language",
-  "cassette-era-packaging": "ice-core-archive",
-  "arcade-boss-fight": "egg-mimicry",
-  "decision-record": "standard-time",
-  "context-bento-box": "lichen-partners",
-  "object-metaphor-hero": "cocoon-to-cloth",
-  "blackboard-chalk-talk": "hearing-path",
-};
-const CURATED_TOPIC_BY_STYLE: Record<string, string> = {
-  "minimal-product-keynote": "last-feature-cut",
-  "objective-swiss-grid": "anatomy-timetable",
-  "wabi-sabi-ceramic": "beauty-unfinished",
-  "interactive-dialogue-stage": "rubber-duck",
-  "cyanotype-drafting-table": "drawing-a-bridge",
-  "kinetic-type-punchline": "ship-it",
-  "sketch-board-emoji": "how-we-named-it",
-  "spotlight-quote-poster": "on-quitting-well",
-  "subway-map-of-intent": "three-teams-launch",
-  "benchmark-matrix": "build-buy-borrow",
-  "signal-pipeline-flow": "where-request-goes",
-  "soft-pastel-friendly": "first-week-here",
-  "kitchen-prep-station": "raw-logs-to-report",
-  "collaborative-pairing-board": "human-reviews-ai",
-  "studio-mixing-console": "tuning-the-model",
-  "debug-reaction-board": "safe-to-deploy",
-  "front-page-broadsheet": "day-feed-stopped",
-  "magazine-masthead": "comeback-issue",
-  "warm-editorial-feature": "letter-to-past-self",
-  "scholars-vellum": "what-ancients-knew",
-  "solar-biennale-poster": "festival-slow-ideas",
-  "duotone-session": "cut-in-one-take",
-  "riso-print-zine": "make-something-weekly",
-  "analog-cutout-collage": "piecing-idea-together",
-  "woodblock-floating-world": "a-rivers-journey",
-  "botanical-specimen-plate": "anatomy-of-an-idea",
-  "machine-age-deco": "grand-unveiling",
-  "expedition-screenprint": "mapping-unknown-ground",
-  "cassette-era-packaging": "greatest-hits-vol-1",
-  "neo-brutalist-bulletin": "read-before-merge",
-  "red-wedge-agitprop": "refactor-the-system",
-  "mechanical-scoring-funnel": "triage-the-backlog",
-  "liquid-glass": "layers-of-a-product",
-  "retro-windows": "setup-exe",
-  "mid-century-grove": "growing-slowly-on-purpose",
-  "after-hours-luxe": "the-midnight-release",
-  "operating-manual": "rotate-the-secrets",
-  "widescreen-title-card": "chapter-zero",
-  "blackboard-chalk-talk": "deriving-big-o",
-  "arcade-boss-fight": "defeating-tech-debt",
-  "research-memo": "why-users-churn",
-  "decision-record": "why-we-chose-monorepo",
-  "maintainer-issue-brief": "flaky-test-root-cause",
-  "field-notes-report": "shadowing-support",
-  "annotated-source-diff": "killing-a-god-object",
-  "checklist-ledger": "close-the-quarter",
-  "context-bento-box": "everything-the-intern-needs",
-  "object-metaphor-hero": "onboarding-toolkit",
-};
-const SECONDARY_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
-  "minimal-product-keynote": 1,
-  "spotlight-quote-poster": 2,
-  "debug-reaction-board": 2,
-  "analog-cutout-collage": 2,
-  "mechanical-scoring-funnel": 2,
-  "arcade-boss-fight": 3,
-  "object-metaphor-hero": 0,
-};
-const COORDINATED_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
-  "minimal-product-keynote": 1,
-  "wabi-sabi-ceramic": 0,
-  "interactive-dialogue-stage": 0,
-  "cyanotype-drafting-table": 0,
-  "kinetic-type-punchline": 3,
-  "sketch-board-emoji": 0,
-  "subway-map-of-intent": 0,
-  "signal-pipeline-flow": 0,
-  "engineering-whiteboard-explainer": 3,
-  "soft-pastel-friendly": 0,
-  "kitchen-prep-station": 0,
-  "studio-mixing-console": 0,
-  "front-page-broadsheet": 0,
-  "warm-editorial-feature": 0,
-  "scholars-vellum": 0,
-  "solar-biennale-poster": 0,
-  "duotone-session": 0,
-  "botanical-specimen-plate": 0,
-  "mechanical-scoring-funnel": 3,
-  "expedition-screenprint": 0,
-  "red-wedge-agitprop": 0,
-  "liquid-glass": 0,
-  "retro-windows": 0,
-  "mid-century-grove": 0,
-  "after-hours-luxe": 1,
-  "operating-manual": 0,
-  "widescreen-title-card": 3,
-  "research-memo": 0,
-  "maintainer-issue-brief": 0,
-  "spotlight-quote-poster": 0,
-  "benchmark-matrix": 0,
-  "collaborative-pairing-board": 0,
-  "debug-reaction-board": 0,
-  "magazine-masthead": 0,
-  "machine-age-deco": 0,
-  "neo-brutalist-bulletin": 0,
-  "field-notes-report": 0,
-  "annotated-source-diff": 0,
-  "checklist-ledger": 0,
-  "objective-swiss-grid": 0,
-  "riso-print-zine": 0,
-  "analog-cutout-collage": 0,
-  "woodblock-floating-world": 0,
-  "cassette-era-packaging": 0,
-  "arcade-boss-fight": 0,
-  "decision-record": 0,
-  "context-bento-box": 0,
-  "object-metaphor-hero": 1,
-  "blackboard-chalk-talk": 3,
-};
 const SCENE_TRANSITION_KINDS = [
   "slide-x",
   "slide-y",
@@ -343,6 +31,7 @@ function buildQuery(params: {
   topic?: string;
   scene?: number;
   beat?: number;
+  language?: "en" | "zh";
   pure?: boolean;
   frozen?: boolean;
 }): string {
@@ -352,6 +41,7 @@ function buildQuery(params: {
   if (params.topic) search.set("topic", params.topic);
   if (params.scene !== undefined) search.set("scene", String(params.scene));
   if (params.beat !== undefined) search.set("beat", String(params.beat));
+  if (params.language) search.set("lang", params.language);
   if (params.pure) search.set("pure", "1");
   if (params.frozen) search.set("frozen", "1");
   return `?${search.toString()}`;
@@ -378,7 +68,7 @@ async function openLab(
   const query = buildQuery({
     view: "lab",
     style: styleId,
-    topic: opts.topic ?? PRIMARY_TOPIC_BY_STYLE[styleId],
+    topic: opts.topic ?? getPrimaryTopicId(styleId),
     scene,
     beat,
     pure: opts.pure ?? false,
@@ -435,51 +125,219 @@ async function measureOverflow(
   });
 }
 
-/** Get the last beat index (0-based) for a given style/topic and scene. */
+function getManifestStyle(styleId: string) {
+  const style = CATALOG_MANIFEST.find((entry) => entry.id === styleId);
+  if (!style) throw new Error(`Style is missing from the manifest: ${styleId}`);
+  return style;
+}
+
+function getPrimaryTopicId(styleId: string): string {
+  const topic = getManifestStyle(styleId).topics[0];
+  if (!topic) throw new Error(`Style is missing its primary Topic: ${styleId}`);
+  return topic.id;
+}
+
+/** Get the final authored beat ID for a given style/topic and scene. */
 function getLastBeat(
   styleId: string,
   scene: number,
-  topicId: string = PRIMARY_TOPIC_BY_STYLE[styleId],
+  topicId: string = getPrimaryTopicId(styleId),
 ): number {
-  if (
-    topicId === COORDINATED_TOPIC_BY_STYLE[styleId] &&
-    scene === 5 &&
-    styleId in COORDINATED_TOPIC_SCENE_5_LAST_BEAT
-  ) {
-    return COORDINATED_TOPIC_SCENE_5_LAST_BEAT[styleId];
-  }
-  if (
-    topicId === SECONDARY_TOPIC_BY_STYLE[styleId] &&
-    scene === 5 &&
-    styleId in SECONDARY_TOPIC_SCENE_5_LAST_BEAT
-  ) {
-    return SECONDARY_TOPIC_SCENE_5_LAST_BEAT[styleId];
+  const topic = getManifestTopic(styleId, topicId);
+  const sceneMetadata = topic.metadata.en.scenes.find(
+    (candidate) => candidate.id === scene,
+  );
+  if (!sceneMetadata) {
+    throw new Error(
+      `Scene is missing from the manifest: ${styleId}/${topicId}/${scene}`,
+    );
   }
 
-  const info = STYLE_BEATS.find((s) => s.id === styleId);
-  if (!info) return 0;
-  const count = info.beats[scene] ?? 1;
-  return count - 1; // convert count to 0-based index
+  const finalBeat = sceneMetadata.beats[sceneMetadata.beats.length - 1];
+  if (!finalBeat) {
+    throw new Error(
+      `Scene has no beats in the manifest: ${styleId}/${topicId}/${scene}`,
+    );
+  }
+  return finalBeat.id;
 }
 
 function getTopicSequence(styleId: string): string[] {
-  return [
-    PRIMARY_TOPIC_BY_STYLE[styleId],
-    SECONDARY_TOPIC_BY_STYLE[styleId],
-    COORDINATED_TOPIC_BY_STYLE[styleId],
-    CURATED_TOPIC_BY_STYLE[styleId],
-  ].filter((topicId): topicId is string => Boolean(topicId));
+  return getManifestStyle(styleId).topics.map((topic) => topic.id);
 }
 
 function getLastTopic(styleId: string): string {
-  const topics = getTopicSequence(styleId);
-  return topics[topics.length - 1];
+  const topics = getManifestStyle(styleId).topics;
+  const topic = topics[topics.length - 1];
+  if (!topic) throw new Error(`Style has no Topics in the manifest: ${styleId}`);
+  return topic.id;
 }
 
-/** Get the first scene with multiple beats for a given style. */
-function getFirstMultiBeatScene(style: StyleBeatInfo): number {
-  const entry = Object.entries(style.beats).find(([, count]) => count > 1);
-  return entry ? Number(entry[0]) : 1;
+/** Get the first multi-beat Scene from the primary Topic's authored metadata. */
+function getFirstMultiBeatScene(styleId: string): number {
+  const topic = getManifestTopic(styleId, getPrimaryTopicId(styleId));
+  const scene = topic.metadata.en.scenes.find(
+    (candidate) => candidate.beats.length > 1,
+  );
+  return scene?.id ?? 1;
+}
+
+function getFirstStyleId(): string {
+  const style = CATALOG_MANIFEST[0];
+  if (!style) throw new Error("The manifest has no Styles");
+  return style.id;
+}
+
+function getLastStyleId(): string {
+  const style = CATALOG_MANIFEST[CATALOG_MANIFEST.length - 1];
+  if (!style) throw new Error("The manifest has no Styles");
+  return style.id;
+}
+
+function getBandBoundaryTransitions(): Array<{ from: string; to: string }> {
+  return CATALOG_MANIFEST.flatMap((style, index) => {
+    const nextStyle =
+      CATALOG_MANIFEST[(index + 1) % CATALOG_MANIFEST.length];
+    if (!nextStyle) return [];
+
+    const band = getManifestTopic(
+      style.id,
+      getPrimaryTopicId(style.id),
+    ).metadata.en.band;
+    const nextBand = getManifestTopic(
+      nextStyle.id,
+      getPrimaryTopicId(nextStyle.id),
+    ).metadata.en.band;
+
+    return band === nextBand ? [] : [{ from: style.id, to: nextStyle.id }];
+  });
+}
+
+const CURATED_AUDIT_LANGUAGES = ["en", "zh"] as const;
+
+type CuratedAuditLanguage = (typeof CURATED_AUDIT_LANGUAGES)[number];
+
+interface CuratedHeroFinalFrame {
+  styleId: string;
+  topicId: string;
+  topicName: string;
+  language: CuratedAuditLanguage;
+  scene: number;
+  beat: number;
+  evidenceBoundary?: string;
+}
+
+function getManifestTopic(styleId: string, topicId: string) {
+  const style = getManifestStyle(styleId);
+
+  const topic = style.topics.find((entry) => entry.id === topicId);
+  if (!topic) {
+    throw new Error(
+      `Topic is missing from the manifest: ${styleId}/${topicId}`,
+    );
+  }
+
+  return topic;
+}
+
+const CURATED_HERO_FINAL_FRAMES: CuratedHeroFinalFrame[] =
+  CURATED_TOPIC_KEYS.flatMap(({ styleId, topicId }) => {
+    const topic = getManifestTopic(styleId, topicId);
+
+    return CURATED_AUDIT_LANGUAGES.map((language) => {
+      const metadata = topic.metadata[language];
+      const heroScene = metadata.scenes.find(
+        (scene) => scene.id === metadata.heroScene,
+      );
+      if (!heroScene) {
+        throw new Error(
+          `Curated Topic hero scene is missing: ${styleId}/${topicId}/${language}`,
+        );
+      }
+
+      const finalBeat = heroScene.beats[heroScene.beats.length - 1];
+      if (!finalBeat) {
+        throw new Error(
+          `Curated Topic hero scene has no beats: ${styleId}/${topicId}/${language}`,
+        );
+      }
+
+      return {
+        styleId,
+        topicId,
+        topicName: topic.topic[language],
+        language,
+        scene: heroScene.id,
+        beat: finalBeat.id,
+        evidenceBoundary:
+          topic.evidence?.kind === "illustrative"
+            ? topic.evidence.boundary[language]
+            : undefined,
+      };
+    });
+  });
+
+const CURATED_HERO_FRAME_AUDITS = CURATED_TOPIC_KEYS.map(
+  ({ styleId, topicId }) => ({
+    styleId,
+    topicId,
+    frames: CURATED_HERO_FINAL_FRAMES.filter(
+      (frame) => frame.styleId === styleId && frame.topicId === topicId,
+    ),
+  }),
+);
+
+async function openCuratedHeroFinalFrame(
+  page: Page,
+  frame: CuratedHeroFinalFrame,
+) {
+  const query = buildQuery({
+    view: "lab",
+    style: frame.styleId,
+    topic: frame.topicId,
+    scene: frame.scene,
+    beat: frame.beat,
+    language: frame.language,
+    frozen: true,
+  });
+
+  await page.goto(`/${query}`, { waitUntil: "domcontentloaded" });
+  const stage = page.locator('[data-testid="stage"]');
+  await expect(stage).toBeVisible();
+  await expect(stage).toHaveAttribute("data-topic-ready", "true");
+  await expect(
+    page.locator('[data-testid="spatial-scene-panel"][data-active="true"]'),
+  ).toBeVisible();
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(resolve));
+      }),
+  );
+}
+
+async function getFrozenStageState(page: Page) {
+  return page.evaluate(() => {
+    const stage = document.querySelector<HTMLElement>('[data-testid="stage"]');
+    const activePanel = document.querySelector<HTMLElement>(
+      '[data-testid="spatial-scene-panel"][data-active="true"]',
+    );
+
+    return {
+      frozen: document.documentElement.dataset.frozen,
+      stageReady: stage?.dataset.topicReady,
+      overflowX: (stage?.scrollWidth ?? 0) - (stage?.clientWidth ?? 0),
+      overflowY: (stage?.scrollHeight ?? 0) - (stage?.clientHeight ?? 0),
+      activeScene: activePanel?.dataset.sceneId,
+      activeContent: activePanel?.textContent?.trim() ?? "",
+      runningAnimations: document
+        .getAnimations({ subtree: true })
+        .filter(
+          (animation) =>
+            animation.playState === "running" || animation.playState === "pending",
+        ).length,
+    };
+  });
 }
 
 // ── Tests ──────────────────────────────────────────────────────────────────
@@ -487,7 +345,7 @@ function getFirstMultiBeatScene(style: StyleBeatInfo): number {
 // ─── 1 & 2: All registered styles — console errors + overflow (parallel) ───
 
 test.describe.parallel("Style audit — all registered styles", () => {
-  for (const style of STYLE_BEATS) {
+  for (const style of CATALOG_MANIFEST) {
     test(`style ${style.id} scene 1 beat 0 — no console errors, no overflow`, async ({
       page,
     }) => {
@@ -556,7 +414,7 @@ test.describe.parallel("Style audit — all registered styles", () => {
     test(`style ${style.id} first multi-beat scene declares beat layout mode`, async ({
       page,
     }) => {
-      const scene = getFirstMultiBeatScene(style);
+      const scene = getFirstMultiBeatScene(style.id);
 
       await openLab(page, style.id, scene, 0, { frozen: true });
       await expect(page.locator('[data-testid="spatial-scene-track"]')).toBeVisible();
@@ -585,6 +443,92 @@ test.describe.parallel("Style audit — all registered styles", () => {
         `Style ${style.id} scene ${scene} must declare a beat layout mode`,
       ).toMatch(/^(motion|reserved)$/);
     });
+  }
+});
+
+test.describe.parallel("Curated Topic hero-frame audit", () => {
+  for (const audit of CURATED_HERO_FRAME_AUDITS) {
+    test(
+      `${audit.styleId}/${audit.topicId} EN and ZH hero final frames are frozen and settled`,
+      async ({ page }) => {
+        test.setTimeout(30000);
+        const errors = attachErrorCollector(page);
+
+        for (const frame of audit.frames) {
+          const errorCountBeforeFrame = errors.length;
+          await openCuratedHeroFinalFrame(page, frame);
+
+          const topicMenuTrigger = page
+            .locator("button[aria-haspopup='menu']:not([aria-label])")
+            .filter({ hasText: frame.topicName });
+          await expect(
+            topicMenuTrigger,
+            `${frame.styleId}/${frame.topicId}/${frame.language} must expose its exact Topic label`,
+          ).toHaveCount(1);
+          await expect(topicMenuTrigger).toBeVisible();
+
+          const query = parseQueryFromUrl(page.url());
+          expect(query.style, `${frame.styleId}/${frame.language}`).toBe(
+            frame.styleId,
+          );
+          expect(query.topic, `${frame.styleId}/${frame.language}`).toBe(
+            frame.topicId,
+          );
+          expect(query.lang, `${frame.styleId}/${frame.topicId}`).toBe(
+            frame.language,
+          );
+          expect(Number(query.scene), `${frame.styleId}/${frame.topicId}`).toBe(
+            frame.scene,
+          );
+          expect(Number(query.beat), `${frame.styleId}/${frame.topicId}`).toBe(
+            frame.beat,
+          );
+          expect(query.frozen, `${frame.styleId}/${frame.topicId}`).toBe("1");
+
+          const stageState = await getFrozenStageState(page);
+          if (frame.evidenceBoundary) {
+            const boundary = page.locator(
+              '[data-topic-evidence-boundary="true"]',
+            );
+            await expect(
+              boundary,
+              `${frame.styleId}/${frame.topicId}/${frame.language} must display its evidence boundary`,
+            ).toHaveCount(1);
+            await expect(boundary).toContainText(frame.evidenceBoundary);
+          }
+          expect(
+            errors.slice(errorCountBeforeFrame),
+            `Console errors in ${frame.styleId}/${frame.topicId}/${frame.language}`,
+          ).toEqual([]);
+          expect(stageState.stageReady, `${frame.styleId}/${frame.topicId}`).toBe(
+            "true",
+          );
+          expect(stageState.frozen, `${frame.styleId}/${frame.topicId}`).toBe(
+            "true",
+          );
+          expect(
+            stageState.activeScene,
+            `${frame.styleId}/${frame.topicId} active Scene`,
+          ).toBe(String(frame.scene));
+          expect(
+            stageState.activeContent,
+            `${frame.styleId}/${frame.topicId} active content`,
+          ).not.toBe("");
+          expect(
+            stageState.overflowX,
+            `${frame.styleId}/${frame.topicId} overflows horizontally by ${stageState.overflowX}px`,
+          ).toBeLessThanOrEqual(2);
+          expect(
+            stageState.overflowY,
+            `${frame.styleId}/${frame.topicId} overflows vertically by ${stageState.overflowY}px`,
+          ).toBeLessThanOrEqual(2);
+          expect(
+            stageState.runningAnimations,
+            `${frame.styleId}/${frame.topicId} must settle in frozen mode`,
+          ).toBe(0);
+        }
+      },
+    );
   }
 });
 
@@ -704,7 +648,7 @@ test.describe("Navigation", () => {
 
   test("ArrowLeft at scene 1 beat 0 wraps to previous topic", async ({ page }) => {
     await openLab(page, "objective-swiss-grid", 1, 0, {
-      topic: PRIMARY_TOPIC_BY_STYLE["objective-swiss-grid"],
+      topic: getPrimaryTopicId("objective-swiss-grid"),
       frozen: true,
     });
 
@@ -1104,7 +1048,7 @@ test.describe("URL query persistence", () => {
     const query = parseQueryFromUrl(page.url());
     expect(query.view).toBe("lab");
     expect(query.style).toBe("front-page-broadsheet");
-    expect(query.topic).toBe(PRIMARY_TOPIC_BY_STYLE["front-page-broadsheet"]);
+    expect(query.topic).toBe(getPrimaryTopicId("front-page-broadsheet"));
     expect(Number(query.scene)).toBe(3);
     expect(Number(query.beat)).toBe(1);
     expect(query.frozen).toBe("1");
@@ -1131,7 +1075,7 @@ test.describe("URL query persistence", () => {
     const query = buildQuery({
       view: "lab",
       style: "liquid-glass",
-      topic: PRIMARY_TOPIC_BY_STYLE["liquid-glass"],
+      topic: getPrimaryTopicId("liquid-glass"),
       scene: 4,
       beat: 0,
       frozen: true,
@@ -1146,7 +1090,7 @@ test.describe("URL query persistence", () => {
     const parsed = parseQueryFromUrl(page.url());
     expect(parsed.view).toBe("lab");
     expect(parsed.style).toBe("liquid-glass");
-    expect(parsed.topic).toBe(PRIMARY_TOPIC_BY_STYLE["liquid-glass"]);
+    expect(parsed.topic).toBe(getPrimaryTopicId("liquid-glass"));
     expect(Number(parsed.scene)).toBe(4);
     expect(Number(parsed.beat)).toBe(0);
   });
@@ -1178,9 +1122,11 @@ test.describe("Cross-style cycling", () => {
   test("ArrowRight from last style primary topic advances to its secondary topic", async ({
     page,
   }) => {
-    const lastStyleId = ALL_STYLE_IDS[ALL_STYLE_IDS.length - 1]; // "object-metaphor-hero"
-    const primaryTopic = PRIMARY_TOPIC_BY_STYLE[lastStyleId];
-    const secondaryTopic = SECONDARY_TOPIC_BY_STYLE[lastStyleId];
+    const lastStyleId = getLastStyleId();
+    const [primaryTopic, secondaryTopic] = getTopicSequence(lastStyleId);
+    if (!primaryTopic || !secondaryTopic) {
+      throw new Error(`Last Style must expose at least two Topics: ${lastStyleId}`);
+    }
     const lastScene = 5;
     const lastBeat = getLastBeat(lastStyleId, lastScene, primaryTopic);
 
@@ -1208,7 +1154,8 @@ test.describe("Cross-style cycling", () => {
   test("ArrowRight from last style final topic wraps to first style primary topic", async ({
     page,
   }) => {
-    const lastStyleId = ALL_STYLE_IDS[ALL_STYLE_IDS.length - 1]; // "object-metaphor-hero"
+    const lastStyleId = getLastStyleId();
+    const firstStyleId = getFirstStyleId();
     const lastTopic = getLastTopic(lastStyleId);
     const lastBeat = getLastBeat(lastStyleId, 5, lastTopic);
 
@@ -1221,8 +1168,8 @@ test.describe("Cross-style cycling", () => {
     await page.waitForTimeout(400);
 
     const queryAfter = parseQueryFromUrl(page.url());
-    expect(queryAfter.style).toBe("minimal-product-keynote");
-    expect(queryAfter.topic).toBe(PRIMARY_TOPIC_BY_STYLE["minimal-product-keynote"]);
+    expect(queryAfter.style).toBe(firstStyleId);
+    expect(queryAfter.topic).toBe(getPrimaryTopicId(firstStyleId));
     expect(Number(queryAfter.scene)).toBe(1);
     expect(Number(queryAfter.beat)).toBe(0);
   });
@@ -1230,10 +1177,10 @@ test.describe("Cross-style cycling", () => {
   test("ArrowLeft from first style primary topic wraps to last style final topic", async ({
     page,
   }) => {
-    const firstStyleId = ALL_STYLE_IDS[0]; // "minimal-product-keynote"
+    const firstStyleId = getFirstStyleId();
 
     await openLab(page, firstStyleId, 1, 0, {
-      topic: PRIMARY_TOPIC_BY_STYLE[firstStyleId],
+      topic: getPrimaryTopicId(firstStyleId),
       frozen: true,
     });
 
@@ -1242,7 +1189,7 @@ test.describe("Cross-style cycling", () => {
     await page.waitForTimeout(400);
 
     const query = parseQueryFromUrl(page.url());
-    const lastStyleId = ALL_STYLE_IDS[ALL_STYLE_IDS.length - 1];
+    const lastStyleId = getLastStyleId();
     const lastTopic = getLastTopic(lastStyleId);
     expect(query.style).toBe(lastStyleId);
     expect(query.topic).toBe(lastTopic);
@@ -1253,19 +1200,9 @@ test.describe("Cross-style cycling", () => {
   });
 
   test("cycling across band boundaries is topic-aware", async ({ page }) => {
-    test.setTimeout(60000); // 4 topics/style × 6 boundaries = ~24 navigations
-    // Test cross-style cycling at band boundaries (most likely to break).
-    // Each transition: openLab to the "from" style's last position, then
-    // ArrowRight to advance. openLab does a full page goto + waitForSelector
-    // + 300ms settle, which gives React time to initialize from the query.
-    const boundaryTransitions = [
-      { from: "spotlight-quote-poster", to: "subway-map-of-intent" },  // Minimal Keynote → Balanced Hybrid
-      { from: "debug-reaction-board", to: "front-page-broadsheet" },  // Balanced Hybrid → Editorial & Print
-      { from: "analog-cutout-collage", to: "woodblock-floating-world" },  // Editorial & Print → Craft & Cultural
-      { from: "mechanical-scoring-funnel", to: "liquid-glass" },  // Craft & Cultural → Contemporary Digital
-      { from: "arcade-boss-fight", to: "research-memo" },  // Contemporary Digital → Text Report
-      { from: "object-metaphor-hero", to: "minimal-product-keynote" },  // Text Report → Minimal Keynote (wrap)
-    ];
+    test.setTimeout(60000);
+    const boundaryTransitions = getBandBoundaryTransitions();
+    expect(boundaryTransitions).not.toHaveLength(0);
 
     for (const { from, to } of boundaryTransitions) {
       const topics = getTopicSequence(from);
@@ -1291,14 +1228,15 @@ test.describe("Cross-style cycling", () => {
             `${from}/${topic} should advance to ${from}/${nextTopic}`,
           ).toBe(nextTopic);
         } else {
+          const nextPrimaryTopic = getPrimaryTopicId(to);
           expect(
             queryAfter.style,
-            `${from}/${topic} should advance to ${to}/${PRIMARY_TOPIC_BY_STYLE[to]}`,
+            `${from}/${topic} should advance to ${to}/${nextPrimaryTopic}`,
           ).toBe(to);
           expect(
             queryAfter.topic,
-            `${from}/${topic} should advance to ${to}/${PRIMARY_TOPIC_BY_STYLE[to]}`,
-          ).toBe(PRIMARY_TOPIC_BY_STYLE[to]);
+            `${from}/${topic} should advance to ${to}/${nextPrimaryTopic}`,
+          ).toBe(nextPrimaryTopic);
         }
         expect(Number(queryAfter.scene)).toBe(1);
         expect(Number(queryAfter.beat)).toBe(0);
@@ -1318,10 +1256,7 @@ test.describe("Catalog / overview view", () => {
     expect(response.ok()).toBe(true);
     expect(await response.json()).toEqual({
       styles: CATALOG_MANIFEST.length,
-      topics: CATALOG_MANIFEST.reduce(
-        (total, style) => total + style.topics.length,
-        0,
-      ),
+      topics: CATALOG_TOPIC_COUNT,
     });
   });
 
@@ -1352,7 +1287,7 @@ test.describe("Catalog / overview view", () => {
     expect(topElement).not.toBe("HEADER");
   });
 
-  test("Catalog renders all 146 Topic Cards with its facet controls", async ({ page }) => {
+  test("Catalog renders every generated Topic Card with its facet controls", async ({ page }) => {
     const errors = attachErrorCollector(page);
     await openOverview(page);
 
@@ -1362,9 +1297,11 @@ test.describe("Catalog / overview view", () => {
     await expect(page.getByRole("group", { name: "Category" })).toBeVisible();
     await expect(page.getByRole("group", { name: "Model" })).toBeVisible();
     await expect(page.locator('[data-testid="catalog-summary"]')).toHaveText(
-      "All 146 Topics · 49 Styles",
+      `All ${CATALOG_TOPIC_COUNT} Topics · ${CATALOG_MANIFEST.length} Styles`,
     );
-    await expect(page.locator('[data-testid="topic-card"]')).toHaveCount(146);
+    await expect(page.locator('[data-testid="topic-card"]')).toHaveCount(
+      CATALOG_TOPIC_COUNT,
+    );
 
     await page.waitForTimeout(1000);
     expect(errors, `Console errors: ${errors.join("; ")}`).toEqual([]);
@@ -1375,33 +1312,44 @@ test.describe("Catalog / overview view", () => {
   }) => {
     await openOverview(page);
 
+    const selectedBand = "minimal-keynote";
+    const selectedModel = "Doubao-Seed-Evolving";
+    const topicsInSelectedBand = CATALOG_MANIFEST.flatMap((style) =>
+      style.topics.filter(
+        (topic) => topic.metadata.en.band === selectedBand,
+      ),
+    );
+    const topicsInSelectedBandAndModel = topicsInSelectedBand.filter(
+      (topic) => topic.model === selectedModel,
+    );
     const category = page.getByRole("group", { name: "Category" });
     await category
       .getByRole("button", { name: /^Minimal Keynote,/ })
       .click();
-    await expect(page.locator('[data-testid="topic-card"]')).toHaveCount(24);
+    await expect(page.locator('[data-testid="topic-card"]')).toHaveCount(
+      topicsInSelectedBand.length,
+    );
 
     let query = parseQueryFromUrl(page.url());
-    expect(query.band).toBe("minimal-keynote");
+    expect(query.band).toBe(selectedBand);
     expect(query.model).toBeUndefined();
 
     const model = page
       .getByRole("group", { name: "Model" })
       .getByRole("button", { name: /^Doubao-Seed-Evolving,/ });
-    const modelLabel = await model.getAttribute("aria-label");
-    const visibleForModel = Number(modelLabel?.match(/, (\d+) Topics$/)?.[1]);
-    expect(visibleForModel).toBeGreaterThan(0);
     await model.click();
     await expect(page.locator('[data-testid="topic-card"]')).toHaveCount(
-      visibleForModel,
+      topicsInSelectedBandAndModel.length,
     );
 
     query = parseQueryFromUrl(page.url());
-    expect(query.band).toBe("minimal-keynote");
-    expect(query.model).toBe("Doubao-Seed-Evolving");
+    expect(query.band).toBe(selectedBand);
+    expect(query.model).toBe(selectedModel);
 
     await page.getByRole("button", { name: "Clear all" }).click();
-    await expect(page.locator('[data-testid="topic-card"]')).toHaveCount(146);
+    await expect(page.locator('[data-testid="topic-card"]')).toHaveCount(
+      CATALOG_TOPIC_COUNT,
+    );
     query = parseQueryFromUrl(page.url());
     expect(query.band).toBeUndefined();
     expect(query.model).toBeUndefined();
@@ -1426,7 +1374,7 @@ test.describe("Catalog / overview view", () => {
       buildQuery({
         view: "lab",
         style: "front-page-broadsheet",
-        topic: PRIMARY_TOPIC_BY_STYLE["front-page-broadsheet"],
+        topic: getPrimaryTopicId("front-page-broadsheet"),
         scene: 1,
         beat: 0,
       }),
@@ -1442,7 +1390,7 @@ test.describe("Catalog / overview view", () => {
     const query = parseQueryFromUrl(page.url());
     expect(query.view).toBe("lab");
     expect(query.style).toBe("front-page-broadsheet");
-    expect(query.topic).toBe(PRIMARY_TOPIC_BY_STYLE["front-page-broadsheet"]);
+    expect(query.topic).toBe(getPrimaryTopicId("front-page-broadsheet"));
     expect(Number(query.scene)).toBe(1);
     expect(Number(query.beat)).toBe(0);
   });
@@ -1529,6 +1477,11 @@ test.describe("Player / lab view", () => {
   test("Player Topic menu is scoped to the current Style", async ({ page }) => {
     await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
+    const style = CATALOG_MANIFEST.find(
+      (entry) => entry.id === "minimal-product-keynote",
+    );
+    if (!style) throw new Error("Minimal Product Keynote is missing from the manifest");
+
     const topicMenuTrigger = page
       .locator("button[aria-haspopup='menu']")
       .filter({ hasText: "Product Keynote" });
@@ -1537,7 +1490,9 @@ test.describe("Player / lab view", () => {
       .locator('[role="menu"]')
       .filter({ hasText: "Quiet Launch" });
     await expect(topicMenu).toBeVisible();
-    await expect(topicMenu.getByRole("menuitemradio")).toHaveCount(3);
+    await expect(topicMenu.getByRole("menuitemradio")).toHaveCount(
+      style.topics.length,
+    );
     await expect(
       topicMenu.getByRole("menuitemradio", { name: /Product Keynote/ }),
     ).toHaveAttribute("aria-checked", "true");

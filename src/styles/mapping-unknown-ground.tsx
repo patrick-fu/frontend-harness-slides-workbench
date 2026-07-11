@@ -1,32 +1,12 @@
-/* Expedition Screenprint · v3 · Mapping Unknown Ground
- * A WPA-poster expedition into unknown territory. Flat limited spot inks laid
- * as unmodulated planes, a felt horizon giving each slide place, visible
- * screenprint grain and misfit. Poster-static / gentle drift only. cqw/cqh only.
- */
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./mapping-unknown-ground.module.css";
 
 type Lang = "en" | "zh";
-
-const FONT_LINK_ID = "font-expedition-screenprint-v3";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@500;600&family=Archivo+Narrow:wght@500;600&family=Noto+Sans+SC:wght@500;700&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_LINK_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_LINK_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 const TRANSITIONS: SceneTransitionMap = {
   "1->2": "slide-x",
@@ -480,6 +460,7 @@ function AltitudeScale({
   const topFor = (sceneNo: number) => 8 + ((5 - sceneNo) / 4) * 84;
   return (
     <div
+      {...curatedNavigationAttributes("expedition-screenprint", "mapping-unknown-ground")}
       className={styles.scale}
       onClick={(e) => e.stopPropagation()}
       aria-label="altitude scale"
@@ -519,7 +500,6 @@ function MappingUnknownGroundV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const still = reducedMotion || isThumbnail;
   return (
     <div className={`${styles.root} ${still ? styles.static : ""}`}>
@@ -582,7 +562,12 @@ export function getMetadata(lang: Lang): StyleMetadata {
       lang === "en"
         ? ["civic", "outdoors", "flat-ink", "poster", "screenprint", "static-drift"]
         : ["公共", "户外", "平印", "海报", "丝网印", "静态微移"],
-    fonts: ["Bebas Neue", "Oswald", "Archivo Narrow", "cjk:Noto Sans SC"],
+    fonts: [
+      "Bebas Neue:wght@400",
+      "Oswald:wght@500;600",
+      "Archivo Narrow:wght@500;600",
+      "cjk:Noto Sans SC:wght@500;700",
+    ],
     scenes: c.scenes.map((s, i) => ({
       id: i + 1,
       title: s.title,
@@ -599,7 +584,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const mappingUnknownGroundTopic = defineStyleTopic({
   id: "mapping-unknown-ground",
   topic: { en: "Mapping Unknown Ground", zh: "勘探未知" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: MappingUnknownGroundV3,
   getMetadata,
 });

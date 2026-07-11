@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
@@ -189,19 +189,6 @@ const TRANSITIONS: SceneTransitionMap = {
   "3->4": "scale-fade",
   "4->5": "fade",
 };
-
-function useFonts(): void {
-  useEffect(() => {
-    const id = "liquid-glass-v3-fonts";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 function GlassPane({
   pane,
@@ -413,7 +400,11 @@ function DepthNav({
 }): ReactNode {
   if (isThumbnail) return null;
   return (
-    <div className={styles.nav} aria-label="layer depth">
+    <div
+      {...curatedNavigationAttributes("liquid-glass", "layers-of-a-product")}
+      className={styles.nav}
+      aria-label="layer depth"
+    >
       {labels.map((label, i) => {
         const sceneId = i + 1;
         const active = sceneId === scene;
@@ -449,7 +440,6 @@ export default function LayersOfAProductV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps): ReactNode {
-  useFonts();
   const motionOff = reducedMotion || isThumbnail;
   return (
     <div className={styles.root} data-lang={language} data-motion={motionOff ? "off" : "on"}>
@@ -503,7 +493,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       "glass",
       "product",
     ],
-    fonts: ["Inter", "cjk:Noto Sans SC"],
+    fonts: ["Inter:wght@400;600;700", "cjk:Noto Sans SC:wght@400;500;700"],
     scenes: c.scenes.map((s, i) => ({
       id: i + 1,
       title: s.title,
@@ -515,7 +505,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const LayersOfAProductTopic = defineStyleTopic({
   id: "layers-of-a-product",
   topic: { en: "Layers of a Product", zh: "产品的层" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: LayersOfAProductV3,
   getMetadata,
 });

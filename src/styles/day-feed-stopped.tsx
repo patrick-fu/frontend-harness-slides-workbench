@@ -1,33 +1,10 @@
-import { useEffect } from "react";
 import type { CSSProperties } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import styles from "./day-feed-stopped.module.css";
-
-/* ────────────────────────────────────────────────────────────────────────
-   Front-Page Broadsheet — v3 · "The Day the Feed Stopped"
-   Newsprint value world, near-black ink, ONE quarantined accent (nameplate +
-   kicker only). Dense justified multi-column journalism. cqw/cqh units only.
-   ──────────────────────────────────────────────────────────────────────── */
-
-const FONT_ID = "fonts-broadsheet-v3";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&" +
-  "family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Archivo:wght@600;700&" +
-  "family=Noto+Serif+SC:wght@400;600;700&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── Display copy (bilingual, no lorem) ─────────────────────────────────── */
 interface Copy {
@@ -493,7 +470,11 @@ function SectionSpine({
 }) {
   if (isThumbnail) return null;
   return (
-    <nav className={styles.spine} aria-label="Sections">
+    <nav
+      {...curatedNavigationAttributes("front-page-broadsheet", "day-feed-stopped")}
+      className={styles.spine}
+      aria-label="Sections"
+    >
       {c.spine.map((s, i) => {
         const target = i + 1;
         const active = target === scene;
@@ -534,7 +515,6 @@ function FrontPageBroadsheetV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const c = language === "zh" ? ZH : EN;
   const settled = reducedMotion || isThumbnail;
 
@@ -737,14 +717,19 @@ export function getMetadata(language: "en" | "zh"): StyleMetadata {
   return {
     id: "front-page-broadsheet",
     band: "editorial-print",
-    name: "Front-Page Broadsheet",
+    name: language === "zh" ? "头版大报" : "Front-Page Broadsheet",
     theme: m.theme,
     densityLabel: m.densityLabel,
     heroScene: 2,
     colors: { bg: "#f3efe4", ink: "#191410", panel: "#e9e3d3" },
     typography: { header: "Playfair Display", body: "Source Serif 4" },
     tags: ["authoritative", "serious", "dense", "newsprint", "grayscale", "print-motion"],
-    fonts: ["Playfair Display", "Source Serif 4", "Archivo", "cjk:Noto Serif SC"],
+    fonts: [
+      "Playfair Display:wght@700;800;900",
+      "Source Serif 4:ital,wght@0,400;0,600;1,400",
+      "Archivo:wght@600;700",
+      "cjk:Noto Serif SC:wght@400;600;700",
+    ],
     scenes: m.scenes.map((s, si) => ({
       id: si + 1,
       title: s.title,
@@ -761,7 +746,7 @@ export function getMetadata(language: "en" | "zh"): StyleMetadata {
 export const dayFeedStoppedTopic = defineStyleTopic({
   id: "day-feed-stopped",
   topic: { en: "The Day the Feed Stopped", zh: "信息流停摆" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: FrontPageBroadsheetV3,
   getMetadata,
 });

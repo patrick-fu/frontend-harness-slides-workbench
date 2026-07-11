@@ -1,35 +1,9 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import styles from "./what-ancients-knew.module.css";
-
-/* ─────────────────────────────────────────────────────────────
-   Scholar's Vellum — v3 · "What the Ancients Knew"
-   A candlelit manuscript pinned to a warm-dark library wall.
-   One patient thought per page; stillness is the default.
-   ───────────────────────────────────────────────────────────── */
-
-const FONT_ID = "scholars-vellum-v3-fonts";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?" +
-  "family=Cormorant+Garamond:ital,wght@1,500;1,600&" +
-  "family=Alegreya+Sans:wght@400;500&" +
-  "family=Courier+Prime&" +
-  "family=Noto+Serif+SC:wght@400;500&" +
-  "family=Noto+Sans+SC:wght@400;500&display=swap";
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 const FOLIOS = ["i", "ii", "iii", "iv", "v"];
 
@@ -302,7 +276,11 @@ function FolioSpine({
 }) {
   if (isThumbnail) return null;
   return (
-    <nav className={styles.spine} aria-label="folio">
+    <nav
+      {...curatedNavigationAttributes("scholars-vellum", "what-ancients-knew")}
+      className={styles.spine}
+      aria-label="folio"
+    >
       {FOLIOS.map((numeral, i) => {
         const target = i + 1;
         const active = target === scene;
@@ -335,7 +313,6 @@ function ScholarsVellumV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const still = reducedMotion || isThumbnail;
   const lang: Lang = language === "zh" ? "zh" : "en";
 
@@ -376,11 +353,11 @@ export function getMetadata(lang: Lang): StyleMetadata {
       ? ["scholarly", "contemplative", "warm-dark", "low density", "amber serif", "stillness"]
       : ["学术", "沉思", "暖调深色", "低密度", "琥珀衬线", "静止"],
     fonts: [
-      "Cormorant Garamond",
-      "Alegreya Sans",
-      "Courier Prime",
-      "cjk:Noto Serif SC",
-      "cjk:Noto Sans SC",
+      "Cormorant Garamond:ital,wght@1,500;1,600",
+      "Alegreya Sans:wght@400;500",
+      "Courier Prime:wght@400",
+      "cjk:Noto Serif SC:wght@400;500",
+      "cjk:Noto Sans SC:wght@400;500",
     ],
     scenes: [
       {
@@ -484,7 +461,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const whatAncientsKnewTopic = defineStyleTopic({
   id: "what-ancients-knew",
   topic: { en: "What the Ancients Knew", zh: "古人的智慧" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: ScholarsVellumV3,
   getMetadata,
 });

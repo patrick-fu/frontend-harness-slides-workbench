@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 
@@ -198,20 +198,6 @@ const META_SCENES: {
     ],
   },
 ];
-
-/* ── Font injection (dedupe by id) ───────────────────────────────────────── */
-function useFonts() {
-  useEffect(() => {
-    const id = "font-benchmark-matrix-v3";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 const p = (l: Loc, lang: Lang) => l[lang];
 const toneColor = (t: Tone) => (t === "pos" ? C.pos : t === "neg" ? C.neg : C.inkSoft);
@@ -470,6 +456,7 @@ function MatrixScene(props: {
       {/* N2 — bottom progress dots (nav prototype). Hidden in thumbnails. */}
       {isActive && !isThumbnail && (
         <nav
+          {...curatedNavigationAttributes("benchmark-matrix", "build-buy-borrow")}
           style={{
             position: "absolute",
             left: 0,
@@ -561,7 +548,6 @@ function FragmentRow({
 /* ── Root component ──────────────────────────────────────────────────────── */
 function BenchmarkMatrixV3(props: BespokeStyleProps) {
   const { scene, beat, language, isThumbnail, reducedMotion, onNavigate } = props;
-  useFonts();
 
   return (
     <div
@@ -613,7 +599,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
       lang === "en"
         ? ["analytical", "even-handed", "dense", "tabular figures", "clarifying motion"]
         : ["分析式", "公允", "高密度", "表格数字", "澄清式动效"],
-    fonts: ["Inter", "cjk:Noto Sans SC"],
+    fonts: ["Inter:wght@400;500;600;700", "cjk:Noto Sans SC:wght@400;500;700"],
     scenes: META_SCENES.map((s) => ({
       id: s.id,
       title: p(s.title, lang),
@@ -630,7 +616,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const benchmarkMatrixTopic = defineStyleTopic({
   id: "build-buy-borrow",
   topic: { en: "Build vs Buy vs Borrow", zh: "自建还是买" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: BenchmarkMatrixV3,
   getMetadata,
 });

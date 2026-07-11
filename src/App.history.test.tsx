@@ -2,6 +2,12 @@ import { StrictMode } from "react";
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
+import { CATALOG_MANIFEST } from "./styles/catalog-manifest.generated";
+
+const CATALOG_TOPIC_COUNT = CATALOG_MANIFEST.reduce(
+  (total, style) => total + style.topics.length,
+  0,
+);
 
 const PRODUCT_ROUTE =
   "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=2&beat=0";
@@ -201,7 +207,7 @@ describe("Workbench URL, history, and sharing contract", () => {
     );
 
     expect(screen.getByTestId("catalog-summary")).toHaveTextContent(
-      "All 194 Topics · 49 Styles",
+      `All ${CATALOG_TOPIC_COUNT} Topics · ${CATALOG_MANIFEST.length} Styles`,
     );
     expect(params().get("view")).toBe("overview");
     expect(params().getAll("band")).toEqual([]);

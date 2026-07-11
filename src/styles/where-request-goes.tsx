@@ -1,24 +1,10 @@
-import { useEffect } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./where-request-goes.module.css";
-
-/* ── Fonts ──────────────────────────────────────────────── */
-const FONT_ID = "font-signal-pipeline-flow-v3";
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;600;700&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── Pipeline topology (cqw/cqh coordinate space, 0..100) ── */
 type Lang = "en" | "zh";
@@ -321,7 +307,11 @@ function StageStepper({
   };
   const fill = `${((scene - 1) / 4) * 80}%`;
   return (
-    <div className={styles.stepper} onClick={(e) => e.stopPropagation()}>
+    <div
+      {...curatedNavigationAttributes("signal-pipeline-flow", "where-request-goes")}
+      className={styles.stepper}
+      onClick={(e) => e.stopPropagation()}
+    >
       <div className={styles.stepTrack}>
         <div className={styles.stepFill} style={{ width: fill }} />
         {labels[language].map((label, i) => {
@@ -368,7 +358,6 @@ function WhereRequestGoesV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   return (
     <div className={styles.root}>
       <div className={styles.grid} />
@@ -407,7 +396,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
     colors: { bg: "#070b12", ink: "#e3eef7", panel: "#101d2b" },
     typography: { header: "JetBrains Mono", body: "IBM Plex Mono" },
     tags: ["technical", "dark", "instrument", "directional-flow", "monospace"],
-    fonts: ["JetBrains Mono", "IBM Plex Mono"],
+    fonts: ["JetBrains Mono:wght@400;600;700", "IBM Plex Mono:wght@400;500;600"],
     scenes: [
       {
         id: 1,
@@ -454,7 +443,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
   const zh: StyleMetadata = {
     id: "signal-pipeline-flow",
     band: "balanced-hybrid",
-    name: "Signal Pipeline Flow",
+    name: "信号管道流",
     theme: "请求去哪了",
     densityLabel: "系统图 · 路由流",
     heroScene: 3,
@@ -511,7 +500,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const whereRequestGoesTopic = defineStyleTopic({
   id: "where-request-goes",
   topic: { en: "Where the Request Goes", zh: "请求去哪了" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: WhereRequestGoesV3,
   getMetadata,
 });

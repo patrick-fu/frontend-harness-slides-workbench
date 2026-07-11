@@ -22,7 +22,12 @@ describe("Catalog + Player registry split", () => {
       style.topics.map((topic) => topic.modulePath),
     );
 
-    expect(modulePaths).toHaveLength(194);
+    expect(modulePaths).toHaveLength(
+      CATALOG_MANIFEST.reduce(
+        (total, style) => total + style.topics.length,
+        0,
+      ),
+    );
     expect(modulePaths.every(hasTopicModule)).toBe(true);
   });
 
@@ -47,6 +52,6 @@ describe("Catalog + Player registry split", () => {
       loadRegistryTopicComponent("minimal-product-keynote", "missing-topic"),
     ).rejects.toThrow('Unknown Topic "minimal-product-keynote/missing-topic".');
 
-    expect(STYLE_REGISTRY).toHaveLength(49);
+    expect(STYLE_REGISTRY).toHaveLength(CATALOG_MANIFEST.length);
   });
 });

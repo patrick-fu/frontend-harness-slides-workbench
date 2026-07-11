@@ -1,28 +1,11 @@
-import { useEffect } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import type { BespokeStyleProps, StyleMetadata } from "../types";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./deriving-big-o.module.css";
-
-/* ------------------------------------------------------------------ */
-/* Fonts                                                              */
-/* ------------------------------------------------------------------ */
-
-function useFonts(): void {
-  useEffect(() => {
-    const id = "font-blackboard-chalk-v3";
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Gochi+Hand&family=Azeret+Mono:wght@300;400;500&family=Zhi+Mang+Xing&family=Long+Cang&display=swap";
-    document.head.appendChild(link);
-  }, []);
-}
 
 function fontVars(language: "en" | "zh"): CSSProperties {
   if (language === "zh") {
@@ -409,7 +392,11 @@ function StepNav({
   if (isThumbnail) return null;
   const steps = ["①", "②", "③", "④", "⑤"];
   return (
-    <nav className={styles.nav} data-reduced={reduced ? "true" : "false"}>
+    <nav
+      {...curatedNavigationAttributes("blackboard-chalk-talk", "deriving-big-o")}
+      className={styles.nav}
+      data-reduced={reduced ? "true" : "false"}
+    >
       {steps.map((glyph, i) => {
         const n = i + 1;
         const current = n === scene;
@@ -444,7 +431,6 @@ function BlackboardChalkTalkV3({
   reducedMotion,
   onNavigate,
 }: BespokeStyleProps) {
-  useFonts();
   const reduced = reducedMotion || isThumbnail;
   const copy = COPY[language];
 
@@ -691,11 +677,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       "derivation",
     ],
     fonts: [
-      "Caveat",
-      "Gochi Hand",
-      "Azeret Mono",
-      "cjk:Zhi Mang Xing",
-      "cjk:Long Cang",
+      "Caveat:wght@400;700",
+      "Gochi Hand:wght@400",
+      "Azeret Mono:wght@300;400;500",
+      "cjk:Zhi Mang Xing:wght@400",
+      "cjk:Long Cang:wght@400",
     ],
     scenes,
   };
@@ -706,7 +692,7 @@ export default BlackboardChalkTalkV3;
 export const DerivingBigOTopic = defineStyleTopic({
   id: "deriving-big-o",
   topic: { en: "Deriving Big-O", zh: "推导复杂度" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: BlackboardChalkTalkV3,
   getMetadata,
 });

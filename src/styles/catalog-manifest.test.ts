@@ -22,7 +22,9 @@ describe("CATALOG_MANIFEST", () => {
           zh: sourceTopic.getMetadata("zh"),
         });
         expect(catalogTopic?.navigation).toEqual(sourceTopic.navigation);
+        expect(catalogTopic?.topicSet).toEqual(sourceTopic.topicSet);
         expect(catalogTopic?.sources).toEqual(sourceTopic.sources);
+        expect(catalogTopic?.evidence).toEqual(sourceTopic.evidence);
         expect(catalogTopic?.transitionScore).toEqual(
           sourceTopic.transitionScore,
         );

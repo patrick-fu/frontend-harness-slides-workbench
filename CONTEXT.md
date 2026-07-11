@@ -78,6 +78,11 @@ _Avoid_: Internal Navigation
 **Internal Navigation（内嵌导航）**:
 Navigation rendered as part of a Topic's visual language. It remains distinct from the Envelope and Player Transport.
 
+**Topic Navigation Profile（题材导航契约）**:
+The source-owned record of an Internal Navigation's geometry, carrier,
+invocation, and feedback. It keeps the rendered navigation and its semantic
+contract aligned.
+
 **Pure（纯净模式）**:
 A display state that foregrounds the Stage by removing surrounding Workbench chrome. It retains the selected Topic and Navigation State.
 _Avoid_: Fullscreen
@@ -85,6 +90,10 @@ _Avoid_: Fullscreen
 **Frozen（冻结模式）**:
 A display state that holds a Topic's current temporal state. It supports stable inspection without redefining the Topic.
 _Avoid_: Reduced motion
+
+**Hero Final Frame（Hero 最终帧）**:
+The final Beat of a Topic's localized hero Scene. It is the stable frozen
+capture and audit target for that language.
 
 **Navigation State（导航状态）**:
 The current view, selected Topic, presentation position, and display context of the Workbench. It is the unit represented by a Share Link.
@@ -106,6 +115,16 @@ A portable reference to a Navigation State. It opens the same selected context f
 **Topic Set（Topic 套系）**:
 A curated anthology of Topics conceived as a shared collection. It guides the distribution of subjects and expression across Styles.
 _Avoid_: Version set, batch
+
+**Topic Set Contract（Topic 套系契约）**:
+The source-owned record that associates each Topic in a Topic Set with its
+semantic identity, navigation profile, transition score, and claim evidence.
+It is not a version or a separate assignment document.
+
+**Evidence（证据边界）**:
+The declaration that classifies Topic claims as source-backed facts or as an
+illustrative scenario, including the localized boundary that prevents examples
+from being mistaken for measured facts.
 
 **Content Territory（内容疆域）**:
 A subject-area partition that places a Topic within a Topic Set. It is independent of Style and Band.

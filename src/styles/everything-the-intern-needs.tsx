@@ -1,27 +1,11 @@
-import { useEffect } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import SpatialSceneTrack from "./SpatialSceneTrack";
 import type { SceneTransitionMap } from "./SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import { defineStyleTopic } from "./topic";
+import { curatedNavigationAttributes } from "./curated-topic-contract";
 import type { StyleMetadata } from "../types";
 import styles from "./everything-the-intern-needs.module.css";
-
-/* ── Fonts ─────────────────────────────────────────────────────────── */
-const FONT_ID = "font-context-bento-box-v3";
-const FONT_HREF =
-  "https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,500;1,400&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400&family=Noto+Serif+SC:wght@400;500&family=Noto+Sans+SC:wght@400;600&display=swap";
-
-function useFonts(): void {
-  useEffect(() => {
-    if (document.getElementById(FONT_ID)) return;
-    const link = document.createElement("link");
-    link.id = FONT_ID;
-    link.rel = "stylesheet";
-    link.href = FONT_HREF;
-    document.head.appendChild(link);
-  }, []);
-}
 
 /* ── Category accents (one role per compartment, stable across langs) ── */
 const ACCENTS = [
@@ -468,7 +452,11 @@ function Dial({
   onNavigate?: (scene: number, beat: number) => void;
 }): ReactNode {
   return (
-    <nav className={styles.dial} aria-label="scene index">
+    <nav
+      {...curatedNavigationAttributes("context-bento-box", "everything-the-intern-needs")}
+      className={styles.dial}
+      aria-label="scene index"
+    >
       {copy.dial.map((name, i) => {
         const target = i + 1;
         const active = target === scene;
@@ -508,7 +496,6 @@ function EverythingTheInternNeedsV3({
   reducedMotion: boolean;
   onNavigate?: (scene: number, beat: number) => void;
 }): ReactNode {
-  useFonts();
   const copy = COPY[language];
   const reduce = reducedMotion || isThumbnail;
 
@@ -553,7 +540,13 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
       lang === "en"
         ? ["organized", "considered", "warm-dark", "compartmented", "calm-motion", "handoff", "bento"]
         : ["有条理", "考究", "暖调深色", "分格", "沉稳动效", "交接", "便当盒"],
-    fonts: ["Source Serif 4", "Source Sans 3", "IBM Plex Mono", "cjk:Noto Serif SC", "cjk:Noto Sans SC"],
+    fonts: [
+      "Source Serif 4:ital,wght@0,400;0,500;1,400",
+      "Source Sans 3:wght@400;600",
+      "IBM Plex Mono:wght@400",
+      "cjk:Noto Serif SC:wght@400;500",
+      "cjk:Noto Sans SC:wght@400;600",
+    ],
     scenes: [
       {
         id: 1,
@@ -638,7 +631,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const EverythingTheInternNeedsTopic = defineStyleTopic({
   id: "everything-the-intern-needs",
   topic: { en: "Everything the Intern Needs", zh: "新人须知" },
-  model: "Claude Opus 4.8",
+  model: "GPT 5.6 Sol",
   component: EverythingTheInternNeedsV3,
   getMetadata,
 });
