@@ -7,46 +7,39 @@ import {
   hasCuratedTopicContract,
   withCuratedTopicContract,
 } from "./curated-topic-contract";
-import ExecutiveSilence01, {
-  getMetadata as getMetadata01,
-} from "./01-executive-silence";
-import SwissPrecision02, {
-  getMetadata as getMetadata02,
-} from "./02-swiss-precision";
-import ZenVoid03, {
-  getMetadata as getMetadata03,
-} from "./03-zen-void";
-import AuroraGradient04, {
-  getMetadata as getMetadata04,
-} from "./04-aurora-gradient";
-import Blueprint05, {
-  getMetadata as getMetadata05,
-} from "./05-blueprint";
-import MonochromeStudy06, {
-  getMetadata as getMetadata06,
-} from "./06-monochrome-study";
-import QuietConfidence07, {
-  getMetadata as getMetadata07,
-} from "./07-quiet-confidence";
-import TerminalGlow08, {
-  getMetadata as getMetadata08,
-} from "./08-terminal-glow";
-import { quietLaunchWindowTopic } from "./01-quiet-launch-window";
-import { presolarGrainTopic } from "./01-presolar-grain";
-import { metricsWithoutNoiseTopic } from "./02-metrics-without-noise";
-import { bridgeMovementTopic } from "./objective-swiss-grid-bridge-movement";
-import { repairAsStrategyTopic } from "./03-repair-as-strategy";
-import { stoneToSoilTopic } from "./wabi-sabi-ceramic-stone-to-soil";
-import { betterQuestionTopic } from "./04-better-question";
-import { vocalFoldsTopic } from "./04-vocal-folds";
-import { resilienceBlueprintTopic } from "./05-resilience-blueprint";
-import { cometAnatomyTopic } from "./05-comet-anatomy";
-import { oneConstraintWinsTopic } from "./06-one-constraint-wins";
-import { humanLoopRetrofitTopic } from "./07-human-loop-retrofit";
-import { beforeATopic } from "./06-before-a";
-import { stadiumWaveTopic } from "./07-stadium-wave";
-import { sentenceWeKeepTopic } from "./08-sentence-we-keep";
-import { freediveTopic } from "./spotlight-quote-poster-freedive";
+import { toMigratingStyleTopic } from "../catalog/topic-migration-adapter";
+import productKeynoteDefinition from "../topics/product-keynote";
+import quietLaunchDefinition from "../topics/quiet-launch";
+import presolarGrainDefinition from "../topics/presolar-grain";
+import lastFeatureCutDefinition from "../topics/last-feature-cut";
+import swissGridDefinition from "../topics/swiss-grid";
+import cleanMetricsDefinition from "../topics/clean-metrics";
+import bridgeMovementDefinition from "../topics/bridge-movement";
+import anatomyTimetableDefinition from "../topics/anatomy-timetable";
+import ceramicCalmDefinition from "../topics/ceramic-calm";
+import repairStrategyDefinition from "../topics/repair-strategy";
+import stoneToSoilDefinition from "../topics/stone-to-soil";
+import beautyUnfinishedDefinition from "../topics/beauty-unfinished";
+import dialogueStageDefinition from "../topics/dialogue-stage";
+import betterQuestionDefinition from "../topics/better-question";
+import vocalFoldsDefinition from "../topics/vocal-folds";
+import rubberDuckDefinition from "../topics/rubber-duck";
+import blueprintDefinition from "../topics/blueprint";
+import resiliencePlanDefinition from "../topics/resilience-plan";
+import cometAnatomyDefinition from "../topics/comet-anatomy";
+import drawingABridgeDefinition from "../topics/drawing-a-bridge";
+import typePosterDefinition from "../topics/type-poster";
+import oneConstraintDefinition from "../topics/one-constraint";
+import beforeADefinition from "../topics/before-a";
+import shipItDefinition from "../topics/ship-it";
+import workshopBoardDefinition from "../topics/workshop-board";
+import humanLoopDefinition from "../topics/human-loop";
+import stadiumWaveDefinition from "../topics/stadium-wave";
+import howWeNamedItDefinition from "../topics/how-we-named-it";
+import quotePosterDefinition from "../topics/quote-poster";
+import keptSentenceDefinition from "../topics/kept-sentence";
+import freediveDefinition from "../topics/freedive";
+import onQuittingWellDefinition from "../topics/on-quitting-well";
 import ProcessFlow09, {
   getMetadata as getMetadata09,
 } from "./09-process-flow";
@@ -251,14 +244,6 @@ import { recoveryKitTopic } from "./48-recovery-kit";
 import { cocoonToClothTopic } from "./49-cocoon-to-cloth";
 
 // ─── Curated Topic Set ──────────────────────────────────────────────────
-import { lastFeatureCutTopic } from "./last-feature-cut";
-import { objectiveSwissGridTopic } from "./anatomy-timetable";
-import { beautyUnfinishedTopic } from "./beauty-unfinished";
-import { rubberDuckTopic } from "./rubber-duck";
-import { drawingABridgeTopic } from "./drawing-a-bridge";
-import { shipItTopic } from "./ship-it";
-import { sketchBoardEmojiTopic } from "./how-we-named-it";
-import { onQuittingWellTopic } from "./on-quitting-well";
 import { threeTeamsLaunchTopic } from "./three-teams-launch";
 import { benchmarkMatrixTopic } from "./build-buy-borrow";
 import { whereRequestGoesTopic } from "./where-request-goes";
@@ -322,102 +307,78 @@ const buildEntry = (styleId: string, topics: StyleTopicModule[]) =>
  */
 export const STYLE_CATALOG_SOURCE: StyleRegistryEntry[] = [
   // Minimal Keynote: 01-08
-  buildEntry("minimal-product-keynote", [
-    {
-      id: "product-keynote",
-      topic: { en: "Product Keynote", zh: "产品主题" },
-      model: "Doubao-Seed-Evolving",
-      component: ExecutiveSilence01,
-      getMetadata: getMetadata01,
-    },
-    quietLaunchWindowTopic,
-    presolarGrainTopic,
-    lastFeatureCutTopic,
-  ]),
-  buildEntry("objective-swiss-grid", [
-    {
-      id: "swiss-grid",
-      topic: { en: "Swiss Grid", zh: "瑞士网格" },
-      model: "Doubao-Seed-Evolving",
-      component: SwissPrecision02,
-      getMetadata: getMetadata02,
-    },
-    metricsWithoutNoiseTopic,
-    bridgeMovementTopic,
-    objectiveSwissGridTopic,
-  ]),
-  buildEntry("wabi-sabi-ceramic", [
-    {
-      id: "ceramic-calm",
-      topic: { en: "Ceramic Calm", zh: "陶器静场" },
-      model: "Doubao-Seed-Evolving",
-      component: ZenVoid03,
-      getMetadata: getMetadata03,
-    },
-    repairAsStrategyTopic,
-    stoneToSoilTopic,
-    beautyUnfinishedTopic,
-  ]),
-  buildEntry("interactive-dialogue-stage", [
-    {
-      id: "dialogue-stage",
-      topic: { en: "Dialogue Stage", zh: "对话舞台" },
-      model: "Doubao-Seed-Evolving",
-      component: AuroraGradient04,
-      getMetadata: getMetadata04,
-    },
-    betterQuestionTopic,
-    vocalFoldsTopic,
-    rubberDuckTopic,
-  ]),
-  buildEntry("cyanotype-drafting-table", [
-    {
-      id: "blueprint",
-      topic: { en: "Blueprint", zh: "蓝图" },
-      model: "Doubao-Seed-Evolving",
-      component: Blueprint05,
-      getMetadata: getMetadata05,
-    },
-    resilienceBlueprintTopic,
-    cometAnatomyTopic,
-    drawingABridgeTopic,
-  ]),
-  buildEntry("kinetic-type-punchline", [
-    {
-      id: "type-poster",
-      topic: { en: "Type Poster", zh: "字体海报" },
-      model: "Doubao-Seed-Evolving",
-      component: MonochromeStudy06,
-      getMetadata: getMetadata06,
-    },
-    oneConstraintWinsTopic,
-    beforeATopic,
-    shipItTopic,
-  ]),
-  buildEntry("sketch-board-emoji", [
-    {
-      id: "workshop-board",
-      topic: { en: "Workshop Board", zh: "工作坊" },
-      model: "Doubao-Seed-Evolving",
-      component: QuietConfidence07,
-      getMetadata: getMetadata07,
-    },
-    humanLoopRetrofitTopic,
-    stadiumWaveTopic,
-    sketchBoardEmojiTopic,
-  ]),
-  buildEntry("spotlight-quote-poster", [
-    {
-      id: "quote-poster",
-      topic: { en: "Quote Poster", zh: "引言海报" },
-      model: "Doubao-Seed-Evolving",
-      component: TerminalGlow08,
-      getMetadata: getMetadata08,
-    },
-    sentenceWeKeepTopic,
-    freediveTopic,
-    onQuittingWellTopic,
-  ]),
+  buildEntry(
+    "minimal-product-keynote",
+    [
+      productKeynoteDefinition,
+      quietLaunchDefinition,
+      presolarGrainDefinition,
+      lastFeatureCutDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "objective-swiss-grid",
+    [
+      swissGridDefinition,
+      cleanMetricsDefinition,
+      bridgeMovementDefinition,
+      anatomyTimetableDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "wabi-sabi-ceramic",
+    [
+      ceramicCalmDefinition,
+      repairStrategyDefinition,
+      stoneToSoilDefinition,
+      beautyUnfinishedDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "interactive-dialogue-stage",
+    [
+      dialogueStageDefinition,
+      betterQuestionDefinition,
+      vocalFoldsDefinition,
+      rubberDuckDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "cyanotype-drafting-table",
+    [
+      blueprintDefinition,
+      resiliencePlanDefinition,
+      cometAnatomyDefinition,
+      drawingABridgeDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "kinetic-type-punchline",
+    [
+      typePosterDefinition,
+      oneConstraintDefinition,
+      beforeADefinition,
+      shipItDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "sketch-board-emoji",
+    [
+      workshopBoardDefinition,
+      humanLoopDefinition,
+      stadiumWaveDefinition,
+      howWeNamedItDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "spotlight-quote-poster",
+    [
+      quotePosterDefinition,
+      keptSentenceDefinition,
+      freediveDefinition,
+      onQuittingWellDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
   // Balanced Hybrid: 09-16
   buildEntry("subway-map-of-intent", [
     {

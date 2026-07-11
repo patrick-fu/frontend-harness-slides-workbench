@@ -1,13 +1,15 @@
-import type { BespokeStyleProps, StyleMetadata } from "../types";
-import { defineStyleTopic } from "./topic";
-import { curatedNavigationAttributes } from "./curated-topic-contract";
-import SpatialSceneTrack from "./SpatialSceneTrack";
-import type { SceneTransitionMap } from "./SpatialSceneTrack";
+import {
+  defineTopic,
+  type TopicMetadata,
+  type TopicStageProps,
+  type TopicTransitionScore,
+} from "../domain/topic";
+import SpatialSceneTrack from "../styles/SpatialSceneTrack";
 import { useFLIP } from "../hooks/useFLIP";
 import styles from "./last-feature-cut.module.css";
 
 /* ─────────────────────────────────────────────────────────────────────────
-   01 · Minimal Product Keynote · v3 — "The Last Feature We Cut"
+   Minimal Product Keynote — "The Last Feature We Cut"
    Style DNA: a held breath. One idea, enormous, alone in a warmed near-white
    void. Near-black ink. A single scarce saturated accent (#E4442B) touches
    only a tiny area — the "No." spark in scene 4. Slow, weighted motion.
@@ -15,12 +17,12 @@ import styles from "./last-feature-cut.module.css";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
-const TRANSITIONS: SceneTransitionMap = {
+const TRANSITIONS = {
   "1->2": "scale-fade",
   "2->3": "fade",
   "3->4": "scale-fade",
   "4->5": "fade",
-};
+} as const satisfies TopicTransitionScore;
 
 function pad(n: number): string {
   return n < 10 ? `0${n}` : `${n}`;
@@ -199,7 +201,14 @@ function GhostNav({
 }) {
   if (isThumbnail) return null;
   return (
-    <div {...curatedNavigationAttributes("minimal-product-keynote", "last-feature-cut")} className={styles.nav}>
+    <div
+      className={styles.nav}
+      data-topic-navigation="true"
+      data-navigation-geometry="typographic-index"
+      data-navigation-carrier="feature-cut-whisper"
+      data-navigation-invocation="persistent"
+      data-navigation-feedback="active-glow"
+    >
       {[1, 2, 3, 4, 5].map((n) => (
         <button
           key={n}
@@ -219,22 +228,21 @@ function GhostNav({
 
 /* ─────────────────────────── component ─────────────────────────── */
 
-function LastFeatureCutV3({
+function TopicStage({
   scene,
   beat,
   language,
   isThumbnail,
   reducedMotion,
   onNavigate,
-}: BespokeStyleProps) {
+}: TopicStageProps) {
   const t = COPY[language];
   const motionOff = reducedMotion || isThumbnail;
 
   return (
     <div
       className={`${styles.root} ${motionOff ? styles.reduced : ""}`}
-      data-style="01"
-      data-version="v3"
+      data-style="minimal-product-keynote"
     >
       <span className={styles.mark}>{t.mark}</span>
 
@@ -281,11 +289,8 @@ function LastFeatureCutV3({
 
 /* ─────────────────────────── metadata ─────────────────────────── */
 
-export function getMetadata(language: "en" | "zh"): StyleMetadata {
-  const en: StyleMetadata = {
-    id: "minimal-product-keynote",
-    band: "minimal-keynote",
-    name: "Minimal Product Keynote",
+function buildMetadata(language: "en" | "zh"): TopicMetadata {
+  const en: TopicMetadata = {
     theme: "The Last Feature We Cut",
     densityLabel: "One idea per scene",
     heroScene: 4,
@@ -384,10 +389,7 @@ export function getMetadata(language: "en" | "zh"): StyleMetadata {
     ],
   };
 
-  const zh: StyleMetadata = {
-    id: "minimal-product-keynote",
-    band: "minimal-keynote",
-    name: "极简产品主题演讲",
+  const zh: TopicMetadata = {
     theme: "删掉的功能",
     densityLabel: "每屏一念",
     heroScene: 4,
@@ -486,14 +488,31 @@ export function getMetadata(language: "en" | "zh"): StyleMetadata {
   return language === "zh" ? zh : en;
 }
 
-/* ─────────────────────────── version ─────────────────────────── */
+const metadata = {
+  en: buildMetadata("en"),
+  zh: buildMetadata("zh"),
+};
 
-export const lastFeatureCutTopic = defineStyleTopic({
+export default defineTopic({
   id: "last-feature-cut",
-  topic: { en: "The Last Feature We Cut", zh: "删掉的功能" },
-  model: "Claude Opus 4.8",
-  component: LastFeatureCutV3,
-  getMetadata,
+  styleId: "minimal-product-keynote",
+  title: { en: "The Last Feature We Cut", zh: "删掉的功能" },
+  modelId: "Claude Opus 4.8",
+  Stage: TopicStage,
+  metadata,
+  navigation: {
+    geometry: "typographic-index",
+    carrier: "feature-cut-whisper",
+    invocation: "persistent",
+    feedback: "active-glow",
+  },
+  transitionScore: TRANSITIONS,
+  evidence: {
+    kind: "illustrative",
+    boundary: {
+      en: "Illustrative product decision scenario: scope, timing, and delivery outcomes are presentation examples, not external factual claims.",
+      zh: "示例产品决策场景：范围、时间与交付结果均为演示示例，并非外部事实主张。",
+    },
+    display: "envelope",
+  },
 });
-
-export default LastFeatureCutV3;

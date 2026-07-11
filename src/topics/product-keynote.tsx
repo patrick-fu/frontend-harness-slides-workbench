@@ -1,14 +1,18 @@
 import React, { useEffect, useCallback } from "react";
-import type { BespokeStyleProps, StyleMetadata } from "../types";
-import SpatialSceneTrack from "./SpatialSceneTrack";
-import styles from "./01-executive-silence.module.css";
+import {
+  defineTopic,
+  type TopicMetadata,
+  type TopicStageProps,
+} from "../domain/topic";
+import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import styles from "./product-keynote.module.css";
 import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
 function useFonts() {
   useEffect(() => {
-    const id = "style-01-fonts";
+    const id = "product-keynote-fonts";
     if (document.getElementById(id)) return;
     const link = document.createElement("link");
     link.id = id;
@@ -112,11 +116,7 @@ const SCENES: Record<number, SceneContent> = {
 
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
-export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = {
-    en: "Minimal Product Keynote",
-    zh: "极简产品主题演讲",
-  };
+function buildMetadata(lang: "en" | "zh"): TopicMetadata {
   const themeMap = {
     en: "One idea, enormous, alone in emptiness — premium product reveals, opening theses, and single big claims where restraint is the luxury",
     zh: "一个想法，巨大，独处于虚空——高端产品发布、开篇主题、单一重大主张，克制即是奢华",
@@ -205,9 +205,6 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "minimal-product-keynote",
-    band: "minimal-keynote",
-    name: nameMap[lang],
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 1,
@@ -236,16 +233,21 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+const metadata = {
+  en: buildMetadata("en"),
+  zh: buildMetadata("zh"),
+};
+
 // ─── Component ──────────────────────────────────────────────────────────────
 
-export default function ExecutiveSilence({
+function TopicStage({
   scene,
   beat,
   language,
   isThumbnail,
   reducedMotion,
   onNavigate,
-}: BespokeStyleProps) {
+}: TopicStageProps) {
   useFonts();
 
   const { ref: motionContentRef } = useFLIP<HTMLDivElement>({
@@ -386,7 +388,15 @@ export default function ExecutiveSilence({
     if (isThumbnail) return null;
 
     return (
-      <nav className={styles.rulerNav} aria-label="Scene navigation">
+      <nav
+        className={styles.rulerNav}
+        aria-label="Scene navigation"
+        data-topic-navigation="true"
+        data-navigation-geometry="edge-scale"
+        data-navigation-carrier="scene-ruler"
+        data-navigation-invocation="persistent"
+        data-navigation-feedback="typographic-emphasis"
+      >
         <div className={styles.rulerTrack} />
         {[1, 2, 3, 4, 5].map((s) => {
           const isActive = s === scene;
@@ -432,3 +442,32 @@ export default function ExecutiveSilence({
     </div>
   );
 }
+
+export default defineTopic({
+  id: "product-keynote",
+  styleId: "minimal-product-keynote",
+  title: { en: "Product Keynote", zh: "产品主题" },
+  modelId: "Doubao-Seed-Evolving",
+  Stage: TopicStage,
+  metadata,
+  navigation: {
+    geometry: "edge-scale",
+    carrier: "scene-ruler",
+    invocation: "persistent",
+    feedback: "typographic-emphasis",
+  },
+  transitionScore: {
+    "1->2": "scale-fade",
+    "2->3": "scale-fade",
+    "3->4": "scale-fade",
+    "4->5": "scale-fade",
+  },
+  evidence: {
+    kind: "illustrative",
+    boundary: {
+      en: "Illustrative product presentation: the Nova narrative and outcomes are examples, not external factual claims.",
+      zh: "示例产品演示：Nova 的叙事与结果均为展示示例，并非外部事实主张。",
+    },
+    display: "envelope",
+  },
+});

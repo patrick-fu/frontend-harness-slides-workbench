@@ -1,10 +1,16 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import SwissPrecision, { getMetadata } from "./02-swiss-precision";
-import type { BespokeStyleProps } from "../types";
+import definition from "./swiss-grid";
+import type { TopicStageProps } from "../domain/topic";
+import { runTopicContract } from "../testing/topic-contract";
 
-function renderStage(props: Partial<BespokeStyleProps> = {}) {
-  const defaultProps: BespokeStyleProps = {
+runTopicContract(definition);
+
+const Stage = definition.Stage;
+const getMetadata = (language: "en" | "zh") => definition.metadata[language];
+
+function renderStage(props: Partial<TopicStageProps> = {}) {
+  const defaultProps: TopicStageProps = {
     scene: 1,
     beat: 0,
     language: "en",
@@ -25,7 +31,7 @@ function renderStage(props: Partial<BespokeStyleProps> = {}) {
         position: "relative",
       }}
     >
-      <SwissPrecision {...defaultProps} />
+      <Stage {...defaultProps} />
     </div>,
   );
 
@@ -112,9 +118,8 @@ describe("Style 02: Swiss Precision — overflow check", () => {
 describe("Style 02: Swiss Precision — metadata structure", () => {
   it("returns complete metadata", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("objective-swiss-grid");
-    expect(meta.band).toBe("minimal-keynote");
-    expect(meta.name.length).toBeGreaterThan(0);
+    expect(definition.styleId).toBe("objective-swiss-grid");
+    expect(definition.title.en.length).toBeGreaterThan(0);
     expect(meta.heroScene).toBeGreaterThanOrEqual(1);
     expect(meta.heroScene).toBeLessThanOrEqual(5);
     expect(meta.colors.bg).toBeDefined();

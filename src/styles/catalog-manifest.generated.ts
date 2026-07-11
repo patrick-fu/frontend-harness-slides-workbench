@@ -21,9 +21,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "minimal-product-keynote",
-            "band": "minimal-keynote",
-            "name": "Minimal Product Keynote",
             "theme": "One idea, enormous, alone in emptiness — premium product reveals, opening theses, and single big claims where restraint is the luxury",
             "densityLabel": "Sparse",
             "heroScene": 1,
@@ -136,12 +133,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "minimal-product-keynote",
+            "name": "Minimal Product Keynote",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "minimal-product-keynote",
-            "band": "minimal-keynote",
-            "name": "极简产品主题演讲",
             "theme": "一个想法，巨大，独处于虚空——高端产品发布、开篇主题、单一重大主张，克制即是奢华",
             "densityLabel": "稀疏",
             "heroScene": 1,
@@ -254,10 +251,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "minimal-product-keynote",
+            "name": "极简产品主题演讲",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./01-executive-silence.tsx"
+        "modulePath": "../topics/product-keynote.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "scene-ruler",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative product presentation: the Nova narrative and outcomes are examples, not external factual claims.",
+            "zh": "示例产品演示：Nova 的叙事与结果均为展示示例，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "quiet-launch",
@@ -268,9 +288,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "minimal-product-keynote",
-            "band": "minimal-keynote",
-            "name": "Minimal Product Keynote",
             "theme": "Quiet Launch Window",
             "densityLabel": "Sparse",
             "heroScene": 2,
@@ -397,12 +414,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "minimal-product-keynote",
+            "name": "Minimal Product Keynote",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "minimal-product-keynote",
-            "band": "minimal-keynote",
-            "name": "极简产品 Keynote",
             "theme": "安静发布窗口",
             "densityLabel": "稀疏",
             "heroScene": 2,
@@ -529,10 +546,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "minimal-product-keynote",
+            "name": "极简产品主题演讲",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./01-quiet-launch-window.tsx"
+        "modulePath": "../topics/quiet-launch.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "aperture-rail",
+          "invocation": "persistent",
+          "feedback": "geometry-reflow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative launch scenario: the demand signals, time window, and outcome are presentation examples, not measured product results.",
+            "zh": "示例发布场景：需求信号、时间窗口与结果均为演示示例，并非实测产品结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "wipe",
+          "3->4": "fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "presolar-grain",
@@ -543,9 +583,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "minimal-product-keynote",
-            "band": "minimal-keynote",
-            "name": "Minimal Product Keynote",
             "theme": "Presolar Grain",
             "densityLabel": "Stage Impact · Sparse",
             "heroScene": 1,
@@ -677,12 +714,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "minimal-product-keynote",
+            "name": "Minimal Product Keynote",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "minimal-product-keynote",
-            "band": "minimal-keynote",
-            "name": "极简产品主题演讲",
             "theme": "太阳前尘",
             "densityLabel": "舞台冲击 · 稀疏",
             "heroScene": 1,
@@ -814,10 +851,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "minimal-product-keynote",
+            "name": "极简产品主题演讲",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./01-presolar-grain.tsx",
+        "modulePath": "../topics/presolar-grain.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "corner-grain-field",
@@ -850,6 +890,9 @@ export const CATALOG_MANIFEST = [
             "supports": "Cosmogenic helium and neon in individual Murchison SiC grains preserve evidence of residence in interstellar space before incorporation into the Solar System."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "crossfade",
           "2->3": "iris-open",
@@ -866,9 +909,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "minimal-product-keynote",
-            "band": "minimal-keynote",
-            "name": "Minimal Product Keynote",
             "theme": "The Last Feature We Cut",
             "densityLabel": "One idea per scene",
             "heroScene": 4,
@@ -977,12 +1017,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "minimal-product-keynote",
+            "name": "Minimal Product Keynote",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "minimal-product-keynote",
-            "band": "minimal-keynote",
-            "name": "极简产品主题演讲",
             "theme": "删掉的功能",
             "densityLabel": "每屏一念",
             "heroScene": 4,
@@ -1091,10 +1131,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "minimal-product-keynote",
+            "name": "极简产品主题演讲",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./last-feature-cut.tsx",
+        "modulePath": "../topics/last-feature-cut.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "feature-cut-whisper",
@@ -1134,9 +1177,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "objective-swiss-grid",
-            "band": "minimal-keynote",
-            "name": "Objective Swiss Grid",
             "theme": "A precision instrument — every element locked to a visible mathematical grid; for data-dense decks, technical roadmaps, and comparative analyses where systematic clarity matters",
             "densityLabel": "Structured",
             "heroScene": 3,
@@ -1248,12 +1288,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "objective-swiss-grid",
+            "name": "Objective Swiss Grid",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "objective-swiss-grid",
-            "band": "minimal-keynote",
-            "name": "客观瑞士网格",
             "theme": "精密仪器——每个元素锁定于可见的数学网格；适用于数据密集型演示、技术路线图和比较分析",
             "densityLabel": "结构化",
             "heroScene": 3,
@@ -1365,10 +1405,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "objective-swiss-grid",
+            "name": "客观瑞士网格",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./02-swiss-precision.tsx"
+        "modulePath": "../topics/swiss-grid.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "grid-axis",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative quality dashboard: the metrics, thresholds, and workflow are presentation examples, not measured operational results.",
+            "zh": "示例质量仪表盘：指标、阈值与流程均为演示示例，并非实测运营结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
+        }
       },
       {
         "id": "clean-metrics",
@@ -1379,9 +1442,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "objective-swiss-grid",
-            "band": "minimal-keynote",
-            "name": "Objective Swiss Grid",
             "theme": "Metrics Without Noise",
             "densityLabel": "Dense / Precise",
             "heroScene": 1,
@@ -1538,12 +1598,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "objective-swiss-grid",
+            "name": "Objective Swiss Grid",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "objective-swiss-grid",
-            "band": "minimal-keynote",
-            "name": "客观瑞士网格",
             "theme": "无噪声指标",
             "densityLabel": "高密度 / 精准",
             "heroScene": 1,
@@ -1700,10 +1760,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "objective-swiss-grid",
+            "name": "客观瑞士网格",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./02-metrics-without-noise.tsx"
+        "modulePath": "../topics/clean-metrics.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "scene-grid-index",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative metrics board: values, comparison rows, and decision rules are presentation examples, not measured business results.",
+            "zh": "示例指标板：数值、对比行与决策规则均为演示示例，并非实测业务结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "slide-y",
+          "3->4": "fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "bridge-movement",
@@ -1714,9 +1797,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "objective-swiss-grid",
-            "band": "minimal-keynote",
-            "name": "Objective Swiss Grid",
             "theme": "Bridge Movement",
             "densityLabel": "Diagram Explainer · Precise",
             "heroScene": 3,
@@ -1840,12 +1920,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "objective-swiss-grid",
+            "name": "Objective Swiss Grid",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "objective-swiss-grid",
-            "band": "minimal-keynote",
-            "name": "客观瑞士网格",
             "theme": "桥的位移",
             "densityLabel": "图解 · 精确",
             "heroScene": 3,
@@ -1969,10 +2049,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "objective-swiss-grid",
+            "name": "客观瑞士网格",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./objective-swiss-grid-bridge-movement.tsx",
+        "modulePath": "../topics/bridge-movement.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "bearing-ruler",
@@ -2021,6 +2104,9 @@ export const CATALOG_MANIFEST = [
             "accessDate": "2026-07-10"
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "dip-to-color",
           "2->3": "linear-wipe",
@@ -2037,9 +2123,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "objective-swiss-grid",
-            "band": "minimal-keynote",
-            "name": "Objective Swiss Grid",
             "theme": "Anatomy of a Timetable",
             "densityLabel": "Data-dense",
             "heroScene": 3,
@@ -2156,12 +2239,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "objective-swiss-grid",
+            "name": "Objective Swiss Grid",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "objective-swiss-grid",
-            "band": "minimal-keynote",
-            "name": "客观瑞士网格",
             "theme": "时刻表解剖",
             "densityLabel": "高密度",
             "heroScene": 3,
@@ -2278,10 +2361,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "objective-swiss-grid",
+            "name": "客观瑞士网格",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./anatomy-timetable.tsx",
+        "modulePath": "../topics/anatomy-timetable.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "timetable-coordinate-marker",
@@ -2321,9 +2407,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "wabi-sabi-ceramic",
-            "band": "minimal-keynote",
-            "name": "Wabi-Sabi Ceramic",
             "theme": "An unglazed ceramic bowl on a worn wooden table — reflective openings, philosophical framing, and craft-led storytelling where silence is honored",
             "densityLabel": "Ultra-Sparse",
             "heroScene": 2,
@@ -2437,12 +2520,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "wabi-sabi-ceramic",
+            "name": "Wabi-Sabi Ceramic",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "wabi-sabi-ceramic",
-            "band": "minimal-keynote",
-            "name": "侘寂陶器",
             "theme": "磨损木桌上的一只素陶碗——反思性开场、哲学性叙事、工艺导向的故事讲述，静默被尊崇",
             "densityLabel": "极疏",
             "heroScene": 2,
@@ -2556,10 +2639,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "wabi-sabi-ceramic",
+            "name": "侘寂陶器",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./03-zen-void.tsx"
+        "modulePath": "../topics/ceramic-calm.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "ceramic-scene-dots",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "A reflective craft presentation: its philosophical language is a perspective, not a historical or scientific account.",
+            "zh": "一则关于工艺的反思性呈现：其中的哲学表达是一种视角，并非历史或科学论述。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
+        }
       },
       {
         "id": "repair-strategy",
@@ -2570,9 +2676,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "wabi-sabi-ceramic",
-            "band": "minimal-keynote",
-            "name": "Wabi-Sabi Ceramic",
             "theme": "Repair as Strategy",
             "densityLabel": "Sparse / contemplative",
             "heroScene": 1,
@@ -2724,12 +2827,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "wabi-sabi-ceramic",
+            "name": "Wabi-Sabi Ceramic",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "wabi-sabi-ceramic",
-            "band": "minimal-keynote",
-            "name": "侘寂陶器",
             "theme": "修复即策略",
             "densityLabel": "留白 / 低密度",
             "heroScene": 1,
@@ -2881,10 +2984,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "wabi-sabi-ceramic",
+            "name": "侘寂陶器",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./03-repair-as-strategy.tsx"
+        "modulePath": "../topics/repair-strategy.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "clay-chip-ring",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "A conceptual repair metaphor for strategy and attention, not conservation, engineering, or operational guidance.",
+            "zh": "一则用修复比喻策略与注意力的概念呈现，并非文物修复、工程或运营指引。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "scale-fade",
+          "3->4": "wipe",
+          "4->5": "fade"
+        }
       },
       {
         "id": "stone-to-soil",
@@ -2895,9 +3021,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "wabi-sabi-ceramic",
-            "band": "minimal-keynote",
-            "name": "Wabi-Sabi Ceramic",
             "theme": "Stone Becoming Soil",
             "densityLabel": "Sparse / material-led",
             "heroScene": 4,
@@ -3028,12 +3151,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "wabi-sabi-ceramic",
+            "name": "Wabi-Sabi Ceramic",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "wabi-sabi-ceramic",
-            "band": "minimal-keynote",
-            "name": "侘寂陶器",
             "theme": "石头如何成为土壤",
             "densityLabel": "留白 / 材料叙事",
             "heroScene": 4,
@@ -3164,10 +3287,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "wabi-sabi-ceramic",
+            "name": "侘寂陶器",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./wabi-sabi-ceramic-stone-to-soil.tsx",
+        "modulePath": "../topics/stone-to-soil.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "ceramic-shard-ring",
@@ -3216,6 +3342,9 @@ export const CATALOG_MANIFEST = [
             "boundary": "Basalt textures vary. The source says commonly rather than invariably vesicular and allows either aphanitic or porphyritic texture, so the drawing selects one fine-grained vesicular specimen instead of treating every basalt as identical."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "ink-spread",
           "2->3": "dolly-pull",
@@ -3232,9 +3361,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "wabi-sabi-ceramic",
-            "band": "minimal-keynote",
-            "name": "Wabi-Sabi Ceramic",
             "theme": "The Beauty of the Unfinished",
             "densityLabel": "Sparse · contemplative",
             "heroScene": 1,
@@ -3345,12 +3471,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "wabi-sabi-ceramic",
+            "name": "Wabi-Sabi Ceramic",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "wabi-sabi-ceramic",
-            "band": "minimal-keynote",
-            "name": "侘寂陶器",
             "theme": "未完成之美",
             "densityLabel": "疏朗 · 沉思",
             "heroScene": 1,
@@ -3461,10 +3587,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "wabi-sabi-ceramic",
+            "name": "侘寂陶器",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./beauty-unfinished.tsx",
+        "modulePath": "../topics/beauty-unfinished.tsx",
         "navigation": {
           "mode": "none"
         },
@@ -3501,9 +3630,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "interactive-dialogue-stage",
-            "band": "minimal-keynote",
-            "name": "Interactive Dialogue Stage",
             "theme": "A small dim theater where two voices take turns — human-AI collaboration, Q&A exchanges, and conversational storytelling where the back-and-forth itself is the point",
             "densityLabel": "Conversational",
             "heroScene": 4,
@@ -3622,12 +3748,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "interactive-dialogue-stage",
+            "name": "Interactive Dialogue Stage",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "interactive-dialogue-stage",
-            "band": "minimal-keynote",
-            "name": "互动对话舞台",
             "theme": "一座小型昏暗剧场，两个声音轮流登场——人机协作、问答交流、对话式叙事，来回本身即是意义",
             "densityLabel": "对话式",
             "heroScene": 4,
@@ -3746,10 +3872,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "interactive-dialogue-stage",
+            "name": "互动对话舞台",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./04-aurora-gradient.tsx"
+        "modulePath": "../topics/dialogue-stage.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "dialogue-color-wheel",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "A scripted dialogue illustration: its exchanges are presentation examples, not claims about a specific human–AI system.",
+            "zh": "一则编排的对话示例：其中交流用于演示，并非对某个具体人机系统的事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
+        }
       },
       {
         "id": "better-question",
@@ -3760,9 +3909,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "interactive-dialogue-stage",
-            "band": "minimal-keynote",
-            "name": "Interactive Dialogue Stage",
             "theme": "The Better Question",
             "densityLabel": "Dialogue Medium",
             "heroScene": 3,
@@ -3913,12 +4059,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "interactive-dialogue-stage",
+            "name": "Interactive Dialogue Stage",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "interactive-dialogue-stage",
-            "band": "minimal-keynote",
-            "name": "互动对话舞台",
             "theme": "更好的问题",
             "densityLabel": "对话中密度",
             "heroScene": 3,
@@ -4069,10 +4215,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "interactive-dialogue-stage",
+            "name": "互动对话舞台",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./04-better-question.tsx"
+        "modulePath": "../topics/better-question.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "spotlight-cue-rail",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "A scripted dialogue exercise about clarification, not a record of an actual conversation or a prescriptive communication method.",
+            "zh": "一则关于澄清的编排式对话练习，并非真实对话记录或规定性的沟通方法。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "glitch",
+          "3->4": "slide-x",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "vocal-folds",
@@ -4083,9 +4252,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "interactive-dialogue-stage",
-            "band": "minimal-keynote",
-            "name": "Interactive Dialogue Stage",
             "theme": "Vocal Folds: Air, Tissue, Space",
             "densityLabel": "Stage Visual",
             "heroScene": 3,
@@ -4202,12 +4368,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "interactive-dialogue-stage",
+            "name": "Interactive Dialogue Stage",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "interactive-dialogue-stage",
-            "band": "minimal-keynote",
-            "name": "互动对话舞台",
             "theme": "声带：空气、组织与空间",
             "densityLabel": "舞台视觉型",
             "heroScene": 3,
@@ -4324,10 +4490,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "interactive-dialogue-stage",
+            "name": "互动对话舞台",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./04-vocal-folds.tsx",
+        "modulePath": "../topics/vocal-folds.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "vocal-fold-stage-plan",
@@ -4364,6 +4533,9 @@ export const CATALOG_MANIFEST = [
             "supports": "Self-sustained vibration results from airflow–tissue interaction; fold vibration modulates steady airflow into a pulsating glottal source, while vocal-tract resonances filter its spectrum."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "split-merge",
           "2->3": "focus-swap",
@@ -4380,9 +4552,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "interactive-dialogue-stage",
-            "band": "minimal-keynote",
-            "name": "Interactive Dialogue Stage",
             "theme": "The Rubber Duck",
             "densityLabel": "Sparse",
             "heroScene": 4,
@@ -4498,12 +4667,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "interactive-dialogue-stage",
+            "name": "Interactive Dialogue Stage",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "interactive-dialogue-stage",
-            "band": "minimal-keynote",
-            "name": "互动对话舞台",
             "theme": "橡皮鸭",
             "densityLabel": "疏朗",
             "heroScene": 4,
@@ -4619,10 +4788,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "interactive-dialogue-stage",
+            "name": "互动对话舞台",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./rubber-duck.tsx",
+        "modulePath": "../topics/rubber-duck.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "duck-turn-stepper",
@@ -4662,9 +4834,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "cyanotype-drafting-table",
-            "band": "minimal-keynote",
-            "name": "Cyanotype Drafting Table",
             "theme": "Blueprint paper laid flat on a drafting table — deep Prussian-blue ground, chalk-white linework, pale cyan construction guides, and one scarce warm annotation for system schematics and architectural diagrams",
             "densityLabel": "Technical",
             "heroScene": 4,
@@ -4783,12 +4952,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cyanotype-drafting-table",
+            "name": "Cyanotype Drafting Table",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "cyanotype-drafting-table",
-            "band": "minimal-keynote",
-            "name": "蓝图制图台",
             "theme": "平铺在制图台上的蓝图纸张——深普鲁士蓝底色、粉笔白线条、浅蓝构造辅助线、一抹稀缺的暖色标注，适用于系统原理图和架构图",
             "densityLabel": "技术型",
             "heroScene": 4,
@@ -4907,10 +5076,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cyanotype-drafting-table",
+            "name": "蓝图制图台",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./05-blueprint.tsx"
+        "modulePath": "../topics/blueprint.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "blueprint-ruler-navigation",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative architecture blueprint: services, capacities, availability targets, and timings are a design scenario, not a description of a deployed system.",
+            "zh": "示例架构蓝图：其中服务、容量、可用性目标和时间均为设计场景，并非已部署系统的描述。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
+        }
       },
       {
         "id": "resilience-plan",
@@ -4921,9 +5113,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "cyanotype-drafting-table",
-            "band": "minimal-keynote",
-            "name": "Cyanotype Drafting Table",
             "theme": "Resilience Blueprint",
             "densityLabel": "Medium-high",
             "heroScene": 5,
@@ -5070,12 +5259,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cyanotype-drafting-table",
+            "name": "Cyanotype Drafting Table",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "cyanotype-drafting-table",
-            "band": "minimal-keynote",
-            "name": "蓝晒制图台",
             "theme": "韧性蓝图",
             "densityLabel": "中高密度",
             "heroScene": 5,
@@ -5222,10 +5411,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cyanotype-drafting-table",
+            "name": "蓝图制图台",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./05-resilience-blueprint.tsx"
+        "modulePath": "../topics/resilience-plan.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "resilience-sheet-tabs",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative resilience plan: its sheet labels, capacity margins, stress tests, and recovery actions describe a design exercise, not measured operational results.",
+            "zh": "示例韧性方案：其中图纸标签、容量余量、压力测试和恢复动作均为设计演练，并非实测运营结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "slide-x",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "comet-anatomy",
@@ -5236,9 +5448,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "cyanotype-drafting-table",
-            "band": "minimal-keynote",
-            "name": "Cyanotype Drafting Table",
             "theme": "Anatomy of a Comet",
             "densityLabel": "Visual narrative · Technical plate",
             "heroScene": 3,
@@ -5356,12 +5565,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cyanotype-drafting-table",
+            "name": "Cyanotype Drafting Table",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "cyanotype-drafting-table",
-            "band": "minimal-keynote",
-            "name": "蓝晒制图台",
             "theme": "彗星解剖图",
             "densityLabel": "视觉叙事 · 技术图版",
             "heroScene": 3,
@@ -5479,10 +5688,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cyanotype-drafting-table",
+            "name": "蓝图制图台",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./05-comet-anatomy.tsx",
+        "modulePath": "../topics/comet-anatomy.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "comet-sectional-scale",
@@ -5531,6 +5743,56 @@ export const CATALOG_MANIFEST = [
             "boundary": "MIRO measurements characterize 67P during a particular early mission interval; the internal dots and vents are schematic marks, not a reconstruction of measured three-dimensional strata."
           }
         ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "authority": "NASA Science",
+              "title": "Comet Facts",
+              "citation": "NASA Science, Solar System Exploration, “Comet Facts,” accessed 2026.",
+              "url": "https://science.nasa.gov/solar-system/comets/facts/",
+              "supports": "Supports the general anatomy used across the Topic: a frozen nucleus containing ices and dust, solar heating that produces a coma, and distinct dust and ion tails directed away from the Sun.",
+              "boundary": "NASA describes a broad comet model; individual nuclei, activity levels, compositions, and tail visibility vary, so the drawings are explanatory rather than a universal specimen."
+            },
+            {
+              "authority": "NASA Jet Propulsion Laboratory",
+              "title": "Basics of Space Flight — Chapter 1: The Solar System",
+              "citation": "NASA/JPL, Basics of Space Flight, Chapter 1, “Components of a Comet in the Vicinity of the Sun.”",
+              "url": "https://science.nasa.gov/learn/basics-of-space-flight/chapter1-3/",
+              "supports": "Supports the tail geometry: radiation pressure accelerates solid grains more slowly into a commonly curved dust tail, while solar-wind-driven ions form a straighter anti-solar tail.",
+              "boundary": "The page presents a teaching-level model and notes that cometary structures are diverse and dynamic; the two tail curves shown here are not trajectory predictions for one observation date."
+            },
+            {
+              "authority": "European Space Agency — Rosetta Science",
+              "title": "Rosetta’s target: comet 67P/Churyumov–Gerasimenko",
+              "citation": "ESA Science & Technology, 67P target fact sheet, updated mission reference.",
+              "url": "https://sci.esa.int/web/rosetta/-/14615-comet-67p",
+              "supports": "Supports the 67P reference envelope of 4.34 × 2.60 × 2.12 kilometres, its 6.45-year orbital period, and the 1.243 AU perihelion and 5.68 AU aphelion values on the final plate.",
+              "boundary": "Those measurements belong to comet 67P, not to all comets; the opening silhouette is a newly drawn reference profile and does not reproduce a Rosetta photograph."
+            },
+            {
+              "authority": "European Space Agency — Rosetta Mission",
+              "title": "Rosetta Frequently Asked Questions",
+              "citation": "ESA, Rosetta Mission FAQ, sections on comet activity, coma, and tails.",
+              "url": "https://www.esa.int/Science_Exploration/Space_Science/Rosetta/Frequently_asked_questions",
+              "supports": "Supports the causal sequence in the jet-field sheet: solar heating drives solid-to-gas sublimation, outflowing gas drags small dust grains, and the released material builds the coma and subsequent tails.",
+              "boundary": "The regular activity sequence is simplified into four beats; real outgassing is uneven, rotates with the nucleus, and can include short-lived outbursts that this Topic does not simulate."
+            },
+            {
+              "authority": "Science / Rosetta MIRO team",
+              "title": "Subsurface properties and early activity of comet 67P/Churyumov–Gerasimenko",
+              "citation": "Gulkis, S. et al. Science 347 (2015): aaa0709. doi:10.1126/science.aaa0709.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/25613896/",
+              "supports": "Supports the scientific caution in the cutaway and jet plates: heat transport and sublimation are coupled, early water outgassing was localized, and observed rates varied with nucleus rotation and shape.",
+              "boundary": "MIRO measurements characterize 67P during a particular early mission interval; the internal dots and vents are schematic marks, not a reconstruction of measured three-dimensional strata."
+            }
+          ],
+          "boundary": {
+            "en": "Educational schematic: the drawings synthesize broad comet physics with 67P-specific reference measurements; individual nuclei, activity patterns, tails, and orbit displays vary by comet and observation time.",
+            "zh": "教学示意图：图中综合了通用彗星物理与 67P 的参考测量；不同彗星及不同观测时段的彗核、活动模式、彗尾和轨道显示都会不同。"
+          },
+          "display": "stage"
+        },
         "transitionScore": {
           "1->2": "linear-wipe",
           "2->3": "push-x",
@@ -5547,9 +5809,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "cyanotype-drafting-table",
-            "band": "minimal-keynote",
-            "name": "Cyanotype Drafting Table",
             "theme": "Drawing a Bridge",
             "densityLabel": "Moderate–high",
             "heroScene": 2,
@@ -5665,12 +5924,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cyanotype-drafting-table",
+            "name": "Cyanotype Drafting Table",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "cyanotype-drafting-table",
-            "band": "minimal-keynote",
-            "name": "蓝图制图台",
             "theme": "桥的设计",
             "densityLabel": "中高密度",
             "heroScene": 2,
@@ -5786,10 +6045,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cyanotype-drafting-table",
+            "name": "蓝图制图台",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./drawing-a-bridge.tsx",
+        "modulePath": "../topics/drawing-a-bridge.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "bridge-revision-index",
@@ -5829,9 +6091,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "kinetic-type-punchline",
-            "band": "minimal-keynote",
-            "name": "Kinetic Type Punchline",
             "theme": "A loud graphic poster where words are the image — massive stacked phrases hit like a mic-drop, delivering one punch the audience cannot miss",
             "densityLabel": "Impact",
             "heroScene": 2,
@@ -5938,12 +6197,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kinetic-type-punchline",
+            "name": "Kinetic Type Punchline",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "kinetic-type-punchline",
-            "band": "minimal-keynote",
-            "name": "动感字体金句",
             "theme": "一张响亮的图形海报，文字即是图像——巨大的堆叠短语如扔麦般击中观众，传递一个无法忽视的重击",
             "densityLabel": "冲击",
             "heroScene": 2,
@@ -6050,10 +6309,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kinetic-type-punchline",
+            "name": "动感字体金句",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./06-monochrome-study.tsx"
+        "modulePath": "../topics/type-poster.tsx",
+        "navigation": {
+          "geometry": "ambient",
+          "carrier": "type-poster-dot-row",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative typography study: its phrases, rules, and outcomes are poster copy, not external factual claims.",
+            "zh": "示例字体研究：其中短语、规则和结果均为海报文案，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
+        }
       },
       {
         "id": "one-constraint",
@@ -6064,9 +6346,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "kinetic-type-punchline",
-            "band": "minimal-keynote",
-            "name": "Kinetic Type Punchline",
             "theme": "One Constraint Wins",
             "densityLabel": "Poster Punch",
             "heroScene": 4,
@@ -6217,12 +6496,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kinetic-type-punchline",
+            "name": "Kinetic Type Punchline",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "kinetic-type-punchline",
-            "band": "minimal-keynote",
-            "name": "动势字拳",
             "theme": "一个约束赢",
             "densityLabel": "海报冲击",
             "heroScene": 4,
@@ -6373,10 +6652,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kinetic-type-punchline",
+            "name": "动感字体金句",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./06-one-constraint-wins.tsx"
+        "modulePath": "../topics/one-constraint.tsx",
+        "navigation": {
+          "geometry": "card-miniature",
+          "carrier": "constraint-beat-stamps",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative decision scenario: options, trade-offs, and punchlines are presentation devices, not measured findings.",
+            "zh": "示例决策场景：其中选项、权衡和金句均为演示手法，并非实测发现。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "slide-y",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "before-a",
@@ -6387,9 +6689,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "kinetic-type-punchline",
-            "band": "minimal-keynote",
-            "name": "Kinetic Type Punchline",
             "theme": "Before A Was A",
             "densityLabel": "Stage Impact",
             "heroScene": 4,
@@ -6511,12 +6810,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kinetic-type-punchline",
+            "name": "Kinetic Type Punchline",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "kinetic-type-punchline",
-            "band": "minimal-keynote",
-            "name": "动势字拳",
             "theme": "A 还不是 A 的时候",
             "densityLabel": "舞台冲击",
             "heroScene": 4,
@@ -6638,10 +6937,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kinetic-type-punchline",
+            "name": "动感字体金句",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./06-before-a.tsx",
+        "modulePath": "../topics/before-a.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "letterform-lineage-index",
@@ -6691,6 +6993,57 @@ export const CATALOG_MANIFEST = [
             "boundary": "Comparative charts compress regional and chronological variation; the slide redraws a teaching schematic and does not present it as a facsimile of one inscription."
           }
         ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "authority": "The British Museum",
+              "title": "Sandstone sphinx with Proto-Sinaitic signs (EA41748)",
+              "url": "https://www.britishmuseum.org/collection/object/Y_EA41748",
+              "supports": "The object is dated to about 1800 BCE and carries Proto-Sinaitic signs; the museum describes alphabetic, hieroglyph-derived, West Semitic interpretation as the basis of attempted decipherment.",
+              "boundary": "The object does not preserve a continuous aleph-to-A sequence and does not by itself prove that a specific head-shaped outline became modern A."
+            },
+            {
+              "authority": "Unicode Consortium",
+              "title": "The Unicode Standard, Chapter 10.3: Phoenician",
+              "url": "https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-10/",
+              "supports": "An older form of the Phoenician alphabet is described as a forerunner of Greek, Old Italic, and Latin among other scripts.",
+              "boundary": "A character encoding standard identifies script relationships and repertoire; its reference glyphs are not prescriptive inscription facsimiles."
+            },
+            {
+              "authority": "Unicode Consortium",
+              "title": "Unicode Technical Note 40: Old Italic Glyph Variation",
+              "url": "https://www.unicode.org/notes/tn40/old-italic-glyph-variation.pdf",
+              "supports": "The technical note identifies Euboean Greek in Italy as the ultimate source for ancient Italian alphabets and documents substantial local glyph variation.",
+              "boundary": "Unicode unifies several ancient Italian traditions in one block, so the displayed U+10300 outline is a comparison sample rather than a universal historical form."
+            },
+            {
+              "authority": "The Metropolitan Museum of Art",
+              "title": "Assyria to Iberia at the Dawn of the Classical Age",
+              "url": "https://resources.metmuseum.org/resources/metpublications/pdf/Assyria_to_Iberia_at_the_Dawn_of_the_Classical_Age.pdf",
+              "supports": "The museum publication describes Greek adoption of Phoenician letters and shows the exchange occurring across multiple Mediterranean locales.",
+              "boundary": "The publication does not establish one single transfer location or a smooth, uniform sequence of letter shapes."
+            },
+            {
+              "authority": "Cambridge University Press",
+              "title": "Greek Alphabetic Writing, The Cambridge Ancient History 20b",
+              "url": "https://www.cambridge.org/core/books/abs/cambridge-ancient-history/greek-alphabetic-writing/E26EF87BAEDA11D809E7F88751C1BE43",
+              "supports": "The chapter summary says the order, names, and shapes demonstrate that Greek alpha through tau derived from a Semitic alphabet.",
+              "boundary": "The place, date, and pathway of adoption remain debated; the slide therefore labels forms as sourced samples rather than animation frames."
+            },
+            {
+              "citation": "John F. Healey, The Early Alphabet, Reading the Past 9 (British Museum Press / University of California Press, 1990).",
+              "url": "https://books.google.com/books/about/The_Early_Alphabet.html?id=0_KnI588AnkC",
+              "supports": "The scholarly synthesis supplies the comparative early-alphabet and Proto-Sinaitic context behind the slide's explicitly labeled pictorial and acrophonic reconstruction.",
+              "boundary": "Comparative charts compress regional and chronological variation; the slide redraws a teaching schematic and does not present it as a facsimile of one inscription."
+            }
+          ],
+          "boundary": {
+            "en": "Historical letterforms are comparative teaching samples, not a single continuous or uniform aleph-to-A lineage; dates, shapes, locations, and paths of adoption vary across inscriptions and traditions.",
+            "zh": "历史字形为比较教学样本，并非一条连续或统一的从 aleph 到 A 的演变谱系；不同铭文和传统之间的年代、形状、地点与传播路径均有差异。"
+          },
+          "display": "envelope"
+        },
         "transitionScore": {
           "1->2": "afterimage",
           "2->3": "zoom-through",
@@ -6707,9 +7060,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "kinetic-type-punchline",
-            "band": "minimal-keynote",
-            "name": "Kinetic Type Punchline",
             "theme": "Ship It",
             "densityLabel": "Poster punch",
             "heroScene": 5,
@@ -6812,12 +7162,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kinetic-type-punchline",
+            "name": "Kinetic Type Punchline",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "kinetic-type-punchline",
-            "band": "minimal-keynote",
-            "name": "动感字体金句",
             "theme": "发布",
             "densityLabel": "海报重击",
             "heroScene": 5,
@@ -6920,10 +7270,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kinetic-type-punchline",
+            "name": "动感字体金句",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./ship-it.tsx",
+        "modulePath": "../topics/ship-it.tsx",
         "navigation": {
           "mode": "none"
         },
@@ -6960,9 +7313,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "sketch-board-emoji",
-            "band": "minimal-keynote",
-            "name": "Sketch Board Emoji",
             "theme": "A warm in-progress workshop whiteboard — hand-drawn marks, sticky notes, and emoji actors making collaboration feel human and unfinished in the best way",
             "densityLabel": "Workshop",
             "heroScene": 3,
@@ -7069,12 +7419,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "sketch-board-emoji",
+            "name": "Sketch Board Emoji",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "sketch-board-emoji",
-            "band": "minimal-keynote",
-            "name": "草图白板表情",
             "theme": "一块温暖的进行中工作坊白板——手绘标记、便利贴和表情角色，让协作以最好的方式感觉人性化和未完成",
             "densityLabel": "工作坊",
             "heroScene": 3,
@@ -7181,10 +7531,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "sketch-board-emoji",
+            "name": "草图白板表情",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./07-quiet-confidence.tsx"
+        "modulePath": "../topics/workshop-board.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "workshop-scene-ticks",
+          "invocation": "persistent",
+          "feedback": "mechanical-displacement"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative workshop scenario: the participants, session figures, and outcomes are presentation examples rather than externally measured results.",
+            "zh": "示例工作坊场景：参与者、会议数字与产出均为演示内容，并非外部实测结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "human-loop",
@@ -7195,9 +7568,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "sketch-board-emoji",
-            "band": "minimal-keynote",
-            "name": "Sketch Board Emoji",
             "theme": "Human Loop Retrofit",
             "densityLabel": "Workshop Medium",
             "heroScene": 3,
@@ -7356,12 +7726,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "sketch-board-emoji",
+            "name": "Sketch Board Emoji",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "sketch-board-emoji",
-            "band": "minimal-keynote",
-            "name": "手绘表情白板",
             "theme": "人机回路改造",
             "densityLabel": "工作坊中密度",
             "heroScene": 3,
@@ -7520,10 +7890,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "sketch-board-emoji",
+            "name": "草图白板表情",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./07-human-loop-retrofit.tsx"
+        "modulePath": "../topics/human-loop.tsx",
+        "navigation": {
+          "geometry": "card-miniature",
+          "carrier": "human-loop-sticker-row",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative human-and-model workflow: the actors, handoffs, and operating patterns are presentation examples, not observations of a specific system.",
+            "zh": "示例人机工作流：其中角色、交接和运行模式均为演示内容，并非对特定系统的观察。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "scale-fade",
+          "3->4": "wipe",
+          "4->5": "fade"
+        }
       },
       {
         "id": "stadium-wave",
@@ -7534,9 +7927,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "sketch-board-emoji",
-            "band": "minimal-keynote",
-            "name": "Sketch Board Emoji",
             "theme": "Stadium Wave",
             "densityLabel": "Visual Narrative",
             "heroScene": 4,
@@ -7684,12 +8074,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "sketch-board-emoji",
+            "name": "Sketch Board Emoji",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "sketch-board-emoji",
-            "band": "minimal-keynote",
-            "name": "手绘表情白板",
             "theme": "看台人浪",
             "densityLabel": "视觉叙事",
             "heroScene": 4,
@@ -7837,10 +8227,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "sketch-board-emoji",
+            "name": "草图白板表情",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./07-stadium-wave.tsx",
+        "modulePath": "../topics/stadium-wave.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "stadium-seating-array",
@@ -7867,6 +8260,9 @@ export const CATALOG_MANIFEST = [
             "supports": "A small group launches the wave; neighboring groups repeat the stand–raise–sit action with a short delay, while collective interactions select a propagation direction."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "push-x",
           "2->3": "card-carousel",
@@ -7883,9 +8279,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "sketch-board-emoji",
-            "band": "minimal-keynote",
-            "name": "Sketch Board Emoji",
             "theme": "How We Named It",
             "densityLabel": "loose · hand-arranged",
             "heroScene": 2,
@@ -7990,12 +8383,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "sketch-board-emoji",
+            "name": "Sketch Board Emoji",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "sketch-board-emoji",
-            "band": "minimal-keynote",
-            "name": "草图白板表情",
             "theme": "起名字",
             "densityLabel": "松散 · 手工排布",
             "heroScene": 2,
@@ -8100,10 +8493,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "sketch-board-emoji",
+            "name": "草图白板表情",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./how-we-named-it.tsx",
+        "modulePath": "../topics/how-we-named-it.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "naming-connector-trail",
@@ -8143,9 +8539,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "spotlight-quote-poster",
-            "band": "minimal-keynote",
-            "name": "Spotlight Quote Poster",
             "theme": "A darkened stage where a single spotlight falls on a few powerful words - held, reflective, meant to be sat with",
             "densityLabel": "Sparse",
             "heroScene": 4,
@@ -8264,12 +8657,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "spotlight-quote-poster",
+            "name": "Spotlight Quote Poster",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "spotlight-quote-poster",
-            "band": "minimal-keynote",
-            "name": "聚光引言海报",
             "theme": "黑暗舞台上一束聚光照在几句有力的话上——凝固、沉思、值得品味",
             "densityLabel": "留白",
             "heroScene": 4,
@@ -8388,10 +8781,51 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "spotlight-quote-poster",
+            "name": "聚光引言海报",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./08-terminal-glow.tsx"
+        "modulePath": "../topics/quote-poster.tsx",
+        "navigation": {
+          "geometry": "ambient",
+          "carrier": "spotlight-quiet-dots",
+          "invocation": "persistent",
+          "feedback": "mechanical-displacement"
+        },
+        "sources": [
+          {
+            "authority": "Wikiquote",
+            "title": "Cesare Pavese — This Business of Living",
+            "citation": "Cesare Pavese, This Business of Living (1952), diary entry dated 14 July 1944.",
+            "url": "https://en.wikiquote.org/wiki/Cesare_Pavese#This_Business_of_Living_(1952)",
+            "supports": "Records the quotation “We do not remember days. We remember moments.” and attributes it to Cesare Pavese's 14 July 1944 diary entry."
+          }
+        ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "authority": "Wikiquote",
+              "title": "Cesare Pavese — This Business of Living",
+              "citation": "Cesare Pavese, This Business of Living (1952), diary entry dated 14 July 1944.",
+              "url": "https://en.wikiquote.org/wiki/Cesare_Pavese#This_Business_of_Living_(1952)",
+              "supports": "Records the quotation “We do not remember days. We remember moments.” and attributes it to Cesare Pavese's 14 July 1944 diary entry."
+            }
+          ],
+          "boundary": {
+            "en": "Illustrative spotlight poster: the mission, philosophy, and closing lines are authored presentation copy; the Cesare Pavese quotation and attribution are source-backed.",
+            "zh": "示例聚光海报：使命、理念与结语均为创作的演示文案；切萨雷·帕韦塞的引言及署名有来源支持。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "slide-y"
+        }
       },
       {
         "id": "kept-sentence",
@@ -8402,9 +8836,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "spotlight-quote-poster",
-            "band": "minimal-keynote",
-            "name": "Spotlight Quote Poster",
             "theme": "The Sentence We Keep",
             "densityLabel": "Sparse Pause",
             "heroScene": 5,
@@ -8553,12 +8984,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "spotlight-quote-poster",
+            "name": "Spotlight Quote Poster",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "spotlight-quote-poster",
-            "band": "minimal-keynote",
-            "name": "聚光语录海报",
             "theme": "留下的那句话",
             "densityLabel": "稀疏停顿",
             "heroScene": 5,
@@ -8707,10 +9138,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "spotlight-quote-poster",
+            "name": "聚光引言海报",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./08-sentence-we-keep.tsx"
+        "modulePath": "../topics/kept-sentence.tsx",
+        "navigation": {
+          "geometry": "ambient",
+          "carrier": "sentence-footlight-ticks",
+          "invocation": "persistent",
+          "feedback": "mechanical-displacement"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative editorial scenario: the sentence, evidence cards, working wall, and editing outcome are authored presentation examples rather than external evidence.",
+            "zh": "示例编辑场景：其中句子、证据卡片、工作墙与删改结果均为创作的演示内容，并非外部证据。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "scale-fade",
+          "3->4": "fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "freedive",
@@ -8721,9 +9175,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "spotlight-quote-poster",
-            "band": "minimal-keynote",
-            "name": "Spotlight Quote Poster",
             "theme": "Freedive: One Breath, Two Pressures",
             "densityLabel": "Sparse Focus",
             "heroScene": 3,
@@ -8838,12 +9289,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "spotlight-quote-poster",
+            "name": "Spotlight Quote Poster",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "spotlight-quote-poster",
-            "band": "minimal-keynote",
-            "name": "聚光引言海报",
             "theme": "自由潜水：一口气，两种压力",
             "densityLabel": "稀疏聚焦",
             "heroScene": 3,
@@ -8958,10 +9409,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "spotlight-quote-poster",
+            "name": "聚光引言海报",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./spotlight-quote-poster-freedive.tsx",
+        "modulePath": "../topics/freedive.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "footlight-notches",
@@ -9017,6 +9471,63 @@ export const CATALOG_MANIFEST = [
             ]
           }
         ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "id": "dan-dive-reflex-2018",
+              "authority": "Divers Alert Network (DAN)",
+              "title": "How the Dive Reflex Protects the Brain and Heart",
+              "citation": "Brett K. How the Dive Reflex Protects the Brain and Heart. Alert Diver / Divers Alert Network. August 1, 2018.",
+              "url": "https://dan.org/alert-diver/article/how-the-dive-reflex-protects-the-brain-and-heart/",
+              "supports": "During a breath hold underwater, oxygen in the blood is used without being replaced by breathing; DAN describes slower heart rate and peripheral vasoconstriction as responses that prioritize blood delivery to the brain and heart.",
+              "claimIds": [
+                "oxygen-is-not-replaced-during-a-breath-hold",
+                "dive-response-prioritizes-oxygen-delivery"
+              ]
+            },
+            {
+              "id": "foster-sheel-2005",
+              "authority": "Scandinavian Journal of Medicine & Science in Sports / PubMed",
+              "title": "The human diving response, its function, and its control",
+              "citation": "Foster GE, Sheel AW. The human diving response, its function, and its control. Scand J Med Sci Sports. 2005;15(1):3-12. PMID: 15679566. doi:10.1111/j.1600-0838.2005.00440.x.",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/15679566/",
+              "supports": "This peer-reviewed review identifies bradycardia and vasoconstriction among responses associated with apnea and the diving response, and frames its oxygen-conserving role cautiously as likely rather than guaranteed.",
+              "claimIds": [
+                "dive-response-prioritizes-oxygen-delivery"
+              ]
+            },
+            {
+              "id": "msd-barotrauma-2025",
+              "authority": "MSD Manual Professional Edition / Duke University Medical Center / UCLA",
+              "title": "Overview of Barotrauma",
+              "citation": "Moon RE. Overview of Barotrauma. MSD Manual Professional Edition. Full review June 2025; peer reviewed by Birnbaumer DM, David Geffen School of Medicine at UCLA.",
+              "url": "https://www.msdmanuals.com/professional/injuries-poisoning/injury-during-diving-or-work-in-compressed-air/overview-of-barotrauma",
+              "supports": "The medical reference explains that higher ambient pressure during descent compresses gas in air-containing spaces, lower pressure during ascent expands it, and pressure-related gas-volume changes can injure tissue (barotrauma).",
+              "claimIds": [
+                "ambient-pressure-changes-gas-volume",
+                "pressure-related-gas-volume-changes-can-injure"
+              ]
+            },
+            {
+              "id": "dan-hypoxia-breath-hold-2016",
+              "authority": "Divers Alert Network (DAN)",
+              "title": "Hypoxia in Breath-Hold Diving",
+              "citation": "McCafferty M. Hypoxia in Breath-Hold Diving. Alert Diver / Divers Alert Network. May 1, 2016.",
+              "url": "https://dan.org/alert-diver/article/hypoxia-in-breath-hold-diving/",
+              "supports": "DAN notes that physical activity during a breath hold increases oxygen consumption and that oxygen can fall too low to maintain consciousness, describing hypoxia as a genuine hazard rather than a performance milestone.",
+              "claimIds": [
+                "oxygen-is-not-replaced-during-a-breath-hold",
+                "low-oxygen-can-impair-consciousness"
+              ]
+            }
+          ],
+          "boundary": {
+            "en": "Physiology explainer only: this Topic is not training, medical, equalization, or safe-zone advice.",
+            "zh": "仅作生理机制说明：本 Topic 不构成训练、医疗、平压或安全区域建议。"
+          },
+          "display": "stage"
+        },
         "transitionScore": {
           "1->2": "iris-open",
           "2->3": "linear-wipe",
@@ -9033,9 +9544,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "spotlight-quote-poster",
-            "band": "minimal-keynote",
-            "name": "Spotlight Quote Poster",
             "theme": "On Quitting Well",
             "densityLabel": "One statement, held",
             "heroScene": 2,
@@ -9150,12 +9658,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "spotlight-quote-poster",
+            "name": "Spotlight Quote Poster",
+            "band": "minimal-keynote"
           },
           "zh": {
-            "id": "spotlight-quote-poster",
-            "band": "minimal-keynote",
-            "name": "聚光引言海报",
             "theme": "好好离开",
             "densityLabel": "一句话，静置",
             "heroScene": 2,
@@ -9270,10 +9778,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "spotlight-quote-poster",
+            "name": "聚光引言海报",
+            "band": "minimal-keynote"
           }
         },
-        "modulePath": "./on-quitting-well.tsx",
+        "modulePath": "../topics/on-quitting-well.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "quitting-folio-glow",

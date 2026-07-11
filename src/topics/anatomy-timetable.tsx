@@ -1,15 +1,15 @@
-import type { BespokeStyleProps, StyleMetadata } from "../types";
-import { defineStyleTopic } from "./topic";
-import { curatedNavigationAttributes } from "./curated-topic-contract";
-import SpatialSceneTrack from "./SpatialSceneTrack";
-import type {
-  BeatLayoutMode,
-  SceneTransitionMap,
-} from "./SpatialSceneTrack";
+import {
+  defineTopic,
+  type TopicMetadata,
+  type TopicStageProps,
+  type TopicTransitionScore,
+} from "../domain/topic";
+import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import type { BeatLayoutMode } from "../styles/SpatialSceneTrack";
 import styles from "./anatomy-timetable.module.css";
 
 /* ────────────────────────────────────────────────────────────────────────
-   02 · Objective Swiss Grid · v3 — "Anatomy of a Timetable"
+   Objective Swiss Grid — "Anatomy of a Timetable"
    Achromatic paper/ink system. Strict visible column grid, hairline rules.
    EXACTLY ONE signal hue (vermilion) for functional wayfinding only:
    the "now" marker, the delayed exception row, and the nav datum.
@@ -29,12 +29,12 @@ const ROW_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8];
 const BEAT_COUNTS: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 2, 5: 1 };
 
 // Per-edge transitions (exact from assignment); base is hard-cut.
-const TRANSITIONS: SceneTransitionMap = {
+const TRANSITIONS = {
   "1->2": "hard-cut",
   "2->3": "slide-y",
   "3->4": "hard-cut",
   "4->5": "slide-y",
-};
+} as const satisfies TopicTransitionScore;
 
 // Reserved layout for every multi-beat scene.
 const BEAT_LAYOUT_MODES: Partial<Record<number, BeatLayoutMode>> = {
@@ -210,7 +210,7 @@ function Scaffold({ play, dim }: { play: boolean; dim: boolean }) {
   );
 }
 
-/* ── Navigation prototype (N1 Bespoke metaphor):
+/* ── Navigation metaphor:
    a grid-coordinate "you are here" datum — column-letter × row-number,
    e.g. C·3 — rendered in the single signal hue. Null in thumbnails. ── */
 function GridDatumNav({
@@ -231,9 +231,13 @@ function GridDatumNav({
   const row = beat + 1;
   return (
     <div
-      {...curatedNavigationAttributes("objective-swiss-grid", "anatomy-timetable")}
       className={styles.nav}
       aria-label={COPY[language].navHere}
+      data-topic-navigation="true"
+      data-navigation-geometry="spatial-node"
+      data-navigation-carrier="timetable-coordinate-marker"
+      data-navigation-invocation="persistent"
+      data-navigation-feedback="history-trail"
     >
       <span className={styles.navLabel}>{COPY[language].navHere}</span>
       <span className={styles.navCoord}>
@@ -496,14 +500,14 @@ function SceneBody({
 }
 
 /* ── Root component ── */
-function ObjectiveSwissGridV3({
+function TopicStage({
   scene,
   beat,
   language,
   isThumbnail,
   reducedMotion,
   onNavigate,
-}: BespokeStyleProps) {
+}: TopicStageProps) {
   const still = reducedMotion || isThumbnail;
   const lang: Lang = language === "zh" ? "zh" : "en";
 
@@ -551,11 +555,8 @@ function ObjectiveSwissGridV3({
 }
 
 /* ── Metadata (structurally aligned across en/zh) ── */
-export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const en: StyleMetadata = {
-    id: STYLE_ID,
-    band: "minimal-keynote",
-    name: "Objective Swiss Grid",
+function buildMetadata(lang: "en" | "zh"): TopicMetadata {
+  const en: TopicMetadata = {
     theme: "Anatomy of a Timetable",
     densityLabel: "Data-dense",
     heroScene: 3,
@@ -665,10 +666,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
     ],
   };
 
-  const zh: StyleMetadata = {
-    id: STYLE_ID,
-    band: "minimal-keynote",
-    name: "客观瑞士网格",
+  const zh: TopicMetadata = {
     theme: "时刻表解剖",
     densityLabel: "高密度",
     heroScene: 3,
@@ -781,12 +779,31 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   return lang === "zh" ? zh : en;
 }
 
-export const objectiveSwissGridTopic = defineStyleTopic({
-  id: "anatomy-timetable",
-  topic: { en: "Anatomy of a Timetable", zh: "时刻表解剖" },
-  model: MODEL,
-  component: ObjectiveSwissGridV3,
-  getMetadata,
-});
+const metadata = {
+  en: buildMetadata("en"),
+  zh: buildMetadata("zh"),
+};
 
-export default ObjectiveSwissGridV3;
+export default defineTopic({
+  id: "anatomy-timetable",
+  styleId: STYLE_ID,
+  title: { en: "Anatomy of a Timetable", zh: "时刻表解剖" },
+  modelId: MODEL,
+  Stage: TopicStage,
+  metadata,
+  navigation: {
+    geometry: "spatial-node",
+    carrier: "timetable-coordinate-marker",
+    invocation: "persistent",
+    feedback: "history-trail",
+  },
+  transitionScore: TRANSITIONS,
+  evidence: {
+    kind: "illustrative",
+    boundary: {
+      en: "Illustrative timetable study: services, times, and delay status are presentation examples, not live transit data.",
+      zh: "示例时刻表研究：车次、时间与晚点状态均为演示示例，并非实时交通数据。",
+    },
+    display: "envelope",
+  },
+});

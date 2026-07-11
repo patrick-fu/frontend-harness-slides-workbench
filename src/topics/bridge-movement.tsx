@@ -1,23 +1,23 @@
 import { useCallback, useEffect, useRef } from "react";
 import type React from "react";
 import type {
-  BespokeStyleProps,
-  StyleMetadata,
-  TopicSource,
+  TopicMetadata,
+  TopicStageProps,
   TopicTransitionScore,
-} from "../types";
+} from "../domain/topic";
+import { defineTopic } from "../domain/topic";
+import type { Source } from "../domain/evidence";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "./SpatialSceneTrack";
-import { defineStyleTopic } from "./topic";
-import styles from "./objective-swiss-grid-bridge-movement.module.css";
+} from "../styles/SpatialSceneTrack";
+import styles from "./bridge-movement.module.css";
 
 type Language = "en" | "zh";
 type SceneId = 1 | 2 | 3 | 4 | 5;
 type SourceId = "S1" | "S2" | "S3" | "S4";
 
-interface BridgeSource extends TopicSource {
+interface BridgeSource extends Source {
   id: SourceId;
   authority: string;
   title: string;
@@ -1243,11 +1243,8 @@ function BearingRulerNavigation({
   );
 }
 
-export function getMetadata(language: Language): StyleMetadata {
+function buildMetadata(language: Language): TopicMetadata {
   return {
-    id: "objective-swiss-grid",
-    band: "minimal-keynote",
-    name: language === "zh" ? "客观瑞士网格" : "Objective Swiss Grid",
     theme: language === "zh" ? "桥的位移" : "Bridge Movement",
     densityLabel: language === "zh" ? "图解 · 精确" : "Diagram Explainer · Precise",
     heroScene: 3,
@@ -1287,14 +1284,19 @@ export function getMetadata(language: Language): StyleMetadata {
   };
 }
 
-export default function BridgeMovement({
+const metadata = {
+  en: buildMetadata("en"),
+  zh: buildMetadata("zh"),
+};
+
+function TopicStage({
   scene,
   beat,
   language,
   isThumbnail,
   reducedMotion,
   onNavigate,
-}: BespokeStyleProps) {
+}: TopicStageProps) {
   const activeScene = clampScene(scene);
   const motionOff = reducedMotion || isThumbnail;
   const activeBeat = clampBeat(activeScene, beat, isThumbnail);
@@ -1345,21 +1347,25 @@ export default function BridgeMovement({
   );
 }
 
-export const bridgeMovementTopic = defineStyleTopic({
+export default defineTopic({
   id: "bridge-movement",
-  topic: {
+  styleId: "objective-swiss-grid",
+  title: {
     en: "Bridge Movement",
     zh: "桥的位移",
   },
-  model: "GPT 5.6 Sol",
-  component: BridgeMovement,
-  getMetadata,
+  modelId: "GPT 5.6 Sol",
+  Stage: TopicStage,
+  metadata,
   navigation: {
     geometry: "edge-scale",
     carrier: "bearing-ruler",
     invocation: "persistent",
     feedback: "history-trail",
   },
-  sources: BRIDGE_MOVEMENT_SOURCES,
   transitionScore: BRIDGE_MOVEMENT_TRANSITION_SCORE,
+  evidence: {
+    kind: "facts",
+    sources: BRIDGE_MOVEMENT_SOURCES,
+  },
 });

@@ -76,6 +76,11 @@ const semanticStyleSources = import.meta.glob(
   },
 ) as Record<string, string>;
 const styleSources = { ...numberedStyleSources, ...semanticStyleSources };
+const migratedTopicIds = new Set(
+  Object.keys(import.meta.glob("../topics/*.tsx")).map((path) =>
+    path.slice(path.lastIndexOf("/") + 1, -".tsx".length),
+  ),
+);
 
 const SCENE_TRANSITION_KINDS = [
   ...CANONICAL_SCENE_TRANSITION_KINDS,
@@ -468,6 +473,9 @@ describe("style topic protocol", () => {
     const invocationFeedbackPairsByTopicSet = new Map<string, Set<string>>();
 
     for (const { styleId, topic } of coordinatedTopics) {
+      // Canonical Topics validate navigation through runTopicContract. This
+      // legacy Topic-Set uniqueness rule remains only for unmigrated modules.
+      if (migratedTopicIds.has(topic.id)) continue;
       const profile = topic.navigation!;
       if (!hasVisibleTopicNavigation(profile)) continue;
       const topicSet = topic.topicSet ?? "legacy-unscoped";

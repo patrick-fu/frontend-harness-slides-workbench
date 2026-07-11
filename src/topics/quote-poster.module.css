@@ -1,0 +1,501 @@
+/* ─── Style 08: Spotlight Quote Poster ───────────────────────────────────
+   Darkened stage. Single soft spotlight. Luminous literary serif text.
+   One statement held in dominant darkness. Slow atmospheric motion.
+   All sizing in cqw/cqh. No px/vw/vh.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--quote-poster-bg, #121212);
+  color: var(--quote-poster-ink, #f0ebe3);
+  --quote-poster-accent: #c4a882;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* ── Stage vignette ─────────────────────────────────────────────────────── */
+
+.stageVignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse at 50% 48%,
+    transparent 30%,
+    rgba(0, 0, 0, 0.35) 70%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+/* ── Transition track ──────────────────────────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 6cqh 10cqw;
+  z-index: 1;
+}
+
+.animateSceneEnter {
+  animation: sceneEnter 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes sceneEnter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Scene-to-scene transition: slow light swell ───────────────────────── */
+
+.exitAnim {
+  animation: lightFadeOut 0.7s ease-in forwards;
+  z-index: 2;
+}
+
+@keyframes lightFadeOut {
+  from {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  to {
+    opacity: 0;
+    filter: brightness(0.3);
+  }
+}
+
+.enterAnim {
+  animation: lightFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both;
+  z-index: 1;
+}
+
+@keyframes lightFadeIn {
+  from {
+    opacity: 0;
+    filter: brightness(1.4);
+  }
+  to {
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+/* ── Spotlight pool ────────────────────────────────────────────────────── */
+
+.spotlightPool {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70cqw;
+  height: 65cqh;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(240, 235, 227, 0.06) 0%,
+    rgba(240, 235, 227, 0.03) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: spotlightSwell 3s ease-in-out infinite alternate;
+}
+
+.spotlightQuote {
+  width: 75cqw;
+  height: 70cqh;
+}
+
+.spotlightClosing {
+  width: 65cqw;
+  height: 55cqh;
+}
+
+@keyframes spotlightSwell {
+  0% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+}
+
+/* ── Scene 1: Opening Title ────────────────────────────────────────────── */
+
+.scene1 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.seriesLabel {
+  font-family: "Inter", sans-serif;
+  font-size: 1.1cqw;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--quote-poster-ink, #f0ebe3);
+  opacity: 0.4;
+  margin-bottom: 5cqh;
+  animation: labelFade 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes labelFade {
+  from { opacity: 0; letter-spacing: 0.5em; }
+  to { opacity: 0.4; letter-spacing: 0.35em; }
+}
+
+.labelVisible {
+  opacity: 0.4;
+}
+
+.heroTitle {
+  font-family: "Playfair Display", "Georgia", serif;
+  font-size: 9cqw;
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0;
+  color: var(--quote-poster-ink, #f0ebe3);
+  animation: titleRise 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+}
+
+.heroTitle em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+@keyframes titleRise {
+  from {
+    opacity: 0;
+    transform: translateY(2cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.heroSubtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 2cqw;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--quote-poster-ink, #f0ebe3);
+  opacity: 0.5;
+  margin: 4cqh 0 0 0;
+  max-width: 45cqw;
+  animation: subtitleFade 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s both;
+}
+
+@keyframes subtitleFade {
+  from { opacity: 0; }
+  to { opacity: 0.5; }
+}
+
+/* ── Scene 2 & 3: Mission / Philosophy Statement ──────────────────────── */
+
+.sceneStatement {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.chapterLabel {
+  font-family: "Inter", sans-serif;
+  font-size: 1cqw;
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--quote-poster-accent, #c4a882);
+  opacity: 0.6;
+  margin-bottom: 5cqh;
+  animation: chapterFade 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes chapterFade {
+  from { opacity: 0; }
+  to { opacity: 0.6; }
+}
+
+.statementBlock {
+  margin: 0;
+  padding: 0;
+  max-width: 65cqw;
+  animation: statementRise 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
+}
+
+@keyframes statementRise {
+  from {
+    opacity: 0;
+    transform: translateY(1.5cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.statementText {
+  font-family: "Playfair Display", "Georgia", serif;
+  font-size: 5.5cqw;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--quote-poster-ink, #f0ebe3);
+  margin: 0;
+}
+
+.statementEm {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--quote-poster-ink, #f0ebe3);
+  opacity: 0.85;
+}
+
+/* ── Scene 4: Hero Quote ───────────────────────────────────────────────── */
+
+.sceneQuote {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.quoteBlock {
+  margin: 0;
+  padding: 0;
+  max-width: 70cqw;
+}
+
+.quoteLine {
+  font-family: "Playfair Display", "Georgia", serif;
+  font-size: 6.5cqw;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--quote-poster-ink, #f0ebe3);
+  margin: 0;
+  opacity: 0;
+}
+
+.quoteLine em {
+  font-style: italic;
+}
+
+.quoteLineVisible {
+  animation: quoteLineIn 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.quoteBlock .quoteLine:nth-child(2) {
+  margin-top: 1cqh;
+}
+
+@keyframes quoteLineIn {
+  from {
+    opacity: 0;
+    transform: translateY(1cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.attributionBlock {
+  margin-top: 6cqh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8cqh;
+  animation: attributionFade 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
+}
+
+@keyframes attributionFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.attributionName {
+  font-family: "Inter", sans-serif;
+  font-size: 1.4cqw;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--quote-poster-accent, #c4a882);
+}
+
+.attributionRole {
+  font-family: "Inter", sans-serif;
+  font-size: 1.1cqw;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: var(--quote-poster-ink, #f0ebe3);
+  opacity: 0.4;
+}
+
+/* ── Scene 5: Closing ──────────────────────────────────────────────────── */
+
+.sceneClosing {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.closingText {
+  font-family: "Playfair Display", "Georgia", serif;
+  font-size: 5cqw;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--quote-poster-ink, #f0ebe3);
+  margin: 0;
+  max-width: 60cqw;
+  animation: closingRise 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+}
+
+.closingText em {
+  font-style: italic;
+}
+
+.closingEm {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--quote-poster-accent, #c4a882);
+}
+
+@keyframes closingRise {
+  from {
+    opacity: 0;
+    transform: translateY(1cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Navigation: quiet bottom dots ─────────────────────────────────────── */
+
+.quietNav {
+  position: absolute;
+  bottom: 4cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  gap: 1.5cqw;
+  z-index: 10;
+}
+
+.quietNavItem {
+  background: none;
+  border: none;
+  padding: 0.5cqh;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quietNavDot {
+  width: 0.4cqw;
+  height: 0.4cqw;
+  min-width: 4px;
+  min-height: 4px;
+  border-radius: 50%;
+  background: var(--quote-poster-ink, #f0ebe3);
+  opacity: 0.15;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.quietNavItem:hover .quietNavDot {
+  opacity: 0.4;
+}
+
+.quietNavItemActive .quietNavDot {
+  opacity: 0.7;
+  transform: scale(1.5);
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+
+.reducedMotion .animateSceneEnter,
+.reducedMotion .enterAnim,
+.reducedMotion .exitAnim,
+.reducedMotion .seriesLabel,
+.reducedMotion .heroTitle,
+.reducedMotion .heroSubtitle,
+.reducedMotion .chapterLabel,
+.reducedMotion .statementBlock,
+.reducedMotion .quoteLineVisible,
+.reducedMotion .attributionBlock,
+.reducedMotion .closingText,
+.reducedMotion .spotlightPool {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+.reducedMotion .spotlightPool {
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+.reducedMotion .quietNavDot {
+  transition-duration: 0s !important;
+}
+
+/* ── Thumbnail ─────────────────────────────────────────────────────────── */
+
+.thumbnail .quietNav {
+  display: none;
+}
+
+.thumbnail .spotlightPool {
+  opacity: 0.5;
+  animation: none;
+}
+
+.thumbnail .heroTitle {
+  font-size: 12cqw;
+}
+
+.thumbnail .seriesLabel {
+  font-size: 1.8cqw;
+  margin-bottom: 2cqh;
+}

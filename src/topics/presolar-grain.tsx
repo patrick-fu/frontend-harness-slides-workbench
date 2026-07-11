@@ -1,16 +1,16 @@
 import type React from "react";
 import type {
-  BespokeStyleProps,
-  StyleMetadata,
-  TopicSource,
+  TopicMetadata,
+  TopicStageProps,
   TopicTransitionScore,
-} from "../types";
+} from "../domain/topic";
+import { defineTopic } from "../domain/topic";
+import type { Source } from "../domain/evidence";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "./SpatialSceneTrack";
-import { defineStyleTopic } from "./topic";
-import styles from "./01-presolar-grain.module.css";
+} from "../styles/SpatialSceneTrack";
+import styles from "./presolar-grain.module.css";
 
 type Language = "en" | "zh";
 type SceneId = 1 | 2 | 3 | 4 | 5;
@@ -88,7 +88,7 @@ export const PRESOLAR_GRAIN_SOURCES = [
     supports:
       "Cosmogenic helium and neon in individual Murchison SiC grains preserve evidence of residence in interstellar space before incorporation into the Solar System.",
   },
-] as const satisfies readonly TopicSource[];
+] as const satisfies readonly Source[];
 
 const COPY: Record<SceneId, Record<Language, SceneCopy>> = {
   1: {
@@ -225,7 +225,7 @@ function getCopy(scene: SceneId, language: Language): SceneCopy {
   return COPY[scene][language];
 }
 
-export function getMetadata(lang: Language): StyleMetadata {
+function buildMetadata(lang: Language): TopicMetadata {
   const scenes = SCENE_IDS.map((scene) => {
     const copy = getCopy(scene, lang);
     const bodies = [copy.subtitle, copy.detail, copy.annotation];
@@ -243,9 +243,6 @@ export function getMetadata(lang: Language): StyleMetadata {
   });
 
   return {
-    id: "minimal-product-keynote",
-    band: "minimal-keynote",
-    name: lang === "zh" ? "极简产品主题演讲" : "Minimal Product Keynote",
     theme: lang === "zh" ? "太阳前尘" : "Presolar Grain",
     densityLabel: lang === "zh" ? "舞台冲击 · 稀疏" : "Stage Impact · Sparse",
     heroScene: 1,
@@ -278,14 +275,19 @@ export function getMetadata(lang: Language): StyleMetadata {
   };
 }
 
-export default function PresolarGrain({
+const metadata = {
+  en: buildMetadata("en"),
+  zh: buildMetadata("zh"),
+};
+
+function TopicStage({
   scene,
   beat,
   language,
   isThumbnail,
   reducedMotion,
   onNavigate,
-}: BespokeStyleProps) {
+}: TopicStageProps) {
   const activeScene = toSceneId(scene);
   const activeBeat = clampBeat(activeScene, beat);
   const motionOff = reducedMotion || isThumbnail;
@@ -703,21 +705,25 @@ function GrainNavigation({
   );
 }
 
-export const presolarGrainTopic = defineStyleTopic({
+export default defineTopic({
   id: "presolar-grain",
-  topic: {
+  styleId: "minimal-product-keynote",
+  title: {
     en: "Presolar Grain",
     zh: "太阳前尘",
   },
-  model: "GPT 5.6 Sol",
-  component: PresolarGrain,
-  getMetadata,
+  modelId: "GPT 5.6 Sol",
+  Stage: TopicStage,
+  metadata,
   navigation: {
     geometry: "ambient",
     carrier: "corner-grain-field",
     invocation: "persistent",
     feedback: "active-glow",
   },
-  sources: PRESOLAR_GRAIN_SOURCES,
   transitionScore: PRESOLAR_GRAIN_TRANSITION_SCORE,
+  evidence: {
+    kind: "facts",
+    sources: PRESOLAR_GRAIN_SOURCES,
+  },
 });

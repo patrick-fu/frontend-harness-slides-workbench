@@ -1,13 +1,20 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import ExecutiveSilence, { getMetadata } from "./01-executive-silence";
-import styles from "./01-executive-silence.module.css";
-import type { BespokeStyleProps } from "../types";
+import definition from "./product-keynote";
+import styles from "./product-keynote.module.css";
+import type { TopicStageProps } from "../domain/topic";
+import { runTopicContract } from "../testing/topic-contract";
+
+runTopicContract(definition);
+
+const Stage = definition.Stage;
+const metadataFor = (language: "en" | "zh") => definition.metadata[language];
+const getMetadata = metadataFor;
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
-function renderStage(props: Partial<BespokeStyleProps> = {}) {
-  const defaultProps: BespokeStyleProps = {
+function renderStage(props: Partial<TopicStageProps> = {}) {
+  const defaultProps: TopicStageProps = {
     scene: 1,
     beat: 0,
     language: "en",
@@ -29,7 +36,7 @@ function renderStage(props: Partial<BespokeStyleProps> = {}) {
         position: "relative",
       }}
     >
-      <ExecutiveSilence {...defaultProps} />
+      <Stage {...defaultProps} />
     </div>,
   );
 
@@ -221,13 +228,11 @@ describe("Style 01: Executive Silence — overflow check", () => {
 
 // ─── 9. getMetadata returns complete structure ──────────────────────────────
 
-describe("Style 01: Executive Silence — metadata structure", () => {
+describe("Product Keynote — metadata structure", () => {
   it("returns complete metadata for English", () => {
     const meta = getMetadata("en");
-    expect(meta.id).toBe("minimal-product-keynote");
-    expect(meta.band).toBe("minimal-keynote");
-    expect(typeof meta.name).toBe("string");
-    expect(meta.name.length).toBeGreaterThan(0);
+    expect(definition.styleId).toBe("minimal-product-keynote");
+    expect(definition.title.en.length).toBeGreaterThan(0);
     expect(typeof meta.theme).toBe("string");
     expect(meta.theme.length).toBeGreaterThan(0);
     expect(typeof meta.densityLabel).toBe("string");
@@ -249,10 +254,7 @@ describe("Style 01: Executive Silence — metadata structure", () => {
 
   it("returns complete metadata for Chinese", () => {
     const meta = getMetadata("zh");
-    expect(meta.id).toBe("minimal-product-keynote");
-    expect(meta.band).toBe("minimal-keynote");
-    expect(typeof meta.name).toBe("string");
-    expect(meta.name.length).toBeGreaterThan(0);
+    expect(definition.title.zh.length).toBeGreaterThan(0);
     expect(meta.scenes).toHaveLength(5);
   });
 

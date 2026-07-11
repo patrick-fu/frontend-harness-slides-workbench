@@ -12,8 +12,10 @@ export const thumbnailManifestPath = resolve(
   "src/data/showcase-thumbnails.ts",
 );
 
-export function thumbnailFilename(styleId, topicId) {
-  return `${styleId}--${topicId}.webp`;
+export function thumbnailFilename(styleId, topicId, modulePath) {
+  return modulePath?.startsWith("../topics/")
+    ? `${topicId}.webp`
+    : `${styleId}--${topicId}.webp`;
 }
 
 export async function createThumbnailViteServer() {
@@ -29,13 +31,14 @@ export async function createThumbnailViteServer() {
 }
 
 export async function collectThumbnailTargets(vite) {
-  const { STYLE_REGISTRY } = await vite.ssrLoadModule(
-    "/src/styles/registry.ts",
-  );
+  const [{ STYLE_REGISTRY }, { CATALOG_MANIFEST }] = await Promise.all([
+    vite.ssrLoadModule("/src/styles/registry.ts"),
+    vite.ssrLoadModule("/src/styles/catalog-manifest.generated.ts"),
+  ]);
   const targets = [];
 
-  for (const style of STYLE_REGISTRY) {
-    for (const topic of style.topics) {
+  for (const [styleIndex, style] of STYLE_REGISTRY.entries()) {
+    for (const [topicIndex, topic] of style.topics.entries()) {
       const metadata = topic.getMetadata("en");
       const heroScene = metadata.scenes.find(
         (scene) => scene.id === metadata.heroScene,
@@ -58,7 +61,11 @@ export async function collectThumbnailTargets(vite) {
         topicId: topic.id,
         heroScene: heroScene.id,
         beat: lastBeat.id,
-        filename: thumbnailFilename(style.id, topic.id),
+        filename: thumbnailFilename(
+          style.id,
+          topic.id,
+          CATALOG_MANIFEST[styleIndex]?.topics[topicIndex]?.modulePath,
+        ),
       });
     }
   }

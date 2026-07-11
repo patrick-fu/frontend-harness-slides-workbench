@@ -1,0 +1,206 @@
+/* "Ship It" · Kinetic Type Punchline
+   Two-tone poster: deep black field, off-white type, one electric-yellow accent.
+   Flat graphic surfaces, heaviest condensed uppercase display, percussive motion.
+   cqw/cqh only. */
+
+.root {
+  --bg: #0b0b0b;
+  --ink: #f4f1e8;
+  --accent: #ffe800;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  container-type: size;
+  font-family: "Anton", "Noto Sans SC", system-ui, sans-serif;
+}
+
+/* Kill every animation/transition when motion is off (reducedMotion || thumbnail). */
+.root[data-motion="off"] * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* --- shared layout --- */
+.center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2cqh;
+  padding: 6cqh 5cqw;
+  text-align: center;
+}
+
+.stack {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4cqh;
+  padding: 6cqh 5cqw;
+  text-align: center;
+}
+
+.label {
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 2.4cqh;
+  letter-spacing: 0.9cqw;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.6cqh;
+  opacity: 0.92;
+}
+
+/* --- scene 1 : title slam --- */
+.hero {
+  margin: 0;
+  font-size: 30cqh;
+  line-height: 0.82;
+  letter-spacing: -0.4cqw;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: transform 0.3s cubic-bezier(0.2, 1.5, 0.35, 1), opacity 0.22s ease;
+}
+
+/* --- entry (transform slam) for non-FLIP scenes --- */
+.slamPre {
+  transform: translateY(-11cqh) scale(1.18);
+  opacity: 0;
+}
+
+/* --- scene 2 : excuses stack (motion / FLIP) --- */
+.excuse {
+  font-family: "Anton", "Noto Sans SC", sans-serif;
+  font-size: 8cqh;
+  line-height: 1.04;
+  letter-spacing: -0.15cqw;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* new items that mount on a later beat slam in (existing items move via FLIP). */
+.slamItem {
+  animation: itemSlam 0.26s cubic-bezier(0.2, 1.4, 0.35, 1) both;
+}
+
+@keyframes itemSlam {
+  from {
+    transform: translateY(3cqh) scale(1.12);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* --- scene 3 : strike & swap (motion / FLIP) --- */
+.s3word {
+  position: relative;
+  font-size: 15cqh;
+  line-height: 0.92;
+  letter-spacing: -0.3cqw;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.strikeWord::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -1cqw;
+  width: calc(100% + 2cqw);
+  height: 1.1cqh;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.24s cubic-bezier(0.2, 1.4, 0.35, 1);
+}
+
+.struck::after {
+  transform: scaleX(1);
+}
+
+.struck {
+  opacity: 0.55;
+}
+
+.accentWord {
+  color: var(--accent);
+}
+
+/* --- scene 4 : countdown (reserved) --- */
+.count {
+  font-size: 13cqh;
+  line-height: 0.98;
+  letter-spacing: -0.25cqw;
+  text-transform: uppercase;
+  color: var(--ink);
+  transform: translateY(2cqh);
+  transition: opacity 0.24s ease, transform 0.24s cubic-bezier(0.2, 1.4, 0.35, 1);
+}
+
+.countShown {
+  transform: translateY(0);
+}
+
+/* --- scene 5 : accent field, two words fill --- */
+.fieldAccent {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+}
+
+.finalWord {
+  margin: 0;
+  font-size: 33cqh;
+  line-height: 0.8;
+  letter-spacing: -0.5cqw;
+  text-transform: uppercase;
+  color: var(--bg);
+  transition: transform 0.3s cubic-bezier(0.2, 1.5, 0.35, 1), opacity 0.2s ease;
+}
+
+/* --- CJK tuning: heavy Noto, slightly smaller to avoid overflow --- */
+.root[data-lang="zh"] .hero {
+  font-family: "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  font-size: 34cqh;
+  letter-spacing: 0.6cqw;
+}
+.root[data-lang="zh"] .label {
+  font-family: "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  letter-spacing: 1.2cqw;
+}
+.root[data-lang="zh"] .excuse {
+  font-family: "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  font-size: 8.4cqh;
+  letter-spacing: 0.4cqw;
+}
+.root[data-lang="zh"] .s3word {
+  font-family: "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  font-size: 17cqh;
+  letter-spacing: 0.6cqw;
+}
+.root[data-lang="zh"] .count {
+  font-family: "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  font-size: 15cqh;
+  letter-spacing: 0.6cqw;
+}
+.root[data-lang="zh"] .finalWord {
+  font-family: "Noto Sans SC", sans-serif;
+  font-weight: 900;
+  font-size: 36cqh;
+  letter-spacing: 0.4cqw;
+}

@@ -1,12 +1,16 @@
 import { useEffect } from "react";
 import type { CSSProperties } from "react";
-import type { BespokeStyleProps, StyleMetadata } from "../types";
-import SpatialSceneTrack from "./SpatialSceneTrack";
+import {
+  defineTopic,
+  type TopicMetadata,
+  type TopicStageProps,
+  type TopicTransitionScore,
+} from "../domain/topic";
+import SpatialSceneTrack from "../styles/SpatialSceneTrack";
 import type {
   BeatLayoutMode,
   SceneTransitionMap,
-} from "./SpatialSceneTrack";
-import { defineStyleTopic } from "./topic";
+} from "../styles/SpatialSceneTrack";
 
 type Lang = "en" | "zh";
 type SceneId = 1 | 2 | 3 | 4 | 5;
@@ -60,12 +64,14 @@ const BEAT_LAYOUT_MODES: Record<SceneId, BeatLayoutMode> = {
   5: "reserved",
 };
 
-const TRANSITION_MAP: SceneTransitionMap = {
+const TRANSITION_SCORE = {
   "1->2": "wipe",
   "2->3": "slide-y",
   "3->4": "fade",
   "4->5": "hard-cut",
-};
+} as const satisfies TopicTransitionScore;
+
+const TRANSITION_MAP: SceneTransitionMap = TRANSITION_SCORE;
 
 const EMPTY_SCENE_PARTS = {
   metrics: [],
@@ -403,7 +409,7 @@ const COPY: Record<SceneId, Record<Lang, SceneCopy>> = {
   },
 };
 
-const METADATA_SCENES: Record<Lang, StyleMetadata["scenes"]> = {
+const METADATA_SCENES: Record<Lang, TopicMetadata["scenes"]> = {
   en: [
     {
       id: 1,
@@ -744,7 +750,15 @@ function GridIndexNav({
   onNavigate?: (scene: number, beat: number) => void;
 }) {
   return (
-    <nav className="fhs02v2IndexNav" aria-label="Scene grid index">
+    <nav
+      className="fhs02v2IndexNav"
+      aria-label="Scene grid index"
+      data-topic-navigation="true"
+      data-navigation-geometry="typographic-index"
+      data-navigation-carrier="scene-grid-index"
+      data-navigation-invocation="persistent"
+      data-navigation-feedback="typographic-emphasis"
+    >
       {SCENE_IDS.map((sceneId) => (
         <button
           key={sceneId}
@@ -955,11 +969,8 @@ function SignedRuleScene({ copy, beat }: { copy: SceneCopy; beat: number }) {
   );
 }
 
-export function getMetadata(lang: Lang): StyleMetadata {
+function buildMetadata(lang: Lang): TopicMetadata {
   return {
-    id: "objective-swiss-grid",
-    band: "minimal-keynote",
-    name: lang === "zh" ? "客观瑞士网格" : "Objective Swiss Grid",
     theme: lang === "zh" ? "无噪声指标" : "Metrics Without Noise",
     densityLabel: lang === "zh" ? "高密度 / 精准" : "Dense / Precise",
     heroScene: 1,
@@ -978,14 +989,19 @@ export function getMetadata(lang: Lang): StyleMetadata {
   };
 }
 
-export default function MetricsWithoutNoiseV2({
+const metadata = {
+  en: buildMetadata("en"),
+  zh: buildMetadata("zh"),
+};
+
+function TopicStage({
   scene,
   beat,
   language,
   isThumbnail,
   reducedMotion,
   onNavigate,
-}: BespokeStyleProps) {
+}: TopicStageProps) {
   useFonts();
 
   const activeScene = normalizeScene(scene);
@@ -998,8 +1014,8 @@ export default function MetricsWithoutNoiseV2({
   return (
     <div
       className={rootClassName}
-      data-style-id="02"
-      data-topic-origin="curated"
+      data-style-id="objective-swiss-grid"
+      data-topic-id="clean-metrics"
       data-thumbnail={isThumbnail ? "true" : undefined}
       lang={language}
     >
@@ -1037,15 +1053,31 @@ export default function MetricsWithoutNoiseV2({
   );
 }
 
-export const metricsWithoutNoiseTopic = defineStyleTopic({
+export default defineTopic({
   id: "clean-metrics",
-  topic: {
+  styleId: "objective-swiss-grid",
+  title: {
     en: "Clean Metrics",
     zh: "干净指标",
   },
-  model: "GPT 5.5",
-  component: MetricsWithoutNoiseV2,
-  getMetadata,
+  modelId: "GPT 5.5",
+  Stage: TopicStage,
+  metadata,
+  navigation: {
+    geometry: "typographic-index",
+    carrier: "scene-grid-index",
+    invocation: "persistent",
+    feedback: "typographic-emphasis",
+  },
+  transitionScore: TRANSITION_SCORE,
+  evidence: {
+    kind: "illustrative",
+    boundary: {
+      en: "Illustrative metrics board: values, comparison rows, and decision rules are presentation examples, not measured business results.",
+      zh: "示例指标板：数值、对比行与决策规则均为演示示例，并非实测业务结果。",
+    },
+    display: "envelope",
+  },
 });
 
 const SWISS_GRID_STYLES = `

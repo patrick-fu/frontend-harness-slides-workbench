@@ -1,14 +1,18 @@
 import { fireEvent, render, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import type { BespokeStyleProps } from "../types";
-import PresolarGrain, {
-  getMetadata,
+import type { TopicStageProps } from "../domain/topic";
+import { runTopicContract } from "../testing/topic-contract";
+import definition, {
   PRESOLAR_GRAIN_SOURCES,
   PRESOLAR_GRAIN_TRANSITION_SCORE,
-  presolarGrainTopic,
-} from "./01-presolar-grain";
-import componentSource from "./01-presolar-grain.tsx?raw";
-import styleSource from "./01-presolar-grain.module.css?inline";
+} from "./presolar-grain";
+import componentSource from "./presolar-grain.tsx?raw";
+import styleSource from "./presolar-grain.module.css?inline";
+
+runTopicContract(definition);
+
+const Stage = definition.Stage;
+const getMetadata = (language: "en" | "zh") => definition.metadata[language];
 
 const BEAT_COUNTS: Record<number, number> = {
   1: 2,
@@ -18,7 +22,7 @@ const BEAT_COUNTS: Record<number, number> = {
   5: 2,
 };
 
-const BASE_PROPS: BespokeStyleProps = {
+const BASE_PROPS: TopicStageProps = {
   scene: 1,
   beat: 0,
   language: "en",
@@ -31,7 +35,7 @@ function StageFrame({
   props,
   onStageClick,
 }: {
-  props: BespokeStyleProps;
+  props: TopicStageProps;
   onStageClick?: () => void;
 }) {
   return (
@@ -46,13 +50,13 @@ function StageFrame({
       }}
       onClick={onStageClick}
     >
-      <PresolarGrain {...props} />
+      <Stage {...props} />
     </div>
   );
 }
 
 function renderStage(
-  overrides: Partial<BespokeStyleProps> = {},
+  overrides: Partial<TopicStageProps> = {},
   onStageClick = vi.fn(),
 ) {
   const props = { ...BASE_PROPS, onNavigate: vi.fn(), ...overrides };
@@ -69,7 +73,7 @@ function renderStage(
       result.container.querySelector<HTMLElement>(
         '[data-spatial-scene-panel="true"][data-active="true"]',
       ),
-    rerenderProps(next: Partial<BespokeStyleProps>) {
+    rerenderProps(next: Partial<TopicStageProps>) {
       result.rerender(
         <StageFrame
           props={{ ...props, ...next }}
@@ -82,19 +86,22 @@ function renderStage(
 
 describe("Presolar Grain topic protocol", () => {
   it("exports the planned topic, facts packet, navigation, and exact transition score", () => {
-    expect(presolarGrainTopic.id).toBe("presolar-grain");
-    expect(presolarGrainTopic.topic).toEqual({
+    expect(definition.id).toBe("presolar-grain");
+    expect(definition.title).toEqual({
       en: "Presolar Grain",
       zh: "太阳前尘",
     });
-    expect(presolarGrainTopic.navigation).toEqual({
+    expect(definition.navigation).toEqual({
       geometry: "ambient",
       carrier: "corner-grain-field",
       invocation: "persistent",
       feedback: "active-glow",
     });
-    expect(presolarGrainTopic.sources).toBe(PRESOLAR_GRAIN_SOURCES);
-    expect(presolarGrainTopic.transitionScore).toBe(
+    expect(definition.evidence).toEqual({
+      kind: "facts",
+      sources: PRESOLAR_GRAIN_SOURCES,
+    });
+    expect(definition.transitionScore).toBe(
       PRESOLAR_GRAIN_TRANSITION_SCORE,
     );
     expect(PRESOLAR_GRAIN_TRANSITION_SCORE).toEqual({
@@ -120,8 +127,7 @@ describe("Presolar Grain topic protocol", () => {
     const english = getMetadata("en");
     const chinese = getMetadata("zh");
 
-    expect(english.id).toBe("minimal-product-keynote");
-    expect(english.band).toBe("minimal-keynote");
+    expect(definition.styleId).toBe("minimal-product-keynote");
     expect(english.heroScene).toBe(1);
     expect(english.scenes.map((scene) => scene.id)).toEqual([1, 2, 3, 4, 5]);
     expect(chinese.scenes.map((scene) => scene.id)).toEqual([1, 2, 3, 4, 5]);

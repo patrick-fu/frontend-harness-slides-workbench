@@ -1,14 +1,18 @@
 import React, { useEffect, useCallback } from "react";
-import type { BespokeStyleProps, StyleMetadata } from "../types";
-import SpatialSceneTrack from "./SpatialSceneTrack";
-import styles from "./02-swiss-precision.module.css";
+import {
+  defineTopic,
+  type TopicMetadata,
+  type TopicStageProps,
+} from "../domain/topic";
+import SpatialSceneTrack from "../styles/SpatialSceneTrack";
+import styles from "./swiss-grid.module.css";
 import { useFLIP } from "../hooks/useFLIP";
 
 // ─── Font Injection ────────────────────────────────────────────────────────
 
 function useFonts() {
   useEffect(() => {
-    const id = "style-02-fonts";
+    const id = "swiss-grid-fonts";
     if (document.getElementById(id)) return;
     const link = document.createElement("link");
     link.id = id;
@@ -142,8 +146,7 @@ const SCENES: Record<number, SceneContent> = {
 
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
-export function getMetadata(lang: "en" | "zh"): StyleMetadata {
-  const nameMap = { en: "Objective Swiss Grid", zh: "客观瑞士网格" };
+function buildMetadata(lang: "en" | "zh"): TopicMetadata {
   const themeMap = {
     en: "A precision instrument — every element locked to a visible mathematical grid; for data-dense decks, technical roadmaps, and comparative analyses where systematic clarity matters",
     zh: "精密仪器——每个元素锁定于可见的数学网格；适用于数据密集型演示、技术路线图和比较分析",
@@ -214,9 +217,6 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   });
 
   return {
-    id: "objective-swiss-grid",
-    band: "minimal-keynote",
-    name: nameMap[lang],
     theme: themeMap[lang],
     densityLabel: densityLabelMap[lang],
     heroScene: 3,
@@ -228,6 +228,11 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
   };
 }
 
+const metadata = {
+  en: buildMetadata("en"),
+  zh: buildMetadata("zh"),
+};
+
 // ─── Transition constants ─────────────────────────────────────────────────
 
 // ─── Component ──────────────────────────────────────────────────────────────
@@ -238,14 +243,14 @@ const BEAT_LAYOUT_MODES = {
   4: "motion",
 } satisfies Record<number, "motion" | "reserved">;
 
-export default function SwissPrecision({
+function TopicStage({
   scene,
   beat,
   language,
   isThumbnail,
   reducedMotion,
   onNavigate,
-}: BespokeStyleProps) {
+}: TopicStageProps) {
   useFonts();
 
   // FLIP for scene 3 process step list
@@ -428,7 +433,15 @@ export default function SwissPrecision({
   const renderNav = () => {
     if (isThumbnail) return null;
     return (
-      <nav className={styles.nav} aria-label="Scene navigation">
+      <nav
+        className={styles.nav}
+        aria-label="Scene navigation"
+        data-topic-navigation="true"
+        data-navigation-geometry="edge-scale"
+        data-navigation-carrier="grid-axis"
+        data-navigation-invocation="persistent"
+        data-navigation-feedback="material-color-change"
+      >
         <span className={styles.navTrack} />
         {[1, 2, 3, 4, 5].map((s) => {
           const isActive = s === scene;
@@ -471,3 +484,32 @@ export default function SwissPrecision({
     </div>
   );
 }
+
+export default defineTopic({
+  id: "swiss-grid",
+  styleId: "objective-swiss-grid",
+  title: { en: "Swiss Grid", zh: "瑞士网格" },
+  modelId: "Doubao-Seed-Evolving",
+  Stage: TopicStage,
+  metadata,
+  navigation: {
+    geometry: "edge-scale",
+    carrier: "grid-axis",
+    invocation: "persistent",
+    feedback: "material-color-change",
+  },
+  transitionScore: {
+    "1->2": "wipe",
+    "2->3": "wipe",
+    "3->4": "wipe",
+    "4->5": "wipe",
+  },
+  evidence: {
+    kind: "illustrative",
+    boundary: {
+      en: "Illustrative quality dashboard: the metrics, thresholds, and workflow are presentation examples, not measured operational results.",
+      zh: "示例质量仪表盘：指标、阈值与流程均为演示示例，并非实测运营结果。",
+    },
+    display: "envelope",
+  },
+});

@@ -69,7 +69,7 @@ describe("getShowcaseThumbnail", () => {
   it("resolves only an exact style and topic pair", () => {
     expect(
       getShowcaseThumbnail("minimal-product-keynote", "product-keynote"),
-    ).toBe("/showcase/minimal-product-keynote--product-keynote.webp");
+    ).toBe("/showcase/product-keynote.webp");
     expect(
       getShowcaseThumbnail("minimal-product-keynote", "missing-topic"),
     ).toBeUndefined();

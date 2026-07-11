@@ -1,14 +1,18 @@
 import { cleanup, fireEvent, render, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { BespokeStyleProps } from "../types";
-import BridgeMovement, {
+import type { TopicStageProps } from "../domain/topic";
+import { runTopicContract } from "../testing/topic-contract";
+import definition, {
   BRIDGE_MOVEMENT_CLAIM_SOURCE_MAP,
   BRIDGE_MOVEMENT_SOURCES,
   BRIDGE_MOVEMENT_TRANSITION_SCORE,
-  bridgeMovementTopic,
-  getMetadata,
-} from "./objective-swiss-grid-bridge-movement";
-import componentSource from "./objective-swiss-grid-bridge-movement.tsx?raw";
+} from "./bridge-movement";
+import componentSource from "./bridge-movement.tsx?raw";
+
+runTopicContract(definition);
+
+const Stage = definition.Stage;
+const getMetadata = (language: "en" | "zh") => definition.metadata[language];
 
 const BEAT_COUNTS: Record<number, number> = {
   1: 4,
@@ -34,14 +38,14 @@ const NATIVE_TOUCH_PHASES = [
 ] as const;
 
 function renderStage(
-  overrides: Partial<BespokeStyleProps> = {},
+  overrides: Partial<TopicStageProps> = {},
   stageHandlers: {
     onClick?: () => void;
     onTouchStart?: () => void;
     onKeyDown?: () => void;
   } = {},
 ) {
-  const props: BespokeStyleProps = {
+  const props: TopicStageProps = {
     scene: 1,
     beat: 0,
     language: "en",
@@ -64,7 +68,7 @@ function renderStage(
       onTouchStart={stageHandlers.onTouchStart}
       onKeyDown={stageHandlers.onKeyDown}
     >
-      <BridgeMovement {...props} />
+      <Stage {...props} />
     </div>,
   );
 
@@ -79,7 +83,7 @@ function renderStage(
       result.container.querySelector<HTMLElement>(
         '[data-spatial-scene-panel="true"][data-active="true"]',
       ),
-    rerenderProps(next: Partial<BespokeStyleProps>) {
+    rerenderProps(next: Partial<TopicStageProps>) {
       Object.assign(props, next);
       result.rerender(
         <div
@@ -95,7 +99,7 @@ function renderStage(
           onTouchStart={stageHandlers.onTouchStart}
           onKeyDown={stageHandlers.onKeyDown}
         >
-          <BridgeMovement {...props} />
+          <Stage {...props} />
         </div>,
       );
     },
@@ -109,20 +113,23 @@ afterEach(() => {
 
 describe("Objective Swiss Grid / Bridge Movement — topic protocol", () => {
   it("exports the assigned topic, model, navigation profile, and transition score", () => {
-    expect(bridgeMovementTopic.id).toBe("bridge-movement");
-    expect(bridgeMovementTopic.topic).toEqual({
+    expect(definition.id).toBe("bridge-movement");
+    expect(definition.title).toEqual({
       en: "Bridge Movement",
       zh: "桥的位移",
     });
-    expect(bridgeMovementTopic.model).toBe("GPT 5.6 Sol");
-    expect(bridgeMovementTopic.navigation).toEqual({
+    expect(definition.modelId).toBe("GPT 5.6 Sol");
+    expect(definition.navigation).toEqual({
       geometry: "edge-scale",
       carrier: "bearing-ruler",
       invocation: "persistent",
       feedback: "history-trail",
     });
-    expect(bridgeMovementTopic.sources).toBe(BRIDGE_MOVEMENT_SOURCES);
-    expect(bridgeMovementTopic.transitionScore).toBe(
+    expect(definition.evidence).toEqual({
+      kind: "facts",
+      sources: BRIDGE_MOVEMENT_SOURCES,
+    });
+    expect(definition.transitionScore).toBe(
       BRIDGE_MOVEMENT_TRANSITION_SCORE,
     );
     expect(BRIDGE_MOVEMENT_TRANSITION_SCORE).toEqual({
@@ -175,7 +182,7 @@ describe("Objective Swiss Grid / Bridge Movement — topic protocol", () => {
     const zh = getMetadata("zh");
 
     for (const metadata of [en, zh]) {
-      expect(metadata.id).toBe("objective-swiss-grid");
+      expect(definition.styleId).toBe("objective-swiss-grid");
       expect(metadata.scenes.map((scene) => scene.id)).toEqual([1, 2, 3, 4, 5]);
       expect(metadata.scenes.map((scene) => scene.beats.length)).toEqual([
         4, 3, 2, 1, 1,

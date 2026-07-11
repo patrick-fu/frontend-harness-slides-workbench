@@ -1,11 +1,15 @@
 import { useEffect } from "react";
 import type React from "react";
-import type { BespokeStyleProps, StyleMetadata } from "../types";
+import {
+  defineTopic,
+  type TopicMetadata,
+  type TopicStageProps,
+  type TopicTransitionScore,
+} from "../domain/topic";
 import SpatialSceneTrack, {
   type BeatLayoutMode,
   type SceneTransitionMap,
-} from "./SpatialSceneTrack";
-import { defineStyleTopic } from "./topic";
+} from "../styles/SpatialSceneTrack";
 
 type Language = "en" | "zh";
 type SceneId = 1 | 2 | 3 | 4 | 5;
@@ -24,12 +28,14 @@ type CSSVars = React.CSSProperties & Record<`--${string}`, string>;
 
 const SCENE_IDS: SceneId[] = [1, 2, 3, 4, 5];
 
-const TRANSITION_MAP: SceneTransitionMap = {
+const TRANSITION_SCORE = {
   "1->2": "scale-fade",
   "2->3": "wipe",
   "3->4": "fade",
   "4->5": "hard-cut",
-};
+} as const satisfies TopicTransitionScore;
+
+const TRANSITION_MAP: SceneTransitionMap = TRANSITION_SCORE;
 
 const BEAT_LAYOUT_MODES: Partial<Record<number, BeatLayoutMode>> = {
   1: "reserved",
@@ -150,7 +156,7 @@ const COPY: Record<SceneId, Record<Language, SceneCopy>> = {
   },
 };
 
-const META_SCENES: Record<Language, StyleMetadata["scenes"]> = {
+const META_SCENES: Record<Language, TopicMetadata["scenes"]> = {
   en: [
     {
       id: 1,
@@ -363,7 +369,7 @@ const META_SCENES: Record<Language, StyleMetadata["scenes"]> = {
 
 function useFonts() {
   useEffect(() => {
-    const id = "style-01-quiet-launch-window-v2-fonts";
+    const id = "quiet-launch-fonts";
     if (document.getElementById(id)) return;
 
     const link = document.createElement("link");
@@ -402,11 +408,8 @@ function getCopy(scene: SceneId, language: Language): SceneCopy {
   return COPY[scene][language];
 }
 
-export function getMetadata(lang: Language): StyleMetadata {
+function buildMetadata(lang: Language): TopicMetadata {
   return {
-    id: "minimal-product-keynote",
-    band: "minimal-keynote",
-    name: lang === "zh" ? "极简产品 Keynote" : "Minimal Product Keynote",
     theme: lang === "zh" ? "安静发布窗口" : "Quiet Launch Window",
     densityLabel: lang === "zh" ? "稀疏" : "Sparse",
     heroScene: 2,
@@ -425,14 +428,19 @@ export function getMetadata(lang: Language): StyleMetadata {
   };
 }
 
-export default function QuietLaunchWindowV2({
+const metadata = {
+  en: buildMetadata("en"),
+  zh: buildMetadata("zh"),
+};
+
+function TopicStage({
   scene,
   beat,
   language,
   isThumbnail,
   reducedMotion,
   onNavigate,
-}: BespokeStyleProps) {
+}: TopicStageProps) {
   useFonts();
 
   const activeScene = toSceneId(scene);
@@ -441,9 +449,8 @@ export default function QuietLaunchWindowV2({
 
   return (
     <section
-      data-style-id="01"
-      data-topic-origin="curated"
-      data-topic="quiet-launch-window"
+      data-style-id="minimal-product-keynote"
+      data-topic-id="quiet-launch"
       style={rootStyle}
     >
       <QuietChrome
@@ -460,7 +467,7 @@ export default function QuietLaunchWindowV2({
         transitionDurationMs={720}
         reducedMotion={motionOff}
         beatLayoutModes={BEAT_LAYOUT_MODES}
-        className="quiet-launch-window-v2-track"
+        className="quiet-launch-track"
         renderScene={(trackScene, trackBeat, isActive) => {
           const sceneId = toSceneId(trackScene);
           return (
@@ -638,7 +645,7 @@ function ProofSignal({
         <path
           d="M20 126 C140 126 168 84 268 84 C368 84 382 84 472 84 C540 84 582 72 620 72"
           fill="none"
-          stroke="var(--style-01-ink)"
+          stroke="var(--quiet-launch-ink)"
           strokeLinecap="round"
           strokeWidth="5"
           opacity={beat >= 1 ? "0.86" : "0.2"}
@@ -646,7 +653,7 @@ function ProofSignal({
         <path
           d="M20 138 L620 138"
           fill="none"
-          stroke="var(--style-01-hairline)"
+          stroke="var(--quiet-launch-hairline)"
           strokeLinecap="round"
           strokeWidth="3"
         />
@@ -654,7 +661,7 @@ function ProofSignal({
           cx="472"
           cy="84"
           r="10"
-          fill="var(--style-01-accent)"
+          fill="var(--quiet-launch-accent)"
           opacity={beat >= 2 ? "1" : "0"}
         />
       </svg>
@@ -763,7 +770,15 @@ function ApertureNav({
   if (hidden) return null;
 
   return (
-    <nav aria-label="Scene aperture" style={navStyle}>
+    <nav
+      aria-label="Scene aperture"
+      style={navStyle}
+      data-topic-navigation="true"
+      data-navigation-geometry="edge-scale"
+      data-navigation-carrier="aperture-rail"
+      data-navigation-invocation="persistent"
+      data-navigation-feedback="geometry-reflow"
+    >
       {SCENE_IDS.map((targetScene) => {
         const active = targetScene === activeScene;
         return (
@@ -787,21 +802,21 @@ function ApertureNav({
 }
 
 const rootStyle: CSSVars = {
-  "--style-01-bg": "#f5f1e8",
-  "--style-01-ink": "#11100d",
-  "--style-01-soft": "#6f6a60",
-  "--style-01-panel": "#e8e0d4",
-  "--style-01-hairline": "rgba(17, 16, 13, 0.18)",
-  "--style-01-accent": "#1d6d65",
-  "--style-01-accent-soft": "rgba(29, 109, 101, 0.16)",
+  "--quiet-launch-bg": "#f5f1e8",
+  "--quiet-launch-ink": "#11100d",
+  "--quiet-launch-soft": "#6f6a60",
+  "--quiet-launch-panel": "#e8e0d4",
+  "--quiet-launch-hairline": "rgba(17, 16, 13, 0.18)",
+  "--quiet-launch-accent": "#1d6d65",
+  "--quiet-launch-accent-soft": "rgba(29, 109, 101, 0.16)",
   position: "relative",
   width: "100%",
   height: "100%",
   containerType: "size",
   overflow: "hidden",
   background:
-    "radial-gradient(circle at 54% 42%, rgba(255, 252, 244, 0.88), transparent 32cqw), var(--style-01-bg)",
-  color: "var(--style-01-ink)",
+    "radial-gradient(circle at 54% 42%, rgba(255, 252, 244, 0.88), transparent 32cqw), var(--quiet-launch-bg)",
+  color: "var(--quiet-launch-ink)",
   fontFamily:
     "Inter, 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
 };
@@ -814,7 +829,7 @@ const chromeStyle: React.CSSProperties = {
   justifyContent: "space-between",
   alignItems: "center",
   pointerEvents: "none",
-  color: "var(--style-01-soft)",
+  color: "var(--quiet-launch-soft)",
 };
 
 const makerMarkStyle: React.CSSProperties = {
@@ -851,7 +866,7 @@ const headlineBlockStyle: React.CSSProperties = {
 
 const kickerStyle: React.CSSProperties = {
   marginBottom: "2cqh",
-  color: "var(--style-01-soft)",
+  color: "var(--quiet-launch-soft)",
   fontSize: "0.86cqw",
   fontWeight: 520,
   lineHeight: 1,
@@ -873,7 +888,7 @@ const bodySlotStyle: React.CSSProperties = {
   gridRow: "3 / 4",
   maxWidth: "36cqw",
   alignSelf: "start",
-  color: "var(--style-01-soft)",
+  color: "var(--quiet-launch-soft)",
   fontSize: "1.3cqw",
   fontWeight: 300,
   lineHeight: 1.45,
@@ -903,11 +918,11 @@ const thresholdLineStyle: React.CSSProperties = {
   height: "34cqh",
   borderRadius: "50%",
   background:
-    "linear-gradient(180deg, transparent, var(--style-01-ink) 18%, var(--style-01-accent) 52%, var(--style-01-ink) 82%, transparent)",
+    "linear-gradient(180deg, transparent, var(--quiet-launch-ink) 18%, var(--quiet-launch-accent) 52%, var(--quiet-launch-ink) 82%, transparent)",
 };
 
 const thresholdNoteStyle: React.CSSProperties = {
-  color: "var(--style-01-soft)",
+  color: "var(--quiet-launch-soft)",
   fontSize: "1.05cqw",
   fontWeight: 400,
   lineHeight: 1.2,
@@ -941,7 +956,7 @@ const productApertureStyle: React.CSSProperties = {
   transform: "translateX(-50%)",
   borderRadius: "50%",
   background:
-    "linear-gradient(180deg, transparent, rgba(245, 241, 232, 0.9), var(--style-01-accent), rgba(245, 241, 232, 0.72), transparent)",
+    "linear-gradient(180deg, transparent, rgba(245, 241, 232, 0.9), var(--quiet-launch-accent), rgba(245, 241, 232, 0.72), transparent)",
 };
 
 const productDetailStyle: React.CSSProperties = {
@@ -979,7 +994,7 @@ const proofTextRailStyle: React.CSSProperties = {
 };
 
 const proofLabelStyle: React.CSSProperties = {
-  color: "var(--style-01-soft)",
+  color: "var(--quiet-launch-soft)",
   fontSize: "0.95cqw",
   fontWeight: 400,
   lineHeight: 1,
@@ -987,7 +1002,7 @@ const proofLabelStyle: React.CSSProperties = {
 };
 
 const proofValueStyle: React.CSSProperties = {
-  color: "var(--style-01-ink)",
+  color: "var(--quiet-launch-ink)",
   fontSize: "1.55cqw",
   fontWeight: 520,
   lineHeight: 1,
@@ -1006,16 +1021,16 @@ const choiceWrapStyle: React.CSSProperties = {
 const choiceOptionStyle: React.CSSProperties = {
   display: "grid",
   placeItems: "center",
-  border: "0.08cqw solid var(--style-01-hairline)",
+  border: "0.08cqw solid var(--quiet-launch-hairline)",
   borderRadius: "8cqw",
-  color: "var(--style-01-soft)",
+  color: "var(--quiet-launch-soft)",
   background: "rgba(245, 241, 232, 0.26)",
 };
 
 const selectedChoiceStyle: React.CSSProperties = {
-  color: "var(--style-01-ink)",
-  borderColor: "var(--style-01-accent)",
-  background: "var(--style-01-accent-soft)",
+  color: "var(--quiet-launch-ink)",
+  borderColor: "var(--quiet-launch-accent)",
+  background: "var(--quiet-launch-accent-soft)",
 };
 
 const choiceLabelStyle: React.CSSProperties = {
@@ -1026,7 +1041,7 @@ const choiceLabelStyle: React.CSSProperties = {
 };
 
 const choiceLineStyle: React.CSSProperties = {
-  color: "var(--style-01-soft)",
+  color: "var(--quiet-launch-soft)",
   fontSize: "0.98cqw",
   fontWeight: 300,
   lineHeight: 1.35,
@@ -1045,7 +1060,7 @@ const finalWrapStyle: React.CSSProperties = {
 
 const finalMarkStyle: React.CSSProperties = {
   gridRow: "2 / 3",
-  color: "var(--style-01-soft)",
+  color: "var(--quiet-launch-soft)",
   fontSize: "0.82cqw",
   fontWeight: 520,
   lineHeight: 1,
@@ -1055,7 +1070,7 @@ const finalMarkStyle: React.CSSProperties = {
 
 const finalCloseStyle: React.CSSProperties = {
   gridRow: "3 / 4",
-  color: "var(--style-01-accent)",
+  color: "var(--quiet-launch-accent)",
   fontSize: "1.22cqw",
   fontWeight: 520,
   lineHeight: 1.2,
@@ -1102,16 +1117,32 @@ const activeNavMarkStyle: React.CSSProperties = {
   height: "2.6cqh",
   borderRadius: "50%",
   background:
-    "linear-gradient(180deg, var(--style-01-ink), var(--style-01-accent), var(--style-01-ink))",
+    "linear-gradient(180deg, var(--quiet-launch-ink), var(--quiet-launch-accent), var(--quiet-launch-ink))",
 };
 
-export const quietLaunchWindowTopic = defineStyleTopic({
+export default defineTopic({
   id: "quiet-launch",
-  topic: {
+  styleId: "minimal-product-keynote",
+  title: {
     en: "Quiet Launch",
     zh: "安静发布",
   },
-  model: "GPT 5.5",
-  component: QuietLaunchWindowV2,
-  getMetadata,
+  modelId: "GPT 5.5",
+  Stage: TopicStage,
+  metadata,
+  navigation: {
+    geometry: "edge-scale",
+    carrier: "aperture-rail",
+    invocation: "persistent",
+    feedback: "geometry-reflow",
+  },
+  transitionScore: TRANSITION_SCORE,
+  evidence: {
+    kind: "illustrative",
+    boundary: {
+      en: "Illustrative launch scenario: the demand signals, time window, and outcome are presentation examples, not measured product results.",
+      zh: "示例发布场景：需求信号、时间窗口与结果均为演示示例，并非实测产品结果。",
+    },
+    display: "envelope",
+  },
 });
