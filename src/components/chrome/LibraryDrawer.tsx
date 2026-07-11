@@ -122,7 +122,7 @@ export default function LibraryDrawer({
               onChange={(event) => setQuery(event.target.value)}
               placeholder={labels.search}
               aria-label={labels.search}
-              className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-ink/35"
+              className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-ink/35 focus-visible:outline-none"
             />
           </label>
         </div>

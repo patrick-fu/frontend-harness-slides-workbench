@@ -137,7 +137,7 @@ export default function CommandPalette({
         aria-label={labels.title}
         className="relative flex max-h-[72vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-elevated text-ink shadow-[0_28px_90px_rgba(0,0,0,.35)]"
       >
-        <div className="flex h-14 shrink-0 items-center gap-3 border-b border-ink/10 px-4">
+        <div className="flex h-14 shrink-0 items-center gap-3 border-b border-ink/10 px-4 focus-within:border-ink/25">
           <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6">
             <circle cx="8.5" cy="8.5" r="5.5" />
             <path d="m13 13 4 4" />
@@ -167,7 +167,7 @@ export default function CommandPalette({
             }}
             placeholder={labels.search}
             aria-label={labels.search}
-            className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-ink/35"
+            className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-ink/35 focus-visible:outline-none"
           />
           <kbd className="hidden rounded-md border border-ink/10 bg-ink/[0.04] px-2 py-1 font-mono text-[10px] text-ink/45 sm:block">
             ESC
