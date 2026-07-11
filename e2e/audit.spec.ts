@@ -1,4 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
+import { CATALOG_MANIFEST } from "../src/styles/catalog-manifest.generated";
 
 // ── Style beat count metadata ──────────────────────────────────────────────
 
@@ -1257,6 +1258,21 @@ test.describe("Cross-style cycling", () => {
 // ─── 9: Catalog / overview view ────────────────────────────────────────────
 
 test.describe("Catalog / overview view", () => {
+  test("published Catalog stats reflect the generated manifest", async ({
+    request,
+  }) => {
+    const response = await request.get("/catalog-stats.json");
+
+    expect(response.ok()).toBe(true);
+    expect(await response.json()).toEqual({
+      styles: CATALOG_MANIFEST.length,
+      topics: CATALOG_MANIFEST.reduce(
+        (total, style) => total + style.topics.length,
+        0,
+      ),
+    });
+  });
+
   test("reduced motion removes visible Topic Card transitions", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await openOverview(page);
