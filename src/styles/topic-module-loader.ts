@@ -1,12 +1,20 @@
 import type { TopicComponent, TopicComponentLoader } from "../types";
+import type { TopicDefinition } from "../domain/topic";
+
+export type TopicModuleDefault = TopicComponent | TopicDefinition;
 
 export type TopicModuleLoaders = Record<
   string,
-  () => Promise<TopicComponent>
+  () => Promise<TopicModuleDefault>
 >;
 
-const topicModules = import.meta.glob<TopicComponent>(
-  ["./*.tsx", "!./*.test.tsx", "!./__test-template.tsx"],
+const topicModules = import.meta.glob<TopicModuleDefault>(
+  [
+    "./*.tsx",
+    "../topics/*.tsx",
+    "!./*.test.tsx",
+    "!./__test-template.tsx",
+  ],
   { import: "default" },
 ) as TopicModuleLoaders;
 
@@ -31,6 +39,11 @@ export function createTopicComponentLoader(
         `Catalog manifest references unknown Topic module "${modulePath}".`,
       );
     }
-    return loadModule();
+    const moduleDefault = await loadModule();
+    return typeof moduleDefault === "object" &&
+      moduleDefault !== null &&
+      "Stage" in moduleDefault
+      ? moduleDefault.Stage
+      : moduleDefault;
   };
 }

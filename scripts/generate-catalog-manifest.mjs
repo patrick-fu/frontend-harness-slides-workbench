@@ -5,6 +5,7 @@ import { createServer } from "vite";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const stylesDirectory = resolve(root, "src/styles");
+const topicsDirectory = resolve(root, "src/topics");
 const outputPath = resolve(stylesDirectory, "catalog-manifest.generated.ts");
 
 function isStyleModule(filename) {
@@ -40,13 +41,27 @@ async function main() {
     const { STYLE_CATALOG_SOURCE } = await vite.ssrLoadModule(
       "/src/styles/catalog-source.ts",
     );
-    const filenames = (await readdir(stylesDirectory))
+    const styleFilenames = (await readdir(stylesDirectory))
+      .filter(isStyleModule)
+      .sort();
+    const topicFilenames = (await readdir(topicsDirectory, { recursive: false }).catch(
+      () => [],
+    ))
       .filter(isStyleModule)
       .sort();
     const modules = await Promise.all(
-      filenames.map(async (filename) => ({
-        path: `./${filename}`,
-        module: await vite.ssrLoadModule(`/src/styles/${filename}`),
+      [
+        ...styleFilenames.map((filename) => ({
+          path: `./${filename}`,
+          sourcePath: `/src/styles/${filename}`,
+        })),
+        ...topicFilenames.map((filename) => ({
+          path: `../topics/${filename}`,
+          sourcePath: `/src/topics/${filename}`,
+        })),
+      ].map(async ({ path, sourcePath }) => ({
+        path,
+        module: await vite.ssrLoadModule(sourcePath),
       })),
     );
     const manifest = STYLE_CATALOG_SOURCE.map((style) => ({
@@ -54,7 +69,9 @@ async function main() {
       name: style.name,
       topics: style.topics.map((topic) => {
         const matchingModule = modules.find(
-          ({ module }) => module.default === topic.component,
+          ({ module }) =>
+            module.default === topic.component ||
+            module.default?.Stage === topic.component,
         );
         if (!matchingModule) {
           throw new Error(
