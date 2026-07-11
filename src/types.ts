@@ -165,6 +165,12 @@ export type TopicEvidence =
       boundary: { en: string; zh: string };
       /** The Envelope displays the boundary unless the Topic owns it in-Stage. */
       display?: "envelope" | "stage";
+    }
+  | {
+      kind: "mixed";
+      boundary: { en: string; zh: string };
+      /** The Envelope displays the boundary unless the Topic owns it in-Stage. */
+      display?: "envelope" | "stage";
     };
 
 export interface TopicTransitionScore {

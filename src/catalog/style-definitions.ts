@@ -1,6 +1,6 @@
 import type { StyleDefinitions } from "../domain/style";
 
-export const STYLE_DEFINITIONS = {
+export const STYLE_DEFINITIONS: StyleDefinitions = {
   "minimal-product-keynote": { id: "minimal-product-keynote", name: { en: "Minimal Product Keynote", zh: "极简产品主题演讲" }, band: "minimal-keynote" },
   "objective-swiss-grid": { id: "objective-swiss-grid", name: { en: "Objective Swiss Grid", zh: "客观瑞士网格" }, band: "minimal-keynote" },
   "wabi-sabi-ceramic": { id: "wabi-sabi-ceramic", name: { en: "Wabi-Sabi Ceramic", zh: "侘寂陶器" }, band: "minimal-keynote" },
@@ -50,4 +50,4 @@ export const STYLE_DEFINITIONS = {
   "checklist-ledger": { id: "checklist-ledger", name: { en: "Checklist Ledger", zh: "检查清单台账" }, band: "text-report" },
   "context-bento-box": { id: "context-bento-box", name: { en: "Context Bento Box", zh: "上下文便当盒" }, band: "text-report" },
   "object-metaphor-hero": { id: "object-metaphor-hero", name: { en: "Object Metaphor Hero", zh: "物体隐喻主视觉" }, band: "text-report" },
-} as const satisfies StyleDefinitions;
+};

@@ -245,7 +245,8 @@ export default function LabView({
   };
   const styleNumber = registry.findIndex((entry) => entry.id === found.style.id) + 1;
   const illustrativeBoundary =
-    found.topic.evidence?.kind === "illustrative" &&
+    (found.topic.evidence?.kind === "illustrative" ||
+      found.topic.evidence?.kind === "mixed") &&
     found.topic.evidence.display !== "stage"
       ? found.topic.evidence.boundary[language]
       : null;
