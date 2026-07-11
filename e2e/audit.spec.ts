@@ -204,6 +204,56 @@ const COORDINATED_TOPIC_BY_STYLE: Record<string, string> = {
   "object-metaphor-hero": "cocoon-to-cloth",
   "blackboard-chalk-talk": "hearing-path",
 };
+const V3_TOPIC_BY_STYLE: Record<string, string> = {
+  "minimal-product-keynote": "last-feature-cut",
+  "objective-swiss-grid": "anatomy-timetable",
+  "wabi-sabi-ceramic": "beauty-unfinished",
+  "interactive-dialogue-stage": "rubber-duck",
+  "cyanotype-drafting-table": "drawing-a-bridge",
+  "kinetic-type-punchline": "ship-it",
+  "sketch-board-emoji": "how-we-named-it",
+  "spotlight-quote-poster": "on-quitting-well",
+  "subway-map-of-intent": "three-teams-launch",
+  "benchmark-matrix": "build-buy-borrow",
+  "signal-pipeline-flow": "where-request-goes",
+  "soft-pastel-friendly": "first-week-here",
+  "kitchen-prep-station": "raw-logs-to-report",
+  "collaborative-pairing-board": "human-reviews-ai",
+  "studio-mixing-console": "tuning-the-model",
+  "debug-reaction-board": "safe-to-deploy",
+  "front-page-broadsheet": "day-feed-stopped",
+  "magazine-masthead": "comeback-issue",
+  "warm-editorial-feature": "letter-to-past-self",
+  "scholars-vellum": "what-ancients-knew",
+  "solar-biennale-poster": "festival-slow-ideas",
+  "duotone-session": "cut-in-one-take",
+  "riso-print-zine": "make-something-weekly",
+  "analog-cutout-collage": "piecing-idea-together",
+  "woodblock-floating-world": "a-rivers-journey",
+  "botanical-specimen-plate": "anatomy-of-an-idea",
+  "machine-age-deco": "grand-unveiling",
+  "expedition-screenprint": "mapping-unknown-ground",
+  "cassette-era-packaging": "greatest-hits-vol-1",
+  "neo-brutalist-bulletin": "read-before-merge",
+  "red-wedge-agitprop": "refactor-the-system",
+  "mechanical-scoring-funnel": "triage-the-backlog",
+  "liquid-glass": "layers-of-a-product",
+  "retro-windows": "setup-exe",
+  "mid-century-grove": "growing-slowly-on-purpose",
+  "after-hours-luxe": "the-midnight-release",
+  "operating-manual": "rotate-the-secrets",
+  "widescreen-title-card": "chapter-zero",
+  "blackboard-chalk-talk": "deriving-big-o",
+  "arcade-boss-fight": "defeating-tech-debt",
+  "research-memo": "why-users-churn",
+  "decision-record": "why-we-chose-monorepo",
+  "maintainer-issue-brief": "flaky-test-root-cause",
+  "field-notes-report": "shadowing-support",
+  "annotated-source-diff": "killing-a-god-object",
+  "checklist-ledger": "close-the-quarter",
+  "context-bento-box": "everything-the-intern-needs",
+  "object-metaphor-hero": "onboarding-toolkit",
+};
 const SECONDARY_TOPIC_SCENE_5_LAST_BEAT: Record<string, number> = {
   "minimal-product-keynote": 1,
   "spotlight-quote-poster": 2,
@@ -400,6 +450,7 @@ function getTopicSequence(styleId: string): string[] {
     PRIMARY_TOPIC_BY_STYLE[styleId],
     SECONDARY_TOPIC_BY_STYLE[styleId],
     COORDINATED_TOPIC_BY_STYLE[styleId],
+    V3_TOPIC_BY_STYLE[styleId],
   ].filter((topicId): topicId is string => Boolean(topicId));
 }
 
@@ -1165,6 +1216,7 @@ test.describe("Cross-style cycling", () => {
   });
 
   test("cycling across band boundaries is topic-aware", async ({ page }) => {
+    test.setTimeout(60000); // 4 topics/style × 6 boundaries = ~24 navigations
     // Test cross-style cycling at band boundaries (most likely to break).
     // Each transition: openLab to the "from" style's last position, then
     // ArrowRight to advance. openLab does a full page goto + waitForSelector
