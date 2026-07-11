@@ -30349,9 +30349,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "woodblock-floating-world",
-            "band": "craft-cultural",
-            "name": "Woodblock Floating-World",
             "theme": "Hand-pressed woodblock print on warm paper — flat indigo planes, vermilion seal, one graded sky. Best for cultural storytelling, craft heritage narratives, and decks that need human, hand-made calm.",
             "densityLabel": "Graphic",
             "heroScene": 3,
@@ -30477,12 +30474,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "woodblock-floating-world",
+            "name": "Woodblock Floating-World",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "woodblock-floating-world",
-            "band": "craft-cultural",
-            "name": "木版浮世绘",
             "theme": "暖纸上的手工木版画——靛蓝平面、朱砂印章、一抹晕染天空。最适合文化叙事、工艺传承故事，以及需要人手沉静温度的演示。",
             "densityLabel": "图形化",
             "heroScene": 3,
@@ -30608,10 +30605,93 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "woodblock-floating-world",
+            "name": "木版浮世绘",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./25-woodblock-print.tsx"
+        "modulePath": "../topics/woodblock.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "woodblock-wave-chapter-seals",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "sources": [
+          {
+            "authority": "British Museum",
+            "title": "Under the Wave off Kanagawa (Kanagawa-oki nami-ura)",
+            "citation": "British Museum collection object 1937,0710,0.147, Katsushika Hokusai, Under the Wave off Kanagawa.",
+            "url": "https://www.britishmuseum.org/collection/object/A_1937-0710-0-147",
+            "supports": "Supports the attribution to Katsushika Hokusai, the Under the Wave off Kanagawa title, its Thirty-six Views of Mt Fuji series, the 1831 production date, color woodblock technique, and a 25.9-centimetre print height."
+          },
+          {
+            "authority": "The Metropolitan Museum of Art",
+            "title": "Art of the Pleasure Quarters and the Ukiyo-e Style",
+            "citation": "The Metropolitan Museum of Art, Timeline of Art History, Art of the Pleasure Quarters and the Ukiyo-e Style.",
+            "url": "https://www.metmuseum.org/pt/essays/art-of-the-pleasure-quarters-and-the-ukiyo-e-style",
+            "supports": "Supports the ukiyo-e context and the dates shown for Katsushika Hokusai (1760–1849) and Utagawa Hiroshige (1797–1858), including their early-nineteenth-century landscape printmaking."
+          },
+          {
+            "authority": "British Museum",
+            "title": "Utamaro, Ten Classes of Women's Physiognomy",
+            "citation": "British Museum collection object 1906,1220,0.329, Kitagawa Utamaro, Ten Classes of Women's Physiognomy.",
+            "url": "https://www.britishmuseum.org/collection/object/A_1906-1220-0-329",
+            "supports": "Supports the Kitagawa Utamaro attribution and Ten Classes of Women's Physiognomy series named in the final artist list."
+          },
+          {
+            "authority": "The Metropolitan Museum of Art",
+            "title": "Utamaro: Songs of the Garden",
+            "citation": "The Metropolitan Museum of Art, Utamaro: Songs of the Garden.",
+            "url": "https://resources.metmuseum.org/resources/metpublications/pdf/Utamaro_Songs_of_the_Garden.pdf",
+            "supports": "Supports the historical lifespan shown for Kitagawa Utamaro (1753–1806) in the final artist list."
+          }
+        ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "authority": "British Museum",
+              "title": "Under the Wave off Kanagawa (Kanagawa-oki nami-ura)",
+              "citation": "British Museum collection object 1937,0710,0.147, Katsushika Hokusai, Under the Wave off Kanagawa.",
+              "url": "https://www.britishmuseum.org/collection/object/A_1937-0710-0-147",
+              "supports": "Supports the attribution to Katsushika Hokusai, the Under the Wave off Kanagawa title, its Thirty-six Views of Mt Fuji series, the 1831 production date, color woodblock technique, and a 25.9-centimetre print height."
+            },
+            {
+              "authority": "The Metropolitan Museum of Art",
+              "title": "Art of the Pleasure Quarters and the Ukiyo-e Style",
+              "citation": "The Metropolitan Museum of Art, Timeline of Art History, Art of the Pleasure Quarters and the Ukiyo-e Style.",
+              "url": "https://www.metmuseum.org/pt/essays/art-of-the-pleasure-quarters-and-the-ukiyo-e-style",
+              "supports": "Supports the ukiyo-e context and the dates shown for Katsushika Hokusai (1760–1849) and Utagawa Hiroshige (1797–1858), including their early-nineteenth-century landscape printmaking."
+            },
+            {
+              "authority": "British Museum",
+              "title": "Utamaro, Ten Classes of Women's Physiognomy",
+              "citation": "British Museum collection object 1906,1220,0.329, Kitagawa Utamaro, Ten Classes of Women's Physiognomy.",
+              "url": "https://www.britishmuseum.org/collection/object/A_1906-1220-0-329",
+              "supports": "Supports the Kitagawa Utamaro attribution and Ten Classes of Women's Physiognomy series named in the final artist list."
+            },
+            {
+              "authority": "The Metropolitan Museum of Art",
+              "title": "Utamaro: Songs of the Garden",
+              "citation": "The Metropolitan Museum of Art, Utamaro: Songs of the Garden.",
+              "url": "https://resources.metmuseum.org/resources/metpublications/pdf/Utamaro_Songs_of_the_Garden.pdf",
+              "supports": "Supports the historical lifespan shown for Kitagawa Utamaro (1753–1806) in the final artist list."
+            }
+          ],
+          "boundary": {
+            "en": "The scene compositions are teaching visuals rather than a catalog record or reproduction of a specific print; titles, dates, dimensions, and artist lists are simplified for the overview.",
+            "zh": "场景构图用于教学展示，并非某一版画的编目记录或复制品；标题、年代、尺寸与艺术家列表均为概览而简化。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
+        }
       },
       {
         "id": "tide-map",
@@ -30622,9 +30702,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "woodblock-floating-world",
-            "band": "craft-cultural",
-            "name": "Woodblock Floating World",
             "theme": "Tide Map for a Team",
             "densityLabel": "Medium Narrative",
             "heroScene": 3,
@@ -30765,12 +30842,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "woodblock-floating-world",
+            "name": "Woodblock Floating-World",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "woodblock-floating-world",
-            "band": "craft-cultural",
-            "name": "木版浮世",
             "theme": "团队潮汐图",
             "densityLabel": "中等叙事",
             "heroScene": 3,
@@ -30911,10 +30988,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "woodblock-floating-world",
+            "name": "木版浮世绘",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./25-tide-map-team.tsx"
+        "modulePath": "../topics/tide-map.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "tide-map-seal-index",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative team-planning metaphor: boats, tides, routes, and work states are presentation examples, not measured operational data.",
+            "zh": "示例团队规划隐喻：船只、潮汐、路线与工作状态均为演示内容，并非实测运营数据。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "slide-x",
+          "3->4": "fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "whistled-language",
@@ -30925,9 +31025,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "woodblock-floating-world",
-            "band": "craft-cultural",
-            "name": "Woodblock Floating World",
             "theme": "A Language Carried by Mountains",
             "densityLabel": "Medium Narrative",
             "heroScene": 5,
@@ -31050,12 +31147,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "woodblock-floating-world",
+            "name": "Woodblock Floating-World",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "woodblock-floating-world",
-            "band": "craft-cultural",
-            "name": "木版浮世",
             "theme": "山谷传递的语言",
             "densityLabel": "中密度叙事",
             "heroScene": 5,
@@ -31178,10 +31275,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "woodblock-floating-world",
+            "name": "木版浮世绘",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./woodblock-floating-world-whistled-language.tsx",
+        "modulePath": "../topics/whistled-language.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "mountain-peak-array",
@@ -31287,6 +31387,9 @@ export const CATALOG_MANIFEST = [
             ]
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "ink-spread",
           "2->3": "crossfade",
@@ -31303,9 +31406,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "woodblock-floating-world",
-            "band": "craft-cultural",
-            "name": "Woodblock Floating-World",
             "theme": "A River's Journey",
             "densityLabel": "Sparse · Serene",
             "heroScene": 3,
@@ -31429,12 +31529,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "woodblock-floating-world",
+            "name": "Woodblock Floating-World",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "woodblock-floating-world",
-            "band": "craft-cultural",
-            "name": "木版浮世绘",
             "theme": "一条河",
             "densityLabel": "疏朗 · 静谧",
             "heroScene": 3,
@@ -31558,10 +31658,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "woodblock-floating-world",
+            "name": "木版浮世绘",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./a-rivers-journey.tsx",
+        "modulePath": "../topics/a-rivers-journey.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "river-horizon-boat",
@@ -31601,9 +31704,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "botanical-specimen-plate",
-            "band": "craft-cultural",
-            "name": "Botanical Specimen Plate",
             "theme": "Pressed herbarium sheet under north light — aged paper, iron-gall ink, muted naturalist palette. Best for taxonomy, classification, species catalogs, and systematic comparison.",
             "densityLabel": "Scholarly",
             "heroScene": 3,
@@ -31724,12 +31824,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "botanical-specimen-plate",
+            "name": "Botanical Specimen Plate",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "botanical-specimen-plate",
-            "band": "craft-cultural",
-            "name": "植物标本板",
             "theme": "北窗下的压制植物标本——陈年纸张、铁胆墨水、柔和自然色。最适合分类学、物种编目和系统比较。",
             "densityLabel": "学术",
             "heroScene": 3,
@@ -31850,10 +31950,79 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "botanical-specimen-plate",
+            "name": "植物标本板",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./26-chinese-ink.tsx"
+        "modulePath": "../topics/specimen-plate.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "specimen-plate-dot-index",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "sources": [
+          {
+            "authority": "Biodiversity Heritage Library",
+            "title": "Caroli Linnaei Species plantarum",
+            "citation": "Biodiversity Heritage Library bibliography 669, Carl von Linné, Species plantarum, 1753.",
+            "url": "https://www.biodiversitylibrary.org/bibliography/669",
+            "supports": "Supports the Carl Linnaeus (1707–1778) and Species Plantarum (1753) reference in the historical collectors list."
+          },
+          {
+            "authority": "Natural History Museum, London",
+            "title": "Daniel Solander: a Linnaean disciple on HMS Endeavour",
+            "citation": "Natural History Museum, Daniel Solander: a Linnaean disciple on HMS Endeavour.",
+            "url": "https://www.nhm.ac.uk/discover/daniel-solander-a-linnaean-disciple-on-hms-endeavour.html",
+            "supports": "Supports the Joseph Banks and Daniel Solander Endeavour collecting context and the later Banks' Florilegium publication history referenced by the collectors scene."
+          },
+          {
+            "authority": "The Metropolitan Museum of Art",
+            "title": "Study of Capers, Gorse, and a Beetle",
+            "citation": "The Metropolitan Museum of Art collection object 2012.83, Maria Sibylla Merian (1647–1717).",
+            "url": "https://www.metmuseum.org/art/collection/search/399922",
+            "supports": "Supports the Maria Sibylla Merian (1647–1717) reference and her documented observational studies of plants and insect metamorphosis."
+          }
+        ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "authority": "Biodiversity Heritage Library",
+              "title": "Caroli Linnaei Species plantarum",
+              "citation": "Biodiversity Heritage Library bibliography 669, Carl von Linné, Species plantarum, 1753.",
+              "url": "https://www.biodiversitylibrary.org/bibliography/669",
+              "supports": "Supports the Carl Linnaeus (1707–1778) and Species Plantarum (1753) reference in the historical collectors list."
+            },
+            {
+              "authority": "Natural History Museum, London",
+              "title": "Daniel Solander: a Linnaean disciple on HMS Endeavour",
+              "citation": "Natural History Museum, Daniel Solander: a Linnaean disciple on HMS Endeavour.",
+              "url": "https://www.nhm.ac.uk/discover/daniel-solander-a-linnaean-disciple-on-hms-endeavour.html",
+              "supports": "Supports the Joseph Banks and Daniel Solander Endeavour collecting context and the later Banks' Florilegium publication history referenced by the collectors scene."
+            },
+            {
+              "authority": "The Metropolitan Museum of Art",
+              "title": "Study of Capers, Gorse, and a Beetle",
+              "citation": "The Metropolitan Museum of Art collection object 2012.83, Maria Sibylla Merian (1647–1717).",
+              "url": "https://www.metmuseum.org/art/collection/search/399922",
+              "supports": "Supports the Maria Sibylla Merian (1647–1717) reference and her documented observational studies of plants and insect metamorphosis."
+            }
+          ],
+          "boundary": {
+            "en": "Botanical forms, labels, and collection scenes are visual teaching material rather than documented specimens or a scientific catalog; the named plate labels are simplified overview cues.",
+            "zh": "植物形态、标签与采集场景均为视觉教学材料，并非有据可查的标本或科学目录；图版中的命名标签仅为简化概览提示。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
+        }
       },
       {
         "id": "growth-signals",
@@ -31864,9 +32033,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "botanical-specimen-plate",
-            "band": "craft-cultural",
-            "name": "Botanical Specimen Plate",
             "theme": "Classifying Growth Signals",
             "densityLabel": "Specimen Reading",
             "heroScene": 1,
@@ -32015,12 +32181,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "botanical-specimen-plate",
+            "name": "Botanical Specimen Plate",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "botanical-specimen-plate",
-            "band": "craft-cultural",
-            "name": "植物标本图版",
             "theme": "增长信号分类",
             "densityLabel": "标本式阅读",
             "heroScene": 1,
@@ -32169,10 +32335,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "botanical-specimen-plate",
+            "name": "植物标本板",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./26-growth-signals.tsx"
+        "modulePath": "../topics/growth-signals.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "growth-signals-pressed-leaf-index",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative growth-analysis plate: labels, signals, comparisons, and recommendations are presentation examples, not measured product or business outcomes.",
+            "zh": "示例增长分析图版：标签、信号、比较与建议均为演示内容，并非实测产品或业务结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "wipe",
+          "3->4": "scale-fade",
+          "4->5": "page-flip"
+        }
       },
       {
         "id": "leaf-stomata",
@@ -32183,9 +32372,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "botanical-specimen-plate",
-            "band": "craft-cultural",
-            "name": "Botanical Specimen Plate",
             "theme": "The Leaf’s Smallest Bargain",
             "densityLabel": "Editorial Reading",
             "heroScene": 3,
@@ -32306,12 +32492,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "botanical-specimen-plate",
+            "name": "Botanical Specimen Plate",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "botanical-specimen-plate",
-            "band": "craft-cultural",
-            "name": "植物标本图版",
             "theme": "叶片最小的交换",
             "densityLabel": "编辑阅读",
             "heroScene": 3,
@@ -32432,10 +32618,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "botanical-specimen-plate",
+            "name": "植物标本板",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./27-leaf-stomata.tsx",
+        "modulePath": "../topics/leaf-stomata.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "specimen-registration-marks",
@@ -32476,6 +32665,9 @@ export const CATALOG_MANIFEST = [
             "boundary": "The review emphasizes open questions and metabolic plasticity; the plate intentionally stops at system-level conditions and does not assign a single molecular cause to any drawn aperture."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "iris-open",
           "2->3": "crossfade",
@@ -32492,9 +32684,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "botanical-specimen-plate",
-            "band": "craft-cultural",
-            "name": "Botanical Specimen Plate",
             "theme": "Anatomy of an Idea",
             "densityLabel": "Sparse · Herbarium",
             "heroScene": 1,
@@ -32610,12 +32799,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "botanical-specimen-plate",
+            "name": "Botanical Specimen Plate",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "botanical-specimen-plate",
-            "band": "craft-cultural",
-            "name": "植物标本板",
             "theme": "想法解剖",
             "densityLabel": "疏朗 · 标本",
             "heroScene": 1,
@@ -32731,10 +32920,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "botanical-specimen-plate",
+            "name": "植物标本板",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./anatomy-of-an-idea.tsx",
+        "modulePath": "../topics/anatomy-of-an-idea.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "idea-plate-numerals",
@@ -32774,9 +32966,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "machine-age-deco",
-            "band": "craft-cultural",
-            "name": "Machine-Age Deco",
             "theme": "Ocean liner dining saloon — engineered symmetry, lacquered depth, metallic precision. Best for flagship product launches, brand manifestos, award ceremonies, and moments demanding ceremony and scale.",
             "densityLabel": "Monumental",
             "heroScene": 3,
@@ -32902,12 +33091,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "machine-age-deco",
+            "name": "Machine-Age Deco",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "machine-age-deco",
-            "band": "craft-cultural",
-            "name": "机器时代装饰艺术",
             "theme": "远洋邮轮餐厅——工程对称、漆面深邃、金属精密。最适合旗舰产品发布、品牌宣言、颁奖典礼，以及需要仪式感与宏大尺度的时刻。",
             "densityLabel": "纪念性",
             "heroScene": 3,
@@ -33033,10 +33222,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "machine-age-deco",
+            "name": "机器时代装饰艺术",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./27-art-deco.tsx"
+        "modulePath": "../topics/deco-gala.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "deco-gala-diamond-index",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative product collection: product names, generations, materials use, and performance framing are presentation examples, not external factual claims.",
+            "zh": "示例产品系列：其中产品名称、代际、材料用途和性能表述均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
+        }
       },
       {
         "id": "infrastructure-gala",
@@ -33047,9 +33259,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "machine-age-deco",
-            "band": "craft-cultural",
-            "name": "Machine-Age Deco",
             "theme": "The Infrastructure Gala",
             "densityLabel": "Ceremonial Low Density",
             "heroScene": 1,
@@ -33194,12 +33403,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "machine-age-deco",
+            "name": "Machine-Age Deco",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "machine-age-deco",
-            "band": "craft-cultural",
-            "name": "机器时代装饰派",
             "theme": "基础设施晚会",
             "densityLabel": "仪式低密度",
             "heroScene": 1,
@@ -33344,10 +33553,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "machine-age-deco",
+            "name": "机器时代装饰艺术",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./27-infrastructure-gala.tsx"
+        "modulePath": "../topics/infrastructure-gala.tsx",
+        "navigation": {
+          "geometry": "object-controller",
+          "carrier": "brass-elevator",
+          "invocation": "persistent",
+          "feedback": "mechanical-displacement"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative infrastructure gala: locations, service counts, operating states, and ceremonial outcomes are presentation examples, not external factual claims.",
+            "zh": "示例基础设施晚会：其中地点、服务数量、运行状态和仪式结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "scale-fade",
+          "3->4": "wipe",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "reinforced-concrete",
@@ -33358,9 +33590,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "machine-age-deco",
-            "band": "craft-cultural",
-            "name": "Machine-Age Deco",
             "theme": "Concrete's Two Strengths",
             "densityLabel": "Diagram-led Medium",
             "heroScene": 4,
@@ -33477,12 +33706,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "machine-age-deco",
+            "name": "Machine-Age Deco",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "machine-age-deco",
-            "band": "craft-cultural",
-            "name": "机器时代装饰派",
             "theme": "混凝土的两种力量",
             "densityLabel": "图解中密度",
             "heroScene": 4,
@@ -33599,10 +33828,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "machine-age-deco",
+            "name": "机器时代装饰艺术",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./machine-age-deco-reinforced-concrete.tsx",
+        "modulePath": "../topics/reinforced-concrete.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "load-ruler",
@@ -33674,6 +33906,9 @@ export const CATALOG_MANIFEST = [
             ]
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "split-merge",
           "2->3": "dolly-pull",
@@ -33690,9 +33925,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "machine-age-deco",
-            "band": "craft-cultural",
-            "name": "Machine-Age Deco",
             "theme": "The Grand Unveiling",
             "densityLabel": "Monumental",
             "heroScene": 3,
@@ -33805,12 +34037,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "machine-age-deco",
+            "name": "Machine-Age Deco",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "machine-age-deco",
-            "band": "craft-cultural",
-            "name": "机器时代装饰艺术",
             "theme": "盛大揭幕",
             "densityLabel": "恢弘",
             "heroScene": 3,
@@ -33923,10 +34155,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "machine-age-deco",
+            "name": "机器时代装饰艺术",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./grand-unveiling.tsx",
+        "modulePath": "../topics/grand-unveiling.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "unveiling-gate-dial",
@@ -33966,9 +34201,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "expedition-screenprint",
-            "band": "craft-cultural",
-            "name": "Expedition Screenprint",
             "theme": "WPA poster fresh off the silkscreen — flat warm ink planes, visible grain, a horizon you can feel. Best for product launches with public-good angle, geographic themes, and community initiatives.",
             "densityLabel": "Civic",
             "heroScene": 2,
@@ -34082,12 +34314,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "expedition-screenprint",
+            "name": "Expedition Screenprint",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "expedition-screenprint",
-            "band": "craft-cultural",
-            "name": "探险丝网印",
             "theme": "刚从丝网印机取下的 WPA 海报——温暖平面墨色、可见油墨颗粒、可感知的地平线。最适合公益角度的产品发布、地理主题和社区倡议。",
             "densityLabel": "公共",
             "heroScene": 2,
@@ -34201,10 +34433,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "expedition-screenprint",
+            "name": "探险丝网印",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./28-bauhaus-poster.tsx"
+        "modulePath": "../topics/expedition-print.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "expedition-print-scene-index",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative public-lands campaign: regions, people, counts, and protection outcomes are presentation examples, not external factual claims.",
+            "zh": "示例公共土地倡议：其中地区、人物、数量和保护成果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
+        }
       },
       {
         "id": "field-route",
@@ -34215,9 +34470,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "expedition-screenprint",
-            "band": "craft-cultural",
-            "name": "Expedition Screenprint",
             "theme": "Field Route to the Signal",
             "densityLabel": "Poster Moderate",
             "heroScene": 4,
@@ -34363,12 +34615,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "expedition-screenprint",
+            "name": "Expedition Screenprint",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "expedition-screenprint",
-            "band": "craft-cultural",
-            "name": "远征丝网版画",
             "theme": "通往信号的野外路线",
             "densityLabel": "中密度海报",
             "heroScene": 4,
@@ -34514,10 +34766,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "expedition-screenprint",
+            "name": "探险丝网印",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./28-field-route-signal.tsx"
+        "modulePath": "../topics/field-route.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "field-route-coordinate-rail",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative field route: coordinates, terrain notes, weather states, and signal discoveries are presentation examples, not external factual claims.",
+            "zh": "示例野外路线：其中坐标、地形笔记、天气状态和信号发现均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "wipe",
+          "3->4": "fade",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "saharan-dust",
@@ -34528,9 +34803,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "expedition-screenprint",
-            "band": "craft-cultural",
-            "name": "Expedition Screenprint",
             "theme": "Saharan Dust Across the Atlantic",
             "densityLabel": "Stage Impact",
             "heroScene": 4,
@@ -34654,12 +34926,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "expedition-screenprint",
+            "name": "Expedition Screenprint",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "expedition-screenprint",
-            "band": "craft-cultural",
-            "name": "探险丝网印",
             "theme": "撒哈拉尘埃横渡大西洋",
             "densityLabel": "舞台冲击",
             "heroScene": 4,
@@ -34783,10 +35055,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "expedition-screenprint",
+            "name": "探险丝网印",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./expedition-screenprint-saharan-dust.tsx",
+        "modulePath": "../topics/saharan-dust.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "dust-arc",
@@ -34830,6 +35105,9 @@ export const CATALOG_MANIFEST = [
             "supports": "Long-running sampling and source analysis complicate any single-source or simple-fertilizer story; source regions, trajectories, and nutrient consequences require qualification."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "diagonal-pan",
           "2->3": "ink-spread",
@@ -34846,9 +35124,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "expedition-screenprint",
-            "band": "craft-cultural",
-            "name": "Expedition Screenprint",
             "theme": "Mapping Unknown Ground",
             "densityLabel": "Poster · civic",
             "heroScene": 4,
@@ -34960,12 +35235,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "expedition-screenprint",
+            "name": "Expedition Screenprint",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "expedition-screenprint",
-            "band": "craft-cultural",
-            "name": "探险丝网印",
             "theme": "勘探未知",
             "densityLabel": "海报 · 公共",
             "heroScene": 4,
@@ -35077,10 +35352,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "expedition-screenprint",
+            "name": "探险丝网印",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./mapping-unknown-ground.tsx",
+        "modulePath": "../topics/mapping-unknown-ground.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "expedition-altitude-scale",
@@ -35120,9 +35398,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "cassette-era-packaging",
-            "band": "craft-cultural",
-            "name": "Cassette-Era Packaging",
             "theme": "1970s Japanese audio catalogue — warm cream paper, diagonal rainbow ribbon, dense spec-sheet. Best for product launches with retro-tech nostalgia and indie tool releases.",
             "densityLabel": "Dense",
             "heroScene": 1,
@@ -35249,12 +35524,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cassette-era-packaging",
+            "name": "Cassette-Era Packaging",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "cassette-era-packaging",
-            "band": "craft-cultural",
-            "name": "卡带时代包装",
             "theme": "1970 年代日本音响产品目录——暖奶油纸、对角彩虹带、密集规格表。最适合复古科技怀旧的产品发布和独立工具发布。",
             "densityLabel": "密集",
             "heroScene": 1,
@@ -35381,10 +35656,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cassette-era-packaging",
+            "name": "卡带时代包装",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./29-celtic-knot.tsx"
+        "modulePath": "../topics/cassette-pack.tsx",
+        "navigation": {
+          "geometry": "object-controller",
+          "carrier": "cassette-pack-controls",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative product catalogue: model names, specifications, feature labels, and serial numbers are presentation examples, not externally verified product claims.",
+            "zh": "示例产品目录：型号、规格、功能标签与序列号均为演示内容，并非经外部验证的产品主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "release-mixtape",
@@ -35395,9 +35693,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "cassette-era-packaging",
-            "band": "craft-cultural",
-            "name": "Cassette-Era Packaging",
             "theme": "The Release Mixtape",
             "densityLabel": "Medium-high density",
             "heroScene": 1,
@@ -35538,12 +35833,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cassette-era-packaging",
+            "name": "Cassette-Era Packaging",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "cassette-era-packaging",
-            "band": "craft-cultural",
-            "name": "卡带时代包装",
             "theme": "发行混音带",
             "densityLabel": "中高密度",
             "heroScene": 1,
@@ -35684,10 +35979,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cassette-era-packaging",
+            "name": "卡带时代包装",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./29-release-mixtape.tsx"
+        "modulePath": "../topics/release-mixtape.tsx",
+        "navigation": {
+          "geometry": "object-controller",
+          "carrier": "release-mixtape-counter",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative release-planning scenario: cues, tracks, readiness notes, and outcomes are presentation examples, not reported delivery results.",
+            "zh": "示例发布规划场景：提示、轨道、就绪说明与结果均为演示内容，并非已报告的交付结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "glitch",
+          "3->4": "slide-y",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "ice-core-archive",
@@ -35698,9 +36016,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "cassette-era-packaging",
-            "band": "craft-cultural",
-            "name": "Cassette-Era Packaging",
             "theme": "Ice-Core Archive",
             "densityLabel": "Diagram-led Medium",
             "heroScene": 3,
@@ -35825,12 +36140,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cassette-era-packaging",
+            "name": "Cassette-Era Packaging",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "cassette-era-packaging",
-            "band": "craft-cultural",
-            "name": "卡带时代包装",
             "theme": "冰芯档案",
             "densityLabel": "图解中密度",
             "heroScene": 3,
@@ -35955,10 +36270,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cassette-era-packaging",
+            "name": "卡带时代包装",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./cassette-era-packaging-ice-core-archive.tsx",
+        "modulePath": "../topics/ice-core-archive.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "ice-core-tape-reels",
@@ -36075,6 +36393,124 @@ export const CATALOG_MANIFEST = [
             ]
           }
         ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "id": "noaa-ncei-ice-core-proxies",
+              "authority": "NOAA National Centers for Environmental Information",
+              "shortLabel": "NOAA NCEI",
+              "title": "Ice Core Paleoclimatology Archive",
+              "citation": "NOAA National Centers for Environmental Information. Ice Core: World Data Service for Paleoclimatology overview.",
+              "url": "https://www.ncei.noaa.gov/products/paleoclimatology/ice-core",
+              "accessDate": "2026-07-10",
+              "supports": "NOAA's ice-core archive describes oxygen isotopes, methane concentrations, dust content, and many other parameters as proxy climate indicators preserved in ice-core data collections.",
+              "boundary": "This archive overview establishes that ice cores hold multiple proxy categories. It does not license a universal conversion from any one category to temperature, a single site history, or a specific numeric reconstruction.",
+              "claimIds": [
+                "dust-aerosol-record",
+                "archive-not-single-thermometer"
+              ]
+            },
+            {
+              "id": "nasa-ice-core-record",
+              "authority": "NASA Earth Observatory",
+              "shortLabel": "NASA EO",
+              "title": "Paleoclimatology: The Ice Core Record",
+              "citation": "NASA Earth Observatory. Paleoclimatology: The Ice Core Record. NASA Science.",
+              "url": "https://science.nasa.gov/earth/earth-observatory/paleoclimatology-the-ice-core-record/",
+              "accessDate": "2026-07-10",
+              "supports": "NASA explains that trapped air bubbles provide a record of past atmospheric composition and that volcanic ash can be trapped in ice along with snow and dust.",
+              "boundary": "The page supports the physical presence of gas and volcanic material in ice. It does not make every bubble exactly contemporaneous with its enclosing ice or identify a volcanic source from an ash or chemical layer alone.",
+              "claimIds": [
+                "trapped-air-composition",
+                "event-marker-chemistry",
+                "archive-not-single-thermometer"
+              ]
+            },
+            {
+              "id": "noaa-climate-ice-core-study",
+              "authority": "NOAA Climate.gov",
+              "shortLabel": "NOAA Climate",
+              "title": "Climate at the core: how scientists study ice cores to reveal Earth's climate history",
+              "citation": "NOAA Climate.gov. Climate at the core: how scientists study ice cores to reveal Earth's climate history.",
+              "url": "https://www.climate.gov/news-features/climate-tech/climate-core-how-scientists-study-ice-cores-reveal-earths-climate",
+              "accessDate": "2026-07-10",
+              "supports": "NOAA Climate.gov describes dust, air bubbles, sea salts, volcanic ash, and soot as materials preserved in ice, and explains that oxygen-isotope ratios provide temperature-related climate evidence.",
+              "boundary": "The explanatory article is used for category-level physical meaning. The slide deliberately does not turn isotope, dust, salt, or ash signals into a site-independent temperature series or exact event attribution.",
+              "claimIds": [
+                "water-isotope-proxy",
+                "dust-aerosol-record",
+                "event-marker-chemistry",
+                "archive-not-single-thermometer"
+              ]
+            },
+            {
+              "id": "fischer-dust-transport",
+              "authority": "Reviews of Geophysics",
+              "shortLabel": "Fischer 2007",
+              "title": "Glacial/interglacial changes in mineral dust and sea-salt records in polar ice cores: Sources, transport, and deposition",
+              "citation": "Fischer, H., et al. (2007). Glacial/interglacial changes in mineral dust and sea-salt records in polar ice cores: Sources, transport, and deposition. Reviews of Geophysics, 45. https://doi.org/10.1029/2005RG000192.",
+              "url": "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2005RG000192",
+              "accessDate": "2026-07-10",
+              "supports": "This peer-reviewed review explains that mineral dust and sea-salt in polar ice-core records reflect linked source, atmospheric transport, and wet or dry deposition processes, so concentration changes cannot be assigned to one climate cause by themselves.",
+              "boundary": "The review treats site- and process-dependent aerosol records. It supports keeping dust interpretation conditional; it does not identify the provenance, wind history, or climate state of the schematic dust lane in this topic.",
+              "claimIds": [
+                "dust-aerosol-record"
+              ]
+            },
+            {
+              "id": "bender-gas-ice-age",
+              "authority": "Journal of Geophysical Research: Atmospheres",
+              "shortLabel": "Bender 2006",
+              "title": "Gas age–ice age differences and the chronology of the Vostok ice core, 0–100 ka",
+              "citation": "Bender, M. L., et al. (2006). Gas age–ice age differences and the chronology of the Vostok ice core, 0–100 ka. Journal of Geophysical Research: Atmospheres. https://doi.org/10.1029/2005JD006488.",
+              "url": "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2005JD006488",
+              "accessDate": "2026-07-10",
+              "supports": "The paper states that air is trapped after firn densification, so gas is younger than enclosing ice, and discusses how the gas-age/ice-age difference introduces chronology uncertainty.",
+              "boundary": "Its Vostok discussion does not set one gas-age offset for all sites or depths. The visual therefore shows a relationship and uncertainty boundary, not a universal age correction.",
+              "claimIds": [
+                "trapped-air-composition",
+                "age-model-resolution"
+              ]
+            },
+            {
+              "id": "van-der-wel-isotope-diffusion",
+              "authority": "The Cryosphere",
+              "shortLabel": "TC 2015",
+              "title": "Estimation and calibration of the water isotope differential diffusion length in ice core records",
+              "citation": "van der Wel, G., Fischer, H., Oerter, H., Meyer, H., & Meijer, H. A. J. (2015). Estimation and calibration of the water isotope differential diffusion length in ice core records. The Cryosphere, 9, 1601–1616. https://doi.org/10.5194/tc-9-1601-2015.",
+              "url": "https://tc.copernicus.org/articles/9/1601/2015/",
+              "accessDate": "2026-07-10",
+              "supports": "This peer-reviewed study explains that stable-water-isotope information is affected by diffusion during firnification and that diffusion length depends on firn temperature and accumulation rate.",
+              "boundary": "The paper supports a resolution and interpretation limit for isotope records. It does not support reading a schematic isotope strip as a calibrated temperature reconstruction.",
+              "claimIds": [
+                "water-isotope-proxy",
+                "archive-not-single-thermometer"
+              ]
+            },
+            {
+              "id": "winski-sp19-chronology",
+              "authority": "Climate of the Past",
+              "shortLabel": "SP19 2019",
+              "title": "The SP19 chronology for the South Pole Ice Core – Part 1: volcanic matching and annual layer counting",
+              "citation": "Winski, D. A., et al. (2019). The SP19 chronology for the South Pole Ice Core – Part 1: volcanic matching and annual layer counting. Climate of the Past, 15, 1793–1808. https://doi.org/10.5194/cp-15-1793-2019.",
+              "url": "https://cp.copernicus.org/articles/15/1793/2019/",
+              "accessDate": "2026-07-10",
+              "supports": "The SP19 chronology combines annual layer counting with volcanic matching; it documents sulfate and electrical-conductivity volcanic horizons and explains that annual layers can become too thin to resolve consistently, increasing interpolation uncertainty.",
+              "boundary": "This is a South Pole core chronology, not a template that makes all ice-core age models equally precise. The slide uses it to show why tie points and unresolved intervals must remain visible.",
+              "claimIds": [
+                "event-marker-chemistry",
+                "age-model-resolution",
+                "archive-not-single-thermometer"
+              ]
+            }
+          ],
+          "boundary": {
+            "en": "Ice cores preserve multiple proxy records; no one channel is a direct, universal temperature dial.",
+            "zh": "冰芯保存多种代理记录；任何单一通道都不是直接且通用的温度刻度。"
+          },
+          "display": "stage"
+        },
         "transitionScore": {
           "1->2": "scanline",
           "2->3": "push-y",
@@ -36091,9 +36527,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "cassette-era-packaging",
-            "band": "craft-cultural",
-            "name": "Cassette-Era Packaging",
             "theme": "Greatest Hits, Vol. 1",
             "densityLabel": "Medium-high catalogue",
             "heroScene": 1,
@@ -36217,12 +36650,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cassette-era-packaging",
+            "name": "Cassette-Era Packaging",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "cassette-era-packaging",
-            "band": "craft-cultural",
-            "name": "卡带时代包装",
             "theme": "精选辑一",
             "densityLabel": "中高目录密度",
             "heroScene": 1,
@@ -36346,10 +36779,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "cassette-era-packaging",
+            "name": "卡带时代包装",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./greatest-hits-vol1.tsx",
+        "modulePath": "../topics/greatest-hits-vol1.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "cassette-tape-counter",
@@ -36389,9 +36825,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "neo-brutalist-bulletin",
-            "band": "craft-cultural",
-            "name": "Neo-Brutalist Bulletin",
             "theme": "Protest poster taped to concrete — thick black rules, hard offset shadows, one electric accent. Best for product launches, process overviews, comparison decks, and dense stats that need to feel bold and human.",
             "densityLabel": "Dense",
             "heroScene": 2,
@@ -36506,12 +36939,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "neo-brutalist-bulletin",
+            "name": "Neo-Brutalist Bulletin",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "neo-brutalist-bulletin",
-            "band": "craft-cultural",
-            "name": "新粗野公告",
             "theme": "贴在混凝土墙上的抗议海报——粗黑线条、硬边投影、一道电光强调色。最适合产品发布、流程概览、对比表格，以及需要大胆人性化呈现的密集数据。",
             "densityLabel": "密集",
             "heroScene": 2,
@@ -36626,10 +37059,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "neo-brutalist-bulletin",
+            "name": "新粗野公告",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./30-mexican-mural.tsx"
+        "modulePath": "../topics/brutalist-bulletin.tsx",
+        "navigation": {
+          "geometry": "card-miniature",
+          "carrier": "brutalist-bulletin-tabs",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative launch bulletin: rollout steps, comparisons, metrics, and dates are presentation examples, not reported commercial results.",
+            "zh": "示例发布公告：发布步骤、对比、指标与日期均为演示内容，并非已报告的商业结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "slide-x",
+          "3->4": "slide-x",
+          "4->5": "slide-x"
+        }
       },
       {
         "id": "hard-thing",
@@ -36640,9 +37096,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "neo-brutalist-bulletin",
-            "band": "craft-cultural",
-            "name": "Neo-Brutalist Bulletin",
             "theme": "Shipping the Hard Thing",
             "densityLabel": "Dense bulletin",
             "heroScene": 1,
@@ -36807,12 +37260,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "neo-brutalist-bulletin",
+            "name": "Neo-Brutalist Bulletin",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "neo-brutalist-bulletin",
-            "band": "craft-cultural",
-            "name": "新野兽派公告",
             "theme": "把难的东西发出去",
             "densityLabel": "密集公告",
             "heroScene": 1,
@@ -36977,10 +37430,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "neo-brutalist-bulletin",
+            "name": "新粗野公告",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./30-shipping-hard-thing.tsx"
+        "modulePath": "../topics/hard-thing.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "hard-thing-concrete-tabs",
+          "invocation": "persistent",
+          "feedback": "mechanical-displacement"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative delivery scenario: risks, release choices, evidence loops, and outcomes are presentation examples, not reported operational results.",
+            "zh": "示例交付场景：风险、发布选择、证据循环与结果均为演示内容，并非已报告的运营结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "slide-x",
+          "3->4": "wipe",
+          "4->5": "glitch"
+        }
       },
       {
         "id": "sinking-delta",
@@ -36991,9 +37467,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "neo-brutalist-bulletin",
-            "band": "craft-cultural",
-            "name": "Neo-Brutalist Bulletin",
             "theme": "Sinking Delta: Mississippi Delta",
             "densityLabel": "Visual narrative · intensity 3",
             "heroScene": 1,
@@ -37113,12 +37586,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "neo-brutalist-bulletin",
+            "name": "Neo-Brutalist Bulletin",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "neo-brutalist-bulletin",
-            "band": "craft-cultural",
-            "name": "新粗野主义公告",
             "theme": "下沉三角洲：密西西比河三角洲",
             "densityLabel": "视觉叙事 · 强度 3",
             "heroScene": 1,
@@ -37238,10 +37711,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "neo-brutalist-bulletin",
+            "name": "新粗野公告",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./neo-brutalist-bulletin-sinking-delta.tsx",
+        "modulePath": "../topics/sinking-delta.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "delta-distributary-blocks",
@@ -37316,6 +37792,82 @@ export const CATALOG_MANIFEST = [
             "boundary": "This statewide planning page describes principles and strategy families, not the current status, viability, funding, permitting, construction, or outcome of any named project."
           }
         ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "id": "usgs-coastal-louisiana-land-loss-2024",
+              "claimIds": [
+                "scene-1-regional-land-loss"
+              ],
+              "authority": "U.S. Geological Survey",
+              "title": "USGS scientists find new relationship between elevation change and wetland loss in Mississippi River Delta",
+              "citation": "U.S. Geological Survey, June 26, 2024.",
+              "url": "https://www.usgs.gov/news/state-news-release/usgs-scientists-find-new-relationship-between-elevation-change-and-wetland",
+              "supports": "Supports the dated, coastal-Louisiana-wide estimate of more than 2,000 square miles of land lost from 1932 to 2016 and the finding that edge erosion can coexist with elevation gain.",
+              "boundary": "This is a coastal Louisiana total, not a Mississippi Delta-only shoreline polygon. The Topic labels that scope and date range and does not apportion the loss among individual drivers."
+            },
+            {
+              "id": "usgs-wetland-loss-processes-2010",
+              "claimIds": [
+                "scene-1-multi-force-balance",
+                "scene-2-sediment-input-limit",
+                "scene-4-routing-not-sole-cause"
+              ],
+              "authority": "U.S. Geological Survey",
+              "title": "Sea-Level Rise, Subsidence, and Wetland Loss",
+              "citation": "U.S. Geological Survey Ecosystems Mission Area, August 31, 2010.",
+              "url": "https://www.usgs.gov/media/videos/sea-level-rise-subsidence-and-wetland-loss",
+              "supports": "Supports the Mississippi River Delta framing that compaction and dewatering, reduced sediment delivery after leveeing, canals, hurricanes, and sea-level rise combine in wetland loss.",
+              "boundary": "This is a process overview, not a time-specific attribution model. It does not quantify every contributor or predict the result of a single restoration project."
+            },
+            {
+              "id": "cpra-deep-subsidence-2023",
+              "claimIds": [
+                "scene-1-multi-force-balance",
+                "scene-3-spatial-subsidence",
+                "scene-4-routing-not-sole-cause"
+              ],
+              "authority": "Louisiana Coastal Protection and Restoration Authority",
+              "title": "2023 Coastal Master Plan Data Access Portal — Deep Subsidence",
+              "citation": "Louisiana CPRA, 2023 Coastal Master Plan Data Access Portal.",
+              "url": "https://mpdap.coastal.la.gov/dataset/deep-subsidence",
+              "supports": "Supports keeping deep subsidence, spatially variable shallow subsidence, mineral deposition, and organic accretion as separate coastal-Louisiana model components.",
+              "boundary": "The portal is a planning dataset rather than a direct measurement of every Mississippi Delta marsh. This Topic therefore shows no single observed subsidence rate."
+            },
+            {
+              "id": "nature-holocene-compaction-2008",
+              "claimIds": [
+                "scene-1-multi-force-balance",
+                "scene-3-spatial-subsidence"
+              ],
+              "authority": "Nature Geoscience",
+              "title": "Mississippi Delta subsidence primarily caused by compaction of Holocene strata",
+              "citation": "Törnqvist et al., Nature Geoscience 1, 173–176, 2008.",
+              "url": "https://www.nature.com/articles/ngeo129",
+              "supports": "Supports the claim that compaction of Holocene strata contributes substantially to relative sea-level rise and wetland loss in the Mississippi Delta, with rates dependent on place and timescale.",
+              "boundary": "The core-based result is not a uniform present-day rate across the delta. The cross-section is an original teaching diagram, not a measured local stratigraphic profile."
+            },
+            {
+              "id": "cpra-adaptive-coastal-plan",
+              "claimIds": [
+                "scene-2-sediment-input-limit",
+                "scene-5-adaptive-restoration-portfolio"
+              ],
+              "authority": "Louisiana Coastal Protection and Restoration Authority",
+              "title": "Our Plan — Louisiana's Coastal Master Plan",
+              "citation": "Louisiana CPRA, Our Plan, accessed July 10, 2026.",
+              "url": "https://coastal.la.gov/our-plan/",
+              "supports": "Supports treating coastal restoration as an adaptive systems portfolio: coordinating project synergies, acknowledging limited sediment supply and access, and considering natural-process and dredging options as conditions change.",
+              "boundary": "This statewide planning page describes principles and strategy families, not the current status, viability, funding, permitting, construction, or outcome of any named project."
+            }
+          ],
+          "boundary": {
+            "en": "Coastal Louisiana and Mississippi Delta evidence describes regional, multi-force processes; it does not imply one rate, cause, or guaranteed project outcome.",
+            "zh": "沿海路易斯安那州与密西西比河三角洲证据描述的是区域、多因素过程；它不意味着单一速率、单一成因或有保证的项目结果。"
+          },
+          "display": "stage"
+        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "grid-reveal",
@@ -37332,9 +37884,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "neo-brutalist-bulletin",
-            "band": "craft-cultural",
-            "name": "Neo-Brutalist Bulletin",
             "theme": "Read This Before You Merge",
             "densityLabel": "Dense · Bulletin",
             "heroScene": 1,
@@ -37457,12 +38006,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "neo-brutalist-bulletin",
+            "name": "Neo-Brutalist Bulletin",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "neo-brutalist-bulletin",
-            "band": "craft-cultural",
-            "name": "新粗野公告",
             "theme": "合并前必读",
             "densityLabel": "高密度 · 公告",
             "heroScene": 1,
@@ -37585,10 +38134,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "neo-brutalist-bulletin",
+            "name": "新粗野公告",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./read-before-merge.tsx",
+        "modulePath": "../topics/read-before-merge.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "merge-page-chips",
@@ -37628,9 +38180,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "red-wedge-agitprop",
-            "band": "craft-cultural",
-            "name": "Red-Wedge Agitprop",
             "theme": "Political poster at dawn — red wedge driving into black, type as structural beams, diagonal thrust. Best for launches, calls to action, movement-building, and content that needs to galvanize rather than persuade.",
             "densityLabel": "Urgent",
             "heroScene": 2,
@@ -37756,12 +38305,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "red-wedge-agitprop",
+            "name": "Red-Wedge Agitprop",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "red-wedge-agitprop",
-            "band": "craft-cultural",
-            "name": "红楔宣传画",
             "theme": "黎明时分的政治海报——红楔切入黑暗、字体即结构梁、对角线冲击力。最适合发布、行动号召、运动建设，以及需要激励而非说服的内容。",
             "densityLabel": "紧迫",
             "heroScene": 2,
@@ -37887,10 +38436,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "red-wedge-agitprop",
+            "name": "红楔宣传画",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./31-african-kente.tsx"
+        "modulePath": "../topics/red-wedge.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "rally-scene-dots",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative rally scenario: the contributor, organization, country, and outcome figures are authored poster content, not externally verified movement data.",
+            "zh": "示例集结场景：其中贡献者、组织、国家和结果数字均为创作海报内容，并非经外部核验的运动数据。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "slide-y"
+        }
       },
       {
         "id": "org-move",
@@ -37901,9 +38473,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "red-wedge-agitprop",
-            "band": "craft-cultural",
-            "name": "Red Wedge Agitprop",
             "theme": "Move the Org Chart",
             "densityLabel": "Medium · Mobilizing",
             "heroScene": 1,
@@ -38046,12 +38615,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "red-wedge-agitprop",
+            "name": "Red-Wedge Agitprop",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "red-wedge-agitprop",
-            "band": "craft-cultural",
-            "name": "红楔宣传画",
             "theme": "移动组织图",
             "densityLabel": "中等密度 · 动员型",
             "heroScene": 1,
@@ -38194,10 +38763,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "red-wedge-agitprop",
+            "name": "红楔宣传画",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./31-move-org-chart.tsx"
+        "modulePath": "../topics/org-move.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "org-wedge-rail",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative organization-change scenario: the hierarchy, teams, handoff count, owner loop, and delivery claims are authored poster devices, not measured organizational outcomes.",
+            "zh": "示例组织变革场景：其中层级、团队、交接次数、负责人闭环和交付主张均为创作海报手法，并非实测组织结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "glitch",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "pneumatic-post",
@@ -38208,9 +38800,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "red-wedge-agitprop",
-            "band": "craft-cultural",
-            "name": "Red Wedge Agitprop",
             "theme": "Pneumatic Post: Paris 1866—1984",
             "densityLabel": "Stage Impact · Intensity 5",
             "heroScene": 4,
@@ -38336,12 +38925,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "red-wedge-agitprop",
+            "name": "Red-Wedge Agitprop",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "red-wedge-agitprop",
-            "band": "craft-cultural",
-            "name": "红楔宣传画",
             "theme": "气动邮政：巴黎 1866—1984",
             "densityLabel": "舞台冲击 · 强度 5",
             "heroScene": 4,
@@ -38467,10 +39056,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "red-wedge-agitprop",
+            "name": "红楔宣传画",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./red-wedge-agitprop-pneumatic-post.tsx",
+        "modulePath": "../topics/pneumatic-post.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "pneumatic-tube",
@@ -38511,6 +39103,9 @@ export const CATALOG_MANIFEST = [
             "boundary": "The final blue note is explicitly labeled as a reconstructed teaching form. It borrows only the folded-card logic and does not claim to reproduce any BnF-held item, handwriting, rate, address, or postmark."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "diagonal-pan",
           "2->3": "split-merge",
@@ -38527,9 +39122,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "red-wedge-agitprop",
-            "band": "craft-cultural",
-            "name": "Red-Wedge Agitprop",
             "theme": "Refactor the System",
             "densityLabel": "Dense / Agitprop",
             "heroScene": 1,
@@ -38646,12 +39238,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "red-wedge-agitprop",
+            "name": "Red-Wedge Agitprop",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "red-wedge-agitprop",
-            "band": "craft-cultural",
-            "name": "红楔宣传画",
             "theme": "重构体制",
             "densityLabel": "高密度 / 宣传画",
             "heroScene": 1,
@@ -38768,10 +39360,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "red-wedge-agitprop",
+            "name": "红楔宣传画",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./refactor-the-system.tsx",
+        "modulePath": "../topics/refactor-the-system.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "refactor-progress-wedge",
@@ -38811,9 +39406,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "mechanical-scoring-funnel",
-            "band": "craft-cultural",
-            "name": "Mechanical Scoring Funnel",
             "theme": "Colorful pinball machine — dark playfield, saturated coded lanes, scoreboard numbers ticking. Best for categorization, multi-stage filtering, scoring, and prioritization where making the sorting feel active beats a static list.",
             "densityLabel": "Playful",
             "heroScene": 3,
@@ -38940,12 +39532,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mechanical-scoring-funnel",
+            "name": "Mechanical Scoring Funnel",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "mechanical-scoring-funnel",
-            "band": "craft-cultural",
-            "name": "机械评分漏斗",
             "theme": "彩色弹球机——深色赛场、饱和编码通道、记分牌数字跳动。最适合分类、多阶段过滤、评分和优先级排序，让排序过程动起来胜过静态列表。",
             "densityLabel": "趣味",
             "heroScene": 3,
@@ -39072,10 +39664,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mechanical-scoring-funnel",
+            "name": "机械评分漏斗",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./32-nordic-rosemaling.tsx"
+        "modulePath": "../topics/scoring-funnel.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "scoring-funnel-step-lights",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scoring scenario: candidate labels, lane assignments, composite scores, and the selected outcome are authored demonstration content, not measured evaluation results.",
+            "zh": "示例评分场景：其中候选标签、通道归属、综合得分和选定结果均为创作演示内容，并非实测评估结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
+        }
       },
       {
         "id": "priority-score",
@@ -39086,9 +39701,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "mechanical-scoring-funnel",
-            "band": "craft-cultural",
-            "name": "Mechanical Scoring Funnel",
             "theme": "Prioritize Without Debate",
             "densityLabel": "Medium density",
             "heroScene": 5,
@@ -39238,12 +39850,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mechanical-scoring-funnel",
+            "name": "Mechanical Scoring Funnel",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "mechanical-scoring-funnel",
-            "band": "craft-cultural",
-            "name": "机械评分漏斗",
             "theme": "无需争论，优先排序",
             "densityLabel": "中等密度",
             "heroScene": 5,
@@ -39393,10 +40005,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mechanical-scoring-funnel",
+            "name": "机械评分漏斗",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./32-prioritize-without-debate.tsx"
+        "modulePath": "../topics/priority-score.tsx",
+        "navigation": {
+          "geometry": "object-controller",
+          "carrier": "pinball-lane-lights",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative prioritization scenario: candidate labels, weights, thresholds, rankings, and recorded reasons are authored decision aids, not measured product or business results.",
+            "zh": "示例优先级场景：其中候选标签、权重、阈值、排名和记录理由均为创作决策辅助内容，并非实测产品或业务结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "wipe",
+          "3->4": "glitch",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "snowflake-branches",
@@ -39407,9 +40042,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "mechanical-scoring-funnel",
-            "band": "craft-cultural",
-            "name": "Mechanical Scoring Funnel",
             "theme": "How a Snowflake Chooses Its Branches",
             "densityLabel": "Diagram explainer · Medium",
             "heroScene": 4,
@@ -39535,12 +40167,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mechanical-scoring-funnel",
+            "name": "Mechanical Scoring Funnel",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "mechanical-scoring-funnel",
-            "band": "craft-cultural",
-            "name": "机械评分漏斗",
             "theme": "雪花如何长出分支",
             "densityLabel": "图解型 · 中等密度",
             "heroScene": 4,
@@ -39666,10 +40298,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mechanical-scoring-funnel",
+            "name": "机械评分漏斗",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./33-snowflake-branches.tsx",
+        "modulePath": "../topics/snowflake-branches.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "crystal-morphology-dial",
@@ -39701,6 +40336,9 @@ export const CATALOG_MANIFEST = [
             "supports": "Original controlled-growth dataset supporting a range of crystal morphologies produced under known temperature and supersaturation conditions."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "grid-reveal",
           "2->3": "push-y",
@@ -39717,9 +40355,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "mechanical-scoring-funnel",
-            "band": "craft-cultural",
-            "name": "Mechanical Scoring Funnel",
             "theme": "Triage the Backlog",
             "densityLabel": "Dense · Kinetic",
             "heroScene": 4,
@@ -39844,12 +40479,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mechanical-scoring-funnel",
+            "name": "Mechanical Scoring Funnel",
+            "band": "craft-cultural"
           },
           "zh": {
-            "id": "mechanical-scoring-funnel",
-            "band": "craft-cultural",
-            "name": "机械评分漏斗",
             "theme": "需求分拣",
             "densityLabel": "高密度 · 动感",
             "heroScene": 4,
@@ -39974,10 +40609,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mechanical-scoring-funnel",
+            "name": "机械评分漏斗",
+            "band": "craft-cultural"
           }
         },
-        "modulePath": "./triage-the-backlog.tsx",
+        "modulePath": "../topics/triage-the-backlog.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "backlog-stage-lanes",

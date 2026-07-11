@@ -1,0 +1,529 @@
+/* Expedition Print */
+/* WPA poster aesthetic: flat warm inks, visible grain, landscape horizon */
+
+.root {
+  --expedition-print-bg: #ede0cc;
+  --expedition-print-ink: #2a3a2a;
+  --expedition-print-dusk: #d4692a;
+  --expedition-print-forest: #2a5a4a;
+  --expedition-print-sky: #3a6a8a;
+  --expedition-print-panel: #e0d4bc;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--expedition-print-bg);
+  color: var(--expedition-print-ink);
+  font-family: "Oswald", "Inter", system-ui, sans-serif;
+}
+
+.root.thumbnail { font-size: 0.6em; }
+
+.reducedMotion * {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+/* Screenprint grain texture — ink misfit feel */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(42, 58, 42, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 80% 70%, rgba(212, 105, 42, 0.03) 1px, transparent 1px);
+  background-size: 4px 4px, 6px 6px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.track {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Scene-to-scene transition layers ─────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.animateSceneEnter {
+  animation: sceneEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes sceneEnter {
+  from { opacity: 0; transform: translateY(1.5cqh); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Bauhaus shape slide — large shape wipes diagonally across */
+.exitAnim {
+  animation: bauhausExit 0.6s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes bauhausExit {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.enterAnim {
+  animation: bauhausEnter 0.6s ease-out both;
+  z-index: 2;
+}
+
+@keyframes bauhausEnter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.shapeOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shapeWipe {
+  width: 50cqh;
+  height: 50cqh;
+  animation: shapeSlide 0.6s linear forwards;
+}
+
+@keyframes shapeSlide {
+  from { transform: translate(-65cqw, -65cqh); }
+  to { transform: translate(65cqw, 65cqh); }
+}
+
+/* ─── Scene 1: Title ─── */
+
+.scene1 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 8cqh 8cqw;
+}
+
+.shapesArea {
+  position: relative;
+  width: 50cqw;
+  height: 30cqh;
+  margin-bottom: 3cqh;
+}
+
+.shapeCircle {
+  position: absolute;
+  width: 18cqh;
+  height: 18cqh;
+  left: 5cqw;
+  top: 2cqh;
+}
+
+.shapeSquare {
+  position: absolute;
+  width: 14cqh;
+  height: 14cqh;
+  right: 8cqw;
+  top: 5cqh;
+}
+
+.shapeTriangle {
+  position: absolute;
+  width: 16cqh;
+  height: 16cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+}
+
+.scene1Content {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.titleText {
+  font-size: 14cqh;
+  font-weight: 400;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: 0.08em;
+  color: var(--expedition-print-ink);
+  text-transform: uppercase;
+}
+
+.titleBar {
+  width: 30cqw;
+  height: 1.2cqh;
+  background: var(--expedition-print-dusk);
+  margin: 2cqh auto;
+}
+
+.titleSub {
+  font-size: 3cqh;
+  font-weight: 400;
+  margin: 0;
+  color: var(--expedition-print-ink);
+  opacity: 0.7;
+  font-family: "Inter", system-ui, sans-serif;
+  letter-spacing: 0.05em;
+}
+
+/* ─── Scene 2: Principles ─── */
+
+.scene2 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.sceneLabel {
+  font-size: 2cqh;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--expedition-print-dusk);
+  font-family: "Inter", system-ui, sans-serif;
+  margin-bottom: 1cqh;
+}
+
+.sceneHeading {
+  font-size: 5.5cqh;
+  font-weight: 400;
+  margin: 0 0 4cqh;
+  color: var(--expedition-print-ink);
+  line-height: 1.1;
+}
+
+.pillarsRow {
+  display: flex;
+  gap: 3cqw;
+  flex: 1;
+}
+
+.pillarCard {
+  flex: 1;
+  background: var(--expedition-print-panel);
+  padding: 3cqh 2cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-top: 0.8cqh solid var(--expedition-print-ink);
+  opacity: 0;
+  transform: translateY(3cqh);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.pillarVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pillarShape {
+  width: 12cqh;
+  height: 12cqh;
+  margin-bottom: 2cqh;
+}
+
+.pillarTitle {
+  font-size: 4cqh;
+  font-weight: 400;
+  color: var(--expedition-print-ink);
+  margin-bottom: 0.8cqh;
+}
+
+.pillarDesc {
+  font-size: 2.2cqh;
+  color: var(--expedition-print-ink);
+  opacity: 0.65;
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Scene 3: Masters ─── */
+
+.scene3 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.mastersGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5cqw;
+  flex: 1;
+}
+
+.masterCard {
+  background: var(--expedition-print-panel);
+  padding: 2.5cqh 2cqw;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto auto;
+  column-gap: 2cqw;
+  align-items: baseline;
+  border-left: 0.6cqh solid var(--expedition-print-forest);
+  opacity: 0;
+  transform: translateX(-2cqw);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.masterVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.masterNum {
+  grid-row: 1 / 4;
+  font-size: 5cqh;
+  font-weight: 400;
+  color: var(--expedition-print-dusk);
+  line-height: 1;
+  font-family: "Oswald", sans-serif;
+}
+
+.masterName {
+  font-size: 3.2cqh;
+  font-weight: 400;
+  color: var(--expedition-print-ink);
+}
+
+.masterRole {
+  font-size: 2.2cqh;
+  color: var(--expedition-print-forest);
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 600;
+}
+
+.masterYears {
+  font-size: 2cqh;
+  color: var(--expedition-print-ink);
+  opacity: 0.55;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Scene 4 ─── */
+
+.scene4 {
+  width: 100%;
+  height: 100%;
+  padding: 6cqh 8cqw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.statsRow {
+  display: flex;
+  gap: 5cqw;
+  margin-top: 3cqh;
+}
+
+.statBlock {
+  text-align: left;
+  opacity: 0;
+  transform: translateY(1.5cqh);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.statsRow .statBlock {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.statValue {
+  display: block;
+  font-size: 8cqh;
+  font-weight: 400;
+  color: var(--expedition-print-dusk);
+  line-height: 1;
+  font-family: "Oswald", sans-serif;
+}
+
+.statLabel {
+  display: block;
+  font-size: 2.2cqh;
+  color: var(--expedition-print-ink);
+  opacity: 0.65;
+  margin-top: 0.5cqh;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.compositionArea {
+  flex: 1;
+  position: relative;
+  margin-top: 3cqh;
+}
+
+.compCircle {
+  position: absolute;
+  width: 8cqh;
+  height: 8cqh;
+  left: 10cqw;
+  bottom: 2cqh;
+}
+
+.compSquare {
+  position: absolute;
+  width: 7cqh;
+  height: 7cqh;
+  left: 30cqw;
+  bottom: 3cqh;
+}
+
+.compTriangle {
+  position: absolute;
+  width: 9cqh;
+  height: 9cqh;
+  right: 15cqw;
+  bottom: 1cqh;
+}
+
+/* ─── Scene 5: Closing ─── */
+
+.scene5 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 8cqh 8cqw;
+}
+
+.gridLines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.gridH1 {
+  position: absolute;
+  top: 30cqh;
+  left: 0;
+  right: 0;
+  height: 0.15cqh;
+  background: var(--expedition-print-ink);
+  opacity: 0.15;
+}
+
+.gridH2 {
+  position: absolute;
+  top: 65cqh;
+  left: 0;
+  right: 0;
+  height: 0.15cqh;
+  background: var(--expedition-print-ink);
+  opacity: 0.15;
+}
+
+.gridV1 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 33cqw;
+  width: 0.15cqh;
+  background: var(--expedition-print-ink);
+  opacity: 0.1;
+}
+
+.gridV2 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 33cqw;
+  width: 0.15cqh;
+  background: var(--expedition-print-ink);
+  opacity: 0.1;
+}
+
+.closingText {
+  font-size: 7cqh;
+  font-weight: 400;
+  margin: 0;
+  color: var(--expedition-print-ink);
+  text-align: center;
+  line-height: 1.3;
+  position: relative;
+  z-index: 1;
+}
+
+.closingAccent {
+  color: var(--expedition-print-dusk);
+}
+
+.closingSub {
+  font-size: 2.6cqh;
+  color: var(--expedition-print-ink);
+  opacity: 0.55;
+  margin-top: 2cqh;
+  font-family: "Inter", system-ui, sans-serif;
+  position: relative;
+  z-index: 1;
+}
+
+.closingDot {
+  width: 4cqh;
+  height: 4cqh;
+  margin-top: 3cqh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Navigation ─── */
+
+.nav {
+  position: absolute;
+  bottom: 3cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1cqw;
+  z-index: 10;
+}
+
+.navItem {
+  width: 5cqh;
+  height: 5cqh;
+  border: 0.25cqh solid var(--expedition-print-ink);
+  background: var(--expedition-print-bg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.navItem:hover { background: var(--expedition-print-ink); }
+.navItem:hover .navNum { color: var(--expedition-print-bg); }
+
+.navItemActive { background: var(--expedition-print-dusk); border-color: var(--expedition-print-dusk); }
+.navItemActive .navNum { color: var(--expedition-print-bg); }
+
+.navNum {
+  font-size: 2.2cqh;
+  font-weight: 400;
+  color: var(--expedition-print-ink);
+  font-family: "Oswald", sans-serif;
+  transition: color 0.2s ease;
+}

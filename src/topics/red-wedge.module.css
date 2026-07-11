@@ -1,0 +1,170 @@
+/* Red-Wedge Agitprop — Craft & Cultural */
+/* Political poster at dawn — red wedge, black structure, raw paper ground */
+
+.root {
+  --red-wedge-bg: #f0e8d8;
+  --red-wedge-ink: #111111;
+  --red-wedge-red: #d42a2a;
+  --red-wedge-panel: #e8dfc8;
+  --red-wedge-paper: #f0e8d8;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--red-wedge-bg);
+  color: var(--red-wedge-ink);
+  font-family: "Oswald", "Inter", system-ui, sans-serif;
+}
+
+.root.thumbnail { font-size: 0.6em; }
+.reducedMotion * { animation-duration: 0s !important; transition-duration: 0s !important; }
+
+/* Raw paper texture */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse at 30% 40%, rgba(17, 17, 17, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(212, 42, 42, 0.03) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Scene layer (dual rendering) ─── */
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.track { width: 100%; height: 100%; position: relative; z-index: 1; }
+
+/* ─── Scene-to-scene transition: wedge slice ─── */
+.exitAnim {
+  animation: wedgeExit 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+  z-index: 1;
+}
+
+@keyframes wedgeExit {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(-4cqw) rotate(-1deg); }
+}
+
+.enterAnim {
+  animation: wedgeEnter 0.4s cubic-bezier(0, 0, 0.2, 1) both;
+  z-index: 2;
+}
+
+@keyframes wedgeEnter {
+  from { opacity: 0; transform: translateX(4cqw) rotate(1deg); }
+  to { opacity: 1; transform: translateX(0) rotate(0); }
+}
+
+/* ─── Wedge bars overlay ─── */
+.weftOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.weftOverlayFade {
+  animation: weftOverlayFade 0.2s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+@keyframes weftOverlayFade {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.weftBar {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  height: 3cqh;
+  will-change: transform, opacity;
+}
+
+.weftBarLeft {
+  animation: wedgeSlideLeft 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.weftBarRight {
+  animation: wedgeSlideRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes wedgeSlideLeft {
+  from { transform: translateX(-100%) skewX(-5deg); }
+  to { transform: translateX(0) skewX(-5deg); }
+}
+
+@keyframes wedgeSlideRight {
+  from { transform: translateX(100%) skewX(5deg); }
+  to { transform: translateX(0) skewX(5deg); }
+}
+
+.weftBarRetract {
+  animation: wedgeRetract 0.2s cubic-bezier(0.4, 0, 1, 1) forwards !important;
+}
+
+@keyframes wedgeRetract {
+  from { opacity: 1; }
+  to { opacity: 0; transform: scaleY(0.2); }
+}
+
+/* ─── Scene 1 ─── */
+.scene1 { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6cqh 8cqw; position: relative; }
+.stripTop { width: 70cqw; height: 40cqh; position: absolute; right: -10cqw; top: 50%; transform: translateY(-50%); opacity: 0.85; pointer-events: none; }
+.scene1Content { text-align: left; position: relative; z-index: 2; max-width: 55cqw; }
+.titleText { font-size: 18cqh; font-weight: 700; line-height: 0.9; margin: 0; letter-spacing: 0.06em; color: var(--red-wedge-ink); text-transform: uppercase; }
+.titleDivider { display: flex; gap: 0.6cqw; margin: 2.5cqh 0; }
+.dGold { width: 12cqw; height: 1cqh; background: var(--red-wedge-red); display: block; }
+.dGreen { width: 6cqw; height: 1cqh; background: var(--red-wedge-ink); display: block; }
+.dRed { width: 3cqw; height: 1cqh; background: var(--red-wedge-red); display: block; }
+.titleSub { font-size: 3cqh; font-weight: 400; margin: 0; color: var(--red-wedge-ink); opacity: 0.65; font-family: "Inter", system-ui, sans-serif; line-height: 1.4; }
+
+/* ─── Shared ─── */
+.scene2, .scene3, .scene4, .scene5 { width: 100%; height: 100%; padding: 6cqh 8cqw; display: flex; flex-direction: column; }
+.sceneLabel { display: inline-block; font-size: 1.8cqh; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase; color: var(--red-wedge-paper); background: var(--red-wedge-red); font-family: "Oswald", sans-serif; padding: 0.5cqh 1.5cqw; margin-bottom: 1.5cqh; align-self: flex-start; }
+.sceneHeading { font-size: 5.5cqh; font-weight: 700; margin: 0 0 3cqh; color: var(--red-wedge-ink); line-height: 1; letter-spacing: 0.02em; }
+
+/* ─── Grid cards (Demands) ─── */
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2cqw; flex: 1; }
+.card { background: var(--red-wedge-panel); padding: 2.5cqh 1.5cqw; display: flex; flex-direction: column; align-items: center; text-align: center; border: 0.3cqh solid var(--red-wedge-ink); opacity: 0; transform: translateX(-3cqw) rotate(-2deg); transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+.cardVisible { opacity: 1; transform: translateX(0) rotate(0); }
+.swatch { width: 8cqh; height: 8cqh; margin-bottom: 1.5cqh; border: 0.3cqh solid var(--red-wedge-ink); }
+.cardName { font-size: 3.2cqh; font-weight: 700; color: var(--red-wedge-ink); margin-bottom: 0.5cqh; text-transform: uppercase; letter-spacing: 0.06em; }
+.cardDesc { font-size: 2cqh; line-height: 1.5; color: var(--red-wedge-ink); opacity: 0.6; margin: 0; font-family: "Inter", system-ui, sans-serif; }
+
+/* ─── List rows (Voices) ─── */
+.list { display: flex; flex-direction: column; gap: 2cqh; flex: 1; }
+.listRow { display: grid; grid-template-columns: 1fr 2fr 3fr; gap: 2cqw; align-items: center; padding: 2cqh 2cqw; background: var(--red-wedge-panel); border: 0.25cqh solid var(--red-wedge-ink); border-left: 0.8cqh solid var(--red-wedge-red); opacity: 0; transform: translateX(-4cqw); transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.listVisible { opacity: 1; transform: translateX(0); }
+.stripMiniWrap { overflow: hidden; }
+.stripMini { width: 100%; height: 4cqh; background: linear-gradient(135deg, var(--red-wedge-red) 0%, var(--red-wedge-red) 40%, var(--red-wedge-ink) 40%, var(--red-wedge-ink) 60%, var(--red-wedge-red) 60%, var(--red-wedge-red) 100%); }
+.listName { font-size: 3.2cqh; font-weight: 700; color: var(--red-wedge-ink); text-transform: uppercase; letter-spacing: 0.04em; }
+.listMeaning { font-size: 2.4cqh; color: var(--red-wedge-ink); opacity: 0.6; font-family: "Inter", system-ui, sans-serif; }
+
+/* ─── Step cards (Momentum) ─── */
+.stepCard { background: var(--red-wedge-panel); padding: 2.5cqh 1.5cqw; display: flex; flex-direction: column; align-items: center; text-align: center; border: 0.3cqh solid var(--red-wedge-ink); opacity: 0; transform: translateY(3cqh) rotate(1deg); transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+.stepNum { font-size: 6cqh; font-weight: 700; color: var(--red-wedge-red); line-height: 1; margin-bottom: 0.5cqh; font-family: "Oswald", sans-serif; }
+.stepTitle { font-size: 2.8cqh; font-weight: 700; color: var(--red-wedge-ink); margin-bottom: 0.5cqh; text-transform: uppercase; letter-spacing: 0.06em; }
+.stepDesc { font-size: 1.9cqh; line-height: 1.5; color: var(--red-wedge-ink); opacity: 0.6; margin: 0; font-family: "Inter", system-ui, sans-serif; }
+
+/* ─── Scene 5 ─── */
+.scene5 { align-items: center; justify-content: center; text-align: center; position: relative; }
+.stripCenter { width: 50cqw; height: 30cqh; position: absolute; left: -5cqw; bottom: 10cqh; opacity: 0.4; pointer-events: none; }
+.closingText { font-size: 9cqh; font-weight: 700; margin: 0; color: var(--red-wedge-ink); line-height: 1; position: relative; z-index: 2; text-transform: uppercase; letter-spacing: 0.04em; }
+.closingAccent { color: var(--red-wedge-red); }
+.closingSub { font-size: 2.6cqh; color: var(--red-wedge-ink); opacity: 0.55; margin-top: 2.5cqh; font-family: "Inter", system-ui, sans-serif; position: relative; z-index: 2; }
+
+/* ─── Nav ─── */
+.nav { position: absolute; bottom: 3cqh; left: 50%; transform: translateX(-50%); display: flex; gap: 1cqw; z-index: 10; }
+.navItem { width: 4.5cqh; height: 4.5cqh; border: 0.3cqh solid var(--red-wedge-ink); background: var(--red-wedge-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; transition: background 0.15s cubic-bezier(0.4, 0, 1, 1); }
+.navItem:hover { background: var(--red-wedge-ink); }
+.navItem:hover .navDot { background: var(--red-wedge-red); }
+.navItemActive { background: var(--red-wedge-red); border-color: var(--red-wedge-ink); }
+.navItemActive .navDot { background: var(--red-wedge-bg); }
+.navDot { width: 1.5cqh; height: 1.5cqh; background: var(--red-wedge-ink); transition: background 0.15s cubic-bezier(0.4, 0, 1, 1); }

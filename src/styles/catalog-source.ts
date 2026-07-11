@@ -106,46 +106,38 @@ import cutoutCollageDefinition from "../topics/cutout-collage";
 import rebuiltArchiveDefinition from "../topics/rebuilt-archive";
 import concealedObjectsDefinition from "../topics/concealed-objects";
 import piecingIdeaTogetherDefinition from "../topics/piecing-idea-together";
-import WoodblockPrint25, {
-  getMetadata as getMetadata25,
-} from "./25-woodblock-print";
-import ChineseInk26, {
-  getMetadata as getMetadata26,
-} from "./26-chinese-ink";
-import ArtDeco27, {
-  getMetadata as getMetadata27,
-} from "./27-art-deco";
-import BauhausPoster28, {
-  getMetadata as getMetadata28,
-} from "./28-bauhaus-poster";
-import CelticKnot29, {
-  getMetadata as getMetadata29,
-} from "./29-celtic-knot";
-import MexicanMural30, {
-  getMetadata as getMetadata30,
-} from "./30-mexican-mural";
-import AfricanKente31, {
-  getMetadata as getMetadata31,
-} from "./31-african-kente";
-import NordicRosemaling32, {
-  getMetadata as getMetadata32,
-} from "./32-nordic-rosemaling";
-import { tideMapTeamTopic } from "./25-tide-map-team";
-import { whistledLanguageTopic } from "./woodblock-floating-world-whistled-language";
-import { growthSignalsTopic } from "./26-growth-signals";
-import { leafStomataTopic } from "./27-leaf-stomata";
-import { infrastructureGalaTopic } from "./27-infrastructure-gala";
-import { reinforcedConcreteTopic } from "./machine-age-deco-reinforced-concrete";
-import { fieldRouteSignalTopic } from "./28-field-route-signal";
-import { saharanDustTopic } from "./expedition-screenprint-saharan-dust";
-import { releaseMixtapeTopic } from "./29-release-mixtape";
-import { iceCoreArchiveTopic } from "./cassette-era-packaging-ice-core-archive";
-import { shippingHardThingTopic } from "./30-shipping-hard-thing";
-import { sinkingDeltaTopic } from "./neo-brutalist-bulletin-sinking-delta";
-import { moveOrgChartTopic } from "./31-move-org-chart";
-import { pneumaticPostTopic } from "./red-wedge-agitprop-pneumatic-post";
-import { prioritizeWithoutDebateTopic } from "./32-prioritize-without-debate";
-import { snowflakeBranchesTopic } from "./33-snowflake-branches";
+import woodblockDefinition from "../topics/woodblock";
+import tideMapDefinition from "../topics/tide-map";
+import whistledLanguageDefinition from "../topics/whistled-language";
+import aRiversJourneyDefinition from "../topics/a-rivers-journey";
+import specimenPlateDefinition from "../topics/specimen-plate";
+import growthSignalsDefinition from "../topics/growth-signals";
+import leafStomataDefinition from "../topics/leaf-stomata";
+import anatomyOfAnIdeaDefinition from "../topics/anatomy-of-an-idea";
+import decoGalaDefinition from "../topics/deco-gala";
+import infrastructureGalaDefinition from "../topics/infrastructure-gala";
+import reinforcedConcreteDefinition from "../topics/reinforced-concrete";
+import grandUnveilingDefinition from "../topics/grand-unveiling";
+import expeditionPrintDefinition from "../topics/expedition-print";
+import fieldRouteDefinition from "../topics/field-route";
+import saharanDustDefinition from "../topics/saharan-dust";
+import mappingUnknownGroundDefinition from "../topics/mapping-unknown-ground";
+import cassettePackDefinition from "../topics/cassette-pack";
+import releaseMixtapeDefinition from "../topics/release-mixtape";
+import iceCoreArchiveDefinition from "../topics/ice-core-archive";
+import greatestHitsVol1Definition from "../topics/greatest-hits-vol1";
+import brutalistBulletinDefinition from "../topics/brutalist-bulletin";
+import hardThingDefinition from "../topics/hard-thing";
+import sinkingDeltaDefinition from "../topics/sinking-delta";
+import readBeforeMergeDefinition from "../topics/read-before-merge";
+import redWedgeDefinition from "../topics/red-wedge";
+import orgMoveDefinition from "../topics/org-move";
+import pneumaticPostDefinition from "../topics/pneumatic-post";
+import refactorTheSystemDefinition from "../topics/refactor-the-system";
+import scoringFunnelDefinition from "../topics/scoring-funnel";
+import priorityScoreDefinition from "../topics/priority-score";
+import snowflakeBranchesDefinition from "../topics/snowflake-branches";
+import triageTheBacklogDefinition from "../topics/triage-the-backlog";
 import GlassDashboard33, {
   getMetadata as getMetadata33,
 } from "./33-glass-dashboard";
@@ -228,14 +220,6 @@ import { recoveryKitTopic } from "./48-recovery-kit";
 import { cocoonToClothTopic } from "./49-cocoon-to-cloth";
 
 // ─── Curated Topic Set ──────────────────────────────────────────────────
-import { aRiversJourneyTopic } from "./a-rivers-journey";
-import { anatomyOfAnIdeaTopic } from "./anatomy-of-an-idea";
-import { grandUnveilingTopic } from "./grand-unveiling";
-import { mappingUnknownGroundTopic } from "./mapping-unknown-ground";
-import { greatestHitsVol1Topic } from "./greatest-hits-vol1";
-import { readBeforeMergeTopic } from "./read-before-merge";
-import { refactorTheSystemTopic } from "./refactor-the-system";
-import { mechanicalScoringFunnelTopic } from "./triage-the-backlog";
 import { LayersOfAProductTopic } from "./layers-of-a-product";
 import { SetupExeTopic } from "./setup-exe";
 import { GrowingSlowlyOnPurposeTopic } from "./growing-slowly-on-purpose";
@@ -500,102 +484,78 @@ export const STYLE_CATALOG_SOURCE: StyleRegistryEntry[] = [
     ].map(toMigratingStyleTopic),
   ),
   // Craft & Cultural Traditions: 25-32
-  buildEntry("woodblock-floating-world", [
-    {
-      id: "woodblock",
-      topic: { en: "Woodblock", zh: "木版画" },
-      model: "Doubao-Seed-Evolving",
-      component: WoodblockPrint25,
-      getMetadata: getMetadata25,
-    },
-    tideMapTeamTopic,
-    whistledLanguageTopic,
-    aRiversJourneyTopic,
-  ]),
-  buildEntry("botanical-specimen-plate", [
-    {
-      id: "specimen-plate",
-      topic: { en: "Specimen Plate", zh: "标本板" },
-      model: "Doubao-Seed-Evolving",
-      component: ChineseInk26,
-      getMetadata: getMetadata26,
-    },
-    growthSignalsTopic,
-    leafStomataTopic,
-    anatomyOfAnIdeaTopic,
-  ]),
-  buildEntry("machine-age-deco", [
-    {
-      id: "deco-gala",
-      topic: { en: "Deco Gala", zh: "装饰仪式" },
-      model: "Doubao-Seed-Evolving",
-      component: ArtDeco27,
-      getMetadata: getMetadata27,
-    },
-    infrastructureGalaTopic,
-    reinforcedConcreteTopic,
-    grandUnveilingTopic,
-  ]),
-  buildEntry("expedition-screenprint", [
-    {
-      id: "expedition-print",
-      topic: { en: "Expedition Print", zh: "探险海报" },
-      model: "Doubao-Seed-Evolving",
-      component: BauhausPoster28,
-      getMetadata: getMetadata28,
-    },
-    fieldRouteSignalTopic,
-    saharanDustTopic,
-    mappingUnknownGroundTopic,
-  ]),
-  buildEntry("cassette-era-packaging", [
-    {
-      id: "cassette-pack",
-      topic: { en: "Cassette Pack", zh: "卡带包装" },
-      model: "Doubao-Seed-Evolving",
-      component: CelticKnot29,
-      getMetadata: getMetadata29,
-    },
-    releaseMixtapeTopic,
-    iceCoreArchiveTopic,
-    greatestHitsVol1Topic,
-  ]),
-  buildEntry("neo-brutalist-bulletin", [
-    {
-      id: "brutalist-bulletin",
-      topic: { en: "Brutalist Bulletin", zh: "粗野公告" },
-      model: "Doubao-Seed-Evolving",
-      component: MexicanMural30,
-      getMetadata: getMetadata30,
-    },
-    shippingHardThingTopic,
-    sinkingDeltaTopic,
-    readBeforeMergeTopic,
-  ]),
-  buildEntry("red-wedge-agitprop", [
-    {
-      id: "red-wedge",
-      topic: { en: "Red Wedge", zh: "红楔海报" },
-      model: "Doubao-Seed-Evolving",
-      component: AfricanKente31,
-      getMetadata: getMetadata31,
-    },
-    moveOrgChartTopic,
-    pneumaticPostTopic,
-    refactorTheSystemTopic,
-  ]),
-  buildEntry("mechanical-scoring-funnel", [
-    {
-      id: "scoring-funnel",
-      topic: { en: "Scoring Funnel", zh: "评分漏斗" },
-      model: "Doubao-Seed-Evolving",
-      component: NordicRosemaling32,
-      getMetadata: getMetadata32,
-    },
-    prioritizeWithoutDebateTopic,
-    snowflakeBranchesTopic,
-    mechanicalScoringFunnelTopic,
-  ]),
+  buildEntry(
+    "woodblock-floating-world",
+    [
+      woodblockDefinition,
+      tideMapDefinition,
+      whistledLanguageDefinition,
+      aRiversJourneyDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "botanical-specimen-plate",
+    [
+      specimenPlateDefinition,
+      growthSignalsDefinition,
+      leafStomataDefinition,
+      anatomyOfAnIdeaDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "machine-age-deco",
+    [
+      decoGalaDefinition,
+      infrastructureGalaDefinition,
+      reinforcedConcreteDefinition,
+      grandUnveilingDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "expedition-screenprint",
+    [
+      expeditionPrintDefinition,
+      fieldRouteDefinition,
+      saharanDustDefinition,
+      mappingUnknownGroundDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "cassette-era-packaging",
+    [
+      cassettePackDefinition,
+      releaseMixtapeDefinition,
+      iceCoreArchiveDefinition,
+      greatestHitsVol1Definition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "neo-brutalist-bulletin",
+    [
+      brutalistBulletinDefinition,
+      hardThingDefinition,
+      sinkingDeltaDefinition,
+      readBeforeMergeDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "red-wedge-agitprop",
+    [
+      redWedgeDefinition,
+      orgMoveDefinition,
+      pneumaticPostDefinition,
+      refactorTheSystemDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "mechanical-scoring-funnel",
+    [
+      scoringFunnelDefinition,
+      priorityScoreDefinition,
+      snowflakeBranchesDefinition,
+      triageTheBacklogDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
   // Contemporary Digital: 33-40
   buildEntry("liquid-glass", [
     {

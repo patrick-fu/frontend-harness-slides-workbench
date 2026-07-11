@@ -1,0 +1,158 @@
+/* Mechanical Scoring Funnel — Craft & Cultural */
+/* Dark playfield, saturated coded lanes, scoreboard numbers ticking */
+
+.root {
+  --scoring-funnel-bg: #0d1117;
+  --scoring-funnel-panel: #161b22;
+  --scoring-funnel-ink: #e2e8f0;
+  --scoring-funnel-green: #4ade80;
+  --scoring-funnel-blue: #60a5fa;
+  --scoring-funnel-amber: #fbbf24;
+  --scoring-funnel-pink: #f472b6;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--scoring-funnel-bg);
+  color: var(--scoring-funnel-ink);
+  font-family: "Oswald", "Inter", system-ui, sans-serif;
+}
+
+.root.thumbnail { font-size: 0.6em; }
+.reducedMotion * { animation-duration: 0s !important; transition-duration: 0s !important; }
+
+/* Playfield grid texture */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(74, 222, 128, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74, 222, 128, 0.03) 1px, transparent 1px);
+  background-size: 4cqh 4cqh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Scene layer (dual rendering) ─── */
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.track { width: 100%; height: 100%; position: relative; z-index: 1; }
+
+/* ─── Scene-to-scene transition: machine click ─── */
+.exitAnim {
+  animation: machineExit 0.35s cubic-bezier(0.4, 0, 1, 1) forwards;
+  z-index: 1;
+}
+
+@keyframes machineExit {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.97); }
+}
+
+.enterAnim {
+  animation: machineEnter 0.4s cubic-bezier(0, 0, 0.2, 1) both;
+  z-index: 2;
+}
+
+@keyframes machineEnter {
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ─── Gear spin overlay ─── */
+.vineOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: rgba(13, 17, 23, 0.85);
+}
+
+.vineOverlayFade {
+  animation: vineCurtainFade 0.2s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+@keyframes vineCurtainFade {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.vineSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.gearGroup {
+  animation: gearSpin 0.8s linear infinite;
+}
+
+@keyframes gearSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.scanLine {
+  animation: scanMove 0.6s linear infinite;
+}
+
+@keyframes scanMove {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+/* ─── Scene 1 ─── */
+.scene1 { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; padding: 8cqh 8cqw; }
+.flowerTL { position: absolute; width: 35cqh; height: 23cqh; top: 5cqh; left: 5cqw; opacity: 0.35; }
+.flowerBR { position: absolute; width: 30cqh; height: 20cqh; bottom: 8cqh; right: 6cqw; opacity: 0.25; }
+.scene1Content { text-align: center; position: relative; z-index: 1; max-width: 65cqw; }
+.titleText { font-size: 16cqh; font-weight: 700; line-height: 1; margin: 0; letter-spacing: 0.08em; color: var(--scoring-funnel-green); text-transform: uppercase; text-shadow: 0 0 4cqh rgba(74, 222, 128, 0.3); }
+.titleBar { width: 25cqw; height: 0.6cqh; background: linear-gradient(90deg, var(--scoring-funnel-green), var(--scoring-funnel-blue), var(--scoring-funnel-pink)); margin: 2.5cqh auto; box-shadow: 0 0 2cqh rgba(74, 222, 128, 0.4); }
+.titleSub { font-size: 3cqh; font-weight: 400; margin: 0; color: var(--scoring-funnel-ink); opacity: 0.7; font-family: "Inter", system-ui, sans-serif; line-height: 1.4; }
+
+/* ─── Shared ─── */
+.scene2, .scene3, .scene4, .scene5 { width: 100%; height: 100%; padding: 6cqh 8cqw; display: flex; flex-direction: column; }
+.sceneLabel { display: inline-block; font-size: 1.8cqh; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--scoring-funnel-bg); background: var(--scoring-funnel-green); font-family: "JetBrains Mono", monospace; padding: 0.5cqh 1.5cqw; margin-bottom: 1.5cqh; align-self: flex-start; }
+.sceneHeading { font-size: 5.5cqh; font-weight: 700; margin: 0 0 3cqh; color: var(--scoring-funnel-ink); line-height: 1.1; letter-spacing: 0.02em; }
+
+/* ─── Grid cards (Inputs) ─── */
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2cqw; flex: 1; }
+.card { background: var(--scoring-funnel-panel); padding: 2.5cqh 1.5cqw; display: flex; flex-direction: column; align-items: center; text-align: center; border: 0.25cqh solid var(--scoring-funnel-green); border-radius: 1cqh; opacity: 0; transform: translateY(-4cqh); transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.cardVisible { opacity: 1; transform: translateY(0); }
+.cardFlower { width: 6cqh; height: 6cqh; border-radius: 50%; margin-bottom: 1.5cqh; border: 0.2cqh solid; }
+.cardName { font-size: 3cqh; font-weight: 700; color: var(--scoring-funnel-ink); margin-bottom: 0.5cqh; font-family: "Oswald", sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
+.cardDesc { font-size: 2cqh; line-height: 1.5; color: var(--scoring-funnel-ink); opacity: 0.6; margin: 0; font-family: "Inter", system-ui, sans-serif; }
+
+/* ─── Motif cards (Lanes) ─── */
+.motifCard { background: var(--scoring-funnel-panel); padding: 2.5cqh 1.5cqw; display: flex; flex-direction: column; align-items: center; text-align: center; border: 0.25cqh solid; border-radius: 1cqh; opacity: 0; transform: scale(0.8); transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.motifIcon { width: 7cqh; height: 7cqh; border-radius: 50%; border: 0.2cqh solid; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5cqh; padding: 1.5cqh; }
+.motifName { font-size: 3.2cqh; font-weight: 700; margin-bottom: 0.5cqh; font-family: "Oswald", sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
+.motifMeaning { font-size: 2.2cqh; line-height: 1.5; color: var(--scoring-funnel-ink); opacity: 0.6; margin: 0; font-family: "Inter", system-ui, sans-serif; }
+
+/* ─── Score display (Scores) ─── */
+.paletteRow { display: flex; gap: 3cqw; justify-content: center; flex: 1; align-items: center; }
+.swatchCard { display: flex; flex-direction: column; align-items: center; text-align: center; opacity: 0; transform: translateY(3cqh) scale(0.9); transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); background: var(--scoring-funnel-panel); padding: 2.5cqh 2cqw; border-radius: 1.5cqh; border: 0.25cqh solid; }
+.swatchCircle { width: 14cqh; height: 14cqh; border-radius: 50%; margin-bottom: 1.5cqh; border: 0.3cqh solid; display: flex; align-items: center; justify-content: center; }
+.scoreValue { font-size: 5.5cqh; font-weight: 700; font-family: "JetBrains Mono", monospace; line-height: 1; }
+.swatchName { font-size: 2.8cqh; font-weight: 700; color: var(--scoring-funnel-ink); font-family: "Oswald", sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
+.swatchHex { font-size: 1.8cqh; color: var(--scoring-funnel-ink); opacity: 0.8; font-family: "JetBrains Mono", monospace; margin-top: 0.5cqh; font-weight: 600; letter-spacing: 0.15em; }
+
+/* ─── Scene 5 ─── */
+.scene5 { align-items: center; justify-content: center; text-align: center; position: relative; }
+.flowerCenter { width: 35cqh; height: 23cqh; margin-bottom: 3cqh; opacity: 0.6; }
+.closingText { font-size: 8cqh; font-weight: 700; margin: 0; color: var(--scoring-funnel-ink); line-height: 1.2; font-family: "Oswald", sans-serif; letter-spacing: 0.04em; text-transform: uppercase; }
+.closingAccent { color: var(--scoring-funnel-green); text-shadow: 0 0 3cqh rgba(74, 222, 128, 0.4); }
+.closingSub { font-size: 2.6cqh; color: var(--scoring-funnel-ink); opacity: 0.6; margin-top: 2.5cqh; font-family: "JetBrains Mono", monospace; }
+
+/* ─── Nav ─── */
+.nav { position: absolute; bottom: 3cqh; left: 50%; transform: translateX(-50%); display: flex; gap: 1cqw; z-index: 10; }
+.navItem { width: 5cqh; height: 5cqh; border: 0.25cqh solid var(--scoring-funnel-green); background: var(--scoring-funnel-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; border-radius: 1cqh; transition: background 0.2s cubic-bezier(0.4, 0, 1, 1), box-shadow 0.2s ease; }
+.navItem:hover { background: rgba(74, 222, 128, 0.15); box-shadow: 0 0 2cqh rgba(74, 222, 128, 0.3); }
+.navItem:hover .navDot { color: var(--scoring-funnel-green); }
+.navItemActive { background: var(--scoring-funnel-green); box-shadow: 0 0 2.5cqh rgba(74, 222, 128, 0.5); }
+.navItemActive .navDot { color: var(--scoring-funnel-bg); }
+.navDot { font-size: 2.2cqh; font-weight: 700; color: var(--scoring-funnel-green); font-family: "JetBrains Mono", monospace; transition: color 0.2s ease; line-height: 1; }
