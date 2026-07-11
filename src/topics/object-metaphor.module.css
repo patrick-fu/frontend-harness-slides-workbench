@@ -1,0 +1,668 @@
+/* ── Object Metaphor Hero ────────────────────────────────────────────── */
+
+:root {
+  --object-metaphor-bg: #f5ede0;
+  --object-metaphor-ink: #3d2b1a;
+  --object-metaphor-panel: #ebe0cc;
+  --object-metaphor-accent: #c4813a;
+  --object-metaphor-accent2: #8b5e3c;
+  --object-metaphor-rule: #d9c9a8;
+  --object-metaphor-muted: #7a6850;
+  --object-metaphor-green: #5a7a3a;
+  --object-metaphor-red: #a04030;
+  --object-metaphor-amber: #c4813a;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--object-metaphor-bg);
+  color: var(--object-metaphor-ink);
+  font-family: "Inter", system-ui, "Noto Sans SC", sans-serif;
+  user-select: none;
+}
+
+/* Warm paper texture */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(196, 129, 58, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(139, 94, 60, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ── Transition Track ──────────────────────────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.transitionTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.animateSceneEnter {
+  animation: sceneEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes sceneEnter {
+  from { opacity: 0; transform: translateY(1.5cqh); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Scene-to-scene: typewriter reveal (Text Report band) ─────────────── */
+
+.exitAnim {
+  animation: typewriterExit 0.25s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes typewriterExit {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.enterAnim {
+  animation: typewriterEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  z-index: 2;
+}
+
+@keyframes typewriterEnter {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0% 0);
+  }
+}
+
+/* ── Scene 1: Header / Title ──────────────────────────────────────────── */
+
+.pageHeader {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pageHeaderTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3cqh;
+}
+
+.pageHeaderCompany {
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+}
+
+.pageHeaderLogo {
+  width: 6cqh;
+  height: 6cqh;
+  background: linear-gradient(135deg, var(--object-metaphor-accent), var(--object-metaphor-accent2));
+  border-radius: 1.2cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3cqh;
+  font-weight: 700;
+  color: #fff;
+  box-shadow: 0 0.4cqh 1.2cqh rgba(61, 43, 26, 0.15);
+}
+
+.pageHeaderCompanyName {
+  font-size: 2.4cqh;
+  font-weight: 700;
+  color: var(--object-metaphor-ink);
+  line-height: 1.2;
+}
+
+.pageHeaderCompanySub {
+  font-size: 1.6cqh;
+  color: var(--object-metaphor-muted);
+}
+
+.pageHeaderDate {
+  font-size: 1.8cqh;
+  font-weight: 600;
+  color: var(--object-metaphor-muted);
+  text-align: right;
+}
+
+.pageHeaderType {
+  font-size: 1.8cqh;
+  font-weight: 700;
+  color: var(--object-metaphor-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1cqh;
+}
+
+.pageHeaderTitle {
+  font-size: 6.5cqh;
+  font-weight: 700;
+  color: var(--object-metaphor-ink);
+  margin: 0;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
+}
+
+.pageHeaderTitle em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--object-metaphor-accent), var(--object-metaphor-accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pageHeaderTagline {
+  font-size: 2.4cqh;
+  font-weight: 400;
+  color: var(--object-metaphor-muted);
+  margin: 1cqh 0 0 0;
+  font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
+}
+
+.pageHeaderRule {
+  width: 100%;
+  height: 0.15cqh;
+  background: linear-gradient(90deg, var(--object-metaphor-accent), var(--object-metaphor-accent2), transparent);
+  margin: 2.5cqh 0;
+}
+
+.pageHeaderPrepared {
+  font-size: 1.7cqh;
+  color: var(--object-metaphor-muted);
+  margin: 0;
+}
+
+.pageHeaderPrepared strong {
+  color: var(--object-metaphor-ink);
+}
+
+/* ── Scene 2: Key Metrics (HERO) ─────────────────────────────────────── */
+
+.metrics {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.metricsHeader {
+  margin-bottom: 2cqh;
+}
+
+.metricsTitle {
+  font-size: 3.5cqh;
+  font-weight: 700;
+  color: var(--object-metaphor-ink);
+  margin: 0;
+  font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
+}
+
+.metricsSubtitle {
+  font-size: 1.8cqh;
+  color: var(--object-metaphor-muted);
+  margin: 0.3cqh 0 0 0;
+}
+
+.metricsGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1.5cqh;
+}
+
+.metricCard {
+  background: var(--object-metaphor-panel);
+  border: 0.05cqh solid var(--object-metaphor-rule);
+  border-radius: 1.2cqh;
+  padding: 2cqh 2.5cqw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0.3cqh 1cqh rgba(61, 43, 26, 0.08), inset 0 0.05cqh 0 rgba(255, 255, 255, 0.5);
+}
+
+.metricCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.3cqh;
+  background: linear-gradient(90deg, var(--object-metaphor-accent), var(--object-metaphor-accent2));
+}
+
+.metricLabel {
+  font-size: 1.5cqh;
+  font-weight: 600;
+  color: var(--object-metaphor-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5cqh;
+}
+
+.metricValue {
+  font-size: 5.5cqh;
+  font-weight: 800;
+  color: var(--object-metaphor-ink);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.metricValueUnit {
+  font-size: 0.45em;
+  font-weight: 600;
+  color: var(--object-metaphor-muted);
+}
+
+.metricChange {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4cqw;
+  font-size: 1.7cqh;
+  font-weight: 700;
+  margin-top: 0.5cqh;
+}
+
+.metricChangeUp { color: var(--object-metaphor-green); }
+.metricChangeDown { color: var(--object-metaphor-red); }
+
+.metricSub {
+  font-size: 1.5cqh;
+  color: var(--object-metaphor-muted);
+  margin-top: 0.3cqh;
+}
+
+/* ── Scene 3: Strategic Priorities ────────────────────────────────────── */
+
+.priorities {
+  width: 100%;
+  height: 100%;
+  padding: 3.5cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.prioritiesHeader {
+  margin-bottom: 2cqh;
+}
+
+.prioritiesTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--object-metaphor-ink);
+  margin: 0;
+  font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
+}
+
+.prioritiesSubtitle {
+  font-size: 2cqh;
+  color: var(--object-metaphor-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.prioritiesList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2cqh;
+}
+
+.priorityItem {
+  display: flex;
+  gap: 2cqw;
+  padding: 1.8cqh 2.5cqw;
+  background: var(--object-metaphor-panel);
+  border: 0.05cqh solid var(--object-metaphor-rule);
+  border-radius: 1cqh;
+  align-items: flex-start;
+  box-shadow: 0 0.25cqh 0.8cqh rgba(61, 43, 26, 0.06);
+}
+
+.priorityIcon {
+  width: 4.5cqh;
+  height: 4.5cqh;
+  border-radius: 1cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2cqh;
+  flex-shrink: 0;
+  background: rgba(196, 129, 58, 0.1);
+  box-shadow: 0 0.2cqh 0.6cqh rgba(61, 43, 26, 0.08);
+}
+
+.priorityBody {
+  flex: 1;
+}
+
+.priorityTitle {
+  font-size: 2.3cqh;
+  font-weight: 700;
+  color: var(--object-metaphor-ink);
+  margin: 0 0 0.3cqh 0;
+}
+
+.priorityDesc {
+  font-size: 1.8cqh;
+  line-height: 1.5;
+  color: var(--object-metaphor-ink);
+  margin: 0;
+}
+
+.priorityOwner {
+  font-size: 1.5cqh;
+  font-weight: 600;
+  color: var(--object-metaphor-accent);
+  margin-top: 0.5cqh;
+}
+
+/* ── Scene 4: Risk Overview ───────────────────────────────────────────── */
+
+.risks {
+  width: 100%;
+  height: 100%;
+  padding: 3.5cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.risksHeader {
+  margin-bottom: 2cqh;
+}
+
+.risksTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--object-metaphor-ink);
+  margin: 0;
+  font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
+}
+
+.risksSubtitle {
+  font-size: 2cqh;
+  color: var(--object-metaphor-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.risksGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5cqh;
+}
+
+.riskCard {
+  background: var(--object-metaphor-panel);
+  border: 0.05cqh solid var(--object-metaphor-rule);
+  border-radius: 1cqh;
+  padding: 2cqh 2.5cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8cqh;
+  box-shadow: 0 0.25cqh 0.8cqh rgba(61, 43, 26, 0.06);
+}
+
+.riskCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.riskName {
+  font-size: 2.1cqh;
+  font-weight: 700;
+  color: var(--object-metaphor-ink);
+  margin: 0;
+}
+
+.riskLevel {
+  font-size: 1.4cqh;
+  font-weight: 700;
+  padding: 0.3cqh 1cqw;
+  border-radius: 0.4cqh;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.riskLevelHigh {
+  color: var(--object-metaphor-red);
+  background: rgba(160, 64, 48, 0.08);
+}
+
+.riskLevelMedium {
+  color: var(--object-metaphor-amber);
+  background: rgba(196, 129, 58, 0.08);
+}
+
+.riskLevelLow {
+  color: var(--object-metaphor-green);
+  background: rgba(90, 122, 58, 0.08);
+}
+
+.riskDesc {
+  font-size: 1.7cqh;
+  line-height: 1.5;
+  color: var(--object-metaphor-ink);
+  margin: 0;
+}
+
+.riskMitigation {
+  font-size: 1.5cqh;
+  color: var(--object-metaphor-muted);
+  margin: 0;
+  padding-top: 0.5cqh;
+  border-top: 0.05cqh solid var(--object-metaphor-rule);
+}
+
+.riskMitigation strong {
+  color: var(--object-metaphor-ink);
+}
+
+/* ── Scene 5: Next Steps ──────────────────────────────────────────────── */
+
+.nextSteps {
+  width: 100%;
+  height: 100%;
+  padding: 3.5cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.nextHeader {
+  margin-bottom: 2.5cqh;
+}
+
+.nextTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--object-metaphor-ink);
+  margin: 0;
+  font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
+}
+
+.nextSubtitle {
+  font-size: 2cqh;
+  color: var(--object-metaphor-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.nextItems {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5cqh;
+}
+
+.nextItem {
+  display: flex;
+  gap: 2cqw;
+  padding: 2cqh 2.5cqw;
+  background: var(--object-metaphor-panel);
+  border: 0.05cqh solid var(--object-metaphor-rule);
+  border-radius: 1cqh;
+  border-left: 0.4cqh solid var(--object-metaphor-accent);
+  box-shadow: 0 0.25cqh 0.8cqh rgba(61, 43, 26, 0.06);
+}
+
+.nextNumber {
+  font-size: 3.5cqh;
+  font-weight: 800;
+  color: var(--object-metaphor-accent);
+  min-width: 3.5cqw;
+  line-height: 1;
+  font-family: Georgia, serif;
+}
+
+.nextContent {
+  flex: 1;
+}
+
+.nextAction {
+  font-size: 2.2cqh;
+  font-weight: 700;
+  color: var(--object-metaphor-ink);
+  margin: 0 0 0.3cqh 0;
+}
+
+.nextDetail {
+  font-size: 1.8cqh;
+  line-height: 1.5;
+  color: var(--object-metaphor-ink);
+  margin: 0;
+}
+
+.nextMeta {
+  display: flex;
+  gap: 2cqw;
+  margin-top: 0.5cqh;
+}
+
+.nextMetaItem {
+  font-size: 1.5cqh;
+  font-weight: 600;
+  color: var(--object-metaphor-muted);
+}
+
+.nextMetaItem span {
+  color: var(--object-metaphor-ink);
+}
+
+.nextFooter {
+  margin-top: 2.5cqh;
+  padding-top: 2cqh;
+  border-top: 0.1cqh solid var(--object-metaphor-rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nextFooterText {
+  font-size: 1.7cqh;
+  color: var(--object-metaphor-muted);
+  margin: 0;
+}
+
+.nextFooterContact {
+  font-size: 1.7cqh;
+  font-weight: 600;
+  color: var(--object-metaphor-accent);
+}
+
+/* ── Navigation ────────────────────────────────────────────────────────── */
+
+.nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: rgba(245, 237, 224, 0.95);
+  backdrop-filter: blur(8px);
+  border-top: 0.05cqh solid var(--object-metaphor-rule);
+  padding: 1cqh 6cqw 1.2cqh;
+}
+
+.navItems {
+  display: flex;
+  justify-content: center;
+  gap: 0.3cqw;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2cqh;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.7cqh 2.5cqw;
+  border-radius: 0.6cqh;
+  transition: background 0.2s ease, color 0.2s ease;
+  font-family: "Inter", sans-serif;
+}
+
+.navItem:hover {
+  background: var(--object-metaphor-panel);
+}
+
+.navIcon {
+  font-size: 2.2cqh;
+  line-height: 1;
+}
+
+.navLabel {
+  font-size: 1.4cqh;
+  color: var(--object-metaphor-muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.navItemActive {
+  background: var(--object-metaphor-accent);
+}
+
+.navItemActive:hover {
+  background: var(--object-metaphor-accent);
+}
+
+.navItemActive .navLabel {
+  color: #ffffff;
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────────────── */
+
+.reducedMotion * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}

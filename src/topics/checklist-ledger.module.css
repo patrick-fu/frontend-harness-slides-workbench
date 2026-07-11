@@ -1,0 +1,906 @@
+/* ── Checklist Ledger ──────────────────────────────────────── */
+
+:root {
+  --checklist-ledger-bg: #fbfbfb;
+  --checklist-ledger-ink: #111827;
+  --checklist-ledger-panel: #f3f4f6;
+  --checklist-ledger-accent: #16a34a;
+  --checklist-ledger-rule: #e5e7eb;
+  --checklist-ledger-muted: #6b7280;
+  --checklist-ledger-critical: #16a34a;
+  --checklist-ledger-high: #eab308;
+  --checklist-ledger-medium: #dc2626;
+  --checklist-ledger-low: #6b7280;
+  --checklist-ledger-info: #3b82f6;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--checklist-ledger-bg);
+  color: var(--checklist-ledger-ink);
+  font-family: "Inter", "SF Pro Text", system-ui, "Noto Sans SC", sans-serif;
+  user-select: none;
+}
+
+/* Ledger line texture */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 4.5cqh,
+      rgba(0, 0, 0, 0.015) 4.5cqh,
+      rgba(0, 0, 0, 0.015) 4.52cqh
+    );
+  pointer-events: none;
+}
+
+/* ── Scene-to-Scene Transition ─────────────────────────────────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.exitAnim {
+  animation: auditExit 0.2s ease-in 0.3s forwards;
+  z-index: 1;
+}
+
+@keyframes auditExit {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.enterAnim {
+  animation: auditEnter 0.2s ease-out 0.3s both;
+  z-index: 2;
+}
+
+@keyframes auditEnter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Audit Finding Stamp Overlay ────────────────────────────────────────── */
+
+.stampOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+  animation: stampFadeOut 0.5s ease-out forwards;
+}
+
+@keyframes stampFadeOut {
+  0%, 60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.stampCircle {
+  width: 28cqh;
+  height: 28cqh;
+  border-radius: 50%;
+  border: 0.6cqh solid #dc2626;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  filter: contrast(1.2);
+  animation: stampSlam 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform: rotate(-8deg);
+}
+
+@keyframes stampSlam {
+  0% {
+    transform: scale(2) rotate(-8deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(0.95) rotate(-8deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(-8deg);
+    opacity: 1;
+  }
+}
+
+.stampCircle::before {
+  content: "";
+  position: absolute;
+  inset: 0.8cqh;
+  border-radius: 50%;
+  border: 0.15cqh solid #dc2626;
+}
+
+.stampText {
+  font-size: 3.2cqh;
+  font-weight: 900;
+  color: #dc2626;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: "Inter", system-ui, sans-serif;
+  line-height: 1;
+}
+
+.stampSubtext {
+  font-size: 1.6cqh;
+  font-weight: 700;
+  color: #dc2626;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-top: 0.5cqh;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ── Finding item beat-level reveal with severity flash ────────────────── */
+
+.findingItem {
+  opacity: 0;
+  transform: translateX(-0.8cqh);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.findingItemVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.findingItemVisible .findingSeverity {
+  animation: severityFlash 0.4s ease-out;
+}
+
+@keyframes severityFlash {
+  0% {
+    filter: brightness(1);
+  }
+  30% {
+    filter: brightness(1.5) saturate(1.5);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+/* ── Transition Track (legacy) ──────────────────────────────────────────── */
+
+.transitionTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.animateSceneEnter {
+  animation: sceneEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes sceneEnter {
+  from { opacity: 0; transform: translateY(1.5cqh); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Scene 1: Report Header ───────────────────────────────────────────── */
+
+.reportHeader {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reportHeaderTop {
+  display: flex;
+  align-items: center;
+  gap: 2cqw;
+  margin-bottom: 3cqh;
+}
+
+.reportFirmLogo {
+  width: 7cqh;
+  height: 7cqh;
+  background: var(--checklist-ledger-accent);
+  border-radius: 1.2cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5cqh;
+  font-weight: 800;
+  color: #fff;
+  font-family: Georgia, serif;
+}
+
+.reportFirmInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.reportFirmName {
+  font-size: 2.8cqh;
+  font-weight: 700;
+  color: var(--checklist-ledger-ink);
+  line-height: 1.2;
+}
+
+.reportFirmTagline {
+  font-size: 1.7cqh;
+  color: var(--checklist-ledger-muted);
+  font-weight: 400;
+}
+
+.reportType {
+  font-size: 1.8cqh;
+  font-weight: 700;
+  color: var(--checklist-ledger-info);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1cqh;
+}
+
+.reportTitle {
+  font-size: 6cqh;
+  font-weight: 800;
+  color: var(--checklist-ledger-ink);
+  margin: 0;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.reportTitleAccent {
+  color: var(--checklist-ledger-accent);
+}
+
+.reportSubtitle {
+  font-size: 2.5cqh;
+  font-weight: 400;
+  color: var(--checklist-ledger-muted);
+  margin: 1cqh 0 0 0;
+}
+
+.reportMeta {
+  display: flex;
+  gap: 4cqw;
+  margin-top: 3cqh;
+  padding-top: 2.5cqh;
+  border-top: 0.15cqh solid var(--checklist-ledger-rule);
+  flex-wrap: wrap;
+}
+
+.reportMetaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3cqh;
+}
+
+.reportMetaLabel {
+  font-size: 1.4cqh;
+  font-weight: 700;
+  color: var(--checklist-ledger-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.reportMetaValue {
+  font-size: 2cqh;
+  font-weight: 600;
+  color: var(--checklist-ledger-ink);
+}
+
+/* ── Scene 2: Scope & Methodology ─────────────────────────────────────── */
+
+.scope {
+  width: 100%;
+  height: 100%;
+  padding: 3.5cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.scopeHeader {
+  margin-bottom: 2.5cqh;
+}
+
+.scopeTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--checklist-ledger-ink);
+  margin: 0;
+}
+
+.scopeSubtitle {
+  font-size: 2cqh;
+  color: var(--checklist-ledger-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.scopeBody {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3cqw;
+}
+
+.scopeSection {
+  background: var(--checklist-ledger-panel);
+  border: 0.05cqh solid var(--checklist-ledger-rule);
+  border-radius: 1cqh;
+  padding: 2.5cqh 2.5cqw;
+}
+
+.scopeSectionLabel {
+  font-size: 1.6cqh;
+  font-weight: 700;
+  color: var(--checklist-ledger-info);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.2cqh;
+}
+
+.scopeSectionTitle {
+  font-size: 2.4cqh;
+  font-weight: 700;
+  color: var(--checklist-ledger-ink);
+  margin: 0 0 1cqh 0;
+}
+
+.scopeSectionText {
+  font-size: 1.9cqh;
+  line-height: 1.6;
+  color: var(--checklist-ledger-ink);
+  margin: 0 0 1cqh 0;
+}
+
+.scopeList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7cqh;
+}
+
+.scopeListItem {
+  font-size: 1.8cqh;
+  color: var(--checklist-ledger-ink);
+  padding-left: 1.5cqw;
+  position: relative;
+  line-height: 1.4;
+}
+
+.scopeListItem::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--checklist-ledger-low);
+  font-weight: 700;
+}
+
+/* ── Scene 3: Findings Summary ────────────────────────────────────────── */
+
+.findings {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.findingsHeader {
+  margin-bottom: 2cqh;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.findingsTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--checklist-ledger-ink);
+  margin: 0;
+}
+
+.findingsCount {
+  font-size: 1.8cqh;
+  font-weight: 700;
+  color: var(--checklist-ledger-muted);
+}
+
+.findingsSummary {
+  display: flex;
+  gap: 1.5cqw;
+  margin-bottom: 2cqh;
+}
+
+.findingsStat {
+  flex: 1;
+  background: var(--checklist-ledger-panel);
+  border: 0.05cqh solid var(--checklist-ledger-rule);
+  border-radius: 1cqh;
+  padding: 1.5cqh 1.5cqw;
+  text-align: center;
+}
+
+.findingsStatValue {
+  font-size: 3.5cqh;
+  font-weight: 800;
+  line-height: 1;
+  display: block;
+}
+
+.findingsStatLabel {
+  font-size: 1.4cqh;
+  font-weight: 600;
+  color: var(--checklist-ledger-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.3cqh;
+}
+
+.findingsList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2cqh;
+}
+
+.findingItem {
+  display: flex;
+  gap: 1.5cqw;
+  padding: 1.5cqh 2cqw;
+  background: var(--checklist-ledger-panel);
+  border: 0.05cqh solid var(--checklist-ledger-rule);
+  border-radius: 0.8cqh;
+  align-items: flex-start;
+}
+
+.findingSeverity {
+  width: 2.8cqh;
+  height: 2.8cqh;
+  border-radius: 0.6cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.4cqh;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.findingSeverityCritical { background: var(--checklist-ledger-critical); }
+.findingSeverityHigh { background: var(--checklist-ledger-high); }
+.findingSeverityMedium { background: var(--checklist-ledger-medium); color: var(--checklist-ledger-ink); }
+.findingSeverityLow { background: var(--checklist-ledger-low); }
+
+.findingContent {
+  flex: 1;
+}
+
+.findingTitle {
+  font-size: 2.1cqh;
+  font-weight: 700;
+  color: var(--checklist-ledger-ink);
+  margin: 0 0 0.3cqh 0;
+}
+
+.findingDesc {
+  font-size: 1.7cqh;
+  line-height: 1.5;
+  color: var(--checklist-ledger-ink);
+  margin: 0;
+}
+
+.findingMeta {
+  display: flex;
+  gap: 1.5cqw;
+  margin-top: 0.5cqh;
+}
+
+.findingMetaItem {
+  font-size: 1.4cqh;
+  font-weight: 600;
+  color: var(--checklist-ledger-muted);
+}
+
+.findingMetaItem span {
+  color: var(--checklist-ledger-ink);
+}
+
+/* ── Scene 4: Risk Matrix (HERO) ──────────────────────────────────────── */
+
+.riskMatrix {
+  width: 100%;
+  height: 100%;
+  padding: 3cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.riskHeader {
+  margin-bottom: 2cqh;
+}
+
+.riskTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--checklist-ledger-ink);
+  margin: 0;
+}
+
+.riskSubtitle {
+  font-size: 2cqh;
+  color: var(--checklist-ledger-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.riskTableWrap {
+  flex: 1;
+  overflow: hidden;
+  border: 0.05cqh solid var(--checklist-ledger-rule);
+  border-radius: 1cqh;
+}
+
+.riskTable {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  font-size: 1.7cqh;
+}
+
+.riskTable thead tr {
+  background: var(--checklist-ledger-accent);
+}
+
+.riskTable th {
+  padding: 1.2cqh 1cqw;
+  font-weight: 700;
+  color: #fff;
+  font-size: 1.5cqh;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: left;
+}
+
+.riskTable th:nth-child(1) { width: 4cqw; text-align: center; }
+.riskTable th:nth-child(4) { width: 10cqw; text-align: center; }
+.riskTable th:nth-child(5) { width: 10cqw; }
+
+.riskTable tbody tr {
+  border-bottom: 0.05cqh solid var(--checklist-ledger-rule);
+}
+
+.riskTable tbody tr:nth-child(even) {
+  background: var(--checklist-ledger-panel);
+}
+
+.riskTable td {
+  padding: 1.2cqh 1cqw;
+  vertical-align: middle;
+}
+
+.riskId {
+  font-weight: 700;
+  color: var(--checklist-ledger-muted);
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 1.5cqh;
+  text-align: center;
+}
+
+.riskControl {
+  font-weight: 600;
+  color: var(--checklist-ledger-ink);
+}
+
+.riskControlDesc {
+  display: block;
+  font-weight: 400;
+  color: var(--checklist-ledger-muted);
+  font-size: 1.4cqh;
+  margin-top: 0.2cqh;
+}
+
+.riskLevelCell {
+  text-align: center;
+}
+
+.riskLevelBadge {
+  display: inline-block;
+  padding: 0.4cqh 1.2cqw;
+  border-radius: 0.4cqh;
+  font-weight: 700;
+  font-size: 1.4cqh;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.riskLevelCritical {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--checklist-ledger-critical);
+}
+
+.riskLevelHigh {
+  background: rgba(249, 115, 22, 0.12);
+  color: var(--checklist-ledger-high);
+}
+
+.riskLevelMedium {
+  background: rgba(234, 179, 8, 0.12);
+  color: #a16207;
+}
+
+.riskLevelLow {
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--checklist-ledger-low);
+}
+
+.riskStatus {
+  font-size: 1.5cqh;
+  font-weight: 600;
+}
+
+.riskStatusOpen { color: var(--checklist-ledger-critical); }
+.riskStatusRemediated { color: var(--checklist-ledger-low); }
+.riskStatusAccepted { color: var(--checklist-ledger-muted); }
+
+/* ── Scene 5: Compliance Checklist ────────────────────────────────────── */
+
+.compliance {
+  width: 100%;
+  height: 100%;
+  padding: 3.5cqh 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.complianceHeader {
+  margin-bottom: 2cqh;
+}
+
+.complianceTitle {
+  font-size: 4cqh;
+  font-weight: 700;
+  color: var(--checklist-ledger-ink);
+  margin: 0;
+}
+
+.complianceSubtitle {
+  font-size: 2cqh;
+  color: var(--checklist-ledger-muted);
+  margin: 0.5cqh 0 0 0;
+}
+
+.complianceSummary {
+  display: flex;
+  gap: 2cqw;
+  margin-bottom: 2cqh;
+}
+
+.complianceScore {
+  flex: 1;
+  background: var(--checklist-ledger-panel);
+  border: 0.05cqh solid var(--checklist-ledger-rule);
+  border-radius: 1cqh;
+  padding: 2cqh 2.5cqw;
+  display: flex;
+  align-items: center;
+  gap: 2cqw;
+}
+
+.complianceScoreCircle {
+  width: 8cqh;
+  height: 8cqh;
+  border-radius: 50%;
+  background: conic-gradient(var(--checklist-ledger-low) 0% 89%, var(--checklist-ledger-rule) 89% 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.complianceScoreInner {
+  width: 6cqh;
+  height: 6cqh;
+  border-radius: 50%;
+  background: var(--checklist-ledger-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.complianceScoreValue {
+  font-size: 2.5cqh;
+  font-weight: 800;
+  color: var(--checklist-ledger-ink);
+  line-height: 1;
+}
+
+.complianceScorePct {
+  font-size: 1.3cqh;
+  font-weight: 600;
+  color: var(--checklist-ledger-muted);
+}
+
+.complianceScoreInfo {
+  flex: 1;
+}
+
+.complianceScoreLabel {
+  font-size: 1.5cqh;
+  font-weight: 700;
+  color: var(--checklist-ledger-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.3cqh;
+}
+
+.complianceScoreTitle {
+  font-size: 2.4cqh;
+  font-weight: 700;
+  color: var(--checklist-ledger-ink);
+  margin: 0 0 0.5cqh 0;
+}
+
+.complianceScoreText {
+  font-size: 1.7cqh;
+  color: var(--checklist-ledger-ink);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.complianceItems {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8cqh;
+}
+
+.complianceItem {
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+  padding: 1.2cqh 1.5cqw;
+  background: var(--checklist-ledger-panel);
+  border: 0.05cqh solid var(--checklist-ledger-rule);
+  border-radius: 0.6cqh;
+}
+
+.complianceCheck {
+  width: 2.5cqh;
+  height: 2.5cqh;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.3cqh;
+  font-weight: 700;
+}
+
+.complianceCheckPass {
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--checklist-ledger-low);
+}
+
+.complianceCheckFail {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--checklist-ledger-critical);
+}
+
+.complianceCheckPartial {
+  background: rgba(234, 179, 8, 0.12);
+  color: #a16207;
+}
+
+.complianceItemText {
+  flex: 1;
+  font-size: 1.8cqh;
+  font-weight: 500;
+  color: var(--checklist-ledger-ink);
+}
+
+.complianceItemRef {
+  font-size: 1.4cqh;
+  font-weight: 600;
+  color: var(--checklist-ledger-muted);
+  font-family: "SF Mono", "Fira Code", monospace;
+}
+
+/* ── Navigation ────────────────────────────────────────────────────────── */
+
+.nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: rgba(251, 251, 251, 0.95);
+  backdrop-filter: blur(8px);
+  border-top: 0.05cqh solid var(--checklist-ledger-rule);
+  padding: 1cqh 6cqw 1.2cqh;
+}
+
+.navItems {
+  display: flex;
+  justify-content: center;
+  gap: 0.3cqw;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2cqh;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.7cqh 2.5cqw;
+  border-radius: 0.6cqh;
+  transition: background 0.2s ease, color 0.2s ease;
+  font-family: "Inter", sans-serif;
+}
+
+.navItem:hover {
+  background: var(--checklist-ledger-panel);
+}
+
+.navIcon {
+  font-size: 2.2cqh;
+  line-height: 1;
+}
+
+.navLabel {
+  font-size: 1.4cqh;
+  color: var(--checklist-ledger-muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.navItemActive {
+  background: var(--checklist-ledger-accent);
+}
+
+.navItemActive:hover {
+  background: var(--checklist-ledger-accent);
+}
+
+.navItemActive .navLabel {
+  color: #ffffff;
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────────────── */
+
+.reducedMotion * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}

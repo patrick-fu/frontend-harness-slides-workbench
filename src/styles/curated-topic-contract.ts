@@ -58,11 +58,11 @@ export const CURATED_STYLE_NAMES: Readonly<
   "research-memo": { en: "Research Memo", zh: "研究备忘录" },
   "decision-record": { en: "Decision Record", zh: "决策记录" },
   "maintainer-issue-brief": { en: "Maintainer Issue Brief", zh: "维护者问题简报" },
-  "field-notes-report": { en: "Field Notes Report", zh: "田野笔记" },
+  "field-notes-report": { en: "Field Notes Report", zh: "田野笔记报告" },
   "annotated-source-diff": { en: "Annotated Source & Diff", zh: "注解源码与差异" },
   "checklist-ledger": { en: "Checklist Ledger", zh: "检查清单台账" },
   "context-bento-box": { en: "Context Bento Box", zh: "上下文便当盒" },
-  "object-metaphor-hero": { en: "Object Metaphor Hero", zh: "物体主视觉" },
+  "object-metaphor-hero": { en: "Object Metaphor Hero", zh: "物体隐喻主视觉" },
 };
 
 export interface CuratedTopicContract {

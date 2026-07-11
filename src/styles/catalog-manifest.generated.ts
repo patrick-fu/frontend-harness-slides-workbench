@@ -50397,9 +50397,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "research-memo",
-            "band": "text-report",
-            "name": "Research Memo",
             "theme": "Research findings, executive summaries, evidence-led readouts — calm authoritative evidence-first",
             "densityLabel": "Document-Dense",
             "heroScene": 3,
@@ -50511,12 +50508,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "research-memo",
+            "name": "Research Memo",
+            "band": "text-report"
           },
           "zh": {
-            "id": "research-memo",
-            "band": "text-report",
-            "name": "研究备忘录",
             "theme": "研究成果、执行摘要、证据导向的汇报——冷静权威、证据为先",
             "densityLabel": "文档密集",
             "heroScene": 3,
@@ -50628,10 +50625,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "research-memo",
+            "name": "研究备忘录",
+            "band": "text-report"
           }
         },
-        "modulePath": "./41-annual-report.tsx"
+        "modulePath": "../topics/research-memo.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "research-memo-page-index",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative research memo: the lab, study design, findings, metrics, costs, and recommendations are presentation examples, not externally verified research results.",
+            "zh": "示例研究备忘录：实验室、研究设计、结论、指标、成本和建议均为演示内容，并非经外部核验的研究结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "hard-cut",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "small-team",
@@ -50642,9 +50662,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "research-memo",
-            "band": "text-report",
-            "name": "Research Memo",
             "theme": "Evidence for a Smaller Team: question, method, findings, recommendation, memo line",
             "densityLabel": "Reading-first",
             "heroScene": 3,
@@ -50760,12 +50777,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "research-memo",
+            "name": "Research Memo",
+            "band": "text-report"
           },
           "zh": {
-            "id": "research-memo",
-            "band": "text-report",
-            "name": "研究备忘录",
             "theme": "小团队证据：问题、方法、发现、建议、备忘录结论",
             "densityLabel": "阅读优先",
             "heroScene": 3,
@@ -50881,10 +50898,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "research-memo",
+            "name": "研究备忘录",
+            "band": "text-report"
           }
         },
-        "modulePath": "./41-evidence-smaller-team.tsx"
+        "modulePath": "../topics/small-team.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "small-team-memo-tabs",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative team pilot: the team size, observations, comparisons, and recommendations are presentation examples, not externally verified organizational evidence.",
+            "zh": "示例团队试点：团队规模、观察结果、比较和建议均为演示内容，并非经外部核验的组织证据。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "wipe",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "impact-evidence",
@@ -50895,9 +50935,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "research-memo",
-            "band": "text-report",
-            "name": "Research Memo",
             "theme": "Impact evidence: a traceable, cross-medium, bounded scientific case",
             "densityLabel": "Reading-first · High density",
             "heroScene": 2,
@@ -51020,12 +51057,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "research-memo",
+            "name": "Research Memo",
+            "band": "text-report"
           },
           "zh": {
-            "id": "research-memo",
-            "band": "text-report",
-            "name": "研究备忘录",
             "theme": "撞击证据：跨介质、可追溯且有边界的科学证据链",
             "densityLabel": "阅读优先 · 高密度",
             "heroScene": 2,
@@ -51148,10 +51185,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "research-memo",
+            "name": "研究备忘录",
+            "band": "text-report"
           }
         },
-        "modulePath": "./42-impact-evidence.tsx",
+        "modulePath": "../topics/impact-evidence.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "impact-citation-chain",
@@ -51202,6 +51242,9 @@ export const CATALOG_MANIFEST = [
             "supports": "Separates impact and volcanic forcing across the boundary and preserves a bounded interpretation: impact is the principal extinction trigger in the analyzed record, while volcanism remains relevant to broader climate and recovery history."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "crossfade",
@@ -51218,9 +51261,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "research-memo",
-            "band": "text-report",
-            "name": "Research Memo",
             "theme": "Why Users Churn",
             "densityLabel": "Reading-First",
             "heroScene": 2,
@@ -51333,12 +51373,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "research-memo",
+            "name": "Research Memo",
+            "band": "text-report"
           },
           "zh": {
-            "id": "research-memo",
-            "band": "text-report",
-            "name": "研究备忘录",
             "theme": "用户流失",
             "densityLabel": "阅读优先",
             "heroScene": 2,
@@ -51451,10 +51491,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "research-memo",
+            "name": "研究备忘录",
+            "band": "text-report"
           }
         },
-        "modulePath": "./why-users-churn.tsx",
+        "modulePath": "../topics/why-users-churn.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "churn-section-spine",
@@ -51495,9 +51538,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "decision-record",
-            "band": "text-report",
-            "name": "Decision Record",
             "theme": "Technical decisions, trade-offs, and architectural boundaries — structured reasoning blocks with procedural formality",
             "densityLabel": "Document-Dense",
             "heroScene": 3,
@@ -51607,12 +51647,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "decision-record",
+            "name": "Decision Record",
+            "band": "text-report"
           },
           "zh": {
-            "id": "decision-record",
-            "band": "text-report",
-            "name": "决策记录",
             "theme": "技术决策、权衡分析与架构边界——结构化推理块，程序化工整风格",
             "densityLabel": "文档密集",
             "heroScene": 3,
@@ -51722,10 +51762,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "decision-record",
+            "name": "决策记录",
+            "band": "text-report"
           }
         },
-        "modulePath": "./42-legal-brief.tsx"
+        "modulePath": "../topics/decision-record.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "decision-record-section-index",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative decision record: the organization, legal analysis, decision criteria, recommendations, and outcomes are presentation examples, not legal advice or externally verified findings.",
+            "zh": "示例决策记录：组织、法律分析、决策标准、建议和结果均为演示内容，并非法律建议或经外部核验的结论。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
+        }
       },
       {
         "id": "boundary",
@@ -51736,9 +51799,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "decision-record",
-            "band": "text-report",
-            "name": "Decision Record",
             "theme": "Choose the Boundary",
             "densityLabel": "Reading-First",
             "heroScene": 3,
@@ -51868,12 +51928,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "decision-record",
+            "name": "Decision Record",
+            "band": "text-report"
           },
           "zh": {
-            "id": "decision-record",
-            "band": "text-report",
-            "name": "决策记录",
             "theme": "选择边界",
             "densityLabel": "阅读优先",
             "heroScene": 3,
@@ -52003,10 +52063,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "decision-record",
+            "name": "决策记录",
+            "band": "text-report"
           }
         },
-        "modulePath": "./42-choose-boundary.tsx"
+        "modulePath": "../topics/boundary.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "boundary-adr-sidebar",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative architecture decision record: the teams, system boundary, options, consequences, and verification plan are presentation examples, not externally verified production facts.",
+            "zh": "示例架构决策记录：团队、系统边界、备选方案、后果和验证计划均为演示内容，并非经外部核验的生产事实。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-y",
+          "3->4": "wipe",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "standard-time",
@@ -52017,9 +52100,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "decision-record",
-            "band": "text-report",
-            "name": "Decision Record",
             "theme": "Standard Time: a staged British railway-time adoption",
             "densityLabel": "Evidence report · Reading-first",
             "heroScene": 3,
@@ -52138,12 +52218,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "decision-record",
+            "name": "Decision Record",
+            "band": "text-report"
           },
           "zh": {
-            "id": "decision-record",
-            "band": "text-report",
-            "name": "决策记录",
             "theme": "标准时：19 世纪英国铁路时间的协商式采用",
             "densityLabel": "证据报告 · 阅读优先",
             "heroScene": 3,
@@ -52262,10 +52342,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "decision-record",
+            "name": "决策记录",
+            "band": "text-report"
           }
         },
-        "modulePath": "./decision-record-standard-time.tsx",
+        "modulePath": "../topics/standard-time.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "time-standard-clauses",
@@ -52337,6 +52420,9 @@ export const CATALOG_MANIFEST = [
             ]
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "crossfade",
@@ -52353,9 +52439,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "decision-record",
-            "band": "text-report",
-            "name": "Decision Record",
             "theme": "Why We Chose Monorepo",
             "densityLabel": "Reading-First",
             "heroScene": 1,
@@ -52473,12 +52556,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "decision-record",
+            "name": "Decision Record",
+            "band": "text-report"
           },
           "zh": {
-            "id": "decision-record",
-            "band": "text-report",
-            "name": "决策记录",
             "theme": "为什么选择单一代码仓库",
             "densityLabel": "阅读优先",
             "heroScene": 1,
@@ -52596,10 +52679,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "decision-record",
+            "name": "决策记录",
+            "band": "text-report"
           }
         },
-        "modulePath": "./why-we-chose-monorepo.tsx",
+        "modulePath": "../topics/why-we-chose-monorepo.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "monorepo-decision-stepper",
@@ -52639,9 +52725,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "maintainer-issue-brief",
-            "band": "text-report",
-            "name": "Maintainer Issue Brief",
             "theme": "Engineering task handoff — developer ticket sensibility with status colors, sharp headings, and action-oriented structure",
             "densityLabel": "Reading-First",
             "heroScene": 3,
@@ -52753,12 +52836,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "maintainer-issue-brief",
+            "name": "Maintainer Issue Brief",
+            "band": "text-report"
           },
           "zh": {
-            "id": "maintainer-issue-brief",
-            "band": "text-report",
-            "name": "维护者问题简报",
             "theme": "工程任务交接——开发者工单风格，状态色彩、清晰标题、行动导向结构",
             "densityLabel": "阅读优先",
             "heroScene": 3,
@@ -52870,10 +52953,25 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "maintainer-issue-brief",
+            "name": "维护者问题简报",
+            "band": "text-report"
           }
         },
-        "modulePath": "./43-research-digest.tsx"
+        "modulePath": "../topics/issue-brief.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "issue-brief-section-tabs",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
+        }
       },
       {
         "id": "agent-pickup",
@@ -52884,9 +52982,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "maintainer-issue-brief",
-            "band": "text-report",
-            "name": "Maintainer Issue Brief",
             "theme": "Ready for Agent Pickup",
             "densityLabel": "Reading-first",
             "heroScene": 1,
@@ -53009,12 +53104,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "maintainer-issue-brief",
+            "name": "Maintainer Issue Brief",
+            "band": "text-report"
           },
           "zh": {
-            "id": "maintainer-issue-brief",
-            "band": "text-report",
-            "name": "维护者 Issue 简报",
             "theme": "可交给 Agent 接手",
             "densityLabel": "阅读优先",
             "heroScene": 1,
@@ -53137,10 +53232,25 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "maintainer-issue-brief",
+            "name": "维护者问题简报",
+            "band": "text-report"
           }
         },
-        "modulePath": "./43-ready-agent-pickup.tsx"
+        "modulePath": "../topics/agent-pickup.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "agent-pickup-status-chips",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "slide-y",
+          "3->4": "wipe",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "ozone-hole",
@@ -53151,9 +53261,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "maintainer-issue-brief",
-            "band": "text-report",
-            "name": "Maintainer Issue Brief",
             "theme": "Ozone Hole: Evidence Closed",
             "densityLabel": "Evidence report",
             "heroScene": 2,
@@ -53276,12 +53383,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "maintainer-issue-brief",
+            "name": "Maintainer Issue Brief",
+            "band": "text-report"
           },
           "zh": {
-            "id": "maintainer-issue-brief",
-            "band": "text-report",
-            "name": "维护者问题简报",
             "theme": "臭氧洞：证据闭环",
             "densityLabel": "证据报告",
             "heroScene": 2,
@@ -53404,10 +53511,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "maintainer-issue-brief",
+            "name": "维护者问题简报",
+            "band": "text-report"
           }
         },
-        "modulePath": "./maintainer-issue-brief-ozone-hole.tsx",
+        "modulePath": "../topics/ozone-hole.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "ozone-issue-states",
@@ -53480,6 +53590,80 @@ export const CATALOG_MANIFEST = [
             "supports": "Establishes that the 2026 quadrennial assessment reports are to be submitted by 31 December 2026, so the 2022 assessment remains the latest completed assessment during authoring."
           }
         ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "id": "S1",
+              "authority": "British Antarctic Survey",
+              "title": "The ozone hole discovery",
+              "citation": "British Antarctic Survey. The ozone hole discovery. History feature, accessed 10 July 2026.",
+              "url": "https://www.bas.ac.uk/about/history/ozone-hole-discovery/",
+              "supports": "Documents the 1985 BAS discovery, recurring Antarctic spring depletion, Halley observations, subsequent NASA satellite confirmation, and the policy response."
+            },
+            {
+              "id": "S2",
+              "authority": "British Antarctic Survey Polar Data Centre",
+              "title": "Provisional monthly mean ozone values for Halley between 1956 and 1985",
+              "citation": "Shanklin, J. (2017). Provisional monthly mean ozone values for Halley between 1956 and 1985, Version 1.0. DOI 10.5285/d16ac510-3b63-41c0-a6b6-a85bc2ca4d7e.",
+              "url": "https://data.bas.ac.uk/full-record.php?id=GB%2FNERC%2FBAS%2FPDC%2F00951",
+              "supports": "Provides the Halley monthly mean total-ozone record in Dobson Units and states observation-season, low-sun, coefficient-correction, and atmospheric-assumption quality limits."
+            },
+            {
+              "id": "S3",
+              "authority": "NASA Goddard Space Flight Center, Ozone Watch",
+              "title": "History of the Ozone Hole",
+              "citation": "NASA Ozone Watch. History of the Ozone Hole. Page updated 23 September 2024.",
+              "url": "https://ozonewatch.gsfc.nasa.gov/facts/history_SH.html",
+              "supports": "Places the Halley record, the 1985 publication, the 1986 TOMS and SBUV regional confirmation, polar stratospheric clouds, and later aircraft chlorine observations in one evidence chronology."
+            },
+            {
+              "id": "S4",
+              "authority": "NASA Technical Reports Server / Comptes Rendus Geoscience",
+              "title": "The discovery of the Antarctic Ozone Hole",
+              "citation": "Bhartia, P. K. & McPeters, R. D. (2018). The discovery of the Antarctic Ozone Hole. C. R. Geoscience 350, 335–340.",
+              "url": "https://ntrs.nasa.gov/api/citations/20190002263/downloads/20190002263.pdf",
+              "supports": "Explains why extreme 1983 Antarctic retrievals outside the original 200–650 DU standard-profile range were flagged and how low-ozone profiles enabled reprocessing and map comparison."
+            },
+            {
+              "id": "S5",
+              "authority": "NASA Goddard Space Flight Center, Ozone Watch",
+              "title": "What is the Ozone Hole?",
+              "citation": "NASA Ozone Watch. What is the Ozone Hole? Page updated 23 September 2024.",
+              "url": "https://ozonewatch.gsfc.nasa.gov/facts/hole_SH.html",
+              "supports": "Defines the ozone hole as a seasonal Antarctic stratospheric region at or below 220 Dobson Units, not a zero-ozone opening, and summarizes chlorine- and bromine-catalyzed loss."
+            },
+            {
+              "id": "S6",
+              "authority": "WMO, UNEP, NOAA, NASA, and the European Commission",
+              "title": "Scientific Assessment of Ozone Depletion: 2022 — Executive Summary",
+              "citation": "Scientific Assessment of Ozone Depletion: 2022 — Executive Summary.",
+              "url": "https://public.wmo.int/sites/default/files/2023-03/Scientific-Assessment-of-Ozone-Depletion-2022-Executive-Summary.pdf",
+              "supports": "Reports declining controlled ozone-depleting substances, Antarctic ozone recovery with substantial interannual variability, and conditional return to 1980 total-column values around 2066."
+            },
+            {
+              "id": "S7",
+              "authority": "NASA and NOAA",
+              "title": "NASA, NOAA Rank 2025 Ozone Hole as 5th Smallest Since 1992",
+              "citation": "Younger, S. NASA Earth Science News Team, 24 November 2025; updated 18 March 2026.",
+              "url": "https://science.nasa.gov/earth/nasa-noaa-rank-2025-ozone-hole-as-5th-smallest-since-1992/",
+              "supports": "Provides the latest completed Antarctic season status available during authoring and explicitly separates gradual recovery from temperature, weather, and polar-vortex variability."
+            },
+            {
+              "id": "S8",
+              "authority": "UNEP Ozone Secretariat",
+              "title": "Decision XXXV/3: Potential areas of focus for the 2026 quadrennial reports",
+              "citation": "Meeting of the Parties to the Montreal Protocol, Decision XXXV/3, 2023.",
+              "url": "https://ozone.unep.org/treaties/montreal-protocol/meetings/thirty-fifth-meeting-parties/decisions/decision-xxxv3-potential-areas-focus-2026-quadrennial-reports-environmental-effects-assessment-panel",
+              "supports": "Establishes that the 2026 quadrennial assessment reports are to be submitted by 31 December 2026, so the 2022 assessment remains the latest completed assessment during authoring."
+            }
+          ],
+          "boundary": {
+            "en": "This issue view omits transport detail, bromine coupling, denitrification, and full reaction kinetics.",
+            "zh": "这份 issue 视图省略了输送细节、溴耦合、反硝化与完整反应动力学。"
+          },
+          "display": "stage"
+        },
         "transitionScore": {
           "1->2": "linear-wipe",
           "2->3": "hard-cut",
@@ -53496,9 +53680,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "maintainer-issue-brief",
-            "band": "text-report",
-            "name": "Maintainer Issue Brief",
             "theme": "Flaky Test, Root Cause",
             "densityLabel": "Reading-First",
             "heroScene": 1,
@@ -53613,12 +53794,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "maintainer-issue-brief",
+            "name": "Maintainer Issue Brief",
+            "band": "text-report"
           },
           "zh": {
-            "id": "maintainer-issue-brief",
-            "band": "text-report",
-            "name": "维护者问题简报",
             "theme": "不稳定测试",
             "densityLabel": "阅读优先",
             "heroScene": 1,
@@ -53733,10 +53914,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "maintainer-issue-brief",
+            "name": "维护者问题简报",
+            "band": "text-report"
           }
         },
-        "modulePath": "./flaky-test-root-cause.tsx",
+        "modulePath": "../topics/flaky-test-root-cause.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "flaky-ticket-status",
@@ -53776,9 +53960,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "field-notes-report",
-            "band": "text-report",
-            "name": "Field Notes Report",
             "theme": "User-research observations and physical setup notes — notebook sensibility with warm aged-paper tone",
             "densityLabel": "Structured",
             "heroScene": 4,
@@ -53883,12 +54064,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "field-notes-report",
+            "name": "Field Notes Report",
+            "band": "text-report"
           },
           "zh": {
-            "id": "field-notes-report",
-            "band": "text-report",
-            "name": "田野笔记报告",
             "theme": "用户研究观察和物理环境记录——温暖陈年纸张色调的笔记本风格",
             "densityLabel": "结构化",
             "heroScene": 4,
@@ -53991,10 +54172,25 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "field-notes-report",
+            "name": "田野笔记报告",
+            "band": "text-report"
           }
         },
-        "modulePath": "./44-meeting-minutes.tsx"
+        "modulePath": "../topics/field-notes.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "field-notes-page-tabs",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
+        }
       },
       {
         "id": "platform-study",
@@ -54005,9 +54201,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "field-notes-report",
-            "band": "text-report",
-            "name": "Field Notes Report",
             "theme": "Station Platform Study",
             "densityLabel": "Reading-first field log",
             "heroScene": 1,
@@ -54144,12 +54337,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "field-notes-report",
+            "name": "Field Notes Report",
+            "band": "text-report"
           },
           "zh": {
-            "id": "field-notes-report",
-            "band": "text-report",
-            "name": "现场笔记报告",
             "theme": "站台平台观察",
             "densityLabel": "阅读型现场记录",
             "heroScene": 1,
@@ -54286,10 +54479,25 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "field-notes-report",
+            "name": "田野笔记报告",
+            "band": "text-report"
           }
         },
-        "modulePath": "./44-station-platform-study.tsx"
+        "modulePath": "../topics/platform-study.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "platform-study-edge-flags",
+          "invocation": "persistent",
+          "feedback": "mechanical-displacement"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-y",
+          "3->4": "scale-fade",
+          "4->5": "page-flip"
+        }
       },
       {
         "id": "ancient-sound",
@@ -54300,9 +54508,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "field-notes-report",
-            "band": "text-report",
-            "name": "Field Notes Report",
             "theme": "Ancient Sound",
             "densityLabel": "Reading-first evidence notes",
             "heroScene": 4,
@@ -54427,12 +54632,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "field-notes-report",
+            "name": "Field Notes Report",
+            "band": "text-report"
           },
           "zh": {
-            "id": "field-notes-report",
-            "band": "text-report",
-            "name": "田野笔记报告",
             "theme": "古代声音",
             "densityLabel": "阅读型证据笔记",
             "heroScene": 4,
@@ -54557,10 +54762,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "field-notes-report",
+            "name": "田野笔记报告",
+            "band": "text-report"
           }
         },
-        "modulePath": "./field-notes-report-ancient-sound.tsx",
+        "modulePath": "../topics/ancient-sound.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "instrument-field-cards",
@@ -54652,6 +54860,99 @@ export const CATALOG_MANIFEST = [
             "supports": "Documents the site’s terraces, plazas, dressed-stone structures, complex internal galleries, vents, drains, chronology, and protected status."
           }
         ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "id": "stanford-overview",
+              "claimIds": [
+                "site-complex"
+              ],
+              "authority": "Stanford University CCRMA",
+              "title": "Chavín de Huántar Archaeological Acoustics Project",
+              "citation": "Stanford CCRMA and Archaeology/Anthropology project overview, initiated 2007.",
+              "url": "https://ccrma.stanford.edu/groups/chavin/",
+              "supports": "Identifies the authorized interdisciplinary field project and its study of Chavín architecture, sound-producing instruments, and setting."
+            },
+            {
+              "id": "stanford-method",
+              "claimIds": [
+                "artifact-experiment",
+                "measurement-layout",
+                "possible-experience"
+              ],
+              "authority": "Stanford University CCRMA",
+              "title": "Integrative Archaeoacoustics",
+              "citation": "Chavín de Huántar Archaeological Acoustics Project methods page.",
+              "url": "https://ccrma.stanford.edu/groups/chavin/project.html",
+              "supports": "Explains measurement of extant architecture and artifact instruments, comparison with replicas, psychoacoustic experiments, and auralization as exploratory methods."
+            },
+            {
+              "id": "stanford-pututus",
+              "claimIds": [
+                "pututu-count",
+                "artifact-experiment"
+              ],
+              "authority": "Stanford University CCRMA",
+              "title": "Archaeomusicology of the Chavín Pututus",
+              "citation": "Chavín project instrument research page, updated with 2008 and 2019 work.",
+              "url": "https://ccrma.stanford.edu/groups/chavin/pututus.html",
+              "supports": "Documents 21 excavated Titanostrombus galeatus pututus, their archaeological contexts, artifact measurements, performance experiments, and replica comparisons."
+            },
+            {
+              "id": "jasa-galleries",
+              "claimIds": [
+                "measurement-layout",
+                "ofrendas-dimensions",
+                "impulse-findings"
+              ],
+              "authority": "The Journal of the Acoustical Society of America",
+              "title": "On the Acoustics of the Underground Galleries of Ancient Chavín de Huántar, Peru",
+              "citation": "Abel, Rick, Huang, Kolar, Smith, and Chowning. JASA 123(5), 3605 (2008). DOI 10.1121/1.2934780.",
+              "url": "https://doi.org/10.1121/1.2934780",
+              "supports": "Reports the three-gallery measurement setup, 10 source and 27 receiver positions, Ofrendas alcove dimensions, short reverberation, dense early reflections, and wide soundfields."
+            },
+            {
+              "id": "time-and-mind",
+              "claimIds": [
+                "possible-experience"
+              ],
+              "authority": "Time and Mind: The Journal of Archaeology, Consciousness and Culture",
+              "title": "Sensing sonically at Andean Formative Chavín de Huántar, Perú",
+              "citation": "Kolar, Miriam A. Time and Mind 10(1), 2017. DOI 10.1080/1751696X.2016.1272257.",
+              "url": "https://doi.org/10.1080/1751696X.2016.1272257",
+              "supports": "Frames acoustic and perceptual experiments as evidence for estimating possible ancient sonic experiences rather than direct recovery of a singular past event."
+            },
+            {
+              "id": "yale-pututus",
+              "claimIds": [
+                "pututu-count",
+                "possible-experience"
+              ],
+              "authority": "Yale Journal of Music & Religion",
+              "title": "Conch Calls into the Anthropocene: Pututus as Instruments of Human-Environmental Relations at Monumental Chavín",
+              "citation": "Kolar, Miriam A. Yale Journal of Music & Religion 5(2), Article 4 (2019). DOI 10.17132/2377-231X.1151.",
+              "url": "https://doi.org/10.17132/2377-231X.1151",
+              "supports": "Reviews the material, acoustic, performative, and contextual evidence for Chavín pututus while explicitly acknowledging archaeological uncertainty."
+            },
+            {
+              "id": "unesco-site",
+              "claimIds": [
+                "site-complex"
+              ],
+              "authority": "UNESCO World Heritage Centre",
+              "title": "Chavin (Archaeological Site)",
+              "citation": "World Heritage List entry 330, inscribed 1985; official site synthesis and conservation record.",
+              "url": "https://whc.unesco.org/en/list/330/",
+              "supports": "Documents the site’s terraces, plazas, dressed-stone structures, complex internal galleries, vents, drains, chronology, and protected status."
+            }
+          ],
+          "boundary": {
+            "en": "No generated track here claims to be ‘the real ancient sound.’ A reconstruction is an argument with parameters, not an audio time machine.",
+            "zh": "这里没有任何生成音轨被称作“真实古声”。重建是带参数的论证，不是声音时光机。"
+          },
+          "display": "stage"
+        },
         "transitionScore": {
           "1->2": "page-turn",
           "2->3": "crossfade",
@@ -54668,9 +54969,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "field-notes-report",
-            "band": "text-report",
-            "name": "Field Notes Report",
             "theme": "A Day Shadowing Support",
             "densityLabel": "Reading-First",
             "heroScene": 3,
@@ -54779,12 +55077,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "field-notes-report",
+            "name": "Field Notes Report",
+            "band": "text-report"
           },
           "zh": {
-            "id": "field-notes-report",
-            "band": "text-report",
-            "name": "田野笔记",
             "theme": "跟班客服",
             "densityLabel": "以阅读为先",
             "heroScene": 3,
@@ -54893,10 +55191,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "field-notes-report",
+            "name": "田野笔记报告",
+            "band": "text-report"
           }
         },
-        "modulePath": "./shadowing-support.tsx",
+        "modulePath": "../topics/shadowing-support.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "support-notebook-folio",
@@ -54936,9 +55237,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "annotated-source-diff",
-            "band": "text-report",
-            "name": "Annotated Source & Diff",
             "theme": "Before/after code transformations with annotated explanations and line-by-line diff",
             "densityLabel": "Dense",
             "heroScene": 3,
@@ -55062,12 +55360,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "annotated-source-diff",
+            "name": "Annotated Source & Diff",
+            "band": "text-report"
           },
           "zh": {
-            "id": "annotated-source-diff",
-            "band": "text-report",
-            "name": "注解源码与差异",
             "theme": "前后代码变换，含注解说明和逐行差异对比",
             "densityLabel": "密集",
             "heroScene": 3,
@@ -55189,10 +55487,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "annotated-source-diff",
+            "name": "注解源码与差异",
+            "band": "text-report"
           }
         },
-        "modulePath": "./45-policy-paper.tsx"
+        "modulePath": "../topics/source-diff.tsx",
+        "navigation": {
+          "geometry": "card-miniature",
+          "carrier": "source-diff-bottom-nav",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "slide-y"
+        }
       },
       {
         "id": "flow-rewrite",
@@ -55203,9 +55524,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "annotated-source-diff",
-            "band": "text-report",
-            "name": "Annotated Source & Diff",
             "theme": "Rewrite the Broken Flow",
             "densityLabel": "Reading-first",
             "heroScene": 2,
@@ -55328,12 +55646,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "annotated-source-diff",
+            "name": "Annotated Source & Diff",
+            "band": "text-report"
           },
           "zh": {
-            "id": "annotated-source-diff",
-            "band": "text-report",
-            "name": "带批注的源码差异",
             "theme": "重写断裂流程",
             "densityLabel": "阅读优先",
             "heroScene": 2,
@@ -55456,10 +55774,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "annotated-source-diff",
+            "name": "注解源码与差异",
+            "band": "text-report"
           }
         },
-        "modulePath": "./45-rewrite-broken-flow.tsx"
+        "modulePath": "../topics/flow-rewrite.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "flow-rewrite-hunk-navigator",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "wipe",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "reading-rosetta",
@@ -55470,9 +55811,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "annotated-source-diff",
-            "band": "text-report",
-            "name": "Annotated Source & Diff",
             "theme": "Reading Rosetta",
             "densityLabel": "Evidence report",
             "heroScene": 4,
@@ -55596,12 +55934,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "annotated-source-diff",
+            "name": "Annotated Source & Diff",
+            "band": "text-report"
           },
           "zh": {
-            "id": "annotated-source-diff",
-            "band": "text-report",
-            "name": "带批注的来源对照",
             "theme": "破译罗塞塔",
             "densityLabel": "证据报告",
             "heroScene": 4,
@@ -55725,10 +56063,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "annotated-source-diff",
+            "name": "注解源码与差异",
+            "band": "text-report"
           }
         },
-        "modulePath": "./annotated-source-diff-reading-rosetta.tsx",
+        "modulePath": "../topics/reading-rosetta.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "rosetta-symbol-minimap",
@@ -55837,6 +56178,9 @@ export const CATALOG_MANIFEST = [
             "supports": "The 1801 handover after French surrender, current British Museum location, and the Egyptian government claim recorded as unresolved."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "focus-swap",
@@ -55853,9 +56197,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "annotated-source-diff",
-            "band": "text-report",
-            "name": "Annotated Source & Diff",
             "theme": "Killing a God Object",
             "densityLabel": "Reading-First",
             "heroScene": 3,
@@ -55981,12 +56322,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "annotated-source-diff",
+            "name": "Annotated Source & Diff",
+            "band": "text-report"
           },
           "zh": {
-            "id": "annotated-source-diff",
-            "band": "text-report",
-            "name": "注解源码与差异",
             "theme": "拆解巨类",
             "densityLabel": "重阅读",
             "heroScene": 3,
@@ -56112,10 +56453,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "annotated-source-diff",
+            "name": "注解源码与差异",
+            "band": "text-report"
           }
         },
-        "modulePath": "./killing-a-god-object.tsx",
+        "modulePath": "../topics/killing-a-god-object.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "god-object-diff-toggle",
@@ -56155,9 +56499,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "checklist-ledger",
-            "band": "text-report",
-            "name": "Checklist Ledger",
             "theme": "Readiness checks and acceptance criteria — uniform aligned checkable list with calm confirming green",
             "densityLabel": "Comprehensive",
             "heroScene": 4,
@@ -56280,12 +56621,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "checklist-ledger",
+            "name": "Checklist Ledger",
+            "band": "text-report"
           },
           "zh": {
-            "id": "checklist-ledger",
-            "band": "text-report",
-            "name": "检查清单台账",
             "theme": "就绪检查和验收标准——统一对齐的可勾选列表，平静确认绿色",
             "densityLabel": "全面",
             "heroScene": 4,
@@ -56406,10 +56747,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "checklist-ledger",
+            "name": "检查清单台账",
+            "band": "text-report"
           }
         },
-        "modulePath": "./46-audit-report.tsx"
+        "modulePath": "../topics/checklist-ledger.tsx",
+        "navigation": {
+          "geometry": "card-miniature",
+          "carrier": "checklist-ledger-bottom-nav",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "hard-cut",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "launch-ledger",
@@ -56420,9 +56784,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "checklist-ledger",
-            "band": "text-report",
-            "name": "Checklist Ledger",
             "theme": "Launch Gate Ledger",
             "densityLabel": "Ledger Dense",
             "heroScene": 2,
@@ -56551,12 +56912,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "checklist-ledger",
+            "name": "Checklist Ledger",
+            "band": "text-report"
           },
           "zh": {
-            "id": "checklist-ledger",
-            "band": "text-report",
-            "name": "核对账本",
             "theme": "上线闸口账本",
             "densityLabel": "账本高密",
             "heroScene": 2,
@@ -56685,10 +57046,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "checklist-ledger",
+            "name": "检查清单台账",
+            "band": "text-report"
           }
         },
-        "modulePath": "./46-launch-gate-ledger.tsx"
+        "modulePath": "../topics/launch-ledger.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "launch-ledger-rail",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-y",
+          "3->4": "wipe",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "pigment-without-touch",
@@ -56699,9 +57083,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "checklist-ledger",
-            "band": "text-report",
-            "name": "Checklist Ledger",
             "theme": "Pigment Without Touch",
             "densityLabel": "Evidence Ledger",
             "heroScene": 4,
@@ -56826,12 +57207,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "checklist-ledger",
+            "name": "Checklist Ledger",
+            "band": "text-report"
           },
           "zh": {
-            "id": "checklist-ledger",
-            "band": "text-report",
-            "name": "检查清单台账",
             "theme": "无损识色",
             "densityLabel": "证据账本",
             "heroScene": 4,
@@ -56956,10 +57337,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "checklist-ledger",
+            "name": "检查清单台账",
+            "band": "text-report"
           }
         },
-        "modulePath": "./checklist-ledger-pigment-without-touch.tsx",
+        "modulePath": "../topics/pigment-without-touch.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "pigment-swatch-rail",
@@ -57046,6 +57430,9 @@ export const CATALOG_MANIFEST = [
             "supports": "MS-OCT, 3D digital microscopy, and fringe-encoded scanning as non-invasive surface-topography records, plus their resolution, field-of-view, stitching, and capture-time trade-offs."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "crossfade",
           "2->3": "hard-cut",
@@ -57062,9 +57449,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "checklist-ledger",
-            "band": "text-report",
-            "name": "Checklist Ledger",
             "theme": "Close the Quarter",
             "densityLabel": "Reading-First",
             "heroScene": 3,
@@ -57190,12 +57574,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "checklist-ledger",
+            "name": "Checklist Ledger",
+            "band": "text-report"
           },
           "zh": {
-            "id": "checklist-ledger",
-            "band": "text-report",
-            "name": "检查清单台账",
             "theme": "季度结账",
             "densityLabel": "阅读优先",
             "heroScene": 3,
@@ -57321,10 +57705,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "checklist-ledger",
+            "name": "检查清单台账",
+            "band": "text-report"
           }
         },
-        "modulePath": "./close-the-quarter.tsx",
+        "modulePath": "../topics/close-the-quarter.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "quarter-close-meter",
@@ -57364,9 +57751,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "context-bento-box",
-            "band": "text-report",
-            "name": "Context Bento Box",
             "theme": "Structured context with distinct compartments — goals, constraints, risks, and tests on deep warm lacquer-black ground",
             "densityLabel": "Technical",
             "heroScene": 3,
@@ -57492,12 +57876,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "context-bento-box",
+            "name": "Context Bento Box",
+            "band": "text-report"
           },
           "zh": {
-            "id": "context-bento-box",
-            "band": "text-report",
-            "name": "上下文便当盒",
             "theme": "独立隔间的结构化上下文——深暖漆黑色调上的目标、约束、风险和测试",
             "densityLabel": "技术性",
             "heroScene": 3,
@@ -57620,10 +58004,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "context-bento-box",
+            "name": "上下文便当盒",
+            "band": "text-report"
           }
         },
-        "modulePath": "./47-white-paper.tsx"
+        "modulePath": "../topics/context-bento.tsx",
+        "navigation": {
+          "geometry": "card-miniature",
+          "carrier": "context-bento-scene-index",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
+        }
       },
       {
         "id": "handoff-box",
@@ -57634,9 +58041,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "context-bento-box",
-            "band": "text-report",
-            "name": "Context Bento Box",
             "theme": "Handoff in Six Compartments",
             "densityLabel": "Dense Compartments",
             "heroScene": 1,
@@ -57762,12 +58166,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "context-bento-box",
+            "name": "Context Bento Box",
+            "band": "text-report"
           },
           "zh": {
-            "id": "context-bento-box",
-            "band": "text-report",
-            "name": "上下文食盒",
             "theme": "六格交接",
             "densityLabel": "高密度分格",
             "heroScene": 1,
@@ -57893,10 +58297,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "context-bento-box",
+            "name": "上下文便当盒",
+            "band": "text-report"
           }
         },
-        "modulePath": "./47-handoff-compartments.tsx"
+        "modulePath": "../topics/handoff-box.tsx",
+        "navigation": {
+          "geometry": "card-miniature",
+          "carrier": "handoff-compartment-selector",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "wipe",
+          "3->4": "slide-x",
+          "4->5": "fade"
+        }
       },
       {
         "id": "lichen-partners",
@@ -57907,9 +58334,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "context-bento-box",
-            "band": "text-report",
-            "name": "Context Bento Box",
             "theme": "Lichen Partners",
             "densityLabel": "Diagram Explainer",
             "heroScene": 1,
@@ -58034,12 +58458,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "context-bento-box",
+            "name": "Context Bento Box",
+            "band": "text-report"
           },
           "zh": {
-            "id": "context-bento-box",
-            "band": "text-report",
-            "name": "上下文食盒",
             "theme": "地衣伙伴",
             "densityLabel": "图解讲解",
             "heroScene": 1,
@@ -58162,10 +58586,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "context-bento-box",
+            "name": "上下文便当盒",
+            "band": "text-report"
           }
         },
-        "modulePath": "./context-bento-box-lichen-partners.tsx",
+        "modulePath": "../topics/lichen-partners.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "lichen-compartments",
@@ -58235,6 +58662,9 @@ export const CATALOG_MANIFEST = [
             ]
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "grid-reveal",
           "2->3": "focus-swap",
@@ -58251,9 +58681,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "context-bento-box",
-            "band": "text-report",
-            "name": "Context Bento Box",
             "theme": "Everything the Intern Needs",
             "densityLabel": "Reading-First",
             "heroScene": 4,
@@ -58373,12 +58800,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "context-bento-box",
+            "name": "Context Bento Box",
+            "band": "text-report"
           },
           "zh": {
-            "id": "context-bento-box",
-            "band": "text-report",
-            "name": "上下文便当盒",
             "theme": "新人须知",
             "densityLabel": "阅读优先",
             "heroScene": 4,
@@ -58498,10 +58925,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "context-bento-box",
+            "name": "上下文便当盒",
+            "band": "text-report"
           }
         },
-        "modulePath": "./everything-the-intern-needs.tsx",
+        "modulePath": "../topics/everything-the-intern-needs.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "intern-bento-selector",
@@ -58541,9 +58971,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "object-metaphor-hero",
-            "band": "text-report",
-            "name": "Object Metaphor Hero",
             "theme": "Tangible physical object as anchor for abstract system concept",
             "densityLabel": "Visual",
             "heroScene": 2,
@@ -58659,12 +59086,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "object-metaphor-hero",
+            "name": "Object Metaphor Hero",
+            "band": "text-report"
           },
           "zh": {
-            "id": "object-metaphor-hero",
-            "band": "text-report",
-            "name": "物体隐喻主视觉",
             "theme": "以有形物理物体为锚点呈现抽象系统概念",
             "densityLabel": "视觉",
             "heroScene": 2,
@@ -58780,10 +59207,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "object-metaphor-hero",
+            "name": "物体隐喻主视觉",
+            "band": "text-report"
           }
         },
-        "modulePath": "./48-executive-summary.tsx"
+        "modulePath": "../topics/object-metaphor.tsx",
+        "navigation": {
+          "geometry": "card-miniature",
+          "carrier": "object-metaphor-scene-index",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "wipe",
+          "3->4": "wipe",
+          "4->5": "wipe"
+        }
       },
       {
         "id": "recovery-kit",
@@ -58794,9 +59244,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "object-metaphor-hero",
-            "band": "text-report",
-            "name": "Object Metaphor Hero",
             "theme": "The Recovery Kit",
             "densityLabel": "Tactile Narrative",
             "heroScene": 1,
@@ -58920,12 +59367,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "object-metaphor-hero",
+            "name": "Object Metaphor Hero",
+            "band": "text-report"
           },
           "zh": {
-            "id": "object-metaphor-hero",
-            "band": "text-report",
-            "name": "物件隐喻主视觉",
             "theme": "恢复工具包",
             "densityLabel": "触感叙事",
             "heroScene": 1,
@@ -59049,10 +59496,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "object-metaphor-hero",
+            "name": "物体隐喻主视觉",
+            "band": "text-report"
           }
         },
-        "modulePath": "./48-recovery-kit.tsx"
+        "modulePath": "../topics/recovery-kit.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "recovery-kit-orbit",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "slide-y",
+          "3->4": "wipe",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "cocoon-to-cloth",
@@ -59063,9 +59533,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "object-metaphor-hero",
-            "band": "text-report",
-            "name": "Object Metaphor Hero",
             "theme": "From Cocoon to Cloth",
             "densityLabel": "Stage Impact",
             "heroScene": 5,
@@ -59202,12 +59669,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "object-metaphor-hero",
+            "name": "Object Metaphor Hero",
+            "band": "text-report"
           },
           "zh": {
-            "id": "object-metaphor-hero",
-            "band": "text-report",
-            "name": "物件隐喻主视觉",
             "theme": "从蚕茧到织物",
             "densityLabel": "舞台冲击",
             "heroScene": 5,
@@ -59344,10 +59811,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "object-metaphor-hero",
+            "name": "物体隐喻主视觉",
+            "band": "text-report"
           }
         },
-        "modulePath": "./49-cocoon-to-cloth.tsx",
+        "modulePath": "../topics/cocoon-to-cloth.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "silk-spindle",
@@ -59388,6 +59858,9 @@ export const CATALOG_MANIFEST = [
             "supports": "A loom holds warp under tension while weft passes through it; weaving is labor-intensive and structurally varied."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "iris-open",
           "2->3": "split-merge",
@@ -59404,9 +59877,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "object-metaphor-hero",
-            "band": "text-report",
-            "name": "Object Metaphor Hero",
             "theme": "The Onboarding Toolkit",
             "densityLabel": "Object-Led",
             "heroScene": 2,
@@ -59526,12 +59996,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "object-metaphor-hero",
+            "name": "Object Metaphor Hero",
+            "band": "text-report"
           },
           "zh": {
-            "id": "object-metaphor-hero",
-            "band": "text-report",
-            "name": "物体主视觉",
             "theme": "入职工具包",
             "densityLabel": "以物载意",
             "heroScene": 2,
@@ -59651,10 +60121,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "object-metaphor-hero",
+            "name": "物体隐喻主视觉",
+            "band": "text-report"
           }
         },
-        "modulePath": "./onboarding-toolkit.tsx",
+        "modulePath": "../topics/onboarding-toolkit.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "onboarding-kit-slots",

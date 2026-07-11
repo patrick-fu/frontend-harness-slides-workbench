@@ -170,56 +170,40 @@ import bossFightDefinition from "../topics/boss-fight";
 import latencyBossDefinition from "../topics/latency-boss";
 import eggMimicryDefinition from "../topics/egg-mimicry";
 import defeatingTechDebtDefinition from "../topics/defeating-tech-debt";
-import AnnualReport41, {
-  getMetadata as getMetadata41,
-} from "./41-annual-report";
-import LegalBrief42, {
-  getMetadata as getMetadata42,
-} from "./42-legal-brief";
-import ResearchDigest43, {
-  getMetadata as getMetadata43,
-} from "./43-research-digest";
-import MeetingMinutes44, {
-  getMetadata as getMetadata44,
-} from "./44-meeting-minutes";
-import PolicyPaper45, {
-  getMetadata as getMetadata45,
-} from "./45-policy-paper";
-import AuditReport46, {
-  getMetadata as getMetadata46,
-} from "./46-audit-report";
-import WhitePaper47, {
-  getMetadata as getMetadata47,
-} from "./47-white-paper";
-import ExecutiveSummary48, {
-  getMetadata as getMetadata48,
-} from "./48-executive-summary";
-import { evidenceSmallerTeamTopic } from "./41-evidence-smaller-team";
-import { impactEvidenceTopic } from "./42-impact-evidence";
-import { chooseBoundaryTopic } from "./42-choose-boundary";
-import { standardTimeTopic } from "./decision-record-standard-time";
-import { readyAgentPickupTopic } from "./43-ready-agent-pickup";
-import { ozoneHoleTopic } from "./maintainer-issue-brief-ozone-hole";
-import { stationPlatformStudyTopic } from "./44-station-platform-study";
-import { ancientSoundTopic } from "./field-notes-report-ancient-sound";
-import { rewriteBrokenFlowTopic } from "./45-rewrite-broken-flow";
-import { readingRosettaTopic } from "./annotated-source-diff-reading-rosetta";
-import { launchGateLedgerTopic } from "./46-launch-gate-ledger";
-import { pigmentWithoutTouchTopic } from "./checklist-ledger-pigment-without-touch";
-import { handoffCompartmentsTopic } from "./47-handoff-compartments";
-import { lichenPartnersTopic } from "./context-bento-box-lichen-partners";
-import { recoveryKitTopic } from "./48-recovery-kit";
-import { cocoonToClothTopic } from "./49-cocoon-to-cloth";
+import researchMemoDefinition from "../topics/research-memo";
+import smallTeamDefinition from "../topics/small-team";
+import impactEvidenceDefinition from "../topics/impact-evidence";
+import whyUsersChurnDefinition from "../topics/why-users-churn";
+import decisionRecordDefinition from "../topics/decision-record";
+import boundaryDefinition from "../topics/boundary";
+import standardTimeDefinition from "../topics/standard-time";
+import whyWeChoseMonorepoDefinition from "../topics/why-we-chose-monorepo";
+import issueBriefDefinition from "../topics/issue-brief";
+import agentPickupDefinition from "../topics/agent-pickup";
+import ozoneHoleDefinition from "../topics/ozone-hole";
+import flakyTestRootCauseDefinition from "../topics/flaky-test-root-cause";
+import fieldNotesDefinition from "../topics/field-notes";
+import platformStudyDefinition from "../topics/platform-study";
+import ancientSoundDefinition from "../topics/ancient-sound";
+import shadowingSupportDefinition from "../topics/shadowing-support";
+import sourceDiffDefinition from "../topics/source-diff";
+import flowRewriteDefinition from "../topics/flow-rewrite";
+import readingRosettaDefinition from "../topics/reading-rosetta";
+import killingAGodObjectDefinition from "../topics/killing-a-god-object";
+import checklistLedgerDefinition from "../topics/checklist-ledger";
+import launchLedgerDefinition from "../topics/launch-ledger";
+import pigmentWithoutTouchDefinition from "../topics/pigment-without-touch";
+import closeTheQuarterDefinition from "../topics/close-the-quarter";
+import contextBentoDefinition from "../topics/context-bento";
+import handoffBoxDefinition from "../topics/handoff-box";
+import lichenPartnersDefinition from "../topics/lichen-partners";
+import everythingTheInternNeedsDefinition from "../topics/everything-the-intern-needs";
+import objectMetaphorDefinition from "../topics/object-metaphor";
+import recoveryKitDefinition from "../topics/recovery-kit";
+import cocoonToClothDefinition from "../topics/cocoon-to-cloth";
+import onboardingToolkitDefinition from "../topics/onboarding-toolkit";
 
 // ─── Curated Topic Set ──────────────────────────────────────────────────
-import { WhyUsersChurnTopic } from "./why-users-churn";
-import { WhyWeChoseMonorepoTopic } from "./why-we-chose-monorepo";
-import { FlakyTestRootCauseTopic } from "./flaky-test-root-cause";
-import { ShadowingSupportTopic } from "./shadowing-support";
-import { KillingAGodObjectTopic } from "./killing-a-god-object";
-import { CloseTheQuarterTopic } from "./close-the-quarter";
-import { EverythingTheInternNeedsTopic } from "./everything-the-intern-needs";
-import { OnboardingToolkitTopic } from "./onboarding-toolkit";
 
 const buildEntry = (styleId: string, topics: StyleTopicModule[]) =>
   buildStyleRegistryEntry(
@@ -614,100 +598,76 @@ export const STYLE_CATALOG_SOURCE: StyleRegistryEntry[] = [
     ].map(toMigratingStyleTopic),
   ),
   // Text Report: 41-48
-  buildEntry("research-memo", [
-    {
-      id: "research-memo",
-      topic: { en: "Research Memo", zh: "研究备忘" },
-      model: "Doubao-Seed-Evolving",
-      component: AnnualReport41,
-      getMetadata: getMetadata41,
-    },
-    evidenceSmallerTeamTopic,
-    impactEvidenceTopic,
-    WhyUsersChurnTopic,
-  ]),
-  buildEntry("decision-record", [
-    {
-      id: "decision-record",
-      topic: { en: "Decision Record", zh: "决策记录" },
-      model: "Doubao-Seed-Evolving",
-      component: LegalBrief42,
-      getMetadata: getMetadata42,
-    },
-    chooseBoundaryTopic,
-    standardTimeTopic,
-    WhyWeChoseMonorepoTopic,
-  ]),
-  buildEntry("maintainer-issue-brief", [
-    {
-      id: "issue-brief",
-      topic: { en: "Issue Brief", zh: "问题简报" },
-      model: "Doubao-Seed-Evolving",
-      component: ResearchDigest43,
-      getMetadata: getMetadata43,
-    },
-    readyAgentPickupTopic,
-    ozoneHoleTopic,
-    FlakyTestRootCauseTopic,
-  ]),
-  buildEntry("field-notes-report", [
-    {
-      id: "field-notes",
-      topic: { en: "Field Notes", zh: "田野笔记" },
-      model: "Doubao-Seed-Evolving",
-      component: MeetingMinutes44,
-      getMetadata: getMetadata44,
-    },
-    stationPlatformStudyTopic,
-    ancientSoundTopic,
-    ShadowingSupportTopic,
-  ]),
-  buildEntry("annotated-source-diff", [
-    {
-      id: "source-diff",
-      topic: { en: "Source Diff", zh: "源码差异" },
-      model: "Doubao-Seed-Evolving",
-      component: PolicyPaper45,
-      getMetadata: getMetadata45,
-    },
-    rewriteBrokenFlowTopic,
-    readingRosettaTopic,
-    KillingAGodObjectTopic,
-  ]),
-  buildEntry("checklist-ledger", [
-    {
-      id: "checklist-ledger",
-      topic: { en: "Checklist", zh: "检查清单" },
-      model: "Doubao-Seed-Evolving",
-      component: AuditReport46,
-      getMetadata: getMetadata46,
-    },
-    launchGateLedgerTopic,
-    pigmentWithoutTouchTopic,
-    CloseTheQuarterTopic,
-  ]),
-  buildEntry("context-bento-box", [
-    {
-      id: "context-bento",
-      topic: { en: "Context Bento", zh: "上下文盒" },
-      model: "Doubao-Seed-Evolving",
-      component: WhitePaper47,
-      getMetadata: getMetadata47,
-    },
-    handoffCompartmentsTopic,
-    lichenPartnersTopic,
-    EverythingTheInternNeedsTopic,
-  ]),
-  buildEntry("object-metaphor-hero", [
-    {
-      id: "object-metaphor",
-      topic: { en: "Object Hero", zh: "物体主视觉" },
-      model: "Doubao-Seed-Evolving",
-      component: ExecutiveSummary48,
-      getMetadata: getMetadata48,
-    },
-    recoveryKitTopic,
-    cocoonToClothTopic,
-    OnboardingToolkitTopic,
-  ]),
+  buildEntry(
+    "research-memo",
+    [
+      researchMemoDefinition,
+      smallTeamDefinition,
+      impactEvidenceDefinition,
+      whyUsersChurnDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "decision-record",
+    [
+      decisionRecordDefinition,
+      boundaryDefinition,
+      standardTimeDefinition,
+      whyWeChoseMonorepoDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "maintainer-issue-brief",
+    [
+      issueBriefDefinition,
+      agentPickupDefinition,
+      ozoneHoleDefinition,
+      flakyTestRootCauseDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "field-notes-report",
+    [
+      fieldNotesDefinition,
+      platformStudyDefinition,
+      ancientSoundDefinition,
+      shadowingSupportDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "annotated-source-diff",
+    [
+      sourceDiffDefinition,
+      flowRewriteDefinition,
+      readingRosettaDefinition,
+      killingAGodObjectDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "checklist-ledger",
+    [
+      checklistLedgerDefinition,
+      launchLedgerDefinition,
+      pigmentWithoutTouchDefinition,
+      closeTheQuarterDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "context-bento-box",
+    [
+      contextBentoDefinition,
+      handoffBoxDefinition,
+      lichenPartnersDefinition,
+      everythingTheInternNeedsDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "object-metaphor-hero",
+    [
+      objectMetaphorDefinition,
+      recoveryKitDefinition,
+      cocoonToClothDefinition,
+      onboardingToolkitDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
 ];
