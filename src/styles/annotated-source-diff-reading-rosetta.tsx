@@ -1237,7 +1237,7 @@ export const readingRosettaTopic = defineStyleTopic({
     en: "Reading Rosetta",
     zh: "破译罗塞塔",
   },
-  model: "GPT-5",
+  model: "GPT 5.6 Sol",
   component: ReadingRosetta,
   getMetadata,
   navigation: {

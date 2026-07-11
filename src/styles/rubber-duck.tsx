@@ -446,7 +446,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const rubberDuckTopic = defineStyleTopic({
   id: "rubber-duck",
   topic: { en: "The Rubber Duck", zh: "橡皮鸭" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: RubberDuckV3,
   getMetadata,
 });

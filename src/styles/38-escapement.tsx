@@ -1047,7 +1047,7 @@ export const escapementTopic = defineStyleTopic({
     en: "The Escapement",
     zh: "擒纵器",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: Escapement,
   getMetadata,
   navigation: NAVIGATION_PROFILE,

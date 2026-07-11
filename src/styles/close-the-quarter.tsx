@@ -720,7 +720,7 @@ export default CloseTheQuarter;
 export const CloseTheQuarterTopic = defineStyleTopic({
   id: "close-the-quarter",
   topic: { en: "Close the Quarter", zh: "季度结账" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: CloseTheQuarter,
   getMetadata,
 });

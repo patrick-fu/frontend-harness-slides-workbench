@@ -839,7 +839,7 @@ export const monarchMigrationTopic = defineStyleTopic({
     en: "Monarch Migration",
     zh: "帝王蝶迁徙",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: MonarchMigration,
   getMetadata,
   navigation: {

@@ -860,7 +860,7 @@ export const saharanDustTopic = defineStyleTopic({
     en: "Saharan Dust",
     zh: "撒哈拉尘",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: SaharanDust,
   getMetadata,
   navigation: SAHARAN_DUST_NAVIGATION,

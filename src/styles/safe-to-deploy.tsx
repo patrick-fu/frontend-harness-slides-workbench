@@ -494,7 +494,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const safeToDeployTopic = defineStyleTopic({
   id: "safe-to-deploy",
   topic: { en: "Is It Safe to Deploy?", zh: "能发布吗" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: DebugReactionBoardV3,
   getMetadata,
 });

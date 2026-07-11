@@ -1411,7 +1411,7 @@ export const eventToInsightTopic = defineStyleTopic({
     en: "Event Insight",
     zh: "事件洞察",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: EventToInsightV2,
   getMetadata,
 });

@@ -911,7 +911,7 @@ export default function LeafStomata({
 export const leafStomataTopic = defineStyleTopic({
   id: "leaf-stomata",
   topic: { en: "Leaf Stomata", zh: "叶片气孔" },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: LeafStomata,
   getMetadata,
   navigation: {

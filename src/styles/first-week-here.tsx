@@ -605,7 +605,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const firstWeekHereTopic = defineStyleTopic({
   id: "first-week-here",
   topic: { en: "Your First Week Here", zh: "入职第一周" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: FirstWeekHereV3,
   getMetadata,
 });

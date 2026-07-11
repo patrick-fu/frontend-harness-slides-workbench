@@ -976,7 +976,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const greatestHitsVol1Topic = defineStyleTopic({
   id: "greatest-hits-vol1",
   topic: { en: "Greatest Hits, Vol. 1", zh: "精选辑一" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: GreatestHitsVol1V3,
   getMetadata,
 });

@@ -805,7 +805,7 @@ export const incidentLearnsTopic = defineStyleTopic({
     en: "Learning Incident",
     zh: "学习事故",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: IncidentLearnsV2,
   getMetadata,
 });

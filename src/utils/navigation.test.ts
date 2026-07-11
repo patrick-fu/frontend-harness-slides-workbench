@@ -3,6 +3,8 @@ import type { StyleRegistryEntry, StyleMetadata } from "../types";
 import {
   computeNext,
   computePrev,
+  getStageTapNavigationDirection,
+  getSwipeNavigationDirection,
   jumpScene,
   jumpStyle,
   jumpTopic,
@@ -66,6 +68,57 @@ const registry: StyleRegistryEntry[] = [
   makeStyle("beta-style", [2, 3, 2, 3, 2]),
   makeStyle("gamma-style", [1, 1, 1, 1, 1]),
 ];
+
+// ─── Player input directions ───────────────────────────────────────────────
+
+describe("player input directions", () => {
+  it("maps the left 20% of the stage to previous and the rest to next", () => {
+    expect(
+      getStageTapNavigationDirection({
+        clientX: 39,
+        stageLeft: 0,
+        stageWidth: 200,
+      }),
+    ).toBe("prev");
+    expect(
+      getStageTapNavigationDirection({
+        clientX: 40,
+        stageLeft: 0,
+        stageWidth: 200,
+      }),
+    ).toBe("next");
+  });
+
+  it("maps left or up swipes to next and right or down swipes to previous", () => {
+    expect(
+      getSwipeNavigationDirection({ x: 150, y: 50 }, { x: 100, y: 50 }),
+    ).toBe("next");
+    expect(
+      getSwipeNavigationDirection({ x: 100, y: 50 }, { x: 150, y: 50 }),
+    ).toBe("prev");
+    expect(
+      getSwipeNavigationDirection({ x: 100, y: 100 }, { x: 100, y: 50 }),
+    ).toBe("next");
+    expect(
+      getSwipeNavigationDirection({ x: 100, y: 50 }, { x: 100, y: 100 }),
+    ).toBe("prev");
+  });
+
+  it("uses the dominant axis and ignores ambiguous or below-threshold gestures", () => {
+    expect(
+      getSwipeNavigationDirection({ x: 150, y: 100 }, { x: 90, y: 55 }),
+    ).toBe("next");
+    expect(
+      getSwipeNavigationDirection({ x: 100, y: 150 }, { x: 145, y: 90 }),
+    ).toBe("next");
+    expect(
+      getSwipeNavigationDirection({ x: 100, y: 100 }, { x: 140, y: 140 }),
+    ).toBeNull();
+    expect(
+      getSwipeNavigationDirection({ x: 100, y: 100 }, { x: 149, y: 100 }),
+    ).toBeNull();
+  });
+});
 
 // ─── computeNext ────────────────────────────────────────────────────────────
 

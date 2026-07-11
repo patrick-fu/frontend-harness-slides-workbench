@@ -717,7 +717,7 @@ export const calmerGrowthModelTopic = defineStyleTopic({
     en: "Calm Growth",
     zh: "冷静增长",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: CalmerGrowthModelV2,
   getMetadata,
 });

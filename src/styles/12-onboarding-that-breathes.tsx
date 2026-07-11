@@ -1470,7 +1470,7 @@ export const onboardingThatBreathesTopic = defineStyleTopic({
     en: "Breathing Onboard",
     zh: "呼吸入门",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: OnboardingThatBreathesV2,
   getMetadata,
 });

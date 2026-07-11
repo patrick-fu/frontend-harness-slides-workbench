@@ -709,7 +709,7 @@ export const presolarGrainTopic = defineStyleTopic({
     en: "Presolar Grain",
     zh: "太阳前尘",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: PresolarGrain,
   getMetadata,
   navigation: {

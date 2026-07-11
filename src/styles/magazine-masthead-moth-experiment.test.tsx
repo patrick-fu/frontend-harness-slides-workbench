@@ -131,7 +131,7 @@ describe("Magazine Masthead: moth experiment — topic contract", () => {
       en: "Moth Experiment",
       zh: "桦尺蛾实验",
     });
-    expect(mothExperimentTopic.model).toBe("GPT-5.6 Terra");
+    expect(mothExperimentTopic.model).toBe("GPT 5.6 Sol");
     expect(mothExperimentTopic.navigation).toEqual({
       geometry: "card-miniature",
       carrier: "moth-specimen-cards",

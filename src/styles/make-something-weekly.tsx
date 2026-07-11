@@ -631,7 +631,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const makeSomethingWeeklyTopic = defineStyleTopic({
   id: "make-something-weekly",
   topic: { en: "Make Something Weekly", zh: "每周做点" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: RisoPrintZineV3,
   getMetadata,
 });

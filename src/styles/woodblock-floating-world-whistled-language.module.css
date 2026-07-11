@@ -1,0 +1,523 @@
+.root {
+  --whistle-paper: #efddb0;
+  --whistle-paper-deep: #e1c78f;
+  --whistle-ink: #17394e;
+  --whistle-ink-soft: #416073;
+  --whistle-indigo: #28556b;
+  --whistle-malachite: #5d755c;
+  --whistle-ochre: #c3924f;
+  --whistle-vermilion: #b54332;
+  --whistle-cream: #f7ebc9;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: size;
+  background: var(--whistle-paper);
+  color: var(--whistle-ink);
+  font-family: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", sans-serif;
+}
+
+.root * {
+  box-sizing: border-box;
+}
+
+.paperFrame {
+  position: absolute;
+  inset: 2.35cqw;
+  z-index: 7;
+  border: 0.16cqw solid color-mix(in srgb, var(--whistle-ink) 78%, transparent);
+  pointer-events: none;
+}
+
+.sceneTrack {
+  position: absolute;
+  inset: 0;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--whistle-paper);
+}
+
+.bokashiSky {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 43cqh;
+  background: linear-gradient(180deg, #d5b276 0%, #e7c994 63%, var(--whistle-paper) 100%);
+  opacity: 0.8;
+}
+
+.artwork {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.mountainFar,
+.canaryDistant,
+.fieldBack {
+  fill: var(--whistle-ochre);
+}
+
+.mountainLeft,
+.mountainRight,
+.canaryLeft,
+.canaryRight {
+  fill: var(--whistle-indigo);
+}
+
+.mountainRight,
+.canaryRight {
+  fill: var(--whistle-malachite);
+}
+
+.valleyPlane,
+.canaryFloor,
+.fieldPlaneOne,
+.waveHorizon {
+  fill: var(--whistle-cream);
+}
+
+.fieldPlaneTwo {
+  fill: var(--whistle-ochre);
+}
+
+.blackSeaBack,
+.blackSeaLeft,
+.blackSeaRight {
+  fill: var(--whistle-malachite);
+}
+
+.blackSeaLeft {
+  fill: var(--whistle-indigo);
+}
+
+.blackSeaFloor {
+  fill: var(--whistle-ochre);
+}
+
+.keyline,
+.mistStroke,
+.soundLine,
+.soundLineThin,
+.terraceLine,
+.scaleStem,
+.toneContour,
+.toneContourThin,
+.fieldMark,
+.waveOne,
+.waveTwo,
+.waveThree,
+.waveGuide {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.keyline {
+  stroke: var(--whistle-ink);
+  stroke-width: 0.2cqw;
+}
+
+.mistStroke {
+  stroke: var(--whistle-cream);
+  stroke-width: 0.95cqw;
+  opacity: 0.65;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.soundLine,
+.soundLineThin {
+  stroke: var(--whistle-ink);
+  stroke-dasharray: 2.1cqw 0.8cqw;
+  stroke-dashoffset: 6cqw;
+  transition: opacity 0.52s ease, stroke-dashoffset 0.64s ease, transform 0.52s ease;
+}
+
+.soundLine {
+  stroke-width: 0.32cqw;
+}
+
+.soundLineThin {
+  stroke-width: 0.16cqw;
+}
+
+.terraceLine,
+.fieldMark {
+  stroke: var(--whistle-ink-soft);
+  stroke-width: 0.18cqw;
+}
+
+.scalePoint {
+  fill: var(--whistle-cream);
+  stroke: var(--whistle-ink);
+  stroke-width: 0.16cqw;
+}
+
+.scaleStem {
+  stroke: var(--whistle-ink);
+  stroke-width: 0.16cqw;
+}
+
+.settlementMarks {
+  fill: var(--whistle-cream);
+  stroke: var(--whistle-ink);
+  stroke-width: 0.12cqw;
+}
+
+.toneContour {
+  stroke: var(--whistle-ink);
+  stroke-width: 0.38cqw;
+}
+
+.toneContourThin {
+  stroke: var(--whistle-vermilion);
+  stroke-width: 0.16cqw;
+}
+
+.waveOne,
+.waveTwo,
+.waveThree {
+  stroke: var(--whistle-ink);
+  stroke-width: 0.35cqw;
+}
+
+.waveTwo {
+  stroke: var(--whistle-malachite);
+}
+
+.waveThree {
+  stroke: var(--whistle-vermilion);
+}
+
+.waveGuide {
+  stroke: color-mix(in srgb, var(--whistle-ink) 42%, transparent);
+  stroke-width: 0.1cqw;
+}
+
+.svgReveal[data-reveal="false"],
+.settlementMarks[data-reveal="false"],
+.mistStroke[data-reveal="false"],
+.soundLine[data-reveal="false"],
+.soundLineThin[data-reveal="false"] {
+  opacity: 0;
+  transform: translateY(0.9cqh);
+}
+
+.soundLine[data-reveal="true"],
+.soundLineThin[data-reveal="true"] {
+  stroke-dashoffset: 0;
+}
+
+.copyBlock {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  align-content: start;
+  gap: 1.1cqh;
+  color: var(--whistle-ink);
+}
+
+.copyMountain {
+  top: 12cqh;
+  left: 8cqw;
+  width: 39cqw;
+}
+
+.copyCanary {
+  top: 12cqh;
+  right: 7.2cqw;
+  width: 40cqw;
+}
+
+.copyBlackSea {
+  top: 11cqh;
+  left: 7cqw;
+  width: 41cqw;
+}
+
+.copyMazatec {
+  top: 15cqh;
+  right: 7.2cqw;
+  width: 42cqw;
+}
+
+.copyWaveforms {
+  top: 10cqh;
+  left: 9cqw;
+  width: 43cqw;
+}
+
+.eyebrow {
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.58cqh 0.75cqw;
+  background: var(--whistle-vermilion);
+  color: var(--whistle-cream);
+  font-family: Georgia, "Noto Serif SC", "Songti SC", serif;
+  font-size: 0.92cqw;
+  font-weight: 700;
+  letter-spacing: 0.08cqw;
+  line-height: 1.1;
+}
+
+.title {
+  max-width: 100%;
+  margin: 0;
+  font-family: Georgia, "Noto Serif SC", "Songti SC", serif;
+  font-size: 4.45cqw;
+  font-weight: 700;
+  letter-spacing: -0.08cqw;
+  line-height: 0.98;
+}
+
+.deck,
+.boundary {
+  max-width: 37cqw;
+  margin: 0;
+  font-size: 1.24cqw;
+  line-height: 1.38;
+}
+
+.deck {
+  color: color-mix(in srgb, var(--whistle-ink) 88%, transparent);
+  font-weight: 650;
+}
+
+.boundary {
+  padding-top: 0.85cqh;
+  border-top: 0.13cqw solid color-mix(in srgb, var(--whistle-ink) 68%, transparent);
+  color: color-mix(in srgb, var(--whistle-ink) 78%, transparent);
+  font-size: 1.02cqw;
+}
+
+.beatSlots {
+  display: grid;
+  align-content: start;
+  gap: 0.8cqh;
+}
+
+.copyMountain .beatSlots {
+  grid-template-rows: repeat(4, minmax(6.2cqh, auto));
+}
+
+.copyCanary .beatSlots {
+  grid-template-rows: repeat(3, minmax(6.2cqh, auto));
+}
+
+.copyBlackSea .beatSlots {
+  grid-template-rows: repeat(2, minmax(6.2cqh, auto));
+}
+
+.copyMazatec .beatSlots,
+.copyWaveforms .beatSlots {
+  grid-template-rows: minmax(6.2cqh, auto);
+}
+
+.beatSlot {
+  display: grid;
+  grid-template-columns: 8.2cqw 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 1.05cqw;
+  align-content: start;
+  margin: 0;
+  padding: 0.68cqh 0 0.78cqh;
+  border-top: 0.1cqw solid color-mix(in srgb, var(--whistle-ink) 36%, transparent);
+  transition: opacity 0.42s ease, transform 0.42s ease;
+}
+
+.beatSlot[data-reveal="false"] {
+  opacity: 0;
+  transform: translateY(0.65cqh);
+}
+
+.beatSlot h2,
+.beatSlot p {
+  margin: 0;
+}
+
+.beatSlot h2 {
+  grid-column: 2;
+  font-family: Georgia, "Noto Serif SC", "Songti SC", serif;
+  font-size: 1.45cqw;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.beatSlot > p:last-child {
+  grid-column: 2;
+  margin-top: 0.35cqh;
+  color: color-mix(in srgb, var(--whistle-ink) 78%, transparent);
+  font-size: 0.95cqw;
+  line-height: 1.28;
+}
+
+.beatAction {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: center;
+  color: var(--whistle-vermilion);
+  font-size: 0.76cqw;
+  font-weight: 700;
+  letter-spacing: 0.05cqw;
+  line-height: 1.18;
+  text-transform: uppercase;
+}
+
+.sourceStamp,
+.audioBoundary {
+  position: absolute;
+  z-index: 8;
+  margin: 0;
+  color: color-mix(in srgb, var(--whistle-ink) 78%, transparent);
+  font-size: 0.8cqw;
+  line-height: 1.2;
+  letter-spacing: 0.025cqw;
+}
+
+.sourceStamp {
+  bottom: 4.2cqh;
+  left: 5.2cqw;
+}
+
+.audioBoundary {
+  right: 5.4cqw;
+  bottom: 13cqh;
+  padding: 0.45cqh 0.65cqw;
+  border: 0.1cqw solid color-mix(in srgb, var(--whistle-ink) 54%, transparent);
+  background: color-mix(in srgb, var(--whistle-paper) 84%, transparent);
+}
+
+.waveformLegend {
+  position: absolute;
+  top: 27cqh;
+  right: 11cqw;
+  z-index: 4;
+  display: grid;
+  width: 43cqw;
+  gap: 5.15cqh;
+  color: var(--whistle-ink);
+}
+
+.waveformLegend p {
+  margin: 0;
+  padding-left: 2.2cqw;
+  font-family: Georgia, "Noto Serif SC", "Songti SC", serif;
+  font-size: 1.15cqw;
+  line-height: 1.18;
+}
+
+.waveformLegend p:nth-child(2) {
+  color: var(--whistle-malachite);
+}
+
+.waveformLegend p:nth-child(3) {
+  color: var(--whistle-vermilion);
+}
+
+.mountainNav {
+  position: absolute;
+  right: 5.2cqw;
+  bottom: 3.1cqh;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: end;
+  gap: 0.9cqw;
+  width: 31cqw;
+  min-height: 7.8cqh;
+  padding: 0.72cqh 0.9cqw 0.6cqh;
+  border-top: 0.13cqw solid color-mix(in srgb, var(--whistle-ink) 64%, transparent);
+  background: color-mix(in srgb, var(--whistle-paper) 89%, transparent);
+}
+
+.navCaption {
+  padding-bottom: 0.95cqh;
+  color: var(--whistle-vermilion);
+  font-family: Georgia, "Noto Serif SC", "Songti SC", serif;
+  font-size: 0.76cqw;
+  font-weight: 700;
+  letter-spacing: 0.09cqw;
+}
+
+.peakRow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: end;
+  gap: 0.34cqw;
+}
+
+.peakButton {
+  position: relative;
+  height: 5.8cqh;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.peakShape,
+.nextPeakShape {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  height: 4.8cqh;
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+}
+
+.peakShape {
+  z-index: 2;
+  background: var(--whistle-ink);
+  transition: transform 0.36s ease, background-color 0.36s ease;
+}
+
+.nextPeakShape {
+  z-index: 1;
+  background: var(--whistle-ochre);
+  opacity: 0;
+  transform: translateX(1.35cqw) translateY(0.4cqh) scale(0.75);
+  transition: opacity 0.36s ease, transform 0.36s ease;
+}
+
+.peakButton[data-active="true"] .peakShape {
+  background: var(--whistle-vermilion);
+  transform: translateY(-0.35cqh) scaleY(1.08);
+}
+
+.peakButton[data-expanded="true"] .nextPeakShape {
+  opacity: 0.74;
+  transform: translateX(1.15cqw) translateY(0.4cqh) scale(0.82);
+}
+
+.peakButton:hover .peakShape,
+.peakButton:focus-visible .peakShape {
+  background: var(--whistle-malachite);
+  transform: translateY(-0.48cqh);
+}
+
+.peakButton:focus-visible {
+  outline: 0.16cqw solid var(--whistle-vermilion);
+  outline-offset: 0.2cqw;
+}
+
+.nextPreviewLabel {
+  grid-column: 2;
+  color: color-mix(in srgb, var(--whistle-ink) 74%, transparent);
+  font-size: 0.66cqw;
+  line-height: 1.1;
+}
+
+.root[data-static="true"] *,
+.root[data-static="true"] *::before,
+.root[data-static="true"] *::after {
+  animation: none !important;
+  transition: none !important;
+}

@@ -54,8 +54,18 @@ describe("STYLE_REGISTRY topic catalog", () => {
     ]);
   });
 
-  it("registers the coordinated Topic Set through the second 10-topic logical batch", () => {
-    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(186);
+  it("uses the normalized model ID for the legacy GPT 5.5 Topic set", () => {
+    const models = STYLE_REGISTRY.flatMap((style) =>
+      style.topics.map((topic) => topic.model),
+    );
+
+    expect(models.filter((model) => model === "GPT 5.5")).toHaveLength(49);
+    expect(models).not.toContain("GPT-5");
+  });
+
+  it("registers the complete coordinated Topic Set plus curated", () => {
+    // 146 from main + 48 curated topics = 194
+    expect(STYLE_REGISTRY.flatMap((style) => style.topics)).toHaveLength(194);
     expect(findTopic("interactive-dialogue-stage", "vocal-folds")).toBeDefined();
     expect(findTopic("cyanotype-drafting-table", "comet-anatomy")).toBeDefined();
     expect(findTopic("kinetic-type-punchline", "before-a")).toBeDefined();
@@ -107,5 +117,22 @@ describe("STYLE_REGISTRY topic catalog", () => {
     expect(
       findTopic("checklist-ledger", "pigment-without-touch"),
     ).toBeDefined();
+    expect(findTopic("decision-record", "standard-time")).toBeDefined();
+    expect(
+      findTopic("cassette-era-packaging", "ice-core-archive"),
+    ).toBeDefined();
+    expect(findTopic("arcade-boss-fight", "egg-mimicry")).toBeDefined();
+    expect(findTopic("context-bento-box", "lichen-partners")).toBeDefined();
+    expect(findTopic("riso-print-zine", "seven-blues")).toBeDefined();
+    expect(findTopic("objective-swiss-grid", "bridge-movement")).toBeDefined();
+    expect(
+      findTopic("woodblock-floating-world", "whistled-language"),
+    ).toBeDefined();
+    expect(
+      findTopic("analog-cutout-collage", "concealed-objects"),
+    ).toBeDefined();
+    expect(
+      getNextTopic("analog-cutout-collage", "rebuilt-archive").topicId,
+    ).toBe("concealed-objects");
   });
 });

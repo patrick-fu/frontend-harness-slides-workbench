@@ -863,7 +863,7 @@ export const publicLightProgramTopic = defineStyleTopic({
     en: "Public Light",
     zh: "公共灯光",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: PublicLightProgramV2,
   getMetadata,
 });

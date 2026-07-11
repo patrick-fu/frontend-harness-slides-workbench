@@ -417,7 +417,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const shipItTopic = defineStyleTopic({
   id: "ship-it",
   topic: { en: "Ship It", zh: "发布" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: ShipItV3,
   getMetadata,
 });

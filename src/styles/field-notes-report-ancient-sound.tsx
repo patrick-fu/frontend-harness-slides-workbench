@@ -1238,7 +1238,7 @@ export const ancientSoundTopic = defineStyleTopic({
     en: "Ancient Sound",
     zh: "古代声音",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: AncientSoundFieldNotes,
   getMetadata,
   navigation: ancientSoundNavigation,

@@ -761,7 +761,7 @@ export function getMetadata(language: "en" | "zh"): StyleMetadata {
 export const dayFeedStoppedTopic = defineStyleTopic({
   id: "day-feed-stopped",
   topic: { en: "The Day the Feed Stopped", zh: "信息流停摆" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: FrontPageBroadsheetV3,
   getMetadata,
 });

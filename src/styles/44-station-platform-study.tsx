@@ -1426,7 +1426,7 @@ export const stationPlatformStudyTopic = defineStyleTopic({
     en: "Platform Study",
     zh: "站台研究",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: StationPlatformStudyV2,
   getMetadata,
 });

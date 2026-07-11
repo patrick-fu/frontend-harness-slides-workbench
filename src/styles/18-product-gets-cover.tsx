@@ -796,7 +796,7 @@ export const productGetsCoverTopic = defineStyleTopic({
     en: "Product Cover",
     zh: "产品封面",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: ProductGetsCoverV2,
   getMetadata,
 });

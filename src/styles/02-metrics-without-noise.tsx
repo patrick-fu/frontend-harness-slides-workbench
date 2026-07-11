@@ -1043,7 +1043,7 @@ export const metricsWithoutNoiseTopic = defineStyleTopic({
     en: "Clean Metrics",
     zh: "干净指标",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: MetricsWithoutNoiseV2,
   getMetadata,
 });

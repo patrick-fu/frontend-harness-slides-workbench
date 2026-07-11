@@ -700,7 +700,7 @@ export const privateBetaSalonTopic = defineStyleTopic({
     en: "Beta Salon",
     zh: "内测沙龙",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: PrivateBetaSalonV2,
   getMetadata,
 });

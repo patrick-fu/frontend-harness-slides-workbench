@@ -1,313 +1,188 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
-import React from "react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import type { BespokeStyleProps, StyleRegistryEntry } from "../types";
+import { useKeyboard } from "../hooks/useKeyboard";
+import { useTouchNav } from "../hooks/useTouchNav";
 import LabView from "./LabView";
-import { STYLE_REGISTRY } from "../styles/registry";
-import type {
-  BespokeStyleProps,
-  StyleRegistryEntry,
-  StyleTopic,
-} from "../types";
-
-// ─── Mocks ────────────────────────────────────────────────────────────────────
-
-const mockScale = 0.5;
 
 vi.mock("../hooks/useStageScale", () => ({
-  useStageScale: () => ({
-    scale: mockScale,
-    width: 1920 * mockScale,
-    height: 1080 * mockScale,
-  }),
+  useStageScale: () => ({ scale: 0.5, width: 960, height: 540 }),
 }));
+vi.mock("../hooks/useKeyboard", () => ({ useKeyboard: vi.fn() }));
+vi.mock("../hooks/useTouchNav", () => ({ useTouchNav: vi.fn() }));
 
-vi.mock("../hooks/useKeyboard", () => ({
-  useKeyboard: vi.fn(),
-}));
-
-vi.mock("../hooks/useTouchNav", () => ({
-  useTouchNav: vi.fn(),
-}));
-
-// ─── Mock registry with minimal style ────────────────────────────────────────
-
-const MockStyleComponent = vi.fn((_props: BespokeStyleProps) => (
-  <div data-testid="mock-style">Style Content</div>
-));
-
-const mockRegistry = [
+const Slide = vi.fn((_props: BespokeStyleProps) => <div>Slide content</div>);
+const registry: StyleRegistryEntry[] = [
   {
-    id: "minimal-product-keynote",
-    name: { en: "Test Style", zh: "测试风格" },
+    id: "quiet-grid",
+    name: { en: "Quiet Grid", zh: "静默网格" },
     topics: [
       {
-        id: "product-keynote",
-        topic: { en: "Test Topic", zh: "测试题材" },
-        model: "test-model",
-        component: MockStyleComponent,
-        getMetadata: (lang: "en" | "zh") => ({
-          id: "minimal-product-keynote",
-          name: lang === "en" ? "Test Style" : "测试风格",
-          band: "minimal-keynote" as const,
-          theme: "test",
+        id: "quiet-launch",
+        topic: { en: "Quiet launch", zh: "静默发布" },
+        model: "GPT 5.6 Sol",
+        component: Slide,
+        getMetadata: () => ({
+          id: "quiet-grid",
+          band: "minimal-keynote",
+          name: "Quiet Grid",
+          theme: "",
           densityLabel: "Sparse",
           heroScene: 1,
-          colors: { bg: "#fff", ink: "#000", panel: "#eee" },
-          typography: { header: "Test 700", body: "Test 400" },
-          tags: ["test"],
+          colors: { bg: "#fff", ink: "#111", panel: "#eee" },
+          typography: { header: "serif", body: "sans" },
+          tags: [],
           fonts: [],
-          scenes: [
-            { id: 1, title: "Scene 1", beats: [{ id: 0, action: "Title", title: "T", body: "B" }] },
-            { id: 2, title: "Scene 2", beats: [{ id: 0, action: "A", title: "T", body: "B" }] },
-            { id: 3, title: "Scene 3", beats: [{ id: 0, action: "A", title: "T", body: "B" }] },
-            { id: 4, title: "Scene 4", beats: [{ id: 0, action: "A", title: "T", body: "B" }] },
-            { id: 5, title: "Scene 5", beats: [{ id: 0, action: "A", title: "T", body: "B" }] },
-          ],
+          scenes: Array.from({ length: 5 }, (_, index) => ({
+            id: index + 1,
+            title: `Scene ${index + 1}`,
+            beats: [{ id: 0, action: "", title: "Beat 1", body: "" }],
+          })),
         }),
       },
     ],
   },
 ];
 
-function makeTopic(
-  id: string,
-  topic: { en: string; zh: string },
-  beatCounts: number[],
-  component: React.ComponentType<BespokeStyleProps> = MockStyleComponent,
-): StyleTopic {
-  return {
-    id,
-    topic,
-    model: `model-${id}`,
-    component,
-    getMetadata: (lang: "en" | "zh") => ({
-      id: "minimal-product-keynote",
-      name: lang === "en" ? "Test Style" : "测试风格",
-      band: "minimal-keynote" as const,
-      theme: "test",
-      densityLabel: "Sparse",
-      heroScene: 1,
-      colors: { bg: "#fff", ink: "#000", panel: "#eee" },
-      typography: { header: "Test 700", body: "Test 400" },
-      tags: ["test"],
-      fonts: [],
-      scenes: [1, 2, 3, 4, 5].map((sceneId, idx) => ({
-        id: sceneId,
-        title: `Scene ${sceneId}`,
-        beats: Array.from({ length: beatCounts[idx] }, (_, beatId) => ({
-          id: beatId,
-          action: `Beat ${beatId}`,
-          title: "T",
-          body: "B",
-        })),
-      })),
-    }),
-  };
-}
-
-const multiTopicRegistry: StyleRegistryEntry[] = [
-  {
-    id: "minimal-product-keynote",
-    name: { en: "Test Style", zh: "测试风格" },
-    topics: [
-      makeTopic("product-keynote", { en: "Original", zh: "原始" }, [1, 2, 3, 2, 1]),
-      makeTopic("decision-art", { en: "Comparable", zh: "对照" }, [1, 2, 2, 2, 1]),
-      makeTopic("compact", { en: "Compact", zh: "紧凑版" }, [1, 1, 1, 1, 1]),
-    ],
-  },
-];
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function renderLabView(props: Partial<React.ComponentProps<typeof LabView>> = {}) {
-  const defaultProps = {
-    registry: mockRegistry,
-    styleId: "minimal-product-keynote",
-    topicId: "product-keynote",
-    scene: 1,
+function setup(overrides: Partial<React.ComponentProps<typeof LabView>> = {}) {
+  const props: React.ComponentProps<typeof LabView> = {
+    registry,
+    styleId: "quiet-grid",
+    topicId: "quiet-launch",
+    scene: 2,
     beat: 0,
     isPureMode: false,
     reducedMotion: false,
-    language: "en" as const,
+    language: "en",
     frozen: false,
-    flashStyle: false,
+    announceTopic: false,
     onNavigate: vi.fn(),
-    onFlashDone: vi.fn(),
+    onAnnouncementDone: vi.fn(),
     onExitPure: vi.fn(),
     onGoOverview: vi.fn(),
-    ...props,
+    onOpenLibrary: vi.fn(),
+    onOpenPalette: vi.fn(),
+    onOpenControls: vi.fn(),
+    ...overrides,
   };
-  return render(<LabView {...defaultProps} />);
+  render(<LabView {...props} />);
+  return props;
 }
 
-// ─── Tests ────────────────────────────────────────────────────────────────────
+describe("LabView Player seam", () => {
+  beforeEach(() => vi.clearAllMocks());
 
-describe("LabView — stage centering regression tests", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
+  it("keeps the Stage fixed at 1920x1080 inside a scaled contain wrapper", () => {
+    setup();
+    const stage = screen.getByTestId("stage");
+    expect(stage).toHaveStyle({ width: "1920px", height: "1080px" });
+    expect(stage).toHaveStyle({ transform: "scale(0.5)", transformOrigin: "top left" });
+    expect(stage.parentElement).toHaveStyle({ width: "960px", height: "540px" });
   });
 
-  it("stage container has minWidth: 0 to allow shrinking below 1920px", () => {
-    renderLabView();
+  it("uses left 20% and remaining 80% click zones for sequential navigation", () => {
+    const props = setup();
     const stage = screen.getByTestId("stage");
-    // DOM: stage → sized-wrapper → pure-mode-stage → container
-    const container = stage.parentElement?.parentElement?.parentElement as HTMLElement;
-    expect(container).not.toBeNull();
-    // Container has inline style with minWidth: 0 (React sets number 0 as "0px")
-    expect(container.style.minWidth).toBe("0");
-    expect(container.style.minHeight).toBe("0");
-  });
-
-  it("stage has a sized wrapper with scaled visual dimensions", () => {
-    renderLabView();
-    const stage = screen.getByTestId("stage");
-    const wrapper = stage.parentElement;
-    expect(wrapper).not.toBeNull();
-    // Wrapper should have the scaled visual dimensions so flex centering works on real size
-    expect(wrapper).toHaveStyle({
-      width: `${1920 * mockScale}px`,
-      height: `${1080 * mockScale}px`,
+    vi.spyOn(stage, "getBoundingClientRect").mockReturnValue({
+      left: 0,
+      right: 1000,
+      top: 0,
+      bottom: 562.5,
+      width: 1000,
+      height: 562.5,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
     });
-  });
 
-  it("stage uses transformOrigin 'top left' (not 'center center')", () => {
-    renderLabView();
-    const stage = screen.getByTestId("stage");
-    expect(stage.style.transformOrigin).toBe("top left");
-  });
+    fireEvent.click(stage, { clientX: 100 });
+    fireEvent.click(stage, { clientX: 900 });
 
-  it("stage is absolutely positioned inside the wrapper at top-left corner", () => {
-    renderLabView();
-    const stage = screen.getByTestId("stage");
-    // Position is set via Tailwind class "absolute top-0 left-0"
-    expect(stage.className).toMatch(/absolute/);
-    expect(stage.className).toMatch(/top-0/);
-    expect(stage.className).toMatch(/left-0/);
-  });
-
-  it("stage element retains fixed 1920x1080 dimensions for container queries", () => {
-    renderLabView();
-    const stage = screen.getByTestId("stage");
-    expect(stage.style.width).toBe("1920px");
-    expect(stage.style.height).toBe("1080px");
-    expect(stage.style.containerType).toBe("size");
-  });
-
-  it("stage transform: scale matches the computed scale factor", () => {
-    renderLabView();
-    const stage = screen.getByTestId("stage");
-    expect(stage.style.transform).toBe(`scale(${mockScale})`);
-  });
-
-  it("stage can receive focus programmatically without entering tab order", () => {
-    renderLabView();
-    const stage = screen.getByTestId("stage");
-    expect(stage).toHaveAttribute("tabIndex", "-1");
-  });
-});
-
-describe("LabView — stage click navigation", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it("clicking the stage advances to the next position", () => {
-    const onNavigate = vi.fn();
-    renderLabView({ onNavigate });
-
-    fireEvent.click(screen.getByTestId("stage"));
-
-    expect(onNavigate).toHaveBeenCalledWith({
-      styleId: "minimal-product-keynote",
-      topicId: "product-keynote",
-      scene: 2,
-      beat: 0,
-      flashStyle: false,
-    });
-  });
-
-  it("clicking an interactive element inside the stage does not trigger stage next", () => {
-    const onNavigate = vi.fn();
-    const InteractiveStyle = () => (
-      <button type="button" data-testid="internal-button">
-        Internal action
-      </button>
+    expect(props.onNavigate).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({ scene: 1, beat: 0 }),
     );
-    const registry: StyleRegistryEntry[] = [
-      {
-        ...mockRegistry[0],
-        topics: [
-          {
-            ...mockRegistry[0].topics[0],
-            component: InteractiveStyle,
-          },
-        ],
-      },
-    ];
-
-    renderLabView({ registry, onNavigate });
-
-    fireEvent.click(screen.getByTestId("internal-button"));
-
-    expect(onNavigate).not.toHaveBeenCalled();
-  });
-});
-
-describe("LabView — style rendering", () => {
-  it("renders the first topic through the normal lab UI", () => {
-    renderLabView({
-      registry: STYLE_REGISTRY,
-      styleId: "minimal-product-keynote",
-      topicId: "product-keynote",
-      scene: 1,
-      beat: 0,
-    });
-
-    expect(screen.getByText("Introducing Nova")).toBeInTheDocument();
-    expect(screen.getByTestId("spatial-scene-track")).toBeInTheDocument();
-  });
-});
-
-describe("LabView — topic switching", () => {
-  it("top-bar topic switching preserves the current scene and beat for comparison", () => {
-    const onNavigate = vi.fn();
-    renderLabView({
-      registry: multiTopicRegistry,
-      topicId: "product-keynote",
-      scene: 3,
-      beat: 1,
-      onNavigate,
-    });
-
-    fireEvent.click(screen.getByTestId("topic-switcher"));
-    fireEvent.click(screen.getByTestId("topic-option-decision-art"));
-
-    expect(onNavigate).toHaveBeenCalledWith({
-      styleId: "minimal-product-keynote",
-      topicId: "decision-art",
-      scene: 3,
-      beat: 1,
-    });
+    expect(props.onNavigate).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({ scene: 3, beat: 0 }),
+    );
   });
 
-  it("top-bar topic switching clamps the beat when the target topic has fewer beats", () => {
-    const onNavigate = vi.fn();
-    renderLabView({
-      registry: multiTopicRegistry,
-      topicId: "product-keynote",
-      scene: 3,
-      beat: 2,
-      onNavigate,
-    });
+  it("does not silently fall back when the Topic identity is unavailable", () => {
+    setup({ topicId: "missing-topic" });
+    expect(screen.getByText("This slide deck is unavailable")).toBeVisible();
+    expect(screen.queryByText("Slide content")).not.toBeInTheDocument();
+  });
 
-    fireEvent.click(screen.getByTestId("topic-switcher"));
-    fireEvent.click(screen.getByTestId("topic-option-compact"));
+  it("keeps Player transport out of Pure Mode", () => {
+    setup({ isPureMode: true });
+    expect(screen.queryByTestId("bottom-bar")).not.toBeInTheDocument();
+    expect(vi.mocked(useKeyboard)).toHaveBeenCalledWith(
+      expect.objectContaining({ onCommandPalette: undefined, onHelp: undefined }),
+    );
+  });
 
-    expect(onNavigate).toHaveBeenCalledWith({
-      styleId: "minimal-product-keynote",
-      topicId: "compact",
-      scene: 3,
-      beat: 0,
-    });
+  it("enables direct-touch navigation only for coarse mobile screens", async () => {
+    const matchMedia = vi.spyOn(window, "matchMedia").mockImplementation(
+      (query) =>
+        ({
+          matches: query === "(max-width: 767px) and (pointer: coarse)",
+          media: query,
+          onchange: null,
+          addEventListener: vi.fn(),
+          removeEventListener: vi.fn(),
+          addListener: vi.fn(),
+          removeListener: vi.fn(),
+          dispatchEvent: vi.fn(),
+        }) as MediaQueryList,
+    );
+
+    setup();
+
+    await waitFor(() =>
+      expect(vi.mocked(useTouchNav)).toHaveBeenLastCalledWith(
+        expect.objectContaining({ enabled: true }),
+      ),
+    );
+    matchMedia.mockRestore();
+  });
+
+  it("keeps the fixed Stage visible while a Topic component loads, then prefetches neighbors", async () => {
+    let resolveTopic: ((component: typeof Slide) => void) | undefined;
+    const loadTopic = vi.fn(
+      () =>
+        new Promise<typeof Slide>((resolve) => {
+          resolveTopic = resolve;
+        }),
+    );
+    const prefetchAdjacentTopics = vi.fn().mockResolvedValue(undefined);
+
+    setup({ loadTopic, prefetchAdjacentTopics });
+
+    expect(screen.getByTestId("stage")).toHaveAttribute("data-topic-ready", "false");
+    expect(screen.getByRole("status", { name: "Loading slides" })).toBeVisible();
+    resolveTopic?.(Slide);
+
+    await waitFor(() =>
+      expect(screen.getByTestId("stage")).toHaveAttribute("data-topic-ready", "true"),
+    );
+    expect(screen.getByText("Slide content")).toBeVisible();
+    expect(prefetchAdjacentTopics).toHaveBeenCalledWith("quiet-grid", "quiet-launch");
+  });
+
+  it("offers an in-Stage retry after a Topic component fails to load", async () => {
+    const loadTopic = vi
+      .fn()
+      .mockRejectedValueOnce(new Error("chunk unavailable"))
+      .mockResolvedValueOnce(Slide);
+
+    setup({ loadTopic });
+
+    expect(await screen.findByText("Slides failed to load")).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Retry" }));
+
+    await waitFor(() => expect(loadTopic).toHaveBeenCalledTimes(2));
+    expect(await screen.findByText("Slide content")).toBeVisible();
+    expect(screen.getByTestId("stage")).toHaveAttribute("data-topic-ready", "true");
   });
 });

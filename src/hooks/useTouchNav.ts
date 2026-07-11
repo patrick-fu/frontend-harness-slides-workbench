@@ -1,26 +1,29 @@
 import { useEffect, useRef } from "react";
 import type { RefObject } from "react";
+import {
+  getStageTapNavigationDirection,
+  getSwipeNavigationDirection,
+  SWIPE_NAVIGATION_THRESHOLD,
+} from "../utils/navigation";
 
 export interface UseTouchNavOptions {
   /** Reference to the element to attach touch listeners to. */
   elementRef: RefObject<HTMLElement | null>;
-  /** Called when navigating to next (swipe left or tap). */
+  /** Called when navigating to next (swipe left/up or tap outside the left edge). */
   onNext: () => void;
-  /** Called when navigating to previous (swipe right). */
+  /** Called when navigating to previous (swipe right/down or left-edge tap). */
   onPrev: () => void;
   /** When false, no listeners are attached. */
   enabled: boolean;
 }
 
-const SWIPE_THRESHOLD = 50; // pixels
-
 /**
  * Hook that attaches touch-based navigation to an element.
  *
- * - Horizontal swipe left (>= 50px, horizontal > vertical) → onNext
- * - Horizontal swipe right (>= 50px, horizontal > vertical) → onPrev
- * - Tap anywhere on the stage → onNext (only if not a swipe)
- * - Vertical swipe: no-op
+ * - Swipe left/up (>= 50px on the dominant axis) → onNext
+ * - Swipe right/down (>= 50px on the dominant axis) → onPrev
+ * - Tap left 20% → onPrev; remaining stage → onNext
+ * - Interactive Stage targets opt out
  */
 export function useTouchNav({
   elementRef,
@@ -40,6 +43,7 @@ export function useTouchNav({
 
     const el = elementRef.current;
     if (!el) return;
+    const stage = el;
 
     function isInteractiveTarget(target: EventTarget | null): boolean {
       if (!(target instanceof Element)) return false;
@@ -55,7 +59,7 @@ export function useTouchNav({
             "[role='button']",
             "[role='link']",
             "[role='menuitem']",
-            "[contenteditable='true']",
+            "[contenteditable]",
           ].join(","),
         ),
       );
@@ -63,7 +67,7 @@ export function useTouchNav({
 
     function handleTouchStart(e: TouchEvent) {
       const touch = e.touches[0];
-      if (!touch) return;
+      if (!touch || e.touches.length !== 1) return;
       if (isInteractiveTarget(e.target)) {
         touchStartRef.current = null;
         return;
@@ -77,30 +81,30 @@ export function useTouchNav({
       if (!start) return;
 
       const touch = e.changedTouches[0];
-      if (!touch) return;
+      if (!touch || isInteractiveTarget(e.target)) return;
 
-      const dx = touch.clientX - start.x;
-      const dy = touch.clientY - start.y;
-      const absDx = Math.abs(dx);
-      const absDy = Math.abs(dy);
-
-      // Vertical-dominant gesture → no-op
-      if (absDy > absDx) return;
-
-      // Horizontal swipe (above threshold)
-      if (absDx >= SWIPE_THRESHOLD) {
-        if (dx < 0) {
-          // Swipe left → next
-          onNextRef.current();
-        } else {
-          // Swipe right → prev
-          onPrevRef.current();
-        }
+      const end = { x: touch.clientX, y: touch.clientY };
+      const swipeDirection = getSwipeNavigationDirection(start, end);
+      if (swipeDirection) {
+        if (swipeDirection === "next") onNextRef.current();
+        else onPrevRef.current();
         return;
       }
 
-      // Not a swipe → any stage tap advances.
-      onNextRef.current();
+      const maxDistance = Math.max(
+        Math.abs(end.x - start.x),
+        Math.abs(end.y - start.y),
+      );
+      if (maxDistance >= SWIPE_NAVIGATION_THRESHOLD) return;
+
+      const rect = stage.getBoundingClientRect();
+      const tapDirection = getStageTapNavigationDirection({
+        clientX: start.x,
+        stageLeft: rect.left,
+        stageWidth: rect.width,
+      });
+      if (tapDirection === "next") onNextRef.current();
+      else onPrevRef.current();
     }
 
     el.addEventListener("touchstart", handleTouchStart, { passive: true });

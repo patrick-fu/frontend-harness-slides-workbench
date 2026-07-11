@@ -579,7 +579,7 @@ export const growthSignalsTopic = defineStyleTopic({
     en: "Growth Signals",
     zh: "增长信号",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: BotanicalSpecimenGrowthSignals,
   getMetadata,
 });

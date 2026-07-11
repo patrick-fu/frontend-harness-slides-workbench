@@ -508,7 +508,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const GrowingSlowlyOnPurposeTopic = defineStyleTopic({
   id: "growing-slowly-on-purpose",
   topic: { en: "Growing Slowly on Purpose", zh: "慢成长" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: GrowingSlowlyOnPurpose,
   getMetadata,
 });

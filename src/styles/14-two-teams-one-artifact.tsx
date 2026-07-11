@@ -745,7 +745,7 @@ export const twoTeamsOneArtifactTopic = defineStyleTopic({
     en: "Shared Artifact",
     zh: "共享产物",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: TwoTeamsOneArtifactV2,
   getMetadata,
 });

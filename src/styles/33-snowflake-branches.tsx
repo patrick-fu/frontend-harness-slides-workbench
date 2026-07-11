@@ -827,7 +827,7 @@ export default function SnowflakeBranches({
 export const snowflakeBranchesTopic = defineStyleTopic({
   id: "snowflake-branches",
   topic: { en: "Snowflake Branches", zh: "雪花分支" },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: SnowflakeBranches,
   getMetadata,
   navigation: {

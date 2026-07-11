@@ -789,7 +789,7 @@ export const rawNotesCleanBriefTopic = defineStyleTopic({
     en: "Clean Brief",
     zh: "清爽简报",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: RawNotesCleanBriefV2,
   getMetadata,
 });

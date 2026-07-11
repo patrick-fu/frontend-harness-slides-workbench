@@ -769,7 +769,7 @@ export const moveOrgChartTopic = defineStyleTopic({
     en: "Org Move",
     zh: "组织移动",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: MoveOrgChartV2,
   getMetadata,
 });

@@ -1143,7 +1143,7 @@ export const danceNotationTopic = defineStyleTopic({
     en: "Dance Notation",
     zh: "舞谱",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: DanceNotation,
   getMetadata,
   navigation: {

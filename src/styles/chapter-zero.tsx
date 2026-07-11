@@ -527,7 +527,7 @@ export default function ChapterZeroV3({
 export const ChapterZeroTopic = defineStyleTopic({
   id: "chapter-zero",
   topic: { en: "Chapter Zero", zh: "第零章" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: ChapterZeroV3,
   getMetadata,
 });

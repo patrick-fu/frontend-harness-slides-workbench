@@ -1,73 +1,44 @@
 # Frontend Harness Slides Workbench
 
-🎬 Companion live demo for
-[frontend-harness-slides](https://github.com/patrick-fu/frontend-harness-slides).
+[简体中文](README.zh-CN.md)
 
-This project turns the `frontend-harness-slides` style catalog into a live,
-browsable, presenter-ready experience. It is the place to inspect the styles,
-compare their visual DNA, and capture deterministic slide frames.
+[![Styles](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ffrontend-harness-slides-workbench.vercel.app%2Fcatalog-stats.json&query=%24.styles&label=styles&color=1f6feb)](https://frontend-harness-slides-workbench.vercel.app)
+[![Topics](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ffrontend-harness-slides-workbench.vercel.app%2Fcatalog-stats.json&query=%24.topics&label=topics&color=8250df)](https://frontend-harness-slides-workbench.vercel.app)
 
-🚀 Live demo:
+A public React/Vite workbench for browsing independently designed slide experiences and presenting a selected Topic through a deterministic, URL-addressable player.
 
-https://frontend-harness-slides-workbench.vercel.app
+It is the live companion to the [Frontend Harness Slides skill](https://github.com/patrick-fu/frontend-harness-slides).
 
-## What It Shows
+## Live demo
 
-✨ 49 independent slide styles
-Each style is a self-contained React component with its own scenes, beats,
-metadata, fonts, navigation, animation, and visual language.
+Explore the [live demo](https://frontend-harness-slides-workbench.vercel.app).
 
-🧭 Gallery + presenter shell  
-Browse styles in the overview, filter by band or tag, then open a full presenter
-view with sidebar navigation, scene controls, keyboard navigation, and touch
-navigation.
+## Catalog and Player
 
-🖼️ Stable 16:9 stage  
-Every style renders inside a fixed `1920x1080` stage and scales predictably for
-desktop, mobile, screenshots, and PDF-oriented capture flows.
+- **Catalog** browses the collection with Band and Model ID filters; filters and language are shareable in the URL.
+- **Player** opens a selected Style and Topic with scene and beat navigation across keyboard, pointer, and touch.
 
-🧪 Capture-friendly modes  
-Use pure mode to hide Workbench chrome and frozen mode to disable animation for
-deterministic visual review.
+## Stage, Pure, and Frozen
 
-## Architecture
+- **Stage** renders each Topic on a fixed `1920×1080` canvas that scales predictably.
+- **Pure** (`pure=1`) hides Workbench chrome and leaves the Stage.
+- **Frozen** (`frozen=1`) disables animations and transitions for repeatable capture and review.
 
-The project uses a mixed Envelope/Stage architecture.
+## URL queries
 
-- Envelope: app chrome such as header, sidebar, topic bar, bottom bar, and
-  overview cards. It uses responsive browser UI units.
-- Stage: fixed `1920x1080` slide canvas. It is scaled with CSS transforms and
-  passes stable container-query units to every style.
-- Style: isolated slide implementation. It receives `BespokeStyleProps` and
-  exports `getMetadata(language)`.
-
-Important source files:
-
-- `src/App.tsx`: app shell and URL state wiring.
-- `src/components/LabView.tsx`: stage rendering and presenter navigation.
-- `src/components/OverviewView.tsx`: public gallery and filtering.
-- `src/styles/registry.ts`: authoritative list of all styles and topics.
-- `src/types.ts`: style props and metadata contract.
-- `docs/STYLE_AUTHORING_SPEC.md`: rules for adding or editing styles.
-
-## URL Format
-
-The app uses query-string routing so every captured frame has a stable URL.
+Append these query strings to the live-demo URL:
 
 ```text
-?view=overview
+?view=overview&band=minimal-keynote&model=GPT+5.5&lang=en
 ?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=1&beat=0
-?view=lab&style=engineering-whiteboard-explainer&topic=from-prompt-to-patch&scene=3&beat=1&pure=1&frozen=1
+?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=1&beat=0&pure=1&frozen=1
 ```
 
-Useful flags:
+`scene` is one-based; `beat` is zero-based.
 
-- `pure=1`: hide Workbench chrome and show only the stage.
-- `frozen=1`: disable animations and transitions for deterministic capture.
+## Quick start
 
-## Development
-
-Use Node.js 22.
+Requires Node.js 22.
 
 ```bash
 nvm use
@@ -75,29 +46,35 @@ npm ci
 npm run dev
 ```
 
-Common checks:
+## Validation
+
+Run the repository checks first, then the browser audit:
 
 ```bash
-npm run typecheck
-npm run build
-npm run test:unit
-npm run test:audit
 npm run ci
+npm run test:audit
 ```
-
-`npm run test:audit` runs Playwright against the production-style preview
-server defined in `playwright.config.ts`.
-
-## Repository Status
-
-The repository is public, but the package remains marked `"private": true` to
-prevent accidental npm publication. It is an app/demo repository, not an npm
-library package.
 
 ## Documentation
 
-- `PRD.md`: product and architecture requirements.
-- `CONTEXT.md`: decision log and current state.
-- `ACCEPTANCE.md`: validation report and known risks.
-- `docs/MAINTENANCE.md`: maintenance playbook.
-- `docs/adr/0001-mixed-mode-envelope-stage-architecture.md`: architecture ADR.
+- [AGENTS.md](AGENTS.md) — agent and maintenance guidance.
+- [CONTEXT.md](CONTEXT.md) — shared domain glossary.
+- [ADRs](docs/adr/) — architecture decision records.
+- [SECURITY.md](SECURITY.md) — vulnerability reporting policy.
+
+## Security
+
+Report vulnerabilities according to [SECURITY.md](SECURITY.md).
+
+## Third-party notices
+
+The Stadium Wave Topic includes local copies of two [OpenMoji 16.0](https://openmoji.org/) color SVG assets designed by OpenMoji:
+
+- `openmoji-person-standing.svg` — Unicode `U+1F9CD`
+- `openmoji-person-raising-hand.svg` — Unicode `U+1F64B`
+
+Source: [OpenMoji](https://openmoji.org/). Both files are licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The local copies were optimized only for whitespace and numeric precision; their visual form is otherwise preserved. The Workbench changes poses with CSS transforms and combines the standing figure with an original seat outline. The two local SVGs remain under CC BY-SA 4.0.
+
+## License
+
+The Workbench code and original assets are available under the [MIT License](LICENSE). That license does not relicense the OpenMoji SVGs, which remain CC BY-SA 4.0.

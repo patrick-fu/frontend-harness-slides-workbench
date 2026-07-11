@@ -1142,7 +1142,7 @@ export default FlakyTestRootCause;
 export const FlakyTestRootCauseTopic = defineStyleTopic({
   id: "flaky-test-root-cause",
   topic: { en: "Flaky Test, Root Cause", zh: "不稳定测试" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: FlakyTestRootCause,
   getMetadata,
 });

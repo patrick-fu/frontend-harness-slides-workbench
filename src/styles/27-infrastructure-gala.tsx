@@ -1209,7 +1209,7 @@ export const infrastructureGalaTopic = defineStyleTopic({
     en: "Infrastructure Gala",
     zh: "基建庆典",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: InfrastructureGalaV2,
   getMetadata,
 });

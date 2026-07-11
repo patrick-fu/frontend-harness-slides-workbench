@@ -695,7 +695,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const aRiversJourneyTopic = defineStyleTopic({
   id: "a-rivers-journey",
   topic: { en: COPY.en.theme, zh: COPY.zh.theme },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: WoodblockFloatingWorldV3,
   getMetadata,
 });

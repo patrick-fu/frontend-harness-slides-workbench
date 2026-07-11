@@ -484,7 +484,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const whatAncientsKnewTopic = defineStyleTopic({
   id: "what-ancients-knew",
   topic: { en: "What the Ancients Knew", zh: "古人的智慧" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: ScholarsVellumV3,
   getMetadata,
 });

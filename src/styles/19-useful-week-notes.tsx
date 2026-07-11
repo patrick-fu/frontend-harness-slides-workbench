@@ -1658,7 +1658,7 @@ export const usefulWeekNotesTopic = defineStyleTopic({
     en: "Useful Week",
     zh: "有用一周",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: UsefulWeekNotesV2,
   getMetadata,
 });

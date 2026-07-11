@@ -798,7 +798,7 @@ export const fieldRouteSignalTopic = defineStyleTopic({
     en: "Field Route",
     zh: "现场路线",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: FieldRouteSignalV2,
   getMetadata,
 });

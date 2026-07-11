@@ -1006,7 +1006,7 @@ export default function SafetyGlass({
 export const safetyGlassTopic = defineStyleTopic({
   id: "safety-glass",
   topic: { en: "Safety Glass", zh: "夹层玻璃" },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: SafetyGlass,
   getMetadata,
   navigation: {

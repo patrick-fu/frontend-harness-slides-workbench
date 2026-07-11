@@ -1070,7 +1070,7 @@ export const shippingHardThingTopic = defineStyleTopic({
     en: "Hard Thing",
     zh: "难事发布",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: ShippingHardThingV2,
   getMetadata,
 });

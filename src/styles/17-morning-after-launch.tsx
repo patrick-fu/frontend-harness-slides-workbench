@@ -941,7 +941,7 @@ export const morningAfterLaunchTopic = defineStyleTopic({
     en: "After Launch",
     zh: "发布翌日",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: MorningAfterLaunchBroadsheet,
   getMetadata,
 });

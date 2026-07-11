@@ -873,7 +873,7 @@ export const beforeATopic = defineStyleTopic({
     en: "Before A",
     zh: "A之前",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: BeforeA,
   getMetadata,
   navigation: {

@@ -1277,7 +1277,7 @@ export const oralToWrittenTopic = defineStyleTopic({
     en: "Oral to Written",
     zh: "史诗成文",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: OralToWritten,
   getMetadata,
   navigation: {

@@ -715,7 +715,7 @@ export const oneConstraintWinsTopic = defineStyleTopic({
     en: "One Constraint",
     zh: "一个约束",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: OneConstraintWinsV2,
   getMetadata,
 });

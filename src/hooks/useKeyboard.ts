@@ -9,6 +9,10 @@ export interface UseKeyboardOptions {
   onArrowLeft?: () => void;
   /** Called when Space is pressed. */
   onSpace?: () => void;
+  /** Called when Cmd+K or Ctrl+K is pressed. */
+  onCommandPalette?: () => void;
+  /** Called when ? is pressed. */
+  onHelp?: () => void;
 }
 
 /**
@@ -19,37 +23,69 @@ export interface UseKeyboardOptions {
  * - ArrowRight → onArrowRight
  * - ArrowLeft → onArrowLeft
  * - Space → onSpace
+ * - Cmd+K / Ctrl+K → onCommandPalette
+ * - ? → onHelp
  */
 export function useKeyboard({
   onEsc,
   onArrowRight,
   onArrowLeft,
   onSpace,
+  onCommandPalette,
+  onHelp,
 }: UseKeyboardOptions = {}): void {
   const onEscRef = useRef(onEsc);
   const onArrowRightRef = useRef(onArrowRight);
   const onArrowLeftRef = useRef(onArrowLeft);
   const onSpaceRef = useRef(onSpace);
+  const onCommandPaletteRef = useRef(onCommandPalette);
+  const onHelpRef = useRef(onHelp);
 
   onEscRef.current = onEsc;
   onArrowRightRef.current = onArrowRight;
   onArrowLeftRef.current = onArrowLeft;
   onSpaceRef.current = onSpace;
+  onCommandPaletteRef.current = onCommandPalette;
+  onHelpRef.current = onHelp;
 
   useEffect(() => {
-    function isEditableTarget(target: EventTarget | null): boolean {
-      if (!(target instanceof HTMLElement)) return false;
-      const tagName = target.tagName.toLowerCase();
-      return (
-        tagName === "input" ||
-        tagName === "textarea" ||
-        tagName === "select" ||
-        target.isContentEditable
+    function isShortcutSuppressed(target: EventTarget | null): boolean {
+      if (!(target instanceof Element)) return false;
+      const editable = target.closest("[contenteditable]");
+      if (editable && editable.getAttribute("contenteditable") !== "false") {
+        return true;
+      }
+      return Boolean(
+        target.closest(
+          [
+            "input",
+            "textarea",
+            "select",
+            "[role='menu']",
+            "[role='menuitem']",
+            "[role='menuitemcheckbox']",
+            "[role='menuitemradio']",
+            "[aria-haspopup='menu'][aria-expanded='true']",
+            "[role='dialog']",
+            "[aria-haspopup='menu']",
+          ].join(","),
+        ),
       );
     }
 
     function handleKeyDown(e: KeyboardEvent) {
-      if (isEditableTarget(e.target)) return;
+      if (isShortcutSuppressed(e.target)) return;
+
+      if (
+        (e.metaKey || e.ctrlKey) &&
+        !e.altKey &&
+        e.key.toLowerCase() === "k" &&
+        onCommandPaletteRef.current
+      ) {
+        e.preventDefault();
+        onCommandPaletteRef.current();
+        return;
+      }
 
       switch (e.key) {
         case "Escape":
@@ -75,6 +111,17 @@ export function useKeyboard({
           if (onSpaceRef.current) {
             e.preventDefault();
             onSpaceRef.current();
+          }
+          break;
+        case "?":
+          if (
+            !e.metaKey &&
+            !e.ctrlKey &&
+            !e.altKey &&
+            onHelpRef.current
+          ) {
+            e.preventDefault();
+            onHelpRef.current();
           }
           break;
       }

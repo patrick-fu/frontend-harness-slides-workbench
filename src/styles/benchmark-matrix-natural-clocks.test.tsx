@@ -186,7 +186,7 @@ describe("Natural Clocks topic protocol", () => {
       en: "Natural Clocks",
       zh: "自然时钟",
     });
-    expect(naturalClocksTopic.model).toBe("GPT-5.6 Terra");
+    expect(naturalClocksTopic.model).toBe("GPT 5.6 Sol");
     expect(naturalClocksTopic.navigation).toEqual({
       geometry: "typographic-index",
       carrier: "clock-taxonomy-index",

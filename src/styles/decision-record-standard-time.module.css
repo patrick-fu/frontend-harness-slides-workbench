@@ -1,0 +1,1144 @@
+.root {
+  --style-decision-record-bg: #e7e3d8;
+  --style-decision-record-paper: #f8f5ec;
+  --style-decision-record-ink: #152330;
+  --style-decision-record-blue: #244a62;
+  --style-decision-record-signal: #b56732;
+  --style-decision-record-rule: #aeb7b5;
+  --style-decision-record-faint: #d7d4c9;
+  --style-decision-record-night: #132a39;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 4.7cqw,
+      color-mix(in srgb, var(--style-decision-record-blue) 14%, transparent) 4.7cqw,
+      color-mix(in srgb, var(--style-decision-record-blue) 14%, transparent) 4.78cqw,
+      transparent 4.78cqw
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 4.1cqh,
+      color-mix(in srgb, var(--style-decision-record-blue) 5%, transparent) 4.1cqh,
+      color-mix(in srgb, var(--style-decision-record-blue) 5%, transparent) 4.18cqh
+    ),
+    var(--style-decision-record-bg);
+  color: var(--style-decision-record-ink);
+  font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.recordRibbon {
+  position: absolute;
+  z-index: 6;
+  top: 1.9cqh;
+  left: 4.7cqw;
+  right: 4.7cqw;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.2cqw;
+  min-height: 4.2cqh;
+  color: var(--style-decision-record-blue);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.82cqw;
+  font-weight: 700;
+  letter-spacing: 0.1cqw;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.recordRibbon::before,
+.recordRibbon::after {
+  content: "";
+  height: 0.12cqh;
+  background: var(--style-decision-record-rule);
+}
+
+.recordRibbon::before {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.recordRibbon strong {
+  grid-column: 2;
+  grid-row: 1;
+  color: var(--style-decision-record-ink);
+  font-size: 0.98cqw;
+  text-align: center;
+}
+
+.recordRibbon span:first-child {
+  position: absolute;
+  left: 0;
+  bottom: -1.6cqh;
+}
+
+.recordRibbon span:last-child {
+  position: absolute;
+  right: 0;
+  bottom: -1.6cqh;
+  text-align: right;
+}
+
+.trackShell {
+  position: absolute;
+  inset: 9.1cqh 4.7cqw 13.2cqh;
+  min-width: 0;
+  min-height: 0;
+}
+
+.track {
+  width: 100%;
+  height: 100%;
+  border: 0.1cqw solid var(--style-decision-record-blue);
+  background: var(--style-decision-record-paper);
+}
+
+.scene {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 3.1cqh 3.4cqw 2.7cqh;
+  background: var(--style-decision-record-paper);
+}
+
+.sceneHeading {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24cqw;
+  column-gap: 2.2cqw;
+  align-items: end;
+  min-height: 20cqh;
+  padding-bottom: 1.8cqh;
+  border-bottom: 0.14cqh solid var(--style-decision-record-ink);
+}
+
+.clauseLine {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  gap: 2cqw;
+  color: var(--style-decision-record-blue);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.9cqw;
+  font-weight: 700;
+  letter-spacing: 0.08cqw;
+  line-height: 1.1;
+}
+
+.sceneHeading h1 {
+  grid-column: 1;
+  margin: 0;
+  max-width: 55cqw;
+  color: var(--style-decision-record-ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 3.45cqw;
+  font-weight: 700;
+  letter-spacing: -0.06cqw;
+  line-height: 1.01;
+}
+
+.sceneDeck {
+  grid-column: 2;
+  margin: 0;
+  color: #43525d;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.26cqw;
+  line-height: 1.32;
+}
+
+.sourceStamp {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7cqw;
+  margin: 1.2cqh 0 0;
+  color: #59636a;
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.68cqw;
+  font-weight: 700;
+  letter-spacing: 0.02cqw;
+  line-height: 1.28;
+}
+
+.sourceStamp > span:first-child {
+  color: var(--style-decision-record-signal);
+  text-transform: uppercase;
+}
+
+.sourceLinks {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 0.35cqh 0.7cqw;
+  min-width: 0;
+}
+
+.sourceLinks a {
+  color: #59636a;
+  text-decoration: underline;
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--style-decision-record-signal) 44%,
+    transparent
+  );
+  text-underline-offset: 0.18cqh;
+}
+
+.sourceLinks a:focus-visible {
+  color: var(--style-decision-record-signal);
+  outline: 0.08cqw solid var(--style-decision-record-signal);
+  outline-offset: 0.18cqh;
+}
+
+.root [data-reveal="false"] {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(0.7cqh);
+}
+
+.root [data-reveal="true"] {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.localClockScene {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 1.7cqh;
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--style-decision-record-blue) 5%, transparent) 0,
+      color-mix(in srgb, var(--style-decision-record-blue) 5%, transparent) 0.08cqw,
+      transparent 0.08cqw,
+      transparent 100%
+    ),
+    var(--style-decision-record-paper);
+}
+
+.clockPair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15cqw minmax(0, 1fr);
+  align-items: center;
+  gap: 1.3cqw;
+  min-height: 46cqh;
+}
+
+.clockCase {
+  display: grid;
+  justify-items: center;
+  grid-template-rows: auto 1fr auto;
+  align-self: stretch;
+  gap: 0.8cqh;
+  padding: 1.1cqh 1.1cqw;
+  border-top: 0.1cqw solid var(--style-decision-record-rule);
+  border-bottom: 0.1cqw solid var(--style-decision-record-rule);
+  transition: opacity 360ms ease, color 360ms ease;
+}
+
+.clockCase[data-clock-active="false"] {
+  opacity: 0.16;
+}
+
+.clockCase > p {
+  margin: 0;
+  color: var(--style-decision-record-blue);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.84cqw;
+  font-weight: 700;
+  letter-spacing: 0.06cqw;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.clockFace {
+  width: 29cqw;
+  height: 29cqw;
+  overflow: visible;
+}
+
+.clockRing {
+  fill: #fbf9f2;
+  stroke: var(--style-decision-record-ink);
+  stroke-width: 5;
+}
+
+.clockInnerRing {
+  fill: none;
+  stroke: var(--style-decision-record-faint);
+  stroke-width: 3;
+}
+
+.clockTick {
+  fill: none;
+  stroke: var(--style-decision-record-ink);
+  stroke-width: 5;
+}
+
+.clockNumber {
+  fill: var(--style-decision-record-ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.7cqw;
+  text-anchor: middle;
+}
+
+.clockHands {
+  transform-origin: center;
+}
+
+.hourHand,
+.minuteHand {
+  fill: none;
+  stroke: var(--style-decision-record-ink);
+  stroke-linecap: square;
+}
+
+.hourHand {
+  stroke-width: 11;
+}
+
+.minuteHand {
+  stroke: var(--style-decision-record-signal);
+  stroke-width: 7;
+  transform-origin: center;
+}
+
+.clockPin {
+  fill: var(--style-decision-record-signal);
+}
+
+.clockCase > strong {
+  color: var(--style-decision-record-ink);
+  font-family: "Courier New", monospace;
+  font-size: 2.2cqw;
+  font-weight: 700;
+  letter-spacing: 0.08cqw;
+  line-height: 1;
+}
+
+.timeGap {
+  display: grid;
+  grid-template-rows: 4cqh 8cqh 3.4cqh 5cqh;
+  align-content: center;
+  gap: 0.8cqh;
+  min-height: 29cqh;
+  color: var(--style-decision-record-blue);
+  text-align: center;
+}
+
+.timeGap > span,
+.timeGap > p {
+  align-self: center;
+  margin: 0;
+  transition: opacity 360ms ease, transform 360ms ease;
+}
+
+.localCue {
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.82cqw;
+  font-weight: 700;
+  letter-spacing: 0.1cqw;
+}
+
+.timeGap > strong {
+  align-self: center;
+  color: var(--style-decision-record-signal);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 4.5cqw;
+  line-height: 0.86;
+  transition: opacity 360ms ease, transform 360ms ease;
+}
+
+.timeGap > p {
+  color: var(--style-decision-record-ink);
+  font-family: "Courier New", monospace;
+  font-size: 1.02cqw;
+  font-weight: 700;
+  letter-spacing: 0.08cqw;
+}
+
+.exampleBoundary {
+  color: #6f7779;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1cqw;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+.clockRuling {
+  display: grid;
+  align-items: center;
+  min-height: 7cqh;
+  padding: 0 2cqw;
+  border-top: 0.08cqw solid var(--style-decision-record-faint);
+  color: #40505a;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.2cqw;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.conflictScene {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18cqw;
+  grid-template-rows: auto 1fr;
+  column-gap: 2.2cqw;
+  row-gap: 2cqh;
+  background: #f6f3e9;
+}
+
+.conflictScene .sceneHeading {
+  grid-column: 1 / -1;
+}
+
+.timetableFrame {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 0.12cqw solid var(--style-decision-record-ink);
+  background: #fbfaf4;
+}
+
+.timetableFrame::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
+  width: 20cqw;
+  height: 100%;
+  background: linear-gradient(
+    125deg,
+    transparent 0,
+    transparent 47%,
+    color-mix(in srgb, var(--style-decision-record-signal) 7%, transparent) 47%,
+    color-mix(in srgb, var(--style-decision-record-signal) 7%, transparent) 53%,
+    transparent 53%
+  );
+  pointer-events: none;
+}
+
+.timetableMasthead {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.1cqw;
+  min-height: 8.3cqh;
+  padding: 0 1.5cqw;
+  border-bottom: 0.11cqw solid var(--style-decision-record-ink);
+  background: var(--style-decision-record-blue);
+  color: #faf7ef;
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.75cqw;
+  font-weight: 700;
+  letter-spacing: 0.05cqw;
+  line-height: 1.15;
+}
+
+.timetableMasthead strong {
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.25cqw;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.timetableMasthead span:last-child {
+  text-align: right;
+}
+
+.timetable {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  color: var(--style-decision-record-ink);
+  font-family: Georgia, "Songti SC", serif;
+}
+
+.timetable th,
+.timetable td {
+  padding: 1.45cqh 1.3cqw;
+  border-bottom: 0.08cqw solid var(--style-decision-record-rule);
+  text-align: left;
+}
+
+.timetable th {
+  color: var(--style-decision-record-blue);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.84cqw;
+  font-weight: 700;
+  letter-spacing: 0.06cqw;
+  text-transform: uppercase;
+}
+
+.timetable td {
+  font-size: 1.2cqw;
+  line-height: 1.18;
+}
+
+.timetable td:nth-child(2) {
+  color: var(--style-decision-record-signal);
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+}
+
+.connectionMargin {
+  display: grid;
+  align-content: end;
+  gap: 1.3cqh;
+  min-height: 0;
+  padding: 2.2cqh 1.5cqw;
+  border-left: 0.15cqw solid var(--style-decision-record-signal);
+  background: #eee9dc;
+  color: var(--style-decision-record-ink);
+}
+
+.connectionMargin span {
+  color: var(--style-decision-record-signal);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.78cqw;
+  font-weight: 700;
+  letter-spacing: 0.08cqw;
+}
+
+.connectionMargin strong {
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.55cqw;
+  line-height: 1.16;
+}
+
+.connectionMargin p {
+  margin: 0;
+  color: #4d5b63;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.05cqw;
+  line-height: 1.34;
+}
+
+.networkScene {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 1.4cqh;
+  color: #edf3ee;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 6cqw,
+      color-mix(in srgb, #e8e5d6 6%, transparent) 6cqw,
+      color-mix(in srgb, #e8e5d6 6%, transparent) 6.08cqw
+    ),
+    var(--style-decision-record-night);
+}
+
+.networkScene .sceneHeading {
+  border-color: #dbe2dd;
+}
+
+.networkScene .clauseLine,
+.networkScene .sourceStamp {
+  color: #b8c9c2;
+}
+
+.networkScene .sceneHeading h1 {
+  color: #f4f3e9;
+}
+
+.networkScene .sceneDeck {
+  color: #d0d9d2;
+}
+
+.networkScene .sourceStamp span {
+  color: #e2ab72;
+}
+
+.networkDiagram {
+  position: relative;
+  min-height: 40cqh;
+  overflow: hidden;
+  border-top: 0.09cqw solid color-mix(in srgb, #e8e5d6 52%, transparent);
+  border-bottom: 0.09cqw solid color-mix(in srgb, #e8e5d6 52%, transparent);
+}
+
+.networkDiagram > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.networkWire {
+  fill: none;
+  stroke: #93b0a3;
+  stroke-dasharray: 14 12;
+  stroke-width: 4;
+}
+
+.networkNode {
+  fill: #1c3949;
+  stroke: #e4b077;
+  stroke-width: 5;
+}
+
+.networkRelay {
+  fill: #e4b077;
+  stroke: #f4f0e2;
+  stroke-width: 4;
+}
+
+.networkStation {
+  fill: #1b4252;
+  stroke: #d6e1d8;
+  stroke-width: 4;
+  transition: fill 480ms ease, stroke 480ms ease;
+}
+
+.networkDiagram[data-synchronised="true"] .networkStation {
+  fill: #d5e0d4;
+  stroke: #e4b077;
+}
+
+.networkArrow {
+  fill: none;
+  stroke: #e4b077;
+  stroke-width: 6;
+}
+
+.networkLabel,
+.relayLabel,
+.stationLabel,
+.branchLabelTop,
+.branchLabelBottom {
+  position: absolute;
+  display: grid;
+  gap: 0.55cqh;
+  color: #ecf2eb;
+}
+
+.networkLabel {
+  top: 17cqh;
+  left: 2.6cqw;
+  width: 13cqw;
+}
+
+.relayLabel {
+  top: 19.2cqh;
+  left: 33.4cqw;
+  width: 11cqw;
+  text-align: center;
+}
+
+.stationLabel {
+  top: 17cqh;
+  right: 3.1cqw;
+  width: 18cqw;
+  transition: color 480ms ease;
+}
+
+.stationLabel[data-clock-corrected="true"] {
+  color: #f6dfa9;
+}
+
+.networkLabel span,
+.relayLabel span,
+.stationLabel span {
+  color: #e4b077;
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.8cqw;
+  font-weight: 700;
+  letter-spacing: 0.08cqw;
+}
+
+.networkLabel strong,
+.relayLabel strong,
+.stationLabel strong {
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.45cqw;
+  line-height: 1.03;
+}
+
+.networkLabel p,
+.relayLabel p,
+.stationLabel p {
+  margin: 0;
+  color: currentColor;
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.78cqw;
+  line-height: 1.2;
+}
+
+.branchLabelTop,
+.branchLabelBottom {
+  right: 18cqw;
+  color: #a9beb4;
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.68cqw;
+  letter-spacing: 0.05cqw;
+}
+
+.branchLabelTop {
+  top: 5.5cqh;
+}
+
+.branchLabelBottom {
+  bottom: 5.5cqh;
+}
+
+.networkCaption {
+  margin: 0;
+  padding-left: 1.3cqw;
+  border-left: 0.14cqw solid #e4b077;
+  color: #d7e0d9;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.16cqw;
+  line-height: 1.25;
+}
+
+.adoptionScene {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 19cqw;
+  grid-template-rows: auto 1fr;
+  column-gap: 2.2cqw;
+  row-gap: 1.6cqh;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 16.8cqw,
+      color-mix(in srgb, var(--style-decision-record-signal) 28%, transparent) 16.8cqw,
+      color-mix(in srgb, var(--style-decision-record-signal) 28%, transparent) 16.9cqw,
+      transparent 16.9cqw
+    ),
+    #f8f3e8;
+}
+
+.adoptionScene .sceneHeading {
+  grid-column: 1 / -1;
+}
+
+.adoptionLedger {
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  gap: 0.8cqh;
+  min-height: 0;
+  padding: 0.5cqh 0 0.5cqh 1.7cqw;
+}
+
+.ledgerSpine {
+  position: absolute;
+  top: 1.4cqh;
+  bottom: 1.4cqh;
+  left: 1.7cqw;
+  width: 0.16cqw;
+  background: var(--style-decision-record-signal);
+}
+
+.adoptionEntry {
+  position: relative;
+  display: grid;
+  grid-template-columns: 13.5cqw minmax(0, 1fr);
+  align-items: center;
+  gap: 1.8cqw;
+  min-height: 0;
+  padding: 1cqh 1.3cqw 1cqh 2.2cqw;
+  border-top: 0.08cqw solid var(--style-decision-record-rule);
+  border-bottom: 0.08cqw solid var(--style-decision-record-faint);
+  background: color-mix(in srgb, #fffdf5 76%, transparent);
+  transition: opacity 360ms ease, transform 360ms ease;
+}
+
+.adoptionEntry::before {
+  position: absolute;
+  left: -0.55cqw;
+  width: 1.24cqw;
+  height: 1.24cqw;
+  border: 0.12cqw solid var(--style-decision-record-signal);
+  background: #f8f3e8;
+  content: "";
+  transform: rotate(45deg);
+}
+
+.recordDate {
+  color: var(--style-decision-record-blue);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 1.5cqw;
+  font-weight: 700;
+  letter-spacing: 0.06cqw;
+  line-height: 1;
+}
+
+.recordCopy {
+  display: grid;
+  gap: 0.36cqh;
+}
+
+.recordCopy > span {
+  color: var(--style-decision-record-signal);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.68cqw;
+  font-weight: 700;
+  letter-spacing: 0.06cqw;
+}
+
+.recordCopy h2 {
+  margin: 0;
+  color: var(--style-decision-record-ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.28cqw;
+  line-height: 1.12;
+}
+
+.recordCopy p {
+  margin: 0;
+  color: #4d5960;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 0.94cqw;
+  line-height: 1.26;
+}
+
+.legalMargin {
+  display: grid;
+  align-content: end;
+  gap: 1.1cqh;
+  min-height: 0;
+  padding: 2.2cqh 1.4cqw;
+  border-top: 0.14cqh solid var(--style-decision-record-blue);
+  background: #e7e7de;
+}
+
+.legalMargin span {
+  color: var(--style-decision-record-blue);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.78cqw;
+  font-weight: 700;
+  letter-spacing: 0.08cqw;
+}
+
+.legalMargin p {
+  margin: 0;
+  color: #34444e;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.1cqw;
+  line-height: 1.35;
+}
+
+.consequenceScene {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 1.8cqh;
+  background:
+    linear-gradient(
+      180deg,
+      #f9f6ed 0,
+      #f9f6ed 67%,
+      #e7e2d5 67%,
+      #e7e2d5 100%
+    );
+}
+
+.consequenceBody {
+  display: grid;
+  grid-template-columns: 1.06fr 0.94fr 0.68fr;
+  align-items: stretch;
+  gap: 1.7cqw;
+  min-height: 0;
+}
+
+.consequenceLead,
+.consequenceCost,
+.consequenceBoundary {
+  display: grid;
+  align-content: space-between;
+  gap: 2cqh;
+  padding: 2.4cqh 1.8cqw;
+}
+
+.consequenceLead {
+  border-top: 0.18cqh solid var(--style-decision-record-blue);
+  background: #edf0eb;
+}
+
+.consequenceCost {
+  border-bottom: 0.18cqh solid var(--style-decision-record-signal);
+  background: #f7eddf;
+}
+
+.consequenceBoundary {
+  border-left: 0.1cqw solid var(--style-decision-record-rule);
+  background: transparent;
+}
+
+.consequenceLead span,
+.consequenceCost span,
+.consequenceBoundary span {
+  color: var(--style-decision-record-blue);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.82cqw;
+  font-weight: 700;
+  letter-spacing: 0.08cqw;
+}
+
+.consequenceCost span {
+  color: var(--style-decision-record-signal);
+}
+
+.consequenceLead p,
+.consequenceCost p,
+.consequenceBoundary p {
+  margin: 0;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.72cqw;
+  line-height: 1.13;
+}
+
+.consequenceBoundary p {
+  color: #3f515b;
+  font-size: 1.15cqw;
+  line-height: 1.36;
+}
+
+.closingRule {
+  display: grid;
+  grid-template-columns: 11cqw minmax(0, 1fr);
+  align-items: center;
+  gap: 1.6cqw;
+  min-height: 8cqh;
+  padding: 0 1.4cqw;
+  border-top: 0.11cqw solid var(--style-decision-record-ink);
+}
+
+.closingRule span {
+  color: var(--style-decision-record-signal);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.84cqw;
+  font-weight: 700;
+  letter-spacing: 0.08cqw;
+  text-transform: uppercase;
+}
+
+.closingRule strong {
+  color: var(--style-decision-record-ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.35cqw;
+  line-height: 1.2;
+}
+
+.clauseNavigator {
+  position: absolute;
+  z-index: 7;
+  right: 4.7cqw;
+  bottom: 1.6cqh;
+  left: 4.7cqw;
+  display: grid;
+  grid-template-columns: 15cqw minmax(0, 1fr) 19cqw;
+  align-items: center;
+  gap: 1.4cqw;
+  min-height: 8.6cqh;
+  border-top: 0.12cqh solid var(--style-decision-record-ink);
+  color: var(--style-decision-record-ink);
+  touch-action: none;
+  user-select: none;
+}
+
+.navigatorTitle {
+  color: var(--style-decision-record-blue);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.82cqw;
+  font-weight: 700;
+  letter-spacing: 0.1cqw;
+  line-height: 1.2;
+}
+
+.clauseStops {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.38cqw;
+}
+
+.clauseStop {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.45cqw;
+  min-height: 4.4cqh;
+  padding: 0.7cqh 0.5cqw;
+  border: 0.08cqw solid var(--style-decision-record-rule);
+  border-radius: 0;
+  background: color-mix(in srgb, #f9f6ed 72%, transparent);
+  color: var(--style-decision-record-blue);
+  cursor: pointer;
+  font-family: "Courier New", "PingFang SC", monospace;
+  text-align: left;
+  transition:
+    background-color 240ms ease,
+    color 240ms ease,
+    border-color 240ms ease,
+    transform 240ms ease;
+}
+
+.clauseStop > span {
+  font-size: 0.86cqw;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.clauseStop > strong {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 0.7cqw;
+  font-weight: 700;
+  letter-spacing: 0.01cqw;
+  line-height: 1.05;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.clauseStop:hover,
+.clauseStop:focus-visible {
+  border-color: var(--style-decision-record-signal);
+  color: var(--style-decision-record-signal);
+  outline: 0;
+  transform: translateY(-0.25cqh);
+}
+
+.clauseStop[data-active="true"] {
+  border-color: var(--style-decision-record-blue);
+  background: var(--style-decision-record-blue);
+  color: #fbfaf4;
+}
+
+.nextStatePreview {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 0.65cqw;
+  row-gap: 0.25cqh;
+  min-height: 4.4cqh;
+  padding: 0.6cqh 0.8cqw;
+  border-left: 0.15cqw solid var(--style-decision-record-signal);
+  background: color-mix(in srgb, #f7eddf 74%, transparent);
+}
+
+.nextStatePreview span,
+.nextStatePreview p {
+  color: var(--style-decision-record-signal);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.66cqw;
+  font-weight: 700;
+  letter-spacing: 0.05cqw;
+  line-height: 1.1;
+}
+
+.nextStatePreview strong {
+  overflow: hidden;
+  color: var(--style-decision-record-ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.04cqw;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nextStatePreview p {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.settled *,
+.settled *::before,
+.settled *::after,
+:global(html[data-frozen="true"]) .root *,
+:global(html[data-frozen="true"]) .root *::before,
+:global(html[data-frozen="true"]) .root *::after {
+  animation: none !important;
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+.root[data-thumbnail="true"] .trackShell {
+  inset: 7cqh 3.2cqw 4cqh;
+}
+
+.root[data-thumbnail="true"] .recordRibbon {
+  top: 1.3cqh;
+  left: 3.2cqw;
+  right: 3.2cqw;
+}
+
+.root[data-thumbnail="true"] .recordRibbon span:first-child,
+.root[data-thumbnail="true"] .recordRibbon span:last-child {
+  display: none;
+}
+
+.root[data-thumbnail="true"] .scene {
+  padding: 2.6cqh 2.8cqw;
+}
+
+.root[data-thumbnail="true"] .sceneHeading {
+  min-height: 16cqh;
+}
+
+.root[data-thumbnail="true"] .clockPair {
+  min-height: 42cqh;
+}
+
+.root[data-thumbnail="true"] .clockFace {
+  width: 26cqw;
+  height: 26cqw;
+}
+
+.root[data-thumbnail="true"] .connectionMargin,
+.root[data-thumbnail="true"] .legalMargin,
+.root[data-thumbnail="true"] .consequenceBoundary {
+  display: none;
+}
+
+.root[data-thumbnail="true"] .conflictScene,
+.root[data-thumbnail="true"] .adoptionScene {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.root[data-thumbnail="true"] .consequenceBody {
+  grid-template-columns: 1fr 1fr;
+}
+
+.root[data-thumbnail="true"] .consequenceLead p,
+.root[data-thumbnail="true"] .consequenceCost p {
+  font-size: 1.45cqw;
+}
+
+.root[data-language="zh"] .sceneHeading h1 {
+  font-size: 3.05cqw;
+  letter-spacing: 0;
+}
+
+.root[data-language="zh"] .sceneDeck,
+.root[data-language="zh"] .clockRuling,
+.root[data-language="zh"] .networkCaption {
+  line-height: 1.42;
+}
+
+.root[data-language="zh"] .recordCopy h2 {
+  font-size: 1.18cqw;
+}
+
+.root[data-language="zh"] .consequenceLead p,
+.root[data-language="zh"] .consequenceCost p {
+  font-size: 1.52cqw;
+  line-height: 1.2;
+}

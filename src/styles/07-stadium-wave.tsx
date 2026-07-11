@@ -895,7 +895,7 @@ export const stadiumWaveTopic = defineStyleTopic({
     en: "Stadium Wave",
     zh: "看台人浪",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: StadiumWave,
   getMetadata,
   sources: STADIUM_WAVE_SOURCES,

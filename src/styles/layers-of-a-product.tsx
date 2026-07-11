@@ -515,7 +515,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const LayersOfAProductTopic = defineStyleTopic({
   id: "layers-of-a-product",
   topic: { en: "Layers of a Product", zh: "产品的层" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: LayersOfAProductV3,
   getMetadata,
 });

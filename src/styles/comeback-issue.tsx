@@ -500,7 +500,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const comebackIssueTopic = defineStyleTopic({
   id: "comeback-issue",
   topic: { en: "The Comeback Issue", zh: "回归特刊" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: ComebackIssueV3,
   getMetadata,
 });

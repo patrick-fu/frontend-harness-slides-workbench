@@ -1098,7 +1098,7 @@ export const newHabitRunbookTopic = defineStyleTopic({
     en: "Habit Runbook",
     zh: "习惯手册",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: NewHabitRunbookV2,
   getMetadata,
 });

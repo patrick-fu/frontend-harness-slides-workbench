@@ -985,7 +985,7 @@ export const freediveTopic = defineStyleTopic({
     en: "Freedive",
     zh: "自由潜水",
   },
-  model: "GPT-5.6 Terra/Max",
+  model: "GPT 5.6 Sol",
   component: Freedive,
   getMetadata,
   navigation: NAVIGATION_PROFILE,

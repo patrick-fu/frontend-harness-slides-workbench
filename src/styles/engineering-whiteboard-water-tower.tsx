@@ -824,7 +824,7 @@ export default function EngineeringWhiteboardWaterTower({
 export const waterTowerTopic = defineStyleTopic({
   id: TOPIC_ID,
   topic: { en: "Water Tower", zh: "城市水塔" },
-  model: "GPT-5",
+  model: "GPT 5.6 Sol",
   component: EngineeringWhiteboardWaterTower,
   getMetadata,
   navigation: {

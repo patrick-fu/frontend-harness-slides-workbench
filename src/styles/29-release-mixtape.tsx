@@ -981,7 +981,7 @@ export const releaseMixtapeTopic = defineStyleTopic({
     en: "Release Mixtape",
     zh: "发布混音",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: ReleaseMixtapeV2,
   getMetadata,
 });

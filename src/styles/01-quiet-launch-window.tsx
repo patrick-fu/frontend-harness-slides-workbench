@@ -1111,7 +1111,7 @@ export const quietLaunchWindowTopic = defineStyleTopic({
     en: "Quiet Launch",
     zh: "安静发布",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: QuietLaunchWindowV2,
   getMetadata,
 });

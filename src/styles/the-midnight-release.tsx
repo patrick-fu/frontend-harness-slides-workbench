@@ -624,7 +624,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const TheMidnightReleaseTopic = defineStyleTopic({
   id: "the-midnight-release",
   topic: { en: "The Midnight Release", zh: "午夜上线" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: TheMidnightRelease,
   getMetadata,
 });

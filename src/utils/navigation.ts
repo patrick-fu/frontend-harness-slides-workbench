@@ -8,6 +8,57 @@ export interface NavTarget {
   flashStyle?: boolean;
 }
 
+export type PlayerNavigationDirection = "next" | "prev";
+
+export interface NavigationPoint {
+  x: number;
+  y: number;
+}
+
+export interface StageTapPosition {
+  clientX: number;
+  stageLeft: number;
+  stageWidth: number;
+}
+
+export const STAGE_PREVIOUS_ZONE_RATIO = 0.2;
+export const SWIPE_NAVIGATION_THRESHOLD = 50;
+
+/**
+ * Resolve an edge click or tap to a player direction.
+ * The leftmost 20% goes back; the remaining 80% advances.
+ */
+export function getStageTapNavigationDirection({
+  clientX,
+  stageLeft,
+  stageWidth,
+}: StageTapPosition): PlayerNavigationDirection {
+  return clientX - stageLeft < stageWidth * STAGE_PREVIOUS_ZONE_RATIO
+    ? "prev"
+    : "next";
+}
+
+/**
+ * Resolve a touch swipe to a player direction.
+ * Left/up advances and right/down goes back. Equal-axis diagonals are ignored.
+ */
+export function getSwipeNavigationDirection(
+  start: NavigationPoint,
+  end: NavigationPoint,
+): PlayerNavigationDirection | null {
+  const deltaX = end.x - start.x;
+  const deltaY = end.y - start.y;
+  const absX = Math.abs(deltaX);
+  const absY = Math.abs(deltaY);
+
+  if (Math.max(absX, absY) < SWIPE_NAVIGATION_THRESHOLD || absX === absY) {
+    return null;
+  }
+
+  if (absX > absY) return deltaX < 0 ? "next" : "prev";
+  return deltaY < 0 ? "next" : "prev";
+}
+
 function findStyle(
   registry: StyleRegistryEntry[],
   styleId: string,

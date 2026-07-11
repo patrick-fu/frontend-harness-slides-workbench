@@ -1027,7 +1027,7 @@ export const durableToolTopic = defineStyleTopic({
     en: "Durable Tool",
     zh: "耐用工具",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: DurableToolBenchmarkMatrixV2,
   getMetadata,
 });

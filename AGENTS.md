@@ -1,168 +1,225 @@
-# AGENTS.md
+# Frontend Harness Slides Workbench
 
-Instructions for coding agents working in this repository.
+This is the sole agent, maintenance, and authoring manual for this repository.
 
-## Project Role
+## Authority and durable knowledge
 
-This is a public React/Vite demo workbench for 49 independent slide styles.
-Treat it as an app/demo repository, not an npm library package. Keep
-`"private": true` unless the task explicitly changes npm publishing intent.
+- Current source and tests are authoritative. Inspect the implementation and its
+  closest tests before changing a contract or adding an abstraction.
+- CONTEXT.md is a glossary only. Do not use it as a roadmap, status report,
+  implementation specification, or source of current behavior.
+- ADRs record durable architectural decisions and their rationale. When a
+  decision changes, add or supersede an ADR; source and tests still define the
+  running contract.
+- Do not recreate a separate maintenance or authoring guide. Keep this file
+  current instead.
+- Do not publish hard-coded catalog cardinalities in documentation, badges, or
+  workflows. Derive those changing quantities from the registry and metadata.
 
-Do not use this file as product documentation. `README.md` is the human-facing
-project entry. This file is for agent behavior, maintenance rules, and source
-of truth ordering.
+## Repository workflow
 
-## Source Of Truth
+Work directly on main by default. Unless the user says otherwise, make the
+requested change, commit it, and push main; do not create a feature branch,
+worktree, or pull request.
 
-Use current source and tests before historical docs.
-
-Priority order:
-
-1. Existing source and tests.
-2. `CONTEXT.md` current-state notes and decisions.
-3. `docs/STYLE_AUTHORING_SPEC.md` for style work.
-4. `docs/adr/0001-mixed-mode-envelope-stage-architecture.md` for architecture.
-5. `PRD.md` and `TASKS.md` as historical intent, not guaranteed current truth.
-
-The current URL contract uses query-string routing with style and topic slugs:
-
-```text
-?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=1&beat=0
-```
-
-## Architecture Rules
-
-Respect the Envelope/Stage split.
-
-- Envelope chrome lives outside the stage and may use normal responsive UI
-  units: `px`, `rem`, Tailwind breakpoints.
-- Stage content is fixed at `1920x1080` and scaled with CSS transforms.
-- Style internals must use container-query units such as `cqw` and `cqh`, not
-  viewport units.
-- Style components communicate with the shell only through
-  `BespokeStyleProps` and `onNavigate(scene, beat)`.
-- `onNavigate(scene, beat)` is absolute navigation, not relative next/prev.
-
-Important files:
-
-- `src/types.ts`: style contract.
-- `src/styles/registry.ts`: authoritative style/topic registry.
-- `src/components/LabView.tsx`: stage mounting and presenter navigation.
-- `src/components/OverviewView.tsx`: gallery and filtering.
-- `src/data/showcase-thumbnails.ts`: overview thumbnail mapping.
-- `e2e/audit.spec.ts`: Playwright visual/navigation audit data.
-
-## Style Work
-
-Before adding or editing a style, read `docs/STYLE_AUTHORING_SPEC.md`.
-
-Each style or topic normally has:
-
-- A semantic kebab-case style ID and topic ID.
-- A `.tsx` style module under `src/styles/`.
-- Optional `.module.css` beside the style module.
-- A focused `.test.tsx` beside the style module.
-- A registry entry in `src/styles/registry.ts`
-
-Registry array order is the only ordering system. Do not introduce numeric
-sequence IDs or v1/v2 compatibility routing. Existing legacy filenames may keep
-numeric prefixes, but new style IDs and topic IDs should be semantic slugs.
-
-Style requirements:
-
-- Render all scenes and beats declared by metadata.
-- Keep visual content inside the stage root.
-- Suppress internal navigation when `isThumbnail` is true.
-- Respect `reducedMotion`.
-- Keep `getMetadata("en")` and `getMetadata("zh")` structurally aligned.
-- Update `e2e/audit.spec.ts` hard-coded beat counts if beat counts change.
-
-Overview cards use static images from `public/showcase`; do not reintroduce
-live stage thumbnail rendering unless the task explicitly asks for it and
-performance is addressed.
-
-## Commands
-
-Use Node.js 22.
-
-```bash
-nvm use
-npm ci
-npm run dev
-```
-
-Validation commands:
-
-```bash
-npm run typecheck
-npm run build
-npm run test:unit
-npm run ci
-npm run test:audit
-```
-
-Default validation:
-
-- Documentation-only changes: no test required unless scripts or examples
-  changed.
-- TypeScript/source changes: run `npm run ci`.
-- Navigation, stage, style, thumbnail, or visual behavior changes: run
-  `npm run ci` and `npm run test:audit`.
-
-## Public Repository Hygiene
-
-This repository is public.
-
-Do not commit:
-
-- Local absolute paths from a developer machine.
-- Vercel deployment IDs, org IDs, project IDs, tokens, or preview secrets.
-- `.env*`, `.vercel/`, build outputs, Playwright reports, or generated cache
-  files.
-- Screenshots or exports unless the task explicitly calls for committed
-  assets.
-
-The package is MIT licensed. Keep `LICENSE`, `package.json`, and public docs
-consistent if licensing changes.
-
-## Dependency And Tooling Changes
-
-Avoid adding new tooling unless it solves a current problem.
-
-- Do not add ESLint, Prettier, formatters, or new CI gates casually.
-- Do not mass-format unrelated files.
-- If adding dependencies, explain why existing React/Vite/TypeScript tooling
-  is insufficient.
-- Keep GitHub Actions aligned with package scripts instead of duplicating raw
-  commands.
-
-## Git And Worktrees
-
-Work in a feature branch or worktree. The repository ignores `worktrees/` for
-local worktree directories.
-
-Before committing:
-
-1. Check `git status --short --branch`.
-2. Stage only files relevant to the task.
-3. Run the validation command appropriate to the change.
-4. Use an English commit message with a plain-sentence subject and bullet body.
-
-For personal project commits, use:
+For personal commits, use this identity:
 
 ```bash
 git -c user.name="Patrick Fu" -c user.email="paaatrickfu@gmail.com" commit
 ```
 
-## Documentation Boundaries
+Before a commit, inspect git status, stage only task files, and run the
+validation appropriate to the change. A user instruction not to commit or push
+overrides the default workflow.
 
-Keep documentation roles separate:
+## Domain model
 
-- `README.md`: polished public overview and quick start.
-- `AGENTS.md`: agent instructions and maintenance guardrails.
-- `docs/MAINTENANCE.md`: human maintainer playbook.
-- `CONTEXT.md`: decision log and project history.
-- `ACCEPTANCE.md`: validation snapshot.
+- A Style is a stable visual system with a semantic kebab-case ID.
+- A Topic is one self-contained presentation inside a Style. It has its own
+  semantic kebab-case ID, bilingual label, model label, metadata, and Stage
+  implementation. It is not a version; never add vN IDs or compatibility
+  aliases.
+- Style order is the order of the authoring catalog. Topic order is the order
+  within its owning Style. That order drives catalog grouping and player
+  navigation.
+- Metadata is the source for scene and beat structure. English and Chinese
+  metadata must remain structurally aligned: identical Style ID, scene IDs,
+  beat IDs, and story states, with independently appropriate copy and layout.
+- Each Topic follows the fixed five-scene structure enforced by the authoring
+  protocol; beat cardinality remains metadata-defined.
 
-Do not bury product-facing explanation in `AGENTS.md`. Do not turn `README.md`
-into an internal task log.
+## Envelope and Stage
+
+The application is deliberately split into a responsive Envelope and an
+isolated Stage.
+
+- The Envelope owns the Catalog and Player chrome, routing, global controls,
+  library/search, transport, and responsive layout. It may use normal browser
+  UI units and breakpoints.
+- The Stage is a fixed 1920x1080 canvas. Lab View fits it with a contain-style
+  scale transform; it is not reflowed, cropped, or resized for surrounding
+  chrome.
+- Stage content uses Stage-relative container-query units such as cqw and cqh,
+  not viewport-relative layout units. Keep visual content inside the Stage
+  root.
+- A Topic communicates with the Envelope only through BespokeStyleProps and
+  onNavigate(scene, beat). onNavigate is an absolute destination, never a
+  relative next/previous request.
+- Honor isThumbnail and reducedMotion. Thumbnail mode has no interactive
+  internal navigation; reduced motion and frozen capture frames must settle
+  deterministically.
+
+## Query routing and history
+
+All shareable state lives in query parameters, never in URL fragments.
+
+- view selects overview or lab.
+- style and topic identify a semantic Style/Topic pair.
+- scene and beat identify the metadata-defined playback position.
+- band and model are repeated singular Overview filters.
+- lang is a temporary language override; pure and frozen are shareable display
+  flags.
+
+Preserve unknown filter values as unresolved criteria instead of silently
+removing or broadening them. Validate and clamp scene and beat against active
+Topic metadata rather than against fixed counts.
+
+A View, Style, or Topic destination normally creates a history entry. Filter,
+scene, beat, language, Pure Mode, and Frozen state normally replace the current
+entry. Use an explicit history override only when the interaction needs a
+different user-visible back/forward behavior. Keep popstate synchronized with
+the query state.
+
+## Catalog, manifest, lazy Stages, and thumbnails
+
+The Catalog must remain usable without loading every Stage.
+
+- src/styles/catalog-source.ts is the authoring catalog. It imports concrete
+  Topic modules and defines Style and Topic order.
+- scripts/generate-catalog-manifest.mjs generates
+  src/styles/catalog-manifest.generated.ts. The generated manifest carries
+  synchronous Catalog data and the path to each Topic module.
+- src/styles/registry.ts builds the runtime registry from that manifest.
+  Topic components load on Player demand through the module loader and may be
+  prefetched only for likely nearby destinations.
+- Do not edit the generated catalog manifest manually. Do not make the Catalog
+  eagerly import or render Stage components.
+- Overview cards use committed static WebP images from public/showcase, mapped
+  by the generated src/data/showcase-thumbnails.ts. Do not restore live Stage
+  thumbnail rendering.
+
+## Topic authoring rules
+
+Read the relevant types, registry entry, shared hooks, and nearest comparable
+Topic before writing code.
+
+- Put a Topic implementation in src/styles. New module names and Topic IDs use
+  semantic kebab-case; existing legacy filenames may remain unchanged.
+- A Stage module has a default component export. Its catalog entry supplies
+  localized metadata; new Topic modules use defineStyleTopic and follow the
+  neighboring source pattern when extending an existing Style.
+- Keep optional CSS beside the Topic as a module stylesheet and keep focused
+  behavior tests beside the implementation.
+- Register every new or moved Topic in catalog-source.ts. Do not hand-edit the
+  runtime registry or generated manifest to bypass the authoring catalog.
+- Metadata must satisfy the current type and protocol tests. Keep its Style ID
+  correct, provide localized names and copy, describe every scene/beat state,
+  and derive loops, progress, and navigation bounds from metadata.
+- Do not add global chrome, routing state, or cross-Style ordering to a Topic.
+  Reuse the shared Envelope behavior.
+
+### Scene lifecycle and beat layout
+
+Every Topic uses SpatialSceneTrack for scene lifecycle and declares explicit
+transition behavior with transitionKind or transitionMap.
+
+- SpatialSceneTrack owns mounted scene panels, transition direction, outgoing
+  panel lifetime, reduced-motion behavior, and transition interruption.
+- Do not read or pass isTransitionClone. Do not maintain outgoing-scene clone
+  state, render a transition clone, or emit a transition-clone marker.
+- Choose a deliberate per-edge transition score where the Topic protocol
+  requires one. Match the declared score to the rendered behavior.
+- For each multi-beat scene, choose a beat layout strategy: reserved space for
+  stable geometry, or motion for intentional reflow.
+- Mark the beat layout container with data-beat-layout-container and
+  data-beat-layout-mode. Mark stable visual children with
+  data-beat-layout-item when a nested layout or FLIP-based motion needs them.
+- Disable layout motion for thumbnails, reduced motion, and frozen capture
+  paths. A beat must represent a meaningful story state, not a decorative fade.
+
+### Sources and internal navigation
+
+Keep claim-bearing Topic content traceable.
+
+- Declare TopicSource records in the Topic module. Each source needs an
+  absolute HTTPS URL, identifying authority, title, or citation, and a
+  supports statement that names the claim and any relevant boundary.
+- Do not invent citations, turn a broad source into support for an unsupported
+  claim, or conceal uncertainty in presentation copy.
+- For Topic protocols that require sources, navigation, or a transition score,
+  satisfy the current protocol tests rather than weakening the shared schema.
+- Internal navigation belongs to the Topic's visual language. It must request
+  absolute scene/beat destinations through onNavigate, expose the metadata
+  required by the navigation contract, stop interaction events from leaking to
+  Stage transport, and disappear in thumbnails.
+- A declared navigation profile keeps geometry, carrier, invocation, and
+  feedback in source and in the rendered data-topic-navigation attributes.
+  Use a semantic lowercase carrier and preserve the uniqueness constraints
+  asserted by the protocol tests.
+- Gesture, proximity, drag, or hold behavior is enhancement only. Ordinary
+  click/tap and keyboard navigation remain available and accessible.
+
+## Generated catalog and thumbnail workflow
+
+After changing a Topic registration, metadata, module identity, or component
+location, regenerate the Catalog manifest:
+
+```bash
+node scripts/generate-catalog-manifest.mjs
+```
+
+Commit the generated manifest with its source change.
+
+After a registration, hero-scene metadata, or Stage visual change, regenerate
+the static showcase assets. The generator captures the English hero frame in
+pure and frozen mode, writes a generated mapping, and removes stale WebPs.
+
+```bash
+cwebp -version
+npm run generate:showcase-thumbnails
+npm run verify:showcase-thumbnails
+```
+
+cwebp is required locally; install the WebP package for the platform if it is
+missing. The generated WebPs and mapping are committed artifacts. Do not edit
+them by hand. Use npm run clean:showcase-thumbnails only when intentionally
+removing obsolete generated assets.
+
+## Validation matrix
+
+| Change | Required validation |
+| --- | --- |
+| Documentation or workflow only | Inspect the diff and run git diff --check. |
+| TypeScript, shared behavior, or tests | Run the focused test, then npm run ci. |
+| Catalog-source, metadata, or module path | Regenerate the catalog manifest, then run npm run ci. |
+| Registration, hero-frame metadata, or Stage visual output | Regenerate and verify thumbnails, then run npm run ci. |
+| Routing, Envelope, Stage, navigation, motion, or responsive visual behavior | Run npm run ci and npm run test:audit. |
+
+npm run ci is the repository's standard non-browser gate: typecheck, build,
+unit tests, and static-thumbnail verification. Keep GitHub Actions aligned to
+this script instead of duplicating its subcommands.
+
+## Public repository hygiene
+
+This repository is public.
+
+- Never commit secrets, tokens, deployment IDs, local absolute paths, .env
+  files, .vercel state, build output, caches, Playwright reports, temporary
+  captures, or unrelated generated files.
+- The committed public/showcase WebPs and their generated mapping are the
+  narrow exception for approved generated visual assets.
+- Do not hotlink unreviewed external assets. Keep licenses, attribution, and
+  source claims accurate when assets or research are added.
+- Keep dependency and tooling changes minimal. Do not introduce formatters,
+  linters, CI gates, or broad formatting changes without a current,
+  task-specific reason.

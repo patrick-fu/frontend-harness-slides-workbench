@@ -1,0 +1,1195 @@
+.root {
+  --paper-ground: #d8c7a2;
+  --paper-cream: #f0e2bd;
+  --paper-note: #f5e7bd;
+  --paper-rust: #a94c38;
+  --paper-indigo: #315269;
+  --paper-mustard: #c29435;
+  --paper-olive: #647243;
+  --ink: #2e2519;
+  --soft-ink: #6c573c;
+  --line: #58412b;
+  --shadow: rgba(63, 43, 24, 0.28);
+  container-type: size;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--ink);
+  background: var(--paper-ground);
+  font-family: Georgia, "Songti SC", "STSong", serif;
+}
+
+.root *,
+.root *::before,
+.root *::after {
+  box-sizing: border-box;
+}
+
+.root[data-motion="off"] *,
+.root[data-motion="off"] *::before,
+.root[data-motion="off"] *::after {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+.staticHeader {
+  position: absolute;
+  z-index: 30;
+  top: 2cqh;
+  right: 2.4cqw;
+  left: 2.4cqw;
+  height: 6.6cqh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content minmax(0, 1fr);
+  align-items: center;
+  gap: 1.2cqw;
+  padding: 0 1.5cqw;
+  color: var(--ink);
+  background: var(--paper-cream);
+  border: 0.12cqw solid var(--ink);
+  box-shadow: 0.35cqw 0.46cqh 0 var(--shadow);
+}
+
+.staticHeader::before,
+.staticHeader::after {
+  content: "";
+  position: absolute;
+  top: -0.9cqh;
+  width: 8cqw;
+  height: 1.9cqh;
+  background: rgba(241, 220, 166, 0.74);
+  border: 0.06cqw solid rgba(88, 65, 43, 0.16);
+  transform: rotate(-3deg);
+}
+
+.staticHeader::before {
+  left: 8cqw;
+}
+
+.staticHeader::after {
+  right: 8cqw;
+  transform: rotate(4deg);
+}
+
+.staticHeader span {
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.58cqw;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.08cqw;
+  text-transform: uppercase;
+}
+
+.staticHeader span:last-child {
+  text-align: right;
+}
+
+.staticHeader strong {
+  position: relative;
+  z-index: 1;
+  font-size: 1.65cqw;
+  font-weight: 700;
+  letter-spacing: 0.045cqw;
+  white-space: nowrap;
+}
+
+.trackShell {
+  position: absolute;
+  z-index: 1;
+  top: 10.6cqh;
+  right: 2.4cqw;
+  bottom: 17.2cqh;
+  left: 2.4cqw;
+  overflow: hidden;
+  border: 0.12cqw solid var(--ink);
+  box-shadow: 0.52cqw 0.7cqh 0 var(--shadow);
+}
+
+.track {
+  width: 100%;
+  height: 100%;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--ink);
+  background: var(--paper-ground);
+}
+
+.scene1 {
+  background: #cdbb94;
+}
+
+.scene2 {
+  background: #d5c29c;
+}
+
+.scene3 {
+  background: #dfcfad;
+}
+
+.scene4 {
+  background: #d4c09b;
+}
+
+.scene5 {
+  background: #cbb88f;
+}
+
+.paperGrain {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.32;
+}
+
+.paperGrain path {
+  fill: none;
+  stroke: #876d4a;
+  stroke-width: 0.16;
+}
+
+.paperGrain circle {
+  fill: #6d5338;
+}
+
+.sceneHeading {
+  position: absolute;
+  z-index: 12;
+  top: 3.1cqh;
+  left: 3.1cqw;
+  width: 37cqw;
+}
+
+.sceneHeading p {
+  margin: 0;
+  color: var(--paper-rust);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.72cqw;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.1cqw;
+  text-transform: uppercase;
+}
+
+.sceneHeading h1 {
+  margin: 1cqh 0 0;
+  font-size: 4.05cqw;
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -0.08cqw;
+  white-space: pre-line;
+}
+
+.sceneHeading span {
+  display: block;
+  max-width: 33cqw;
+  margin-top: 1.3cqh;
+  color: var(--soft-ink);
+  font-size: 0.95cqw;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.traceabilityRail {
+  position: absolute;
+  z-index: 24;
+  right: 2.2cqw;
+  bottom: 1.5cqh;
+  left: 2.2cqw;
+  min-height: 3.3cqh;
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  padding: 0.5cqh 0.8cqw;
+  color: var(--ink);
+  background: rgba(240, 226, 189, 0.84);
+  border-top: 0.1cqw dashed var(--line);
+  border-bottom: 0.08cqw solid rgba(88, 65, 43, 0.42);
+}
+
+.traceLabel {
+  flex: 0 0 auto;
+  color: var(--paper-rust);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.52cqw;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.07cqw;
+}
+
+.traceStamps {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45cqh 0.5cqw;
+  min-width: 0;
+}
+
+.sourceStamp {
+  display: inline-block;
+  color: inherit;
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.5cqw;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.018cqw;
+  text-decoration: none;
+  border-bottom: 0.05cqw solid currentColor;
+  cursor: pointer;
+}
+
+.sourceStamp:focus-visible {
+  outline: 0.16cqw solid var(--paper-rust);
+  outline-offset: 0.18cqw;
+}
+
+.reveal {
+  opacity: 1;
+  transition: opacity 380ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.reveal[data-revealed="false"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wallSurface {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: #b99f70;
+  border: 1.1cqw solid rgba(61, 43, 26, 0.18);
+}
+
+.wallSurface::before,
+.wallSurface::after {
+  content: "";
+  position: absolute;
+  border: 0.08cqw solid rgba(77, 53, 31, 0.24);
+}
+
+.wallSurface::before {
+  top: 7cqh;
+  left: -5cqw;
+  width: 42cqw;
+  height: 23cqh;
+  transform: rotate(-6deg);
+}
+
+.wallSurface::after {
+  right: -7cqw;
+  bottom: 10cqh;
+  width: 38cqw;
+  height: 19cqh;
+  transform: rotate(5deg);
+}
+
+.wallSeam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 68cqw;
+  width: 0.18cqw;
+  background: rgba(86, 59, 33, 0.54);
+  transform: rotate(3deg);
+}
+
+.wallLabel {
+  position: absolute;
+  top: 13cqh;
+  right: 4.5cqw;
+  color: rgba(46, 37, 25, 0.68);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.65cqw;
+  font-weight: 700;
+  letter-spacing: 0.1cqw;
+  transform: rotate(90deg);
+  transform-origin: right top;
+}
+
+.wallOpening {
+  position: absolute;
+  z-index: 8;
+  top: 13cqh;
+  right: 11cqw;
+  width: 34cqw;
+  height: 40cqh;
+  padding: 2.2cqh 2.2cqw;
+  background: #8d7350;
+  clip-path: polygon(5% 1%, 91% 0%, 100% 16%, 96% 91%, 75% 100%, 7% 94%, 0% 71%);
+  box-shadow: inset 0 0 0 0.5cqw rgba(48, 34, 21, 0.34), 0.75cqw 0.95cqh 0 var(--shadow);
+  transform: rotate(3deg);
+}
+
+.tapeTop {
+  position: absolute;
+  z-index: 3;
+  top: -1.3cqh;
+  left: 9cqw;
+  width: 12cqw;
+  height: 2.3cqh;
+  background: rgba(245, 223, 171, 0.7);
+  border: 0.06cqw solid rgba(78, 55, 31, 0.18);
+  transform: rotate(-7deg);
+}
+
+.tornReveal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--paper-cream);
+  clip-path: polygon(3% 7%, 92% 0%, 100% 20%, 93% 100%, 10% 94%, 0% 69%);
+  border: 0.12cqw solid var(--ink);
+}
+
+.shoeDrawing {
+  width: 26cqw;
+  height: 20cqh;
+  color: var(--ink);
+  transform: rotate(-8deg);
+}
+
+.shoeDrawing path,
+.shoeDrawing circle {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.objectTag {
+  position: absolute;
+  right: 1.4cqw;
+  bottom: 1.2cqh;
+  padding: 0.4cqh 0.5cqw;
+  color: var(--paper-cream);
+  background: var(--paper-rust);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.52cqw;
+  font-weight: 700;
+  letter-spacing: 0.06cqw;
+  transform: rotate(-2deg);
+}
+
+.sceneOneFact,
+.sceneOneDetail,
+.sceneOneBoundary {
+  position: absolute;
+  z-index: 14;
+}
+
+.sceneOneFact {
+  top: 55cqh;
+  right: 9cqw;
+  width: 39cqw;
+  padding: 1.45cqh 1.6cqw;
+  background: var(--paper-note);
+  clip-path: polygon(2% 4%, 97% 0%, 100% 88%, 91% 100%, 0% 94%);
+  box-shadow: 0.35cqw 0.55cqh 0 var(--shadow);
+  transform: rotate(-3deg);
+}
+
+.sceneOneFact p,
+.sceneOneBoundary p {
+  margin: 0;
+  font-size: 1.1cqw;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.sceneOneDetail {
+  top: 19cqh;
+  right: 46cqw;
+  padding: 0.8cqh 1cqw;
+  color: var(--paper-cream);
+  background: var(--paper-indigo);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.7cqw;
+  font-weight: 700;
+  letter-spacing: 0.06cqw;
+  transform: rotate(4deg);
+}
+
+.sceneOneBoundary {
+  right: 48cqw;
+  bottom: 11cqh;
+  width: 28cqw;
+  padding: 1.2cqh 1.4cqw 1.2cqh 2.6cqw;
+  background: var(--paper-cream);
+  clip-path: polygon(4% 0, 100% 7%, 94% 95%, 0 100%);
+  box-shadow: 0.35cqw 0.5cqh 0 var(--shadow);
+  transform: rotate(4deg);
+}
+
+.pinDot,
+.scrapPin,
+.finalPin {
+  display: block;
+  width: 0.92cqw;
+  height: 0.92cqw;
+  background: var(--ink);
+  box-shadow: 0.14cqw 0.22cqh 0 rgba(46, 37, 25, 0.34);
+}
+
+.sceneOneBoundary .pinDot {
+  position: absolute;
+  top: 1cqh;
+  left: 1cqw;
+}
+
+.handArrow {
+  position: absolute;
+  z-index: 18;
+  color: var(--paper-rust);
+  font-family: "Bradley Hand", "KaiTi", cursive;
+  font-size: 1.55cqw;
+  font-weight: 700;
+  transform: rotate(-8deg);
+}
+
+.scene1 > .handArrow {
+  right: 50cqw;
+  top: 48cqh;
+}
+
+.fragmentDesk {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+}
+
+.deskCutLine {
+  position: absolute;
+  top: 15cqh;
+  left: 35cqw;
+  width: 58cqw;
+  height: 0.15cqh;
+  background: rgba(88, 65, 43, 0.5);
+  transform: rotate(7deg);
+}
+
+.evidenceReveal {
+  position: static;
+}
+
+.evidenceScrap {
+  position: absolute;
+  z-index: 7;
+  padding: 1.25cqh 1.25cqw 1cqh;
+  overflow: hidden;
+  box-shadow: 0.38cqw 0.62cqh 0 var(--shadow);
+  border: 0.1cqw solid rgba(46, 37, 25, 0.34);
+  transition: transform 430ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.evidenceScrap:nth-of-type(4),
+.evidenceScrap:nth-of-type(7) {
+  z-index: 11;
+}
+
+.evidenceScrap p {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  padding-right: 0.6cqw;
+  font-size: 0.93cqw;
+  font-weight: 700;
+  line-height: 1.27;
+}
+
+.evidenceScrap > span:last-child {
+  position: relative;
+  z-index: 2;
+  display: block;
+  margin-top: 0.9cqh;
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.48cqw;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.04cqw;
+}
+
+.scrapPin {
+  position: absolute;
+  z-index: 4;
+  top: 0.75cqh;
+  right: 0.8cqw;
+}
+
+.tonecream {
+  color: var(--ink);
+  background: var(--paper-cream);
+}
+
+.tonenote {
+  color: var(--ink);
+  background: var(--paper-note);
+}
+
+.tonerust {
+  color: var(--paper-cream);
+  background: var(--paper-rust);
+}
+
+.toneindigo {
+  color: var(--paper-cream);
+  background: var(--paper-indigo);
+}
+
+.tonemustard {
+  color: var(--ink);
+  background: var(--paper-mustard);
+}
+
+.toneolive {
+  color: var(--paper-cream);
+  background: var(--paper-olive);
+}
+
+.clipone {
+  clip-path: polygon(2% 5%, 97% 0, 100% 91%, 88% 100%, 0 95%);
+}
+
+.cliptwo {
+  clip-path: polygon(0 8%, 86% 0, 100% 15%, 95% 97%, 7% 100%, 2% 70%);
+}
+
+.clipthree {
+  clip-path: polygon(4% 0, 100% 6%, 92% 100%, 0 94%);
+}
+
+.clipfour {
+  clip-path: polygon(0 0, 94% 5%, 100% 86%, 76% 100%, 5% 95%);
+}
+
+.clipfive {
+  clip-path: polygon(5% 4%, 100% 0, 95% 70%, 100% 100%, 0 91%);
+}
+
+.bottleDrawing {
+  position: absolute;
+  z-index: 1;
+  right: 1cqw;
+  bottom: 0.6cqh;
+  width: 7.5cqw;
+  height: 10cqh;
+  color: currentColor;
+  opacity: 0.31;
+  transform: rotate(8deg);
+}
+
+.bottleDrawing path,
+.bottleDrawing circle {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.8;
+}
+
+.markDrawing {
+  position: absolute;
+  z-index: 1;
+  right: 1.2cqw;
+  top: 0.8cqh;
+  width: 10cqw;
+  height: 7cqh;
+  color: var(--paper-rust);
+  opacity: 0.44;
+}
+
+.markDrawing path,
+.markDrawing circle,
+.markDrawing rect {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+.markDrawing text {
+  fill: currentColor;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.1cqw;
+  font-weight: 700;
+}
+
+.fragmentInstruction {
+  position: absolute;
+  z-index: 15;
+  right: 5cqw;
+  bottom: 8.2cqh;
+  width: 28cqw;
+  padding: 0.7cqh 0.9cqw;
+  color: var(--paper-cream);
+  background: var(--paper-indigo);
+  font-family: "Bradley Hand", "KaiTi", cursive;
+  font-size: 1.05cqw;
+  font-weight: 700;
+  line-height: 1.2;
+  transform: rotate(-3deg);
+}
+
+.planMargin {
+  position: absolute;
+  z-index: 14;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 32cqw;
+  padding: 3cqh 2.8cqw;
+  background: var(--paper-cream);
+  border-right: 0.12cqw solid var(--ink);
+  box-shadow: 0.42cqw 0 0 var(--shadow);
+}
+
+.planMargin .sceneHeading {
+  position: static;
+  width: auto;
+}
+
+.planMargin > p {
+  position: absolute;
+  right: 2.8cqw;
+  bottom: 8.3cqh;
+  left: 2.8cqw;
+  margin: 0;
+  color: var(--soft-ink);
+  font-size: 0.9cqw;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.housePlan {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+}
+
+.planOuter,
+.planRoomOne,
+.planRoomTwo,
+.planFireplace,
+.planChimney,
+.planFloor {
+  position: absolute;
+  display: block;
+  border: 0.16cqw solid var(--line);
+}
+
+.planOuter {
+  top: 11cqh;
+  right: 5cqw;
+  bottom: 10cqh;
+  left: 35cqw;
+  transform: rotate(-1deg);
+}
+
+.planRoomOne {
+  top: 21cqh;
+  left: 46cqw;
+  width: 24cqw;
+  height: 24cqh;
+  transform: rotate(1deg);
+}
+
+.planRoomTwo {
+  top: 45cqh;
+  left: 56cqw;
+  width: 25cqw;
+  height: 18cqh;
+  transform: rotate(-2deg);
+}
+
+.planFireplace {
+  top: 31cqh;
+  left: 63cqw;
+  width: 7cqw;
+  height: 7cqh;
+  background: var(--paper-rust);
+  border-color: var(--ink);
+  transform: rotate(45deg);
+}
+
+.planChimney {
+  top: 14cqh;
+  right: 8cqw;
+  width: 7cqw;
+  height: 20cqh;
+  background: var(--paper-indigo);
+  transform: rotate(3deg);
+}
+
+.planFloor {
+  right: 12cqw;
+  bottom: 13cqh;
+  left: 41cqw;
+  height: 4cqh;
+  border-style: dashed;
+  transform: rotate(-2deg);
+}
+
+.planTag {
+  position: absolute;
+  z-index: 16;
+  max-width: 22cqw;
+  padding: 0.65cqh 0.75cqw;
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.55cqw;
+  font-weight: 700;
+  line-height: 1.15;
+  box-shadow: 0.25cqw 0.38cqh 0 var(--shadow);
+  border: 0.08cqw solid rgba(46, 37, 25, 0.36);
+}
+
+.stitchPlan {
+  position: absolute;
+  z-index: 10;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 430ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.stitchPlan[data-revealed="false"] {
+  opacity: 0;
+}
+
+.stitchPlan path {
+  fill: none;
+  stroke: var(--paper-rust);
+  stroke-width: 0.38;
+  stroke-dasharray: 1.7 1.1;
+  stroke-linecap: round;
+}
+
+.planBoundary {
+  position: absolute;
+  z-index: 18;
+  right: 6cqw;
+  bottom: 8.2cqh;
+  width: 35cqw;
+  min-height: 8cqh;
+  padding: 1.2cqh 1.4cqw;
+  background: var(--paper-note);
+  clip-path: polygon(2% 4%, 100% 0, 96% 96%, 0 100%);
+  box-shadow: 0.35cqw 0.52cqh 0 var(--shadow);
+  transform: rotate(2deg);
+}
+
+.planBoundary .handArrow {
+  position: static;
+  display: block;
+  margin-bottom: 0.55cqh;
+  color: var(--paper-rust);
+  font-size: 1.05cqw;
+  transform: rotate(-2deg);
+}
+
+.planBoundary p {
+  margin: 0;
+  font-size: 0.88cqw;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.evidenceStack {
+  position: absolute;
+  z-index: 5;
+  top: 12cqh;
+  right: 7cqw;
+  width: 55cqw;
+  height: 49cqh;
+}
+
+.evidenceLayer {
+  position: absolute;
+  width: 33cqw;
+  min-height: 22cqh;
+  padding: 2cqh 2.2cqw 1.7cqh;
+  color: var(--ink);
+  clip-path: polygon(2% 4%, 98% 0, 100% 93%, 90% 100%, 0 95%);
+  box-shadow: 0.48cqw 0.65cqh 0 var(--shadow);
+  border: 0.1cqw solid rgba(46, 37, 25, 0.35);
+  mix-blend-mode: normal;
+}
+
+.layerfinding {
+  z-index: 3;
+  top: 0;
+  left: 0;
+  background: rgba(240, 226, 189, 0.94);
+  transform: rotate(-4deg);
+}
+
+.layerresearch {
+  z-index: 4;
+  top: 8cqh;
+  left: 13cqw;
+  background: rgba(196, 174, 120, 0.92);
+  transform: rotate(3deg);
+}
+
+.layerfolklore {
+  z-index: 5;
+  top: 22cqh;
+  left: 3cqw;
+  background: rgba(178, 199, 184, 0.92);
+  transform: rotate(-2deg);
+}
+
+.layerTape {
+  position: absolute;
+  top: -1.1cqh;
+  right: 7cqw;
+  width: 11cqw;
+  height: 2.1cqh;
+  background: rgba(244, 224, 171, 0.72);
+  border: 0.06cqw solid rgba(88, 65, 43, 0.16);
+  transform: rotate(6deg);
+}
+
+.evidenceLayer h2 {
+  margin: 0;
+  color: var(--paper-rust);
+  font-family: "Bradley Hand", "KaiTi", cursive;
+  font-size: 1.65cqw;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.evidenceLayer p {
+  margin: 1.1cqh 0 0;
+  font-size: 0.9cqw;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.evidenceLayer footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4cqw;
+  margin-top: 1.1cqh;
+  color: var(--soft-ink);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.48cqw;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.evidenceNote {
+  position: absolute;
+  z-index: 16;
+  top: 58cqh;
+  left: 4cqw;
+  width: 28cqw;
+  padding: 0.85cqh 1cqw;
+  color: var(--paper-cream);
+  background: var(--paper-indigo);
+  font-family: "Bradley Hand", "KaiTi", cursive;
+  font-size: 1.15cqw;
+  font-weight: 700;
+  line-height: 1.2;
+  transform: rotate(-6deg);
+}
+
+.closingPanel {
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 39cqw;
+  padding: 3cqh 2.8cqw;
+  background: var(--paper-cream);
+  border-right: 0.12cqw solid var(--ink);
+  box-shadow: 0.42cqw 0 0 var(--shadow);
+}
+
+.closingPanel .sceneHeading {
+  position: static;
+  width: auto;
+}
+
+.closingBoundary,
+.closingCare {
+  position: absolute;
+  right: 2.8cqw;
+  left: 2.8cqw;
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.closingBoundary {
+  top: 40cqh;
+  padding: 1.3cqh 1.4cqw;
+  background: var(--paper-note);
+  clip-path: polygon(5% 0, 100% 4%, 94% 100%, 0 92%);
+  font-size: 1.02cqw;
+  transform: rotate(-2deg);
+}
+
+.closingCare {
+  top: 57cqh;
+  color: var(--soft-ink);
+  font-size: 0.83cqw;
+}
+
+.conservationTray {
+  position: absolute;
+  z-index: 5;
+  top: 10cqh;
+  right: 5cqw;
+  width: 52cqw;
+  height: 55cqh;
+  overflow: hidden;
+  background: #876b49;
+  border: 0.6cqw solid #5a432d;
+  box-shadow: 0.7cqw 0.9cqh 0 rgba(55, 38, 23, 0.34);
+  transform: rotate(1deg);
+}
+
+.conservationTray::before {
+  content: "";
+  position: absolute;
+  inset: 1cqh 1cqw;
+  border: 0.12cqw dashed rgba(240, 226, 189, 0.55);
+  pointer-events: none;
+}
+
+.trayLabel {
+  position: absolute;
+  z-index: 8;
+  top: 1.3cqh;
+  left: 2cqw;
+  color: var(--paper-cream);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.56cqw;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.06cqw;
+}
+
+.trayObject {
+  position: absolute;
+  z-index: 4;
+  padding: 0.85cqh 0.85cqw;
+  overflow: hidden;
+  border: 0.22cqw solid rgba(46, 37, 25, 0.68);
+  box-shadow: inset 0.28cqw 0.36cqh 0 rgba(46, 37, 25, 0.26);
+  clip-path: polygon(3% 2%, 97% 0, 100% 91%, 90% 100%, 0 95%);
+}
+
+.trayObject p {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-size: 0.58cqw;
+  font-weight: 700;
+  line-height: 1.18;
+}
+
+.trayString {
+  position: absolute;
+  z-index: 1;
+  right: -1cqw;
+  bottom: 0.8cqh;
+  width: 9cqw;
+  height: 0.11cqh;
+  background: rgba(46, 37, 25, 0.42);
+  transform: rotate(-15deg);
+}
+
+.traySlot1 {
+  top: 6cqh;
+  left: 2cqw;
+  width: 21cqw;
+  min-height: 12cqh;
+  transform: rotate(-3deg);
+}
+
+.traySlot2 {
+  top: 6cqh;
+  left: 25cqw;
+  width: 23cqw;
+  min-height: 12cqh;
+  transform: rotate(2deg);
+}
+
+.traySlot3 {
+  top: 20cqh;
+  left: 3cqw;
+  width: 16cqw;
+  min-height: 11cqh;
+  transform: rotate(3deg);
+}
+
+.traySlot4 {
+  top: 20cqh;
+  left: 21cqw;
+  width: 14cqw;
+  min-height: 14cqh;
+  transform: rotate(-2deg);
+}
+
+.traySlot5 {
+  top: 20cqh;
+  left: 37cqw;
+  width: 12cqw;
+  min-height: 13cqh;
+  transform: rotate(4deg);
+}
+
+.traySlot6 {
+  top: 36cqh;
+  left: 4cqw;
+  width: 22cqw;
+  min-height: 11cqh;
+  transform: rotate(-4deg);
+}
+
+.traySlot7 {
+  top: 36cqh;
+  left: 28cqw;
+  width: 20cqw;
+  min-height: 11cqh;
+  transform: rotate(3deg);
+}
+
+.finalPin {
+  position: absolute;
+  z-index: 16;
+  top: 8cqh;
+  right: 6cqw;
+  width: 1.05cqw;
+  height: 1.05cqw;
+  background: var(--paper-rust);
+  transform: rotate(12deg);
+}
+
+.wallCacheNavigation {
+  position: absolute;
+  z-index: 38;
+  right: 2.4cqw;
+  bottom: 2cqh;
+  width: 28cqw;
+  height: 12.7cqh;
+  padding: 1cqh 1cqw 0.7cqh;
+  background: var(--paper-cream);
+  border: 0.12cqw solid var(--ink);
+  box-shadow: 0.38cqw 0.55cqh 0 var(--shadow);
+  transform: rotate(-1deg);
+}
+
+.wallCacheNavigation::before {
+  content: "";
+  position: absolute;
+  top: -1cqh;
+  left: 8cqw;
+  width: 10cqw;
+  height: 1.8cqh;
+  background: rgba(243, 220, 166, 0.76);
+  border: 0.06cqw solid rgba(88, 65, 43, 0.18);
+  transform: rotate(4deg);
+}
+
+.navCaption {
+  display: block;
+  margin-bottom: 0.65cqh;
+  color: var(--paper-rust);
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.52cqw;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08cqw;
+}
+
+.navFragments {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.55cqw;
+}
+
+.navFragment {
+  position: relative;
+  width: 4.6cqw;
+  min-height: 6.3cqh;
+  padding: 0.45cqh 0.34cqw;
+  color: var(--ink);
+  background: var(--paper-note);
+  border: 0.08cqw solid var(--ink);
+  clip-path: polygon(4% 2%, 96% 0, 100% 92%, 84% 100%, 0 94%);
+  cursor: pointer;
+  transition: transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 260ms cubic-bezier(0.34, 1.56, 0.64, 1), background 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.navFragment:nth-child(2) {
+  min-height: 5.4cqh;
+  transform: rotate(5deg);
+}
+
+.navFragment:nth-child(3) {
+  min-height: 7cqh;
+  transform: rotate(-3deg);
+}
+
+.navFragment:nth-child(4) {
+  min-height: 5.8cqh;
+  transform: rotate(4deg);
+}
+
+.navFragment:nth-child(5) {
+  min-height: 6.6cqh;
+  transform: rotate(-5deg);
+}
+
+.navFragment:hover,
+.navFragment:focus-visible,
+.navFragment[data-active="true"] {
+  color: var(--paper-cream);
+  background: var(--paper-rust);
+  box-shadow: 0 0 0.8cqw rgba(169, 76, 56, 0.7), 0.25cqw 0.4cqh 0 var(--shadow);
+}
+
+.navFragment:hover,
+.navFragment:focus-visible {
+  transform: translateY(-0.7cqh) rotate(-1deg);
+}
+
+.navFragment:focus-visible {
+  outline: 0.15cqw solid var(--paper-indigo);
+  outline-offset: 0.16cqw;
+}
+
+.navFragment span {
+  display: block;
+  font-family: "Bradley Hand", "KaiTi", cursive;
+  font-size: 1.45cqw;
+  font-weight: 700;
+  line-height: 0.8;
+}
+
+.navFragment small {
+  display: block;
+  margin-top: 0.4cqh;
+  font-family: "Courier New", "PingFang SC", monospace;
+  font-size: 0.4cqw;
+  font-weight: 700;
+  line-height: 1.06;
+  text-align: left;
+}

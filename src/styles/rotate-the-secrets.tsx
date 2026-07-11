@@ -489,7 +489,7 @@ export default RotateTheSecretsV3;
 export const RotateTheSecretsTopic = defineStyleTopic({
   id: "rotate-the-secrets",
   topic: { en: "Rotate the Secrets", zh: "轮换密钥" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: RotateTheSecretsV3,
   getMetadata,
 });

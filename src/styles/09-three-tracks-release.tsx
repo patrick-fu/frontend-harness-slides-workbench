@@ -797,7 +797,7 @@ export const threeTracksReleaseTopic = defineStyleTopic({
     en: "Release Tracks",
     zh: "发布轨道",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: ThreeTracksReleaseV2,
   getMetadata,
 });

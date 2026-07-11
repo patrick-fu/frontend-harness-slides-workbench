@@ -879,7 +879,7 @@ export const cometAnatomyTopic = defineStyleTopic({
     en: "Comet Anatomy",
     zh: "彗星解剖",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: CometAnatomy,
   getMetadata,
   navigation: {

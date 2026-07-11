@@ -926,7 +926,7 @@ export const betterQuestionTopic = defineStyleTopic({
     en: "Better Question",
     zh: "更好问题",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: BetterQuestionV2,
   getMetadata,
 });

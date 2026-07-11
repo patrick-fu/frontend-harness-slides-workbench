@@ -815,7 +815,7 @@ export default function CocoonToCloth({
 export const cocoonToClothTopic = defineStyleTopic({
   id: "cocoon-to-cloth",
   topic: { en: "Cocoon to Cloth", zh: "茧到织物" },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: CocoonToCloth,
   getMetadata,
   navigation: {

@@ -534,7 +534,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const letterToPastSelfTopic = defineStyleTopic({
   id: "letter-to-past-self",
   topic: { en: "A Letter to My Past Self", zh: "写给过去" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: WarmEditorialFeatureV3,
   getMetadata,
 });

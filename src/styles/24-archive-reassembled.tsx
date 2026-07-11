@@ -1556,7 +1556,7 @@ export const archiveReassembledTopic = defineStyleTopic({
     en: "Rebuilt Archive",
     zh: "重组档案",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: ArchiveReassembledV2,
   getMetadata,
 });

@@ -16,7 +16,7 @@ import styles from "./anatomy-timetable.module.css";
    Flush-left ragged-right. Flat surface. cqw/cqh units only.
    ──────────────────────────────────────────────────────────────────────── */
 
-const MODEL = "Claude-Opus-4.8";
+const MODEL = "Claude Opus 4.8";
 const STYLE_ID = "objective-swiss-grid";
 
 // Grid module: 8 columns × 8 baselines. Column letters A–H.

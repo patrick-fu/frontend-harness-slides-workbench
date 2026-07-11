@@ -1288,7 +1288,7 @@ export const prioritizeWithoutDebateTopic = defineStyleTopic({
     en: "Priority Score",
     zh: "优先评分",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: PrioritizeWithoutDebateV2,
   getMetadata,
 });

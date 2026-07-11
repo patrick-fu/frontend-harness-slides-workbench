@@ -1200,7 +1200,7 @@ export const sinkingDeltaTopic = defineStyleTopic({
     en: "Sinking Delta",
     zh: "下沉三角洲",
   },
-  model: "GPT-5.6 Terra · Max effort",
+  model: "GPT 5.6 Sol",
   component: SinkingDelta,
   getMetadata,
   navigation: {

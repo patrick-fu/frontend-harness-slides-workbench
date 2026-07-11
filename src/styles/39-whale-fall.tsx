@@ -917,7 +917,7 @@ export const whaleFallTopic = defineStyleTopic({
     en: "Whale Fall",
     zh: "鲸落",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.6 Sol",
   component: WhaleFall,
   getMetadata,
   navigation: {

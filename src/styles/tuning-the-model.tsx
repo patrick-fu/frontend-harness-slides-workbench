@@ -658,7 +658,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const tuningTheModelTopic = defineStyleTopic({
   id: "tuning-the-model",
   topic: { en: "Tuning the Model", zh: "调模型" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: StudioMixingConsoleV3,
   getMetadata,
 });

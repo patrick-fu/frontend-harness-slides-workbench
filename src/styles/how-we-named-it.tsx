@@ -559,7 +559,7 @@ export default SketchBoardEmojiV3;
 export const sketchBoardEmojiTopic = defineStyleTopic({
   id: "how-we-named-it",
   topic: { en: "How We Named It", zh: "起名字" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: SketchBoardEmojiV3,
   getMetadata,
 });

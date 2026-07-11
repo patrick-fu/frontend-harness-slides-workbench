@@ -1109,7 +1109,7 @@ export const hiddenTextTopic = defineStyleTopic({
     en: "Hidden Text",
     zh: "重写羊皮卷",
   },
-  model: "GPT-5",
+  model: "GPT 5.6 Sol",
   component: HiddenText,
   getMetadata,
   navigation: {

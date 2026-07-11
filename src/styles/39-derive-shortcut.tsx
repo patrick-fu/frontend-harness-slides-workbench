@@ -1039,7 +1039,7 @@ export const deriveShortcutTopic = defineStyleTopic({
     en: "Shortcut",
     zh: "快捷路径",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: DeriveShortcutV2,
   getMetadata,
 });

@@ -2,6 +2,7 @@ import type {
   StyleMetadata,
   StyleRegistryEntry,
   StyleTopic,
+  TopicComponent,
   TopicNavigationProfile,
   TopicSource,
   TopicTransitionScore,
@@ -24,7 +25,7 @@ export interface StyleTopicModule {
   id: string;
   topic: StyleTopic["topic"];
   model: string;
-  component: StyleTopic["component"];
+  component: TopicComponent;
   getMetadata: StyleTopic["getMetadata"];
   navigation?: TopicNavigationProfile;
   sources?: readonly TopicSource[];
@@ -109,6 +110,7 @@ function buildTopic(
       topic: input.topic,
       model: input.model,
       component: input.component,
+      loadComponent: async () => input.component,
       getMetadata: input.getMetadata,
       navigation: input.navigation,
       sources: input.sources,

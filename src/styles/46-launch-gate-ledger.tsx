@@ -1284,7 +1284,7 @@ export const launchGateLedgerTopic = defineStyleTopic({
     en: "Launch Ledger",
     zh: "发布台账",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: LaunchGateLedgerV2,
   getMetadata,
 });

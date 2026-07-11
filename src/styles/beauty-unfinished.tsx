@@ -437,7 +437,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const beautyUnfinishedTopic = defineStyleTopic({
   id: "beauty-unfinished",
   topic: { en: "The Beauty of the Unfinished", zh: "未完成之美" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: BeautyUnfinishedV3,
   getMetadata,
 });

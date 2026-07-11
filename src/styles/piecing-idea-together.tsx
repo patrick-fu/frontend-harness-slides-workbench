@@ -588,7 +588,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const piecingIdeaTogetherTopic = defineStyleTopic({
   id: "piecing-idea-together",
   topic: { en: "Piecing the Idea Together", zh: "拼出想法" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: AnalogCutoutCollageV3,
   getMetadata,
 });

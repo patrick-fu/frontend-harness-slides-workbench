@@ -1,133 +1,447 @@
-import { BAND_LABELS, BAND_ORDER, type BandId } from "./layout/bands";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { modelColor } from "../utils/model-color";
+import { useModalFocus } from "../hooks/useModalFocus";
+
+export interface FilterOption {
+  value: string;
+  label: string;
+  /** Topic count after applying the opposite facet. */
+  count: number;
+  /** Zero-count options stay visible but cannot add a new constraint. */
+  disabled?: boolean;
+}
 
 export interface FilterPanelProps {
-  allTags: Array<{ tag: string; count: number }>;
+  bandOptions: FilterOption[];
+  modelOptions: FilterOption[];
   selectedBands: string[];
-  selectedTags: string[];
+  selectedModels: string[];
+  unavailableBands: string[];
+  unavailableModels: string[];
   onToggleBand: (band: string) => void;
-  onToggleTag: (tag: string) => void;
+  onToggleModel: (model: string) => void;
   onClearFilters: () => void;
   language: "en" | "zh";
 }
 
-export default function FilterPanel({
-  allTags,
-  selectedBands,
-  selectedTags,
-  onToggleBand,
-  onToggleTag,
-  onClearFilters,
-  language,
-}: FilterPanelProps) {
-  const hasActiveFilters =
-    selectedBands.length > 0 || selectedTags.length > 0;
+const DESKTOP_MODEL_CHIP_LIMIT = 8;
 
-  const clearLabel =
-    language === "zh" ? "清除全部" : "Clear All";
+function facetCopy(language: "en" | "zh") {
+  if (language === "zh") {
+    return {
+      category: "风格类别",
+      model: "模型",
+      filters: "筛选",
+      moreModels: (count: number) => `+${count} 个模型`,
+      moreModelsMenu: "更多模型",
+      searchModels: "搜索模型",
+      noModels: "没有匹配的模型",
+      done: "完成",
+      clear: "清除全部",
+      unavailable: "不可用筛选",
+      topics: "个主题",
+    };
+  }
+
+  return {
+    category: "Category",
+    model: "Model",
+    filters: "Filters",
+    moreModels: (count: number) => `+${count} Models`,
+    moreModelsMenu: "More Models",
+    searchModels: "Search Models",
+    noModels: "No Models found",
+    done: "Done",
+    clear: "Clear all",
+    unavailable: "Unavailable filters",
+    topics: "Topics",
+  };
+}
+
+interface FacetOptionButtonProps {
+  option: FilterOption;
+  selected: boolean;
+  onToggle: (value: string) => void;
+  topicsLabel: string;
+  showModelMarker?: boolean;
+  role?: "button" | "menuitemcheckbox";
+}
+
+function FacetOptionButton({
+  option,
+  selected,
+  onToggle,
+  topicsLabel,
+  showModelMarker = false,
+  role = "button",
+}: FacetOptionButtonProps) {
+  const isDisabled = Boolean(option.disabled) && !selected;
+
+  return (
+    <button
+      type="button"
+      role={role === "button" ? undefined : role}
+      aria-pressed={role === "button" ? selected : undefined}
+      aria-checked={role === "menuitemcheckbox" ? selected : undefined}
+      aria-label={`${option.label}, ${option.count} ${topicsLabel}`}
+      disabled={isDisabled}
+      onClick={() => onToggle(option.value)}
+      className={[
+        "inline-flex min-h-7 shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium leading-none transition-colors",
+        selected
+          ? "border-ink bg-ink text-paper"
+          : "border-ink/15 bg-panel/70 text-ink/75 hover:border-ink/35 hover:text-ink",
+        isDisabled
+          ? "cursor-not-allowed opacity-35 hover:border-ink/15 hover:text-ink/75"
+          : "",
+      ].join(" ")}
+    >
+      {showModelMarker && (
+        <span
+          aria-hidden="true"
+          className="h-1.5 w-1.5 shrink-0 rounded-full"
+          style={{ backgroundColor: modelColor(option.value) }}
+        />
+      )}
+      <span className="truncate">{option.label}</span>
+      <span
+        aria-hidden="true"
+        className={[
+          "rounded px-1 font-mono text-[9px] tabular-nums",
+          selected ? "bg-paper/15" : "bg-ink/7",
+        ].join(" ")}
+      >
+        {option.count}
+      </span>
+    </button>
+  );
+}
+
+interface FacetRowProps {
+  label: string;
+  options: FilterOption[];
+  selectedValues: string[];
+  onToggle: (value: string) => void;
+  topicsLabel: string;
+  overflow?: boolean;
+  showModelMarkers?: boolean;
+  overflowButtonLabel?: (count: number) => string;
+  overflowMenuLabel?: string;
+  searchLabel?: string;
+  noResultsLabel?: string;
+}
+
+function FacetRow({
+  label,
+  options,
+  selectedValues,
+  onToggle,
+  topicsLabel,
+  overflow = false,
+  showModelMarkers = false,
+  overflowButtonLabel,
+  overflowMenuLabel,
+  searchLabel,
+  noResultsLabel,
+}: FacetRowProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const overflowTriggerRef = useRef<HTMLButtonElement>(null);
+  const overflowSearchRef = useRef<HTMLInputElement>(null);
+  const visibleOptions = overflow
+    ? options.slice(0, DESKTOP_MODEL_CHIP_LIMIT)
+    : options;
+  const overflowingOptions = overflow
+    ? options.slice(DESKTOP_MODEL_CHIP_LIMIT)
+    : [];
+  const searchedOptions = overflowingOptions.filter((option) =>
+    option.label.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase()),
+  );
+
+  useEffect(() => {
+    if (isMenuOpen) overflowSearchRef.current?.focus();
+  }, [isMenuOpen]);
 
   return (
     <div
-      data-testid="filter-panel"
-      className="w-full flex flex-col gap-3 py-3"
+      role="group"
+      aria-label={label}
+      className="flex min-w-0 items-center gap-2"
     >
-      {/* Band filter row */}
-      <div className="flex items-center gap-2 flex-wrap">
-        {BAND_ORDER.map((band) => {
-          const isSelected = selectedBands.includes(band);
-          const label = BAND_LABELS[band as BandId][language];
-          return (
+      <span className="w-16 shrink-0 text-[10px] font-semibold uppercase tracking-[0.12em] text-ink/45">
+        {label}
+      </span>
+      <div className="flex min-w-0 flex-wrap items-center gap-1.5">
+        {visibleOptions.map((option) => (
+          <FacetOptionButton
+            key={option.value}
+            option={option}
+            selected={selectedValues.includes(option.value)}
+            onToggle={onToggle}
+            topicsLabel={topicsLabel}
+            showModelMarker={showModelMarkers}
+          />
+        ))}
+        {overflowingOptions.length > 0 && (
+          <div className="relative">
             <button
-              key={band}
+              ref={overflowTriggerRef}
               type="button"
-              data-testid={`band-${band}`}
-              onClick={() => onToggleBand(band)}
-              aria-pressed={isSelected}
-              className={[
-                "px-3 py-1.5 rounded-full text-xs font-medium transition-colors",
-                "border",
-                isSelected
-                  ? "bg-ink text-paper border-ink"
-                  : "bg-transparent text-ink border-ink/20 hover:border-ink/40",
-              ].join(" ")}
+              aria-expanded={isMenuOpen}
+              aria-haspopup="dialog"
+              onClick={() => {
+                setIsMenuOpen((open) => !open);
+                setQuery("");
+              }}
+              className="inline-flex min-h-7 items-center rounded-full border border-ink/15 bg-panel/70 px-2.5 py-1 text-[11px] font-medium text-ink/75 transition-colors hover:border-ink/35 hover:text-ink"
             >
-              {label}
+              {overflowButtonLabel?.(overflowingOptions.length) ??
+                `+${overflowingOptions.length}`}
             </button>
-          );
-        })}
-      </div>
-
-      {/* Tag filter row */}
-      <div
-        data-testid="tag-row"
-        className="flex items-center gap-2 overflow-x-auto pb-1"
-        style={{ overflowX: "auto" }}
-      >
-        {allTags.map(({ tag, count }) => {
-          const isSelected = selectedTags.includes(tag);
-          return (
-            <button
-              key={tag}
-              type="button"
-              data-testid={`tag-${tag}`}
-              onClick={() => onToggleTag(tag)}
-              aria-pressed={isSelected}
-              className={[
-                "shrink-0 px-2.5 py-1 rounded-full text-xs font-medium transition-colors",
-                "border flex items-center gap-1.5",
-                isSelected
-                  ? "bg-accent text-white border-accent"
-                  : "bg-transparent text-ink/70 border-ink/15 hover:border-ink/30",
-              ].join(" ")}
-            >
-              <span>{tag}</span>
-              <span
-                className={[
-                  "text-[10px] font-mono px-1 rounded",
-                  isSelected ? "bg-white/20" : "bg-ink/10",
-                ].join(" ")}
+            {isMenuOpen && (
+              <div
+                role="dialog"
+                aria-label={overflowMenuLabel ?? `More ${label}`}
+                onKeyDown={(event) => {
+                  if (event.key !== "Escape") return;
+                  event.stopPropagation();
+                  setIsMenuOpen(false);
+                  overflowTriggerRef.current?.focus();
+                }}
+                className="absolute left-0 z-20 mt-1.5 flex w-64 flex-col gap-1 rounded-xl border border-ink/12 bg-panel p-2 shadow-lg"
               >
-                {count}
-              </span>
-              {isSelected && (
-                <span
-                  data-testid={`tag-remove-${tag}`}
-                  role="button"
-                  tabIndex={0}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onToggleTag(tag);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      onToggleTag(tag);
-                    }
-                  }}
-                  className="ml-0.5 cursor-pointer hover:opacity-70"
-                  aria-label={`Remove ${tag} filter`}
-                >
-                  ×
-                </span>
-              )}
-            </button>
-          );
-        })}
+                <input
+                  ref={overflowSearchRef}
+                  type="search"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  aria-label={searchLabel ?? "Search"}
+                  placeholder={searchLabel ?? "Search"}
+                  className="mb-1 h-8 w-full rounded-lg border border-ink/12 bg-paper px-2 text-xs text-ink outline-none placeholder:text-ink/35 focus:border-ink/35"
+                />
+                {searchedOptions.length > 0 ? (
+                  searchedOptions.map((option) => (
+                    <FacetOptionButton
+                      key={option.value}
+                      option={option}
+                      selected={selectedValues.includes(option.value)}
+                      onToggle={onToggle}
+                      topicsLabel={topicsLabel}
+                      showModelMarker={showModelMarkers}
+                    />
+                  ))
+                ) : (
+                  <p className="px-2 py-3 text-xs text-ink/45">
+                    {noResultsLabel ?? "No results"}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
+    </div>
+  );
+}
 
-      {/* Clear all button */}
-      {hasActiveFilters && (
-        <div className="flex justify-end">
+function MobileFacetList({
+  label,
+  options,
+  selectedValues,
+  onToggle,
+  topicsLabel,
+  showModelMarkers = false,
+}: FacetRowProps) {
+  return (
+    <section aria-label={label} className="space-y-2">
+      <h3 className="text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/45">
+        {label}
+      </h3>
+      <div className="flex flex-wrap gap-1.5">
+        {options.map((option) => (
+          <FacetOptionButton
+            key={option.value}
+            option={option}
+            selected={selectedValues.includes(option.value)}
+            onToggle={onToggle}
+            topicsLabel={topicsLabel}
+            showModelMarker={showModelMarkers}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export default function FilterPanel({
+  bandOptions,
+  modelOptions,
+  selectedBands,
+  selectedModels,
+  unavailableBands,
+  unavailableModels,
+  onToggleBand,
+  onToggleModel,
+  onClearFilters,
+  language,
+}: FilterPanelProps) {
+  const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(false);
+  const [mobileModelQuery, setMobileModelQuery] = useState("");
+  const mobileDialogRef = useRef<HTMLDivElement>(null);
+  const copy = facetCopy(language);
+  const activeCount = selectedBands.length + selectedModels.length;
+  const hasActiveFilters = activeCount > 0;
+  const unavailable = [...unavailableBands, ...unavailableModels];
+  const mobileModelOptions = useMemo(
+    () =>
+      modelOptions.filter((option) =>
+        option.label
+          .toLocaleLowerCase()
+          .includes(mobileModelQuery.trim().toLocaleLowerCase()),
+      ),
+    [mobileModelQuery, modelOptions],
+  );
+
+  useModalFocus(
+    isMobileSheetOpen,
+    mobileDialogRef,
+    () => setIsMobileSheetOpen(false),
+  );
+
+  return (
+    <div data-testid="filter-panel" className="w-full">
+      <div className="hidden space-y-2 md:block">
+        <FacetRow
+          label={copy.category}
+          options={bandOptions}
+          selectedValues={selectedBands}
+          onToggle={onToggleBand}
+          topicsLabel={copy.topics}
+        />
+        <FacetRow
+          label={copy.model}
+          options={modelOptions}
+          selectedValues={selectedModels}
+          onToggle={onToggleModel}
+          topicsLabel={copy.topics}
+          overflow
+          showModelMarkers
+          overflowButtonLabel={copy.moreModels}
+          overflowMenuLabel={copy.moreModelsMenu}
+          searchLabel={copy.searchModels}
+          noResultsLabel={copy.noModels}
+        />
+        {unavailable.length > 0 && (
+          <p className="text-xs text-red-700 dark:text-red-300" role="status">
+            {copy.unavailable}: {unavailable.join(", ")}
+          </p>
+        )}
+        {hasActiveFilters && (
           <button
             type="button"
-            data-testid="clear-filters"
             onClick={onClearFilters}
-            className="text-xs text-ink/50 hover:text-ink transition-colors underline underline-offset-2"
+            className="text-[11px] text-ink/50 underline underline-offset-2 transition-colors hover:text-ink"
           >
-            {clearLabel}
+            {copy.clear}
           </button>
-        </div>
-      )}
+        )}
+      </div>
+
+      <div className="md:hidden">
+        <button
+          type="button"
+          aria-label={copy.filters}
+          aria-expanded={isMobileSheetOpen}
+          onClick={() => setIsMobileSheetOpen(true)}
+          className="inline-flex min-h-9 items-center gap-2 rounded-full border border-ink/15 bg-panel px-3 text-xs font-medium text-ink shadow-sm"
+        >
+          <span>{copy.filters}</span>
+          {activeCount > 0 && (
+            <span className="rounded-full bg-ink px-1.5 py-0.5 text-[10px] leading-none text-paper">
+              {activeCount}
+            </span>
+          )}
+        </button>
+
+        {isMobileSheetOpen && createPortal(
+          <div className="fixed inset-0 z-[100] md:hidden">
+            <button
+              type="button"
+              aria-label="Close filters"
+              onClick={() => setIsMobileSheetOpen(false)}
+              className="absolute inset-0 cursor-default bg-ink/35"
+            />
+            <div
+              ref={mobileDialogRef}
+              tabIndex={-1}
+              role="dialog"
+              aria-modal="true"
+              aria-label={copy.filters}
+              className="absolute inset-x-0 bottom-0 max-h-[82vh] overflow-y-auto rounded-t-2xl border border-ink/12 bg-panel px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 shadow-2xl"
+            >
+              <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-ink/15" />
+              <div className="mb-5 flex items-center justify-between gap-4">
+                <h2 className="text-sm font-semibold">{copy.filters}</h2>
+                <button
+                  type="button"
+                  onClick={() => setIsMobileSheetOpen(false)}
+                  className="min-h-9 rounded-full px-3 text-xs font-medium text-ink/70 hover:bg-ink/5"
+                >
+                  {copy.done}
+                </button>
+              </div>
+              <div className="space-y-5">
+                <MobileFacetList
+                  label={copy.category}
+                  options={bandOptions}
+                  selectedValues={selectedBands}
+                  onToggle={onToggleBand}
+                  topicsLabel={copy.topics}
+                />
+                <section aria-label={copy.model} className="space-y-2">
+                  <h3 className="text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/45">
+                    {copy.model}
+                  </h3>
+                  {modelOptions.length > DESKTOP_MODEL_CHIP_LIMIT && (
+                    <input
+                      type="search"
+                      value={mobileModelQuery}
+                      onChange={(event) => setMobileModelQuery(event.target.value)}
+                      aria-label={copy.searchModels}
+                      placeholder={copy.searchModels}
+                      className="h-9 w-full rounded-lg border border-ink/12 bg-paper px-2.5 text-xs text-ink outline-none placeholder:text-ink/35 focus:border-ink/35"
+                    />
+                  )}
+                  <MobileFacetList
+                    label={copy.model}
+                    options={mobileModelOptions}
+                    selectedValues={selectedModels}
+                    onToggle={onToggleModel}
+                    topicsLabel={copy.topics}
+                    showModelMarkers
+                  />
+                </section>
+                {unavailable.length > 0 && (
+                  <p className="text-xs text-red-700 dark:text-red-300" role="status">
+                    {copy.unavailable}: {unavailable.join(", ")}
+                  </p>
+                )}
+                {hasActiveFilters && (
+                  <button
+                    type="button"
+                    onClick={onClearFilters}
+                    className="min-h-9 text-xs text-ink/60 underline underline-offset-2"
+                  >
+                    {copy.clear}
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )}
+      </div>
     </div>
   );
 }

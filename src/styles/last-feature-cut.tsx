@@ -502,7 +502,7 @@ export function getMetadata(language: "en" | "zh"): StyleMetadata {
 export const lastFeatureCutTopic = defineStyleTopic({
   id: "last-feature-cut",
   topic: { en: "The Last Feature We Cut", zh: "删掉的功能" },
-  model: "Claude-Opus-4.8",
+  model: "Claude Opus 4.8",
   component: LastFeatureCutV3,
   getMetadata,
 });

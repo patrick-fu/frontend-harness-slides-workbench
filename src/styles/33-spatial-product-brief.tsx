@@ -678,7 +678,7 @@ export const spatialProductBriefTopic = defineStyleTopic({
     en: "Spatial Brief",
     zh: "空间简报",
   },
-  model: "GPT-5.5",
+  model: "GPT 5.5",
   component: SpatialProductBriefV2,
   getMetadata,
 });
