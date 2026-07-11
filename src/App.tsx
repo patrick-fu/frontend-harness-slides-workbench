@@ -1,317 +1,342 @@
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   LanguageProvider,
-  useLanguage,
-  ThemeProvider,
-  useTheme,
   ReducedMotionProvider,
+  ThemeProvider,
+  useLanguage,
   useReducedMotion,
+  useTheme,
 } from "./contexts";
-import { STYLE_REGISTRY } from "./styles/registry";
-import { useUrlState } from "./hooks/useUrlState";
-import { useFontPreload } from "./hooks/useFontPreload";
-import Header from "./components/layout/Header";
-import Sidebar from "./components/layout/Sidebar";
-import OverviewView from "./components/OverviewView";
+import CatalogHeader from "./components/chrome/CatalogHeader";
+import CommandPalette from "./components/chrome/CommandPalette";
+import ControlsGuide from "./components/chrome/ControlsGuide";
+import GlobalControls from "./components/chrome/GlobalControls";
+import LibraryDrawer from "./components/chrome/LibraryDrawer";
+import PlayerRail from "./components/chrome/PlayerRail";
+import PlayerTopBar from "./components/chrome/PlayerTopBar";
 import LabView from "./components/LabView";
+import OverviewView from "./components/OverviewView";
 import PortraitHint from "./components/PortraitHint";
+import { useFontPreload } from "./hooks/useFontPreload";
+import { useKeyboard } from "./hooks/useKeyboard";
+import { useUrlState } from "./hooks/useUrlState";
+import {
+  STYLE_REGISTRY,
+  loadRegistryTopicComponent,
+  prefetchAdjacentRegistryTopics,
+} from "./styles/registry";
+import type { NavTarget } from "./utils/navigation";
 
-// ─── Sidebar localStorage keys ──────────────────────────────────────────────
+const RECENT_TOPICS_KEY = "fhsw:recent-topics";
 
-const SIDEBAR_WIDTH_KEY = "fhsw:sidebar-width";
-const SIDEBAR_COLLAPSED_KEY = "fhsw:sidebar-collapsed";
-const DEFAULT_SIDEBAR_WIDTH = 280;
-
-// ─── App Content (inside providers) ─────────────────────────────────────────
+function readRecentTopics(): string[] {
+  try {
+    const value = JSON.parse(localStorage.getItem(RECENT_TOPICS_KEY) ?? "[]");
+    return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string").slice(0, 8) : [];
+  } catch {
+    return [];
+  }
+}
 
 function AppContent() {
   const { language, resolvedLanguage, setLanguage } = useLanguage();
   const { theme, setTheme, resolvedTheme } = useTheme();
   const { reducedMotion } = useReducedMotion();
   const [urlState, setUrlState] = useUrlState();
+  const displayLanguage = urlState.lang ?? resolvedLanguage;
+  const [libraryOpen, setLibraryOpen] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [controlsOpen, setControlsOpen] = useState(false);
+  const [announceTopic, setAnnounceTopic] = useState(false);
+  const [toast, setToast] = useState<string | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(Boolean(document.fullscreenElement));
+  const [recentTopics, setRecentTopics] = useState(readRecentTopics);
+  const catalogScrollRef = useRef<HTMLDivElement>(null);
 
-  // Font preloading
-  useFontPreload(STYLE_REGISTRY, resolvedLanguage);
+  useFontPreload(STYLE_REGISTRY, displayLanguage);
 
-  // ── Sidebar state ────────────────────────────────────────────────────────
-
-  const [sidebarWidth, setSidebarWidth] = useState(() => {
-    try {
-      const stored = localStorage.getItem(SIDEBAR_WIDTH_KEY);
-      if (stored) {
-        const n = parseInt(stored, 10);
-        if (!isNaN(n) && n >= 240 && n <= 360) return n;
-      }
-    } catch {
-      // ignore
-    }
-    return DEFAULT_SIDEBAR_WIDTH;
-  });
-
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
-    try {
-      return localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === "1";
-    } catch {
-      return false;
-    }
-  });
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  // Persist sidebar settings
-  useEffect(() => {
-    try {
-      localStorage.setItem(SIDEBAR_WIDTH_KEY, String(sidebarWidth));
-    } catch {
-      // ignore
-    }
-  }, [sidebarWidth]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(SIDEBAR_COLLAPSED_KEY, sidebarCollapsed ? "1" : "0");
-    } catch {
-      // ignore
-    }
-  }, [sidebarCollapsed]);
-
-  // ── Cross-style flash state ──────────────────────────────────────────────
-
-  const [flashStyle, setFlashStyle] = useState(false);
-
-  // ── Viewport detection: sidebar only pushes content on desktop (≥md=768px)
-  // On mobile, sidebar is a drawer overlay — content should be full-width.
-
-  const [isDesktop, setIsDesktop] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth >= 768 : true,
+  const activeStyle = useMemo(
+    () => STYLE_REGISTRY.find((style) => style.id === urlState.styleId) ?? null,
+    [urlState.styleId],
+  );
+  const activeTopic = useMemo(
+    () => activeStyle?.topics.find((topic) => topic.id === urlState.topicId) ?? null,
+    [activeStyle, urlState.topicId],
   );
 
   useEffect(() => {
-    const mql = window.matchMedia("(min-width: 768px)");
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    setIsDesktop(mql.matches);
-    mql.addEventListener("change", handler);
-    return () => mql.removeEventListener("change", handler);
-  }, []);
-
-  // ── Document title ───────────────────────────────────────────────────────
+    const base = displayLanguage === "zh" ? "FH Slides 工作台" : "FH Slides Workbench";
+    document.title =
+      urlState.view === "lab" && activeTopic
+        ? `${activeTopic.topic[displayLanguage]} — ${base}`
+        : base;
+  }, [activeTopic, displayLanguage, urlState.view]);
 
   useEffect(() => {
-    const baseTitle =
-      resolvedLanguage === "zh" ? "FH Slides 工作台" : "FH Slides Workbench";
-
-    if (urlState.view === "lab") {
-      const style = STYLE_REGISTRY.find((s) => s.id === urlState.styleId);
-      if (style) {
-        const styleName = style.name[resolvedLanguage];
-        document.title = `${styleName} — ${baseTitle}`;
-        return;
+    if (urlState.view !== "lab" || !activeTopic || !activeStyle) return;
+    const key = `${activeStyle.id}/${activeTopic.id}`;
+    setRecentTopics((current) => {
+      const next = [key, ...current.filter((item) => item !== key)].slice(0, 8);
+      try {
+        localStorage.setItem(RECENT_TOPICS_KEY, JSON.stringify(next));
+      } catch {
+        // localStorage unavailable
       }
+      return next;
+    });
+  }, [activeStyle, activeTopic, urlState.view]);
+
+  useEffect(() => {
+    if (!activeTopic) return;
+    const metadata = activeTopic.getMetadata(displayLanguage);
+    const targetScene = metadata.scenes.find((item) => item.id === urlState.scene) ?? metadata.scenes[0];
+    if (!targetScene) return;
+    const lastBeat = targetScene.beats[targetScene.beats.length - 1]?.id ?? 0;
+    const nextBeat = Math.min(Math.max(0, urlState.beat), lastBeat);
+    if (targetScene.id !== urlState.scene || nextBeat !== urlState.beat) {
+      setUrlState({ scene: targetScene.id, beat: nextBeat }, { history: "replace" });
     }
+  }, [activeTopic, displayLanguage, setUrlState, urlState.beat, urlState.scene]);
 
-    document.title = baseTitle;
-  }, [urlState.view, urlState.styleId, resolvedLanguage]);
-
-  // ── Handlers ─────────────────────────────────────────────────────────────
-
-  const handleToggleSidebar = useCallback(() => {
-    const isMobile = window.innerWidth < 768;
-    if (isMobile) {
-      setSidebarOpen((prev) => !prev);
-    } else {
-      setSidebarCollapsed((prev) => !prev);
-    }
+  useEffect(() => {
+    const handler = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener("fullscreenchange", handler);
+    return () => document.removeEventListener("fullscreenchange", handler);
   }, []);
 
-  const handleCloseSidebar = useCallback(() => {
-    setSidebarOpen(false);
-  }, []);
+  useEffect(() => {
+    if (!toast) return;
+    const id = window.setTimeout(() => setToast(null), 1800);
+    return () => window.clearTimeout(id);
+  }, [toast]);
 
-  const handleSidebarWidthChange = useCallback((w: number) => {
-    setSidebarWidth(w);
-  }, []);
+  const openPalette = useCallback(() => setPaletteOpen(true), []);
+  const openControls = useCallback(() => setControlsOpen(true), []);
+  useKeyboard({
+    onCommandPalette: urlState.view === "overview" ? openPalette : undefined,
+    onHelp: urlState.view === "overview" ? openControls : undefined,
+  });
 
-  const handleGoOverview = useCallback(() => {
-    setUrlState({ view: "overview" });
+  const goOverview = useCallback(() => {
+    setLibraryOpen(false);
+    setUrlState({ view: "overview", pureMode: false }, { history: "push" });
   }, [setUrlState]);
-
-  const handleSelectStyle = useCallback(
-    (styleId: string) => {
-      // Find the style to get its first topic.
-      const style = STYLE_REGISTRY.find((s) => s.id === styleId);
-      const topicId = style?.topics[0]?.id || "product-keynote";
-      setUrlState({
-        view: "lab",
-        styleId,
-        topicId,
-        scene: 1,
-        beat: 0,
-      });
-      setSidebarOpen(false);
-    },
-    [setUrlState],
-  );
-
-  const handleSelectTopic = useCallback(
+  const goHome = useCallback(() => {
+    setUrlState({ view: "overview", bands: [], models: [], pureMode: false }, { history: "replace" });
+    catalogScrollRef.current?.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+  }, [reducedMotion, setUrlState]);
+  const selectTopic = useCallback(
     (styleId: string, topicId: string) => {
-      setUrlState({
-        view: "lab",
-        styleId,
-        topicId,
-        scene: 1,
-        beat: 0,
-      });
-      setSidebarOpen(false);
+      setLibraryOpen(false);
+      setPaletteOpen(false);
+      setUrlState(
+        { view: "lab", styleId, topicId, scene: 1, beat: 0, pureMode: false },
+        { history: "push" },
+      );
     },
     [setUrlState],
   );
-
-  const handleNavigate = useCallback(
-    (target: {
-      styleId: string;
-      topicId: string;
-      scene: number;
-      beat: number;
-      flashStyle?: boolean;
-    }) => {
-      setUrlState({
-        styleId: target.styleId,
-        topicId: target.topicId,
-        scene: target.scene,
-        beat: target.beat,
-      });
-      if (target.flashStyle) {
-        setFlashStyle(true);
-      }
+  const navigate = useCallback(
+    (target: NavTarget) => {
+      const crossedTopic = target.styleId !== urlState.styleId || target.topicId !== urlState.topicId;
+      setUrlState(
+        {
+          styleId: target.styleId,
+          topicId: target.topicId,
+          scene: target.scene,
+          beat: target.beat,
+        },
+        { history: "replace" },
+      );
+      if (crossedTopic) setAnnounceTopic(true);
     },
+    [setUrlState, urlState.styleId, urlState.topicId],
+  );
+
+  const updateFilters = useCallback(
+    (next: { bands: string[]; models: string[] }) =>
+      setUrlState(next, { history: "replace" }),
     [setUrlState],
   );
 
-  const handleFlashDone = useCallback(() => {
-    setFlashStyle(false);
-  }, []);
+  const getTopicHref = useCallback(
+    (styleId: string, topicId: string) => {
+      const params = new URLSearchParams(window.location.search);
+      params.set("view", "lab");
+      params.set("style", styleId);
+      params.set("topic", topicId);
+      params.set("scene", "1");
+      params.set("beat", "0");
+      params.delete("pure");
+      return `${window.location.pathname}?${params.toString()}`;
+    },
+    [],
+  );
 
-  const handleExitPure = useCallback(() => {
-    setUrlState({ pureMode: false });
+  const handleLanguageChange = useCallback(
+    (mode: "auto" | "en" | "zh") => {
+      setLanguage(mode);
+      setUrlState({ lang: mode === "auto" ? null : mode }, { history: "replace" });
+    },
+    [setLanguage, setUrlState],
+  );
+  const copyLink = useCallback(async () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", displayLanguage);
+    try {
+      await navigator.clipboard.writeText(url.toString());
+      setToast(displayLanguage === "zh" ? "链接已复制" : "Link copied");
+    } catch {
+      setToast(displayLanguage === "zh" ? "复制失败" : "Copy failed");
+    }
+  }, [displayLanguage]);
+  const shareLink = useCallback(async () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", displayLanguage);
+    try {
+      await navigator.share({ title: document.title, url: url.toString() });
+    } catch {
+      // Native share cancellation is not an error state.
+    }
+  }, [displayLanguage]);
+  const toggleFullscreen = useCallback(async () => {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await document.documentElement.requestFullscreen();
+    } catch {
+      setToast(displayLanguage === "zh" ? "无法进入全屏" : "Fullscreen unavailable");
+    }
+  }, [displayLanguage]);
+  const exitPure = useCallback(() => {
+    if (document.fullscreenElement) return;
+    setUrlState({ pureMode: false }, { history: "replace" });
   }, [setUrlState]);
 
-  // ── Compute layout offsets ───────────────────────────────────────────────
-
-  const isLab = urlState.view === "lab";
-
-  const contentStyle = useMemo(() => {
-    const effectiveSidebarWidth = sidebarCollapsed ? 48 : sidebarWidth;
-    const headerHeight = 36; // h-9
-    const topicBarHeight = isLab ? 28 : 0; // h-7, only in lab
-    const bottomBarHeight = isLab ? 36 : 0; // h-9
-
-    return {
-      paddingTop: headerHeight + topicBarHeight,
-      paddingLeft: isDesktop ? effectiveSidebarWidth : 0,
-      paddingBottom: bottomBarHeight,
-    };
-  }, [sidebarWidth, sidebarCollapsed, isLab, isDesktop]);
-
-  // ── Render ───────────────────────────────────────────────────────────────
+  const controls = (view: "overview" | "lab") => (
+    <GlobalControls
+      view={view}
+      language={displayLanguage}
+      languageMode={urlState.lang ?? language}
+      themeMode={theme}
+      onLanguageChange={handleLanguageChange}
+      onThemeChange={setTheme}
+      onCopyLink={copyLink}
+      onShare={shareLink}
+      onOpenControls={openControls}
+      onToggleFullscreen={toggleFullscreen}
+      isFullscreen={isFullscreen}
+    />
+  );
 
   return (
-    <div
-      className="w-full h-full bg-paper text-ink"
-      data-theme={resolvedTheme}
-    >
-      {/* Header (hidden in pure mode by CSS) */}
+    <div className="h-full w-full overflow-hidden bg-paper text-ink" data-theme={resolvedTheme}>
       <div
-        style={{ display: urlState.pureMode ? "none" : undefined }}
+        ref={catalogScrollRef}
+        className="h-full w-full overflow-y-auto"
+        style={{ display: urlState.view === "overview" ? "block" : "none" }}
       >
-        <Header
-          onToggleSidebar={handleToggleSidebar}
-          onGoOverview={handleGoOverview}
-          language={language}
-          setLanguage={setLanguage}
-          theme={theme}
-          setTheme={setTheme}
+        <CatalogHeader
+          language={displayLanguage}
+          onHome={goHome}
+          onOpenPalette={openPalette}
+          controls={controls("overview")}
         />
-      </div>
-
-      {/* Sidebar (hidden in pure mode by CSS) */}
-      <div
-        style={{ display: urlState.pureMode ? "none" : undefined }}
-      >
-          <Sidebar
-            registry={STYLE_REGISTRY}
-            currentStyleId={urlState.styleId}
-            currentTopicId={urlState.topicId}
-            onSelectStyle={handleSelectStyle}
-            onSelectTopic={handleSelectTopic}
-          isOpen={sidebarOpen}
-          onClose={handleCloseSidebar}
-          language={resolvedLanguage}
-          width={sidebarWidth}
-          onWidthChange={handleSidebarWidthChange}
-          collapsed={sidebarCollapsed}
-        />
-      </div>
-
-      {/* Main content area */}
-      <main
-        className="w-full h-full"
-        style={
-          urlState.pureMode
-            ? undefined
-            : {
-                paddingTop: contentStyle.paddingTop,
-                paddingLeft: contentStyle.paddingLeft,
-                paddingBottom: contentStyle.paddingBottom,
-                height: "100vh",
-              }
-        }
-      >
-        {/* OverviewView: always mounted, hidden via display:none when not active */}
-        <div
-          style={{
-            display: urlState.view === "overview" ? "block" : "none",
-            width: "100%",
-            height: "100%",
-            overflow: "auto",
+        <OverviewView
+          registry={STYLE_REGISTRY}
+          language={displayLanguage}
+          filters={{ bands: urlState.bands, models: urlState.models }}
+          onFiltersChange={updateFilters}
+          getTopicHref={getTopicHref}
+          onOpenTopic={selectTopic}
+          onPrefetchTopic={(styleId, topicId) => {
+            void loadRegistryTopicComponent(styleId, topicId).catch(() => undefined);
           }}
-        >
-          <OverviewView
-            registry={STYLE_REGISTRY}
-            language={resolvedLanguage}
-            onSelectStyle={handleSelectStyle}
-          />
-        </div>
+        />
+      </div>
 
-        {/* LabView: rendered only when view is "lab" */}
-        {urlState.view === "lab" && (
-          <div style={{ width: "100%", height: "100%" }}>
-            <LabView
-              registry={STYLE_REGISTRY}
-              styleId={urlState.styleId}
-              topicId={urlState.topicId}
-              scene={urlState.scene}
-              beat={urlState.beat}
-              isPureMode={urlState.pureMode}
-              reducedMotion={reducedMotion}
-              language={resolvedLanguage}
-              frozen={urlState.frozen}
-              flashStyle={flashStyle}
-              onNavigate={handleNavigate}
-              onFlashDone={handleFlashDone}
-              onExitPure={handleExitPure}
-              onGoOverview={handleGoOverview}
+      {urlState.view === "lab" && (
+        <div className="flex h-full w-full">
+          {!urlState.pureMode && (
+            <PlayerRail
+              language={displayLanguage}
+              onOverview={goOverview}
+              onLibrary={() => setLibraryOpen(true)}
+              onSearch={openPalette}
             />
+          )}
+          <div className="flex min-w-0 flex-1 flex-col">
+            {!urlState.pureMode && (
+              <PlayerTopBar
+                style={activeStyle}
+                topicId={urlState.topicId}
+                language={displayLanguage}
+                onOverview={goOverview}
+                onLibrary={() => setLibraryOpen(true)}
+                onSearch={openPalette}
+                onSelectTopic={(topicId) => activeStyle && selectTopic(activeStyle.id, topicId)}
+                onPresent={() => setUrlState({ pureMode: true }, { history: "replace" })}
+                controls={controls("lab")}
+              />
+            )}
+            <div className="min-h-0 flex-1">
+              <LabView
+                registry={STYLE_REGISTRY}
+                styleId={urlState.styleId}
+                topicId={urlState.topicId}
+                scene={urlState.scene}
+                beat={urlState.beat}
+                isPureMode={urlState.pureMode}
+                reducedMotion={reducedMotion}
+                language={displayLanguage}
+                frozen={urlState.frozen}
+                announceTopic={announceTopic}
+                onNavigate={navigate}
+                onAnnouncementDone={() => setAnnounceTopic(false)}
+                onExitPure={exitPure}
+                onGoOverview={goOverview}
+                onOpenLibrary={() => setLibraryOpen(true)}
+                onOpenPalette={openPalette}
+                onOpenControls={openControls}
+                loadTopic={loadRegistryTopicComponent}
+                prefetchAdjacentTopics={prefetchAdjacentRegistryTopics}
+              />
+            </div>
           </div>
-        )}
-      </main>
+        </div>
+      )}
 
-      {/* Portrait hint */}
-      <PortraitHint language={resolvedLanguage} />
+      <LibraryDrawer
+        open={libraryOpen}
+        registry={STYLE_REGISTRY}
+        currentStyleId={urlState.styleId}
+        currentTopicId={urlState.topicId}
+        language={displayLanguage}
+        onClose={() => setLibraryOpen(false)}
+        onSelectTopic={selectTopic}
+      />
+      <CommandPalette
+        open={paletteOpen}
+        registry={STYLE_REGISTRY}
+        language={displayLanguage}
+        recent={recentTopics}
+        onClose={() => setPaletteOpen(false)}
+        onSelectTopic={selectTopic}
+      />
+      <ControlsGuide
+        open={controlsOpen}
+        view={urlState.view}
+        language={displayLanguage}
+        onClose={() => setControlsOpen(false)}
+      />
+      {urlState.view === "lab" && !urlState.pureMode && <PortraitHint language={displayLanguage} />}
+      {toast && (
+        <div role="status" className="fixed bottom-5 left-1/2 z-[120] -translate-x-1/2 rounded-full bg-ink px-4 py-2 text-xs font-medium text-paper shadow-xl">
+          {toast}
+        </div>
+      )}
     </div>
   );
 }
-
-// ─── App Root ───────────────────────────────────────────────────────────────
 
 export default function App() {
   return (

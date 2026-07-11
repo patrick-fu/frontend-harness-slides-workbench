@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { STYLE_REGISTRY } from "./registry";
+import { STYLE_CATALOG_SOURCE } from "./catalog-source";
 import type { BespokeStyleProps, StyleTopic } from "../types";
 import {
   CANONICAL_SCENE_TRANSITION_KINDS,
@@ -35,10 +36,13 @@ function renderTopic(
   );
 }
 
-const allTopics = STYLE_REGISTRY.flatMap((style) =>
+// Runtime registry components are lazy by design. The authoring protocol must
+// inspect concrete Topic implementations without forcing the Catalog bundle to
+// import them eagerly.
+const allTopics = STYLE_CATALOG_SOURCE.flatMap((style) =>
   style.topics.map((topic) => ({ styleId: style.id, topic })),
 );
-const secondaryTopics = STYLE_REGISTRY.flatMap((style) =>
+const secondaryTopics = STYLE_CATALOG_SOURCE.flatMap((style) =>
   style.topics.slice(1).map((topic) => ({ styleId: style.id, topic })),
 );
 const coordinatedTopics = allTopics.filter(({ topic }) => topic.navigation);

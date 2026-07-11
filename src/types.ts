@@ -27,6 +27,17 @@ export interface BespokeStyleProps {
   isTransitionClone?: boolean;
 }
 
+/** A concrete Topic Stage implementation, loaded only by the Player. */
+export type TopicComponent = React.ComponentType<BespokeStyleProps>;
+
+/** A rendered Topic may be concrete (authoring) or React.lazy (runtime). */
+export type StyleComponent =
+  | TopicComponent
+  | React.LazyExoticComponent<TopicComponent>;
+
+/** Imports one concrete Topic Stage implementation on demand. */
+export type TopicComponentLoader = () => Promise<TopicComponent>;
+
 /**
  * Metadata returned by each Style's getMetadata(lang) function.
  *
@@ -146,8 +157,10 @@ export interface StyleTopic {
   topic: { en: string; zh: string };
   /** Model that produced this topic, e.g. "Doubao-Seed-Evolving". */
   model: string;
-  /** The React component that renders this topic. */
-  component: React.ComponentType<BespokeStyleProps>;
+  /** The React component that renders this topic. Runtime entries use React.lazy. */
+  component: StyleComponent;
+  /** Resolves the concrete Stage component without loading unrelated Topics. */
+  loadComponent?: TopicComponentLoader;
   /** Returns localized metadata for this topic. */
   getMetadata: (lang: "en" | "zh") => StyleMetadata;
   /** Optional for legacy topics; required by coordinated Topic Set protocols. */
@@ -156,6 +169,35 @@ export interface StyleTopic {
   sources?: readonly TopicSource[];
   /** Four authored scene edges; optional for legacy topics. */
   transitionScore?: Readonly<TopicTransitionScore>;
+}
+
+/** Static Catalog data, generated from the authoring source and safe at startup. */
+export interface CatalogTopicManifest {
+  id: string;
+  topic: StyleTopic["topic"];
+  model: string;
+  metadata: Record<"en" | "zh", StyleMetadata>;
+  /** Vite-relative path to the Topic module's default component export. */
+  modulePath: string;
+  navigation?: TopicNavigationProfile;
+  sources?: readonly TopicSource[];
+  transitionScore?: Readonly<TopicTransitionScore>;
+}
+
+export interface CatalogStyleManifest {
+  id: string;
+  name: StyleRegistryEntry["name"];
+  topics: CatalogTopicManifest[];
+}
+
+/** Runtime Player entry: Catalog metadata plus a guaranteed component loader. */
+export interface LoadableStyleTopic extends StyleTopic {
+  loadComponent: TopicComponentLoader;
+}
+
+export interface LoadableStyleRegistryEntry
+  extends Omit<StyleRegistryEntry, "topics"> {
+  topics: LoadableStyleTopic[];
 }
 
 /** A single entry in the Style registry — one Style with one or more Topics. */

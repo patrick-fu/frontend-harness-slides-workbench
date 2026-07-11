@@ -31,22 +31,32 @@ Run the Playwright visual audit:
 npm run test:audit
 ```
 
-The audit builds the app, starts `npm run preview`, then checks stage rendering,
-overflow, core navigation, pure mode, frozen mode, URL persistence, and overview
-coverage.
+The audit builds the app, starts `npm run preview`, then checks Stage rendering,
+overflow, Catalog coverage and filters, Player shell/navigation, Pure/Frozen
+modes, reduced motion, responsive overlays, and query persistence.
 
 ## Adding Or Editing A Style
 
 Read `docs/STYLE_AUTHORING_SPEC.md` before editing a style.
 
-Each style or topic needs:
+Each style or Topic needs:
 
 - A semantic kebab-case style ID and topic ID.
 - A `.tsx` style module under `src/styles/`.
 - Optional `.module.css` beside the style module.
 - A focused `.test.tsx` beside the style module.
-- A registry entry in `src/styles/registry.ts`
+- An authoring entry in `src/styles/catalog-source.ts`.
 - Metadata returned by `getMetadata(language)`
+
+After changing authoring entries, regenerate the runtime Catalog manifest:
+
+```bash
+node scripts/generate-catalog-manifest.mjs
+```
+
+The generated file is committed. `catalog-manifest.test.ts` detects drift.
+Do not add eager Topic component imports to `src/styles/registry.ts`; the runtime
+registry must retain one dynamic chunk per Topic.
 
 Style components must render inside the fixed stage contract:
 
@@ -58,14 +68,17 @@ Style components must render inside the fixed stage contract:
 
 ## Updating Showcase Thumbnails
 
-Overview cards use static images from `public/showcase`.
+Overview cards use static images from `public/showcase`. Each Topic owns one
+committed 1920×1080 English WebP. Regenerate them after changing a hero frame,
+Topic identity, or registry order:
 
-After replacing images:
+1. Run `npm run generate:showcase-thumbnails`.
+2. Run `npm run verify:showcase-thumbnails`.
+3. Review representative files in `public/showcase/`.
+4. Run `npm run ci` and `npm run test:audit`.
 
-1. Update `src/data/showcase-thumbnails.ts` if filenames change.
-2. Run `npm run build`.
-3. Run `npm run test:unit`.
-4. Run `npm run test:audit` when visual coverage matters.
+The generator waits for `data-topic-ready="true"`, the English language,
+loaded fonts, Pure Mode, Frozen Mode, and reduced motion before capture.
 
 ## URL And Capture Modes
 
@@ -92,8 +105,9 @@ The CI workflow runs typecheck, build, and unit tests before deployment.
 
 ## Known Maintenance Risks
 
-- The JavaScript and CSS bundles are large because all 49 styles are imported
-  eagerly. Use dynamic imports or manual chunks before adding many more styles.
+- Synchronous bilingual metadata still makes the initial JavaScript chunk larger
+  than Vite's 500 kB warning threshold. Topic Stage code and CSS are already
+  split; metadata compression or segmentation is the next performance seam.
 - The PRD is historical and may describe features differently from the current
   implementation. Prefer tests and current source when behavior differs.
 - Playwright audit data includes hard-coded beat counts. Update

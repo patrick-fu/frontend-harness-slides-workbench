@@ -804,7 +804,7 @@ export default function EngineeringWhiteboardExplainer({
 export const engineeringWhiteboardExplainerTopic = defineStyleTopic({
   id: TOPIC_ID,
   topic: { en: "From Prompt to Patch", zh: "提示到补丁" },
-  model: "GPT-5",
+  model: "GPT 5.5",
   component: EngineeringWhiteboardExplainer,
   getMetadata,
 });

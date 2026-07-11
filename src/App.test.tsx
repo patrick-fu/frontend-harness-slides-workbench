@@ -1,178 +1,95 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { beforeEach, describe, expect, it } from "vitest";
 import App from "./App";
 
-// ─── Setup ──────────────────────────────────────────────────────────────────
-
-// Mock matchMedia for theme detection
 beforeEach(() => {
   window.history.replaceState(null, "", "/");
-
-  // Clear localStorage
   localStorage.clear();
   sessionStorage.clear();
 });
 
-// ─── Tests ──────────────────────────────────────────────────────────────────
-
-describe("App", () => {
-  it("renders without crashing", () => {
-    expect(() => render(<App />)).not.toThrow();
+describe("Workbench Catalog + Player", () => {
+  it("opens as a complete Topic Catalog", () => {
+    render(<App />);
+    expect(screen.getByTestId("overview-view")).toBeVisible();
+    expect(screen.getAllByTestId("topic-card")).toHaveLength(146);
+    expect(screen.getByTestId("catalog-summary")).toHaveTextContent(
+      "All 146 Topics · 49 Styles",
+    );
   });
 
-  it("default view shows Overview", () => {
+  it("opens an exact Topic through a native Catalog link without using a hash", async () => {
     render(<App />);
-    expect(screen.getByTestId("overview-view")).toBeInTheDocument();
-    // Lab view should not be in the DOM (only rendered when view=lab)
-    expect(screen.queryByTestId("lab-view")).not.toBeInTheDocument();
+    const card = screen.getAllByTestId("topic-card")[0];
+    const link = card.querySelector("a");
+    expect(link).toHaveAttribute(
+      "href",
+      expect.stringContaining("topic=product-keynote"),
+    );
+    fireEvent.click(link!);
+
+    await waitFor(() => expect(screen.getByTestId("lab-view")).toBeVisible());
+    expect(window.location.hash).toBe("");
+    expect(window.location.search).toContain("view=lab");
+    expect(window.location.search).toContain("style=minimal-product-keynote");
+    expect(window.location.search).toContain("topic=product-keynote");
+    expect(window.location.search).toContain("scene=1");
+    expect(window.location.search).toContain("beat=0");
   });
 
-  it("renders registered style cards in Overview", () => {
+  it("renders Stage-first Player navigation without a layout-pushing Sidebar", () => {
+    window.history.replaceState(
+      null,
+      "",
+      "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=1&beat=0",
+    );
     render(<App />);
-    expect(screen.getByTestId("style-card-minimal-product-keynote")).toBeInTheDocument();
-    expect(screen.getByTestId("style-card-front-page-broadsheet")).toBeInTheDocument();
-    expect(screen.getByTestId("style-card-liquid-glass")).toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "Player navigation" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Present" })).toBeVisible();
+    expect(screen.getAllByTestId(/scene-dot-/)).toHaveLength(5);
+    expect(screen.queryByTestId("sidebar")).not.toBeInTheDocument();
   });
 
-  it("clicking a style card navigates to Lab view", async () => {
+  it("opens the Command Palette from Cmd/Ctrl+K", () => {
     render(<App />);
-
-    const card = screen.getByTestId("style-card-minimal-product-keynote");
-    fireEvent.click(card);
-
-    // Lab view should now be visible
-    await waitFor(() => {
-      expect(screen.getByTestId("lab-view")).toBeInTheDocument();
-    });
-
-    // Overview should be hidden (display: none on its wrapper)
-    const overview = screen.getByTestId("overview-view");
-    expect(overview.parentElement).toHaveStyle({ display: "none" });
+    fireEvent.keyDown(window, { key: "k", ctrlKey: true });
+    expect(screen.getByRole("dialog", { name: "Command palette" })).toBeVisible();
   });
 
-  it("header title click returns to Overview", async () => {
+  it("preserves unresolved URL filters as an explicit unavailable state", () => {
+    window.history.replaceState(
+      null,
+      "",
+      "/?view=overview&model=Retired+Model",
+    );
     render(<App />);
-
-    // First navigate to lab
-    const card = screen.getByTestId("style-card-minimal-product-keynote");
-    fireEvent.click(card);
-
-    await waitFor(() => {
-      expect(screen.getByTestId("lab-view")).toBeInTheDocument();
-    });
-
-    // Click header title to go back to overview
-    const titleBtn = screen.getByText("Frontend Harness Slides Workbench");
-    fireEvent.click(titleBtn);
-
-    await waitFor(() => {
-      const overview = screen.getByTestId("overview-view");
-      expect(overview.parentElement).not.toHaveStyle({ display: "none" });
-    });
+    expect(screen.getByTestId("catalog-unavailable-state")).toHaveTextContent(
+      "Retired Model",
+    );
+    expect(window.location.search).toContain("model=Retired+Model");
   });
 
-  it("language segmented control switches between auto/en/zh", () => {
+  it("keeps Pure Mode free of Workbench chrome", () => {
+    window.history.replaceState(
+      null,
+      "",
+      "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=1&beat=0&pure=1",
+    );
     render(<App />);
-
-    // Initial language is "auto" — resolved to "en" in jsdom
-    const enSegment = screen.getByTestId("lang-segment-en");
-    fireEvent.click(enSegment);
-
-    // After clicking EN segment, language should be set to "en"
-    expect(screen.getByTestId("lang-segment-en")).toBeInTheDocument();
+    expect(screen.getByTestId("stage")).toBeVisible();
+    expect(screen.queryByRole("navigation", { name: "Player navigation" })).not.toBeInTheDocument();
+    expect(screen.queryByTestId("bottom-bar")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Present" })).not.toBeInTheDocument();
   });
 
-  it("theme segmented control is present", () => {
+  it("shows explicit recovery actions for a missing Topic", () => {
+    window.history.replaceState(
+      null,
+      "",
+      "/?view=lab&style=minimal-product-keynote&topic=missing-topic&scene=1&beat=0",
+    );
     render(<App />);
-
-    expect(screen.getByTestId("theme-segment-auto")).toBeInTheDocument();
-    expect(screen.getByTestId("theme-segment-light")).toBeInTheDocument();
-    expect(screen.getByTestId("theme-segment-dark")).toBeInTheDocument();
-  });
-
-  it("renders sidebar with style navigation", () => {
-    render(<App />);
-
-    // Sidebar should be in the DOM (wrapped in div with data-testid)
-    const sidebarWrapper = screen.getByTestId("sidebar");
-    expect(sidebarWrapper).toBeInTheDocument();
-  });
-
-  it("URL query reflects navigation state", async () => {
-    render(<App />);
-
-    const card = screen.getByTestId("style-card-front-page-broadsheet");
-    fireEvent.click(card);
-
-    await waitFor(() => {
-      expect(window.location.hash).toBe("");
-      expect(window.location.search).toContain("view=lab");
-      expect(window.location.search).toContain("style=front-page-broadsheet");
-      expect(window.location.search).toContain("topic=broadsheet");
-      expect(window.location.search).toContain("scene=1");
-      expect(window.location.search).toContain("beat=0");
-    });
-  });
-
-  // ── Regression: hamburger button behavior ────────────────────────────────
-
-  it("desktop: clicking hamburger toggles sidebar collapsed state (width change)", async () => {
-    // Simulate desktop viewport
-    Object.defineProperty(window, "innerWidth", { value: 1280, writable: true });
-
-    render(<App />);
-
-    // Navigate to lab so sidebar is visible
-    const card = screen.getByTestId("style-card-minimal-product-keynote");
-    fireEvent.click(card);
-    await waitFor(() => {
-      expect(screen.getByTestId("lab-view")).toBeInTheDocument();
-    });
-
-    const sidebar = screen.getByTestId("sidebar");
-    const initialWidth = sidebar.style.width;
-
-    // Click hamburger
-    const toggle = screen.getByTestId("sidebar-toggle");
-    fireEvent.click(toggle);
-
-    // Sidebar should be collapsed (48px)
-    expect(sidebar.style.width).toBe("48px");
-    expect(sidebar.style.width).not.toBe(initialWidth);
-
-    // Click again to expand
-    fireEvent.click(toggle);
-    expect(sidebar.style.width).not.toBe("48px");
-  });
-
-  it("mobile: clicking hamburger toggles sidebar open/close (translate-x)", async () => {
-    // Simulate mobile viewport
-    Object.defineProperty(window, "innerWidth", { value: 375, writable: true });
-
-    render(<App />);
-
-    // Navigate to lab
-    const card = screen.getByTestId("style-card-minimal-product-keynote");
-    fireEvent.click(card);
-    await waitFor(() => {
-      expect(screen.getByTestId("lab-view")).toBeInTheDocument();
-    });
-
-    const sidebar = screen.getByTestId("sidebar");
-
-    // Initially sidebar should be hidden on mobile (translate-x-full or similar)
-    expect(sidebar.className).toMatch(/-translate-x-full/);
-
-    // Click hamburger to open
-    const toggle = screen.getByTestId("sidebar-toggle");
-    fireEvent.click(toggle);
-
-    // Sidebar should now be visible (translate-x-0)
-    expect(sidebar.className).toMatch(/translate-x-0/);
-    expect(sidebar.className).not.toMatch(/-translate-x-full/);
-
-    // Click again to close
-    fireEvent.click(toggle);
-    expect(sidebar.className).toMatch(/-translate-x-full/);
+    expect(screen.getByText("This slide deck is unavailable")).toBeVisible();
+    expect(screen.getByRole("button", { name: "Open Library" })).toBeVisible();
   });
 });

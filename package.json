@@ -21,7 +21,10 @@
     "test:watch": "vitest",
     "test:audit": "playwright test",
     "typecheck": "tsc --noEmit",
-    "ci": "npm run typecheck && npm run build && npm run test:unit"
+    "generate:showcase-thumbnails": "node scripts/thumbnail/generate.mjs",
+    "clean:showcase-thumbnails": "node scripts/thumbnail/clean.mjs",
+    "verify:showcase-thumbnails": "node scripts/thumbnail/verify.mjs",
+    "ci": "npm run typecheck && npm run build && npm run test:unit && npm run verify:showcase-thumbnails"
   },
   "dependencies": {
     "react": "^19.1.0",

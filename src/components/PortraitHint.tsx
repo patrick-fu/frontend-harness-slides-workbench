@@ -44,6 +44,19 @@ export default function PortraitHint({ language }: PortraitHintProps) {
     }
   }, []);
 
+  useEffect(() => {
+    if (!isPortrait || dismissed) return;
+    const id = window.setTimeout(() => {
+      setDismissed(true);
+      try {
+        sessionStorage.setItem(STORAGE_KEY, "1");
+      } catch {
+        // ignore
+      }
+    }, 3000);
+    return () => window.clearTimeout(id);
+  }, [dismissed, isPortrait]);
+
   const handleDismiss = useCallback(() => {
     setDismissed(true);
     try {
@@ -56,7 +69,7 @@ export default function PortraitHint({ language }: PortraitHintProps) {
   if (!isPortrait || dismissed) return null;
 
   const message =
-    language === "zh" ? "建议横屏获得最佳体验" : "For best experience, rotate your device";
+    language === "zh" ? "旋转设备可获得更大画面" : "Rotate for a larger view";
   const dismissLabel = language === "zh" ? "关闭" : "Dismiss";
 
   return (

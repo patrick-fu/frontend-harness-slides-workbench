@@ -132,20 +132,36 @@ describe("useTouchNav", () => {
     expect(onPrev).toHaveBeenCalledTimes(1);
   });
 
-  // ── Vertical swipe → no-op ─────────────────────────────────────────────
+  // ── Vertical swipe ────────────────────────────────────────────────────
 
-  it("vertical swipe (vertical > horizontal) does nothing", () => {
+  it("swipe up calls onNext", () => {
     const { element, onNext, onPrev } = renderWithElement();
-    fireTouchStart(element, 100, 20);
-    fireTouchEnd(element, 100, 90); // dy = 70, dx = 0 → vertical swipe
-    expect(onNext).not.toHaveBeenCalled();
+    fireTouchStart(element, 100, 90);
+    fireTouchEnd(element, 100, 20); // dy = -70 → up
+    expect(onNext).toHaveBeenCalledTimes(1);
     expect(onPrev).not.toHaveBeenCalled();
   });
 
-  it("diagonal swipe where vertical > horizontal does nothing", () => {
+  it("swipe down calls onPrev", () => {
     const { element, onNext, onPrev } = renderWithElement();
     fireTouchStart(element, 100, 20);
-    fireTouchEnd(element, 130, 90); // dx = 30, dy = 70 → vertical > horizontal
+    fireTouchEnd(element, 100, 90); // dy = +70 → down
+    expect(onNext).not.toHaveBeenCalled();
+    expect(onPrev).toHaveBeenCalledTimes(1);
+  });
+
+  it("uses the vertical direction when vertical movement is dominant", () => {
+    const { element, onNext, onPrev } = renderWithElement();
+    fireTouchStart(element, 100, 20);
+    fireTouchEnd(element, 130, 90); // dx = 30, dy = 70
+    expect(onNext).not.toHaveBeenCalled();
+    expect(onPrev).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not turn an equal-axis diagonal swipe into a tap", () => {
+    const { element, onNext, onPrev } = renderWithElement();
+    fireTouchStart(element, 100, 20);
+    fireTouchEnd(element, 160, 80); // dx = 60, dy = 60
     expect(onNext).not.toHaveBeenCalled();
     expect(onPrev).not.toHaveBeenCalled();
   });
@@ -161,12 +177,20 @@ describe("useTouchNav", () => {
     expect(onPrev).not.toHaveBeenCalled();
   });
 
-  // ── Tap anywhere → onNext ──────────────────────────────────────────────
+  // ── Tap left zone → onPrev ─────────────────────────────────────────────
 
-  it("tap on left half calls onNext", () => {
+  it("tap in the leftmost 20% calls onPrev", () => {
     const { element, onPrev, onNext } = renderWithElement();
-    fireTouchStart(element, 50, 50);
-    fireTouchEnd(element, 50, 50); // no movement → tap
+    fireTouchStart(element, 39, 50);
+    fireTouchEnd(element, 39, 50); // 39 / 200 = 19.5%
+    expect(onNext).not.toHaveBeenCalled();
+    expect(onPrev).toHaveBeenCalledTimes(1);
+  });
+
+  it("tap at the 20% boundary calls onNext", () => {
+    const { element, onPrev, onNext } = renderWithElement();
+    fireTouchStart(element, 40, 50);
+    fireTouchEnd(element, 40, 50); // 40 / 200 = 20%
     expect(onNext).toHaveBeenCalledTimes(1);
     expect(onPrev).not.toHaveBeenCalled();
   });
@@ -186,6 +210,19 @@ describe("useTouchNav", () => {
 
     fireTouchStart(button, 150, 50);
     fireTouchEnd(button, 150, 50);
+
+    expect(onNext).not.toHaveBeenCalled();
+    expect(onPrev).not.toHaveBeenCalled();
+  });
+
+  it("tap from a contenteditable slide target is ignored", () => {
+    const { element, onNext, onPrev } = renderWithElement();
+    const editable = document.createElement("div");
+    editable.setAttribute("contenteditable", "");
+    element.appendChild(editable);
+
+    fireTouchStart(editable, 150, 50);
+    fireTouchEnd(editable, 150, 50);
 
     expect(onNext).not.toHaveBeenCalled();
     expect(onPrev).not.toHaveBeenCalled();
@@ -216,6 +253,15 @@ describe("useTouchNav", () => {
     const { element, onNext, onPrev } = renderWithElement(false);
     fireTouchStart(element, 150, 50);
     fireTouchEnd(element, 150, 50); // tap right half
+    expect(onNext).not.toHaveBeenCalled();
+    expect(onPrev).not.toHaveBeenCalled();
+  });
+
+  it("does not navigate from wheel or trackpad events", () => {
+    const { element, onNext, onPrev } = renderWithElement();
+
+    element.dispatchEvent(new WheelEvent("wheel", { deltaY: 120, bubbles: true }));
+
     expect(onNext).not.toHaveBeenCalled();
     expect(onPrev).not.toHaveBeenCalled();
   });

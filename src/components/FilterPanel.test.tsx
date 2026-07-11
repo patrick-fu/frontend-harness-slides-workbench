@@ -1,193 +1,105 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
-import FilterPanel from "./FilterPanel";
+import { describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen, within } from "@testing-library/react";
+import FilterPanel, { type FilterOption } from "./FilterPanel";
 
-// ─── Helpers ────────────────────────────────────────────────────────────────
+const bandOptions: FilterOption[] = [
+  { value: "minimal-keynote", label: "Minimal Keynote", count: 4 },
+  { value: "text-report", label: "Text Report", count: 2 },
+];
 
-const ALL_TAGS = [
-  { tag: "clean", count: 3 },
-  { tag: "corporate", count: 5 },
-  { tag: "dark", count: 4 },
-  { tag: "dense", count: 2 },
-  { tag: "elegant", count: 1 },
-  { tag: "handmade", count: 1 },
-  { tag: "light", count: 3 },
-  { tag: "minimal", count: 2 },
-  { tag: "modern", count: 2 },
-  { tag: "premium", count: 3 },
+const modelOptions: FilterOption[] = [
+  { value: "GPT 5.5", label: "GPT 5.5", count: 5 },
+  { value: "Doubao-Seed-Evolving", label: "Doubao-Seed-Evolving", count: 3 },
+  { value: "Claude Opus", label: "Claude Opus", count: 2 },
+  { value: "Gemini", label: "Gemini", count: 1 },
+  { value: "Mistral", label: "Mistral", count: 1 },
+  { value: "Perplexity", label: "Perplexity", count: 1 },
+  { value: "Cohere", label: "Cohere", count: 1 },
+  { value: "Qwen", label: "Qwen", count: 1 },
+  { value: "Llama", label: "Llama", count: 1 },
 ];
 
 const defaultProps = {
-  allTags: ALL_TAGS,
+  bandOptions,
+  modelOptions,
   selectedBands: [] as string[],
-  selectedTags: [] as string[],
+  selectedModels: [] as string[],
+  unavailableBands: [] as string[],
+  unavailableModels: [] as string[],
   onToggleBand: vi.fn(),
-  onToggleTag: vi.fn(),
+  onToggleModel: vi.fn(),
   onClearFilters: vi.fn(),
   language: "en" as const,
 };
 
-// ─── Tests ──────────────────────────────────────────────────────────────────
-
 describe("FilterPanel", () => {
-  it("renders all 6 band buttons", () => {
-    render(<FilterPanel {...defaultProps} />);
-    const bandIds = [
-      "minimal-keynote",
-      "balanced-hybrid",
-      "editorial-print",
-      "craft-cultural",
-      "contemporary-digital",
-      "text-report",
-    ];
-    bandIds.forEach((id) => {
-      expect(screen.getByTestId(`band-${id}`)).toBeInTheDocument();
-    });
-  });
-
-  it("renders band labels in English", () => {
-    render(<FilterPanel {...defaultProps} language="en" />);
-    expect(screen.getByText("Minimal Keynote")).toBeInTheDocument();
-    expect(screen.getByText("Text Report")).toBeInTheDocument();
-  });
-
-  it("renders band labels in Chinese", () => {
-    render(<FilterPanel {...defaultProps} language="zh" />);
-    expect(screen.getByText("极简主旨")).toBeInTheDocument();
-    expect(screen.getByText("文本报告")).toBeInTheDocument();
-  });
-
-  it("renders all tags with counts", () => {
-    render(<FilterPanel {...defaultProps} />);
-    ALL_TAGS.forEach(({ tag, count }) => {
-      const tagEl = screen.getByTestId(`tag-${tag}`);
-      expect(tagEl).toBeInTheDocument();
-      expect(tagEl).toHaveTextContent(tag);
-      expect(tagEl).toHaveTextContent(String(count));
-    });
-  });
-
-  it("calls onToggleBand when a band button is clicked", () => {
+  it("exposes separate Band and Model facets and toggles their values", () => {
     const onToggleBand = vi.fn();
-    render(<FilterPanel {...defaultProps} onToggleBand={onToggleBand} />);
+    const onToggleModel = vi.fn();
 
-    fireEvent.click(screen.getByTestId("band-minimal-keynote"));
+    render(
+      <FilterPanel
+        {...defaultProps}
+        onToggleBand={onToggleBand}
+        onToggleModel={onToggleModel}
+      />,
+    );
+
+    const bands = screen.getByRole("group", { name: "Category" });
+    const models = screen.getByRole("group", { name: "Model" });
+    fireEvent.click(within(bands).getByRole("button", { name: /Minimal Keynote/ }));
+    fireEvent.click(within(models).getByRole("button", { name: /GPT 5\.5/ }));
+
     expect(onToggleBand).toHaveBeenCalledWith("minimal-keynote");
+    expect(onToggleModel).toHaveBeenCalledWith("GPT 5.5");
   });
 
-  it("calls onToggleTag when a tag is clicked", () => {
-    const onToggleTag = vi.fn();
-    render(<FilterPanel {...defaultProps} onToggleTag={onToggleTag} />);
+  it("keeps overflowing Model options in a searchable +N popover", () => {
+    const onToggleModel = vi.fn();
 
-    fireEvent.click(screen.getByTestId("tag-corporate"));
-    expect(onToggleTag).toHaveBeenCalledWith("corporate");
+    render(<FilterPanel {...defaultProps} onToggleModel={onToggleModel} />);
+
+    const trigger = screen.getByRole("button", { name: "+1 Models" });
+    fireEvent.click(trigger);
+    const popover = screen.getByRole("dialog", { name: "More Models" });
+    const searchbox = within(popover).getByRole("searchbox", { name: "Search Models" });
+    expect(searchbox).toHaveFocus();
+    fireEvent.change(searchbox, {
+      target: { value: "Lla" },
+    });
+    fireEvent.click(within(popover).getByRole("button", { name: /Llama/ }));
+
+    expect(onToggleModel).toHaveBeenCalledWith("Llama");
+    fireEvent.keyDown(popover, { key: "Escape" });
+    expect(screen.queryByRole("dialog", { name: "More Models" })).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
   });
 
-  it("selected bands have the selected class/attribute", () => {
+  it("opens the complete filter list in a mobile bottom sheet", () => {
+    const onToggleModel = vi.fn();
+
+    render(<FilterPanel {...defaultProps} onToggleModel={onToggleModel} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Filters" }));
+    const sheet = screen.getByRole("dialog", { name: "Filters" });
+    fireEvent.click(within(sheet).getByRole("button", { name: /Llama/ }));
+
+    expect(onToggleModel).toHaveBeenCalledWith("Llama");
+  });
+
+  it("leaves zero-count options visible but unavailable", () => {
     render(
       <FilterPanel
         {...defaultProps}
-        selectedBands={["minimal-keynote", "text-report"]}
+        bandOptions={[
+          ...bandOptions,
+          { value: "craft-cultural", label: "Craft & Cultural", count: 0, disabled: true },
+        ]}
       />,
     );
-    const mk = screen.getByTestId("band-minimal-keynote");
-    const tr = screen.getByTestId("band-text-report");
-    const bh = screen.getByTestId("band-balanced-hybrid");
 
-    expect(mk).toHaveAttribute("aria-pressed", "true");
-    expect(tr).toHaveAttribute("aria-pressed", "true");
-    expect(bh).toHaveAttribute("aria-pressed", "false");
-  });
-
-  it("selected tags show a remove button (×)", () => {
-    render(
-      <FilterPanel
-        {...defaultProps}
-        selectedTags={["corporate", "dark"]}
-      />,
-    );
-    const corporateTag = screen.getByTestId("tag-corporate");
-    const darkTag = screen.getByTestId("tag-dark");
-    const cleanTag = screen.getByTestId("tag-clean");
-
-    expect(corporateTag.querySelector("[data-testid='tag-remove-corporate']")).toBeInTheDocument();
-    expect(darkTag.querySelector("[data-testid='tag-remove-dark']")).toBeInTheDocument();
-    expect(cleanTag.querySelector("[data-testid^='tag-remove-']")).toBeNull();
-  });
-
-  it("clicking × on a selected tag calls onToggleTag to remove it", () => {
-    const onToggleTag = vi.fn();
-    render(
-      <FilterPanel
-        {...defaultProps}
-        selectedTags={["corporate"]}
-        onToggleTag={onToggleTag}
-      />,
-    );
-    const removeBtn = screen.getByTestId("tag-remove-corporate");
-    fireEvent.click(removeBtn);
-    expect(onToggleTag).toHaveBeenCalledWith("corporate");
-  });
-
-  it("does not show 'Clear All' button when no filters are active", () => {
-    render(<FilterPanel {...defaultProps} />);
-    expect(screen.queryByTestId("clear-filters")).toBeNull();
-  });
-
-  it("shows 'Clear All' button when bands are selected", () => {
-    render(
-      <FilterPanel {...defaultProps} selectedBands={["minimal-keynote"]} />,
-    );
-    expect(screen.getByTestId("clear-filters")).toBeInTheDocument();
-  });
-
-  it("shows 'Clear All' button when tags are selected", () => {
-    render(<FilterPanel {...defaultProps} selectedTags={["dark"]} />);
-    expect(screen.getByTestId("clear-filters")).toBeInTheDocument();
-  });
-
-  it("calls onClearFilters when 'Clear All' is clicked", () => {
-    const onClearFilters = vi.fn();
-    render(
-      <FilterPanel
-        {...defaultProps}
-        selectedBands={["minimal-keynote"]}
-        onClearFilters={onClearFilters}
-      />,
-    );
-    fireEvent.click(screen.getByTestId("clear-filters"));
-    expect(onClearFilters).toHaveBeenCalledTimes(1);
-  });
-
-  it("Clear All label is localized", () => {
-    const { unmount } = render(
-      <FilterPanel {...defaultProps} selectedBands={["minimal-keynote"]} language="en" />,
-    );
-    expect(screen.getByTestId("clear-filters")).toHaveTextContent(/Clear All/i);
-    unmount();
-
-    render(
-      <FilterPanel {...defaultProps} selectedBands={["minimal-keynote"]} language="zh" />,
-    );
-    expect(screen.getByTestId("clear-filters")).toHaveTextContent(/清除全部/i);
-  });
-
-  it("tag row has horizontal scroll", () => {
-    render(<FilterPanel {...defaultProps} />);
-    const tagRow = screen.getByTestId("tag-row");
-    const style = window.getComputedStyle(tagRow);
-    expect(style.overflowX).toBe("auto");
-  });
-
-  it("renders empty tag row when allTags is empty", () => {
-    render(<FilterPanel {...defaultProps} allTags={[]} />);
-    expect(screen.getByTestId("tag-row")).toBeInTheDocument();
-    // No individual tag buttons should exist
-    const tagButtons = screen.queryAllByTestId(/^tag-/);
-    // Filter out the container itself (tag-row) — only buttons should be absent
-    const tagButtonElements = tagButtons.filter(
-      (el) => el.getAttribute("data-testid") !== "tag-row",
-    );
-    expect(tagButtonElements).toHaveLength(0);
+    expect(
+      screen.getByRole("button", { name: /Craft & Cultural.*0/ }),
+    ).toBeDisabled();
   });
 });
