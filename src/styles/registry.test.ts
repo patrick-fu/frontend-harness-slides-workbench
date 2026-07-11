@@ -55,6 +55,7 @@ describe("STYLE_REGISTRY topic catalog", () => {
     expect(STYLE_REGISTRY[whiteboardIndex].topics.map((topic) => topic.id)).toEqual([
       "from-prompt-to-patch",
       "water-tower",
+      "tcp-congestion-control",
     ]);
   });
 

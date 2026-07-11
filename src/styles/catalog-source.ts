@@ -79,6 +79,7 @@ import { eventToInsightTopic } from "./11-event-to-insight";
 import { districtHeatTopic } from "./signal-pipeline-flow-district-heat";
 import { engineeringWhiteboardExplainerTopic } from "./engineering-whiteboard-explainer";
 import { waterTowerTopic } from "./engineering-whiteboard-water-tower";
+import { tcpCongestionControlTopic } from "./engineering-whiteboard-tcp";
 import { onboardingThatBreathesTopic } from "./12-onboarding-that-breathes";
 import { chrysalisRebuildTopic } from "./soft-pastel-friendly-chrysalis-rebuild";
 import { rawNotesCleanBriefTopic } from "./13-raw-notes-clean-brief";
@@ -458,6 +459,7 @@ export const STYLE_CATALOG_SOURCE: StyleRegistryEntry[] = [
   buildEntry("engineering-whiteboard-explainer", [
     engineeringWhiteboardExplainerTopic,
     waterTowerTopic,
+    tcpCongestionControlTopic,
   ]),
   buildEntry("soft-pastel-friendly", [
     {

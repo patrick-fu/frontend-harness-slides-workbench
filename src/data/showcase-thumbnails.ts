@@ -74,6 +74,7 @@ export const topicShowcaseThumbnails: Readonly<
   "engineering-whiteboard-explainer": {
     "from-prompt-to-patch": "engineering-whiteboard-explainer--from-prompt-to-patch.webp",
     "water-tower": "engineering-whiteboard-explainer--water-tower.webp",
+    "tcp-congestion-control": "engineering-whiteboard-explainer--tcp-congestion-control.webp",
   },
   "soft-pastel-friendly": {
     "friendly-onboard": "soft-pastel-friendly--friendly-onboard.webp",
