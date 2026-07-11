@@ -167,7 +167,7 @@ export default function CommandPalette({
             }}
             placeholder={labels.search}
             aria-label={labels.search}
-            className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-ink/35 focus-visible:outline-none"
+            className="chrome-search-input min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-ink/35"
           />
           <kbd className="hidden rounded-md border border-ink/10 bg-ink/[0.04] px-2 py-1 font-mono text-[10px] text-ink/45 sm:block">
             ESC
