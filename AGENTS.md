@@ -34,17 +34,24 @@ overrides the default workflow.
 
 ## Domain model
 
-- A Style is a stable visual system with a semantic kebab-case ID.
+- A Style is a stable visual system with one semantic kebab-case ID, canonical
+  bilingual name, and Band declared in the unordered Style definition map.
+  Topics reference a Style by styleId and must not redefine Style identity.
 - A Topic is one self-contained presentation inside a Style. It has its own
-  semantic kebab-case ID, bilingual label, model label, metadata, and Stage
+  semantic kebab-case ID, bilingual title, Model ID, metadata, and Stage
   implementation. It is not a version; never add vN IDs or compatibility
   aliases.
-- Style order is the order of the authoring catalog. Topic order is the order
-  within its owning Style. That order drives catalog grouping and player
-  navigation.
-- Metadata is the source for scene and beat structure. English and Chinese
-  metadata must remain structurally aligned: identical Style ID, scene IDs,
-  beat IDs, and story states, with independently appropriate copy and layout.
+- A Model ID records Topic authoring provenance only. It does not select a
+  schema, registration path, protocol, or collection identity.
+- The single two-dimensional Topic registry is the only ordering authority.
+  Outer-array position orders Style Groups; inner-array position orders Topics
+  within a Style. Flattened registry position drives Catalog presentation and
+  sequential Player navigation. Topic modules, IDs, filenames, metadata, and
+  Styles must not encode an ordinal, rank, primary/secondary tier, or version.
+- Topic metadata is the source for scene and beat structure, not Style
+  identity. English and Chinese metadata must remain structurally aligned:
+  identical scene IDs, beat IDs, and story states, with independently
+  appropriate copy and layout.
 - Each Topic follows the fixed five-scene structure enforced by the authoring
   protocol; beat cardinality remains metadata-defined.
 
@@ -95,7 +102,10 @@ the query state.
 The Catalog must remain usable without loading every Stage.
 
 - src/styles/catalog-source.ts is the authoring catalog. It imports concrete
-  Topic modules and defines Style and Topic order.
+  Topic modules and defines their two-dimensional Style Group and Topic order.
+- The unordered Style definition map owns each Style's canonical ID, bilingual
+  name, and Band. It must not encode order; Registry position remains the only
+  ordering authority.
 - scripts/generate-catalog-manifest.mjs generates
   src/styles/catalog-manifest.generated.ts. The generated manifest carries
   synchronous Catalog data and the path to each Topic module.
@@ -113,22 +123,33 @@ The Catalog must remain usable without loading every Stage.
 Read the relevant types, registry entry, shared hooks, and nearest comparable
 Topic before writing code.
 
-- Put a Topic implementation in src/styles. New module names and Topic IDs use
-  semantic kebab-case; existing legacy filenames may remain unchanged.
-- A Stage module has a default component export. Its catalog entry supplies
-  localized metadata; new Topic modules use defineStyleTopic and follow the
-  neighboring source pattern when extending an existing Style.
+- Put a Topic implementation in src/styles. The Topic module, optional CSS
+  module, and focused test use the Topic's semantic kebab-case ID as their
+  basename. Do not add numeric, Style, model, version, or batch affixes.
+- A Topic module default-exports exactly one TopicDefinition created through
+  the shared defineTopic API. The definition owns the Topic identity,
+  provenance, metadata resolver, Stage component, and optional protocol data;
+  model-specific or batch-specific exports and registration paths are
+  prohibited.
+- StyleDefinition.name is the canonical bilingual Style name;
+  TopicDefinition.title is the canonical bilingual Topic title. Do not expose
+  redundant topic.topic or metadata.name fields.
+- Every Topic has exactly one focused test file. It imports the default
+  TopicDefinition and runs the shared Topic contract before retaining any
+  content-, evidence-, motion-, or interaction-specific assertions. Its
+  filename uses the same Topic ID basename; shared Registry and runtime tests
+  do not substitute for it. Component-name, model, batch, and ordinal test
+  filenames are prohibited.
 - Keep optional CSS beside the Topic as a module stylesheet and keep focused
   behavior tests beside the implementation.
 - Register every new or moved Topic in catalog-source.ts. Do not hand-edit the
   runtime registry or generated manifest to bypass the authoring catalog.
-- Keep coordinated Topic Set contracts in source beside catalog integration.
-  Apply their topicSet, navigation, transition score, and evidence with any
-  required sources there; do not recreate assignment matrices or version
-  identities in Markdown.
-- Metadata must satisfy the current type and protocol tests. Keep its Style ID
-  correct, provide localized names and copy, describe every scene/beat state,
-  and derive loops, progress, and navigation bounds from metadata.
+- Declare navigation, transition score, evidence, and any required sources
+  through the shared Topic contract. Do not inject protocol fields through a
+  model-specific adapter or recreate batch identities in source or Markdown.
+- Metadata must satisfy the current type and protocol tests. Provide localized
+  Topic-specific copy, describe every Scene and Beat state, and derive loops,
+  progress, and navigation bounds from metadata.
 - Do not add global chrome, routing state, or cross-Style ordering to a Topic.
   Reuse the shared Envelope behavior.
 
@@ -216,9 +237,10 @@ npm run ci is the repository's standard non-browser gate: typecheck, build,
 unit tests, and static-thumbnail verification. Keep GitHub Actions aligned to
 this script instead of duplicating its subcommands.
 
-For a coordinated Topic Set, the browser audit covers every Topic's English
-and Chinese Hero Final Frame in Frozen mode: exact target resolution, no page
-or console errors, active content, no Stage overflow, and a settled capture.
+Browser audits select Topics through model-neutral authoring requirements. Each
+selected Topic's English and Chinese Hero Final Frame runs in Frozen mode with
+the exact target resolution, no page or console errors, active content, no
+Stage overflow, and a settled capture.
 
 ## Public repository hygiene
 

@@ -7,12 +7,12 @@ This glossary defines the shared runtime and curation language of the Workbench.
 ### Runtime
 
 **Style（风格）**:
-A stable visual system with a distinct visual identity. It provides the visual frame for Topics.
+A stable visual system with one canonical identity, localized name, and Band. Topics reference it as their visual frame without redefining it.
 _Avoid_: Slide, deck, version
 
 **Topic（题材）**:
-A self-contained presentation that combines subject matter with a Style. It is the independently addressable unit of the Workbench.
-_Avoid_: Version, variant
+A unique, self-contained presentation with its own bilingual title that combines subject matter with a Style. It is independently addressable and does not belong to a model batch or version family.
+_Avoid_: Slide, deck, version, variant, Topic Set member
 
 **Band（风格族）**:
 A high-level visual family that groups related Styles. It classifies visual identity rather than subject matter.
@@ -25,11 +25,15 @@ A major narrative unit within a Topic. It contains a coherent part of the Topic'
 A meaningful story state within a Scene. It changes audience understanding rather than merely decorating a transition.
 
 **Model ID（模型标识）**:
-A label that identifies the model associated with a Topic. It distinguishes Topics that share a Style.
-_Avoid_: Version
+A provenance label that records which model authored a Topic. It is descriptive metadata, not a collection identity or an authoring contract.
+_Avoid_: Version, batch, Topic Set
 
 **Registry（注册表）**:
-The canonical ordered collection of Styles and their Topics. It supplies the shared vocabulary for finding and moving between Topics.
+The canonical ordered collection of Style Groups and their Topics. It supplies Catalog Order without becoming part of Topic identity.
+
+**Catalog Order（目录顺序）**:
+The sequence produced by ordered Style Groups and the ordered Topics inside each group. It controls Catalog presentation and sequential Player navigation but carries no identity or priority meaning.
+_Avoid_: Version order, primary, secondary, rank, sequence field
 
 **Workbench（工作台）**:
 The interactive environment for discovering and presenting Topics. It comprises the Catalog and Player.
@@ -111,15 +115,6 @@ Continuous Player progression from one Topic to another. It keeps narrative move
 A portable reference to a Navigation State. It opens the same selected context for another viewer.
 
 ### Curation
-
-**Topic Set（Topic 套系）**:
-A curated anthology of Topics conceived as a shared collection. It guides the distribution of subjects and expression across Styles.
-_Avoid_: Version set, batch
-
-**Topic Set Contract（Topic 套系契约）**:
-The source-owned record that associates each Topic in a Topic Set with its
-semantic identity, navigation profile, transition score, and claim evidence.
-It is not a version or a separate assignment document.
 
 **Evidence（证据边界）**:
 The declaration that classifies Topic claims as source-backed facts or as an
