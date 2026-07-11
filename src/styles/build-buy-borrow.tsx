@@ -616,7 +616,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const benchmarkMatrixTopic = defineStyleTopic({
   id: "build-buy-borrow",
   topic: { en: "Build vs Buy vs Borrow", zh: "自建还是买" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: BenchmarkMatrixV3,
   getMetadata,
 });

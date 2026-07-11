@@ -430,7 +430,7 @@ export function getMetadata(language: Lang): StyleMetadata {
 export const onQuittingWellTopic = defineStyleTopic({
   id: "on-quitting-well",
   topic: { en: "On Quitting Well", zh: "好好离开" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: OnQuittingWellV3,
   getMetadata,
 });

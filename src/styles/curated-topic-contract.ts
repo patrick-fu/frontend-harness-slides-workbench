@@ -9,7 +9,7 @@ import type { StyleTopicModule } from "./topic";
 
 /** A semantic collection label, deliberately separate from version identifiers. */
 export const CURATED_TOPIC_SET_ID = "curated";
-export const CURATED_TOPIC_MODEL = "GPT 5.6 Sol";
+export const CURATED_TOPIC_MODEL = "Claude Opus 4.8";
 
 /** Canonical localized Style names shared by every Topic in this collection. */
 export const CURATED_STYLE_NAMES: Readonly<

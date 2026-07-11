@@ -97,7 +97,7 @@ describe("style topic protocol", () => {
         registered,
         `${contract.styleId}/${contract.topicId} must be registered in ${CURATED_TOPIC_SET_ID}`,
       ).toBeDefined();
-      expect(registered?.model).toBe("GPT 5.6 Sol");
+      expect(registered?.model).toBe("Claude Opus 4.8");
       expect(registered?.transitionScore).toEqual(contract.transitionScore);
       expect(registered?.navigation).toEqual(contract.navigation);
       expect(registered?.evidence).toEqual(contract.evidence);

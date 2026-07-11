@@ -480,7 +480,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const festivalSlowIdeasTopic = defineStyleTopic({
   id: "festival-slow-ideas",
   topic: { en: "Festival of Slow Ideas", zh: "慢想节" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: SolarBiennalePosterV3,
   getMetadata,
 });

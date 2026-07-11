@@ -876,7 +876,7 @@ export default WhyUsersChurnV3;
 export const WhyUsersChurnTopic = defineStyleTopic({
   id: "why-users-churn",
   topic: { en: "Why Users Churn", zh: "用户流失" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: WhyUsersChurnV3,
   getMetadata,
 });

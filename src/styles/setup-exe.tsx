@@ -617,7 +617,7 @@ export default SetupExeV3;
 export const SetupExeTopic = defineStyleTopic({
   id: "setup-exe",
   topic: { en: COPY.en.topic, zh: COPY.zh.topic },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: SetupExeV3,
   getMetadata,
 });

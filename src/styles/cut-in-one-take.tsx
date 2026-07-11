@@ -581,7 +581,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const cutInOneTakeTopic = defineStyleTopic({
   id: "cut-in-one-take",
   topic: { en: "Cut in One Take", zh: "\u4e00\u6761\u8fc7" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: CutInOneTakeV3,
   getMetadata,
 });

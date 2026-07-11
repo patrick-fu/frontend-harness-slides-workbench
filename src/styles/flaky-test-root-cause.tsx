@@ -1131,7 +1131,7 @@ export default FlakyTestRootCause;
 export const FlakyTestRootCauseTopic = defineStyleTopic({
   id: "flaky-test-root-cause",
   topic: { en: "Flaky Test, Root Cause", zh: "不稳定测试" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: FlakyTestRootCause,
   getMetadata,
 });

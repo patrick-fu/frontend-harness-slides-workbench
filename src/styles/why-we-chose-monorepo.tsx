@@ -819,7 +819,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const WhyWeChoseMonorepoTopic = defineStyleTopic({
   id: "why-we-chose-monorepo",
   topic: { en: "Why We Chose Monorepo", zh: "选单仓库" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: WhyWeChoseMonorepo,
   getMetadata,
 });

@@ -863,7 +863,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Last Feature We Cut",
           "zh": "删掉的功能"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "minimal-product-keynote",
@@ -2034,7 +2034,7 @@ export const CATALOG_MANIFEST = [
           "en": "Anatomy of a Timetable",
           "zh": "时刻表解剖"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "objective-swiss-grid",
@@ -3229,7 +3229,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Beauty of the Unfinished",
           "zh": "未完成之美"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "wabi-sabi-ceramic",
@@ -4377,7 +4377,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Rubber Duck",
           "zh": "橡皮鸭"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "interactive-dialogue-stage",
@@ -5544,7 +5544,7 @@ export const CATALOG_MANIFEST = [
           "en": "Drawing a Bridge",
           "zh": "桥的设计"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "cyanotype-drafting-table",
@@ -6704,7 +6704,7 @@ export const CATALOG_MANIFEST = [
           "en": "Ship It",
           "zh": "发布"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "kinetic-type-punchline",
@@ -7880,7 +7880,7 @@ export const CATALOG_MANIFEST = [
           "en": "How We Named It",
           "zh": "起名字"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "sketch-board-emoji",
@@ -9030,7 +9030,7 @@ export const CATALOG_MANIFEST = [
           "en": "On Quitting Well",
           "zh": "好好离开"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "spotlight-quote-poster",
@@ -10193,7 +10193,7 @@ export const CATALOG_MANIFEST = [
           "en": "Three Teams, One Launch",
           "zh": "三队一发"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "subway-map-of-intent",
@@ -11463,7 +11463,7 @@ export const CATALOG_MANIFEST = [
           "en": "Build vs Buy vs Borrow",
           "zh": "自建还是买"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "benchmark-matrix",
@@ -12638,7 +12638,7 @@ export const CATALOG_MANIFEST = [
           "en": "Where the Request Goes",
           "zh": "请求去哪了"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "signal-pipeline-flow",
@@ -14411,7 +14411,7 @@ export const CATALOG_MANIFEST = [
           "en": "Your First Week Here",
           "zh": "入职第一周"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "soft-pastel-friendly",
@@ -15574,7 +15574,7 @@ export const CATALOG_MANIFEST = [
           "en": "From Raw Logs to Report",
           "zh": "日志到报告"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "kitchen-prep-station",
@@ -16715,7 +16715,7 @@ export const CATALOG_MANIFEST = [
           "en": "Human Reviews the AI",
           "zh": "人审 AI"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "collaborative-pairing-board",
@@ -17828,7 +17828,7 @@ export const CATALOG_MANIFEST = [
           "en": "Tuning the Model",
           "zh": "调模型"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "studio-mixing-console",
@@ -19015,7 +19015,7 @@ export const CATALOG_MANIFEST = [
           "en": "Is It Safe to Deploy?",
           "zh": "能发布吗"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "debug-reaction-board",
@@ -20166,7 +20166,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Day the Feed Stopped",
           "zh": "信息流停摆"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "front-page-broadsheet",
@@ -21348,7 +21348,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Comeback Issue",
           "zh": "回归特刊"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "magazine-masthead",
@@ -22523,7 +22523,7 @@ export const CATALOG_MANIFEST = [
           "en": "A Letter to My Past Self",
           "zh": "写给过去"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "warm-editorial-feature",
@@ -23676,7 +23676,7 @@ export const CATALOG_MANIFEST = [
           "en": "What the Ancients Knew",
           "zh": "古人的智慧"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "scholars-vellum",
@@ -24845,7 +24845,7 @@ export const CATALOG_MANIFEST = [
           "en": "Festival of Slow Ideas",
           "zh": "慢想节"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "solar-biennale-poster",
@@ -26010,7 +26010,7 @@ export const CATALOG_MANIFEST = [
           "en": "Cut in One Take",
           "zh": "一条过"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "duotone-session",
@@ -27274,7 +27274,7 @@ export const CATALOG_MANIFEST = [
           "en": "Make Something Weekly",
           "zh": "每周做点"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "riso-print-zine",
@@ -28528,7 +28528,7 @@ export const CATALOG_MANIFEST = [
           "en": "Piecing the Idea Together",
           "zh": "拼出想法"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "analog-cutout-collage",
@@ -29744,7 +29744,7 @@ export const CATALOG_MANIFEST = [
           "en": "A River's Journey",
           "zh": "一条河"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "woodblock-floating-world",
@@ -30933,7 +30933,7 @@ export const CATALOG_MANIFEST = [
           "en": "Anatomy of an Idea",
           "zh": "想法解剖"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "botanical-specimen-plate",
@@ -32131,7 +32131,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Grand Unveiling",
           "zh": "盛大揭幕"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "machine-age-deco",
@@ -33287,7 +33287,7 @@ export const CATALOG_MANIFEST = [
           "en": "Mapping Unknown Ground",
           "zh": "勘探未知"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "expedition-screenprint",
@@ -34532,7 +34532,7 @@ export const CATALOG_MANIFEST = [
           "en": "Greatest Hits, Vol. 1",
           "zh": "精选辑一"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "cassette-era-packaging",
@@ -35773,7 +35773,7 @@ export const CATALOG_MANIFEST = [
           "en": "Read This Before You Merge",
           "zh": "合并前必读"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "neo-brutalist-bulletin",
@@ -36968,7 +36968,7 @@ export const CATALOG_MANIFEST = [
           "en": "Refactor the System",
           "zh": "重构体制"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "red-wedge-agitprop",
@@ -38158,7 +38158,7 @@ export const CATALOG_MANIFEST = [
           "en": "Triage the Backlog",
           "zh": "需求分拣"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "mechanical-scoring-funnel",
@@ -39311,7 +39311,7 @@ export const CATALOG_MANIFEST = [
           "en": "Layers of a Product",
           "zh": "产品的层"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "liquid-glass",
@@ -40450,7 +40450,7 @@ export const CATALOG_MANIFEST = [
           "en": "Setup.exe",
           "zh": "安装向导"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "retro-windows",
@@ -41589,7 +41589,7 @@ export const CATALOG_MANIFEST = [
           "en": "Growing Slowly on Purpose",
           "zh": "慢成长"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "mid-century-grove",
@@ -42778,7 +42778,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Midnight Release",
           "zh": "午夜上线"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "after-hours-luxe",
@@ -43925,7 +43925,7 @@ export const CATALOG_MANIFEST = [
           "en": "Rotate the Secrets",
           "zh": "轮换密钥"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "operating-manual",
@@ -45080,7 +45080,7 @@ export const CATALOG_MANIFEST = [
           "en": "Chapter Zero",
           "zh": "第零章"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "widescreen-title-card",
@@ -46238,7 +46238,7 @@ export const CATALOG_MANIFEST = [
           "en": "Deriving Big-O",
           "zh": "推导复杂度"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "blackboard-chalk-talk",
@@ -47502,7 +47502,7 @@ export const CATALOG_MANIFEST = [
           "en": "Defeating Tech Debt",
           "zh": "打败技术债"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "arcade-boss-fight",
@@ -48611,7 +48611,7 @@ export const CATALOG_MANIFEST = [
           "en": "Why Users Churn",
           "zh": "用户流失"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "research-memo",
@@ -49746,7 +49746,7 @@ export const CATALOG_MANIFEST = [
           "en": "Why We Chose Monorepo",
           "zh": "选单仓库"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "decision-record",
@@ -50889,7 +50889,7 @@ export const CATALOG_MANIFEST = [
           "en": "Flaky Test, Root Cause",
           "zh": "不稳定测试"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "maintainer-issue-brief",
@@ -52061,7 +52061,7 @@ export const CATALOG_MANIFEST = [
           "en": "A Day Shadowing Support",
           "zh": "跟班客服"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "field-notes-report",
@@ -53246,7 +53246,7 @@ export const CATALOG_MANIFEST = [
           "en": "Killing a God Object",
           "zh": "拆解巨类"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "annotated-source-diff",
@@ -54455,7 +54455,7 @@ export const CATALOG_MANIFEST = [
           "en": "Close the Quarter",
           "zh": "季度结账"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "checklist-ledger",
@@ -55644,7 +55644,7 @@ export const CATALOG_MANIFEST = [
           "en": "Everything the Intern Needs",
           "zh": "新人须知"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "context-bento-box",
@@ -56797,7 +56797,7 @@ export const CATALOG_MANIFEST = [
           "en": "The Onboarding Toolkit",
           "zh": "入职工具包"
         },
-        "model": "GPT 5.6 Sol",
+        "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
             "id": "object-metaphor-hero",

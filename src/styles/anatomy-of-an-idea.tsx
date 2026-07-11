@@ -541,7 +541,7 @@ export const anatomyOfAnIdeaTopic = defineStyleTopic({
     en: "Anatomy of an Idea",
     zh: "想法解剖",
   },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: BotanicalSpecimenPlateV3,
   getMetadata,
 });

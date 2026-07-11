@@ -692,7 +692,7 @@ export default BlackboardChalkTalkV3;
 export const DerivingBigOTopic = defineStyleTopic({
   id: "deriving-big-o",
   topic: { en: "Deriving Big-O", zh: "推导复杂度" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: BlackboardChalkTalkV3,
   getMetadata,
 });

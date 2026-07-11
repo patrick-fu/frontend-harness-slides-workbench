@@ -631,7 +631,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const EverythingTheInternNeedsTopic = defineStyleTopic({
   id: "everything-the-intern-needs",
   topic: { en: "Everything the Intern Needs", zh: "新人须知" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: EverythingTheInternNeedsV3,
   getMetadata,
 });

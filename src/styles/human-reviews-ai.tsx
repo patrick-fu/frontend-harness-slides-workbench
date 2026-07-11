@@ -755,7 +755,7 @@ export default function CollaborativePairingBoardV3({
 export const humanReviewsAiTopic = defineStyleTopic({
   id: "human-reviews-ai",
   topic: { en: "Human Reviews the AI", zh: "人审 AI" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: CollaborativePairingBoardV3,
   getMetadata,
 });

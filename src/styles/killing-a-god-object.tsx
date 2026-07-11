@@ -1063,7 +1063,7 @@ export default KillingAGodObjectV3;
 export const KillingAGodObjectTopic = defineStyleTopic({
   id: "killing-a-god-object",
   topic: { en: "Killing a God Object", zh: "拆解巨类" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: KillingAGodObjectV3,
   getMetadata,
 });

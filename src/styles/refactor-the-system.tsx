@@ -504,7 +504,7 @@ export function getMetadata(language: "en" | "zh"): StyleMetadata {
 export const refactorTheSystemTopic = defineStyleTopic({
   id: "refactor-the-system",
   topic: { en: "Refactor the System", zh: "重构体制" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: RedWedgeAgitpropV3,
   getMetadata,
 });

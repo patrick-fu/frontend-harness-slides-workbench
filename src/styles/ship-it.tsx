@@ -1,6 +1,6 @@
 /**
  * Style 06 · Kinetic Type Punchline · v3 — "Ship It"
- * Band: minimal-keynote · Model: GPT 5.6 Sol
+ * Band: minimal-keynote · Model: Claude Opus 4.8
  *
  * A loud graphic poster where words ARE the image. Two-tone figure/ground:
  * a deep-black hard field carries off-white condensed uppercase display type,
@@ -399,7 +399,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const shipItTopic = defineStyleTopic({
   id: "ship-it",
   topic: { en: "Ship It", zh: "发布" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: ShipItV3,
   getMetadata,
 });

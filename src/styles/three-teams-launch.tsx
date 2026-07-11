@@ -1211,7 +1211,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const threeTeamsLaunchTopic = defineStyleTopic({
   id: "three-teams-launch",
   topic: { en: "Three Teams, One Launch", zh: "三队一发" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: ThreeTeamsLaunchV3,
   getMetadata,
 });

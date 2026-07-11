@@ -637,7 +637,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const kitchenPrepStationTopic = defineStyleTopic({
   id: "raw-logs-to-report",
   topic: { en: "From Raw Logs to Report", zh: "日志到报告" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: KitchenPrepStationV3,
   getMetadata,
 });

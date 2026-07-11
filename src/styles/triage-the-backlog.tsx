@@ -431,7 +431,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const mechanicalScoringFunnelTopic = defineStyleTopic({
   id: "triage-the-backlog",
   topic: { en: "Triage the Backlog", zh: "需求分拣" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: MechanicalScoringFunnelV3,
   getMetadata,
 });

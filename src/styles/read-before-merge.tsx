@@ -733,7 +733,7 @@ export function getMetadata(language: Lang): StyleMetadata {
 export const readBeforeMergeTopic = defineStyleTopic({
   id: "read-before-merge",
   topic: { en: "Read This Before You Merge", zh: "合并前必读" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: ReadBeforeMergeV3,
   getMetadata,
 });

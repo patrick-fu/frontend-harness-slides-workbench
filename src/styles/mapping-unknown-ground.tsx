@@ -584,7 +584,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const mappingUnknownGroundTopic = defineStyleTopic({
   id: "mapping-unknown-ground",
   topic: { en: "Mapping Unknown Ground", zh: "勘探未知" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: MappingUnknownGroundV3,
   getMetadata,
 });

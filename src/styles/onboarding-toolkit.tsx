@@ -747,7 +747,7 @@ export default OnboardingToolkitV3;
 export const OnboardingToolkitTopic = defineStyleTopic({
   id: "onboarding-toolkit",
   topic: { en: "The Onboarding Toolkit", zh: "入职工具包" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: OnboardingToolkitV3,
   getMetadata,
 });

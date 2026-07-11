@@ -706,7 +706,7 @@ export default CloseTheQuarter;
 export const CloseTheQuarterTopic = defineStyleTopic({
   id: "close-the-quarter",
   topic: { en: "Close the Quarter", zh: "季度结账" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: CloseTheQuarter,
   getMetadata,
 });

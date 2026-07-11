@@ -310,7 +310,7 @@ function TitleScene({ lang }: { lang: Lang }) {
       <div className={styles.titleTop}>
         <span className={styles.powerLed} />
         <span className={styles.kicker}>{c.kicker}</span>
-        <span className={styles.modelBadge}>GPT 5.6 Sol</span>
+        <span className={styles.modelBadge}>Claude Opus 4.8</span>
       </div>
       <h1 className={styles.title}>{b.title}</h1>
       <p className={styles.subtitle}>{b.body}</p>
@@ -643,7 +643,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const tuningTheModelTopic = defineStyleTopic({
   id: "tuning-the-model",
   topic: { en: "Tuning the Model", zh: "调模型" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: StudioMixingConsoleV3,
   getMetadata,
 });

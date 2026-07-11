@@ -601,7 +601,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const grandUnveilingTopic = defineStyleTopic({
   id: "grand-unveiling",
   topic: { en: "The Grand Unveiling", zh: "盛大揭幕" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: GrandUnveilingV3,
   getMetadata,
 });

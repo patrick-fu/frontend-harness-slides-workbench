@@ -512,7 +512,7 @@ export function getMetadata(lang: "en" | "zh"): StyleMetadata {
 export const drawingABridgeTopic = defineStyleTopic({
   id: "drawing-a-bridge",
   topic: { en: "Drawing a Bridge", zh: "桥的设计" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: CyanotypeDraftingTableV3,
   getMetadata,
 });

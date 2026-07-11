@@ -617,7 +617,7 @@ export default DefeatingTechDebtV3;
 export const DefeatingTechDebtTopic = defineStyleTopic({
   id: "defeating-tech-debt",
   topic: { en: "Defeating Tech Debt", zh: "\u6253\u8d25\u6280\u672f\u503a" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: DefeatingTechDebtV3,
   getMetadata,
 });

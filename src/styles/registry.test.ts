@@ -76,7 +76,7 @@ describe("STYLE_REGISTRY topic catalog", () => {
 
     expect(curated).toHaveLength(CURATED_TOPIC_CONTRACTS.length);
     expect(curated.map(({ topic }) => topic.model)).toEqual(
-      Array(CURATED_TOPIC_CONTRACTS.length).fill("GPT 5.6 Sol"),
+      Array(CURATED_TOPIC_CONTRACTS.length).fill("Claude Opus 4.8"),
     );
     expect(
       new Set(curated.map(({ styleId, topic }) => `${styleId}/${topic.id}`)),

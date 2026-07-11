@@ -727,7 +727,7 @@ export default ShadowingSupportV3;
 export const ShadowingSupportTopic = defineStyleTopic({
   id: "shadowing-support",
   topic: { en: "A Day Shadowing Support", zh: "跟班客服" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: ShadowingSupportV3,
   getMetadata,
 });

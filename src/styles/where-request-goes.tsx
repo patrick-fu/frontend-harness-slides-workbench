@@ -500,7 +500,7 @@ export function getMetadata(lang: Lang): StyleMetadata {
 export const whereRequestGoesTopic = defineStyleTopic({
   id: "where-request-goes",
   topic: { en: "Where the Request Goes", zh: "请求去哪了" },
-  model: "GPT 5.6 Sol",
+  model: "Claude Opus 4.8",
   component: WhereRequestGoesV3,
   getMetadata,
 });
