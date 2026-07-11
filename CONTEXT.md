@@ -16,8 +16,22 @@ Current routing and registry contract:
   layer.
 - `STYLE_REGISTRY` array order defines style order, and each entry's `topics`
   array defines topic order.
-- Stable URLs use query parameters:
-  `?view=lab&style=<style-id>&topic=<topic-id>&scene=<n>&beat=<n>`.
+- Overview View catalogs every Topic rather than one representative card per
+  Style. Topic Cards remain contiguous by owning Style in registry order.
+- Overview filtering has two facets: Band and Model ID. Selection is
+  OR within each facet and AND between facets; filtering controls Topic Card
+  visibility without changing Lab View navigation order.
+- The Model ID facet operates at Topic level. A Style Group is absent when none
+  of its Topics match, and its options are derived from Topic Model IDs in
+  the Registry rather than maintained as a separate list.
+- All shareable Workbench state uses URL query parameters; URL fragments are
+  not part of the addressing model. Lab position uses
+  `?view=lab&style=<style-id>&topic=<topic-id>&scene=<n>&beat=<n>`, while
+  Overview filtering carries selected Band IDs and Model IDs as repeated
+  singular `band` and `model` parameters.
+- Navigation history treats a View or Topic change as a new destination.
+  Filter, Scene, Beat, Pure Mode, and Frozen changes update the current
+  destination rather than creating a trail of intermediate states.
 - The active catalog currently contains 49 registered styles.
 - The cross-domain Topic Set is confirmed and authorized in
   `docs/CROSS_DOMAIN_TOPIC_SET_PLAN.md`. Implementation runs as 49 independent
@@ -65,18 +79,135 @@ A Beat is not a decorative fade; it is a reviewable story state that changes wha
 
 ### Overview View (总览视图)
 
-A responsive grid showing all Styles as 16:9 thumbnail cards. Supports tag-based AND filtering. This is the "lobby" of the Workbench.
+The Catalog surface of the Workbench, used to browse every Topic. It presents
+Topic Cards in contiguous Style Groups and supports Band and Model ID filtering.
+
+### Topic Card（题材卡片）
+
+The Overview representation of one exact Topic. It belongs to one Style and
+identifies the Topic's Model ID rather than standing for the Style as a whole.
+All matching cards coexist in one continuous grid without pagination or infinite
+scroll; thumbnails load lazily into stable 16:9 placeholders.
+The whole card is a native link to that Topic's Scene 1 / Beat 0 destination,
+preserving standard keyboard, modifier-click, middle-click, and context-menu behavior.
+Each Topic owns one committed 1920x1080 English WebP thumbnail; responsive image
+variants are intentionally not generated.
+
+_Avoid_: Style card, version card.
+
+### Style Group（风格组）
+
+The contiguous run of visible Topic Cards owned by one Style in Overview View.
+The group is absent when none of its Topics match the active filters.
 
 ### Lab View (实验室视图)
 
-The interactive presentation hall for one selected Topic within a Style. It
-shows the 16:9 Stage with Workbench chrome around it.
+The Player surface for one selected Topic within a Style. It prioritizes the
+16:9 Stage while keeping presentation navigation available around it.
+
+### Catalog + Player（目录与播放器）
+
+The Workbench's two-surface interaction model: Overview View catalogs Topics,
+while Lab View plays one exact Topic. Neither surface inherits navigation chrome
+that only serves the other surface.
+Catalog loads registry metadata and static imagery independently of Topic
+components. Player loads the selected component on demand, with card-intent
+prefetch and adjacent-Topic prefetch supporting Seamless Cycling. Loading and
+retry states preserve the 16:9 Stage footprint.
+
+### Catalog Header（目录顶栏）
+
+The compact sticky Overview app bar containing the Workbench home action,
+Command Palette trigger, Global Settings, and More menu. The home action returns
+to an unfiltered Overview. A second sticky row directly below owns facets and
+the visible Topic/Style summary, keeping the remaining viewport for Topic Cards.
+
+_Avoid_: Marketing hero, persistent source-link button.
+
+### Player Rail（播放器侧轨）
+
+The persistent 48px desktop navigation rail for Overview, Library Drawer, and
+Command Palette access. It does not duplicate Topic context or Global Settings.
+Mobile removes the rail and places those navigation actions in the Player top bar.
+
+_Avoid_: Miniature Style list, duplicated top-bar navigation.
+
+### Library Drawer（资料库抽屉）
+
+The on-demand global navigator for Styles and Topics in Lab View. It overlays
+the Player without changing Stage geometry and closes after a destination is chosen.
+Its searchable list keeps Registry Style order, uses Bands only as non-collapsible
+section labels, and expands a Style to expose its Topics and Model IDs. The current
+Style is expanded automatically; search may match Style, Topic, or Model ID.
+On mobile it becomes a near-full-width left overlay rather than a bottom sheet;
+its internal scrolling never leaks navigation gestures to the Stage. The Catalog
+Filter remains a bottom sheet, separating navigation from refinement spatially.
+
+_Avoid_: Persistent Sidebar, layout-pushing Sidebar.
+
+### Topic Switcher（题材切换器）
+
+The Player top-bar menu for switching only among Topics owned by the current
+Style. It shows each Topic with its Model ID, highlights the active Topic, and
+opens a selection at Scene 1 / Beat 0. Cross-Style navigation belongs to the
+Library Drawer or Command Palette.
+
+_Avoid_: Global Style browser, duplicate Command Palette.
+
+### Command Palette（快速跳转面板）
+
+The global direct-navigation surface for finding a Style, Topic, or Model ID and
+opening an exact Topic. It is not an Overview filtering facet and does not create
+a filtered catalog state. Every result is one exact Topic; search ranks exact,
+prefix, then substring matches while preserving Registry order within a rank.
+Its empty query shows up to eight locally stored recently visited Topics.
+
+_Avoid_: Settings command runner, cloud-synced history.
+
+### Player Transport（播放器控制条）
+
+The Lab View control surface for moving through the selected Topic's Scenes and
+Beats. Its Scene Timeline exposes all five Scenes while keeping the active
+Scene's title and Beat progress visible. Player navigation is input-agnostic:
+keyboard, pointer click zones, and horizontal or vertical swipe gestures all
+advance through the same ordered Scene/Beat sequence. Presentation shortcuts
+are suppressed while an editable or menu control owns focus.
+
+Pointer and touch mapping is directional: the left 20% click/tap zone moves
+back and the remaining 80% advances; swiping left or up advances, while swiping
+right or down moves back. Gesture recognition locks to the dominant axis and
+interactive Slide targets opt out of global navigation.
+
+Desktop normal Player reveals a quiet directional cue only while the pointer is
+inside an edge click zone. The cue is non-interactive and absent on touch devices
+and in Pure Mode.
+
+Swipe navigation applies only to direct touch gestures on the mobile Stage.
+Trackpad and mouse-wheel events never navigate the presentation.
+
+Scene Timeline items are direct destinations: choosing an inactive Scene opens
+its Beat 0, while choosing the active Scene preserves its Beat. The active
+Scene's segmented Beat progress also permits direct Beat selection. Such
+progress changes replace the current history entry.
+
+### Controls Guide（操作说明）
+
+The `?`-accessible help surface describing only controls available in the current
+View. Catalog covers search and global commands; Player additionally covers
+keyboard progression, pointer zones, touch directions, and the explicit absence
+of trackpad or wheel navigation.
+
+_Avoid_: Keyboard-only shortcut sheet.
+
+_Avoid_: Internal Navigation, thumbnail filmstrip.
 
 ### Pure Mode (纯净模式)
 
 A display state where all Workbench chrome is hidden and only the selected
 Topic's Stage is visible, centered and maximized in the viewport. Activated via
-the `pure=1` URL parameter. Used for:
+the user-facing `Present` action and represented by the `pure=1` URL parameter.
+It is independent of browser Fullscreen, which is an ephemeral non-URL state.
+Used for:
 
 - Clean screenshots and recording
 - iframe embedding without visual pollution
@@ -84,15 +215,60 @@ the `pure=1` URL parameter. Used for:
 
 In Pure Mode, only the Style's own internal navigation and global keyboard/touch/click-zone inputs remain functional. No floating controls or exit buttons are rendered. Exit via browser back button or `Esc` key.
 
+Normal Player chrome remains visible on desktop and mobile; it never auto-hides
+after inactivity. Full-canvas viewing is an explicit transition into Pure Mode.
+When both Fullscreen and Pure Mode are active, Escape exits Fullscreen first and
+Pure Mode on the next invocation.
+
 ### Envelope (外壳)
 
-The Workbench chrome that wraps the Stage: header (language/theme toggles, GitHub link), sidebar (style catalog), bottom bar (scene progress, beat progress, prev/next). The Envelope uses viewport-relative units (`px`, `rem`) and is responsive to viewport size.
+The Workbench chrome around the active surface, including global settings,
+Library Drawer access, and presentation transport. Envelope controls belong to
+Catalog or Player context rather than forming one permanent shared frame.
+Its visual language is a quiet, theme-aware gallery tool: neutral surfaces,
+restrained borders and elevation, compact typography with accessible hit areas,
+and motion limited to interaction-state transitions. Slide imagery owns the
+large-area color and expression.
+
+### Global Settings（全局设置）
+
+The shared Language and Theme preferences exposed through compact, explicit
+menus in both desktop and mobile chrome. Each trigger shows the current mode;
+opening it lists every available mode instead of cycling through hidden states.
+
+_Avoid_: Segmented control, cycle-only icon button.
+
+### Source Links（源码入口）
+
+Two distinct external GitHub destinations exposed from the shared More menu:
+the frontend-harness-slides Skill repository and the Workbench repository.
+They are secondary resources rather than persistent top-bar actions.
+
+### Share Link（分享链接）
+
+A contextual More-menu action that copies the current query-addressable state.
+Catalog shares its active filters; Player shares its exact Topic, Scene, Beat,
+and display modes. Mobile may additionally expose the platform share sheet.
+
+_Avoid_: Per-card share button.
+
+### More Menu（更多菜单）
+
+The secondary action menu shared by Catalog and Player. Both expose Copy Link,
+platform Share when available, shortcut help, and separate Skill/Workbench GitHub
+links. Player additionally exposes browser Fullscreen. Present remains a primary
+top-bar action rather than a More item.
 
 ### Stage (舞台)
 
 The 16:9 fixed-ratio canvas (nominal 1920×1080) where a Topic renders. Content
 inside the Stage resolves container-query units against the Stage rather than
-the browser viewport.
+the browser viewport. In Lab View it scales with `contain` to the largest complete
+fit inside the space remaining around Player chrome; it is never cropped or
+resized when an overlay opens. Unused space is a quiet theme-aware neutral canvas.
+Mobile portrait never reflows or crops Slide content; it centers the complete
+16:9 Stage and shows a non-blocking `Rotate for a larger view` hint once per
+session for three seconds. Orientation changes trigger a fresh contain fit.
 
 ### Internal Navigation (内嵌导航)
 
@@ -182,10 +358,16 @@ visual metaphor and still has a deterministic reduced-motion fallback.
 
 _Avoid_: Decorative one-off effect.
 
-### Model Label（模型标签）
+### Model ID（模型标识）
 
-每个 Topic 的元信息中包含编写该 Topic 的模型名称，如
-"Doubao-Seed-Evolving"、"GPT 5.5"。显示在 TopicBar 和 Topic 信息中。
+A stable exact string identifying the model that produced a Topic, such as
+"Doubao-Seed-Evolving" or "GPT 5.5". It is the identity used for grouping,
+filtering, and counting, and is currently displayed verbatim in the UI. A small,
+deterministically assigned accessible palette marker may repeat across Filter,
+Topic Card, Topic Switcher, Library Drawer, and Command Palette for scanning;
+color never replaces the exact text.
+
+_Avoid_: Model Label, model version.
 
 ### TopicBar（题材条）
 
@@ -205,21 +387,69 @@ Overview View visibility.
 
 ### Filter (过滤器)
 
-Tag-based AND filtering that controls which Style cards are visible in Overview View. Does not affect Lab View navigation cycling. Two-layer:
+Topic-level visibility rules for Overview View, expressed through Band and Model
+ID facets. Selection is OR within either facet and AND between facets;
+it never changes Lab View navigation cycling. The active Filter is shareable
+state represented in URL query parameters.
 
-1. **Band quick-filter** — select one or more Bands to narrow the set
-2. **Tag cloud refine** — multi-select tags (mood, tone, density, etc.) with AND intersection logic
+The desktop Model facet stays one row: options that do not fit move into a
+searchable `+N Models` multi-select menu. The mobile Filter sheet exposes the
+complete vertical option list and adds search when needed.
+
+Facet counts always count Topics. A Band option count applies current Model
+selection but ignores Band selection; a Model option count applies current Band
+selection but ignores Model selection. Zero-count options remain visible and
+disabled unless already selected.
+
+_Avoid_: Tag filter, Style-level result filter.
+
+### Overview Filter State（总览筛选状态）
+
+The selected Band IDs and Model IDs that determine visible Topic Cards. It is
+shareable state addressed through repeated `band` and `model` query parameters
+rather than a URL fragment or comma-delimited list.
+An empty facet selection means all values; `All` is a displayed state rather
+than a selectable option. `Clear all` removes both facet selections.
+Unknown URL facet values remain active unresolved criteria and produce an
+explicit unavailable-filter empty state until removed; they are never silently
+discarded or allowed to broaden the result set.
 
 ### Navigation State (导航状态)
 
 The current position tuple: `(styleId, topicId, scene, beat)`. This state is
-fully reflected in URL query parameters for stable frame addressing.
+fully reflected in URL query parameters for stable frame addressing and sharing.
+Missing Scene/Beat defaults to Scene 1 / Beat 0, and out-of-range progress is
+clamped to the nearest valid frame with URL canonicalization. Missing Style or
+Topic identity is instead an explicit Not Found state that preserves the URL.
+
+_Avoid_: Hash route, URL fragment state.
+
+### Navigation History（导航历史）
+
+The sequence of destinations created by explicit View changes and explicit Topic
+selection through Topic Card, Library Drawer, Topic Switcher, or Command Palette.
+In-place filters, Scene/Beat progress, display modes, and automatic Topic changes
+caused by sequential Prev/Next navigation replace the current destination instead.
+
+### Catalog Return State（目录返回状态）
+
+The last Catalog filter state and scroll position restored when leaving Player
+through Back or its Overview action. Filters remain URL-addressable; scroll is
+ephemeral history/session state and never a query parameter. The Catalog Header
+home action is intentionally different: it clears filters and returns to the top.
 
 ### Seamless Cycling (无缝循环)
 
 When advancing past the last Beat of Scene 5, the system cycles first to the
 next Topic in the current Style, then to the first Topic of the next Style.
-Prev follows the same order in reverse.
+Prev follows the same order in reverse. Sequential crossings update the exact
+URL through history replacement rather than creating a destination per Topic;
+Pure Mode stops at the selected Topic's boundaries.
+
+Each cross-Topic step briefly identifies the new `Style > Topic [Model ID]` in
+a non-blocking Stage-safe notice. It appears for both same-Style and cross-Style
+changes, never for ordinary Scene/Beat progress, and replaces the strong
+cross-style flash treatment.
 
 ### Theme Mode (深浅色模式)
 
@@ -227,7 +457,11 @@ The Envelope's color scheme: `auto` (follows system), `light`, or `dark`. Persis
 
 ### Language Mode (语言模式)
 
-`auto`, `en`, or `zh`. Controls both Envelope UI text and the `language` prop passed to Style components. Persisted in localStorage. Auto mode follows `navigator.language`: `zh-*` → Chinese, everything else → English.
+`auto`, `en`, or `zh`. Controls both Envelope UI text and the `language` prop
+passed to Style components. The preference persists in localStorage; Auto follows
+`navigator.language` (`zh-*` -> Chinese, everything else -> English). A `lang=en`
+or `lang=zh` query value temporarily overrides the preference without mutating it.
+Copy Link includes the currently resolved language so shared Slide content is exact.
 
 ### Harness Contract (线束契约)
 
@@ -1250,7 +1484,7 @@ interface StyleRegistryEntry {
 
 - 左侧：风格编号·风格名（可点击返回 Overview）
 - 中间：› 题材名（当前版本的 topic）
-- 右侧：[模型标签] 版本序号 ⋮ 下拉菜单
+- 右侧：[模型标识] 版本序号 ⋮ 下拉菜单
 - ⋮ 下拉："查看版本信息"（显示 model、topic、版本详情）
 - 当风格只有 1 个版本时，版本序号显示 "v1/1" 但视觉弱化
 - 当风格有多个版本时，版本序号可点击切换版本
@@ -1281,7 +1515,7 @@ Sidebar 中每个风格条目可展开，显示该风格的所有版本：
 
 - 点击版本条目跳到该版本的 scene 1 beat 0
 - 当前版本高亮
-- 版本条目显示：题材名 + 模型标签（小号、弱化）
+- 版本条目显示：题材名 + 模型标识（小号、弱化）
 - 默认收起（保持 sidebar 简洁）
 - 当前活跃风格自动展开
 
@@ -1692,3 +1926,14 @@ _(None currently)_
 - Multi-version 骨架（D80-D84）：暂停，优先级低于风格质量
 - Navigation diversity（D86）：48 风格内部导航多样性改造
 - 新增版本（D80）：当前每个风格只有 1 个版本（Doubao-Seed-Evolving），可由其他模型生成更多版本
+
+### Current State (2026-07-11)
+
+- Catalog + Player redesign implemented from D95 onward: 49 Styles / 146 Topics in one continuous responsive grid.
+- Catalog filtering is URL-owned and uses repeated `band` and `model` query parameters; Topic identity, Scene, Beat, Pure, Frozen, and language are shareable query state.
+- Every Topic owns one committed 1920×1080 English WebP thumbnail (146 total, 8.4 MiB); no responsive variants.
+- Runtime Catalog metadata is synchronous, while each Topic Stage component and CSS are loaded as an independent dynamic chunk. Loading, retry, card-intent prefetch, and adjacent-Topic prefetch preserve the fixed Stage footprint.
+- Player shell now uses the desktop rail / mobile top bar, Library Drawer, current-Style Topic Switcher, Command Palette, five-Scene transport, direct Beat selection, pointer click zones, and direct-touch-only horizontal/vertical gestures.
+- Browser history uses push for deliberate Catalog/Topic destinations and replace for filters, progress, modes, language, and sequential cross-Topic cycling.
+- Fullscreen remains ephemeral and separate from URL-backed Pure Mode. Rotate hint is Player-only and auto-hides after three seconds per session.
+- Global More exposes two GitHub links: the slide skill repository and this Workbench repository.

@@ -58,7 +58,8 @@ describe("STYLE_REGISTRY topic catalog", () => {
       style.topics.map((topic) => topic.model),
     );
 
-    expect(models.filter((model) => model === "GPT 5.5")).toHaveLength(48);
+    expect(models.filter((model) => model === "GPT 5.5")).toHaveLength(49);
+    expect(models).not.toContain("GPT-5");
   });
 
   it("registers the complete 49-Topic coordinated set", () => {

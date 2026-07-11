@@ -583,7 +583,12 @@ test.describe("Navigation", () => {
   test("mouse click on the stage advances to next scene", async ({ page }) => {
     await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
-    await page.locator('[data-testid="stage"]').click({ position: { x: 10, y: 10 } });
+    const stage = page.locator('[data-testid="stage"]');
+    const box = await stage.boundingBox();
+    expect(box).not.toBeNull();
+    await stage.click({
+      position: { x: (box?.width ?? 1) * 0.75, y: (box?.height ?? 1) * 0.5 },
+    });
     await page.waitForTimeout(200);
 
     const query = parseQueryFromUrl(page.url());
@@ -592,26 +597,43 @@ test.describe("Navigation", () => {
     expect(Number(query.beat)).toBe(0);
   });
 
-  test("Space with sidebar focus advances the current slide without activating the focused sidebar item", async ({
+  test("presentation shortcuts yield to Library and Topic menu focus", async ({
     page,
   }) => {
     await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
-    const bandToggle = page.locator('[data-testid="band-toggle-editorial-print"]');
-    if (await bandToggle.isVisible()) {
-      const expanded = await bandToggle.getAttribute("aria-expanded");
-      if (expanded === "false") await bandToggle.click();
-    }
+    const rail = page.getByRole("navigation", { name: "Player navigation" });
+    await rail.getByRole("button", { name: "Library" }).click();
+    const drawer = page.getByRole("dialog", { name: "Library" });
+    const librarySearch = drawer.getByRole("searchbox", {
+      name: "Search styles, topics, or Model ID",
+    });
+    await librarySearch.focus();
+    await expect(librarySearch).toBeFocused();
+    await page.keyboard.press("ArrowRight");
 
-    const sidebarItem = page.locator('[data-testid="sidebar-style-front-page-broadsheet"]');
-    await expect(sidebarItem).toBeVisible({ timeout: 5000 });
-    await sidebarItem.focus();
-    await page.keyboard.press("Space");
-    await page.waitForTimeout(200);
-
-    const query = parseQueryFromUrl(page.url());
+    let query = parseQueryFromUrl(page.url());
     expect(query.style).toBe("minimal-product-keynote");
-    expect(Number(query.scene)).toBe(2);
+    expect(Number(query.scene)).toBe(1);
+    expect(Number(query.beat)).toBe(0);
+
+    await page.keyboard.press("Escape");
+    await expect(drawer).toHaveCount(0);
+
+    const topicMenuTrigger = page
+      .locator("button[aria-haspopup='menu']")
+      .filter({ hasText: "Product Keynote" });
+    await expect(topicMenuTrigger).toBeVisible();
+    await topicMenuTrigger.focus();
+    await page.keyboard.press("Space");
+
+    await expect(
+      page.locator('[role="menu"]').filter({ hasText: "Quiet Launch" }),
+    ).toBeVisible();
+
+    query = parseQueryFromUrl(page.url());
+    expect(query.style).toBe("minimal-product-keynote");
+    expect(Number(query.scene)).toBe(1);
     expect(Number(query.beat)).toBe(0);
   });
 
@@ -892,22 +914,35 @@ test.describe("Minimal Product Keynote transition contract", () => {
 // ─── 4: Pure mode hides chrome ─────────────────────────────────────────────
 
 test.describe("Pure mode", () => {
-  test("pure=1 hides header and sidebar", async ({ page }) => {
+  test("pure=1 renders the Stage without Player rail, top bar, or timeline", async ({ page }) => {
     await openLab(page, "minimal-product-keynote", 1, 0, { pure: true, frozen: true });
 
-    // Header and sidebar wrapper divs should have display:none
-    await expect(page.locator('[data-testid="header"]')).toBeHidden();
-    await expect(page.locator('[data-testid="sidebar"]')).toBeHidden();
-
-    // Stage should still be visible
+    await expect(
+      page.getByRole("navigation", { name: "Player navigation" }),
+    ).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "Present" })).toHaveCount(0);
+    await expect(
+      page
+        .locator("button[aria-haspopup='menu']")
+        .filter({ hasText: "Product Keynote" }),
+    ).toHaveCount(0);
+    await expect(page.locator('[data-testid="bottom-bar"]')).toHaveCount(0);
     await expect(page.locator('[data-testid="stage"]')).toBeVisible();
+
+    await page.keyboard.press("Control+K");
+    await page.keyboard.type("?");
+    await expect(page.getByRole("dialog", { name: "Command palette" })).toHaveCount(0);
+    await expect(page.getByRole("dialog", { name: "Controls" })).toHaveCount(0);
   });
 
-  test("pure=0 shows header and sidebar", async ({ page }) => {
+  test("pure=0 restores the normal Player chrome", async ({ page }) => {
     await openLab(page, "minimal-product-keynote", 1, 0, { pure: false, frozen: true });
 
-    await expect(page.locator('[data-testid="header"]')).toBeVisible();
-    await expect(page.locator('[data-testid="sidebar"]')).toBeVisible();
+    await expect(
+      page.getByRole("navigation", { name: "Player navigation" }),
+    ).toBeVisible();
+    await expect(page.getByRole("button", { name: "Present" })).toBeVisible();
+    await expect(page.locator('[data-testid="bottom-bar"]')).toBeVisible();
   });
 
   test("pure=1 keeps semantic headers inside the active slide visible", async ({
@@ -959,67 +994,52 @@ test.describe("Frozen mode", () => {
 // ─── 6: Language toggle ────────────────────────────────────────────────────
 
 test.describe("Language toggle", () => {
-  test("clicking language segments changes selection", async ({ page }) => {
+  test("selecting a language from the menu changes the current mode", async ({ page }) => {
     await openOverview(page);
 
-    const autoSeg = page.locator('[data-testid="lang-segment-auto"]');
-    const enSeg = page.locator('[data-testid="lang-segment-en"]');
-    const zhSeg = page.locator('[data-testid="lang-segment-zh"]');
+    await page.getByRole("button", { name: "Language: Auto" }).click();
+    const englishMenu = page.getByRole("menu", { name: "Language" });
+    await expect(
+      englishMenu.getByRole("menuitemradio", { name: /Auto$/ }),
+    ).toHaveAttribute("aria-checked", "true");
+    await englishMenu.getByRole("menuitemradio", { name: /English$/ }).click();
+    await expect(page.getByRole("button", { name: "Language: EN" })).toBeVisible();
 
-    // Segments should be visible
-    await expect(autoSeg).toBeVisible();
-    await expect(enSeg).toBeVisible();
-    await expect(zhSeg).toBeVisible();
+    await page.getByRole("button", { name: "Language: EN" }).click();
+    await page
+      .getByRole("menu", { name: "Language" })
+      .getByRole("menuitemradio", { name: /中文$/ })
+      .click();
+    await expect(page.getByRole("button", { name: "语言: 中" })).toBeVisible();
 
-    // Initial state: "auto" should be selected
-    await expect(autoSeg).toHaveAttribute("aria-pressed", "true");
-    await expect(enSeg).toHaveAttribute("aria-pressed", "false");
-    await expect(zhSeg).toHaveAttribute("aria-pressed", "false");
-
-    // Click EN
-    await enSeg.click();
-    await page.waitForTimeout(200);
-    await expect(autoSeg).toHaveAttribute("aria-pressed", "false");
-    await expect(enSeg).toHaveAttribute("aria-pressed", "true");
-    await expect(zhSeg).toHaveAttribute("aria-pressed", "false");
-
-    // Click ZH
-    await zhSeg.click();
-    await page.waitForTimeout(200);
-    await expect(autoSeg).toHaveAttribute("aria-pressed", "false");
-    await expect(enSeg).toHaveAttribute("aria-pressed", "false");
-    await expect(zhSeg).toHaveAttribute("aria-pressed", "true");
-
-    // Click Auto to go back
-    await autoSeg.click();
-    await page.waitForTimeout(200);
-    await expect(autoSeg).toHaveAttribute("aria-pressed", "true");
-    await expect(enSeg).toHaveAttribute("aria-pressed", "false");
-    await expect(zhSeg).toHaveAttribute("aria-pressed", "false");
+    await page.getByRole("button", { name: "语言: 中" }).click();
+    await page
+      .getByRole("menu", { name: "语言" })
+      .getByRole("menuitemradio", { name: /Auto$/ })
+      .click();
+    await expect(page.getByRole("button", { name: "Language: Auto" })).toBeVisible();
   });
 
   test("language persists after navigation", async ({ page }) => {
     await openOverview(page);
 
-    const enSegOverview = page.locator('[data-testid="lang-segment-en"]');
-    // Switch to EN
-    await enSegOverview.click();
-    await page.waitForTimeout(200);
-    await expect(enSegOverview).toHaveAttribute("aria-pressed", "true");
+    await page.getByRole("button", { name: "Language: Auto" }).click();
+    await page
+      .getByRole("menu", { name: "Language" })
+      .getByRole("menuitemradio", { name: /English$/ })
+      .click();
+    await expect(page.getByRole("button", { name: "Language: EN" })).toBeVisible();
 
-    // Navigate to a style
-    await page.locator('[data-testid="style-card-minimal-product-keynote"]').click();
+    await page
+      .locator('[data-topic-key="minimal-product-keynote/product-keynote"]')
+      .getByRole("link")
+      .click();
     await page.waitForSelector('[data-testid="stage"]', {
       state: "visible",
       timeout: 10000,
     });
-    await page.waitForTimeout(300);
 
-    // Language should still be EN
-    const enSegLab = page.locator('[data-testid="lang-segment-en"]');
-    await expect(enSegLab).toHaveAttribute("aria-pressed", "true");
-    const zhSegLab = page.locator('[data-testid="lang-segment-zh"]');
-    await expect(zhSegLab).toHaveAttribute("aria-pressed", "false");
+    await expect(page.getByRole("button", { name: "Language: EN" })).toBeVisible();
   });
 });
 
@@ -1234,58 +1254,146 @@ test.describe("Cross-style cycling", () => {
   });
 });
 
-// ─── 9: Gallery view (overview) loads ──────────────────────────────────────
+// ─── 9: Catalog / overview view ────────────────────────────────────────────
 
-test.describe("Gallery / overview view", () => {
-  test("overview view renders all registered style cards", async ({ page }) => {
+test.describe("Catalog / overview view", () => {
+  test("reduced motion removes visible Topic Card transitions", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await openOverview(page);
+
+    const transitionSeconds = await page
+      .locator("[data-testid='topic-card'] a")
+      .first()
+      .evaluate((element) =>
+        Number.parseFloat(getComputedStyle(element).transitionDuration),
+      );
+
+    expect(transitionSeconds).toBeLessThanOrEqual(0.001);
+  });
+
+  test("mobile Filters render above the Catalog header", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await openOverview(page);
+    await page.getByRole("button", { name: "Filters" }).click();
+    await page.getByRole("dialog", { name: "Filters" }).waitFor();
+
+    const topElement = await page.evaluate(() =>
+      document.elementFromPoint(12, 12)?.tagName,
+    );
+
+    expect(topElement).not.toBe("HEADER");
+  });
+
+  test("Catalog renders all 146 Topic Cards with its facet controls", async ({ page }) => {
     const errors = attachErrorCollector(page);
     await openOverview(page);
 
     await expect(page.locator('[data-testid="overview-view"]')).toBeVisible();
+    await expect(page.locator('[data-testid="catalog-filter-bar"]')).toBeVisible();
+    await expect(page.locator('[data-testid="filter-panel"]')).toBeVisible();
+    await expect(page.getByRole("group", { name: "Category" })).toBeVisible();
+    await expect(page.getByRole("group", { name: "Model" })).toBeVisible();
+    await expect(page.locator('[data-testid="catalog-summary"]')).toHaveText(
+      "All 146 Topics · 49 Styles",
+    );
+    await expect(page.locator('[data-testid="topic-card"]')).toHaveCount(146);
 
-    for (const id of ALL_STYLE_IDS) {
-      await expect
-        .soft(page.locator(`[data-testid="style-card-${id}"]`), `style-card-${id} missing`)
-        .toBeVisible({ timeout: 5000 });
-    }
-
-    // No console errors
     await page.waitForTimeout(1000);
     expect(errors, `Console errors: ${errors.join("; ")}`).toEqual([]);
   });
 
-  test("clicking a style card navigates to lab view for that style", async ({
+  test("Catalog facets constrain Topic Cards and remain URL-addressable", async ({
     page,
   }) => {
     await openOverview(page);
 
-    const card = page.locator('[data-testid="style-card-front-page-broadsheet"]');
-    await expect(card).toBeVisible();
-    await card.click();
+    const category = page.getByRole("group", { name: "Category" });
+    await category
+      .getByRole("button", { name: /^Minimal Keynote,/ })
+      .click();
+    await expect(page.locator('[data-testid="topic-card"]')).toHaveCount(24);
+
+    let query = parseQueryFromUrl(page.url());
+    expect(query.band).toBe("minimal-keynote");
+    expect(query.model).toBeUndefined();
+
+    const model = page
+      .getByRole("group", { name: "Model" })
+      .getByRole("button", { name: /^Doubao-Seed-Evolving,/ });
+    const modelLabel = await model.getAttribute("aria-label");
+    const visibleForModel = Number(modelLabel?.match(/, (\d+) Topics$/)?.[1]);
+    expect(visibleForModel).toBeGreaterThan(0);
+    await model.click();
+    await expect(page.locator('[data-testid="topic-card"]')).toHaveCount(
+      visibleForModel,
+    );
+
+    query = parseQueryFromUrl(page.url());
+    expect(query.band).toBe("minimal-keynote");
+    expect(query.model).toBe("Doubao-Seed-Evolving");
+
+    await page.getByRole("button", { name: "Clear all" }).click();
+    await expect(page.locator('[data-testid="topic-card"]')).toHaveCount(146);
+    query = parseQueryFromUrl(page.url());
+    expect(query.band).toBeUndefined();
+    expect(query.model).toBeUndefined();
+  });
+
+  test("Topic Cards are native exact links to their Scene 1 / Beat 0 destination", async ({
+    page,
+  }) => {
+    await openOverview(page);
+
+    const card = page.locator(
+      '[data-topic-key="front-page-broadsheet/broadsheet"]',
+    );
+    const link = card.getByRole("link");
+    await expect(link).toBeVisible();
+    await expect(link).toHaveJSProperty("tagName", "A");
+
+    const href = await link.getAttribute("href");
+    const target = new URL(href ?? "", page.url());
+    expect(target.pathname).toBe("/");
+    expect(target.search).toBe(
+      buildQuery({
+        view: "lab",
+        style: "front-page-broadsheet",
+        topic: PRIMARY_TOPIC_BY_STYLE["front-page-broadsheet"],
+        scene: 1,
+        beat: 0,
+      }),
+    );
+
+    await link.click();
 
     await page.waitForSelector('[data-testid="stage"]', {
       state: "visible",
       timeout: 10000,
     });
-    await page.waitForTimeout(300);
 
     const query = parseQueryFromUrl(page.url());
     expect(query.view).toBe("lab");
     expect(query.style).toBe("front-page-broadsheet");
+    expect(query.topic).toBe(PRIMARY_TOPIC_BY_STYLE["front-page-broadsheet"]);
     expect(Number(query.scene)).toBe(1);
     expect(Number(query.beat)).toBe(0);
   });
-
-  test("overview title text is visible", async ({ page }) => {
-    await openOverview(page);
-    // The heading inside overview-view says "Style Overview" (en) or "风格总览" (zh)
-    await expect(page.locator('[data-testid="overview-view"] h1').first()).toBeVisible();
-  });
 });
 
-// ─── 10: Cinema view (lab) loads ───────────────────────────────────────────
+// ─── 10: Player / lab view ─────────────────────────────────────────────────
 
-test.describe("Cinema / lab view", () => {
+test.describe("Player / lab view", () => {
+  test("mobile top bar keeps Overview, Library, and Search available at 375px", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
+
+    await expect(page.getByRole("button", { name: "Overview" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Library" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Search" })).toBeVisible();
+  });
+
   test("lab view renders stage for style 01", async ({ page }) => {
     const errors = attachErrorCollector(page);
     await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
@@ -1297,7 +1405,7 @@ test.describe("Cinema / lab view", () => {
     expect(errors).toEqual([]);
   });
 
-  test("lab view renders stage for style 48 (last style)", async ({ page }) => {
+  test("lab view renders stage for the final registered style", async ({ page }) => {
     const errors = attachErrorCollector(page);
     await openLab(page, "object-metaphor-hero", 1, 0, { frozen: true });
 
@@ -1307,15 +1415,89 @@ test.describe("Cinema / lab view", () => {
     expect(errors).toEqual([]);
   });
 
-  test("lab view shows bottom bar with scene dots", async ({ page }) => {
+  test("Player exposes rail, top bar, and an on-demand Library Drawer", async ({
+    page,
+  }) => {
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
+
+    const rail = page.getByRole("navigation", { name: "Player navigation" });
+    await expect(rail).toBeVisible();
+    await expect(rail.getByRole("button", { name: "Overview" })).toBeVisible();
+    await expect(rail.getByRole("button", { name: "Library" })).toBeVisible();
+    await expect(rail.getByRole("button", { name: "Search" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Present" })).toBeVisible();
+
+    const topicMenuTrigger = page
+      .locator("button[aria-haspopup='menu']")
+      .filter({ hasText: "Product Keynote" });
+    await expect(topicMenuTrigger).toBeVisible();
+
+    await rail.getByRole("button", { name: "Library" }).click();
+    const drawer = page.getByRole("dialog", { name: "Library" });
+    await expect(drawer).toBeVisible();
+    await expect(
+      drawer.getByRole("searchbox", {
+        name: "Search styles, topics, or Model ID",
+      }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("button", {
+        name: "Product Keynote · Doubao-Seed-Evolving",
+      }),
+    ).toHaveAttribute("aria-current", "page");
+
+    await drawer
+      .getByRole("button", { name: "Quiet Launch · GPT 5.5" })
+      .click();
+    await expect(drawer).toHaveCount(0);
+
+    const query = parseQueryFromUrl(page.url());
+    expect(query.style).toBe("minimal-product-keynote");
+    expect(query.topic).toBe("quiet-launch");
+    expect(Number(query.scene)).toBe(1);
+    expect(Number(query.beat)).toBe(0);
+  });
+
+  test("Player Topic menu is scoped to the current Style", async ({ page }) => {
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
+
+    const topicMenuTrigger = page
+      .locator("button[aria-haspopup='menu']")
+      .filter({ hasText: "Product Keynote" });
+    await topicMenuTrigger.click();
+    const topicMenu = page
+      .locator('[role="menu"]')
+      .filter({ hasText: "Quiet Launch" });
+    await expect(topicMenu).toBeVisible();
+    await expect(topicMenu.getByRole("menuitemradio")).toHaveCount(3);
+    await expect(
+      topicMenu.getByRole("menuitemradio", { name: /Product Keynote/ }),
+    ).toHaveAttribute("aria-checked", "true");
+
+    await topicMenu
+      .getByRole("menuitemradio", { name: /Quiet Launch/ })
+      .click();
+    const query = parseQueryFromUrl(page.url());
+    expect(query.style).toBe("minimal-product-keynote");
+    expect(query.topic).toBe("quiet-launch");
+    expect(Number(query.scene)).toBe(1);
+    expect(Number(query.beat)).toBe(0);
+  });
+
+  test("Player timeline exposes five direct scene destinations", async ({ page }) => {
     await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
     await expect(page.locator('[data-testid="bottom-bar"]')).toBeVisible();
 
-    // All 5 scene dots should be present
     for (let s = 1; s <= 5; s++) {
-      await expect(page.locator(`[data-testid="scene-dot-${s}"]`)).toBeVisible();
+      const sceneDestination = page.locator(`[data-testid="scene-dot-${s}"]`);
+      await expect(sceneDestination).toBeVisible();
+      await expect(sceneDestination).toHaveAttribute("aria-label", `Scene ${s}`);
     }
+    await expect(page.locator('[data-testid="scene-dot-1"]')).toHaveAttribute(
+      "aria-current",
+      "step",
+    );
   });
 
   test("bottom bar next/prev buttons are functional", async ({ page }) => {
@@ -1365,24 +1547,4 @@ test.describe("Cinema / lab view", () => {
     expect(text).toBe("2/3"); // beat index 1 → display "2/3"
   });
 
-  test("sidebar style items are visible and clickable", async ({ page }) => {
-    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
-
-    // Make sure the editorial-print band is expanded (style 17 lives there)
-    const bandToggle = page.locator('[data-testid="band-toggle-editorial-print"]');
-    if (await bandToggle.isVisible()) {
-      const expanded = await bandToggle.getAttribute("aria-expanded");
-      if (expanded === "false") await bandToggle.click();
-    }
-
-    const sidebarItem = page.locator('[data-testid="sidebar-style-front-page-broadsheet"]');
-    await expect(sidebarItem).toBeVisible({ timeout: 5000 });
-    await sidebarItem.click();
-    await page.waitForTimeout(300);
-
-    const query = parseQueryFromUrl(page.url());
-    expect(query.style).toBe("front-page-broadsheet");
-    expect(Number(query.scene)).toBe(1);
-    expect(Number(query.beat)).toBe(0);
-  });
 });

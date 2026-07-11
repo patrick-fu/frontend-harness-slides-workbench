@@ -65,6 +65,51 @@ describe("useKeyboard", () => {
     expect(onSpace).toHaveBeenCalledTimes(1);
   });
 
+  it("opens the command palette for Ctrl+K and Cmd+K, but not plain K", () => {
+    const onCommandPalette = vi.fn();
+    renderHook(() => useKeyboard({ onCommandPalette }));
+
+    const plainK = new KeyboardEvent("keydown", {
+      key: "k",
+      cancelable: true,
+    });
+    const ctrlK = new KeyboardEvent("keydown", {
+      key: "k",
+      ctrlKey: true,
+      cancelable: true,
+    });
+    const metaK = new KeyboardEvent("keydown", {
+      key: "K",
+      metaKey: true,
+      cancelable: true,
+    });
+
+    act(() => {
+      window.dispatchEvent(plainK);
+      window.dispatchEvent(ctrlK);
+      window.dispatchEvent(metaK);
+    });
+
+    expect(onCommandPalette).toHaveBeenCalledTimes(2);
+    expect(plainK.defaultPrevented).toBe(false);
+    expect(ctrlK.defaultPrevented).toBe(true);
+    expect(metaK.defaultPrevented).toBe(true);
+  });
+
+  it("opens the controls guide for ?", () => {
+    const onHelp = vi.fn();
+    renderHook(() => useKeyboard({ onHelp }));
+
+    const questionMark = new KeyboardEvent("keydown", {
+      key: "?",
+      cancelable: true,
+    });
+    act(() => window.dispatchEvent(questionMark));
+
+    expect(onHelp).toHaveBeenCalledTimes(1);
+    expect(questionMark.defaultPrevented).toBe(true);
+  });
+
   it("prevents default browser behavior for handled navigation keys", () => {
     const onArrowRight = vi.fn();
     const onArrowLeft = vi.fn();
@@ -115,6 +160,96 @@ describe("useKeyboard", () => {
 
     expect(onArrowRight).not.toHaveBeenCalled();
     input.remove();
+  });
+
+  it("does not handle shortcuts from a contenteditable target", () => {
+    const onSpace = vi.fn();
+    const editable = document.createElement("div");
+    editable.setAttribute("contenteditable", "");
+    document.body.appendChild(editable);
+    editable.focus();
+
+    renderHook(() => useKeyboard({ onSpace }));
+
+    const space = new KeyboardEvent("keydown", {
+      key: " ",
+      bubbles: true,
+      cancelable: true,
+    });
+    act(() => editable.dispatchEvent(space));
+
+    expect(onSpace).not.toHaveBeenCalled();
+    expect(space.defaultPrevented).toBe(false);
+    editable.remove();
+  });
+
+  it("suppresses presentation shortcuts while a menu owns focus", () => {
+    const onArrowRight = vi.fn();
+    const onCommandPalette = vi.fn();
+    const onHelp = vi.fn();
+    const menu = document.createElement("div");
+    menu.setAttribute("role", "menu");
+    const menuItem = document.createElement("button");
+    menuItem.setAttribute("role", "menuitem");
+    menu.appendChild(menuItem);
+    document.body.appendChild(menu);
+    menuItem.focus();
+
+    renderHook(() =>
+      useKeyboard({ onArrowRight, onCommandPalette, onHelp }),
+    );
+
+    const arrow = new KeyboardEvent("keydown", {
+      key: "ArrowRight",
+      bubbles: true,
+      cancelable: true,
+    });
+    const command = new KeyboardEvent("keydown", {
+      key: "k",
+      ctrlKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    const help = new KeyboardEvent("keydown", {
+      key: "?",
+      bubbles: true,
+      cancelable: true,
+    });
+
+    act(() => {
+      menuItem.dispatchEvent(arrow);
+      menuItem.dispatchEvent(command);
+      menuItem.dispatchEvent(help);
+    });
+
+    expect(onArrowRight).not.toHaveBeenCalled();
+    expect(onCommandPalette).not.toHaveBeenCalled();
+    expect(onHelp).not.toHaveBeenCalled();
+    expect(arrow.defaultPrevented).toBe(false);
+    expect(command.defaultPrevented).toBe(false);
+    expect(help.defaultPrevented).toBe(false);
+    menu.remove();
+  });
+
+  it("suppresses presentation shortcuts while a menu trigger owns focus", () => {
+    const onArrowLeft = vi.fn();
+    const trigger = document.createElement("button");
+    trigger.setAttribute("aria-haspopup", "menu");
+    document.body.appendChild(trigger);
+    trigger.focus();
+
+    renderHook(() => useKeyboard({ onArrowLeft }));
+
+    const arrow = new KeyboardEvent("keydown", {
+      key: "ArrowLeft",
+      bubbles: true,
+      cancelable: true,
+    });
+    act(() => trigger.dispatchEvent(arrow));
+
+    expect(onArrowLeft).not.toHaveBeenCalled();
+    expect(arrow.defaultPrevented).toBe(false);
+    trigger.remove();
   });
 
   it("supports all handlers simultaneously", () => {
