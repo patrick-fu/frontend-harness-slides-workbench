@@ -40655,9 +40655,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "liquid-glass",
-            "band": "contemporary-digital",
-            "name": "Liquid Glass",
             "theme": "Product Showcase — museum vitrine glass panels revealing layered content with spatial depth and refined confidence",
             "densityLabel": "Layered Spatial",
             "heroScene": 1,
@@ -40763,12 +40760,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "liquid-glass",
+            "name": "Liquid Glass",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "liquid-glass",
-            "band": "contemporary-digital",
-            "name": "液态玻璃",
             "theme": "产品展示——博物馆展柜玻璃面板，以空间深度和精致质感揭示分层内容",
             "densityLabel": "分层空间",
             "heroScene": 1,
@@ -40874,10 +40871,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "liquid-glass",
+            "name": "液态玻璃",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./33-glass-dashboard.tsx"
+        "modulePath": "../topics/liquid-glass.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "liquid-glass-scene-dots",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative collection dashboard: artifact names, counts, dates, values, and collection outcomes are presentation examples, not an external collection record.",
+            "zh": "示例藏品仪表盘：其中展品名称、数量、日期、数值和藏品结果均为演示内容，并非外部馆藏记录。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "spatial-brief",
@@ -40888,9 +40908,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "liquid-glass",
-            "band": "contemporary-digital",
-            "name": "Liquid Glass",
             "theme": "Spatial Product Brief",
             "densityLabel": "Layered",
             "heroScene": 5,
@@ -41035,12 +41052,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "liquid-glass",
+            "name": "Liquid Glass",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "liquid-glass",
-            "band": "contemporary-digital",
-            "name": "液态玻璃",
             "theme": "空间产品简报",
             "densityLabel": "层次化",
             "heroScene": 5,
@@ -41185,10 +41202,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "liquid-glass",
+            "name": "液态玻璃",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./33-spatial-product-brief.tsx"
+        "modulePath": "../topics/spatial-brief.tsx",
+        "navigation": {
+          "geometry": "card-miniature",
+          "carrier": "glass-chip-nav",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative spatial product brief: product layers, interface states, and proof cues are presentation examples, not external product claims.",
+            "zh": "示例空间产品简报：其中产品层次、界面状态和证明提示均为演示内容，并非外部产品主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "slide-x",
+          "3->4": "wipe",
+          "4->5": "fade"
+        }
       },
       {
         "id": "safety-glass",
@@ -41199,9 +41239,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "liquid-glass",
-            "band": "contemporary-digital",
-            "name": "Liquid Glass",
             "theme": "Cracked, Still Holding",
             "densityLabel": "Stage Impact",
             "heroScene": 3,
@@ -41318,12 +41355,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "liquid-glass",
+            "name": "Liquid Glass",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "liquid-glass",
-            "band": "contemporary-digital",
-            "name": "液态玻璃",
             "theme": "裂了，仍然连在一起",
             "densityLabel": "舞台冲击",
             "heroScene": 3,
@@ -41440,10 +41477,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "liquid-glass",
+            "name": "液态玻璃",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./liquid-glass-safety-glass.tsx",
+        "modulePath": "../topics/safety-glass.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "glass-lamina-stack",
@@ -41492,6 +41532,9 @@ export const CATALOG_MANIFEST = [
             "boundary": "This manufacturer source supports the qualitative PVB mechanism only; no proprietary performance number, thickness, construction detail, or suitability recommendation is reproduced here."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "focus-swap",
           "2->3": "zoom-through",
@@ -41508,9 +41551,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "liquid-glass",
-            "band": "contemporary-digital",
-            "name": "Liquid Glass",
             "theme": "Layers of a Product",
             "densityLabel": "Layered",
             "heroScene": 3,
@@ -41618,12 +41658,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "liquid-glass",
+            "name": "Liquid Glass",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "liquid-glass",
-            "band": "contemporary-digital",
-            "name": "液态玻璃",
             "theme": "产品的层",
             "densityLabel": "分层",
             "heroScene": 3,
@@ -41731,10 +41771,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "liquid-glass",
+            "name": "液态玻璃",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./layers-of-a-product.tsx",
+        "modulePath": "../topics/layers-of-a-product.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "product-layer-stack",
@@ -41774,9 +41817,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "retro-windows",
-            "band": "contemporary-digital",
-            "name": "Retro Windows",
             "theme": "Nostalgic Computing — Win9x desktop costume with bevel depth, navy sole accent, CRT scanlines and dense application-UI body",
             "densityLabel": "Application-Dense",
             "heroScene": 3,
@@ -41885,12 +41925,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "retro-windows",
+            "name": "Retro Windows",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "retro-windows",
-            "band": "contemporary-digital",
-            "name": "复古 Windows",
             "theme": "怀旧计算——Windows 9x 桌面装扮，斜面深度、海军蓝主色、CRT 扫描线和密集应用界面",
             "densityLabel": "应用密集",
             "heroScene": 3,
@@ -41999,10 +42039,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "retro-windows",
+            "name": "复古 Windows",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./34-retro-os-95.tsx"
+        "modulePath": "../topics/retro-desktop.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "retro-desktop-scene-indicators",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative retro-computing vignette: system names, specifications, requirements, and timings are presentation examples, not externally verified historical claims.",
+            "zh": "示例复古计算机小品：其中系统名称、规格、要求和时间均为演示内容，并非经外部核验的历史主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "hard-cut",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "toolchain-desk",
@@ -42013,9 +42076,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "retro-windows",
-            "band": "contemporary-digital",
-            "name": "Retro Windows",
             "theme": "The Toolchain Desktop",
             "densityLabel": "Dense App UI",
             "heroScene": 3,
@@ -42163,12 +42223,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "retro-windows",
+            "name": "Retro Windows",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "retro-windows",
-            "band": "contemporary-digital",
-            "name": "复古 Windows",
             "theme": "工具链桌面",
             "densityLabel": "密集应用界面",
             "heroScene": 3,
@@ -42316,10 +42376,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "retro-windows",
+            "name": "复古 Windows",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./34-toolchain-desktop.tsx"
+        "modulePath": "../topics/toolchain-desk.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "toolchain-taskbar",
+          "invocation": "persistent",
+          "feedback": "mechanical-displacement"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative toolchain desktop: tool names, commands, workflow states, and outcomes are presentation examples, not a live development environment.",
+            "zh": "示例工具链桌面：其中工具名称、命令、工作流状态和结果均为演示内容，并非实时开发环境。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "glitch",
+          "3->4": "slide-x",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "voyager-boundary",
@@ -42330,9 +42413,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "retro-windows",
-            "band": "contemporary-digital",
-            "name": "Retro Windows",
             "theme": "Voyager at the Heliopause",
             "densityLabel": "Visual Narrative",
             "heroScene": 4,
@@ -42458,12 +42538,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "retro-windows",
+            "name": "Retro Windows",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "retro-windows",
-            "band": "contemporary-digital",
-            "name": "复古 Windows",
             "theme": "旅行者号穿越日球层边界",
             "densityLabel": "视觉叙事",
             "heroScene": 4,
@@ -42589,10 +42669,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "retro-windows",
+            "name": "复古 Windows",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./35-voyager-boundary.tsx",
+        "modulePath": "../topics/voyager-boundary.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "telemetry-trail",
@@ -42631,6 +42714,9 @@ export const CATALOG_MANIFEST = [
             "supports": "Voyager 2's distinct route past all four giant planets before its later interstellar mission."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "scanline",
@@ -42647,9 +42733,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "retro-windows",
-            "band": "contemporary-digital",
-            "name": "Retro Windows",
             "theme": "Setup.exe",
             "densityLabel": "Application-Dense",
             "heroScene": 1,
@@ -42757,12 +42840,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "retro-windows",
+            "name": "Retro Windows",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "retro-windows",
-            "band": "contemporary-digital",
-            "name": "复古 Windows",
             "theme": "安装向导",
             "densityLabel": "应用密集",
             "heroScene": 1,
@@ -42870,10 +42953,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "retro-windows",
+            "name": "复古 Windows",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./setup-exe.tsx",
+        "modulePath": "../topics/setup-exe.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "setup-wizard-controls",
@@ -42913,9 +42999,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "mid-century-grove",
-            "band": "contemporary-digital",
-            "name": "Mid-Century Grove",
             "theme": "Brand Storytelling — botanical specimen card aesthetic with deep forest ground, warm cream text, rust-orange accent and classical serif",
             "densityLabel": "Editorial-Organic",
             "heroScene": 4,
@@ -43026,12 +43109,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mid-century-grove",
+            "name": "Mid-Century Grove",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "mid-century-grove",
-            "band": "contemporary-digital",
-            "name": "中世纪林间",
             "theme": "品牌叙事——植物标本卡美学，深森林底色、温暖奶油文字、铁锈橙点缀和古典衬线体",
             "densityLabel": "编辑有机",
             "heroScene": 4,
@@ -43142,10 +43225,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mid-century-grove",
+            "name": "中世纪林间",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./35-neon-grid.tsx"
+        "modulePath": "../topics/botanical-brand.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "botanical-brand-scene-indicators",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative brand scenario: names, dates, artisan counts, material percentages, and outcomes are presentation examples, not externally verified company data.",
+            "zh": "示例品牌场景：名称、日期、匠人人数、材料比例和结果均为演示内容，并非经外部核验的公司数据。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "glitch",
+          "3->4": "glitch",
+          "4->5": "glitch"
+        }
       },
       {
         "id": "calm-growth",
@@ -43156,9 +43262,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "mid-century-grove",
-            "band": "contemporary-digital",
-            "name": "Mid-Century Grove",
             "theme": "A Calmer Growth Model",
             "densityLabel": "Medium-sparse",
             "heroScene": 1,
@@ -43305,12 +43408,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mid-century-grove",
+            "name": "Mid-Century Grove",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "mid-century-grove",
-            "band": "contemporary-digital",
-            "name": "世纪中叶林园",
             "theme": "更平静的增长模型",
             "densityLabel": "中低密度",
             "heroScene": 1,
@@ -43457,10 +43560,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mid-century-grove",
+            "name": "中世纪林间",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./35-calmer-growth-model.tsx"
+        "modulePath": "../topics/calm-growth.tsx",
+        "navigation": {
+          "geometry": "object-controller",
+          "carrier": "calm-growth-wooden-bead-rail",
+          "invocation": "persistent",
+          "feedback": "mechanical-displacement"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative growth-model scenario: the grove, team conditions, and operating choices are presentation examples, not measured organizational outcomes.",
+            "zh": "示例增长模型场景：林地、团队条件与运营选择均为演示内容，并非实测的组织结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-y",
+          "3->4": "scale-fade",
+          "4->5": "fade"
+        }
       },
       {
         "id": "monarch-migration",
@@ -43471,9 +43597,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "mid-century-grove",
-            "band": "contemporary-digital",
-            "name": "Mid-Century Grove",
             "theme": "Four Generations, One Migration",
             "densityLabel": "Visual narrative",
             "heroScene": 4,
@@ -43597,12 +43720,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mid-century-grove",
+            "name": "Mid-Century Grove",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "mid-century-grove",
-            "band": "contemporary-digital",
-            "name": "世纪中叶林园",
             "theme": "四代完成一次迁徙",
             "densityLabel": "视觉叙事",
             "heroScene": 4,
@@ -43726,10 +43849,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mid-century-grove",
+            "name": "中世纪林间",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./mid-century-grove-monarch-migration.tsx",
+        "modulePath": "../topics/monarch-migration.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "seasonal-halo",
@@ -43770,6 +43896,9 @@ export const CATALOG_MANIFEST = [
             "boundary": "The study combines field context with controlled experiments; the Topic calls the autumn cohort long-lived without turning one reported lifespan or one hormonal mechanism into a guaranteed outcome for every migrant."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "push-y",
           "2->3": "push-x",
@@ -43786,9 +43915,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "mid-century-grove",
-            "band": "contemporary-digital",
-            "name": "Mid-Century Grove",
             "theme": "Growing Slowly on Purpose",
             "densityLabel": "Sparse",
             "heroScene": 1,
@@ -43906,12 +44032,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mid-century-grove",
+            "name": "Mid-Century Grove",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "mid-century-grove",
-            "band": "contemporary-digital",
-            "name": "中世纪林间",
             "theme": "慢成长",
             "densityLabel": "疏朗",
             "heroScene": 1,
@@ -44029,10 +44155,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "mid-century-grove",
+            "name": "中世纪林间",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./growing-slowly-on-purpose.tsx",
+        "modulePath": "../topics/growing-slowly-on-purpose.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "grove-rust-mark",
@@ -44072,9 +44201,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "after-hours-luxe",
-            "band": "contemporary-digital",
-            "name": "After-Hours Luxe",
             "theme": "Brand Reveal & Premium Launch — late-night hotel bar atmosphere with warm black ground, pearl-cream insets and single hot-magenta accent",
             "densityLabel": "Editorial-Sparse",
             "heroScene": 3,
@@ -44183,12 +44309,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "after-hours-luxe",
+            "name": "After-Hours Luxe",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "after-hours-luxe",
-            "band": "contemporary-digital",
-            "name": "深夜奢华",
             "theme": "品牌发布与高端揭幕——深夜酒店酒吧氛围，暖黑底色、珍珠奶油内嵌、单一热洋红点缀",
             "densityLabel": "编辑留白",
             "heroScene": 3,
@@ -44297,10 +44423,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "after-hours-luxe",
+            "name": "深夜奢华",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./36-glass-morph.tsx"
+        "modulePath": "../topics/after-hours.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "after-hours-scene-indicators",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative luxury-retail scenario: collection names, visitor figures, prices, metrics, and outcomes are presentation examples, not externally verified business data.",
+            "zh": "示例奢华零售场景：系列名称、访客数字、价格、指标和结果均为演示内容，并非经外部核验的商业数据。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
+        }
       },
       {
         "id": "beta-salon",
@@ -44311,9 +44460,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "after-hours-luxe",
-            "band": "contemporary-digital",
-            "name": "After-Hours Luxe",
             "theme": "Private Beta Salon",
             "densityLabel": "Low-medium",
             "heroScene": 3,
@@ -44463,12 +44609,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "after-hours-luxe",
+            "name": "After-Hours Luxe",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "after-hours-luxe",
-            "band": "contemporary-digital",
-            "name": "午夜奢华",
             "theme": "私享 Beta 沙龙",
             "densityLabel": "低中密度",
             "heroScene": 3,
@@ -44618,10 +44764,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "after-hours-luxe",
+            "name": "深夜奢华",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./36-private-beta-salon.tsx"
+        "modulePath": "../topics/beta-salon.tsx",
+        "navigation": {
+          "geometry": "card-miniature",
+          "carrier": "beta-salon-coaster-picker",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative private-beta scenario: guest lists, feature demonstrations, proof points, and outcomes are presentation examples, not externally verified program data.",
+            "zh": "示例内测场景：宾客名单、功能演示、证明点和结果均为演示内容，并非经外部核验的项目数据。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "wipe",
+          "3->4": "fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "urushi-cure",
@@ -44632,9 +44801,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "after-hours-luxe",
-            "band": "contemporary-digital",
-            "name": "After-Hours Luxe",
             "theme": "Urushi Cure",
             "densityLabel": "Stage impact",
             "heroScene": 4,
@@ -44773,12 +44939,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "after-hours-luxe",
+            "name": "After-Hours Luxe",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "after-hours-luxe",
-            "band": "contemporary-digital",
-            "name": "午夜奢华",
             "theme": "漆的固化",
             "densityLabel": "舞台冲击",
             "heroScene": 4,
@@ -44917,10 +45083,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "after-hours-luxe",
+            "name": "深夜奢华",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./37-urushi-cure.tsx",
+        "modulePath": "../topics/urushi-cure.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "lacquer-sheen-loci",
@@ -44959,6 +45128,9 @@ export const CATALOG_MANIFEST = [
             "supports": "Supports the laccase-catalyzed oxidation of urushiol under humid conditions and subsequent coupling and cross-linking that form a three-dimensional lacquer film."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "focus-swap",
           "2->3": "ink-spread",
@@ -44975,9 +45147,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "after-hours-luxe",
-            "band": "contemporary-digital",
-            "name": "After-Hours Luxe",
             "theme": "The Midnight Release",
             "densityLabel": "Sparse · Nocturnal",
             "heroScene": 3,
@@ -45093,12 +45262,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "after-hours-luxe",
+            "name": "After-Hours Luxe",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "after-hours-luxe",
-            "band": "contemporary-digital",
-            "name": "深夜奢华",
             "theme": "午夜上线",
             "densityLabel": "疏朗 · 夜色",
             "heroScene": 3,
@@ -45214,10 +45383,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "after-hours-luxe",
+            "name": "深夜奢华",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./the-midnight-release.tsx",
+        "modulePath": "../topics/the-midnight-release.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "midnight-hairline-index",
@@ -45257,9 +45429,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "operating-manual",
-            "band": "contemporary-digital",
-            "name": "Operating Manual",
             "theme": "Runbook & Procedure Guides — industrial terminal aesthetic with monospace throughout, warning-amber accent and crisp sequential output",
             "densityLabel": "Procedure-Dense",
             "heroScene": 3,
@@ -45372,12 +45541,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "operating-manual",
+            "name": "Operating Manual",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "operating-manual",
-            "band": "contemporary-digital",
-            "name": "操作手册",
             "theme": "运行手册与程序指南——工业终端美学，全程等宽字体，警示琥珀色点缀，清晰顺序输出",
             "densityLabel": "流程密集",
             "heroScene": 3,
@@ -45490,10 +45659,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "operating-manual",
+            "name": "操作手册",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./37-terminal-ui.tsx"
+        "modulePath": "../topics/manual.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "terminal-function-index",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative terminal scenario: commands, system readings, procedures, and outcomes are presentation examples, not operational instructions or external factual claims.",
+            "zh": "示例终端场景：命令、系统读数、流程和结果均为演示内容，不构成操作指令或外部事实主张。"
+          },
+          "display": "stage"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "hard-cut",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "habit-runbook",
@@ -45504,9 +45696,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "operating-manual",
-            "band": "contemporary-digital",
-            "name": "Operating Manual",
             "theme": "Runbook for the New Habit",
             "densityLabel": "Procedural",
             "heroScene": 2,
@@ -45658,12 +45847,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "operating-manual",
+            "name": "Operating Manual",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "operating-manual",
-            "band": "contemporary-digital",
-            "name": "操作手册",
             "theme": "新习惯运行手册",
             "densityLabel": "程序化",
             "heroScene": 2,
@@ -45815,10 +46004,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "operating-manual",
+            "name": "操作手册",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./37-new-habit-runbook.tsx"
+        "modulePath": "../topics/habit-runbook.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "habit-runbook-index",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative habit runbook: triggers, steps, guardrails, and outcomes are presentation examples, not clinical, behavioral, or operational guidance.",
+            "zh": "示例习惯手册：触发器、步骤、护栏和结果均为演示内容，不构成临床、行为或操作建议。"
+          },
+          "display": "stage"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "slide-y",
+          "3->4": "glitch",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "escapement",
@@ -45829,9 +46041,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "operating-manual",
-            "band": "contemporary-digital",
-            "name": "Operating Manual",
             "theme": "Anchor Escapement Cutaway",
             "densityLabel": "Diagram Explainer",
             "heroScene": 3,
@@ -45948,12 +46157,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "operating-manual",
+            "name": "Operating Manual",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "operating-manual",
-            "band": "contemporary-digital",
-            "name": "操作手册",
             "theme": "锚形擒纵机构剖解",
             "densityLabel": "图解型",
             "heroScene": 3,
@@ -46070,10 +46279,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "operating-manual",
+            "name": "操作手册",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./38-escapement.tsx",
+        "modulePath": "../topics/escapement.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "gear-tooth-register",
@@ -46106,6 +46318,40 @@ export const CATALOG_MANIFEST = [
             "supports": "Defines anchor escapements by wedge-shaped pallets engaging an escape wheel and notes the recoil that distinguishes this selected type."
           }
         ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "authority": "Smithsonian National Air and Space Museum · Time and Navigation",
+              "title": "Mechanical Clock",
+              "url": "https://timeandnavigation.si.edu/timeline2/1000",
+              "supports": "Defines the escapement as the clock's regulating brake, releasing power from a falling weight or unwinding spring at a controlled rate."
+            },
+            {
+              "authority": "National Institute of Standards and Technology",
+              "title": "Everyday Time and Atomic Time: Part 3",
+              "url": "https://www.nist.gov/blogs/taking-measure/everyday-time-and-atomic-time-part-3",
+              "supports": "Explains that a pendulum-clock escapement advances a toothed wheel discretely and gives the pendulum a gentle push to replace frictional losses."
+            },
+            {
+              "authority": "Science Museum Group Collection",
+              "title": "Anchor escapement collection records",
+              "url": "https://collection.sciencemuseumgroup.org.uk/search/objects/object_type/anchor-escapement",
+              "supports": "Documents surviving anchor-escapement models and longcase-clock movements, grounding the selected mechanism in real museum objects."
+            },
+            {
+              "authority": "Getty Research Institute · Art & Architecture Thesaurus",
+              "title": "Anchor escapements",
+              "url": "https://www.getty.edu/vow/AATFullDisplay?find=&logic=AND&note=chinese&subjectid=300197628",
+              "supports": "Defines anchor escapements by wedge-shaped pallets engaging an escape wheel and notes the recoil that distinguishes this selected type."
+            }
+          ],
+          "boundary": {
+            "en": "Illustrative mechanical schematic: the recoil anchor escapement diagrams are conceptual, not to scale, and not a precision-adjustment recipe.",
+            "zh": "示意性机械图：反冲式锚形擒纵图仅用于概念说明，不按比例绘制，也不是精密调校配方。"
+          },
+          "display": "stage"
+        },
         "transitionScore": {
           "1->2": "hard-cut",
           "2->3": "linear-wipe",
@@ -46122,9 +46368,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "operating-manual",
-            "band": "contemporary-digital",
-            "name": "Operating Manual",
             "theme": "Rotate the Secrets",
             "densityLabel": "Reading-First",
             "heroScene": 3,
@@ -46239,12 +46482,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "operating-manual",
+            "name": "Operating Manual",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "operating-manual",
-            "band": "contemporary-digital",
-            "name": "操作手册",
             "theme": "轮换密钥",
             "densityLabel": "阅读优先",
             "heroScene": 3,
@@ -46359,10 +46602,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "operating-manual",
+            "name": "操作手册",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./rotate-the-secrets.tsx",
+        "modulePath": "../topics/rotate-the-secrets.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "rotation-command-status",
@@ -46402,9 +46648,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "widescreen-title-card",
-            "band": "contemporary-digital",
-            "name": "Widescreen Title Card",
             "theme": "Section Titles & Chapter Transitions — cinematic letterbox framing with graded still ground, film-poster title treatment and credit-like supporting text",
             "densityLabel": "Cinematic-Sparse",
             "heroScene": 3,
@@ -46518,12 +46761,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "widescreen-title-card",
+            "name": "Widescreen Title Card",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "widescreen-title-card",
-            "band": "contemporary-digital",
-            "name": "宽屏标题卡",
             "theme": "章节标题与过渡——宽屏信箱式构图，分级剧照底色，电影海报式标题处理，演职员表式辅助文字",
             "densityLabel": "电影留白",
             "heroScene": 3,
@@ -46637,10 +46880,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "widescreen-title-card",
+            "name": "宽屏标题卡",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./38-figma-canvas.tsx"
+        "modulePath": "../topics/title-card.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "title-card-scene-dots",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative film-title scenario: names, credits, chapters, quotations, and release framing are presentation fiction, not external factual claims.",
+            "zh": "示例电影片头场景：名称、演职员、章节、引言和发行信息均为演示虚构内容，并非外部事实主张。"
+          },
+          "display": "stage"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "fade",
+          "3->4": "fade",
+          "4->5": "fade"
+        }
       },
       {
         "id": "system-acts",
@@ -46651,9 +46917,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "widescreen-title-card",
-            "band": "contemporary-digital",
-            "name": "Widescreen Title Card",
             "theme": "Five Acts of a System",
             "densityLabel": "Sparse Cinematic",
             "heroScene": 1,
@@ -46800,12 +47063,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "widescreen-title-card",
+            "name": "Widescreen Title Card",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "widescreen-title-card",
-            "band": "contemporary-digital",
-            "name": "宽银幕标题卡",
             "theme": "系统五幕",
             "densityLabel": "稀疏电影感",
             "heroScene": 1,
@@ -46952,10 +47215,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "widescreen-title-card",
+            "name": "宽屏标题卡",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./38-five-acts-system.tsx"
+        "modulePath": "../topics/system-acts.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "letterbox-cue-marks",
+          "invocation": "persistent",
+          "feedback": "typographic-emphasis"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative systems narrative: titles, signals, loops, and rules are conceptual metaphors, not claims about a specific system.",
+            "zh": "示例系统叙事：标题、信号、循环和规则均为概念隐喻，并非针对特定系统的事实主张。"
+          },
+          "display": "stage"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-x",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "whale-fall",
@@ -46966,9 +47252,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "widescreen-title-card",
-            "band": "contemporary-digital",
-            "name": "Widescreen Title Card",
             "theme": "Whale Fall: Deep-Sea Succession",
             "densityLabel": "Stage Impact · Sparse",
             "heroScene": 5,
@@ -47092,12 +47375,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "widescreen-title-card",
+            "name": "Widescreen Title Card",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "widescreen-title-card",
-            "band": "contemporary-digital",
-            "name": "宽银幕标题卡",
             "theme": "鲸落：深海接替",
             "densityLabel": "强视觉 · 稀疏",
             "heroScene": 5,
@@ -47221,10 +47504,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "widescreen-title-card",
+            "name": "宽屏标题卡",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./39-whale-fall.tsx",
+        "modulePath": "../topics/whale-fall.tsx",
         "navigation": {
           "geometry": "card-miniature",
           "carrier": "whale-fall-filmstrip",
@@ -47261,6 +47547,44 @@ export const CATALOG_MANIFEST = [
             "boundary": "The study followed five carcasses in Monterey Canyon; the Topic uses it to show local evidence and specialist niches, not to imply that the same fauna colonize every whale fall worldwide."
           }
         ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "authority": "NOAA Ocean Exploration",
+              "title": "Whale falls, wood, or kelp: A bonanza for life in the deep sea",
+              "url": "https://oceanexplorer.noaa.gov/edu/oceanage/04baco_taylor/media/smithwhalefalls.pdf",
+              "supports": "Supports the broad succession from soft-tissue scavenging through enriched sediment to long-lived sulfide-based communities, including the months-to-decades range used in the scene notes.",
+              "boundary": "The expedition summary describes observed and expected ranges at particular study sites; this Topic therefore avoids presenting those durations as a universal clock for every carcass and depth."
+            },
+            {
+              "authority": "Monterey Bay Aquarium Research Institute (MBARI)",
+              "title": "Whale falls—Islands of abundance and diversity in the deep sea",
+              "url": "https://www.mbari.org/news/whale-falls-islands-of-abundance-and-diversity-in-the-deep-sea/",
+              "supports": "Supports rapid arrival of mobile scavengers, subsequent enrichment-opportunist assemblages, and a sulfophilic community powered by microbial processing of lipids within whale bones.",
+              "boundary": "The article reports Monterey and Southern California observations and uses representative stage descriptions; species, rates, and the clarity of each stage vary beyond those observed falls."
+            },
+            {
+              "citation": "Smith, C. R. et al. (2015), Annual Review of Marine Science 7, 571–596. doi:10.1146/annurev-marine-010213-135144",
+              "title": "Whale-Fall Ecosystems: Recent Insights into Ecology, Paleoecology, and Evolution",
+              "url": "https://doi.org/10.1146/annurev-marine-010213-135144",
+              "supports": "Supports whale falls as organic- and sulfide-rich habitat islands and describes overlapping successional assemblages whose expression varies with carcass size, water depth, and environmental conditions.",
+              "boundary": "The review explicitly frames succession as overlapping and variable, so the five scenes are an explanatory sequence rather than a claim that every site passes through sharply separated stages."
+            },
+            {
+              "authority": "Monterey Bay Aquarium Research Institute (MBARI)",
+              "title": "Fleshing out the life histories of dead whales",
+              "url": "https://www.mbari.org/news/fleshing-out-the-life-histories-of-dead-whales/",
+              "supports": "Supports repeated ROV observations of experimental whale falls and the distinction between widespread deep-sea animals and abundant bone specialists such as Osedax worms at individual sites.",
+              "boundary": "The study followed five carcasses in Monterey Canyon; the Topic uses it to show local evidence and specialist niches, not to imply that the same fauna colonize every whale fall worldwide."
+            }
+          ],
+          "boundary": {
+            "en": "Evidence boundary: whale-fall succession is an explanatory sequence drawn from particular observed sites; stages, durations, species, and conditions overlap and vary by carcass and setting. The original scientific illustrations simplify processes and are not to scale.",
+            "zh": "证据边界：鲸落接替是基于特定观测地点的解释性序列；阶段、时长、物种和条件会随鲸体与环境重叠并变化。原创科学示意图简化了过程，且不按比例绘制。"
+          },
+          "display": "stage"
+        },
         "transitionScore": {
           "1->2": "dip-to-color",
           "2->3": "dolly-pull",
@@ -47277,9 +47601,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "widescreen-title-card",
-            "band": "contemporary-digital",
-            "name": "Widescreen Title Card",
             "theme": "Chapter Zero",
             "densityLabel": "Cinematic",
             "heroScene": 2,
@@ -47385,12 +47706,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "widescreen-title-card",
+            "name": "Widescreen Title Card",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "widescreen-title-card",
-            "band": "contemporary-digital",
-            "name": "宽屏标题卡",
             "theme": "第零章",
             "densityLabel": "电影感",
             "heroScene": 2,
@@ -47496,10 +47817,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "widescreen-title-card",
+            "name": "宽屏标题卡",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./chapter-zero.tsx",
+        "modulePath": "../topics/chapter-zero.tsx",
         "navigation": {
           "mode": "none"
         },
@@ -47536,9 +47860,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "blackboard-chalk-talk",
-            "band": "contemporary-digital",
-            "name": "Blackboard Chalk Talk",
             "theme": "Live Derivation — dark matte chalkboard with soft off-white marks, hand-drawn diagrams and worked formulas, reasoning built up stroke by stroke",
             "densityLabel": "Reading-First",
             "heroScene": 2,
@@ -47652,12 +47973,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "blackboard-chalk-talk",
+            "name": "Blackboard Chalk Talk",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "blackboard-chalk-talk",
-            "band": "contemporary-digital",
-            "name": "黑板粉笔演讲",
             "theme": "实时推导——深色哑光黑板配柔和粉白粉笔痕迹，手绘图表和推导公式，逐笔构建推理过程",
             "densityLabel": "阅读优先",
             "heroScene": 2,
@@ -47771,10 +48092,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "blackboard-chalk-talk",
+            "name": "黑板粉笔演讲",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./39-notion-doc.tsx"
+        "modulePath": "../topics/chalk-talk.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "chalk-talk-scene-dots",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative caching walkthrough: cache behavior, hit rates, and strategy comparisons are presentation examples rather than production measurements.",
+            "zh": "示例缓存讲解：缓存行为、命中率和策略比较均为演示内容，并非生产环境测量结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "hard-cut",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "shortcut",
@@ -47785,9 +48129,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "blackboard-chalk-talk",
-            "band": "contemporary-digital",
-            "name": "Blackboard Chalk Talk",
             "theme": "Derive the Shortcut",
             "densityLabel": "Worked Derivation",
             "heroScene": 5,
@@ -47945,12 +48286,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "blackboard-chalk-talk",
+            "name": "Blackboard Chalk Talk",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "blackboard-chalk-talk",
-            "band": "contemporary-digital",
-            "name": "黑板推导",
             "theme": "推导捷径",
             "densityLabel": "逐步推导",
             "heroScene": 5,
@@ -48108,10 +48449,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "blackboard-chalk-talk",
+            "name": "黑板粉笔演讲",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./39-derive-shortcut.tsx"
+        "modulePath": "../topics/shortcut.tsx",
+        "navigation": {
+          "geometry": "typographic-index",
+          "carrier": "chalk-tick-navigation",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative arithmetic derivation: numbers and worked steps demonstrate a reasoning shortcut rather than report measured data.",
+            "zh": "示例算术推导：数字和演算步骤用于展示推理捷径，并非实测数据。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "slide-y",
+          "3->4": "fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "hearing-path",
@@ -48122,9 +48486,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "blackboard-chalk-talk",
-            "band": "contemporary-digital",
-            "name": "Blackboard Chalk Talk",
             "theme": "From Air to Hearing",
             "densityLabel": "Diagram Explainer",
             "heroScene": 5,
@@ -48249,12 +48610,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "blackboard-chalk-talk",
+            "name": "Blackboard Chalk Talk",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "blackboard-chalk-talk",
-            "band": "contemporary-digital",
-            "name": "黑板粉笔演讲",
             "theme": "从空气到听觉",
             "densityLabel": "图解推导",
             "heroScene": 5,
@@ -48379,10 +48740,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "blackboard-chalk-talk",
+            "name": "黑板粉笔演讲",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./40-hearing-path.tsx",
+        "modulePath": "../topics/hearing-path.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "auditory-pathway",
@@ -48419,6 +48783,9 @@ export const CATALOG_MANIFEST = [
             "supports": "Hair-bundle deflection activates mechanotransduction channels; inner hair cells provide the principal electrical input to auditory-nerve fibers, while outer hair cells amplify mechanics."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "linear-wipe",
           "2->3": "push-x",
@@ -48435,9 +48802,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "blackboard-chalk-talk",
-            "band": "contemporary-digital",
-            "name": "Blackboard Chalk Talk",
             "theme": "Deriving Big-O",
             "densityLabel": "Worked derivation",
             "heroScene": 3,
@@ -48554,12 +48918,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "blackboard-chalk-talk",
+            "name": "Blackboard Chalk Talk",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "blackboard-chalk-talk",
-            "band": "contemporary-digital",
-            "name": "粉笔推导",
             "theme": "推导复杂度",
             "densityLabel": "逐步推导",
             "heroScene": 3,
@@ -48676,10 +49040,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "blackboard-chalk-talk",
+            "name": "黑板粉笔演讲",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./deriving-big-o.tsx",
+        "modulePath": "../topics/deriving-big-o.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "chalk-step-line",
@@ -48719,9 +49086,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "arcade-boss-fight",
-            "band": "contemporary-digital",
-            "name": "Arcade Boss Fight",
             "theme": "Risk Framing — retro arcade screen reframing technical challenge as boss battle, power-ups as goals, HUD-style status readouts with pixel neon colors",
             "densityLabel": "Visual-Intensive",
             "heroScene": 3,
@@ -48835,12 +49199,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "arcade-boss-fight",
+            "name": "Arcade Boss Fight",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "arcade-boss-fight",
-            "band": "contemporary-digital",
-            "name": "街机 Boss 战",
             "theme": "风险框架——复古街机屏幕将技术挑战重新演绎为 Boss 战，道具即目标，HUD 风格状态读数配像素霓虹色彩",
             "densityLabel": "视觉密集",
             "heroScene": 3,
@@ -48954,10 +49318,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "arcade-boss-fight",
+            "name": "街机 Boss 战",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./40-particle-field.tsx"
+        "modulePath": "../topics/boss-fight.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "boss-fight-scene-dots",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative boss-fight framing: the system, scores, power-ups, and outcomes are presentation metaphors, not production telemetry.",
+            "zh": "示例 Boss 战框架：系统、得分、道具和结果均为演示隐喻，并非生产遥测数据。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "glitch",
+          "3->4": "glitch",
+          "4->5": "glitch"
+        }
       },
       {
         "id": "latency-boss",
@@ -48968,9 +49355,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "arcade-boss-fight",
-            "band": "contemporary-digital",
-            "name": "Arcade Boss Fight",
             "theme": "Defeat the Latency Boss",
             "densityLabel": "HUD Dense",
             "heroScene": 1,
@@ -49153,12 +49537,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "arcade-boss-fight",
+            "name": "Arcade Boss Fight",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "arcade-boss-fight",
-            "band": "contemporary-digital",
-            "name": "街机 Boss 战",
             "theme": "击败延迟 Boss",
             "densityLabel": "HUD 高密度",
             "heroScene": 1,
@@ -49341,10 +49725,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "arcade-boss-fight",
+            "name": "街机 Boss 战",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./40-latency-boss-fight.tsx"
+        "modulePath": "../topics/latency-boss.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "life-pip-level-navigation",
+          "invocation": "persistent",
+          "feedback": "history-trail"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative latency-boss scenario: health values, scores, attacks, and results are presentation examples rather than production performance telemetry.",
+            "zh": "示例延迟 Boss 场景：血量、得分、攻击和结果均为演示内容，并非生产性能遥测数据。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "slide-x",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "egg-mimicry",
@@ -49355,9 +49762,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "arcade-boss-fight",
-            "band": "contemporary-digital",
-            "name": "Arcade Boss Fight",
             "theme": "Egg Mimicry: Cuckoo and Great Reed Warbler",
             "densityLabel": "Pixel Research Panel",
             "heroScene": 4,
@@ -49475,12 +49879,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "arcade-boss-fight",
+            "name": "Arcade Boss Fight",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "arcade-boss-fight",
-            "band": "contemporary-digital",
-            "name": "街机 Boss 战",
             "theme": "普通杜鹃与大苇莺的卵拟态",
             "densityLabel": "像素研究面板",
             "heroScene": 4,
@@ -49598,10 +50002,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "arcade-boss-fight",
+            "name": "街机 Boss 战",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./arcade-boss-fight-egg-mimicry.tsx",
+        "modulePath": "../topics/egg-mimicry.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "nest-map",
@@ -49683,6 +50090,9 @@ export const CATALOG_MANIFEST = [
             }
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "push-x",
           "2->3": "glitch",
@@ -49699,9 +50109,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "arcade-boss-fight",
-            "band": "contemporary-digital",
-            "name": "Arcade Boss Fight",
             "theme": "Defeating Tech Debt",
             "densityLabel": "Playful",
             "heroScene": 2,
@@ -49820,12 +50227,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "arcade-boss-fight",
+            "name": "Arcade Boss Fight",
+            "band": "contemporary-digital"
           },
           "zh": {
-            "id": "arcade-boss-fight",
-            "band": "contemporary-digital",
-            "name": "街机 Boss 战",
             "theme": "打败技术债",
             "densityLabel": "轻快",
             "heroScene": 2,
@@ -49944,10 +50351,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "arcade-boss-fight",
+            "name": "街机 Boss 战",
+            "band": "contemporary-digital"
           }
         },
-        "modulePath": "./defeating-tech-debt.tsx",
+        "modulePath": "../topics/defeating-tech-debt.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "arcade-stage-hud",

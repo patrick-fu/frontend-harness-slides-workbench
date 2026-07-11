@@ -138,46 +138,38 @@ import scoringFunnelDefinition from "../topics/scoring-funnel";
 import priorityScoreDefinition from "../topics/priority-score";
 import snowflakeBranchesDefinition from "../topics/snowflake-branches";
 import triageTheBacklogDefinition from "../topics/triage-the-backlog";
-import GlassDashboard33, {
-  getMetadata as getMetadata33,
-} from "./33-glass-dashboard";
-import RetroOs9534, {
-  getMetadata as getMetadata34,
-} from "./34-retro-os-95";
-import NeonGrid35, {
-  getMetadata as getMetadata35,
-} from "./35-neon-grid";
-import GlassMorph36, {
-  getMetadata as getMetadata36,
-} from "./36-glass-morph";
-import TerminalUi37, {
-  getMetadata as getMetadata37,
-} from "./37-terminal-ui";
-import FigmaCanvas38, {
-  getMetadata as getMetadata38,
-} from "./38-figma-canvas";
-import NotionDoc39, {
-  getMetadata as getMetadata39,
-} from "./39-notion-doc";
-import ParticleField40, {
-  getMetadata as getMetadata40,
-} from "./40-particle-field";
-import { spatialProductBriefTopic } from "./33-spatial-product-brief";
-import { safetyGlassTopic } from "./liquid-glass-safety-glass";
-import { toolchainDesktopTopic } from "./34-toolchain-desktop";
-import { voyagerBoundaryTopic } from "./35-voyager-boundary";
-import { calmerGrowthModelTopic } from "./35-calmer-growth-model";
-import { monarchMigrationTopic } from "./mid-century-grove-monarch-migration";
-import { privateBetaSalonTopic } from "./36-private-beta-salon";
-import { urushiCureTopic } from "./37-urushi-cure";
-import { newHabitRunbookTopic } from "./37-new-habit-runbook";
-import { escapementTopic } from "./38-escapement";
-import { fiveActsSystemTopic } from "./38-five-acts-system";
-import { whaleFallTopic } from "./39-whale-fall";
-import { deriveShortcutTopic } from "./39-derive-shortcut";
-import { hearingPathTopic } from "./40-hearing-path";
-import { latencyBossFightTopic } from "./40-latency-boss-fight";
-import { eggMimicryTopic } from "./arcade-boss-fight-egg-mimicry";
+import liquidGlassDefinition from "../topics/liquid-glass";
+import spatialBriefDefinition from "../topics/spatial-brief";
+import safetyGlassDefinition from "../topics/safety-glass";
+import layersOfAProductDefinition from "../topics/layers-of-a-product";
+import retroDesktopDefinition from "../topics/retro-desktop";
+import toolchainDeskDefinition from "../topics/toolchain-desk";
+import voyagerBoundaryDefinition from "../topics/voyager-boundary";
+import setupExeDefinition from "../topics/setup-exe";
+import botanicalBrandDefinition from "../topics/botanical-brand";
+import calmGrowthDefinition from "../topics/calm-growth";
+import monarchMigrationDefinition from "../topics/monarch-migration";
+import growingSlowlyOnPurposeDefinition from "../topics/growing-slowly-on-purpose";
+import afterHoursDefinition from "../topics/after-hours";
+import betaSalonDefinition from "../topics/beta-salon";
+import urushiCureDefinition from "../topics/urushi-cure";
+import theMidnightReleaseDefinition from "../topics/the-midnight-release";
+import manualDefinition from "../topics/manual";
+import habitRunbookDefinition from "../topics/habit-runbook";
+import escapementDefinition from "../topics/escapement";
+import rotateTheSecretsDefinition from "../topics/rotate-the-secrets";
+import titleCardDefinition from "../topics/title-card";
+import systemActsDefinition from "../topics/system-acts";
+import whaleFallDefinition from "../topics/whale-fall";
+import chapterZeroDefinition from "../topics/chapter-zero";
+import chalkTalkDefinition from "../topics/chalk-talk";
+import shortcutDefinition from "../topics/shortcut";
+import hearingPathDefinition from "../topics/hearing-path";
+import derivingBigODefinition from "../topics/deriving-big-o";
+import bossFightDefinition from "../topics/boss-fight";
+import latencyBossDefinition from "../topics/latency-boss";
+import eggMimicryDefinition from "../topics/egg-mimicry";
+import defeatingTechDebtDefinition from "../topics/defeating-tech-debt";
 import AnnualReport41, {
   getMetadata as getMetadata41,
 } from "./41-annual-report";
@@ -220,14 +212,6 @@ import { recoveryKitTopic } from "./48-recovery-kit";
 import { cocoonToClothTopic } from "./49-cocoon-to-cloth";
 
 // ─── Curated Topic Set ──────────────────────────────────────────────────
-import { LayersOfAProductTopic } from "./layers-of-a-product";
-import { SetupExeTopic } from "./setup-exe";
-import { GrowingSlowlyOnPurposeTopic } from "./growing-slowly-on-purpose";
-import { TheMidnightReleaseTopic } from "./the-midnight-release";
-import { RotateTheSecretsTopic } from "./rotate-the-secrets";
-import { ChapterZeroTopic } from "./chapter-zero";
-import { DerivingBigOTopic } from "./deriving-big-o";
-import { DefeatingTechDebtTopic } from "./defeating-tech-debt";
 import { WhyUsersChurnTopic } from "./why-users-churn";
 import { WhyWeChoseMonorepoTopic } from "./why-we-chose-monorepo";
 import { FlakyTestRootCauseTopic } from "./flaky-test-root-cause";
@@ -557,102 +541,78 @@ export const STYLE_CATALOG_SOURCE: StyleRegistryEntry[] = [
     ].map(toMigratingStyleTopic),
   ),
   // Contemporary Digital: 33-40
-  buildEntry("liquid-glass", [
-    {
-      id: "liquid-glass",
-      topic: { en: "Liquid Glass", zh: "液态玻璃" },
-      model: "Doubao-Seed-Evolving",
-      component: GlassDashboard33,
-      getMetadata: getMetadata33,
-    },
-    spatialProductBriefTopic,
-    safetyGlassTopic,
-    LayersOfAProductTopic,
-  ]),
-  buildEntry("retro-windows", [
-    {
-      id: "retro-desktop",
-      topic: { en: "Retro Desktop", zh: "复古桌面" },
-      model: "Doubao-Seed-Evolving",
-      component: RetroOs9534,
-      getMetadata: getMetadata34,
-    },
-    toolchainDesktopTopic,
-    voyagerBoundaryTopic,
-    SetupExeTopic,
-  ]),
-  buildEntry("mid-century-grove", [
-    {
-      id: "botanical-brand",
-      topic: { en: "Botanical Brand", zh: "植物品牌" },
-      model: "Doubao-Seed-Evolving",
-      component: NeonGrid35,
-      getMetadata: getMetadata35,
-    },
-    calmerGrowthModelTopic,
-    monarchMigrationTopic,
-    GrowingSlowlyOnPurposeTopic,
-  ]),
-  buildEntry("after-hours-luxe", [
-    {
-      id: "after-hours",
-      topic: { en: "Luxe Reveal", zh: "奢华揭幕" },
-      model: "Doubao-Seed-Evolving",
-      component: GlassMorph36,
-      getMetadata: getMetadata36,
-    },
-    privateBetaSalonTopic,
-    urushiCureTopic,
-    TheMidnightReleaseTopic,
-  ]),
-  buildEntry("operating-manual", [
-    {
-      id: "manual",
-      topic: { en: "Runbook Manual", zh: "运行手册" },
-      model: "Doubao-Seed-Evolving",
-      component: TerminalUi37,
-      getMetadata: getMetadata37,
-    },
-    newHabitRunbookTopic,
-    escapementTopic,
-    RotateTheSecretsTopic,
-  ]),
-  buildEntry("widescreen-title-card", [
-    {
-      id: "title-card",
-      topic: { en: "Title Card", zh: "宽屏片头" },
-      model: "Doubao-Seed-Evolving",
-      component: FigmaCanvas38,
-      getMetadata: getMetadata38,
-    },
-    fiveActsSystemTopic,
-    whaleFallTopic,
-    ChapterZeroTopic,
-  ]),
-  buildEntry("blackboard-chalk-talk", [
-    {
-      id: "chalk-talk",
-      topic: { en: "Chalk Talk", zh: "粉笔推导" },
-      model: "Doubao-Seed-Evolving",
-      component: NotionDoc39,
-      getMetadata: getMetadata39,
-    },
-    deriveShortcutTopic,
-    hearingPathTopic,
-    DerivingBigOTopic,
-  ]),
-  buildEntry("arcade-boss-fight", [
-    {
-      id: "boss-fight",
-      topic: { en: "Boss Fight", zh: "Boss 战" },
-      model: "Doubao-Seed-Evolving",
-      component: ParticleField40,
-      getMetadata: getMetadata40,
-    },
-    latencyBossFightTopic,
-    eggMimicryTopic,
-    DefeatingTechDebtTopic,
-  ]),
+  buildEntry(
+    "liquid-glass",
+    [
+      liquidGlassDefinition,
+      spatialBriefDefinition,
+      safetyGlassDefinition,
+      layersOfAProductDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "retro-windows",
+    [
+      retroDesktopDefinition,
+      toolchainDeskDefinition,
+      voyagerBoundaryDefinition,
+      setupExeDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "mid-century-grove",
+    [
+      botanicalBrandDefinition,
+      calmGrowthDefinition,
+      monarchMigrationDefinition,
+      growingSlowlyOnPurposeDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "after-hours-luxe",
+    [
+      afterHoursDefinition,
+      betaSalonDefinition,
+      urushiCureDefinition,
+      theMidnightReleaseDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "operating-manual",
+    [
+      manualDefinition,
+      habitRunbookDefinition,
+      escapementDefinition,
+      rotateTheSecretsDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "widescreen-title-card",
+    [
+      titleCardDefinition,
+      systemActsDefinition,
+      whaleFallDefinition,
+      chapterZeroDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "blackboard-chalk-talk",
+    [
+      chalkTalkDefinition,
+      shortcutDefinition,
+      hearingPathDefinition,
+      derivingBigODefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "arcade-boss-fight",
+    [
+      bossFightDefinition,
+      latencyBossDefinition,
+      eggMimicryDefinition,
+      defeatingTechDebtDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
   // Text Report: 41-48
   buildEntry("research-memo", [
     {

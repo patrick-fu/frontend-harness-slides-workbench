@@ -1,0 +1,522 @@
+/* ─── Widescreen Title Card Topic ──────────────────────────────────────
+   Cinema curtain lifting. Deep warm-black letterbox bars framing.
+   Graded photographic/painted still as ground layer.
+   Film-poster title treatment with dramatic presence.
+   Supporting text recessive/credit-like.
+   Slow cinematic motion (gentle fade-in, Ken Burns-like push).
+   All sizing in cqw/cqh. No px/vw/vh.
+   ──────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --title-card-bg: #0a0808;
+  --title-card-ink: #f0ebe3;
+  --title-card-pearl: #f0ebe3;
+  --title-card-panel: rgba(240, 235, 227, 0.06);
+  --title-card-border: rgba(240, 235, 227, 0.1);
+  --title-card-dim: rgba(240, 235, 227, 0.5);
+  --title-card-accent: #c9a96e;
+  --title-card-warm: #1a1410;
+  --title-card-letterbox: #050404;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background: var(--title-card-bg);
+  color: var(--title-card-ink);
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 300;
+}
+
+/* ── Letterbox bars (persistent, framing the cinematic aspect) ─────────── */
+
+.letterboxTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8cqh;
+  background: var(--title-card-letterbox);
+  z-index: 30;
+  pointer-events: none;
+}
+
+.letterboxBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8cqh;
+  background: var(--title-card-letterbox);
+  z-index: 30;
+  pointer-events: none;
+}
+
+/* ── Graded still / painted ground layer ───────────────────────────────── */
+
+.groundLayer {
+  position: absolute;
+  inset: 8cqh 0;
+  background:
+    radial-gradient(
+      ellipse 70% 50% at 50% 45%,
+      rgba(26, 20, 16, 0.6) 0%,
+      rgba(10, 8, 8, 0.9) 70%
+    ),
+    linear-gradient(
+      180deg,
+      #12100e 0%,
+      #0d0b09 40%,
+      #0a0808 100%
+    );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Subtle film grain */
+.groundLayer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ── Scene-to-scene transition: gentle cinematic dissolve ─────────────── */
+
+.sceneLayer {
+  position: absolute;
+  inset: 8cqh 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.exitAnim {
+  animation: cinematicFadeOut 0.8s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes cinematicFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.enterAnim {
+  animation: cinematicFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+  z-index: 2;
+}
+
+@keyframes cinematicFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Scene 1: Title Card ──────────────────────────────────────────────── */
+
+.titleCardScene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.titleCardInner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2cqh;
+}
+
+.studioCredit {
+  font-size: 1.6cqh;
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--title-card-pearl);
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.filmTitle {
+  font-size: 14cqw;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--title-card-pearl);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  text-align: center;
+}
+
+.filmTitleSecond {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.75em;
+  color: var(--title-card-accent);
+}
+
+.filmSubtitle {
+  font-size: 2.5cqh;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: var(--title-card-pearl);
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ── Scene 2: Chapter ─────────────────────────────────────────────────── */
+
+.chapterScene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5cqh 8cqw;
+  box-sizing: border-box;
+}
+
+.chapterInner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3cqh;
+}
+
+.chapterLabel {
+  font-size: 1.8cqh;
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--title-card-accent);
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.chapterTitle {
+  font-size: 10cqw;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--title-card-pearl);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+.creditList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2cqh;
+  margin-top: 2cqh;
+}
+
+.creditItem {
+  display: flex;
+  gap: 3cqw;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.creditRole {
+  font-size: 1.5cqh;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--title-card-dim);
+  min-width: 18cqw;
+  text-align: right;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.creditName {
+  font-size: 2cqh;
+  font-weight: 400;
+  color: var(--title-card-pearl);
+  min-width: 18cqw;
+  text-align: left;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+/* ── Scene 3: Three Moments ───────────────────────────────────────────── */
+
+.momentsScene {
+  width: 100%;
+  height: 100%;
+  padding: 4cqh 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5cqh;
+}
+
+.momentsTitle {
+  font-size: 5cqh;
+  font-weight: 700;
+  margin: 0;
+  color: var(--title-card-pearl);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  letter-spacing: -0.01em;
+}
+
+.momentsSub {
+  font-size: 2cqh;
+  font-weight: 300;
+  color: var(--title-card-dim);
+  margin: 0;
+  font-style: italic;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+.momentsCards {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2cqw;
+  width: 100%;
+  min-height: 0;
+  margin-top: 2cqh;
+}
+
+.momentCard {
+  background: rgba(240, 235, 227, 0.04);
+  border: 0.05cqh solid var(--title-card-border);
+  border-radius: 0.4cqh;
+  padding: 3cqh 2.5cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 1cqh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top hairline accent */
+.momentCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 2cqw;
+  right: 2cqw;
+  height: 0.08cqh;
+  background: var(--title-card-accent);
+  opacity: 0.4;
+}
+
+.momentNum {
+  font-size: 3.5cqh;
+  font-weight: 700;
+  color: var(--title-card-accent);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  line-height: 1;
+  opacity: 0.6;
+}
+
+.momentCardTitle {
+  font-size: 3cqh;
+  font-weight: 600;
+  margin: 0;
+  color: var(--title-card-pearl);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  line-height: 1.2;
+}
+
+.momentTime {
+  font-size: 1.5cqh;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--title-card-dim);
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.momentDesc {
+  font-size: 1.8cqh;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--title-card-dim);
+  margin: 0;
+  flex: 1;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ── Scene 4: Narration ───────────────────────────────────────────────── */
+
+.narrationScene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5cqh 10cqw;
+  box-sizing: border-box;
+}
+
+.narrationInner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3cqh;
+  max-width: 70cqw;
+}
+
+.narrationQuote {
+  font-size: 4.5cqh;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--title-card-pearl);
+  margin: 0;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+.narrationAttribution {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5cqh;
+}
+
+.narrationAttrText {
+  font-size: 1.8cqh;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--title-card-accent);
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.narrationRole {
+  font-size: 1.5cqh;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--title-card-dim);
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.narrationActor {
+  color: var(--title-card-pearl);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  font-size: 1.1em;
+}
+
+/* ── Scene 5: Fin. ────────────────────────────────────────────────────── */
+
+.finScene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.finInner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5cqh;
+}
+
+.finText {
+  font-size: 16cqw;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--title-card-pearl);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+.finSub {
+  font-size: 2.5cqh;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: var(--title-card-pearl);
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.finComing {
+  font-size: 1.8cqh;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--title-card-accent);
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.finStudio {
+  font-size: 1.4cqh;
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--title-card-pearl);
+  margin: 2cqh 0 0 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ── Navigation Indicators ─────────────────────────────────────────────── */
+
+.navIndicators {
+  position: absolute;
+  bottom: 11cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.8cqw;
+  z-index: 50;
+}
+
+.navIndicator {
+  width: 4cqh;
+  height: 0.4cqh;
+  min-width: 16px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: rgba(240, 235, 227, 0.15);
+  border-radius: 0.2cqh;
+  transition: background 0.4s ease;
+}
+
+.navIndicator:hover {
+  background: rgba(240, 235, 227, 0.3);
+}
+
+.navIndicatorActive {
+  background: var(--title-card-accent);
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────────────── */
+
+.reducedMotion * {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}

@@ -1,0 +1,458 @@
+.root {
+  --system-acts-bg: #050403;
+  --system-acts-ink: #f6ead8;
+  --system-acts-muted: #bfa98a;
+  --system-acts-dim: #725f49;
+  --system-acts-accent: #d8a66a;
+  --system-acts-panel: #17100b;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: size;
+  isolation: isolate;
+  color: var(--system-acts-ink);
+  background:
+    radial-gradient(circle at 50% 42%, rgba(129, 91, 55, 0.2), transparent 44%),
+    linear-gradient(180deg, #070504 0%, var(--system-acts-bg) 44%, #030201 100%);
+  font-family: "Inter Tight", "Noto Serif SC", "Songti SC", serif;
+}
+
+.root * {
+  box-sizing: border-box;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--system-acts-bg);
+}
+
+.screen {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 14.4cqh;
+  bottom: 14.4cqh;
+  overflow: hidden;
+  background: var(--system-acts-panel);
+  box-shadow:
+    inset 0 0 18cqw rgba(0, 0, 0, 0.64),
+    inset 0 0 6cqh rgba(245, 211, 162, 0.05);
+}
+
+.still {
+  position: absolute;
+  inset: -5cqh -4cqw;
+  transform: scale(1.03);
+  animation: stillDrift 18s cubic-bezier(0.16, 1, 0.3, 1) infinite alternate;
+}
+
+.activeScene .still {
+  animation-play-state: running;
+}
+
+.scene:not(.activeScene) .still {
+  animation-play-state: paused;
+}
+
+.toneOne .still {
+  background:
+    radial-gradient(circle at 38% 44%, rgba(214, 164, 102, 0.52), transparent 18%),
+    radial-gradient(circle at 74% 40%, rgba(39, 74, 86, 0.66), transparent 34%),
+    linear-gradient(135deg, #100b08 0%, #263b42 48%, #080605 100%);
+}
+
+.toneTwo .still {
+  background:
+    radial-gradient(circle at 68% 38%, rgba(225, 172, 105, 0.55), transparent 16%),
+    linear-gradient(108deg, #080605 0%, #192c35 42%, #8b6948 66%, #050403 100%);
+}
+
+.toneThree .still {
+  background:
+    radial-gradient(circle at 50% 46%, rgba(221, 171, 107, 0.44), transparent 24%),
+    conic-gradient(from 0.2turn at 50% 50%, #070504, #2c444b, #9c744d, #142630, #070504);
+}
+
+.toneFour .still {
+  background:
+    linear-gradient(130deg, rgba(5, 4, 3, 0.95), rgba(30, 44, 53, 0.72)),
+    radial-gradient(circle at 52% 30%, rgba(237, 183, 113, 0.68), transparent 22%),
+    linear-gradient(32deg, #0a0705 0%, #1f3440 54%, #b18459 100%);
+}
+
+.toneFive .still {
+  background:
+    radial-gradient(circle at 50% 46%, rgba(158, 118, 77, 0.48), transparent 20%),
+    radial-gradient(circle at 50% 48%, rgba(31, 58, 68, 0.74), transparent 46%),
+    linear-gradient(180deg, #050403 0%, #16252d 52%, #060403 100%);
+}
+
+.still::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 238, 202, 0.05) 0,
+      rgba(255, 238, 202, 0.05) 0.08cqw,
+      transparent 0.08cqw,
+      transparent 0.48cqw
+    ),
+    radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.12), transparent 0.12cqw);
+  mix-blend-mode: screen;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.2) 46%, rgba(0, 0, 0, 0.78) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.76), transparent 26%, transparent 74%, rgba(0, 0, 0, 0.76));
+}
+
+.motif {
+  position: absolute;
+  z-index: 1;
+  width: 35cqw;
+  height: 38cqh;
+  top: 17cqh;
+  opacity: 0.82;
+  filter: drop-shadow(0 0 1.6cqw rgba(216, 166, 106, 0.22));
+}
+
+.alignCenter .motif {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.alignLeft .motif {
+  right: 9cqw;
+}
+
+.alignRight .motif {
+  left: 9cqw;
+}
+
+.motifSoft,
+.motifFine {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.motifSoft {
+  stroke: rgba(230, 188, 130, 0.58);
+  stroke-width: 0.24cqw;
+}
+
+.motifFine {
+  stroke: rgba(246, 234, 216, 0.58);
+  stroke-width: 0.12cqw;
+}
+
+.motifPoint {
+  fill: var(--system-acts-accent);
+  opacity: 0.74;
+}
+
+.copy {
+  position: absolute;
+  z-index: 2;
+  top: 7cqh;
+  bottom: 7cqh;
+  width: 64cqw;
+  display: grid;
+  grid-template-rows: 4cqh auto 16cqh 5cqh;
+  gap: 1.8cqh;
+  align-content: center;
+}
+
+.alignCenter .copy {
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  justify-items: center;
+}
+
+.alignLeft .copy {
+  left: 8cqw;
+  text-align: left;
+  justify-items: start;
+}
+
+.alignRight .copy {
+  right: 8cqw;
+  text-align: right;
+  justify-items: end;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--system-acts-muted);
+  font-size: 1.05cqw;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.32cqw;
+  text-transform: uppercase;
+}
+
+.titleBlock {
+  width: 100%;
+}
+
+.titleBlock h1 {
+  margin: 0;
+  color: var(--system-acts-ink);
+  font-family: "Cormorant Garamond", "Noto Serif SC", "Songti SC", serif;
+  font-size: 5.45cqw;
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: 0.04cqw;
+  text-shadow: 0 1.1cqh 3.4cqw rgba(0, 0, 0, 0.8);
+  text-wrap: balance;
+}
+
+.titleBlock p {
+  width: 52cqw;
+  margin: 2.1cqh 0 0;
+  color: rgba(246, 234, 216, 0.78);
+  font-size: 1.45cqw;
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: 0.03cqw;
+  text-shadow: 0 0.8cqh 2.6cqw rgba(0, 0, 0, 0.72);
+}
+
+.alignCenter .titleBlock p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alignRight .titleBlock p {
+  margin-left: auto;
+}
+
+.beatSlots {
+  width: 100%;
+  height: 16cqh;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.05cqw;
+}
+
+.beatSlot {
+  min-width: 0;
+  height: 100%;
+  padding: 1.1cqw 1.15cqw;
+  display: grid;
+  grid-template-rows: 2.3cqh auto 1fr;
+  gap: 0.7cqh;
+  border: 0.08cqw solid rgba(246, 234, 216, 0.16);
+  background: rgba(7, 5, 4, 0.34);
+  box-shadow: inset 0 0 2.2cqw rgba(216, 166, 106, 0.06);
+  transform: translateY(0);
+  transition:
+    opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.beatSlot span {
+  color: var(--system-acts-accent);
+  font-size: 0.82cqw;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.2cqw;
+}
+
+.beatSlot strong {
+  display: block;
+  color: rgba(246, 234, 216, 0.9);
+  font-size: 1.02cqw;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: 0.02cqw;
+}
+
+.beatSlot p {
+  margin: 0;
+  color: rgba(227, 207, 176, 0.72);
+  font-size: 0.92cqw;
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: 0;
+}
+
+.beatVisible {
+  opacity: 1;
+  border-color: rgba(216, 166, 106, 0.34);
+}
+
+.beatHidden {
+  opacity: 0;
+  transform: translateY(1.2cqh);
+}
+
+.creditLine {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2cqw;
+  color: rgba(191, 169, 138, 0.84);
+  font-size: 0.92cqw;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.22cqw;
+  text-transform: uppercase;
+}
+
+.alignRight .creditLine {
+  flex-direction: row-reverse;
+}
+
+.beatMarkers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45cqw;
+  width: 5.4cqw;
+  height: 0.8cqh;
+  align-items: center;
+}
+
+.beatMark {
+  display: block;
+  width: 100%;
+  height: 0.24cqh;
+  background: rgba(114, 95, 73, 0.7);
+  transition:
+    height 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 360ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.beatMarkLit {
+  background: rgba(216, 166, 106, 0.74);
+}
+
+.beatMarkActive {
+  height: 0.66cqh;
+  background: var(--system-acts-accent);
+}
+
+.topLetterbox,
+.bottomLetterbox {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(17, 12, 9, 0.96), rgba(5, 4, 3, 0.99)),
+    var(--system-acts-bg);
+}
+
+.topLetterbox {
+  top: 0;
+  height: 14.4cqh;
+  border-bottom: 0.08cqh solid rgba(216, 166, 106, 0.16);
+}
+
+.bottomLetterbox {
+  bottom: 0;
+  height: 14.4cqh;
+  border-top: 0.08cqh solid rgba(216, 166, 106, 0.16);
+}
+
+.cueNav {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 3.4cqh;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(5, 3.5cqw);
+  gap: 1.2cqw;
+  align-items: end;
+}
+
+.cueButton {
+  appearance: none;
+  width: 3.5cqw;
+  height: 5.2cqh;
+  padding: 0;
+  display: grid;
+  grid-template-rows: 3.2cqh 1.4cqh;
+  gap: 0.45cqh;
+  align-items: end;
+  justify-items: center;
+  color: rgba(191, 169, 138, 0.68);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.cueStem {
+  width: 0.16cqw;
+  height: 2.2cqh;
+  background: currentColor;
+  transform-origin: bottom;
+  transition:
+    height 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cueLabel {
+  color: currentColor;
+  font-size: 0.72cqw;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.14cqw;
+}
+
+.cueButtonActive {
+  color: var(--system-acts-accent);
+}
+
+.cueButtonActive .cueStem {
+  height: 3.1cqh;
+  box-shadow: 0 0 1.6cqw rgba(216, 166, 106, 0.56);
+}
+
+.cueButton:focus-visible {
+  outline: 0.12cqw solid rgba(246, 234, 216, 0.76);
+  outline-offset: 0.38cqw;
+}
+
+.thumbnail .cueNav {
+  display: none;
+}
+
+.motionOff *,
+.motionOff *::before,
+.motionOff *::after {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+
+@keyframes stillDrift {
+  from {
+    transform: scale(1.03) translate3d(-0.8cqw, -0.5cqh, 0);
+  }
+
+  to {
+    transform: scale(1.08) translate3d(0.8cqw, 0.7cqh, 0);
+  }
+}

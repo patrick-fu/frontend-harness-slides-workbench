@@ -53,7 +53,7 @@ export const CURATED_STYLE_NAMES: Readonly<
   "after-hours-luxe": { en: "After-Hours Luxe", zh: "深夜奢华" },
   "operating-manual": { en: "Operating Manual", zh: "操作手册" },
   "widescreen-title-card": { en: "Widescreen Title Card", zh: "宽屏标题卡" },
-  "blackboard-chalk-talk": { en: "Blackboard Chalk Talk", zh: "粉笔推导" },
+  "blackboard-chalk-talk": { en: "Blackboard Chalk Talk", zh: "黑板粉笔演讲" },
   "arcade-boss-fight": { en: "Arcade Boss Fight", zh: "街机 Boss 战" },
   "research-memo": { en: "Research Memo", zh: "研究备忘录" },
   "decision-record": { en: "Decision Record", zh: "决策记录" },
