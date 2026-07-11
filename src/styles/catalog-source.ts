@@ -40,48 +40,40 @@ import quotePosterDefinition from "../topics/quote-poster";
 import keptSentenceDefinition from "../topics/kept-sentence";
 import freediveDefinition from "../topics/freedive";
 import onQuittingWellDefinition from "../topics/on-quitting-well";
-import ProcessFlow09, {
-  getMetadata as getMetadata09,
-} from "./09-process-flow";
-import MatrixGrid10, {
-  getMetadata as getMetadata10,
-} from "./10-matrix-grid";
-import TimelineSpiral11, {
-  getMetadata as getMetadata11,
-} from "./11-timeline-spiral";
-import Iconography12, {
-  getMetadata as getMetadata12,
-} from "./12-iconography";
-import StickyBoard13, {
-  getMetadata as getMetadata13,
-} from "./13-sticky-board";
-import OrgChart14, {
-  getMetadata as getMetadata14,
-} from "./14-org-chart";
-import Roadmap15, {
-  getMetadata as getMetadata15,
-} from "./15-roadmap";
-import CaseStudy16, {
-  getMetadata as getMetadata16,
-} from "./16-case-study";
-import { threeTracksReleaseTopic } from "./09-three-tracks-release";
-import { teaChaRoutesTopic } from "./09-tea-cha-routes";
-import { durableToolTopic } from "./10-durable-tool";
-import { naturalClocksTopic } from "./benchmark-matrix-natural-clocks";
-import { eventToInsightTopic } from "./11-event-to-insight";
-import { districtHeatTopic } from "./signal-pipeline-flow-district-heat";
-import { engineeringWhiteboardExplainerTopic } from "./engineering-whiteboard-explainer";
-import { waterTowerTopic } from "./engineering-whiteboard-water-tower";
-import { onboardingThatBreathesTopic } from "./12-onboarding-that-breathes";
-import { chrysalisRebuildTopic } from "./soft-pastel-friendly-chrysalis-rebuild";
-import { rawNotesCleanBriefTopic } from "./13-raw-notes-clean-brief";
-import { cocoaFermentationTopic } from "./kitchen-prep-station-cocoa-fermentation";
-import { twoTeamsOneArtifactTopic } from "./14-two-teams-one-artifact";
-import { elevatorCounterweightTopic } from "./collaborative-pairing-board-elevator-counterweight";
-import { tuningOperatingModelTopic } from "./15-tuning-operating-model";
-import { tidalTimeTopic } from "./studio-mixing-console-tidal-time";
-import { incidentLearnsTopic } from "./16-incident-learns";
-import { acousticCrackTopic } from "./debug-reaction-board-acoustic-crack";
+import subwayFlowDefinition from "../topics/subway-flow";
+import releaseTracksDefinition from "../topics/release-tracks";
+import teaChaRoutesDefinition from "../topics/tea-cha-routes";
+import threeTeamsLaunchDefinition from "../topics/three-teams-launch";
+import benchmarkDefinition from "../topics/benchmark";
+import durableToolDefinition from "../topics/durable-tool";
+import naturalClocksDefinition from "../topics/natural-clocks";
+import buildBuyBorrowDefinition from "../topics/build-buy-borrow";
+import pipelineDefinition from "../topics/pipeline";
+import eventInsightDefinition from "../topics/event-insight";
+import districtHeatDefinition from "../topics/district-heat";
+import whereRequestGoesDefinition from "../topics/where-request-goes";
+import fromPromptToPatchDefinition from "../topics/from-prompt-to-patch";
+import waterTowerDefinition from "../topics/water-tower";
+import friendlyOnboardDefinition from "../topics/friendly-onboard";
+import breathingOnboardDefinition from "../topics/breathing-onboard";
+import chrysalisRebuildDefinition from "../topics/chrysalis-rebuild";
+import firstWeekHereDefinition from "../topics/first-week-here";
+import prepStationDefinition from "../topics/prep-station";
+import cleanBriefDefinition from "../topics/clean-brief";
+import cocoaFermentationDefinition from "../topics/cocoa-fermentation";
+import rawLogsToReportDefinition from "../topics/raw-logs-to-report";
+import pairingBoardDefinition from "../topics/pairing-board";
+import sharedArtifactDefinition from "../topics/shared-artifact";
+import elevatorCounterweightDefinition from "../topics/elevator-counterweight";
+import humanReviewsAiDefinition from "../topics/human-reviews-ai";
+import mixingConsoleDefinition from "../topics/mixing-console";
+import operatingModelDefinition from "../topics/operating-model";
+import tidalTimeDefinition from "../topics/tidal-time";
+import tuningTheModelDefinition from "../topics/tuning-the-model";
+import debugBoardDefinition from "../topics/debug-board";
+import learningIncidentDefinition from "../topics/learning-incident";
+import acousticCrackDefinition from "../topics/acoustic-crack";
+import safeToDeployDefinition from "../topics/safe-to-deploy";
 import EditorialBroadsheet17, {
   getMetadata as getMetadata17,
 } from "./17-editorial-broadsheet";
@@ -244,14 +236,6 @@ import { recoveryKitTopic } from "./48-recovery-kit";
 import { cocoonToClothTopic } from "./49-cocoon-to-cloth";
 
 // ─── Curated Topic Set ──────────────────────────────────────────────────
-import { threeTeamsLaunchTopic } from "./three-teams-launch";
-import { benchmarkMatrixTopic } from "./build-buy-borrow";
-import { whereRequestGoesTopic } from "./where-request-goes";
-import { firstWeekHereTopic } from "./first-week-here";
-import { kitchenPrepStationTopic } from "./raw-logs-to-report";
-import { humanReviewsAiTopic } from "./human-reviews-ai";
-import { tuningTheModelTopic } from "./tuning-the-model";
-import { safeToDeployTopic } from "./safe-to-deploy";
 import { dayFeedStoppedTopic } from "./day-feed-stopped";
 import { comebackIssueTopic } from "./comeback-issue";
 import { letterToPastSelfTopic } from "./letter-to-past-self";
@@ -380,106 +364,84 @@ export const STYLE_CATALOG_SOURCE: StyleRegistryEntry[] = [
     ].map(toMigratingStyleTopic),
   ),
   // Balanced Hybrid: 09-16
-  buildEntry("subway-map-of-intent", [
-    {
-      id: "subway-flow",
-      topic: { en: "Subway Flow", zh: "地铁流程" },
-      model: "Doubao-Seed-Evolving",
-      component: ProcessFlow09,
-      getMetadata: getMetadata09,
-    },
-    threeTracksReleaseTopic,
-    teaChaRoutesTopic,
-    threeTeamsLaunchTopic,
-  ]),
-  buildEntry("benchmark-matrix", [
-    {
-      id: "benchmark",
-      topic: { en: "Benchmark", zh: "基准评估" },
-      model: "Doubao-Seed-Evolving",
-      component: MatrixGrid10,
-      getMetadata: getMetadata10,
-    },
-    durableToolTopic,
-    naturalClocksTopic,
-    benchmarkMatrixTopic,
-  ]),
-  buildEntry("signal-pipeline-flow", [
-    {
-      id: "pipeline",
-      topic: { en: "Pipeline", zh: "管道流程" },
-      model: "Doubao-Seed-Evolving",
-      component: TimelineSpiral11,
-      getMetadata: getMetadata11,
-    },
-    eventToInsightTopic,
-    districtHeatTopic,
-    whereRequestGoesTopic,
-  ]),
-  buildEntry("engineering-whiteboard-explainer", [
-    engineeringWhiteboardExplainerTopic,
-    waterTowerTopic,
-  ]),
-  buildEntry("soft-pastel-friendly", [
-    {
-      id: "friendly-onboard",
-      topic: { en: "Friendly Onboard", zh: "友好入门" },
-      model: "Doubao-Seed-Evolving",
-      component: Iconography12,
-      getMetadata: getMetadata12,
-    },
-    onboardingThatBreathesTopic,
-    chrysalisRebuildTopic,
-    firstWeekHereTopic,
-  ]),
-  buildEntry("kitchen-prep-station", [
-    {
-      id: "prep-station",
-      topic: { en: "Prep Station", zh: "备料台" },
-      model: "Doubao-Seed-Evolving",
-      component: StickyBoard13,
-      getMetadata: getMetadata13,
-    },
-    rawNotesCleanBriefTopic,
-    cocoaFermentationTopic,
-    kitchenPrepStationTopic,
-  ]),
-  buildEntry("collaborative-pairing-board", [
-    {
-      id: "pairing-board",
-      topic: { en: "Pairing Board", zh: "配对板" },
-      model: "Doubao-Seed-Evolving",
-      component: OrgChart14,
-      getMetadata: getMetadata14,
-    },
-    twoTeamsOneArtifactTopic,
-    elevatorCounterweightTopic,
-    humanReviewsAiTopic,
-  ]),
-  buildEntry("studio-mixing-console", [
-    {
-      id: "mixing-console",
-      topic: { en: "Mixing Console", zh: "混音台" },
-      model: "Doubao-Seed-Evolving",
-      component: Roadmap15,
-      getMetadata: getMetadata15,
-    },
-    tuningOperatingModelTopic,
-    tidalTimeTopic,
-    tuningTheModelTopic,
-  ]),
-  buildEntry("debug-reaction-board", [
-    {
-      id: "debug-board",
-      topic: { en: "Debug Board", zh: "调试面板" },
-      model: "Doubao-Seed-Evolving",
-      component: CaseStudy16,
-      getMetadata: getMetadata16,
-    },
-    incidentLearnsTopic,
-    acousticCrackTopic,
-    safeToDeployTopic,
-  ]),
+  buildEntry(
+    "subway-map-of-intent",
+    [
+      subwayFlowDefinition,
+      releaseTracksDefinition,
+      teaChaRoutesDefinition,
+      threeTeamsLaunchDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "benchmark-matrix",
+    [
+      benchmarkDefinition,
+      durableToolDefinition,
+      naturalClocksDefinition,
+      buildBuyBorrowDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "signal-pipeline-flow",
+    [
+      pipelineDefinition,
+      eventInsightDefinition,
+      districtHeatDefinition,
+      whereRequestGoesDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "engineering-whiteboard-explainer",
+    [fromPromptToPatchDefinition, waterTowerDefinition].map(
+      toMigratingStyleTopic,
+    ),
+  ),
+  buildEntry(
+    "soft-pastel-friendly",
+    [
+      friendlyOnboardDefinition,
+      breathingOnboardDefinition,
+      chrysalisRebuildDefinition,
+      firstWeekHereDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "kitchen-prep-station",
+    [
+      prepStationDefinition,
+      cleanBriefDefinition,
+      cocoaFermentationDefinition,
+      rawLogsToReportDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "collaborative-pairing-board",
+    [
+      pairingBoardDefinition,
+      sharedArtifactDefinition,
+      elevatorCounterweightDefinition,
+      humanReviewsAiDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "studio-mixing-console",
+    [
+      mixingConsoleDefinition,
+      operatingModelDefinition,
+      tidalTimeDefinition,
+      tuningTheModelDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
+  buildEntry(
+    "debug-reaction-board",
+    [
+      debugBoardDefinition,
+      learningIncidentDefinition,
+      acousticCrackDefinition,
+      safeToDeployDefinition,
+    ].map(toMigratingStyleTopic),
+  ),
   // Editorial & Print: 17-24
   buildEntry("front-page-broadsheet", [
     {

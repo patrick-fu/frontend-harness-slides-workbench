@@ -9824,9 +9824,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "subway-map-of-intent",
-            "band": "balanced-hybrid",
-            "name": "Subway Map of Intent",
             "theme": "Multi-track Convergence Map — independent streams of intent shown as transit lines that meet at deliberate transfer stations. Best for converging workflows, milestone mapping, and showing how parallel tracks join.",
             "densityLabel": "Systematic",
             "heroScene": 3,
@@ -9944,12 +9941,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "subway-map-of-intent",
+            "name": "Subway Map of Intent",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "subway-map-of-intent",
-            "band": "balanced-hybrid",
-            "name": "意图地铁图",
             "theme": "多轨汇聚地图——将独立的意图流展示为在刻意换乘站交汇的地铁线路。最适合展示收敛型工作流、里程碑映射，以及平行轨道如何汇合。",
             "densityLabel": "系统化",
             "heroScene": 3,
@@ -10067,10 +10064,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "subway-map-of-intent",
+            "name": "意图地铁图",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./09-process-flow.tsx"
+        "modulePath": "../topics/subway-flow.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "subway-flow-station-line",
+          "invocation": "persistent",
+          "feedback": "history-trail"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative workflow scenario: team roles, milestones, and metrics are presentation examples, not measured results.",
+            "zh": "示例工作流场景：团队角色、里程碑与指标均为演示示例，并非实测结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "slide-y"
+        }
       },
       {
         "id": "release-tracks",
@@ -10081,9 +10101,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "subway-map-of-intent",
-            "band": "balanced-hybrid",
-            "name": "Subway Map of Intent",
             "theme": "Three Tracks to One Release",
             "densityLabel": "Structured",
             "heroScene": 3,
@@ -10228,12 +10245,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "subway-map-of-intent",
+            "name": "Subway Map of Intent",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "subway-map-of-intent",
-            "band": "balanced-hybrid",
-            "name": "意图地铁图",
             "theme": "三轨合一发布",
             "densityLabel": "结构化",
             "heroScene": 3,
@@ -10378,10 +10395,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "subway-map-of-intent",
+            "name": "意图地铁图",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./09-three-tracks-release.tsx"
+        "modulePath": "../topics/release-tracks.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "release-track-stop-rail",
+          "invocation": "persistent",
+          "feedback": "mechanical-displacement"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative release-planning scenario: teams, checkpoints, and outcomes are presentation examples, not reported delivery results.",
+            "zh": "示例发布规划场景：团队、检查点与结果均为演示示例，并非已报告的交付结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "wipe",
+          "3->4": "slide-x",
+          "4->5": "fade"
+        }
       },
       {
         "id": "tea-cha-routes",
@@ -10392,9 +10432,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "subway-map-of-intent",
-            "band": "balanced-hybrid",
-            "name": "Subway Map of Intent",
             "theme": "Tea by Sea, Cha by Land",
             "densityLabel": "Diagram explainer · Medium",
             "heroScene": 5,
@@ -10519,12 +10556,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "subway-map-of-intent",
+            "name": "Subway Map of Intent",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "subway-map-of-intent",
-            "band": "balanced-hybrid",
-            "name": "意图地铁图",
             "theme": "茶的两条词路",
             "densityLabel": "图解型 · 中密度",
             "heroScene": 5,
@@ -10649,10 +10686,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "subway-map-of-intent",
+            "name": "意图地铁图",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./09-tea-cha-routes.tsx",
+        "modulePath": "../topics/tea-cha-routes.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "tea-cha-route-lines",
@@ -10691,6 +10731,9 @@ export const CATALOG_MANIFEST = [
             "supports": "Supports treating the Silk Roads as dynamic, porous networks of multiple land and maritime routes rather than one fixed itinerary or single causal arrow."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "push-x",
           "2->3": "linear-wipe",
@@ -10707,9 +10750,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "subway-map-of-intent",
-            "band": "balanced-hybrid",
-            "name": "Subway Map of Intent",
             "theme": "Three Teams, One Launch",
             "densityLabel": "Systematic · Diagrammatic",
             "heroScene": 4,
@@ -10824,12 +10864,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "subway-map-of-intent",
+            "name": "Subway Map of Intent",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "subway-map-of-intent",
-            "band": "balanced-hybrid",
-            "name": "意图地铁图",
             "theme": "三队一发",
             "densityLabel": "系统 · 图解",
             "heroScene": 4,
@@ -10944,10 +10984,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "subway-map-of-intent",
+            "name": "意图地铁图",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./three-teams-launch.tsx",
+        "modulePath": "../topics/three-teams-launch.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "launch-route-line",
@@ -10987,9 +11030,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "benchmark-matrix",
-            "band": "balanced-hybrid",
-            "name": "Benchmark Matrix",
             "theme": "Analytical Evaluation Matrix — clean comparative evidence with bright neutral ground, positive/negative result marks, and scannable like-against-like comparison. Best for tool comparisons, evaluation criteria, and data-heavy benchmarks.",
             "densityLabel": "Analytical",
             "heroScene": 3,
@@ -11107,12 +11147,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "benchmark-matrix",
+            "name": "Benchmark Matrix",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "benchmark-matrix",
-            "band": "balanced-hybrid",
-            "name": "基准矩阵",
             "theme": "分析评估矩阵——明亮中性底色、正负结果标记、可扫描的同类对比。最适合工具比较、评估标准和数据密集型基准测试。",
             "densityLabel": "分析型",
             "heroScene": 3,
@@ -11230,10 +11270,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "benchmark-matrix",
+            "name": "基准矩阵",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./10-matrix-grid.tsx"
+        "modulePath": "../topics/benchmark.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "benchmark-progress-cells",
+          "invocation": "persistent",
+          "feedback": "geometry-reflow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative market comparison: competitors, feature parity, counts, and scores are presentation examples, not measured market data.",
+            "zh": "示例市场对比：竞品、功能对等性、数量与评分均为演示示例，并非实测市场数据。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "durable-tool",
@@ -11244,9 +11307,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "benchmark-matrix",
-            "band": "balanced-hybrid",
-            "name": "Benchmark Matrix",
             "theme": "Choosing the Durable Tool",
             "densityLabel": "Dense comparison",
             "heroScene": 3,
@@ -11397,12 +11457,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "benchmark-matrix",
+            "name": "Benchmark Matrix",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "benchmark-matrix",
-            "band": "balanced-hybrid",
-            "name": "基准矩阵",
             "theme": "选择耐用工具",
             "densityLabel": "高密度比较",
             "heroScene": 3,
@@ -11553,10 +11613,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "benchmark-matrix",
+            "name": "基准矩阵",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./10-durable-tool.tsx"
+        "modulePath": "../topics/durable-tool.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "durable-tool-corner-tabs",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative tool evaluation: criteria, scores, and the verdict are presentation examples, not measured procurement results.",
+            "zh": "示例工具评估：标准、评分与结论均为演示示例，并非实测采购结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "wipe",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "natural-clocks",
@@ -11567,9 +11650,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "benchmark-matrix",
-            "band": "balanced-hybrid",
-            "name": "Benchmark Matrix",
             "theme": "Natural Clocks",
             "densityLabel": "Diagram explainer · Medium-high",
             "heroScene": 4,
@@ -11694,12 +11774,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "benchmark-matrix",
+            "name": "Benchmark Matrix",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "benchmark-matrix",
-            "band": "balanced-hybrid",
-            "name": "基准矩阵",
             "theme": "自然时钟",
             "densityLabel": "图解型 · 中高密度",
             "heroScene": 4,
@@ -11824,10 +11904,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "benchmark-matrix",
+            "name": "基准矩阵",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./benchmark-matrix-natural-clocks.tsx",
+        "modulePath": "../topics/natural-clocks.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "clock-taxonomy-index",
@@ -11961,6 +12044,9 @@ export const CATALOG_MANIFEST = [
             ]
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "page-turn",
           "2->3": "grid-reveal",
@@ -11977,9 +12063,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "benchmark-matrix",
-            "band": "balanced-hybrid",
-            "name": "Benchmark Matrix",
             "theme": "Build vs Buy vs Borrow",
             "densityLabel": "Dense comparison",
             "heroScene": 3,
@@ -12094,12 +12177,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "benchmark-matrix",
+            "name": "Benchmark Matrix",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "benchmark-matrix",
-            "band": "balanced-hybrid",
-            "name": "基准矩阵",
             "theme": "自建还是买",
             "densityLabel": "密集对比",
             "heroScene": 3,
@@ -12214,10 +12297,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "benchmark-matrix",
+            "name": "基准矩阵",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./build-buy-borrow.tsx",
+        "modulePath": "../topics/build-buy-borrow.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "decision-dot-row",
@@ -12257,9 +12343,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "signal-pipeline-flow",
-            "band": "balanced-hybrid",
-            "name": "Signal Pipeline Flow",
             "theme": "Dark Technical Pipeline Map — precise system diagram with near-black slate ground, luminous signal colors, and routed node-to-connector flow. Best for architecture, data flow, and process mapping where showing the routing is the explanation.",
             "densityLabel": "Technical",
             "heroScene": 2,
@@ -12372,12 +12455,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "signal-pipeline-flow",
+            "name": "Signal Pipeline Flow",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "signal-pipeline-flow",
-            "band": "balanced-hybrid",
-            "name": "信号管道流",
             "theme": "深色技术管道图——近黑色板岩底色上的精确系统图，发光信号色彩，路由节点到连接器的流动。最适合架构、数据流和流程映射，展示路由即解释。",
             "densityLabel": "技术型",
             "heroScene": 2,
@@ -12490,10 +12573,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "signal-pipeline-flow",
+            "name": "信号管道流",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./11-timeline-spiral.tsx"
+        "modulePath": "../topics/pipeline.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "pipeline-timeline",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative system narrative: labels, dates, metrics, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例系统叙事：标签、日期、指标和结果均为演示示例，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "slide-x",
+          "3->4": "slide-x",
+          "4->5": "slide-x"
+        }
       },
       {
         "id": "event-insight",
@@ -12504,9 +12610,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "signal-pipeline-flow",
-            "band": "balanced-hybrid",
-            "name": "Signal Pipeline Flow",
             "theme": "From Event to Insight",
             "densityLabel": "Technical Dense",
             "heroScene": 3,
@@ -12652,12 +12755,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "signal-pipeline-flow",
+            "name": "Signal Pipeline Flow",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "signal-pipeline-flow",
-            "band": "balanced-hybrid",
-            "name": "信号管线流",
             "theme": "从事件到洞察",
             "densityLabel": "技术密集",
             "heroScene": 3,
@@ -12803,10 +12906,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "signal-pipeline-flow",
+            "name": "信号管道流",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./11-event-to-insight.tsx"
+        "modulePath": "../topics/event-insight.tsx",
+        "navigation": {
+          "geometry": "path",
+          "carrier": "signal-route-navigator",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative event pipeline: labels, rates, thresholds, and outcomes are presentation examples, not measured production results.",
+            "zh": "示例事件管线：标签、速率、阈值和结果均为演示示例，并非实测生产结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "glitch",
+          "3->4": "wipe",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "district-heat",
@@ -12817,9 +12943,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "signal-pipeline-flow",
-            "band": "balanced-hybrid",
-            "name": "Signal Pipeline Flow",
             "theme": "Second Heat — a composite district heat recovery schematic",
             "densityLabel": "Technical Diagram",
             "heroScene": 4,
@@ -12948,12 +13071,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "signal-pipeline-flow",
+            "name": "Signal Pipeline Flow",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "signal-pipeline-flow",
-            "band": "balanced-hybrid",
-            "name": "信号管线流",
             "theme": "城市余热——区域热回收综合技术示意",
             "densityLabel": "技术图解",
             "heroScene": 4,
@@ -13082,10 +13205,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "signal-pipeline-flow",
+            "name": "信号管道流",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./signal-pipeline-flow-district-heat.tsx",
+        "modulePath": "../topics/district-heat.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "heat-pipe-loop",
@@ -13136,6 +13262,9 @@ export const CATALOG_MANIFEST = [
             "supports": "Supports seasonal thermal storage as long-term heat storage that can shift heat availability, improve use of waste heat, and serve district-heating demand while remaining size-, cost-, and application-dependent."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "push-x",
           "2->3": "grid-reveal",
@@ -13152,9 +13281,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "signal-pipeline-flow",
-            "band": "balanced-hybrid",
-            "name": "Signal Pipeline Flow",
             "theme": "Where the Request Goes",
             "densityLabel": "System diagram · routed flow",
             "heroScene": 3,
@@ -13263,12 +13389,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "signal-pipeline-flow",
+            "name": "Signal Pipeline Flow",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "signal-pipeline-flow",
-            "band": "balanced-hybrid",
-            "name": "信号管道流",
             "theme": "请求去哪了",
             "densityLabel": "系统图 · 路由流",
             "heroScene": 3,
@@ -13377,10 +13503,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "signal-pipeline-flow",
+            "name": "信号管道流",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./where-request-goes.tsx",
+        "modulePath": "../topics/where-request-goes.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "request-stage-stepper",
@@ -13420,9 +13549,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "engineering-whiteboard-explainer",
-            "band": "balanced-hybrid",
-            "name": "Engineering Whiteboard Explainer",
             "theme": "A clean engineering whiteboard walkthrough that turns a prompt into a reviewed patch through cards, arrows, status badges, and marker callouts.",
             "densityLabel": "Explainer",
             "heroScene": 3,
@@ -13557,12 +13683,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "engineering-whiteboard-explainer",
+            "name": "Engineering Whiteboard Explainer",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "engineering-whiteboard-explainer",
-            "band": "balanced-hybrid",
-            "name": "工程讲解白板",
             "theme": "用干净的工程白板，把一次提示如何变成经过验证的补丁讲清楚：卡片、箭头、状态章和标注一起推进论证。",
             "densityLabel": "讲解型",
             "heroScene": 3,
@@ -13697,10 +13823,30 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "engineering-whiteboard-explainer",
+            "name": "工程讲解白板",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./engineering-whiteboard-explainer.tsx"
+        "modulePath": "../topics/from-prompt-to-patch.tsx",
+        "navigation": {
+          "mode": "none"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative engineering workflow: prompts, review steps, patch tasks, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例工程工作流：提示、审查步骤、补丁任务和结果均为演示示例，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "wipe",
+          "2->3": "slide-x",
+          "3->4": "slide-y",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "water-tower",
@@ -13711,9 +13857,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "engineering-whiteboard-explainer",
-            "band": "balanced-hybrid",
-            "name": "Engineering Whiteboard Explainer",
             "theme": "A hand-drawn engineering explanation of how elevation, stored volume, demand, and pressure zones make a water tower useful without pretending a static sketch is a full hydraulic model.",
             "densityLabel": "Diagram explainer",
             "heroScene": 4,
@@ -13839,12 +13982,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "engineering-whiteboard-explainer",
+            "name": "Engineering Whiteboard Explainer",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "engineering-whiteboard-explainer",
-            "band": "balanced-hybrid",
-            "name": "工程白板讲解",
             "theme": "用手绘工程图解释高程、储水量、需求和压力分区为何让水塔有用，同时明确静水压草图不等于完整水力模型。",
             "densityLabel": "图解型",
             "heroScene": 4,
@@ -13970,10 +14113,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "engineering-whiteboard-explainer",
+            "name": "工程讲解白板",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./engineering-whiteboard-water-tower.tsx",
+        "modulePath": "../topics/water-tower.tsx",
         "navigation": {
           "geometry": "spatial-node",
           "carrier": "water-network-node-map",
@@ -14006,6 +14152,9 @@ export const CATALOG_MANIFEST = [
             "supports": "A municipal case shows why tower overflow elevations must align inside a pressure zone and why terrain creates several zones."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "grid-reveal",
           "2->3": "push-y",
@@ -14031,9 +14180,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "soft-pastel-friendly",
-            "band": "balanced-hybrid",
-            "name": "Soft Pastel Friendly",
             "theme": "Warm bone-and-peach ground with low-saturation pastels, rounded pill and squircle geometry, and a rounded display voice. Best for onboarding, community, and educational content where approachability is the message.",
             "densityLabel": "Approachable",
             "heroScene": 3,
@@ -14145,12 +14291,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "soft-pastel-friendly",
+            "name": "Soft Pastel Friendly",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "soft-pastel-friendly",
-            "band": "balanced-hybrid",
-            "name": "柔和粉彩友好",
             "theme": "温暖的骨色和桃色底色，低饱和度粉彩，圆润的药丸和圆角矩形几何，圆润的展示字体。最适合入门、社区和教育内容，亲和力即信息。",
             "densityLabel": "亲和",
             "heroScene": 3,
@@ -14262,10 +14408,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "soft-pastel-friendly",
+            "name": "柔和粉彩友好",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./12-iconography.tsx"
+        "modulePath": "../topics/friendly-onboard.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "friendly-icon-rail",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative onboarding scenario: product names, feature claims, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例入门场景：产品名称、功能主张和结果均为演示示例，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "breathing-onboard",
@@ -14276,9 +14445,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "soft-pastel-friendly",
-            "band": "balanced-hybrid",
-            "name": "Soft Pastel Friendly",
             "theme": "Onboarding That Breathes",
             "densityLabel": "Medium / Breathable",
             "heroScene": 1,
@@ -14423,12 +14589,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "soft-pastel-friendly",
+            "name": "Soft Pastel Friendly",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "soft-pastel-friendly",
-            "band": "balanced-hybrid",
-            "name": "柔和粉彩友好",
             "theme": "会呼吸的新手引导",
             "densityLabel": "中等 / 留白",
             "heroScene": 1,
@@ -14573,10 +14739,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "soft-pastel-friendly",
+            "name": "柔和粉彩友好",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./12-onboarding-that-breathes.tsx"
+        "modulePath": "../topics/breathing-onboard.tsx",
+        "navigation": {
+          "geometry": "card-miniature",
+          "carrier": "breathing-pill-carousel",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative onboarding scenario: steps, prompts, and outcomes are presentation examples, not measured product results.",
+            "zh": "示例入门场景：步骤、提示和结果均为演示示例，并非实测产品结果。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "slide-y",
+          "3->4": "fade",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "chrysalis-rebuild",
@@ -14587,9 +14776,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "soft-pastel-friendly",
-            "band": "balanced-hybrid",
-            "name": "Soft Pastel Friendly",
             "theme": "Danaus plexippus: rebuilding inside a chrysalis",
             "densityLabel": "Medium / Diagram",
             "heroScene": 3,
@@ -14718,12 +14904,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "soft-pastel-friendly",
+            "name": "Soft Pastel Friendly",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "soft-pastel-friendly",
-            "band": "balanced-hybrid",
-            "name": "柔和粉彩友好",
             "theme": "帝王蝶（Danaus plexippus）蛹中重建",
             "densityLabel": "中等 / 图解",
             "heroScene": 3,
@@ -14852,10 +15038,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "soft-pastel-friendly",
+            "name": "柔和粉彩友好",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./soft-pastel-friendly-chrysalis-rebuild.tsx",
+        "modulePath": "../topics/chrysalis-rebuild.tsx",
         "navigation": {
           "geometry": "ambient",
           "carrier": "cocoon-pollen-marks",
@@ -14909,6 +15098,9 @@ export const CATALOG_MANIFEST = [
             "boundary": "The study reports mechanical observations from a limited sample and does not map the origin of wings, eyes, legs, or every retained organ."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "iris-open",
           "2->3": "split-merge",
@@ -14925,9 +15117,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "soft-pastel-friendly",
-            "band": "balanced-hybrid",
-            "name": "Soft Pastel Friendly",
             "theme": "Your First Week Here",
             "densityLabel": "Medium · warm",
             "heroScene": 1,
@@ -15037,12 +15226,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "soft-pastel-friendly",
+            "name": "Soft Pastel Friendly",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "soft-pastel-friendly",
-            "band": "balanced-hybrid",
-            "name": "柔和粉彩友好",
             "theme": "入职第一周",
             "densityLabel": "中等 · 温暖",
             "heroScene": 1,
@@ -15152,10 +15341,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "soft-pastel-friendly",
+            "name": "柔和粉彩友好",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./first-week-here.tsx",
+        "modulePath": "../topics/first-week-here.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "week-day-picker",
@@ -15195,9 +15387,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "kitchen-prep-station",
-            "band": "balanced-hybrid",
-            "name": "Kitchen Prep Station",
             "theme": "Warm orange-tinted cream counter with earthy kitchen accents — terracotta, wood browns, and herb greens. Shows raw-to-clean transformation through hands-on prep stations. Best for process, ingredient-to-outcome, and craft narratives.",
             "densityLabel": "Hands-on",
             "heroScene": 2,
@@ -15309,12 +15498,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kitchen-prep-station",
+            "name": "Kitchen Prep Station",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "kitchen-prep-station",
-            "band": "balanced-hybrid",
-            "name": "厨房备料台",
             "theme": "暖橙色奶油台面配大地色厨房点缀——陶土红、木棕色和香草绿。通过亲自动手的备料台展示从原始到精致的转变。最适合流程、食材到成品和工艺叙事。",
             "densityLabel": "动手型",
             "heroScene": 2,
@@ -15426,10 +15615,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kitchen-prep-station",
+            "name": "厨房备料台",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./13-sticky-board.tsx"
+        "modulePath": "../topics/prep-station.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "prep-station-scene-tabs",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative kitchen workflow: ingredients, votes, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例厨房工作流：其中食材、投票和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "slide-y"
+        }
       },
       {
         "id": "clean-brief",
@@ -15440,9 +15652,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "kitchen-prep-station",
-            "band": "balanced-hybrid",
-            "name": "Kitchen Prep Station",
             "theme": "Raw Notes to Clean Brief",
             "densityLabel": "Warm process",
             "heroScene": 4,
@@ -15588,12 +15797,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kitchen-prep-station",
+            "name": "Kitchen Prep Station",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "kitchen-prep-station",
-            "band": "balanced-hybrid",
-            "name": "厨房备料台",
             "theme": "从原始笔记到干净简报",
             "densityLabel": "温暖流程",
             "heroScene": 4,
@@ -15739,10 +15948,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kitchen-prep-station",
+            "name": "厨房备料台",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./13-raw-notes-clean-brief.tsx"
+        "modulePath": "../topics/clean-brief.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "clean-brief-recipe-magnets",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative briefing workflow: notes, decisions, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例简报工作流：其中笔记、决策和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "wipe",
+          "3->4": "scale-fade",
+          "4->5": "fade"
+        }
       },
       {
         "id": "cocoa-fermentation",
@@ -15753,9 +15985,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "kitchen-prep-station",
-            "band": "balanced-hybrid",
-            "name": "Kitchen Prep Station",
             "theme": "Fermentation Before Chocolate",
             "densityLabel": "Diagram explainer",
             "heroScene": 4,
@@ -15881,12 +16110,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kitchen-prep-station",
+            "name": "Kitchen Prep Station",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "kitchen-prep-station",
-            "band": "balanced-hybrid",
-            "name": "厨房备料台",
             "theme": "巧克力之前的发酵",
             "densityLabel": "图解叙事",
             "heroScene": 4,
@@ -16012,10 +16241,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kitchen-prep-station",
+            "name": "厨房备料台",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./kitchen-prep-station-cocoa-fermentation.tsx",
+        "modulePath": "../topics/cocoa-fermentation.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "cocoa-sample-tray",
@@ -16072,6 +16304,9 @@ export const CATALOG_MANIFEST = [
             "boundary": "The study covers three Costa Rican box fermentations; it substantiates a typical pathway but does not erase regional, species, or process variability."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "paper-fold",
           "2->3": "push-y",
@@ -16088,9 +16323,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "kitchen-prep-station",
-            "band": "balanced-hybrid",
-            "name": "Kitchen Prep Station",
             "theme": "From Raw Logs to Report",
             "densityLabel": "Prep station · five steps",
             "heroScene": 4,
@@ -16195,12 +16427,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kitchen-prep-station",
+            "name": "Kitchen Prep Station",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "kitchen-prep-station",
-            "band": "balanced-hybrid",
-            "name": "厨房备料台",
             "theme": "日志到报告",
             "densityLabel": "备料台 · 五步",
             "heroScene": 4,
@@ -16305,10 +16537,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "kitchen-prep-station",
+            "name": "厨房备料台",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./raw-logs-to-report.tsx",
+        "modulePath": "../topics/raw-logs-to-report.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "report-recipe-rail",
@@ -16348,9 +16583,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "collaborative-pairing-board",
-            "band": "balanced-hybrid",
-            "name": "Collaborative Pairing Board",
             "theme": "Clean light neutral ground with calm professional accent. Shows two-party collaboration structures, cross-discipline pairing, and handoff workflows. Even-handed neutral typography lets the partnerships be the message.",
             "densityLabel": "Balanced",
             "heroScene": 3,
@@ -16456,12 +16688,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "collaborative-pairing-board",
+            "name": "Collaborative Pairing Board",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "collaborative-pairing-board",
-            "band": "balanced-hybrid",
-            "name": "协作配对板",
             "theme": "干净的浅中性底色配冷静专业的点缀。展示双方协作结构、跨学科配对和交接工作流。公正的中性字体让伙伴关系成为信息本身。",
             "densityLabel": "均衡",
             "heroScene": 3,
@@ -16567,10 +16799,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "collaborative-pairing-board",
+            "name": "协作配对板",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./14-org-chart.tsx"
+        "modulePath": "../topics/pairing-board.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "pairing-board-progress-bars",
+          "invocation": "persistent",
+          "feedback": "geometry-reflow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative collaboration scenario: people, roles, metrics, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例协作场景：其中人员、角色、指标和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "scale-fade",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "shared-artifact",
@@ -16581,9 +16836,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "collaborative-pairing-board",
-            "band": "balanced-hybrid",
-            "name": "Collaborative Pairing Board",
             "theme": "Two Teams, One Artifact",
             "densityLabel": "Structured Pairing",
             "heroScene": 3,
@@ -16728,12 +16980,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "collaborative-pairing-board",
+            "name": "Collaborative Pairing Board",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "collaborative-pairing-board",
-            "band": "balanced-hybrid",
-            "name": "协作配对板",
             "theme": "Two Teams, One Artifact / 两个团队，一份产物",
             "densityLabel": "结构化配对",
             "heroScene": 3,
@@ -16878,10 +17130,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "collaborative-pairing-board",
+            "name": "协作配对板",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./14-two-teams-one-artifact.tsx"
+        "modulePath": "../topics/shared-artifact.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "shared-artifact-latch-nav",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative collaboration scenario: teams, artifacts, and outcomes are presentation examples, not external factual claims.",
+            "zh": "示例协作场景：其中团队、产物和结果均为演示内容，并非外部事实主张。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "slide-x",
+          "3->4": "wipe",
+          "4->5": "scale-fade"
+        }
       },
       {
         "id": "elevator-counterweight",
@@ -16892,9 +17167,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "collaborative-pairing-board",
-            "band": "balanced-hybrid",
-            "name": "Collaborative Pairing Board",
             "theme": "Elevator Counterweight",
             "densityLabel": "Diagram Explainer · Paired Mechanics",
             "heroScene": 3,
@@ -17014,12 +17286,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "collaborative-pairing-board",
+            "name": "Collaborative Pairing Board",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "collaborative-pairing-board",
-            "band": "balanced-hybrid",
-            "name": "协作配对板",
             "theme": "电梯配重",
             "densityLabel": "图解说明 · 成对机械",
             "heroScene": 3,
@@ -17139,10 +17411,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "collaborative-pairing-board",
+            "name": "协作配对板",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./collaborative-pairing-board-elevator-counterweight.tsx",
+        "modulePath": "../topics/elevator-counterweight.tsx",
         "navigation": {
           "geometry": "path",
           "carrier": "counterweight-cable",
@@ -17213,6 +17488,9 @@ export const CATALOG_MANIFEST = [
             ]
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "split-merge",
           "2->3": "focus-swap",
@@ -17229,9 +17507,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "collaborative-pairing-board",
-            "band": "balanced-hybrid",
-            "name": "Collaborative Pairing Board",
             "theme": "Human Reviews the AI",
             "densityLabel": "Structured",
             "heroScene": 3,
@@ -17338,12 +17613,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "collaborative-pairing-board",
+            "name": "Collaborative Pairing Board",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "collaborative-pairing-board",
-            "band": "balanced-hybrid",
-            "name": "协作配对板",
             "theme": "人审 AI",
             "densityLabel": "结构化",
             "heroScene": 3,
@@ -17450,10 +17725,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "collaborative-pairing-board",
+            "name": "协作配对板",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./human-reviews-ai.tsx",
+        "modulePath": "../topics/human-reviews-ai.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "review-seam-tabs",
@@ -17493,9 +17771,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "studio-mixing-console",
-            "band": "balanced-hybrid",
-            "name": "Studio Mixing Console",
             "theme": "Deep studio-dark background with metallic hardware-feel panels. Vivid meter colors (green/yellow/red) appear only on fader indicators — never as floods. Compact technical/monospace labels give pro-audio gear feel. Best for parameter tuning, balancing multiple inputs, and showing levels.",
             "densityLabel": "Technical",
             "heroScene": 4,
@@ -17609,12 +17884,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "studio-mixing-console",
+            "name": "Studio Mixing Console",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "studio-mixing-console",
-            "band": "balanced-hybrid",
-            "name": "录音混音控制台",
             "theme": "深色录音棚背景配金属质感硬件面板。鲜明的电平颜色（绿/黄/红）仅出现在推子指示器上——从不泛滥。紧凑的技术/等宽标签营造专业音频设备感。最适合参数调优、平衡多路输入和显示电平。",
             "densityLabel": "技术型",
             "heroScene": 4,
@@ -17728,10 +18003,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "studio-mixing-console",
+            "name": "录音混音控制台",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./15-roadmap.tsx"
+        "modulePath": "../topics/mixing-console.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "mixing-console-scene-dots",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative studio-console scenario: channel counts, level settings, routing, and status labels are presentation examples, not a live mix.",
+            "zh": "示例录音台场景：通道数、电平设置、路由和状态标签均为演示内容，并非实时混音。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "slide-y",
+          "3->4": "slide-y",
+          "4->5": "slide-y"
+        }
       },
       {
         "id": "operating-model",
@@ -17742,9 +18040,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "studio-mixing-console",
-            "band": "balanced-hybrid",
-            "name": "Studio Mixing Console",
             "theme": "Tuning the Operating Model",
             "densityLabel": "Instrumented",
             "heroScene": 3,
@@ -17883,12 +18178,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "studio-mixing-console",
+            "name": "Studio Mixing Console",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "studio-mixing-console",
-            "band": "balanced-hybrid",
-            "name": "工作室调音台",
             "theme": "调校运营模型",
             "densityLabel": "仪表化",
             "heroScene": 3,
@@ -18027,10 +18322,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "studio-mixing-console",
+            "name": "录音混音控制台",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./15-tuning-operating-model.tsx"
+        "modulePath": "../topics/operating-model.tsx",
+        "navigation": {
+          "geometry": "object-controller",
+          "carrier": "operating-model-fader-rail",
+          "invocation": "persistent",
+          "feedback": "mechanical-displacement"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative operating-model console: channel levels, targets, thresholds, and outcomes are a facilitation metaphor, not measured operating data.",
+            "zh": "示例运营模型控制台：通道电平、目标、阈值和结果均是引导讨论的隐喻，并非实测运营数据。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "slide-y",
+          "2->3": "glitch",
+          "3->4": "scale-fade",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "tidal-time",
@@ -18041,9 +18359,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "studio-mixing-console",
-            "band": "balanced-hybrid",
-            "name": "Studio Mixing Console",
             "theme": "Tidal Time",
             "densityLabel": "Diagram Explainer · Instrumented",
             "heroScene": 4,
@@ -18162,12 +18477,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "studio-mixing-console",
+            "name": "Studio Mixing Console",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "studio-mixing-console",
-            "band": "balanced-hybrid",
-            "name": "工作室调音台",
             "theme": "潮汐时差",
             "densityLabel": "图解说明 · 仪表化",
             "heroScene": 4,
@@ -18286,10 +18601,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "studio-mixing-console",
+            "name": "录音混音控制台",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./studio-mixing-console-tidal-time.tsx",
+        "modulePath": "../topics/tidal-time.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "tidal-fader-bank",
@@ -18326,6 +18644,9 @@ export const CATALOG_MANIFEST = [
             "supports": "Satellite altimetry maps substantial deep-ocean tidal dissipation near rough ocean-bottom topography; the study frames shallow-sea bottom friction and scattering of surface tides into internal waves as distinct candidate pathways."
           }
         ],
+        "evidence": {
+          "kind": "facts"
+        },
         "transitionScore": {
           "1->2": "push-y",
           "2->3": "push-x",
@@ -18342,9 +18663,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "studio-mixing-console",
-            "band": "balanced-hybrid",
-            "name": "Studio Mixing Console",
             "theme": "Tuning the Model",
             "densityLabel": "Dense control surface",
             "heroScene": 2,
@@ -18453,12 +18771,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "studio-mixing-console",
+            "name": "Studio Mixing Console",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "studio-mixing-console",
-            "band": "balanced-hybrid",
-            "name": "录音混音控制台",
             "theme": "调模型",
             "densityLabel": "高密度控制面",
             "heroScene": 2,
@@ -18567,10 +18885,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "studio-mixing-console",
+            "name": "录音混音控制台",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./tuning-the-model.tsx",
+        "modulePath": "../topics/tuning-the-model.tsx",
         "navigation": {
           "geometry": "object-controller",
           "carrier": "model-channel-selector",
@@ -18610,9 +18931,6 @@ export const CATALOG_MANIFEST = [
         "model": "Doubao-Seed-Evolving",
         "metadata": {
           "en": {
-            "id": "debug-reaction-board",
-            "band": "balanced-hybrid",
-            "name": "Debug Reaction Board",
             "theme": "Dark IDE diagnostic dashboard — traffic-light status vocabulary, monospaced throughout, color-coded diagnostic items with explicit state indicators",
             "densityLabel": "Diagnostic",
             "heroScene": 4,
@@ -18727,12 +19045,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "debug-reaction-board",
+            "name": "Debug Reaction Board",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "debug-reaction-board",
-            "band": "balanced-hybrid",
-            "name": "调试反应面板",
             "theme": "深色 IDE 诊断仪表板——红绿灯状态词汇、全程等宽字体、带明确状态指示的彩色诊断项",
             "densityLabel": "诊断型",
             "heroScene": 4,
@@ -18847,10 +19165,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "debug-reaction-board",
+            "name": "调试反应面板",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./16-case-study.tsx"
+        "modulePath": "../topics/debug-board.tsx",
+        "navigation": {
+          "geometry": "edge-scale",
+          "carrier": "debug-board-scene-dots",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative diagnostic dashboard: incidents, metrics, logs, identifiers, and remediation outcomes are presentation examples, not live system status.",
+            "zh": "示例诊断仪表板：事故、指标、日志、标识符和修复结果均为演示内容，并非实时系统状态。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "hard-cut",
+          "3->4": "hard-cut",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "learning-incident",
@@ -18861,9 +19202,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.5",
         "metadata": {
           "en": {
-            "id": "debug-reaction-board",
-            "band": "balanced-hybrid",
-            "name": "Debug Reaction Board",
             "theme": "The Incident Learns",
             "densityLabel": "Dense diagnostic",
             "heroScene": 3,
@@ -19008,12 +19346,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "debug-reaction-board",
+            "name": "Debug Reaction Board",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "debug-reaction-board",
-            "band": "balanced-hybrid",
-            "name": "调试反应板",
             "theme": "事故学会了",
             "densityLabel": "高密诊断",
             "heroScene": 3,
@@ -19158,10 +19496,33 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "debug-reaction-board",
+            "name": "调试反应面板",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./16-incident-learns.tsx"
+        "modulePath": "../topics/learning-incident.tsx",
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "learning-incident-status-leds",
+          "invocation": "persistent",
+          "feedback": "material-color-change"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Illustrative incident-learning scenario: alerts, traces, hypotheses, patch proofs, and monitoring states are presentation examples, not a report of an actual incident.",
+            "zh": "示例事故学习场景：告警、链路、假设、补丁证明和监控状态均为演示内容，并非真实事故报告。"
+          },
+          "display": "envelope"
+        },
+        "transitionScore": {
+          "1->2": "glitch",
+          "2->3": "slide-x",
+          "3->4": "wipe",
+          "4->5": "hard-cut"
+        }
       },
       {
         "id": "acoustic-crack",
@@ -19172,9 +19533,6 @@ export const CATALOG_MANIFEST = [
         "model": "GPT 5.6 Sol",
         "metadata": {
           "en": {
-            "id": "debug-reaction-board",
-            "band": "balanced-hybrid",
-            "name": "Debug Reaction Board",
             "theme": "Listening for a Crack — acoustic-emission location as an inspection lead, not an automatic diagnosis",
             "densityLabel": "Diagnostic Diagram",
             "heroScene": 4,
@@ -19298,12 +19656,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "debug-reaction-board",
+            "name": "Debug Reaction Board",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "debug-reaction-board",
-            "band": "balanced-hybrid",
-            "name": "调试反应面板",
             "theme": "听裂缝——把声发射事件定位为检查线索，而非自动诊断",
             "densityLabel": "诊断图解",
             "heroScene": 4,
@@ -19427,10 +19785,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "debug-reaction-board",
+            "name": "调试反应面板",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./debug-reaction-board-acoustic-crack.tsx",
+        "modulePath": "../topics/acoustic-crack.tsx",
         "navigation": {
           "geometry": "edge-scale",
           "carrier": "acoustic-trace-ruler",
@@ -19513,6 +19874,90 @@ export const CATALOG_MANIFEST = [
             "supports": "Supports the localization uncertainty boundary: cracks in the propagation path, arrival-time picking error, sensor layout, attenuation, material wave speed, and noise can all move an estimated source location and require calibration."
           }
         ],
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "id": "fhwa-ae",
+              "stamp": "FHWA/AE",
+              "claimIds": [
+                "baseline-window",
+                "sensor-baseline",
+                "active-energy-release",
+                "arrival-time-location",
+                "localization-uncertainty",
+                "noise-discrimination"
+              ],
+              "authority": "Federal Highway Administration",
+              "title": "Bridge — Acoustic Emission (AE)",
+              "citation": "FHWA InfoTechnology, Bridge — Acoustic Emission (AE), accessed 10 July 2026",
+              "url": "https://infotechnology.fhwa.dot.gov/acoustic-emission-ae/",
+              "supports": "Supports the bridge application, transient elastic waves from evolving damage, surface-mounted sensors, arrival-time and wave-velocity source location, guard sensors, active-versus-arrested crack boundary, and the need to discriminate ambient noise."
+            },
+            {
+              "id": "fhwa-nde",
+              "stamp": "FHWA/NDE",
+              "claimIds": [
+                "baseline-window",
+                "sensor-baseline",
+                "active-energy-release",
+                "localization-uncertainty",
+                "noise-discrimination",
+                "inspection-handoff"
+              ],
+              "authority": "Federal Highway Administration",
+              "title": "Feasibility of Nondestructive Crack Detection and Monitoring for Steel Bridges",
+              "citation": "FHWA-HRT-12-060 (2012), Feasibility of Nondestructive Crack Detection and Monitoring for Steel Bridges",
+              "url": "https://www.fhwa.dot.gov/publications/research/nde/12060/index.cfm",
+              "supports": "Supports acoustic emission as rapid energy release in a transient elastic stress wave, the distinction between crack-growth monitoring and crack sizing, the requirement to combine AE with other NDE for quantitative defect information, and the field importance of signal discrimination and noise reduction."
+            },
+            {
+              "id": "iso-12714",
+              "stamp": "ISO",
+              "claimIds": [
+                "sensor-baseline",
+                "waveform-context"
+              ],
+              "authority": "International Organization for Standardization",
+              "title": "ISO 12714:1999 — Secondary calibration of acoustic emission sensors",
+              "citation": "ISO 12714:1999, Non-destructive testing — Acoustic emission inspection — Secondary calibration of acoustic emission sensors",
+              "url": "https://www.iso.org/standard/2343.html",
+              "supports": "Supports treating acoustic-emission sensors as calibrated receivers of elastic waves at a solid surface and treating frequency response as an instrument property that must be established rather than assumed from a generic waveform icon."
+            },
+            {
+              "id": "nist-waveform",
+              "stamp": "NIST",
+              "claimIds": [
+                "active-energy-release",
+                "waveform-context"
+              ],
+              "authority": "National Institute of Standards and Technology",
+              "title": "Using Acoustic Emission Waveform Characterization to Ascertain Where Cracks Originate in Concrete",
+              "citation": "Farnam, Geiker, Bentz & Weiss (2015), Cement and Concrete Composites 60, 135–145, doi:10.1016/j.cemconcomp.2015.04.008",
+              "url": "https://www.nist.gov/publications/using-acoustic-emission-waveform-characterization-ascertain-where-cracks-originate",
+              "supports": "Supports passive AE from cracking and microcracking while documenting that waveform properties depend on released energy, distance, source, orientation, and transfer medium; this bounds frequency display as contextual evidence, not a universal crack-type classifier."
+            },
+            {
+              "id": "tudelft-localization",
+              "stamp": "TU/D",
+              "claimIds": [
+                "arrival-time-location",
+                "localization-uncertainty",
+                "noise-discrimination"
+              ],
+              "authority": "Delft University of Technology",
+              "title": "Evaluation of acoustic emission source localization accuracy in concrete structures",
+              "citation": "Zhang, Pahlavan & Yang (2020), Structural Health Monitoring 19(6), 2063–2074, doi:10.1177/1475921720915625",
+              "url": "https://repository.tudelft.nl/record/uuid:3f16f4bd-2c5f-4f12-ae5d-ad3c928b4e67",
+              "supports": "Supports the localization uncertainty boundary: cracks in the propagation path, arrival-time picking error, sensor layout, attenuation, material wave speed, and noise can all move an estimated source location and require calibration."
+            }
+          ],
+          "boundary": {
+            "en": "Acoustic-emission monitoring can prioritize inspection; it does not by itself classify or size a defect.",
+            "zh": "声发射监测可以确定检查优先级；它本身不能判定缺陷类型或尺寸。"
+          },
+          "display": "stage"
+        },
         "transitionScore": {
           "1->2": "scanline",
           "2->3": "focus-swap",
@@ -19529,9 +19974,6 @@ export const CATALOG_MANIFEST = [
         "model": "Claude Opus 4.8",
         "metadata": {
           "en": {
-            "id": "debug-reaction-board",
-            "band": "balanced-hybrid",
-            "name": "Debug Reaction Board",
             "theme": "Is It Safe to Deploy?",
             "densityLabel": "Balanced diagnostic",
             "heroScene": 4,
@@ -19640,12 +20082,12 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "debug-reaction-board",
+            "name": "Debug Reaction Board",
+            "band": "balanced-hybrid"
           },
           "zh": {
-            "id": "debug-reaction-board",
-            "band": "balanced-hybrid",
-            "name": "调试反应面板",
             "theme": "能发布吗",
             "densityLabel": "均衡诊断",
             "heroScene": 4,
@@ -19754,10 +20196,13 @@ export const CATALOG_MANIFEST = [
                   }
                 ]
               }
-            ]
+            ],
+            "id": "debug-reaction-board",
+            "name": "调试反应面板",
+            "band": "balanced-hybrid"
           }
         },
-        "modulePath": "./safe-to-deploy.tsx",
+        "modulePath": "../topics/safe-to-deploy.tsx",
         "navigation": {
           "geometry": "typographic-index",
           "carrier": "deploy-status-ticks",
