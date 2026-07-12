@@ -20,18 +20,6 @@ export async function createThumbnailViteServer() {
   });
 }
 
-export async function collectThumbnailTargets(vite) {
-  const { PUBLICATION_TARGETS } = await vite.ssrLoadModule(
-    "/src/catalog/manifest.generated.ts",
-  );
-  return PUBLICATION_TARGETS.map((target) => ({
-    styleId: target.styleId,
-    topicId: target.topicId,
-    capture: target.capture,
-    filename: target.previewFilename,
-  }));
-}
-
 export async function removeUnmappedShowcaseWebps(filenames) {
   const expectedFilenames = new Set(filenames);
   const entries = await readdir(showcaseDirectory, { withFileTypes: true });

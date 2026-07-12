@@ -286,6 +286,15 @@ async function openTopicHeroFinalFrame(
         requestAnimationFrame(() => requestAnimationFrame(resolve));
       }),
   );
+  await expect
+    .poll(
+      async () => (await getFrozenStageState(page)).runningAnimations,
+      {
+        message: `${frame.styleId}/${frame.topicId}/${frame.language} frozen animations must settle after lazy mount`,
+        timeout: 2000,
+      },
+    )
+    .toBe(0);
 }
 
 async function getFrozenStageState(page: Page) {
@@ -295,6 +304,13 @@ async function getFrozenStageState(page: Page) {
       '[data-testid="spatial-scene-panel"][data-active="true"]',
     );
 
+    const activeAnimations = document
+      .getAnimations({ subtree: true })
+      .filter(
+        (animation) =>
+          animation.playState === "running" || animation.playState === "pending",
+      );
+
     return {
       frozen: document.documentElement.dataset.frozen,
       stageReady: stage?.dataset.topicReady,
@@ -302,12 +318,25 @@ async function getFrozenStageState(page: Page) {
       overflowY: (stage?.scrollHeight ?? 0) - (stage?.clientHeight ?? 0),
       activeScene: activePanel?.dataset.sceneId,
       activeContent: activePanel?.textContent?.trim() ?? "",
-      runningAnimations: document
-        .getAnimations({ subtree: true })
-        .filter(
-          (animation) =>
-            animation.playState === "running" || animation.playState === "pending",
-        ).length,
+      runningAnimations: activeAnimations.length,
+      runningAnimationDetails: activeAnimations.map((animation) => {
+        const target =
+          animation.effect instanceof KeyframeEffect
+            ? animation.effect.target
+            : null;
+        return {
+          playState: animation.playState,
+          currentTime: animation.currentTime,
+          target:
+            target instanceof Element
+              ? `${target.tagName.toLowerCase()}.${target.className}`
+              : null,
+          animationName:
+            target instanceof Element
+              ? getComputedStyle(target).animationName
+              : null,
+        };
+      }),
     };
   });
 }
@@ -498,7 +527,7 @@ test.describe.parallel("Topic hero-frame audit", () => {
           ).toBeLessThanOrEqual(2);
           expect(
             stageState.runningAnimations,
-            `${frame.styleId}/${frame.topicId} must settle in frozen mode`,
+            `${frame.styleId}/${frame.topicId} must settle in frozen mode: ${JSON.stringify(stageState.runningAnimationDetails)}`,
           ).toBe(0);
         }
       },
