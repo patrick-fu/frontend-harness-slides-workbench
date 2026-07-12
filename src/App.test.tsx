@@ -90,6 +90,25 @@ describe("Workbench Catalog + Player", () => {
     expect(screen.queryByRole("button", { name: "Present" })).not.toBeInTheDocument();
   });
 
+  it("enters Pure Mode without replacing the active Stage node", async () => {
+    window.history.replaceState(
+      null,
+      "",
+      "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=1&beat=0",
+    );
+    render(<App />);
+    const stage = screen.getByTestId("stage");
+    await waitFor(() => expect(stage).toHaveAttribute("data-topic-ready", "true"));
+
+    fireEvent.click(screen.getByRole("button", { name: "Present" }));
+
+    await waitFor(() => expect(window.location.search).toContain("pure=1"));
+    expect(screen.getByTestId("stage")).toBe(stage);
+    expect(screen.queryByRole("navigation", { name: "Player navigation" })).not.toBeInTheDocument();
+    expect(screen.queryByTestId("bottom-bar")).not.toBeInTheDocument();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
   it("shows explicit recovery actions for a missing Topic", () => {
     window.history.replaceState(
       null,

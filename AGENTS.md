@@ -67,9 +67,19 @@ overrides the default workflow.
 The application is deliberately split into a responsive Envelope and an
 isolated Stage.
 
-- The Envelope owns the Catalog and Player chrome, routing, global controls,
-  library/search, transport, and responsive layout. It may use normal browser
-  UI units and breakpoints.
+- The Envelope owns the Catalog and Player chrome, navigation entry points,
+  global controls, library/search, transport, and responsive layout. It
+  consumes semantic Navigation State and Intents without owning routing or
+  History policy. It may use normal browser UI units and breakpoints.
+- `src/envelope` is the only Envelope module family. `src/App.tsx` composes
+  providers only. Catalog view/filters, headers, Player rail/transport, global
+  controls, More menu, Library, Command Palette, Controls Guide, modal focus,
+  global shortcuts, and Envelope font preload stay in this family. Do not
+  recreate `components/chrome`, `components/layout`, Header, Sidebar,
+  TopicBar, BottomBar, or Overview/Lab vocabulary.
+- Canonical Band order, labels, and grouping live in `src/catalog/bands.ts`.
+  Envelope surfaces consume Catalog Style/Topic/Model identity and Registry
+  order; they do not derive or normalize a second shell-specific version.
 - The Stage is a fixed 1920x1080 canvas. The Player fits it with a contain-style
   scale transform; it is not reflowed, cropped, or resized for surrounding
   chrome.

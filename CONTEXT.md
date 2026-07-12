@@ -93,7 +93,12 @@ symbol.
 _Avoid_: Topic-named component, Style component, versioned component
 
 **Envelope（外壳）**:
-The Workbench interface surrounding the Stage. It holds global and Player controls without becoming Topic content.
+The single responsive Workbench interface surrounding the Stage. The
+authoritative `src/envelope` family owns Catalog and Player chrome, global
+controls, discovery overlays, help, focus management, and responsive shell
+behavior without becoming Topic content. Pure removes its output while keeping
+the active Stage mounted.
+_Avoid_: Chrome module family, Layout shell, Header/Sidebar shell
 
 **Topic Card（题材卡片）**:
 The Catalog representation of a particular Topic. It presents a visual preview and the Topic's identifying information.

@@ -118,6 +118,14 @@ export default function WorkbenchEnvelope() {
     return () => window.clearTimeout(id);
   }, [toast]);
 
+  useEffect(() => {
+    if (!urlState.pureMode) return;
+    setLibraryOpen(false);
+    setPaletteOpen(false);
+    setControlsOpen(false);
+    setToast(null);
+  }, [urlState.pureMode]);
+
   const openPalette = useCallback(() => setPaletteOpen(true), []);
   const openControls = useCallback(() => setControlsOpen(true), []);
   useGlobalShortcuts({
@@ -296,30 +304,32 @@ export default function WorkbenchEnvelope() {
         </div>
       )}
 
-      <LibraryDrawer
-        open={libraryOpen}
-        registry={RUNTIME_REGISTRY}
-        currentStyleId={resolvedStyleId}
-        currentTopicId={urlState.topicId}
-        language={displayLanguage}
-        onClose={() => setLibraryOpen(false)}
-        onSelectTopic={selectTopic}
-      />
-      <CommandPalette
-        open={paletteOpen}
-        registry={RUNTIME_REGISTRY}
-        language={displayLanguage}
-        recent={recentTopics}
-        onClose={() => setPaletteOpen(false)}
-        onSelectTopic={selectTopic}
-      />
-      <ControlsGuide
-        open={controlsOpen}
-        view={urlState.view}
-        language={displayLanguage}
-        onClose={() => setControlsOpen(false)}
-      />
-      {toast && (
+      {!urlState.pureMode && <>
+        <LibraryDrawer
+          open={libraryOpen}
+          registry={RUNTIME_REGISTRY}
+          currentStyleId={resolvedStyleId}
+          currentTopicId={urlState.topicId}
+          language={displayLanguage}
+          onClose={() => setLibraryOpen(false)}
+          onSelectTopic={selectTopic}
+        />
+        <CommandPalette
+          open={paletteOpen}
+          registry={RUNTIME_REGISTRY}
+          language={displayLanguage}
+          recent={recentTopics}
+          onClose={() => setPaletteOpen(false)}
+          onSelectTopic={selectTopic}
+        />
+        <ControlsGuide
+          open={controlsOpen}
+          view={urlState.view}
+          language={displayLanguage}
+          onClose={() => setControlsOpen(false)}
+        />
+      </>}
+      {!urlState.pureMode && toast && (
         <div role="status" className="fixed bottom-5 left-1/2 z-[120] -translate-x-1/2 rounded-full bg-ink px-4 py-2 text-xs font-medium text-paper shadow-xl">
           {toast}
         </div>

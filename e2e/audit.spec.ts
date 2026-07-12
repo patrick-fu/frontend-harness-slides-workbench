@@ -1415,6 +1415,29 @@ test.describe("Catalog / overview view", () => {
 // ─── 10: Player / lab view ─────────────────────────────────────────────────
 
 test.describe("Player / lab view", () => {
+  test("Envelope keeps the contained Stage practical on wide and narrow screens", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
+    let box = await page.locator('[data-testid="stage"]').boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.width).toBeGreaterThan(1200);
+    expect(box!.x).toBeGreaterThanOrEqual(47);
+    expect(box!.x + box!.width).toBeLessThanOrEqual(1441);
+    expect(box!.y + box!.height).toBeLessThanOrEqual(901);
+
+    await page.setViewportSize({ width: 375, height: 812 });
+    box = await page.locator('[data-testid="stage"]').boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.width).toBeGreaterThan(370);
+    expect(box!.x).toBeGreaterThanOrEqual(-1);
+    expect(box!.x + box!.width).toBeLessThanOrEqual(376);
+    await expect(page.getByRole("button", { name: "Overview" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Library" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Search" })).toBeVisible();
+  });
+
   test("mobile top bar keeps Overview, Library, and Search available at 375px", async ({
     page,
   }) => {

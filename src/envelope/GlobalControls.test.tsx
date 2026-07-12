@@ -37,14 +37,20 @@ describe("GlobalControls", () => {
     renderControls();
     fireEvent.click(screen.getByRole("button", { name: "More" }));
 
-    expect(screen.getByRole("menuitem", { name: /Slides skill on GitHub/ })).toHaveAttribute(
+    const skill = screen.getByRole("menuitem", { name: /Slides skill on GitHub/ });
+    const workbench = screen.getByRole("menuitem", { name: /Workbench on GitHub/ });
+    expect(skill).toHaveAttribute(
       "href",
       "https://github.com/patrick-fu/frontend-harness-slides",
     );
-    expect(screen.getByRole("menuitem", { name: /Workbench on GitHub/ })).toHaveAttribute(
+    expect(workbench).toHaveAttribute(
       "href",
       "https://github.com/patrick-fu/frontend-harness-slides-workbench",
     );
+    for (const link of [skill, workbench]) {
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noreferrer");
+    }
   });
 
   it("adds Fullscreen only in Player", () => {
@@ -60,5 +66,22 @@ describe("GlobalControls", () => {
     fireEvent.keyDown(more, { key: "ArrowDown" });
     await new Promise((resolve) => requestAnimationFrame(resolve));
     expect(screen.getByRole("menuitem", { name: "Copy link" })).toHaveFocus();
+  });
+
+  it("traverses the More menu and restores its trigger on Escape", async () => {
+    renderControls();
+    const more = screen.getByRole("button", { name: "More" });
+    more.focus();
+    fireEvent.keyDown(more, { key: "ArrowDown" });
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+    const copy = screen.getByRole("menuitem", { name: "Copy link" });
+    const workbench = screen.getByRole("menuitem", { name: /Workbench on GitHub/ });
+    fireEvent.keyDown(copy, { key: "End" });
+    expect(workbench).toHaveFocus();
+    fireEvent.keyDown(workbench, { key: "Home" });
+    expect(copy).toHaveFocus();
+    fireEvent.keyDown(copy, { key: "Escape" });
+    expect(screen.queryByRole("menu", { name: "More" })).not.toBeInTheDocument();
+    expect(more).toHaveFocus();
   });
 });
