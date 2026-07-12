@@ -73,6 +73,7 @@ const registry: readonly RuntimeStyleGroup[] = [
     ],
   },
 ];
+const allTopicsInScope = () => true;
 
 describe("LibraryDrawer", () => {
   it("exposes the current Style's Topics with Model IDs", () => {
@@ -83,6 +84,7 @@ describe("LibraryDrawer", () => {
         currentStyleId="quiet-grid"
         currentTopicId="launch"
         language="en"
+        isTopicInCycleScope={allTopicsInScope}
         onClose={vi.fn()}
         onSelectTopic={vi.fn()}
       />,
@@ -103,6 +105,7 @@ describe("LibraryDrawer", () => {
         currentStyleId="quiet-grid"
         currentTopicId="launch"
         language="en"
+        isTopicInCycleScope={allTopicsInScope}
         onClose={vi.fn()}
         onSelectTopic={vi.fn()}
       />,
@@ -126,6 +129,7 @@ describe("LibraryDrawer", () => {
         currentStyleId="quiet-grid"
         currentTopicId="launch"
         language="en"
+        isTopicInCycleScope={allTopicsInScope}
         onClose={onClose}
         onSelectTopic={onSelectTopic}
       />,
@@ -145,7 +149,7 @@ describe("LibraryDrawer", () => {
         currentStyleId="quiet-grid"
         currentTopicId="launch"
         language="en"
-        cycleScopeTopicIds={new Set(["launch"])}
+        isTopicInCycleScope={(topicId) => topicId === "launch"}
         onClose={vi.fn()}
         onSelectTopic={vi.fn()}
       />,

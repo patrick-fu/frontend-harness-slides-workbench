@@ -11,7 +11,7 @@ export interface CommandPaletteProps {
   registry: readonly RuntimeStyleGroup[];
   language: "en" | "zh";
   recent: string[];
-  cycleScopeTopicIds?: ReadonlySet<string> | null;
+  isTopicInCycleScope: (topicId: string) => boolean;
   onClose: () => void;
   onSelectTopic: (styleId: string, topicId: string) => void;
 }
@@ -44,7 +44,7 @@ export default function CommandPalette({
   registry,
   language,
   recent,
-  cycleScopeTopicIds,
+  isTopicInCycleScope,
   onClose,
   onSelectTopic,
 }: CommandPaletteProps) {
@@ -192,10 +192,7 @@ export default function CommandPalette({
           <div id="command-results" role="listbox" className="space-y-1">
             {results.map((result, index) => {
               const active = index === activeIndex;
-              const outsideScope = Boolean(
-                cycleScopeTopicIds &&
-                  !cycleScopeTopicIds.has(result.topic.id),
-              );
+              const outsideScope = !isTopicInCycleScope(result.topic.id);
               return (
                 <button
                   id={result.key}

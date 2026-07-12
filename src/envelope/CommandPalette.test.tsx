@@ -67,6 +67,7 @@ const registry: readonly RuntimeStyleGroup[] = [
     topics: [topic("field-notes", "dust", "Saharan dust", "GPT 5.6 Sol")],
   },
 ];
+const allTopicsInScope = () => true;
 
 describe("CommandPalette", () => {
   it("shows recent exact Topics before the user searches", () => {
@@ -76,6 +77,7 @@ describe("CommandPalette", () => {
         registry={registry}
         language="en"
         recent={["field-notes/dust"]}
+        isTopicInCycleScope={allTopicsInScope}
         onClose={vi.fn()}
         onSelectTopic={vi.fn()}
       />,
@@ -92,6 +94,7 @@ describe("CommandPalette", () => {
         registry={registry}
         language="en"
         recent={[]}
+        isTopicInCycleScope={allTopicsInScope}
         onClose={vi.fn()}
         onSelectTopic={vi.fn()}
       />,
@@ -115,6 +118,7 @@ describe("CommandPalette", () => {
         registry={registry}
         language="en"
         recent={[]}
+        isTopicInCycleScope={allTopicsInScope}
         onClose={onClose}
         onSelectTopic={onSelectTopic}
       />,
@@ -136,7 +140,7 @@ describe("CommandPalette", () => {
         registry={registry}
         language="en"
         recent={[]}
-        cycleScopeTopicIds={new Set(["launch"])}
+        isTopicInCycleScope={(topicId) => topicId === "launch"}
         onClose={vi.fn()}
         onSelectTopic={vi.fn()}
       />,

@@ -87,7 +87,7 @@ describe("Workbench Catalog + Player", () => {
     window.history.replaceState(
       null,
       "",
-      "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=1&beat=0",
+      "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=3&beat=1",
     );
     const matchingTopics = CATALOG_MANIFEST.flatMap((group) => group.topics)
       .filter((topic) => topic.modelId === "GPT 5.5").length;
@@ -110,6 +110,11 @@ describe("Workbench Catalog + Player", () => {
       }),
     ).toBeVisible();
     expect(screen.getByRole("button", { name: "Clear filters" })).toBeVisible();
+    expect(new URLSearchParams(window.location.search).get("topic")).toBe(
+      "product-keynote",
+    );
+    expect(new URLSearchParams(window.location.search).get("scene")).toBe("3");
+    expect(new URLSearchParams(window.location.search).get("beat")).toBe("1");
   });
 
   it("limits the Topic Switcher to the active Cycle Scope and clears Filters in place", async () => {
@@ -177,6 +182,52 @@ describe("Workbench Catalog + Player", () => {
     render(<App />);
     fireEvent.keyDown(window, { key: "k", ctrlKey: true });
     expect(screen.getByRole("dialog", { name: "Command palette" })).toBeVisible();
+  });
+
+  it("keeps global discovery visible while marking canonical out-of-scope destinations", () => {
+    window.history.replaceState(
+      null,
+      "",
+      "/?view=lab&style=minimal-product-keynote&topic=quiet-launch&scene=1&beat=0&model=GPT+5.5",
+    );
+    render(<App />);
+    const playerNavigation = screen.getByRole("navigation", {
+      name: "Player navigation",
+    });
+
+    fireEvent.click(
+      within(playerNavigation).getByRole("button", { name: "Library" }),
+    );
+    const library = screen.getByRole("dialog", { name: "Library" });
+    expect(
+      within(library).getByRole("button", {
+        name: /Product Keynote.*Outside filter/,
+      }),
+    ).toBeVisible();
+    expect(
+      within(library).getByRole("button", { name: /Quiet Launch/ }),
+    ).not.toHaveAccessibleName(/Outside filter/);
+    fireEvent.click(
+      within(library).getByRole("button", { name: "Close library" }),
+    );
+
+    fireEvent.click(
+      within(playerNavigation).getByRole("button", { name: "Search" }),
+    );
+    const palette = screen.getByRole("dialog", { name: "Command palette" });
+    const search = within(palette).getByRole("combobox");
+    fireEvent.change(search, { target: { value: "Product Keynote" } });
+    expect(
+      within(palette).getByRole("option", {
+        name: /^Minimal Product Keynote · Product Keynote · Doubao-Seed-Evolving · Outside filter$/,
+      }),
+    ).toBeVisible();
+    fireEvent.change(search, { target: { value: "Quiet Launch" } });
+    expect(
+      within(palette).getByRole("option", {
+        name: /^Minimal Product Keynote · Quiet Launch · GPT 5\.5$/,
+      }),
+    ).not.toHaveAccessibleName(/Outside filter/);
   });
 
   it("preserves unresolved URL filters as an explicit unavailable state", () => {

@@ -11,7 +11,6 @@ export interface PlayerFilterControlProps {
   language: "en" | "zh";
   filters: CatalogFilterState;
   resolution: CatalogFilterResolution;
-  currentTopicId: string;
   onFiltersChange: (filters: CatalogFilterState) => void;
 }
 
@@ -25,16 +24,13 @@ export default function PlayerFilterControl({
   language,
   filters,
   resolution,
-  currentTopicId,
   onFiltersChange,
 }: PlayerFilterControlProps) {
   const [open, setOpen] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const hasFilters = filters.bands.length > 0 || filters.models.length > 0;
-  const matchingCount = resolution.visibleTopics.length;
-  const currentInScope = resolution.visibleTopics.some(
-    (entry) => entry.topic.id === currentTopicId,
-  );
+  const matchingCount = resolution.matchingTopics.length;
+  const currentInScope = resolution.currentTopicInCycleScope;
   const copy = language === "zh"
     ? {
         filter: "筛选",
@@ -198,8 +194,8 @@ export default function PlayerFilterControl({
               modelOptions={modelOptions}
               selectedBands={filters.bands}
               selectedModels={filters.models}
-              unavailableBands={resolution.unavailableBands}
-              unavailableModels={resolution.unavailableModels}
+              unavailableBands={resolution.unresolved.bands}
+              unavailableModels={resolution.unresolved.models}
               onToggleBand={(band) =>
                 onFiltersChange({
                   bands: toggleValue(filters.bands, band),

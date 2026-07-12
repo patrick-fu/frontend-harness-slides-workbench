@@ -10,7 +10,7 @@ export interface LibraryDrawerProps {
   currentStyleId: string;
   currentTopicId: string;
   language: "en" | "zh";
-  cycleScopeTopicIds?: ReadonlySet<string> | null;
+  isTopicInCycleScope: (topicId: string) => boolean;
   onClose: () => void;
   onSelectTopic: (styleId: string, topicId: string) => void;
 }
@@ -21,7 +21,7 @@ export default function LibraryDrawer({
   currentStyleId,
   currentTopicId,
   language,
-  cycleScopeTopicIds,
+  isTopicInCycleScope,
   onClose,
   onSelectTopic,
 }: LibraryDrawerProps) {
@@ -180,10 +180,7 @@ export default function LibraryDrawer({
                           <div className="ml-3 border-l border-ink/10 py-1 pl-2">
                             {topics.map((topic) => {
                               const active = isCurrent && topic.id === currentTopicId;
-                              const outsideScope = Boolean(
-                                cycleScopeTopicIds &&
-                                  !cycleScopeTopicIds.has(topic.id),
-                              );
+                              const outsideScope = !isTopicInCycleScope(topic.id);
                               return (
                                 <button
                                   key={topic.id}

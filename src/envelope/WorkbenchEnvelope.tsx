@@ -81,18 +81,12 @@ export default function WorkbenchEnvelope() {
       }, urlState.topicId),
     [displayLanguage, urlState.bands, urlState.models, urlState.topicId],
   );
-  const hasFilters = urlState.bands.length > 0 || urlState.models.length > 0;
-  const cycleScopeTopicIds = useMemo(
-    () =>
-      new Set(filterResolution.visibleTopics.map((entry) => entry.topic.id)),
-    [filterResolution.visibleTopics],
-  );
   const topicSwitcherOptions = useMemo(
     () =>
       activeGroup?.topics.filter(
-        (topic) => !hasFilters || cycleScopeTopicIds.has(topic.id),
+        (topic) => filterResolution.isTopicInCycleScope(topic.id),
       ) ?? [],
-    [activeGroup, cycleScopeTopicIds, hasFilters],
+    [activeGroup, filterResolution],
   );
 
   useEffect(() => {
@@ -325,7 +319,6 @@ export default function WorkbenchEnvelope() {
                     language={displayLanguage}
                     filters={{ bands: urlState.bands, models: urlState.models }}
                     resolution={filterResolution}
-                    currentTopicId={urlState.topicId}
                     onFiltersChange={updateFilters}
                   />
                 }
@@ -398,7 +391,7 @@ export default function WorkbenchEnvelope() {
           currentStyleId={resolvedStyleId}
           currentTopicId={urlState.topicId}
           language={displayLanguage}
-          cycleScopeTopicIds={hasFilters ? cycleScopeTopicIds : null}
+          isTopicInCycleScope={filterResolution.isTopicInCycleScope}
           onClose={() => setLibraryOpen(false)}
           onSelectTopic={selectTopic}
         />
@@ -407,7 +400,7 @@ export default function WorkbenchEnvelope() {
           registry={RUNTIME_REGISTRY}
           language={displayLanguage}
           recent={recentTopics}
-          cycleScopeTopicIds={hasFilters ? cycleScopeTopicIds : null}
+          isTopicInCycleScope={filterResolution.isTopicInCycleScope}
           onClose={() => setPaletteOpen(false)}
           onSelectTopic={selectTopic}
         />
