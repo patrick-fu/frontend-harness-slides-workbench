@@ -44,6 +44,7 @@ export default function WorkbenchEnvelope() {
     state: urlState,
     dispatch: dispatchNavigation,
     href: getNavigationHref,
+    reload: reloadNavigation,
     catalogScrollTop,
   } = useNavigationState(RUNTIME_REGISTRY);
   const displayLanguage = urlState.lang ?? resolvedLanguage;
@@ -295,7 +296,11 @@ export default function WorkbenchEnvelope() {
             <div className="min-h-0 flex-1">
               <PlayerRuntime
                 catalog={RUNTIME_PLAYER_CATALOG}
-                navigation={{ state: urlState, dispatch: dispatchNavigation }}
+                navigation={{
+                  state: urlState,
+                  dispatch: dispatchNavigation,
+                  reload: reloadNavigation,
+                }}
                 language={displayLanguage}
                 reducedMotion={reducedMotion}
                 onEnvelopeAction={handlePlayerEnvelopeAction}

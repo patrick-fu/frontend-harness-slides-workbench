@@ -38,6 +38,7 @@ export interface PlayerNavigationAccess {
     "styleId" | "topicId" | "scene" | "beat" | "pureMode" | "frozen"
   >;
   dispatch: (intent: NavigationIntent) => NavigationState;
+  reload: () => void;
 }
 
 export type PlayerEnvelopeAction =
@@ -67,7 +68,7 @@ export default function PlayerRuntime({
   reducedMotion,
   onEnvelopeAction,
 }: PlayerRuntimeProps) {
-  const { state, dispatch } = navigation;
+  const { state, dispatch, reload } = navigation;
   const {
     styleId,
     topicId,
@@ -358,7 +359,7 @@ export default function PlayerRuntime({
                       onClick={(event) => {
                         event.stopPropagation();
                         // Browsers cache a failed module import, so the same loader cannot retry it.
-                        window.history.go(0);
+                        reload();
                       }}
                       className="mt-6 rounded-xl border border-current px-5 py-2 text-lg font-semibold"
                     >

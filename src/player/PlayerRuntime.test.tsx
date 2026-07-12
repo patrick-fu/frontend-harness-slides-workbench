@@ -153,10 +153,11 @@ interface SetupOverrides {
 function setup(overrides: SetupOverrides = {}) {
   const state = { ...defaultState, ...overrides.state };
   const dispatch = vi.fn(() => state);
+  const reload = vi.fn();
   const onEnvelopeAction = vi.fn();
   const props: PlayerRuntimeProps = {
     catalog: overrides.catalog ?? makeCatalog(),
-    navigation: { state, dispatch },
+    navigation: { state, dispatch, reload },
     language: overrides.language ?? "en",
     reducedMotion: overrides.reducedMotion ?? false,
     onEnvelopeAction,
@@ -166,12 +167,13 @@ function setup(overrides: SetupOverrides = {}) {
     ...view,
     props,
     dispatch,
+    reload,
     onEnvelopeAction,
     rerenderState(next: Partial<NavigationState>) {
       view.rerender(
         <PlayerRuntime
           {...props}
-          navigation={{ state: { ...state, ...next }, dispatch }}
+          navigation={{ state: { ...state, ...next }, dispatch, reload }}
         />,
       );
     },
@@ -482,14 +484,11 @@ describe("Player Runtime", () => {
   });
 
   it("reloads the current destination after a Topic chunk fails so the browser can retry it", async () => {
-    const reloadCurrentDestination = vi
-      .spyOn(window.history, "go")
-      .mockImplementation(() => undefined);
     const loadTopicStage = vi
       .fn()
       .mockRejectedValueOnce(new Error("chunk unavailable"));
 
-    setup({ catalog: makeCatalog(registry, loadTopicStage) });
+    const { reload } = setup({ catalog: makeCatalog(registry, loadTopicStage) });
 
     expect(await screen.findByText("Slides failed to load")).toBeVisible();
     expect(screen.getByTestId("player-runtime")).toHaveAttribute(
@@ -498,9 +497,8 @@ describe("Player Runtime", () => {
     );
     fireEvent.click(screen.getByRole("button", { name: "Retry" }));
 
-    expect(reloadCurrentDestination).toHaveBeenCalledWith(0);
+    expect(reload).toHaveBeenCalledTimes(1);
     expect(loadTopicStage).toHaveBeenCalledTimes(1);
-    reloadCurrentDestination.mockRestore();
   });
 
   it("ignores a stale Stage completion after switching Topics", async () => {

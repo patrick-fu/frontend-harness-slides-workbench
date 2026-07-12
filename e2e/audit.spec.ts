@@ -1593,12 +1593,23 @@ test.describe("Player / lab view", () => {
     });
     await page.goto(`/${query}`, { waitUntil: "domcontentloaded" });
     await expect(page.getByText("Slides failed to load")).toBeVisible();
+    const historyBeforeRetry = await page.evaluate(() => {
+      const state = {
+        navigation: { catalog: { scrollTop: 321 } },
+        retryProbe: "preserved",
+      };
+      history.replaceState(state, "", location.href);
+      return { length: history.length, state };
+    });
     await page.getByRole("button", { name: "Retry" }).click();
 
     await expect(page.locator('[data-player-state="ready"]')).toBeVisible();
     await expect(page.locator('[data-testid="stage"]')).toBeVisible();
     expect(chunkAttempts).toBeGreaterThanOrEqual(2);
     expect(new URL(page.url()).search).toBe(query);
+    expect(
+      await page.evaluate(() => ({ length: history.length, state: history.state })),
+    ).toEqual(historyBeforeRetry);
   });
 
   test("bottom bar next/prev buttons are functional", async ({ page }) => {

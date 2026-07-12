@@ -11,6 +11,7 @@ export interface NavigationStateBinding {
   state: NavigationState;
   dispatch: (intent: NavigationIntent) => NavigationState;
   href: (intent: NavigationIntent) => string;
+  reload: () => void;
   catalogScrollTop: number | null;
 }
 
@@ -34,6 +35,7 @@ export function useNavigationState(
     state,
     dispatch: useCallback((intent) => store.dispatch(intent), [store]),
     href: useCallback((intent) => store.href(intent), [store]),
+    reload: useCallback(() => store.reload(), [store]),
     catalogScrollTop: store.getCatalogScrollTop(),
   };
 }

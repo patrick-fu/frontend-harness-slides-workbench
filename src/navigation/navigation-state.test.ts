@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   createBrowserHistoryAdapter,
   createMemoryHistoryAdapter,
@@ -252,6 +252,24 @@ describe("Navigation State semantic intent seam", () => {
 
     expect(store.getSnapshot()).toMatchObject(expected);
     expect(history.entries).toHaveLength(entryCount);
+  });
+
+  it("delegates an exact-entry reload to the History adapter", () => {
+    const initialHref =
+      "/workbench?view=lab&style=alpha-style&topic=alpha-one&scene=2&beat=1";
+    const initialState = {
+      external: "keep",
+      navigation: { catalog: { scrollTop: 420 } },
+    };
+    const history = createMemoryHistoryAdapter(initialHref, initialState);
+    const reload = vi.spyOn(history, "reload");
+    const store = createNavigationStore({ registry, history });
+
+    store.reload();
+
+    expect(reload).toHaveBeenCalledTimes(1);
+    expect(history.entries).toEqual([initialHref]);
+    expect(history.getLocation().state).toEqual(initialState);
   });
 
   it("derives next and previous movement from Registry position, including cross-Topic wrap", () => {

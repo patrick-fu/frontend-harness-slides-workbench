@@ -65,6 +65,7 @@ export interface NavigationHistoryAdapter {
   getLocation(): NavigationHistoryLocation;
   push(href: string, state?: unknown): void;
   replace(href: string, state?: unknown): void;
+  reload(): void;
   subscribe(listener: () => void): () => void;
 }
 
@@ -82,6 +83,7 @@ export interface NavigationStore {
   subscribe(listener: () => void): () => void;
   dispatch(intent: NavigationIntent): NavigationState;
   href(intent: NavigationIntent): string;
+  reload(): void;
   dispose(): void;
 }
 
@@ -536,6 +538,9 @@ export function createNavigationStore({
       );
       return `${history.getLocation().pathname}${serializeNavigationState(next)}`;
     },
+    reload() {
+      history.reload();
+    },
     dispose() {
       unsubscribeHistory?.();
       unsubscribeHistory = null;
@@ -558,6 +563,9 @@ export function createBrowserHistoryAdapter(
     },
     replace(href, state) {
       browserWindow.history.replaceState(state ?? null, "", href);
+    },
+    reload() {
+      browserWindow.history.go(0);
     },
     subscribe(listener) {
       browserWindow.addEventListener("popstate", listener);
@@ -606,6 +614,7 @@ export function createMemoryHistoryAdapter(
       entries[index] = href;
       states[index] = state ?? states[index] ?? null;
     },
+    reload() {},
     subscribe(listener) {
       listeners.add(listener);
       return () => listeners.delete(listener);
