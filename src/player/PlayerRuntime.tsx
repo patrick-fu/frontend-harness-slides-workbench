@@ -80,7 +80,6 @@ export default function PlayerRuntime({
   const stageRef = useRef<HTMLDivElement>(null);
   const previousTopicIdRef = useRef(topicId);
   const [hoverCue, setHoverCue] = useState<"prev" | "next" | null>(null);
-  const [retryToken, setRetryToken] = useState(0);
   const [mobileTouchInput, setMobileTouchInput] = useState(false);
   const [announceTopic, setAnnounceTopic] = useState(false);
   const [topicLoadState, setTopicLoadState] = useState<TopicStageLoadState>({
@@ -140,7 +139,7 @@ export default function PlayerRuntime({
     return () => {
       cancelled = true;
     };
-  }, [catalog, found, retryToken, topicId, topicKey]);
+  }, [catalog, found, topicId, topicKey]);
 
   const handleNext = useCallback(() => {
     dispatch({ type: "move", direction: "next" });
@@ -358,7 +357,8 @@ export default function PlayerRuntime({
                       type="button"
                       onClick={(event) => {
                         event.stopPropagation();
-                        setRetryToken((value) => value + 1);
+                        // Browsers cache a failed module import, so the same loader cannot retry it.
+                        window.history.go(0);
                       }}
                       className="mt-6 rounded-xl border border-current px-5 py-2 text-lg font-semibold"
                     >

@@ -481,11 +481,13 @@ describe("Player Runtime", () => {
     );
   });
 
-  it("offers an in-Stage retry after a Topic Stage fails to load", async () => {
+  it("reloads the current destination after a Topic chunk fails so the browser can retry it", async () => {
+    const reloadCurrentDestination = vi
+      .spyOn(window.history, "go")
+      .mockImplementation(() => undefined);
     const loadTopicStage = vi
       .fn()
-      .mockRejectedValueOnce(new Error("chunk unavailable"))
-      .mockResolvedValueOnce(Slide);
+      .mockRejectedValueOnce(new Error("chunk unavailable"));
 
     setup({ catalog: makeCatalog(registry, loadTopicStage) });
 
@@ -496,9 +498,9 @@ describe("Player Runtime", () => {
     );
     fireEvent.click(screen.getByRole("button", { name: "Retry" }));
 
-    await waitFor(() => expect(loadTopicStage).toHaveBeenCalledTimes(2));
-    expect(await screen.findByText("Slide content")).toBeVisible();
-    expect(screen.getByTestId("stage")).toHaveAttribute("data-topic-ready", "true");
+    expect(reloadCurrentDestination).toHaveBeenCalledWith(0);
+    expect(loadTopicStage).toHaveBeenCalledTimes(1);
+    reloadCurrentDestination.mockRestore();
   });
 
   it("ignores a stale Stage completion after switching Topics", async () => {

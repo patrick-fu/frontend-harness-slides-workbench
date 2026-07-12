@@ -1567,6 +1567,40 @@ test.describe("Player / lab view", () => {
     );
   });
 
+  test("Player Retry reloads the exact destination after a Topic chunk failure", async ({
+    page,
+  }) => {
+    let chunkAttempts = 0;
+    await page.route(
+      /\/assets\/product-keynote-[^/]+\.js(?:\?.*)?$/,
+      async (route) => {
+        chunkAttempts += 1;
+        if (chunkAttempts === 1) {
+          await route.abort("failed");
+          return;
+        }
+        await route.continue();
+      },
+    );
+
+    const query = buildQuery({
+      view: "lab",
+      style: "minimal-product-keynote",
+      topic: "product-keynote",
+      scene: 1,
+      beat: 0,
+      frozen: true,
+    });
+    await page.goto(`/${query}`, { waitUntil: "domcontentloaded" });
+    await expect(page.getByText("Slides failed to load")).toBeVisible();
+    await page.getByRole("button", { name: "Retry" }).click();
+
+    await expect(page.locator('[data-player-state="ready"]')).toBeVisible();
+    await expect(page.locator('[data-testid="stage"]')).toBeVisible();
+    expect(chunkAttempts).toBeGreaterThanOrEqual(2);
+    expect(new URL(page.url()).search).toBe(query);
+  });
+
   test("bottom bar next/prev buttons are functional", async ({ page }) => {
     await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
