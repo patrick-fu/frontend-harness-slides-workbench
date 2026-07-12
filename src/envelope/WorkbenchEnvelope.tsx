@@ -179,10 +179,6 @@ export default function WorkbenchEnvelope() {
     },
     [dispatchNavigation],
   );
-  const selectTopic = useCallback(
-    (_styleId: string, topicId: string) => selectTopicById(topicId),
-    [selectTopicById],
-  );
   const updateFilters = useCallback(
     (next: { bands: string[]; models: string[] }) =>
       dispatchNavigation({ type: "set-filters", ...next }),
@@ -347,9 +343,7 @@ export default function WorkbenchEnvelope() {
                     topicId={urlState.topicId}
                     topicOptions={topicSwitcherOptions}
                     language={displayLanguage}
-                    onSelectTopic={(topicId) =>
-                      activeStyle && selectTopic(activeStyle.id, topicId)
-                    }
+                    onSelectTopic={selectTopicById}
                   />
                 </div>
               )}
@@ -402,7 +396,7 @@ export default function WorkbenchEnvelope() {
           recent={recentTopics}
           isTopicInCycleScope={filterResolution.isTopicInCycleScope}
           onClose={() => setPaletteOpen(false)}
-          onSelectTopic={selectTopic}
+          onSelectTopic={selectTopicById}
         />
         <ControlsGuide
           open={controlsOpen}

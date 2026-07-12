@@ -359,6 +359,46 @@ describe("Workbench URL, history, and sharing contract", () => {
     expect(pushState).not.toHaveBeenCalled();
   });
 
+  it("opens an out-of-scope Command Palette result by Topic ID through canonical Navigation", async () => {
+    const target = RUNTIME_REGISTRY
+      .flatMap((group) => group.topics)
+      .find(
+        (topic) =>
+          topic.id !== "product-keynote" && topic.modelId !== "GPT 5.5",
+      )!;
+    const initialScene = target.metadata.en.scenes[0];
+    setRoute(`${PRODUCT_ROUTE}&model=GPT+5.5`);
+    render(<App />);
+
+    fireEvent.click(
+      within(
+        screen.getByRole("navigation", { name: "Player navigation" }),
+      ).getByRole("button", { name: "Search" }),
+    );
+    const palette = screen.getByRole("dialog", { name: "Command palette" });
+    fireEvent.change(within(palette).getByRole("combobox"), {
+      target: { value: target.id },
+    });
+    const result = within(palette).getByRole("option", {
+      name: (accessibleName) => accessibleName.includes(target.title.en),
+    });
+    expect(result).toHaveAccessibleName(/Outside filter/);
+    fireEvent.click(result);
+
+    await waitFor(() =>
+      expect(
+        screen.queryByRole("dialog", { name: "Command palette" }),
+      ).toBeNull(),
+    );
+    expect(params().getAll("model")).toEqual(["GPT 5.5"]);
+    expect(params().get("style")).toBe(target.styleId);
+    expect(params().get("topic")).toBe(target.id);
+    expect(params().get("scene")).toBe(String(initialScene?.id ?? 1));
+    expect(params().get("beat")).toBe(
+      String(initialScene?.beats[0]?.id ?? 0),
+    );
+  });
+
   it("clamps malformed Scene and Beat values against Topic metadata", async () => {
     setRoute(
       "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=999&beat=999",

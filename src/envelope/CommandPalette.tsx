@@ -13,7 +13,7 @@ export interface CommandPaletteProps {
   recent: string[];
   isTopicInCycleScope: (topicId: string) => boolean;
   onClose: () => void;
-  onSelectTopic: (styleId: string, topicId: string) => void;
+  onSelectTopic: (topicId: string) => void;
 }
 
 interface TopicResult {
@@ -124,7 +124,7 @@ export default function CommandPalette({
 
   const choose = (result: TopicResult | undefined) => {
     if (!result) return;
-    onSelectTopic(result.group.style.id, result.topic.id);
+    onSelectTopic(result.topic.id);
     onClose();
   };
 

@@ -50,7 +50,6 @@ export type NavigationIntent =
   | {
       type: "open-topic";
       topicId: string;
-      styleId?: string;
       catalogScrollTop?: number;
     }
   | { type: "move"; direction: NavigationDirection }

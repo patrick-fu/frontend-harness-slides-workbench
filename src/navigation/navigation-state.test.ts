@@ -189,7 +189,7 @@ describe("Navigation State semantic intent seam", () => {
     {
       name: "open-topic pushes from Catalog and resolves global Topic Style",
       initialHref: "/workbench?view=overview&style=alpha-style&topic=alpha-one&scene=1&beat=0",
-      intent: { type: "open-topic", styleId: "stale-style", topicId: "beta-one" },
+      intent: { type: "open-topic", topicId: "beta-one" },
       expected: { view: "lab", styleId: "beta-style", topicId: "beta-one", scene: 1, beat: 0 },
       entryCount: 2,
     },

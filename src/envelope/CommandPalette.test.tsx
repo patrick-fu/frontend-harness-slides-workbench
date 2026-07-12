@@ -129,7 +129,7 @@ describe("CommandPalette", () => {
     });
     fireEvent.keyDown(screen.getByRole("combobox"), { key: "Enter" });
 
-    expect(onSelectTopic).toHaveBeenCalledWith("quiet-grid", "grain");
+    expect(onSelectTopic).toHaveBeenCalledWith("grain");
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
