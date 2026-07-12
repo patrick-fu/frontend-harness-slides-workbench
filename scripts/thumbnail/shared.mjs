@@ -1,4 +1,4 @@
-import { readFile, readdir, stat, unlink } from "node:fs/promises";
+import { readdir, unlink } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createServer } from "vite";
@@ -36,63 +36,6 @@ export async function removeUnmappedShowcaseWebps(filenames) {
     staleFilenames.map((filename) => unlink(resolve(showcaseDirectory, filename))),
   );
   return staleFilenames;
-}
-
-export async function inspectWebp(filePath) {
-  const [buffer, fileStats] = await Promise.all([readFile(filePath), stat(filePath)]);
-  if (
-    buffer.length < 16 ||
-    buffer.toString("ascii", 0, 4) !== "RIFF" ||
-    buffer.toString("ascii", 8, 12) !== "WEBP"
-  ) {
-    throw new Error("not a WebP RIFF file");
-  }
-
-  for (let offset = 12; offset + 8 <= buffer.length;) {
-    const kind = buffer.toString("ascii", offset, offset + 4);
-    const size = buffer.readUInt32LE(offset + 4);
-    const payload = offset + 8;
-    if (payload + size > buffer.length) {
-      throw new Error("truncated WebP chunk");
-    }
-
-    if (kind === "VP8 ") {
-      if (size < 10) throw new Error("truncated VP8 frame");
-      return {
-        width: buffer.readUInt16LE(payload + 6) & 0x3fff,
-        height: buffer.readUInt16LE(payload + 8) & 0x3fff,
-        bytes: fileStats.size,
-      };
-    }
-
-    if (kind === "VP8L") {
-      if (size < 5 || buffer[payload] !== 0x2f) {
-        throw new Error("invalid VP8L frame");
-      }
-      const b1 = buffer[payload + 1];
-      const b2 = buffer[payload + 2];
-      const b3 = buffer[payload + 3];
-      const b4 = buffer[payload + 4];
-      return {
-        width: 1 + b1 + ((b2 & 0x3f) << 8),
-        height: 1 + (b2 >> 6) + (b3 << 2) + ((b4 & 0x0f) << 10),
-        bytes: fileStats.size,
-      };
-    }
-
-    if (kind === "VP8X") {
-      if (size < 10) throw new Error("truncated VP8X frame");
-      return {
-        width: 1 + buffer.readUIntLE(payload + 4, 3),
-        height: 1 + buffer.readUIntLE(payload + 7, 3),
-        bytes: fileStats.size,
-      };
-    }
-
-    offset = payload + size + (size % 2);
-  }
-
-  throw new Error("WebP image chunk not found");
 }
 
 export function formatBytes(bytes) {

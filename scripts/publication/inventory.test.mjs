@@ -143,4 +143,36 @@ describe("Source Publication Inventory", () => {
       ].join("\n"),
     );
   });
+
+  it("owns Topic source identity and removed-label policy", async () => {
+    const inventory = createPublicationInventory({
+      openSource: createInMemorySourceInventoryAdapter({
+        files: [
+          "first-topic.tsx",
+          "first-topic.test.tsx",
+          "first-topic.module.css",
+          "second-topic.tsx",
+          "second-topic.test.tsx",
+        ],
+        definitions: {
+          "first-topic": { id: "first-topic", styleId: "first-style" },
+          "second-topic": { id: "second-topic", styleId: "second-style" },
+        },
+        sources: {
+          "first-topic.tsx": 'const STYLE_ID = "first-style";',
+          "first-topic.test.tsx": "describe('legacy Style 12', () => {});",
+          "first-topic.module.css": ".root { --style-12-accent: red; }",
+        },
+      }),
+    });
+
+    await expect(inventory.validateSource(targets)).rejects.toThrow(
+      [
+        "Source policy:",
+        "- first-topic.module.css: contains structural Topic identity or generation labels.",
+        "- first-topic.tsx: contains structural Topic identity or generation labels.",
+        "- first-topic.test.tsx: contains a removed collection or compatibility label.",
+      ].join("\n"),
+    );
+  });
 });

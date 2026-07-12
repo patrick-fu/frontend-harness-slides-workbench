@@ -97,9 +97,14 @@ async function createSourceRuntime() {
   };
 }
 
-export function createInMemorySourceInventoryAdapter({ files, definitions }) {
+export function createInMemorySourceInventoryAdapter({
+  files,
+  definitions,
+  sources = {},
+}) {
   return async () => ({
     files: [...files],
+    readSource: async (filename) => sources[filename] ?? "",
     loadDefinition: async (target) => {
       const definition = definitions[target.topicId];
       if (definition instanceof Error) throw definition;
@@ -115,6 +120,8 @@ export function createProductionSourceInventoryAdapter() {
     const runtime = await createSourceRuntime();
     return {
       files,
+      readSource: (filename) =>
+        readFile(resolve(repositoryRoot, "src/topics", filename), "utf8"),
       async loadDefinition(target) {
         const modulePath = `/src/${target.modulePath.replace(/^\.\.\//, "")}`;
         const module = await runtime.loadModule(modulePath);
@@ -247,13 +254,55 @@ export function createPublicationInventory({ openSource, openPreviews }) {
           }
         }
 
-        if (coverageFailures.length > 0 || identityFailures.length > 0) {
+        const sourcePolicyFailures = [];
+        const structuralIdentityPatterns = [
+          /data-style-id=/,
+          /data-topic-(?:origin|set)=/,
+          /--style-\d+/,
+          /\b(?:style|tw)\d+[a-z0-9_-]*/i,
+          /\bSTYLE_\d/,
+          /^const\s+(?:MODEL|MODEL_ID|STYLE_ID)\b/m,
+        ];
+        const implementationFiles = source.files
+          .filter(
+            (filename) =>
+              /\.(?:tsx|css)$/.test(filename) &&
+              !filename.endsWith(".test.tsx"),
+          )
+          .sort();
+        for (const filename of implementationFiles) {
+          const text = await source.readSource(filename);
+          if (structuralIdentityPatterns.some((pattern) => pattern.test(text))) {
+            sourcePolicyFailures.push(
+              `- ${filename}: contains structural Topic identity or generation labels.`,
+            );
+          }
+        }
+        for (const filename of source.files
+          .filter((candidate) => candidate.endsWith(".test.tsx"))
+          .sort()) {
+          const text = await source.readSource(filename);
+          if (/\b(?:curated|coordinated|legacy|Style\s+\d+)\b/i.test(text)) {
+            sourcePolicyFailures.push(
+              `- ${filename}: contains a removed collection or compatibility label.`,
+            );
+          }
+        }
+
+        if (
+          coverageFailures.length > 0 ||
+          identityFailures.length > 0 ||
+          sourcePolicyFailures.length > 0
+        ) {
           const sections = [];
           if (coverageFailures.length > 0) {
             sections.push("Source coverage:", ...coverageFailures);
           }
           if (identityFailures.length > 0) {
             sections.push("Topic identity:", ...identityFailures);
+          }
+          if (sourcePolicyFailures.length > 0) {
+            sections.push("Source policy:", ...sourcePolicyFailures);
           }
           throw new Error(
             [
