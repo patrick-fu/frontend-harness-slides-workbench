@@ -1,7 +1,6 @@
-import {
-  hasUnresolvedWorkbenchFilters,
-  matchesWorkbenchFilters,
-} from "../domain/filter";
+import { resolveWorkbenchFilters } from "../domain/filter";
+import type { ModelId } from "../domain/model";
+import type { Band } from "../domain/style";
 
 export type NavigationView = "overview" | "lab";
 export type NavigationLanguage = "en" | "zh";
@@ -238,7 +237,12 @@ export function serializeNavigationState(state: NavigationState): string {
 
 function flattenTopics(registry: NavigationRegistry) {
   return registry.flatMap((group) =>
-    group.topics.map((topic) => ({ topic, band: group.style.band })),
+    group.topics.map((topic) => ({
+      topicId: topic.id,
+      band: group.style.band as Band,
+      modelId: topic.modelId as ModelId,
+      topic,
+    })),
   );
 }
 
@@ -290,32 +294,28 @@ function move(
   const topics = flattenTopics(registry);
   const topicIndex = topics.findIndex(({ topic }) => topic.id === state.topicId);
   if (topicIndex < 0 || topics.length === 0) return state;
-  if (
-    hasUnresolvedWorkbenchFilters(
-      new Set(topics.map((entry) => entry.band)),
-      new Set(topics.map((entry) => entry.topic.modelId)),
-      state,
-    )
-  ) {
-    return state;
-  }
-  const offset = direction === "next" ? 1 : -1;
-  let nextTopic: NavigationTopic | null = null;
-  for (let distance = 1; distance <= topics.length; distance += 1) {
-    const entry =
-      topics[
-        (topicIndex + offset * distance + topics.length * distance) %
-          topics.length
-      ];
-    if (
-      entry &&
-      matchesWorkbenchFilters(entry.band, entry.topic.modelId, state)
-    ) {
-      nextTopic = entry.topic;
-      break;
-    }
-  }
-  if (!nextTopic) return state;
+  const cycleScope = resolveWorkbenchFilters(
+    topics,
+    state,
+    state.topicId,
+  ).matchingTopics;
+  if (cycleScope.length === 0) return state;
+  const scopeIndex = cycleScope.findIndex(
+    (entry) => entry.topicId === state.topicId,
+  );
+  const nextEntry =
+    scopeIndex >= 0
+      ? cycleScope[
+          (scopeIndex + (direction === "next" ? 1 : -1) + cycleScope.length) %
+            cycleScope.length
+        ]
+      : direction === "next"
+        ? cycleScope.find((entry) => topics.indexOf(entry) > topicIndex) ??
+          cycleScope[0]
+        : cycleScope.findLast((entry) => topics.indexOf(entry) < topicIndex) ??
+          cycleScope[cycleScope.length - 1];
+  if (!nextEntry) return state;
+  const nextTopic = nextEntry.topic;
   const position =
     direction === "next"
       ? {

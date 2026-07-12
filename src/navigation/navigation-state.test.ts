@@ -394,11 +394,34 @@ describe("Navigation State semantic intent seam", () => {
     expect(store.getSnapshot()).toEqual(before);
   });
 
+  it("replaces Filter edits without changing the selected Topic position", () => {
+    const history = createMemoryHistoryAdapter(
+      "/workbench?view=lab&style=alpha-style&topic=alpha-two&scene=3&beat=0",
+    );
+    const store = createNavigationStore({ registry, history });
+
+    store.dispatch({
+      type: "set-filters",
+      bands: ["text-report"],
+      models: ["Model A"],
+    });
+
+    expect(store.getSnapshot()).toMatchObject({
+      styleId: "alpha-style",
+      topicId: "alpha-two",
+      scene: 3,
+      beat: 0,
+      bands: ["text-report"],
+      models: ["Model A"],
+    });
+    expect(history.entries).toHaveLength(1);
+  });
+
   it("does not leave a Pure Player when sequence movement reaches a Topic edge", () => {
     const store = createNavigationStore({
       registry,
       history: createMemoryHistoryAdapter(
-        "/workbench?view=lab&style=alpha-style&topic=alpha-two&scene=5&beat=0&pure=1",
+        "/workbench?view=lab&style=alpha-style&topic=alpha-two&scene=5&beat=0&band=minimal-keynote&model=Model%20A&pure=1",
       ),
     });
 
