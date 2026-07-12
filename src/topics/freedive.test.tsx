@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 import type { Source } from "../domain/evidence";
 import type { TopicStageProps } from "../domain/topic";
 import { runTopicContract } from "../testing/topic-contract";
-import { useTouchNav } from "../hooks/useTouchNav";
+import { usePlayerTouch } from "../player/input";
 import freedive, {
   FREEDIVE_CLAIMS,
   FREEDIVE_SOURCES,
@@ -111,7 +111,7 @@ function NativeTouchStage({
   onPrev: () => void;
 }) {
   const stageRef = useRef<HTMLDivElement>(null);
-  useTouchNav({ elementRef: stageRef, onNext, onPrev, enabled: true });
+  usePlayerTouch({ elementRef: stageRef, onNext, onPrev, enabled: true });
 
   return (
     <div
@@ -345,7 +345,7 @@ describe("Freedive navigation and deterministic modes", () => {
     expect(onStageTouchStart).not.toHaveBeenCalled();
   });
 
-  it("captures carrier and button touch natively before useTouchNav reaches the stage or window", () => {
+  it("captures carrier and button touch natively before Player Runtime reaches the stage or window", () => {
     const onWindowTouches = {
       touchstart: vi.fn(),
       touchmove: vi.fn(),

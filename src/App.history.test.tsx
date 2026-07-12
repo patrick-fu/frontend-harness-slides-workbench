@@ -203,7 +203,7 @@ describe("Workbench URL, history, and sharing contract", () => {
     );
   });
 
-  it("replaces the current destination when sequential navigation crosses a Topic boundary", () => {
+  it("replaces the current destination when sequential navigation crosses a Topic boundary", async () => {
     setRoute(
       "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=5&beat=0",
     );
@@ -213,8 +213,8 @@ describe("Workbench URL, history, and sharing contract", () => {
 
     fireEvent.click(screen.getByTestId("next-button"));
 
+    await waitFor(() => expect(params().get("topic")).toBe("quiet-launch"));
     expect(params().get("style")).toBe("minimal-product-keynote");
-    expect(params().get("topic")).toBe("quiet-launch");
     expect(params().get("scene")).toBe("1");
     expect(params().get("beat")).toBe("0");
     expect(replaceState).toHaveBeenCalledTimes(1);

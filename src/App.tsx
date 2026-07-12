@@ -16,7 +16,7 @@ import PlayerRail from "./components/chrome/PlayerRail";
 import PlayerTopBar from "./components/chrome/PlayerTopBar";
 import OverviewView from "./components/OverviewView";
 import { useFontPreload } from "./hooks/useFontPreload";
-import { useKeyboard } from "./hooks/useKeyboard";
+import { useGlobalShortcuts } from "./hooks/useGlobalShortcuts";
 import { useNavigationState } from "./navigation/useNavigationState";
 import type { NavigationIntent } from "./navigation";
 import {
@@ -124,7 +124,7 @@ function AppContent() {
 
   const openPalette = useCallback(() => setPaletteOpen(true), []);
   const openControls = useCallback(() => setControlsOpen(true), []);
-  useKeyboard({
+  useGlobalShortcuts({
     onCommandPalette: urlState.view === "overview" ? openPalette : undefined,
     onHelp: urlState.view === "overview" ? openControls : undefined,
   });

@@ -1101,7 +1101,7 @@ function RosettaSymbolMinimap({
     const nav = navRef.current;
     if (!nav) return;
 
-    // useTouchNav listens natively on the stage. Stop every touch phase at the
+    // Player Runtime listens natively on the stage. Stop every touch phase at the
     // minimap itself, before it can reach either that listener or window.
     const isolateTouch = (event: TouchEvent) => event.stopPropagation();
     for (const type of MINIMAP_TOUCH_EVENTS) {

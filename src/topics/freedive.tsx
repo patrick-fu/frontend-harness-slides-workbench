@@ -731,7 +731,7 @@ function useFootlightTouchShield(
     const navigation = navigationRef.current;
     if (!navigation) return;
 
-    // useTouchNav listens natively on the stage, before React's delegated
+    // Player Runtime listens natively on the stage, before React's delegated
     // touch handlers run. Capture every phase on the carrier itself so a
     // touch on its blank area, line, or buttons never becomes stage navigation.
     const stopNativeTouch = (event: Event) => {

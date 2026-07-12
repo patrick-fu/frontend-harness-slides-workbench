@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { modelColor } from "../../utils/model-color";
+import { modelColor } from "../utils/model-color";
 
-export interface CrossTopicNoticeProps {
+export interface TopicAnnouncementProps {
   styleNumber: number;
   styleName: string;
   topicName: string;
@@ -10,14 +10,14 @@ export interface CrossTopicNoticeProps {
   onDone: () => void;
 }
 
-export default function CrossTopicNotice({
+export default function TopicAnnouncement({
   styleNumber,
   styleName,
   topicName,
   modelId,
   reducedMotion,
   onDone,
-}: CrossTopicNoticeProps) {
+}: TopicAnnouncementProps) {
   useEffect(() => {
     const id = window.setTimeout(onDone, 1200);
     return () => window.clearTimeout(id);

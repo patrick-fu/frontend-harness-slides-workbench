@@ -3,7 +3,7 @@ import { act, fireEvent, render } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import type { Source } from "../domain/evidence";
 import type { TopicStageProps } from "../domain/topic";
-import { useTouchNav } from "../hooks/useTouchNav";
+import { usePlayerTouch } from "../player/input";
 import ancientSound, {
   ancientSoundClaims,
   ancientSoundSources,
@@ -112,7 +112,7 @@ function NativeTouchStage({
   onNavigate: (scene: number, beat: number) => void;
 }) {
   const stageRef = useRef<HTMLDivElement>(null);
-  useTouchNav({
+  usePlayerTouch({
     elementRef: stageRef,
     onNext: onStageNext,
     onPrev: onStagePrev,

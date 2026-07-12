@@ -15,19 +15,19 @@ import type {
   TopicStage,
   TopicStageProps,
 } from "../domain/topic";
-import { useKeyboard } from "../hooks/useKeyboard";
-import { useStageScale } from "../hooks/useStageScale";
-import { useTouchNav } from "../hooks/useTouchNav";
+import type { NavigationIntent, NavigationState } from "../navigation";
+import BottomBar from "../components/layout/BottomBar";
+import PortraitHint from "./PortraitHint";
+import TopicAnnouncement from "./TopicAnnouncement";
 import {
   getStageTapNavigationDirection,
+  isInteractivePlayerTarget,
+  MOBILE_TOUCH_QUERY,
   STAGE_PREVIOUS_ZONE_RATIO,
-  type NavigationIntent,
-  type NavigationState,
-} from "../navigation";
-import BottomBar from "../components/layout/BottomBar";
-import PureModeOverlay from "../components/PureModeOverlay";
-import PortraitHint from "../components/PortraitHint";
-import CrossTopicNotice from "../components/chrome/CrossTopicNotice";
+  usePlayerKeyboard,
+  usePlayerTouch,
+} from "./input";
+import { useStageFit } from "./stage-fit";
 
 export interface PlayerCatalogAccess {
   registry: readonly RuntimeStyleGroup[];
@@ -61,19 +61,6 @@ interface TopicStageLoadState {
   stage: TopicStage | null;
 }
 
-const INTERACTIVE_SELECTOR = [
-  "button",
-  "a",
-  "input",
-  "textarea",
-  "select",
-  "summary",
-  "[role='button']",
-  "[role='link']",
-  "[role='menuitem']",
-  "[contenteditable]",
-].join(",");
-
 export default function PlayerRuntime({
   catalog,
   navigation,
@@ -93,7 +80,6 @@ export default function PlayerRuntime({
   const { registry } = catalog;
   const stageContainerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const lastTouchRef = useRef(0);
   const previousTopicIdRef = useRef(topicId);
   const [hoverCue, setHoverCue] = useState<"prev" | "next" | null>(null);
   const [retryToken, setRetryToken] = useState(0);
@@ -105,10 +91,10 @@ export default function PlayerRuntime({
     stage: null,
   });
   const { scale, width: scaledWidth, height: scaledHeight } =
-    useStageScale(stageContainerRef);
+    useStageFit(stageContainerRef);
 
   useEffect(() => {
-    const query = window.matchMedia("(max-width: 767px) and (pointer: coarse)");
+    const query = window.matchMedia(MOBILE_TOUCH_QUERY);
     const update = () => setMobileTouchInput(query.matches);
     update();
     query.addEventListener("change", update);
@@ -188,21 +174,28 @@ export default function PlayerRuntime({
     dispatch({ type: "set-pure", pureMode: false });
   }, [dispatch]);
 
-  useKeyboard({
-    onArrowRight: handleNext,
-    onArrowLeft: handlePrev,
-    onSpace: handleNext,
-    onCommandPalette: isPureMode
-      ? undefined
-      : () => onEnvelopeAction("search"),
-    onHelp: isPureMode ? undefined : () => onEnvelopeAction("controls"),
+  usePlayerKeyboard({
+    pureMode: isPureMode,
+    onNext: handleNext,
+    onPrev: handlePrev,
+    onExitPure: handleExitPure,
+    onSearch: () => onEnvelopeAction("search"),
+    onControls: () => onEnvelopeAction("controls"),
   });
-  useTouchNav({
+  const { markRecentTouch, wasRecentTouch } = usePlayerTouch({
     elementRef: stageRef,
     onNext: handleNext,
     onPrev: handlePrev,
     enabled: mobileTouchInput,
   });
+
+  useEffect(() => {
+    document.documentElement.setAttribute(
+      "data-pure-mode",
+      isPureMode ? "true" : "false",
+    );
+    return () => document.documentElement.removeAttribute("data-pure-mode");
+  }, [isPureMode]);
 
   useEffect(() => {
     document.documentElement.toggleAttribute("data-frozen", frozen);
@@ -212,20 +205,20 @@ export default function PlayerRuntime({
 
   const handleStageClick = useCallback(
     (event: MouseEvent<HTMLDivElement>) => {
-      if (Date.now() - lastTouchRef.current < 600) return;
+      if (wasRecentTouch()) return;
       if (event.defaultPrevented || event.button !== 0) return;
       if (event.metaKey || event.altKey || event.ctrlKey || event.shiftKey) return;
-      if (event.target instanceof Element && event.target.closest(INTERACTIVE_SELECTOR)) return;
+      if (isInteractivePlayerTarget(event.target)) return;
       const rect = event.currentTarget.getBoundingClientRect();
-      const direction = getStageTapNavigationDirection({
-        clientX: event.clientX,
-        stageLeft: rect.left,
-        stageWidth: rect.width,
-      });
+      const direction = getStageTapNavigationDirection(
+        event.clientX,
+        rect.left,
+        rect.width,
+      );
       if (direction === "prev") handlePrev();
       else handleNext();
     },
-    [handleNext, handlePrev],
+    [handleNext, handlePrev, wasRecentTouch],
   );
 
   if (!found || !meta) {
@@ -280,7 +273,14 @@ export default function PlayerRuntime({
         ref={stageContainerRef}
         className="relative flex min-h-0 min-w-0 flex-1 items-center justify-center overflow-hidden bg-canvas"
       >
-        <PureModeOverlay isPureMode={isPureMode} onExitPure={handleExitPure}>
+        <div
+          data-testid="pure-mode-stage"
+          className={
+            isPureMode
+              ? "fixed inset-0 z-40 flex h-full w-full items-center justify-center"
+              : "flex h-full w-full items-center justify-center"
+          }
+        >
           <div
             className="relative shrink-0"
             style={{ width: scaledWidth, height: scaledHeight }}
@@ -293,9 +293,7 @@ export default function PlayerRuntime({
               data-topic-ready={isTopicReady ? "true" : "false"}
               tabIndex={-1}
               onClick={handleStageClick}
-              onTouchEndCapture={() => {
-                lastTouchRef.current = Date.now();
-              }}
+              onTouchEndCapture={markRecentTouch}
               onMouseMove={(event) => {
                 if (isPureMode) return setHoverCue(null);
                 const rect = event.currentTarget.getBoundingClientRect();
@@ -396,7 +394,7 @@ export default function PlayerRuntime({
               </div>
             )}
             {announceTopic && !isPureMode && (
-              <CrossTopicNotice
+              <TopicAnnouncement
                 styleNumber={styleNumber}
                 styleName={found.style.name[language]}
                 topicName={found.topic.title[language]}
@@ -406,7 +404,7 @@ export default function PlayerRuntime({
               />
             )}
           </div>
-        </PureModeOverlay>
+        </div>
       </div>
       {!isPureMode && scenes.length > 0 && (
         <BottomBar

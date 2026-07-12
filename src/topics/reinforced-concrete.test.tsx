@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { TopicStageProps } from "../domain/topic";
-import { useTouchNav } from "../hooks/useTouchNav";
+import { usePlayerTouch } from "../player/input";
 import { runTopicContract } from "../testing/topic-contract";
 import topic, {
   REINFORCED_CONCRETE_CLAIMS,
@@ -46,7 +46,7 @@ function StageFrame({
   onStagePrev: () => void;
 }) {
   const stageRef = useRef<HTMLDivElement>(null);
-  useTouchNav({
+  usePlayerTouch({
     elementRef: stageRef,
     onNext: onStageNext,
     onPrev: onStagePrev,
