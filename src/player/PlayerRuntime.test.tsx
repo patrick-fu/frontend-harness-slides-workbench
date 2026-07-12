@@ -146,10 +146,11 @@ interface SetupOverrides {
 function setup(overrides: SetupOverrides = {}) {
   const state = { ...defaultState, ...overrides.state };
   const dispatch = vi.fn(() => state);
+  const reload = vi.fn();
   const onEnvelopeAction = vi.fn();
   const props: PlayerRuntimeProps = {
     catalog: overrides.catalog ?? makeCatalog(),
-    navigation: { state, dispatch },
+    navigation: { state, dispatch, reload },
     language: overrides.language ?? "en",
     reducedMotion: overrides.reducedMotion ?? false,
     onEnvelopeAction,
@@ -159,12 +160,13 @@ function setup(overrides: SetupOverrides = {}) {
     ...view,
     props,
     dispatch,
+    reload,
     onEnvelopeAction,
     rerenderState(next: Partial<NavigationState>) {
       view.rerender(
         <PlayerRuntime
           {...props}
-          navigation={{ state: { ...state, ...next }, dispatch }}
+          navigation={{ state: { ...state, ...next }, dispatch, reload }}
         />,
       );
     },
@@ -559,6 +561,22 @@ describe("Player Runtime", () => {
       "ready",
     );
     expect(loadTopicStage).toHaveBeenCalledTimes(2);
+  });
+
+  it("reloads the exact destination only when the Catalog retry also fails", async () => {
+    const loadTopicStage = vi
+      .fn()
+      .mockRejectedValue(new Error("cached chunk failure"));
+    const { reload } = setup({
+      catalog: makeCatalog(registry, loadTopicStage),
+    });
+
+    fireEvent.click(
+      await screen.findByRole("button", { name: "Retry" }),
+    );
+
+    await waitFor(() => expect(loadTopicStage).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(reload).toHaveBeenCalledTimes(1));
   });
 
   it("ignores a stale Stage completion after switching Topics", async () => {

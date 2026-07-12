@@ -595,7 +595,7 @@ export function createBrowserHistoryAdapter(
       browserWindow.history.replaceState(state ?? null, "", href);
     },
     reload() {
-      browserWindow.history.go(0);
+      browserWindow.location.reload();
     },
     subscribe(listener) {
       browserWindow.addEventListener("popstate", listener);

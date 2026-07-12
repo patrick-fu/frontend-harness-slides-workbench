@@ -48,6 +48,7 @@ export default function WorkbenchEnvelope() {
     state: urlState,
     dispatch: dispatchNavigation,
     href: getNavigationHref,
+    reload: reloadNavigation,
     catalogScrollTop,
   } = useNavigationState(RUNTIME_CATALOG.discovery.styleGroups);
   const displayLanguage = urlState.lang ?? resolvedLanguage;
@@ -338,6 +339,7 @@ export default function WorkbenchEnvelope() {
                 navigation={{
                   state: urlState,
                   dispatch: dispatchNavigation,
+                  reload: reloadNavigation,
                 }}
                 language={displayLanguage}
                 reducedMotion={reducedMotion}

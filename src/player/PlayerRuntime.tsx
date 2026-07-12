@@ -26,6 +26,7 @@ export interface PlayerNavigationAccess {
     "styleId" | "topicId" | "scene" | "beat" | "pureMode" | "frozen"
   >;
   dispatch: (intent: NavigationIntent) => NavigationState;
+  reload: () => void;
 }
 
 export type PlayerEnvelopeAction =
@@ -55,7 +56,7 @@ export default function PlayerRuntime({
   reducedMotion,
   onEnvelopeAction,
 }: PlayerRuntimeProps) {
-  const { state, dispatch } = navigation;
+  const { state, dispatch, reload } = navigation;
   const {
     styleId,
     topicId,
@@ -67,6 +68,7 @@ export default function PlayerRuntime({
   const stageContainerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const previousTopicIdRef = useRef(topicId);
+  const retryReloadTimerRef = useRef<number | null>(null);
   const [hoverCue, setHoverCue] = useState<"prev" | "next" | null>(null);
   const [mobileTouchInput, setMobileTouchInput] = useState(false);
   const [announceTopic, setAnnounceTopic] = useState(false);
@@ -112,19 +114,33 @@ export default function PlayerRuntime({
     void catalog.loadStage(topicId).then(
       (stage) => {
         if (cancelled) return;
+        if (retryReloadTimerRef.current !== null) {
+          window.clearTimeout(retryReloadTimerRef.current);
+          retryReloadTimerRef.current = null;
+        }
         setTopicLoadState({ key: topicKey, status: "ready", stage });
         void catalog.prefetchAdjacent(topicId).catch(() => undefined);
       },
       () => {
-        if (!cancelled) {
-          setTopicLoadState({ key: topicKey, status: "error", stage: null });
-        }
+        if (cancelled) return;
+        if (loadAttempt > 0) return;
+        setTopicLoadState({ key: topicKey, status: "error", stage: null });
       },
     );
     return () => {
       cancelled = true;
     };
   }, [catalog, found, loadAttempt, topicId, topicKey]);
+
+  useEffect(
+    () => () => {
+      if (retryReloadTimerRef.current !== null) {
+        window.clearTimeout(retryReloadTimerRef.current);
+        retryReloadTimerRef.current = null;
+      }
+    },
+    [topicId],
+  );
 
   const handleNext = useCallback(() => {
     dispatch({ type: "move", direction: "next" });
@@ -307,6 +323,13 @@ export default function PlayerRuntime({
                       type="button"
                       onClick={(event) => {
                         event.stopPropagation();
+                        if (retryReloadTimerRef.current !== null) {
+                          window.clearTimeout(retryReloadTimerRef.current);
+                        }
+                        retryReloadTimerRef.current = window.setTimeout(
+                          reload,
+                          250,
+                        );
                         setTopicLoadState({
                           key: topicKey,
                           status: "loading",
