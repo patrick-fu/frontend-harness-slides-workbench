@@ -97,6 +97,43 @@ async function openOverview(page: Page) {
   await page.waitForTimeout(500);
 }
 
+async function dispatchScreenSwipe(
+  page: Page,
+  start: { x: number; y: number },
+  end: { x: number; y: number },
+) {
+  await page.locator('[data-testid="stage"]').evaluate(
+    (stage, points) => {
+      const touch = (point: { x: number; y: number }) =>
+        new Touch({
+          identifier: 1,
+          target: stage,
+          clientX: point.x,
+          clientY: point.y,
+        });
+      const startTouch = touch(points.start);
+      stage.dispatchEvent(
+        new TouchEvent("touchstart", {
+          bubbles: true,
+          cancelable: true,
+          touches: [startTouch],
+          changedTouches: [startTouch],
+        }),
+      );
+      const endTouch = touch(points.end);
+      stage.dispatchEvent(
+        new TouchEvent("touchend", {
+          bubbles: true,
+          cancelable: true,
+          touches: [],
+          changedTouches: [endTouch],
+        }),
+      );
+    },
+    { start, end },
+  );
+}
+
 /** Collect console errors, filtering out favicon / source map noise. */
 function attachErrorCollector(page: Page): string[] {
   const errors: string[] = [];
@@ -533,6 +570,40 @@ test.describe("Navigation", () => {
     expect(query.style).toBe("minimal-product-keynote");
     expect(Number(query.scene)).toBe(2);
     expect(Number(query.beat)).toBe(0);
+  });
+
+  test("coarse mobile screen accepts horizontal and vertical swipes while rotate guidance expires", async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({
+      viewport: { width: 390, height: 844 },
+      hasTouch: true,
+      isMobile: true,
+    });
+    const page = await context.newPage();
+    try {
+      await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
+      await expect(page.locator('[data-testid="portrait-hint"]')).toBeVisible();
+
+      await dispatchScreenSwipe(
+        page,
+        { x: 320, y: 420 },
+        { x: 220, y: 420 },
+      );
+      await expect.poll(() => parseQueryFromUrl(page.url()).scene).toBe("2");
+
+      await dispatchScreenSwipe(
+        page,
+        { x: 195, y: 520 },
+        { x: 195, y: 420 },
+      );
+      await expect.poll(() => parseQueryFromUrl(page.url()).beat).toBe("1");
+      await expect(page.locator('[data-testid="portrait-hint"]')).toHaveCount(0, {
+        timeout: 4000,
+      });
+    } finally {
+      await context.close();
+    }
   });
 
   test("presentation shortcuts yield to Library and Topic menu focus", async ({

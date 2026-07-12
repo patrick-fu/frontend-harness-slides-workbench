@@ -347,12 +347,34 @@ describe("Player Runtime", () => {
     dispatchTouch(stage, "touchstart", 800, 300);
     dispatchTouch(stage, "touchend", 700, 300);
     fireEvent.click(stage, { clientX: 700 });
+    dispatchTouch(stage, "touchstart", 500, 400);
+    dispatchTouch(stage, "touchend", 500, 300);
     dispatchTouch(stage, "touchstart", 500, 400, { prevented: true });
     dispatchTouch(stage, "touchend", 500, 300);
     fireEvent.wheel(stage, { deltaY: 120 });
 
-    expect(dispatch).toHaveBeenCalledTimes(1);
-    expect(dispatch).toHaveBeenCalledWith({ type: "move", direction: "next" });
+    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch).toHaveBeenNthCalledWith(1, { type: "move", direction: "next" });
+    expect(dispatch).toHaveBeenNthCalledWith(2, { type: "move", direction: "next" });
+    matchMedia.mockRestore();
+  });
+
+  it("does not install swipe gestures without a coarse mobile screen", () => {
+    const matchMedia = vi.spyOn(window, "matchMedia").mockReturnValue({
+      matches: false,
+      media: MOBILE_TOUCH_QUERY,
+      onchange: null,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    } as MediaQueryList);
+    const { dispatch } = setup();
+    const stage = screen.getByTestId("stage");
+    dispatchTouch(stage, "touchstart", 800, 300);
+    dispatchTouch(stage, "touchend", 700, 300);
+    expect(dispatch).not.toHaveBeenCalled();
     matchMedia.mockRestore();
   });
 
@@ -384,6 +406,27 @@ describe("Player Runtime", () => {
     });
 
     expect(await screen.findByRole("note")).toHaveTextContent("中文示例边界。");
+  });
+
+  it("translates Topic-internal absolute navigation without leaking a Stage click", async () => {
+    const InternalNavigationStage: TopicStage = ({ onNavigate }) => (
+      <button type="button" onClick={() => onNavigate?.(4, 0)}>
+        Jump inside Topic
+      </button>
+    );
+    const { dispatch } = setup({
+      catalog: makeCatalog(
+        registry,
+        vi.fn().mockResolvedValue(InternalNavigationStage),
+      ),
+    });
+    fireEvent.click(await screen.findByRole("button", { name: "Jump inside Topic" }));
+    expect(dispatch).toHaveBeenCalledOnce();
+    expect(dispatch).toHaveBeenCalledWith({
+      type: "jump-position",
+      scene: 4,
+      beat: 0,
+    });
   });
 
   it("keeps the fixed Stage visible while a Topic Stage loads, then prefetches neighbors", async () => {

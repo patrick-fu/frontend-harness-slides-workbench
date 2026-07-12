@@ -73,6 +73,14 @@ _Avoid_: Overview View, gallery
 The Workbench surface for viewing a selected Topic. It frames the Stage with navigation and presentation controls.
 _Avoid_: Lab View
 
+**Player Runtime（播放器运行时）**:
+The single presentation boundary that consumes Catalog access and semantic
+Navigation State, then owns Stage loading and recovery, fixed-canvas fitting,
+display modes, shared Evidence, announcements, rotate guidance, and Player
+input arbitration. It emits Navigation Intents and never owns URL or History
+policy.
+_Avoid_: Lab View, Player router, Topic runtime
+
 **Stage（舞台）**:
 The bounded presentation canvas that displays a Topic. It preserves the Topic's visual composition as the focus of viewing.
 _Avoid_: Page, browser viewport

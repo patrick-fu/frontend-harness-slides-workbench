@@ -82,6 +82,16 @@ isolated Stage.
 - Honor isThumbnail and reducedMotion. Thumbnail mode has no interactive
   internal navigation; reduced motion and frozen capture frames must settle
   deterministically.
+- `src/player` is the only Player Runtime owner. It consumes validated Catalog
+  access and semantic Navigation State; it owns Stage loading/retry,
+  stale-result cancellation, adjacent prefetch requests, fixed-canvas fitting,
+  Pure/Frozen presentation, Envelope-owned Evidence, announcements, rotate
+  guidance, and keyboard/click/touch arbitration. App must not reconstruct
+  these behaviors or pass separate loader and movement callbacks.
+- Player touch gestures are enabled only for coarse-pointer mobile screen
+  input. Never map wheel, trackpad, or mouse movement to swipe navigation.
+  Preserve prevented-event, modifier, non-primary-click, interactive-target,
+  touch-cancel, and recent-touch synthesis guards.
 
 ## Query routing and history
 
