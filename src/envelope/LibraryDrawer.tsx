@@ -12,7 +12,7 @@ export interface LibraryDrawerProps {
   language: "en" | "zh";
   isTopicInCycleScope: (topicId: string) => boolean;
   onClose: () => void;
-  onSelectTopic: (styleId: string, topicId: string) => void;
+  onSelectTopic: (topicId: string) => void;
 }
 
 export default function LibraryDrawer({
@@ -188,7 +188,7 @@ export default function LibraryDrawer({
                                   aria-current={active ? "page" : undefined}
                                   aria-label={`${topic.title[language]} · ${topic.modelId}${outsideScope ? ` · ${labels.outside}` : ""}`}
                                   onClick={() => {
-                                    onSelectTopic(style.id, topic.id);
+                                    onSelectTopic(topic.id);
                                     onClose();
                                   }}
                                   className={`flex min-h-10 w-full items-center gap-2 rounded-lg px-3 text-left ${

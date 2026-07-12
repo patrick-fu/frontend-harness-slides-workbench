@@ -20,9 +20,9 @@ export interface CatalogViewProps {
   /** Replaces the URL-owned filters after a user interaction. */
   onFiltersChange: (filters: CatalogFilterState) => void;
   /** Supplies the exact route for an independently openable Topic Card. */
-  getTopicHref: (styleId: string, topicId: string) => string;
+  getTopicHref: (topicId: string) => string;
   /** Handles an ordinary left-click so the shell can retain Catalog scroll state. */
-  onOpenTopic: (styleId: string, topicId: string) => void;
+  onOpenTopic: (topicId: string) => void;
   /** Warms the exact Stage chunk when intent is visible, without navigating. */
   onPrefetchTopic?: (topicId: string) => void;
 }
@@ -69,7 +69,7 @@ interface TopicCardProps {
   href: string;
   isStyleGroupStart: boolean;
   styleNumber: string;
-  onOpenTopic: (styleId: string, topicId: string) => void;
+  onOpenTopic: (topicId: string) => void;
   onPrefetchTopic?: (topicId: string) => void;
 }
 
@@ -90,9 +90,9 @@ function TopicCard({
     (event: MouseEvent<HTMLAnchorElement>) => {
       if (!isPlainPrimaryClick(event)) return;
       event.preventDefault();
-      onOpenTopic(topic.style.id, topic.topic.id);
+      onOpenTopic(topic.topic.id);
     },
-    [onOpenTopic, topic.style.id, topic.topic.id],
+    [onOpenTopic, topic.topic.id],
   );
 
   return (
@@ -365,7 +365,7 @@ export default function CatalogView({
                     key={`${topic.style.id}/${topic.topic.id}`}
                     topic={topic}
                     language={language}
-                    href={getTopicHref(topic.style.id, topic.topic.id)}
+                    href={getTopicHref(topic.topic.id)}
                     isStyleGroupStart={isStyleGroupStart}
                     styleNumber={styleNumbers.get(topic.style.id) ?? ""}
                     onOpenTopic={onOpenTopic}

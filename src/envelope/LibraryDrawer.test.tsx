@@ -137,7 +137,7 @@ describe("LibraryDrawer", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /Presolar grain/ }));
 
-    expect(onSelectTopic).toHaveBeenCalledWith("quiet-grid", "grain");
+    expect(onSelectTopic).toHaveBeenCalledWith("grain");
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 

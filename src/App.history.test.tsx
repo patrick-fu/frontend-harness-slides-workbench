@@ -3,6 +3,7 @@ import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testi
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
 import { CATALOG_MANIFEST } from "./catalog/manifest.generated";
+import { RUNTIME_REGISTRY } from "./catalog/runtime-registry";
 
 const CATALOG_TOPIC_COUNT = CATALOG_MANIFEST.reduce(
   (total, style) => total + style.topics.length,
@@ -175,6 +176,84 @@ describe("Workbench URL, history, and sharing contract", () => {
     expect(params().getAll("band")).toEqual(["minimal-keynote"]);
     expect(params().getAll("model")).toEqual(["GPT 5.5"]);
     expect(catalogScroller.scrollTop).toBe(480);
+  });
+
+  it("keeps a modified Catalog Topic click as a canonical native link", () => {
+    setRoute("/?view=overview&band=minimal-keynote");
+    render(<App />);
+    const pushState = vi.spyOn(window.history, "pushState");
+    const card = screen.getAllByTestId("topic-card")[0];
+    const [expectedStyleId, expectedTopicId] = card
+      .getAttribute("data-topic-key")!
+      .split("/");
+    const expectedTopic = RUNTIME_REGISTRY
+      .flatMap((group) => group.topics)
+      .find((topic) => topic.id === expectedTopicId)!;
+    const initialScene = expectedTopic.metadata.en.scenes[0];
+    const link = within(card).getByRole("link");
+    const destination = new URL(link.getAttribute("href")!, window.location.origin);
+
+    let preventedBeforeNativeBoundary = true;
+    document.addEventListener(
+      "click",
+      (event) => {
+        preventedBeforeNativeBoundary = event.defaultPrevented;
+        event.preventDefault();
+      },
+      { once: true },
+    );
+    fireEvent.click(link, { metaKey: true });
+
+    expect(preventedBeforeNativeBoundary).toBe(false);
+    expect(pushState).not.toHaveBeenCalled();
+    expect(params().get("view")).toBe("overview");
+    expect(destination.searchParams.get("view")).toBe("lab");
+    expect(destination.searchParams.get("style")).toBe(expectedStyleId);
+    expect(destination.searchParams.get("topic")).toBe(expectedTopicId);
+    expect(destination.searchParams.get("scene")).toBe(
+      String(initialScene?.id ?? 1),
+    );
+    expect(destination.searchParams.get("beat")).toBe(
+      String(initialScene?.beats[0]?.id ?? 0),
+    );
+  });
+
+  it("opens an outside-scope Library Topic through canonical Navigation and closes the Drawer", async () => {
+    const targetGroup = RUNTIME_REGISTRY.find(
+      (group) => group.style.band !== "minimal-keynote" && group.topics.length > 0,
+    )!;
+    const target = targetGroup.topics[0]!;
+    const initialScene = target.metadata.en.scenes[0];
+    setRoute(
+      "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=2&beat=0&band=minimal-keynote",
+    );
+    render(<App />);
+
+    fireEvent.click(
+      within(
+        screen.getByRole("navigation", { name: "Player navigation" }),
+      ).getByRole("button", { name: "Library" }),
+    );
+    const drawer = screen.getByRole("dialog", { name: "Library" });
+    fireEvent.change(within(drawer).getByRole("searchbox"), {
+      target: { value: target.id },
+    });
+    const result = within(drawer).getByRole("button", {
+      name: (accessibleName) => accessibleName.includes(target.title.en),
+    });
+    expect(result).toHaveAccessibleName(/Outside filter/);
+    fireEvent.click(result);
+
+    await waitFor(() =>
+      expect(screen.queryByRole("dialog", { name: "Library" })).toBeNull(),
+    );
+    expect(params().get("band")).toBe("minimal-keynote");
+    expect(params().get("style")).toBe(target.styleId);
+    expect(params().get("topic")).toBe(target.id);
+    expect(params().get("scene")).toBe(String(initialScene?.id ?? 1));
+    expect(params().get("beat")).toBe(
+      String(initialScene?.beats[0]?.id ?? 0),
+    );
   });
 
   it("pushes an explicit View change from the Player", () => {

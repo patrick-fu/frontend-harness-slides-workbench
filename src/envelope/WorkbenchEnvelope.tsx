@@ -193,11 +193,6 @@ export default function WorkbenchEnvelope() {
     (topicId: string) => getNavigationHref({ type: "open-topic", topicId }),
     [getNavigationHref],
   );
-  const getTopicHref = useCallback(
-    (_styleId: string, topicId: string) => getTopicHrefById(topicId),
-    [getTopicHrefById],
-  );
-
   const handleLanguageChange = useCallback(
     (mode: "auto" | "en" | "zh") => {
       setLanguage(mode);
@@ -290,8 +285,8 @@ export default function WorkbenchEnvelope() {
             filters={{ bands: urlState.bands, models: urlState.models }}
             resolution={filterResolution}
             onFiltersChange={updateFilters}
-            getTopicHref={getTopicHref}
-            onOpenTopic={selectTopic}
+            getTopicHref={getTopicHrefById}
+            onOpenTopic={selectTopicById}
             onPrefetchTopic={(topicId) => {
               void loadRuntimeTopicStage(topicId).catch(() => undefined);
             }}
@@ -398,7 +393,7 @@ export default function WorkbenchEnvelope() {
           language={displayLanguage}
           isTopicInCycleScope={filterResolution.isTopicInCycleScope}
           onClose={() => setLibraryOpen(false)}
-          onSelectTopic={selectTopic}
+          onSelectTopic={selectTopicById}
         />
         <CommandPalette
           open={paletteOpen}

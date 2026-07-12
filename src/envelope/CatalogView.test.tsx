@@ -76,8 +76,7 @@ const defaultProps = {
   filters: { bands: [], models: [] },
   resolution: resolveCatalogFilters(registry, "en", { bands: [], models: [] }),
   onFiltersChange: vi.fn(),
-  getTopicHref: (styleId: string, topicId: string) =>
-    `/open/${styleId}/${topicId}`,
+  getTopicHref: (topicId: string) => `/open/${topicId}`,
   onOpenTopic: vi.fn(),
 };
 
@@ -95,15 +94,15 @@ describe("CatalogView", () => {
     ]);
     expect(within(cards[0]).getByRole("link")).toHaveAttribute(
       "href",
-      "/open/alpha/a-one",
+      "/open/a-one",
     );
     expect(within(cards[1]).getByRole("link")).toHaveAttribute(
       "href",
-      "/open/alpha/a-two",
+      "/open/a-two",
     );
     expect(within(cards[2]).getByRole("link")).toHaveAttribute(
       "href",
-      "/open/beta/b-one",
+      "/open/b-one",
     );
   });
 
@@ -125,7 +124,27 @@ describe("CatalogView", () => {
 
     const link = within(screen.getAllByTestId("topic-card")[0]).getByRole("link");
     fireEvent.click(link);
-    expect(onOpenTopic).toHaveBeenCalledWith("alpha", "a-one");
+    expect(onOpenTopic).toHaveBeenCalledWith("a-one");
+  });
+
+  it("leaves modified card clicks to the native Topic link", () => {
+    const onOpenTopic = vi.fn();
+    render(<CatalogView {...defaultProps} onOpenTopic={onOpenTopic} />);
+
+    const link = within(screen.getAllByTestId("topic-card")[0]).getByRole("link");
+    let preventedBeforeNativeBoundary = true;
+    document.addEventListener(
+      "click",
+      (event) => {
+        preventedBeforeNativeBoundary = event.defaultPrevented;
+        event.preventDefault();
+      },
+      { once: true },
+    );
+    fireEvent.click(link, { ctrlKey: true });
+    expect(preventedBeforeNativeBoundary).toBe(false);
+    expect(onOpenTopic).not.toHaveBeenCalled();
+    expect(link).toHaveAttribute("href", "/open/a-one");
   });
 
   it("prefetches an exact Topic on hover, keyboard focus, and touch intent", () => {
