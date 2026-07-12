@@ -88,6 +88,10 @@ export default function PlayerRuntime({
     status: "loading",
     stage: null,
   });
+  const handleTopicAnnouncementDone = useCallback(
+    () => setAnnounceTopic(false),
+    [],
+  );
   const { scale, width: scaledWidth, height: scaledHeight } =
     useStageFit(stageContainerRef);
 
@@ -359,12 +363,13 @@ export default function PlayerRuntime({
             )}
             {announceTopic && !isPureMode && (
               <TopicAnnouncement
+                key={topicId}
                 styleNumber={styleNumber}
                 styleName={found.style.name[language]}
                 topicName={found.topic.title[language]}
                 modelId={found.topic.modelId}
                 reducedMotion={reducedMotion}
-                onDone={() => setAnnounceTopic(false)}
+                onDone={handleTopicAnnouncementDone}
               />
             )}
           </div>
