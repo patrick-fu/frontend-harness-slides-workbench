@@ -1,23 +1,17 @@
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
-import { lazy } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "../App";
 import CatalogFilters from "./CatalogFilters";
 import type { FilterOption } from "./filter-editor";
 import {
-  RUNTIME_REGISTRY,
-  type RuntimeStyleGroup,
-  type RuntimeTopic,
-} from "../catalog/runtime-registry";
-import type {
-  TopicMetadata,
-  TopicStageProps,
-} from "../domain/topic";
+  RUNTIME_CATALOG,
+  type RuntimeCatalogStyleGroup,
+  type RuntimeCatalogTopic,
+} from "../catalog/runtime-catalog";
+import type { TopicMetadata } from "../domain/topic";
 import CommandPalette from "./CommandPalette";
 
-const Noop = (_props: TopicStageProps) => null;
-
-function topic(id: string, title: string): RuntimeTopic {
+function topic(id: string, title: string): RuntimeCatalogTopic {
   const metadata: TopicMetadata = {
     theme: "",
     densityLabel: "",
@@ -42,13 +36,10 @@ function topic(id: string, title: string): RuntimeTopic {
       "4->5": "hard-cut",
     },
     evidence: { kind: "none" },
-    modulePath: `../topics/${id}.tsx`,
-    Stage: lazy(async () => ({ default: Noop })),
-    loadStage: async () => Noop,
   };
 }
 
-const registry: readonly RuntimeStyleGroup[] = [
+const registry: readonly RuntimeCatalogStyleGroup[] = [
   {
     style: {
       id: "quiet-grid",
@@ -208,7 +199,7 @@ describe("Catalog + Player shell accessibility", () => {
   });
 
   it("uses the same canonical Topic identity across Catalog, Library, and Command Palette", async () => {
-    const firstGroup = RUNTIME_REGISTRY[0]!;
+    const firstGroup = RUNTIME_CATALOG.discovery.styleGroups[0]!;
     const firstTopic = firstGroup.topics[0]!;
     render(<App />);
 

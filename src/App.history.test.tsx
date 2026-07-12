@@ -3,7 +3,7 @@ import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testi
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
 import { CATALOG_MANIFEST } from "./catalog/manifest.generated";
-import { RUNTIME_REGISTRY } from "./catalog/runtime-registry";
+import { RUNTIME_CATALOG } from "./catalog/runtime-catalog";
 
 const CATALOG_TOPIC_COUNT = CATALOG_MANIFEST.reduce(
   (total, style) => total + style.topics.length,
@@ -186,7 +186,7 @@ describe("Workbench URL, history, and sharing contract", () => {
     const [expectedStyleId, expectedTopicId] = card
       .getAttribute("data-topic-key")!
       .split("/");
-    const expectedTopic = RUNTIME_REGISTRY
+    const expectedTopic = RUNTIME_CATALOG.discovery.styleGroups
       .flatMap((group) => group.topics)
       .find((topic) => topic.id === expectedTopicId)!;
     const initialScene = expectedTopic.metadata.en.scenes[0];
@@ -219,7 +219,7 @@ describe("Workbench URL, history, and sharing contract", () => {
   });
 
   it("opens an outside-scope Library Topic through canonical Navigation and closes the Drawer", async () => {
-    const targetGroup = RUNTIME_REGISTRY.find(
+    const targetGroup = RUNTIME_CATALOG.discovery.styleGroups.find(
       (group) => group.style.band !== "minimal-keynote" && group.topics.length > 0,
     )!;
     const target = targetGroup.topics[0]!;
@@ -360,7 +360,7 @@ describe("Workbench URL, history, and sharing contract", () => {
   });
 
   it("opens an out-of-scope Command Palette result by Topic ID through canonical Navigation", async () => {
-    const target = RUNTIME_REGISTRY
+    const target = RUNTIME_CATALOG.discovery.styleGroups
       .flatMap((group) => group.topics)
       .find(
         (topic) =>

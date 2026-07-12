@@ -1,9 +1,9 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { RUNTIME_REGISTRY } from "../catalog/runtime-registry";
+import { RUNTIME_CATALOG } from "../catalog/runtime-catalog";
 import IdentityBadge from "./IdentityBadge";
 
-const group = RUNTIME_REGISTRY.find(
+const group = RUNTIME_CATALOG.discovery.styleGroups.find(
   (entry) => entry.style.id === "minimal-product-keynote",
 )!;
 

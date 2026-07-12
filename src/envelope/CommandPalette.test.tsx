@@ -1,14 +1,12 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { lazy } from "react";
 import { describe, expect, it, vi } from "vitest";
 import type {
-  RuntimeStyleGroup,
-  RuntimeTopic,
-} from "../catalog/runtime-registry";
-import type { TopicMetadata, TopicStageProps } from "../domain/topic";
+  RuntimeCatalogStyleGroup,
+  RuntimeCatalogTopic,
+} from "../catalog/runtime-catalog";
+import type { TopicMetadata } from "../domain/topic";
 import CommandPalette from "./CommandPalette";
 
-const Noop = (_props: TopicStageProps) => null;
 const metadata: TopicMetadata = {
   theme: "",
   densityLabel: "",
@@ -24,8 +22,8 @@ function topic(
   styleId: string,
   id: string,
   title: string,
-  modelId: RuntimeTopic["modelId"],
-): RuntimeTopic {
+  modelId: RuntimeCatalogTopic["modelId"],
+): RuntimeCatalogTopic {
   return {
     id,
     styleId,
@@ -40,13 +38,10 @@ function topic(
       "4->5": "hard-cut",
     },
     evidence: { kind: "none" },
-    modulePath: `../topics/${id}.tsx`,
-    Stage: lazy(async () => ({ default: Noop })),
-    loadStage: async () => Noop,
   };
 }
 
-const registry: readonly RuntimeStyleGroup[] = [
+const registry: readonly RuntimeCatalogStyleGroup[] = [
   {
     style: {
       id: "quiet-grid",

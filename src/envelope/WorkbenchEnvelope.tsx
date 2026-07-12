@@ -20,8 +20,6 @@ import { useGlobalShortcuts } from "./useGlobalShortcuts";
 import { useNavigationState } from "../navigation/useNavigationState";
 import {
   findRuntimeTopic,
-  loadRuntimeTopicStage,
-  RUNTIME_REGISTRY,
 } from "../catalog/runtime-registry";
 import { RUNTIME_CATALOG } from "../catalog/runtime-catalog";
 import PlayerRuntime, {
@@ -69,7 +67,7 @@ export default function WorkbenchEnvelope() {
     [urlState.topicId],
   );
   const activeGroup = activeTopicEntry
-    ? RUNTIME_REGISTRY[activeTopicEntry.styleIndex] ?? null
+    ? RUNTIME_CATALOG.discovery.styleGroups[activeTopicEntry.styleIndex] ?? null
     : null;
   const activeStyle = activeTopicEntry?.style ?? null;
   const activeTopic = activeTopicEntry?.topic ?? null;
@@ -292,14 +290,16 @@ export default function WorkbenchEnvelope() {
             controls={controls("overview")}
           />
           <CatalogView
-            registry={RUNTIME_REGISTRY}
+            registry={RUNTIME_CATALOG.discovery.styleGroups}
             language={displayLanguage}
             resolution={filterResolution}
             filterEditor={filterEditor}
             getTopicHref={getTopicHrefById}
             onOpenTopic={selectTopicById}
             onPrefetchTopic={(topicId) => {
-              void loadRuntimeTopicStage(topicId).catch(() => undefined);
+              void RUNTIME_CATALOG.player
+                .loadStage(topicId)
+                .catch(() => undefined);
             }}
           />
         </div>
@@ -395,7 +395,7 @@ export default function WorkbenchEnvelope() {
       {!urlState.pureMode && <>
         <LibraryDrawer
           open={libraryOpen}
-          registry={RUNTIME_REGISTRY}
+          registry={RUNTIME_CATALOG.discovery.styleGroups}
           currentStyleId={resolvedStyleId}
           currentTopicId={urlState.topicId}
           language={displayLanguage}
@@ -405,7 +405,7 @@ export default function WorkbenchEnvelope() {
         />
         <CommandPalette
           open={paletteOpen}
-          registry={RUNTIME_REGISTRY}
+          registry={RUNTIME_CATALOG.discovery.styleGroups}
           language={displayLanguage}
           recent={recentTopics}
           isTopicInCycleScope={filterResolution.isTopicInCycleScope}

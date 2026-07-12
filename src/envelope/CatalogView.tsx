@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useState, type MouseEvent } from "react";
-import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
 import {
   type RuntimeCatalogFilterResolution,
   type RuntimeCatalogFilterTopic,
+  type RuntimeCatalogStyleGroup,
 } from "../catalog/runtime-catalog";
 import { modelColor } from "../utils/model-color";
 import { getShowcaseThumbnail } from "../data/showcase-thumbnails";
@@ -10,7 +10,7 @@ import CatalogFilters from "./CatalogFilters";
 import type { FilterEditor } from "./filter-editor";
 
 export interface CatalogViewProps {
-  registry: readonly RuntimeStyleGroup[];
+  registry: readonly RuntimeCatalogStyleGroup[];
   language: "en" | "zh";
   /** One canonical interpretation of the current Registry and Navigation Filters. */
   resolution: RuntimeCatalogFilterResolution;
@@ -20,7 +20,7 @@ export interface CatalogViewProps {
   getTopicHref: (topicId: string) => string;
   /** Handles an ordinary left-click so the shell can retain Catalog scroll state. */
   onOpenTopic: (topicId: string) => void;
-  /** Warms the exact Stage chunk when intent is visible, without navigating. */
+  /** Warms the exact Topic content when intent is visible, without navigating. */
   onPrefetchTopic?: (topicId: string) => void;
 }
 

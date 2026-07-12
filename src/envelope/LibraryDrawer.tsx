@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
+import type { RuntimeCatalogStyleGroup } from "../catalog/runtime-catalog";
 import { modelColor } from "../utils/model-color";
 import { useModalFocus } from "./useModalFocus";
 import { BAND_LABELS, groupByBand } from "../catalog/bands";
 
 export interface LibraryDrawerProps {
   open: boolean;
-  registry: readonly RuntimeStyleGroup[];
+  registry: readonly RuntimeCatalogStyleGroup[];
   currentStyleId: string;
   currentTopicId: string;
   language: "en" | "zh";

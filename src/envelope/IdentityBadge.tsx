@@ -1,15 +1,15 @@
 import { useRef, useState } from "react";
 import type {
-  RuntimeStyleGroup,
-  RuntimeTopic,
-} from "../catalog/runtime-registry";
+  RuntimeCatalogStyleGroup,
+  RuntimeCatalogTopic,
+} from "../catalog/runtime-catalog";
 import { modelColor } from "../utils/model-color";
 import { useModalFocus } from "./useModalFocus";
 
 export interface IdentityBadgeProps {
-  group: RuntimeStyleGroup | null;
+  group: RuntimeCatalogStyleGroup | null;
   topicId: string;
-  topicOptions: readonly RuntimeTopic[];
+  topicOptions: readonly RuntimeCatalogTopic[];
   language: "en" | "zh";
   onSelectTopic: (topicId: string) => void;
 }

@@ -1,17 +1,14 @@
 import { describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, within } from "@testing-library/react";
-import { lazy } from "react";
 import type {
-  RuntimeStyleGroup,
-  RuntimeTopic,
-} from "../catalog/runtime-registry";
+  RuntimeCatalogStyleGroup,
+  RuntimeCatalogTopic,
+} from "../catalog/runtime-catalog";
 import type { Band } from "../domain/style";
-import type { TopicMetadata, TopicStageProps } from "../domain/topic";
+import type { TopicMetadata } from "../domain/topic";
 import { resolveWorkbenchFilters } from "../domain/filter";
 import CatalogView from "./CatalogView";
 import { createFilterEditor } from "./filter-editor";
-
-const EmptyStage = (_props: TopicStageProps) => null;
 
 function makeMetadata(): TopicMetadata {
   return {
@@ -29,8 +26,8 @@ function makeMetadata(): TopicMetadata {
 function makeTopic(
   styleId: string,
   id: string,
-  modelId: RuntimeTopic["modelId"],
-): RuntimeTopic {
+  modelId: RuntimeCatalogTopic["modelId"],
+): RuntimeCatalogTopic {
   const metadata = makeMetadata();
   return {
     id,
@@ -46,9 +43,6 @@ function makeTopic(
       "4->5": "hard-cut",
     },
     evidence: { kind: "none" },
-    modulePath: `../topics/${id}.tsx`,
-    Stage: lazy(async () => ({ default: EmptyStage })),
-    loadStage: async () => EmptyStage,
   };
 }
 
@@ -56,12 +50,12 @@ function makeGroup(
   id: string,
   name: { en: string; zh: string },
   band: Band,
-  topics: RuntimeTopic[],
-): RuntimeStyleGroup {
+  topics: RuntimeCatalogTopic[],
+): RuntimeCatalogStyleGroup {
   return { style: { id, name, band }, topics };
 }
 
-const registry: readonly RuntimeStyleGroup[] = [
+const registry: readonly RuntimeCatalogStyleGroup[] = [
   makeGroup("alpha", { en: "Alpha", zh: "甲" }, "minimal-keynote", [
     makeTopic("alpha", "a-one", "GPT 5.5"),
     makeTopic("alpha", "a-two", "Claude Opus 4.8"),

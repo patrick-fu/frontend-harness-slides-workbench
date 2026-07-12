@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type {
-  RuntimeStyleGroup,
-  RuntimeTopic,
-} from "../catalog/runtime-registry";
+  RuntimeCatalogStyleGroup,
+  RuntimeCatalogTopic,
+} from "../catalog/runtime-catalog";
 import { modelColor } from "../utils/model-color";
 import { useModalFocus } from "./useModalFocus";
 
 export interface CommandPaletteProps {
   open: boolean;
-  registry: readonly RuntimeStyleGroup[];
+  registry: readonly RuntimeCatalogStyleGroup[];
   language: "en" | "zh";
   recent: string[];
   isTopicInCycleScope: (topicId: string) => boolean;
@@ -18,8 +18,8 @@ export interface CommandPaletteProps {
 
 interface TopicResult {
   key: string;
-  group: RuntimeStyleGroup;
-  topic: RuntimeTopic;
+  group: RuntimeCatalogStyleGroup;
+  topic: RuntimeCatalogTopic;
   registryIndex: number;
 }
 
