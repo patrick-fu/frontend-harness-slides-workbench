@@ -68,6 +68,13 @@ describe("createRuntimeCatalog", () => {
     expect(found).not.toHaveProperty("topicIndex");
     expect(found).not.toHaveProperty("loadStage");
     expect(runtime.discovery.findTopic("missing-topic")).toBeNull();
+    expect(runtime.discovery.totals).toEqual({
+      styles: CATALOG_MANIFEST.length,
+      topics: CATALOG_MANIFEST.reduce(
+        (total, group) => total + group.topics.length,
+        0,
+      ),
+    });
     expect(resolveStage).not.toHaveBeenCalled();
   });
 

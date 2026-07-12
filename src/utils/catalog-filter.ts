@@ -1,4 +1,7 @@
-import type { RuntimeStyleGroup, RuntimeTopic } from "../catalog/runtime-registry";
+import type {
+  RuntimeCatalogStyleGroup,
+  RuntimeCatalogTopic,
+} from "../catalog/runtime-catalog";
 import {
   matchesWorkbenchFilters,
   resolveWorkbenchFilters,
@@ -16,7 +19,7 @@ export interface CatalogTopicEntry {
   band: Band;
   modelId: ModelId;
   style: StyleDefinition;
-  topic: RuntimeTopic;
+  topic: RuntimeCatalogTopic;
   metadata: TopicMetadata;
 }
 
@@ -50,7 +53,7 @@ export interface CatalogFilterResolution
  * Style or Topic order.
  */
 export function buildCatalogTopics(
-  registry: readonly RuntimeStyleGroup[],
+  registry: readonly RuntimeCatalogStyleGroup[],
   language: "en" | "zh",
 ): CatalogTopicEntry[] {
   const topics: CatalogTopicEntry[] = [];
@@ -134,7 +137,7 @@ export function getCatalogFacetCounts(
 
 /** Resolves shareable Filter criteria once for every Workbench surface. */
 export function resolveCatalogFilters(
-  registry: readonly RuntimeStyleGroup[],
+  registry: readonly RuntimeCatalogStyleGroup[],
   language: "en" | "zh",
   filters: CatalogFilters,
   currentTopicId = "",

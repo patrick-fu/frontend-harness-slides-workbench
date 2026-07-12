@@ -31,6 +31,7 @@ export interface RuntimeCatalogTopicEntry {
 
 export interface RuntimeCatalogDiscovery {
   styleGroups: readonly RuntimeCatalogStyleGroup[];
+  totals: Readonly<{ styles: number; topics: number }>;
   findTopic: (topicId: string) => RuntimeCatalogTopicEntry | null;
 }
 
@@ -107,6 +108,13 @@ export function createRuntimeCatalog(
   return {
     discovery: {
       styleGroups,
+      totals: {
+        styles: styleGroups.length,
+        topics: styleGroups.reduce(
+          (total, group) => total + group.topics.length,
+          0,
+        ),
+      },
       findTopic,
     },
     player: {

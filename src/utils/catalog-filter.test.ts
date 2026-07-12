@@ -1,11 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { lazy } from "react";
 import type {
-  RuntimeStyleGroup,
-  RuntimeTopic,
-} from "../catalog/runtime-registry";
+  RuntimeCatalogStyleGroup,
+  RuntimeCatalogTopic,
+} from "../catalog/runtime-catalog";
 import type { Band, StyleDefinition } from "../domain/style";
-import type { TopicMetadata, TopicStageProps } from "../domain/topic";
+import type { TopicMetadata } from "../domain/topic";
 import {
   buildCatalogTopics,
   filterCatalogTopics,
@@ -13,13 +12,11 @@ import {
   type CatalogTopicEntry,
 } from "./catalog-filter";
 
-const EmptyStage = (_props: TopicStageProps) => null;
-
 function makeTopic(
   styleId: string,
   topicId: string,
   band: Band,
-  modelId: RuntimeTopic["modelId"],
+  modelId: RuntimeCatalogTopic["modelId"],
 ): CatalogTopicEntry {
   const metadata = makeMetadata();
   return {
@@ -31,7 +28,7 @@ function makeTopic(
       name: { en: `Style ${styleId}`, zh: `风格 ${styleId}` },
       band,
     },
-    topic: makeRuntimeTopic(styleId, topicId, modelId, metadata),
+    topic: makeDiscoveryTopic(styleId, topicId, modelId, metadata),
     metadata,
   };
 }
@@ -49,12 +46,12 @@ function makeMetadata(): TopicMetadata {
   };
 }
 
-function makeRuntimeTopic(
+function makeDiscoveryTopic(
   styleId: string,
   id: string,
-  modelId: RuntimeTopic["modelId"],
+  modelId: RuntimeCatalogTopic["modelId"],
   metadata: TopicMetadata,
-): RuntimeTopic {
+): RuntimeCatalogTopic {
   return {
     id,
     styleId,
@@ -69,16 +66,13 @@ function makeRuntimeTopic(
       "4->5": "hard-cut",
     },
     evidence: { kind: "none" },
-    modulePath: `../topics/${id}.tsx`,
-    Stage: lazy(async () => ({ default: EmptyStage })),
-    loadStage: async () => EmptyStage,
   };
 }
 
 function makeGroup(
   style: StyleDefinition,
-  topics: RuntimeTopic[],
-): RuntimeStyleGroup {
+  topics: RuntimeCatalogTopic[],
+): RuntimeCatalogStyleGroup {
   return { style, topics };
 }
 
@@ -124,7 +118,7 @@ describe("filterCatalogTopics", () => {
 
 describe("buildCatalogTopics", () => {
   it("enumerates every Topic in registry order with the requested localized labels", () => {
-    const registry: readonly RuntimeStyleGroup[] = [
+    const registry: readonly RuntimeCatalogStyleGroup[] = [
       makeGroup(
         {
           id: "alpha",
@@ -132,8 +126,8 @@ describe("buildCatalogTopics", () => {
           band: "minimal-keynote",
         },
         [
-          makeRuntimeTopic("alpha", "first", "GPT 5.5", makeMetadata()),
-          makeRuntimeTopic(
+          makeDiscoveryTopic("alpha", "first", "GPT 5.5", makeMetadata()),
+          makeDiscoveryTopic(
             "alpha",
             "second",
             "Claude Opus 4.8",
@@ -147,7 +141,7 @@ describe("buildCatalogTopics", () => {
           name: { en: "Beta", zh: "乙" },
           band: "editorial-print",
         },
-        [makeRuntimeTopic("beta", "third", "GPT 5.5", makeMetadata())],
+        [makeDiscoveryTopic("beta", "third", "GPT 5.5", makeMetadata())],
       ),
     ];
 

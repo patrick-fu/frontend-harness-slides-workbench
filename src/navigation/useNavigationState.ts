@@ -1,5 +1,5 @@
 import { useCallback, useState, useSyncExternalStore } from "react";
-import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
+import type { RuntimeCatalogStyleGroup } from "../catalog/runtime-catalog";
 import {
   createBrowserHistoryAdapter,
   createNavigationStore,
@@ -17,7 +17,7 @@ export interface NavigationStateBinding {
 
 /** React observes one Navigation Store; it does not own routing policy. */
 export function useNavigationState(
-  registry: readonly RuntimeStyleGroup[],
+  registry: readonly RuntimeCatalogStyleGroup[],
 ): NavigationStateBinding {
   const [store] = useState(() =>
     createNavigationStore({

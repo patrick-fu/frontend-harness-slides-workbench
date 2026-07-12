@@ -1,4 +1,4 @@
-import type { RuntimeStyleGroup } from "./runtime-registry";
+import type { RuntimeCatalogStyleGroup } from "./runtime-catalog";
 import { BANDS, type Band } from "../domain/style";
 
 // ─── Band definitions ───────────────────────────────────────────────────────
@@ -23,9 +23,9 @@ export const BAND_LABELS: Record<BandId, { en: string; zh: string }> = {
  * Returns an array of [bandId, entries] tuples in BAND_ORDER sequence.
  */
 export function groupByBand(
-  registry: readonly RuntimeStyleGroup[],
-): Array<[BandId, RuntimeStyleGroup[]]> {
-  const map = new Map<BandId, RuntimeStyleGroup[]>();
+  registry: readonly RuntimeCatalogStyleGroup[],
+): Array<[BandId, RuntimeCatalogStyleGroup[]]> {
+  const map = new Map<BandId, RuntimeCatalogStyleGroup[]>();
   for (const band of BAND_ORDER) {
     map.set(band, []);
   }

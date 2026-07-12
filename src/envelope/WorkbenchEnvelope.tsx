@@ -23,6 +23,7 @@ import {
   loadRuntimeTopicStage,
   RUNTIME_REGISTRY,
 } from "../catalog/runtime-registry";
+import { RUNTIME_CATALOG } from "../catalog/runtime-catalog";
 import PlayerRuntime, {
   type PlayerEnvelopeAction,
 } from "../player/PlayerRuntime";
@@ -50,7 +51,7 @@ export default function WorkbenchEnvelope() {
     href: getNavigationHref,
     reload: reloadNavigation,
     catalogScrollTop,
-  } = useNavigationState(RUNTIME_REGISTRY);
+  } = useNavigationState(RUNTIME_CATALOG.discovery.styleGroups);
   const displayLanguage = urlState.lang ?? resolvedLanguage;
   const [libraryOpen, setLibraryOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
@@ -61,7 +62,7 @@ export default function WorkbenchEnvelope() {
   const catalogScrollRef = useRef<HTMLDivElement>(null);
   const skipNextCatalogScrollRestoreRef = useRef(false);
 
-  useFontPreload(RUNTIME_REGISTRY, displayLanguage);
+  useFontPreload(RUNTIME_CATALOG.discovery.styleGroups, displayLanguage);
 
   const activeTopicEntry = useMemo(
     () => findRuntimeTopic(urlState.topicId),
@@ -75,10 +76,15 @@ export default function WorkbenchEnvelope() {
   const resolvedStyleId = activeTopic?.styleId ?? urlState.styleId;
   const filterResolution = useMemo(
     () =>
-      resolveCatalogFilters(RUNTIME_REGISTRY, displayLanguage, {
-        bands: urlState.bands,
-        models: urlState.models,
-      }, urlState.topicId),
+      resolveCatalogFilters(
+        RUNTIME_CATALOG.discovery.styleGroups,
+        displayLanguage,
+        {
+          bands: urlState.bands,
+          models: urlState.models,
+        },
+        urlState.topicId,
+      ),
     [displayLanguage, urlState.bands, urlState.models, urlState.topicId],
   );
   const topicSwitcherOptions = useMemo(

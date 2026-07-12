@@ -1,11 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { lazy } from "react";
 import {
-  RUNTIME_REGISTRY,
-  type RuntimeStyleGroup,
-  type RuntimeTopic,
-} from "../catalog/runtime-registry";
-import type { TopicMetadata, TopicStageProps } from "../domain/topic";
+  RUNTIME_CATALOG,
+  type RuntimeCatalogStyleGroup,
+  type RuntimeCatalogTopic,
+} from "../catalog/runtime-catalog";
+import type { TopicMetadata } from "../domain/topic";
 import { collectAllFonts, buildGoogleFontsUrl, isCJKFont } from "./fonts";
 
 // ---------------------------------------------------------------------------
@@ -27,11 +26,9 @@ function makeMetadata(
   };
 }
 
-const EmptyStage = (_props: TopicStageProps) => null;
-
-function makeEntry(id: string, fonts: string[]): RuntimeStyleGroup {
+function makeEntry(id: string, fonts: string[]): RuntimeCatalogStyleGroup {
   const metadata = makeMetadata(fonts);
-  const topic: RuntimeTopic = {
+  const topic: RuntimeCatalogTopic = {
     id: `${id}-topic`,
     styleId: id,
     title: { en: "Test Topic", zh: "测试题材" },
@@ -45,9 +42,6 @@ function makeEntry(id: string, fonts: string[]): RuntimeStyleGroup {
       "4->5": "hard-cut",
     },
     evidence: { kind: "none" },
-    modulePath: `../topics/${id}-topic.tsx`,
-    Stage: lazy(async () => ({ default: EmptyStage })),
-    loadStage: async () => EmptyStage,
   };
   return {
     style: {
@@ -259,7 +253,7 @@ describe("buildGoogleFontsUrl", () => {
 
   it("emits one selector per authored family across the full source catalog", () => {
     const url = buildGoogleFontsUrl(
-      collectAllFonts(RUNTIME_REGISTRY, "zh"),
+      collectAllFonts(RUNTIME_CATALOG.discovery.styleGroups, "zh"),
     );
     const families = new URL(url).searchParams
       .getAll("family")

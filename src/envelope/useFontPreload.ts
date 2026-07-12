@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { collectAllFonts, buildGoogleFontsUrl } from "../utils/fonts";
-import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
+import type { RuntimeCatalogStyleGroup } from "../catalog/runtime-catalog";
 
 /**
  * Hook that preloads fonts used by the runtime Style Groups.
@@ -12,7 +12,7 @@ import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
  * This is a no-op if the registry is empty or no fonts are found.
  */
 export function useFontPreload(
-  registry: readonly RuntimeStyleGroup[],
+  registry: readonly RuntimeCatalogStyleGroup[],
   language: "en" | "zh",
 ): void {
   const linkRef = useRef<HTMLLinkElement | null>(null);

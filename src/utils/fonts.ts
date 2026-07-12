@@ -1,4 +1,4 @@
-import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
+import type { RuntimeCatalogStyleGroup } from "../catalog/runtime-catalog";
 
 const LEGACY_FONT_WEIGHTS = ["400", "700"];
 const LOCAL_FONT_FAMILIES = new Set([
@@ -49,7 +49,7 @@ export function isCJKFont(fontName: string): boolean {
  * - When lang="zh": keeps all fonts, stripping the "cjk:" prefix.
  */
 export function collectAllFonts(
-  registry: readonly RuntimeStyleGroup[],
+  registry: readonly RuntimeCatalogStyleGroup[],
   lang: "en" | "zh",
 ): string[] {
   const seen = new Set<string>();
