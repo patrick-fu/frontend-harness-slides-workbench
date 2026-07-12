@@ -601,6 +601,14 @@ test.describe("Navigation", () => {
       await expect(page.locator('[data-testid="portrait-hint"]')).toHaveCount(0, {
         timeout: 4000,
       });
+
+      await page.setViewportSize({ width: 844, height: 390 });
+      await dispatchScreenSwipe(
+        page,
+        { x: 650, y: 195 },
+        { x: 550, y: 195 },
+      );
+      await expect.poll(() => parseQueryFromUrl(page.url()).scene).toBe("3");
     } finally {
       await context.close();
     }

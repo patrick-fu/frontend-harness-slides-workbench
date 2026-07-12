@@ -310,8 +310,28 @@ describe("Player Runtime", () => {
     button.focus();
     fireEvent.keyDown(button, { key: "ArrowRight" });
     fireEvent.keyDown(button, { key: " " });
+    const ariaButton = document.createElement("div");
+    ariaButton.setAttribute("role", "button");
+    ariaButton.tabIndex = 0;
+    document.body.appendChild(ariaButton);
+    ariaButton.focus();
+    fireEvent.keyDown(ariaButton, { key: "ArrowRight" });
+    fireEvent.keyDown(ariaButton, { key: " " });
     expect(dispatch).toHaveBeenCalledTimes(3);
     button.remove();
+    ariaButton.remove();
+  });
+
+  it("ignores a presentation key already prevented by Topic interaction", () => {
+    const { dispatch } = setup();
+    const prevented = new KeyboardEvent("keydown", {
+      key: "ArrowRight",
+      bubbles: true,
+      cancelable: true,
+    });
+    prevented.preventDefault();
+    window.dispatchEvent(prevented);
+    expect(dispatch).not.toHaveBeenCalled();
   });
 
   it("uses coarse mobile screen swipes once and ignores prevented touch and wheel input", async () => {

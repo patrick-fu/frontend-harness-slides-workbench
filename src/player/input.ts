@@ -3,7 +3,7 @@ import type { NavigationDirection } from "../navigation";
 
 export const STAGE_PREVIOUS_ZONE_RATIO = 0.2;
 export const SWIPE_NAVIGATION_THRESHOLD = 50;
-export const MOBILE_TOUCH_QUERY = "(max-width: 767px) and (pointer: coarse)";
+export const MOBILE_TOUCH_QUERY = "(pointer: coarse) and (hover: none)";
 const RECENT_TOUCH_WINDOW_MS = 600;
 
 const INTERACTIVE_SELECTOR = [
@@ -76,7 +76,10 @@ function ownsAllShortcuts(target: EventTarget | null) {
 }
 
 function ownsPresentationShortcuts(target: EventTarget | null) {
-  return target instanceof Element && Boolean(target.closest("button,a[href],summary"));
+  return (
+    target instanceof Element &&
+    Boolean(target.closest("button,a[href],summary,[role='button'],[role='link']"))
+  );
 }
 
 interface PlayerKeyboardOptions {
@@ -115,6 +118,7 @@ export function usePlayerKeyboard({
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.defaultPrevented) return;
       if (ownsAllShortcuts(event.target)) return;
       const current = optionsRef.current;
       const presentationKey =
