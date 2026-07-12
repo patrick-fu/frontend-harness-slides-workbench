@@ -1,5 +1,7 @@
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { planCaptureSelection } from "./capture-selection.mjs";
+import { publicationSnapshot } from "./snapshot.mjs";
 
 export const PUBLICATION_USAGE = `Usage:
   npm run generate:catalog
@@ -69,30 +71,30 @@ export function parsePublicationArgs(argv, knownTopicIds) {
 export async function runPublicationCli(argv, dependencies) {
   const preliminary = parsePublicationArgs(argv);
   if (preliminary.command === "capture") {
-    const knownTopicIds = await dependencies.loadKnownTopicIds();
+    const generated = await dependencies.loadGeneratedSnapshot();
+    const knownTopicIds = generated.targets.map((target) => target.topicId);
     const selection = parsePublicationArgs(argv, knownTopicIds);
-    await dependencies.assertCurrentPublicationPlan();
-    await dependencies.capture(selection);
+    const current = await dependencies.loadCurrentSnapshot();
+    dependencies.assertFresh(current, generated);
+    const resolved = planCaptureSelection(current.targets, selection);
+    await dependencies.capture({
+      ...resolved,
+      allTargets: current.targets,
+    });
     return;
   }
   await dependencies[preliminary.command]();
 }
 
 const productionDependencies = {
-  async loadKnownTopicIds() {
-    const { loadGeneratedPublicationTargets } = await import("./load-plan.mjs");
-    const generatedTargets = await loadGeneratedPublicationTargets();
-    return generatedTargets.map((target) => target.topicId);
+  async loadGeneratedSnapshot() {
+    return publicationSnapshot.loadGenerated();
   },
-  async assertCurrentPublicationPlan() {
-    const {
-      assertGeneratedTargetsCurrent,
-      loadGeneratedPublicationTargets,
-      loadPublicationPlan,
-    } = await import("./load-plan.mjs");
-    const generatedTargets = await loadGeneratedPublicationTargets();
-    const plan = await loadPublicationPlan();
-    assertGeneratedTargetsCurrent(plan.targets, generatedTargets);
+  async loadCurrentSnapshot() {
+    return publicationSnapshot.loadCurrent();
+  },
+  assertFresh(current, generated) {
+    publicationSnapshot.assertFresh(current, generated);
   },
   async capture(selection) {
     const { captureShowcaseThumbnails } = await import(

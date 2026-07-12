@@ -1,16 +1,15 @@
 import { execFile as execFileCallback } from "node:child_process";
-import { mkdtemp, mkdir, rename, rm } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, rename, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import { chromium } from "playwright";
-import { planCaptureSelection } from "../publication/capture-selection.mjs";
+import { publicationInventory } from "../publication/inventory.mjs";
+import { publishStagedPreviews } from "../publication/staged-previews.mjs";
 import {
-  collectThumbnailTargets,
   createThumbnailViteServer,
   formatBytes,
-  inspectWebp,
   removeUnmappedShowcaseWebps,
   showcaseDirectory,
 } from "./shared.mjs";
@@ -84,18 +83,12 @@ async function captureTargetOnce(page, baseUrl, target, stagingDirectory) {
       );
     }
 
-    const pngPath = resolve(stagingDirectory, `${target.filename}.png`);
-    const webpPath = resolve(stagingDirectory, target.filename);
+    const pngPath = resolve(stagingDirectory, `${target.previewFilename}.png`);
+    const webpPath = resolve(stagingDirectory, target.previewFilename);
     await stage.screenshot({ path: pngPath, type: "png" });
     await execFile("cwebp", ["-quiet", "-q", "85", "-m", "6", pngPath, "-o", webpPath]);
 
-    const image = await inspectWebp(webpPath);
-    if (image.width !== 1920 || image.height !== 1080) {
-      throw new Error(
-        `WebP is ${image.width}×${image.height}, expected 1920×1080`,
-      );
-    }
-    return { path: webpPath, bytes: image.bytes };
+    return { path: webpPath };
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
     throw new Error(`Failed to capture ${targetLabel}: ${reason}`);
@@ -119,7 +112,11 @@ async function captureTarget(page, baseUrl, target, stagingDirectory) {
   throw new Error(`Unable to capture ${target.styleId}/${target.topicId}`);
 }
 
-export async function captureShowcaseThumbnails(selection) {
+export async function captureShowcaseThumbnails({
+  targets,
+  allTargets,
+  removeOrphans,
+}) {
   await assertCwebpAvailable();
   const vite = await createThumbnailViteServer();
   const stagingDirectory = await mkdtemp(join(tmpdir(), "fh-showcase-thumbnails-"));
@@ -132,11 +129,6 @@ export async function captureShowcaseThumbnails(selection) {
       throw new Error("Vite thumbnail server did not expose a TCP address");
     }
     const baseUrl = `http://127.0.0.1:${address.port}/`;
-    const allTargets = await collectThumbnailTargets(vite);
-    const { targets, removeOrphans } = planCaptureSelection(
-      allTargets,
-      selection,
-    );
     await mkdir(showcaseDirectory, { recursive: true });
 
     browser = await chromium.launch({ headless: true });
@@ -155,20 +147,32 @@ export async function captureShowcaseThumbnails(selection) {
     const results = [];
     for (const [index, target] of targets.entries()) {
       const result = await captureTarget(page, baseUrl, target, stagingDirectory);
-      results.push({ target, ...result });
+      results.push({
+        target,
+        filename: target.previewFilename,
+        ...result,
+      });
       console.log(
         `[${index + 1}/${targets.length}] ${target.styleId}/${target.topicId}`,
       );
     }
 
-    for (const result of results) {
-      await rename(result.path, resolve(showcaseDirectory, result.target.filename));
-    }
+    const inspections = await publishStagedPreviews(results, {
+      read: readFile,
+      inspect: publicationInventory.inspectPreview,
+      commit: (artifact) =>
+        rename(artifact.path, resolve(showcaseDirectory, artifact.filename)),
+    });
     const removedFilenames = removeOrphans
-      ? await removeUnmappedShowcaseWebps(allTargets)
+      ? await removeUnmappedShowcaseWebps(
+          allTargets.map((target) => ({ filename: target.previewFilename })),
+        )
       : [];
 
-    const bytes = results.reduce((sum, result) => sum + result.bytes, 0);
+    const bytes = inspections.reduce(
+      (sum, inspection) => sum + inspection.bytes,
+      0,
+    );
     console.log(
       `Generated ${results.length} 1920×1080 WebP thumbnails (${formatBytes(bytes)}).`,
     );
