@@ -101,10 +101,8 @@ const productionDependencies = {
     await captureShowcaseThumbnails(selection);
   },
   async manifest() {
-    const { generatePublicationArtifacts } = await import(
-      "../generate-catalog-manifest.mjs"
-    );
-    await generatePublicationArtifacts();
+    const { publicationManifest } = await import("./manifest.mjs");
+    await publicationManifest.generate();
   },
   async verify() {
     const { verifyShowcaseThumbnails } = await import(
