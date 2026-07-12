@@ -14170,6 +14170,310 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/tcp-congestion-control.tsx"
+      },
+      {
+        "id": "two-triangles-one-pixel",
+        "styleId": "engineering-whiteboard-explainer",
+        "title": {
+          "en": "Two Triangles, One Pixel",
+          "zh": "双三角，争一像素"
+        },
+        "modelId": "Claude Opus 4.8",
+        "metadata": {
+          "en": {
+            "theme": "A white engineering canvas where two triangles race a single target pixel through the vertex, clip, raster, shade, depth and framebuffer stages of a real-time pipeline.",
+            "densityLabel": "Explainer",
+            "heroScene": 4,
+            "colors": {
+              "bg": "#ffffff",
+              "ink": "#23272e",
+              "panel": "#f6f8fb"
+            },
+            "typography": {
+              "header": "LXGW WenKai / Caveat",
+              "body": "JetBrains Mono"
+            },
+            "tags": [
+              "engineering",
+              "whiteboard",
+              "explainer",
+              "graphics",
+              "rasterization",
+              "gpu-pipeline",
+              "developer-education"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "Caveat",
+              "cjk:LXGW WenKai"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "One Pixel, Two Claims",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "converge",
+                    "title": "Two triangles can fight over one pixel",
+                    "body": "Both cover the same target cell. Only one color survives."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Place the Vertices",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "transform",
+                    "title": "First, every corner becomes a coordinate",
+                    "body": "Vertices are pinned in clip space, not on the screen yet."
+                  },
+                  {
+                    "id": 1,
+                    "action": "clip",
+                    "title": "Whatever falls off-screen is clipped away",
+                    "body": "Clipping trims outside geometry before it can cost work."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Turn Area into Fragments",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "grid",
+                    "title": "The screen is really a grid of cells",
+                    "body": "Rasterization asks which cells each triangle touches."
+                  },
+                  {
+                    "id": 1,
+                    "action": "cover",
+                    "title": "Each covered cell becomes a candidate fragment",
+                    "body": "A fragment is a maybe-pixel, not a pixel yet."
+                  },
+                  {
+                    "id": 2,
+                    "action": "interpolate",
+                    "title": "Corner values are interpolated across the face",
+                    "body": "Color and depth are blended in from the three vertices."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Shade, then Reject",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "shade",
+                    "title": "The shader paints each candidate a color",
+                    "body": "Two fragments now hold two finished colors."
+                  },
+                  {
+                    "id": 1,
+                    "action": "depth-test",
+                    "title": "At the depth gate, the nearer one wins",
+                    "body": "Coral z=0.28 sits in front of cyan z=0.72."
+                  },
+                  {
+                    "id": 2,
+                    "action": "reject",
+                    "title": "The far fragment did real work, then lost",
+                    "body": "Its shading is thrown away — that is overdraw."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Commit One Pixel",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "write",
+                    "title": "The winner writes into the framebuffer",
+                    "body": "Opaque fragments overwrite; transparent ones blend."
+                  },
+                  {
+                    "id": 1,
+                    "action": "resolve",
+                    "title": "A pixel is a survivor, not a stroke",
+                    "body": "What you see is the fragment that made it through."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "一张白色工程画板：两个三角形争夺同一个目标像素，穿过顶点、裁剪、光栅、着色、深度与帧缓冲这条实时渲染流水线。",
+            "densityLabel": "讲解",
+            "heroScene": 4,
+            "colors": {
+              "bg": "#ffffff",
+              "ink": "#23272e",
+              "panel": "#f6f8fb"
+            },
+            "typography": {
+              "header": "LXGW WenKai / Caveat",
+              "body": "JetBrains Mono"
+            },
+            "tags": [
+              "engineering",
+              "whiteboard",
+              "explainer",
+              "graphics",
+              "rasterization",
+              "gpu-pipeline",
+              "developer-education"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "Caveat",
+              "cjk:LXGW WenKai"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "一个像素，两方争夺",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "converge",
+                    "title": "两个三角形能抢同一个像素",
+                    "body": "它们都盖住了那个格子，但最后只能留下一种颜色。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "先安放顶点",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "transform",
+                    "title": "第一步，每个角都变成坐标",
+                    "body": "顶点先被钉在裁剪空间里，还没落到屏幕上。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "clip",
+                    "title": "掉出画面的部分会被剪掉",
+                    "body": "裁剪在耗费算力之前，先修掉视野之外的几何。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "把面积拆成片元",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "grid",
+                    "title": "屏幕其实是一格格的网格",
+                    "body": "光栅化要问：每个三角形碰到了哪些格子。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "cover",
+                    "title": "每个被覆盖的格子成为候选片元",
+                    "body": "片元只是“候选像素”，还不是像素。"
+                  },
+                  {
+                    "id": 2,
+                    "action": "interpolate",
+                    "title": "顶点上的值沿着面被插值",
+                    "body": "颜色和深度从三个顶点混合进来。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "先着色，再淘汰",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "shade",
+                    "title": "着色器给每个候选涂上颜色",
+                    "body": "两个片元现在各自拿到一种成品颜色。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "depth-test",
+                    "title": "在深度门前，更近的一方胜出",
+                    "body": "珊瑚色 z=0.28 挡在青色 z=0.72 前面。"
+                  },
+                  {
+                    "id": 2,
+                    "action": "reject",
+                    "title": "远处的片元做了活，却输了",
+                    "body": "它的着色被丢弃——这就是过度绘制。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "写定这一个像素",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "write",
+                    "title": "胜出者写进帧缓冲",
+                    "body": "不透明片元直接覆盖，透明的则做混合。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "resolve",
+                    "title": "像素是幸存者，不是一笔画",
+                    "body": "你看到的，是穿过流水线活下来的那个片元。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "pixel-inspector-grid",
+          "invocation": "click-expand",
+          "feedback": "geometry-reflow"
+        },
+        "transitionScore": {
+          "1->2": "zoom-through",
+          "2->3": "grid-reveal",
+          "3->4": "focus-swap",
+          "4->5": "split-merge"
+        },
+        "evidence": {
+          "kind": "mixed",
+          "display": "envelope",
+          "sources": [
+            {
+              "authority": "W3C GPU for the Web Working Group",
+              "title": "WebGPU",
+              "url": "https://gpuweb.github.io/gpuweb/",
+              "supports": "Defines the real-time render pipeline stages — vertex processing, primitive assembly and clipping, rasterization into fragments, fragment shading, and depth/stencil plus blend output — that this Topic walks through."
+            },
+            {
+              "authority": "W3C GPU for the Web Working Group",
+              "title": "WebGPU Shading Language (WGSL)",
+              "url": "https://gpuweb.github.io/gpuweb/wgsl/",
+              "supports": "Specifies how vertex and fragment shaders emit per-vertex and per-fragment outputs, supporting the claim that a shaded fragment is a candidate value rather than a final pixel."
+            },
+            {
+              "authority": "Khronos Group",
+              "title": "Vulkan Tutorial — Graphics pipeline basics: Introduction",
+              "url": "https://docs.vulkan.org/tutorial/latest/03_Drawing_a_triangle/02_Graphics_pipeline_basics/00_Introduction.html",
+              "supports": "Describes the ordered fixed-function and programmable stages a triangle passes through, including rasterization to fragments and depth testing, supporting the pipeline ordering shown here."
+            }
+          ],
+          "boundary": {
+            "en": "The two triangles, the fixed depth values (0.28 and 0.72), and the visual queues here are API-neutral teaching illustrations. Real GPUs, drivers, APIs, and pipeline state may reorder, batch, or optimize this work, so this is not a claim of serial hardware execution or fixed performance.",
+            "zh": "这里的两个三角形、固定深度值（0.28 与 0.72）以及可视化队列，都是与具体 API 无关的教学示意。真实的 GPU、驱动、API 与管线状态可能重排、合批或优化这些工作，因此这既不代表硬件真的按此串行执行，也不代表固定的性能。"
+          }
+        },
+        "modulePath": "../topics/two-triangles-one-pixel.tsx"
       }
     ]
   },
@@ -58766,7 +59070,7 @@ export const CATALOG_MANIFEST = [
 
 export const CATALOG_STATS = {
   "styles": 49,
-  "topics": 195
+  "topics": 196
 } as const satisfies PublicationStats;
 
 export const PUBLICATION_TARGETS = [
@@ -59424,6 +59728,20 @@ export const PUBLICATION_TARGETS = [
       "language": "en",
       "scene": 4,
       "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "engineering-whiteboard-explainer",
+    "topicId": "two-triangles-one-pixel",
+    "modulePath": "../topics/two-triangles-one-pixel.tsx",
+    "testPath": "src/topics/two-triangles-one-pixel.test.tsx",
+    "previewFilename": "two-triangles-one-pixel.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
       "pure": true,
       "frozen": true
     }
@@ -62578,6 +62896,24 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 4,
       "beat": 3,
       "evidenceBoundary": "经典 TCP 行为的简化教学模型：包数量、接收窗口数值、丢包原因、AIMD 响应和公平性结果会随算法、实现、路径与流量条件而变化。"
+    },
+    {
+      "styleId": "engineering-whiteboard-explainer",
+      "topicId": "two-triangles-one-pixel",
+      "topicName": "Two Triangles, One Pixel",
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "The two triangles, the fixed depth values (0.28 and 0.72), and the visual queues here are API-neutral teaching illustrations. Real GPUs, drivers, APIs, and pipeline state may reorder, batch, or optimize this work, so this is not a claim of serial hardware execution or fixed performance."
+    },
+    {
+      "styleId": "engineering-whiteboard-explainer",
+      "topicId": "two-triangles-one-pixel",
+      "topicName": "双三角，争一像素",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "这里的两个三角形、固定深度值（0.28 与 0.72）以及可视化队列，都是与具体 API 无关的教学示意。真实的 GPU、驱动、API 与管线状态可能重排、合批或优化这些工作，因此这既不代表硬件真的按此串行执行，也不代表固定的性能。"
     },
     {
       "styleId": "soft-pastel-friendly",
