@@ -1,6 +1,4 @@
 import { resolveWorkbenchFilters } from "../domain/filter";
-import type { ModelId } from "../domain/model";
-import type { Band } from "../domain/style";
 
 export type NavigationView = "overview" | "lab";
 export type NavigationLanguage = "en" | "zh";
@@ -234,17 +232,6 @@ export function serializeNavigationState(state: NavigationState): string {
   return `?${params.toString()}`;
 }
 
-function flattenTopics(registry: NavigationRegistry) {
-  return registry.flatMap((group) =>
-    group.topics.map((topic) => ({
-      topicId: topic.id,
-      band: group.style.band as Band,
-      modelId: topic.modelId as ModelId,
-      topic,
-    })),
-  );
-}
-
 function lastPosition(topic: NavigationTopic) {
   const scenes = topic.metadata.en.scenes;
   const scene = scenes[scenes.length - 1];
@@ -290,14 +277,11 @@ function move(
   }
 
   if (state.pureMode) return state;
-  const topics = flattenTopics(registry);
+  const resolution = resolveWorkbenchFilters(registry, state, state.topicId);
+  const topics = resolution.allTopics;
   const topicIndex = topics.findIndex(({ topic }) => topic.id === state.topicId);
   if (topicIndex < 0 || topics.length === 0) return state;
-  const cycleScope = resolveWorkbenchFilters(
-    topics,
-    state,
-    state.topicId,
-  ).matchingTopics;
+  const cycleScope = resolution.matchingTopics;
   if (cycleScope.length === 0) return state;
   const scopeIndex = cycleScope.findIndex(
     (entry) => entry.topicId === state.topicId,

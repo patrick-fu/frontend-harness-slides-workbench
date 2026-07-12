@@ -1,65 +1,94 @@
-import type { ModelId } from "./model";
-import type { Band } from "./style";
-
 export interface WorkbenchFilters {
   bands: string[];
   models: string[];
 }
 
-export interface WorkbenchFilterTopicFacts {
+export interface WorkbenchFilterStyleFacts {
+  band: string;
+}
+
+export interface WorkbenchFilterTopicIdentity {
+  id: string;
+  modelId: string;
+}
+
+export interface WorkbenchFilterTopicFacts<
+  Style extends WorkbenchFilterStyleFacts,
+  Topic extends WorkbenchFilterTopicIdentity,
+> {
   topicId: string;
-  band: Band;
-  modelId: ModelId;
+  band: Style["band"];
+  modelId: Topic["modelId"];
+  style: Style;
+  topic: Topic;
 }
 
 export interface WorkbenchFilterResolution<
-  Topic extends WorkbenchFilterTopicFacts,
+  Style extends WorkbenchFilterStyleFacts,
+  Topic extends WorkbenchFilterTopicIdentity,
 > {
-  matchingTopics: readonly Topic[];
+  allTopics: readonly WorkbenchFilterTopicFacts<Style, Topic>[];
+  matchingTopics: readonly WorkbenchFilterTopicFacts<Style, Topic>[];
   unresolved: WorkbenchFilters;
   facetCounts: {
-    bands: readonly { band: Band; count: number }[];
-    models: readonly { modelId: ModelId; count: number }[];
+    bands: readonly { band: Style["band"]; count: number }[];
+    models: readonly { modelId: Topic["modelId"]; count: number }[];
   };
   isTopicInCycleScope: (topicId: string) => boolean;
   currentTopicInCycleScope: boolean;
 }
 
-function unresolvedWorkbenchFilters(
-  knownBands: ReadonlySet<string>,
-  knownModels: ReadonlySet<string>,
+export type WorkbenchFilterRegistry<
+  Style extends WorkbenchFilterStyleFacts,
+  Topic extends WorkbenchFilterTopicIdentity,
+> = readonly {
+  style: Style;
+  topics: readonly Topic[];
+}[];
+
+function toggleMatches(
+  topic: WorkbenchFilterTopicFacts<WorkbenchFilterStyleFacts, WorkbenchFilterTopicIdentity>,
   filters: WorkbenchFilters,
-): WorkbenchFilters {
-  return {
-    bands: filters.bands.filter((band) => !knownBands.has(band)),
-    models: filters.models.filter((model) => !knownModels.has(model)),
-  };
+) {
+  return (
+    (filters.bands.length === 0 || filters.bands.includes(topic.band)) &&
+    (filters.models.length === 0 || filters.models.includes(topic.modelId))
+  );
 }
 
 export function resolveWorkbenchFilters<
-  Topic extends WorkbenchFilterTopicFacts,
+  Style extends WorkbenchFilterStyleFacts,
+  Topic extends WorkbenchFilterTopicIdentity,
 >(
-  topics: readonly Topic[],
+  registry: WorkbenchFilterRegistry<Style, Topic>,
   filters: WorkbenchFilters,
   currentTopicId: string,
-): WorkbenchFilterResolution<Topic> {
-  const knownBands = new Set(topics.map((topic) => topic.band));
-  const knownModels = new Set(topics.map((topic) => topic.modelId));
-  const unresolved = unresolvedWorkbenchFilters(
-    knownBands,
-    knownModels,
-    filters,
+): WorkbenchFilterResolution<Style, Topic> {
+  const allTopics = registry.flatMap((group) =>
+    group.topics.map((topic) => ({
+      topicId: topic.id,
+      band: group.style.band,
+      modelId: topic.modelId,
+      style: group.style,
+      topic,
+    })),
   );
+  const knownBands = new Set(allTopics.map((topic) => topic.band));
+  const knownModels = new Set(allTopics.map((topic) => topic.modelId));
+  const unresolved = {
+    bands: filters.bands.filter((band) => !knownBands.has(band)),
+    models: filters.models.filter((model) => !knownModels.has(model)),
+  };
   const hasUnresolvedCriteria =
     unresolved.bands.length > 0 || unresolved.models.length > 0;
-  const bands: { band: Band; count: number }[] = [];
-  const models: { modelId: ModelId; count: number }[] = [];
+  const bands: { band: Style["band"]; count: number }[] = [];
+  const models: { modelId: Topic["modelId"]; count: number }[] = [];
 
-  for (const topic of topics) {
+  for (const topic of allTopics) {
     if (!bands.some((option) => option.band === topic.band)) {
       bands.push({
         band: topic.band,
-        count: topics.filter(
+        count: allTopics.filter(
           (candidate) =>
             candidate.band === topic.band &&
             (filters.models.length === 0 ||
@@ -67,11 +96,10 @@ export function resolveWorkbenchFilters<
         ).length,
       });
     }
-
     if (!models.some((option) => option.modelId === topic.modelId)) {
       models.push({
         modelId: topic.modelId,
-        count: topics.filter(
+        count: allTopics.filter(
           (candidate) =>
             candidate.modelId === topic.modelId &&
             (filters.bands.length === 0 ||
@@ -80,47 +108,20 @@ export function resolveWorkbenchFilters<
       });
     }
   }
+
   const matchingTopics = hasUnresolvedCriteria
     ? []
-    : topics.filter((topic) =>
-        matchesWorkbenchFilters(topic.band, topic.modelId, filters),
-      );
+    : allTopics.filter((topic) => toggleMatches(topic, filters));
   const cycleScopeTopicIds = new Set(
     matchingTopics.map((topic) => topic.topicId),
   );
 
   return {
+    allTopics,
     matchingTopics,
     unresolved,
     facetCounts: { bands, models },
     isTopicInCycleScope: (topicId) => cycleScopeTopicIds.has(topicId),
     currentTopicInCycleScope: cycleScopeTopicIds.has(currentTopicId),
   };
-}
-
-/** Band and Model selections are OR within a facet and AND across facets. */
-export function matchesWorkbenchFilters(
-  band: string,
-  modelId: string,
-  filters: WorkbenchFilters,
-): boolean {
-  return (
-    (filters.bands.length === 0 || filters.bands.includes(band)) &&
-    (filters.models.length === 0 || filters.models.includes(modelId))
-  );
-}
-
-/** Unknown query values remain unresolved instead of broadening results. */
-export function hasUnresolvedWorkbenchFilters(
-  knownBands: ReadonlySet<string>,
-  knownModels: ReadonlySet<string>,
-  filters: WorkbenchFilters,
-): boolean {
-  const unresolved = unresolvedWorkbenchFilters(
-    knownBands,
-    knownModels,
-    filters,
-  );
-
-  return unresolved.bands.length > 0 || unresolved.models.length > 0;
 }

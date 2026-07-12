@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, within } from "@testing-library/react";
-import CatalogFilters, { type FilterOption } from "./CatalogFilters";
+import CatalogFilters from "./CatalogFilters";
+import type { FilterEditor, FilterOption } from "./filter-editor";
 
 const bandOptions: FilterOption[] = [
   { value: "minimal-keynote", label: "Minimal Keynote", count: 4 },
@@ -19,16 +20,21 @@ const modelOptions: FilterOption[] = [
   { value: "Llama", label: "Llama", count: 1 },
 ];
 
-const defaultProps = {
+const defaultEditor: FilterEditor = {
   bandOptions,
   modelOptions,
   selectedBands: [] as string[],
   selectedModels: [] as string[],
-  unavailableBands: [] as string[],
-  unavailableModels: [] as string[],
-  onToggleBand: vi.fn(),
-  onToggleModel: vi.fn(),
-  onClearFilters: vi.fn(),
+  unavailable: { bands: [], models: [] },
+  activeCount: 0,
+  hasActiveFilters: false,
+  toggleBand: vi.fn(),
+  toggleModel: vi.fn(),
+  clear: vi.fn(),
+};
+
+const defaultProps = {
+  editor: defaultEditor,
   language: "en" as const,
 };
 
@@ -40,8 +46,11 @@ describe("CatalogFilters", () => {
     render(
       <CatalogFilters
         {...defaultProps}
-        onToggleBand={onToggleBand}
-        onToggleModel={onToggleModel}
+        editor={{
+          ...defaultEditor,
+          toggleBand: onToggleBand,
+          toggleModel: onToggleModel,
+        }}
       />,
     );
 
@@ -57,7 +66,12 @@ describe("CatalogFilters", () => {
   it("keeps overflowing Model ID options in a searchable +N popover", () => {
     const onToggleModel = vi.fn();
 
-    render(<CatalogFilters {...defaultProps} onToggleModel={onToggleModel} />);
+    render(
+      <CatalogFilters
+        {...defaultProps}
+        editor={{ ...defaultEditor, toggleModel: onToggleModel }}
+      />,
+    );
 
     const trigger = screen.getByRole("button", { name: "+1 Model IDs" });
     fireEvent.click(trigger);
@@ -78,7 +92,12 @@ describe("CatalogFilters", () => {
   it("opens the complete filter list in a mobile bottom sheet", () => {
     const onToggleModel = vi.fn();
 
-    render(<CatalogFilters {...defaultProps} onToggleModel={onToggleModel} />);
+    render(
+      <CatalogFilters
+        {...defaultProps}
+        editor={{ ...defaultEditor, toggleModel: onToggleModel }}
+      />,
+    );
 
     fireEvent.click(screen.getByRole("button", { name: "Filters" }));
     const sheet = screen.getByRole("dialog", { name: "Filters" });
@@ -98,10 +117,13 @@ describe("CatalogFilters", () => {
     render(
       <CatalogFilters
         {...defaultProps}
-        bandOptions={[
-          ...bandOptions,
-          { value: "craft-cultural", label: "Craft & Cultural", count: 0, disabled: true },
-        ]}
+        editor={{
+          ...defaultEditor,
+          bandOptions: [
+            ...bandOptions,
+            { value: "craft-cultural", label: "Craft & Cultural", count: 0, disabled: true },
+          ],
+        }}
       />,
     );
 

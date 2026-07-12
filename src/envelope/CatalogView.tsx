@@ -1,36 +1,27 @@
 import { useCallback, useMemo, useState, type MouseEvent } from "react";
 import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
 import {
-  type CatalogFilters as CatalogFilterState,
-  type CatalogFilterResolution,
-  type CatalogTopicEntry,
-} from "../utils/catalog-filter";
+  type RuntimeCatalogFilterResolution,
+  type RuntimeCatalogFilterTopic,
+} from "../catalog/runtime-catalog";
 import { modelColor } from "../utils/model-color";
 import { getShowcaseThumbnail } from "../data/showcase-thumbnails";
-import { BAND_LABELS, BAND_ORDER } from "../catalog/bands";
-import CatalogFilters, { type FilterOption } from "./CatalogFilters";
+import CatalogFilters from "./CatalogFilters";
+import type { FilterEditor } from "./filter-editor";
 
 export interface CatalogViewProps {
   registry: readonly RuntimeStyleGroup[];
   language: "en" | "zh";
-  /** URL-owned Catalog facets. Overview never serializes them itself. */
-  filters: CatalogFilterState;
   /** One canonical interpretation of the current Registry and Navigation Filters. */
-  resolution: CatalogFilterResolution;
-  /** Replaces the URL-owned filters after a user interaction. */
-  onFiltersChange: (filters: CatalogFilterState) => void;
+  resolution: RuntimeCatalogFilterResolution;
+  /** One shared option and action interface for every Filter presentation. */
+  filterEditor: FilterEditor;
   /** Supplies the exact route for an independently openable Topic Card. */
   getTopicHref: (topicId: string) => string;
   /** Handles an ordinary left-click so the shell can retain Catalog scroll state. */
   onOpenTopic: (topicId: string) => void;
   /** Warms the exact Stage chunk when intent is visible, without navigating. */
   onPrefetchTopic?: (topicId: string) => void;
-}
-
-function toggleValue(values: string[], value: string): string[] {
-  return values.includes(value)
-    ? values.filter((current) => current !== value)
-    : [...values, value];
 }
 
 function summaryLabel(
@@ -64,7 +55,7 @@ function isPlainPrimaryClick(event: MouseEvent<HTMLAnchorElement>) {
 }
 
 interface TopicCardProps {
-  topic: CatalogTopicEntry;
+  topic: RuntimeCatalogFilterTopic;
   language: "en" | "zh";
   href: string;
   isStyleGroupStart: boolean;
@@ -84,6 +75,7 @@ function TopicCard({
 }: TopicCardProps) {
   const [isThumbnailLoaded, setIsThumbnailLoaded] = useState(false);
   const thumbnailSrc = getShowcaseThumbnail(topic.topic.id);
+  const metadata = topic.topic.metadata[language];
   const cardLabel = `${topic.style.name[language]}: ${topic.topic.title[language]}, ${topic.topic.modelId}`;
 
   const handleOpen = useCallback(
@@ -114,20 +106,20 @@ function TopicCard({
         ].join(" ")}
         style={
           isStyleGroupStart
-            ? { borderLeftColor: topic.metadata.colors.ink }
+            ? { borderLeftColor: metadata.colors.ink }
             : undefined
         }
       >
         <div
           className="relative aspect-video overflow-hidden"
-          style={{ backgroundColor: topic.metadata.colors.bg }}
+          style={{ backgroundColor: metadata.colors.bg }}
         >
           <div
             data-testid="thumbnail-placeholder"
             aria-hidden="true"
             className="absolute inset-0 flex items-end bg-[radial-gradient(circle_at_82%_14%,rgba(255,255,255,0.25),transparent_36%)] p-4"
           >
-            <span className="min-w-0 max-w-[78%]" style={{ color: topic.metadata.colors.ink }}>
+            <span className="min-w-0 max-w-[78%]" style={{ color: metadata.colors.ink }}>
               <span className="block truncate text-sm font-semibold">{topic.topic.title[language]}</span>
               <span className="mt-1 flex items-center gap-1.5 font-mono text-[9px] opacity-65">
                 <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: modelColor(topic.topic.modelId) }} />
@@ -185,9 +177,8 @@ function TopicCard({
 export default function CatalogView({
   registry,
   language,
-  filters,
   resolution,
-  onFiltersChange,
+  filterEditor,
   getTopicHref,
   onOpenTopic,
   onPrefetchTopic,
@@ -195,13 +186,9 @@ export default function CatalogView({
   const {
     allTopics,
     matchingTopics: visibleTopics,
-    facetCounts,
-    unresolved: {
-      bands: unavailableBands,
-      models: unavailableModels,
-    },
-    hasActiveFilters: hasFilters,
+    unresolved: { bands: unavailableBands, models: unavailableModels },
   } = resolution;
+  const hasFilters = filterEditor.hasActiveFilters;
   const hasUnavailableFilters =
     unavailableBands.length > 0 || unavailableModels.length > 0;
   const totalStyles = useMemo(
@@ -222,52 +209,6 @@ export default function CatalogView({
     () => new Set(visibleTopics.map((topic) => topic.style.id)).size,
     [visibleTopics],
   );
-  const bandOptions = useMemo<FilterOption[]>(() => {
-    const counts = new Map(
-      facetCounts.bands.map(({ band, count }) => [band, count]),
-    );
-    return BAND_ORDER.map((band) => {
-      const count = counts.get(band) ?? 0;
-      return {
-        value: band,
-        label: BAND_LABELS[band][language],
-        count,
-        disabled: count === 0,
-      };
-    });
-  }, [facetCounts.bands, language]);
-  const modelOptions = useMemo<FilterOption[]>(
-    () =>
-      facetCounts.models.map(({ modelId, count }) => ({
-        value: modelId,
-        label: modelId,
-        count,
-        disabled: count === 0,
-      })),
-    [facetCounts.models],
-  );
-  const updateBands = useCallback(
-    (band: string) => {
-      onFiltersChange({
-        bands: toggleValue(filters.bands, band),
-        models: [...filters.models],
-      });
-    },
-    [filters.bands, filters.models, onFiltersChange],
-  );
-  const updateModels = useCallback(
-    (model: string) => {
-      onFiltersChange({
-        bands: [...filters.bands],
-        models: toggleValue(filters.models, model),
-      });
-    },
-    [filters.bands, filters.models, onFiltersChange],
-  );
-  const clearFilters = useCallback(() => {
-    onFiltersChange({ bands: [], models: [] });
-  }, [onFiltersChange]);
-
   let lastStyleId: string | null = null;
 
   return (
@@ -298,15 +239,7 @@ export default function CatalogView({
           </div>
           <div className="mt-2">
             <CatalogFilters
-              bandOptions={bandOptions}
-              modelOptions={modelOptions}
-              selectedBands={filters.bands}
-              selectedModels={filters.models}
-              unavailableBands={unavailableBands}
-              unavailableModels={unavailableModels}
-              onToggleBand={updateBands}
-              onToggleModel={updateModels}
-              onClearFilters={clearFilters}
+              editor={filterEditor}
               language={language}
             />
           </div>
@@ -333,7 +266,7 @@ export default function CatalogView({
               </p>
               <button
                 type="button"
-                onClick={clearFilters}
+                onClick={filterEditor.clear}
                 className="mt-4 text-xs font-medium text-ink/70 underline underline-offset-4 hover:text-ink"
               >
                 {language === "zh" ? "清除全部筛选" : "Clear all filters"}

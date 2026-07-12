@@ -577,8 +577,17 @@ test.describe("Navigation", () => {
     });
     const page = await context.newPage();
     try {
-      await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
+      const query = buildQuery({
+        view: "lab",
+        style: "minimal-product-keynote",
+        topic: getFirstTopicId("minimal-product-keynote"),
+        scene: 1,
+        beat: 0,
+        frozen: true,
+      });
+      await page.goto(`/${query}`, { waitUntil: "domcontentloaded" });
       await expect(page.locator('[data-testid="portrait-hint"]')).toBeVisible();
+      await expect(page.locator('[data-testid="stage"]')).toBeVisible();
 
       await dispatchScreenSwipe(
         page,

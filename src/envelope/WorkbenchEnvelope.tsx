@@ -27,7 +27,8 @@ import { RUNTIME_CATALOG } from "../catalog/runtime-catalog";
 import PlayerRuntime, {
   type PlayerEnvelopeAction,
 } from "../player/PlayerRuntime";
-import { resolveCatalogFilters } from "../utils/catalog-filter";
+import { resolveWorkbenchFilters } from "../domain/filter";
+import { createFilterEditor } from "./filter-editor";
 
 const RECENT_TOPICS_KEY = "fhsw:recent-topics";
 
@@ -75,16 +76,15 @@ export default function WorkbenchEnvelope() {
   const resolvedStyleId = activeTopic?.styleId ?? urlState.styleId;
   const filterResolution = useMemo(
     () =>
-      resolveCatalogFilters(
+      resolveWorkbenchFilters(
         RUNTIME_CATALOG.discovery.styleGroups,
-        displayLanguage,
         {
           bands: urlState.bands,
           models: urlState.models,
         },
         urlState.topicId,
       ),
-    [displayLanguage, urlState.bands, urlState.models, urlState.topicId],
+    [urlState.bands, urlState.models, urlState.topicId],
   );
   const topicSwitcherOptions = useMemo(
     () =>
@@ -184,6 +184,22 @@ export default function WorkbenchEnvelope() {
       dispatchNavigation({ type: "set-filters", ...next }),
     [dispatchNavigation],
   );
+  const filterEditor = useMemo(
+    () =>
+      createFilterEditor({
+        filters: { bands: urlState.bands, models: urlState.models },
+        resolution: filterResolution,
+        language: displayLanguage,
+        onChange: updateFilters,
+      }),
+    [
+      displayLanguage,
+      filterResolution,
+      updateFilters,
+      urlState.bands,
+      urlState.models,
+    ],
+  );
 
   const getTopicHrefById = useCallback(
     (topicId: string) => getNavigationHref({ type: "open-topic", topicId }),
@@ -278,9 +294,8 @@ export default function WorkbenchEnvelope() {
           <CatalogView
             registry={RUNTIME_REGISTRY}
             language={displayLanguage}
-            filters={{ bands: urlState.bands, models: urlState.models }}
             resolution={filterResolution}
-            onFiltersChange={updateFilters}
+            filterEditor={filterEditor}
             getTopicHref={getTopicHrefById}
             onOpenTopic={selectTopicById}
             onPrefetchTopic={(topicId) => {
@@ -313,9 +328,8 @@ export default function WorkbenchEnvelope() {
                 filterControl={
                   <PlayerFilterControl
                     language={displayLanguage}
-                    filters={{ bands: urlState.bands, models: urlState.models }}
                     resolution={filterResolution}
-                    onFiltersChange={updateFilters}
+                    filterEditor={filterEditor}
                   />
                 }
                 controls={controls("lab")}

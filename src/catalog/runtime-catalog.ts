@@ -1,5 +1,9 @@
 import type { StyleDefinition } from "../domain/style";
 import type { TopicStage } from "../domain/topic";
+import type {
+  WorkbenchFilterResolution,
+  WorkbenchFilterTopicFacts,
+} from "../domain/filter";
 import { CATALOG_MANIFEST } from "./manifest.generated";
 import type { CatalogStyleGroup, CatalogTopic } from "./topic-catalog";
 import {
@@ -23,6 +27,16 @@ export interface RuntimeCatalogStyleGroup {
   style: StyleDefinition;
   topics: readonly RuntimeCatalogTopic[];
 }
+
+export type RuntimeCatalogFilterTopic = WorkbenchFilterTopicFacts<
+  StyleDefinition,
+  RuntimeCatalogTopic
+>;
+
+export type RuntimeCatalogFilterResolution = WorkbenchFilterResolution<
+  StyleDefinition,
+  RuntimeCatalogTopic
+>;
 
 export interface RuntimeCatalogTopicEntry {
   style: StyleDefinition;

@@ -1,27 +1,67 @@
 import { describe, expect, it } from "vitest";
 import {
   resolveWorkbenchFilters,
-  type WorkbenchFilterTopicFacts,
+  type WorkbenchFilterRegistry,
 } from "./filter";
 
 const topics = [
-  { topicId: "alpha", band: "minimal-keynote", modelId: "GPT 5.5" },
-  {
-    topicId: "beta",
-    band: "minimal-keynote",
-    modelId: "Claude Opus 4.8",
-  },
-  { topicId: "gamma", band: "editorial-print", modelId: "GPT 5.5" },
-  {
-    topicId: "delta",
-    band: "editorial-print",
-    modelId: "Doubao-Seed-Evolving",
-  },
-  { topicId: "epsilon", band: "balanced-hybrid", modelId: "GPT 5.5" },
-  { topicId: "zeta", band: "craft-cultural", modelId: "GPT 5.6 Sol" },
-] satisfies readonly WorkbenchFilterTopicFacts[];
+  ["alpha", "minimal-keynote", "GPT 5.5"],
+  ["beta", "minimal-keynote", "Claude Opus 4.8"],
+  ["gamma", "editorial-print", "GPT 5.5"],
+  ["delta", "editorial-print", "Doubao-Seed-Evolving"],
+  ["epsilon", "balanced-hybrid", "GPT 5.5"],
+  ["zeta", "craft-cultural", "GPT 5.6 Sol"],
+].map(([id, band, modelId]) => ({
+  style: { band },
+  topics: [{ id, modelId }],
+})) satisfies WorkbenchFilterRegistry<
+  { band: string },
+  { id: string; modelId: string }
+>;
 
 describe("resolveWorkbenchFilters", () => {
+  const topicIds = (resolution: ReturnType<typeof resolveWorkbenchFilters>) =>
+    resolution.matchingTopics.map((topic) => topic.topicId);
+
+  it("returns every Topic in Registry order when no Filters are active", () => {
+    expect(
+      topicIds(resolveWorkbenchFilters(topics, { bands: [], models: [] }, "")),
+    ).toEqual(["alpha", "beta", "gamma", "delta", "epsilon", "zeta"]);
+  });
+
+  it.each([
+    [
+      "one Band",
+      { bands: ["minimal-keynote"], models: [] },
+      ["alpha", "beta"],
+    ],
+    [
+      "multiple Bands with OR semantics",
+      { bands: ["minimal-keynote", "craft-cultural"], models: [] },
+      ["alpha", "beta", "zeta"],
+    ],
+    [
+      "one Model ID",
+      { bands: [], models: ["GPT 5.5"] },
+      ["alpha", "gamma", "epsilon"],
+    ],
+    [
+      "multiple Model IDs with OR semantics",
+      { bands: [], models: ["GPT 5.5", "Claude Opus 4.8"] },
+      ["alpha", "beta", "gamma", "epsilon"],
+    ],
+  ] as const)("resolves %s", (_label, filters, expected) => {
+    expect(
+      topicIds(
+        resolveWorkbenchFilters(
+          topics,
+          { bands: [...filters.bands], models: [...filters.models] },
+          "",
+        ),
+      ),
+    ).toEqual(expected);
+  });
+
   it("uses OR within facets and AND between facets while preserving Registry order", () => {
     const resolution = resolveWorkbenchFilters(
       topics,
@@ -37,6 +77,18 @@ describe("resolveWorkbenchFilters", () => {
       "gamma",
       "delta",
     ]);
+  });
+
+  it("returns no matches for a known Band and Model combination with no intersection", () => {
+    const resolution = resolveWorkbenchFilters(
+      topics,
+      { bands: ["craft-cultural"], models: ["Claude Opus 4.8"] },
+      "zeta",
+    );
+
+    expect(topicIds(resolution)).toEqual([]);
+    expect(resolution.unresolved).toEqual({ bands: [], models: [] });
+    expect(resolution.currentTopicInCycleScope).toBe(false);
   });
 
   it("keeps unknown criteria unresolved and returns an empty Cycle Scope", () => {
@@ -114,5 +166,31 @@ describe("resolveWorkbenchFilters", () => {
       currentTopicInScope: true,
       currentTopicOutOfScope: false,
     });
+  });
+
+  it("keeps membership and order independent from localized labels", () => {
+    const localizedRegistry = (label: string) =>
+      topics.map((group) => ({
+        style: { ...group.style, name: label },
+        topics: group.topics.map((topic) => ({ ...topic, title: label })),
+      }));
+    const filters = {
+      bands: ["minimal-keynote", "editorial-print"],
+      models: ["GPT 5.5"],
+    };
+    const english = resolveWorkbenchFilters(
+      localizedRegistry("English"),
+      filters,
+      "alpha",
+    );
+    const chinese = resolveWorkbenchFilters(
+      localizedRegistry("中文"),
+      filters,
+      "alpha",
+    );
+
+    expect(topicIds(english)).toEqual(topicIds(chinese));
+    expect(english.facetCounts).toEqual(chinese.facetCounts);
+    expect(english.unresolved).toEqual(chinese.unresolved);
   });
 });

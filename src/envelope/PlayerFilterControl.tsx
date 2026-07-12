@@ -1,34 +1,24 @@
-import { useMemo, useRef, useState } from "react";
-import { BAND_LABELS, BAND_ORDER } from "../catalog/bands";
-import type {
-  CatalogFilterResolution,
-  CatalogFilters as CatalogFilterState,
-} from "../utils/catalog-filter";
-import CatalogFilters, { type FilterOption } from "./CatalogFilters";
+import { useRef, useState } from "react";
+import { BAND_LABELS } from "../catalog/bands";
+import type { RuntimeCatalogFilterResolution } from "../catalog/runtime-catalog";
+import CatalogFilters from "./CatalogFilters";
+import type { FilterEditor } from "./filter-editor";
 import { useModalFocus } from "./useModalFocus";
 
 export interface PlayerFilterControlProps {
   language: "en" | "zh";
-  filters: CatalogFilterState;
-  resolution: CatalogFilterResolution;
-  onFiltersChange: (filters: CatalogFilterState) => void;
-}
-
-function toggleValue(values: string[], value: string): string[] {
-  return values.includes(value)
-    ? values.filter((current) => current !== value)
-    : [...values, value];
+  resolution: RuntimeCatalogFilterResolution;
+  filterEditor: FilterEditor;
 }
 
 export default function PlayerFilterControl({
   language,
-  filters,
   resolution,
-  onFiltersChange,
+  filterEditor,
 }: PlayerFilterControlProps) {
   const [open, setOpen] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
-  const hasFilters = filters.bands.length > 0 || filters.models.length > 0;
+  const hasFilters = filterEditor.hasActiveFilters;
   const matchingCount = resolution.matchingTopics.length;
   const currentInScope = resolution.currentTopicInCycleScope;
   const copy = language === "zh"
@@ -59,36 +49,12 @@ export default function PlayerFilterControl({
         ? copy.filtered(matchingCount)
         : copy.outside(matchingCount);
   const selectedSummary = [
-    ...filters.bands.map(
+    ...filterEditor.selectedBands.map(
       (band) =>
         BAND_LABELS[band as keyof typeof BAND_LABELS]?.[language] ?? band,
     ),
-    ...filters.models,
+    ...filterEditor.selectedModels,
   ].join(" · ");
-  const bandOptions = useMemo<FilterOption[]>(() => {
-    const counts = new Map(
-      resolution.facetCounts.bands.map(({ band, count }) => [band, count]),
-    );
-    return BAND_ORDER.map((band) => {
-      const count = counts.get(band) ?? 0;
-      return {
-        value: band,
-        label: BAND_LABELS[band][language],
-        count,
-        disabled: count === 0,
-      };
-    });
-  }, [language, resolution.facetCounts.bands]);
-  const modelOptions = useMemo<FilterOption[]>(
-    () =>
-      resolution.facetCounts.models.map(({ modelId, count }) => ({
-        value: modelId,
-        label: modelId,
-        count,
-        disabled: count === 0,
-      })),
-    [resolution.facetCounts.models],
-  );
 
   useModalFocus(open, dialogRef, () => setOpen(false));
 
@@ -147,7 +113,7 @@ export default function PlayerFilterControl({
           type="button"
           aria-label={copy.clear}
           title={copy.clear}
-          onClick={() => onFiltersChange({ bands: [], models: [] })}
+          onClick={filterEditor.clear}
           className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-ink/12 text-base text-ink/45 transition-colors hover:border-ink/25 hover:bg-ink/[0.05] hover:text-ink"
         >
           ×
@@ -190,27 +156,7 @@ export default function PlayerFilterControl({
             </div>
             <CatalogFilters
               presentation="embedded"
-              bandOptions={bandOptions}
-              modelOptions={modelOptions}
-              selectedBands={filters.bands}
-              selectedModels={filters.models}
-              unavailableBands={resolution.unresolved.bands}
-              unavailableModels={resolution.unresolved.models}
-              onToggleBand={(band) =>
-                onFiltersChange({
-                  bands: toggleValue(filters.bands, band),
-                  models: [...filters.models],
-                })
-              }
-              onToggleModel={(model) =>
-                onFiltersChange({
-                  bands: [...filters.bands],
-                  models: toggleValue(filters.models, model),
-                })
-              }
-              onClearFilters={() =>
-                onFiltersChange({ bands: [], models: [] })
-              }
+              editor={filterEditor}
               language={language}
             />
           </div>

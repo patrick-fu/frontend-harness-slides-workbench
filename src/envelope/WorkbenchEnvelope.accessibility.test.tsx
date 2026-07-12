@@ -2,7 +2,8 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import { lazy } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "../App";
-import CatalogFilters, { type FilterOption } from "./CatalogFilters";
+import CatalogFilters from "./CatalogFilters";
+import type { FilterOption } from "./filter-editor";
 import {
   RUNTIME_REGISTRY,
   type RuntimeStyleGroup,
@@ -140,15 +141,18 @@ describe("Catalog + Player shell accessibility", () => {
   it("moves focus into the mobile Filters dialog rather than leaving it on the covered trigger", async () => {
     render(
       <CatalogFilters
-        bandOptions={filterOptions}
-        modelOptions={filterOptions}
-        selectedBands={[]}
-        selectedModels={[]}
-        unavailableBands={[]}
-        unavailableModels={[]}
-        onToggleBand={vi.fn()}
-        onToggleModel={vi.fn()}
-        onClearFilters={vi.fn()}
+        editor={{
+          bandOptions: filterOptions,
+          modelOptions: filterOptions,
+          selectedBands: [],
+          selectedModels: [],
+          unavailable: { bands: [], models: [] },
+          activeCount: 0,
+          hasActiveFilters: false,
+          toggleBand: vi.fn(),
+          toggleModel: vi.fn(),
+          clear: vi.fn(),
+        }}
         language="en"
       />,
     );

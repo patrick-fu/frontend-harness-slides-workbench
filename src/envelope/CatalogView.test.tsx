@@ -7,8 +7,9 @@ import type {
 } from "../catalog/runtime-registry";
 import type { Band } from "../domain/style";
 import type { TopicMetadata, TopicStageProps } from "../domain/topic";
-import { resolveCatalogFilters } from "../utils/catalog-filter";
+import { resolveWorkbenchFilters } from "../domain/filter";
 import CatalogView from "./CatalogView";
+import { createFilterEditor } from "./filter-editor";
 
 const EmptyStage = (_props: TopicStageProps) => null;
 
@@ -70,12 +71,27 @@ const registry: readonly RuntimeStyleGroup[] = [
   ]),
 ];
 
+function filterProps(
+  filters: { bands: string[]; models: string[] },
+  language: "en" | "zh" = "en",
+  onChange = vi.fn(),
+) {
+  const resolution = resolveWorkbenchFilters(registry, filters, "");
+  return {
+    resolution,
+    filterEditor: createFilterEditor({
+      filters,
+      resolution,
+      language,
+      onChange,
+    }),
+  };
+}
+
 const defaultProps = {
   registry,
   language: "en" as const,
-  filters: { bands: [], models: [] },
-  resolution: resolveCatalogFilters(registry, "en", { bands: [], models: [] }),
-  onFiltersChange: vi.fn(),
+  ...filterProps({ bands: [], models: [] }),
   getTopicHref: (topicId: string) => `/open/${topicId}`,
   onOpenTopic: vi.fn(),
 };
@@ -168,7 +184,10 @@ describe("CatalogView", () => {
   it("summarizes all Topics and Styles, then hands user facet choices to the URL owner", () => {
     const onFiltersChange = vi.fn();
     render(
-      <CatalogView {...defaultProps} onFiltersChange={onFiltersChange} />,
+      <CatalogView
+        {...defaultProps}
+        {...filterProps({ bands: [], models: [] }, "en", onFiltersChange)}
+      />,
     );
 
     expect(screen.getByTestId("catalog-summary")).toHaveTextContent(
@@ -188,14 +207,14 @@ describe("CatalogView", () => {
   });
 
   it("renders results, summary, and facet counts from one supplied resolution", () => {
-    const resolution = resolveCatalogFilters(registry, "en", {
+    const filters = {
       bands: ["text-report"],
       models: [],
-    });
+    };
     render(
       <CatalogView
         {...defaultProps}
-        resolution={resolution}
+        {...filterProps(filters)}
       />,
     );
 
@@ -217,8 +236,7 @@ describe("CatalogView", () => {
     render(
       <CatalogView
         {...defaultProps}
-        filters={{ bands: ["text-report"], models: ["Claude Opus 4.8"] }}
-        resolution={resolveCatalogFilters(registry, "en", {
+        {...filterProps({
           bands: ["text-report"],
           models: ["Claude Opus 4.8"],
         })}
@@ -237,8 +255,7 @@ describe("CatalogView", () => {
     render(
       <CatalogView
         {...defaultProps}
-        filters={{ bands: [], models: ["retired-model"] }}
-        resolution={resolveCatalogFilters(registry, "en", {
+        {...filterProps({
           bands: [],
           models: ["retired-model"],
         })}
@@ -252,7 +269,13 @@ describe("CatalogView", () => {
   });
 
   it("localizes thumbnail alternative text in Chinese", () => {
-    render(<CatalogView {...defaultProps} language="zh" />);
+    render(
+      <CatalogView
+        {...defaultProps}
+        {...filterProps({ bands: [], models: [] }, "zh")}
+        language="zh"
+      />,
+    );
 
     expect(screen.getByRole("img", { name: "题材 a-one 缩略图" })).toBeVisible();
   });

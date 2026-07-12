@@ -2,26 +2,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { modelColor } from "../utils/model-color";
 import { useModalFocus } from "./useModalFocus";
-
-export interface FilterOption {
-  value: string;
-  label: string;
-  /** Topic count after applying the opposite facet. */
-  count: number;
-  /** Zero-count options stay visible but cannot add a new constraint. */
-  disabled?: boolean;
-}
+import type { FilterEditor, FilterOption } from "./filter-editor";
 
 export interface CatalogFiltersProps {
-  bandOptions: FilterOption[];
-  modelOptions: FilterOption[];
-  selectedBands: string[];
-  selectedModels: string[];
-  unavailableBands: string[];
-  unavailableModels: string[];
-  onToggleBand: (band: string) => void;
-  onToggleModel: (model: string) => void;
-  onClearFilters: () => void;
+  editor: FilterEditor;
   language: "en" | "zh";
   presentation?: "responsive" | "embedded";
 }
@@ -282,25 +266,29 @@ function MobileFacetList({
 }
 
 export default function CatalogFilters({
-  bandOptions,
-  modelOptions,
-  selectedBands,
-  selectedModels,
-  unavailableBands,
-  unavailableModels,
-  onToggleBand,
-  onToggleModel,
-  onClearFilters,
+  editor,
   language,
   presentation = "responsive",
 }: CatalogFiltersProps) {
+  const {
+    bandOptions,
+    modelOptions,
+    selectedBands,
+    selectedModels,
+    activeCount,
+    hasActiveFilters,
+    toggleBand: onToggleBand,
+    toggleModel: onToggleModel,
+    clear: onClearFilters,
+  } = editor;
   const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(false);
   const [mobileModelQuery, setMobileModelQuery] = useState("");
   const mobileDialogRef = useRef<HTMLDivElement>(null);
   const copy = facetCopy(language);
-  const activeCount = selectedBands.length + selectedModels.length;
-  const hasActiveFilters = activeCount > 0;
-  const unavailable = [...unavailableBands, ...unavailableModels];
+  const unavailable = [
+    ...editor.unavailable.bands,
+    ...editor.unavailable.models,
+  ];
   const mobileModelOptions = useMemo(
     () =>
       modelOptions.filter((option) =>
