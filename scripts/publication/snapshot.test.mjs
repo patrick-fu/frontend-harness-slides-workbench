@@ -5,6 +5,7 @@ import {
   createPublicationSnapshot,
   publicationSnapshot,
 } from "./snapshot.mjs";
+import { publicationInventory } from "./inventory.mjs";
 
 const generated = {
   manifest: [{ style: { id: "first-style" }, topics: [{ id: "first-topic" }] }],
@@ -145,5 +146,13 @@ describe("Publication Snapshot", () => {
     expect(publicationSnapshot.renderGenerated(committed)).toBe(
       publicationSnapshot.renderGenerated(current),
     );
+  }, 20_000);
+
+  it("validates the repository through the production source adapter", async () => {
+    const { targets } = await publicationSnapshot.loadGenerated();
+
+    await expect(
+      publicationInventory.validateSource(targets),
+    ).resolves.toBeUndefined();
   }, 20_000);
 });
