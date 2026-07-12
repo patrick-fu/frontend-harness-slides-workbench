@@ -83,6 +83,11 @@ export async function runPublicationCli(argv, dependencies) {
     });
     return;
   }
+  if (preliminary.command === "verify") {
+    const generated = await dependencies.loadGeneratedSnapshot();
+    await dependencies.verify(generated.targets);
+    return;
+  }
   await dependencies[preliminary.command]();
 }
 
@@ -106,11 +111,11 @@ const productionDependencies = {
     const { publicationManifest } = await import("./manifest.mjs");
     await publicationManifest.generate();
   },
-  async verify() {
+  async verify(targets) {
     const { verifyShowcaseThumbnails } = await import(
       "../thumbnail/verify.mjs"
     );
-    await verifyShowcaseThumbnails();
+    await verifyShowcaseThumbnails(targets);
   },
   async clean() {
     const {

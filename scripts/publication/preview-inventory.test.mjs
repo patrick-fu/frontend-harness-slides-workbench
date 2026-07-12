@@ -135,24 +135,42 @@ describe("Preview Publication Inventory", () => {
   });
 
   it("aggregates coverage and validity failures deterministically", async () => {
+    const truncated = webp(vp8(1920, 1080));
+    truncated.writeUInt32LE(truncated.length, 4);
     const inventory = createPublicationInventory({
       openPreviews: createInMemoryPreviewInventoryAdapter({
-        files: ["notes.txt", "orphan.webp", "second-topic.webp"],
+        files: [
+          "wrong-size.webp",
+          "notes.txt",
+          "orphan.webp",
+          "invalid.webp",
+          "truncated.webp",
+        ],
         bytesByFilename: {
           "orphan.webp": webp(vp8(1920, 1080)),
-          "second-topic.webp": webp(vp8x(640, 480)),
+          "invalid.webp": Buffer.from("not-webp"),
+          "truncated.webp": truncated,
+          "wrong-size.webp": webp(vp8x(640, 480)),
         },
       }),
     });
+    const failureTargets = [
+      { topicId: "missing", previewFilename: "missing.webp" },
+      { topicId: "invalid", previewFilename: "invalid.webp" },
+      { topicId: "truncated", previewFilename: "truncated.webp" },
+      { topicId: "wrong-size", previewFilename: "wrong-size.webp" },
+    ];
 
-    await expect(inventory.validatePreviews(targets)).rejects.toThrow(
+    await expect(inventory.validatePreviews(failureTargets)).rejects.toThrow(
       [
         "Preview Publication inventory is invalid:",
         "Preview coverage:",
-        "- Missing showcase WebPs: first-topic.webp",
+        "- Missing showcase WebPs: missing.webp",
         "- Orphan showcase WebPs: orphan.webp",
         "Preview validity:",
-        "- second-topic.webp: is 640×480, expected 1920×1080",
+        "- invalid.webp: not a WebP RIFF file",
+        "- truncated.webp: truncated RIFF payload",
+        "- wrong-size.webp: is 640×480, expected 1920×1080",
       ].join("\n"),
     );
   });

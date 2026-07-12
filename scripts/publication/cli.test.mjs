@@ -154,4 +154,29 @@ describe("Publication CLI", () => {
 
     expect(dependencies.capture).not.toHaveBeenCalled();
   });
+
+  it("loads generated targets once and passes them to preview verification", async () => {
+    const generated = {
+      targets: [
+        { topicId: "first-topic", previewFilename: "first.webp" },
+        { topicId: "second-topic", previewFilename: "second.webp" },
+      ],
+    };
+    const dependencies = {
+      loadGeneratedSnapshot: vi.fn(async () => generated),
+      loadCurrentSnapshot: vi.fn(),
+      assertFresh: vi.fn(),
+      capture: vi.fn(),
+      manifest: vi.fn(),
+      verify: vi.fn(async () => undefined),
+      clean: vi.fn(),
+    };
+
+    await runPublicationCli(["verify"], dependencies);
+
+    expect(dependencies.loadGeneratedSnapshot).toHaveBeenCalledOnce();
+    expect(dependencies.verify).toHaveBeenCalledWith(generated.targets);
+    expect(dependencies.loadCurrentSnapshot).not.toHaveBeenCalled();
+    expect(dependencies.capture).not.toHaveBeenCalled();
+  });
 });
