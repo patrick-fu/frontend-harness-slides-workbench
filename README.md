@@ -57,7 +57,9 @@ npm run test:audit
 
 ## Documentation
 
-- [AGENTS.md](AGENTS.md) — agent and maintenance guidance.
+- [Adding Topics](AGENTS.md#adding-topics) — guidance for adding one, several,
+  or a full Model coverage of slide presentations.
+- [AGENTS.md](AGENTS.md) — complete agent and maintenance guidance.
 - [CONTEXT.md](CONTEXT.md) — shared domain glossary.
 - [ADRs](docs/adr/) — architecture decision records.
 - [SECURITY.md](SECURITY.md) — vulnerability reporting policy.

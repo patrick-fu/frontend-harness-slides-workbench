@@ -71,8 +71,9 @@ this default workflow.
 
 ## Topic authoring
 
-Read the domain types, Registry entry, shared utilities, and nearest comparable
-Topic before editing or adding a Topic.
+Before editing an existing Topic, read that Topic, its focused test, and the
+shared contracts it uses. Before adding a Topic, follow `Adding Topics`; an
+Author Worker must not inspect other Topic implementations for inspiration.
 
 - Use the Topic ID as the basename for the implementation, focused test,
   optional CSS module, and committed showcase WebP.
@@ -89,6 +90,325 @@ Topic before editing or adding a Topic.
   architecture maintenance unless the user explicitly requests a redesign.
 - Shared Stage behavior belongs in the owning component, hook, or runtime
   module rather than in a model- or batch-specific adapter.
+
+## Adding Topics
+
+Use this guide whenever adding one or more slide presentations. The canonical
+repository term is Topic; “Slides” describes the user-facing artifact, not a
+second domain type.
+
+### Authority and production scope
+
+Invoke the current `frontend-harness-slides` skill before authoring. Its
+[Style Selection Index](https://github.com/patrick-fu/frontend-harness-slides/blob/main/references/style/index.md)
+and per-Style Design DNA files are the visual source of truth. Always read the
+latest available skill content; do not pin or copy it into this repository.
+
+- The Style Guide owns visual thesis, temperament, material, signature
+  gestures, motion register, Identity Invariants, and creative freedoms.
+- `src/catalog/style-definitions.ts` owns only runtime Style ID, bilingual
+  name, and Band.
+- Existing Workbench Topics are not Style authorities. A Coordinator may
+  inspect them for portfolio de-duplication; an Author Worker must not use them
+  as implementation references.
+- Resolve Design DNA through the Style Index and canonical English Style name;
+  do not assume its filename equals the Workbench Style ID. Record the resolved
+  file in every Authoring Packet. If the mapping is missing or ambiguous, stop
+  and repair it before authoring.
+
+A **Production Run** is temporary execution scope, never a persisted domain
+entity. Do not write a run, Set, batch, or version ID into Topic metadata,
+files, URLs, Registry entries, or UI.
+
+Choose one scope:
+
+- **Single Topic Run**: add one Topic to one Style.
+- **Selected Topics Run**: add a user-selected set of Topics or Styles.
+- **Model Coverage Run**: add exactly one Topic for every current Style, with
+  one exact Model ID across all newly authored Topics.
+
+A Model Coverage Run does not make that Model ID unique to those Topics and
+does not create a collection identity. Re-read the current Style list before
+declaring coverage complete; if a Style was added during the run, add its Topic
+or stop calling the result full coverage. New Topics append to their Style
+Group by default; special placement changes only the two-dimensional Registry.
+
+### Roles and originality boundary
+
+**Coordinator**:
+
+- Reads the current Style Guide, Registry, Manifest, Topic metadata, showcase
+  WebPs, and only the existing Topic implementations needed to resolve a real
+  similarity risk.
+- Plans Topic-to-Style allocation and the portfolio's narrative, density,
+  motion, transition, navigation, Evidence, and interaction distribution.
+- Produces Authoring Packets, obtains user approval, keeps the run's external
+  execution record, and owns the Portfolio Gate.
+
+**Author Worker**:
+
+- Reads the latest `frontend-harness-slides` skill, its Style index, the
+  assigned Style's Design DNA, the approved Authoring Packet, `src/domain`,
+  essential shared Stage/runtime interfaces, user sources, and authoritative
+  external factual sources.
+- Reads only its assigned Topic family plus the neutral shared interfaces
+  required to integrate it, and modifies only the assigned Topic family.
+- Must not inspect other `src/topics` implementations, focused tests, CSS,
+  showcase WebPs, historical branches, or ready-made slide decks for visual or
+  implementation guidance.
+- Creates the Topic's concrete copy, layout, visual metaphor, animation,
+  transition expression, interaction, and assets independently.
+
+**Integrator**:
+
+- Owns shared files such as Style definitions, Registry, generated Manifest,
+  scripts, and cross-Topic integration tests.
+- May repair imports, types, contract wiring, URL integration, tests, Frozen
+  behavior, and other mechanical conformance problems.
+- Must not redesign Topic copy, layout, color, visual metaphor, motion,
+  transition, interaction, or density. Return creative failures to a Worker
+  using the target model.
+
+**Reviewer**:
+
+- Checks an individual Topic without rewriting it, then checks the new
+  portfolio as a whole.
+- May inspect all relevant Topics and previews because review is not authoring.
+
+Coordinator, Integrator, and Reviewer identity is not Topic provenance. The
+Topic's `modelId` records its primary authoring model. Other models may plan,
+review, or make mechanical repairs without changing it; they may not take over
+the Topic's creative authorship. A full Model Coverage Run uses the target
+model for every Author Worker.
+
+For a Single Topic Run, a user-approved brief may replace a separate
+Coordinator. The Author Worker remains isolated from existing Topics, and the
+Reviewer performs the similarity check after authoring.
+
+### Pre-build alignment and planning
+
+For one Topic, complete the normal `frontend-harness-slides` Pre-Build
+Alignment and approve one Authoring Packet. For multiple Topics, the
+Coordinator completes one aggregate alignment covering the Portfolio Matrix,
+packets, repository location, build, testing, previews, and delivery. User
+approval of that aggregate plan satisfies the Workers' alignment gate; Workers
+do not repeat the same questions.
+
+Plan all selected Topics before parallel authoring begins. Changes remain
+possible, but the Coordinator updates the matrix and checks downstream
+distribution before replacing a Topic or constraint.
+
+Use external durable tracking for a Model Coverage Run. An issue tracker,
+Codex task/tickets, or another recoverable system should record the matrix,
+ownership, state, blockers, and gate results. If no tracker exists, use an
+untracked temporary file. Never commit run plans, status reports, or temporary
+matrices to this repository.
+
+When the target model has not produced stable Workbench Topics before, a small
+Calibration Pilot across meaningfully different Styles is strongly
+recommended. It validates contract, bilingual metadata, Evidence, Frozen
+behavior, tests, and packet clarity. Pilot Topics may enter the final coverage,
+but their code and visuals are not shown to later Workers as examples.
+
+Parallelize independent authoring where useful. The Coordinator chooses
+concurrency, task size, and waves for the available environment; this guide
+does not fix a worker count or one-Topic-per-task rule. Avoid concurrent edits
+to shared integration files.
+
+### Portfolio Matrix
+
+Before a Selected Topics or Model Coverage Run begins, give every planned Topic
+one row containing:
+
+- Style ID and Style Guide file.
+- Proposed Topic ID and bilingual title direction.
+- Core question, audience, and key takeaway.
+- Narrative structure and five-Scene story direction.
+- Content density target.
+- Motion intensity and motion character.
+- Transition rhythm or transition family.
+- Primary visual metaphor.
+- Signature interaction or expressive device.
+- Internal Navigation expectation.
+- Evidence kind, source needs, and factual risk.
+- Style-fit rationale.
+- Similar existing or planned Topics to avoid.
+
+Maximize portfolio diversity rather than satisfying mechanical quotas. Topic
+and core question must be distinct, and no two planned Topics should share the
+same overall combination of narrative structure, density, motion, transition,
+visual metaphor, and signature device. Individual techniques may repeat when
+they genuinely fit the Style; explain concentrated repetitions instead of
+forcing an unsuitable alternative.
+
+### Authoring Packet template
+
+Give each Author Worker a self-contained packet. Do not include existing Topic
+screenshots, source, tests, CSS, or implementation links.
+
+```text
+Style
+- ID:
+- Design DNA file:
+- Style-fit rationale:
+
+Topic
+- Proposed ID:
+- English / Chinese title direction:
+- Core question:
+- Audience:
+- Key takeaway:
+- Five-Scene story direction:
+- Exact Model ID:
+
+Must Hold
+- Style Identity Invariants:
+- Content density target:
+- Motion intensity and character:
+- Transition rhythm or family:
+- Internal Navigation requirement:
+- Evidence kind and required sources/boundary:
+- Similarity risks to avoid:
+- Workbench contract, URL, Frozen, test, and file requirements:
+
+Creative Freedom
+- Copy and detailed argument:
+- Scene composition and layout:
+- Visual thesis and metaphor:
+- Color/type choices within Design DNA:
+- Animation trajectories and timing:
+- Concrete transition expression:
+- SVG, charts, objects, and decorative system:
+- Interaction details and signature device:
+```
+
+“Must Hold” expresses goals and constraints, not a pixel-level solution,
+component tree, animation script, or template. Anything not explicitly fixed
+there remains the Author Worker's creative decision.
+
+### Interface-only skeleton
+
+Read the current domain types before using this shape. It deliberately omits
+Scene JSX and all visual decisions; never copy metadata or protocol values from
+another Topic.
+
+```tsx
+import {
+  defineTopic,
+  type TopicMetadata,
+  type TopicStageProps,
+  type TopicTransitionScore,
+} from "../domain/topic";
+
+const metadata: { en: TopicMetadata; zh: TopicMetadata } = {
+  en: /* authored five-Scene metadata */,
+  zh: /* structurally aligned authored metadata */,
+};
+
+const transitionScore: TopicTransitionScore = {
+  "1->2": /* authored transition */,
+  "2->3": /* authored transition */,
+  "3->4": /* authored transition */,
+  "4->5": /* authored transition */,
+};
+
+function TopicStage(props: TopicStageProps) {
+  // Author the independent fixed-stage presentation here.
+}
+
+export default defineTopic({
+  id: /* semantic Topic ID */,
+  styleId: /* assigned Style ID */,
+  title: /* bilingual Topic title */,
+  modelId: /* exact primary authoring Model ID */,
+  Stage: TopicStage,
+  metadata,
+  navigation: /* authored navigation contract */,
+  transitionScore,
+  evidence: /* authored Evidence */,
+});
+```
+
+Every Topic also receives a same-basename focused test that imports the default
+definition and starts with the shared contract:
+
+```tsx
+import { runTopicContract } from "../testing/topic-contract";
+import definition from "./topic-id";
+
+runTopicContract(definition);
+```
+
+Add Topic-specific assertions for content, interaction, motion, and Evidence
+where they encode meaningful intent.
+
+### Runbooks
+
+**Single Topic Run**:
+
+1. Confirm Style, Topic brief, Model ID, scope, delivery, and testing.
+2. Read the latest Style index and assigned Design DNA.
+3. Approve one Authoring Packet without showing other Topics to the Worker.
+4. Author independently, run focused checks, and hand off to Integrator.
+5. Pass Topic Gate, similarity review, Integration Gate, and production smoke.
+
+**Selected Topics Run**:
+
+1. Coordinator inspects the current portfolio and relevant Style DNA files.
+2. Complete and approve the Portfolio Matrix and all Authoring Packets.
+3. Author independent Topics in parallel where useful.
+4. Run Topic Gate per Topic and Portfolio Gate before each integration batch.
+5. Integrate only complete Topics, then run the final cross-Topic checks.
+
+**Model Coverage Run**:
+
+1. Create external durable tracking and resolve the current Style list.
+2. Confirm the target Model ID and one planned Topic per Style.
+3. Coordinator reads the latest Style Guide and existing portfolio, completes
+   the full matrix, and obtains one user approval.
+4. Run a Calibration Pilot when useful, without sharing its implementation
+   with later Workers.
+5. Dispatch isolated Authoring Packets and parallelize where practical.
+6. Integrate complete, reviewed Topics in small batches; partial Topics never
+   enter `main`.
+7. Re-read the Style list, close missing coverage, run the final Portfolio and
+   Integration Gates, and only then declare coverage complete.
+
+### Gates and incremental integration
+
+**Topic Gate** verifies:
+
+- The assigned brief and Style Identity Invariants are recognizable.
+- The Topic is original rather than a visual reskin of an existing argument.
+- Both languages have aligned five-Scene structure and meaningful Beats.
+- Navigation, transitions, Evidence, Sources, Frozen behavior, and interaction
+  isolation match the authored intent.
+- The focused test passes and the Hero Final Frame is complete and settled.
+
+**Portfolio Gate** verifies:
+
+- Topic, narrative, density, motion, transition, metaphor, navigation, and
+  signature-device distribution remains diverse.
+- Adjacent or semantically close Topics have distinct audience value and
+  conclusions.
+- Repetition is Style-appropriate rather than accidental convergence.
+- The Coordinator may reject a technically passing Topic for portfolio
+  similarity and return it to the target model for a local creative revision.
+
+**Integration Gate** verifies:
+
+- Topic files, exact Model ID, Style membership, Registry placement, generated
+  Manifest, focused test, and showcase WebP are complete.
+- Only affected Topic previews were captured manually; unrelated WebPs remain
+  untouched.
+- Required `npm run ci` and browser audits pass.
+- Model filters, direct Topic/Scene/Beat URLs, both languages, Frozen/Pure, and
+  production loading work for the new Topics.
+
+Complete Topics may be committed and pushed to `main` in small validated
+batches. Never push placeholders, missing previews, unregistered files, or
+half-integrated contracts. Until every current Style passes all gates, describe
+a Model Coverage Run as in progress rather than complete.
 
 ## Envelope and Stage
 

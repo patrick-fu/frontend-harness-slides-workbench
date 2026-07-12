@@ -57,7 +57,9 @@ npm run test:audit
 
 ## 文档
 
-- [AGENTS.md](AGENTS.md) — Agent 与维护指引。
+- [新增 Topics](AGENTS.md#adding-topics) — 新增一份、多份或完成 Model
+  全 Style 覆盖的 Slides 指引。
+- [AGENTS.md](AGENTS.md) — 完整的 Agent 与维护指引。
 - [CONTEXT.md](CONTEXT.md) — 共享领域术语表。
 - [ADRs](docs/adr/) — 架构决策记录。
 - [SECURITY.md](SECURITY.md) — 漏洞报告政策。
