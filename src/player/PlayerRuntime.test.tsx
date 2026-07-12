@@ -124,7 +124,6 @@ function makeCatalog(
     .mockResolvedValue(undefined),
 ): PlayerCatalogAccess {
   return {
-    registry: sourceRegistry,
     findTopic(topicId) {
       for (const [styleIndex, group] of sourceRegistry.entries()) {
         const topicIndex = group.topics.findIndex((topic) => topic.id === topicId);

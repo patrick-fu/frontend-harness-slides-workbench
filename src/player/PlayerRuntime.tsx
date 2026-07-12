@@ -6,10 +6,7 @@ import {
   useState,
   type MouseEvent,
 } from "react";
-import type {
-  RuntimeStyleGroup,
-  RuntimeTopicEntry,
-} from "../catalog/runtime-registry";
+import type { RuntimeTopicEntry } from "../catalog/runtime-registry";
 import type {
   TopicMetadata,
   TopicStage,
@@ -30,14 +27,16 @@ import {
 import { useStageFit } from "./stage-fit";
 
 export interface PlayerCatalogAccess {
-  registry: readonly RuntimeStyleGroup[];
   findTopic: (topicId: string) => RuntimeTopicEntry | null;
   loadStage: (topicId: string) => Promise<TopicStage>;
   prefetchAdjacent: (topicId: string) => Promise<void>;
 }
 
 export interface PlayerNavigationAccess {
-  state: NavigationState;
+  state: Pick<
+    NavigationState,
+    "styleId" | "topicId" | "scene" | "beat" | "pureMode" | "frozen"
+  >;
   dispatch: (intent: NavigationIntent) => NavigationState;
 }
 
@@ -77,7 +76,6 @@ export default function PlayerRuntime({
     pureMode: isPureMode,
     frozen,
   } = state;
-  const { registry } = catalog;
   const stageContainerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const previousTopicIdRef = useRef(topicId);
@@ -252,8 +250,7 @@ export default function PlayerRuntime({
     reducedMotion: reducedMotion || frozen,
     onNavigate: handleStageNavigate,
   };
-  const styleNumber =
-    registry.findIndex((entry) => entry.style.id === found.style.id) + 1;
+  const styleNumber = found.styleIndex + 1;
   const illustrativeBoundary =
     (found.topic.evidence?.kind === "illustrative" ||
       found.topic.evidence?.kind === "mixed") &&

@@ -18,7 +18,6 @@ import OverviewView from "./components/OverviewView";
 import { useFontPreload } from "./hooks/useFontPreload";
 import { useGlobalShortcuts } from "./hooks/useGlobalShortcuts";
 import { useNavigationState } from "./navigation/useNavigationState";
-import type { NavigationIntent } from "./navigation";
 import {
   findRuntimeTopic,
   loadRuntimeTopicStage,
@@ -150,11 +149,6 @@ function AppContent() {
     },
     [dispatchNavigation],
   );
-  const navigate = useCallback(
-    (intent: NavigationIntent) => dispatchNavigation(intent),
-    [dispatchNavigation],
-  );
-
   const updateFilters = useCallback(
     (next: { bands: string[]; models: string[] }) =>
       dispatchNavigation({ type: "set-filters", ...next }),
@@ -295,7 +289,7 @@ function AppContent() {
             <div className="min-h-0 flex-1">
               <PlayerRuntime
                 catalog={RUNTIME_PLAYER_CATALOG}
-                navigation={{ state: urlState, dispatch: navigate }}
+                navigation={{ state: urlState, dispatch: dispatchNavigation }}
                 language={displayLanguage}
                 reducedMotion={reducedMotion}
                 onEnvelopeAction={handlePlayerEnvelopeAction}
