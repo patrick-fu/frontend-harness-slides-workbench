@@ -155,4 +155,13 @@ describe("Publication Snapshot", () => {
       publicationInventory.validateSource(targets),
     ).resolves.toBeUndefined();
   }, 20_000);
+
+  it("validates committed previews through the production adapter", async () => {
+    const { targets } = await publicationSnapshot.loadGenerated();
+
+    await expect(publicationInventory.validatePreviews(targets)).resolves.toEqual({
+      count: targets.length,
+      bytes: expect.any(Number),
+    });
+  }, 20_000);
 });
