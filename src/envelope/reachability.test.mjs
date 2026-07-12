@@ -32,7 +32,7 @@ describe("Envelope production reachability", () => {
     const violations = productionSources(sourceRoot).flatMap(({ path, source }) =>
       source.includes("components/chrome") ||
       source.includes("components/layout") ||
-      /\b(?:LabView|BottomBar|TopicBar)\b/.test(source)
+      /\b(?:LabView|BottomBar|TopicBar)\b|(?:overview-view|lab-view|bottom-bar)/.test(source)
         ? [relative(sourceRoot, path)]
         : [],
     );

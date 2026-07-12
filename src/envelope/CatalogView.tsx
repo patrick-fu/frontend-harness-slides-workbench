@@ -138,7 +138,9 @@ function TopicCard({
           {thumbnailSrc && (
             <img
               src={thumbnailSrc}
-              alt={`${topic.topic.title[language]} thumbnail`}
+              alt={language === "zh"
+                ? `${topic.topic.title.zh} 缩略图`
+                : `${topic.topic.title.en} thumbnail`}
               loading="lazy"
               decoding="async"
               onLoad={() => setIsThumbnailLoaded(true)}
@@ -288,7 +290,7 @@ export default function CatalogView({
 
   return (
     <div
-      data-testid="overview-view"
+      data-testid="catalog-view"
       className="w-full bg-paper text-ink"
     >
       <div className="px-3 pb-8 sm:px-5 lg:px-7">

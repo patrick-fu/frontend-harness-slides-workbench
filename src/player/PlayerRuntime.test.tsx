@@ -401,7 +401,7 @@ describe("Player Runtime", () => {
     setup({ state: { topicId: "missing-topic" } });
     expect(screen.getByText("This slide deck is unavailable")).toBeVisible();
     expect(screen.queryByText("Slide content")).not.toBeInTheDocument();
-    expect(screen.getByTestId("lab-view")).toHaveAttribute(
+    expect(screen.getByTestId("player-runtime")).toHaveAttribute(
       "data-player-state",
       "unavailable",
     );
@@ -409,7 +409,7 @@ describe("Player Runtime", () => {
 
   it("keeps Player transport out of Pure Mode", () => {
     const { onEnvelopeAction } = setup({ state: { pureMode: true } });
-    expect(screen.queryByTestId("bottom-bar")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("player-transport")).not.toBeInTheDocument();
     fireEvent.keyDown(window, { key: "k", ctrlKey: true });
     expect(onEnvelopeAction).not.toHaveBeenCalled();
   });
@@ -463,7 +463,7 @@ describe("Player Runtime", () => {
     });
 
     expect(screen.getByTestId("stage")).toHaveAttribute("data-topic-ready", "false");
-    expect(screen.getByTestId("lab-view")).toHaveAttribute(
+    expect(screen.getByTestId("player-runtime")).toHaveAttribute(
       "data-player-state",
       "loading",
     );
@@ -475,7 +475,7 @@ describe("Player Runtime", () => {
     );
     expect(screen.getByText("Slide content")).toBeVisible();
     expect(prefetchAdjacentTopics).toHaveBeenCalledWith("quiet-launch");
-    expect(screen.getByTestId("lab-view")).toHaveAttribute(
+    expect(screen.getByTestId("player-runtime")).toHaveAttribute(
       "data-player-state",
       "ready",
     );
@@ -490,7 +490,7 @@ describe("Player Runtime", () => {
     setup({ catalog: makeCatalog(registry, loadTopicStage) });
 
     expect(await screen.findByText("Slides failed to load")).toBeVisible();
-    expect(screen.getByTestId("lab-view")).toHaveAttribute(
+    expect(screen.getByTestId("player-runtime")).toHaveAttribute(
       "data-player-state",
       "error",
     );
@@ -523,7 +523,7 @@ describe("Player Runtime", () => {
 
     expect(screen.getByText("Second content")).toBeVisible();
     expect(screen.queryByText("Slide content")).not.toBeInTheDocument();
-    expect(screen.getByTestId("lab-view")).toHaveAttribute(
+    expect(screen.getByTestId("player-runtime")).toHaveAttribute(
       "data-player-topic",
       "second-topic",
     );
@@ -552,7 +552,7 @@ describe("Player Runtime", () => {
     view.rerenderState({ pureMode: true, frozen: true });
     await waitFor(() => expect(propsSeen.at(-1)?.reducedMotion).toBe(true));
     expect(propsSeen.at(-1)).toMatchObject({ scene: 2, beat: 0, language: "en" });
-    expect(screen.getByTestId("lab-view")).toHaveAttribute(
+    expect(screen.getByTestId("player-runtime")).toHaveAttribute(
       "data-player-topic",
       "quiet-launch",
     );

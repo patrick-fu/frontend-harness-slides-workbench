@@ -222,7 +222,7 @@ export default function PlayerRuntime({
   if (!found || !meta) {
     return (
       <div
-        data-testid="lab-view"
+        data-testid="player-runtime"
         data-player-runtime="true"
         data-player-state="unavailable"
         className="grid h-full w-full place-items-center bg-canvas p-6 text-ink"
@@ -260,7 +260,7 @@ export default function PlayerRuntime({
 
   return (
     <div
-      data-testid="lab-view"
+      data-testid="player-runtime"
       data-player-runtime="true"
       data-player-state={activeLoadState.status}
       data-player-topic={topicId}
@@ -405,6 +405,7 @@ export default function PlayerRuntime({
       </div>
       {!isPureMode && scenes.length > 0 && (
         <PlayerTransport
+          language={language}
           scenes={scenes}
           currentScene={scene}
           currentBeat={beat}

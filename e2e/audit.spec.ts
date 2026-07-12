@@ -90,7 +90,7 @@ async function openLab(
 async function openOverview(page: Page) {
   const query = buildQuery({ view: "overview" });
   await page.goto(`/${query}`, { waitUntil: "networkidle" });
-  await page.waitForSelector('[data-testid="overview-view"]', {
+  await page.waitForSelector('[data-testid="catalog-view"]', {
     state: "visible",
     timeout: 10000,
   });
@@ -943,7 +943,7 @@ test.describe("Pure mode", () => {
         .locator("button[aria-haspopup='menu']")
         .filter({ hasText: "Product Keynote" }),
     ).toHaveCount(0);
-    await expect(page.locator('[data-testid="bottom-bar"]')).toHaveCount(0);
+    await expect(page.locator('[data-testid="player-transport"]')).toHaveCount(0);
     await expect(page.locator('[data-testid="stage"]')).toBeVisible();
 
     await page.keyboard.press("Control+K");
@@ -959,7 +959,7 @@ test.describe("Pure mode", () => {
       page.getByRole("navigation", { name: "Player navigation" }),
     ).toBeVisible();
     await expect(page.getByRole("button", { name: "Present" })).toBeVisible();
-    await expect(page.locator('[data-testid="bottom-bar"]')).toBeVisible();
+    await expect(page.locator('[data-testid="player-transport"]')).toBeVisible();
   });
 
   test("pure=1 keeps semantic headers inside the active slide visible", async ({
@@ -1119,7 +1119,7 @@ test.describe("URL query persistence", () => {
   test("overview query loads gallery view", async ({ page }) => {
     const query = buildQuery({ view: "overview" });
     await page.goto(`/${query}`, { waitUntil: "networkidle" });
-    await page.waitForSelector('[data-testid="overview-view"]', {
+    await page.waitForSelector('[data-testid="catalog-view"]', {
       state: "visible",
       timeout: 10000,
     });
@@ -1309,7 +1309,7 @@ test.describe("Catalog / overview view", () => {
     const errors = attachErrorCollector(page);
     await openOverview(page);
 
-    await expect(page.locator('[data-testid="overview-view"]')).toBeVisible();
+    await expect(page.locator('[data-testid="catalog-view"]')).toBeVisible();
     await expect(page.locator('[data-testid="catalog-filter-bar"]')).toBeVisible();
     await expect(page.locator('[data-testid="filter-panel"]')).toBeVisible();
     await expect(page.getByRole("group", { name: "Category" })).toBeVisible();
@@ -1428,6 +1428,11 @@ test.describe("Player / lab view", () => {
     expect(box!.y + box!.height).toBeLessThanOrEqual(901);
 
     await page.setViewportSize({ width: 375, height: 812 });
+    await expect
+      .poll(async () =>
+        (await page.locator('[data-testid="stage"]').boundingBox())?.width,
+      )
+      .toBeLessThanOrEqual(376);
     box = await page.locator('[data-testid="stage"]').boundingBox();
     expect(box).not.toBeNull();
     expect(box!.width).toBeGreaterThan(370);
@@ -1454,7 +1459,7 @@ test.describe("Player / lab view", () => {
     await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
     await expect(page.locator('[data-testid="stage"]')).toBeVisible();
-    await expect(page.locator('[data-testid="lab-view"]')).toBeVisible();
+    await expect(page.locator('[data-testid="player-runtime"]')).toBeVisible();
 
     await page.waitForTimeout(500);
     expect(errors).toEqual([]);
@@ -1549,7 +1554,7 @@ test.describe("Player / lab view", () => {
   test("Player timeline exposes five direct scene destinations", async ({ page }) => {
     await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
-    await expect(page.locator('[data-testid="bottom-bar"]')).toBeVisible();
+    await expect(page.locator('[data-testid="player-transport"]')).toBeVisible();
 
     for (let s = 1; s <= 5; s++) {
       const sceneDestination = page.locator(`[data-testid="scene-dot-${s}"]`);

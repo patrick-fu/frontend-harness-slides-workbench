@@ -195,4 +195,10 @@ describe("CatalogView", () => {
     );
     expect(screen.queryByTestId("catalog-grid")).toBeNull();
   });
+
+  it("localizes thumbnail alternative text in Chinese", () => {
+    render(<CatalogView {...defaultProps} language="zh" />);
+
+    expect(screen.getByRole("img", { name: "题材 a-one 缩略图" })).toBeVisible();
+  });
 });

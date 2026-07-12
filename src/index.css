@@ -165,7 +165,7 @@ textarea {
   }
 
   /* Hide all chrome when printing */
-  [data-testid="bottom-bar"],
+  [data-testid="player-transport"],
   [data-topic-navigation="true"] {
     display: none !important;
   }

@@ -182,6 +182,7 @@ describe("Catalog + Player shell accessibility", () => {
   it("marks the active scene as the current presentation step", () => {
     render(
       <PlayerTransport
+        language="en"
         scenes={scenes}
         currentScene={1}
         currentBeat={0}
@@ -211,7 +212,7 @@ describe("Catalog + Player shell accessibility", () => {
     expect(within(card!).getAllByText(firstTopic.title.en).length).toBeGreaterThan(0);
     expect(within(card!).getAllByText(firstTopic.modelId).length).toBeGreaterThan(0);
     fireEvent.click(within(card!).getByRole("link"));
-    await waitFor(() => expect(screen.getByTestId("lab-view")).toBeVisible());
+    await waitFor(() => expect(screen.getByTestId("player-runtime")).toBeVisible());
 
     const playerNavigation = screen.getByRole("navigation", {
       name: "Player navigation",

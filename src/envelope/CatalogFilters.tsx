@@ -33,6 +33,7 @@ function facetCopy(language: "en" | "zh") {
       category: "风格类别",
       model: "Model ID",
       filters: "筛选",
+      closeFilters: "关闭筛选",
       moreModels: (count: number) => `+${count} 个 Model ID`,
       moreModelsMenu: "更多 Model ID",
       searchModels: "搜索 Model ID",
@@ -48,6 +49,7 @@ function facetCopy(language: "en" | "zh") {
     category: "Category",
     model: "Model ID",
     filters: "Filters",
+    closeFilters: "Close filters",
     moreModels: (count: number) => `+${count} Model IDs`,
     moreModelsMenu: "More Model IDs",
     searchModels: "Search Model IDs",
@@ -368,7 +370,7 @@ export default function CatalogFilters({
           <div className="fixed inset-0 z-[100] md:hidden">
             <button
               type="button"
-              aria-label="Close filters"
+              aria-label={copy.closeFilters}
               onClick={() => setIsMobileSheetOpen(false)}
               className="absolute inset-0 cursor-default bg-ink/35"
             />

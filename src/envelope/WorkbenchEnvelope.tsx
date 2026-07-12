@@ -241,29 +241,30 @@ export default function WorkbenchEnvelope() {
 
   return (
     <div className="h-full w-full overflow-hidden bg-paper text-ink" data-theme={resolvedTheme}>
-      <div
-        ref={catalogScrollRef}
-        className="h-full w-full overflow-y-auto"
-        style={{ display: urlState.view === "overview" ? "block" : "none" }}
-      >
-        <CatalogHeader
-          language={displayLanguage}
-          onHome={goHome}
-          onOpenPalette={openPalette}
-          controls={controls("overview")}
-        />
-        <CatalogView
-          registry={RUNTIME_REGISTRY}
-          language={displayLanguage}
-          filters={{ bands: urlState.bands, models: urlState.models }}
-          onFiltersChange={updateFilters}
-          getTopicHref={getTopicHref}
-          onOpenTopic={selectTopic}
-          onPrefetchTopic={(topicId) => {
-            void loadRuntimeTopicStage(topicId).catch(() => undefined);
-          }}
-        />
-      </div>
+      {urlState.view === "overview" && (
+        <div
+          ref={catalogScrollRef}
+          className="h-full w-full overflow-y-auto"
+        >
+          <CatalogHeader
+            language={displayLanguage}
+            onHome={goHome}
+            onOpenPalette={openPalette}
+            controls={controls("overview")}
+          />
+          <CatalogView
+            registry={RUNTIME_REGISTRY}
+            language={displayLanguage}
+            filters={{ bands: urlState.bands, models: urlState.models }}
+            onFiltersChange={updateFilters}
+            getTopicHref={getTopicHref}
+            onOpenTopic={selectTopic}
+            onPrefetchTopic={(topicId) => {
+              void loadRuntimeTopicStage(topicId).catch(() => undefined);
+            }}
+          />
+        </div>
+      )}
 
       {urlState.view === "lab" && (
         <div className="flex h-full w-full">

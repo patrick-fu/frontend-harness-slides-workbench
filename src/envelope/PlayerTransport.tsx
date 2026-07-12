@@ -1,6 +1,7 @@
 import type { TopicMetadata } from "../domain/topic";
 
 export interface PlayerTransportProps {
+  language: "en" | "zh";
   scenes: TopicMetadata["scenes"];
   currentScene: number;
   currentBeat: number;
@@ -11,6 +12,7 @@ export interface PlayerTransportProps {
 }
 
 export default function PlayerTransport({
+  language,
   scenes,
   currentScene,
   currentBeat,
@@ -21,14 +23,35 @@ export default function PlayerTransport({
 }: PlayerTransportProps) {
   const activeScene = scenes.find((scene) => scene.id === currentScene);
   const beats = activeScene?.beats ?? [];
+  const copy = language === "zh"
+    ? {
+        toolbar: "幻灯片导航",
+        previous: "上一步",
+        next: "下一步",
+        scenes: "场景导航",
+        scene: (id: number) => `场景 ${id}`,
+        beats: "节拍进度",
+        beat: (index: number, count: number) => `节拍 ${index}/${count}`,
+        beatTitle: (index: number) => `节拍 ${index}`,
+      }
+    : {
+        toolbar: "Slide navigation",
+        previous: "Previous",
+        next: "Next",
+        scenes: "Scene navigation",
+        scene: (id: number) => `Scene ${id}`,
+        beats: "Beat progress",
+        beat: (index: number, count: number) => `Beat ${index} of ${count}`,
+        beatTitle: (index: number) => `Beat ${index}`,
+      };
   const navButton =
     "grid h-10 w-10 shrink-0 place-items-center rounded-xl text-ink/55 hover:bg-ink/[0.07] hover:text-ink";
 
   return (
     <div
-      data-testid="bottom-bar"
+      data-testid="player-transport"
       role="toolbar"
-      aria-label="Slide navigation"
+      aria-label={copy.toolbar}
       className="flex h-14 shrink-0 items-center gap-2 border-t border-ink/10 bg-chrome px-2 text-chrome-ink sm:gap-3 sm:px-3"
     >
       <button
@@ -36,7 +59,7 @@ export default function PlayerTransport({
         data-testid="prev-button"
         onClick={onPrev}
         className={navButton}
-        aria-label="Previous"
+        aria-label={copy.previous}
       >
         <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
           <path d="m12.5 4.5-5.5 5.5 5.5 5.5" />
@@ -44,7 +67,7 @@ export default function PlayerTransport({
       </button>
 
       <div className="flex min-w-0 flex-1 items-center justify-center gap-2 sm:gap-4">
-        <div role="group" aria-label="Scene navigation" className="flex min-w-0 items-center gap-1">
+        <div role="group" aria-label={copy.scenes} className="flex min-w-0 items-center gap-1">
           {scenes.map((scene) => {
             const active = scene.id === currentScene;
             return (
@@ -52,7 +75,7 @@ export default function PlayerTransport({
                 key={scene.id}
                 type="button"
                 data-testid={`scene-dot-${scene.id}`}
-                aria-label={`Scene ${scene.id}`}
+                aria-label={copy.scene(scene.id)}
                 aria-current={active ? "step" : undefined}
                 title={scene.title}
                 onClick={() => {
@@ -78,7 +101,7 @@ export default function PlayerTransport({
         </div>
 
         <div className="hidden min-w-[92px] max-w-[190px] flex-1 items-center gap-2 sm:flex">
-          <div className="flex h-7 min-w-0 flex-1 items-center gap-1" aria-label="Beat progress">
+          <div className="flex h-7 min-w-0 flex-1 items-center gap-1" aria-label={copy.beats}>
             {beats.map((beat, index) => {
               const active = beat.id === currentBeat;
               const complete = beat.id < currentBeat;
@@ -86,8 +109,8 @@ export default function PlayerTransport({
                 <button
                   key={beat.id}
                   type="button"
-                  aria-label={`Beat ${index + 1} of ${beats.length}`}
-                  title={beat.title || `Beat ${index + 1}`}
+                  aria-label={copy.beat(index + 1, beats.length)}
+                  title={beat.title || copy.beatTitle(index + 1)}
                   onClick={() => onJumpBeat(beat.id)}
                   className="group flex h-7 min-w-3 flex-1 items-center"
                 >
@@ -111,7 +134,7 @@ export default function PlayerTransport({
         data-testid="next-button"
         onClick={onNext}
         className={navButton}
-        aria-label="Next"
+        aria-label={copy.next}
       >
         <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
           <path d="m7.5 4.5 5.5 5.5-5.5 5.5" />

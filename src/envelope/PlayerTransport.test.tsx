@@ -20,6 +20,7 @@ function scenes(
 
 function setup(overrides: Partial<React.ComponentProps<typeof PlayerTransport>> = {}) {
   const props: React.ComponentProps<typeof PlayerTransport> = {
+    language: "en",
     scenes: scenes(),
     currentScene: 3,
     currentBeat: 1,
@@ -68,5 +69,17 @@ describe("Player Scene Timeline", () => {
     fireEvent.click(screen.getByTestId("next-button"));
     expect(props.onPrev).toHaveBeenCalledTimes(1);
     expect(props.onNext).toHaveBeenCalledTimes(1);
+  });
+
+  it("localizes its complete navigation contract in Chinese", () => {
+    setup({ language: "zh" });
+
+    expect(screen.getByRole("toolbar", { name: "幻灯片导航" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "上一步" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "下一步" })).toBeVisible();
+    expect(screen.getByRole("group", { name: "场景导航" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "场景 3" })).toBeVisible();
+    expect(screen.getByLabelText("节拍进度")).toBeVisible();
+    expect(screen.getByRole("button", { name: "节拍 2/3" })).toBeVisible();
   });
 });

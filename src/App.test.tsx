@@ -17,7 +17,7 @@ beforeEach(() => {
 describe("Workbench Catalog + Player", () => {
   it("opens as a complete Topic Catalog", () => {
     render(<App />);
-    expect(screen.getByTestId("overview-view")).toBeVisible();
+    expect(screen.getByTestId("catalog-view")).toBeVisible();
     expect(screen.getAllByTestId("topic-card")).toHaveLength(
       CATALOG_TOPIC_COUNT,
     );
@@ -36,7 +36,7 @@ describe("Workbench Catalog + Player", () => {
     );
     fireEvent.click(link!);
 
-    await waitFor(() => expect(screen.getByTestId("lab-view")).toBeVisible());
+    await waitFor(() => expect(screen.getByTestId("player-runtime")).toBeVisible());
     expect(window.location.hash).toBe("");
     expect(window.location.search).toContain("view=lab");
     expect(window.location.search).toContain("style=minimal-product-keynote");
@@ -86,8 +86,9 @@ describe("Workbench Catalog + Player", () => {
     render(<App />);
     expect(screen.getByTestId("stage")).toBeVisible();
     expect(screen.queryByRole("navigation", { name: "Player navigation" })).not.toBeInTheDocument();
-    expect(screen.queryByTestId("bottom-bar")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("player-transport")).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Present" })).not.toBeInTheDocument();
+    expect(screen.queryByTestId("catalog-view")).not.toBeInTheDocument();
   });
 
   it("enters Pure Mode without replacing the active Stage node", async () => {
@@ -105,8 +106,9 @@ describe("Workbench Catalog + Player", () => {
     await waitFor(() => expect(window.location.search).toContain("pure=1"));
     expect(screen.getByTestId("stage")).toBe(stage);
     expect(screen.queryByRole("navigation", { name: "Player navigation" })).not.toBeInTheDocument();
-    expect(screen.queryByTestId("bottom-bar")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("player-transport")).not.toBeInTheDocument();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("catalog-view")).not.toBeInTheDocument();
   });
 
   it("shows explicit recovery actions for a missing Topic", () => {

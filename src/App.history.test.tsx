@@ -135,7 +135,7 @@ describe("Workbench URL, history, and sharing contract", () => {
     setRoute("/?view=overview&band=minimal-keynote&model=GPT+5.5");
     render(<App />);
     const catalogSearch = window.location.search;
-    const catalogScroller = screen.getByTestId("overview-view").parentElement;
+    const catalogScroller = screen.getByTestId("catalog-view").parentElement;
     if (!catalogScroller) throw new Error("Catalog scroller is missing");
     catalogScroller.scrollTop = 480;
     const pushState = vi.spyOn(window.history, "pushState");
@@ -143,13 +143,13 @@ describe("Workbench URL, history, and sharing contract", () => {
 
     fireEvent.click(within(screen.getAllByTestId("topic-card")[0]).getByRole("link"));
 
-    await waitFor(() => expect(screen.getByTestId("lab-view")).toBeVisible());
+    await waitFor(() => expect(screen.getByTestId("player-runtime")).toBeVisible());
     expect(pushState).toHaveBeenCalledTimes(1);
     expect(replaceState).toHaveBeenCalledTimes(1);
     expect(params().get("view")).toBe("lab");
 
     act(() => window.history.back());
-    await waitFor(() => expect(screen.getByTestId("overview-view")).toBeVisible());
+    await waitFor(() => expect(screen.getByTestId("catalog-view")).toBeVisible());
     expect(window.location.search).toBe(catalogSearch);
     expect(params().getAll("band")).toEqual(["minimal-keynote"]);
     expect(params().getAll("model")).toEqual(["GPT 5.5"]);
@@ -168,7 +168,7 @@ describe("Workbench URL, history, and sharing contract", () => {
       ).getByRole("button", { name: "Overview" }),
     );
 
-    expect(screen.getByTestId("overview-view")).toBeVisible();
+    expect(screen.getByTestId("catalog-view")).toBeVisible();
     expect(params().get("view")).toBe("overview");
     expect(pushState).toHaveBeenCalledTimes(1);
     expect(replaceState).not.toHaveBeenCalled();
@@ -266,7 +266,7 @@ describe("Workbench URL, history, and sharing contract", () => {
       expect(params().get("style")).toBe("minimal-product-keynote"),
     );
     expect(params().get("topic")).toBe("quiet-launch");
-    expect(screen.getByTestId("lab-view")).toBeVisible();
+    expect(screen.getByTestId("player-runtime")).toBeVisible();
     expect(
       screen.queryByText("This slide deck is unavailable"),
     ).not.toBeInTheDocument();
@@ -385,10 +385,10 @@ describe("Workbench URL, history, and sharing contract", () => {
     const pushState = vi.spyOn(window.history, "pushState");
 
     fireEvent.click(within(screen.getAllByTestId("topic-card")[0]).getByRole("link"));
-    await waitFor(() => expect(screen.getByTestId("lab-view")).toBeVisible());
+    await waitFor(() => expect(screen.getByTestId("player-runtime")).toBeVisible());
     expect(pushState).toHaveBeenCalledTimes(1);
 
     act(() => window.history.back());
-    await waitFor(() => expect(screen.getByTestId("overview-view")).toBeVisible());
+    await waitFor(() => expect(screen.getByTestId("catalog-view")).toBeVisible());
   });
 });

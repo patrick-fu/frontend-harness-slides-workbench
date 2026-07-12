@@ -87,6 +87,13 @@ describe("CatalogFilters", () => {
     expect(onToggleModel).toHaveBeenCalledWith("Llama");
   });
 
+  it("localizes the mobile filter dismissal control in Chinese", () => {
+    render(<CatalogFilters {...defaultProps} language="zh" />);
+
+    fireEvent.click(screen.getByRole("button", { name: "筛选" }));
+    expect(screen.getByRole("button", { name: "关闭筛选" })).toBeVisible();
+  });
+
   it("leaves zero-count options visible but unavailable", () => {
     render(
       <CatalogFilters
