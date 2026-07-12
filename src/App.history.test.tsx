@@ -183,12 +183,10 @@ describe("Workbench URL, history, and sharing contract", () => {
     render(<App />);
     const pushState = vi.spyOn(window.history, "pushState");
     const card = screen.getAllByTestId("topic-card")[0];
-    const [expectedStyleId, expectedTopicId] = card
-      .getAttribute("data-topic-key")!
-      .split("/");
-    const expectedTopic = RUNTIME_CATALOG.discovery.styleGroups
-      .flatMap((group) => group.topics)
-      .find((topic) => topic.id === expectedTopicId)!;
+    const expectedTopicId = card.getAttribute("data-topic-id")!;
+    const expectedEntry = RUNTIME_CATALOG.discovery.findTopic(expectedTopicId)!;
+    const expectedStyleId = expectedEntry.style.id;
+    const expectedTopic = expectedEntry.topic;
     const initialScene = expectedTopic.metadata.en.scenes[0];
     const link = within(card).getByRole("link");
     const destination = new URL(link.getAttribute("href")!, window.location.origin);

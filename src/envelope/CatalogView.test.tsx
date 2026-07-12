@@ -97,10 +97,10 @@ describe("CatalogView", () => {
     const grid = screen.getByTestId("catalog-grid");
     const cards = within(grid).getAllByTestId("topic-card");
 
-    expect(cards.map((card) => card.getAttribute("data-topic-key"))).toEqual([
-      "alpha/a-one",
-      "alpha/a-two",
-      "beta/b-one",
+    expect(cards.map((card) => card.getAttribute("data-topic-id"))).toEqual([
+      "a-one",
+      "a-two",
+      "b-one",
     ]);
     expect(within(cards[0]).getByRole("link")).toHaveAttribute(
       "href",
@@ -215,8 +215,8 @@ describe("CatalogView", () => {
     const cards = within(screen.getByTestId("catalog-grid")).getAllByTestId(
       "topic-card",
     );
-    expect(cards.map((card) => card.getAttribute("data-topic-key"))).toEqual([
-      "beta/b-one",
+    expect(cards.map((card) => card.getAttribute("data-topic-id"))).toEqual([
+      "b-one",
     ]);
     expect(screen.getByTestId("catalog-summary")).toHaveTextContent(
       "1 of 3 Topics · 1 of 2 Styles",

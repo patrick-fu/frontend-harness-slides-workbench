@@ -20,7 +20,7 @@ test("carries Overview Filters into the Player Cycle Scope", async ({ page }) =>
     .getByRole("button", { name: /GPT 5\.5/ })
     .click();
   await page
-    .locator('[data-topic-key="minimal-product-keynote/quiet-launch"] a')
+    .locator('[data-topic-id="quiet-launch"] a')
     .click();
 
   await expect(page).toHaveURL(/view=lab/);

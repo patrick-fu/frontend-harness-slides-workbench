@@ -90,7 +90,7 @@ function TopicCard({
   return (
     <article
       data-testid="topic-card"
-      data-topic-key={`${topic.style.id}/${topic.topic.id}`}
+      data-topic-id={topic.topic.id}
       className="min-w-0"
     >
       <a
@@ -295,7 +295,7 @@ export default function CatalogView({
                 lastStyleId = topic.style.id;
                 return (
                   <TopicCard
-                    key={`${topic.style.id}/${topic.topic.id}`}
+                    key={topic.topic.id}
                     topic={topic}
                     language={language}
                     href={getTopicHref(topic.topic.id)}

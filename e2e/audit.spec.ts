@@ -1076,7 +1076,7 @@ test.describe("Language toggle", () => {
     await expect(page.getByRole("button", { name: "Language: EN" })).toBeVisible();
 
     await page
-      .locator('[data-topic-key="minimal-product-keynote/product-keynote"]')
+      .locator('[data-topic-id="product-keynote"]')
       .getByRole("link")
       .click();
     await page.waitForSelector('[data-testid="stage"]', {
@@ -1405,7 +1405,7 @@ test.describe("Catalog / overview view", () => {
     await openOverview(page);
 
     const card = page.locator(
-      '[data-topic-key="front-page-broadsheet/broadsheet"]',
+      '[data-topic-id="broadsheet"]',
     );
     const link = card.getByRole("link");
     await expect(link).toBeVisible();

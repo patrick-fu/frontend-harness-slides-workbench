@@ -204,7 +204,7 @@ describe("Catalog + Player shell accessibility", () => {
     render(<App />);
 
     const card = document.querySelector<HTMLElement>(
-      `[data-topic-key="${firstGroup.style.id}/${firstTopic.id}"]`,
+      `[data-topic-id="${firstTopic.id}"]`,
     );
     expect(card).not.toBeNull();
     expect(within(card!).getAllByText(firstTopic.title.en).length).toBeGreaterThan(0);
@@ -242,7 +242,7 @@ describe("Catalog + Player shell accessibility", () => {
     await waitFor(() => expect(paletteSearch).toHaveFocus());
     fireEvent.change(paletteSearch, { target: { value: firstTopic.id } });
     const paletteResult = document.getElementById(
-      `${firstGroup.style.id}/${firstTopic.id}`,
+      firstTopic.id,
     );
     expect(paletteResult).toHaveAttribute("role", "option");
     expect(paletteResult).toHaveTextContent(firstTopic.title.en);

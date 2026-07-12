@@ -17,7 +17,6 @@ export interface CommandPaletteProps {
 }
 
 interface TopicResult {
-  key: string;
   group: RuntimeCatalogStyleGroup;
   topic: RuntimeCatalogTopic;
   registryIndex: number;
@@ -56,7 +55,6 @@ export default function CommandPalette({
     () =>
       registry.flatMap((group, styleIndex) =>
         group.topics.map((topic, topicIndex) => ({
-          key: `${group.style.id}/${topic.id}`,
           group,
           topic,
           registryIndex: styleIndex * 1000 + topicIndex,
@@ -156,7 +154,7 @@ export default function CommandPalette({
             role="combobox"
             aria-expanded="true"
             aria-controls="command-results"
-            aria-activedescendant={results[activeIndex]?.key}
+            aria-activedescendant={results[activeIndex]?.topic.id}
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             onKeyDown={(event) => {
@@ -197,8 +195,8 @@ export default function CommandPalette({
               const outsideScope = !isTopicInCycleScope(result.topic.id);
               return (
                 <button
-                  id={result.key}
-                  key={result.key}
+                  id={result.topic.id}
+                  key={result.topic.id}
                   type="button"
                   role="option"
                   aria-selected={active}
