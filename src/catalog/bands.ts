@@ -1,5 +1,5 @@
-import type { RuntimeStyleGroup } from "../../catalog/runtime-registry";
-import { BANDS, type Band } from "../../domain/style";
+import type { RuntimeStyleGroup } from "./runtime-registry";
+import { BANDS, type Band } from "../domain/style";
 
 // ─── Band definitions ───────────────────────────────────────────────────────
 

@@ -145,15 +145,6 @@ textarea {
   transition-duration: 0s !important;
 }
 
-/* ─── Pure mode: hide chrome ────────────────────────────────────────────── */
-
-[data-pure-mode="true"] [data-testid="header"],
-[data-pure-mode="true"] [data-testid="sidebar"],
-[data-pure-mode="true"] [data-testid="bottom-bar"],
-[data-pure-mode="true"] nav[data-sidebar] {
-  display: none !important;
-}
-
 /* ─── Print / PDF export ────────────────────────────────────────────────── */
 
 @media print {
@@ -174,12 +165,7 @@ textarea {
   }
 
   /* Hide all chrome when printing */
-  [data-testid="header"],
-  [data-testid="sidebar"],
   [data-testid="bottom-bar"],
-  [data-testid="sidebar-toggle"],
-  [data-testid="theme-toggle"],
-  [data-testid="github-link"],
   [data-topic-navigation="true"] {
     display: none !important;
   }

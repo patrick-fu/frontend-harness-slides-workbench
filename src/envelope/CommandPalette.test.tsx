@@ -4,8 +4,8 @@ import { describe, expect, it, vi } from "vitest";
 import type {
   RuntimeStyleGroup,
   RuntimeTopic,
-} from "../../catalog/runtime-registry";
-import type { TopicMetadata, TopicStageProps } from "../../domain/topic";
+} from "../catalog/runtime-registry";
+import type { TopicMetadata, TopicStageProps } from "../domain/topic";
 import CommandPalette from "./CommandPalette";
 
 const Noop = (_props: TopicStageProps) => null;

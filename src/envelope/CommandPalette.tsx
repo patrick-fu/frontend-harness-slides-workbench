@@ -2,9 +2,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type {
   RuntimeStyleGroup,
   RuntimeTopic,
-} from "../../catalog/runtime-registry";
-import { modelColor } from "../../utils/model-color";
-import { useModalFocus } from "../../hooks/useModalFocus";
+} from "../catalog/runtime-registry";
+import { modelColor } from "../utils/model-color";
+import { useModalFocus } from "./useModalFocus";
 
 export interface CommandPaletteProps {
   open: boolean;

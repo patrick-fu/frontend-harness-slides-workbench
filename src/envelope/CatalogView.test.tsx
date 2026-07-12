@@ -7,7 +7,7 @@ import type {
 } from "../catalog/runtime-registry";
 import type { Band } from "../domain/style";
 import type { TopicMetadata, TopicStageProps } from "../domain/topic";
-import OverviewView from "./OverviewView";
+import CatalogView from "./CatalogView";
 
 const EmptyStage = (_props: TopicStageProps) => null;
 
@@ -79,9 +79,9 @@ const defaultProps = {
   onOpenTopic: vi.fn(),
 };
 
-describe("OverviewView", () => {
+describe("CatalogView", () => {
   it("renders every Topic in registry order as a native link in one continuous grid", () => {
-    render(<OverviewView {...defaultProps} />);
+    render(<CatalogView {...defaultProps} />);
 
     const grid = screen.getByTestId("catalog-grid");
     const cards = within(grid).getAllByTestId("topic-card");
@@ -106,7 +106,7 @@ describe("OverviewView", () => {
   });
 
   it("marks only the first visible Topic Card in each contiguous Style group", () => {
-    render(<OverviewView {...defaultProps} />);
+    render(<CatalogView {...defaultProps} />);
 
     expect(screen.getByTestId("style-group-marker-alpha")).toHaveTextContent(
       "01 · Alpha",
@@ -119,7 +119,7 @@ describe("OverviewView", () => {
 
   it("opens a plain card click through the catalog owner", () => {
     const onOpenTopic = vi.fn();
-    render(<OverviewView {...defaultProps} onOpenTopic={onOpenTopic} />);
+    render(<CatalogView {...defaultProps} onOpenTopic={onOpenTopic} />);
 
     const link = within(screen.getAllByTestId("topic-card")[0]).getByRole("link");
     fireEvent.click(link);
@@ -129,7 +129,7 @@ describe("OverviewView", () => {
   it("prefetches an exact Topic on hover, keyboard focus, and touch intent", () => {
     const onPrefetchTopic = vi.fn();
     render(
-      <OverviewView
+      <CatalogView
         {...defaultProps}
         onPrefetchTopic={onPrefetchTopic}
       />,
@@ -147,7 +147,7 @@ describe("OverviewView", () => {
   it("summarizes all Topics and Styles, then hands user facet choices to the URL owner", () => {
     const onFiltersChange = vi.fn();
     render(
-      <OverviewView {...defaultProps} onFiltersChange={onFiltersChange} />,
+      <CatalogView {...defaultProps} onFiltersChange={onFiltersChange} />,
     );
 
     expect(screen.getByTestId("catalog-summary")).toHaveTextContent(
@@ -168,7 +168,7 @@ describe("OverviewView", () => {
 
   it("shows a filter-empty state without losing the catalog summary", () => {
     render(
-      <OverviewView
+      <CatalogView
         {...defaultProps}
         filters={{ bands: ["text-report"], models: ["Claude Opus 4.8"] }}
       />,
@@ -184,7 +184,7 @@ describe("OverviewView", () => {
 
   it("keeps unknown URL criteria visible as an unavailable filter state", () => {
     render(
-      <OverviewView
+      <CatalogView
         {...defaultProps}
         filters={{ bands: [], models: ["retired-model"] }}
       />,

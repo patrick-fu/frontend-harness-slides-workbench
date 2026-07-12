@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useModalFocus } from "../../hooks/useModalFocus";
+import { useModalFocus } from "./useModalFocus";
 
 export interface ControlsGuideProps {
   open: boolean;

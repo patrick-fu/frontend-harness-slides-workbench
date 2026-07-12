@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { RuntimeStyleGroup } from "../../catalog/runtime-registry";
-import { modelColor } from "../../utils/model-color";
-import { useModalFocus } from "../../hooks/useModalFocus";
-import { BAND_LABELS, groupByBand } from "../layout/bands";
+import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
+import { modelColor } from "../utils/model-color";
+import { useModalFocus } from "./useModalFocus";
+import { BAND_LABELS, groupByBand } from "../catalog/bands";
 
 export interface LibraryDrawerProps {
   open: boolean;

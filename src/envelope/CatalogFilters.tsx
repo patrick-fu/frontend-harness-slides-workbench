@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { modelColor } from "../utils/model-color";
-import { useModalFocus } from "../hooks/useModalFocus";
+import { useModalFocus } from "./useModalFocus";
 
 export interface FilterOption {
   value: string;
@@ -12,7 +12,7 @@ export interface FilterOption {
   disabled?: boolean;
 }
 
-export interface FilterPanelProps {
+export interface CatalogFiltersProps {
   bandOptions: FilterOption[];
   modelOptions: FilterOption[];
   selectedBands: string[];
@@ -274,7 +274,7 @@ function MobileFacetList({
   );
 }
 
-export default function FilterPanel({
+export default function CatalogFilters({
   bandOptions,
   modelOptions,
   selectedBands,
@@ -285,7 +285,7 @@ export default function FilterPanel({
   onToggleModel,
   onClearFilters,
   language,
-}: FilterPanelProps) {
+}: CatalogFiltersProps) {
   const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(false);
   const [mobileModelQuery, setMobileModelQuery] = useState("");
   const mobileDialogRef = useRef<HTMLDivElement>(null);

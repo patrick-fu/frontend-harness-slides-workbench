@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import type { RuntimeStyleGroup } from "../../catalog/runtime-registry";
-import { modelColor } from "../../utils/model-color";
+import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
+import { modelColor } from "../utils/model-color";
 
 export interface PlayerTopBarProps {
   group: RuntimeStyleGroup | null;

@@ -4,23 +4,21 @@ import {
   buildCatalogTopics,
   filterCatalogTopics,
   getCatalogFacetCounts,
-  type CatalogFilters,
+  type CatalogFilters as CatalogFilterState,
   type CatalogTopicEntry,
 } from "../utils/catalog-filter";
 import { modelColor } from "../utils/model-color";
 import { getShowcaseThumbnail } from "../data/showcase-thumbnails";
-import { BAND_LABELS, BAND_ORDER } from "./layout/bands";
-import FilterPanel, { type FilterOption } from "./FilterPanel";
+import { BAND_LABELS, BAND_ORDER } from "../catalog/bands";
+import CatalogFilters, { type FilterOption } from "./CatalogFilters";
 
-export type { CatalogFilters as OverviewFilters } from "../utils/catalog-filter";
-
-export interface OverviewViewProps {
+export interface CatalogViewProps {
   registry: readonly RuntimeStyleGroup[];
   language: "en" | "zh";
   /** URL-owned Catalog facets. Overview never serializes them itself. */
-  filters: CatalogFilters;
+  filters: CatalogFilterState;
   /** Replaces the URL-owned filters after a user interaction. */
-  onFiltersChange: (filters: CatalogFilters) => void;
+  onFiltersChange: (filters: CatalogFilterState) => void;
   /** Supplies the exact route for an independently openable Topic Card. */
   getTopicHref: (styleId: string, topicId: string) => string;
   /** Handles an ordinary left-click so the shell can retain Catalog scroll state. */
@@ -182,7 +180,7 @@ function TopicCard({
   );
 }
 
-export default function OverviewView({
+export default function CatalogView({
   registry,
   language,
   filters,
@@ -190,7 +188,7 @@ export default function OverviewView({
   getTopicHref,
   onOpenTopic,
   onPrefetchTopic,
-}: OverviewViewProps) {
+}: CatalogViewProps) {
   const allTopics = useMemo(
     () => buildCatalogTopics(registry, language),
     [language, registry],
@@ -315,7 +313,7 @@ export default function OverviewView({
             </p>
           </div>
           <div className="mt-2">
-            <FilterPanel
+            <CatalogFilters
               bandOptions={bandOptions}
               modelOptions={modelOptions}
               selectedBands={filters.bands}

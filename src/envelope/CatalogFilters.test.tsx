@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, within } from "@testing-library/react";
-import FilterPanel, { type FilterOption } from "./FilterPanel";
+import CatalogFilters, { type FilterOption } from "./CatalogFilters";
 
 const bandOptions: FilterOption[] = [
   { value: "minimal-keynote", label: "Minimal Keynote", count: 4 },
@@ -32,13 +32,13 @@ const defaultProps = {
   language: "en" as const,
 };
 
-describe("FilterPanel", () => {
+describe("CatalogFilters", () => {
   it("exposes separate Band and Model ID facets and toggles their values", () => {
     const onToggleBand = vi.fn();
     const onToggleModel = vi.fn();
 
     render(
-      <FilterPanel
+      <CatalogFilters
         {...defaultProps}
         onToggleBand={onToggleBand}
         onToggleModel={onToggleModel}
@@ -57,7 +57,7 @@ describe("FilterPanel", () => {
   it("keeps overflowing Model ID options in a searchable +N popover", () => {
     const onToggleModel = vi.fn();
 
-    render(<FilterPanel {...defaultProps} onToggleModel={onToggleModel} />);
+    render(<CatalogFilters {...defaultProps} onToggleModel={onToggleModel} />);
 
     const trigger = screen.getByRole("button", { name: "+1 Model IDs" });
     fireEvent.click(trigger);
@@ -78,7 +78,7 @@ describe("FilterPanel", () => {
   it("opens the complete filter list in a mobile bottom sheet", () => {
     const onToggleModel = vi.fn();
 
-    render(<FilterPanel {...defaultProps} onToggleModel={onToggleModel} />);
+    render(<CatalogFilters {...defaultProps} onToggleModel={onToggleModel} />);
 
     fireEvent.click(screen.getByRole("button", { name: "Filters" }));
     const sheet = screen.getByRole("dialog", { name: "Filters" });
@@ -89,7 +89,7 @@ describe("FilterPanel", () => {
 
   it("leaves zero-count options visible but unavailable", () => {
     render(
-      <FilterPanel
+      <CatalogFilters
         {...defaultProps}
         bandOptions={[
           ...bandOptions,

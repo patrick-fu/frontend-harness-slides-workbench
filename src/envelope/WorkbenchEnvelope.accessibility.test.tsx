@@ -1,14 +1,14 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { lazy } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import App from "../../App";
-import FilterPanel, { type FilterOption } from "../FilterPanel";
-import BottomBar from "../layout/BottomBar";
+import App from "../App";
+import CatalogFilters, { type FilterOption } from "./CatalogFilters";
+import PlayerTransport from "./PlayerTransport";
 import type {
   RuntimeStyleGroup,
   RuntimeTopic,
-} from "../../catalog/runtime-registry";
-import type { TopicMetadata, TopicStageProps } from "../../domain/topic";
+} from "../catalog/runtime-registry";
+import type { TopicMetadata, TopicStageProps } from "../domain/topic";
 import CommandPalette from "./CommandPalette";
 
 const Noop = (_props: TopicStageProps) => null;
@@ -147,7 +147,7 @@ describe("Catalog + Player shell accessibility", () => {
 
   it("moves focus into the mobile Filters dialog rather than leaving it on the covered trigger", async () => {
     render(
-      <FilterPanel
+      <CatalogFilters
         bandOptions={filterOptions}
         modelOptions={filterOptions}
         selectedBands={[]}
@@ -177,7 +177,7 @@ describe("Catalog + Player shell accessibility", () => {
 
   it("marks the active scene as the current presentation step", () => {
     render(
-      <BottomBar
+      <PlayerTransport
         scenes={scenes}
         currentScene={1}
         currentBeat={0}

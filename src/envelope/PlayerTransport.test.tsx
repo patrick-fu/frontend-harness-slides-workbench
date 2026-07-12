@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import type { TopicMetadata } from "../../domain/topic";
-import BottomBar from "./BottomBar";
+import type { TopicMetadata } from "../domain/topic";
+import PlayerTransport from "./PlayerTransport";
 
 function scenes(
   beatCounts = [1, 2, 3, 2, 1],
@@ -18,8 +18,8 @@ function scenes(
   }));
 }
 
-function setup(overrides: Partial<React.ComponentProps<typeof BottomBar>> = {}) {
-  const props: React.ComponentProps<typeof BottomBar> = {
+function setup(overrides: Partial<React.ComponentProps<typeof PlayerTransport>> = {}) {
+  const props: React.ComponentProps<typeof PlayerTransport> = {
     scenes: scenes(),
     currentScene: 3,
     currentBeat: 1,
@@ -29,7 +29,7 @@ function setup(overrides: Partial<React.ComponentProps<typeof BottomBar>> = {}) 
     onJumpBeat: vi.fn(),
     ...overrides,
   };
-  render(<BottomBar {...props} />);
+  render(<PlayerTransport {...props} />);
   return props;
 }
 

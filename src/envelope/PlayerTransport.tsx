@@ -1,6 +1,6 @@
-import type { TopicMetadata } from "../../domain/topic";
+import type { TopicMetadata } from "../domain/topic";
 
-export interface BottomBarProps {
+export interface PlayerTransportProps {
   scenes: TopicMetadata["scenes"];
   currentScene: number;
   currentBeat: number;
@@ -10,7 +10,7 @@ export interface BottomBarProps {
   onJumpBeat: (beat: number) => void;
 }
 
-export default function BottomBar({
+export default function PlayerTransport({
   scenes,
   currentScene,
   currentBeat,
@@ -18,7 +18,7 @@ export default function BottomBar({
   onNext,
   onJumpScene,
   onJumpBeat,
-}: BottomBarProps) {
+}: PlayerTransportProps) {
   const activeScene = scenes.find((scene) => scene.id === currentScene);
   const beats = activeScene?.beats ?? [];
   const navButton =

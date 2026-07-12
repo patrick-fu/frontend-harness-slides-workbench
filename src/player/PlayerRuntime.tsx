@@ -13,7 +13,7 @@ import type {
   TopicStageProps,
 } from "../domain/topic";
 import type { NavigationIntent, NavigationState } from "../navigation";
-import BottomBar from "../components/layout/BottomBar";
+import PlayerTransport from "../envelope/PlayerTransport";
 import PortraitHint from "./PortraitHint";
 import TopicAnnouncement from "./TopicAnnouncement";
 import {
@@ -404,7 +404,7 @@ export default function PlayerRuntime({
         </div>
       </div>
       {!isPureMode && scenes.length > 0 && (
-        <BottomBar
+        <PlayerTransport
           scenes={scenes}
           currentScene={scene}
           currentBeat={beat}
