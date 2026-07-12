@@ -6,7 +6,7 @@ import {
   useState,
   type MouseEvent,
 } from "react";
-import type { RuntimeTopicEntry } from "../catalog/runtime-registry";
+import type { RuntimePlayerCatalog } from "../catalog/runtime-catalog";
 import type { TopicStage, TopicStageProps } from "../domain/topic";
 import type { NavigationIntent, NavigationState } from "../navigation";
 import PortraitHint from "./PortraitHint";
@@ -20,19 +20,12 @@ import {
 } from "./input";
 import { useStageFit } from "./stage-fit";
 
-export interface PlayerCatalogAccess {
-  findTopic: (topicId: string) => RuntimeTopicEntry | null;
-  loadStage: (topicId: string) => Promise<TopicStage>;
-  prefetchAdjacent: (topicId: string) => Promise<void>;
-}
-
 export interface PlayerNavigationAccess {
   state: Pick<
     NavigationState,
     "styleId" | "topicId" | "scene" | "beat" | "pureMode" | "frozen"
   >;
   dispatch: (intent: NavigationIntent) => NavigationState;
-  reload: () => void;
 }
 
 export type PlayerEnvelopeAction =
@@ -42,7 +35,7 @@ export type PlayerEnvelopeAction =
   | "controls";
 
 export interface PlayerRuntimeProps {
-  catalog: PlayerCatalogAccess;
+  catalog: RuntimePlayerCatalog;
   navigation: PlayerNavigationAccess;
   language: "en" | "zh";
   reducedMotion: boolean;
@@ -62,7 +55,7 @@ export default function PlayerRuntime({
   reducedMotion,
   onEnvelopeAction,
 }: PlayerRuntimeProps) {
-  const { state, dispatch, reload } = navigation;
+  const { state, dispatch } = navigation;
   const {
     styleId,
     topicId,
@@ -77,6 +70,7 @@ export default function PlayerRuntime({
   const [hoverCue, setHoverCue] = useState<"prev" | "next" | null>(null);
   const [mobileTouchInput, setMobileTouchInput] = useState(false);
   const [announceTopic, setAnnounceTopic] = useState(false);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const [topicLoadState, setTopicLoadState] = useState<TopicStageLoadState>({
     key: "",
     status: "loading",
@@ -130,7 +124,7 @@ export default function PlayerRuntime({
     return () => {
       cancelled = true;
     };
-  }, [catalog, found, topicId, topicKey]);
+  }, [catalog, found, loadAttempt, topicId, topicKey]);
 
   const handleNext = useCallback(() => {
     dispatch({ type: "move", direction: "next" });
@@ -313,8 +307,12 @@ export default function PlayerRuntime({
                       type="button"
                       onClick={(event) => {
                         event.stopPropagation();
-                        // Browsers cache a failed module import, so the same loader cannot retry it.
-                        reload();
+                        setTopicLoadState({
+                          key: topicKey,
+                          status: "loading",
+                          stage: null,
+                        });
+                        setLoadAttempt((attempt) => attempt + 1);
                       }}
                       className="mt-6 rounded-xl border border-current px-5 py-2 text-lg font-semibold"
                     >

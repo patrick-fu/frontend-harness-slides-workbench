@@ -27,7 +27,6 @@ import { RUNTIME_CATALOG } from "../catalog/runtime-catalog";
 import PlayerRuntime, {
   type PlayerEnvelopeAction,
 } from "../player/PlayerRuntime";
-import { RUNTIME_PLAYER_CATALOG } from "../player/runtime-catalog";
 import { resolveCatalogFilters } from "../utils/catalog-filter";
 
 const RECENT_TOPICS_KEY = "fhsw:recent-topics";
@@ -49,7 +48,6 @@ export default function WorkbenchEnvelope() {
     state: urlState,
     dispatch: dispatchNavigation,
     href: getNavigationHref,
-    reload: reloadNavigation,
     catalogScrollTop,
   } = useNavigationState(RUNTIME_CATALOG.discovery.styleGroups);
   const displayLanguage = urlState.lang ?? resolvedLanguage;
@@ -336,11 +334,10 @@ export default function WorkbenchEnvelope() {
               className="relative min-h-0 flex-1"
             >
               <PlayerRuntime
-                catalog={RUNTIME_PLAYER_CATALOG}
+                catalog={RUNTIME_CATALOG.player}
                 navigation={{
                   state: urlState,
                   dispatch: dispatchNavigation,
-                  reload: reloadNavigation,
                 }}
                 language={displayLanguage}
                 reducedMotion={reducedMotion}

@@ -29,6 +29,16 @@ export interface RuntimeCatalogTopicEntry {
   topic: RuntimeCatalogTopic;
 }
 
+export type RuntimePlayerTopic = Pick<
+  RuntimeCatalogTopic,
+  "id" | "styleId" | "title" | "modelId" | "metadata"
+>;
+
+export interface RuntimePlayerTopicEntry {
+  style: Pick<StyleDefinition, "id" | "name">;
+  topic: RuntimePlayerTopic;
+}
+
 export interface RuntimeCatalogDiscovery {
   styleGroups: readonly RuntimeCatalogStyleGroup[];
   totals: Readonly<{ styles: number; topics: number }>;
@@ -36,7 +46,7 @@ export interface RuntimeCatalogDiscovery {
 }
 
 export interface RuntimePlayerCatalog {
-  findTopic: (topicId: string) => RuntimeCatalogTopicEntry | null;
+  findTopic: (topicId: string) => RuntimePlayerTopicEntry | null;
   loadStage: (topicId: string) => Promise<TopicStage>;
   prefetchAdjacent: (topicId: string) => Promise<void>;
 }
@@ -48,6 +58,7 @@ export interface RuntimeCatalogInterfaces {
 
 interface PrivateRuntimeTopicEntry {
   discovery: RuntimeCatalogTopicEntry;
+  player: RuntimePlayerTopicEntry;
   loadStage: () => Promise<TopicStage>;
 }
 
@@ -83,6 +94,22 @@ function toDiscoveryTopic(topic: CatalogTopic): RuntimeCatalogTopic {
   };
 }
 
+function toPlayerTopicEntry(
+  style: StyleDefinition,
+  topic: RuntimeCatalogTopic,
+): RuntimePlayerTopicEntry {
+  return {
+    style: { id: style.id, name: style.name },
+    topic: {
+      id: topic.id,
+      styleId: topic.styleId,
+      title: topic.title,
+      modelId: topic.modelId,
+      metadata: topic.metadata,
+    },
+  };
+}
+
 export function createRuntimeCatalog(
   manifest: readonly CatalogStyleGroup[],
   resolveStage: TopicStageResolver,
@@ -93,6 +120,7 @@ export function createRuntimeCatalog(
       const topic = toDiscoveryTopic(source);
       entries.push({
         discovery: { style: group.style, topic },
+        player: toPlayerTopicEntry(group.style, topic),
         loadStage: createStageLoader(source.modulePath, resolveStage),
       });
       return topic;
@@ -104,6 +132,8 @@ export function createRuntimeCatalog(
     entries.find((entry) => entry.discovery.topic.id === topicId) ?? null;
   const findTopic = (topicId: string) =>
     findPrivateTopic(topicId)?.discovery ?? null;
+  const findPlayerTopic = (topicId: string) =>
+    findPrivateTopic(topicId)?.player ?? null;
 
   return {
     discovery: {
@@ -118,7 +148,7 @@ export function createRuntimeCatalog(
       findTopic,
     },
     player: {
-      findTopic,
+      findTopic: findPlayerTopic,
       loadStage: (topicId) => {
         const entry = findPrivateTopic(topicId);
         if (!entry) {

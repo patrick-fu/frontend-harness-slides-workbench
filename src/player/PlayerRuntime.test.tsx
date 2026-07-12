@@ -5,13 +5,13 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
-import { lazy } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type {
-  RuntimeStyleGroup,
-  RuntimeTopic,
-  RuntimeTopicEntry,
-} from "../catalog/runtime-registry";
+  RuntimeCatalogStyleGroup,
+  RuntimeCatalogTopic,
+  RuntimeCatalogTopicEntry,
+  RuntimePlayerCatalog,
+} from "../catalog/runtime-catalog";
 import type {
   TopicMetadata,
   TopicStage,
@@ -19,7 +19,6 @@ import type {
 } from "../domain/topic";
 import type { NavigationState } from "../navigation";
 import PlayerRuntime, {
-  type PlayerCatalogAccess,
   type PlayerRuntimeProps,
 } from "./PlayerRuntime";
 import { MOBILE_TOUCH_QUERY } from "./input";
@@ -42,8 +41,8 @@ const metadata: TopicMetadata = {
 };
 
 function makeTopic(
-  evidence: RuntimeTopic["evidence"] = { kind: "none" },
-): RuntimeTopic {
+  evidence: RuntimeCatalogTopic["evidence"] = { kind: "none" },
+): RuntimeCatalogTopic {
   return {
     id: "quiet-launch",
     styleId: "quiet-grid",
@@ -58,13 +57,10 @@ function makeTopic(
       "4->5": "hard-cut",
     },
     evidence,
-    modulePath: "../topics/quiet-launch.tsx",
-    Stage: lazy(async () => ({ default: Slide })),
-    loadStage: async () => Slide,
   };
 }
 
-const registry: readonly RuntimeStyleGroup[] = [
+const registry: readonly RuntimeCatalogStyleGroup[] = [
   {
     style: {
       id: "quiet-grid",
@@ -75,7 +71,7 @@ const registry: readonly RuntimeStyleGroup[] = [
   },
 ];
 
-const illustrativeRegistry: readonly RuntimeStyleGroup[] = [
+const illustrativeRegistry: readonly RuntimeCatalogStyleGroup[] = [
   {
     ...registry[0],
     topics: [
@@ -91,14 +87,13 @@ const illustrativeRegistry: readonly RuntimeStyleGroup[] = [
   },
 ];
 
-const secondTopic: RuntimeTopic = {
+const secondTopic: RuntimeCatalogTopic = {
   ...makeTopic(),
   id: "second-topic",
   title: { en: "Second topic", zh: "第二题材" },
-  modulePath: "../topics/second-topic.tsx",
 };
 
-const twoTopicRegistry: readonly RuntimeStyleGroup[] = [
+const twoTopicRegistry: readonly RuntimeCatalogStyleGroup[] = [
   { ...registry[0]!, topics: [registry[0]!.topics[0]!, secondTopic] },
 ];
 
@@ -116,24 +111,22 @@ const defaultState: NavigationState = {
 };
 
 function makeCatalog(
-  sourceRegistry: readonly RuntimeStyleGroup[] = registry,
-  loadStage: PlayerCatalogAccess["loadStage"] = () =>
+  sourceRegistry: readonly RuntimeCatalogStyleGroup[] = registry,
+  loadStage: RuntimePlayerCatalog["loadStage"] = () =>
     new Promise<TopicStage>(() => undefined),
-  prefetchAdjacent: PlayerCatalogAccess["prefetchAdjacent"] = vi
+  prefetchAdjacent: RuntimePlayerCatalog["prefetchAdjacent"] = vi
     .fn()
     .mockResolvedValue(undefined),
-): PlayerCatalogAccess {
+): RuntimePlayerCatalog {
   return {
     findTopic(topicId) {
-      for (const [styleIndex, group] of sourceRegistry.entries()) {
-        const topicIndex = group.topics.findIndex((topic) => topic.id === topicId);
-        if (topicIndex >= 0) {
+      for (const group of sourceRegistry) {
+        const topic = group.topics.find((candidate) => candidate.id === topicId);
+        if (topic) {
           return {
             style: group.style,
-            styleIndex,
-            topicIndex,
-            topic: group.topics[topicIndex]!,
-          } satisfies RuntimeTopicEntry;
+            topic,
+          } satisfies RuntimeCatalogTopicEntry;
         }
       }
       return null;
@@ -145,7 +138,7 @@ function makeCatalog(
 
 interface SetupOverrides {
   state?: Partial<NavigationState>;
-  catalog?: PlayerCatalogAccess;
+  catalog?: RuntimePlayerCatalog;
   language?: PlayerRuntimeProps["language"];
   reducedMotion?: boolean;
 }
@@ -153,11 +146,10 @@ interface SetupOverrides {
 function setup(overrides: SetupOverrides = {}) {
   const state = { ...defaultState, ...overrides.state };
   const dispatch = vi.fn(() => state);
-  const reload = vi.fn();
   const onEnvelopeAction = vi.fn();
   const props: PlayerRuntimeProps = {
     catalog: overrides.catalog ?? makeCatalog(),
-    navigation: { state, dispatch, reload },
+    navigation: { state, dispatch },
     language: overrides.language ?? "en",
     reducedMotion: overrides.reducedMotion ?? false,
     onEnvelopeAction,
@@ -167,13 +159,12 @@ function setup(overrides: SetupOverrides = {}) {
     ...view,
     props,
     dispatch,
-    reload,
     onEnvelopeAction,
     rerenderState(next: Partial<NavigationState>) {
       view.rerender(
         <PlayerRuntime
           {...props}
-          navigation={{ state: { ...state, ...next }, dispatch, reload }}
+          navigation={{ state: { ...state, ...next }, dispatch }}
         />,
       );
     },
@@ -543,12 +534,13 @@ describe("Player Runtime", () => {
     );
   });
 
-  it("reloads the current destination after a Topic chunk fails so the browser can retry it", async () => {
+  it("retries a failed Topic load through the Player Catalog seam", async () => {
     const loadTopicStage = vi
       .fn()
-      .mockRejectedValueOnce(new Error("chunk unavailable"));
+      .mockRejectedValueOnce(new Error("chunk unavailable"))
+      .mockResolvedValueOnce(Slide);
 
-    const { reload } = setup({ catalog: makeCatalog(registry, loadTopicStage) });
+    setup({ catalog: makeCatalog(registry, loadTopicStage) });
 
     expect(await screen.findByText("Slides failed to load")).toBeVisible();
     expect(screen.getByTestId("player-runtime")).toHaveAttribute(
@@ -557,8 +549,16 @@ describe("Player Runtime", () => {
     );
     fireEvent.click(screen.getByRole("button", { name: "Retry" }));
 
-    expect(reload).toHaveBeenCalledTimes(1);
-    expect(loadTopicStage).toHaveBeenCalledTimes(1);
+    expect(screen.getByTestId("player-runtime")).toHaveAttribute(
+      "data-player-state",
+      "loading",
+    );
+    expect(await screen.findByText("Slide content")).toBeVisible();
+    expect(screen.getByTestId("player-runtime")).toHaveAttribute(
+      "data-player-state",
+      "ready",
+    );
+    expect(loadTopicStage).toHaveBeenCalledTimes(2);
   });
 
   it("ignores a stale Stage completion after switching Topics", async () => {

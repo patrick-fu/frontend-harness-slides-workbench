@@ -98,8 +98,30 @@ describe("createRuntimeCatalog", () => {
       resolveStage,
     );
 
-    expect(runtime.player.findTopic(selected.id)).toBe(
-      runtime.discovery.findTopic(selected.id),
+    expect(runtime.player.findTopic(selected.id)).toEqual({
+      style: {
+        id: styles["first-style"].id,
+        name: styles["first-style"].name,
+      },
+      topic: {
+        id: selected.id,
+        styleId: selected.styleId,
+        title: selected.title,
+        modelId: selected.modelId,
+        metadata: selected.metadata,
+      },
+    });
+    expect(runtime.player.findTopic(selected.id)?.style).not.toHaveProperty(
+      "band",
+    );
+    expect(runtime.player.findTopic(selected.id)?.topic).not.toHaveProperty(
+      "navigation",
+    );
+    expect(runtime.player.findTopic(selected.id)?.topic).not.toHaveProperty(
+      "transitionScore",
+    );
+    expect(runtime.player.findTopic(selected.id)?.topic).not.toHaveProperty(
+      "evidence",
     );
     await expect(runtime.player.loadStage(selected.id)).resolves.toBe(
       selected.Stage,
