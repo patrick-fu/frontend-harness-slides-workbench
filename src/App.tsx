@@ -14,9 +14,7 @@ import GlobalControls from "./components/chrome/GlobalControls";
 import LibraryDrawer from "./components/chrome/LibraryDrawer";
 import PlayerRail from "./components/chrome/PlayerRail";
 import PlayerTopBar from "./components/chrome/PlayerTopBar";
-import LabView from "./components/LabView";
 import OverviewView from "./components/OverviewView";
-import PortraitHint from "./components/PortraitHint";
 import { useFontPreload } from "./hooks/useFontPreload";
 import { useKeyboard } from "./hooks/useKeyboard";
 import { useNavigationState } from "./navigation/useNavigationState";
@@ -24,9 +22,12 @@ import type { NavigationIntent } from "./navigation";
 import {
   findRuntimeTopic,
   loadRuntimeTopicStage,
-  prefetchAdjacentRuntimeTopics,
   RUNTIME_REGISTRY,
 } from "./catalog/runtime-registry";
+import PlayerRuntime, {
+  type PlayerEnvelopeAction,
+} from "./player/PlayerRuntime";
+import { RUNTIME_PLAYER_CATALOG } from "./player/runtime-catalog";
 
 const RECENT_TOPICS_KEY = "fhsw:recent-topics";
 
@@ -53,7 +54,6 @@ function AppContent() {
   const [libraryOpen, setLibraryOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [controlsOpen, setControlsOpen] = useState(false);
-  const [announceTopic, setAnnounceTopic] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(Boolean(document.fullscreenElement));
   const [recentTopics, setRecentTopics] = useState(readRecentTopics);
@@ -151,11 +151,8 @@ function AppContent() {
     [dispatchNavigation],
   );
   const navigate = useCallback(
-    (intent: NavigationIntent) => {
-      const next = dispatchNavigation(intent);
-      if (next.topicId !== urlState.topicId) setAnnounceTopic(true);
-    },
-    [dispatchNavigation, urlState.topicId],
+    (intent: NavigationIntent) => dispatchNavigation(intent),
+    [dispatchNavigation],
   );
 
   const updateFilters = useCallback(
@@ -217,10 +214,15 @@ function AppContent() {
       setToast(displayLanguage === "zh" ? "无法进入全屏" : "Fullscreen unavailable");
     }
   }, [displayLanguage]);
-  const exitPure = useCallback(() => {
-    if (document.fullscreenElement) return;
-    dispatchNavigation({ type: "set-pure", pureMode: false });
-  }, [dispatchNavigation]);
+  const handlePlayerEnvelopeAction = useCallback(
+    (action: PlayerEnvelopeAction) => {
+      if (action === "overview") goOverview();
+      else if (action === "library") setLibraryOpen(true);
+      else if (action === "search") openPalette();
+      else openControls();
+    },
+    [goOverview, openControls, openPalette],
+  );
 
   const controls = (view: "overview" | "lab") => (
     <GlobalControls
@@ -291,26 +293,12 @@ function AppContent() {
               />
             )}
             <div className="min-h-0 flex-1">
-              <LabView
-                registry={RUNTIME_REGISTRY}
-                styleId={resolvedStyleId}
-                topicId={urlState.topicId}
-                scene={urlState.scene}
-                beat={urlState.beat}
-                isPureMode={urlState.pureMode}
-                reducedMotion={reducedMotion}
+              <PlayerRuntime
+                catalog={RUNTIME_PLAYER_CATALOG}
+                navigation={{ state: urlState, dispatch: navigate }}
                 language={displayLanguage}
-                frozen={urlState.frozen}
-                announceTopic={announceTopic}
-                onNavigate={navigate}
-                onAnnouncementDone={() => setAnnounceTopic(false)}
-                onExitPure={exitPure}
-                onGoOverview={goOverview}
-                onOpenLibrary={() => setLibraryOpen(true)}
-                onOpenPalette={openPalette}
-                onOpenControls={openControls}
-                loadTopicStage={loadRuntimeTopicStage}
-                prefetchAdjacentTopics={prefetchAdjacentRuntimeTopics}
+                reducedMotion={reducedMotion}
+                onEnvelopeAction={handlePlayerEnvelopeAction}
               />
             </div>
           </div>
@@ -340,7 +328,6 @@ function AppContent() {
         language={displayLanguage}
         onClose={() => setControlsOpen(false)}
       />
-      {urlState.view === "lab" && !urlState.pureMode && <PortraitHint language={displayLanguage} />}
       {toast && (
         <div role="status" className="fixed bottom-5 left-1/2 z-[120] -translate-x-1/2 rounded-full bg-ink px-4 py-2 text-xs font-medium text-paper shadow-xl">
           {toast}

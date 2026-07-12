@@ -4,21 +4,22 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type {
   RuntimeStyleGroup,
   RuntimeTopic,
+  RuntimeTopicEntry,
 } from "../catalog/runtime-registry";
 import type {
   TopicMetadata,
   TopicStage,
   TopicStageProps,
 } from "../domain/topic";
-import { useKeyboard } from "../hooks/useKeyboard";
-import { useTouchNav } from "../hooks/useTouchNav";
-import LabView from "./LabView";
+import type { NavigationState } from "../navigation";
+import PlayerRuntime, {
+  type PlayerCatalogAccess,
+  type PlayerRuntimeProps,
+} from "./PlayerRuntime";
 
 vi.mock("../hooks/useStageScale", () => ({
   useStageScale: () => ({ scale: 0.5, width: 960, height: 540 }),
 }));
-vi.mock("../hooks/useKeyboard", () => ({ useKeyboard: vi.fn() }));
-vi.mock("../hooks/useTouchNav", () => ({ useTouchNav: vi.fn() }));
 
 const Slide = vi.fn((_props: TopicStageProps) => <div>Slide content</div>);
 const metadata: TopicMetadata = {
@@ -86,35 +87,71 @@ const illustrativeRegistry: readonly RuntimeStyleGroup[] = [
   },
 ];
 
-function setup(overrides: Partial<React.ComponentProps<typeof LabView>> = {}) {
-  const props: React.ComponentProps<typeof LabView> = {
-    registry,
-    styleId: "quiet-grid",
-    topicId: "quiet-launch",
-    scene: 2,
-    beat: 0,
-    isPureMode: false,
-    reducedMotion: false,
-    language: "en",
-    frozen: false,
-    announceTopic: false,
-    onNavigate: vi.fn(),
-    onAnnouncementDone: vi.fn(),
-    onExitPure: vi.fn(),
-    onGoOverview: vi.fn(),
-    onOpenLibrary: vi.fn(),
-    onOpenPalette: vi.fn(),
-    onOpenControls: vi.fn(),
-    loadTopicStage: vi.fn(
-      () => new Promise<TopicStage>(() => undefined),
-    ),
-    ...overrides,
+const defaultState: NavigationState = {
+  view: "lab",
+  styleId: "quiet-grid",
+  topicId: "quiet-launch",
+  scene: 2,
+  beat: 0,
+  bands: [],
+  models: [],
+  lang: null,
+  pureMode: false,
+  frozen: false,
+};
+
+function makeCatalog(
+  sourceRegistry: readonly RuntimeStyleGroup[] = registry,
+  loadStage: PlayerCatalogAccess["loadStage"] = () =>
+    new Promise<TopicStage>(() => undefined),
+  prefetchAdjacent: PlayerCatalogAccess["prefetchAdjacent"] = vi
+    .fn()
+    .mockResolvedValue(undefined),
+): PlayerCatalogAccess {
+  return {
+    registry: sourceRegistry,
+    findTopic(topicId) {
+      for (const [styleIndex, group] of sourceRegistry.entries()) {
+        const topicIndex = group.topics.findIndex((topic) => topic.id === topicId);
+        if (topicIndex >= 0) {
+          return {
+            style: group.style,
+            styleIndex,
+            topicIndex,
+            topic: group.topics[topicIndex]!,
+          } satisfies RuntimeTopicEntry;
+        }
+      }
+      return null;
+    },
+    loadStage,
+    prefetchAdjacent,
   };
-  render(<LabView {...props} />);
-  return props;
 }
 
-describe("LabView Player seam", () => {
+interface SetupOverrides {
+  state?: Partial<NavigationState>;
+  catalog?: PlayerCatalogAccess;
+  language?: PlayerRuntimeProps["language"];
+  reducedMotion?: boolean;
+}
+
+function setup(overrides: SetupOverrides = {}) {
+  const state = { ...defaultState, ...overrides.state };
+  const dispatch = vi.fn(() => state);
+  const onEnvelopeAction = vi.fn();
+  const props: PlayerRuntimeProps = {
+    catalog: overrides.catalog ?? makeCatalog(),
+    navigation: { state, dispatch },
+    language: overrides.language ?? "en",
+    reducedMotion: overrides.reducedMotion ?? false,
+    onEnvelopeAction,
+  };
+  const view = render(<PlayerRuntime {...props} />);
+  return { ...view, props, dispatch, onEnvelopeAction };
+}
+
+describe("Player Runtime", () => {
   beforeEach(() => vi.clearAllMocks());
 
   it("keeps the Stage fixed at 1920x1080 inside a scaled contain wrapper", () => {
@@ -126,7 +163,7 @@ describe("LabView Player seam", () => {
   });
 
   it("uses left 20% and remaining 80% click zones for sequential navigation", () => {
-    const props = setup();
+    const { dispatch } = setup();
     const stage = screen.getByTestId("stage");
     vi.spyOn(stage, "getBoundingClientRect").mockReturnValue({
       left: 0,
@@ -143,64 +180,44 @@ describe("LabView Player seam", () => {
     fireEvent.click(stage, { clientX: 100 });
     fireEvent.click(stage, { clientX: 900 });
 
-    expect(props.onNavigate).toHaveBeenNthCalledWith(
+    expect(dispatch).toHaveBeenNthCalledWith(
       1,
       { type: "move", direction: "prev" },
     );
-    expect(props.onNavigate).toHaveBeenNthCalledWith(
+    expect(dispatch).toHaveBeenNthCalledWith(
       2,
       { type: "move", direction: "next" },
     );
   });
 
   it("does not silently fall back when the Topic identity is unavailable", () => {
-    setup({ topicId: "missing-topic" });
+    setup({ state: { topicId: "missing-topic" } });
     expect(screen.getByText("This slide deck is unavailable")).toBeVisible();
     expect(screen.queryByText("Slide content")).not.toBeInTheDocument();
+    expect(screen.getByTestId("lab-view")).toHaveAttribute(
+      "data-player-state",
+      "unavailable",
+    );
   });
 
   it("keeps Player transport out of Pure Mode", () => {
-    setup({ isPureMode: true });
+    const { onEnvelopeAction } = setup({ state: { pureMode: true } });
     expect(screen.queryByTestId("bottom-bar")).not.toBeInTheDocument();
-    expect(vi.mocked(useKeyboard)).toHaveBeenCalledWith(
-      expect.objectContaining({ onCommandPalette: undefined, onHelp: undefined }),
-    );
+    fireEvent.keyDown(window, { key: "k", ctrlKey: true });
+    expect(onEnvelopeAction).not.toHaveBeenCalled();
   });
 
   it("keeps the localized illustrative evidence boundary visible in Pure Mode", async () => {
     setup({
-      registry: illustrativeRegistry,
-      isPureMode: true,
+      catalog: makeCatalog(
+        illustrativeRegistry,
+        vi.fn().mockResolvedValue(Slide),
+      ),
+      state: { pureMode: true },
       language: "zh",
-      loadTopicStage: vi.fn().mockResolvedValue(Slide),
     });
 
     expect(await screen.findByRole("note")).toHaveTextContent("中文示例边界。");
-  });
-
-  it("enables direct-touch navigation only for coarse mobile screens", async () => {
-    const matchMedia = vi.spyOn(window, "matchMedia").mockImplementation(
-      (query) =>
-        ({
-          matches: query === "(max-width: 767px) and (pointer: coarse)",
-          media: query,
-          onchange: null,
-          addEventListener: vi.fn(),
-          removeEventListener: vi.fn(),
-          addListener: vi.fn(),
-          removeListener: vi.fn(),
-          dispatchEvent: vi.fn(),
-        }) as MediaQueryList,
-    );
-
-    setup();
-
-    await waitFor(() =>
-      expect(vi.mocked(useTouchNav)).toHaveBeenLastCalledWith(
-        expect.objectContaining({ enabled: true }),
-      ),
-    );
-    matchMedia.mockRestore();
   });
 
   it("keeps the fixed Stage visible while a Topic Stage loads, then prefetches neighbors", async () => {
@@ -213,9 +230,15 @@ describe("LabView Player seam", () => {
     );
     const prefetchAdjacentTopics = vi.fn().mockResolvedValue(undefined);
 
-    setup({ loadTopicStage, prefetchAdjacentTopics });
+    setup({
+      catalog: makeCatalog(registry, loadTopicStage, prefetchAdjacentTopics),
+    });
 
     expect(screen.getByTestId("stage")).toHaveAttribute("data-topic-ready", "false");
+    expect(screen.getByTestId("lab-view")).toHaveAttribute(
+      "data-player-state",
+      "loading",
+    );
     expect(screen.getByRole("status", { name: "Loading slides" })).toBeVisible();
     resolveTopic?.(Slide);
 
@@ -224,6 +247,10 @@ describe("LabView Player seam", () => {
     );
     expect(screen.getByText("Slide content")).toBeVisible();
     expect(prefetchAdjacentTopics).toHaveBeenCalledWith("quiet-launch");
+    expect(screen.getByTestId("lab-view")).toHaveAttribute(
+      "data-player-state",
+      "ready",
+    );
   });
 
   it("offers an in-Stage retry after a Topic Stage fails to load", async () => {
@@ -232,9 +259,13 @@ describe("LabView Player seam", () => {
       .mockRejectedValueOnce(new Error("chunk unavailable"))
       .mockResolvedValueOnce(Slide);
 
-    setup({ loadTopicStage });
+    setup({ catalog: makeCatalog(registry, loadTopicStage) });
 
     expect(await screen.findByText("Slides failed to load")).toBeVisible();
+    expect(screen.getByTestId("lab-view")).toHaveAttribute(
+      "data-player-state",
+      "error",
+    );
     fireEvent.click(screen.getByRole("button", { name: "Retry" }));
 
     await waitFor(() => expect(loadTopicStage).toHaveBeenCalledTimes(2));

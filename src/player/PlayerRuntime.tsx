@@ -6,7 +6,10 @@ import {
   useState,
   type MouseEvent,
 } from "react";
-import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
+import type {
+  RuntimeStyleGroup,
+  RuntimeTopicEntry,
+} from "../catalog/runtime-registry";
 import type {
   TopicMetadata,
   TopicStage,
@@ -19,31 +22,37 @@ import {
   getStageTapNavigationDirection,
   STAGE_PREVIOUS_ZONE_RATIO,
   type NavigationIntent,
+  type NavigationState,
 } from "../navigation";
-import BottomBar from "./layout/BottomBar";
-import PureModeOverlay from "./PureModeOverlay";
-import CrossTopicNotice from "./chrome/CrossTopicNotice";
+import BottomBar from "../components/layout/BottomBar";
+import PureModeOverlay from "../components/PureModeOverlay";
+import PortraitHint from "../components/PortraitHint";
+import CrossTopicNotice from "../components/chrome/CrossTopicNotice";
 
-export interface LabViewProps {
+export interface PlayerCatalogAccess {
   registry: readonly RuntimeStyleGroup[];
-  styleId: string;
-  topicId: string;
-  scene: number;
-  beat: number;
-  isPureMode: boolean;
-  reducedMotion: boolean;
+  findTopic: (topicId: string) => RuntimeTopicEntry | null;
+  loadStage: (topicId: string) => Promise<TopicStage>;
+  prefetchAdjacent: (topicId: string) => Promise<void>;
+}
+
+export interface PlayerNavigationAccess {
+  state: NavigationState;
+  dispatch: (intent: NavigationIntent) => NavigationState;
+}
+
+export type PlayerEnvelopeAction =
+  | "overview"
+  | "library"
+  | "search"
+  | "controls";
+
+export interface PlayerRuntimeProps {
+  catalog: PlayerCatalogAccess;
+  navigation: PlayerNavigationAccess;
   language: "en" | "zh";
-  frozen: boolean;
-  announceTopic: boolean;
-  onNavigate: (intent: NavigationIntent) => void;
-  onAnnouncementDone: () => void;
-  onExitPure: () => void;
-  onGoOverview: () => void;
-  onOpenLibrary: () => void;
-  onOpenPalette: () => void;
-  onOpenControls: () => void;
-  loadTopicStage: (topicId: string) => Promise<TopicStage>;
-  prefetchAdjacentTopics?: (topicId: string) => Promise<void>;
+  reducedMotion: boolean;
+  onEnvelopeAction: (action: PlayerEnvelopeAction) => void;
 }
 
 interface TopicStageLoadState {
@@ -65,33 +74,31 @@ const INTERACTIVE_SELECTOR = [
   "[contenteditable]",
 ].join(",");
 
-export default function LabView({
-  registry,
-  styleId,
-  topicId,
-  scene,
-  beat,
-  isPureMode,
-  reducedMotion,
+export default function PlayerRuntime({
+  catalog,
+  navigation,
   language,
-  frozen,
-  announceTopic,
-  onNavigate,
-  onAnnouncementDone,
-  onExitPure,
-  onGoOverview,
-  onOpenLibrary,
-  onOpenPalette,
-  onOpenControls,
-  loadTopicStage,
-  prefetchAdjacentTopics,
-}: LabViewProps) {
+  reducedMotion,
+  onEnvelopeAction,
+}: PlayerRuntimeProps) {
+  const { state, dispatch } = navigation;
+  const {
+    styleId,
+    topicId,
+    scene,
+    beat,
+    pureMode: isPureMode,
+    frozen,
+  } = state;
+  const { registry } = catalog;
   const stageContainerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const lastTouchRef = useRef(0);
+  const previousTopicIdRef = useRef(topicId);
   const [hoverCue, setHoverCue] = useState<"prev" | "next" | null>(null);
   const [retryToken, setRetryToken] = useState(0);
   const [mobileTouchInput, setMobileTouchInput] = useState(false);
+  const [announceTopic, setAnnounceTopic] = useState(false);
   const [topicLoadState, setTopicLoadState] = useState<TopicStageLoadState>({
     key: "",
     status: "loading",
@@ -108,11 +115,7 @@ export default function LabView({
     return () => query.removeEventListener("change", update);
   }, []);
 
-  const found = useMemo(() => {
-    const group = registry.find((entry) => entry.style.id === styleId);
-    const topic = group?.topics.find((entry) => entry.id === topicId);
-    return group && topic ? { group, topic } : null;
-  }, [registry, styleId, topicId]);
+  const found = useMemo(() => catalog.findTopic(topicId), [catalog, topicId]);
   const meta = useMemo(
     () => found?.topic.metadata[language] ?? null,
     [found, language],
@@ -128,16 +131,21 @@ export default function LabView({
       : { key: topicKey, status: "loading" as const, stage: null };
 
   useEffect(() => {
+    if (previousTopicIdRef.current !== topicId) {
+      previousTopicIdRef.current = topicId;
+      setAnnounceTopic(true);
+    }
+  }, [topicId]);
+
+  useEffect(() => {
     if (!found) return;
     let cancelled = false;
     setTopicLoadState({ key: topicKey, status: "loading", stage: null });
-    void loadTopicStage(topicId).then(
+    void catalog.loadStage(topicId).then(
       (stage) => {
         if (cancelled) return;
         setTopicLoadState({ key: topicKey, status: "ready", stage });
-        if (prefetchAdjacentTopics) {
-          void prefetchAdjacentTopics(topicId).catch(() => undefined);
-        }
+        void catalog.prefetchAdjacent(topicId).catch(() => undefined);
       },
       () => {
         if (!cancelled) {
@@ -148,40 +156,46 @@ export default function LabView({
     return () => {
       cancelled = true;
     };
-  }, [found, loadTopicStage, prefetchAdjacentTopics, retryToken, topicId, topicKey]);
+  }, [catalog, found, retryToken, topicId, topicKey]);
 
   const handleNext = useCallback(() => {
-    onNavigate({ type: "move", direction: "next" });
-  }, [onNavigate]);
+    dispatch({ type: "move", direction: "next" });
+  }, [dispatch]);
   const handlePrev = useCallback(() => {
-    onNavigate({ type: "move", direction: "prev" });
-  }, [onNavigate]);
+    dispatch({ type: "move", direction: "prev" });
+  }, [dispatch]);
   const handleJumpScene = useCallback(
     (targetScene: number) =>
-      onNavigate({ type: "jump-scene", scene: targetScene }),
-    [onNavigate],
+      dispatch({ type: "jump-scene", scene: targetScene }),
+    [dispatch],
   );
   const handleJumpBeat = useCallback(
     (targetBeat: number) =>
-      onNavigate({ type: "jump-position", scene, beat: targetBeat }),
-    [onNavigate, scene],
+      dispatch({ type: "jump-position", scene, beat: targetBeat }),
+    [dispatch, scene],
   );
   const handleStageNavigate = useCallback(
     (targetScene: number, targetBeat: number) =>
-      onNavigate({
+      dispatch({
         type: "jump-position",
         scene: targetScene,
         beat: targetBeat,
       }),
-    [onNavigate],
+    [dispatch],
   );
+  const handleExitPure = useCallback(() => {
+    if (document.fullscreenElement) return;
+    dispatch({ type: "set-pure", pureMode: false });
+  }, [dispatch]);
 
   useKeyboard({
     onArrowRight: handleNext,
     onArrowLeft: handlePrev,
     onSpace: handleNext,
-    onCommandPalette: isPureMode ? undefined : onOpenPalette,
-    onHelp: isPureMode ? undefined : onOpenControls,
+    onCommandPalette: isPureMode
+      ? undefined
+      : () => onEnvelopeAction("search"),
+    onHelp: isPureMode ? undefined : () => onEnvelopeAction("controls"),
   });
   useTouchNav({
     elementRef: stageRef,
@@ -216,14 +230,19 @@ export default function LabView({
 
   if (!found || !meta) {
     return (
-      <div data-testid="lab-view" className="grid h-full w-full place-items-center bg-canvas p-6 text-ink">
+      <div
+        data-testid="lab-view"
+        data-player-runtime="true"
+        data-player-state="unavailable"
+        className="grid h-full w-full place-items-center bg-canvas p-6 text-ink"
+      >
         <div className="max-w-md text-center">
           <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.18em] text-ink/40">404 · Topic unavailable</div>
           <h1 className="text-xl font-semibold">{language === "zh" ? "无法找到这份 Slides" : "This slide deck is unavailable"}</h1>
           <p className="mt-2 break-all text-sm text-ink/50">{styleId} / {topicId}</p>
           <div className="mt-6 flex justify-center gap-2">
-            <button type="button" onClick={onGoOverview} className="h-10 rounded-xl bg-ink px-4 text-xs font-semibold text-paper">{language === "zh" ? "返回总览" : "Back to Overview"}</button>
-            <button type="button" onClick={onOpenLibrary} className="h-10 rounded-xl border border-ink/15 px-4 text-xs font-semibold">{language === "zh" ? "打开资料库" : "Open Library"}</button>
+            <button type="button" onClick={() => onEnvelopeAction("overview")} className="h-10 rounded-xl bg-ink px-4 text-xs font-semibold text-paper">{language === "zh" ? "返回总览" : "Back to Overview"}</button>
+            <button type="button" onClick={() => onEnvelopeAction("library")} className="h-10 rounded-xl border border-ink/15 px-4 text-xs font-semibold">{language === "zh" ? "打开资料库" : "Open Library"}</button>
           </div>
         </div>
       </div>
@@ -241,7 +260,7 @@ export default function LabView({
     onNavigate: handleStageNavigate,
   };
   const styleNumber =
-    registry.findIndex((entry) => entry.style.id === found.group.style.id) + 1;
+    registry.findIndex((entry) => entry.style.id === found.style.id) + 1;
   const illustrativeBoundary =
     (found.topic.evidence?.kind === "illustrative" ||
       found.topic.evidence?.kind === "mixed") &&
@@ -250,12 +269,18 @@ export default function LabView({
       : null;
 
   return (
-    <div data-testid="lab-view" className="flex h-full w-full min-h-0 flex-col">
+    <div
+      data-testid="lab-view"
+      data-player-runtime="true"
+      data-player-state={activeLoadState.status}
+      data-player-topic={topicId}
+      className="flex h-full w-full min-h-0 flex-col"
+    >
       <div
         ref={stageContainerRef}
         className="relative flex min-h-0 min-w-0 flex-1 items-center justify-center overflow-hidden bg-canvas"
       >
-        <PureModeOverlay isPureMode={isPureMode} onExitPure={onExitPure}>
+        <PureModeOverlay isPureMode={isPureMode} onExitPure={handleExitPure}>
           <div
             className="relative shrink-0"
             style={{ width: scaledWidth, height: scaledHeight }}
@@ -373,11 +398,11 @@ export default function LabView({
             {announceTopic && !isPureMode && (
               <CrossTopicNotice
                 styleNumber={styleNumber}
-                styleName={found.group.style.name[language]}
+                styleName={found.style.name[language]}
                 topicName={found.topic.title[language]}
                 modelId={found.topic.modelId}
                 reducedMotion={reducedMotion}
-                onDone={onAnnouncementDone}
+                onDone={() => setAnnounceTopic(false)}
               />
             )}
           </div>
@@ -394,6 +419,7 @@ export default function LabView({
           onJumpBeat={handleJumpBeat}
         />
       )}
+      {!isPureMode && <PortraitHint language={language} />}
     </div>
   );
 }
