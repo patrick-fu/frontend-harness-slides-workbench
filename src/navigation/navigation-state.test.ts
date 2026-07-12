@@ -419,6 +419,43 @@ describe("Navigation State semantic intent seam", () => {
     );
     expect(history.entries).toHaveLength(1);
   });
+
+  it("opens a canonical filtered destination from semantic Topic ID alone", () => {
+    const semanticRegistry = [
+      ...registry,
+      {
+        style: { id: "current-style", band: "balanced-hybrid" },
+        topics: [
+          makeTopic("semantic-topic", "current-style", [[7, 9]], "Model C"),
+        ],
+      },
+    ];
+    const history = createMemoryHistoryAdapter(
+      "/workbench?view=overview&style=stale-style&topic=alpha-one&scene=4&beat=3&band=retired-band&model=retired-model",
+    );
+    const store = createNavigationStore({ registry: semanticRegistry, history });
+
+    store.dispatch({ type: "open-topic", topicId: "semantic-topic" });
+
+    expect(store.getSnapshot()).toMatchObject({
+      view: "lab",
+      styleId: "current-style",
+      topicId: "semantic-topic",
+      scene: 1,
+      beat: 7,
+      bands: ["retired-band"],
+      models: ["retired-model"],
+    });
+    expect(history.entries).toHaveLength(2);
+    expect(history.entries[1]).toContain(
+      "style=current-style&topic=semantic-topic&scene=1&beat=7",
+    );
+
+    const beforeUnknown = store.getSnapshot();
+    store.dispatch({ type: "open-topic", topicId: "missing-topic" });
+    expect(store.getSnapshot()).toBe(beforeUnknown);
+    expect(history.entries).toHaveLength(2);
+  });
 });
 
 describe("Navigation State History seam", () => {

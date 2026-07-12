@@ -168,8 +168,8 @@ export default function WorkbenchEnvelope() {
     dispatchNavigation({ type: "reset-catalog" });
     catalogScrollRef.current?.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
   }, [catalogScrollTop, dispatchNavigation, reducedMotion]);
-  const selectTopic = useCallback(
-    (_styleId: string, topicId: string) => {
+  const selectTopicById = useCallback(
+    (topicId: string) => {
       setLibraryOpen(false);
       setPaletteOpen(false);
       dispatchNavigation({
@@ -180,16 +180,23 @@ export default function WorkbenchEnvelope() {
     },
     [dispatchNavigation],
   );
+  const selectTopic = useCallback(
+    (_styleId: string, topicId: string) => selectTopicById(topicId),
+    [selectTopicById],
+  );
   const updateFilters = useCallback(
     (next: { bands: string[]; models: string[] }) =>
       dispatchNavigation({ type: "set-filters", ...next }),
     [dispatchNavigation],
   );
 
-  const getTopicHref = useCallback(
-    (_styleId: string, topicId: string) =>
-      getNavigationHref({ type: "open-topic", topicId }),
+  const getTopicHrefById = useCallback(
+    (topicId: string) => getNavigationHref({ type: "open-topic", topicId }),
     [getNavigationHref],
+  );
+  const getTopicHref = useCallback(
+    (_styleId: string, topicId: string) => getTopicHrefById(topicId),
+    [getTopicHrefById],
   );
 
   const handleLanguageChange = useCallback(
