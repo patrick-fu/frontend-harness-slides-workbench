@@ -46,6 +46,7 @@ import districtHeatDefinition from "../topics/district-heat";
 import whereRequestGoesDefinition from "../topics/where-request-goes";
 import fromPromptToPatchDefinition from "../topics/from-prompt-to-patch";
 import waterTowerDefinition from "../topics/water-tower";
+import tcpCongestionControlDefinition from "../topics/tcp-congestion-control";
 import friendlyOnboardDefinition from "../topics/friendly-onboard";
 import breathingOnboardDefinition from "../topics/breathing-onboard";
 import chrysalisRebuildDefinition from "../topics/chrysalis-rebuild";
@@ -266,7 +267,9 @@ export const TOPIC_REGISTRY = [
     whereRequestGoesDefinition,
   ],
   [
-    fromPromptToPatchDefinition, waterTowerDefinition
+    fromPromptToPatchDefinition,
+    waterTowerDefinition,
+    tcpCongestionControlDefinition,
   ],
   [
     friendlyOnboardDefinition,

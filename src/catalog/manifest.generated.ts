@@ -13825,6 +13825,351 @@ export const CATALOG_MANIFEST = [
           ]
         },
         "modulePath": "../topics/water-tower.tsx"
+      },
+      {
+        "id": "tcp-congestion-control",
+        "styleId": "engineering-whiteboard-explainer",
+        "title": {
+          "en": "TCP Handshake & Congestion",
+          "zh": "TCP 拥塞控制"
+        },
+        "modelId": "Doubao-Seed-Evolving",
+        "metadata": {
+          "en": {
+            "theme": "An emoji-driven engineering whiteboard that turns TCP handshake and congestion control into a visual story with packets flying, windows sliding, and a roller-coaster cwnd curve.",
+            "densityLabel": "Explainer",
+            "heroScene": 4,
+            "colors": {
+              "bg": "#fbfcff",
+              "ink": "#20242a",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "Space Grotesk 700 / LXGW WenKai 700",
+              "body": "Inter 400"
+            },
+            "tags": [
+              "engineering",
+              "whiteboard",
+              "explainer",
+              "networking",
+              "tcp",
+              "developer-education",
+              "tcp",
+              "networking",
+              "handshake",
+              "congestion-control",
+              "sliding-window"
+            ],
+            "fonts": [
+              "Inter",
+              "JetBrains Mono",
+              "cjk:LXGW WenKai",
+              "Caveat",
+              "cjk:Ma Shan Zheng",
+              "Space Grotesk"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "The unreliable network",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Show two endpoints",
+                    "title": "Two machines want to talk — but the network lies",
+                    "body": "A laptop and a server, separated by a chaotic internet."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Demonstrate IP failures",
+                    "title": "IP promises only one thing: it promises nothing",
+                    "body": "Packets get lost, reordered, and duplicated. No guarantees."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Three-way handshake",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Send SYN",
+                    "title": "SYN — \"Can you hear me?\"",
+                    "body": "Client initiates with a sequence number x."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Send SYN-ACK",
+                    "title": "SYN-ACK — \"Loud and clear. Can you hear me?\"",
+                    "body": "Server acknowledges x+1 and sends its own sequence y."
+                  },
+                  {
+                    "id": 2,
+                    "action": "Send ACK + connect",
+                    "title": "ACK — \"Got it. Let's talk.\"",
+                    "body": "Both sides confirm each other's send and receive capability."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Sliding window",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Show sender window",
+                    "title": "A window of 4 packets is ready to fly",
+                    "body": "Sender buffer holds 8; the window says \"send these 4 now.\""
+                  },
+                  {
+                    "id": 1,
+                    "action": "Transmit + receive ACKs",
+                    "title": "Packets fly, acknowledgments return",
+                    "body": "Each ACK tells the sender \"I received up to here.\""
+                  },
+                  {
+                    "id": 2,
+                    "action": "Window slides right",
+                    "title": "The receiver decides the pace — the sender follows",
+                    "body": "Receiver advertises rwnd=6. Flow control is receiver-driven."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Congestion control",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Slow start phase",
+                    "title": "Slow start: hit the gas, double every RTT",
+                    "body": "cwnd grows exponentially — we don't know the pipe's capacity yet."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Packet loss event",
+                    "title": "Loss! The network is sending a signal",
+                    "body": "A dropped packet means the bottleneck is full. Time to back off."
+                  },
+                  {
+                    "id": 2,
+                    "action": "AIMD phase",
+                    "title": "Probe the limit, then gracefully retreat",
+                    "body": "cwnd halves instantly (MD), then climbs one packet per RTT (AI)."
+                  },
+                  {
+                    "id": 3,
+                    "action": "Steady-state sawtooth",
+                    "title": "The sawtooth is why the internet works",
+                    "body": "AIMD converges to fairness. Every flow gets a fair share of the pipe."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The full picture",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Lifecycle timeline",
+                    "title": "From SYN to FIN — a complete TCP conversation",
+                    "body": "Handshake, data transfer, congestion control, graceful close."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Final takeaway",
+                    "title": "TCP doesn't make the network fast — it makes it usable on top of unreliability",
+                    "body": "Reliability, ordering, flow control, and fairness — all invented in software."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "用 emoji 驱动的工程白板，把 TCP 握手和拥塞控制讲成一个看得见的故事：飞包、滑窗、过山车般的 cwnd 曲线。",
+            "densityLabel": "讲解型",
+            "heroScene": 4,
+            "colors": {
+              "bg": "#fbfcff",
+              "ink": "#20242a",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "Space Grotesk 700 / LXGW WenKai 700",
+              "body": "Inter 400"
+            },
+            "tags": [
+              "engineering",
+              "whiteboard",
+              "explainer",
+              "networking",
+              "tcp",
+              "developer-education",
+              "tcp",
+              "网络",
+              "握手",
+              "拥塞控制",
+              "滑动窗口"
+            ],
+            "fonts": [
+              "Inter",
+              "JetBrains Mono",
+              "cjk:LXGW WenKai",
+              "Caveat",
+              "cjk:Ma Shan Zheng",
+              "Space Grotesk"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "不可靠的网络",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展示两端",
+                    "title": "两台机器想说话——但网络在撒谎",
+                    "body": "一台笔记本和一台服务器，被混乱的互联网隔开。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "演示 IP 的失败模式",
+                    "title": "IP 保证的只有一件事：不保证任何事",
+                    "body": "包会丢、会乱序、会重复。没有任何承诺。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "三次握手",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "发 SYN",
+                    "title": "SYN——\"你能听到我吗？\"",
+                    "body": "客户端发起连接，带上初始序列号 x。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "发 SYN-ACK",
+                    "title": "SYN-ACK——\"听到了，你能听到我吗？\"",
+                    "body": "服务器确认 x+1，并发送自己的序列号 y。"
+                  },
+                  {
+                    "id": 2,
+                    "action": "发 ACK + 连接建立",
+                    "title": "ACK——\"收到了，开始说话吧。\"",
+                    "body": "双方都确认了对方的收发能力。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "滑动窗口",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展示发送窗口",
+                    "title": "一个窗口装着 4 个包，准备起飞",
+                    "body": "发送缓冲区有 8 个包，窗口说\"现在发这 4 个。\""
+                  },
+                  {
+                    "id": 1,
+                    "action": "传输 + 收到 ACK",
+                    "title": "包飞出去，确认飞回来",
+                    "body": "每个 ACK 告诉发送方\"我收到这里了。\""
+                  },
+                  {
+                    "id": 2,
+                    "action": "窗口右滑",
+                    "title": "接收方说了算，发送方跟着走",
+                    "body": "接收方通告 rwnd=6。流量控制是接收方驱动的。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "拥塞控制",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "慢启动阶段",
+                    "title": "慢启动：踩死油门，每个 RTT 翻倍",
+                    "body": "cwnd 指数增长——我们还不知道管道能装多少。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "丢包事件",
+                    "title": "丢包！网络在发信号",
+                    "body": "一个包掉了，说明瓶颈已满。该退了。"
+                  },
+                  {
+                    "id": 2,
+                    "action": "AIMD 阶段",
+                    "title": "先试探极限，再优雅退让",
+                    "body": "cwnd 瞬间减半（MD），然后每个 RTT 涨一个包（AI）。"
+                  },
+                  {
+                    "id": 3,
+                    "action": "稳态锯齿波",
+                    "title": "这道锯齿波，就是互联网能跑的原因",
+                    "body": "AIMD 收敛于公平。每条流都能分到管道的合理份额。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "完整生命周期",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "生命周期时间线",
+                    "title": "从 SYN 到 FIN——一次完整的 TCP 对话",
+                    "body": "握手、数据传输、拥塞控制、优雅关闭。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "终极总结",
+                    "title": "TCP 不是让网络变快，而是让网络在不可靠之上变得可用",
+                    "body": "可靠、有序、流量控制、公平——全是软件发明出来的。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "linear-wipe",
+          "2->3": "zoom-through",
+          "3->4": "dolly-pull",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "authority": "IETF",
+              "title": "RFC 9293: Transmission Control Protocol (TCP)",
+              "url": "https://www.rfc-editor.org/rfc/rfc9293.html",
+              "supports": "TCP connection establishment, sequence and acknowledgment numbers, reliable ordered delivery, receive-window flow control, and graceful close."
+            },
+            {
+              "authority": "IETF",
+              "title": "RFC 5681: TCP Congestion Control",
+              "url": "https://www.rfc-editor.org/rfc/rfc5681.html",
+              "supports": "The congestion window, slow start, congestion avoidance, multiplicative decrease after congestion signals, and additive growth behavior."
+            }
+          ],
+          "boundary": {
+            "en": "Simplified teaching model of classic TCP behavior: packet counts, receive-window values, loss causes, AIMD response, and fairness outcomes vary by algorithm, implementation, path, and traffic conditions.",
+            "zh": "经典 TCP 行为的简化教学模型：包数量、接收窗口数值、丢包原因、AIMD 响应和公平性结果会随算法、实现、路径与流量条件而变化。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/tcp-congestion-control.tsx"
       }
     ]
   },
@@ -58421,7 +58766,7 @@ export const CATALOG_MANIFEST = [
 
 export const CATALOG_STATS = {
   "styles": 49,
-  "topics": 194
+  "topics": 195
 } as const satisfies PublicationStats;
 
 export const PUBLICATION_TARGETS = [
@@ -59065,6 +59410,20 @@ export const PUBLICATION_TARGETS = [
       "language": "en",
       "scene": 4,
       "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "engineering-whiteboard-explainer",
+    "topicId": "tcp-congestion-control",
+    "modulePath": "../topics/tcp-congestion-control.tsx",
+    "testPath": "src/topics/tcp-congestion-control.test.tsx",
+    "previewFilename": "tcp-congestion-control.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 3,
       "pure": true,
       "frozen": true
     }
@@ -62201,6 +62560,24 @@ export const PUBLICATION_AUDIT_CASES = {
       "language": "zh",
       "scene": 4,
       "beat": 2
+    },
+    {
+      "styleId": "engineering-whiteboard-explainer",
+      "topicId": "tcp-congestion-control",
+      "topicName": "TCP Handshake & Congestion",
+      "language": "en",
+      "scene": 4,
+      "beat": 3,
+      "evidenceBoundary": "Simplified teaching model of classic TCP behavior: packet counts, receive-window values, loss causes, AIMD response, and fairness outcomes vary by algorithm, implementation, path, and traffic conditions."
+    },
+    {
+      "styleId": "engineering-whiteboard-explainer",
+      "topicId": "tcp-congestion-control",
+      "topicName": "TCP 拥塞控制",
+      "language": "zh",
+      "scene": 4,
+      "beat": 3,
+      "evidenceBoundary": "经典 TCP 行为的简化教学模型：包数量、接收窗口数值、丢包原因、AIMD 响应和公平性结果会随算法、实现、路径与流量条件而变化。"
     },
     {
       "styleId": "soft-pastel-friendly",
