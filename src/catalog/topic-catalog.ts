@@ -19,7 +19,6 @@ export interface CatalogStyleGroup {
 
 export interface TopicCatalog {
   styleGroups: readonly StyleGroup[];
-  manifest: readonly CatalogStyleGroup[];
 }
 
 export function validateStyleDefinitions(styles: StyleDefinitions): void {
@@ -89,14 +88,6 @@ export function validateTopicRegistry(
   return styleGroups;
 }
 
-function projectTopic(topic: TopicDefinition): CatalogTopic {
-  const { Stage: _Stage, ...catalogTopic } = topic;
-  return {
-    ...catalogTopic,
-    modulePath: `../topics/${topic.id}.tsx`,
-  };
-}
-
 export function createTopicCatalog(
   styles: StyleDefinitions,
   registry: TopicRegistry,
@@ -104,11 +95,5 @@ export function createTopicCatalog(
   validateStyleDefinitions(styles);
   const styleGroups = validateTopicRegistry(styles, registry);
 
-  return {
-    styleGroups,
-    manifest: styleGroups.map((group) => ({
-      style: group.style,
-      topics: group.topics.map(projectTopic),
-    })),
-  };
+  return { styleGroups };
 }

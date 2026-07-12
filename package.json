@@ -21,9 +21,10 @@
     "test:watch": "vitest",
     "test:audit": "playwright test",
     "typecheck": "tsc --noEmit",
-    "generate:showcase-thumbnails": "node scripts/thumbnail/generate.mjs",
-    "clean:showcase-thumbnails": "node scripts/thumbnail/clean.mjs",
-    "verify:showcase-thumbnails": "node scripts/thumbnail/verify.mjs",
+    "generate:catalog": "node scripts/publication/cli.mjs manifest",
+    "generate:showcase-thumbnails": "node scripts/publication/cli.mjs capture",
+    "clean:showcase-thumbnails": "node scripts/publication/cli.mjs clean",
+    "verify:showcase-thumbnails": "node scripts/publication/cli.mjs verify",
     "ci": "npm run typecheck && npm run build && npm run test:unit && npm run verify:showcase-thumbnails"
   },
   "dependencies": {

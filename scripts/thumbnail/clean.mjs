@@ -1,23 +1,15 @@
 import {
-  collectThumbnailTargets,
-  createThumbnailViteServer,
   removeUnmappedShowcaseWebps,
 } from "./shared.mjs";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-async function main() {
-  const vite = await createThumbnailViteServer();
-
-  try {
-    await vite.listen();
-    const targets = await collectThumbnailTargets(vite);
-    const removedFilenames = await removeUnmappedShowcaseWebps(targets);
-    console.log(`Removed ${removedFilenames.length} obsolete showcase WebPs.`);
-  } finally {
-    await vite.close();
-  }
+export async function cleanShowcaseThumbnails(targets) {
+  const removedFilenames = await removeUnmappedShowcaseWebps(targets);
+  console.log(`Removed ${removedFilenames.length} obsolete showcase WebPs.`);
 }
 
-main().catch((error) => {
-  console.error(error);
+if (resolve(process.argv[1] ?? "") === fileURLToPath(import.meta.url)) {
+  console.error("Use `npm run clean:showcase-thumbnails`.");
   process.exitCode = 1;
-});
+}

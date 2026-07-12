@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
 import type { TopicDefinition } from "../domain/topic";
-import { CATALOG_MANIFEST } from "./manifest.generated";
-import { validateTopicRegistry } from "./topic-catalog";
+import {
+  CATALOG_MANIFEST,
+  CATALOG_STATS,
+  PUBLICATION_AUDIT_CASES,
+  PUBLICATION_TARGETS,
+} from "./manifest.generated";
+import { createTopicCatalog, validateTopicRegistry } from "./topic-catalog";
+import { buildPublicationPlan } from "./publication-plan";
 import { TOPIC_REGISTRY } from "./topic-registry";
 import { STYLE_DEFINITIONS } from "./style-definitions";
 
@@ -43,7 +49,13 @@ describe("TOPIC_REGISTRY", () => {
   const registeredIds = registeredTopics.map((topic) => topic.id);
 
   it("is the unique global ordering source and projects exactly into the generated Manifest", () => {
+    const publicationPlan = buildPublicationPlan(
+      createTopicCatalog(STYLE_DEFINITIONS, TOPIC_REGISTRY),
+    );
     expect(new Set(registeredIds).size).toBe(registeredIds.length);
+    expect(CATALOG_STATS).toEqual(publicationPlan.stats);
+    expect(PUBLICATION_TARGETS).toEqual(publicationPlan.targets);
+    expect(PUBLICATION_AUDIT_CASES).toEqual(publicationPlan.auditCases);
     expect(
       CATALOG_MANIFEST.map((group) => [
         group.style.id,

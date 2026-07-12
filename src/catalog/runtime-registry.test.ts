@@ -7,6 +7,7 @@ import {
   findRuntimeTopic,
 } from "./runtime-registry";
 import { createTopicCatalog } from "./topic-catalog";
+import { buildPublicationPlan } from "./publication-plan";
 
 const styles: StyleDefinitions = {
   "first-style": {
@@ -23,9 +24,10 @@ describe("createRuntimeRegistry", () => {
       styleId: "first-style",
     });
     const catalog = createTopicCatalog(styles, [[definition]]);
+    const plan = buildPublicationPlan(catalog);
     const resolveStage = vi.fn(async () => definition.Stage);
 
-    const runtime = createRuntimeRegistry(catalog.manifest, resolveStage);
+    const runtime = createRuntimeRegistry(plan.manifest, resolveStage);
 
     expect(runtime[0]?.topics[0]?.title).toEqual(definition.title);
     expect(resolveStage).not.toHaveBeenCalled();
@@ -42,11 +44,12 @@ describe("createRuntimeRegistry", () => {
       styleId: "first-style",
     });
     const catalog = createTopicCatalog(styles, [[definition]]);
+    const plan = buildPublicationPlan(catalog);
     const resolveStage = vi
       .fn<(modulePath: string) => Promise<typeof definition.Stage>>()
       .mockRejectedValueOnce(new Error("offline"))
       .mockResolvedValue(definition.Stage);
-    const runtime = createRuntimeRegistry(catalog.manifest, resolveStage);
+    const runtime = createRuntimeRegistry(plan.manifest, resolveStage);
     const topic = runtime[0]?.topics[0];
     if (!topic) throw new Error("Fixture Runtime Topic was not created.");
 

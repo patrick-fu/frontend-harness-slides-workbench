@@ -1,17 +1,18 @@
 import { test, expect, Page } from "@playwright/test";
-import { CATALOG_MANIFEST } from "../src/catalog/manifest.generated";
+import {
+  CATALOG_MANIFEST,
+  CATALOG_STATS,
+  PUBLICATION_AUDIT_CASES,
+  PUBLICATION_TARGETS,
+} from "../src/catalog/manifest.generated";
+import type { PublicationHeroFrame } from "../src/catalog/publication-plan";
 
-const CATALOG_TOPIC_COUNT = CATALOG_MANIFEST.reduce(
-  (total, style) => total + style.topics.length,
-  0,
-);
+const CATALOG_TOPIC_COUNT = CATALOG_STATS.topics;
 
-const TOPIC_KEYS = CATALOG_MANIFEST.flatMap((styleGroup) =>
-  styleGroup.topics.map((topic) => ({
-    styleId: styleGroup.style.id,
-    topicId: topic.id,
-  })),
-);
+const TOPIC_KEYS = PUBLICATION_TARGETS.map(({ styleId, topicId }) => ({
+  styleId,
+  topicId,
+}));
 
 const SCENE_TRANSITION_KINDS = [
   "slide-x",
@@ -179,15 +180,6 @@ function getLastTopic(styleId: string): string {
   return topic.id;
 }
 
-/** Get the first multi-beat Scene from the first Topic's authored metadata. */
-function getFirstMultiBeatScene(styleId: string): number {
-  const topic = getManifestTopic(styleId, getFirstTopicId(styleId));
-  const scene = topic.metadata.en.scenes.find(
-    (candidate) => candidate.beats.length > 1,
-  );
-  return scene?.id ?? 1;
-}
-
 function getFirstStyleId(): string {
   const styleGroup = CATALOG_MANIFEST[0];
   if (!styleGroup) throw new Error("The manifest has no Styles");
@@ -201,29 +193,7 @@ function getLastStyleId(): string {
 }
 
 function getBandBoundaryTransitions(): Array<{ from: string; to: string }> {
-  return CATALOG_MANIFEST.flatMap((styleGroup, index) => {
-    const nextStyleGroup =
-      CATALOG_MANIFEST[(index + 1) % CATALOG_MANIFEST.length];
-    if (!nextStyleGroup) return [];
-
-    return styleGroup.style.band === nextStyleGroup.style.band
-      ? []
-      : [{ from: styleGroup.style.id, to: nextStyleGroup.style.id }];
-  });
-}
-
-const TOPIC_AUDIT_LANGUAGES = ["en", "zh"] as const;
-
-type TopicAuditLanguage = (typeof TOPIC_AUDIT_LANGUAGES)[number];
-
-interface TopicHeroFinalFrame {
-  styleId: string;
-  topicId: string;
-  topicName: string;
-  language: TopicAuditLanguage;
-  scene: number;
-  beat: number;
-  evidenceBoundary?: string;
+  return [...PUBLICATION_AUDIT_CASES.bandBoundaryTransitions];
 }
 
 function getManifestTopic(styleId: string, topicId: string) {
@@ -239,45 +209,8 @@ function getManifestTopic(styleId: string, topicId: string) {
   return topic;
 }
 
-const TOPIC_HERO_FINAL_FRAMES: TopicHeroFinalFrame[] = TOPIC_KEYS.flatMap(
-  ({ styleId, topicId }) => {
-    const topic = getManifestTopic(styleId, topicId);
-
-    return TOPIC_AUDIT_LANGUAGES.map((language) => {
-      const metadata = topic.metadata[language];
-      const heroScene = metadata.scenes.find(
-        (scene) => scene.id === metadata.heroScene,
-      );
-      if (!heroScene) {
-        throw new Error(
-          `Topic hero scene is missing: ${styleId}/${topicId}/${language}`,
-        );
-      }
-
-      const finalBeat = heroScene.beats[heroScene.beats.length - 1];
-      if (!finalBeat) {
-        throw new Error(
-          `Topic hero scene has no beats: ${styleId}/${topicId}/${language}`,
-        );
-      }
-
-      return {
-        styleId,
-        topicId,
-        topicName: topic.title[language],
-        language,
-        scene: heroScene.id,
-        beat: finalBeat.id,
-        evidenceBoundary:
-          (topic.evidence.kind === "illustrative" ||
-            topic.evidence.kind === "mixed") &&
-          topic.evidence.display === "envelope"
-            ? topic.evidence.boundary[language]
-            : undefined,
-      };
-    });
-  },
-);
+const TOPIC_HERO_FINAL_FRAMES: readonly PublicationHeroFrame[] =
+  PUBLICATION_AUDIT_CASES.heroFinalFrames;
 
 const TOPIC_HERO_FRAME_AUDITS = TOPIC_KEYS.map(
   ({ styleId, topicId }) => ({
@@ -347,14 +280,17 @@ async function getFrozenStageState(page: Page) {
 // ─── 1 & 2: All registered styles — console errors + overflow (parallel) ───
 
 test.describe.parallel("Style audit — all registered styles", () => {
-  for (const styleGroup of CATALOG_MANIFEST) {
-    const styleId = styleGroup.style.id;
+  for (const styleAudit of PUBLICATION_AUDIT_CASES.styleStarts) {
+    const styleId = styleAudit.styleId;
     test(`style ${styleId} scene 1 beat 0 — no console errors, no overflow`, async ({
       page,
     }) => {
       const errors = attachErrorCollector(page);
 
-      await openLab(page, styleId, 1, 0, { frozen: true });
+      await openLab(page, styleId, 1, 0, {
+        topic: styleAudit.topicId,
+        frozen: true,
+      });
 
       // Verify stage is rendered
       await expect(page.locator('[data-testid="stage"]')).toBeVisible();
@@ -417,9 +353,12 @@ test.describe.parallel("Style audit — all registered styles", () => {
     test(`style ${styleId} first multi-beat scene declares beat layout mode`, async ({
       page,
     }) => {
-      const scene = getFirstMultiBeatScene(styleId);
+      const scene = styleAudit.firstMultiBeatScene;
 
-      await openLab(page, styleId, scene, 0, { frozen: true });
+      await openLab(page, styleId, scene, 0, {
+        topic: styleAudit.topicId,
+        frozen: true,
+      });
       await expect(page.locator('[data-testid="spatial-scene-track"]')).toBeVisible();
 
       const layoutState = await page.evaluate(() => {
@@ -1257,10 +1196,7 @@ test.describe("Catalog / overview view", () => {
     const response = await request.get("/catalog-stats.json");
 
     expect(response.ok()).toBe(true);
-    expect(await response.json()).toEqual({
-      styles: CATALOG_MANIFEST.length,
-      topics: CATALOG_TOPIC_COUNT,
-    });
+    expect(await response.json()).toEqual(CATALOG_STATS);
   });
 
   test("reduced motion removes visible Topic Card transitions", async ({ page }) => {

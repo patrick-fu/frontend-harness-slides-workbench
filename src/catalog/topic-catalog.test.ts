@@ -17,7 +17,7 @@ const styles: StyleDefinitions = {
 };
 
 describe("createTopicCatalog", () => {
-  it("preserves two-dimensional Registry order in a synchronous Stage-free Catalog projection", () => {
+  it("preserves two-dimensional Registry order in the validated Topic Catalog", () => {
     const first = makeTopicDefinition({
       id: "first-topic",
       styleId: "first-style",
@@ -42,18 +42,7 @@ describe("createTopicCatalog", () => {
       ["first-style", ["first-topic", "second-topic"]],
       ["second-style", ["third-topic"]],
     ]);
-    expect(catalog.manifest[0]?.topics[0]).toEqual({
-      id: "first-topic",
-      styleId: "first-style",
-      title: first.title,
-      modelId: "GPT 5.5",
-      metadata: first.metadata,
-      navigation: { mode: "none" },
-      transitionScore: first.transitionScore,
-      evidence: { kind: "none" },
-      modulePath: "../topics/first-topic.tsx",
-    });
-    expect("Stage" in (catalog.manifest[0]?.topics[0] ?? {})).toBe(false);
+    expect(catalog.styleGroups[0]?.topics[0]).toBe(first);
   });
 
   it.each([

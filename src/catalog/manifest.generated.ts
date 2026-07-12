@@ -1,7 +1,8 @@
 import type { CatalogStyleGroup } from "./topic-catalog";
+import type { PublicationAuditCases, PublicationStats, PublicationTarget } from "./publication-plan";
 
 /**
- * Generated from topic-registry.ts. Keep Catalog metadata synchronous
+ * Generated from the validated Publication Plan. Keep Catalog metadata synchronous
  * while every Stage component remains behind the Topic loader.
  */
 export const CATALOG_MANIFEST = [
@@ -58417,3 +58418,6405 @@ export const CATALOG_MANIFEST = [
     ]
   }
 ] as unknown as readonly CatalogStyleGroup[];
+
+export const CATALOG_STATS = {
+  "styles": 49,
+  "topics": 194
+} as const satisfies PublicationStats;
+
+export const PUBLICATION_TARGETS = [
+  {
+    "styleId": "minimal-product-keynote",
+    "topicId": "product-keynote",
+    "modulePath": "../topics/product-keynote.tsx",
+    "testPath": "src/topics/product-keynote.test.tsx",
+    "previewFilename": "product-keynote.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "minimal-product-keynote",
+    "topicId": "quiet-launch",
+    "modulePath": "../topics/quiet-launch.tsx",
+    "testPath": "src/topics/quiet-launch.test.tsx",
+    "previewFilename": "quiet-launch.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "minimal-product-keynote",
+    "topicId": "presolar-grain",
+    "modulePath": "../topics/presolar-grain.tsx",
+    "testPath": "src/topics/presolar-grain.test.tsx",
+    "previewFilename": "presolar-grain.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "minimal-product-keynote",
+    "topicId": "last-feature-cut",
+    "modulePath": "../topics/last-feature-cut.tsx",
+    "testPath": "src/topics/last-feature-cut.test.tsx",
+    "previewFilename": "last-feature-cut.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "objective-swiss-grid",
+    "topicId": "swiss-grid",
+    "modulePath": "../topics/swiss-grid.tsx",
+    "testPath": "src/topics/swiss-grid.test.tsx",
+    "previewFilename": "swiss-grid.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "objective-swiss-grid",
+    "topicId": "clean-metrics",
+    "modulePath": "../topics/clean-metrics.tsx",
+    "testPath": "src/topics/clean-metrics.test.tsx",
+    "previewFilename": "clean-metrics.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "objective-swiss-grid",
+    "topicId": "bridge-movement",
+    "modulePath": "../topics/bridge-movement.tsx",
+    "testPath": "src/topics/bridge-movement.test.tsx",
+    "previewFilename": "bridge-movement.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "objective-swiss-grid",
+    "topicId": "anatomy-timetable",
+    "modulePath": "../topics/anatomy-timetable.tsx",
+    "testPath": "src/topics/anatomy-timetable.test.tsx",
+    "previewFilename": "anatomy-timetable.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "wabi-sabi-ceramic",
+    "topicId": "ceramic-calm",
+    "modulePath": "../topics/ceramic-calm.tsx",
+    "testPath": "src/topics/ceramic-calm.test.tsx",
+    "previewFilename": "ceramic-calm.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "wabi-sabi-ceramic",
+    "topicId": "repair-strategy",
+    "modulePath": "../topics/repair-strategy.tsx",
+    "testPath": "src/topics/repair-strategy.test.tsx",
+    "previewFilename": "repair-strategy.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "wabi-sabi-ceramic",
+    "topicId": "stone-to-soil",
+    "modulePath": "../topics/stone-to-soil.tsx",
+    "testPath": "src/topics/stone-to-soil.test.tsx",
+    "previewFilename": "stone-to-soil.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "wabi-sabi-ceramic",
+    "topicId": "beauty-unfinished",
+    "modulePath": "../topics/beauty-unfinished.tsx",
+    "testPath": "src/topics/beauty-unfinished.test.tsx",
+    "previewFilename": "beauty-unfinished.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "interactive-dialogue-stage",
+    "topicId": "dialogue-stage",
+    "modulePath": "../topics/dialogue-stage.tsx",
+    "testPath": "src/topics/dialogue-stage.test.tsx",
+    "previewFilename": "dialogue-stage.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "interactive-dialogue-stage",
+    "topicId": "better-question",
+    "modulePath": "../topics/better-question.tsx",
+    "testPath": "src/topics/better-question.test.tsx",
+    "previewFilename": "better-question.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "interactive-dialogue-stage",
+    "topicId": "vocal-folds",
+    "modulePath": "../topics/vocal-folds.tsx",
+    "testPath": "src/topics/vocal-folds.test.tsx",
+    "previewFilename": "vocal-folds.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "interactive-dialogue-stage",
+    "topicId": "rubber-duck",
+    "modulePath": "../topics/rubber-duck.tsx",
+    "testPath": "src/topics/rubber-duck.test.tsx",
+    "previewFilename": "rubber-duck.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "cyanotype-drafting-table",
+    "topicId": "blueprint",
+    "modulePath": "../topics/blueprint.tsx",
+    "testPath": "src/topics/blueprint.test.tsx",
+    "previewFilename": "blueprint.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "cyanotype-drafting-table",
+    "topicId": "resilience-plan",
+    "modulePath": "../topics/resilience-plan.tsx",
+    "testPath": "src/topics/resilience-plan.test.tsx",
+    "previewFilename": "resilience-plan.webp",
+    "capture": {
+      "language": "en",
+      "scene": 5,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "cyanotype-drafting-table",
+    "topicId": "comet-anatomy",
+    "modulePath": "../topics/comet-anatomy.tsx",
+    "testPath": "src/topics/comet-anatomy.test.tsx",
+    "previewFilename": "comet-anatomy.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "cyanotype-drafting-table",
+    "topicId": "drawing-a-bridge",
+    "modulePath": "../topics/drawing-a-bridge.tsx",
+    "testPath": "src/topics/drawing-a-bridge.test.tsx",
+    "previewFilename": "drawing-a-bridge.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "kinetic-type-punchline",
+    "topicId": "type-poster",
+    "modulePath": "../topics/type-poster.tsx",
+    "testPath": "src/topics/type-poster.test.tsx",
+    "previewFilename": "type-poster.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "kinetic-type-punchline",
+    "topicId": "one-constraint",
+    "modulePath": "../topics/one-constraint.tsx",
+    "testPath": "src/topics/one-constraint.test.tsx",
+    "previewFilename": "one-constraint.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "kinetic-type-punchline",
+    "topicId": "before-a",
+    "modulePath": "../topics/before-a.tsx",
+    "testPath": "src/topics/before-a.test.tsx",
+    "previewFilename": "before-a.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "kinetic-type-punchline",
+    "topicId": "ship-it",
+    "modulePath": "../topics/ship-it.tsx",
+    "testPath": "src/topics/ship-it.test.tsx",
+    "previewFilename": "ship-it.webp",
+    "capture": {
+      "language": "en",
+      "scene": 5,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "sketch-board-emoji",
+    "topicId": "workshop-board",
+    "modulePath": "../topics/workshop-board.tsx",
+    "testPath": "src/topics/workshop-board.test.tsx",
+    "previewFilename": "workshop-board.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "sketch-board-emoji",
+    "topicId": "human-loop",
+    "modulePath": "../topics/human-loop.tsx",
+    "testPath": "src/topics/human-loop.test.tsx",
+    "previewFilename": "human-loop.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "sketch-board-emoji",
+    "topicId": "stadium-wave",
+    "modulePath": "../topics/stadium-wave.tsx",
+    "testPath": "src/topics/stadium-wave.test.tsx",
+    "previewFilename": "stadium-wave.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 4,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "sketch-board-emoji",
+    "topicId": "how-we-named-it",
+    "modulePath": "../topics/how-we-named-it.tsx",
+    "testPath": "src/topics/how-we-named-it.test.tsx",
+    "previewFilename": "how-we-named-it.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "spotlight-quote-poster",
+    "topicId": "quote-poster",
+    "modulePath": "../topics/quote-poster.tsx",
+    "testPath": "src/topics/quote-poster.test.tsx",
+    "previewFilename": "quote-poster.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "spotlight-quote-poster",
+    "topicId": "kept-sentence",
+    "modulePath": "../topics/kept-sentence.tsx",
+    "testPath": "src/topics/kept-sentence.test.tsx",
+    "previewFilename": "kept-sentence.webp",
+    "capture": {
+      "language": "en",
+      "scene": 5,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "spotlight-quote-poster",
+    "topicId": "freedive",
+    "modulePath": "../topics/freedive.tsx",
+    "testPath": "src/topics/freedive.test.tsx",
+    "previewFilename": "freedive.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "spotlight-quote-poster",
+    "topicId": "on-quitting-well",
+    "modulePath": "../topics/on-quitting-well.tsx",
+    "testPath": "src/topics/on-quitting-well.test.tsx",
+    "previewFilename": "on-quitting-well.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "subway-map-of-intent",
+    "topicId": "subway-flow",
+    "modulePath": "../topics/subway-flow.tsx",
+    "testPath": "src/topics/subway-flow.test.tsx",
+    "previewFilename": "subway-flow.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "subway-map-of-intent",
+    "topicId": "release-tracks",
+    "modulePath": "../topics/release-tracks.tsx",
+    "testPath": "src/topics/release-tracks.test.tsx",
+    "previewFilename": "release-tracks.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "subway-map-of-intent",
+    "topicId": "tea-cha-routes",
+    "modulePath": "../topics/tea-cha-routes.tsx",
+    "testPath": "src/topics/tea-cha-routes.test.tsx",
+    "previewFilename": "tea-cha-routes.webp",
+    "capture": {
+      "language": "en",
+      "scene": 5,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "subway-map-of-intent",
+    "topicId": "three-teams-launch",
+    "modulePath": "../topics/three-teams-launch.tsx",
+    "testPath": "src/topics/three-teams-launch.test.tsx",
+    "previewFilename": "three-teams-launch.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "benchmark-matrix",
+    "topicId": "benchmark",
+    "modulePath": "../topics/benchmark.tsx",
+    "testPath": "src/topics/benchmark.test.tsx",
+    "previewFilename": "benchmark.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "benchmark-matrix",
+    "topicId": "durable-tool",
+    "modulePath": "../topics/durable-tool.tsx",
+    "testPath": "src/topics/durable-tool.test.tsx",
+    "previewFilename": "durable-tool.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "benchmark-matrix",
+    "topicId": "natural-clocks",
+    "modulePath": "../topics/natural-clocks.tsx",
+    "testPath": "src/topics/natural-clocks.test.tsx",
+    "previewFilename": "natural-clocks.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "benchmark-matrix",
+    "topicId": "build-buy-borrow",
+    "modulePath": "../topics/build-buy-borrow.tsx",
+    "testPath": "src/topics/build-buy-borrow.test.tsx",
+    "previewFilename": "build-buy-borrow.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "signal-pipeline-flow",
+    "topicId": "pipeline",
+    "modulePath": "../topics/pipeline.tsx",
+    "testPath": "src/topics/pipeline.test.tsx",
+    "previewFilename": "pipeline.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "signal-pipeline-flow",
+    "topicId": "event-insight",
+    "modulePath": "../topics/event-insight.tsx",
+    "testPath": "src/topics/event-insight.test.tsx",
+    "previewFilename": "event-insight.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "signal-pipeline-flow",
+    "topicId": "district-heat",
+    "modulePath": "../topics/district-heat.tsx",
+    "testPath": "src/topics/district-heat.test.tsx",
+    "previewFilename": "district-heat.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "signal-pipeline-flow",
+    "topicId": "where-request-goes",
+    "modulePath": "../topics/where-request-goes.tsx",
+    "testPath": "src/topics/where-request-goes.test.tsx",
+    "previewFilename": "where-request-goes.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "engineering-whiteboard-explainer",
+    "topicId": "from-prompt-to-patch",
+    "modulePath": "../topics/from-prompt-to-patch.tsx",
+    "testPath": "src/topics/from-prompt-to-patch.test.tsx",
+    "previewFilename": "from-prompt-to-patch.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "engineering-whiteboard-explainer",
+    "topicId": "water-tower",
+    "modulePath": "../topics/water-tower.tsx",
+    "testPath": "src/topics/water-tower.test.tsx",
+    "previewFilename": "water-tower.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "soft-pastel-friendly",
+    "topicId": "friendly-onboard",
+    "modulePath": "../topics/friendly-onboard.tsx",
+    "testPath": "src/topics/friendly-onboard.test.tsx",
+    "previewFilename": "friendly-onboard.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "soft-pastel-friendly",
+    "topicId": "breathing-onboard",
+    "modulePath": "../topics/breathing-onboard.tsx",
+    "testPath": "src/topics/breathing-onboard.test.tsx",
+    "previewFilename": "breathing-onboard.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "soft-pastel-friendly",
+    "topicId": "chrysalis-rebuild",
+    "modulePath": "../topics/chrysalis-rebuild.tsx",
+    "testPath": "src/topics/chrysalis-rebuild.test.tsx",
+    "previewFilename": "chrysalis-rebuild.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "soft-pastel-friendly",
+    "topicId": "first-week-here",
+    "modulePath": "../topics/first-week-here.tsx",
+    "testPath": "src/topics/first-week-here.test.tsx",
+    "previewFilename": "first-week-here.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "kitchen-prep-station",
+    "topicId": "prep-station",
+    "modulePath": "../topics/prep-station.tsx",
+    "testPath": "src/topics/prep-station.test.tsx",
+    "previewFilename": "prep-station.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "kitchen-prep-station",
+    "topicId": "clean-brief",
+    "modulePath": "../topics/clean-brief.tsx",
+    "testPath": "src/topics/clean-brief.test.tsx",
+    "previewFilename": "clean-brief.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "kitchen-prep-station",
+    "topicId": "cocoa-fermentation",
+    "modulePath": "../topics/cocoa-fermentation.tsx",
+    "testPath": "src/topics/cocoa-fermentation.test.tsx",
+    "previewFilename": "cocoa-fermentation.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "kitchen-prep-station",
+    "topicId": "raw-logs-to-report",
+    "modulePath": "../topics/raw-logs-to-report.tsx",
+    "testPath": "src/topics/raw-logs-to-report.test.tsx",
+    "previewFilename": "raw-logs-to-report.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "collaborative-pairing-board",
+    "topicId": "pairing-board",
+    "modulePath": "../topics/pairing-board.tsx",
+    "testPath": "src/topics/pairing-board.test.tsx",
+    "previewFilename": "pairing-board.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "collaborative-pairing-board",
+    "topicId": "shared-artifact",
+    "modulePath": "../topics/shared-artifact.tsx",
+    "testPath": "src/topics/shared-artifact.test.tsx",
+    "previewFilename": "shared-artifact.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "collaborative-pairing-board",
+    "topicId": "elevator-counterweight",
+    "modulePath": "../topics/elevator-counterweight.tsx",
+    "testPath": "src/topics/elevator-counterweight.test.tsx",
+    "previewFilename": "elevator-counterweight.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "collaborative-pairing-board",
+    "topicId": "human-reviews-ai",
+    "modulePath": "../topics/human-reviews-ai.tsx",
+    "testPath": "src/topics/human-reviews-ai.test.tsx",
+    "previewFilename": "human-reviews-ai.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "studio-mixing-console",
+    "topicId": "mixing-console",
+    "modulePath": "../topics/mixing-console.tsx",
+    "testPath": "src/topics/mixing-console.test.tsx",
+    "previewFilename": "mixing-console.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "studio-mixing-console",
+    "topicId": "operating-model",
+    "modulePath": "../topics/operating-model.tsx",
+    "testPath": "src/topics/operating-model.test.tsx",
+    "previewFilename": "operating-model.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "studio-mixing-console",
+    "topicId": "tidal-time",
+    "modulePath": "../topics/tidal-time.tsx",
+    "testPath": "src/topics/tidal-time.test.tsx",
+    "previewFilename": "tidal-time.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "studio-mixing-console",
+    "topicId": "tuning-the-model",
+    "modulePath": "../topics/tuning-the-model.tsx",
+    "testPath": "src/topics/tuning-the-model.test.tsx",
+    "previewFilename": "tuning-the-model.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "debug-reaction-board",
+    "topicId": "debug-board",
+    "modulePath": "../topics/debug-board.tsx",
+    "testPath": "src/topics/debug-board.test.tsx",
+    "previewFilename": "debug-board.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "debug-reaction-board",
+    "topicId": "learning-incident",
+    "modulePath": "../topics/learning-incident.tsx",
+    "testPath": "src/topics/learning-incident.test.tsx",
+    "previewFilename": "learning-incident.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "debug-reaction-board",
+    "topicId": "acoustic-crack",
+    "modulePath": "../topics/acoustic-crack.tsx",
+    "testPath": "src/topics/acoustic-crack.test.tsx",
+    "previewFilename": "acoustic-crack.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "debug-reaction-board",
+    "topicId": "safe-to-deploy",
+    "modulePath": "../topics/safe-to-deploy.tsx",
+    "testPath": "src/topics/safe-to-deploy.test.tsx",
+    "previewFilename": "safe-to-deploy.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "front-page-broadsheet",
+    "topicId": "broadsheet",
+    "modulePath": "../topics/broadsheet.tsx",
+    "testPath": "src/topics/broadsheet.test.tsx",
+    "previewFilename": "broadsheet.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "front-page-broadsheet",
+    "topicId": "after-launch",
+    "modulePath": "../topics/after-launch.tsx",
+    "testPath": "src/topics/after-launch.test.tsx",
+    "previewFilename": "after-launch.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "front-page-broadsheet",
+    "topicId": "rogue-wave",
+    "modulePath": "../topics/rogue-wave.tsx",
+    "testPath": "src/topics/rogue-wave.test.tsx",
+    "previewFilename": "rogue-wave.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "front-page-broadsheet",
+    "topicId": "day-feed-stopped",
+    "modulePath": "../topics/day-feed-stopped.tsx",
+    "testPath": "src/topics/day-feed-stopped.test.tsx",
+    "previewFilename": "day-feed-stopped.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "magazine-masthead",
+    "topicId": "masthead",
+    "modulePath": "../topics/masthead.tsx",
+    "testPath": "src/topics/masthead.test.tsx",
+    "previewFilename": "masthead.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "magazine-masthead",
+    "topicId": "product-cover",
+    "modulePath": "../topics/product-cover.tsx",
+    "testPath": "src/topics/product-cover.test.tsx",
+    "previewFilename": "product-cover.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "magazine-masthead",
+    "topicId": "moth-experiment",
+    "modulePath": "../topics/moth-experiment.tsx",
+    "testPath": "src/topics/moth-experiment.test.tsx",
+    "previewFilename": "moth-experiment.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "magazine-masthead",
+    "topicId": "comeback-issue",
+    "modulePath": "../topics/comeback-issue.tsx",
+    "testPath": "src/topics/comeback-issue.test.tsx",
+    "previewFilename": "comeback-issue.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "warm-editorial-feature",
+    "topicId": "editorial-feature",
+    "modulePath": "../topics/editorial-feature.tsx",
+    "testPath": "src/topics/editorial-feature.test.tsx",
+    "previewFilename": "editorial-feature.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "warm-editorial-feature",
+    "topicId": "useful-week",
+    "modulePath": "../topics/useful-week.tsx",
+    "testPath": "src/topics/useful-week.test.tsx",
+    "previewFilename": "useful-week.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "warm-editorial-feature",
+    "topicId": "oral-to-written",
+    "modulePath": "../topics/oral-to-written.tsx",
+    "testPath": "src/topics/oral-to-written.test.tsx",
+    "previewFilename": "oral-to-written.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "warm-editorial-feature",
+    "topicId": "letter-to-past-self",
+    "modulePath": "../topics/letter-to-past-self.tsx",
+    "testPath": "src/topics/letter-to-past-self.test.tsx",
+    "previewFilename": "letter-to-past-self.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "scholars-vellum",
+    "topicId": "scholar-notes",
+    "modulePath": "../topics/scholar-notes.tsx",
+    "testPath": "src/topics/scholar-notes.test.tsx",
+    "previewFilename": "scholar-notes.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "scholars-vellum",
+    "topicId": "margin-argument",
+    "modulePath": "../topics/margin-argument.tsx",
+    "testPath": "src/topics/margin-argument.test.tsx",
+    "previewFilename": "margin-argument.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "scholars-vellum",
+    "topicId": "hidden-text",
+    "modulePath": "../topics/hidden-text.tsx",
+    "testPath": "src/topics/hidden-text.test.tsx",
+    "previewFilename": "hidden-text.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "scholars-vellum",
+    "topicId": "what-ancients-knew",
+    "modulePath": "../topics/what-ancients-knew.tsx",
+    "testPath": "src/topics/what-ancients-knew.test.tsx",
+    "previewFilename": "what-ancients-knew.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "solar-biennale-poster",
+    "topicId": "biennale-poster",
+    "modulePath": "../topics/biennale-poster.tsx",
+    "testPath": "src/topics/biennale-poster.test.tsx",
+    "previewFilename": "biennale-poster.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "solar-biennale-poster",
+    "topicId": "public-light",
+    "modulePath": "../topics/public-light.tsx",
+    "testPath": "src/topics/public-light.test.tsx",
+    "previewFilename": "public-light.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "solar-biennale-poster",
+    "topicId": "iron-from-stars",
+    "modulePath": "../topics/iron-from-stars.tsx",
+    "testPath": "src/topics/iron-from-stars.test.tsx",
+    "previewFilename": "iron-from-stars.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "solar-biennale-poster",
+    "topicId": "festival-slow-ideas",
+    "modulePath": "../topics/festival-slow-ideas.tsx",
+    "testPath": "src/topics/festival-slow-ideas.test.tsx",
+    "previewFilename": "festival-slow-ideas.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "duotone-session",
+    "topicId": "session-poster",
+    "modulePath": "../topics/session-poster.tsx",
+    "testPath": "src/topics/session-poster.test.tsx",
+    "previewFilename": "session-poster.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "duotone-session",
+    "topicId": "five-takes",
+    "modulePath": "../topics/five-takes.tsx",
+    "testPath": "src/topics/five-takes.test.tsx",
+    "previewFilename": "five-takes.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "duotone-session",
+    "topicId": "dance-notation",
+    "modulePath": "../topics/dance-notation.tsx",
+    "testPath": "src/topics/dance-notation.test.tsx",
+    "previewFilename": "dance-notation.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "duotone-session",
+    "topicId": "cut-in-one-take",
+    "modulePath": "../topics/cut-in-one-take.tsx",
+    "testPath": "src/topics/cut-in-one-take.test.tsx",
+    "previewFilename": "cut-in-one-take.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "riso-print-zine",
+    "topicId": "riso-zine",
+    "modulePath": "../topics/riso-zine.tsx",
+    "testPath": "src/topics/riso-zine.test.tsx",
+    "previewFilename": "riso-zine.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "riso-print-zine",
+    "topicId": "community-print",
+    "modulePath": "../topics/community-print.tsx",
+    "testPath": "src/topics/community-print.test.tsx",
+    "previewFilename": "community-print.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "riso-print-zine",
+    "topicId": "seven-blues",
+    "modulePath": "../topics/seven-blues.tsx",
+    "testPath": "src/topics/seven-blues.test.tsx",
+    "previewFilename": "seven-blues.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "riso-print-zine",
+    "topicId": "make-something-weekly",
+    "modulePath": "../topics/make-something-weekly.tsx",
+    "testPath": "src/topics/make-something-weekly.test.tsx",
+    "previewFilename": "make-something-weekly.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "analog-cutout-collage",
+    "topicId": "cutout-collage",
+    "modulePath": "../topics/cutout-collage.tsx",
+    "testPath": "src/topics/cutout-collage.test.tsx",
+    "previewFilename": "cutout-collage.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "analog-cutout-collage",
+    "topicId": "rebuilt-archive",
+    "modulePath": "../topics/rebuilt-archive.tsx",
+    "testPath": "src/topics/rebuilt-archive.test.tsx",
+    "previewFilename": "rebuilt-archive.webp",
+    "capture": {
+      "language": "en",
+      "scene": 5,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "analog-cutout-collage",
+    "topicId": "concealed-objects",
+    "modulePath": "../topics/concealed-objects.tsx",
+    "testPath": "src/topics/concealed-objects.test.tsx",
+    "previewFilename": "concealed-objects.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "analog-cutout-collage",
+    "topicId": "piecing-idea-together",
+    "modulePath": "../topics/piecing-idea-together.tsx",
+    "testPath": "src/topics/piecing-idea-together.test.tsx",
+    "previewFilename": "piecing-idea-together.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "woodblock-floating-world",
+    "topicId": "woodblock",
+    "modulePath": "../topics/woodblock.tsx",
+    "testPath": "src/topics/woodblock.test.tsx",
+    "previewFilename": "woodblock.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "woodblock-floating-world",
+    "topicId": "tide-map",
+    "modulePath": "../topics/tide-map.tsx",
+    "testPath": "src/topics/tide-map.test.tsx",
+    "previewFilename": "tide-map.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "woodblock-floating-world",
+    "topicId": "whistled-language",
+    "modulePath": "../topics/whistled-language.tsx",
+    "testPath": "src/topics/whistled-language.test.tsx",
+    "previewFilename": "whistled-language.webp",
+    "capture": {
+      "language": "en",
+      "scene": 5,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "woodblock-floating-world",
+    "topicId": "a-rivers-journey",
+    "modulePath": "../topics/a-rivers-journey.tsx",
+    "testPath": "src/topics/a-rivers-journey.test.tsx",
+    "previewFilename": "a-rivers-journey.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "botanical-specimen-plate",
+    "topicId": "specimen-plate",
+    "modulePath": "../topics/specimen-plate.tsx",
+    "testPath": "src/topics/specimen-plate.test.tsx",
+    "previewFilename": "specimen-plate.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "botanical-specimen-plate",
+    "topicId": "growth-signals",
+    "modulePath": "../topics/growth-signals.tsx",
+    "testPath": "src/topics/growth-signals.test.tsx",
+    "previewFilename": "growth-signals.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "botanical-specimen-plate",
+    "topicId": "leaf-stomata",
+    "modulePath": "../topics/leaf-stomata.tsx",
+    "testPath": "src/topics/leaf-stomata.test.tsx",
+    "previewFilename": "leaf-stomata.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "botanical-specimen-plate",
+    "topicId": "anatomy-of-an-idea",
+    "modulePath": "../topics/anatomy-of-an-idea.tsx",
+    "testPath": "src/topics/anatomy-of-an-idea.test.tsx",
+    "previewFilename": "anatomy-of-an-idea.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "machine-age-deco",
+    "topicId": "deco-gala",
+    "modulePath": "../topics/deco-gala.tsx",
+    "testPath": "src/topics/deco-gala.test.tsx",
+    "previewFilename": "deco-gala.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "machine-age-deco",
+    "topicId": "infrastructure-gala",
+    "modulePath": "../topics/infrastructure-gala.tsx",
+    "testPath": "src/topics/infrastructure-gala.test.tsx",
+    "previewFilename": "infrastructure-gala.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "machine-age-deco",
+    "topicId": "reinforced-concrete",
+    "modulePath": "../topics/reinforced-concrete.tsx",
+    "testPath": "src/topics/reinforced-concrete.test.tsx",
+    "previewFilename": "reinforced-concrete.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "machine-age-deco",
+    "topicId": "grand-unveiling",
+    "modulePath": "../topics/grand-unveiling.tsx",
+    "testPath": "src/topics/grand-unveiling.test.tsx",
+    "previewFilename": "grand-unveiling.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "expedition-screenprint",
+    "topicId": "expedition-print",
+    "modulePath": "../topics/expedition-print.tsx",
+    "testPath": "src/topics/expedition-print.test.tsx",
+    "previewFilename": "expedition-print.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "expedition-screenprint",
+    "topicId": "field-route",
+    "modulePath": "../topics/field-route.tsx",
+    "testPath": "src/topics/field-route.test.tsx",
+    "previewFilename": "field-route.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "expedition-screenprint",
+    "topicId": "saharan-dust",
+    "modulePath": "../topics/saharan-dust.tsx",
+    "testPath": "src/topics/saharan-dust.test.tsx",
+    "previewFilename": "saharan-dust.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "expedition-screenprint",
+    "topicId": "mapping-unknown-ground",
+    "modulePath": "../topics/mapping-unknown-ground.tsx",
+    "testPath": "src/topics/mapping-unknown-ground.test.tsx",
+    "previewFilename": "mapping-unknown-ground.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "cassette-era-packaging",
+    "topicId": "cassette-pack",
+    "modulePath": "../topics/cassette-pack.tsx",
+    "testPath": "src/topics/cassette-pack.test.tsx",
+    "previewFilename": "cassette-pack.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "cassette-era-packaging",
+    "topicId": "release-mixtape",
+    "modulePath": "../topics/release-mixtape.tsx",
+    "testPath": "src/topics/release-mixtape.test.tsx",
+    "previewFilename": "release-mixtape.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "cassette-era-packaging",
+    "topicId": "ice-core-archive",
+    "modulePath": "../topics/ice-core-archive.tsx",
+    "testPath": "src/topics/ice-core-archive.test.tsx",
+    "previewFilename": "ice-core-archive.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "cassette-era-packaging",
+    "topicId": "greatest-hits-vol1",
+    "modulePath": "../topics/greatest-hits-vol1.tsx",
+    "testPath": "src/topics/greatest-hits-vol1.test.tsx",
+    "previewFilename": "greatest-hits-vol1.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "neo-brutalist-bulletin",
+    "topicId": "brutalist-bulletin",
+    "modulePath": "../topics/brutalist-bulletin.tsx",
+    "testPath": "src/topics/brutalist-bulletin.test.tsx",
+    "previewFilename": "brutalist-bulletin.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "neo-brutalist-bulletin",
+    "topicId": "hard-thing",
+    "modulePath": "../topics/hard-thing.tsx",
+    "testPath": "src/topics/hard-thing.test.tsx",
+    "previewFilename": "hard-thing.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "neo-brutalist-bulletin",
+    "topicId": "sinking-delta",
+    "modulePath": "../topics/sinking-delta.tsx",
+    "testPath": "src/topics/sinking-delta.test.tsx",
+    "previewFilename": "sinking-delta.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "neo-brutalist-bulletin",
+    "topicId": "read-before-merge",
+    "modulePath": "../topics/read-before-merge.tsx",
+    "testPath": "src/topics/read-before-merge.test.tsx",
+    "previewFilename": "read-before-merge.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "red-wedge-agitprop",
+    "topicId": "red-wedge",
+    "modulePath": "../topics/red-wedge.tsx",
+    "testPath": "src/topics/red-wedge.test.tsx",
+    "previewFilename": "red-wedge.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "red-wedge-agitprop",
+    "topicId": "org-move",
+    "modulePath": "../topics/org-move.tsx",
+    "testPath": "src/topics/org-move.test.tsx",
+    "previewFilename": "org-move.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "red-wedge-agitprop",
+    "topicId": "pneumatic-post",
+    "modulePath": "../topics/pneumatic-post.tsx",
+    "testPath": "src/topics/pneumatic-post.test.tsx",
+    "previewFilename": "pneumatic-post.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "red-wedge-agitprop",
+    "topicId": "refactor-the-system",
+    "modulePath": "../topics/refactor-the-system.tsx",
+    "testPath": "src/topics/refactor-the-system.test.tsx",
+    "previewFilename": "refactor-the-system.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "mechanical-scoring-funnel",
+    "topicId": "scoring-funnel",
+    "modulePath": "../topics/scoring-funnel.tsx",
+    "testPath": "src/topics/scoring-funnel.test.tsx",
+    "previewFilename": "scoring-funnel.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "mechanical-scoring-funnel",
+    "topicId": "priority-score",
+    "modulePath": "../topics/priority-score.tsx",
+    "testPath": "src/topics/priority-score.test.tsx",
+    "previewFilename": "priority-score.webp",
+    "capture": {
+      "language": "en",
+      "scene": 5,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "mechanical-scoring-funnel",
+    "topicId": "snowflake-branches",
+    "modulePath": "../topics/snowflake-branches.tsx",
+    "testPath": "src/topics/snowflake-branches.test.tsx",
+    "previewFilename": "snowflake-branches.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "mechanical-scoring-funnel",
+    "topicId": "triage-the-backlog",
+    "modulePath": "../topics/triage-the-backlog.tsx",
+    "testPath": "src/topics/triage-the-backlog.test.tsx",
+    "previewFilename": "triage-the-backlog.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "liquid-glass",
+    "topicId": "liquid-glass",
+    "modulePath": "../topics/liquid-glass.tsx",
+    "testPath": "src/topics/liquid-glass.test.tsx",
+    "previewFilename": "liquid-glass.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "liquid-glass",
+    "topicId": "spatial-brief",
+    "modulePath": "../topics/spatial-brief.tsx",
+    "testPath": "src/topics/spatial-brief.test.tsx",
+    "previewFilename": "spatial-brief.webp",
+    "capture": {
+      "language": "en",
+      "scene": 5,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "liquid-glass",
+    "topicId": "safety-glass",
+    "modulePath": "../topics/safety-glass.tsx",
+    "testPath": "src/topics/safety-glass.test.tsx",
+    "previewFilename": "safety-glass.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "liquid-glass",
+    "topicId": "layers-of-a-product",
+    "modulePath": "../topics/layers-of-a-product.tsx",
+    "testPath": "src/topics/layers-of-a-product.test.tsx",
+    "previewFilename": "layers-of-a-product.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "retro-windows",
+    "topicId": "retro-desktop",
+    "modulePath": "../topics/retro-desktop.tsx",
+    "testPath": "src/topics/retro-desktop.test.tsx",
+    "previewFilename": "retro-desktop.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "retro-windows",
+    "topicId": "toolchain-desk",
+    "modulePath": "../topics/toolchain-desk.tsx",
+    "testPath": "src/topics/toolchain-desk.test.tsx",
+    "previewFilename": "toolchain-desk.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "retro-windows",
+    "topicId": "voyager-boundary",
+    "modulePath": "../topics/voyager-boundary.tsx",
+    "testPath": "src/topics/voyager-boundary.test.tsx",
+    "previewFilename": "voyager-boundary.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "retro-windows",
+    "topicId": "setup-exe",
+    "modulePath": "../topics/setup-exe.tsx",
+    "testPath": "src/topics/setup-exe.test.tsx",
+    "previewFilename": "setup-exe.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "mid-century-grove",
+    "topicId": "botanical-brand",
+    "modulePath": "../topics/botanical-brand.tsx",
+    "testPath": "src/topics/botanical-brand.test.tsx",
+    "previewFilename": "botanical-brand.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "mid-century-grove",
+    "topicId": "calm-growth",
+    "modulePath": "../topics/calm-growth.tsx",
+    "testPath": "src/topics/calm-growth.test.tsx",
+    "previewFilename": "calm-growth.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "mid-century-grove",
+    "topicId": "monarch-migration",
+    "modulePath": "../topics/monarch-migration.tsx",
+    "testPath": "src/topics/monarch-migration.test.tsx",
+    "previewFilename": "monarch-migration.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "mid-century-grove",
+    "topicId": "growing-slowly-on-purpose",
+    "modulePath": "../topics/growing-slowly-on-purpose.tsx",
+    "testPath": "src/topics/growing-slowly-on-purpose.test.tsx",
+    "previewFilename": "growing-slowly-on-purpose.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "after-hours-luxe",
+    "topicId": "after-hours",
+    "modulePath": "../topics/after-hours.tsx",
+    "testPath": "src/topics/after-hours.test.tsx",
+    "previewFilename": "after-hours.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "after-hours-luxe",
+    "topicId": "beta-salon",
+    "modulePath": "../topics/beta-salon.tsx",
+    "testPath": "src/topics/beta-salon.test.tsx",
+    "previewFilename": "beta-salon.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "after-hours-luxe",
+    "topicId": "urushi-cure",
+    "modulePath": "../topics/urushi-cure.tsx",
+    "testPath": "src/topics/urushi-cure.test.tsx",
+    "previewFilename": "urushi-cure.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "after-hours-luxe",
+    "topicId": "the-midnight-release",
+    "modulePath": "../topics/the-midnight-release.tsx",
+    "testPath": "src/topics/the-midnight-release.test.tsx",
+    "previewFilename": "the-midnight-release.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "operating-manual",
+    "topicId": "manual",
+    "modulePath": "../topics/manual.tsx",
+    "testPath": "src/topics/manual.test.tsx",
+    "previewFilename": "manual.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "operating-manual",
+    "topicId": "habit-runbook",
+    "modulePath": "../topics/habit-runbook.tsx",
+    "testPath": "src/topics/habit-runbook.test.tsx",
+    "previewFilename": "habit-runbook.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "operating-manual",
+    "topicId": "escapement",
+    "modulePath": "../topics/escapement.tsx",
+    "testPath": "src/topics/escapement.test.tsx",
+    "previewFilename": "escapement.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "operating-manual",
+    "topicId": "rotate-the-secrets",
+    "modulePath": "../topics/rotate-the-secrets.tsx",
+    "testPath": "src/topics/rotate-the-secrets.test.tsx",
+    "previewFilename": "rotate-the-secrets.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "widescreen-title-card",
+    "topicId": "title-card",
+    "modulePath": "../topics/title-card.tsx",
+    "testPath": "src/topics/title-card.test.tsx",
+    "previewFilename": "title-card.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "widescreen-title-card",
+    "topicId": "system-acts",
+    "modulePath": "../topics/system-acts.tsx",
+    "testPath": "src/topics/system-acts.test.tsx",
+    "previewFilename": "system-acts.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "widescreen-title-card",
+    "topicId": "whale-fall",
+    "modulePath": "../topics/whale-fall.tsx",
+    "testPath": "src/topics/whale-fall.test.tsx",
+    "previewFilename": "whale-fall.webp",
+    "capture": {
+      "language": "en",
+      "scene": 5,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "widescreen-title-card",
+    "topicId": "chapter-zero",
+    "modulePath": "../topics/chapter-zero.tsx",
+    "testPath": "src/topics/chapter-zero.test.tsx",
+    "previewFilename": "chapter-zero.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "blackboard-chalk-talk",
+    "topicId": "chalk-talk",
+    "modulePath": "../topics/chalk-talk.tsx",
+    "testPath": "src/topics/chalk-talk.test.tsx",
+    "previewFilename": "chalk-talk.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "blackboard-chalk-talk",
+    "topicId": "shortcut",
+    "modulePath": "../topics/shortcut.tsx",
+    "testPath": "src/topics/shortcut.test.tsx",
+    "previewFilename": "shortcut.webp",
+    "capture": {
+      "language": "en",
+      "scene": 5,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "blackboard-chalk-talk",
+    "topicId": "hearing-path",
+    "modulePath": "../topics/hearing-path.tsx",
+    "testPath": "src/topics/hearing-path.test.tsx",
+    "previewFilename": "hearing-path.webp",
+    "capture": {
+      "language": "en",
+      "scene": 5,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "blackboard-chalk-talk",
+    "topicId": "deriving-big-o",
+    "modulePath": "../topics/deriving-big-o.tsx",
+    "testPath": "src/topics/deriving-big-o.test.tsx",
+    "previewFilename": "deriving-big-o.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "arcade-boss-fight",
+    "topicId": "boss-fight",
+    "modulePath": "../topics/boss-fight.tsx",
+    "testPath": "src/topics/boss-fight.test.tsx",
+    "previewFilename": "boss-fight.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "arcade-boss-fight",
+    "topicId": "latency-boss",
+    "modulePath": "../topics/latency-boss.tsx",
+    "testPath": "src/topics/latency-boss.test.tsx",
+    "previewFilename": "latency-boss.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "arcade-boss-fight",
+    "topicId": "egg-mimicry",
+    "modulePath": "../topics/egg-mimicry.tsx",
+    "testPath": "src/topics/egg-mimicry.test.tsx",
+    "previewFilename": "egg-mimicry.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "arcade-boss-fight",
+    "topicId": "defeating-tech-debt",
+    "modulePath": "../topics/defeating-tech-debt.tsx",
+    "testPath": "src/topics/defeating-tech-debt.test.tsx",
+    "previewFilename": "defeating-tech-debt.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "research-memo",
+    "topicId": "research-memo",
+    "modulePath": "../topics/research-memo.tsx",
+    "testPath": "src/topics/research-memo.test.tsx",
+    "previewFilename": "research-memo.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "research-memo",
+    "topicId": "small-team",
+    "modulePath": "../topics/small-team.tsx",
+    "testPath": "src/topics/small-team.test.tsx",
+    "previewFilename": "small-team.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "research-memo",
+    "topicId": "impact-evidence",
+    "modulePath": "../topics/impact-evidence.tsx",
+    "testPath": "src/topics/impact-evidence.test.tsx",
+    "previewFilename": "impact-evidence.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "research-memo",
+    "topicId": "why-users-churn",
+    "modulePath": "../topics/why-users-churn.tsx",
+    "testPath": "src/topics/why-users-churn.test.tsx",
+    "previewFilename": "why-users-churn.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "decision-record",
+    "topicId": "decision-record",
+    "modulePath": "../topics/decision-record.tsx",
+    "testPath": "src/topics/decision-record.test.tsx",
+    "previewFilename": "decision-record.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "decision-record",
+    "topicId": "boundary",
+    "modulePath": "../topics/boundary.tsx",
+    "testPath": "src/topics/boundary.test.tsx",
+    "previewFilename": "boundary.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "decision-record",
+    "topicId": "standard-time",
+    "modulePath": "../topics/standard-time.tsx",
+    "testPath": "src/topics/standard-time.test.tsx",
+    "previewFilename": "standard-time.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "decision-record",
+    "topicId": "why-we-chose-monorepo",
+    "modulePath": "../topics/why-we-chose-monorepo.tsx",
+    "testPath": "src/topics/why-we-chose-monorepo.test.tsx",
+    "previewFilename": "why-we-chose-monorepo.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "maintainer-issue-brief",
+    "topicId": "issue-brief",
+    "modulePath": "../topics/issue-brief.tsx",
+    "testPath": "src/topics/issue-brief.test.tsx",
+    "previewFilename": "issue-brief.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "maintainer-issue-brief",
+    "topicId": "agent-pickup",
+    "modulePath": "../topics/agent-pickup.tsx",
+    "testPath": "src/topics/agent-pickup.test.tsx",
+    "previewFilename": "agent-pickup.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "maintainer-issue-brief",
+    "topicId": "ozone-hole",
+    "modulePath": "../topics/ozone-hole.tsx",
+    "testPath": "src/topics/ozone-hole.test.tsx",
+    "previewFilename": "ozone-hole.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "maintainer-issue-brief",
+    "topicId": "flaky-test-root-cause",
+    "modulePath": "../topics/flaky-test-root-cause.tsx",
+    "testPath": "src/topics/flaky-test-root-cause.test.tsx",
+    "previewFilename": "flaky-test-root-cause.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "field-notes-report",
+    "topicId": "field-notes",
+    "modulePath": "../topics/field-notes.tsx",
+    "testPath": "src/topics/field-notes.test.tsx",
+    "previewFilename": "field-notes.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "field-notes-report",
+    "topicId": "platform-study",
+    "modulePath": "../topics/platform-study.tsx",
+    "testPath": "src/topics/platform-study.test.tsx",
+    "previewFilename": "platform-study.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "field-notes-report",
+    "topicId": "ancient-sound",
+    "modulePath": "../topics/ancient-sound.tsx",
+    "testPath": "src/topics/ancient-sound.test.tsx",
+    "previewFilename": "ancient-sound.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "field-notes-report",
+    "topicId": "shadowing-support",
+    "modulePath": "../topics/shadowing-support.tsx",
+    "testPath": "src/topics/shadowing-support.test.tsx",
+    "previewFilename": "shadowing-support.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "annotated-source-diff",
+    "topicId": "source-diff",
+    "modulePath": "../topics/source-diff.tsx",
+    "testPath": "src/topics/source-diff.test.tsx",
+    "previewFilename": "source-diff.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "annotated-source-diff",
+    "topicId": "flow-rewrite",
+    "modulePath": "../topics/flow-rewrite.tsx",
+    "testPath": "src/topics/flow-rewrite.test.tsx",
+    "previewFilename": "flow-rewrite.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "annotated-source-diff",
+    "topicId": "reading-rosetta",
+    "modulePath": "../topics/reading-rosetta.tsx",
+    "testPath": "src/topics/reading-rosetta.test.tsx",
+    "previewFilename": "reading-rosetta.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "annotated-source-diff",
+    "topicId": "killing-a-god-object",
+    "modulePath": "../topics/killing-a-god-object.tsx",
+    "testPath": "src/topics/killing-a-god-object.test.tsx",
+    "previewFilename": "killing-a-god-object.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "checklist-ledger",
+    "topicId": "checklist-ledger",
+    "modulePath": "../topics/checklist-ledger.tsx",
+    "testPath": "src/topics/checklist-ledger.test.tsx",
+    "previewFilename": "checklist-ledger.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "checklist-ledger",
+    "topicId": "launch-ledger",
+    "modulePath": "../topics/launch-ledger.tsx",
+    "testPath": "src/topics/launch-ledger.test.tsx",
+    "previewFilename": "launch-ledger.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "checklist-ledger",
+    "topicId": "pigment-without-touch",
+    "modulePath": "../topics/pigment-without-touch.tsx",
+    "testPath": "src/topics/pigment-without-touch.test.tsx",
+    "previewFilename": "pigment-without-touch.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "checklist-ledger",
+    "topicId": "close-the-quarter",
+    "modulePath": "../topics/close-the-quarter.tsx",
+    "testPath": "src/topics/close-the-quarter.test.tsx",
+    "previewFilename": "close-the-quarter.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "context-bento-box",
+    "topicId": "context-bento",
+    "modulePath": "../topics/context-bento.tsx",
+    "testPath": "src/topics/context-bento.test.tsx",
+    "previewFilename": "context-bento.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "context-bento-box",
+    "topicId": "handoff-box",
+    "modulePath": "../topics/handoff-box.tsx",
+    "testPath": "src/topics/handoff-box.test.tsx",
+    "previewFilename": "handoff-box.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "context-bento-box",
+    "topicId": "lichen-partners",
+    "modulePath": "../topics/lichen-partners.tsx",
+    "testPath": "src/topics/lichen-partners.test.tsx",
+    "previewFilename": "lichen-partners.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 3,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "context-bento-box",
+    "topicId": "everything-the-intern-needs",
+    "modulePath": "../topics/everything-the-intern-needs.tsx",
+    "testPath": "src/topics/everything-the-intern-needs.test.tsx",
+    "previewFilename": "everything-the-intern-needs.webp",
+    "capture": {
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "object-metaphor-hero",
+    "topicId": "object-metaphor",
+    "modulePath": "../topics/object-metaphor.tsx",
+    "testPath": "src/topics/object-metaphor.test.tsx",
+    "previewFilename": "object-metaphor.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "object-metaphor-hero",
+    "topicId": "recovery-kit",
+    "modulePath": "../topics/recovery-kit.tsx",
+    "testPath": "src/topics/recovery-kit.test.tsx",
+    "previewFilename": "recovery-kit.webp",
+    "capture": {
+      "language": "en",
+      "scene": 1,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "object-metaphor-hero",
+    "topicId": "cocoon-to-cloth",
+    "modulePath": "../topics/cocoon-to-cloth.tsx",
+    "testPath": "src/topics/cocoon-to-cloth.test.tsx",
+    "previewFilename": "cocoon-to-cloth.webp",
+    "capture": {
+      "language": "en",
+      "scene": 5,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "object-metaphor-hero",
+    "topicId": "onboarding-toolkit",
+    "modulePath": "../topics/onboarding-toolkit.tsx",
+    "testPath": "src/topics/onboarding-toolkit.test.tsx",
+    "previewFilename": "onboarding-toolkit.webp",
+    "capture": {
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  }
+] as const satisfies readonly PublicationTarget[];
+
+export const PUBLICATION_AUDIT_CASES = {
+  "styleStarts": [
+    {
+      "styleId": "minimal-product-keynote",
+      "topicId": "product-keynote",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "objective-swiss-grid",
+      "topicId": "swiss-grid",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "wabi-sabi-ceramic",
+      "topicId": "ceramic-calm",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "interactive-dialogue-stage",
+      "topicId": "dialogue-stage",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "cyanotype-drafting-table",
+      "topicId": "blueprint",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "kinetic-type-punchline",
+      "topicId": "type-poster",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "sketch-board-emoji",
+      "topicId": "workshop-board",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "spotlight-quote-poster",
+      "topicId": "quote-poster",
+      "firstMultiBeatScene": 1
+    },
+    {
+      "styleId": "subway-map-of-intent",
+      "topicId": "subway-flow",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "benchmark-matrix",
+      "topicId": "benchmark",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "signal-pipeline-flow",
+      "topicId": "pipeline",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "engineering-whiteboard-explainer",
+      "topicId": "from-prompt-to-patch",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "soft-pastel-friendly",
+      "topicId": "friendly-onboard",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "kitchen-prep-station",
+      "topicId": "prep-station",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "collaborative-pairing-board",
+      "topicId": "pairing-board",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "studio-mixing-console",
+      "topicId": "mixing-console",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "debug-reaction-board",
+      "topicId": "debug-board",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "front-page-broadsheet",
+      "topicId": "broadsheet",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "magazine-masthead",
+      "topicId": "masthead",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "warm-editorial-feature",
+      "topicId": "editorial-feature",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "scholars-vellum",
+      "topicId": "scholar-notes",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "solar-biennale-poster",
+      "topicId": "biennale-poster",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "duotone-session",
+      "topicId": "session-poster",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "riso-print-zine",
+      "topicId": "riso-zine",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "analog-cutout-collage",
+      "topicId": "cutout-collage",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "woodblock-floating-world",
+      "topicId": "woodblock",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "botanical-specimen-plate",
+      "topicId": "specimen-plate",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "machine-age-deco",
+      "topicId": "deco-gala",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "expedition-screenprint",
+      "topicId": "expedition-print",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "cassette-era-packaging",
+      "topicId": "cassette-pack",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "neo-brutalist-bulletin",
+      "topicId": "brutalist-bulletin",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "red-wedge-agitprop",
+      "topicId": "red-wedge",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "mechanical-scoring-funnel",
+      "topicId": "scoring-funnel",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "liquid-glass",
+      "topicId": "liquid-glass",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "retro-windows",
+      "topicId": "retro-desktop",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "mid-century-grove",
+      "topicId": "botanical-brand",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "after-hours-luxe",
+      "topicId": "after-hours",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "operating-manual",
+      "topicId": "manual",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "widescreen-title-card",
+      "topicId": "title-card",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "blackboard-chalk-talk",
+      "topicId": "chalk-talk",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "arcade-boss-fight",
+      "topicId": "boss-fight",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "research-memo",
+      "topicId": "research-memo",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "decision-record",
+      "topicId": "decision-record",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "maintainer-issue-brief",
+      "topicId": "issue-brief",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "field-notes-report",
+      "topicId": "field-notes",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "annotated-source-diff",
+      "topicId": "source-diff",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "checklist-ledger",
+      "topicId": "checklist-ledger",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "context-bento-box",
+      "topicId": "context-bento",
+      "firstMultiBeatScene": 2
+    },
+    {
+      "styleId": "object-metaphor-hero",
+      "topicId": "object-metaphor",
+      "firstMultiBeatScene": 2
+    }
+  ],
+  "heroFinalFrames": [
+    {
+      "styleId": "minimal-product-keynote",
+      "topicId": "product-keynote",
+      "topicName": "Product Keynote",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative product presentation: the Nova narrative and outcomes are examples, not external factual claims."
+    },
+    {
+      "styleId": "minimal-product-keynote",
+      "topicId": "product-keynote",
+      "topicName": "产品主题",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例产品演示：Nova 的叙事与结果均为展示示例，并非外部事实主张。"
+    },
+    {
+      "styleId": "minimal-product-keynote",
+      "topicId": "quiet-launch",
+      "topicName": "Quiet Launch",
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative launch scenario: the demand signals, time window, and outcome are presentation examples, not measured product results."
+    },
+    {
+      "styleId": "minimal-product-keynote",
+      "topicId": "quiet-launch",
+      "topicName": "安静发布",
+      "language": "zh",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "示例发布场景：需求信号、时间窗口与结果均为演示示例，并非实测产品结果。"
+    },
+    {
+      "styleId": "minimal-product-keynote",
+      "topicId": "presolar-grain",
+      "topicName": "Presolar Grain",
+      "language": "en",
+      "scene": 1,
+      "beat": 1
+    },
+    {
+      "styleId": "minimal-product-keynote",
+      "topicId": "presolar-grain",
+      "topicName": "太阳前尘",
+      "language": "zh",
+      "scene": 1,
+      "beat": 1
+    },
+    {
+      "styleId": "minimal-product-keynote",
+      "topicId": "last-feature-cut",
+      "topicName": "The Last Feature We Cut",
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative product decision scenario: scope, timing, and delivery outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "minimal-product-keynote",
+      "topicId": "last-feature-cut",
+      "topicName": "删掉的功能",
+      "language": "zh",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "示例产品决策场景：范围、时间与交付结果均为演示示例，并非外部事实主张。"
+    },
+    {
+      "styleId": "objective-swiss-grid",
+      "topicId": "swiss-grid",
+      "topicName": "Swiss Grid",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative quality dashboard: the metrics, thresholds, and workflow are presentation examples, not measured operational results."
+    },
+    {
+      "styleId": "objective-swiss-grid",
+      "topicId": "swiss-grid",
+      "topicName": "瑞士网格",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例质量仪表盘：指标、阈值与流程均为演示示例，并非实测运营结果。"
+    },
+    {
+      "styleId": "objective-swiss-grid",
+      "topicId": "clean-metrics",
+      "topicName": "Clean Metrics",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative metrics board: values, comparison rows, and decision rules are presentation examples, not measured business results."
+    },
+    {
+      "styleId": "objective-swiss-grid",
+      "topicId": "clean-metrics",
+      "topicName": "干净指标",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "示例指标板：数值、对比行与决策规则均为演示示例，并非实测业务结果。"
+    },
+    {
+      "styleId": "objective-swiss-grid",
+      "topicId": "bridge-movement",
+      "topicName": "Bridge Movement",
+      "language": "en",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "objective-swiss-grid",
+      "topicId": "bridge-movement",
+      "topicName": "桥的位移",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "objective-swiss-grid",
+      "topicId": "anatomy-timetable",
+      "topicName": "Anatomy of a Timetable",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative timetable study: services, times, and delay status are presentation examples, not live transit data."
+    },
+    {
+      "styleId": "objective-swiss-grid",
+      "topicId": "anatomy-timetable",
+      "topicName": "时刻表解剖",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例时刻表研究：车次、时间与晚点状态均为演示示例，并非实时交通数据。"
+    },
+    {
+      "styleId": "wabi-sabi-ceramic",
+      "topicId": "ceramic-calm",
+      "topicName": "Ceramic Calm",
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "A reflective craft presentation: its philosophical language is a perspective, not a historical or scientific account."
+    },
+    {
+      "styleId": "wabi-sabi-ceramic",
+      "topicId": "ceramic-calm",
+      "topicName": "陶器静场",
+      "language": "zh",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "一则关于工艺的反思性呈现：其中的哲学表达是一种视角，并非历史或科学论述。"
+    },
+    {
+      "styleId": "wabi-sabi-ceramic",
+      "topicId": "repair-strategy",
+      "topicName": "Repair Strategy",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "A conceptual repair metaphor for strategy and attention, not conservation, engineering, or operational guidance."
+    },
+    {
+      "styleId": "wabi-sabi-ceramic",
+      "topicId": "repair-strategy",
+      "topicName": "修复策略",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "一则用修复比喻策略与注意力的概念呈现，并非文物修复、工程或运营指引。"
+    },
+    {
+      "styleId": "wabi-sabi-ceramic",
+      "topicId": "stone-to-soil",
+      "topicName": "Stone to Soil",
+      "language": "en",
+      "scene": 4,
+      "beat": 2
+    },
+    {
+      "styleId": "wabi-sabi-ceramic",
+      "topicId": "stone-to-soil",
+      "topicName": "石成土",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2
+    },
+    {
+      "styleId": "wabi-sabi-ceramic",
+      "topicId": "beauty-unfinished",
+      "topicName": "The Beauty of the Unfinished",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "wabi-sabi-ceramic",
+      "topicId": "beauty-unfinished",
+      "topicName": "未完成之美",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "interactive-dialogue-stage",
+      "topicId": "dialogue-stage",
+      "topicName": "Dialogue Stage",
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "A scripted dialogue illustration: its exchanges are presentation examples, not claims about a specific human–AI system."
+    },
+    {
+      "styleId": "interactive-dialogue-stage",
+      "topicId": "dialogue-stage",
+      "topicName": "对话舞台",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "一则编排的对话示例：其中交流用于演示，并非对某个具体人机系统的事实主张。"
+    },
+    {
+      "styleId": "interactive-dialogue-stage",
+      "topicId": "better-question",
+      "topicName": "Better Question",
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "evidenceBoundary": "A scripted dialogue exercise about clarification, not a record of an actual conversation or a prescriptive communication method."
+    },
+    {
+      "styleId": "interactive-dialogue-stage",
+      "topicId": "better-question",
+      "topicName": "更好问题",
+      "language": "zh",
+      "scene": 3,
+      "beat": 3,
+      "evidenceBoundary": "一则关于澄清的编排式对话练习，并非真实对话记录或规定性的沟通方法。"
+    },
+    {
+      "styleId": "interactive-dialogue-stage",
+      "topicId": "vocal-folds",
+      "topicName": "Vocal Folds",
+      "language": "en",
+      "scene": 3,
+      "beat": 3
+    },
+    {
+      "styleId": "interactive-dialogue-stage",
+      "topicId": "vocal-folds",
+      "topicName": "声带",
+      "language": "zh",
+      "scene": 3,
+      "beat": 3
+    },
+    {
+      "styleId": "interactive-dialogue-stage",
+      "topicId": "rubber-duck",
+      "topicName": "The Rubber Duck",
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "interactive-dialogue-stage",
+      "topicId": "rubber-duck",
+      "topicName": "橡皮鸭",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "cyanotype-drafting-table",
+      "topicId": "blueprint",
+      "topicName": "Blueprint",
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative architecture blueprint: services, capacities, availability targets, and timings are a design scenario, not a description of a deployed system."
+    },
+    {
+      "styleId": "cyanotype-drafting-table",
+      "topicId": "blueprint",
+      "topicName": "蓝图",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "示例架构蓝图：其中服务、容量、可用性目标和时间均为设计场景，并非已部署系统的描述。"
+    },
+    {
+      "styleId": "cyanotype-drafting-table",
+      "topicId": "resilience-plan",
+      "topicName": "Resilience Plan",
+      "language": "en",
+      "scene": 5,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative resilience plan: its sheet labels, capacity margins, stress tests, and recovery actions describe a design exercise, not measured operational results."
+    },
+    {
+      "styleId": "cyanotype-drafting-table",
+      "topicId": "resilience-plan",
+      "topicName": "韧性方案",
+      "language": "zh",
+      "scene": 5,
+      "beat": 2,
+      "evidenceBoundary": "示例韧性方案：其中图纸标签、容量余量、压力测试和恢复动作均为设计演练，并非实测运营结果。"
+    },
+    {
+      "styleId": "cyanotype-drafting-table",
+      "topicId": "comet-anatomy",
+      "topicName": "Comet Anatomy",
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "evidenceBoundary": "Educational schematic: the drawings synthesize broad comet physics with 67P-specific reference measurements; individual nuclei, activity patterns, tails, and orbit displays vary by comet and observation time."
+    },
+    {
+      "styleId": "cyanotype-drafting-table",
+      "topicId": "comet-anatomy",
+      "topicName": "彗星解剖",
+      "language": "zh",
+      "scene": 3,
+      "beat": 3,
+      "evidenceBoundary": "教学示意图：图中综合了通用彗星物理与 67P 的参考测量；不同彗星及不同观测时段的彗核、活动模式、彗尾和轨道显示都会不同。"
+    },
+    {
+      "styleId": "cyanotype-drafting-table",
+      "topicId": "drawing-a-bridge",
+      "topicName": "Drawing a Bridge",
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "cyanotype-drafting-table",
+      "topicId": "drawing-a-bridge",
+      "topicName": "桥的设计",
+      "language": "zh",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "kinetic-type-punchline",
+      "topicId": "type-poster",
+      "topicName": "Type Poster",
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative typography study: its phrases, rules, and outcomes are poster copy, not external factual claims."
+    },
+    {
+      "styleId": "kinetic-type-punchline",
+      "topicId": "type-poster",
+      "topicName": "字体海报",
+      "language": "zh",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "示例字体研究：其中短语、规则和结果均为海报文案，并非外部事实主张。"
+    },
+    {
+      "styleId": "kinetic-type-punchline",
+      "topicId": "one-constraint",
+      "topicName": "One Constraint",
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative decision scenario: options, trade-offs, and punchlines are presentation devices, not measured findings."
+    },
+    {
+      "styleId": "kinetic-type-punchline",
+      "topicId": "one-constraint",
+      "topicName": "一个约束",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "示例决策场景：其中选项、权衡和金句均为演示手法，并非实测发现。"
+    },
+    {
+      "styleId": "kinetic-type-punchline",
+      "topicId": "before-a",
+      "topicName": "Before A",
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "Historical letterforms are comparative teaching samples, not a single continuous or uniform aleph-to-A lineage; dates, shapes, locations, and paths of adoption vary across inscriptions and traditions."
+    },
+    {
+      "styleId": "kinetic-type-punchline",
+      "topicId": "before-a",
+      "topicName": "A之前",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "历史字形为比较教学样本，并非一条连续或统一的从 aleph 到 A 的演变谱系；不同铭文和传统之间的年代、形状、地点与传播路径均有差异。"
+    },
+    {
+      "styleId": "kinetic-type-punchline",
+      "topicId": "ship-it",
+      "topicName": "Ship It",
+      "language": "en",
+      "scene": 5,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative release prompt: the excuses, countdown, and outcome are poster rhetoric, not a record of a product release."
+    },
+    {
+      "styleId": "kinetic-type-punchline",
+      "topicId": "ship-it",
+      "topicName": "发布",
+      "language": "zh",
+      "scene": 5,
+      "beat": 0,
+      "evidenceBoundary": "示例发布提示：其中借口、倒数和结果均为海报修辞，并非一次产品发布的记录。"
+    },
+    {
+      "styleId": "sketch-board-emoji",
+      "topicId": "workshop-board",
+      "topicName": "Workshop Board",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative workshop scenario: the participants, session figures, and outcomes are presentation examples rather than externally measured results."
+    },
+    {
+      "styleId": "sketch-board-emoji",
+      "topicId": "workshop-board",
+      "topicName": "工作坊",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "示例工作坊场景：参与者、会议数字与产出均为演示内容，并非外部实测结果。"
+    },
+    {
+      "styleId": "sketch-board-emoji",
+      "topicId": "human-loop",
+      "topicName": "Human Loop",
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "evidenceBoundary": "Illustrative human-and-model workflow: the actors, handoffs, and operating patterns are presentation examples, not observations of a specific system."
+    },
+    {
+      "styleId": "sketch-board-emoji",
+      "topicId": "human-loop",
+      "topicName": "人机回路",
+      "language": "zh",
+      "scene": 3,
+      "beat": 3,
+      "evidenceBoundary": "示例人机工作流：其中角色、交接和运行模式均为演示内容，并非对特定系统的观察。"
+    },
+    {
+      "styleId": "sketch-board-emoji",
+      "topicId": "stadium-wave",
+      "topicName": "Stadium Wave",
+      "language": "en",
+      "scene": 4,
+      "beat": 4
+    },
+    {
+      "styleId": "sketch-board-emoji",
+      "topicId": "stadium-wave",
+      "topicName": "看台人浪",
+      "language": "zh",
+      "scene": 4,
+      "beat": 4
+    },
+    {
+      "styleId": "sketch-board-emoji",
+      "topicId": "how-we-named-it",
+      "topicName": "How We Named It",
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative naming workshop: the candidate names, reactions, and selection are authored presentation content, not a record of an external process."
+    },
+    {
+      "styleId": "sketch-board-emoji",
+      "topicId": "how-we-named-it",
+      "topicName": "起名字",
+      "language": "zh",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "示例起名工作坊：候选名称、反馈与选择均为创作的演示内容，并非外部流程记录。"
+    },
+    {
+      "styleId": "spotlight-quote-poster",
+      "topicId": "quote-poster",
+      "topicName": "Quote Poster",
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative spotlight poster: the mission, philosophy, and closing lines are authored presentation copy; the Cesare Pavese quotation and attribution are source-backed."
+    },
+    {
+      "styleId": "spotlight-quote-poster",
+      "topicId": "quote-poster",
+      "topicName": "引言海报",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "示例聚光海报：使命、理念与结语均为创作的演示文案；切萨雷·帕韦塞的引言及署名有来源支持。"
+    },
+    {
+      "styleId": "spotlight-quote-poster",
+      "topicId": "kept-sentence",
+      "topicName": "Kept Sentence",
+      "language": "en",
+      "scene": 5,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative editorial scenario: the sentence, evidence cards, working wall, and editing outcome are authored presentation examples rather than external evidence."
+    },
+    {
+      "styleId": "spotlight-quote-poster",
+      "topicId": "kept-sentence",
+      "topicName": "留下句子",
+      "language": "zh",
+      "scene": 5,
+      "beat": 2,
+      "evidenceBoundary": "示例编辑场景：其中句子、证据卡片、工作墙与删改结果均为创作的演示内容，并非外部证据。"
+    },
+    {
+      "styleId": "spotlight-quote-poster",
+      "topicId": "freedive",
+      "topicName": "Freedive",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Physiology explainer only: this Topic is not training, medical, equalization, or safe-zone advice."
+    },
+    {
+      "styleId": "spotlight-quote-poster",
+      "topicId": "freedive",
+      "topicName": "自由潜水",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "仅作生理机制说明：本 Topic 不构成训练、医疗、平压或安全区域建议。"
+    },
+    {
+      "styleId": "spotlight-quote-poster",
+      "topicId": "on-quitting-well",
+      "topicName": "On Quitting Well",
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative reflection: the speaker, quoted lines, and departure narrative are authored presentation content, not attributed testimony or reporting."
+    },
+    {
+      "styleId": "spotlight-quote-poster",
+      "topicId": "on-quitting-well",
+      "topicName": "好好离开",
+      "language": "zh",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "示例性沉思：其中说话者、引言与离开叙事均为创作的演示内容，并非归属证词或报道。"
+    },
+    {
+      "styleId": "subway-map-of-intent",
+      "topicId": "subway-flow",
+      "topicName": "Subway Flow",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative workflow scenario: team roles, milestones, and metrics are presentation examples, not measured results."
+    },
+    {
+      "styleId": "subway-map-of-intent",
+      "topicId": "subway-flow",
+      "topicName": "地铁流程",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例工作流场景：团队角色、里程碑与指标均为演示示例，并非实测结果。"
+    },
+    {
+      "styleId": "subway-map-of-intent",
+      "topicId": "release-tracks",
+      "topicName": "Release Tracks",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative release-planning scenario: teams, checkpoints, and outcomes are presentation examples, not reported delivery results."
+    },
+    {
+      "styleId": "subway-map-of-intent",
+      "topicId": "release-tracks",
+      "topicName": "发布轨道",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例发布规划场景：团队、检查点与结果均为演示示例，并非已报告的交付结果。"
+    },
+    {
+      "styleId": "subway-map-of-intent",
+      "topicId": "tea-cha-routes",
+      "topicName": "Tea / Cha",
+      "language": "en",
+      "scene": 5,
+      "beat": 0
+    },
+    {
+      "styleId": "subway-map-of-intent",
+      "topicId": "tea-cha-routes",
+      "topicName": "茶与 Cha",
+      "language": "zh",
+      "scene": 5,
+      "beat": 0
+    },
+    {
+      "styleId": "subway-map-of-intent",
+      "topicId": "three-teams-launch",
+      "topicName": "Three Teams, One Launch",
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "subway-map-of-intent",
+      "topicId": "three-teams-launch",
+      "topicName": "三队一发",
+      "language": "zh",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "benchmark-matrix",
+      "topicId": "benchmark",
+      "topicName": "Benchmark",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative market comparison: competitors, feature parity, counts, and scores are presentation examples, not measured market data."
+    },
+    {
+      "styleId": "benchmark-matrix",
+      "topicId": "benchmark",
+      "topicName": "基准评估",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例市场对比：竞品、功能对等性、数量与评分均为演示示例，并非实测市场数据。"
+    },
+    {
+      "styleId": "benchmark-matrix",
+      "topicId": "durable-tool",
+      "topicName": "Durable Tool",
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "evidenceBoundary": "Illustrative tool evaluation: criteria, scores, and the verdict are presentation examples, not measured procurement results."
+    },
+    {
+      "styleId": "benchmark-matrix",
+      "topicId": "durable-tool",
+      "topicName": "耐用工具",
+      "language": "zh",
+      "scene": 3,
+      "beat": 3,
+      "evidenceBoundary": "示例工具评估：标准、评分与结论均为演示示例，并非实测采购结果。"
+    },
+    {
+      "styleId": "benchmark-matrix",
+      "topicId": "natural-clocks",
+      "topicName": "Natural Clocks",
+      "language": "en",
+      "scene": 4,
+      "beat": 0
+    },
+    {
+      "styleId": "benchmark-matrix",
+      "topicId": "natural-clocks",
+      "topicName": "自然时钟",
+      "language": "zh",
+      "scene": 4,
+      "beat": 0
+    },
+    {
+      "styleId": "benchmark-matrix",
+      "topicId": "build-buy-borrow",
+      "topicName": "Build vs Buy vs Borrow",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "benchmark-matrix",
+      "topicId": "build-buy-borrow",
+      "topicName": "自建还是买",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "signal-pipeline-flow",
+      "topicId": "pipeline",
+      "topicName": "Pipeline",
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative system narrative: labels, dates, metrics, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "signal-pipeline-flow",
+      "topicId": "pipeline",
+      "topicName": "管道流程",
+      "language": "zh",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "示例系统叙事：标签、日期、指标和结果均为演示示例，并非外部事实主张。"
+    },
+    {
+      "styleId": "signal-pipeline-flow",
+      "topicId": "event-insight",
+      "topicName": "Event Insight",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative event pipeline: labels, rates, thresholds, and outcomes are presentation examples, not measured production results."
+    },
+    {
+      "styleId": "signal-pipeline-flow",
+      "topicId": "event-insight",
+      "topicName": "事件洞察",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例事件管线：标签、速率、阈值和结果均为演示示例，并非实测生产结果。"
+    },
+    {
+      "styleId": "signal-pipeline-flow",
+      "topicId": "district-heat",
+      "topicName": "Second Heat",
+      "language": "en",
+      "scene": 4,
+      "beat": 2
+    },
+    {
+      "styleId": "signal-pipeline-flow",
+      "topicId": "district-heat",
+      "topicName": "城市余热",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2
+    },
+    {
+      "styleId": "signal-pipeline-flow",
+      "topicId": "where-request-goes",
+      "topicName": "Where the Request Goes",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "signal-pipeline-flow",
+      "topicId": "where-request-goes",
+      "topicName": "请求去哪了",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "engineering-whiteboard-explainer",
+      "topicId": "from-prompt-to-patch",
+      "topicName": "From Prompt to Patch",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative engineering workflow: prompts, review steps, patch tasks, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "engineering-whiteboard-explainer",
+      "topicId": "from-prompt-to-patch",
+      "topicName": "提示到补丁",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例工程工作流：提示、审查步骤、补丁任务和结果均为演示示例，并非外部事实主张。"
+    },
+    {
+      "styleId": "engineering-whiteboard-explainer",
+      "topicId": "water-tower",
+      "topicName": "Water Tower",
+      "language": "en",
+      "scene": 4,
+      "beat": 2
+    },
+    {
+      "styleId": "engineering-whiteboard-explainer",
+      "topicId": "water-tower",
+      "topicName": "城市水塔",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2
+    },
+    {
+      "styleId": "soft-pastel-friendly",
+      "topicId": "friendly-onboard",
+      "topicName": "Friendly Onboard",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative onboarding scenario: product names, feature claims, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "soft-pastel-friendly",
+      "topicId": "friendly-onboard",
+      "topicName": "友好入门",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "示例入门场景：产品名称、功能主张和结果均为演示示例，并非外部事实主张。"
+    },
+    {
+      "styleId": "soft-pastel-friendly",
+      "topicId": "breathing-onboard",
+      "topicName": "Breathing Onboard",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative onboarding scenario: steps, prompts, and outcomes are presentation examples, not measured product results."
+    },
+    {
+      "styleId": "soft-pastel-friendly",
+      "topicId": "breathing-onboard",
+      "topicName": "呼吸入门",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "示例入门场景：步骤、提示和结果均为演示示例，并非实测产品结果。"
+    },
+    {
+      "styleId": "soft-pastel-friendly",
+      "topicId": "chrysalis-rebuild",
+      "topicName": "Inside a Chrysalis",
+      "language": "en",
+      "scene": 3,
+      "beat": 2
+    },
+    {
+      "styleId": "soft-pastel-friendly",
+      "topicId": "chrysalis-rebuild",
+      "topicName": "蛹中重建",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2
+    },
+    {
+      "styleId": "soft-pastel-friendly",
+      "topicId": "first-week-here",
+      "topicName": "Your First Week Here",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative onboarding scenario: people, tools, tasks, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "soft-pastel-friendly",
+      "topicId": "first-week-here",
+      "topicName": "入职第一周",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例入职场景：人物、工具、任务和结果均为演示示例，并非外部事实主张。"
+    },
+    {
+      "styleId": "kitchen-prep-station",
+      "topicId": "prep-station",
+      "topicName": "Prep Station",
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative kitchen workflow: ingredients, votes, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "kitchen-prep-station",
+      "topicId": "prep-station",
+      "topicName": "备料台",
+      "language": "zh",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "示例厨房工作流：其中食材、投票和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "kitchen-prep-station",
+      "topicId": "clean-brief",
+      "topicName": "Clean Brief",
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative briefing workflow: notes, decisions, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "kitchen-prep-station",
+      "topicId": "clean-brief",
+      "topicName": "清爽简报",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "示例简报工作流：其中笔记、决策和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "kitchen-prep-station",
+      "topicId": "cocoa-fermentation",
+      "topicName": "Cocoa Fermentation",
+      "language": "en",
+      "scene": 4,
+      "beat": 3
+    },
+    {
+      "styleId": "kitchen-prep-station",
+      "topicId": "cocoa-fermentation",
+      "topicName": "可可发酵",
+      "language": "zh",
+      "scene": 4,
+      "beat": 3
+    },
+    {
+      "styleId": "kitchen-prep-station",
+      "topicId": "raw-logs-to-report",
+      "topicName": "From Raw Logs to Report",
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "kitchen-prep-station",
+      "topicId": "raw-logs-to-report",
+      "topicName": "日志到报告",
+      "language": "zh",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "collaborative-pairing-board",
+      "topicId": "pairing-board",
+      "topicName": "Pairing Board",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative collaboration scenario: people, roles, metrics, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "collaborative-pairing-board",
+      "topicId": "pairing-board",
+      "topicName": "配对板",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "示例协作场景：其中人员、角色、指标和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "collaborative-pairing-board",
+      "topicId": "shared-artifact",
+      "topicName": "Shared Artifact",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative collaboration scenario: teams, artifacts, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "collaborative-pairing-board",
+      "topicId": "shared-artifact",
+      "topicName": "共享产物",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例协作场景：其中团队、产物和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "collaborative-pairing-board",
+      "topicId": "elevator-counterweight",
+      "topicName": "Counterweight",
+      "language": "en",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "collaborative-pairing-board",
+      "topicId": "elevator-counterweight",
+      "topicName": "电梯配重",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "collaborative-pairing-board",
+      "topicId": "human-reviews-ai",
+      "topicName": "Human Reviews the AI",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "collaborative-pairing-board",
+      "topicId": "human-reviews-ai",
+      "topicName": "人审 AI",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "studio-mixing-console",
+      "topicId": "mixing-console",
+      "topicName": "Mixing Console",
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative studio-console scenario: channel counts, level settings, routing, and status labels are presentation examples, not a live mix."
+    },
+    {
+      "styleId": "studio-mixing-console",
+      "topicId": "mixing-console",
+      "topicName": "混音台",
+      "language": "zh",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "示例录音台场景：通道数、电平设置、路由和状态标签均为演示内容，并非实时混音。"
+    },
+    {
+      "styleId": "studio-mixing-console",
+      "topicId": "operating-model",
+      "topicName": "Operating Model",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative operating-model console: channel levels, targets, thresholds, and outcomes are a facilitation metaphor, not measured operating data."
+    },
+    {
+      "styleId": "studio-mixing-console",
+      "topicId": "operating-model",
+      "topicName": "运营模型",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例运营模型控制台：通道电平、目标、阈值和结果均是引导讨论的隐喻，并非实测运营数据。"
+    },
+    {
+      "styleId": "studio-mixing-console",
+      "topicId": "tidal-time",
+      "topicName": "Tidal Time",
+      "language": "en",
+      "scene": 4,
+      "beat": 1
+    },
+    {
+      "styleId": "studio-mixing-console",
+      "topicId": "tidal-time",
+      "topicName": "潮汐时差",
+      "language": "zh",
+      "scene": 4,
+      "beat": 1
+    },
+    {
+      "styleId": "studio-mixing-console",
+      "topicId": "tuning-the-model",
+      "topicName": "Tuning the Model",
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "studio-mixing-console",
+      "topicId": "tuning-the-model",
+      "topicName": "调模型",
+      "language": "zh",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "debug-reaction-board",
+      "topicId": "debug-board",
+      "topicName": "Debug Board",
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative diagnostic dashboard: incidents, metrics, logs, identifiers, and remediation outcomes are presentation examples, not live system status."
+    },
+    {
+      "styleId": "debug-reaction-board",
+      "topicId": "debug-board",
+      "topicName": "调试面板",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "示例诊断仪表板：事故、指标、日志、标识符和修复结果均为演示内容，并非实时系统状态。"
+    },
+    {
+      "styleId": "debug-reaction-board",
+      "topicId": "learning-incident",
+      "topicName": "Learning Incident",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative incident-learning scenario: alerts, traces, hypotheses, patch proofs, and monitoring states are presentation examples, not a report of an actual incident."
+    },
+    {
+      "styleId": "debug-reaction-board",
+      "topicId": "learning-incident",
+      "topicName": "学习事故",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例事故学习场景：告警、链路、假设、补丁证明和监控状态均为演示内容，并非真实事故报告。"
+    },
+    {
+      "styleId": "debug-reaction-board",
+      "topicId": "acoustic-crack",
+      "topicName": "Acoustic Crack",
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "Acoustic-emission monitoring can prioritize inspection; it does not by itself classify or size a defect."
+    },
+    {
+      "styleId": "debug-reaction-board",
+      "topicId": "acoustic-crack",
+      "topicName": "听裂缝",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "声发射监测可以确定检查优先级；它本身不能判定缺陷类型或尺寸。"
+    },
+    {
+      "styleId": "debug-reaction-board",
+      "topicId": "safe-to-deploy",
+      "topicName": "Is It Safe to Deploy?",
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "debug-reaction-board",
+      "topicId": "safe-to-deploy",
+      "topicName": "能发布吗",
+      "language": "zh",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "front-page-broadsheet",
+      "topicId": "broadsheet",
+      "topicName": "Broadsheet",
+      "language": "en",
+      "scene": 3,
+      "beat": 2
+    },
+    {
+      "styleId": "front-page-broadsheet",
+      "topicId": "broadsheet",
+      "topicName": "大报头版",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2
+    },
+    {
+      "styleId": "front-page-broadsheet",
+      "topicId": "after-launch",
+      "topicName": "After Launch",
+      "language": "en",
+      "scene": 2,
+      "beat": 2
+    },
+    {
+      "styleId": "front-page-broadsheet",
+      "topicId": "after-launch",
+      "topicName": "发布翌日",
+      "language": "zh",
+      "scene": 2,
+      "beat": 2
+    },
+    {
+      "styleId": "front-page-broadsheet",
+      "topicId": "rogue-wave",
+      "topicName": "Rogue Wave",
+      "language": "en",
+      "scene": 3,
+      "beat": 3
+    },
+    {
+      "styleId": "front-page-broadsheet",
+      "topicId": "rogue-wave",
+      "topicName": "怪浪",
+      "language": "zh",
+      "scene": 3,
+      "beat": 3
+    },
+    {
+      "styleId": "front-page-broadsheet",
+      "topicId": "day-feed-stopped",
+      "topicName": "The Day the Feed Stopped",
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "front-page-broadsheet",
+      "topicId": "day-feed-stopped",
+      "topicName": "信息流停摆",
+      "language": "zh",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "magazine-masthead",
+      "topicId": "masthead",
+      "topicName": "Masthead",
+      "language": "en",
+      "scene": 2,
+      "beat": 1
+    },
+    {
+      "styleId": "magazine-masthead",
+      "topicId": "masthead",
+      "topicName": "杂志刊头",
+      "language": "zh",
+      "scene": 2,
+      "beat": 1
+    },
+    {
+      "styleId": "magazine-masthead",
+      "topicId": "product-cover",
+      "topicName": "Product Cover",
+      "language": "en",
+      "scene": 1,
+      "beat": 2
+    },
+    {
+      "styleId": "magazine-masthead",
+      "topicId": "product-cover",
+      "topicName": "产品封面",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2
+    },
+    {
+      "styleId": "magazine-masthead",
+      "topicId": "moth-experiment",
+      "topicName": "Moth Experiment",
+      "language": "en",
+      "scene": 1,
+      "beat": 1
+    },
+    {
+      "styleId": "magazine-masthead",
+      "topicId": "moth-experiment",
+      "topicName": "桦尺蛾实验",
+      "language": "zh",
+      "scene": 1,
+      "beat": 1
+    },
+    {
+      "styleId": "magazine-masthead",
+      "topicId": "comeback-issue",
+      "topicName": "The Comeback Issue",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "magazine-masthead",
+      "topicId": "comeback-issue",
+      "topicName": "回归特刊",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "warm-editorial-feature",
+      "topicId": "editorial-feature",
+      "topicName": "Editorial Feature",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative editorial feature: market figures, earnings rows, and analysis outcomes are presentation examples, not measured reporting."
+    },
+    {
+      "styleId": "warm-editorial-feature",
+      "topicId": "editorial-feature",
+      "topicName": "专题特稿",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "示例专题特稿：市场数字、收益条目与分析结论均为演示内容，并非实测报道。"
+    },
+    {
+      "styleId": "warm-editorial-feature",
+      "topicId": "useful-week",
+      "topicName": "Useful Week",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative personal essay: the week, scenes, and outcomes are presentation examples, not an account of a documented person or event."
+    },
+    {
+      "styleId": "warm-editorial-feature",
+      "topicId": "useful-week",
+      "topicName": "有用一周",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "示例个人随笔：这一周、场景与结果均为演示内容，并非对已记录人物或事件的叙述。"
+    },
+    {
+      "styleId": "warm-editorial-feature",
+      "topicId": "oral-to-written",
+      "topicName": "Oral to Written",
+      "language": "en",
+      "scene": 3,
+      "beat": 2
+    },
+    {
+      "styleId": "warm-editorial-feature",
+      "topicId": "oral-to-written",
+      "topicName": "史诗成文",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2
+    },
+    {
+      "styleId": "warm-editorial-feature",
+      "topicId": "letter-to-past-self",
+      "topicName": "A Letter to My Past Self",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "warm-editorial-feature",
+      "topicId": "letter-to-past-self",
+      "topicName": "写给过去",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "scholars-vellum",
+      "topicId": "scholar-notes",
+      "topicName": "Scholar Notes",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative research essay: propositions, diagrams, and quoted conclusions are presentation examples, not externally verified scholarship."
+    },
+    {
+      "styleId": "scholars-vellum",
+      "topicId": "scholar-notes",
+      "topicName": "学者笔记",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例研究随笔：命题、图示与引文结论均为演示内容，并非经外部核实的学术成果。"
+    },
+    {
+      "styleId": "scholars-vellum",
+      "topicId": "margin-argument",
+      "topicName": "Margin Argument",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative argument exercise: thesis, counterclaim, and conclusion are presentation examples, not attributed scholarly claims."
+    },
+    {
+      "styleId": "scholars-vellum",
+      "topicId": "margin-argument",
+      "topicName": "页边论点",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例论证练习：论点、反驳与结论均为演示内容，并非署名学术主张。"
+    },
+    {
+      "styleId": "scholars-vellum",
+      "topicId": "hidden-text",
+      "topicName": "Hidden Text",
+      "language": "en",
+      "scene": 3,
+      "beat": 3
+    },
+    {
+      "styleId": "scholars-vellum",
+      "topicId": "hidden-text",
+      "topicName": "重写羊皮卷",
+      "language": "zh",
+      "scene": 3,
+      "beat": 3
+    },
+    {
+      "styleId": "scholars-vellum",
+      "topicId": "what-ancients-knew",
+      "topicName": "What the Ancients Knew",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "scholars-vellum",
+      "topicId": "what-ancients-knew",
+      "topicName": "古人的智慧",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "solar-biennale-poster",
+      "topicId": "biennale-poster",
+      "topicName": "Biennale Poster",
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative cultural programme: names, dates, people, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "solar-biennale-poster",
+      "topicId": "biennale-poster",
+      "topicName": "双年展",
+      "language": "zh",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "示例文化项目：其中名称、日期、人物和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "solar-biennale-poster",
+      "topicId": "public-light",
+      "topicName": "Public Light",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative public-art programme: names, schedules, locations, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "solar-biennale-poster",
+      "topicId": "public-light",
+      "topicName": "公共灯光",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "示例公共艺术项目：其中名称、日程、地点和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "solar-biennale-poster",
+      "topicId": "iron-from-stars",
+      "topicName": "Iron from Stars",
+      "language": "en",
+      "scene": 3,
+      "beat": 2
+    },
+    {
+      "styleId": "solar-biennale-poster",
+      "topicId": "iron-from-stars",
+      "topicName": "恒星炼铁",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2
+    },
+    {
+      "styleId": "solar-biennale-poster",
+      "topicId": "festival-slow-ideas",
+      "topicName": "Festival of Slow Ideas",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "solar-biennale-poster",
+      "topicId": "festival-slow-ideas",
+      "topicName": "慢想节",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "duotone-session",
+      "topicId": "session-poster",
+      "topicName": "Session Poster",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative recording-session poster: names, dates, credits, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "duotone-session",
+      "topicId": "session-poster",
+      "topicName": "录制海报",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例录制海报：其中名称、日期、署名和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "duotone-session",
+      "topicId": "five-takes",
+      "topicName": "Five Takes",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative recording-room study: names, credits, takes, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "duotone-session",
+      "topicId": "five-takes",
+      "topicName": "五个视角",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "示例录音室研究：其中名称、署名、录制片段和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "duotone-session",
+      "topicId": "dance-notation",
+      "topicName": "Dance Notation",
+      "language": "en",
+      "scene": 3,
+      "beat": 2
+    },
+    {
+      "styleId": "duotone-session",
+      "topicId": "dance-notation",
+      "topicName": "舞谱",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2
+    },
+    {
+      "styleId": "duotone-session",
+      "topicId": "cut-in-one-take",
+      "topicName": "Cut in One Take",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "duotone-session",
+      "topicId": "cut-in-one-take",
+      "topicName": "一条过",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "riso-print-zine",
+      "topicId": "riso-zine",
+      "topicName": "Riso Zine",
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative zine: its issue, band names, interview, and manifesto are authored presentation content, not reporting on actual artists or events."
+    },
+    {
+      "styleId": "riso-print-zine",
+      "topicId": "riso-zine",
+      "topicName": "孔版杂志",
+      "language": "zh",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "示例杂志：其中期号、乐队名称、采访和宣言均为创作展示内容，并非对真实艺人或事件的报道。"
+    },
+    {
+      "styleId": "riso-print-zine",
+      "topicId": "community-print",
+      "topicName": "Community Print",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative community-print scenario: the issue, workshop, contributors, and print outcomes are authored presentation content, not a report of an actual publication or event."
+    },
+    {
+      "styleId": "riso-print-zine",
+      "topicId": "community-print",
+      "topicName": "社群印刷",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "示例社群印刷场景：其中期刊、工作坊、参与者和印刷结果均为创作展示内容，并非对真实出版物或活动的报道。"
+    },
+    {
+      "styleId": "riso-print-zine",
+      "topicId": "seven-blues",
+      "topicName": "Seven Blues",
+      "language": "en",
+      "scene": 1,
+      "beat": 3,
+      "evidenceBoundary": "Material and process statements are source-backed; the swatches and diagrams are illustrative, not material-color matches or universal cultural meanings of blue."
+    },
+    {
+      "styleId": "riso-print-zine",
+      "topicId": "seven-blues",
+      "topicName": "七种蓝",
+      "language": "zh",
+      "scene": 1,
+      "beat": 3,
+      "evidenceBoundary": "材料与工艺陈述有来源支持；色片和图示仅为说明，并非材料颜色等同物，也不代表蓝色具有普遍文化含义。"
+    },
+    {
+      "styleId": "riso-print-zine",
+      "topicId": "make-something-weekly",
+      "topicName": "Make Something Weekly",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "riso-print-zine",
+      "topicId": "make-something-weekly",
+      "topicName": "每周做点",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "analog-cutout-collage",
+      "topicId": "cutout-collage",
+      "topicName": "Cutout Collage",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative collage essay: fragments, notebook lines, clippings, and attributions are authored presentation content, not sourced archival records."
+    },
+    {
+      "styleId": "analog-cutout-collage",
+      "topicId": "cutout-collage",
+      "topicName": "剪纸拼贴",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "示例拼贴随笔：其中碎片、笔记、剪报和署名均为创作展示内容，并非有出处的档案记录。"
+    },
+    {
+      "styleId": "analog-cutout-collage",
+      "topicId": "rebuilt-archive",
+      "topicName": "Rebuilt Archive",
+      "language": "en",
+      "scene": 5,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative archive-reassembly scenario: fragments, dates, initials, and narrative connections are authored presentation devices, not documented archival provenance."
+    },
+    {
+      "styleId": "analog-cutout-collage",
+      "topicId": "rebuilt-archive",
+      "topicName": "重组档案",
+      "language": "zh",
+      "scene": 5,
+      "beat": 2,
+      "evidenceBoundary": "示例档案重组场景：其中碎片、日期、姓名首字母和叙事连接均为创作展示手法，并非有记录的档案来源。"
+    },
+    {
+      "styleId": "analog-cutout-collage",
+      "topicId": "concealed-objects",
+      "topicName": "Inside the Wall",
+      "language": "en",
+      "scene": 1,
+      "beat": 3,
+      "evidenceBoundary": "Object details and find contexts are source-backed; associations with concealment practices remain bounded interpretations and do not establish a historic person's intent."
+    },
+    {
+      "styleId": "analog-cutout-collage",
+      "topicId": "concealed-objects",
+      "topicName": "墙中藏物",
+      "language": "zh",
+      "scene": 1,
+      "beat": 3,
+      "evidenceBoundary": "物件细节与发现背景均有来源支持；与藏匿习俗的联系仍属有边界的解释，不能证明某位历史人物的意图。"
+    },
+    {
+      "styleId": "analog-cutout-collage",
+      "topicId": "piecing-idea-together",
+      "topicName": "Piecing the Idea Together",
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "analog-cutout-collage",
+      "topicId": "piecing-idea-together",
+      "topicName": "拼出想法",
+      "language": "zh",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "woodblock-floating-world",
+      "topicId": "woodblock",
+      "topicName": "Woodblock",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "The scene compositions are teaching visuals rather than a catalog record or reproduction of a specific print; titles, dates, dimensions, and artist lists are simplified for the overview."
+    },
+    {
+      "styleId": "woodblock-floating-world",
+      "topicId": "woodblock",
+      "topicName": "木版画",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "场景构图用于教学展示，并非某一版画的编目记录或复制品；标题、年代、尺寸与艺术家列表均为概览而简化。"
+    },
+    {
+      "styleId": "woodblock-floating-world",
+      "topicId": "tide-map",
+      "topicName": "Tide Map",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative team-planning metaphor: boats, tides, routes, and work states are presentation examples, not measured operational data."
+    },
+    {
+      "styleId": "woodblock-floating-world",
+      "topicId": "tide-map",
+      "topicName": "潮汐地图",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例团队规划隐喻：船只、潮汐、路线与工作状态均为演示内容，并非实测运营数据。"
+    },
+    {
+      "styleId": "woodblock-floating-world",
+      "topicId": "whistled-language",
+      "topicName": "Whistled Language",
+      "language": "en",
+      "scene": 5,
+      "beat": 0
+    },
+    {
+      "styleId": "woodblock-floating-world",
+      "topicId": "whistled-language",
+      "topicName": "口哨语言",
+      "language": "zh",
+      "scene": 5,
+      "beat": 0
+    },
+    {
+      "styleId": "woodblock-floating-world",
+      "topicId": "a-rivers-journey",
+      "topicName": "A River's Journey",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative river journey: the landscapes, sequence, and wording are a visual narrative rather than a description of one surveyed river system."
+    },
+    {
+      "styleId": "woodblock-floating-world",
+      "topicId": "a-rivers-journey",
+      "topicName": "一条河",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例河流旅程：其中景观、顺序与表述均为视觉叙事，并非对某一实测河流系统的描述。"
+    },
+    {
+      "styleId": "botanical-specimen-plate",
+      "topicId": "specimen-plate",
+      "topicName": "Specimen Plate",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Botanical forms, labels, and collection scenes are visual teaching material rather than documented specimens or a scientific catalog; the named plate labels are simplified overview cues."
+    },
+    {
+      "styleId": "botanical-specimen-plate",
+      "topicId": "specimen-plate",
+      "topicName": "标本板",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "植物形态、标签与采集场景均为视觉教学材料，并非有据可查的标本或科学目录；图版中的命名标签仅为简化概览提示。"
+    },
+    {
+      "styleId": "botanical-specimen-plate",
+      "topicId": "growth-signals",
+      "topicName": "Growth Signals",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative growth-analysis plate: labels, signals, comparisons, and recommendations are presentation examples, not measured product or business outcomes."
+    },
+    {
+      "styleId": "botanical-specimen-plate",
+      "topicId": "growth-signals",
+      "topicName": "增长信号",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "示例增长分析图版：标签、信号、比较与建议均为演示内容，并非实测产品或业务结果。"
+    },
+    {
+      "styleId": "botanical-specimen-plate",
+      "topicId": "leaf-stomata",
+      "topicName": "Leaf Stomata",
+      "language": "en",
+      "scene": 3,
+      "beat": 3
+    },
+    {
+      "styleId": "botanical-specimen-plate",
+      "topicId": "leaf-stomata",
+      "topicName": "叶片气孔",
+      "language": "zh",
+      "scene": 3,
+      "beat": 3
+    },
+    {
+      "styleId": "botanical-specimen-plate",
+      "topicId": "anatomy-of-an-idea",
+      "topicName": "Anatomy of an Idea",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative idea anatomy: botanical taxonomy, specimen labels, and Latin names are metaphors for reasoning, not biological or taxonomic claims."
+    },
+    {
+      "styleId": "botanical-specimen-plate",
+      "topicId": "anatomy-of-an-idea",
+      "topicName": "想法解剖",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例想法解剖：植物分类、标本标签与拉丁名称均为推理隐喻，并非生物学或分类学主张。"
+    },
+    {
+      "styleId": "machine-age-deco",
+      "topicId": "deco-gala",
+      "topicName": "Deco Gala",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative product collection: product names, generations, materials use, and performance framing are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "machine-age-deco",
+      "topicId": "deco-gala",
+      "topicName": "装饰仪式",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例产品系列：其中产品名称、代际、材料用途和性能表述均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "machine-age-deco",
+      "topicId": "infrastructure-gala",
+      "topicName": "Infrastructure Gala",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative infrastructure gala: locations, service counts, operating states, and ceremonial outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "machine-age-deco",
+      "topicId": "infrastructure-gala",
+      "topicName": "基建庆典",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "示例基础设施晚会：其中地点、服务数量、运行状态和仪式结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "machine-age-deco",
+      "topicId": "reinforced-concrete",
+      "topicName": "Reinforced Concrete",
+      "language": "en",
+      "scene": 4,
+      "beat": 1
+    },
+    {
+      "styleId": "machine-age-deco",
+      "topicId": "reinforced-concrete",
+      "topicName": "钢筋混凝土",
+      "language": "zh",
+      "scene": 4,
+      "beat": 1
+    },
+    {
+      "styleId": "machine-age-deco",
+      "topicId": "grand-unveiling",
+      "topicName": "The Grand Unveiling",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "machine-age-deco",
+      "topicId": "grand-unveiling",
+      "topicName": "盛大揭幕",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "expedition-screenprint",
+      "topicId": "expedition-print",
+      "topicName": "Expedition Print",
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative public-lands campaign: regions, people, counts, and protection outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "expedition-screenprint",
+      "topicId": "expedition-print",
+      "topicName": "探险海报",
+      "language": "zh",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "示例公共土地倡议：其中地区、人物、数量和保护成果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "expedition-screenprint",
+      "topicId": "field-route",
+      "topicName": "Field Route",
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative field route: coordinates, terrain notes, weather states, and signal discoveries are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "expedition-screenprint",
+      "topicId": "field-route",
+      "topicName": "现场路线",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "示例野外路线：其中坐标、地形笔记、天气状态和信号发现均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "expedition-screenprint",
+      "topicId": "saharan-dust",
+      "topicName": "Saharan Dust",
+      "language": "en",
+      "scene": 4,
+      "beat": 3
+    },
+    {
+      "styleId": "expedition-screenprint",
+      "topicId": "saharan-dust",
+      "topicName": "撒哈拉尘",
+      "language": "zh",
+      "scene": 4,
+      "beat": 3
+    },
+    {
+      "styleId": "expedition-screenprint",
+      "topicId": "mapping-unknown-ground",
+      "topicName": "Mapping Unknown Ground",
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "expedition-screenprint",
+      "topicId": "mapping-unknown-ground",
+      "topicName": "勘探未知",
+      "language": "zh",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "cassette-era-packaging",
+      "topicId": "cassette-pack",
+      "topicName": "Cassette Pack",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative product catalogue: model names, specifications, feature labels, and serial numbers are presentation examples, not externally verified product claims."
+    },
+    {
+      "styleId": "cassette-era-packaging",
+      "topicId": "cassette-pack",
+      "topicName": "卡带包装",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例产品目录：型号、规格、功能标签与序列号均为演示内容，并非经外部验证的产品主张。"
+    },
+    {
+      "styleId": "cassette-era-packaging",
+      "topicId": "release-mixtape",
+      "topicName": "Release Mixtape",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative release-planning scenario: cues, tracks, readiness notes, and outcomes are presentation examples, not reported delivery results."
+    },
+    {
+      "styleId": "cassette-era-packaging",
+      "topicId": "release-mixtape",
+      "topicName": "发布混音",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "示例发布规划场景：提示、轨道、就绪说明与结果均为演示内容，并非已报告的交付结果。"
+    },
+    {
+      "styleId": "cassette-era-packaging",
+      "topicId": "ice-core-archive",
+      "topicName": "Ice-Core Archive",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Ice cores preserve multiple proxy records; no one channel is a direct, universal temperature dial."
+    },
+    {
+      "styleId": "cassette-era-packaging",
+      "topicId": "ice-core-archive",
+      "topicName": "冰芯档案",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "冰芯保存多种代理记录；任何单一通道都不是直接且通用的温度刻度。"
+    },
+    {
+      "styleId": "cassette-era-packaging",
+      "topicId": "greatest-hits-vol1",
+      "topicName": "Greatest Hits, Vol. 1",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "cassette-era-packaging",
+      "topicId": "greatest-hits-vol1",
+      "topicName": "精选辑一",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "neo-brutalist-bulletin",
+      "topicId": "brutalist-bulletin",
+      "topicName": "Brutalist Bulletin",
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative launch bulletin: rollout steps, comparisons, metrics, and dates are presentation examples, not reported commercial results."
+    },
+    {
+      "styleId": "neo-brutalist-bulletin",
+      "topicId": "brutalist-bulletin",
+      "topicName": "粗野公告",
+      "language": "zh",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "示例发布公告：发布步骤、对比、指标与日期均为演示内容，并非已报告的商业结果。"
+    },
+    {
+      "styleId": "neo-brutalist-bulletin",
+      "topicId": "hard-thing",
+      "topicName": "Hard Thing",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative delivery scenario: risks, release choices, evidence loops, and outcomes are presentation examples, not reported operational results."
+    },
+    {
+      "styleId": "neo-brutalist-bulletin",
+      "topicId": "hard-thing",
+      "topicName": "难事发布",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "示例交付场景：风险、发布选择、证据循环与结果均为演示内容，并非已报告的运营结果。"
+    },
+    {
+      "styleId": "neo-brutalist-bulletin",
+      "topicId": "sinking-delta",
+      "topicName": "Sinking Delta",
+      "language": "en",
+      "scene": 1,
+      "beat": 3,
+      "evidenceBoundary": "Coastal Louisiana and Mississippi Delta evidence describes regional, multi-force processes; it does not imply one rate, cause, or guaranteed project outcome."
+    },
+    {
+      "styleId": "neo-brutalist-bulletin",
+      "topicId": "sinking-delta",
+      "topicName": "下沉三角洲",
+      "language": "zh",
+      "scene": 1,
+      "beat": 3,
+      "evidenceBoundary": "沿海路易斯安那州与密西西比河三角洲证据描述的是区域、多因素过程；它不意味着单一速率、单一成因或有保证的项目结果。"
+    },
+    {
+      "styleId": "neo-brutalist-bulletin",
+      "topicId": "read-before-merge",
+      "topicName": "Read This Before You Merge",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "neo-brutalist-bulletin",
+      "topicId": "read-before-merge",
+      "topicName": "合并前必读",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "red-wedge-agitprop",
+      "topicId": "red-wedge",
+      "topicName": "Red Wedge",
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative rally scenario: the contributor, organization, country, and outcome figures are authored poster content, not externally verified movement data."
+    },
+    {
+      "styleId": "red-wedge-agitprop",
+      "topicId": "red-wedge",
+      "topicName": "红楔海报",
+      "language": "zh",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "示例集结场景：其中贡献者、组织、国家和结果数字均为创作海报内容，并非经外部核验的运动数据。"
+    },
+    {
+      "styleId": "red-wedge-agitprop",
+      "topicId": "org-move",
+      "topicName": "Org Move",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative organization-change scenario: the hierarchy, teams, handoff count, owner loop, and delivery claims are authored poster devices, not measured organizational outcomes."
+    },
+    {
+      "styleId": "red-wedge-agitprop",
+      "topicId": "org-move",
+      "topicName": "组织移动",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "示例组织变革场景：其中层级、团队、交接次数、负责人闭环和交付主张均为创作海报手法，并非实测组织结果。"
+    },
+    {
+      "styleId": "red-wedge-agitprop",
+      "topicId": "pneumatic-post",
+      "topicName": "Pneumatic Post",
+      "language": "en",
+      "scene": 4,
+      "beat": 3
+    },
+    {
+      "styleId": "red-wedge-agitprop",
+      "topicId": "pneumatic-post",
+      "topicName": "气动邮政",
+      "language": "zh",
+      "scene": 4,
+      "beat": 3
+    },
+    {
+      "styleId": "red-wedge-agitprop",
+      "topicId": "refactor-the-system",
+      "topicName": "Refactor the System",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "red-wedge-agitprop",
+      "topicId": "refactor-the-system",
+      "topicName": "重构体制",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "mechanical-scoring-funnel",
+      "topicId": "scoring-funnel",
+      "topicName": "Scoring Funnel",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scoring scenario: candidate labels, lane assignments, composite scores, and the selected outcome are authored demonstration content, not measured evaluation results."
+    },
+    {
+      "styleId": "mechanical-scoring-funnel",
+      "topicId": "scoring-funnel",
+      "topicName": "评分漏斗",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例评分场景：其中候选标签、通道归属、综合得分和选定结果均为创作演示内容，并非实测评估结果。"
+    },
+    {
+      "styleId": "mechanical-scoring-funnel",
+      "topicId": "priority-score",
+      "topicName": "Priority Score",
+      "language": "en",
+      "scene": 5,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative prioritization scenario: candidate labels, weights, thresholds, rankings, and recorded reasons are authored decision aids, not measured product or business results."
+    },
+    {
+      "styleId": "mechanical-scoring-funnel",
+      "topicId": "priority-score",
+      "topicName": "优先评分",
+      "language": "zh",
+      "scene": 5,
+      "beat": 2,
+      "evidenceBoundary": "示例优先级场景：其中候选标签、权重、阈值、排名和记录理由均为创作决策辅助内容，并非实测产品或业务结果。"
+    },
+    {
+      "styleId": "mechanical-scoring-funnel",
+      "topicId": "snowflake-branches",
+      "topicName": "Snowflake Branches",
+      "language": "en",
+      "scene": 4,
+      "beat": 2
+    },
+    {
+      "styleId": "mechanical-scoring-funnel",
+      "topicId": "snowflake-branches",
+      "topicName": "雪花分支",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2
+    },
+    {
+      "styleId": "mechanical-scoring-funnel",
+      "topicId": "triage-the-backlog",
+      "topicName": "Triage the Backlog",
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "mechanical-scoring-funnel",
+      "topicId": "triage-the-backlog",
+      "topicName": "需求分拣",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "liquid-glass",
+      "topicId": "liquid-glass",
+      "topicName": "Liquid Glass",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative collection dashboard: artifact names, counts, dates, values, and collection outcomes are presentation examples, not an external collection record."
+    },
+    {
+      "styleId": "liquid-glass",
+      "topicId": "liquid-glass",
+      "topicName": "液态玻璃",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例藏品仪表盘：其中展品名称、数量、日期、数值和藏品结果均为演示内容，并非外部馆藏记录。"
+    },
+    {
+      "styleId": "liquid-glass",
+      "topicId": "spatial-brief",
+      "topicName": "Spatial Brief",
+      "language": "en",
+      "scene": 5,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative spatial product brief: product layers, interface states, and proof cues are presentation examples, not external product claims."
+    },
+    {
+      "styleId": "liquid-glass",
+      "topicId": "spatial-brief",
+      "topicName": "空间简报",
+      "language": "zh",
+      "scene": 5,
+      "beat": 2,
+      "evidenceBoundary": "示例空间产品简报：其中产品层次、界面状态和证明提示均为演示内容，并非外部产品主张。"
+    },
+    {
+      "styleId": "liquid-glass",
+      "topicId": "safety-glass",
+      "topicName": "Safety Glass",
+      "language": "en",
+      "scene": 3,
+      "beat": 3
+    },
+    {
+      "styleId": "liquid-glass",
+      "topicId": "safety-glass",
+      "topicName": "夹层玻璃",
+      "language": "zh",
+      "scene": 3,
+      "beat": 3
+    },
+    {
+      "styleId": "liquid-glass",
+      "topicId": "layers-of-a-product",
+      "topicName": "Layers of a Product",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "liquid-glass",
+      "topicId": "layers-of-a-product",
+      "topicName": "产品的层",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "retro-windows",
+      "topicId": "retro-desktop",
+      "topicName": "Retro Desktop",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative retro-computing vignette: system names, specifications, requirements, and timings are presentation examples, not externally verified historical claims."
+    },
+    {
+      "styleId": "retro-windows",
+      "topicId": "retro-desktop",
+      "topicName": "复古桌面",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例复古计算机小品：其中系统名称、规格、要求和时间均为演示内容，并非经外部核验的历史主张。"
+    },
+    {
+      "styleId": "retro-windows",
+      "topicId": "toolchain-desk",
+      "topicName": "Toolchain Desk",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative toolchain desktop: tool names, commands, workflow states, and outcomes are presentation examples, not a live development environment."
+    },
+    {
+      "styleId": "retro-windows",
+      "topicId": "toolchain-desk",
+      "topicName": "工具桌面",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例工具链桌面：其中工具名称、命令、工作流状态和结果均为演示内容，并非实时开发环境。"
+    },
+    {
+      "styleId": "retro-windows",
+      "topicId": "voyager-boundary",
+      "topicName": "Voyager Boundary",
+      "language": "en",
+      "scene": 4,
+      "beat": 3
+    },
+    {
+      "styleId": "retro-windows",
+      "topicId": "voyager-boundary",
+      "topicName": "日球层边界",
+      "language": "zh",
+      "scene": 4,
+      "beat": 3
+    },
+    {
+      "styleId": "retro-windows",
+      "topicId": "setup-exe",
+      "topicName": "Setup.exe",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "retro-windows",
+      "topicId": "setup-exe",
+      "topicName": "安装向导",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "mid-century-grove",
+      "topicId": "botanical-brand",
+      "topicName": "Botanical Brand",
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative brand scenario: names, dates, artisan counts, material percentages, and outcomes are presentation examples, not externally verified company data."
+    },
+    {
+      "styleId": "mid-century-grove",
+      "topicId": "botanical-brand",
+      "topicName": "植物品牌",
+      "language": "zh",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "示例品牌场景：名称、日期、匠人人数、材料比例和结果均为演示内容，并非经外部核验的公司数据。"
+    },
+    {
+      "styleId": "mid-century-grove",
+      "topicId": "calm-growth",
+      "topicName": "Calm Growth",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative growth-model scenario: the grove, team conditions, and operating choices are presentation examples, not measured organizational outcomes."
+    },
+    {
+      "styleId": "mid-century-grove",
+      "topicId": "calm-growth",
+      "topicName": "冷静增长",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "示例增长模型场景：林地、团队条件与运营选择均为演示内容，并非实测的组织结果。"
+    },
+    {
+      "styleId": "mid-century-grove",
+      "topicId": "monarch-migration",
+      "topicName": "Monarch Migration",
+      "language": "en",
+      "scene": 4,
+      "beat": 3
+    },
+    {
+      "styleId": "mid-century-grove",
+      "topicId": "monarch-migration",
+      "topicName": "帝王蝶迁徙",
+      "language": "zh",
+      "scene": 4,
+      "beat": 3
+    },
+    {
+      "styleId": "mid-century-grove",
+      "topicId": "growing-slowly-on-purpose",
+      "topicName": "Growing Slowly on Purpose",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "mid-century-grove",
+      "topicId": "growing-slowly-on-purpose",
+      "topicName": "慢成长",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "after-hours-luxe",
+      "topicId": "after-hours",
+      "topicName": "Luxe Reveal",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative luxury-retail scenario: collection names, visitor figures, prices, metrics, and outcomes are presentation examples, not externally verified business data."
+    },
+    {
+      "styleId": "after-hours-luxe",
+      "topicId": "after-hours",
+      "topicName": "奢华揭幕",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "示例奢华零售场景：系列名称、访客数字、价格、指标和结果均为演示内容，并非经外部核验的商业数据。"
+    },
+    {
+      "styleId": "after-hours-luxe",
+      "topicId": "beta-salon",
+      "topicName": "Beta Salon",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative private-beta scenario: guest lists, feature demonstrations, proof points, and outcomes are presentation examples, not externally verified program data."
+    },
+    {
+      "styleId": "after-hours-luxe",
+      "topicId": "beta-salon",
+      "topicName": "内测沙龙",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例内测场景：宾客名单、功能演示、证明点和结果均为演示内容，并非经外部核验的项目数据。"
+    },
+    {
+      "styleId": "after-hours-luxe",
+      "topicId": "urushi-cure",
+      "topicName": "Urushi Cure",
+      "language": "en",
+      "scene": 4,
+      "beat": 2
+    },
+    {
+      "styleId": "after-hours-luxe",
+      "topicId": "urushi-cure",
+      "topicName": "漆的固化",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2
+    },
+    {
+      "styleId": "after-hours-luxe",
+      "topicId": "the-midnight-release",
+      "topicName": "The Midnight Release",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "after-hours-luxe",
+      "topicId": "the-midnight-release",
+      "topicName": "午夜上线",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "operating-manual",
+      "topicId": "manual",
+      "topicName": "Runbook Manual",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative terminal scenario: commands, system readings, procedures, and outcomes are presentation examples, not operational instructions or external factual claims."
+    },
+    {
+      "styleId": "operating-manual",
+      "topicId": "manual",
+      "topicName": "运行手册",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例终端场景：命令、系统读数、流程和结果均为演示内容，不构成操作指令或外部事实主张。"
+    },
+    {
+      "styleId": "operating-manual",
+      "topicId": "habit-runbook",
+      "topicName": "Habit Runbook",
+      "language": "en",
+      "scene": 2,
+      "beat": 3,
+      "evidenceBoundary": "Illustrative habit runbook: triggers, steps, guardrails, and outcomes are presentation examples, not clinical, behavioral, or operational guidance."
+    },
+    {
+      "styleId": "operating-manual",
+      "topicId": "habit-runbook",
+      "topicName": "习惯手册",
+      "language": "zh",
+      "scene": 2,
+      "beat": 3,
+      "evidenceBoundary": "示例习惯手册：触发器、步骤、护栏和结果均为演示内容，不构成临床、行为或操作建议。"
+    },
+    {
+      "styleId": "operating-manual",
+      "topicId": "escapement",
+      "topicName": "The Escapement",
+      "language": "en",
+      "scene": 3,
+      "beat": 3,
+      "evidenceBoundary": "Illustrative mechanical schematic: the recoil anchor escapement diagrams are conceptual, not to scale, and not a precision-adjustment recipe."
+    },
+    {
+      "styleId": "operating-manual",
+      "topicId": "escapement",
+      "topicName": "擒纵器",
+      "language": "zh",
+      "scene": 3,
+      "beat": 3,
+      "evidenceBoundary": "示意性机械图：反冲式锚形擒纵图仅用于概念说明，不按比例绘制，也不是精密调校配方。"
+    },
+    {
+      "styleId": "operating-manual",
+      "topicId": "rotate-the-secrets",
+      "topicName": "Rotate the Secrets",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative security runbook: paths, version numbers, replica counts, commands, and outcomes are presentation examples; use an approved procedure for real credential rotation."
+    },
+    {
+      "styleId": "operating-manual",
+      "topicId": "rotate-the-secrets",
+      "topicName": "轮换密钥",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例安全手册：路径、版本号、副本数量、命令和结果均为演示内容；实际凭据轮换应遵循已批准的流程。"
+    },
+    {
+      "styleId": "widescreen-title-card",
+      "topicId": "title-card",
+      "topicName": "Title Card",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative film-title scenario: names, credits, chapters, quotations, and release framing are presentation fiction, not external factual claims."
+    },
+    {
+      "styleId": "widescreen-title-card",
+      "topicId": "title-card",
+      "topicName": "宽屏片头",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例电影片头场景：名称、演职员、章节、引言和发行信息均为演示虚构内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "widescreen-title-card",
+      "topicId": "system-acts",
+      "topicName": "System Acts",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative systems narrative: titles, signals, loops, and rules are conceptual metaphors, not claims about a specific system."
+    },
+    {
+      "styleId": "widescreen-title-card",
+      "topicId": "system-acts",
+      "topicName": "系统五幕",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "示例系统叙事：标题、信号、循环和规则均为概念隐喻，并非针对特定系统的事实主张。"
+    },
+    {
+      "styleId": "widescreen-title-card",
+      "topicId": "whale-fall",
+      "topicName": "Whale Fall",
+      "language": "en",
+      "scene": 5,
+      "beat": 3,
+      "evidenceBoundary": "Evidence boundary: whale-fall succession is an explanatory sequence drawn from particular observed sites; stages, durations, species, and conditions overlap and vary by carcass and setting. The original scientific illustrations simplify processes and are not to scale."
+    },
+    {
+      "styleId": "widescreen-title-card",
+      "topicId": "whale-fall",
+      "topicName": "鲸落",
+      "language": "zh",
+      "scene": 5,
+      "beat": 3,
+      "evidenceBoundary": "证据边界：鲸落接替是基于特定观测地点的解释性序列；阶段、时长、物种和条件会随鲸体与环境重叠并变化。原创科学示意图简化了过程，且不按比例绘制。"
+    },
+    {
+      "styleId": "widescreen-title-card",
+      "topicId": "chapter-zero",
+      "topicName": "Chapter Zero",
+      "language": "en",
+      "scene": 2,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative title-card scenario: the reel, opening credit, cast, and closing text are presentation fiction, not external factual claims."
+    },
+    {
+      "styleId": "widescreen-title-card",
+      "topicId": "chapter-zero",
+      "topicName": "第零章",
+      "language": "zh",
+      "scene": 2,
+      "beat": 0,
+      "evidenceBoundary": "示例标题卡场景：卷标、开场字幕、演职和收尾文字均为演示虚构内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "blackboard-chalk-talk",
+      "topicId": "chalk-talk",
+      "topicName": "Chalk Talk",
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative caching walkthrough: cache behavior, hit rates, and strategy comparisons are presentation examples rather than production measurements."
+    },
+    {
+      "styleId": "blackboard-chalk-talk",
+      "topicId": "chalk-talk",
+      "topicName": "粉笔推导",
+      "language": "zh",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "示例缓存讲解：缓存行为、命中率和策略比较均为演示内容，并非生产环境测量结果。"
+    },
+    {
+      "styleId": "blackboard-chalk-talk",
+      "topicId": "shortcut",
+      "topicName": "Shortcut",
+      "language": "en",
+      "scene": 5,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative arithmetic derivation: numbers and worked steps demonstrate a reasoning shortcut rather than report measured data."
+    },
+    {
+      "styleId": "blackboard-chalk-talk",
+      "topicId": "shortcut",
+      "topicName": "快捷路径",
+      "language": "zh",
+      "scene": 5,
+      "beat": 2,
+      "evidenceBoundary": "示例算术推导：数字和演算步骤用于展示推理捷径，并非实测数据。"
+    },
+    {
+      "styleId": "blackboard-chalk-talk",
+      "topicId": "hearing-path",
+      "topicName": "How Hearing Begins",
+      "language": "en",
+      "scene": 5,
+      "beat": 3
+    },
+    {
+      "styleId": "blackboard-chalk-talk",
+      "topicId": "hearing-path",
+      "topicName": "听觉起点",
+      "language": "zh",
+      "scene": 5,
+      "beat": 3
+    },
+    {
+      "styleId": "blackboard-chalk-talk",
+      "topicId": "deriving-big-o",
+      "topicName": "Deriving Big-O",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative Big-O derivation: the nested-loop example teaches asymptotic reasoning and is not a performance measurement of a running system."
+    },
+    {
+      "styleId": "blackboard-chalk-talk",
+      "topicId": "deriving-big-o",
+      "topicName": "推导复杂度",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例 Big-O 推导：嵌套循环案例用于讲解渐近推理，并非运行系统的性能测量。"
+    },
+    {
+      "styleId": "arcade-boss-fight",
+      "topicId": "boss-fight",
+      "topicName": "Boss Fight",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative boss-fight framing: the system, scores, power-ups, and outcomes are presentation metaphors, not production telemetry."
+    },
+    {
+      "styleId": "arcade-boss-fight",
+      "topicId": "boss-fight",
+      "topicName": "Boss 战",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例 Boss 战框架：系统、得分、道具和结果均为演示隐喻，并非生产遥测数据。"
+    },
+    {
+      "styleId": "arcade-boss-fight",
+      "topicId": "latency-boss",
+      "topicName": "Latency Boss",
+      "language": "en",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative latency-boss scenario: health values, scores, attacks, and results are presentation examples rather than production performance telemetry."
+    },
+    {
+      "styleId": "arcade-boss-fight",
+      "topicId": "latency-boss",
+      "topicName": "延迟 Boss",
+      "language": "zh",
+      "scene": 1,
+      "beat": 2,
+      "evidenceBoundary": "示例延迟 Boss 场景：血量、得分、攻击和结果均为演示内容，并非生产性能遥测数据。"
+    },
+    {
+      "styleId": "arcade-boss-fight",
+      "topicId": "egg-mimicry",
+      "topicName": "Egg Mimicry",
+      "language": "en",
+      "scene": 4,
+      "beat": 1
+    },
+    {
+      "styleId": "arcade-boss-fight",
+      "topicId": "egg-mimicry",
+      "topicName": "卵拟态",
+      "language": "zh",
+      "scene": 4,
+      "beat": 1
+    },
+    {
+      "styleId": "arcade-boss-fight",
+      "topicId": "defeating-tech-debt",
+      "topicName": "Defeating Tech Debt",
+      "language": "en",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative technical-debt boss fight: system age, code size, damage, score, and release outcomes are presentation examples, not operational measurements."
+    },
+    {
+      "styleId": "arcade-boss-fight",
+      "topicId": "defeating-tech-debt",
+      "topicName": "打败技术债",
+      "language": "zh",
+      "scene": 2,
+      "beat": 1,
+      "evidenceBoundary": "示例技术债 Boss 战：系统年龄、代码规模、伤害、得分和发布结果均为演示内容，并非运营测量数据。"
+    },
+    {
+      "styleId": "research-memo",
+      "topicId": "research-memo",
+      "topicName": "Research Memo",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative research memo: the lab, study design, findings, metrics, costs, and recommendations are presentation examples, not externally verified research results."
+    },
+    {
+      "styleId": "research-memo",
+      "topicId": "research-memo",
+      "topicName": "研究备忘",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例研究备忘录：实验室、研究设计、结论、指标、成本和建议均为演示内容，并非经外部核验的研究结果。"
+    },
+    {
+      "styleId": "research-memo",
+      "topicId": "small-team",
+      "topicName": "Small Team",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative team pilot: the team size, observations, comparisons, and recommendations are presentation examples, not externally verified organizational evidence."
+    },
+    {
+      "styleId": "research-memo",
+      "topicId": "small-team",
+      "topicName": "小团队证据",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例团队试点：团队规模、观察结果、比较和建议均为演示内容，并非经外部核验的组织证据。"
+    },
+    {
+      "styleId": "research-memo",
+      "topicId": "impact-evidence",
+      "topicName": "Impact Evidence",
+      "language": "en",
+      "scene": 2,
+      "beat": 3
+    },
+    {
+      "styleId": "research-memo",
+      "topicId": "impact-evidence",
+      "topicName": "撞击证据",
+      "language": "zh",
+      "scene": 2,
+      "beat": 3
+    },
+    {
+      "styleId": "research-memo",
+      "topicId": "why-users-churn",
+      "topicName": "Why Users Churn",
+      "language": "en",
+      "scene": 2,
+      "beat": 1
+    },
+    {
+      "styleId": "research-memo",
+      "topicId": "why-users-churn",
+      "topicName": "用户流失",
+      "language": "zh",
+      "scene": 2,
+      "beat": 1
+    },
+    {
+      "styleId": "decision-record",
+      "topicId": "decision-record",
+      "topicName": "Decision Record",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative decision record: the organization, legal analysis, decision criteria, recommendations, and outcomes are presentation examples, not legal advice or externally verified findings."
+    },
+    {
+      "styleId": "decision-record",
+      "topicId": "decision-record",
+      "topicName": "决策记录",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例决策记录：组织、法律分析、决策标准、建议和结果均为演示内容，并非法律建议或经外部核验的结论。"
+    },
+    {
+      "styleId": "decision-record",
+      "topicId": "boundary",
+      "topicName": "Boundary",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative architecture decision record: the teams, system boundary, options, consequences, and verification plan are presentation examples, not externally verified production facts."
+    },
+    {
+      "styleId": "decision-record",
+      "topicId": "boundary",
+      "topicName": "边界选择",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "示例架构决策记录：团队、系统边界、备选方案、后果和验证计划均为演示内容，并非经外部核验的生产事实。"
+    },
+    {
+      "styleId": "decision-record",
+      "topicId": "standard-time",
+      "topicName": "Standard Time",
+      "language": "en",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "decision-record",
+      "topicId": "standard-time",
+      "topicName": "标准时",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "decision-record",
+      "topicId": "why-we-chose-monorepo",
+      "topicName": "Why We Chose Monorepo",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "decision-record",
+      "topicId": "why-we-chose-monorepo",
+      "topicName": "选单仓库",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非经外部核验的事实主张。"
+    },
+    {
+      "styleId": "maintainer-issue-brief",
+      "topicId": "issue-brief",
+      "topicName": "Issue Brief",
+      "language": "en",
+      "scene": 3,
+      "beat": 2
+    },
+    {
+      "styleId": "maintainer-issue-brief",
+      "topicId": "issue-brief",
+      "topicName": "问题简报",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2
+    },
+    {
+      "styleId": "maintainer-issue-brief",
+      "topicId": "agent-pickup",
+      "topicName": "Agent Pickup",
+      "language": "en",
+      "scene": 1,
+      "beat": 0
+    },
+    {
+      "styleId": "maintainer-issue-brief",
+      "topicId": "agent-pickup",
+      "topicName": "Agent 接手",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0
+    },
+    {
+      "styleId": "maintainer-issue-brief",
+      "topicId": "ozone-hole",
+      "topicName": "Ozone Hole",
+      "language": "en",
+      "scene": 2,
+      "beat": 3,
+      "evidenceBoundary": "This issue view omits transport detail, bromine coupling, denitrification, and full reaction kinetics."
+    },
+    {
+      "styleId": "maintainer-issue-brief",
+      "topicId": "ozone-hole",
+      "topicName": "臭氧洞",
+      "language": "zh",
+      "scene": 2,
+      "beat": 3,
+      "evidenceBoundary": "这份 issue 视图省略了输送细节、溴耦合、反硝化与完整反应动力学。"
+    },
+    {
+      "styleId": "maintainer-issue-brief",
+      "topicId": "flaky-test-root-cause",
+      "topicName": "Flaky Test, Root Cause",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative maintainer incident: repository names, failure rates, timings, issue history, and remediation outcomes are authored examples, not measurements from a real project."
+    },
+    {
+      "styleId": "maintainer-issue-brief",
+      "topicId": "flaky-test-root-cause",
+      "topicName": "不稳定测试",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例维护事件：仓库名称、失败率、耗时、问题历史和修复结果均为创作示例，并非真实项目的测量数据。"
+    },
+    {
+      "styleId": "field-notes-report",
+      "topicId": "field-notes",
+      "topicName": "Field Notes",
+      "language": "en",
+      "scene": 4,
+      "beat": 1
+    },
+    {
+      "styleId": "field-notes-report",
+      "topicId": "field-notes",
+      "topicName": "田野笔记",
+      "language": "zh",
+      "scene": 4,
+      "beat": 1
+    },
+    {
+      "styleId": "field-notes-report",
+      "topicId": "platform-study",
+      "topicName": "Platform Study",
+      "language": "en",
+      "scene": 1,
+      "beat": 1
+    },
+    {
+      "styleId": "field-notes-report",
+      "topicId": "platform-study",
+      "topicName": "站台研究",
+      "language": "zh",
+      "scene": 1,
+      "beat": 1
+    },
+    {
+      "styleId": "field-notes-report",
+      "topicId": "ancient-sound",
+      "topicName": "Ancient Sound",
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "No generated track here claims to be ‘the real ancient sound.’ A reconstruction is an argument with parameters, not an audio time machine."
+    },
+    {
+      "styleId": "field-notes-report",
+      "topicId": "ancient-sound",
+      "topicName": "古代声音",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "这里没有任何生成音轨被称作“真实古声”。重建是带参数的论证，不是声音时光机。"
+    },
+    {
+      "styleId": "field-notes-report",
+      "topicId": "shadowing-support",
+      "topicName": "A Day Shadowing Support",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative support-shadowing report: people, conversations, tickets, timings, counts, and findings are authored examples, not observations from a real study."
+    },
+    {
+      "styleId": "field-notes-report",
+      "topicId": "shadowing-support",
+      "topicName": "跟班客服",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "示例客服跟班报告：人物、对话、工单、时间、数量和发现均为创作示例，并非真实研究的观察结果。"
+    },
+    {
+      "styleId": "annotated-source-diff",
+      "topicId": "source-diff",
+      "topicName": "Source Diff",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "annotated-source-diff",
+      "topicId": "source-diff",
+      "topicName": "源码差异",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "annotated-source-diff",
+      "topicId": "flow-rewrite",
+      "topicName": "Flow Rewrite",
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "annotated-source-diff",
+      "topicId": "flow-rewrite",
+      "topicName": "流程重写",
+      "language": "zh",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "annotated-source-diff",
+      "topicId": "reading-rosetta",
+      "topicName": "Reading Rosetta",
+      "language": "en",
+      "scene": 4,
+      "beat": 2
+    },
+    {
+      "styleId": "annotated-source-diff",
+      "topicId": "reading-rosetta",
+      "topicName": "破译罗塞塔",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2
+    },
+    {
+      "styleId": "annotated-source-diff",
+      "topicId": "killing-a-god-object",
+      "topicName": "Killing a God Object",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "annotated-source-diff",
+      "topicId": "killing-a-god-object",
+      "topicName": "拆解巨类",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "checklist-ledger",
+      "topicId": "checklist-ledger",
+      "topicName": "Checklist",
+      "language": "en",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "checklist-ledger",
+      "topicId": "checklist-ledger",
+      "topicName": "检查清单",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "checklist-ledger",
+      "topicId": "launch-ledger",
+      "topicName": "Launch Ledger",
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "checklist-ledger",
+      "topicId": "launch-ledger",
+      "topicName": "发布台账",
+      "language": "zh",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "checklist-ledger",
+      "topicId": "pigment-without-touch",
+      "topicName": "Pigment Without Touch",
+      "language": "en",
+      "scene": 4,
+      "beat": 2
+    },
+    {
+      "styleId": "checklist-ledger",
+      "topicId": "pigment-without-touch",
+      "topicName": "无损识色",
+      "language": "zh",
+      "scene": 4,
+      "beat": 2
+    },
+    {
+      "styleId": "checklist-ledger",
+      "topicId": "close-the-quarter",
+      "topicName": "Close the Quarter",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "checklist-ledger",
+      "topicId": "close-the-quarter",
+      "topicName": "季度结账",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "context-bento-box",
+      "topicId": "context-bento",
+      "topicName": "Context Bento",
+      "language": "en",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "context-bento-box",
+      "topicId": "context-bento",
+      "topicName": "上下文盒",
+      "language": "zh",
+      "scene": 3,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "context-bento-box",
+      "topicId": "handoff-box",
+      "topicName": "Handoff Box",
+      "language": "en",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "context-bento-box",
+      "topicId": "handoff-box",
+      "topicName": "交接盒",
+      "language": "zh",
+      "scene": 1,
+      "beat": 0,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "context-bento-box",
+      "topicId": "lichen-partners",
+      "topicName": "Lichen Partners",
+      "language": "en",
+      "scene": 1,
+      "beat": 3
+    },
+    {
+      "styleId": "context-bento-box",
+      "topicId": "lichen-partners",
+      "topicName": "地衣伙伴",
+      "language": "zh",
+      "scene": 1,
+      "beat": 3
+    },
+    {
+      "styleId": "context-bento-box",
+      "topicId": "everything-the-intern-needs",
+      "topicName": "Everything the Intern Needs",
+      "language": "en",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "context-bento-box",
+      "topicId": "everything-the-intern-needs",
+      "topicName": "新人须知",
+      "language": "zh",
+      "scene": 4,
+      "beat": 1,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "object-metaphor-hero",
+      "topicId": "object-metaphor",
+      "topicName": "Object Hero",
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "object-metaphor-hero",
+      "topicId": "object-metaphor",
+      "topicName": "物体主视觉",
+      "language": "zh",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "object-metaphor-hero",
+      "topicId": "recovery-kit",
+      "topicName": "Recovery Kit",
+      "language": "en",
+      "scene": 1,
+      "beat": 1,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "object-metaphor-hero",
+      "topicId": "recovery-kit",
+      "topicName": "恢复工具包",
+      "language": "zh",
+      "scene": 1,
+      "beat": 1,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "object-metaphor-hero",
+      "topicId": "cocoon-to-cloth",
+      "topicName": "Cocoon to Cloth",
+      "language": "en",
+      "scene": 5,
+      "beat": 1
+    },
+    {
+      "styleId": "object-metaphor-hero",
+      "topicId": "cocoon-to-cloth",
+      "topicName": "茧到织物",
+      "language": "zh",
+      "scene": 5,
+      "beat": 1
+    },
+    {
+      "styleId": "object-metaphor-hero",
+      "topicId": "onboarding-toolkit",
+      "topicName": "The Onboarding Toolkit",
+      "language": "en",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "Illustrative scenario: names, figures, and outcomes are presentation examples, not external factual claims."
+    },
+    {
+      "styleId": "object-metaphor-hero",
+      "topicId": "onboarding-toolkit",
+      "topicName": "入职工具包",
+      "language": "zh",
+      "scene": 2,
+      "beat": 2,
+      "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    }
+  ],
+  "bandBoundaryTransitions": [
+    {
+      "from": "spotlight-quote-poster",
+      "to": "subway-map-of-intent"
+    },
+    {
+      "from": "debug-reaction-board",
+      "to": "front-page-broadsheet"
+    },
+    {
+      "from": "analog-cutout-collage",
+      "to": "woodblock-floating-world"
+    },
+    {
+      "from": "mechanical-scoring-funnel",
+      "to": "liquid-glass"
+    },
+    {
+      "from": "arcade-boss-fight",
+      "to": "research-memo"
+    },
+    {
+      "from": "object-metaphor-hero",
+      "to": "minimal-product-keynote"
+    }
+  ]
+} as const satisfies PublicationAuditCases;

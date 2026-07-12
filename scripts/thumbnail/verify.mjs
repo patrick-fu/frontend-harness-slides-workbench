@@ -1,5 +1,6 @@
 import { access, readdir } from "node:fs/promises";
 import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   collectThumbnailTargets,
   createThumbnailViteServer,
@@ -8,7 +9,7 @@ import {
   showcaseDirectory,
 } from "./shared.mjs";
 
-async function main() {
+export async function verifyShowcaseThumbnails() {
   const vite = await createThumbnailViteServer();
 
   try {
@@ -20,12 +21,26 @@ async function main() {
     const committedFilenames = (await readdir(showcaseDirectory))
       .filter((filename) => filename.endsWith(".webp"))
       .sort();
-    if (JSON.stringify(committedFilenames) !== JSON.stringify(expectedFilenames)) {
-      failures.push("showcase WebP basenames do not exactly match Registry Topic IDs");
+    const expected = new Set(expectedFilenames);
+    const committed = new Set(committedFilenames);
+    for (const target of targets) {
+      if (!committed.has(target.filename)) {
+        failures.push(
+          `Missing showcase WebP for Topic "${target.styleId}/${target.topicId}": ${target.filename}`,
+        );
+      }
+    }
+    for (const filename of committedFilenames) {
+      if (!expected.has(filename)) {
+        failures.push(
+          `Orphan showcase WebP "${filename}" has no Publication target`,
+        );
+      }
     }
 
     let totalBytes = 0;
     for (const target of targets) {
+      if (!committed.has(target.filename)) continue;
       const filePath = resolve(showcaseDirectory, target.filename);
       try {
         await access(filePath);
@@ -54,7 +69,9 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+if (resolve(process.argv[1] ?? "") === fileURLToPath(import.meta.url)) {
+  verifyShowcaseThumbnails().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}

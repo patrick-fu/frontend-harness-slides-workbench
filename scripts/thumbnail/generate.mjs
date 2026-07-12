@@ -2,8 +2,10 @@ import { execFile as execFileCallback } from "node:child_process";
 import { mkdtemp, mkdir, rename, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import { chromium } from "playwright";
+import { planCaptureSelection } from "../publication/capture-selection.mjs";
 import {
   collectThumbnailTargets,
   createThumbnailViteServer,
@@ -31,10 +33,11 @@ function captureUrl(baseUrl, target) {
     view: "lab",
     style: target.styleId,
     topic: target.topicId,
-    scene: String(target.heroScene),
-    beat: String(target.beat),
-    pure: "1",
-    frozen: "1",
+    scene: String(target.capture.scene),
+    beat: String(target.capture.beat),
+    lang: target.capture.language,
+    pure: target.capture.pure ? "1" : "0",
+    frozen: target.capture.frozen ? "1" : "0",
   });
   return `${baseUrl}?${params}`;
 }
@@ -116,7 +119,7 @@ async function captureTarget(page, baseUrl, target, stagingDirectory) {
   throw new Error(`Unable to capture ${target.styleId}/${target.topicId}`);
 }
 
-async function main() {
+export async function captureShowcaseThumbnails(selection) {
   await assertCwebpAvailable();
   const vite = await createThumbnailViteServer();
   const stagingDirectory = await mkdtemp(join(tmpdir(), "fh-showcase-thumbnails-"));
@@ -129,7 +132,11 @@ async function main() {
       throw new Error("Vite thumbnail server did not expose a TCP address");
     }
     const baseUrl = `http://127.0.0.1:${address.port}/`;
-    const targets = await collectThumbnailTargets(vite);
+    const allTargets = await collectThumbnailTargets(vite);
+    const { targets, removeOrphans } = planCaptureSelection(
+      allTargets,
+      selection,
+    );
     await mkdir(showcaseDirectory, { recursive: true });
 
     browser = await chromium.launch({ headless: true });
@@ -157,7 +164,9 @@ async function main() {
     for (const result of results) {
       await rename(result.path, resolve(showcaseDirectory, result.target.filename));
     }
-    const removedFilenames = await removeUnmappedShowcaseWebps(targets);
+    const removedFilenames = removeOrphans
+      ? await removeUnmappedShowcaseWebps(allTargets)
+      : [];
 
     const bytes = results.reduce((sum, result) => sum + result.bytes, 0);
     console.log(
@@ -173,7 +182,9 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  console.error(error);
+if (resolve(process.argv[1] ?? "") === fileURLToPath(import.meta.url)) {
+  console.error(
+    "Use `npm run generate:showcase-thumbnails -- --topic <id>` or `--all`.",
+  );
   process.exitCode = 1;
-});
+}

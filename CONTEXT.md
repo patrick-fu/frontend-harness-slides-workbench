@@ -51,6 +51,13 @@ one Style. It is the sole hand-edited source of Catalog Order; the Manifest,
 runtime Registry, and Stage loading map derive from it without becoming part
 of Topic identity.
 
+**Publication Plan（发布计划）**:
+The deterministic, model-neutral projection of the validated Topic Catalog
+used by generated Manifest data, repository statistics, Topic-ID preview
+targets, and browser audit cases. Capture and verification tools consume it;
+they do not maintain their own Topic order or selection rules.
+_Avoid_: Screenshot mapping, model batch plan, second Registry
+
 **Catalog Order（目录顺序）**:
 The sequence produced by ordered Style Groups and the ordered Topics inside each group. It controls Catalog presentation and sequential Player navigation but carries no identity or priority meaning.
 _Avoid_: Version order, primary, secondary, rank, sequence field

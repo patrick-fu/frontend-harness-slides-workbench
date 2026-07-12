@@ -7,9 +7,6 @@ const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 
 export const repositoryRoot = resolve(scriptDirectory, "../..");
 export const showcaseDirectory = resolve(repositoryRoot, "public/showcase");
-export function thumbnailFilename(topicId) {
-  return `${topicId}.webp`;
-}
 
 export async function createThumbnailViteServer() {
   return createServer({
@@ -24,41 +21,15 @@ export async function createThumbnailViteServer() {
 }
 
 export async function collectThumbnailTargets(vite) {
-  const { RUNTIME_REGISTRY } = await vite.ssrLoadModule(
-    "/src/catalog/runtime-registry.ts",
+  const { PUBLICATION_TARGETS } = await vite.ssrLoadModule(
+    "/src/catalog/manifest.generated.ts",
   );
-  const targets = [];
-
-  for (const styleGroup of RUNTIME_REGISTRY) {
-    for (const topic of styleGroup.topics) {
-      const metadata = topic.metadata.en;
-      const heroScene = metadata.scenes.find(
-        (scene) => scene.id === metadata.heroScene,
-      );
-      if (!heroScene) {
-        throw new Error(
-          `${styleGroup.style.id}/${topic.id} has no hero scene ${metadata.heroScene}`,
-        );
-      }
-
-      const lastBeat = heroScene.beats.at(-1);
-      if (!lastBeat) {
-        throw new Error(
-          `${styleGroup.style.id}/${topic.id} hero scene ${heroScene.id} has no beats`,
-        );
-      }
-
-      targets.push({
-        styleId: styleGroup.style.id,
-        topicId: topic.id,
-        heroScene: heroScene.id,
-        beat: lastBeat.id,
-        filename: thumbnailFilename(topic.id),
-      });
-    }
-  }
-
-  return targets;
+  return PUBLICATION_TARGETS.map((target) => ({
+    styleId: target.styleId,
+    topicId: target.topicId,
+    capture: target.capture,
+    filename: target.previewFilename,
+  }));
 }
 
 export async function removeUnmappedShowcaseWebps(targets) {

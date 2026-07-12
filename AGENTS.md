@@ -340,10 +340,15 @@ After changing a Topic registration, metadata, module identity, or component
 location, regenerate the Catalog manifest:
 
 ```bash
-node scripts/generate-catalog-manifest.mjs
+npm run generate:catalog
 ```
 
 Commit the generated manifest with its source change.
+`src/catalog/publication-plan.ts` is the only projection from the validated
+Topic Catalog to the generated Manifest, dynamic statistics, Topic-ID preview
+targets, and browser audit cases. Publication scripts, Vite, and Playwright
+consume its generated outputs; do not derive a second target list, count, hero
+frame, module path, or audit order.
 
 When a new Topic has no preview, its Hero Final Frame target changes, or its
 Stage visual output intentionally changes, manually regenerate only the

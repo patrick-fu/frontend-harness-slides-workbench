@@ -1,24 +1,16 @@
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import { CATALOG_MANIFEST } from "./src/catalog/manifest.generated";
+import { CATALOG_STATS } from "./src/catalog/manifest.generated";
 
 function catalogStatsAsset(): Plugin {
   return {
     name: "catalog-stats-asset",
     generateBundle() {
-      const stats = {
-        styles: CATALOG_MANIFEST.length,
-        topics: CATALOG_MANIFEST.reduce(
-          (total, style) => total + style.topics.length,
-          0,
-        ),
-      };
-
       this.emitFile({
         type: "asset",
         fileName: "catalog-stats.json",
-        source: `${JSON.stringify(stats)}\n`,
+        source: `${JSON.stringify(CATALOG_STATS)}\n`,
       });
     },
   };
