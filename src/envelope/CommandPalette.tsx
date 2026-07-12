@@ -11,6 +11,7 @@ export interface CommandPaletteProps {
   registry: readonly RuntimeStyleGroup[];
   language: "en" | "zh";
   recent: string[];
+  cycleScopeTopicIds?: ReadonlySet<string> | null;
   onClose: () => void;
   onSelectTopic: (styleId: string, topicId: string) => void;
 }
@@ -43,6 +44,7 @@ export default function CommandPalette({
   registry,
   language,
   recent,
+  cycleScopeTopicIds,
   onClose,
   onSelectTopic,
 }: CommandPaletteProps) {
@@ -107,6 +109,7 @@ export default function CommandPalette({
           recent: "最近访问",
           results: "搜索结果",
           empty: "没有匹配的 Topic",
+          outside: "筛选范围外",
           hint: "↑↓ 选择 · Enter 打开 · Esc 关闭",
         }
       : {
@@ -115,6 +118,7 @@ export default function CommandPalette({
           recent: "Recently visited",
           results: "Results",
           empty: "No matching Topics",
+          outside: "Outside filter",
           hint: "↑↓ select · Enter open · Esc close",
         };
 
@@ -188,6 +192,10 @@ export default function CommandPalette({
           <div id="command-results" role="listbox" className="space-y-1">
             {results.map((result, index) => {
               const active = index === activeIndex;
+              const outsideScope = Boolean(
+                cycleScopeTopicIds &&
+                  !cycleScopeTopicIds.has(result.topic.id),
+              );
               return (
                 <button
                   id={result.key}
@@ -195,6 +203,7 @@ export default function CommandPalette({
                   type="button"
                   role="option"
                   aria-selected={active}
+                  aria-label={`${result.group.style.name[language]} · ${result.topic.title[language]} · ${result.topic.modelId}${outsideScope ? ` · ${labels.outside}` : ""}`}
                   onMouseEnter={() => setActiveIndex(index)}
                   onClick={() => choose(result)}
                   className={`flex min-h-14 w-full items-center gap-3 rounded-xl px-3 text-left ${
@@ -206,8 +215,15 @@ export default function CommandPalette({
                     style={{ backgroundColor: modelColor(result.topic.modelId) }}
                   />
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[11px] text-ink/45">
-                      {result.group.style.name[language]}
+                    <span className="flex items-center gap-2 text-[11px] text-ink/45">
+                      <span className="min-w-0 flex-1 truncate">
+                        {result.group.style.name[language]}
+                      </span>
+                      {outsideScope && (
+                        <span className="shrink-0 text-[8px] font-semibold uppercase tracking-[0.08em] text-amber-700 dark:text-amber-300">
+                          {labels.outside}
+                        </span>
+                      )}
                     </span>
                     <span className="block truncate text-sm font-medium">
                       {result.topic.title[language]}

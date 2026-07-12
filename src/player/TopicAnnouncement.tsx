@@ -19,13 +19,13 @@ export default function TopicAnnouncement({
   onDone,
 }: TopicAnnouncementProps) {
   useEffect(() => {
-    const id = window.setTimeout(onDone, 1200);
+    const id = window.setTimeout(onDone, 3000);
     return () => window.clearTimeout(id);
   }, [onDone]);
   return (
     <div
       role="status"
-      className={`pointer-events-none absolute left-1/2 top-3 z-30 flex max-w-[calc(100%-1.5rem)] -translate-x-1/2 items-center gap-2 rounded-full border border-white/15 bg-black/65 px-3 py-2 text-white shadow-xl backdrop-blur-md ${reducedMotion ? "" : "animate-[topicNotice_1.2s_ease_both]"}`}
+      className={`pointer-events-none absolute left-1/2 top-3 z-30 flex max-w-[calc(100%-1.5rem)] -translate-x-1/2 items-center gap-2 rounded-full border border-white/15 bg-black/65 px-3 py-2 text-white shadow-xl backdrop-blur-md ${reducedMotion ? "" : "animate-[topicNotice_3s_ease_both]"}`}
     >
       <span className="font-mono text-[9px] text-white/55">{String(styleNumber).padStart(2, "0")}</span>
       <span className="max-w-32 truncate text-[10px] text-white/70">{styleName}</span>

@@ -1,9 +1,7 @@
 import { useCallback, useMemo, useState, type MouseEvent } from "react";
 import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
 import {
-  buildCatalogTopics,
-  filterCatalogTopics,
-  getCatalogFacetCounts,
+  resolveCatalogFilters,
   type CatalogFilters as CatalogFilterState,
   type CatalogTopicEntry,
 } from "../utils/catalog-filter";
@@ -191,35 +189,18 @@ export default function CatalogView({
   onOpenTopic,
   onPrefetchTopic,
 }: CatalogViewProps) {
-  const allTopics = useMemo(
-    () => buildCatalogTopics(registry, language),
-    [language, registry],
-  );
-  const knownBands = useMemo(
-    () => new Set<string>(allTopics.map((topic) => topic.style.band)),
-    [allTopics],
-  );
-  const knownModels = useMemo(
-    () => new Set<string>(allTopics.map((topic) => topic.topic.modelId)),
-    [allTopics],
-  );
-  const unavailableBands = filters.bands.filter((band) => !knownBands.has(band));
-  const unavailableModels = filters.models.filter(
-    (model) => !knownModels.has(model),
+  const {
+    allTopics,
+    visibleTopics,
+    facetCounts,
+    unavailableBands,
+    unavailableModels,
+  } = useMemo(
+    () => resolveCatalogFilters(registry, language, filters),
+    [filters, language, registry],
   );
   const hasUnavailableFilters =
     unavailableBands.length > 0 || unavailableModels.length > 0;
-  const visibleTopics = useMemo(
-    () =>
-      hasUnavailableFilters
-        ? []
-        : filterCatalogTopics(allTopics, filters),
-    [allTopics, filters, hasUnavailableFilters],
-  );
-  const facetCounts = useMemo(
-    () => getCatalogFacetCounts(allTopics, filters),
-    [allTopics, filters],
-  );
   const totalStyles = useMemo(
     () => new Set(allTopics.map((topic) => topic.style.id)).size,
     [allTopics],

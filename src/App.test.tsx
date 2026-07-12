@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import App from "./App";
 import { CATALOG_MANIFEST } from "./catalog/manifest.generated";
@@ -54,8 +54,96 @@ describe("Workbench Catalog + Player", () => {
     render(<App />);
     expect(screen.getByRole("navigation", { name: "Player navigation" })).toBeVisible();
     expect(screen.getByRole("button", { name: "Present" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Filter" })).toBeVisible();
     expect(screen.getAllByTestId(/scene-dot-/)).toHaveLength(5);
     expect(screen.queryByTestId("sidebar")).not.toBeInTheDocument();
+  });
+
+  it("edits Model Filters in Player and exposes the resulting Cycle Scope", async () => {
+    window.history.replaceState(
+      null,
+      "",
+      "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=1&beat=0",
+    );
+    const matchingTopics = CATALOG_MANIFEST.flatMap((group) => group.topics)
+      .filter((topic) => topic.modelId === "GPT 5.5").length;
+    render(<App />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Filter" }));
+    const dialog = screen.getByRole("dialog", { name: "Filters" });
+    fireEvent.click(
+      within(within(dialog).getByRole("group", { name: "Model ID" }))
+        .getByRole("button", { name: /GPT 5\.5/ }),
+    );
+
+    await waitFor(() =>
+      expect(new URLSearchParams(window.location.search).getAll("model"))
+        .toEqual(["GPT 5.5"]),
+    );
+    expect(
+      screen.getByRole("button", {
+        name: `Current Topic outside filtered scope: ${matchingTopics} Topics`,
+      }),
+    ).toBeVisible();
+    expect(screen.getByRole("button", { name: "Clear filters" })).toBeVisible();
+  });
+
+  it("limits the Topic Switcher to the active Cycle Scope and clears Filters in place", async () => {
+    window.history.replaceState(
+      null,
+      "",
+      "/?view=lab&style=minimal-product-keynote&topic=quiet-launch&scene=1&beat=0&model=GPT+5.5",
+    );
+    const matchingTopics = CATALOG_MANIFEST.flatMap((group) => group.topics)
+      .filter((topic) => topic.modelId === "GPT 5.5").length;
+    render(<App />);
+
+    const scope = screen.getByRole("button", {
+      name: `Filtered: ${matchingTopics} Topics`,
+    });
+    expect(scope).toBeVisible();
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: /Minimal Product Keynote.*Quiet Launch.*GPT 5\.5/,
+      }),
+    );
+    expect(
+      screen.getByRole("menuitemradio", { name: /Quiet Launch/ }),
+    ).toBeVisible();
+    expect(
+      screen.queryByRole("menuitemradio", { name: /Product Keynote/ }),
+    ).not.toBeInTheDocument();
+
+    fireEvent.click(scope);
+    const dialog = screen.getByRole("dialog", { name: "Filters" });
+    fireEvent.click(within(dialog).getByRole("button", { name: "Clear all" }));
+
+    await waitFor(() =>
+      expect(new URLSearchParams(window.location.search).getAll("model"))
+        .toEqual([]),
+    );
+    expect(screen.getByRole("button", { name: "Filter" })).toBeVisible();
+    expect(dialog).toBeVisible();
+  });
+
+  it("clears active Player Filters from the persistent Cycle Scope Indicator", async () => {
+    window.history.replaceState(
+      null,
+      "",
+      "/?view=lab&style=minimal-product-keynote&topic=quiet-launch&scene=1&beat=0&model=GPT+5.5",
+    );
+    render(<App />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+
+    await waitFor(() =>
+      expect(new URLSearchParams(window.location.search).getAll("model"))
+        .toEqual([]),
+    );
+    expect(screen.getByRole("button", { name: "Filter" })).toBeVisible();
+    expect(
+      screen.queryByRole("button", { name: "Clear filters" }),
+    ).not.toBeInTheDocument();
   });
 
   it("opens the Command Palette from Cmd/Ctrl+K", () => {
@@ -88,6 +176,7 @@ describe("Workbench Catalog + Player", () => {
     expect(screen.queryByRole("navigation", { name: "Player navigation" })).not.toBeInTheDocument();
     expect(screen.queryByTestId("player-transport")).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Present" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Filter" })).not.toBeInTheDocument();
     expect(screen.queryByTestId("catalog-view")).not.toBeInTheDocument();
   });
 

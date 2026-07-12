@@ -136,4 +136,25 @@ describe("LibraryDrawer", () => {
     expect(onSelectTopic).toHaveBeenCalledWith("quiet-grid", "grain");
     expect(onClose).toHaveBeenCalledTimes(1);
   });
+
+  it("keeps global Topics visible and marks destinations outside the Cycle Scope", () => {
+    render(
+      <LibraryDrawer
+        open
+        registry={registry}
+        currentStyleId="quiet-grid"
+        currentTopicId="launch"
+        language="en"
+        cycleScopeTopicIds={new Set(["launch"])}
+        onClose={vi.fn()}
+        onSelectTopic={vi.fn()}
+      />,
+    );
+
+    expect(
+      screen.getByRole("button", {
+        name: /Presolar grain.*Outside filter/,
+      }),
+    ).toBeVisible();
+  });
 });

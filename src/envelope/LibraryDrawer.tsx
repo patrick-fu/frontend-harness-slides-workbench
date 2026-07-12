@@ -10,6 +10,7 @@ export interface LibraryDrawerProps {
   currentStyleId: string;
   currentTopicId: string;
   language: "en" | "zh";
+  cycleScopeTopicIds?: ReadonlySet<string> | null;
   onClose: () => void;
   onSelectTopic: (styleId: string, topicId: string) => void;
 }
@@ -20,6 +21,7 @@ export default function LibraryDrawer({
   currentStyleId,
   currentTopicId,
   language,
+  cycleScopeTopicIds,
   onClose,
   onSelectTopic,
 }: LibraryDrawerProps) {
@@ -68,12 +70,14 @@ export default function LibraryDrawer({
           search: "搜索风格、题材或 Model ID",
           close: "关闭资料库",
           empty: "没有匹配的题材",
+          outside: "筛选范围外",
         }
       : {
           title: "Library",
           search: "Search styles, topics, or Model ID",
           close: "Close library",
           empty: "No matching topics",
+          outside: "Outside filter",
         };
   const hasResults = grouped.some(([, styles]) => styles.length > 0);
 
@@ -176,12 +180,16 @@ export default function LibraryDrawer({
                           <div className="ml-3 border-l border-ink/10 py-1 pl-2">
                             {topics.map((topic) => {
                               const active = isCurrent && topic.id === currentTopicId;
+                              const outsideScope = Boolean(
+                                cycleScopeTopicIds &&
+                                  !cycleScopeTopicIds.has(topic.id),
+                              );
                               return (
                                 <button
                                   key={topic.id}
                                   type="button"
                                   aria-current={active ? "page" : undefined}
-                                  aria-label={`${topic.title[language]} · ${topic.modelId}`}
+                                  aria-label={`${topic.title[language]} · ${topic.modelId}${outsideScope ? ` · ${labels.outside}` : ""}`}
                                   onClick={() => {
                                     onSelectTopic(style.id, topic.id);
                                     onClose();
@@ -194,8 +202,15 @@ export default function LibraryDrawer({
                                     className="h-1.5 w-1.5 shrink-0 rounded-full"
                                     style={{ backgroundColor: modelColor(topic.modelId) }}
                                   />
-                                  <span className="min-w-0 flex-1 truncate text-xs">
-                                    {topic.title[language]}
+                                  <span className="min-w-0 flex-1">
+                                    <span className="block truncate text-xs">
+                                      {topic.title[language]}
+                                    </span>
+                                    {outsideScope && (
+                                      <span className="block text-[8px] font-semibold uppercase tracking-[0.08em] text-amber-700 dark:text-amber-300">
+                                        {labels.outside}
+                                      </span>
+                                    )}
                                   </span>
                                   <span className="max-w-[112px] truncate font-mono text-[9px] text-ink/40">
                                     {topic.modelId}

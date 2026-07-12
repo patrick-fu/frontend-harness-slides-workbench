@@ -79,8 +79,8 @@ without carrying identity, priority, or version meaning.
 _Avoid_: Version order, priority, primary, secondary
 
 **Filter（筛选）**:
-A Catalog criterion that narrows visible Topics without changing their
-identity.
+A Workbench criterion that narrows visible Topics in the Catalog and derives
+the Player's Cycle Scope without changing Topic identity.
 _Avoid_: Navigation
 
 **Library Drawer（资料库抽屉）**:
@@ -130,6 +130,18 @@ Restoration of a prior Catalog context after leaving the Player.
 
 **Seamless Cycling（无缝循环）**:
 Continuous Player progression between Topics at narrative boundaries.
+
+**Cycle Scope（循环范围）**:
+The Registry-ordered subset of Topics that Seamless Cycling may enter, derived
+from active Filters. A directly selected Topic may remain visible outside the
+Cycle Scope without becoming part of it.
+_Avoid_: Playlist, Topic Set
+
+**Cycle Scope Indicator（循环范围提示条）**:
+A persistent Player control that summarizes active Filters and matching Topic
+count, opens the Filter editor, and warns when the selected Topic is outside
+the Cycle Scope. It is absent when no Filters are active.
+_Avoid_: Toast, disclaimer
 
 **Share Link（分享链接）**:
 A portable URL that restores the same Navigation State for another viewer.

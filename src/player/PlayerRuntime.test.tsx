@@ -416,7 +416,7 @@ describe("Player Runtime", () => {
     expect(onEnvelopeAction).not.toHaveBeenCalled();
   });
 
-  it("keeps the localized illustrative evidence boundary visible in Pure Mode", async () => {
+  it("does not inject Evidence metadata over Topic-authored Stage content", async () => {
     setup({
       catalog: makeCatalog(
         illustrativeRegistry,
@@ -426,7 +426,8 @@ describe("Player Runtime", () => {
       language: "zh",
     });
 
-    expect(await screen.findByRole("note")).toHaveTextContent("中文示例边界。");
+    expect(await screen.findByText("Slide content")).toBeVisible();
+    expect(screen.queryByRole("note")).not.toBeInTheDocument();
   });
 
   it("translates Topic-internal absolute navigation without leaking a Stage click", async () => {
@@ -537,6 +538,24 @@ describe("Player Runtime", () => {
 
     expect(await screen.findByRole("status")).toHaveTextContent("Second topic");
     expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it("keeps a changed Topic announcement readable for three seconds", () => {
+    vi.useFakeTimers();
+    const { rerenderState } = setup({
+      catalog: makeCatalog(
+        twoTopicRegistry,
+        vi.fn(() => new Promise<TopicStage>(() => undefined)),
+      ),
+    });
+
+    rerenderState({ topicId: "second-topic" });
+    expect(screen.getByText("Second topic")).toBeVisible();
+    act(() => vi.advanceTimersByTime(2999));
+    expect(screen.getByText("Second topic")).toBeVisible();
+    act(() => vi.advanceTimersByTime(1));
+    expect(screen.queryByText("Second topic")).not.toBeInTheDocument();
+    vi.useRealTimers();
   });
 
   it("keeps Topic composition stable while Pure and Frozen change display state", async () => {

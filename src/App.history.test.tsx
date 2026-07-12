@@ -221,6 +221,22 @@ describe("Workbench URL, history, and sharing contract", () => {
     expect(pushState).not.toHaveBeenCalled();
   });
 
+  it("preserves Filters and skips non-matching Topics during sequential Player navigation", async () => {
+    setRoute(
+      "/?view=lab&style=minimal-product-keynote&topic=quiet-launch&scene=5&beat=1&band=minimal-keynote&model=GPT+5.5",
+    );
+    render(<App />);
+
+    fireEvent.click(screen.getByTestId("next-button"));
+
+    await waitFor(() => expect(params().get("topic")).toBe("clean-metrics"));
+    expect(params().get("style")).toBe("objective-swiss-grid");
+    expect(params().getAll("band")).toEqual(["minimal-keynote"]);
+    expect(params().getAll("model")).toEqual(["GPT 5.5"]);
+    expect(params().get("scene")).toBe("1");
+    expect(params().get("beat")).toBe("0");
+  });
+
   it("replaces a deliberate Topic change inside the Player", async () => {
     setRoute(PRODUCT_ROUTE);
     render(<App />);

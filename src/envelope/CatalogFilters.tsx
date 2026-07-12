@@ -23,6 +23,7 @@ export interface CatalogFiltersProps {
   onToggleModel: (model: string) => void;
   onClearFilters: () => void;
   language: "en" | "zh";
+  presentation?: "responsive" | "embedded";
 }
 
 const DESKTOP_MODEL_CHIP_LIMIT = 8;
@@ -132,6 +133,7 @@ interface FacetRowProps {
   overflowMenuLabel?: string;
   searchLabel?: string;
   noResultsLabel?: string;
+  showHeading?: boolean;
 }
 
 function FacetRow({
@@ -254,12 +256,15 @@ function MobileFacetList({
   onToggle,
   topicsLabel,
   showModelMarkers = false,
+  showHeading = true,
 }: FacetRowProps) {
   return (
-    <section aria-label={label} className="space-y-2">
-      <h3 className="text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/45">
-        {label}
-      </h3>
+    <section role="group" aria-label={label} className="space-y-2">
+      {showHeading && (
+        <h3 className="text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/45">
+          {label}
+        </h3>
+      )}
       <div className="flex flex-wrap gap-1.5">
         {options.map((option) => (
           <FacetOptionButton
@@ -287,6 +292,7 @@ export default function CatalogFilters({
   onToggleModel,
   onClearFilters,
   language,
+  presentation = "responsive",
 }: CatalogFiltersProps) {
   const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(false);
   const [mobileModelQuery, setMobileModelQuery] = useState("");
@@ -310,6 +316,58 @@ export default function CatalogFilters({
     mobileDialogRef,
     () => setIsMobileSheetOpen(false),
   );
+
+  if (presentation === "embedded") {
+    return (
+      <div data-testid="filter-panel" className="space-y-5">
+        <MobileFacetList
+          label={copy.category}
+          options={bandOptions}
+          selectedValues={selectedBands}
+          onToggle={onToggleBand}
+          topicsLabel={copy.topics}
+        />
+        <section aria-label={copy.model} className="space-y-2">
+          <h3 className="text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/45">
+            {copy.model}
+          </h3>
+          {modelOptions.length > DESKTOP_MODEL_CHIP_LIMIT && (
+            <input
+              type="search"
+              value={mobileModelQuery}
+              onChange={(event) => setMobileModelQuery(event.target.value)}
+              aria-label={copy.searchModels}
+              placeholder={copy.searchModels}
+              className="h-9 w-full rounded-lg border border-ink/12 bg-paper px-2.5 text-xs text-ink outline-none placeholder:text-ink/35 focus:border-ink/35"
+            />
+          )}
+          <MobileFacetList
+            label={copy.model}
+            options={mobileModelOptions}
+            selectedValues={selectedModels}
+            onToggle={onToggleModel}
+            topicsLabel={copy.topics}
+            showModelMarkers
+            showHeading={false}
+          />
+        </section>
+        {unavailable.length > 0 && (
+          <p className="text-xs text-red-700 dark:text-red-300" role="status">
+            {copy.unavailable}: {unavailable.join(", ")}
+          </p>
+        )}
+        {hasActiveFilters && (
+          <button
+            type="button"
+            onClick={onClearFilters}
+            className="min-h-9 text-xs text-ink/60 underline underline-offset-2"
+          >
+            {copy.clear}
+          </button>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div data-testid="filter-panel" className="w-full">
@@ -422,6 +480,7 @@ export default function CatalogFilters({
                     onToggle={onToggleModel}
                     topicsLabel={copy.topics}
                     showModelMarkers
+                    showHeading={false}
                   />
                 </section>
                 {unavailable.length > 0 && (

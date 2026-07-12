@@ -1,12 +1,14 @@
 import type { RuntimeStyleGroup, RuntimeTopic } from "../catalog/runtime-registry";
+import {
+  hasUnresolvedWorkbenchFilters,
+  matchesWorkbenchFilters,
+  type WorkbenchFilters,
+} from "../domain/filter";
 import type { ModelId } from "../domain/model";
 import type { Band, StyleDefinition } from "../domain/style";
 import type { TopicMetadata } from "../domain/topic";
 
-export interface CatalogFilters {
-  bands: string[];
-  models: string[];
-}
+export type CatalogFilters = WorkbenchFilters;
 
 export interface CatalogTopicEntry {
   style: StyleDefinition;
@@ -27,6 +29,14 @@ export interface CatalogModelOption {
 export interface CatalogFacetCounts {
   bands: CatalogBandOption[];
   models: CatalogModelOption[];
+}
+
+export interface CatalogFilterResolution {
+  allTopics: CatalogTopicEntry[];
+  visibleTopics: CatalogTopicEntry[];
+  facetCounts: CatalogFacetCounts;
+  unavailableBands: string[];
+  unavailableModels: string[];
 }
 
 /**
@@ -61,10 +71,11 @@ export function filterCatalogTopics(
   filters: CatalogFilters,
 ): CatalogTopicEntry[] {
   return topics.filter(
-    (topic) =>
-      (filters.bands.length === 0 || filters.bands.includes(topic.style.band)) &&
-      (filters.models.length === 0 ||
-        filters.models.includes(topic.topic.modelId)),
+    (topic) => matchesWorkbenchFilters(
+      topic.style.band,
+      topic.topic.modelId,
+      filters,
+    ),
   );
 }
 
@@ -110,4 +121,40 @@ export function getCatalogFacetCounts(
   }
 
   return { bands, models };
+}
+
+/** Resolves shareable Filter criteria once for every Workbench surface. */
+export function resolveCatalogFilters(
+  registry: readonly RuntimeStyleGroup[],
+  language: "en" | "zh",
+  filters: CatalogFilters,
+): CatalogFilterResolution {
+  const allTopics = buildCatalogTopics(registry, language);
+  const knownBands = new Set<string>(
+    allTopics.map((entry) => entry.style.band),
+  );
+  const knownModels = new Set<string>(
+    allTopics.map((entry) => entry.topic.modelId),
+  );
+  const unavailableBands = filters.bands.filter(
+    (band) => !knownBands.has(band),
+  );
+  const unavailableModels = filters.models.filter(
+    (model) => !knownModels.has(model),
+  );
+  const hasUnavailableFilters = hasUnresolvedWorkbenchFilters(
+    knownBands,
+    knownModels,
+    filters,
+  );
+
+  return {
+    allTopics,
+    visibleTopics: hasUnavailableFilters
+      ? []
+      : filterCatalogTopics(allTopics, filters),
+    facetCounts: getCatalogFacetCounts(allTopics, filters),
+    unavailableBands,
+    unavailableModels,
+  };
 }

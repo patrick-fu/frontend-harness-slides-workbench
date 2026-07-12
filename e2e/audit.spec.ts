@@ -465,16 +465,12 @@ test.describe.parallel("Topic hero-frame audit", () => {
           expect(query.frozen, `${frame.styleId}/${frame.topicId}`).toBe("1");
 
           const stageState = await getFrozenStageState(page);
-          if (frame.evidenceBoundary) {
-            const boundary = page.locator(
-              '[data-topic-evidence-boundary="true"]',
-            );
-            await expect(
-              boundary,
-              `${frame.styleId}/${frame.topicId}/${frame.language} must display its evidence boundary`,
-            ).toHaveCount(1);
-            await expect(boundary).toContainText(frame.evidenceBoundary);
-          }
+          await expect(
+            page.locator(
+              '[data-stage="true"] > [data-topic-evidence-boundary="true"]',
+            ),
+            `${frame.styleId}/${frame.topicId}/${frame.language} must not receive a Player-injected evidence boundary`,
+          ).toHaveCount(0);
           expect(
             errors.slice(errorCountBeforeFrame),
             `Console errors in ${frame.styleId}/${frame.topicId}/${frame.language}`,

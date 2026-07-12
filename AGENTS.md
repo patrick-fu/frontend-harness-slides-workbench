@@ -415,6 +415,14 @@ a Model Coverage Run as in progress rather than complete.
 - The Envelope owns Catalog and Player chrome, headers, rail, transport,
   global controls, More menu, Library Drawer, Command Palette, Controls Guide,
   global shortcuts, modal focus, responsive layout, and font preloading.
+- When Filters are active, the Player Envelope owns a persistent Cycle Scope
+  Indicator with the matching Topic count, compact selected Band and Model
+  labels, Filter editing, and an explicit clear action. Collapse it on narrow
+  screens and warn when the selected Topic is outside the Cycle Scope. Do not
+  render it when no Filters are active; instead keep a compact Filter entry in
+  the Player Top Bar. Hide both with the rest of the Envelope in Pure.
+- Keep the cross-Topic announcement visible for 3000 ms. Reduced motion may
+  remove its movement but must not shorten its readable duration.
 - The Stage is a fixed `1920×1080` canvas fitted with contain-style scaling. It
   is not reflowed or cropped for surrounding chrome.
 - Stage content uses Stage-relative container-query units such as `cqw` and
@@ -424,6 +432,9 @@ a Model Coverage Run as in progress rather than complete.
 - Honor `isThumbnail` and `reducedMotion`. Thumbnail, reduced-motion, and
   Frozen paths must settle deterministically and disable layout motion.
 - Pure removes Envelope output while keeping the active Stage mounted.
+- Pure keeps Filter query state but neither renders the Cycle Scope Indicator
+  nor crosses Topic boundaries. Exiting Pure restores the Indicator and Cycle
+  Scope without changing Filters.
 - Player touch gestures apply only to coarse-pointer mobile screens. Never map
   wheels, trackpads, or mouse movement to swipe navigation. Preserve guards for
   prevented, modified, non-primary, interactive-target, cancelled, and
@@ -436,7 +447,8 @@ All shareable state uses query parameters, never URL fragments:
 - `view=overview` selects Catalog; `view=lab` selects Player.
 - `style` and `topic` select the canonical Topic destination.
 - `scene` and `beat` select the metadata-defined presentation position.
-- Repeated `band` and `model` values filter the Catalog.
+- Repeated `band` and `model` values filter the Catalog and derive the
+  Registry-ordered Player Cycle Scope.
 - `lang`, `pure`, and `frozen` preserve language and display state.
 
 Navigation callers dispatch semantic intents. They must not mutate query
@@ -446,10 +458,23 @@ strings directly or create a second movement helper.
   the Style with the Topic's current `styleId` without adding History.
 - Preserve unknown filter values as unresolved criteria rather than silently
   broadening results.
+- Keep a directly selected Topic visible when it falls outside the active
+  Cycle Scope. Its Scene and Beat navigation remains available; the next
+  cross-Topic move enters the nearest matching Topic in that direction.
+- When the Cycle Scope is empty, do not fall back to all Topics. Stop at the
+  Topic boundary and offer an explicit way to clear Filters.
+- Apply the Cycle Scope to sequential cross-Topic movement from Player
+  transport, keyboard, mobile swipe, and Topic Switcher. Keep Library Drawer,
+  Command Palette, and search global direct-navigation surfaces; mark
+  out-of-scope destinations rather than hiding them.
 - Clamp Scene and Beat against active Topic metadata.
 - Entering or leaving Player creates History. Topic changes within Player,
   filters, position, language, display modes, and stale-Style repair replace
   the current entry.
+- Apply Player Filter edits immediately, keep the editor open for multi-select,
+  recompute the Cycle Scope and count live, and never redirect the selected
+  Topic merely because it becomes out of scope. Clearing Filters clears both
+  Band and Model criteria in one replace-state update.
 - Catalog scroll position is non-shareable return context in `history.state`.
   Preserve unrelated History state.
 
@@ -470,6 +495,9 @@ strings directly or create a second movement helper.
 - Evidence uses `none`, `illustrative`, `facts`, or `mixed`. Facts and mixed
   Evidence own Sources; illustrative and mixed Evidence own bilingual
   interpretation boundaries.
+- Evidence remains domain and audit metadata. The Player must not inject an
+  Evidence boundary over the Stage; Topic-authored Stage content remains
+  untouched.
 - Sources use absolute HTTPS URLs and state the authority, reference, supported
   claim, and relevant boundary. Never invent or overstate support.
 

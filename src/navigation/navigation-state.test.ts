@@ -7,7 +7,6 @@ import {
   parseNavigationState,
   serializeNavigationState,
   type NavigationIntent,
-  type NavigationRegistry,
   type NavigationState,
 } from ".";
 
@@ -24,23 +23,24 @@ function makeTopic(
   id: string,
   styleId: string,
   sceneBeats: readonly (readonly number[])[],
+  modelId: string,
 ) {
   const metadata = makeMetadata(sceneBeats);
-  return { id, styleId, metadata: { en: metadata, zh: metadata } };
+  return { id, styleId, modelId, metadata: { en: metadata, zh: metadata } };
 }
 
-const registry: NavigationRegistry = [
+const registry = [
   {
-    style: { id: "alpha-style" },
+    style: { id: "alpha-style", band: "minimal-keynote" },
     topics: [
-      makeTopic("alpha-one", "alpha-style", [[0, 1], [0], [0, 1], [0], [0]]),
-      makeTopic("alpha-two", "alpha-style", [[0], [0], [0], [0], [0]]),
+      makeTopic("alpha-one", "alpha-style", [[0, 1], [0], [0, 1], [0], [0]], "Model A"),
+      makeTopic("alpha-two", "alpha-style", [[0], [0], [0], [0], [0]], "Model B"),
     ],
   },
   {
-    style: { id: "beta-style" },
+    style: { id: "beta-style", band: "text-report" },
     topics: [
-      makeTopic("beta-one", "beta-style", [[0], [0, 1, 2], [0], [0], [0, 1]]),
+      makeTopic("beta-one", "beta-style", [[0], [0, 1, 2], [0], [0], [0, 1]], "Model A"),
     ],
   },
 ];
@@ -317,6 +317,81 @@ describe("Navigation State semantic intent seam", () => {
       scene: 1,
       beat: 0,
     });
+  });
+
+  it("skips non-matching Topics when filtered sequence movement crosses a Topic boundary", () => {
+    const store = createNavigationStore({
+      registry,
+      history: createMemoryHistoryAdapter(
+        "/workbench?view=lab&style=alpha-style&topic=alpha-one&scene=5&beat=0&model=Model%20A",
+      ),
+    });
+
+    store.dispatch({ type: "move", direction: "next" });
+
+    expect(store.getSnapshot()).toMatchObject({
+      styleId: "beta-style",
+      topicId: "beta-one",
+      scene: 1,
+      beat: 0,
+      models: ["Model A"],
+    });
+  });
+
+  it("enters the nearest filtered Topic from a directly opened out-of-scope Topic", () => {
+    const nextStore = createNavigationStore({
+      registry,
+      history: createMemoryHistoryAdapter(
+        "/workbench?view=lab&style=alpha-style&topic=alpha-two&scene=5&beat=0&model=Model%20A",
+      ),
+    });
+    nextStore.dispatch({ type: "move", direction: "next" });
+    expect(nextStore.getSnapshot()).toMatchObject({
+      topicId: "beta-one",
+      scene: 1,
+      beat: 0,
+    });
+
+    const previousStore = createNavigationStore({
+      registry,
+      history: createMemoryHistoryAdapter(
+        "/workbench?view=lab&style=alpha-style&topic=alpha-two&scene=1&beat=0&model=Model%20A",
+      ),
+    });
+    previousStore.dispatch({ type: "move", direction: "prev" });
+    expect(previousStore.getSnapshot()).toMatchObject({
+      topicId: "alpha-one",
+      scene: 5,
+      beat: 0,
+    });
+  });
+
+  it("stops at the Topic boundary when active Filters resolve to an empty Cycle Scope", () => {
+    const store = createNavigationStore({
+      registry,
+      history: createMemoryHistoryAdapter(
+        "/workbench?view=lab&style=alpha-style&topic=alpha-one&scene=5&beat=0&model=Unavailable",
+      ),
+    });
+
+    const before = store.getSnapshot();
+    store.dispatch({ type: "move", direction: "next" });
+
+    expect(store.getSnapshot()).toEqual(before);
+  });
+
+  it("keeps the Cycle Scope empty when known and unresolved criteria are mixed", () => {
+    const store = createNavigationStore({
+      registry,
+      history: createMemoryHistoryAdapter(
+        "/workbench?view=lab&style=alpha-style&topic=alpha-one&scene=5&beat=0&model=Model%20A&model=Unavailable",
+      ),
+    });
+
+    const before = store.getSnapshot();
+    store.dispatch({ type: "move", direction: "next" });
+
+    expect(store.getSnapshot()).toEqual(before);
   });
 
   it("does not leave a Pure Player when sequence movement reaches a Topic edge", () => {

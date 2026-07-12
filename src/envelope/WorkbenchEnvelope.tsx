@@ -11,6 +11,7 @@ import GlobalControls from "./GlobalControls";
 import LibraryDrawer from "./LibraryDrawer";
 import PlayerRail from "./PlayerRail";
 import PlayerTopBar from "./PlayerTopBar";
+import PlayerFilterControl from "./PlayerFilterControl";
 import CatalogView from "./CatalogView";
 import { useFontPreload } from "./useFontPreload";
 import { useGlobalShortcuts } from "./useGlobalShortcuts";
@@ -24,6 +25,7 @@ import PlayerRuntime, {
   type PlayerEnvelopeAction,
 } from "../player/PlayerRuntime";
 import { RUNTIME_PLAYER_CATALOG } from "../player/runtime-catalog";
+import { resolveCatalogFilters } from "../utils/catalog-filter";
 
 const RECENT_TOPICS_KEY = "fhsw:recent-topics";
 
@@ -69,6 +71,27 @@ export default function WorkbenchEnvelope() {
   const activeStyle = activeTopicEntry?.style ?? null;
   const activeTopic = activeTopicEntry?.topic ?? null;
   const resolvedStyleId = activeTopic?.styleId ?? urlState.styleId;
+  const filterResolution = useMemo(
+    () =>
+      resolveCatalogFilters(RUNTIME_REGISTRY, displayLanguage, {
+        bands: urlState.bands,
+        models: urlState.models,
+      }),
+    [displayLanguage, urlState.bands, urlState.models],
+  );
+  const hasFilters = urlState.bands.length > 0 || urlState.models.length > 0;
+  const cycleScopeTopicIds = useMemo(
+    () =>
+      new Set(filterResolution.visibleTopics.map((entry) => entry.topic.id)),
+    [filterResolution.visibleTopics],
+  );
+  const topicSwitcherOptions = useMemo(
+    () =>
+      activeGroup?.topics.filter(
+        (topic) => !hasFilters || cycleScopeTopicIds.has(topic.id),
+      ) ?? [],
+    [activeGroup, cycleScopeTopicIds, hasFilters],
+  );
 
   useEffect(() => {
     const base = displayLanguage === "zh" ? "FH Slides 工作台" : "FH Slides Workbench";
@@ -282,6 +305,7 @@ export default function WorkbenchEnvelope() {
               <PlayerTopBar
                 group={activeGroup}
                 topicId={urlState.topicId}
+                topicOptions={topicSwitcherOptions}
                 language={displayLanguage}
                 onOverview={goOverview}
                 onLibrary={() => setLibraryOpen(true)}
@@ -289,6 +313,15 @@ export default function WorkbenchEnvelope() {
                 onSelectTopic={(topicId) => activeStyle && selectTopic(activeStyle.id, topicId)}
                 onPresent={() =>
                   dispatchNavigation({ type: "set-pure", pureMode: true })
+                }
+                filterControl={
+                  <PlayerFilterControl
+                    language={displayLanguage}
+                    filters={{ bands: urlState.bands, models: urlState.models }}
+                    resolution={filterResolution}
+                    currentTopicId={urlState.topicId}
+                    onFiltersChange={updateFilters}
+                  />
                 }
                 controls={controls("lab")}
               />
@@ -317,6 +350,7 @@ export default function WorkbenchEnvelope() {
           currentStyleId={resolvedStyleId}
           currentTopicId={urlState.topicId}
           language={displayLanguage}
+          cycleScopeTopicIds={hasFilters ? cycleScopeTopicIds : null}
           onClose={() => setLibraryOpen(false)}
           onSelectTopic={selectTopic}
         />
@@ -325,6 +359,7 @@ export default function WorkbenchEnvelope() {
           registry={RUNTIME_REGISTRY}
           language={displayLanguage}
           recent={recentTopics}
+          cycleScopeTopicIds={hasFilters ? cycleScopeTopicIds : null}
           onClose={() => setPaletteOpen(false)}
           onSelectTopic={selectTopic}
         />

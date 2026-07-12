@@ -128,4 +128,28 @@ describe("CommandPalette", () => {
     expect(onSelectTopic).toHaveBeenCalledWith("quiet-grid", "grain");
     expect(onClose).toHaveBeenCalledTimes(1);
   });
+
+  it("keeps global search results and marks destinations outside the Cycle Scope", () => {
+    render(
+      <CommandPalette
+        open
+        registry={registry}
+        language="en"
+        recent={[]}
+        cycleScopeTopicIds={new Set(["launch"])}
+        onClose={vi.fn()}
+        onSelectTopic={vi.fn()}
+      />,
+    );
+
+    fireEvent.change(screen.getByRole("combobox"), {
+      target: { value: "Presolar" },
+    });
+
+    expect(
+      screen.getByRole("option", {
+        name: /Presolar grain.*Outside filter/,
+      }),
+    ).toBeVisible();
+  });
 });

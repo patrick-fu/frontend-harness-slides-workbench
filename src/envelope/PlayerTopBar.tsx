@@ -1,28 +1,32 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
+import type { RuntimeStyleGroup, RuntimeTopic } from "../catalog/runtime-registry";
 import { modelColor } from "../utils/model-color";
 
 export interface PlayerTopBarProps {
   group: RuntimeStyleGroup | null;
   topicId: string;
+  topicOptions: readonly RuntimeTopic[];
   language: "en" | "zh";
   onOverview: () => void;
   onLibrary: () => void;
   onSearch: () => void;
   onSelectTopic: (topicId: string) => void;
   onPresent: () => void;
+  filterControl: ReactNode;
   controls: ReactNode;
 }
 
 export default function PlayerTopBar({
   group,
   topicId,
+  topicOptions,
   language,
   onOverview,
   onLibrary,
   onSearch,
   onSelectTopic,
   onPresent,
+  filterControl,
   controls,
 }: PlayerTopBarProps) {
   const [open, setOpen] = useState(false);
@@ -102,7 +106,7 @@ export default function PlayerTopBar({
             className="absolute left-0 top-[calc(100%+.35rem)] z-[90] w-[min(420px,calc(100vw-1rem))] rounded-xl border border-ink/10 bg-elevated p-1.5 text-ink shadow-xl"
           >
             <div className="px-2.5 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/35">{group.style.name[language]}</div>
-            {group.topics.map((item) => {
+            {topicOptions.map((item) => {
               const active = item.id === topicId;
               return (
                 <button
@@ -122,10 +126,18 @@ export default function PlayerTopBar({
                 </button>
               );
             })}
+            {topicOptions.length === 0 && (
+              <p className="px-2.5 py-3 text-xs text-ink/45">
+                {language === "zh"
+                  ? "当前筛选在此风格下没有 Topic"
+                  : "No Topics in this Style match the current filters"}
+              </p>
+            )}
           </div>
         )}
       </div>
 
+      {filterControl}
       <button
         type="button"
         onClick={onPresent}
