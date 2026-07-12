@@ -5,8 +5,7 @@ date: 2026-07-05
 
 # Separate the Envelope from the Stage
 
-The Workbench keeps responsive application chrome in the Envelope and renders Topic content inside the Stage. This preserves a clear boundary between the presentation canvas and controls that belong to the Workbench.
-
-## Consequences
-
-The Envelope can adapt to its viewing context without redefining a Topic's visual composition. Pure viewing removes the Envelope while leaving the Stage intact.
+Keep responsive Workbench controls in the Envelope and Topic content in a
+fixed Stage. This lets the application adapt to its viewport while preserving
+each Topic's composition, and lets Pure remove the Envelope without changing
+the Topic.

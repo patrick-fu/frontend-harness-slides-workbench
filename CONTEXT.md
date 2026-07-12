@@ -1,175 +1,152 @@
-# Frontend Harness Slides Workbench Context
+# Frontend Harness Slides Workbench
 
-This glossary defines the shared runtime and curation language of the Workbench.
+This glossary defines the shared language for discovering, presenting, and
+authoring Topics in the Workbench.
 
-## Language
-
-### Runtime
+## Presentation
 
 **Style（风格）**:
-A stable visual system with one canonical identity, localized name, and Band. Topics reference it as their visual frame without redefining it.
+A stable visual system with one canonical identity, localized name, and Band.
+Topics use a Style without redefining it.
 _Avoid_: Slide, deck, version
 
 **Topic（题材）**:
-A unique, self-contained presentation with its own bilingual title that combines subject matter with a Style. It is independently addressable and does not belong to a model batch or version family.
+A unique, self-contained presentation that combines subject matter with a
+Style. A Topic is not a version, variant, batch member, or model collection.
 _Avoid_: Slide, deck, version, variant, Topic Set member
 
 **Topic ID（题材标识）**:
-The globally unique, stable semantic identifier of one Topic. It is sufficient
-to select the Topic in authoring tools and names the Topic's implementation,
-focused test, optional CSS module, and showcase WebP. Moving the Topic between
-Styles does not change its Topic ID; public Navigation State still addresses
-the Topic with its Style and Topic ID.
-_Avoid_: Style-local ID, generated suffix, ordinal, model-qualified ID
+The globally unique and stable semantic identity of one Topic. Moving a Topic
+to another Style does not change its Topic ID.
+_Avoid_: Style-local ID, ordinal, model-qualified ID
 
 **Band（风格族）**:
-A high-level visual family that groups related Styles. It classifies visual identity rather than subject matter.
+A high-level visual family that groups related Styles without classifying
+subject matter.
 _Avoid_: Content Territory
 
 **Scene（场景）**:
-A major narrative unit within a Topic. It contains a coherent part of the Topic's argument.
+A major narrative unit that advances one coherent part of a Topic's argument.
 
 **Beat（节拍）**:
-A meaningful story state within a Scene. It changes audience understanding rather than merely decorating a transition.
+A meaningful story state within a Scene that changes audience understanding.
 
 **Model ID（模型标识）**:
-The canonical, exact provenance label that records which model authored a
-Topic. An explicit Model ID registry defines allowed values; Topics must match
-one exactly. It permits no aliases or normalization and is descriptive
-metadata, not a collection identity or an authoring contract. Catalog filters
-show only values used by the Topic Registry and order them by first Topic
-appearance rather than by the Model ID registry.
-_Avoid_: Version, batch, Topic Set, normalized alias
+The exact provenance label for the model that authored a Topic. It describes
+origin only and never defines identity, order, behavior, or a collection.
+_Avoid_: Version, batch, Topic Set, model family
 
-The corresponding public contract field is always `modelId`. The shorter
-`model` field is not part of the domain vocabulary.
+**Stage（舞台）**:
+The bounded presentation canvas that preserves a Topic's visual composition.
+_Avoid_: Page, browser viewport
 
-**Registry（注册表）**:
-The canonical author-maintained two-dimensional collection of Topics. Its
-outer arrays order Style Groups and each inner array orders Topics of exactly
-one Style. It is the sole hand-edited source of Catalog Order; the Manifest,
-runtime Registry, and Stage loading map derive from it without becoming part
-of Topic identity.
-
-**Publication Plan（发布计划）**:
-The deterministic, model-neutral projection of the validated Topic Catalog
-used by generated Manifest data, repository statistics, Topic-ID preview
-targets, and browser audit cases. Capture and verification tools consume it;
-they do not maintain their own Topic order or selection rules.
-_Avoid_: Screenshot mapping, model batch plan, second Registry
-
-**Catalog Order（目录顺序）**:
-The sequence produced by ordered Style Groups and the ordered Topics inside each group. It controls Catalog presentation and sequential Player navigation but carries no identity or priority meaning.
-_Avoid_: Version order, primary, secondary, rank, sequence field
+## Discovery and presentation
 
 **Workbench（工作台）**:
-The interactive environment for discovering and presenting Topics. It comprises the Catalog and Player.
+The environment for discovering Topics in the Catalog and presenting them in
+the Player.
 
 **Catalog（目录）**:
-The Workbench surface for discovering Topics. It organizes Topic Cards by Style and exposes Filters.
+The discovery surface that organizes Topic Cards by Style and narrows them
+with Filters.
 _Avoid_: Overview View, gallery
 
 **Player（播放器）**:
-The Workbench surface for viewing a selected Topic. It frames the Stage with navigation and presentation controls.
+The presentation surface that frames one selected Topic with viewing and
+navigation controls.
 _Avoid_: Lab View
 
-**Player Runtime（播放器运行时）**:
-The single presentation boundary that consumes Catalog access and semantic
-Navigation State, then owns Stage loading and recovery, fixed-canvas fitting,
-display modes, shared Evidence, announcements, rotate guidance, and Player
-input arbitration. It emits Navigation Intents and never owns URL or History
-policy.
-_Avoid_: Lab View, Player router, Topic runtime
-
-**Stage（舞台）**:
-The bounded presentation canvas that displays a Topic. It preserves the Topic's visual composition as the focus of viewing.
-_Avoid_: Page, browser viewport
-
-**TopicStage（题材舞台组件）**:
-The module-local React component that renders one Topic on the Stage. Every
-Topic implementation uses this same internal component name; Topic identity
-lives in its module basename and TopicDefinition rather than the component
-symbol.
-_Avoid_: Topic-named component, Style component, versioned component
-
 **Envelope（外壳）**:
-The single responsive Workbench interface surrounding the Stage. The
-authoritative `src/envelope` family owns Catalog and Player chrome, global
-controls, discovery overlays, help, focus management, and responsive shell
-behavior without becoming Topic content. Pure removes its output while keeping
-the active Stage mounted.
-_Avoid_: Chrome module family, Layout shell, Header/Sidebar shell
+The responsive Workbench interface surrounding the Stage. It belongs to the
+Workbench rather than to any Topic.
+_Avoid_: Topic chrome, persistent shell inside a Topic
 
 **Topic Card（题材卡片）**:
-The Catalog representation of a particular Topic. It presents a visual preview and the Topic's identifying information.
+The Catalog representation of one Topic, including its preview and identity.
 _Avoid_: Style card, version card
 
 **Style Group（风格组）**:
-A Catalog grouping of Topic Cards belonging to the same Style. It preserves the relationship between a Style and its Topics.
+A Catalog grouping of Topics that share one Style.
+
+**Registry（注册表）**:
+The canonical ordered collection of Topics grouped by Style. It is the sole
+source of Catalog Order.
+_Avoid_: Model collection, batch list, second order table
+
+**Catalog Order（目录顺序）**:
+The sequence of Style Groups and their Topics. It controls presentation order
+without carrying identity, priority, or version meaning.
+_Avoid_: Version order, priority, primary, secondary
 
 **Filter（筛选）**:
-A Catalog criterion that narrows the visible Topics. It changes discovery context without changing Topic identity.
+A Catalog criterion that narrows visible Topics without changing their
+identity.
 _Avoid_: Navigation
 
 **Library Drawer（资料库抽屉）**:
-An on-demand Player navigator for moving across Styles and Topics. It chooses global destinations rather than refining the Catalog.
+An on-demand Player surface for moving across Styles and Topics.
 _Avoid_: Persistent sidebar
 
 **Topic Switcher（题材切换器）**:
-A Player control for choosing among Topics within the current Style. It keeps local Topic selection distinct from global browsing.
+A Player control for choosing another Topic within the current Style.
 
 **Command Palette（快速跳转面板）**:
-A direct-navigation surface for finding a Topic by Style, Topic, or Model ID. It resolves a search to a destination rather than refining the Catalog.
+A direct-navigation surface for finding a destination by Style, Topic, or
+Model ID.
 _Avoid_: Filter, settings runner
 
 **Player Transport（播放器控制条）**:
-The Player controls that move through a Topic's Scenes and Beats. It expresses the Topic's ordered narrative progression.
+The Player controls that move through a Topic's Scenes and Beats.
 _Avoid_: Internal Navigation
 
 **Internal Navigation（内嵌导航）**:
-Navigation rendered as part of a Topic's visual language. It remains distinct from the Envelope and Player Transport.
+Navigation that belongs to a Topic's visual language rather than the Player.
 
-**Topic Navigation Profile（题材导航契约）**:
-The source-owned record of an Internal Navigation's geometry, carrier,
-invocation, and feedback. It keeps the rendered navigation and its semantic
-contract aligned.
+## Viewing state
 
 **Pure（纯净模式）**:
-A display state that foregrounds the Stage by removing surrounding Workbench chrome. It retains the selected Topic and Navigation State.
+A display state that removes the Envelope while retaining the selected Topic
+and Stage.
 _Avoid_: Fullscreen
 
 **Frozen（冻结模式）**:
-A display state that holds a Topic's current temporal state. It supports stable inspection without redefining the Topic.
+A display state that settles temporal behavior for stable inspection without
+changing Topic identity or position.
 _Avoid_: Reduced motion
 
 **Hero Final Frame（Hero 最终帧）**:
-The final Beat of a Topic's localized hero Scene. It is the stable frozen
-capture and audit target for that language.
+The final Beat of a Topic's localized hero Scene and its stable capture target.
 
 **Navigation State（导航状态）**:
-The current view, selected Topic, presentation position, and display context of the Workbench. It is the unit represented by a Share Link.
+The current Workbench surface, selected Topic, presentation position, filters,
+language, and display state represented by a Share Link.
 
 **History（历史）**:
-The ordered record of Navigation States reached by a viewer. It supports return to prior contexts.
+The ordered record of Navigation States that supports returning to earlier
+viewing contexts.
 
 **Catalog Return（目录返回）**:
-The restoration of a prior Catalog context after leaving the Player. It lets discovery continue from the same context.
+Restoration of a prior Catalog context after leaving the Player.
 
 **Seamless Cycling（无缝循环）**:
-Continuous Player progression from one Topic to another. It keeps narrative movement continuous across Topic boundaries.
+Continuous Player progression between Topics at narrative boundaries.
 
 **Share Link（分享链接）**:
-A portable reference to a Navigation State. It opens the same selected context for another viewer.
+A portable URL that restores the same Navigation State for another viewer.
 
-### Topic protocols
+## Topic protocols
 
 **Evidence（证据边界）**:
-The explicit declaration that a Topic has no external claim, presents an
-illustrative scenario, makes source-backed factual claims, or mixes sourced
-facts with illustrative material. Illustrative and mixed Evidence include the
-localized boundary that prevents examples from being mistaken for measured
-facts; factual and mixed Evidence own their Sources.
+The declaration that a Topic has no external claim, uses an illustrative
+scenario, presents sourced facts, or mixes sourced facts with illustration.
+
+**Source（来源）**:
+An authoritative reference that supports a factual claim made by a Topic.
 
 **Transition Score（转场乐谱）**:
-The authored sequence of scene-to-scene transitions within a Topic. It gives narrative movement a deliberate rhythm.
+The authored sequence of Scene-to-Scene transitions within a Topic.
 _Avoid_: Global transition preset
+
+**Topic Navigation Profile（题材导航契约）**:
+The description of an Internal Navigation's geometry, carrier, invocation,
+and feedback.
