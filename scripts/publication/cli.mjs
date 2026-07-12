@@ -76,16 +76,24 @@ export async function runPublicationCli(argv, dependencies) {
     const selection = parsePublicationArgs(argv, knownTopicIds);
     const current = await dependencies.loadCurrentSnapshot();
     dependencies.assertFresh(current, generated);
-    const resolved = planCaptureSelection(current.targets, selection);
+    const targets = planCaptureSelection(current.targets, selection);
     await dependencies.capture({
-      ...resolved,
-      allTargets: current.targets,
+      targets,
     });
     return;
   }
   if (preliminary.command === "verify") {
     const generated = await dependencies.loadGeneratedSnapshot();
     await dependencies.verify(generated.targets);
+    return;
+  }
+  if (preliminary.command === "clean") {
+    const generated = await dependencies.loadGeneratedSnapshot();
+    const current = await dependencies.loadCurrentSnapshot();
+    dependencies.assertFresh(current, generated);
+    await dependencies.clean(
+      current.targets.map((target) => target.previewFilename),
+    );
     return;
   }
   await dependencies[preliminary.command]();
@@ -117,21 +125,11 @@ const productionDependencies = {
     );
     await verifyShowcaseThumbnails(targets);
   },
-  async clean() {
-    const {
-      assertGeneratedTargetsCurrent,
-      loadGeneratedPublicationTargets,
-      loadPublicationPlan,
-    } = await import("./load-plan.mjs");
-    const plan = await loadPublicationPlan();
-    const generatedTargets = await loadGeneratedPublicationTargets();
-    assertGeneratedTargetsCurrent(plan.targets, generatedTargets);
+  async clean(expectedFilenames) {
     const { cleanShowcaseThumbnails } = await import(
       "../thumbnail/clean.mjs"
     );
-    await cleanShowcaseThumbnails(
-      plan.targets.map((target) => ({ filename: target.previewFilename })),
-    );
+    await cleanShowcaseThumbnails(expectedFilenames);
   },
 };
 

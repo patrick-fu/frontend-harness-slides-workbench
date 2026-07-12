@@ -32,8 +32,8 @@ export async function collectThumbnailTargets(vite) {
   }));
 }
 
-export async function removeUnmappedShowcaseWebps(targets) {
-  const expectedFilenames = new Set(targets.map((target) => target.filename));
+export async function removeUnmappedShowcaseWebps(filenames) {
+  const expectedFilenames = new Set(filenames);
   const entries = await readdir(showcaseDirectory, { withFileTypes: true });
   const staleFilenames = entries
     .filter(

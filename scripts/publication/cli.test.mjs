@@ -124,10 +124,35 @@ describe("Publication CLI", () => {
     expect(dependencies.assertFresh).toHaveBeenCalledWith(current, generated);
     expect(dependencies.capture).toHaveBeenCalledWith({
       targets: current.targets.slice(0, 2),
-      allTargets: current.targets,
-      removeOrphans: false,
     });
+    expect(dependencies.clean).not.toHaveBeenCalled();
     expect(dependencies.manifest).not.toHaveBeenCalled();
+  });
+
+  it("captures all targets without granting preview cleanup authority", async () => {
+    const generated = {
+      targets: [
+        { topicId: "first-topic", previewFilename: "first.webp" },
+        { topicId: "second-topic", previewFilename: "second.webp" },
+      ],
+    };
+    const current = structuredClone(generated);
+    const dependencies = {
+      loadGeneratedSnapshot: vi.fn(async () => generated),
+      loadCurrentSnapshot: vi.fn(async () => current),
+      assertFresh: vi.fn(),
+      capture: vi.fn(),
+      manifest: vi.fn(),
+      verify: vi.fn(),
+      clean: vi.fn(),
+    };
+
+    await runPublicationCli(["capture", "--all"], dependencies);
+
+    expect(dependencies.capture).toHaveBeenCalledWith({
+      targets: current.targets,
+    });
+    expect(dependencies.clean).not.toHaveBeenCalled();
   });
 
   it("stops before capture when full-snapshot freshness fails", async () => {
@@ -178,5 +203,61 @@ describe("Publication CLI", () => {
     expect(dependencies.verify).toHaveBeenCalledWith(generated.targets);
     expect(dependencies.loadCurrentSnapshot).not.toHaveBeenCalled();
     expect(dependencies.capture).not.toHaveBeenCalled();
+  });
+
+  it("checks full freshness before passing only expected filenames to cleanup", async () => {
+    const events = [];
+    const generated = {
+      targets: [
+        { topicId: "first-topic", previewFilename: "first.webp" },
+        { topicId: "second-topic", previewFilename: "second.webp" },
+      ],
+    };
+    const current = structuredClone(generated);
+    const dependencies = {
+      loadGeneratedSnapshot: vi.fn(async () => {
+        events.push("generated");
+        return generated;
+      }),
+      loadCurrentSnapshot: vi.fn(async () => {
+        events.push("current");
+        return current;
+      }),
+      assertFresh: vi.fn(() => events.push("fresh")),
+      capture: vi.fn(),
+      manifest: vi.fn(),
+      verify: vi.fn(),
+      clean: vi.fn(async () => events.push("clean")),
+    };
+
+    await runPublicationCli(["clean"], dependencies);
+
+    expect(events).toEqual(["generated", "current", "fresh", "clean"]);
+    expect(dependencies.loadGeneratedSnapshot).toHaveBeenCalledOnce();
+    expect(dependencies.loadCurrentSnapshot).toHaveBeenCalledOnce();
+    expect(dependencies.assertFresh).toHaveBeenCalledWith(current, generated);
+    expect(dependencies.clean).toHaveBeenCalledWith(["first.webp", "second.webp"]);
+  });
+
+  it("does not remove previews when cleanup freshness fails", async () => {
+    const generated = { targets: [{ previewFilename: "first.webp" }] };
+    const current = structuredClone(generated);
+    const dependencies = {
+      loadGeneratedSnapshot: vi.fn(async () => generated),
+      loadCurrentSnapshot: vi.fn(async () => current),
+      assertFresh: vi.fn(() => {
+        throw new Error("stale snapshot");
+      }),
+      capture: vi.fn(),
+      manifest: vi.fn(),
+      verify: vi.fn(),
+      clean: vi.fn(),
+    };
+
+    await expect(runPublicationCli(["clean"], dependencies)).rejects.toThrow(
+      "stale snapshot",
+    );
+
+    expect(dependencies.clean).not.toHaveBeenCalled();
   });
 });

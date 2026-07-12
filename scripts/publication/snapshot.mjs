@@ -9,10 +9,12 @@ const repositoryRoot = resolve(
 async function createLocalPublicationRuntime() {
   const { createServer } = await import("vite");
   const vite = await createServer({
+    configFile: false,
     root: repositoryRoot,
     logLevel: "warn",
-    server: { middlewareMode: true },
+    server: { middlewareMode: true, hmr: false },
     appType: "custom",
+    optimizeDeps: { noDiscovery: true },
   });
   return {
     loadModule: (modulePath) => vite.ssrLoadModule(modulePath),

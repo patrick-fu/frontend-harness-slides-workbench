@@ -8,26 +8,23 @@ const targets = [
 ];
 
 describe("planCaptureSelection", () => {
-  it("keeps partial capture in Publication Plan order and forbids cleanup", () => {
+  it("keeps partial capture in Publication Plan order", () => {
     expect(
       planCaptureSelection(targets, {
         command: "capture",
         all: false,
         topicIds: ["third", "first"],
       }),
-    ).toEqual({
-      targets: [{ topicId: "first" }, { topicId: "third" }],
-      removeOrphans: false,
-    });
+    ).toEqual([{ topicId: "first" }, { topicId: "third" }]);
   });
 
-  it("allows orphan cleanup only for explicit full capture", () => {
+  it("selects every target for full capture without cleanup policy", () => {
     expect(
       planCaptureSelection(targets, {
         command: "capture",
         all: true,
         topicIds: [],
       }),
-    ).toEqual({ targets, removeOrphans: true });
+    ).toEqual(targets);
   });
 });

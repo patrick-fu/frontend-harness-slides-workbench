@@ -4,9 +4,13 @@ import {
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-export async function cleanShowcaseThumbnails(targets) {
-  const removedFilenames = await removeUnmappedShowcaseWebps(targets);
-  console.log(`Removed ${removedFilenames.length} obsolete showcase WebPs.`);
+export async function cleanShowcaseThumbnails(
+  expectedFilenames,
+  { remove = removeUnmappedShowcaseWebps, log = console.log } = {},
+) {
+  const removedFilenames = await remove(expectedFilenames);
+  log(`Removed ${removedFilenames.length} obsolete showcase WebPs.`);
+  return removedFilenames;
 }
 
 if (resolve(process.argv[1] ?? "") === fileURLToPath(import.meta.url)) {

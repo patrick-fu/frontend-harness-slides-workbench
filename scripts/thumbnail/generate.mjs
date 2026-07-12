@@ -10,7 +10,6 @@ import { publishStagedPreviews } from "../publication/staged-previews.mjs";
 import {
   createThumbnailViteServer,
   formatBytes,
-  removeUnmappedShowcaseWebps,
   showcaseDirectory,
 } from "./shared.mjs";
 
@@ -112,11 +111,7 @@ async function captureTarget(page, baseUrl, target, stagingDirectory) {
   throw new Error(`Unable to capture ${target.styleId}/${target.topicId}`);
 }
 
-export async function captureShowcaseThumbnails({
-  targets,
-  allTargets,
-  removeOrphans,
-}) {
+export async function captureShowcaseThumbnails({ targets }) {
   await assertCwebpAvailable();
   const vite = await createThumbnailViteServer();
   const stagingDirectory = await mkdtemp(join(tmpdir(), "fh-showcase-thumbnails-"));
@@ -163,12 +158,6 @@ export async function captureShowcaseThumbnails({
       commit: (artifact) =>
         rename(artifact.path, resolve(showcaseDirectory, artifact.filename)),
     });
-    const removedFilenames = removeOrphans
-      ? await removeUnmappedShowcaseWebps(
-          allTargets.map((target) => ({ filename: target.previewFilename })),
-        )
-      : [];
-
     const bytes = inspections.reduce(
       (sum, inspection) => sum + inspection.bytes,
       0,
@@ -176,9 +165,6 @@ export async function captureShowcaseThumbnails({
     console.log(
       `Generated ${results.length} 1920×1080 WebP thumbnails (${formatBytes(bytes)}).`,
     );
-    if (removedFilenames.length > 0) {
-      console.log(`Removed ${removedFilenames.length} obsolete showcase WebPs.`);
-    }
   } finally {
     await browser?.close();
     await vite.close();
