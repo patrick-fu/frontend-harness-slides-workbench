@@ -57,11 +57,13 @@ export interface RuntimeCatalogDiscovery {
   styleGroups: readonly RuntimeCatalogStyleGroup[];
   totals: Readonly<{ styles: number; topics: number }>;
   findTopic: (topicId: string) => RuntimeCatalogTopicEntry | null;
+  findStyleGroup: (styleId: string) => RuntimeCatalogStyleGroup | null;
 }
 
 export interface RuntimePlayerCatalog {
   findTopic: (topicId: string) => RuntimePlayerTopicEntry | null;
   loadStage: (topicId: string) => Promise<TopicStage>;
+  prefetchTopic: (topicId: string) => Promise<void>;
   prefetchAdjacent: (topicId: string) => Promise<void>;
 }
 
@@ -146,6 +148,8 @@ export function createRuntimeCatalog(
     entries.find((entry) => entry.discovery.topic.id === topicId) ?? null;
   const findTopic = (topicId: string) =>
     findPrivateTopic(topicId)?.discovery ?? null;
+  const findStyleGroup = (styleId: string) =>
+    styleGroups.find((group) => group.style.id === styleId) ?? null;
   const findPlayerTopic = (topicId: string) =>
     findPrivateTopic(topicId)?.player ?? null;
 
@@ -160,6 +164,7 @@ export function createRuntimeCatalog(
         ),
       },
       findTopic,
+      findStyleGroup,
     },
     player: {
       findTopic: findPlayerTopic,
@@ -169,6 +174,15 @@ export function createRuntimeCatalog(
           return Promise.reject(new Error(`Unknown Topic "${topicId}".`));
         }
         return entry.loadStage();
+      },
+      prefetchTopic: async (topicId) => {
+        const entry = findPrivateTopic(topicId);
+        if (!entry) return;
+        try {
+          await entry.loadStage();
+        } catch {
+          // Explicit Player loads own recoverable errors and retry.
+        }
       },
       prefetchAdjacent: async (topicId) => {
         const currentIndex = entries.findIndex(

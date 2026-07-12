@@ -132,6 +132,7 @@ function makeCatalog(
       return null;
     },
     loadStage,
+    prefetchTopic: vi.fn().mockResolvedValue(undefined),
     prefetchAdjacent,
   };
 }

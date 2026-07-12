@@ -18,9 +18,6 @@ import CatalogView from "./CatalogView";
 import { useFontPreload } from "./useFontPreload";
 import { useGlobalShortcuts } from "./useGlobalShortcuts";
 import { useNavigationState } from "../navigation/useNavigationState";
-import {
-  findRuntimeTopic,
-} from "../catalog/runtime-registry";
 import { RUNTIME_CATALOG } from "../catalog/runtime-catalog";
 import PlayerRuntime, {
   type PlayerEnvelopeAction,
@@ -63,11 +60,11 @@ export default function WorkbenchEnvelope() {
   useFontPreload(RUNTIME_CATALOG.discovery.styleGroups, displayLanguage);
 
   const activeTopicEntry = useMemo(
-    () => findRuntimeTopic(urlState.topicId),
+    () => RUNTIME_CATALOG.discovery.findTopic(urlState.topicId),
     [urlState.topicId],
   );
   const activeGroup = activeTopicEntry
-    ? RUNTIME_CATALOG.discovery.styleGroups[activeTopicEntry.styleIndex] ?? null
+    ? RUNTIME_CATALOG.discovery.findStyleGroup(activeTopicEntry.style.id)
     : null;
   const activeStyle = activeTopicEntry?.style ?? null;
   const activeTopic = activeTopicEntry?.topic ?? null;
@@ -297,9 +294,7 @@ export default function WorkbenchEnvelope() {
             getTopicHref={getTopicHrefById}
             onOpenTopic={selectTopicById}
             onPrefetchTopic={(topicId) => {
-              void RUNTIME_CATALOG.player
-                .loadStage(topicId)
-                .catch(() => undefined);
+              void RUNTIME_CATALOG.player.prefetchTopic(topicId);
             }}
           />
         </div>

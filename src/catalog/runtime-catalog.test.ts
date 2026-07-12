@@ -68,6 +68,11 @@ describe("createRuntimeCatalog", () => {
     expect(found).not.toHaveProperty("topicIndex");
     expect(found).not.toHaveProperty("loadStage");
     expect(runtime.discovery.findTopic("missing-topic")).toBeNull();
+    expect(runtime.discovery.findStyleGroup(sourceGroup.style.id)).toEqual({
+      style: sourceGroup.style,
+      topics: runtime.discovery.styleGroups[0]?.topics,
+    });
+    expect(runtime.discovery.findStyleGroup("missing-style")).toBeNull();
     expect(runtime.discovery.totals).toEqual({
       styles: CATALOG_MANIFEST.length,
       topics: CATALOG_MANIFEST.reduce(
@@ -133,6 +138,43 @@ describe("createRuntimeCatalog", () => {
     expect(resolveStage).toHaveBeenCalledWith(
       "../topics/selected-topic.tsx",
     );
+  });
+
+  it("prefetches one exact Topic without exposing its loader", async () => {
+    const selected = makeTopicDefinition({
+      id: "selected-topic",
+      styleId: "first-style",
+    });
+    const resolveStage = vi.fn<TopicStageResolver>(async () => selected.Stage);
+    const runtime = createRuntimeCatalog(
+      buildFixtureManifest(styles, [[selected]]),
+      resolveStage,
+    );
+
+    await expect(runtime.player.prefetchTopic(selected.id)).resolves.toBeUndefined();
+    await expect(runtime.player.prefetchTopic("missing-topic")).resolves.toBeUndefined();
+    expect(resolveStage).toHaveBeenCalledOnce();
+  });
+
+  it("keeps an explicit load retryable after failed exact prefetch", async () => {
+    const selected = makeTopicDefinition({
+      id: "selected-topic",
+      styleId: "first-style",
+    });
+    const resolveStage = vi
+      .fn<TopicStageResolver>()
+      .mockRejectedValueOnce(new Error("offline"))
+      .mockResolvedValue(selected.Stage);
+    const runtime = createRuntimeCatalog(
+      buildFixtureManifest(styles, [[selected]]),
+      resolveStage,
+    );
+
+    await expect(runtime.player.prefetchTopic(selected.id)).resolves.toBeUndefined();
+    await expect(runtime.player.loadStage(selected.id)).resolves.toBe(
+      selected.Stage,
+    );
+    expect(resolveStage).toHaveBeenCalledTimes(2);
   });
 
   it("coalesces concurrent loads and retries after an explicit rejection", async () => {
