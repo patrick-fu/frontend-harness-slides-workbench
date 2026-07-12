@@ -78,8 +78,8 @@ export default function WorkbenchEnvelope() {
       resolveCatalogFilters(RUNTIME_REGISTRY, displayLanguage, {
         bands: urlState.bands,
         models: urlState.models,
-      }),
-    [displayLanguage, urlState.bands, urlState.models],
+      }, urlState.topicId),
+    [displayLanguage, urlState.bands, urlState.models, urlState.topicId],
   );
   const hasFilters = urlState.bands.length > 0 || urlState.models.length > 0;
   const cycleScopeTopicIds = useMemo(
@@ -289,6 +289,7 @@ export default function WorkbenchEnvelope() {
             registry={RUNTIME_REGISTRY}
             language={displayLanguage}
             filters={{ bands: urlState.bands, models: urlState.models }}
+            resolution={filterResolution}
             onFiltersChange={updateFilters}
             getTopicHref={getTopicHref}
             onOpenTopic={selectTopic}

@@ -23,6 +23,9 @@ function makeTopic(
 ): CatalogTopicEntry {
   const metadata = makeMetadata();
   return {
+    topicId,
+    band,
+    modelId,
     style: {
       id: styleId,
       name: { en: `Style ${styleId}`, zh: `风格 ${styleId}` },

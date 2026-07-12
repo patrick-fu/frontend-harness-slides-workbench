@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useState, type MouseEvent } from "react";
 import type { RuntimeStyleGroup } from "../catalog/runtime-registry";
 import {
-  resolveCatalogFilters,
   type CatalogFilters as CatalogFilterState,
+  type CatalogFilterResolution,
   type CatalogTopicEntry,
 } from "../utils/catalog-filter";
 import { modelColor } from "../utils/model-color";
@@ -15,6 +15,8 @@ export interface CatalogViewProps {
   language: "en" | "zh";
   /** URL-owned Catalog facets. Overview never serializes them itself. */
   filters: CatalogFilterState;
+  /** One canonical interpretation of the current Registry and Navigation Filters. */
+  resolution: CatalogFilterResolution;
   /** Replaces the URL-owned filters after a user interaction. */
   onFiltersChange: (filters: CatalogFilterState) => void;
   /** Supplies the exact route for an independently openable Topic Card. */
@@ -184,6 +186,7 @@ export default function CatalogView({
   registry,
   language,
   filters,
+  resolution,
   onFiltersChange,
   getTopicHref,
   onOpenTopic,
@@ -191,14 +194,14 @@ export default function CatalogView({
 }: CatalogViewProps) {
   const {
     allTopics,
-    visibleTopics,
+    matchingTopics: visibleTopics,
     facetCounts,
-    unavailableBands,
-    unavailableModels,
-  } = useMemo(
-    () => resolveCatalogFilters(registry, language, filters),
-    [filters, language, registry],
-  );
+    unresolved: {
+      bands: unavailableBands,
+      models: unavailableModels,
+    },
+    hasActiveFilters: hasFilters,
+  } = resolution;
   const hasUnavailableFilters =
     unavailableBands.length > 0 || unavailableModels.length > 0;
   const totalStyles = useMemo(
@@ -243,8 +246,6 @@ export default function CatalogView({
       })),
     [facetCounts.models],
   );
-  const hasFilters = filters.bands.length > 0 || filters.models.length > 0;
-
   const updateBands = useCallback(
     (band: string) => {
       onFiltersChange({

@@ -7,6 +7,7 @@ import type {
 } from "../catalog/runtime-registry";
 import type { Band } from "../domain/style";
 import type { TopicMetadata, TopicStageProps } from "../domain/topic";
+import { resolveCatalogFilters } from "../utils/catalog-filter";
 import CatalogView from "./CatalogView";
 
 const EmptyStage = (_props: TopicStageProps) => null;
@@ -73,6 +74,7 @@ const defaultProps = {
   registry,
   language: "en" as const,
   filters: { bands: [], models: [] },
+  resolution: resolveCatalogFilters(registry, "en", { bands: [], models: [] }),
   onFiltersChange: vi.fn(),
   getTopicHref: (styleId: string, topicId: string) =>
     `/open/${styleId}/${topicId}`,
@@ -166,11 +168,41 @@ describe("CatalogView", () => {
     });
   });
 
+  it("renders results, summary, and facet counts from one supplied resolution", () => {
+    const resolution = resolveCatalogFilters(registry, "en", {
+      bands: ["text-report"],
+      models: [],
+    });
+    render(
+      <CatalogView
+        {...defaultProps}
+        resolution={resolution}
+      />,
+    );
+
+    const cards = within(screen.getByTestId("catalog-grid")).getAllByTestId(
+      "topic-card",
+    );
+    expect(cards.map((card) => card.getAttribute("data-topic-key"))).toEqual([
+      "beta/b-one",
+    ]);
+    expect(screen.getByTestId("catalog-summary")).toHaveTextContent(
+      "1 of 3 Topics · 1 of 2 Styles",
+    );
+    expect(
+      screen.getByRole("button", { name: /Minimal Keynote, 2 Topics/ }),
+    ).toBeVisible();
+  });
+
   it("shows a filter-empty state without losing the catalog summary", () => {
     render(
       <CatalogView
         {...defaultProps}
         filters={{ bands: ["text-report"], models: ["Claude Opus 4.8"] }}
+        resolution={resolveCatalogFilters(registry, "en", {
+          bands: ["text-report"],
+          models: ["Claude Opus 4.8"],
+        })}
       />,
     );
 
@@ -187,6 +219,10 @@ describe("CatalogView", () => {
       <CatalogView
         {...defaultProps}
         filters={{ bands: [], models: ["retired-model"] }}
+        resolution={resolveCatalogFilters(registry, "en", {
+          bands: [],
+          models: ["retired-model"],
+        })}
       />,
     );
 

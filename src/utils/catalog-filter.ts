@@ -1,7 +1,8 @@
 import type { RuntimeStyleGroup, RuntimeTopic } from "../catalog/runtime-registry";
 import {
-  hasUnresolvedWorkbenchFilters,
   matchesWorkbenchFilters,
+  resolveWorkbenchFilters,
+  type WorkbenchFilterResolution,
   type WorkbenchFilters,
 } from "../domain/filter";
 import type { ModelId } from "../domain/model";
@@ -11,6 +12,9 @@ import type { TopicMetadata } from "../domain/topic";
 export type CatalogFilters = WorkbenchFilters;
 
 export interface CatalogTopicEntry {
+  topicId: string;
+  band: Band;
+  modelId: ModelId;
   style: StyleDefinition;
   topic: RuntimeTopic;
   metadata: TopicMetadata;
@@ -31,12 +35,14 @@ export interface CatalogFacetCounts {
   models: CatalogModelOption[];
 }
 
-export interface CatalogFilterResolution {
+export interface CatalogFilterResolution
+  extends WorkbenchFilterResolution<CatalogTopicEntry> {
   allTopics: CatalogTopicEntry[];
+  /** Temporary aliases retained until the remaining Filter consumers migrate. */
   visibleTopics: CatalogTopicEntry[];
-  facetCounts: CatalogFacetCounts;
   unavailableBands: string[];
   unavailableModels: string[];
+  hasActiveFilters: boolean;
 }
 
 /**
@@ -52,6 +58,9 @@ export function buildCatalogTopics(
   for (const group of registry) {
     for (const topic of group.topics) {
       topics.push({
+        topicId: topic.id,
+        band: group.style.band,
+        modelId: topic.modelId,
         style: group.style,
         topic,
         metadata: topic.metadata[language],
@@ -128,33 +137,21 @@ export function resolveCatalogFilters(
   registry: readonly RuntimeStyleGroup[],
   language: "en" | "zh",
   filters: CatalogFilters,
+  currentTopicId = "",
 ): CatalogFilterResolution {
   const allTopics = buildCatalogTopics(registry, language);
-  const knownBands = new Set<string>(
-    allTopics.map((entry) => entry.style.band),
-  );
-  const knownModels = new Set<string>(
-    allTopics.map((entry) => entry.topic.modelId),
-  );
-  const unavailableBands = filters.bands.filter(
-    (band) => !knownBands.has(band),
-  );
-  const unavailableModels = filters.models.filter(
-    (model) => !knownModels.has(model),
-  );
-  const hasUnavailableFilters = hasUnresolvedWorkbenchFilters(
-    knownBands,
-    knownModels,
+  const resolution = resolveWorkbenchFilters(
+    allTopics,
     filters,
+    currentTopicId,
   );
 
   return {
+    ...resolution,
     allTopics,
-    visibleTopics: hasUnavailableFilters
-      ? []
-      : filterCatalogTopics(allTopics, filters),
-    facetCounts: getCatalogFacetCounts(allTopics, filters),
-    unavailableBands,
-    unavailableModels,
+    visibleTopics: [...resolution.matchingTopics],
+    unavailableBands: [...resolution.unresolved.bands],
+    unavailableModels: [...resolution.unresolved.models],
+    hasActiveFilters: filters.bands.length > 0 || filters.models.length > 0,
   };
 }
