@@ -71,7 +71,7 @@ describe("CommandPalette", () => {
         open
         registry={registry}
         language="en"
-        recent={["field-notes/dust"]}
+        recentTopicIds={["dust"]}
         isTopicInCycleScope={allTopicsInScope}
         onClose={vi.fn()}
         onSelectTopic={vi.fn()}
@@ -82,13 +82,33 @@ describe("CommandPalette", () => {
     expect(screen.queryByText("Quiet launch")).not.toBeInTheDocument();
   });
 
+  it("resolves recent Topic IDs through current localized Style identity", () => {
+    render(
+      <CommandPalette
+        open
+        registry={registry}
+        language="zh"
+        recentTopicIds={["dust"]}
+        isTopicInCycleScope={() => false}
+        onClose={vi.fn()}
+        onSelectTopic={vi.fn()}
+      />,
+    );
+
+    expect(
+      screen.getByRole("option", {
+        name: /田野笔记.*Saharan dust.*筛选范围外/,
+      }),
+    ).toBeVisible();
+  });
+
   it("searches Style, Topic, and Model ID with one result per Topic", () => {
     render(
       <CommandPalette
         open
         registry={registry}
         language="en"
-        recent={[]}
+        recentTopicIds={[]}
         isTopicInCycleScope={allTopicsInScope}
         onClose={vi.fn()}
         onSelectTopic={vi.fn()}
@@ -112,7 +132,7 @@ describe("CommandPalette", () => {
         open
         registry={registry}
         language="en"
-        recent={[]}
+        recentTopicIds={[]}
         isTopicInCycleScope={allTopicsInScope}
         onClose={onClose}
         onSelectTopic={onSelectTopic}
@@ -134,7 +154,7 @@ describe("CommandPalette", () => {
         open
         registry={registry}
         language="en"
-        recent={[]}
+        recentTopicIds={[]}
         isTopicInCycleScope={(topicId) => topicId === "launch"}
         onClose={vi.fn()}
         onSelectTopic={vi.fn()}

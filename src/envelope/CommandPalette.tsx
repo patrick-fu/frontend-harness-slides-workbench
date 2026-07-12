@@ -10,7 +10,7 @@ export interface CommandPaletteProps {
   open: boolean;
   registry: readonly RuntimeCatalogStyleGroup[];
   language: "en" | "zh";
-  recent: string[];
+  recentTopicIds: readonly string[];
   isTopicInCycleScope: (topicId: string) => boolean;
   onClose: () => void;
   onSelectTopic: (topicId: string) => void;
@@ -43,7 +43,7 @@ export default function CommandPalette({
   open,
   registry,
   language,
-  recent,
+  recentTopicIds,
   isTopicInCycleScope,
   onClose,
   onSelectTopic,
@@ -67,9 +67,11 @@ export default function CommandPalette({
   const results = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase();
     if (!normalized) {
-      const byKey = new Map(allTopics.map((item) => [item.key, item]));
-      return recent
-        .map((key) => byKey.get(key))
+      const byTopicId = new Map(
+        allTopics.map((item) => [item.topic.id, item]),
+      );
+      return recentTopicIds
+        .map((topicId) => byTopicId.get(topicId))
         .filter((item): item is TopicResult => Boolean(item))
         .slice(0, 8);
     }
@@ -85,7 +87,7 @@ export default function CommandPalette({
       )
       .map((entry) => entry.item)
       .slice(0, 80);
-  }, [allTopics, query, recent]);
+  }, [allTopics, query, recentTopicIds]);
 
   useEffect(() => {
     if (!open) return;

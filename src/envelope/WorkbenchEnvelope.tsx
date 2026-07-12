@@ -24,17 +24,7 @@ import PlayerRuntime, {
 } from "../player/PlayerRuntime";
 import { resolveWorkbenchFilters } from "../domain/filter";
 import { createFilterEditor } from "./filter-editor";
-
-const RECENT_TOPICS_KEY = "fhsw:recent-topics";
-
-function readRecentTopics(): string[] {
-  try {
-    const value = JSON.parse(localStorage.getItem(RECENT_TOPICS_KEY) ?? "[]");
-    return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string").slice(0, 8) : [];
-  } catch {
-    return [];
-  }
-}
+import { createRecentTopics } from "./recent-topics";
 
 export default function WorkbenchEnvelope() {
   const { language, resolvedLanguage, setLanguage } = useLanguage();
@@ -53,7 +43,13 @@ export default function WorkbenchEnvelope() {
   const [controlsOpen, setControlsOpen] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(Boolean(document.fullscreenElement));
-  const [recentTopics, setRecentTopics] = useState(readRecentTopics);
+  const recentTopics = useMemo(
+    () => createRecentTopics(RUNTIME_CATALOG.discovery.styleGroups),
+    [],
+  );
+  const [recentTopicIds, setRecentTopicIds] = useState(() =>
+    recentTopics.readIds(),
+  );
   const catalogScrollRef = useRef<HTMLDivElement>(null);
   const skipNextCatalogScrollRestoreRef = useRef(false);
 
@@ -66,7 +62,6 @@ export default function WorkbenchEnvelope() {
   const activeGroup = activeTopicEntry
     ? RUNTIME_CATALOG.discovery.findStyleGroup(activeTopicEntry.style.id)
     : null;
-  const activeStyle = activeTopicEntry?.style ?? null;
   const activeTopic = activeTopicEntry?.topic ?? null;
   const resolvedStyleId = activeTopic?.styleId ?? urlState.styleId;
   const filterResolution = useMemo(
@@ -98,18 +93,9 @@ export default function WorkbenchEnvelope() {
   }, [activeTopic, displayLanguage, urlState.view]);
 
   useEffect(() => {
-    if (urlState.view !== "lab" || !activeTopic || !activeStyle) return;
-    const key = `${activeStyle.id}/${activeTopic.id}`;
-    setRecentTopics((current) => {
-      const next = [key, ...current.filter((item) => item !== key)].slice(0, 8);
-      try {
-        localStorage.setItem(RECENT_TOPICS_KEY, JSON.stringify(next));
-      } catch {
-        // localStorage unavailable
-      }
-      return next;
-    });
-  }, [activeStyle, activeTopic, urlState.view]);
+    if (urlState.view !== "lab" || !activeTopic) return;
+    setRecentTopicIds(recentTopics.record(activeTopic.id));
+  }, [activeTopic, recentTopics, urlState.view]);
 
   useEffect(() => {
     if (skipNextCatalogScrollRestoreRef.current) {
@@ -402,7 +388,7 @@ export default function WorkbenchEnvelope() {
           open={paletteOpen}
           registry={RUNTIME_CATALOG.discovery.styleGroups}
           language={displayLanguage}
-          recent={recentTopics}
+          recentTopicIds={recentTopicIds}
           isTopicInCycleScope={filterResolution.isTopicInCycleScope}
           onClose={() => setPaletteOpen(false)}
           onSelectTopic={selectTopicById}

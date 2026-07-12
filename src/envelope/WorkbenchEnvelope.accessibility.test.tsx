@@ -92,7 +92,7 @@ describe("Catalog + Player shell accessibility", () => {
         open
         registry={registry}
         language="en"
-        recent={["quiet-grid/quiet-launch"]}
+        recentTopicIds={["quiet-launch"]}
         isTopicInCycleScope={() => true}
         onClose={onClose}
         onSelectTopic={vi.fn()}
@@ -112,7 +112,7 @@ describe("Catalog + Player shell accessibility", () => {
         open
         registry={registry}
         language="en"
-        recent={["quiet-grid/quiet-launch"]}
+        recentTopicIds={["quiet-launch"]}
         isTopicInCycleScope={() => true}
         onClose={vi.fn()}
         onSelectTopic={vi.fn()}

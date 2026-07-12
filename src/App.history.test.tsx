@@ -399,6 +399,54 @@ describe("Workbench URL, history, and sharing contract", () => {
     );
   });
 
+  it("migrates a moved legacy Recent Topic and opens it outside Filters", async () => {
+    const targetGroup = RUNTIME_CATALOG.discovery.styleGroups.find(
+      (group) =>
+        group.topics.some(
+          (topic) =>
+            topic.id !== "product-keynote" && topic.modelId !== "GPT 5.5",
+        ),
+    )!;
+    const target = targetGroup.topics.find(
+      (topic) =>
+        topic.id !== "product-keynote" && topic.modelId !== "GPT 5.5",
+    )!;
+    localStorage.setItem(
+      "fhsw:recent-topics",
+      JSON.stringify([`retired-style/${target.id}`, "missing-topic"]),
+    );
+    setRoute(`${PRODUCT_ROUTE}&model=GPT+5.5`);
+    render(<App />);
+
+    await waitFor(() => {
+      expect(
+        JSON.parse(localStorage.getItem("fhsw:recent-topics") ?? "[]"),
+      ).toEqual(["product-keynote", target.id]);
+    });
+    fireEvent.click(
+      within(
+        screen.getByRole("navigation", { name: "Player navigation" }),
+      ).getByRole("button", { name: "Search" }),
+    );
+    const palette = screen.getByRole("dialog", { name: "Command palette" });
+    const recent = within(palette).getByRole("option", {
+      name: (accessibleName) =>
+        accessibleName.includes(targetGroup.style.name.en) &&
+        accessibleName.includes(target.title.en),
+    });
+    expect(recent).toHaveAccessibleName(/Outside filter/);
+    fireEvent.click(recent);
+
+    await waitFor(() => expect(params().get("topic")).toBe(target.id));
+    expect(params().get("style")).toBe(target.styleId);
+    expect(params().getAll("model")).toEqual(["GPT 5.5"]);
+    await waitFor(() => {
+      expect(
+        JSON.parse(localStorage.getItem("fhsw:recent-topics") ?? "[]"),
+      ).toEqual([target.id, "product-keynote"]);
+    });
+  });
+
   it("clamps malformed Scene and Beat values against Topic metadata", async () => {
     setRoute(
       "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=999&beat=999",
