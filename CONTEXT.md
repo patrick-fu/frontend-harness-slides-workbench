@@ -61,6 +61,16 @@ The responsive Workbench interface surrounding the Stage. It belongs to the
 Workbench rather than to any Topic.
 _Avoid_: Topic chrome, persistent shell inside a Topic
 
+**Stage Matte（舞台衬底）**:
+The Player-owned surface that centers and surrounds the Stage when their aspect
+ratios differ. It is part of the Envelope, not the Topic composition.
+_Avoid_: Stage background, slide canvas
+
+**Identity Badge（身份角标）**:
+A persistent, compact Envelope marker for the active Style, Topic, and Model ID.
+It anchors to the Stage Matte and disappears with the Envelope in Pure.
+_Avoid_: Topic announcement, toast, Stage label
+
 **Topic Card（题材卡片）**:
 The Catalog representation of one Topic, including its preview and identity.
 _Avoid_: Style card, version card

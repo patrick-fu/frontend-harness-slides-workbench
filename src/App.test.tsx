@@ -59,6 +59,26 @@ describe("Workbench Catalog + Player", () => {
     expect(screen.queryByTestId("sidebar")).not.toBeInTheDocument();
   });
 
+  it("keeps one persistent Identity Badge in the Stage Matte rather than inside the Stage", () => {
+    window.history.replaceState(
+      null,
+      "",
+      "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=1&beat=0",
+    );
+    render(<App />);
+
+    const matte = screen.getByTestId("stage-matte");
+    const badge = screen.getByTestId("identity-badge");
+    const stage = screen.getByTestId("stage");
+    expect(matte).toContainElement(badge);
+    expect(stage).not.toContainElement(badge);
+    expect(
+      screen.getAllByRole("button", {
+        name: /Minimal Product Keynote.*Product Keynote.*Doubao-Seed-Evolving/,
+      }),
+    ).toHaveLength(1);
+  });
+
   it("edits Model Filters in Player and exposes the resulting Cycle Scope", async () => {
     window.history.replaceState(
       null,
@@ -107,11 +127,14 @@ describe("Workbench Catalog + Player", () => {
         name: /Minimal Product Keynote.*Quiet Launch.*GPT 5\.5/,
       }),
     );
+    const topicSwitcher = screen.getByRole("dialog", {
+      name: "Topic Switcher",
+    });
     expect(
-      screen.getByRole("menuitemradio", { name: /Quiet Launch/ }),
+      within(topicSwitcher).getByRole("button", { name: /Quiet Launch/ }),
     ).toBeVisible();
     expect(
-      screen.queryByRole("menuitemradio", { name: /Product Keynote/ }),
+      within(topicSwitcher).queryByRole("button", { name: /Product Keynote/ }),
     ).not.toBeInTheDocument();
 
     fireEvent.click(scope);
@@ -177,6 +200,7 @@ describe("Workbench Catalog + Player", () => {
     expect(screen.queryByTestId("player-transport")).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Present" })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Filter" })).not.toBeInTheDocument();
+    expect(screen.queryByTestId("identity-badge")).not.toBeInTheDocument();
     expect(screen.queryByTestId("catalog-view")).not.toBeInTheDocument();
   });
 

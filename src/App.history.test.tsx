@@ -244,8 +244,11 @@ describe("Workbench URL, history, and sharing contract", () => {
     const replaceState = vi.spyOn(window.history, "replaceState");
 
     fireEvent.click(screen.getByRole("button", { name: /Product Keynote/ }));
+    const topicSwitcher = screen.getByRole("dialog", {
+      name: "Topic Switcher",
+    });
     fireEvent.click(
-      screen.getByRole("menuitemradio", { name: /Quiet Launch/ }),
+      within(topicSwitcher).getByRole("button", { name: /Quiet Launch/ }),
     );
 
     await waitFor(() => expect(params().get("topic")).toBe("quiet-launch"));

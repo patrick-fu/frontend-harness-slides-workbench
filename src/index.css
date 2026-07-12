@@ -82,12 +82,6 @@ textarea {
   font: inherit;
 }
 
-@keyframes topicNotice {
-  0% { opacity: 0; transform: translate(-50%, -8px); }
-  14%, 78% { opacity: 1; transform: translate(-50%, 0); }
-  100% { opacity: 0; transform: translate(-50%, -4px); }
-}
-
 .library-drawer {
   animation: library-enter 180ms cubic-bezier(.2,.8,.2,1) both;
 }

@@ -437,14 +437,13 @@ test.describe.parallel("Topic hero-frame audit", () => {
           const errorCountBeforeFrame = errors.length;
           await openTopicHeroFinalFrame(page, frame);
 
-          const topicMenuTrigger = page
-            .locator("button[aria-haspopup='menu']:not([aria-label])")
-            .filter({ hasText: frame.topicName });
+          const identityBadge = page.getByTestId("identity-badge-pill");
           await expect(
-            topicMenuTrigger,
+            identityBadge,
             `${frame.styleId}/${frame.topicId}/${frame.language} must expose its exact Topic label`,
           ).toHaveCount(1);
-          await expect(topicMenuTrigger).toBeVisible();
+          await expect(identityBadge).toBeVisible();
+          await expect(identityBadge).toContainText(frame.topicName);
 
           const query = parseQueryFromUrl(page.url());
           expect(query.style, `${frame.styleId}/${frame.language}`).toBe(
@@ -610,7 +609,7 @@ test.describe("Navigation", () => {
     }
   });
 
-  test("presentation shortcuts yield to Library and Topic menu focus", async ({
+  test("presentation shortcuts yield to Library and Topic Switcher focus", async ({
     page,
   }) => {
     await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
@@ -633,15 +632,14 @@ test.describe("Navigation", () => {
     await page.keyboard.press("Escape");
     await expect(drawer).toHaveCount(0);
 
-    const topicMenuTrigger = page
-      .locator("button[aria-haspopup='menu']")
-      .filter({ hasText: "Product Keynote" });
-    await expect(topicMenuTrigger).toBeVisible();
-    await topicMenuTrigger.focus();
-    await page.keyboard.press("Space");
+    const identityBadgeTrigger = page
+      .getByTestId("identity-badge")
+      .getByRole("button");
+    await expect(identityBadgeTrigger).toBeVisible();
+    await identityBadgeTrigger.press("Space");
 
     await expect(
-      page.locator('[role="menu"]').filter({ hasText: "Quiet Launch" }),
+      page.getByRole("dialog", { name: "Topic Switcher" }),
     ).toBeVisible();
 
     query = parseQueryFromUrl(page.url());
@@ -934,11 +932,7 @@ test.describe("Pure mode", () => {
       page.getByRole("navigation", { name: "Player navigation" }),
     ).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Present" })).toHaveCount(0);
-    await expect(
-      page
-        .locator("button[aria-haspopup='menu']")
-        .filter({ hasText: "Product Keynote" }),
-    ).toHaveCount(0);
+    await expect(page.getByTestId("identity-badge")).toHaveCount(0);
     await expect(page.locator('[data-testid="player-transport"]')).toHaveCount(0);
     await expect(page.locator('[data-testid="stage"]')).toBeVisible();
 
@@ -1483,10 +1477,7 @@ test.describe("Player / lab view", () => {
     await expect(rail.getByRole("button", { name: "Search" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Present" })).toBeVisible();
 
-    const topicMenuTrigger = page
-      .locator("button[aria-haspopup='menu']")
-      .filter({ hasText: "Product Keynote" });
-    await expect(topicMenuTrigger).toBeVisible();
+    await expect(page.getByTestId("identity-badge")).toBeVisible();
 
     await rail.getByRole("button", { name: "Library" }).click();
     const drawer = page.getByRole("dialog", { name: "Library" });
@@ -1514,7 +1505,7 @@ test.describe("Player / lab view", () => {
     expect(Number(query.beat)).toBe(0);
   });
 
-  test("Player Topic menu is scoped to the current Style", async ({ page }) => {
+  test("Player Identity Badge switcher is scoped to the current Style", async ({ page }) => {
     await openLab(page, "minimal-product-keynote", 1, 0, { frozen: true });
 
     const style = CATALOG_MANIFEST.find(
@@ -1522,23 +1513,19 @@ test.describe("Player / lab view", () => {
     );
     if (!style) throw new Error("Minimal Product Keynote is missing from the manifest");
 
-    const topicMenuTrigger = page
-      .locator("button[aria-haspopup='menu']")
-      .filter({ hasText: "Product Keynote" });
-    await topicMenuTrigger.click();
-    const topicMenu = page
-      .locator('[role="menu"]')
-      .filter({ hasText: "Quiet Launch" });
-    await expect(topicMenu).toBeVisible();
-    await expect(topicMenu.getByRole("menuitemradio")).toHaveCount(
+    const identityBadge = page.getByTestId("identity-badge");
+    await identityBadge.getByRole("button").click();
+    const topicSwitcher = page.getByRole("dialog", { name: "Topic Switcher" });
+    await expect(topicSwitcher).toBeVisible();
+    await expect(topicSwitcher.locator("button[aria-label*=' · ']")).toHaveCount(
       style.topics.length,
     );
     await expect(
-      topicMenu.getByRole("menuitemradio", { name: /Product Keynote/ }),
-    ).toHaveAttribute("aria-checked", "true");
+      topicSwitcher.getByRole("button", { name: /Product Keynote/ }),
+    ).toHaveAttribute("aria-current", "page");
 
-    await topicMenu
-      .getByRole("menuitemradio", { name: /Quiet Launch/ })
+    await topicSwitcher
+      .getByRole("button", { name: /Quiet Launch/ })
       .click();
     const query = parseQueryFromUrl(page.url());
     expect(query.style).toBe("minimal-product-keynote");

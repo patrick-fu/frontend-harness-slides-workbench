@@ -530,18 +530,21 @@ describe("Player Runtime", () => {
     );
   });
 
-  it("announces a changed Topic without dispatching another Navigation intent", async () => {
+  it("announces a changed Topic nonvisually without dispatching another Navigation intent", async () => {
     const { rerenderState, dispatch } = setup({
       catalog: makeCatalog(twoTopicRegistry, vi.fn().mockResolvedValue(Slide)),
     });
     rerenderState({ topicId: "second-topic" });
 
-    expect(await screen.findByRole("status")).toHaveTextContent("Second topic");
+    const liveRegion = await screen.findByTestId("topic-live-region");
+    expect(liveRegion).toHaveTextContent("Second topic");
+    expect(liveRegion).toHaveClass("sr-only");
+    expect(liveRegion).toHaveAttribute("aria-live", "polite");
+    expect(liveRegion).toHaveAttribute("aria-atomic", "true");
     expect(dispatch).not.toHaveBeenCalled();
   });
 
-  it("keeps a changed Topic announcement readable for three seconds", () => {
-    vi.useFakeTimers();
+  it("keeps only the latest changed Topic in the nonvisual live region", () => {
     const { rerenderState } = setup({
       catalog: makeCatalog(
         twoTopicRegistry,
@@ -550,12 +553,14 @@ describe("Player Runtime", () => {
     });
 
     rerenderState({ topicId: "second-topic" });
-    expect(screen.getByText("Second topic")).toBeVisible();
-    act(() => vi.advanceTimersByTime(2999));
-    expect(screen.getByText("Second topic")).toBeVisible();
-    act(() => vi.advanceTimersByTime(1));
+    expect(screen.getByTestId("topic-live-region")).toHaveTextContent(
+      "Second topic",
+    );
+    rerenderState({ topicId: "quiet-launch" });
+    expect(screen.getByTestId("topic-live-region")).toHaveTextContent(
+      "Quiet launch",
+    );
     expect(screen.queryByText("Second topic")).not.toBeInTheDocument();
-    vi.useRealTimers();
   });
 
   it("keeps Topic composition stable while Pure and Frozen change display state", async () => {

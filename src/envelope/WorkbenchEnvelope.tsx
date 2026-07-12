@@ -8,6 +8,7 @@ import CatalogHeader from "./CatalogHeader";
 import CommandPalette from "./CommandPalette";
 import ControlsGuide from "./ControlsGuide";
 import GlobalControls from "./GlobalControls";
+import IdentityBadge from "./IdentityBadge";
 import LibraryDrawer from "./LibraryDrawer";
 import PlayerRail from "./PlayerRail";
 import PlayerTopBar from "./PlayerTopBar";
@@ -303,14 +304,10 @@ export default function WorkbenchEnvelope() {
           <div className="flex min-w-0 flex-1 flex-col">
             {!urlState.pureMode && (
               <PlayerTopBar
-                group={activeGroup}
-                topicId={urlState.topicId}
-                topicOptions={topicSwitcherOptions}
                 language={displayLanguage}
                 onOverview={goOverview}
                 onLibrary={() => setLibraryOpen(true)}
                 onSearch={openPalette}
-                onSelectTopic={(topicId) => activeStyle && selectTopic(activeStyle.id, topicId)}
                 onPresent={() =>
                   dispatchNavigation({ type: "set-pure", pureMode: true })
                 }
@@ -326,7 +323,10 @@ export default function WorkbenchEnvelope() {
                 controls={controls("lab")}
               />
             )}
-            <div className="min-h-0 flex-1">
+            <div
+              data-testid="stage-matte"
+              className="relative min-h-0 flex-1"
+            >
               <PlayerRuntime
                 catalog={RUNTIME_PLAYER_CATALOG}
                 navigation={{
@@ -338,6 +338,19 @@ export default function WorkbenchEnvelope() {
                 reducedMotion={reducedMotion}
                 onEnvelopeAction={handlePlayerEnvelopeAction}
               />
+              {!urlState.pureMode && (
+                <div className="absolute left-2 top-0 z-[80]">
+                  <IdentityBadge
+                    group={activeGroup}
+                    topicId={urlState.topicId}
+                    topicOptions={topicSwitcherOptions}
+                    language={displayLanguage}
+                    onSelectTopic={(topicId) =>
+                      activeStyle && selectTopic(activeStyle.id, topicId)
+                    }
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

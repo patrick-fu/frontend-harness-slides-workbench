@@ -414,15 +414,28 @@ a Model Coverage Run as in progress rather than complete.
 
 - The Envelope owns Catalog and Player chrome, headers, rail, transport,
   global controls, More menu, Library Drawer, Command Palette, Controls Guide,
-  global shortcuts, modal focus, responsive layout, and font preloading.
+  Identity Badge, Stage Matte, global shortcuts, modal focus, responsive
+  layout, and font preloading.
 - When Filters are active, the Player Envelope owns a persistent Cycle Scope
   Indicator with the matching Topic count, compact selected Band and Model
   labels, Filter editing, and an explicit clear action. Collapse it on narrow
   screens and warn when the selected Topic is outside the Cycle Scope. Do not
   render it when no Filters are active; instead keep a compact Filter entry in
   the Player Top Bar. Hide both with the rest of the Envelope in Pure.
-- Keep the cross-Topic announcement visible for 3000 ms. Reduced motion may
-  remove its movement but must not shorten its readable duration.
+- Keep one persistent, single-line Identity Badge for the active Style, Topic,
+  and exact Model ID whenever the Player Envelope is visible. Anchor it to the
+  top-left of the Stage Matte, never to the scaled Stage. Keep its position
+  stable as the viewport changes; use available top Matte before it overlaps
+  the Stage, and do not relocate it to a side Matte.
+- Keep the Identity Badge visually small, faint, and translucent while
+  preserving a `44px` touch target. Truncate long Style and Topic labels before
+  the Model ID, expose the full identity accessibly, and keep a quiet disclosure
+  glyph. Do not animate or auto-hide it. The Badge replaces the Player Top Bar
+  Topic trigger: use an anchored Popover on wide screens and a Bottom Sheet on
+  narrow screens.
+- Do not render a visual cross-Topic announcement. Announce only the latest
+  changed Style, Topic, and Model ID through a screen-reader-only polite live
+  region. Hide the Identity Badge with the rest of the Envelope in Pure.
 - The Stage is a fixed `1920×1080` canvas fitted with contain-style scaling. It
   is not reflowed or cropped for surrounding chrome.
 - Stage content uses Stage-relative container-query units such as `cqw` and

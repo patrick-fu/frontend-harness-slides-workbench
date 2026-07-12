@@ -15,7 +15,6 @@ import type {
 import type { NavigationIntent, NavigationState } from "../navigation";
 import PlayerTransport from "../envelope/PlayerTransport";
 import PortraitHint from "./PortraitHint";
-import TopicAnnouncement from "./TopicAnnouncement";
 import {
   getStageTapNavigationDirection,
   isInteractivePlayerTarget,
@@ -88,10 +87,6 @@ export default function PlayerRuntime({
     status: "loading",
     stage: null,
   });
-  const handleTopicAnnouncementDone = useCallback(
-    () => setAnnounceTopic(false),
-    [],
-  );
   const { scale, width: scaledWidth, height: scaledHeight } =
     useStageFit(stageContainerRef);
 
@@ -254,8 +249,6 @@ export default function PlayerRuntime({
     reducedMotion: reducedMotion || frozen,
     onNavigate: handleStageNavigate,
   };
-  const styleNumber = found.styleIndex + 1;
-
   return (
     <div
       data-testid="player-runtime"
@@ -264,6 +257,17 @@ export default function PlayerRuntime({
       data-player-topic={topicId}
       className="flex h-full w-full min-h-0 flex-col"
     >
+      <div
+        data-testid="topic-live-region"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      >
+        {announceTopic
+          ? `${found.style.name[language]} · ${found.topic.title[language]} · ${found.topic.modelId}`
+          : ""}
+      </div>
       <div
         ref={stageContainerRef}
         className="relative flex min-h-0 min-w-0 flex-1 items-center justify-center overflow-hidden bg-canvas"
@@ -360,17 +364,6 @@ export default function PlayerRuntime({
               >
                 {hoverCue === "prev" ? "‹" : "›"}
               </div>
-            )}
-            {announceTopic && !isPureMode && (
-              <TopicAnnouncement
-                key={topicId}
-                styleNumber={styleNumber}
-                styleName={found.style.name[language]}
-                topicName={found.topic.title[language]}
-                modelId={found.topic.modelId}
-                reducedMotion={reducedMotion}
-                onDone={handleTopicAnnouncementDone}
-              />
             )}
           </div>
         </div>
