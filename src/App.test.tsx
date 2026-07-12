@@ -56,6 +56,10 @@ describe("Workbench Catalog + Player", () => {
     expect(screen.getByRole("button", { name: "Present" })).toBeVisible();
     expect(screen.getByRole("button", { name: "Filter" })).toBeVisible();
     expect(screen.getAllByTestId(/scene-dot-/)).toHaveLength(5);
+    const matte = screen.getByTestId("stage-matte");
+    const transport = screen.getByTestId("player-transport");
+    expect(matte).not.toContainElement(transport);
+    expect(matte.parentElement).toContainElement(transport);
     expect(screen.queryByTestId("sidebar")).not.toBeInTheDocument();
   });
 
@@ -204,11 +208,11 @@ describe("Workbench Catalog + Player", () => {
     expect(screen.queryByTestId("catalog-view")).not.toBeInTheDocument();
   });
 
-  it("enters Pure Mode without replacing the active Stage node", async () => {
+  it("refits the same Stage in Pure and restores Transport at the same position", async () => {
     window.history.replaceState(
       null,
       "",
-      "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=1&beat=0",
+      "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=2&beat=1",
     );
     render(<App />);
     const stage = screen.getByTestId("stage");
@@ -222,6 +226,19 @@ describe("Workbench Catalog + Player", () => {
     expect(screen.queryByTestId("player-transport")).not.toBeInTheDocument();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.queryByTestId("catalog-view")).not.toBeInTheDocument();
+
+    fireEvent.keyDown(window, { key: "Escape" });
+
+    await waitFor(() =>
+      expect(screen.getByTestId("player-transport")).toBeVisible(),
+    );
+    expect(screen.getByTestId("stage")).toBe(stage);
+    expect(screen.getByRole("button", { name: "Scene 2" })).toHaveAttribute(
+      "aria-current",
+      "step",
+    );
+    expect(new URLSearchParams(window.location.search).get("scene")).toBe("2");
+    expect(new URLSearchParams(window.location.search).get("beat")).toBe("1");
   });
 
   it("shows explicit recovery actions for a missing Topic", () => {

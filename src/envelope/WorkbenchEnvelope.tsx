@@ -12,6 +12,7 @@ import IdentityBadge from "./IdentityBadge";
 import LibraryDrawer from "./LibraryDrawer";
 import PlayerRail from "./PlayerRail";
 import PlayerTopBar from "./PlayerTopBar";
+import PlayerTransport from "./PlayerTransport";
 import PlayerFilterControl from "./PlayerFilterControl";
 import CatalogView from "./CatalogView";
 import { useFontPreload } from "./useFontPreload";
@@ -352,6 +353,32 @@ export default function WorkbenchEnvelope() {
                 </div>
               )}
             </div>
+            {!urlState.pureMode &&
+              activeTopic &&
+              activeTopic.metadata[displayLanguage].scenes.length > 0 && (
+                <PlayerTransport
+                  language={displayLanguage}
+                  scenes={activeTopic.metadata[displayLanguage].scenes}
+                  currentScene={urlState.scene}
+                  currentBeat={urlState.beat}
+                  onPrev={() =>
+                    dispatchNavigation({ type: "move", direction: "prev" })
+                  }
+                  onNext={() =>
+                    dispatchNavigation({ type: "move", direction: "next" })
+                  }
+                  onJumpScene={(scene) =>
+                    dispatchNavigation({ type: "jump-scene", scene })
+                  }
+                  onJumpBeat={(beat) =>
+                    dispatchNavigation({
+                      type: "jump-position",
+                      scene: urlState.scene,
+                      beat,
+                    })
+                  }
+                />
+              )}
           </div>
         </div>
       )}

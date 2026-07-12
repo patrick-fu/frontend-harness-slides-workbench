@@ -7,13 +7,8 @@ import {
   type MouseEvent,
 } from "react";
 import type { RuntimeTopicEntry } from "../catalog/runtime-registry";
-import type {
-  TopicMetadata,
-  TopicStage,
-  TopicStageProps,
-} from "../domain/topic";
+import type { TopicStage, TopicStageProps } from "../domain/topic";
 import type { NavigationIntent, NavigationState } from "../navigation";
-import PlayerTransport from "../envelope/PlayerTransport";
 import PortraitHint from "./PortraitHint";
 import {
   getStageTapNavigationDirection,
@@ -103,10 +98,6 @@ export default function PlayerRuntime({
     () => found?.topic.metadata[language] ?? null,
     [found, language],
   );
-  const scenes = useMemo<TopicMetadata["scenes"]>(
-    () => meta?.scenes.map((item) => ({ ...item })) ?? [],
-    [meta],
-  );
   const topicKey = topicId;
   const activeLoadState =
     topicLoadState.key === topicKey
@@ -147,16 +138,6 @@ export default function PlayerRuntime({
   const handlePrev = useCallback(() => {
     dispatch({ type: "move", direction: "prev" });
   }, [dispatch]);
-  const handleJumpScene = useCallback(
-    (targetScene: number) =>
-      dispatch({ type: "jump-scene", scene: targetScene }),
-    [dispatch],
-  );
-  const handleJumpBeat = useCallback(
-    (targetBeat: number) =>
-      dispatch({ type: "jump-position", scene, beat: targetBeat }),
-    [dispatch, scene],
-  );
   const handleStageNavigate = useCallback(
     (targetScene: number, targetBeat: number) =>
       dispatch({
@@ -368,18 +349,6 @@ export default function PlayerRuntime({
           </div>
         </div>
       </div>
-      {!isPureMode && scenes.length > 0 && (
-        <PlayerTransport
-          language={language}
-          scenes={scenes}
-          currentScene={scene}
-          currentBeat={beat}
-          onPrev={handlePrev}
-          onNext={handleNext}
-          onJumpScene={handleJumpScene}
-          onJumpBeat={handleJumpBeat}
-        />
-      )}
       {!isPureMode && <PortraitHint language={language} />}
     </div>
   );

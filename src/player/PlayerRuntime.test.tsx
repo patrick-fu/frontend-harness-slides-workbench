@@ -226,6 +226,66 @@ describe("Player Runtime", () => {
     });
   });
 
+  it("refits the Stage when the Envelope changes the available matte size", () => {
+    let size = { width: 1000, height: 500 };
+    let notifyResize: ResizeObserverCallback | undefined;
+    class TestResizeObserver {
+      constructor(callback: ResizeObserverCallback) {
+        notifyResize = callback;
+      }
+      observe() {}
+      disconnect() {}
+      unobserve() {}
+    }
+    vi.stubGlobal("ResizeObserver", TestResizeObserver);
+    const rect = vi
+      .spyOn(HTMLElement.prototype, "getBoundingClientRect")
+      .mockImplementation(
+        () =>
+          ({
+            x: 0,
+            y: 0,
+            top: 0,
+            left: 0,
+            right: size.width,
+            bottom: size.height,
+            width: size.width,
+            height: size.height,
+            toJSON: () => ({}),
+          }) as DOMRect,
+      );
+
+    try {
+      const view = setup();
+      const stage = screen.getByTestId("stage");
+      const wrapper = stage.parentElement;
+      if (!wrapper) throw new Error("Stage fit wrapper is missing.");
+      expect(stage).toHaveStyle({ transform: `scale(${500 / 1080})` });
+      expect(parseFloat(wrapper.style.width)).toBeCloseTo(
+        (1920 * 500) / 1080,
+      );
+      expect(parseFloat(wrapper.style.height)).toBe(500);
+
+      size = { width: 1440, height: 900 };
+      view.rerenderState({ pureMode: true });
+      act(() => notifyResize?.([], {} as ResizeObserver));
+      expect(stage).toHaveStyle({ transform: "scale(0.75)" });
+      expect(parseFloat(wrapper.style.width)).toBe(1440);
+      expect(parseFloat(wrapper.style.height)).toBe(810);
+
+      size = { width: 1000, height: 500 };
+      view.rerenderState({ pureMode: false });
+      act(() => notifyResize?.([], {} as ResizeObserver));
+      expect(parseFloat(wrapper.style.width)).toBeCloseTo(
+        (1920 * 500) / 1080,
+      );
+      expect(parseFloat(wrapper.style.height)).toBe(500);
+    } finally {
+      rect.mockRestore();
+      vi.unstubAllGlobals();
+    }
+  });
+
   it("uses left 20% and remaining 80% click zones for sequential navigation", () => {
     const { dispatch } = setup();
     const stage = screen.getByTestId("stage");
@@ -409,9 +469,8 @@ describe("Player Runtime", () => {
     );
   });
 
-  it("keeps Player transport out of Pure Mode", () => {
+  it("keeps Envelope shortcuts disabled in Pure Mode", () => {
     const { onEnvelopeAction } = setup({ state: { pureMode: true } });
-    expect(screen.queryByTestId("player-transport")).not.toBeInTheDocument();
     fireEvent.keyDown(window, { key: "k", ctrlKey: true });
     expect(onEnvelopeAction).not.toHaveBeenCalled();
   });

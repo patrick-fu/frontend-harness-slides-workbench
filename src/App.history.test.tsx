@@ -131,6 +131,27 @@ describe("Workbench URL, history, and sharing contract", () => {
     expect(params().get("frozen")).toBe("1");
   });
 
+  it("maps every Envelope Transport control to semantic Navigation State", () => {
+    setRoute(PRODUCT_ROUTE);
+    render(<App />);
+
+    fireEvent.click(screen.getByTestId("prev-button"));
+    expect(params().get("scene")).toBe("1");
+    expect(params().get("beat")).toBe("0");
+
+    fireEvent.click(screen.getByTestId("next-button"));
+    expect(params().get("scene")).toBe("2");
+    expect(params().get("beat")).toBe("0");
+
+    fireEvent.click(screen.getByTestId("scene-dot-3"));
+    expect(params().get("scene")).toBe("3");
+    expect(params().get("beat")).toBe("0");
+
+    fireEvent.click(screen.getByRole("button", { name: "Beat 2 of 3" }));
+    expect(params().get("scene")).toBe("3");
+    expect(params().get("beat")).toBe("1");
+  });
+
   it("pushes a deliberate Topic destination, then restores its filtered Catalog entry with Back", async () => {
     setRoute("/?view=overview&band=minimal-keynote&model=GPT+5.5");
     render(<App />);

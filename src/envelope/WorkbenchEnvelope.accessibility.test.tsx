@@ -3,7 +3,6 @@ import { lazy } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "../App";
 import CatalogFilters, { type FilterOption } from "./CatalogFilters";
-import PlayerTransport from "./PlayerTransport";
 import {
   RUNTIME_REGISTRY,
   type RuntimeStyleGroup,
@@ -61,19 +60,6 @@ const registry: readonly RuntimeStyleGroup[] = [
 
 const filterOptions: FilterOption[] = [
   { value: "minimal-keynote", label: "Minimal Keynote", count: 1 },
-];
-
-const scenes: TopicMetadata["scenes"] = [
-  {
-    id: 1,
-    title: "Opening",
-    beats: [{ id: 0, action: "", title: "Beat one", body: "" }],
-  },
-  {
-    id: 2,
-    title: "Evidence",
-    beats: [{ id: 0, action: "", title: "Beat one", body: "" }],
-  },
 ];
 
 beforeEach(() => {
@@ -179,25 +165,40 @@ describe("Catalog + Player shell accessibility", () => {
     });
   });
 
-  it("marks the active scene as the current presentation step", () => {
-    render(
-      <PlayerTransport
-        language="en"
-        scenes={scenes}
-        currentScene={1}
-        currentBeat={0}
-        onPrev={vi.fn()}
-        onNext={vi.fn()}
-        onJumpScene={vi.fn()}
-        onJumpBeat={vi.fn()}
-      />,
+  it("keeps integrated Transport semantics across normal and Pure viewing", async () => {
+    window.history.replaceState(
+      null,
+      "",
+      "/?view=lab&style=minimal-product-keynote&topic=product-keynote&scene=1&beat=0",
     );
+    render(<App />);
 
+    expect(
+      screen.getByRole("toolbar", { name: "Slide navigation" }),
+    ).toBeVisible();
     expect(screen.getByRole("button", { name: "Scene 1" })).toHaveAttribute(
       "aria-current",
       "step",
     );
     expect(screen.getByRole("group", { name: "Scene navigation" })).toBeVisible();
+
+    fireEvent.click(screen.getByRole("button", { name: "Present" }));
+    await waitFor(() =>
+      expect(
+        screen.queryByRole("toolbar", { name: "Slide navigation" }),
+      ).not.toBeInTheDocument(),
+    );
+
+    fireEvent.keyDown(window, { key: "Escape" });
+    await waitFor(() =>
+      expect(
+        screen.getByRole("toolbar", { name: "Slide navigation" }),
+      ).toBeVisible(),
+    );
+    expect(screen.getByRole("button", { name: "Scene 1" })).toHaveAttribute(
+      "aria-current",
+      "step",
+    );
   });
 
   it("uses the same canonical Topic identity across Catalog, Library, and Command Palette", async () => {
