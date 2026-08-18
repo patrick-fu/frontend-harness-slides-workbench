@@ -1,0 +1,88 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #0d1117;
+  color: #c9d1d9;
+  overflow: hidden;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 6cqw 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.terminalHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #30363d;
+  padding-bottom: 1.5cqh;
+  font-size: 0.85cqw;
+  color: #8b949e;
+}
+
+.alertBadge {
+  background: #f85149;
+  color: #ffffff;
+  padding: 0.3cqh 0.8cqw;
+  border-radius: 0.3cqw;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.sceneTitle {
+  font-size: 3cqw;
+  font-weight: 800;
+  color: #f0f6fc;
+  margin: 2cqh 0 1.5cqh 0;
+  line-height: 1.15;
+}
+
+.sceneBody {
+  font-size: 1.35cqw;
+  line-height: 1.6;
+  color: #8b949e;
+  max-width: 65cqw;
+  margin: 0;
+}
+
+.processTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 3cqh;
+  font-size: 0.95cqw;
+}
+
+.processTable th {
+  background: #161b22;
+  color: #8b949e;
+  text-align: left;
+  padding: 1cqh 1.2cqw;
+  border-bottom: 1px solid #30363d;
+}
+
+.processTable td {
+  padding: 1cqh 1.2cqw;
+  border-bottom: 1px solid #21262d;
+  color: #c9d1d9;
+}
+
+.targetRow {
+  background: rgba(248, 81, 73, 0.15);
+  color: #ff7b72 !important;
+}
+
+.targetRow td {
+  color: #ff7b72 !important;
+  font-weight: 700;
+}

@@ -1,0 +1,106 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #0d1117;
+  color: #e6edf3;
+  overflow: hidden;
+  font-family: "JetBrains Mono", monospace;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 4.5cqw 7.5cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.diffHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #30363d;
+  padding-bottom: 1.2cqh;
+}
+
+.gitFile {
+  color: #58a6ff;
+  font-size: 0.9cqw;
+  font-weight: 700;
+}
+
+.commitBadge {
+  background: #238636;
+  color: #ffffff;
+  font-size: 0.75cqw;
+  font-weight: 700;
+  padding: 0.3cqh 0.8cqw;
+  border-radius: 4px;
+}
+
+.diffContainer {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-left: 4px solid #58a6ff;
+  padding: 3.5cqh 3.5cqw;
+  border-radius: 4px;
+}
+
+.hunkHeader {
+  color: #7d8590;
+  font-size: 0.8cqw;
+  margin-bottom: 1cqh;
+}
+
+.sceneTitle {
+  font-size: 2.6cqw;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 1.8cqh 0;
+  line-height: 1.2;
+}
+
+.sceneBody {
+  font-size: 1.35cqw;
+  line-height: 1.6;
+  color: #c9d1d9;
+  margin: 0 0 2.5cqh 0;
+}
+
+.codeDiffBlock {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  padding: 1.5cqh 1.5cqw;
+  font-size: 0.85cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3cqh;
+  border-radius: 4px;
+}
+
+.diffDel {
+  background: rgba(248, 81, 73, 0.15);
+  color: #ff7b72;
+  padding: 0.2cqh 0.5cqw;
+}
+
+.diffAdd {
+  background: rgba(46, 160, 67, 0.15);
+  color: #7ee787;
+  padding: 0.2cqh 0.5cqw;
+}
+
+.diffFooter {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75cqw;
+  color: #7d8590;
+  border-top: 1px solid #30363d;
+  padding-top: 1cqh;
+}

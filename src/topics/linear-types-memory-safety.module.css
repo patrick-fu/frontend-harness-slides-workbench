@@ -1,0 +1,81 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fdfbf7;
+  color: #000000;
+  overflow: hidden;
+  font-family: "Arial Black", Impact, sans-serif;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 6cqw 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #fdfbf7 0%, #fee2e2 100%);
+}
+
+.agitpropHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 4px solid #dc2626;
+  padding-bottom: 1.5cqh;
+  font-size: 0.9cqw;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #dc2626;
+}
+
+.wedgeBody {
+  max-width: 75cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.wedgeBadge {
+  background: #dc2626;
+  color: #ffffff;
+  padding: 0.5cqh 1.2cqw;
+  font-size: 0.9cqw;
+  font-weight: 900;
+  width: fit-content;
+  transform: rotate(-1deg);
+  margin-bottom: 2cqh;
+}
+
+.sceneTitle {
+  font-size: 3.8cqw;
+  font-weight: 900;
+  line-height: 1.05;
+  color: #000000;
+  margin: 0 0 2cqh 0;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.sceneBody {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.45cqw;
+  line-height: 1.6;
+  color: #1f2937;
+  font-weight: 600;
+  margin: 0;
+}
+
+.agitpropFooter {
+  border-top: 3px solid #000000;
+  padding-top: 1cqh;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85cqw;
+  font-family: monospace;
+  font-weight: 700;
+}

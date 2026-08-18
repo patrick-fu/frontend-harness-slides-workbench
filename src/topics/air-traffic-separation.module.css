@@ -1,0 +1,121 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fbfbfb;
+  color: #111111;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 5cqw 6cqw;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto 1fr auto;
+  gap: 1.5cqw;
+}
+
+.gridHeader {
+  grid-column: 1 / -1;
+  border-bottom: 1px solid #111111;
+  padding-bottom: 1.5cqh;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.systemLabel {
+  font-size: 0.9cqw;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #ff3b30;
+}
+
+.systemCode {
+  font-size: 0.9cqw;
+  font-family: monospace;
+  color: #737373;
+}
+
+.mainColumn {
+  grid-column: 1 / 8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sideColumn {
+  grid-column: 8 / 13;
+  border-left: 1px solid #e5e5e5;
+  padding-left: 2cqw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sceneTitle {
+  font-size: 3.6cqw;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #111111;
+  margin: 0 0 2cqh 0;
+  text-transform: uppercase;
+}
+
+.sceneBody {
+  font-size: 1.4cqw;
+  line-height: 1.5;
+  color: #404040;
+  margin: 0;
+  max-width: 90%;
+}
+
+.matrixTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1cqw;
+}
+
+.matrixRow {
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  padding: 1cqh 0;
+}
+
+.matrixKey {
+  color: #737373;
+  font-weight: 500;
+}
+
+.matrixVal {
+  color: #111111;
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.signalTag {
+  color: #ff3b30;
+  font-weight: 700;
+}
+
+.gridFooter {
+  grid-column: 1 / -1;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 1cqh;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85cqw;
+  color: #a3a3a3;
+  font-family: monospace;
+}

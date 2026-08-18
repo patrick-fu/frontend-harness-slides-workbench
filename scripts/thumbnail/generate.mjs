@@ -1,5 +1,5 @@
 import { execFile as execFileCallback } from "node:child_process";
-import { mkdtemp, mkdir, readFile, rename, rm } from "node:fs/promises";
+import { copyFile, mkdtemp, mkdir, readFile, rename, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -15,6 +15,19 @@ import {
 
 const execFile = promisify(execFileCallback);
 const screenshotViewport = { width: 1920, height: 1080 };
+
+async function commitFile(source, destination) {
+  try {
+    await rename(source, destination);
+  } catch (error) {
+    if (error?.code === "EXDEV") {
+      await copyFile(source, destination);
+      await rm(source, { force: true });
+    } else {
+      throw error;
+    }
+  }
+}
 
 async function assertCwebpAvailable() {
   try {
@@ -156,7 +169,7 @@ export async function captureShowcaseThumbnails({ targets }) {
       read: readFile,
       inspect: publicationInventory.inspectPreview,
       commit: (artifact) =>
-        rename(artifact.path, resolve(showcaseDirectory, artifact.filename)),
+        commitFile(artifact.path, resolve(showcaseDirectory, artifact.filename)),
     });
     const bytes = inspections.reduce(
       (sum, inspection) => sum + inspection.bytes,

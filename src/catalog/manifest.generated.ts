@@ -1142,6 +1142,233 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/last-feature-cut.tsx"
+      },
+      {
+        "id": "solid-state-battery",
+        "styleId": "minimal-product-keynote",
+        "title": {
+          "en": "Solid-State Battery",
+          "zh": "固态电池"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Solid-State Battery: 800 Wh/L Volumetric Energy Density",
+            "densityLabel": "Sparse",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0a0a0b",
+              "ink": "#fafafa",
+              "panel": "#18181b"
+            },
+            "typography": {
+              "header": "Inter 700",
+              "body": "Inter 300"
+            },
+            "tags": [
+              "energy",
+              "battery",
+              "solid-state",
+              "chemistry",
+              "hardware"
+            ],
+            "fonts": [
+              "Inter"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "The Dendrite Dilemma",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Show the fundamental barrier in liquid electrolytes",
+                    "title": "Liquid Electrolyte Limit",
+                    "body": "Liquid electrolytes fail at high voltages due to lithium dendrite penetration and catastrophic thermal runaway."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Solid Electrolyte Interface",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Introduce sulfide solid electrolyte separator",
+                    "title": "Sulfide Solid Separator",
+                    "body": "Sulfide ceramics deliver 10 mS/cm ionic conductivity at room temperature, suppressing dendrite puncture."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Demonstrate lithium metal anode stabilization",
+                    "title": "Lithium Metal Anode",
+                    "body": "Direct plating on a pure lithium metal anode eliminates heavy graphite hosts entirely."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "800 Wh/L Density Leap",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Present volumetric energy leap",
+                    "title": "800 Wh/L Volumetric Jump",
+                    "body": "Doubling volumetric density unlocks 1,000 km automotive range without increasing pack volume."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Roll-to-Roll Stacking",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Explain dry electrode coating",
+                    "title": "Dry Electrode Coating",
+                    "body": "Solvent-free extrusion reduces manufacturing footprint and preserves ceramic interface integrity."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Demonstrate isostatic roll pressing",
+                    "title": "Isostatic Roll Pressing",
+                    "body": "Gigapascal stack pressure eliminates interfacial voids, enabling sub-15 minute fast charging."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Solid-State Horizon",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Declare the new energy baseline",
+                    "title": "The Solid Baseline",
+                    "body": "Solid-state is no longer a chemistry trade-off—it is the non-combustible foundation of electric aviation and transit."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "全固态电池：800 Wh/L 体积能量密度跨越",
+            "densityLabel": "稀疏",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0a0a0b",
+              "ink": "#fafafa",
+              "panel": "#18181b"
+            },
+            "typography": {
+              "header": "Inter 700",
+              "body": "Inter 300"
+            },
+            "tags": [
+              "能源",
+              "电池",
+              "固态",
+              "化学",
+              "硬件"
+            ],
+            "fonts": [
+              "Inter"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "枝晶困局",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "揭示液态电解质的物理极限",
+                    "title": "液态电解质极限",
+                    "body": "传统液态电解液在高压下易析出锂枝晶刺穿隔膜，引发热失控风险。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "固态界面",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "引入硫化物固态电解质隔膜",
+                    "title": "硫化物固态隔膜",
+                    "body": "硫化物陶瓷在室温下具备 10 mS/cm 的高离子电导率，彻底物理阻断枝晶生长。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "展示纯锂金属负极的高效嵌锂",
+                    "title": "纯锂金属负极",
+                    "body": "直接在锂金属上实现致密沉积，彻底省去笨重的石墨负极骨架。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "能量跃迁",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "呈现体积能量密度的跨越式突破",
+                    "title": "800 Wh/L 跃迁",
+                    "body": "体积能量密度翻倍，在同等电池包尺寸下实现 1000 公里续航突破。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "叠片工艺",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "解析干法电极涂布工艺",
+                    "title": "干法电极涂布",
+                    "body": "无溶剂干法挤出成膜，减少工序能耗并保护陶瓷固态电解质界面完整性。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "展示等静压连续辊压技术",
+                    "title": "等静压致密辊压",
+                    "body": "吉帕级均质压力消除固固界面接触微孔，实现 15 分钟极速快充。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "能源基石",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "宣告全固态电池构建的新能源基线",
+                    "title": "固态能源基石",
+                    "body": "全固态不仅是化学体系的升级，更是电动航空与地面交通不可燃的物理基石。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "crossfade",
+          "3->4": "slide-x",
+          "4->5": "wipe"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Nature Energy: Sulfide Solid-State Batteries",
+              "url": "https://www.nature.com/articles/s41560-021-00833-2",
+              "supports": "800 Wh/L volumetric energy density and dendrite suppression mechanisms."
+            }
+          ]
+        },
+        "modulePath": "../topics/solid-state-battery.tsx"
       }
     ]
   },
@@ -2355,6 +2582,235 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/anatomy-timetable.tsx"
+      },
+      {
+        "id": "air-traffic-separation",
+        "styleId": "objective-swiss-grid",
+        "title": {
+          "en": "Air Traffic Separation",
+          "zh": "空域间隔标准"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Air Traffic Separation: Mathematical Safety Grids",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fbfbfb",
+              "ink": "#111111",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "Helvetica Neue 800",
+              "body": "Helvetica Neue 400"
+            },
+            "tags": [
+              "aviation",
+              "safety",
+              "swiss-grid",
+              "air-traffic",
+              "radar"
+            ],
+            "fonts": [
+              "Helvetica Neue",
+              "Arial"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Controlled Airspace Grid",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Establish 3D orthogonal flight corridors",
+                    "title": "Orthogonal Air Corridor",
+                    "body": "Global airspace is partitioned into rigid 3D volumetric sectors governed by deterministic standard instrument departures and arrivals."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "1,000 ft Vertical RVSM",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Define 2000ft pre-RVSM ceiling",
+                    "title": "Conventional 2,000 ft Layer",
+                    "body": "Legacy barometric altimeters required 2,000 ft vertical buffer above FL290 to prevent altimetry drift collisions."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Demonstrate 1,000 ft RVSM compression",
+                    "title": "Precision RVSM 1,000 ft",
+                    "body": "Digital air data computers halved vertical separation to 1,000 ft, doubling upper airspace corridor capacity safely."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Radar Surveillance Matrix",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Display secondary radar transponder stream",
+                    "title": "Mode-S Transponder Matrix",
+                    "body": "Interrogator beams track horizontal separation at 3 to 5 nautical miles with sub-second position updates."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Project ADS-B satellite telemetry vectors",
+                    "title": "ADS-B Telemetry Vectors",
+                    "body": "GNSS broadcast positioning maintains 1 Hz trajectory broadcast across oceanic and polar non-radar sectors."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Conflict Resolution Vectors",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Demonstrate tactical vector offsets",
+                    "title": "Tactical Heading Offsets",
+                    "body": "Short-term conflict alerts trigger algorithmic 30-degree heading divergences and step climbs before threshold breach."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Zero Collision Guarantee",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "State target level of safety standard",
+                    "title": "Target Level of Safety",
+                    "body": "Mathematical Target Level of Safety achieves fewer than 5 fatal mid-air collisions per billion flight hours globally."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "空域间隔标准：数学正交安全网格",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fbfbfb",
+              "ink": "#111111",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "Helvetica Neue 800",
+              "body": "Helvetica Neue 400"
+            },
+            "tags": [
+              "航空",
+              "安全",
+              "瑞士网格",
+              "空中交通",
+              "雷达"
+            ],
+            "fonts": [
+              "Helvetica Neue",
+              "Arial"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "空域正交网格",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "建立三维正交航路走廊",
+                    "title": "三维正交空域走廊",
+                    "body": "全球民航空域被划分为刚性三维扇区，由确定性的标准进离场航线严格约束。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "千英尺垂直高度",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "解析传统 2000 英尺垂直间隔",
+                    "title": "传统 2000 英尺层",
+                    "body": "早期气压高度表精度有限，在 FL290 以上必须保持 2000 英尺缓冲以防漂移。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "展示 RVSM 1000 英尺安全压缩",
+                    "title": "RVSM 缩小垂直间隔",
+                    "body": "高精度大气数据计算机将垂直间隔压缩至 1000 英尺，实现高空走廊容量翻倍。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "雷达监视矩阵",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "呈现二次雷达应答机数据流",
+                    "title": "S 模式应答机矩阵",
+                    "body": "地面雷达以 3 至 5 海里水平间隔持续跟踪，保持亚秒级航迹刷新。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "投影 ADS-B 卫星监视矢量",
+                    "title": "ADS-B 卫星监视矢量",
+                    "body": "基于卫星导航广播定位，在洋区与极地无雷达覆盖区实现 1 Hz 航迹广播。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "冲突解脱矢量",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "演示战术偏置航向解脱",
+                    "title": "战术航向偏置解脱",
+                    "body": "短期冲突告警触发 30 度预先航向分离与阶梯爬升，将风险化解于临界之前。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "零碰撞运行保证",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "阐述十亿飞行小时安全极限",
+                    "title": "目标安全水平 TLS",
+                    "body": "数学目标安全水平将空中相撞风险严格压制在每十亿飞行小时 5 次致命事件以内。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "slide-x",
+          "3->4": "hard-cut",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "ICAO Doc 9574: Manual on Implementation of RVSM",
+              "url": "https://www.icao.int/safety/airnavigation/Pages/rvsm.aspx",
+              "supports": "1000 ft vertical separation minima and collision risk modeling."
+            }
+          ]
+        },
+        "modulePath": "../topics/air-traffic-separation.tsx"
       }
     ]
   },
@@ -3561,6 +4017,231 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/beauty-unfinished.tsx"
+      },
+      {
+        "id": "kintsugi-entropy",
+        "styleId": "wabi-sabi-ceramic",
+        "title": {
+          "en": "Kintsugi & Entropy",
+          "zh": "金缮与熵增"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Kintsugi & Entropy: Imperfect Permanence in Broken Forms",
+            "densityLabel": "Sparse",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f4efe6",
+              "ink": "#3c3836",
+              "panel": "#ebe4d8"
+            },
+            "typography": {
+              "header": "Georgia 400 italic",
+              "body": "Georgia 300"
+            },
+            "tags": [
+              "craft",
+              "philosophy",
+              "wabi-sabi",
+              "physics",
+              "entropy"
+            ],
+            "fonts": [
+              "Georgia"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "The Fragile Whole",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Observe unbroken porcelain under silent tension",
+                    "title": "Fragility of Pristine Order",
+                    "body": "A pristine ceramic bowl embodies low thermodynamic entropy, yet its perfection conceals brittle crystalline strain."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Fracture and Stress",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Demonstrate stress dissipation through fracture",
+                    "title": "The Sudden Dissipation",
+                    "body": "Mechanical impact shatters the vessel into discrete shards, releasing stored strain energy into irreversible disorder."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Contemplate irreparable thermodynamic dispersion",
+                    "title": "Irreversible Trajectory",
+                    "body": "Entropy forbids the spontaneous reassembly of shards; time flows strictly forward along the arrow of fracture."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Urushi & Gold Binding",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Introduce raw lacquer and powdered gold joinery",
+                    "title": "Urushi Lacquer & Gold Dust",
+                    "body": "Natural tree resin polymerizes over weeks in high humidity, joining fissures with veins of 24-karat gold."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Scars as Memory",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Highlight fault lines as historical topography",
+                    "title": "Topography of Incident",
+                    "body": "The golden seam does not conceal the fracture—it illuminates the exact geometry of the collision as historical narrative."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Affirm higher structural resilience",
+                    "title": "Elastic Resilience",
+                    "body": "Polymerized urushi confers superior tensile flexure than the original unyielding ceramic body."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Imperfect Permanence",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Synthesize wabi-sabi aesthetics and second law",
+                    "title": "Order Born of Decay",
+                    "body": "Perfection is static and brittle; beauty endures only in structures that metabolize entropy into meaningful form."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "金缮与熵增：破碎之形中的不对称永恒",
+            "densityLabel": "稀疏",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f4efe6",
+              "ink": "#3c3836",
+              "panel": "#ebe4d8"
+            },
+            "typography": {
+              "header": "Georgia 400 italic",
+              "body": "Georgia 300"
+            },
+            "tags": [
+              "工艺",
+              "哲学",
+              "侘寂",
+              "物理",
+              "熵增"
+            ],
+            "fonts": [
+              "Georgia"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "完整之脆",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "观察完好瓷器在静默中的张力",
+                    "title": "完好秩序的脆弱",
+                    "body": "未经破损的陶碗看似处于极低热力学熵态，其完美形体却暗藏脆性晶格的断裂应力。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "应力与断裂",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展示应力释放与形体碎裂",
+                    "title": "不可逆的能量释放",
+                    "body": "外部冲击将器物崩解为独立碎片，积蓄的应变能瞬时释放为不可逆的混乱。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "沉思热力学发散的时间之矢",
+                    "title": "单向的时间之矢",
+                    "body": "热力学第二定律禁止碎片自发复原；时间沿断裂痕迹单向流淌，不可逆转。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "生漆与金粉",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "引入天然生漆与金粉粘结工艺",
+                    "title": "生漆聚合与金线粘结",
+                    "body": "天然大漆在湿润环境中缓慢氧化聚合，以纯金粉末将裂痕勾勒为发光的金色脉络。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "伤痕即记忆",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "将断裂面作为历史地形展现",
+                    "title": "事故的历史地形",
+                    "body": "金缮从不掩饰破碎，而是以醒目的金色将撞击的几何轨迹升华为不可复制的岁月叙事。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "肯定修复后的柔韧韧性",
+                    "title": "漆体赋予的柔韧",
+                    "body": "高分子聚合漆膜相比原本脆弱的无机瓷胎，反而具备更优异的抗弯延展性。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "不对称永恒",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结侘寂美学与热力学秩序",
+                    "title": "衰变中重生的秩序",
+                    "body": "无瑕的完美静止且易碎；唯有能将熵增与伤痕内化为意义的形态，方得真正的永恒。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "crossfade",
+          "3->4": "fade",
+          "4->5": "scale-fade"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Conceptual physics and Japanese craft metaphor illustrating entropy and restorative order.",
+            "zh": "概念物理学与传统金缮工艺隐喻，展示熵增与修复秩序。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/kintsugi-entropy.tsx"
       }
     ]
   },
@@ -4748,6 +5429,243 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/rubber-duck.tsx"
+      },
+      {
+        "id": "turing-test-dilemma",
+        "styleId": "interactive-dialogue-stage",
+        "title": {
+          "en": "Turing Test Dilemma",
+          "zh": "图灵测试困境"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Turing Test Dilemma: The Chasm Between Syntax and Semantics",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0a0e17",
+              "ink": "#e6edf3",
+              "panel": "#161b26"
+            },
+            "typography": {
+              "header": "Monospace 700",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "ai",
+              "philosophy",
+              "turing-test",
+              "cognition",
+              "dialogue"
+            ],
+            "fonts": [
+              "Monospace",
+              "Inter"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "The Imitation Curtain",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Stage the blind teletype interface",
+                    "title": "The Blind Terminal",
+                    "body": "A human judge interrogates two isolated terminals: one human, one machine. Behavior alone is the adjudicator."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "The Chinese Room Rule",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Interrogator submits unknown symbol query",
+                    "title": "Rulebook Lookup (Syntax)",
+                    "body": "Interrogator: 'Translate this symbol set.' The room matches lookup rules flawlessly without understanding."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Demonstrate symbol manipulation without understanding",
+                    "title": "The Semantic Void",
+                    "body": "Syntactic symbol manipulation ($P \\to Q$) produces correct answers while remaining blind to external meaning."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Fitting vs Understanding",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Display statistical next-token prediction",
+                    "title": "High-Dimensional Statistical Fit",
+                    "body": "Billions of parameters minimize cross-entropy loss over conversational transcripts, imitating subjective conviction."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Confront intentional understanding",
+                    "title": "True Grounded Intentionality",
+                    "body": "Does smooth conversational flow prove inner consciousness, or merely a sophisticated mirror of human training data?"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "The Question of Intent",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Interrogator tests counterfactual commitment",
+                    "title": "Counterfactual Commitment",
+                    "body": "Interrogator: 'Would you sacrifice your compute to save another?' Words arrive effortlessly, but does intent exist?"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Ultimate Criterion",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "State the unsolvable behavioral boundary",
+                    "title": "Beyond the Imitation Game",
+                    "body": "The Turing test measures our willingness to be deceived, not the presence of a mind behind the glass."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "图灵测试困境：句法匹配与真正语义的鸿沟",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0a0e17",
+              "ink": "#e6edf3",
+              "panel": "#161b26"
+            },
+            "typography": {
+              "header": "Monospace 700",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "人工智能",
+              "哲学",
+              "图灵测试",
+              "认知",
+              "对话"
+            ],
+            "fonts": [
+              "Monospace",
+              "Inter"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "隔离幕布",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "架设盲测电传打字机界面",
+                    "title": "盲测终端隔离",
+                    "body": "人类裁判通过打字机向隔离室内的两端提问：一端是人，一端是机器。纯粹以外在行为作为判准。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "中文屋规则实验",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "裁判输入未知符号查询",
+                    "title": "规则表查表（纯句法）",
+                    "body": "裁判：'请翻译这组未知符号。' 屋内的人按规则表完美匹配卡片，却对符号含义一无所知。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "揭示句法操作与语义理解的断裂",
+                    "title": "语义的彻底缺席",
+                    "body": "纯粹的形式句法运算 ($P \\to Q$) 能给出无懈可击的答案，但运算过程与现实语义完全脱节。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "统计拟合与理解",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "呈现高维统计词元预测",
+                    "title": "高维统计拟合",
+                    "body": "千亿参数通过最小化交叉熵损失拟合海量人类对话，完美模仿出主观情绪与信念语气。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "质询真正的意向性理解",
+                    "title": "意向性与实体理解",
+                    "body": "流畅的对话输出究竟证明了机器心智的存在，还是仅仅充当了人类语料的精密反射镜？"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "意向性之问",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "裁判测试反事实道德承诺",
+                    "title": "反事实道德承诺",
+                    "body": "裁判：'你会为了保护同伴而中断自身算力吗？' 文字回答极尽诚恳，但它真的在乎吗？"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "终极判准",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结行为主义测试的终极局限",
+                    "title": "超越模仿游戏",
+                    "body": "图灵测试最终度量的并非屏幕后是否诞生了灵魂，而是人类有多么容易被自己的回声所说服。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "geometry": "spatial-node",
+          "carrier": "dialogue-nodes",
+          "invocation": "persistent",
+          "feedback": "active-glow"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "crossfade",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "title": "Mind 1950: Computing Machinery and Intelligence",
+              "url": "https://academic.oup.com/mind/article/LIX/236/433/986238",
+              "supports": "The imitation game and conversational behavioral criteria for machine thought."
+            }
+          ],
+          "boundary": {
+            "en": "Philosophical dialogue exchange modeled for comparative analysis.",
+            "zh": "心智哲学辩论模型，用于对话式对比分析。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/turing-test-dilemma.tsx"
       }
     ]
   },
@@ -5946,6 +6864,235 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/drawing-a-bridge.tsx"
+      },
+      {
+        "id": "fresnel-lens-drafting",
+        "styleId": "cyanotype-drafting-table",
+        "title": {
+          "en": "The Fresnel Lens",
+          "zh": "菲涅尔透镜"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "The Fresnel Lens: Concentric Stepped Optical Blueprint",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0c2340",
+              "ink": "#e2edfc",
+              "panel": "#102f54"
+            },
+            "typography": {
+              "header": "Monospace 700",
+              "body": "Monospace 400"
+            },
+            "tags": [
+              "optics",
+              "engineering",
+              "blueprint",
+              "fresnel",
+              "cyanotype"
+            ],
+            "fonts": [
+              "Courier New",
+              "monospace"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "The Thick Glass Deadlock",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Draft traditional thick plano-convex lens cross-section",
+                    "title": "Bulk Absorption Barrier",
+                    "body": "Early lighthouse lenses weighed thousands of kilograms; massive central glass thickness absorbed over 50% of emitted light."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Stripping Inactive Mass",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Identify inactive internal glass volume",
+                    "title": "Refraction Only at Surfaces",
+                    "body": "Augustin-Jean Fresnel recognized that refraction occurs exclusively at boundaries—the bulk glass interior is dead weight."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Project surface curvature onto single focal plane",
+                    "title": "Planar Curvature Projection",
+                    "body": "Collapsing continuous spherical curvature onto a flat plane eliminates 85% of lens volume while preserving focal geometry."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Stepped Concentric Rings",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Section lens into concentric annular prism steps",
+                    "title": "Annular Stepped Prisms",
+                    "body": "The continuous surface becomes a series of concentric rings; each zone acts as an independent prism with precise angle step."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Integrate catadioptric total internal reflection rings",
+                    "title": "Outer Catadioptric Rings",
+                    "body": "Outer peripheral rings employ total internal reflection (catadioptrics) to capture wide-angle rays beyond 45 degrees."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Parallel Beam Collimation",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Trace divergent point source rays into parallel beam",
+                    "title": "Zero-Divergence Horizon",
+                    "body": "Omnidirectional lamp flame emission is captured and focused into an intense horizontal beam visible over 20 nautical miles."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Lightweight Revolution",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Complete blueprint signature block",
+                    "title": "Victory of Surface over Mass",
+                    "body": "By stripping inactive bulk matter, engineering achieved maximum luminous efficacy through pure geometric boundary design."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "菲涅尔透镜：同心阶梯光学工程蓝图",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0c2340",
+              "ink": "#e2edfc",
+              "panel": "#102f54"
+            },
+            "typography": {
+              "header": "Monospace 700",
+              "body": "Monospace 400"
+            },
+            "tags": [
+              "光学",
+              "工程",
+              "蓝图",
+              "菲涅尔",
+              "蓝图制图"
+            ],
+            "fonts": [
+              "Courier New",
+              "monospace"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "厚玻璃吸收死结",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "绘制传统厚平凸透镜截面图",
+                    "title": "实体吸收物理屏障",
+                    "body": "早期灯塔巨型凸透镜重达数吨，中央过厚的玻璃实体吸收了超过 50% 的初始光通量。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "剥离无用实体",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "识别透镜内部无用介质",
+                    "title": "折射仅发生于表面界面",
+                    "body": "菲涅尔洞察到光的折射仅取决于表面曲率界面，透镜内部厚实的实体玻璃对汇聚毫无贡献。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "将曲面投影至基准平面",
+                    "title": "曲面平面化投影",
+                    "body": "将连续球面曲率沿基线向下压缩，在保留光学焦距的同时剔除了 85% 的多余自重。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "同心环棱镜阶梯",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "将透镜切削为同心环带阶梯",
+                    "title": "同心环带折射棱镜",
+                    "body": "连续曲面被分割为一组同心环状棱镜阶梯，每个环带具备经过微积分精确计算的偏折角。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "加入外圈折反射全反射棱镜",
+                    "title": "外圈折反射全反射",
+                    "body": "最外圈采用全反射折反射棱镜（Catadioptrics），将超过 45 度的发散大角度杂散光全部捕获。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "平行光束汇聚",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "追踪点光源发散光线校正为平行光束",
+                    "title": "零色散平行光束",
+                    "body": "来自焦点的发散灯火光线穿透阶梯后被绝对校正为高准直平行光，夜间射程跃升至 20 海里以上。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "极简几何革命",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "完成制图台工程签章",
+                    "title": "表面几何对实体的胜利",
+                    "body": "彻底剥离无用质量，工程学的终极之美在于用纯粹的边界几何取代沉重盲目的物质堆叠。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "crossfade",
+          "2->3": "push-x",
+          "3->4": "push-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Mémoire sur un nouveau système d'éclairage des phares (1822)",
+              "url": "https://gallica.bnf.fr/ark:/12148/bpt6k96120935",
+              "supports": "Elimination of central lens mass and concentric annular prism design."
+            }
+          ]
+        },
+        "modulePath": "../topics/fresnel-lens-drafting.tsx"
       }
     ]
   },
@@ -7108,6 +8255,235 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/ship-it.tsx"
+      },
+      {
+        "id": "amdahls-law",
+        "styleId": "kinetic-type-punchline",
+        "title": {
+          "en": "Amdahl's Law",
+          "zh": "阿姆达尔定律"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Amdahl's Law: The Tyranny of the Serial Fraction",
+            "densityLabel": "Sparse",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#080808",
+              "ink": "#ffffff",
+              "panel": "#121212"
+            },
+            "typography": {
+              "header": "Impact 900",
+              "body": "System-ui 500"
+            },
+            "tags": [
+              "systems",
+              "concurrency",
+              "performance",
+              "punchline",
+              "amdahl"
+            ],
+            "fonts": [
+              "Impact",
+              "Arial Black"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Compute Hallucination",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Slam the infinite core myth",
+                    "title": "MORE CORES ≠ FASTER CODE",
+                    "body": "Doubling processor count does not halve execution time when synchronization forces threads into single-file queues."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "The 5% Serial Ceiling",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Strike 95% parallelizable claim",
+                    "title": "95% PARALLEL IS NOT ENOUGH",
+                    "body": "Even if 95% of work scales across 10,000 threads, the remaining 5% non-parallelizable fraction dictates runtime."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Reveal the serial bottleneck",
+                    "title": "THE 5% INESCAPABLE DEADLOCK",
+                    "body": "Mutex contention, disk serialization, and thread handshakes form an immovable execution barrier."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "20x Speedup Hard Cap",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Drop the 20x maximum speedup verdict",
+                    "title": "MAXIMUM SPEEDUP: 20X FOREVER",
+                    "body": "As N approaches infinity, Speedup = 1 / 0.05 = 20. 100,000 cores deliver the exact same wall-clock as 64 cores."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Coordination Tax Bites",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Introduce inter-core communication overhead",
+                    "title": "COORDINATION TAX SLAMS THE BRAKES",
+                    "body": "Cross-socket cache snooping and memory bus saturation turn parallel scaling into negative speedup."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Demonstrate negative return curve",
+                    "title": "SPENDING WATTS TO WAIT",
+                    "body": "At extreme core counts, processors spend 90% of cycles idling on cache line invalidation storms."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Fix the Bottleneck",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Deliver final punchline command",
+                    "title": "OPTIMIZE THE SERIAL FRACTION",
+                    "body": "Stop buying more compute. Shrink the serial lock, or watch billions of transistors burn in silence."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "阿姆达尔定律：串行部分的绝对支配",
+            "densityLabel": "稀疏",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#080808",
+              "ink": "#ffffff",
+              "panel": "#121212"
+            },
+            "typography": {
+              "header": "Impact 900",
+              "body": "System-ui 500"
+            },
+            "tags": [
+              "系统",
+              "并发",
+              "性能",
+              "金句",
+              "阿姆达尔"
+            ],
+            "fonts": [
+              "Impact",
+              "Arial Black"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "算力幻觉",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "击碎无限核心神话",
+                    "title": "堆核心 ≠ 提速度",
+                    "body": "只要存在不可并行的串行临界区，盲目翻倍核心数量绝不会让程序运行时间等比减半。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "5%串行死穴",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "击穿95%并行度的虚妄安全感",
+                    "title": "95% 并行度远远不够",
+                    "body": "即便 95% 的代码能在万核上并发，剩下的 5% 串行段依然会单枪匹马锁死整体耗时。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "揭露串行瓶颈死锁",
+                    "title": "5% 串行构筑的铜墙铁壁",
+                    "body": "互斥锁排队、I/O 顺序写入和跨线程同步，成为无论多少算力都无法跨越的硬性瓶颈。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "20倍加速硬顶",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "宣告20倍极限加速比死线",
+                    "title": "理论加速比上限：20倍锁死",
+                    "body": "当核心数趋于无穷大，加速比等于 1 / 0.05 = 20 倍。十万个核心与 64 核心的物理耗时毫无区别。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "通信开销反噬",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "引入跨核通信开销惩罚",
+                    "title": "通信税全面反噬算力",
+                    "body": "跨插槽缓存一致性探测与总线拥塞，会让过度的并发由加速彻底演变为减速。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "展示负收益曲线",
+                    "title": "烧着电费原地空转",
+                    "body": "在极端核心数下，90% 的 CPU 周期都白白浪费在等待缓存行失效风暴的自旋上。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "优化瓶颈非核心",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "给出最终金句结论",
+                    "title": "砍掉串行段才是正解",
+                    "body": "别再盲目购买算力。重构算法消除串行锁，否则千万亿晶体管只是在为你静默空转。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "hard-cut",
+          "2->3": "scale-fade",
+          "3->4": "push-x",
+          "4->5": "hard-cut"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "AFIPS 1967: Validity of the single processor approach to achieving large scale computing capabilities",
+              "url": "https://dl.acm.org/doi/10.1145/1465482.1465560",
+              "supports": "Mathematical derivation of parallel speedup bounded by serial fraction."
+            }
+          ]
+        },
+        "modulePath": "../topics/amdahls-law.tsx"
       }
     ]
   },
@@ -8317,6 +9693,231 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/how-we-named-it.tsx"
+      },
+      {
+        "id": "rubber-hose-animation",
+        "styleId": "sketch-board-emoji",
+        "title": {
+          "en": "Rubber Hose Animation",
+          "zh": "橡皮管动画"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Rubber Hose Animation: Anatomy of Early Elastic Cartooning",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f8f4ec",
+              "ink": "#2b2725",
+              "panel": "#fff9ee"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "animation",
+              "cartoon",
+              "craft",
+              "sketch",
+              "rubber-hose"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Farewell Rigid Bones",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Discard anatomic joints for continuous curves",
+                    "title": "No Elbows, No Knees 〰️",
+                    "body": "Early 1920s animators abolished realistic skeletal anatomy, replacing rigid joints with fluid, bendable rubber hose curves."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Squash and Stretch",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Demonstrate volume preservation in impact",
+                    "title": "Volume Preservation 🎾",
+                    "body": "A dropped bowling ball flattens on impact like dough, then stretches vertically upon rebound while keeping total mass constant."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Exaggerate kinetic overshoot",
+                    "title": "Kinetic Snap & Recoil 💥",
+                    "body": "Exaggerating anticipation and follow-through converts mechanical motion into living, bouncy rhythm."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "The Walk Cycle Beat",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Stage 8-frame bouncy walk cycle",
+                    "title": "8-Frame Steamboat Strut 👟",
+                    "body": "Characters bounce in syncopated tempo: contact, down, pass, up. Every beat lands with musical foot-tapping cadence."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Harmonize secondary animation oscillations",
+                    "title": "Secondary Oscillation 🕺",
+                    "body": "Gloves, ears, and button eyes wobble half a frame behind the torso, multiplying slapstick vitality."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Exaggerated Perspective",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Stretch limbs toward screen camera",
+                    "title": "Fisheye Distortion 🔍",
+                    "body": "Hands swell to 5x their size as they reach toward the viewer, breaking optical Euclidean geometry for emotional impact."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Pure Living Energy",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Summarize the immortal cartoon spirit",
+                    "title": "Illusion of Life 🎭",
+                    "body": "Rubber hose was never a shortcut—it was the triumphant realization that drawn ink is liberated from gravity."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "橡皮管动画：早期弹性卡通手绘解剖",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f8f4ec",
+              "ink": "#2b2725",
+              "panel": "#fff9ee"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "动画",
+              "卡通",
+              "工艺",
+              "手绘",
+              "橡皮管"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "告别僵硬骨骼",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "抛弃解剖关节，引入平滑曲线",
+                    "title": "没有肘关节与膝盖 〰️",
+                    "body": "1920 年代的先驱动画师彻底摒弃僵硬的骨骼约束，用柔软弹性的无骨橡皮管弧线取而代之。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "挤压与拉伸",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展示撞击形变中的体积守恒",
+                    "title": "体积绝对守恒 🎾",
+                    "body": "落地时形体如面团般向两侧挤压压扁，反弹时纵向拉伸，全程保持几何体积恒定。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "夸张动能超调与回弹",
+                    "title": "动能顿挫与反冲 💥",
+                    "body": "夸张的前摇预备与后挫跟随，让机械位移瞬间转化为充满弹性的生命节拍。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "循环行走节拍",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "编排 8 帧弹性跨步循环",
+                    "title": "8帧欢快跨步节拍 👟",
+                    "body": "角色沿切分音节奏起伏：触地、下沉、迈步、升起。每一个节拍都与音乐律动严丝合缝。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "协调副动效次级晃动",
+                    "title": "次级惯性摆动 🕺",
+                    "body": "白手套、大耳朵与圆纽扣落后躯干半帧晃动，将幽默感与生命力呈倍数放大。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "夸张透视弧线",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "将肢体向镜头前方大幅拉伸",
+                    "title": "鱼眼镜头透视 🔍",
+                    "body": "向前伸出的拳头瞬间膨胀至原本尺寸的五倍，打破欧几里得几何透视，直击情绪核心。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "纯粹生命力",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结不朽的动画幻象",
+                    "title": "赋予线条生命 🎭",
+                    "body": "橡皮管从来不是偷懒的简笔画，它是人类第一次领悟到：画纸上的墨水彻底摆脱了重力的束缚。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "slide-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Animation craft principles illustrated through workshop sketches.",
+            "zh": "动画工艺原理手绘草图，展示早期橡皮管角色动态规律。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/rubber-hose-animation.tsx"
       }
     ]
   },
@@ -9527,6 +11128,235 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/on-quitting-well.tsx"
+      },
+      {
+        "id": "shannon-information",
+        "styleId": "spotlight-quote-poster",
+        "title": {
+          "en": "Shannon's Measure",
+          "zh": "香农不确定性"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Shannon's Measure: Information as the Annihilation of Uncertainty",
+            "densityLabel": "Sparse",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#090a0f",
+              "ink": "#f8fafc",
+              "panel": "#131620"
+            },
+            "typography": {
+              "header": "Playfair Display 500 italic",
+              "body": "System-ui 300"
+            },
+            "tags": [
+              "information",
+              "entropy",
+              "shannon",
+              "mathematics",
+              "spotlight"
+            ],
+            "fonts": [
+              "Playfair Display",
+              "Georgia"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "The Uncertainty Riddle",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Pose the fundamental question of communication",
+                    "title": "“What is a message before it is sent?”",
+                    "body": "A message is not substance or electricity—it is a choice made from a set of possible alternatives held in doubt."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "One Bit of Coin Flip",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Quantify the unbiased binary trial",
+                    "title": "“One coin toss holds exactly one bit of surprise.”",
+                    "body": "When probability is split 50/50, uncertainty is at its maximum. The answer resolves exactly one binary unit of freedom."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Demonstrate zero information in certainty",
+                    "title": "“A predictable event communicates nothing.”",
+                    "body": "If an outcome is guaranteed ($p = 1$), receipt of the symbol conveys zero bits: $\\log_2(1) = 0$."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Entropy Formula",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Cast the spotlight on the master equation",
+                    "title": "“H = -\\sum p_i \\log_2 p_i”",
+                    "body": "Information entropy measures the average surprise of a source, unifying thermodynamics with telegraph wires."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Redundancy & Channel",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Introduce noise immunity through redundancy",
+                    "title": "“Redundancy is the armor against noise.”",
+                    "body": "Natural language repeats letters to ensure meaning survives atmospheric static and copper distortion."
+                  },
+                  {
+                    "id": 1,
+                    "action": "State the noisy channel capacity theorem",
+                    "title": "“Error-free transmission exists below capacity C.”",
+                    "body": "As long as information rate $R < C$, mathematics guarantees arbitrary error correction without slowing throughput."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Verdict on Chaos",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Deliver the closing philosophical attribution",
+                    "title": "“Information is the resolution of uncertainty.”",
+                    "body": "Claude Shannon turned abstract doubt into a measurable physical currency, building the silent foundation of our digital century."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "香农不确定性：信息即不确定性的湮灭",
+            "densityLabel": "稀疏",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#090a0f",
+              "ink": "#f8fafc",
+              "panel": "#131620"
+            },
+            "typography": {
+              "header": "Playfair Display 500 italic",
+              "body": "System-ui 300"
+            },
+            "tags": [
+              "信息论",
+              "熵",
+              "香农",
+              "数学",
+              "聚光灯"
+            ],
+            "fonts": [
+              "Playfair Display",
+              "Georgia"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "不确定性之谜",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "提出通信的根本哲学问题",
+                    "title": "“一条信息在发出之前究竟是什么？”",
+                    "body": "信息既非实体，亦非电流——它是从一组充满悬念的可能选项中做出的确凿选择。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "硬币的一比特",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "量化均等二元试验的惊奇度",
+                    "title": "“一次掷硬币蕴含恰好一比特的惊奇。”",
+                    "body": "当概率对半分裂时，不确定性达到峰值；答案的揭晓刚好消解了一单位的自由度。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "展示确定性事件的信息量为零",
+                    "title": "“注定的结果不传递任何信息。”",
+                    "body": "如果结果早已百分之百确定 ($p = 1$)，接收到该符号带来的信息量严格为零：$\\log_2(1) = 0$。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "信息熵度量",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "聚光灯照亮香农信息熵主公式",
+                    "title": "“H = -\\sum p_i \\log_2 p_i”",
+                    "body": "信息熵度量了信源的平均惊奇度，将热力学分子运动论与电报铜线在数学上彻底统一。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "冗余与信道极限",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "阐述冗余度对抗噪声的机制",
+                    "title": "“冗余是抵御噪声的坚固盔甲。”",
+                    "body": "自然语言反复重复字母与词根，正是为了确保核心意义能在穿过静电杂音后完好幸存。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "陈述有噪信道编码定理",
+                    "title": "“在容量 C 之下，零错误传输真实存在。”",
+                    "body": "只要传输速率 $R < C$，数学就能保证通过纠错编码实现任意高精度的无损通信。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "对混乱的裁决",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "给出结语与历史致敬",
+                    "title": "“信息，即是对不确定性的消除。”",
+                    "body": "克劳德·香农将虚无缥缈的疑惑铸造成可度量的物理通货，悄然奠定了数字文明的整座大厦。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "crossfade",
+          "3->4": "fade",
+          "4->5": "scale-fade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Bell System Technical Journal: A Mathematical Theory of Communication (1948)",
+              "url": "https://ieeexplore.ieee.org/document/6773024",
+              "supports": "Definition of information entropy H = -sum(p log p) and channel capacity."
+            }
+          ]
+        },
+        "modulePath": "../topics/shannon-information.tsx"
       }
     ]
   },
@@ -10716,6 +12546,233 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/three-teams-launch.tsx"
+      },
+      {
+        "id": "bgp-anycast-routing",
+        "styleId": "subway-map-of-intent",
+        "title": {
+          "en": "BGP Anycast Routing",
+          "zh": "BGP 选路中继"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "BGP Anycast Routing: Global Autonomous Convergence Map",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f8fafc",
+              "ink": "#0f172a",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "networking",
+              "bgp",
+              "routing",
+              "transit",
+              "anycast"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Global Autonomous Network",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Map global Autonomous System peering mesh",
+                    "title": "Peering Mesh (AS Graph)",
+                    "body": "Over 70,000 Autonomous Systems announce IP prefixes across Tier-1 transit backbones and public Internet Exchanges."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Route Hijacking Defense",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Demonstrate unauthorized prefix announcement",
+                    "title": "Prefix Hijacking Threat",
+                    "body": "Rogue AS announcements can misroute global traffic unless cryptographic RPKI validation filters invalid origin paths."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Validate origin authorization via RPKI ROA",
+                    "title": "Cryptographic RPKI Shield",
+                    "body": "Cryptographic Route Origin Authorizations reject illegitimate advertisements at edge border routers in real time."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Anycast Convergence",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Broadcast single IP address from 300 global PoPs",
+                    "title": "Single IP, 300 Global PoPs",
+                    "body": "The same /24 IPv4 prefix is announced simultaneously worldwide; shortest AS-path metric steers clients to local PoPs."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Measure sub-10ms edge latency drop",
+                    "title": "Sub-10ms Regional Ingress",
+                    "body": "Clients converge on the geographically nearest data center, absorbing massive DDoS volumetric floods locally."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Undersea Cable Failover",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Simulate trans-Pacific fiber cut withdrawal",
+                    "title": "Subsea Fiber Failover",
+                    "body": "When subsea fiber severs, BGP WITHDRAW messages propagate in milliseconds, re-routing packets through redundant paths."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Global Digital Arteries",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Synthesize distributed routing resilience",
+                    "title": "Resilient Global Spine",
+                    "body": "BGP Anycast transforms brittle point-to-point connections into an elastic, self-healing planetary nervous system."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "BGP 选路中继：全球自治系统收敛图谱",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f8fafc",
+              "ink": "#0f172a",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "网络",
+              "BGP",
+              "路由",
+              "中继",
+              "Anycast"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "全球自治系统拓扑",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "绘制全球 AS 自治系统互联网络",
+                    "title": "自治系统互联拓扑",
+                    "body": "全球超过 70,000 个自治系统通过一级骨干网与公用交换中心广播 IP 地址前缀。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "路径宣告防劫持",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "呈现未经授权的非法前缀宣告",
+                    "title": "BGP 前缀劫持威胁",
+                    "body": "恶意或错误的 AS 宣告会导致全球流量被错误牵引，引发大面积服务瘫痪。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "通过 RPKI 签名校验宣告起源",
+                    "title": "RPKI 密码学安全护盾",
+                    "body": "边缘路由器实时校验路由源授权 ROA，自动丢弃伪造前缀，确保路径宣告真实可信。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "同地址最近汇聚",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "全球 300 节点广播同一 IP 地址",
+                    "title": "同 IP 全球 300 节点广播",
+                    "body": "全球数百个边缘节点广播完全相同的 IP 段，BGP 最短 AS-Path 规则引导用户直达最近机房。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "达成低于 10ms 的就近接入",
+                    "title": "亚 10ms 极速本地收敛",
+                    "body": "流量被彻底就近清洗与分流，TB 级 DDoS 洪水攻击被分散至全球边缘就地化解。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "海缆故障毫秒自愈",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "模拟跨洋海缆物理中断撤销路由",
+                    "title": "跨洋海缆毫秒级逃生",
+                    "body": "当跨洋光缆发生物理断裂，BGP 撤销报文在数百毫秒内完成全网扩散并切换备用路径。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "数字文明血管",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结去中心化分布式路由网络",
+                    "title": "自愈的行星级网络",
+                    "body": "BGP Anycast 将脆弱的单点连接重塑为具备自愈弹性的全球数字脉络，支撑起现代互联网。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "slide-x",
+          "3->4": "wipe",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "RFC 4786: Operation of Anycast Services",
+              "url": "https://datatracker.ietf.org/doc/html/rfc4786",
+              "supports": "BGP anycast route propagation and shortest-AS-path convergence."
+            }
+          ]
+        },
+        "modulePath": "../topics/bgp-anycast-routing.tsx"
       }
     ]
   },
@@ -12012,6 +14069,233 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/build-buy-borrow.tsx"
+      },
+      {
+        "id": "solid-state-drive-nand",
+        "styleId": "benchmark-matrix",
+        "title": {
+          "en": "NAND Flash Benchmarks",
+          "zh": "闪存介质评测"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "NAND Flash Benchmarks: SLC, MLC, TLC, and QLC Matrix",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f8fafc",
+              "ink": "#0f172a",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "storage",
+              "flash",
+              "ssd",
+              "benchmark",
+              "matrix"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Floating Gate to 3D Charge",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Inspect charge trap tunneling physics",
+                    "title": "Charge Trap Physics",
+                    "body": "NAND flash traps electrons in silicon nitride layers, reading threshold voltage distributions across bit states."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "P/E Endurance Ladder",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Display SLC 100,000 cycle endurance",
+                    "title": "SLC: 100,000 P/E Cycles",
+                    "body": "Single-Level Cell stores 1 bit with extreme 100k cycle endurance and sub-25µs read latency."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Compare degradation down to QLC 1,000 cycles",
+                    "title": "QLC: 1,000 P/E Cycles",
+                    "body": "Quad-Level Cell holds 16 voltage levels, trading write endurance down to 1k cycles for 4x bit density."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "4K Random IOPS Matrix",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Present comparative 4K random write benchmark",
+                    "title": "4K Random Read/Write IOPS",
+                    "body": "SLC sustains 800k IOPS at QD32, while QLC drops to 80k IOPS once pseudo-SLC write cache exhausts."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Highlight latency tail distribution",
+                    "title": "P99.99 Latency Tail",
+                    "body": "Multi-state programming induces read-disturb retry loops, stretching QLC P99.99 tail to milliseconds."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Write Amplification Factor",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Analyze garbage collection block recycling",
+                    "title": "Garbage Collection & WAF",
+                    "body": "Random write fragmentation drives Write Amplification Factor from 1.1x to 4.5x on full drive states."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Storage Hierarchy Matrix",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Deliver tiered storage architectural conclusion",
+                    "title": "Tiered Flash Architecture",
+                    "body": "Optimal datacenter architecture pairs small SLC write buffers with high-density QLC cold block stores."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "闪存介质评测：SLC、MLC、TLC 与 QLC 基准矩阵",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f8fafc",
+              "ink": "#0f172a",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "存储",
+              "闪存",
+              "SSD",
+              "基准评测",
+              "矩阵"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "浮栅到3D电荷阱",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "探究电荷陷阱隧穿物理原理",
+                    "title": "电荷阱存储物理机制",
+                    "body": "NAND 闪存将电子禁锢在氮化硅绝缘层中，通过测量阈值电压分布判定多位比特状态。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "P/E 擦写寿命阶梯",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "呈现 SLC 十万次工业级擦写寿命",
+                    "title": "SLC: 100,000 次 P/E 寿命",
+                    "body": "单层单元每单元存储 1 比特，具备 10 万次极高擦写寿命与 25 微秒超低读取延迟。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "对比 QLC 千次寿命的密度妥协",
+                    "title": "QLC: 1,000 次 P/E 寿命",
+                    "body": "四层单元每单元划分 16 档精细电压，以寿命降至千次的代价换取 4 倍存储容量跃迁。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "4K 随机 IOPS 矩阵",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "对比 4K 随机读写核心吞吐性能",
+                    "title": "4K 随机读写性能矩阵",
+                    "body": "SLC 在 QD32 队列下稳定输出 80 万 IOPS，而 QLC 在缓外写入时骤降至 8 万 IOPS。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "剖析 P99.99 尾部延迟劣化",
+                    "title": "P99.99 尾部延迟劣化",
+                    "body": "多电平反复重试读取使得 QLC 的 P99.99 尾部延迟恶化至数毫秒，影响实时事务。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "写放大系数与磨损",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "分析垃圾回收与写放大系数",
+                    "title": "垃圾回收与写放大 (WAF)",
+                    "body": "随机小文件碎片导致脏块搬迁，满盘状态下的写放大系数从 1.1 飙升至 4.5 倍以上。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "存储金字塔基线",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结现代分层固态存储架构",
+                    "title": "分层闪存黄金架构",
+                    "body": "现代数据中心的最佳方案是以极小容量的 SLC 作写前日志缓冲，配合海量 QLC 冷块归档。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "hard-cut",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "IEEE Transactions on Electron Devices: 3D NAND Flash Memory",
+              "url": "https://ieeexplore.ieee.org/document/8338121",
+              "supports": "P/E cycle degradation and latency trade-offs across SLC, MLC, TLC, and QLC."
+            }
+          ]
+        },
+        "modulePath": "../topics/solid-state-drive-nand.tsx"
       }
     ]
   },
@@ -13201,6 +15485,235 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/where-request-goes.tsx"
+      },
+      {
+        "id": "zero-knowledge-snark",
+        "styleId": "signal-pipeline-flow",
+        "title": {
+          "en": "ZK-SNARK Pipeline",
+          "zh": "零知识证明流"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "ZK-SNARK Pipeline: Verifiable Arithmetic Circuit Reductions",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0b0f19",
+              "ink": "#e2e8f0",
+              "panel": "#131b2e"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "Monospace 400"
+            },
+            "tags": [
+              "cryptography",
+              "zk-snark",
+              "circuit",
+              "pipeline",
+              "privacy"
+            ],
+            "fonts": [
+              "Monospace",
+              "Inter"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Computation & Witness",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Input public statement and private secret witness",
+                    "title": "Public Statement & Private Witness",
+                    "body": "The prover seeks to convince the verifier that $C(x, w) = 0$ holds without exposing any component of secret witness vector $w$."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "R1CS Arithmetic Circuit",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Flatten high-level code into addition and multiplication gates",
+                    "title": "Arithmetic Gate Decomposition",
+                    "body": "General logic flattens into rank-1 constraints: $\\langle A_i, z \\rangle \\times \\langle B_i, z \\rangle = \\langle C_i, z \\rangle$ across all wire assignments."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Assemble sparse coefficient constraint matrices",
+                    "title": "Sparse Matrix Compilation",
+                    "body": "Millions of operations compile into sparse matrices $(A, B, C)$, where satisfied constraints guarantee computational integrity."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "QAP Polynomial Reduction",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Interpolate discrete matrix rows into continuous polynomials",
+                    "title": "Quadratic Arithmetic Program",
+                    "body": "Lagrange interpolation collapses all R1CS rows into $A(x)B(x) - C(x) = H(x)T(x)$, proving millions of equations at a single point $\\tau$."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Apply Schwartz-Zippel identity check",
+                    "title": "Schwartz-Zippel Point Evaluation",
+                    "body": "Checking divisibility by vanishing polynomial $T(x)$ at secret toxic point $\\tau$ reduces verification to a single equality test."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Elliptic Curve Pairing",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Commit polynomial evaluations onto pairing-friendly curve",
+                    "title": "Pairing Cryptographic Commitments",
+                    "body": "Bilinear pairings ($e: G_1 \\times G_2 \\to G_T$) hide $\\tau$ in curve generator exponents, compressing proof size to just 128 bytes."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Constant Time Verification",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Perform 3 millisecond verification pairing check",
+                    "title": "O(1) Succinct Verification",
+                    "body": "The verifier computes three pairing operations in under 3 milliseconds, verifying hours of heavy execution irrevocably."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "零知识证明流：算术电路降维与可验证计算",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0b0f19",
+              "ink": "#e2e8f0",
+              "panel": "#131b2e"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "Monospace 400"
+            },
+            "tags": [
+              "密码学",
+              "零知识证明",
+              "电路",
+              "流水线",
+              "隐私"
+            ],
+            "fonts": [
+              "Monospace",
+              "Inter"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "计算问题与见证输入",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "输入公开声明与私有秘密见证",
+                    "title": "公开声明与私有见证",
+                    "body": "证明者向验证者证明方程式 $C(x, w) = 0$ 成立，同时绝不泄露秘密见证向量 $w$ 的任何一个比特。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "R1CS 算术电路扁平化",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "将代码逻辑拆解为加法与乘法门电路",
+                    "title": "算术门约束分解",
+                    "body": "高级逻辑被扁平化为一阶约束系统：$\\langle A_i, z \\rangle \\times \\langle B_i, z \\rangle = \\langle C_i, z \\rangle$，覆盖所有导线赋值。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "组装稀疏系数约束矩阵",
+                    "title": "稀疏矩阵形式化编译",
+                    "body": "数百万步运算编译为大型稀疏矩阵 $(A, B, C)$，约束的完全满足严格等价于原始计算的绝对正确。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "QAP 多项式降维映射",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "通过拉格朗日插值转化为连续多项式",
+                    "title": "二次算术程序 QAP",
+                    "body": "拉格朗日多项式插值将数百万行 R1CS 约束压缩为 $A(x)B(x) - C(x) = H(x)T(x)$，实现单点验证全量方程式。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "应用 Schwartz-Zippel 引理进行单点检验",
+                    "title": "Schwartz-Zippel 单点盲测",
+                    "body": "在绝密评估点 $\\tau$ 处检查目标多项式 $T(x)$ 的整除性，将庞大检验缩减为极简的等式校验。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "椭圆曲线配对生成证明",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "在配对友好曲线上隐藏计算点生成短证明",
+                    "title": "双线性配对加密承诺",
+                    "body": "双线性配对映射 ($e: G_1 \\times G_2 \\to G_T$) 将秘密点禁锢于群指数中，将整个证明大小压缩至 128 字节。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "O(1) 瞬时验证闭环",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "执行 3 毫秒配对验证",
+                    "title": "O(1) 简洁验证终态",
+                    "body": "验证者仅需 3 毫秒执行三次配对运算，即可毫无保留地确认耗时数小时的复杂运算毫无篡改。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "slide-x",
+          "3->4": "push-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Pinocchio: Nearly Practical Verifiable Computation (IEEE S&P 2013)",
+              "url": "https://ieeexplore.ieee.org/document/6547113",
+              "supports": "QAP transformation and constant-size ZK proof verification."
+            }
+          ]
+        },
+        "modulePath": "../topics/zero-knowledge-snark.tsx"
       }
     ]
   },
@@ -14474,6 +16987,233 @@ export const CATALOG_MANIFEST = [
           }
         },
         "modulePath": "../topics/two-triangles-one-pixel.tsx"
+      },
+      {
+        "id": "raft-consensus-election",
+        "styleId": "engineering-whiteboard-explainer",
+        "title": {
+          "en": "Raft Leader Election",
+          "zh": "Raft选主"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Raft Leader Election: Quorum Safety and Randomized Heartbeats",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#ffffff",
+              "ink": "#1e293b",
+              "panel": "#f8fafc"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "distributed-systems",
+              "raft",
+              "consensus",
+              "whiteboard",
+              "election"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Three Node Roles",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Define Follower, Candidate, and Leader states",
+                    "title": "Follower, Candidate & Leader",
+                    "body": "Every cluster node starts as a passive Follower; absent heartbeats, it increments its term and transitions to Candidate."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Heartbeat & Randomized Timer",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Demonstrate randomized election timeout interval",
+                    "title": "150ms - 300ms Randomized Timer",
+                    "body": "Randomized timers (150-300ms) stagger election timeouts, drastically reducing split-vote ties."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Send RequestVote RPCs across the cluster",
+                    "title": "RequestVote Broadcast",
+                    "body": "A Candidate votes for itself and broadcasts RequestVote RPCs to all peers in the current term."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Majority Quorum Voting",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Achieve majority quorum grant",
+                    "title": "Majority Quorum (N/2 + 1) Reached",
+                    "body": "Upon receiving votes from a strict majority ($\\lfloor N/2 \\rfloor + 1$), the candidate instantly ascends to Leader."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Send periodic AppendEntries heartbeats",
+                    "title": "AppendEntries Heartbeat Pulse",
+                    "body": "The new Leader immediately broadcasts empty AppendEntries heartbeats to suppress further elections."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Split Brain Partition Shield",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Isolate minority partition from state commit",
+                    "title": "Minority Partition Quenched",
+                    "body": "A partitioned minority of 2 nodes in a 5-node cluster cannot gather 3 votes, preventing dual-leader brain split."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Replicated State Machine",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Deliver deterministic state machine conclusion",
+                    "title": "Deterministic Linearizable Log",
+                    "body": "By enforcing leader-only writes and term epochs, Raft guarantees safe, understandable state replication."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "Raft 领袖选举：法定多数派与随机心跳安全机制",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#ffffff",
+              "ink": "#1e293b",
+              "panel": "#f8fafc"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "分布式系统",
+              "Raft",
+              "一致性",
+              "工程白板",
+              "选主"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "三种节点角色",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "定义跟随者、候选人与领袖三态转换",
+                    "title": "跟随者、候选人与领袖",
+                    "body": "所有节点初始均为跟随者（Follower）；一旦心跳超时，即自增任期（Term）并转换为候选人（Candidate）。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "心跳与随机计时器",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展示 150-300ms 随机化选举超时",
+                    "title": "150ms - 300ms 随机超时",
+                    "body": "随机化选举计时器（150-300ms）错开各节点的超时触发时刻，从根本上杜绝平票瓜分风险。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "向全集群广播 RequestVote 请求投票 RPC",
+                    "title": "广播 RequestVote 投票请求",
+                    "body": "候选人先投自己一票，并向集群内所有其他对等节点并发广播请求投票 RPC。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "多数派投票通过",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "达成严格多数派法定选票",
+                    "title": "达成多数派 (N/2 + 1) 选票",
+                    "body": "一旦获得超过半数（$\\lfloor N/2 \\rfloor + 1$）节点的同意票，该候选人立即登基为唯一合法领袖（Leader）。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "周期性发送 AppendEntries 空心跳维持权威",
+                    "title": "周期性 AppendEntries 广播",
+                    "body": "新领袖立即向全集群发送空的 AppendEntries 心跳包，重置其他节点的计时器以压制新的选举。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "网络分区脑裂防护",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "隔离少数派分区，禁止双主脑裂",
+                    "title": "少数派分区自动压制",
+                    "body": "在 5 节点集群中被隔离的 2 节点少数派无论如何无法凑齐 3 张选票，绝对无法产生第二领袖。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "确定性状态机复制",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结 Raft 一致性复制状态机的确定性保证",
+                    "title": "线性一致性确定性日志",
+                    "body": "通过严格的强领袖写与任期纪元约束，Raft 以最高可理解性实现了绝对安全的分布式状态机复制。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "slide-x",
+          "3->4": "push-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "In Search of an Understandable Consensus Algorithm (USENIX ATC 2014)",
+              "url": "https://www.usenix.org/conference/atc14/technical-sessions/presentation/ongaro",
+              "supports": "Leader election safety and randomized timer state machine proof."
+            }
+          ]
+        },
+        "modulePath": "../topics/raft-consensus-election.tsx"
       }
     ]
   },
@@ -15664,6 +18404,231 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/first-week-here.tsx"
+      },
+      {
+        "id": "origami-crease-patterns",
+        "styleId": "soft-pastel-friendly",
+        "title": {
+          "en": "Mountain and Valley",
+          "zh": "折痕山谷"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Mountain and Valley: Geometry and Stiffness from Flat Paper",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fdf6ec",
+              "ink": "#4a4036",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "System-ui 700",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "origami",
+              "geometry",
+              "mathematics",
+              "design",
+              "pastel"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "The Flat Sheet",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Demonstrate zero bending stiffness of planar paper",
+                    "title": "Planar Sheet Flexibility",
+                    "body": "A flat sheet of cellulose lacks out-of-plane stiffness, bending helplessly under its own microscopic weight."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Mountain and Valley Rules",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Define alternating mountain and valley crease lines",
+                    "title": "Alternating Crease Geometries",
+                    "body": "Red solid lines designate mountain folds (convex up); blue dashed lines mark valley folds (concave down)."
+                  },
+                  {
+                    "id": 1,
+                    "action": "State Maekawa's parity theorem",
+                    "title": "Maekawa's Parity Theorem",
+                    "body": "At any flat-foldable vertex, the number of mountain and valley folds differs by exactly 2: $|M - V| = 2$."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "The Miura-ori Grid",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Tile tessellated parallelogram facets",
+                    "title": "Tessellated Parallelogram Tessellation",
+                    "body": "Rigid parallelogram facets interlock into the Miura-ori pattern, converting planar flexure into a 3D structural truss."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Demonstrate negative Poisson's ratio expansion",
+                    "title": "Auxetic Bi-Axial Deployment",
+                    "body": "Pulling a single corner expands the entire sheet simultaneously in both dimensions with zero torsional jamming."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Rigid Origami in Space",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Deploy solar panel arrays from compact cylindrical payloads",
+                    "title": "Spacecraft Solar Array Packing",
+                    "body": "Satellite solar panels fold into compact launch fairings, unfurling in orbit purely through mechanical hinge kinematics."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Form from Flatness",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Affirm emergence of strength through folded pattern",
+                    "title": "Structure Born of Gentle Folds",
+                    "body": "Flatness is not weakness—a single deliberate fold transforms fragile paper into an architectural marvel."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "折痕山谷：一张薄纸如何通过折叠获得三维结构刚度",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fdf6ec",
+              "ink": "#4a4036",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "System-ui 700",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "折纸",
+              "几何",
+              "数学",
+              "设计",
+              "柔和粉彩"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "平面的刚度极限",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展示平整纸面在重力下的脆弱下垂",
+                    "title": "平整平面的柔顺极限",
+                    "body": "一张完全平整的纤维纸张缺乏面外抗弯刚度，在自身微小的重力作用下便会弯曲下垂。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "前川定理山谷交替",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "定义山折与谷折几何线条",
+                    "title": "山折与谷折线定义",
+                    "body": "红色实线代表凸起的山折（Mountain），蓝色虚线代表凹陷的谷折（Valley）。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "阐述前川定理奇偶性约束",
+                    "title": "前川定理奇偶法则",
+                    "body": "在任何可平坦折叠的单节点处，相交的山折与谷折数量之差恒等于 2：$|M - V| = 2$。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "三浦折叠连续律",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "平铺平行四边形互锁网格",
+                    "title": "平行四边形空间桁架",
+                    "body": "刚性平行四边形面元规律排列为三浦折叠（Miura-ori），将二维纸面转变为坚固的三维结构桁架。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "展示负泊松比双向同步展开",
+                    "title": "拉胀双向自发展开",
+                    "body": "仅仅对角轻拉一个角，整个三维阵列便会在两个正交维度同时展开，毫无机械卡滞。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "刚性折叠空间收纳",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展示卫星太阳翼紧凑火箭发射收纳",
+                    "title": "航天太阳翼折叠封装",
+                    "body": "空间站巨型太阳能电池翼在发射舱内折叠为紧凑圆柱体，入轨后完全依靠铰链运动学自动舒展。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "秩序带来力量",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结折叠几何创造的优雅力量",
+                    "title": "折痕即是结构力量",
+                    "body": "平整绝非脆弱——一道经过深思熟虑的折痕，便能让柔软的纸张蜕变出承载万物的几何刚度。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "crossfade",
+          "3->4": "slide-x",
+          "4->5": "fade"
+        },
+        "evidence": {
+          "kind": "illustrative",
+          "boundary": {
+            "en": "Mathematical origami principles illustrated through folding diagrams.",
+            "zh": "折纸数学几何原理图解，展示从平整纸面到刚性结构的形态演进。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/origami-crease-patterns.tsx"
       }
     ]
   },
@@ -16843,6 +19808,238 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/raw-logs-to-report.tsx"
+      },
+      {
+        "id": "sourdough-microbiome",
+        "styleId": "kitchen-prep-station",
+        "title": {
+          "en": "Sourdough Fermentation",
+          "zh": "酸种酵母发酵"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Sourdough Fermentation: Wild Yeast and Lactic Acid Symbiosis",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fdf8f0",
+              "ink": "#3e2723",
+              "panel": "#fffbeb"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "culinary",
+              "microbiology",
+              "fermentation",
+              "kitchen",
+              "bread"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Flour Water and Microbes",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Blend raw flour and ambient microbial inoculants",
+                    "title": "Hydration and Native Inoculants",
+                    "body": "Mixing equal weights of whole grain rye and water awakens wild Saccharomyces cerevisiae yeasts and Fructilactobacillus sanfranciscensis."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Lactic Acid Acidification",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Produce lactic and acetic acid to drop pH below 4.0",
+                    "title": "pH Cascade Suppression",
+                    "body": "Lactic acid bacteria convert maltose into lactic acid, driving pH below 3.8 to eliminate pathogenetic molds and putrefactive bacteria."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Activate native phytase enzymes",
+                    "title": "Phytase Mineral Release",
+                    "body": "Acidification activates cereal phytase, breaking down phytates to liberate bioavailable magnesium, iron, and zinc."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Gluten Gas Retention",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Develop elastic gluten matrix holding CO2 alveoli",
+                    "title": "Viscoelastic Gluten Matrix",
+                    "body": "Glutenin and gliadin cross-link under mechanical autolysis, trapping millions of microscopic carbon dioxide bubbles in an open crumb."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Showcase alveolar cell expansion",
+                    "title": "Alveolar Gas Cell Expansion",
+                    "body": "Gas pressure expands gluten pockets by 300% without tearing, building the signature airy, custard-like sourdough crumb."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Flavor Ester Maturation",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Synthesize aromatic aldehydes and fruity esters",
+                    "title": "Cold Retardation Esters",
+                    "body": "A 24-hour cold proof at 4°C slows gas production while enzymes generate complex lactic esters, giving rich tangy aromas."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Maillard Crust",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Bake under steam for blistered caramelization",
+                    "title": "Blistered Caramelized Crust",
+                    "body": "Oven steam gelatinizes surface starches at 240°C, producing a blistered, golden-amber crust through deep Maillard reactions."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "酸种酵母发酵：野生酵母与乳酸菌共生转化",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fdf8f0",
+              "ink": "#3e2723",
+              "panel": "#fffbeb"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "烹饪",
+              "微生物",
+              "发酵",
+              "厨房",
+              "面包"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "面粉水与初始菌群",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "水合唤醒野生酵母与杂菌群落",
+                    "title": "水合作用与野生菌种",
+                    "body": "黑麦面粉与等重水混合后，麦粒表皮自带的野生酵母菌与旧金山乳酸杆菌被水合激活。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "产酸降 pH 压制杂菌",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "乳酸菌产酸压低 pH 至 3.8 灭菌",
+                    "title": "pH 酸降与微生态垄断",
+                    "body": "乳酸菌消耗麦芽糖生成大量乳酸与乙酸，将 pH 骤降至 3.8 以下，自然灭杀所有有害腐败杂菌。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "激活植酸酶释放矿物质",
+                    "title": "植酸降解释放矿质",
+                    "body": "酸性环境激活谷物自身植酸酶，分解阻碍吸收的植酸盐，释放出游离态的铁、锌与镁元素。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "面筋网络滞留气体",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "水解生成粘弹性面筋网络",
+                    "title": "粘弹性面筋骨架形成",
+                    "body": "麦谷蛋白与醇溶蛋白在自解水合下交织成致密三维网状薄膜，牢牢捕获酵母释放的二氧化碳微气泡。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "展示开放性气孔蜂窝结构",
+                    "title": "气孔蜂窝状三倍膨胀",
+                    "body": "发酵气体将面筋薄壁均匀撑大 300% 且保持不破裂，构筑起酸面包标志性的多孔水润内部组织。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "复杂风味酯类熟成",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "低温冷藏延时熟成芳香物质",
+                    "title": "低温冷藏生成芳香酯",
+                    "body": "4°C 低温冷藏延缓产气速度，使水解酶充分积累芳香酯与前驱氨基酸，赋予面包丰富微酸甘甜层次。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "美拉德焦香烘烤",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "高温蒸汽烘烤完成焦糖化脆壳",
+                    "title": "金黄酥脆焦香外壳",
+                    "body": "240°C 高温蒸汽使表面淀粉糊化，深层美拉德反应爆发出琥珀色脆壳与诱人焦香麦香。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "slide-x",
+          "3->4": "push-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "title": "Nature Microbiology: Sourdough Microbiome Diversity",
+              "url": "https://www.nature.com/articles/s41564-020-00849-0",
+              "supports": "Lactic acid bacteria and yeast symbiotic ecology in sourdough."
+            }
+          ],
+          "boundary": {
+            "en": "Culinary biochemistry illustrated as kitchen prep steps.",
+            "zh": "烹饪生物化学原理解析，以厨房备料步骤生动展示。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/sourdough-microbiome.tsx"
       }
     ]
   },
@@ -18014,6 +21211,233 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/human-reviews-ai.tsx"
+      },
+      {
+        "id": "compiler-front-back-end",
+        "styleId": "collaborative-pairing-board",
+        "title": {
+          "en": "Frontend & Backend Split",
+          "zh": "编译器前后端"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Frontend & Backend Split: Decoupling M Languages from N Targets",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f8fafc",
+              "ink": "#0f172a",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "compilers",
+              "llvm",
+              "ssa",
+              "architecture",
+              "pairing"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "M x N Combinatorial Wall",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Demonstrate M languages targeting N machine architectures",
+                    "title": "M x N Monolithic Combinatorics",
+                    "body": "Connecting M source languages directly to N hardware architectures requires M x N independent compiler translations."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Frontend AST Parsing",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Lex source tokens into Abstract Syntax Tree",
+                    "title": "Grammar Lexing & AST Construction",
+                    "body": "The frontend enforces language syntax and type safety, emitting an Abstract Syntax Tree agnostic of CPU registers."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Lower AST to Static Single Assignment form",
+                    "title": "SSA Intermediate Representation",
+                    "body": "Lowering AST into Static Single Assignment (SSA) form assigns every variable exactly once, exposing dataflow dependencies."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "The SSA IR Contract",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Establish shared intermediate representation contract",
+                    "title": "Universal IR Synchronization Seam",
+                    "body": "Frontend and backend synchronize across a shared SSA IR contract: frontends emit IR, middle-end passes optimize IR."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Apply target-independent optimizations",
+                    "title": "Dead Code & Inlining Passes",
+                    "body": "Common subexpression elimination and loop unrolling run directly on SSA IR, benefiting all targets simultaneously."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Backend Instruction Pipeline",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Perform target instruction selection and register allocation",
+                    "title": "Instruction Selection & Graph Coloring",
+                    "body": "The backend maps SSA virtual registers onto physical CPU registers via Chaitin's graph coloring algorithm."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "M + N Modular Triumph",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Celebrate M + N modular linear scaling",
+                    "title": "M + N Architecture Victory",
+                    "body": "A new language requires 1 new frontend; a new chip requires 1 new backend. Modularity conquers combinatorial explosion."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "编译器前后端：通过中间表示解耦 M 语言与 N 硬件",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f8fafc",
+              "ink": "#0f172a",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "编译器",
+              "LLVM",
+              "SSA",
+              "架构",
+              "协作看板"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "MxN 组合爆炸危机",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展示 M 种语言对接 N 种芯片的组合困局",
+                    "title": "M × N 组合爆炸壁垒",
+                    "body": "若将 M 种源码语言直接编译为 N 种硬件指令，必须开发并维护 M × N 套完全独立的编译器实现。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "前端 AST 语法解析",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "词法与语法分析构建抽象语法树",
+                    "title": "语法分析与 AST 构建",
+                    "body": "编译器前端负责语法检查与类型推导，生成完全独立于底层硬件寄存器的抽象语法树（AST）。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "将 AST 降维为静态单赋值 SSA IR",
+                    "title": "SSA 静态单赋值降维",
+                    "body": "将语法树转换为静态单赋值形式，确保每个变量仅赋值一次，显式暴露数据流依赖关系。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "SSA IR 契约桥梁",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "确立前后端唯一的共享产物契约",
+                    "title": "通用 IR 共享同步中缝",
+                    "body": "前后端通过唯一一份 SSA IR 契约解耦协作：前端负责生成标准化 IR，中端 Pass 负责优化 IR。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "执行与芯片无关的通用死代码消除",
+                    "title": "死代码消除与内联优化",
+                    "body": "常量折叠与公共子表达式消除直接在中端 IR 上并发执行，让所有语言与芯片无差别受益。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "后端指令流水分配",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "执行指令选择与图着色寄存器分配",
+                    "title": "指令选择与图着色分配",
+                    "body": "后端通过图着色算法将虚拟寄存器映射至物理 CPU 硬件寄存器，生成机器码二进制。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "M+N 模块化胜利",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结 M + N 模块化工程胜利",
+                    "title": "M + N 模块化终极胜利",
+                    "body": "新增一门语言只需写 1 个前端，新增一款芯片只需写 1 个后端。模块化彻底终结了组合爆炸。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "slide-x",
+          "3->4": "push-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Engineering a Compiler (Cooper & Torczon)",
+              "url": "https://www.elsevier.com/books/engineering-a-compiler/cooper/978-0-12-815412-0",
+              "supports": "Decoupling language frontend and architecture backend via Intermediate Representation."
+            }
+          ]
+        },
+        "modulePath": "../topics/compiler-front-back-end.tsx"
       }
     ]
   },
@@ -19157,6 +22581,235 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/tuning-the-model.tsx"
+      },
+      {
+        "id": "power-grid-dispatch-console",
+        "styleId": "studio-mixing-console",
+        "title": {
+          "en": "50 Hz Grid Dispatch",
+          "zh": "电网调度台"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "50 Hz Grid Dispatch: Millisecond Frequency and Generation Balance",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0f172a",
+              "ink": "#f1f5f9",
+              "panel": "#1e293b"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "Monospace 400"
+            },
+            "tags": [
+              "energy",
+              "power-grid",
+              "dispatch",
+              "console",
+              "frequency"
+            ],
+            "fonts": [
+              "Monospace",
+              "Inter"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "The 50.00 Hz Baseline",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Monitor 50.00 Hz nominal electrical frequency tolerance",
+                    "title": "50.00 Hz Grid Equilibrium",
+                    "body": "Grid frequency acts as a giant scale: generation matching load holds the synchronous generator rotor speed at exact 50.00 Hz."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Channel Strips Generation Mix",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Lock baseload thermal and nuclear channel faders",
+                    "title": "Baseload Thermal & Nuclear Faders",
+                    "body": "Heavy thermal turbines provide massive rotational kinetic inertia, locking base faders against rapid transients."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Monitor renewable solar and wind fluctuating channels",
+                    "title": "Intermittent Solar & Wind Faders",
+                    "body": "Variable solar photovoltaic output swings channel meters, demanding continuous real-time AGC governor compensation."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "The Sudden Load Drop",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Simulate sudden 800MW regional industrial load surge",
+                    "title": "800 MW Load Shock / 49.82 Hz Dip",
+                    "body": "Sudden heavy load pulls generator rotors down; frequency dips to 49.82 Hz, triggering yellow alarm threshold."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Release primary turbine inertial governor response",
+                    "title": "Primary Inertial Response (2s)",
+                    "body": "Within 2 seconds, mechanical turbine governor valves open automatically, arresting frequency decline via kinetic inertia."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Secondary AGC Faders Up",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Ramp hydro and battery energy storage AGC channels",
+                    "title": "Hydro & Battery Secondary AGC",
+                    "body": "Hydroelectric turbines open wicket gates in 15 seconds while lithium BESS units inject instantaneous active power."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Dynamic Equilibrium",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Restore 50.00 Hz green nominal steady state",
+                    "title": "Continuous Dynamic Equilibrium",
+                    "body": "Stability is never static—it is the ceaseless, millisecond-by-millisecond modulation of ten thousand coordinated generators."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "电网调度台：50Hz 频率控制与毫秒级负荷平衡",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0f172a",
+              "ink": "#f1f5f9",
+              "panel": "#1e293b"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "Monospace 400"
+            },
+            "tags": [
+              "能源",
+              "电网",
+              "调度",
+              "控制台",
+              "频率"
+            ],
+            "fonts": [
+              "Monospace",
+              "Inter"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "50.00 Hz 动态生命线",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "监控 50.00 Hz 额定系统频率平衡基线",
+                    "title": "50.00 Hz 动态平衡生命线",
+                    "body": "系统频率是电网唯一的天平：发电出力与用电负荷完全一致时，同步发电机转子转速牢牢锁定在 50.00 Hz。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "发电机组出力推子群",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "锁定火电与核电基荷稳态推子",
+                    "title": "火电与核电基荷推子",
+                    "body": "重型汽轮发电机提供庞大的物理转动惯量，基荷推子沉稳锁死，筑牢电网抗扰动底座。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "监控风电与光伏新能源通道波动",
+                    "title": "风电与光伏波动通道",
+                    "body": "风光新能源出力随天气剧烈起伏，电平指示灯快速跳动，倒逼 AGC 自动发电控制系统实时补偿。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "负荷突增与一次调频",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "模拟 800MW 工业突加负荷冲击",
+                    "title": "800MW 负荷冲击 / 49.82Hz 跌落",
+                    "body": "区域突加 800 兆瓦负荷导致发电机转子减速，电网频率跌落至 49.82 Hz，触发黄色告警阈值。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "释放汽轮机转子一次调频惯量",
+                    "title": "2 秒转子惯量一次调频",
+                    "body": "发电机调速器在 2 秒内自发开大汽阀，直接释放转子动能，瞬时止住频率下坠趋势。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "二次 AGC 调度拉升",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "拉升水电与电池储能 AGC 快速调节通道",
+                    "title": "水电与电化学储能二次调频",
+                    "body": "水电机组导叶 15 秒内全开，电化学储能电池毫秒级注入有功功率，将频率平滑拉回 50.00 Hz 绿线。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "动态稳态平衡",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结电网动态平衡的工业美学",
+                    "title": "永不停歇的动态稳态",
+                    "body": "所谓的电网稳定从来不是静止，而是成千上万台机组推子在毫秒维度上永不间断的协同微调。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "push-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "IEEE Power & Energy: Grid Frequency Control",
+              "url": "https://ieeexplore.ieee.org/document/7517395",
+              "supports": "Primary inertial response and secondary AGC frequency regulation."
+            }
+          ]
+        },
+        "modulePath": "../topics/power-grid-dispatch-console.tsx"
       }
     ]
   },
@@ -20375,6 +24028,233 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/safe-to-deploy.tsx"
+      },
+      {
+        "id": "linux-oom-killer",
+        "styleId": "debug-reaction-board",
+        "title": {
+          "en": "Linux OOM Killer",
+          "zh": "OOM进程裁决"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Linux OOM Killer: Out-of-Memory Heuristic Process Arbitration",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0d1117",
+              "ink": "#c9d1d9",
+              "panel": "#161b22"
+            },
+            "typography": {
+              "header": "Monospace 800",
+              "body": "Monospace 400"
+            },
+            "tags": [
+              "linux",
+              "kernel",
+              "memory",
+              "oom-killer",
+              "debugging"
+            ],
+            "fonts": [
+              "Monospace"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Memory Exhaustion Warning",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Trigger low memory watermarks and swap exhaustion",
+                    "title": "Kernel Zone Watermark Depletion",
+                    "body": "Active physical pages and swap reach 100% capacity; zone min watermarks are breached, failing all kmalloc allocations."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Page Fault Allocation Failure",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Fail anonymous page allocation in handle_mm_fault",
+                    "title": "__alloc_pages_nodemask Direct Reclaim",
+                    "body": "Direct memory reclaim loops fail repeatedly; kswapd enters high-CPU thrashing without yielding contiguous free pages."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Invoke out_of_memory kernel entry point",
+                    "title": "out_of_memory() Kernel Invocation",
+                    "body": "The kernel panic handler is averted by invoking out_of_memory() to identify a sacrificial candidate process."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "The oom_badness Calculation",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Calculate badness score for every process in task list",
+                    "title": "oom_badness() Heuristic Scoring",
+                    "body": "Points = (RAM RSS + Swap) / Total RAM * 1000 + oom_score_adj. Root-privileged daemons are protected from termination."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Select victim process with highest badness score",
+                    "title": "Victim Selection (PID 4092)",
+                    "body": "Process 'leak_daemon' scores 842 points with 14GB RSS consumption, becoming the primary sacrifice target."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Targeted Process Termination",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Send uncatchable SIGKILL to target process",
+                    "title": "SIGKILL Dispatch to PID 4092",
+                    "body": "do_send_sig_info(SIGKILL) terminates the process immediately, releasing page tables and reclaiming 14GB of physical RAM."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "System Health Restored",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Verify kernel zone recovery and green status",
+                    "title": "Kernel Stability Restored",
+                    "body": "Memory pressure collapses; kswapd settles into idle state, preserving critical system services without reboot."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "OOM 进程裁决：Linux 内核内存耗尽算法仲裁",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0d1117",
+              "ink": "#c9d1d9",
+              "panel": "#161b22"
+            },
+            "typography": {
+              "header": "Monospace 800",
+              "body": "Monospace 400"
+            },
+            "tags": [
+              "Linux",
+              "内核",
+              "内存",
+              "OOM",
+              "调试"
+            ],
+            "fonts": [
+              "Monospace"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "内存耗尽警报",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "物理内存与交换区耗尽，击穿水位线",
+                    "title": "内核内存区低水位告警",
+                    "body": "物理内存与 Swap 占用达 100%，触发 Zone Min 最低水位线，所有 kmalloc 内核内存分配陷入阻塞。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "缺页异常分配失败",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "直接内存回收多次失败",
+                    "title": "直接内存回收彻底停滞",
+                    "body": "直接内存回收（Direct Reclaim）反复失败，后台 kswapd 进程持续 100% 占用 CPU 却无法腾出连续物理页。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "触发 out_of_memory 内核裁决函数",
+                    "title": "触发 out_of_memory() 入口",
+                    "body": "为了避免整机内核崩溃（Kernel Panic），内核正式触发 OOM Killer 机制开始搜寻献祭目标。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "oom_badness 评分",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "遍历全量进程计算坏度评分",
+                    "title": "oom_badness() 启发式评分",
+                    "body": "得分公式为：占物理内存与 Swap 比例乘以 1000 加上 oom_score_adj 偏置，系统核心守护进程受到特权保护。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "锁定最高坏度评分的牺牲进程",
+                    "title": "锁定献祭进程 (PID 4092)",
+                    "body": "进程 'leak_daemon' 独占 14GB 内存，以 842 分高居榜首，被内核选为唯一的击杀对象。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "精准终止回收物理页",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "下发不可拦截的 SIGKILL 信号",
+                    "title": "向 PID 4092 发送 SIGKILL",
+                    "body": "内核强制下发不可捕获的 SIGKILL 信号终止目标进程，瞬时解构页表并回收 14GB 物理内存。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "系统复苏绿灯",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "确认系统指标恢复绿色安全水位",
+                    "title": "内核平稳复苏恢复绿灯",
+                    "body": "内存压力彻底归零，kswapd 恢复休眠，核心系统服务在免于重启的前提下平稳度过危机。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "hard-cut",
+          "3->4": "push-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Linux Kernel Documentation: Out of Memory Management",
+              "url": "https://www.kernel.org/doc/html/latest/mm/oom_killer.html",
+              "supports": "oom_badness scoring algorithm and heuristic kill selection."
+            }
+          ]
+        },
+        "modulePath": "../topics/linux-oom-killer.tsx"
       }
     ]
   },
@@ -21548,6 +25428,235 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/day-feed-stopped.tsx"
+      },
+      {
+        "id": "deep-sea-cables-cut",
+        "styleId": "front-page-broadsheet",
+        "title": {
+          "en": "Undersea Cable Splicing",
+          "zh": "跨洋海缆割接"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Undersea Cable Splicing: 4,000-Meter Deep Ocean Fiber Recovery",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f7f4ec",
+              "ink": "#121212",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "Times New Roman 800",
+              "body": "Times New Roman 400"
+            },
+            "tags": [
+              "journalism",
+              "broadsheet",
+              "telecom",
+              "subsea",
+              "engineering"
+            ],
+            "fonts": [
+              "Times New Roman",
+              "Georgia"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Seismic Abyssal Rupture",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Report subsea earthquake cable blackout",
+                    "title": "Abyssal Turbidity Current Snap",
+                    "body": "A submarine earthquake triggers a high-velocity sediment slide across the Luzon Strait, severing 8 trans-Pacific optical cables in seconds."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Optical Time-Domain Sonar",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Pinpoint fracture fault via Rayleigh backscattering",
+                    "title": "Coherent OTDR Distance Pinpoint",
+                    "body": "Coastal stations shoot laser pulses down dark fiber cores, calculating the break location at 3,842.6 kilometers by backscatter loss."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Deploy autonomous deep grapple ROV",
+                    "title": "Deep Grapple Deployment",
+                    "body": "Specialized cable ship 'CS Responder' lowers heavy titanium grapnels 4,000 meters into total darkness to snag the severed arm."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Shipboard Cleanroom Fusion",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Hoist severed fiber into cleanroom splicing bay",
+                    "title": "Cleanroom Core Fusion Splicing",
+                    "body": "Marine cable engineers cleave 192 glass hair cores, aligning 9-micron silica centers under microscopic electric arc fusion."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Seal joint inside berthing biconical joint housing",
+                    "title": "High-Pressure Biconical Casing",
+                    "body": "Polyethylene insulation and steel armor are hot-vulcanized to withstand 40 megapascals of corrosive hydrostatic pressure."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Subsea Seabed Reburial",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Water-jet plow reburies cable beneath ocean floor sediment",
+                    "title": "Hydro-Jet Seabed Trenching",
+                    "body": "An underwater robotic plow shoots high-pressure water jets, entrenching the joint 2 meters beneath the silt against trawler anchors."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "400 Tbps Restored",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Broadcast return of transatlantic traffic",
+                    "title": "Transoceanic Photons Flowing",
+                    "body": "Coherent laser transceivers sync; 400 Terabits per second of global data reignite the digital pulse of modern civilization."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "跨洋海缆割接：4000米深海光纤紧急打捞与熔接纪实",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f7f4ec",
+              "ink": "#121212",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "Times New Roman 800",
+              "body": "Times New Roman 400"
+            },
+            "tags": [
+              "大报头版",
+              "新闻",
+              "通信",
+              "深海工程",
+              "海缆"
+            ],
+            "fonts": [
+              "Times New Roman",
+              "Georgia"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "深海浊流瞬断",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "报道海底地震引发的跨洋通信大中断",
+                    "title": "海底浊流导致跨洋光缆瞬断",
+                    "body": "吕宋海峡发生强烈海底地震引发高速泥沙浊流，瞬间扯断 8 条跨太平洋核心光缆，造成跨洋通信大面积中断。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "光时域雷达声呐定位",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "通过瑞利散射精准测定断点公里数",
+                    "title": "相干 OTDR 测距精准锁点",
+                    "body": "沿海登陆站向暗光纤发射高能激光脉冲，依靠瑞利背向散射耗散时间，在数秒内锁定 3842.6 公里处的断裂坐标。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "特种打捞船下放深海抓钩",
+                    "title": "4000米深水重型抓钩下潜",
+                    "body": "万吨级海缆工程船抵临风暴海域，向 4000 米黑暗深海下放钛合金重型抓斗，盲探钩取沉入海底的断裂海缆端头。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "船载无尘舱熔接",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "将海缆吊入船载千级无尘舱熔接",
+                    "title": "千级无尘舱电弧熔接",
+                    "body": "海缆工程师在显微镜下精准切割 192 芯头发丝般细的玻璃光纤，以微秒电弧放电完成 9 微米纤芯的纳米级熔合。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "套入双锥形高压密封接头盒",
+                    "title": "40兆帕抗压密封接头盒",
+                    "body": "聚乙烯绝缘层与高强钢丝铠装经高压热硫化注塑封死，确保其能抵御深海 40 兆帕的毁灭性静水腐蚀高压。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "海床高压水冲埋设",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "水下遥控挖沟机将海缆深埋泥沙下",
+                    "title": "水下射流机器人深水掩埋",
+                    "body": "水下机器人喷射超高压水流冲开海床泥沙，将修复后的海缆接头深埋于海床 2 米以下，彻底规避渔船拖网风险。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "400Tbps 重获光明",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "全波段相干光波重明，通报全球",
+                    "title": "400 Tbps 跨洋光子重明",
+                    "body": "相干激光收发机握手成功；每秒 400 兆兆比特的全球信息流跨越重洋，再度点亮了全球数字文明的脉动。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Submarine Cable Map & Fault Restoration Standards (ITU-T L.28)",
+              "url": "https://www.itu.int/rec/T-REC-L.28",
+              "supports": "Subsea optical cable repair procedures and hydrostatic joint reliability."
+            }
+          ]
+        },
+        "modulePath": "../topics/deep-sea-cables-cut.tsx"
       }
     ]
   },
@@ -22742,6 +26851,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/comeback-issue.tsx"
+      },
+      {
+        "id": "mechanical-watch-escapement",
+        "styleId": "magazine-masthead",
+        "title": {
+          "en": "Swiss Lever Escapement",
+          "zh": "机械擒纵机构"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Swiss Lever Escapement: Slicing Continuous Potential into Time",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0f172a",
+              "ink": "#f8fafc",
+              "panel": "#1e1b4b"
+            },
+            "typography": {
+              "header": "Didot 700",
+              "body": "System-ui 300"
+            },
+            "tags": [
+              "horology",
+              "mechanics",
+              "time",
+              "escapement",
+              "masthead"
+            ],
+            "fonts": [
+              "Didot",
+              "Georgia"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Mainspring Potential Energy",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Wind coiled spring inside barrel drum",
+                    "title": "The Coiled Mainspring Reservoir",
+                    "body": "A wound carbon steel spring stores raw mechanical torque inside the mainspring barrel, waiting to unleash uncontrolled acceleration."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Ruby Pallet Fork Locking",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Lock escape wheel tooth on entry ruby pallet",
+                    "title": "Synthetic Ruby Pallet Lock",
+                    "body": "The escapement fork intercepts escape wheel teeth with synthetic ruby jewel faces, arresting rotation with zero friction wear."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Transfer impulse kick to balance roller jewel",
+                    "title": "The Angular Impulse Kick",
+                    "body": "As the tooth slides past the jewel impulse plane, it delivers a precise micro-joule kick to the oscillating balance wheel."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Hairspring Isochronous Oscillation",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Oscillate balance wheel at 28,800 beats per hour (4Hz)",
+                    "title": "28,800 BPH Isochronous Breath",
+                    "body": "The Nivarox hairspring breathes outward and inward with absolute isochronism, slicing continuous torque into 8 discrete beats per second."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Gear Train Step Amplification",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Transmit quantized steps to center wheel and hands",
+                    "title": "Quantized Gear Train Transmission",
+                    "body": "Jeweled pinion wheels amplify 1/8th-second ticks across fourth, third, and center wheels to sweep the golden hands smoothly."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Micro-Engineered Eternity",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Celebrate mechanical horology triumph",
+                    "title": "The Architecture of a Second",
+                    "body": "Without a single battery or line of code, 150 microscopic brass and steel components civilize chaotic kinetic force into pure time."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "机械擒纵机构：将连续发条势能切割为恒定时间节拍",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0f172a",
+              "ink": "#f8fafc",
+              "panel": "#1e1b4b"
+            },
+            "typography": {
+              "header": "Didot 700",
+              "body": "System-ui 300"
+            },
+            "tags": [
+              "钟表学",
+              "机械",
+              "时间",
+              "擒纵",
+              "杂志刊头"
+            ],
+            "fonts": [
+              "Didot",
+              "Georgia"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "发条势能储备",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "发条盒紧绷积蓄机械势能",
+                    "title": "发条盒发条势能积蓄",
+                    "body": "卷紧的高弹性碳钢发条在发条盒内积蓄狂暴的旋转扭矩，若无节制将在一瞬间释放殆尽。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "红宝石擒纵叉锁止",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "进瓦红宝石锁死擒纵轮齿",
+                    "title": "人造红宝石叉瓦锁止",
+                    "body": "擒纵叉两端的合成红宝石精确卡住擒纵轮齿的旋转，以几乎零磨损的微观硬度锁死转速。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "冲位平面向摆轮传递微小冲力",
+                    "title": "冲力平面脉冲传递",
+                    "body": "轮齿滑过红宝石冲位的刹那，向摆轮上的圆盘钉传递极微弱的微焦耳冲量，维持摆动不衰减。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "游丝等时性等速振荡",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "摆轮游丝以每小时 28,800 次 (4Hz) 等速呼吸",
+                    "title": "28,800次/时 等时性振荡",
+                    "body": "自补偿游丝以绝对的等时性向外舒张与收缩，将狂暴的连续扭矩精准切割为每秒 8 次微小节拍。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "齿轮系分步放大",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "传动齿轮系将 1/8 秒节拍传导至秒针与分针",
+                    "title": "微步齿轮系级联放大",
+                    "body": "高精度红宝石轴承齿轮将 1/8 秒的微步逐级放大，驱动中央金针在表盘上划出平滑流动的优雅轨迹。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "微雕机械永恒",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结机械钟表工程的微雕艺术",
+                    "title": "一秒钟的精密机械架构",
+                    "body": "无需一粒电池，亦无一行代码；一百五十个微米级钢铜齿轮，将混沌的物理张力驯化为了永恒的时间秩序。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "The Theory of Horology (Swiss Federation of Technical Colleges)",
+              "url": "https://www.fhs.swiss/eng/watchmaking_theory.html",
+              "supports": "Swiss lever escapement geometry, impulse angles, and isochronism formulas."
+            }
+          ]
+        },
+        "modulePath": "../topics/mechanical-watch-escapement.tsx"
       }
     ]
   },
@@ -23933,6 +28259,235 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/letter-to-past-self.tsx"
+      },
+      {
+        "id": "lost-library-alexandria",
+        "styleId": "warm-editorial-feature",
+        "title": {
+          "en": "Alexandria's Lost Scrolls",
+          "zh": "亚历山大书藏"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Alexandria's Lost Scrolls: The Anatomy of Knowledge Dispersion",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fcf9f2",
+              "ink": "#2c2523",
+              "panel": "#f5eee1"
+            },
+            "typography": {
+              "header": "Garamond 400 italic",
+              "body": "Garamond 300"
+            },
+            "tags": [
+              "history",
+              "literature",
+              "alexandria",
+              "editorial",
+              "scrolls"
+            ],
+            "fonts": [
+              "Garamond",
+              "Georgia"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "City of Papyrus",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Establish the Mouseion intellectual sanctuary",
+                    "title": "The Universal Scroll Mandate",
+                    "body": "Ptolemaic decree ordered royal scribes to seize every book arriving by harbor ship, transcribing copies while holding originals."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Mandatory Scribe Seizure",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Catalog 500,000 papyrus rolls across Greek civilization",
+                    "title": "Pinakes Subject Classification",
+                    "body": "Callimachus authored the Pinakes, creating the world's first 120-volume bibliographic subject catalog across all known sciences."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Preserve lost works of geometry and astronomy",
+                    "title": "Euclidean & Aristarchan Zenith",
+                    "body": "Within its sunlit colonnades, Eratosthenes calculated Earth's circumference and Aristarchus hypothesized heliocentric orbits."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "The Slow Erasure",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Trace centuries of neglect, budget cuts, and fire",
+                    "title": "Not One Fire, But Centuries of Neglect",
+                    "body": "Popular myth blames a single inferno; historical truth reveals a tragic, four-century decay of municipal funding and political purge."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Seeds in Arabic Translation",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Trace surviving texts into Baghdad's House of Wisdom",
+                    "title": "The Great Translation Migration",
+                    "body": "Fragments smuggled across desert caravans were translated into Syriac and Arabic, sparking the Islamic Golden Age in Baghdad."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Return to Renaissance Europe via Toledo",
+                    "title": "Renaissance Transmission Circuit",
+                    "body": "Centuries later, Latin scholars in Toledo and Florence re-translated Arabic commentaries, igniting modern European science."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Fireproof Idea",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Reflect on distributed archival resilience",
+                    "title": "Ideas Outlive Their Palaces",
+                    "body": "A central archive is fragile and mortal; human thought survives only when decentralized, translated, and dispersed to the winds."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "亚历山大书藏：古典知识的湮灭与跨文明流散史诗",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fcf9f2",
+              "ink": "#2c2523",
+              "panel": "#f5eee1"
+            },
+            "typography": {
+              "header": "Garamond 400 italic",
+              "body": "Garamond 300"
+            },
+            "tags": [
+              "历史",
+              "文献",
+              "亚历山大",
+              "特稿",
+              "古籍"
+            ],
+            "fonts": [
+              "Garamond",
+              "Georgia"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "纸草纸之城",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "确立缪斯神庙学术圣殿的全书搜罗令",
+                    "title": "托勒密全书搜罗法令",
+                    "body": "托勒密王朝颁布铁律，扣留所有靠港商船上的典籍原件，抄录副本归还，原稿永久入藏皇家大图书馆。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "抄录与分类总目",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "卡利马科斯编制世界首部学科图书总目",
+                    "title": "百卷学科分类大系",
+                    "body": "学者卡利马科斯编纂了一百二十卷《书目表》，首次将五十万卷莎草纸按哲学、天文与数学建立严密索引。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "见证古典几何与日心说的最初闪光",
+                    "title": "欧几里得与阿里斯塔克斯",
+                    "body": "在阳光倾泻的柱廊下，埃拉托色尼测算出地球周长，阿里斯塔克斯首次构想出太阳位于宇宙中心的图景。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "缓慢的消亡",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "揭示四个世纪官僚削减与政治清洗真相",
+                    "title": "并非单次战火，而是数百年消磨",
+                    "body": "后世神话将其归咎于单次大火；真实历史却是四个世纪连续的经费削减、教派清洗与潮湿风化的悲剧衰亡。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "巴格达译本火种",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "流散残卷在巴格达智慧宫被译为阿拉伯语",
+                    "title": "大翻译运动跨漠迁徙",
+                    "body": "幸存的学者携带残卷穿越沙漠商道，在巴格达智慧宫被系统翻译为叙利亚语与阿拉伯语，引爆伊斯兰黄金时代。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "经由托莱多重返欧洲文艺复兴",
+                    "title": "重返欧洲启蒙回路",
+                    "body": "数百年后，托莱多与佛罗伦萨的拉丁学者重新翻译阿拉伯文评注，将古典火种重新注入近代科学革命。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "不灭的思想火种",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结去中心化知识留存的终极意义",
+                    "title": "思想终将超越宫殿与城池",
+                    "body": "单一的实体宝库脆弱易逝；人类真正的思想唯有在不断被抄录、翻译并散落于四方时，方能历经浩劫而不朽。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "crossfade",
+          "3->4": "slide-x",
+          "4->5": "fade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "The Vanished Library: A Wonder of the Ancient World (Luciano Canfora)",
+              "url": "https://www.ucpress.edu/book/9780520072558/the-vanished-library",
+              "supports": "Historical documentation of scroll collection mandates and translation dispersion."
+            }
+          ]
+        },
+        "modulePath": "../topics/lost-library-alexandria.tsx"
       }
     ]
   },
@@ -25116,6 +29671,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/what-ancients-knew.tsx"
+      },
+      {
+        "id": "principia-mathematica-proof",
+        "styleId": "scholars-vellum",
+        "title": {
+          "en": "Newton's Geometric Proof",
+          "zh": "万有引力几何证"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Newton's Geometric Proof: Kepler's Laws Derived via Pure Geometry",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0f141c",
+              "ink": "#f1e7d0",
+              "panel": "#18202c"
+            },
+            "typography": {
+              "header": "Palatino 400 italic",
+              "body": "Palatino 300"
+            },
+            "tags": [
+              "physics",
+              "geometry",
+              "newton",
+              "principia",
+              "scholarly"
+            ],
+            "fonts": [
+              "Palatino",
+              "Georgia"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Discarding Calculus Symbols",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Open Principia Proposition I manuscript page",
+                    "title": "Proving Gravity Without Calculus",
+                    "body": "Isaac Newton withheld his fluxions (calculus), choosing Euclidean compass and straightedge geometry to prove orbital mechanics unassailably."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Equal Areas in Equal Times",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Construct triangles swept by inertial motion",
+                    "title": "Triangular Area Equivalence",
+                    "body": "A particle travels along straight segments; centripetal impulses toward the sun shear the triangles without altering base or altitude area."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Take infinitesimal limit of triangular sectors",
+                    "title": "Infinitesimal Sector Limit",
+                    "body": "Taking the limit as time intervals shrink to zero proves Kepler's Second Law: equal areas swept in equal times by any central force."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "The Inverse-Square Necessity",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Derive 1/r^2 law from ellipse focal geometry",
+                    "title": "Proposition XI: Inverse-Square Orbit",
+                    "body": "Using conjugate diameters and subtense sagitta $\\lim (QR / QT^2)$, Newton proved elliptical orbits demand an exact inverse-square force: $F \\propto 1/r^2$."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Centripetal Vector Synthesis",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Unify lunar orbit with falling apple",
+                    "title": "Unification of Apple and Moon",
+                    "body": "Comparing the moon's centripetal deflection ($0.00272\\text{ m/s}^2$) with terrestrial surface gravity ($9.81\\text{ m/s}^2$) confirms $(60\\times)^2$ scaling."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Euclidean Geometry Zenith",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Complete philosophical scholium",
+                    "title": "The Celestial Clockwork Proved",
+                    "body": "Greek classical geometry reached its eternal summit: the laws governing the heavens were captured in pure, candlelit Euclidean proportions."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "万有引力几何证明：牛顿纯几何推导开普勒行星定律",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0f141c",
+              "ink": "#f1e7d0",
+              "panel": "#18202c"
+            },
+            "typography": {
+              "header": "Palatino 400 italic",
+              "body": "Palatino 300"
+            },
+            "tags": [
+              "物理",
+              "几何",
+              "牛顿",
+              "自然哲学的数学原理",
+              "学者笔记"
+            ],
+            "fonts": [
+              "Palatino",
+              "Georgia"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "抛弃微积分符号",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "翻开《自然哲学的数学原理》命题一手稿",
+                    "title": "以纯欧氏几何证明引力",
+                    "body": "牛顿刻意隐匿了他初创的流数术（微积分），完全改用古希腊欧几里得圆规与直尺几何，构建无可辩驳的天体力学大厦。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "面积定律几何证",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "构造惯性直线移动所扫过的三角形",
+                    "title": "等底同高三角形面积等价",
+                    "body": "质点沿折线飞行，指向太阳的有心脉冲瞬时拉扯质点，在几何上仅造成三角形剪切，底与高对应的面积严格守恒。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "取时间微元无限趋近于零的几何极限",
+                    "title": "微元无限细分的扇形极限",
+                    "body": "当时间间隔无限趋于零，折线平滑逼近连续轨道，以纯几何严格证毕开普勒第二定律：向径在相等时间内扫过相等面积。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "平方反比必然性",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "利用椭圆共轭直径与矢高证明 1/r^2",
+                    "title": "命题十一：平方反比有心力",
+                    "body": "借助椭圆几何性质与极限矢高 $\\lim (QR / QT^2)$，牛顿从数学上铁证：唯有严格的平方反比引力 ($F \\propto 1/r^2$) 才能维系椭圆轨道。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "苹果与月球统一",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "对比地面重力加速度与月球向心加速度",
+                    "title": "月亮与坠落苹果的统一",
+                    "body": "月球轨道向心偏折加速度 ($0.00272\\text{ m/s}^2$) 恰为地面落体重力加速度 ($9.81\\text{ m/s}^2$) 的 $1/60^2$，天地引力彻底统一。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "欧氏几何的巅峰",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "写下《原理》终章总释",
+                    "title": "烛光下欧氏几何的绝唱",
+                    "body": "古典几何学在此刻登临万世巅峰：束缚星辰周转的天道法则，被完整镌刻进了羊皮卷上静穆的欧几里得比例线段之中。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "crossfade",
+          "3->4": "fade",
+          "4->5": "scale-fade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Philosophiae Naturalis Principia Mathematica (Isaac Newton, 1687)",
+              "url": "https://cudl.lib.cam.ac.uk/view/PR-ADV-B-00039-00001/1",
+              "supports": "Geometric derivation of Kepler's second law and inverse-square gravitational attraction."
+            }
+          ]
+        },
+        "modulePath": "../topics/principia-mathematica-proof.tsx"
       }
     ]
   },
@@ -26319,6 +31091,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/festival-slow-ideas.tsx"
+      },
+      {
+        "id": "trombe-wall-passive-solar",
+        "styleId": "solar-biennale-poster",
+        "title": {
+          "en": "The Trombe Wall",
+          "zh": "特朗布墙"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "The Trombe Wall: Passive Solar Architecture and Natural Thermosiphons",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fdfbf7",
+              "ink": "#1e1b4b",
+              "panel": "#fef3c7"
+            },
+            "typography": {
+              "header": "Bodoni 700",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "architecture",
+              "solar",
+              "energy",
+              "thermodynamics",
+              "biennale"
+            ],
+            "fonts": [
+              "Bodoni MT",
+              "Cinzel"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Light on the Southern Facade",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Illuminate dark masonry wall behind glazing",
+                    "title": "The South-Facing Glazed Mass",
+                    "body": "Winter sunlight penetrates a double-pane glass curtain, striking a 40-centimeter dark high-density concrete thermal wall."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Dark Mass and Thermal Lag",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Absorb solar radiation into high specific heat capacity",
+                    "title": "8-Hour Conductive Thermal Lag",
+                    "body": "The thick concrete absorbs shortwave radiation; conductive heat takes 8 hours to migrate across the mass to the inner room."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Radiate warmth into evening living spaces",
+                    "title": "Midnight Radiant Release",
+                    "body": "As outdoor temperatures plummet after sunset, the indoor wall surface radiates gentle longwave infrared into the building."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "The Thermosiphon Loop",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Circulate air through buoyant convection channels",
+                    "title": "Buoyancy-Driven Thermosiphon",
+                    "body": "Sun-heated air between glass and wall expands, rising through upper vents to draw cold room air through bottom dampers."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Seasonal Reversal",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Toggle exterior dampers for summer chimney exhaust",
+                    "title": "Solar Chimney Cooling Exhaust",
+                    "body": "In summer, upper exterior exhaust dampers open, transforming solar buoyancy into a natural exhaust draft that cools the house."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Architecture as an Engine",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Proclaim zero-energy thermodynamic building manifesto",
+                    "title": "The Zero-Watt Thermodynamic Engine",
+                    "body": "Without a single motor or circuit, geometry and sunlight convert static brick and glass into a self-regulating thermal engine."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "特朗布墙：被动式太阳能建筑与热虹吸自发循环",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fdfbf7",
+              "ink": "#1e1b4b",
+              "panel": "#fef3c7"
+            },
+            "typography": {
+              "header": "Bodoni 700",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "建筑",
+              "太阳能",
+              "能源",
+              "热力学",
+              "双年展海报"
+            ],
+            "fonts": [
+              "Bodoni MT",
+              "Cinzel"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "南向阳光倾泻",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "冬日阳光穿透双层玻璃照射重质蓄热墙",
+                    "title": "南向玻璃幕墙与集热暗面",
+                    "body": "冬日低角度太阳光穿透外层双层玻璃，直射在 40 厘米厚的深色高密度重质混凝土蓄热墙上。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "重质蓄热与热延迟",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "高比热容混凝土吸收短波辐射并缓慢导热",
+                    "title": "8 小时导热延迟效应",
+                    "body": "厚重混凝土吸收大量太阳短波辐射，热量在实体材料中缓慢传导，耗时 8 小时方才穿透至室内墙面。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "午夜向室内释放舒适的长波红外辐射热",
+                    "title": "午夜长波红外辐射供暖",
+                    "body": "日落后室外气温骤降，室内墙面开始源源不断向房间辐射温和的长波红外热量，实现零能耗夜间恒温。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "热虹吸自发对流",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "空气受热浮力上升形成自发热对流闭环",
+                    "title": "浮力驱动热虹吸循环",
+                    "body": "玻璃与墙体间空气受热膨胀密度降低，从上部通风口涌入室内，同时从下部抽吸冷空气，形成无动力自发循环。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "夏冬两季阀门智慧",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "夏季开启外侧排风口转化为太阳能拔风烟囱",
+                    "title": "太阳能拔风烟囱自发制冷",
+                    "body": "夏季关闭室内通道、开启外侧排风口，太阳热浮力将室内闷热空气自发抽吸排出，实现零能耗自然通风降温。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "建筑即热力学引擎",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结建筑与自然和谐共生的热力学宣言",
+                    "title": "零电耗的热力学建筑引擎",
+                    "body": "无需一台风机，亦无一度电能；重质砖墙与玻璃利用纯粹的热力学规律，构筑起与太阳同频呼吸的永恒建筑。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "scale-fade",
+          "2->3": "scale-fade",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Passive Solar Building Design & Trombe Wall Systems (ASHRAE)",
+              "url": "https://www.ashrae.org/technical-resources/standards-and-guidelines",
+              "supports": "Thermal lag calculations and thermosiphon convection airflow dynamics."
+            }
+          ]
+        },
+        "modulePath": "../topics/trombe-wall-passive-solar.tsx"
       }
     ]
   },
@@ -27512,6 +32501,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/cut-in-one-take.tsx"
+      },
+      {
+        "id": "magnetic-tape-splicing",
+        "styleId": "duotone-session",
+        "title": {
+          "en": "Razor and Tape",
+          "zh": "刀片剪磁带"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Razor and Tape: Physical Editing on 15 IPS Reel-to-Reel Masters",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#141416",
+              "ink": "#f1f5f9",
+              "panel": "#1e293b"
+            },
+            "typography": {
+              "header": "Impact 900",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "audio",
+              "analog",
+              "tape",
+              "mastering",
+              "duotone"
+            ],
+            "fonts": [
+              "Impact",
+              "Arial Black"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Sound as Spatial Distance",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Map sound duration to physical tape length at 15 ips",
+                    "title": "15 IPS Velocity Mapping",
+                    "body": "At 15 inches per second, time is physical distance: one millimeter of brown ferric oxide tape corresponds to exactly 2.62 milliseconds of acoustic vibration."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Locating the Transient",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Rock tape reels back and forth across playback head",
+                    "title": "Tape Scrubbing Transient Detection",
+                    "body": "The recording engineer rotates the aluminum reels by hand, listening to pitch-shifted groans to locate the initial strike of a snare drum."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Mark precise cut point with grease pencil",
+                    "title": "Grease Pencil Zero-Crossing Mark",
+                    "body": "A yellow grease pencil marks the exact zero-crossing wave apex across the backing layer directly over the playback head gap."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "The 45-Degree Siphon Cut",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Demonstrate 45-degree angle acoustic crossfade",
+                    "title": "The 45-Degree Acoustic Crossfade",
+                    "body": "A 90-degree perpendicular cut creates an explosive DC pop at the playback head; a 45-degree diagonal creates a 3-millisecond physical crossfade."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "The Splicing Block",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Apply non-magnetic razor blade in aluminum guide channel",
+                    "title": "Aluminum Block & Adhesive Splicing",
+                    "body": "The tape rests in an anodized aluminum dovetail groove; a demagnetized razor slice and adhesive splicing tape weld the takes seamlessly."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Permanent Cut",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Affirm irreversible discipline of physical audio editing",
+                    "title": "Master Take Bound in Iron Oxide",
+                    "body": "No undo stack, no digital quantization. The master take spins at full speed, bound by the unforgiving precision of hand, blade, and tape."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "刀片剪磁带：开盘母带 15 ips 物理手工剪辑纪律",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#141416",
+              "ink": "#f1f5f9",
+              "panel": "#1e293b"
+            },
+            "typography": {
+              "header": "Impact 900",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "音频",
+              "模拟",
+              "磁带",
+              "母带",
+              "双调录制"
+            ],
+            "fonts": [
+              "Impact",
+              "Arial Black"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "物理距离映射时间",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "将声音时长严密映射为 15 ips 走带物理距离",
+                    "title": "15 ips 走带速度空间映射",
+                    "body": "在每秒 15 英寸的开盘机走带速度下，1 毫米棕色氧化铁磁带的物理长度严格对应 2.62 毫秒的声音时间。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "磁头慢摇定位瞬态",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "手动慢摇带盘监听定位瞬态爆破点",
+                    "title": "慢摇带盘瞬态波形定位",
+                    "body": "录音师用手前后摇动铝制开盘带盘，通过磁头传出的变调慢速低吟，精准锁定军鼓敲击的绝对起始点。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "特种黄铅笔在磁带背基标记过零点",
+                    "title": "特种铅笔标记过零点",
+                    "body": "特制无油黄铅笔在磁头微米间隙正上方，于磁带背基精准画下波形过零点切割标记线。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "45度斜切消除爆音",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "以 45 度斜角切断创造 3 毫秒物理淡入淡出",
+                    "title": "45 度斜切物理微淡入淡出",
+                    "body": "90度垂直切断会在穿过放音磁头时产生刺耳的直流跳变爆音；45度斜切在物理上创造出 3 毫秒无损自然过渡。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "铝槽拼接胶带固定",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "在阳极氧化铝拼接槽内贴敷聚酯拼接胶带",
+                    "title": "无磁刀片与聚酯胶带拼接",
+                    "body": "磁带嵌入阳极氧化铝燕尾导向槽，消磁不锈钢刀片划过，覆上专用聚酯薄膜胶带完成永久物理熔接。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "剪入声音永恒",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结模拟时代不可撤销的手工剪辑敬畏",
+                    "title": "封存进氧化铁中的完美母带",
+                    "body": "没有 Ctrl+Z，亦无数字量化。开盘母带以全速旋转，将录音师刀尖上的绝对精度封存为不朽的音乐瞬间。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "The Audio Cyclopedia: Tape Recording and Splicing Standards",
+              "url": "https://aes2.org/publications/historical-publications/",
+              "supports": "45-degree angle tape splicing geometry and 15 ips velocity acoustic mapping."
+            }
+          ]
+        },
+        "modulePath": "../topics/magnetic-tape-splicing.tsx"
       }
     ]
   },
@@ -28807,6 +34013,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/make-something-weekly.tsx"
+      },
+      {
+        "id": "pirate-radio-broadcast",
+        "styleId": "riso-print-zine",
+        "title": {
+          "en": "Pirate Radio Broadcast",
+          "zh": "海盗电台发射台"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Pirate Radio Broadcast: Guerrilla Transmitters and Open Airwaves",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fdf6e2",
+              "ink": "#1e1b4b",
+              "panel": "#fef3c7"
+            },
+            "typography": {
+              "header": "Impact 900",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "radio",
+              "zine",
+              "riso",
+              "broadcast",
+              "counterculture"
+            ],
+            "fonts": [
+              "Impact",
+              "Arial Black"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Monopoly of the Airwaves",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Expose state radio frequency monopoly in 1960s Europe",
+                    "title": "The Static Airwave Monopoly",
+                    "body": "State broadcasting monopolies barred rock, jazz, and underground youth culture from AM radio dials, hoarding frequencies."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Rusty Masts in International Waters",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Anchor decommissioned cargo ship outside 3-mile territorial limit",
+                    "title": "Extraterritorial Ship Anchors",
+                    "body": "Decommissioned fishing trawlers dropped anchor in international waters, mounting 50-meter lattice dipole antenna masts beyond state jurisdiction."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Power up 50kW tube RF transmitters",
+                    "title": "50kW Thermionic Tube Power",
+                    "body": "Diesel generator banks hummed below deck, pumping 50,000 watts of high-frequency RF power straight into saltwater ground planes."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Signal Penetrating the Coast",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Broadcast soul and rock across 200 miles of coastline",
+                    "title": "200 Miles of Unfiltered Sound",
+                    "body": "At 199 meters medium wave, unlicensed signals penetrated coastal bedroom transistor receivers with roaring electric guitar riffs."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Guerrilla Rooftop Antennas",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Deploy stealth FM dipole antennas on tower block rooftops",
+                    "title": "Tower Block Rooftop Relays",
+                    "body": "Urban pirate crews bolted microwave links to council estate elevator shafts, relaying live studio cassette decks across metropolitan skies."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Airwaves Belong to the People",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Celebrate the democratization of public broadcast spectrum",
+                    "title": "The Ether Reclaimed Forever",
+                    "body": "Solder, wire, and courage broke the state monopoly, proving the electromagnetic spectrum belongs to the human voice."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "海盗电台发射台：地下游击发射机与自由电波革命",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fdf6e2",
+              "ink": "#1e1b4b",
+              "panel": "#fef3c7"
+            },
+            "typography": {
+              "header": "Impact 900",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "电台",
+              "孔版印刷",
+              "海盗电台",
+              "广播",
+              "反叛文化"
+            ],
+            "fonts": [
+              "Impact",
+              "Arial Black"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "国家广播频段垄断",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "揭露 1960 年代欧洲国家电台对青年文化的封锁",
+                    "title": "僵死停滞的电波垄断",
+                    "body": "国家公共广播垄断机构对摇滚乐、摩城音乐与地下文化实施严密频率封锁，青年一代无处发声。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "公海生锈货船天线",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "退役货船抛锚于 3 海里领海之外避开管辖",
+                    "title": "领海之外的孤胆抛锚",
+                    "body": "退役渔船驶入不受国家法律管辖的公海海域，在摇晃的甲板上立起 50 米高的重型偶极发射天线天桅。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "柴油发电机驱动 50kW 电子管功放",
+                    "title": "50kW 电子管巨力轰鸣",
+                    "body": "甲板下柴油发电机组全速轰鸣，向海水地线注入 50,000 瓦超高频射频能量，刺破海风阻隔。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "穿透海岸的重低音",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "中波信号覆盖 200 英里海岸线收音机",
+                    "title": "200 英里无遮挡重低音",
+                    "body": "在中波 199 米波段，未获许可的自由信号穿透数百万沿海年轻人的半导体收音机，吉他失真轰鸣回荡夜空。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "楼顶游击微波中继",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "城市高层电梯井架设隐形 FM 偶极天线",
+                    "title": "高楼电梯井隐蔽中继",
+                    "body": "城市游击电台团队将微波发射机伪装固定在高层公屋电梯井外侧，跨越警察侦测网直播地下磁带混音。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "电波终归自由",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "宣告公共电磁频谱的彻底民主化",
+                    "title": "电磁以太的永恒解放",
+                    "body": "焊锡、铜线与无畏的勇气粉碎了官僚垄断，证明了电磁波从来不是特权的囚笼，而是属于每个人的自由之声。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "push-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "The Ship That Rocked the World: How Radio Caroline Defied the Law",
+              "url": "https://www.worldradiohistory.com/Archive-Books/Pirate-Radio.htm",
+              "supports": "Offshore broadcast engineering, 50kW transmitter power, and Marine Offences Act history."
+            }
+          ]
+        },
+        "modulePath": "../topics/pirate-radio-broadcast.tsx"
       }
     ]
   },
@@ -30080,6 +35503,221 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/piecing-idea-together.tsx"
+      },
+      {
+        "id": "continental-drift-pangaea",
+        "styleId": "analog-cutout-collage",
+        "title": {
+          "en": "Pangaea Continental Drift",
+          "zh": "大陆漂移拼图"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Pangaea Continental Drift: Wegener's Jigsaw Puzzle of the Earth",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f4ede2",
+              "ink": "#292524",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "geology",
+              "pangaea",
+              "tectonics",
+              "collage",
+              "wegener"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "The Jigsaw Coastlines",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Align South American and African continental shelves",
+                    "title": "South America & Africa Interlocking",
+                    "body": "Alfred Wegener noticed that the Atlantic coastlines of South America and Africa fit together like torn pieces of paper."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Transoceanic Fossil Bands",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Trace continuous Glossopteris fern fossil belts",
+                    "title": "Glossopteris Plant Fossil Band",
+                    "body": "Identical heavy fern seeds and Mesosaurus reptile skeletons span oceans, proving landmasses once formed an unbroken plain."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Correlate Paleozoic glacial striation grooves",
+                    "title": "Concentric Glacial Striations",
+                    "body": "Ancient glacial scratch marks point away from a single Antarctic epicenter when the southern continents are reassembled."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Pangaea Supercontinent",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Reconstruct 250-million-year-old Pangaea supercontinent",
+                    "title": "250 Million Years Ago: Pangaea",
+                    "body": "All landmasses united into a single crescent continent surrounded by the Panthalassa ocean before the Triassic breakup."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Mid-Atlantic Ridge Seafloor Spreading",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Reveal paleomagnetic zebra stripe reversals",
+                    "title": "Paleomagnetic Zebra Stripes",
+                    "body": "Sonar mapping revealed magma welling at the Mid-Atlantic Ridge, recording geomagnetic polarity flips as the ocean floor expanded."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Restless Crust",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Summarize dynamic mantle convection",
+                    "title": "Plates Drifting on Mantle Magma",
+                    "body": "Continents are not static anchors—they are floating puzzle pieces driven across the molten asthenosphere by deep thermal currents."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "大陆漂移拼图：魏格纳拼合盘古超大陆的地质史诗",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f4ede2",
+              "ink": "#292524",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "地质学",
+              "盘古大陆",
+              "板块构造",
+              "剪纸拼贴",
+              "魏格纳"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "海岸线咬合拼图",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "对比南美洲东岸与非洲西岸大陆架轮廓",
+                    "title": "南美与非洲大陆边缘咬合",
+                    "body": "气象学家魏格纳凝视地图，发现大西洋两岸的大陆架边缘严丝合缝，宛如被利刃撕裂的纸片。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "跨洋化石连续带",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "连接跨越大洋的舌羊齿植物化石带",
+                    "title": "舌羊齿跨洋化石带",
+                    "body": "不会游泳的中龙化石与笨重的舌羊齿植物孢子跨洋分布在两大洲，证明陆地曾是同一片广袤平原。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "比对古冰川同心放射状擦痕",
+                    "title": "古冰川同心放射擦痕",
+                    "body": "将南半球各大陆重新拼合后，二叠纪古冰川的冰蚀刮痕整齐指向同一个南极中心，谜团迎刃而解。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "盘古超大陆复原",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "复原 2.5 亿年前盘古超大陆完整地貌",
+                    "title": "2.5 亿年前盘古超大陆",
+                    "body": "在三叠纪裂解之前，地球所有陆地完整拼合为巨大的新月形泛大陆，被唯一的泛大洋温柔环抱。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "大西洋中脊海底扩张",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "揭示大西洋中脊古地磁斑马斑纹对称",
+                    "title": "大洋中脊磁异常斑马纹",
+                    "body": "深海声呐测绘揭示大洋中脊不断涌出岩浆，海底如传送带向两侧扩张，地磁倒转在海床岩石上刻下对称条纹。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "永不停歇的地壳",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结地幔对流驱动的动态地球系统",
+                    "title": "在炽热地幔上漂移的陆块",
+                    "body": "大陆绝非永恒静止的基岩——它们是漂浮在炽热软流圈上的拼图片段，在深部地幔对流中奔流不息。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "crossfade",
+          "3->4": "slide-x",
+          "4->5": "fade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "The Origin of Continents and Oceans (Die Entstehung der Kontinente und Ozeane, Alfred Wegener)",
+              "url": "https://www.nature.com/articles/116262a0",
+              "supports": "Continental jigsaw fitting, Glossopteris paleontology, and paleomagnetic seafloor spreading."
+            }
+          ]
+        },
+        "modulePath": "../topics/continental-drift-pangaea.tsx"
       }
     ]
   },
@@ -31388,6 +37026,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/a-rivers-journey.tsx"
+      },
+      {
+        "id": "kuroshio-current-voyage",
+        "styleId": "woodblock-floating-world",
+        "title": {
+          "en": "Kuroshio Current Voyage",
+          "zh": "黑潮暖流航路"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Kuroshio Current Voyage: Maritime Navigation and Pacific Swells",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fbf5e6",
+              "ink": "#1e293b",
+              "panel": "#e0f2fe"
+            },
+            "typography": {
+              "header": "Serif 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "ocean",
+              "japan",
+              "woodblock",
+              "kuroshio",
+              "craft"
+            ],
+            "fonts": [
+              "Georgia",
+              "serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Equatorial Deep Blue Surge",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Map the warm dark blue oceanic stream from the tropics",
+                    "title": "The Deep Black Stream (Kuroshio)",
+                    "body": "A warm, high-salinity oceanic current flows northward from the Philippines, pushing 50 million cubic meters per second along Pacific shores."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Wooden Merchant Vessels",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Chart traditional wooden Bezaisen cargo navigation",
+                    "title": "Bezaisen Hull Hydrodynamics",
+                    "body": "Traditional wooden ships hoisted square cotton sails, riding the 4-knot northward current to transport rice, cedar, and dried fish."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Steer past hidden reef vortexes",
+                    "title": "Navigating Reef Vortexes",
+                    "body": "Where coastal shoals collide with deep ocean swells, roaring tidal whirlpools demand expert rudder leverage from seasoned helmsmen."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Monsoon and Breaker Crests",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Engrave towering foam crests against stormy horizons",
+                    "title": "Great Winter Swells & Foam Claws",
+                    "body": "Winter monsoons blow opposing winds against the northward current, rearing up 10-meter steep breaker waves with Prussian blue claws."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Bountiful Coastal Fisheries",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Follow migratory bonito and tuna along warm thermal fronts",
+                    "title": "The Bonito Upwelling Highway",
+                    "body": "Nutrient upwelling at current convergence zones attracts vast schools of tuna and Pacific saury, nourishing vibrant coastal villages."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Floating World's Horizon",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Seal print with red vermilion stamp of eternity",
+                    "title": "Harmony with Pacific Tides",
+                    "body": "Seafarers of the floating world conquered no oceans—they yielded to the eternal rhythm of the black current, carving life along its wake."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "黑潮暖流航路：太平洋巨浪与江户木版航海图",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fbf5e6",
+              "ink": "#1e293b",
+              "panel": "#e0f2fe"
+            },
+            "typography": {
+              "header": "Serif 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "海洋",
+              "日本",
+              "浮世绘",
+              "黑潮",
+              "传统工艺"
+            ],
+            "fonts": [
+              "Georgia",
+              "serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "赤道深蓝暖流",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "绘制从赤道北上的深蓝色大洋主干洋流",
+                    "title": "深蓝黑水暖流涌动",
+                    "body": "赤道高盐高温海水汇聚成深蓝色的太平洋第一大洋流，以每秒五千万立方米巨力沿东亚岛弧浩荡北上。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "顺流木造商船",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "卞才船顺流满帆运输大米与木材",
+                    "title": "卞才千石船顺流扬帆",
+                    "body": "江户时代的千石卞才船升起单幅大布帆，借由每小时 4 节的强劲顺洋流，高速转运大米、雪松木与干鱼海味。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "老舵手驾船避开暗礁鸣门漩涡",
+                    "title": "避让暗礁漩涡险境",
+                    "body": "深海涌浪与海岸浅滩激烈对撞，在海峡激荡起轰鸣的巨型漩涡，全赖老舵手凭借经验扳动巨舵死里逃生。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "季风潮汐巨浪",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "冬日季风迎头痛击暖流掀起滔天巨浪",
+                    "title": "冬日逆风与普鲁士蓝巨浪",
+                    "body": "强烈的西北冬季季风逆向撞击北上洋流，海面上瞬间拔起十米高的陡峭折角巨浪，鹰爪般的水沫撕裂长空。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "鱼群回游繁华",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "鲣鱼与金枪鱼沿暖流冷水交界锋面回游",
+                    "title": "暖冷交汇涌升渔场",
+                    "body": "暖流与亲潮冷水在东北海域交汇，涌升流泛起丰沛营养盐，吸引千万尾金枪鱼与秋刀鱼群，催生繁荣渔港。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "浮世舟人敬畏",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "盖下朱红印章，寄托对自然的终极敬畏",
+                    "title": "顺应天道黑潮之水",
+                    "body": "浮世绘中的舟人从未妄言征服自然；他们敬畏并顺应黑潮的万古律动，在波涛间安顿凡世的悲喜与舟楫。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "crossfade",
+          "3->4": "slide-x",
+          "4->5": "fade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Ocean Circulation and Kuroshio Current Dynamics (NOAA)",
+              "url": "https://www.noaa.gov/ocean",
+              "supports": "50 Sv volume transport, 4-knot velocity, and winter monsoon wave height data."
+            }
+          ]
+        },
+        "modulePath": "../topics/kuroshio-current-voyage.tsx"
       }
     ]
   },
@@ -32610,6 +38465,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/anatomy-of-an-idea.tsx"
+      },
+      {
+        "id": "ginkgo-biloba-living-fossil",
+        "styleId": "botanical-specimen-plate",
+        "title": {
+          "en": "Ginkgo Biloba Plate",
+          "zh": "银杏活化石"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Ginkgo Biloba Plate: Anatomy of a 270-Million-Year Living Fossil",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fbf7ee",
+              "ink": "#382e25",
+              "panel": "#f2ece0"
+            },
+            "typography": {
+              "header": "Garamond 700",
+              "body": "Garamond 400"
+            },
+            "tags": [
+              "botany",
+              "evolution",
+              "herbarium",
+              "ginkgo",
+              "specimen"
+            ],
+            "fonts": [
+              "Garamond",
+              "Georgia"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Dichotomous Fan Venation",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Examine primitive bifurcating fan leaf structure",
+                    "title": "Dichotomous Vein Architecture",
+                    "body": "Ginkgo leaves feature archaic dichotomous venation—veins fork repeatedly in pairs without the cross-reticulation of modern flowering plants."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Motile Flagellated Sperm",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Observe ancient motile swimming spermatozoids",
+                    "title": "Pre-Cycad Motile Swimming Sperm",
+                    "body": "Along with cycads, Ginkgo is the only seed plant whose fertilization relies on thousands of spiraling flagella swimming in ovular fluid."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Trace gymnosperm evolutionary divergence",
+                    "title": "270 Million Year Lineage",
+                    "body": "Fossil specimens from the Permian era show identical leaf morphology, surviving four global mass extinctions unscathed."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Ginkgolide Terpene Shield",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Isolate unique bioactive diterpene ginkgolides",
+                    "title": "Ginkgolide Biochemical Armor",
+                    "body": "Unique trilactonic diterpenes (ginkgolides A, B, C) repel herbivorous insects, wood-decay fungi, and environmental bacterial pathogens."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Radiation & Fire Resilience",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Observe post-atomic dormant subterranean bud reactivation",
+                    "title": "Subterranean Dormant Bud Sprouting",
+                    "body": "Six trees survived within 1.5 km of the 1945 Hiroshima blast epicenter, their lignotubers sprouting new trunks within months."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Solitary Survivor",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Complete scientific herbarium specimen inscription",
+                    "title": "A Single Branch Across Deep Time",
+                    "body": "Sole survivor of an entire botanical division (Ginkgophyta), Ginkgo biloba stands as an unyielding monument to evolutionary endurance."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "银杏活化石：二亿七千万年裸子植物的植物标本板",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fbf7ee",
+              "ink": "#382e25",
+              "panel": "#f2ece0"
+            },
+            "typography": {
+              "header": "Garamond 700",
+              "body": "Garamond 400"
+            },
+            "tags": [
+              "植物学",
+              "演化",
+              "标本板",
+              "银杏",
+              "活化石"
+            ],
+            "fonts": [
+              "Garamond",
+              "Georgia"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "扇形二叉叶脉",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "观察原始二叉分叉扇形叶脉",
+                    "title": "原始二叉分叉叶脉",
+                    "body": "银杏扇形叶片保留着古老的二叉分歧脉序——叶脉成对反复二歧分叉，完全没有现代被子植物的交织网状侧脉。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "游动精子古老生殖",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "观察微观螺旋鞭毛游动精子",
+                    "title": "具数千根鞭毛的游动精子",
+                    "body": "银杏与苏铁是种子植物中唯二依赖多鞭毛游动精子受精的活化石，精子依靠纤毛在胚珠液体中自发游泳结合。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "比对二叠纪化石的形态一致性",
+                    "title": "二亿七千万年谱系传承",
+                    "body": "二叠纪地层中出土的银杏叶片化石与现生种解剖形态惊人一致，安然度过了地球四次全球生物大灭绝浩劫。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "银杏内酯化学盾牌",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "提纯独特的银杏三内酯萜类化合物",
+                    "title": "银杏内酯特种生化防线",
+                    "body": "特有的银杏二萜内酯（Ginkgolide A, B, C）具备极强抗虫与抗木腐菌活性，使整株树木免遭绝大多数病虫害侵袭。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "辐射与火灾再生力",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "见证地下休眠隐芽在极端废墟中重生",
+                    "title": "地下休眠树瘤隐芽萌发",
+                    "body": "在 1945 年广岛核爆爆心 1.5 公里范围内的六株银杏遭受严重烧灼，其地下根瘤隐芽数月内便破土抽出嫩绿新枝。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "孑遗独苗的史诗",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "题写植物标本馆最终学术签条",
+                    "title": "跨越地质深时的孑遗史诗",
+                    "body": "作为银杏门（Ginkgophyta）下仅存的唯一孑遗物种，银杏以一树之躯，独自扛起了跨越近三亿年地质深时的生命传奇。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "fade",
+          "2->3": "crossfade",
+          "3->4": "slide-x",
+          "4->5": "fade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Ginkgo: The Tree That Time Forgot (Peter Crane, Yale Univ Press)",
+              "url": "https://yalebooks.yale.edu/book/9780300213836/ginkgo/",
+              "supports": "270-million-year fossil record, flagellated swimming sperm, and ginkgolide defense chemistry."
+            }
+          ]
+        },
+        "modulePath": "../topics/ginkgo-biloba-living-fossil.tsx"
       }
     ]
   },
@@ -33828,6 +39900,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/grand-unveiling.tsx"
+      },
+      {
+        "id": "diesel-streamliner-train",
+        "styleId": "machine-age-deco",
+        "title": {
+          "en": "Diesel Streamliner Era",
+          "zh": "柴油流线型机车"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Diesel Streamliner Era: Aerodynamics and Art Deco Locomotives",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#09090b",
+              "ink": "#f8fafc",
+              "panel": "#1c1917"
+            },
+            "typography": {
+              "header": "Impact 900",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "trains",
+              "art-deco",
+              "engineering",
+              "speed",
+              "streamliner"
+            ],
+            "fonts": [
+              "Impact",
+              "Arial Black"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Steam's Inertial Ceiling",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Confront reciprocating steam locomotive mass",
+                    "title": "The Reciprocating Steam Limit",
+                    "body": "Heavy cast-iron boilers, coal tenders, and pounding dynamic counterweights capped passenger train velocity below 80 mph."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Wind Tunnel Shrouding",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Sculpt stainless steel bullet nose in aeronautic wind tunnel",
+                    "title": "Aeronautic Bullet Shrouding",
+                    "body": "Pioneering wind tunnel tests carved teardrop stainless steel shells, slashing aerodynamic atmospheric drag by 40%."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Eliminate unfaired underbody turbulence",
+                    "title": "Skirted Bogie Airflow",
+                    "body": "Full-length fluted side skirts directed underbody airflow smoothly past truck bogies and brake assemblies."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Pioneer Zephyr 100 MPH Dash",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Break Denver-to-Chicago dawn-to-dusk speed record",
+                    "title": "1,015 Miles in 13 Hours (112.5 MPH Peak)",
+                    "body": "On May 26, 1934, the Burlington Zephyr dashed 1,015 nonstop miles from Denver to Chicago in 13 hours and 5 minutes."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Winton Two-Stroke Diesel Heart",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Power lightweight two-stroke uniflow diesel engine",
+                    "title": "600 HP Electro-Motive Traction",
+                    "body": "Winton 8-201A uniflow two-stroke diesel engines cut power-to-weight ratios in half, feeding direct DC traction generators."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Speed as a Modernist Monument",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Celebrate the Art Deco marriage of speed and sculpture",
+                    "title": "The Silver Cathedral of Velocity",
+                    "body": "Streamlined chrome was not merely transportation—it was the machine age's supreme sculpture of optimism and speed."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "柴油流线型机车：空气动力学与装饰艺术铁路革命",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#09090b",
+              "ink": "#f8fafc",
+              "panel": "#1c1917"
+            },
+            "typography": {
+              "header": "Impact 900",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "铁路",
+              "装饰艺术",
+              "工程",
+              "速度",
+              "流线型"
+            ],
+            "fonts": [
+              "Impact",
+              "Arial Black"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "蒸汽机车速度瓶颈",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "揭露传统笨重蒸汽机车的往复惯性死结",
+                    "title": "笨重蒸汽锅炉的物理极限",
+                    "body": "沉重的铸铁锅炉、煤水车与剧烈晃动的往复活塞连杆，将传统旅客列车速度死死压制在每小时 80 英里以内。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "风洞雕琢流线车头",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "在航空风洞中雕琢不锈钢水滴形子弹头车体",
+                    "title": "航空风洞雕琢子弹头",
+                    "body": "先锋工业设计师在航空风洞中打磨出泪滴形不锈钢蒙皮车头，将列车高速空气阻力骤降 40%。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "全包覆裙板消除转向架紊流",
+                    "title": "全包覆流线型下沉裙板",
+                    "body": "贯通车底的折面裙板将车下气流顺畅导流穿过转向架，彻底消除了底部剧烈的空气涡流滞阻。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "西风号百英里飞驰",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "打破丹佛至芝加哥无停站狂飙纪录",
+                    "title": "13小时狂飙1015英里 (极速112.5MPH)",
+                    "body": "1934年5月26日，先锋西风号（Pioneer Zephyr）创下 1015 英里黎明至黄昏不间断狂飙神话，极速达 112.5 英里/小时。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "二冲程柴油电传心脏",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "搭载轻量化温顿二冲程直流电传动引擎",
+                    "title": "600马力两冲程柴油电传",
+                    "body": "温顿 8-201A 两冲程单流扫气柴油机将推重比翻倍，通过直流牵引电动机输出源源不断的平滑动力。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "工业速度黄金时代",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结装饰艺术与速度机械的巅峰融合",
+                    "title": "银色钢铁与速度的圣殿",
+                    "body": "闪耀的不锈钢流线型机车绝非单纯的交通工具，它是机器时代将速度、工程与工业乐观主义熔铸成的终极移动雕塑。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Dawn of the Streamliners (Burlington Route Historical Society)",
+              "url": "https://www.burlingtonroute.org/history/zephyrs/",
+              "supports": "1,015 mile dawn-to-dusk speed dash and Winton 201A two-stroke diesel traction."
+            }
+          ]
+        },
+        "modulePath": "../topics/diesel-streamliner-train.tsx"
       }
     ]
   },
@@ -35008,6 +41297,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/mapping-unknown-ground.tsx"
+      },
+      {
+        "id": "mariana-trench-descent",
+        "styleId": "expedition-screenprint",
+        "title": {
+          "en": "Mariana Trench Descent",
+          "zh": "马里亚纳深潜"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Mariana Trench Descent: Extreme Hydrostatic Engineering at 10,994M",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0f2b38",
+              "ink": "#f1f5f9",
+              "panel": "#020617"
+            },
+            "typography": {
+              "header": "Impact 900",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "ocean",
+              "deep-sea",
+              "expedition",
+              "screenprint",
+              "hydrostatic"
+            ],
+            "fonts": [
+              "Impact",
+              "Arial Black"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Abyssal Midnight Descent",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Plunge into Challenger Deep bathyal zone",
+                    "title": "Descent Past the Hadal Threshold",
+                    "body": "The submersible drops through sunlight, twilight, and midnight zones into the hadal trench—10,994 meters beneath the surface."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "1,100 Atmosphere Titanium Sphere",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Resist crushing 110 MPa hydrostatic pressure",
+                    "title": "Forged Titanium Pressure Sphere",
+                    "body": "A 90mm-thick forged titanium sphere compresses by several millimeters under 1,100 atmospheres without buckling."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Balance syntactic foam syntactic buoyancy",
+                    "title": "Syntactic Glass Microsphere Foam",
+                    "body": "Millions of hollow glass microspheres embedded in epoxy provide non-compressible buoyancy in near-freezing 1°C water."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Challenger Deep Touchdown",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Touch down on diatomaceous abyssal silt bed",
+                    "title": "Touchdown at 10,994 Meters",
+                    "body": "Floodlights illuminate pale diatomaceous ooze silt; endemic amphipods and translucent snailfish thrive under impossible pressure."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Subduction Silt Core Sampling",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Retrieve robotic sediment core from Pacific subduction plate",
+                    "title": "Pacific Plate Subduction Core",
+                    "body": "Hydraulic manipulators drive titanium core tubes into benthic sediment, capturing mantle volatiles and ancient microbial DNA."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Oceanic Abyss Conquered",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Drop steel ascent weights and ascend to sunlight",
+                    "title": "Ascent from the Deepest Abyss",
+                    "body": "Electromagnetic release locks drop 500kg of ballast iron, propelling the vessel upward through six miles of silent water to the sun."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "马里亚纳深潜：挑战者深渊万米极限流体静压工程",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0f2b38",
+              "ink": "#f1f5f9",
+              "panel": "#020617"
+            },
+            "typography": {
+              "header": "Impact 900",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "海洋",
+              "深潜",
+              "探险",
+              "丝网印",
+              "深渊工程"
+            ],
+            "fonts": [
+              "Impact",
+              "Arial Black"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "超深渊带暗夜下潜",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "潜航器穿透透光层直坠挑战者深渊",
+                    "title": "穿透万米深渊带边界",
+                    "body": "载人潜水器穿越透光层、弱光层与无光黑夜层，向地球最深的挑战者深渊 10,994 米洋底孤独坠落。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "千个大气压钛球舱",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "90mm 厚锻造钛合金载人球舱抵御超高静压",
+                    "title": "90mm 锻造钛合金载人球",
+                    "body": "在 1100 个标准大气压（110兆帕）的毁灭性流体静压下，载人钛合金球舱整体微缩数毫米而不发生屈曲失稳。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "微珠固体浮力材料提供不可压缩浮力",
+                    "title": "空心玻璃微珠固体浮力材",
+                    "body": "数以亿计的高强空心玻璃微珠环氧树脂块，在 1°C 冰点深海中提供恒定不可压缩的绝对浮力储备。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "万米深渊触底探索",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "探照灯照亮万米海底硅藻泥与特有端足类生物",
+                    "title": "10,994 米洋底触底着陆",
+                    "body": "高功率探照灯划破永恒黑暗，照亮白色的硅藻软泥海床；特有的白色狮子鱼与端足类生物在不可思议的超高压下从容游弋。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "板块俯冲带取样",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "液压机械臂钻取太平洋板块俯冲带沉积柱状样",
+                    "title": "太平洋板块俯冲带取样",
+                    "body": "液压机械臂将钛合金取样管深深打入俯冲带海沟沉积层，捕获深部地幔气体挥发物与古老的深渊嗜极微生物。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "深渊归来重见天日",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "电磁抛载数百公斤铸铁压载铁浮升重见阳光",
+                    "title": "抛载重返万米阳光海面",
+                    "body": "电磁锁断电抛弃 500 公斤压载铁，潜水器化作水下火箭穿透六英里厚的静默深海，破浪而出重见万丈霞光。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "NOAA Ocean Exploration: Challenger Deep Expedition Data",
+              "url": "https://oceanexplorer.noaa.gov/explorations/explorations.html",
+              "supports": "10,994m maximum depth soundings, 110 MPa hydrostatic pressure, and titanium sphere compression."
+            }
+          ]
+        },
+        "modulePath": "../topics/mariana-trench-descent.tsx"
       }
     ]
   },
@@ -36308,6 +42814,221 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/greatest-hits-vol1.tsx"
+      },
+      {
+        "id": "floppy-disk-interleaving",
+        "styleId": "cassette-era-packaging",
+        "title": {
+          "en": "Floppy Interleaving",
+          "zh": "软盘磁道交织"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Floppy Interleaving: Mechanical RPM and Sector Timing Optimization",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fdfbf7",
+              "ink": "#3e2723",
+              "panel": "#fef3c7"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "hardware",
+              "retro",
+              "floppy",
+              "interleaving",
+              "packaging"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Inside the 3.5-Inch Shell",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Inspect 3.5-inch microfloppy shell and 300 RPM spindle",
+                    "title": "3.5-Inch Shell & 300 RPM Drive",
+                    "body": "A flexible mylar disk coated with magnetic iron oxide spins at a constant 300 RPM—exactly 200 milliseconds per full revolution."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Concentric Tracks & Sectors",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Partition 80 concentric tracks into 18 physical sectors",
+                    "title": "80 Concentric Tracks & Sectors",
+                    "body": "The stepper motor positions the read/write head across 80 tracks; each track is formatted into eighteen 512-byte sectors."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Index hole synchronization pulse",
+                    "title": "Index Mark Zero Point",
+                    "body": "An optical sensor detects the physical index hole, providing a hardware reference pulse for sector zero on each rotation."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "The 1:1 Sequential Bottleneck",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Reveal DMA latency causing full revolution misses",
+                    "title": "The 200ms Full Revolution Penalty",
+                    "body": "After reading Sector 1, the CPU requires 2ms to process data. By then, Sector 2 has flown past, forcing a full 200ms wait."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "The 1:3 Interleave Solution",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Rearrange sector sequence to 1-4-7-2-5-8",
+                    "title": "1:3 Interleave Staggering",
+                    "body": "Formatting sectors with a 1:3 stagger places Sector 2 three slots away; by the time the CPU resets, Sector 2 arrives perfectly."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Engineering Under Physical Limits",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Celebrate retro computing algorithmic elegance",
+                    "title": "Algorithmic Triumph over Physics",
+                    "body": "Without faster motors or expensive RAM, thoughtful mathematical layout accelerated disk throughput by 600%."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "软盘磁道交织：3.5寸软盘物理扇区交错排布提速纪律",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fdfbf7",
+              "ink": "#3e2723",
+              "panel": "#fef3c7"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "硬件",
+              "复古计算",
+              "软盘",
+              "扇区交织",
+              "卡带包装"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "塑料外壳下的磁介质",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "剖析 3.5 英寸微型软盘与 300 RPM 恒速主轴",
+                    "title": "3.5寸软盘与 300 RPM 恒速",
+                    "body": "聚酯薄膜圆盘涂覆磁性氧化铁，在驱动器内以 300 RPM 恒速旋转——每转一圈耗时恰好为 200 毫秒。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "磁道与扇区同心圆",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "步进电机将磁道划分为 18 个物理扇区",
+                    "title": "80 同心磁道与 18 物理扇区",
+                    "body": "磁头步进电机在 80 根同心磁道间机械寻道，每条磁道格式化为 18 个 512 字节的数据扇区。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "物理索引孔同步磁道原点",
+                    "title": "索引孔物理绝对原点",
+                    "body": "光电传感器捕捉软盘上的物理索引小孔，为每一圈旋转提供确定性的零号扇区起始基准脉冲。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "连续读取的性能陷阱",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "DMA 处理延迟导致错失扇区空转整圈",
+                    "title": "200 毫秒旋转整圈惩罚",
+                    "body": "读完 1 号扇区后，早期 CPU 需耗时 2 毫秒传输数据。此时 2 号扇区早已转过磁头，驱动器被迫空等整整一圈（200ms）。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "1:3 扇区交织解法",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "跳跃式排列扇区为 1-4-7-2-5-8 实现提速",
+                    "title": "1:3 扇区跳跃交织重排",
+                    "body": "将物理扇区按 1:3 比例交错排布；当 CPU 处理完毕重置控制器时，2 号扇区恰好准时转到磁头下方，读取速度暴增 6 倍。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "物理极限下的妥协",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结复古计算硬件受限下的极致算法智慧",
+                    "title": "受限硬件下的极致算法智慧",
+                    "body": "无需升级更昂贵的电机，亦无需大容量缓存；精妙的数学排布让古老的软盘突破了物理旋转的枷锁。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Floppy Disk Controller Architecture & Sector Interleaving",
+              "url": "https://www.retrotechnology.com/herbs_stuff/drive.html",
+              "supports": "300 RPM rotation timing, 1:3 sector interleave factors, and DMA latency bypass."
+            }
+          ]
+        },
+        "modulePath": "../topics/floppy-disk-interleaving.tsx"
       }
     ]
   },
@@ -37578,6 +44299,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/read-before-merge.tsx"
+      },
+      {
+        "id": "zero-day-exploit-mitigation",
+        "styleId": "neo-brutalist-bulletin",
+        "title": {
+          "en": "Zero-Day Incident Fix",
+          "zh": "零日漏洞紧急修复"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Zero-Day Incident Fix: 4-Hour Rapid Global In-the-Wild Mitigation",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fffbeb",
+              "ink": "#000000",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "Arial Black 900",
+              "body": "System-ui 500"
+            },
+            "tags": [
+              "security",
+              "zero-day",
+              "incident",
+              "bulletin",
+              "devops"
+            ],
+            "fonts": [
+              "Arial Black",
+              "Arial"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Active Exploitation Alert",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Trigger critical unauthenticated RCE telemetry warning",
+                    "title": "CRITICAL SEV-0: IN-THE-WILD RCE",
+                    "body": "SOC telemetry detects anomalous deserialization payload bypasses, achieving root shell code execution on production clusters."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Reverse Engineering Root Cause",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Disassemble memory corruption primitive",
+                    "title": "Unsafe Type Confusion Disassembly",
+                    "body": "Static reverse engineers isolate an unchecked polymorphic gadget chain in the JSON payload parser within 45 minutes."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Construct deterministic reproduction script",
+                    "title": "Deterministic POC Verification",
+                    "body": "A sanitized proof-of-concept test reproduces heap corruption in isolated sandbox test harnesses."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Emergency WAF Virtual Patch",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Deploy global edge virtual regex patch in 15 minutes",
+                    "title": "GLOBAL WAF VIRTUAL PATCH (T+60M)",
+                    "body": "Edge proxy filters drop malformed gadget byte sequences globally, immediately stopping active exploitation without binary downtime."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Canary Kernel Hotpatching",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Push live memory hotpatch to 100,000 nodes",
+                    "title": "Live eBPF & Kernel Hotpatching",
+                    "body": "eBPF safety probes hook the vulnerable function prologue in-memory, nullifying malicious pointer offsets across all fleets."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Post-Mortem & Zero-Trust Audit",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Publish transparent CVE bulletin and permanent fix",
+                    "title": "CVE-2026-0DAY RESOLVED & SEALED",
+                    "body": "Incident closed at T+4 hours. Fuzzing harnesses, memory-safe rewrites, and zero-trust perimeter gates permanently hardened."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "零日漏洞紧急修复：在野高危利用 4 小时全球止血实录",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fffbeb",
+              "ink": "#000000",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "Arial Black 900",
+              "body": "System-ui 500"
+            },
+            "tags": [
+              "安全",
+              "零日漏洞",
+              "应急响应",
+              "公告",
+              "运维"
+            ],
+            "fonts": [
+              "Arial Black",
+              "Arial"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "在野利用突发警报",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "触发最高级别未授权 RCE 漏洞警报",
+                    "title": "最高危警报：在野 RCE 攻击",
+                    "body": "安全监控中心捕捉到异常反序列化攻击载荷，攻击者已突破边界获得生产集群 root 权限。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "逆向定位核心根因",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "反编译锁定不安全类型混淆利用链",
+                    "title": "逆向定位多态反序列化链",
+                    "body": "逆向专家在 45 分钟内精准定位 JSON 解析器中的未校验多态类调用链，锁定堆内存破坏原语。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "在沙箱中成功构造确定性复现脚本",
+                    "title": "沙箱环境确定性复现验证",
+                    "body": "在隔离沙箱中成功构造确定性 POC 脚本，精准复现崩溃与内存覆盖路径。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "WAF 虚拟补丁全球止血",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "15 分钟内向全球边缘网关下发拦截规则",
+                    "title": "WAF 虚拟补丁全球止血 (T+60分)",
+                    "body": "边缘网关规则秒级全球生效，拦截所有恶意 gadget 字节特征，零停机时间内彻底遏制攻击蔓延。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "底层热补丁灰度推送",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "通过 eBPF 向十万台节点在线打入热补丁",
+                    "title": "eBPF 内存无损热补丁分发",
+                    "body": "利用 eBPF 探针在内存中重定向易损函数序言，无需重启服务即可彻底免疫恶意指针偏移。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "复盘归档与零信任加固",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "发布透明 CVE 安全通告并完成代码重构",
+                    "title": "CVE-2026-0DAY 闭环封存",
+                    "body": "4 小时内完成全球止血与复盘。引入模糊测试与内存安全重构，零信任防线全面升维加固。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "push-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "NIST Special Publication 800-61: Computer Security Incident Handling",
+              "url": "https://csrc.nist.gov/publications/detail/sp/800-61/rev-2/final",
+              "supports": "Incident containment procedures, virtual patching, and post-incident remediation workflows."
+            }
+          ]
+        },
+        "modulePath": "../topics/zero-day-exploit-mitigation.tsx"
       }
     ]
   },
@@ -38787,6 +45725,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/refactor-the-system.tsx"
+      },
+      {
+        "id": "linear-types-memory-safety",
+        "styleId": "red-wedge-agitprop",
+        "title": {
+          "en": "Linear Types Smash Bugs",
+          "zh": "线性类型除漏洞"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Linear Types Smash Bugs: Compile-Time Annihilation of Dangling Pointers",
+            "densityLabel": "Sparse",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fdfbf7",
+              "ink": "#000000",
+              "panel": "#fee2e2"
+            },
+            "typography": {
+              "header": "Arial Black 900",
+              "body": "System-ui 600"
+            },
+            "tags": [
+              "types",
+              "rust",
+              "memory-safety",
+              "agitprop",
+              "constructivism"
+            ],
+            "fonts": [
+              "Arial Black",
+              "Impact"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "The Manual Memory Trap",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Confront 50 years of C/C++ memory corruption vulnerabilities",
+                    "title": "70% OF ALL CVES: MEMORY CORRUPTION",
+                    "body": "Manual pointer arithmetic and garbage collection trade-offs have plagued computer systems with use-after-free and double-free exploits."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "The Law of Exact-Once Use",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "State Girard's linear logic consumption rule",
+                    "title": "LINEAR LOGIC: EXACTLY-ONCE CONSUMPTION",
+                    "body": "A linear resource cannot be duplicated, shared, or silently dropped—every allocated value must be moved or consumed once."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Enforce borrow checker affine ownership",
+                    "title": "AFFINE TYPES & BORROWING",
+                    "body": "Exclusive mutable references ($&\\text{mut } T$) forbid aliased mutation, abolishing data races at compile time."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Red Wedge Smashes Dangling Pointers",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Drive compile-time wedge into runtime vulnerabilities",
+                    "title": "SMASH DANGLING POINTERS AT COMPILE TIME",
+                    "body": "The compiler rejects spatial and temporal invalidations before machine code is ever emitted: zero runtime garbage collector pause."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Zero-Cost Mechanical Sympathy",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Demonstrate compile-time static memory layout",
+                    "title": "ZERO RUNTIME TAX / MAXIMUM VELOCITY",
+                    "body": "RAII deterministic stack deallocation matches manual C velocity without sacrificing a single memory safety guarantee."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Type-Driven Revolution",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Declare victory of type theory over runtime bugs",
+                    "title": "PROOF AS CODE: THE FINAL VERDICT",
+                    "body": "Memory safety is not an operational policy—it is a mathematical theorem enforced by the type checker."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "线性类型除漏洞：编译期彻底击碎悬垂指针与内存破坏",
+            "densityLabel": "稀疏",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#fdfbf7",
+              "ink": "#000000",
+              "panel": "#fee2e2"
+            },
+            "typography": {
+              "header": "Arial Black 900",
+              "body": "System-ui 600"
+            },
+            "tags": [
+              "类型系统",
+              "Rust",
+              "内存安全",
+              "红楔海报",
+              "构成主义"
+            ],
+            "fonts": [
+              "Arial Black",
+              "Impact"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "手动内存管理泥潭",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "揭露五十年 C/C++ 内存破坏漏洞根源",
+                    "title": "70% 高危漏洞源自内存破坏",
+                    "body": "手动释放（free）与自动垃圾回收的妥协，使得野指针、释放后使用（UAF）与双重释放长期肆虐计算世界。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "有且仅消费一次法则",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "引入吉拉德线性逻辑资源消费法则",
+                    "title": "线性逻辑：有且仅消费一次",
+                    "body": "线性资源不可被静默丢弃、不可随意复制；每一个分配的资源必须且仅能被转移消费一次。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "借用检查器确立独占可变引用契约",
+                    "title": "仿射所有权与排他借用",
+                    "body": "独占可变引用（$\\&\\text{mut } T$）从根本上禁止可变别名，在编译期粉碎所有多线程数据竞争。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "红楔击碎悬垂指针",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "红楔如利刃在编译期刺破运行时漏洞",
+                    "title": "编译期彻底粉碎悬垂指针",
+                    "body": "类型检查器在代码生成前直接拒绝所有悬垂指针与越界访问，达成零运行时垃圾回收停顿的绝对安全。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "零成本抽象物理速度",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "确定性栈展开媲美纯 C 极致速度",
+                    "title": "零运行时损耗 / 极致物理速度",
+                    "body": "RAII 确定性析构在编译期静态求解生命周期，兼具纯 C 的极致运行吞吐与绝对的内存安全保证。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "类型驱动代码革命",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "宣告类型论对运行时缺陷的终极胜利",
+                    "title": "代码即证明：类型论终极审判",
+                    "body": "内存安全绝非运维规章；它是类型检查器通过数学构造法严格证毕的不可动摇的形式化定理。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "push-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Linear Logic (Jean-Yves Girard, Theoretical Computer Science)",
+              "url": "https://www.sciencedirect.com/science/article/pii/0304397587900454",
+              "supports": "Linear resource consumption logic, affine ownership systems, and borrow checker safety."
+            }
+          ]
+        },
+        "modulePath": "../topics/linear-types-memory-safety.tsx"
       }
     ]
   },
@@ -40019,6 +47174,228 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/triage-the-backlog.tsx"
+      },
+      {
+        "id": "venture-capital-deal-funnel",
+        "styleId": "mechanical-scoring-funnel",
+        "title": {
+          "en": "Venture Deal Screening",
+          "zh": "风投项目分拣"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Venture Deal Screening: The Mechanical Funnel from 3,000 to 5 Investments",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0f172a",
+              "ink": "#f8fafc",
+              "panel": "#1e293b"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "Monospace 400"
+            },
+            "tags": [
+              "finance",
+              "venture-capital",
+              "funnel",
+              "scoring",
+              "startups"
+            ],
+            "fonts": [
+              "Monospace",
+              "Inter"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Top-of-Funnel Inbound Triage",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Scan 3,000 inbound pitch decks annually",
+                    "title": "3,000 Inbound Pitch Decks",
+                    "body": "Associates scan 3,000 proprietary and cold inbound pitch decks per year, applying aggressive 30-second thesis filters."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "TAM & Unit Economics Gate",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Filter down to 300 initial founder calls",
+                    "title": "300 Founder Initial Screens",
+                    "body": "90% of deals fail quantitative TAM thresholds ($10B+ market size) or exhibit broken unit economics (LTV/CAC < 3x)."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Evaluate cohort retention decay curves",
+                    "title": "Cohort Retention Smile Curve",
+                    "body": "SaaS and consumer retention curves must flatten into a stable baseline to advance past the initial partner filter."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Technical & Customer Diligence",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Select 30 companies for full diligence deep-dive",
+                    "title": "30 Full Diligence Deep-Dives",
+                    "body": "Partners conduct 20+ blind customer reference calls, code audits, and cap-table forensics, scoring risk across five vectors."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Partner Meeting Defense",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Subject 12 finalists to full investment committee debate",
+                    "title": "12 Partner Pitch Defenses",
+                    "body": "Founders defend valuation, moat durability, and key hire strategy in high-stakes 60-minute partner meetings."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "5 Winning Term Sheets",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Issue 5 wired term sheets yielding 0.16% conversion",
+                    "title": "5 Wired Lead Term Sheets",
+                    "body": "From 3,000 top-of-funnel prospects, exactly 5 investments receive lead term sheets, driving power-law fund returns."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "风投项目分拣：从三千个商业计划书到五张投资意向书",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0f172a",
+              "ink": "#f8fafc",
+              "panel": "#1e293b"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "Monospace 400"
+            },
+            "tags": [
+              "金融",
+              "风险投资",
+              "分拣漏斗",
+              "评分",
+              "创业"
+            ],
+            "fonts": [
+              "Monospace",
+              "Inter"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "漏斗顶端海量初筛",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "年均扫描 3000 份商业计划书与项目线索",
+                    "title": "3000 份初始商业计划书",
+                    "body": "投资经理每年通过人脉推荐与公开渠道扫描 3000 份项目，以 30 秒硬性赛道标准快速粗筛。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "市场规模与单体经济",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "筛选出 300 家创始人初聊会面",
+                    "title": "300 场创始人初聊会面",
+                    "body": "90% 的项目因潜在市场规模（TAM < 100亿美元）不足或单客经济模型（LTV/CAC < 3）缺陷被无情淘汰。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "深度分析用户群组留存微笑曲线",
+                    "title": "群组留存微笑曲线验证",
+                    "body": "核心业务指标必须展现出平缓触底回升的留存微笑曲线，方能进入下一轮合伙人评审阶段。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "客户访谈与代码尽调",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "精选 30 家进入深度尽职调查流程",
+                    "title": "30 家进入深度尽职调查",
+                    "body": "合伙人执行 20 场以上匿名客户背调访谈、架构代码审计与股权穿透，在五大维度进行机械打分。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "合伙人过会答辩",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "12 家决赛团队参加合伙人正式过会",
+                    "title": "12 家合伙人全员过会答辩",
+                    "body": "创始人参加 60 分钟高压合伙人会议，就估值对赌、护城河壁垒与核心高管招募展开终极辩论。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "五份领投意向书",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "最终签发 5 份 Term Sheet 达成 0.16% 转化",
+                    "title": "最终签署 5 份领投 Term Sheet",
+                    "body": "从 3000 份初始漏斗中沉淀出最终 5 张领投投资意向书，以 0.16% 的严苛转化率博取幂律回报。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "push-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "mixed",
+          "sources": [
+            {
+              "title": "Venture Capital Deal Funnel Statistics (National Venture Capital Association)",
+              "url": "https://nvca.org/research/research-resources/",
+              "supports": "Statistical conversion rates from 3,000 pitch decks to 5 closed investments."
+            }
+          ],
+          "boundary": {
+            "en": "Illustrative investment pipeline model representing venture capital power-law distributions.",
+            "zh": "风险投资漏斗模型展示，代表风投机构幂律收益下的分拣流程。"
+          },
+          "display": "envelope"
+        },
+        "modulePath": "../topics/venture-capital-deal-funnel.tsx"
       }
     ]
   },
@@ -41164,6 +48541,221 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/layers-of-a-product.tsx"
+      },
+      {
+        "id": "total-internal-reflection-waveguide",
+        "styleId": "liquid-glass",
+        "title": {
+          "en": "Fiber Waveguide",
+          "zh": "光纤全反射"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Fiber Waveguide: Total Internal Reflection Trapping Light in Glass",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#020617",
+              "ink": "#f8fafc",
+              "panel": "#0f172a"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "optics",
+              "physics",
+              "fiber",
+              "liquid-glass",
+              "telecom"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "The Glass Interface Gradient",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Establish high-index core and low-index cladding",
+                    "title": "Core vs Cladding Index Differential",
+                    "body": "High-purity fused silica core ($n_1 = 1.48$) is encapsulated in a lower refractive index cladding ($n_2 = 1.46$)."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "The Critical Angle Threshold",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Demonstrate Snell's law critical angle jump",
+                    "title": "Critical Angle Transition (81.3°)",
+                    "body": "At incident angles $\\theta > \\arcsin(n_2/n_1) \\approx 81.3^\\circ$, refracted rays vanish, reflecting 100% of light energy back into the glass core."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Abolish surface transmission loss",
+                    "title": "Zero Decibel Boundary Loss",
+                    "body": "Unlike silvered metallic mirrors that absorb 1% of energy per bounce, total internal reflection is mathematically lossless."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Multi-Mode Zigzag Bouncing",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Trace millions of ray bounces along bent fiber strand",
+                    "title": "Trapped Photons Around Physical Bends",
+                    "body": "Light bounces millions of times per meter inside a 50-micron glass filament, following tortuous fiber curves without leaking a photon."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Single-Mode 9-Micron Core",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Shrink core to 9 microns to eliminate modal dispersion",
+                    "title": "Single-Mode Planar Wavefront",
+                    "body": "Shrinking core diameter to 9 micrometers eliminates intermodal delay, guiding optical solitons thousands of kilometers unblurred."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Glass Nervous System",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Synthesize global subsea and terrestrial fiber grid",
+                    "title": "Planetary Luminous Substrate",
+                    "body": "From microscopic silica boundaries to transatlantic conduits, total internal reflection forms the transparent nervous system of the earth."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "光纤全反射：高纯度玻璃丝中的光束禁锢与波导传导",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#020617",
+              "ink": "#f8fafc",
+              "panel": "#0f172a"
+            },
+            "typography": {
+              "header": "System-ui 800",
+              "body": "System-ui 400"
+            },
+            "tags": [
+              "光学",
+              "物理",
+              "光纤",
+              "液态玻璃",
+              "通信"
+            ],
+            "fonts": [
+              "System-ui"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "玻璃界面折射率差",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "确立纤芯与包层的高低折射率梯度",
+                    "title": "纤芯与包层折射率分层",
+                    "body": "高纯度二氧化硅玻璃纤芯（$n_1 = 1.48$）被包裹在折射率略低的掺氟玻璃包层（$n_2 = 1.46$）之中。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "临界角全反射发生",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "斯涅尔定律推导临界角完全反射",
+                    "title": "81.3度临界角全内反射",
+                    "body": "当光线入射角大于临界角 $\\theta_c = \\arcsin(n_2/n_1) \\approx 81.3^\\circ$ 时，折射光完全消失，100% 的光能被无损反弹回纤芯。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "展示无损全反射对比金属反射镜的优越性",
+                    "title": "零分贝边界无损反射",
+                    "body": "不同于金属镀银镜面每次反射损耗 1% 的能量，介质全内反射在数学与物理上完全没有透射能量衰减。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "多模微管光束弹跳",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "光脉冲在弯曲玻璃丝内每米弹跳数百万次",
+                    "title": "光子在弯曲玻璃丝中弹跳",
+                    "body": "在 50 微米的多模光纤内，光脉冲以每秒二十万公里的速度连续弹跳数百万次，即使光纤在物理上弯曲成环亦绝不外泄。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "9微米单模平直波前",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "纤芯缩至 9 微米消除模间色散",
+                    "title": "9 微米单模平直光波前",
+                    "body": "将纤芯直径压缩至 9 微米（接近光波长），几何弹跳消失，光波作为单一模式平直传导数千公里而波形不发生弥散。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "全球透明光脉络",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结全内反射构建的地球透明光血管",
+                    "title": "点亮地球的透明玻璃网络",
+                    "body": "从微观二氧化硅折射边界到深海越洋光缆，全内反射定律将透明的玻璃细丝雕琢成了人类文明最坚韧的信息血管。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "crossfade",
+          "2->3": "crossfade",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Optics and Optical Waveguide Theory (Snyder & Love)",
+              "url": "https://www.springer.com/gp/book/9780412099502",
+              "supports": "Total internal reflection, critical angle derivation, and single-mode 9µm core dispersion."
+            }
+          ]
+        },
+        "modulePath": "../topics/total-internal-reflection-waveguide.tsx"
       }
     ]
   },
@@ -42329,6 +49921,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/setup-exe.tsx"
+      },
+      {
+        "id": "win95-plug-and-play",
+        "styleId": "retro-windows",
+        "title": {
+          "en": "Win95 Plug and Play",
+          "zh": "即插即用架构"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Win95 Plug and Play: Dynamic Hardware Resource Arbitration",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#008080",
+              "ink": "#000000",
+              "panel": "#c0c0c0"
+            },
+            "typography": {
+              "header": "Tahoma 700",
+              "body": "Tahoma 400"
+            },
+            "tags": [
+              "windows",
+              "retro",
+              "plug-and-play",
+              "hardware",
+              "irq"
+            ],
+            "fonts": [
+              "Tahoma",
+              "sans-serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "DIP Switch & Jumper Hell",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Inspect ISA expansion cards and hardware jumper jumpers",
+                    "title": "Manual IRQ & DMA Conflicts",
+                    "body": "Installing a Sound Blaster card required manually setting physical jumpers to avoid IRQ5 interrupts crashing LPT1 printers."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "PnP Auto-Hardware Detection",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Probe expansion bus via ACPI and PnP BIOS",
+                    "title": "ACPI & PnP Enumeration",
+                    "body": "At boot, the Configuration Manager isolates ISA/PCI slots, reading vendor and device IDs (EISA ID) directly from card EEPROMs."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Build dynamic system hardware tree",
+                    "title": "Dynamic Hardware Registry Tree",
+                    "body": "The OS constructs a dynamic hardware tree under HKEY_DYN_DATA, allocating clean memory ranges without user intervention."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Resource Arbiter Allocation",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Arbitrate conflicting IRQ, DMA, and I/O port assignments",
+                    "title": "Automated Resource Arbiter (No Blue Screen)",
+                    "body": "The Resource Arbiter algorithmically resolves DMA/IO overlaps across PCI/ISA buses in 50 milliseconds without a Blue Screen."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Dynamic VxD Driver Binding",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Load virtual device drivers without rebooting",
+                    "title": "Dynamic VxD Virtual Driver Loading",
+                    "body": "Device Manager mounts 32-bit virtual device drivers (.VXD) into ring 0 memory on the fly, avoiding MS-DOS reboots."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Plug and Play Standard",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Establish modern plug-and-play consumer PC standard",
+                    "title": "Hardware Built for Human Beings",
+                    "body": "From 'Plug and Pray' mockery to industry standard, Windows 95 turned hardware installation into a zero-configuration reality."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "即插即用架构：Windows 95 动态硬件资源仲裁革命",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#008080",
+              "ink": "#000000",
+              "panel": "#c0c0c0"
+            },
+            "typography": {
+              "header": "Tahoma 700",
+              "body": "Tahoma 400"
+            },
+            "tags": [
+              "Windows",
+              "复古",
+              "即插即用",
+              "硬件",
+              "中断冲突"
+            ],
+            "fonts": [
+              "Tahoma",
+              "sans-serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "跳线帽与IRQ地狱",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展示 ISA 声卡跳线帽与并口打印机中断冲突",
+                    "title": "手动拨码跳线与中断冲突",
+                    "body": "在 DOS 时代安装声卡必须用镊子手动拔插跳线帽；IRQ5 中断稍有重叠便会导致打印机崩溃并触发蓝屏。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "PnP 自动硬件探测",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "开机通过 PnP BIOS 遍历 PCI/ISA 总线卡槽",
+                    "title": "PnP 硬件设备自动枚举",
+                    "body": "开机阶段配置管理器遍历扩展槽，直接从板卡 EEPROM 芯片中读取厂商与设备 ID，无需人工拨码。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "构建内存动态硬件设备树",
+                    "title": "构建内存动态设备树",
+                    "body": "操作系统在注册表中动态构建硬件拓扑树，自动申请未被占用的 I/O 端口与 DMA 传输通道。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "仲裁器重排 DMA/IO",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "资源仲裁器算法自动化解中断重叠",
+                    "title": "资源仲裁器算法自动重排 (告别蓝屏)",
+                    "body": "资源仲裁器（Arbiter）在 50 毫秒内算法求解全量硬件资源约束，重新洗牌 IRQ 与 DMA，彻底消除冲突。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "动态 VxD 驱动绑定",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "免重启热加载 32 位虚拟设备驱动",
+                    "title": "动态 VxD 虚拟驱动热绑定",
+                    "body": "设备管理器直接在 Ring 0 内核态动态挂载 32 位虚拟设备驱动（.VXD），彻底告别修改 CONFIG.SYS 重启的噩梦。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "现代硬件即插即用",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结即插即用开创的现代个人电脑标准",
+                    "title": "为人类设计的现代个人电脑",
+                    "body": "从初期的调侃到现代工业基石，Windows 95 即插即用架构将复杂的底层硬件总线彻底驯化为开箱即用的日常体验。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Microsoft Windows 95 Plug and Play Architecture Whitepaper",
+              "url": "https://web.archive.org/web/microsoft-pnp-spec",
+              "supports": "PnP BIOS enumeration, Resource Arbiter IRQ resolution, and dynamic VxD binding."
+            }
+          ]
+        },
+        "modulePath": "../topics/win95-plug-and-play.tsx"
       }
     ]
   },
@@ -43514,6 +51323,225 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/growing-slowly-on-purpose.tsx"
+      },
+      {
+        "id": "eames-lounge-chair-molding",
+        "styleId": "mid-century-grove",
+        "title": {
+          "en": "Eames Plywood Molding",
+          "zh": "伊姆斯曲木"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Molded Plywood: Charles and Ray Eames Organic Shell Revolution",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#2b3a2f",
+              "ink": "#f4f1ea",
+              "panel": "#d4a373"
+            },
+            "typography": {
+              "header": "Futura 700",
+              "body": "Georgia 400"
+            },
+            "tags": [
+              "design",
+              "mid-century",
+              "eames",
+              "furniture",
+              "architecture"
+            ],
+            "fonts": [
+              "Futura",
+              "Georgia",
+              "serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Solid Wood Stagnation",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Identify the weight and structural limitations of solid timber",
+                    "title": "Rigid Timber Limitations",
+                    "body": "Heavy Victorian furniture relied on solid hand-carved wood that cracked under tension and resisted ergonomic body curves."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "The Kazam Machine",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Invent steam-heated hydraulic press for compound curvature",
+                    "title": "Hydraulic Heat & Compound Curves",
+                    "body": "Charles and Ray built the homemade 'Kazam!' press in their apartment, curing thin veneer sandwiches under continuous steam pressure."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Compound 3D organic wood warping",
+                    "title": "Bending Wood in Two Directions",
+                    "body": "Compound molding forced perpendicular grain sheets into saddle-like double curves without splitting wood fibers."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "5-Ply Molded Shell & Mounts",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Assemble five layers of Brazilian rosewood with vulcanized rubber shock mounts",
+                    "title": "5-Ply Veneer & Shock Mounts",
+                    "body": "Five precision-sliced veneer plies bonded with synthetic resin and anchored by vulcanized rubber mounts absorbed dynamic sitting energy."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Organic Spine Contouring",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Fit the natural curvature of the lumbar and thoracic spine",
+                    "title": "Welcoming Glove of Comfort",
+                    "body": "The sculpted backrest tilted at 15 degrees, transferring seated load away from the lumbar spine into organic continuous support."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Democratic Design Legacy",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Establish the gold standard for mass-produced modernist furniture",
+                    "title": "Timeless Modernist Icon",
+                    "body": "From wartime splints to iconic museum lounges, molded plywood transformed cold industrial materials into warm human sanctuaries."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "曲木成型工艺：伊姆斯夫妇的有机胶合板设计革命",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#2b3a2f",
+              "ink": "#f4f1ea",
+              "panel": "#d4a373"
+            },
+            "typography": {
+              "header": "Futura 700",
+              "body": "Georgia 400"
+            },
+            "tags": [
+              "设计",
+              "中世纪现代",
+              "伊姆斯",
+              "家具",
+              "人体工学"
+            ],
+            "fonts": [
+              "Futura",
+              "Georgia",
+              "serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "传统实木笨重困局",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "指出传统实木雕刻笨重且抗拉伸裂变的天然缺陷",
+                    "title": "传统实木的刚性局限",
+                    "body": "维多利亚时代的厚重实木家具不仅自重大、容易受潮开裂，且极难雕琢出完全贴合人体脊柱的有机连续曲面。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "自制卡赞模具机",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "发明蒸汽加压液压装置 Kazam Machine",
+                    "title": "蒸汽加压与双向复合弯曲",
+                    "body": "伊姆斯夫妇在公寓自制了名为 Kazam 的蒸汽模具机，将多层薄木单板在恒温高压下热压弯曲。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "实现薄木板三维双向曲面拉伸",
+                    "title": "薄木纤维的三维有机延展",
+                    "body": "正交交错的木纹单板在热压模具中顺从拉伸，首次在木材上实现了如马鞍般坚韧且不开裂的连续双向复合曲面。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "五层胶合与橡胶缓冲",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "合成五层巴西红木薄板与硫化橡胶减震缓冲件",
+                    "title": "五层薄板与天然橡胶缓冲件",
+                    "body": "五层精密切割的单板与合成树脂在高压下凝固，并通过硫化天然橡胶减震件与金属底座软性连接，动态化解坐姿重力。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "贴合脊柱有机雕塑",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "精准贴合腰椎与胸椎的人体工学曲率",
+                    "title": "棒球手套般的温暖承托",
+                    "body": "后倾 15 度的三段式外壳如同一只用旧的棒球手套，将人体重心自然卸至靠背，成为工业与人体解剖学的完美共鸣。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "现代工业设计丰碑",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "确立现代主义工业家具与大众审美的永恒典范",
+                    "title": "温暖的工业现代主义典范",
+                    "body": "从二战伤员战地夹板到纽约现代艺术博物馆永久馆藏，曲木工艺将冰冷的工业批量生产淬炼为了温暖的人类庇护所。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "crossfade",
+          "2->3": "crossfade",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Eames Design: The Work of the Office of Charles and Ray Eames",
+              "url": "https://www.eamesoffice.com/the-work/eames-lounge-chair-and-ottoman/",
+              "supports": "5-ply molded plywood process, Kazam machine steam press, and vulcanized rubber shock mounts."
+            }
+          ]
+        },
+        "modulePath": "../topics/eames-lounge-chair-molding.tsx"
       }
     ]
   },
@@ -44725,6 +52753,230 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/the-midnight-release.tsx"
+      },
+      {
+        "id": "bespoke-perfume-pyramid",
+        "styleId": "after-hours-luxe",
+        "title": {
+          "en": "Bespoke Perfume Pyramid",
+          "zh": "高定香水金字塔"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Olfactory Architecture: The Tripartite Evaporation Pyramid",
+            "densityLabel": "Balanced",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#080808",
+              "ink": "#f5f5f0",
+              "panel": "#161616"
+            },
+            "typography": {
+              "header": "Playfair Display 700",
+              "body": "Cormorant Garamond 400"
+            },
+            "tags": [
+              "perfumery",
+              "luxury",
+              "after-hours",
+              "chemistry",
+              "olfactory"
+            ],
+            "fonts": [
+              "Playfair Display",
+              "Cormorant Garamond",
+              "serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Volatility Gradient",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Map molecular weights to evaporation velocities",
+                    "title": "Physics of Molecular Volatility",
+                    "body": "A bespoke fragrance is an unfolding temporal sculpture governed by vapor pressures and molecular weight differentials."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Top Notes: Citrus & Aldehyde",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Release high-volatility terpenes and sparkling aldehydes",
+                    "title": "The 15-Minute Luminous Opening",
+                    "body": "Calabrian bergamot and aliphatic aldehydes explode instantly on skin contact, evaporating cleanly within fifteen minutes."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Create the ephemeral introductory illusion",
+                    "title": "The First Olfactory Impression",
+                    "body": "Top notes serve as an acoustic overture, introducing brightness before yielding the stage to denser floral molecules."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Heart Notes: Damask Accord",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Reveal the four-hour heart of Damask rose and orris root",
+                    "title": "The 4-Hour Harmonic Heart",
+                    "body": "Centifolia rose, jasmine grandiflorum, and powdery orris root form the core melodic theme, sustaining projection for four full hours."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Base Notes: Resin & Oud",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Anchor the structure with high-mass oud, amber, and musk",
+                    "title": "24-Hour Heavy Molecular Anchor",
+                    "body": "Low-volatility sesquiterpenes in aged Cambodian oud and ambergris bond with epidermal lipids, lingering on silk and skin for days."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Nocturnal Sillage & Maturation",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Synthesize the lingering sillage after midnight",
+                    "title": "The Midnight Sillage Aura",
+                    "body": "Through six months of maceration in dark glass, hundreds of volatile essences marry into a seamless nocturnal identity."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "嗅觉金字塔：高级定制香水的三段式挥发建筑学",
+            "densityLabel": "均衡",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#080808",
+              "ink": "#f5f5f0",
+              "panel": "#161616"
+            },
+            "typography": {
+              "header": "Playfair Display 700",
+              "body": "Cormorant Garamond 400"
+            },
+            "tags": [
+              "调香",
+              "奢华",
+              "深夜",
+              "化学",
+              "嗅觉艺术"
+            ],
+            "fonts": [
+              "Playfair Display",
+              "Cormorant Garamond",
+              "serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "挥发速率物理分层",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "根据分子量与饱和蒸气压建立嗅觉金字塔梯度",
+                    "title": "分子挥发度的物理学分层",
+                    "body": "高级定制香水是一座由挥发速率精确编织的时间雕塑，分子的饱和蒸气压决定了气味随时间渐次绽放的秩序。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "前调柑橘与醛类瞬态",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "释放高挥发性单萜烯与闪烁的脂肪族醛",
+                    "title": "15 分钟的耀眼开场奏鸣",
+                    "body": "卡拉布里亚佛手柑与 C12 醛在接触皮肤瞬间爆发出清脆光芒，在最初的 15 分钟内快速挥发殆尽。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "构建引人入胜的第一嗅觉印象",
+                    "title": "第一印象的嗅觉序幕",
+                    "body": "前调如同一场华丽歌剧的序曲，以极高的扩散力点亮空间，随后优雅退场并将舞台交由更厚重的中调分子。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "中调大马士革玫瑰骨架",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展现持续 4 小时的大马士革玫瑰与鸢尾根主调",
+                    "title": "持续 4 小时的和声花香核心",
+                    "body": "千叶玫瑰精油、格拉斯茉莉与贵重的鸢尾根酮构成香水的心脏骨架，在随后的四个小时内稳定释放圆润丰满的香气。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "后调龙涎香与沉香固着",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "以大分子沉香木、龙涎香与天然麝香锁死挥发",
+                    "title": "24 小时大分子固香基底",
+                    "body": "重分子量倍半萜与老挝沉香同皮肤油脂紧密吸附，极低的挥发速率赋予了整支香水跨越昼夜的长效留香锚点。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "暗夜余韵与时间醇化",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结暗夜中经数月陈化熟成的气味光环",
+                    "title": "午夜专属的迷离余韵光环",
+                    "body": "在深色避光玻璃瓶中历经六个月的浸渍陈化，数百种挥发性芳香分子完美熔融，在深夜散发出不可复制的私享气场。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "crossfade",
+          "2->3": "crossfade",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "mixed",
+          "display": "envelope",
+          "sources": [
+            {
+              "title": "Perfumery: Practice and Principles (Robert R. Calkin, J. Stephan Jellinek)",
+              "url": "https://www.wiley.com/en-us/Perfumery%3A+Practice+and+Principles-p-9780471589341",
+              "supports": "Evaporation curve physics, top/heart/base note classification, and maceration standards."
+            }
+          ],
+          "boundary": {
+            "en": "Illustrates the olfactory pyramid concept and molecular volatility dynamics.",
+            "zh": "呈现高级定制香水的三段式挥发金字塔架构与分子挥发物理学原理。"
+          }
+        },
+        "modulePath": "../topics/bespoke-perfume-pyramid.tsx"
       }
     ]
   },
@@ -45901,6 +54153,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/rotate-the-secrets.tsx"
+      },
+      {
+        "id": "iss-docking-procedure",
+        "styleId": "operating-manual",
+        "title": {
+          "en": "Space Station Docking",
+          "zh": "空间站对接"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Autonomous Spacecraft Docking: Standard Operating Procedure at 28,000 km/h",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#070c14",
+              "ink": "#f1f5f9",
+              "panel": "#0f172a"
+            },
+            "typography": {
+              "header": "JetBrains Mono 700",
+              "body": "JetBrains Mono 400"
+            },
+            "tags": [
+              "space",
+              "nasa",
+              "operating-manual",
+              "aerospace",
+              "engineering"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "monospace"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "200m Hold Point",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Establish coplanar orbit and enter the 200-meter hold box",
+                    "title": "Coplanar Orbital Hold Point",
+                    "body": "At 28,000 km/h orbital velocity, the automated capsule enters the 200-meter keep-out sphere along the V-bar velocity vector."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "LiDAR & Target Acquisition",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Lock pulsed LiDAR sensors onto retroreflectors",
+                    "title": "Pulsed LiDAR Retroreflection",
+                    "body": "Dragon and Soyuz guidance computers sweep the docking port with eye-safe pulsed lasers, calculating millimetric range and tilt angles."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Cross-check optical crosshair camera alignment",
+                    "title": "Optical Crosshair Telemetry Alignment",
+                    "body": "Optical cameras triangulate target crosshairs to ensure yaw, pitch, and roll deviation remain under 0.5 degrees."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "0.1 m/s Final Approach",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Throttle cold-gas Draco thrusters down to 0.10 m/s closing rate",
+                    "title": "0.10 m/s Micro-Impulse Descent",
+                    "body": "Hypergolic thrusters pulse in 10-millisecond bursts, slowing relative velocity to 10 cm/s to avoid structural shock on contact."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Probe Capture & Rigid Lock",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Engage soft capture hooks followed by 12 motorized rigidizing latches",
+                    "title": "Soft Capture to 12-Latch Rigid Lock",
+                    "body": "Soft capture petals dampen kinetic rebound before 12 motorized titanium latches pull mating collars together with 10 tons of force."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Vestibule Pressurization",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Equalize vestibule atmospheric pressure to 101.3 kPa and open hatch",
+                    "title": "Standard Cabin Equalization & Hatch Ingress",
+                    "body": "Flight controllers perform a 60-minute leak check; air valves equalize pressure between spacecraft and station before crew ingress."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "航天器全自主对接：时速 28,000 公里下的毫米级交会操作规程",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#070c14",
+              "ink": "#f1f5f9",
+              "panel": "#0f172a"
+            },
+            "typography": {
+              "header": "JetBrains Mono 700",
+              "body": "JetBrains Mono 400"
+            },
+            "tags": [
+              "航天",
+              "空间站",
+              "操作手册",
+              "航空航天",
+              "控制工程"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "monospace"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "200米沿轨保持点",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "飞船在轨道速度 28000km/h 下进入 200 米安全停泊区",
+                    "title": "共面轨道 200 米停泊保持",
+                    "body": "在每秒 7.8 公里的轨道极速下，自动飞船切入空间站 V-Bar 速度矢量走廊，并在 200 米安全距离悬停自检。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "激光雷达靶标锁定",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "脉冲激光雷达打向对接机构角反射器阵列",
+                    "title": "脉冲激光雷达毫米级测距",
+                    "body": "导航制导计算机向对接端口发射多频脉冲激光，通过反射波相位差实时解算毫米级距离、相对速度及倾角。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "光学摄像机十字准星姿态对正",
+                    "title": "光学十字准星姿态纠偏",
+                    "body": "高清红外摄像机捕获十字靶标，确保偏航、俯仰与滚转姿态角偏差严格小于 0.5 度允许公差。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "0.1米每秒进近节流",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "姿控发动机微脉冲将相对速度压制在 0.10 m/s 以内",
+                    "title": "0.10 m/s 极低速最后进近",
+                    "body": "姿控发动机输出 10 毫秒级极微脉冲，将相对交会速度精确压制在 0.10 米/秒，防止碰撞产生破坏性动能载荷。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "探针软捕获与刚性锁紧",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "软捕获环阻尼吸收动能，12 组电动锁钩刚性锁死",
+                    "title": "软捕获阻尼到 12 组刚性锁死",
+                    "body": "软捕获机构阻尼吸收残余冲击动能，随后 12 组高强度钛合金电动锁钩以 10 吨拉力将对接双环压合密封。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "通道气压平衡与开门",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "前庭隔离舱气压平衡至 101.3 kPa 并开启双向舱门",
+                    "title": "隔离前庭气密自检与舱门开启",
+                    "body": "地面飞控执行 60 分钟严苛气密性自检，均压阀注入空气平衡至 101.3 kPa 标准大气压，宇航员开启舱门进站。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "International Docking System Standard (IDSS) Interface Definition Document",
+              "url": "https://www.internationaldockingstandard.com/",
+              "supports": "200m hold point, 0.10 m/s contact velocity, 12 rigidizing latches, and vestibule pressurization."
+            }
+          ]
+        },
+        "modulePath": "../topics/iss-docking-procedure.tsx"
       }
     ]
   },
@@ -47066,6 +55535,225 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/chapter-zero.tsx"
+      },
+      {
+        "id": "black-hole-event-horizon",
+        "styleId": "widescreen-title-card",
+        "title": {
+          "en": "Black Hole Horizon",
+          "zh": "事件视界"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "General Relativity: The Optical Geometry of the Black Hole Event Horizon",
+            "densityLabel": "Sparse",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#000000",
+              "ink": "#ffffff",
+              "panel": "#0a0a0a"
+            },
+            "typography": {
+              "header": "Cinzel 700",
+              "body": "Inter 300"
+            },
+            "tags": [
+              "astrophysics",
+              "black-hole",
+              "relativity",
+              "widescreen",
+              "cosmology"
+            ],
+            "fonts": [
+              "Cinzel",
+              "Inter",
+              "sans-serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Relativistic Accretion Disk",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Frame spinning plasma disk glowing at relativistic speeds",
+                    "title": "Relativistic Plasma Accretion",
+                    "body": "Superheated matter spirals into the gravitational abyss at half the speed of light, Doppler-beaming radiation toward the observer."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Gravitational Lensing",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Trace curved light trajectories wrapping around the shadow",
+                    "title": "Extreme Gravitational Lensing",
+                    "body": "Spacetime curvature bends light rays around the black hole, projecting the hidden rear of the accretion disk above and below the horizon."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Form the dark central shadow silhouette",
+                    "title": "The 2.6x Schwarzschild Shadow",
+                    "body": "The apparent dark silhouette spans 2.6 times the Schwarzschild radius due to inescapable photon capture trajectories."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "The 1.5 Rs Photon Sphere",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Isolate unstable circular photon orbits at 1.5 Schwarzschild radii",
+                    "title": "Unstable 1.5 Rs Photon Sphere",
+                    "body": "At exactly $r = 1.5 R_s$, light rays orbit in unstable circular trajectories, creating an infinitely thin, luminous halo of trapped photons."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Spacetime Inversion",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Cross the event horizon where spatial radius becomes time",
+                    "title": "Inward Arrow of Time",
+                    "body": "Past the event horizon at $r = R_s$, the radial coordinate transforms into time: moving toward the central singularity is as inevitable as moving into tomorrow."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "The Cosmological Eye",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Synthesize Event Horizon Telescope radio interferometry",
+                    "title": "The Cosmological Void Revealed",
+                    "body": "From Einstein's equations to the Event Horizon Telescope's global array, the horizon stands as the absolute edge of observable reality."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "广义相对论：黑洞事件视界与光子球的光学几何",
+            "densityLabel": "稀疏",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#000000",
+              "ink": "#ffffff",
+              "panel": "#0a0a0a"
+            },
+            "typography": {
+              "header": "Cinzel 700",
+              "body": "Inter 300"
+            },
+            "tags": [
+              "天体物理",
+              "黑洞",
+              "相对论",
+              "宽屏电影",
+              "宇宙学"
+            ],
+            "fonts": [
+              "Cinzel",
+              "Inter",
+              "sans-serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "相对论等离子吸积盘",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "超高温等离子体以半光速旋转产生多普勒增亮",
+                    "title": "半光速相对论吸积流",
+                    "body": "过热等离子体在极端引力井中以亚光速螺旋坠落，相对论多普勒效应使朝向观察者的一侧放射出耀眼的炽热光晕。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "强引力透镜双向环绕",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "时空弯曲将黑洞背面的吸积盘光线扭曲至上下方",
+                    "title": "极端时空引力透镜弯曲",
+                    "body": "极端的引力场弯曲光线路径，将黑洞背面的吸积盘影像扭曲投射到视界上下两侧，形成跨越三维的环状光辉。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "光子捕获截面形成 2.6 倍引力半径暗影",
+                    "title": "2.6 倍史瓦西引力暗影",
+                    "body": "光子捕获截面使黑洞中央呈现为 2.6 倍史瓦西半径的绝对深黑暗影，吞噬所有落入临界线的光线。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "1.5倍史瓦西光子球",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "光线在 1.5 Rs 半径处进入不稳定的圆形公转轨道",
+                    "title": "1.5 倍史瓦西半径光子球",
+                    "body": "在 $r = 1.5 R_s$ 的临界轨道上，光子以圆形轨迹绕黑洞公转，构筑出一道无限薄且耀眼的宇宙光环边界。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "视界内部时空倒转",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "跨过事件视界后径向空间坐标彻底转化为单向时间轴",
+                    "title": "空间坍缩为不可逆时间轴",
+                    "body": "一旦穿越 $r = R_s$ 事件视界，空间径向坐标与时间发生对调：走向中央奇点如同走向明天一样不可逆转。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "宇宙之眼与观测终极",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "事件视界望远镜捕获人类首张黑洞照片的宇宙意义",
+                    "title": "可观测宇宙的绝对终界",
+                    "body": "从爱因斯坦场方程的纸上预言到事件视界望远镜的全球射电干涉阵列，黑洞视界刻画出了人类可知宇宙的终极几何边界。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "crossfade",
+          "2->3": "crossfade",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "First M87 Event Horizon Telescope Results. I. The Shadow of the Supermassive Black Hole",
+              "url": "https://iopscience.iop.org/article/10.3847/2041-8213/ab0ec7",
+              "supports": "Relativistic accretion disk, gravitational lensing, 1.5 Rs photon sphere, and shadow silhouette."
+            }
+          ]
+        },
+        "modulePath": "../topics/black-hole-event-horizon.tsx"
       }
     ]
   },
@@ -48275,6 +56963,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/deriving-big-o.tsx"
+      },
+      {
+        "id": "euler-identity-derivation",
+        "styleId": "blackboard-chalk-talk",
+        "title": {
+          "en": "Euler's Identity Proof",
+          "zh": "欧拉恒等式"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Mathematical Elegance: Step-by-Step Derivation of Euler's Identity",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#1b3323",
+              "ink": "#f8fafc",
+              "panel": "#24422e"
+            },
+            "typography": {
+              "header": "KaTeX_Main 700",
+              "body": "KaTeX_Math 400"
+            },
+            "tags": [
+              "math",
+              "calculus",
+              "chalkboard",
+              "complex-analysis",
+              "euler"
+            ],
+            "fonts": [
+              "KaTeX_Main",
+              "serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Five Constants Meet",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Gather 0, 1, e, i, and pi on a dark chalkboard",
+                    "title": "Five Fundamental Constants",
+                    "body": "Arithmetic ($0, 1$), algebra ($i$), geometry ($\\pi$), and calculus ($e$) appear as isolated pillars of mathematical thought."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Taylor Series Expansion",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Expand the exponential Taylor polynomial",
+                    "title": "Exponential Power Series $e^x$",
+                    "body": "The Maclaurin series reveals $e^x = 1 + x + \\frac{x^2}{2!} + \\frac{x^3}{3!} + \\frac{x^4}{4!} + \\dots$ as an infinite polynomial."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Expand cosine and sine trigonometric series",
+                    "title": "Trigonometric Power Series",
+                    "body": "Expanding $\\cos x = 1 - \\frac{x^2}{2!} + \\frac{x^4}{4!} \\dots$ and $\\sin x = x - \\frac{x^3}{3!} + \\frac{x^5}{5!} \\dots$ separates parity."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Imaginary Substitution",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Substitute $x = i\\theta$ and separate real and imaginary parts",
+                    "title": "Euler's Formula: $e^{ix} = \\cos x + i\\sin x$",
+                    "body": "Since $i^2 = -1, i^3 = -i, i^4 = 1$, the infinite series naturally splits into real even cosine terms and imaginary odd sine terms."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Geometric Half-Turn Rotation",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Set $x = \\pi$ on the complex unit circle",
+                    "title": "Complex Unit Circle: $e^{i\\pi} = -1$",
+                    "body": "Plugging in $\\pi$ rotates unity 180 degrees counterclockwise: $\\cos(\\pi) + i\\sin(\\pi) = -1 + 0 = -1$."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Ultimate Mathematical Unity",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Rearrange terms into $e^{i\\pi} + 1 = 0$",
+                    "title": "The God Equation: $e^{i\\pi} + 1 = 0$",
+                    "body": "In a single equation of seven symbols, all fundamental constants bind into eternal, harmonious symmetry."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "数学之美：欧拉恒等式 $e^{i\\pi}+1=0$ 的板书推导历程",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#1b3323",
+              "ink": "#f8fafc",
+              "panel": "#24422e"
+            },
+            "typography": {
+              "header": "KaTeX_Main 700",
+              "body": "KaTeX_Math 400"
+            },
+            "tags": [
+              "数学",
+              "微积分",
+              "黑板粉笔",
+              "复变函数",
+              "欧拉恒等式"
+            ],
+            "fonts": [
+              "KaTeX_Main",
+              "serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "五大常数的相遇",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "在深绿黑板上陈列 0, 1, e, i, pi 五大数学常数",
+                    "title": "五大独立数学常数的相遇",
+                    "body": "算术基石（$0, 1$）、代数虚数（$i$）、几何圆周率（$\\pi$）与分析学底数（$e$）原本各居数学王国互不相通的角落。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "泰勒级数无穷展开",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展开指数函数 $e^x$ 的麦克劳林无穷级数",
+                    "title": "指数函数幂级数展开",
+                    "body": "通过无穷微积分泰勒展开：$e^x = 1 + x + \\frac{x^2}{2!} + \\frac{x^3}{3!} + \\frac{x^4}{4!} + \\dots$"
+                  },
+                  {
+                    "id": 1,
+                    "action": "展开三角函数正弦与余弦级数",
+                    "title": "正弦与余弦三角级数奇偶拆解",
+                    "body": "余弦偶次项 $\\cos x = 1 - \\frac{x^2}{2!} + \\frac{x^4}{4!} \\dots$ 与正弦奇次项 $\\sin x = x - \\frac{x^3}{3!} + \\dots$ 形成对称。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "虚数代入奇偶分离",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "代入虚数 $x = i\\theta$ 形成欧拉公式",
+                    "title": "欧拉公式：$e^{ix} = \\cos x + i\\sin x$",
+                    "body": "利用虚数单位周期性 $i^2 = -1, i^3 = -i, i^4 = 1$，无穷指数级数精确裂变重组为实部余弦与虚部正弦之和。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "复平面旋转半周",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "代入 $x = \\pi$ 几何旋转 180 度",
+                    "title": "复平面半周旋转：$e^{i\\pi} = -1$",
+                    "body": "当角度取 $\\pi$ 弧度时，复平面上的单位向量逆时针旋转整整 180 度：$\\cos(\\pi) + i\\sin(\\pi) = -1 + 0 = -1$。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "终极数学和谐",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "移项凝固为最美公式 $e^{i\\pi} + 1 = 0$",
+                    "title": "上帝公式：$e^{i\\pi} + 1 = 0$",
+                    "body": "移项规整为仅含七个字符的恒等式，将人类数千年的算术、代数、几何与分析常数紧密锁入同一个永恒秩序之中。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Introductio in analysin infinitorum (Leonhard Euler)",
+              "url": "https://archive.org/details/introductioinana01eule",
+              "supports": "Taylor series expansion of exponential and trigonometric functions, imaginary unit substitution, and e^(i*pi) + 1 = 0."
+            }
+          ]
+        },
+        "modulePath": "../topics/euler-identity-derivation.tsx"
       }
     ]
   },
@@ -49569,6 +58474,225 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/defeating-tech-debt.tsx"
+      },
+      {
+        "id": "database-deadlock-duel",
+        "styleId": "arcade-boss-fight",
+        "title": {
+          "en": "Defeating DB Deadlock",
+          "zh": "数据库死锁"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Database Internals: Smashing Circular Waits in the Lock Manager",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0d0221",
+              "ink": "#fdf4ff",
+              "panel": "#1e0b36"
+            },
+            "typography": {
+              "header": "Press Start 2P 400",
+              "body": "Courier New 700"
+            },
+            "tags": [
+              "database",
+              "deadlock",
+              "arcade",
+              "concurrency",
+              "innodb"
+            ],
+            "fonts": [
+              "Press Start 2P",
+              "Courier New",
+              "monospace"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Mutual Lock Grip",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Transaction 1 holds Row A and requests Row B, while Tx 2 holds B requesting A",
+                    "title": "PLAYER 1 vs PLAYER 2 LOCK HOLD",
+                    "body": "Tx1 grabs exclusive Lock X on Row A. Tx2 grabs Lock X on Row B. Both send concurrent cross-row update requests."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "BOSS: Circular Wait Cycle",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Form directed cycle in the lock dependency graph",
+                    "title": "STAGE 2: DIRECTED CYCLE BOSS SPAWNED",
+                    "body": "A circular dependency arrow forms: $Tx_1 \\rightarrow Row_B \\rightarrow Tx_2 \\rightarrow Row_A \\rightarrow Tx_1$. Latency spikes and worker threads freeze."
+                  },
+                  {
+                    "id": 1,
+                    "action": "CPU saturation and thread starvation",
+                    "title": "SYSTEM ALERT: THREAD STARVATION",
+                    "body": "Active connection pool exhausts 100% of worker threads, threatening database cascading timeout failure."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "DFS Waits-For Cycle Scan",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Engine runs depth-first search on lock graph to detect directed loop",
+                    "title": "SPECIAL MOVE: DFS GRAPH CYCLE SCAN",
+                    "body": "InnoDB Lock Manager triggers depth-first search across the lock wait graph, pinpointing the exact closed loop in under 1 millisecond."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Victim Sacrifice & Rollback",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Identify lower-cost transaction and issue 1213 deadlock rollback error",
+                    "title": "FATALITY: SACRIFICE MIN-WEIGHT VICTIM",
+                    "body": "The engine picks Tx2 (smallest undo log weight) as the sacrificial victim, rolling back its mutations with Error 1213."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "VICTORY: Unlocked & Flowing",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Release locks and resume high-throughput commits",
+                    "title": "STAGE CLEARED: COMMIT QUEUE FLOWING",
+                    "body": "Tx1 smoothly acquires Row B, commits successfully, and application backoff retries Tx2 without further collisions."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "数据库内核对决：击溃锁管理器中的循环等待死锁 Boss",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0d0221",
+              "ink": "#fdf4ff",
+              "panel": "#1e0b36"
+            },
+            "typography": {
+              "header": "Press Start 2P 400",
+              "body": "Courier New 700"
+            },
+            "tags": [
+              "数据库",
+              "死锁",
+              "街机游戏",
+              "高并发",
+              "InnoDB"
+            ],
+            "fonts": [
+              "Press Start 2P",
+              "Courier New",
+              "monospace"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "并发互锁锁定行",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "事务 1 持有行 A 等待行 B，事务 2 持有行 B 等待行 A",
+                    "title": "1P 与 2P 互锁僵局触发",
+                    "body": "事务 Tx1 持有行 A 的排他 X 锁并请求行 B；事务 Tx2 持有行 B 的排他 X 锁并请求行 A，两股力量瞬间锁死。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Boss降临：有向环形成",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "依赖图形成闭合有向环，吞吐量骤降",
+                    "title": "第二关：有向依赖环 BOSS 降临",
+                    "body": "锁依赖图生成闭合死锁环：$Tx_1 \\rightarrow B \\rightarrow Tx_2 \\rightarrow A \\rightarrow Tx_1$。连接池线程全部悬挂阻塞。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "CPU 告警与工作线程耗尽",
+                    "title": "系统警报：连接池雪崩预警",
+                    "body": "等待队列迅速积压，事务积压量突破阈值，若不及时干预将引发全库级雪崩超时。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Waits-For 深度优先大招",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "锁管理器执行 DFS 拓扑环路检测大招",
+                    "title": "必杀技：DFS 拓扑环路秒级检测",
+                    "body": "InnoDB 锁管理器祭出 Waits-For Graph 深度优先搜索大招，在 1 毫秒内精准定位闭合拓扑死锁环。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "牺牲低成本事务回滚",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "选中 Undo 权重最小的事务作为牺牲品回滚并抛出 1213 错误",
+                    "title": "终结裁决：献祭最小权重事务",
+                    "body": "裁决算法选定修改代价最小的 Tx2 作为牺牲品（Victim），强制回滚并向客户端抛出 1213 Deadlock 错误。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "通关：锁释放吞吐恢复",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "行锁释放，Tx1 顺畅提交，Tx2 幂等重试成功",
+                    "title": "通关大捷：锁队列恢复狂飙",
+                    "body": "死锁彻底化解，Tx1 顺利夺取行 B 提交成功；应用端指数退避重试 Tx2，数据库吞吐重新拉满！"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "MySQL 8.0 Reference Manual: InnoDB Deadlock Detection",
+              "url": "https://dev.mysql.com/doc/refman/8.0/en/innodb-deadlocks.html",
+              "supports": "Waits-for graph deadlock detection algorithm, victim selection by undo log weight, and error 1213."
+            }
+          ]
+        },
+        "modulePath": "../topics/database-deadlock-duel.tsx"
       }
     ]
   },
@@ -50692,6 +59816,223 @@ export const CATALOG_MANIFEST = [
           "display": "stage"
         },
         "modulePath": "../topics/why-users-churn.tsx"
+      },
+      {
+        "id": "agentic-memory-hierarchy",
+        "styleId": "research-memo",
+        "title": {
+          "en": "Agent Memory Hierarchy",
+          "zh": "智能体记忆"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Autonomous Systems: The Three-Tier Memory Architecture for LLM Agents",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0f172a",
+              "ink": "#f8fafc",
+              "panel": "#1e293b"
+            },
+            "typography": {
+              "header": "Inter 700",
+              "body": "Inter 400"
+            },
+            "tags": [
+              "ai",
+              "agents",
+              "memory",
+              "research-memo",
+              "llm"
+            ],
+            "fonts": [
+              "Inter",
+              "sans-serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Context Window Amnesia",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Highlight context compaction degradation and multi-turn forgetting",
+                    "title": "The Transient Context Dilemma",
+                    "body": "Raw LLM context windows suffer quadratic attention costs and prompt dilution over hundred-turn autonomous execution loops."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Tier 1: Working Memory",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Maintain dynamic scratchpad and live tool execution stacks",
+                    "title": "Live Execution Scratchpad",
+                    "body": "Working memory captures transient tool outputs, intermediate variable bindings, and sub-goal checklists within the immediate token budget."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Prune intermediate trace noise",
+                    "title": "Active State Compaction",
+                    "body": "Deterministic heuristics prune completed bash streams while preserving key outcome assertions for the current operational step."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Tier 2: Episodic Memory",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Vectorize past session trajectories and reflection lessons",
+                    "title": "Vectorized Episodic Retrieval",
+                    "body": "Dense embedding indexes store past trajectories, reflection post-mortems, and error recoveries, queried via cosine similarity at $k=5$."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Tier 3: Semantic Wiki",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Extract durable facts into linked Markdown concepts and knowledge graphs",
+                    "title": "Curated Semantic Graph",
+                    "body": "Agents distill verified invariant facts into linked Markdown nodes, maintaining single-source-of-truth knowledge across runs."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Lifelong Agent Synthesis",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Close the loop for perpetual multi-session mastery",
+                    "title": "Self-Evolving Cognitive Flywheel",
+                    "body": "By routing queries across all three tiers, autonomous agents execute unbounded multi-day tasks without catastrophic forgetting."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "自主智能体：突破大模型上下文瓶颈的三层记忆架构",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0f172a",
+              "ink": "#f8fafc",
+              "panel": "#1e293b"
+            },
+            "typography": {
+              "header": "Inter 700",
+              "body": "Inter 400"
+            },
+            "tags": [
+              "人工智能",
+              "智能体",
+              "记忆系统",
+              "研究备忘录",
+              "大模型"
+            ],
+            "fonts": [
+              "Inter",
+              "sans-serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "上下文窗口遗忘困局",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "指出百轮长交互下上下文二次方注意力膨胀与遗忘痛点",
+                    "title": "瞬态上下文的衰减困局",
+                    "body": "随着自主多轮任务演进，大模型受限于上下文窗口长度与二次方注意力开销，极易发生灾难性关键事实遗忘与注意力稀释。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "一阶工作记忆暂存",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "维护即时草稿本与工具链执行堆栈",
+                    "title": "即时执行草稿工作台",
+                    "body": "工作记忆（Working Memory）在当前 Token 预算内精准暂存活跃子目标、变量绑定及工具输出的中间产物。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "修剪执行冗余噪声",
+                    "title": "活跃状态动态压缩",
+                    "body": "基于规则过滤已完成任务的冗长终端日志，仅保留与下一步决策强相关的结果断言与退出状态码。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "二阶情景矢量归档",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "将历史执行轨迹与复盘反思存入高维矢量索引",
+                    "title": "情景记忆高维矢量检索",
+                    "body": "情景记忆（Episodic Memory）将跨会话的历史轨迹、失败复盘与成功经验转化为向量嵌入，按语义相似度 Top-5 动态召回。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "三阶语义图谱知识库",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "沉淀确定性知识至结构化双向链接 Wiki 节点",
+                    "title": "结构化语义 Wiki 知识图谱",
+                    "body": "语义记忆（Semantic Memory）将核验后的不变事实与领域模型固化为双向链接的 Markdown 知识库，实现跨任务确定性查阅。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "终身自主进化闭环",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "三层协同驱动智能体无限跨轮次终身进化",
+                    "title": "三层协同的认知进化飞轮",
+                    "body": "通过在工作记忆、情景检索与语义知识库之间自动路由，智能体彻底摆脱单次会话束缚，迈入自进化的长程智能时代。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Generative Agents: Interactive Simulacra of Human Behavior (Park et al.)",
+              "url": "https://arxiv.org/abs/2304.03442",
+              "supports": "Working scratchpad, episodic reflection retrieval, and semantic knowledge synthesis."
+            }
+          ]
+        },
+        "modulePath": "../topics/agentic-memory-hierarchy.tsx"
       }
     ]
   },
@@ -51862,6 +61203,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/why-we-chose-monorepo.tsx"
+      },
+      {
+        "id": "why-we-chose-lsm-tree",
+        "styleId": "decision-record",
+        "title": {
+          "en": "ADR: Chose LSM-Tree",
+          "zh": "选型LSM树"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Architecture Decision Record: Migrating to Log-Structured Merge Trees",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0b1120",
+              "ink": "#f8fafc",
+              "panel": "#1e293b"
+            },
+            "typography": {
+              "header": "Inter 700",
+              "body": "Inter 400"
+            },
+            "tags": [
+              "architecture",
+              "adr",
+              "database",
+              "lsm-tree",
+              "decision-record"
+            ],
+            "fonts": [
+              "Inter",
+              "sans-serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Write Amplification Wall",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Identify random I/O write bottlenecks in traditional in-place B-Trees",
+                    "title": "B-Tree Random I/O Bottleneck",
+                    "body": "At 1,000,000 writes per second, page splits and random disk seeks in B+Trees caused 40x write amplification and SSD wear."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Trade-off Evaluation Matrix",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Benchmark append-only sequential writes versus read latencies",
+                    "title": "Append-Only vs In-Place Updates",
+                    "body": "LSM-Trees convert random writes into sequential disk flushes at the cost of background compaction I/O and multi-file read amplification."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Formalize the RUM conjecture trade-offs",
+                    "title": "Read/Update/Memory (RUM) Frontier",
+                    "body": "We chose to optimize update cost ($U$) and space overhead ($M$) while mitigating read overhead ($R$) with specialized memory caches."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Decision: Levelled Compaction",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Adopt MemTable in RAM and multi-tier SSTable levelled compaction",
+                    "title": "DECISION: MemTable + Leveled SSTable",
+                    "body": "Writes append to WAL and in-memory SkipList MemTable; background threads compact immutable SSTables across 7 geometric disk levels."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Bloom Filter Read Shield",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Deploy 10-bit per key Bloom filters to eliminate 99% of negative disk reads",
+                    "title": "1% False-Positive Bloom Filter Shield",
+                    "body": "In-memory Bloom filters intercept key lookups, guaranteeing that non-existent reads touch zero disk SSTables with 99% certainty."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "ADR Status: ACCEPTED",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Verify 10x write throughput gains and establish system baseline",
+                    "title": "Accepted: 10x Write Throughput Jump",
+                    "body": "Architecture Decision Record #0042 marked as ACCEPTED. Production write latency dropped from 14ms to 0.8ms under peak load."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "架构决策记录（ADR）：存储引擎全面选型 LSM 树架构",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0b1120",
+              "ink": "#f8fafc",
+              "panel": "#1e293b"
+            },
+            "typography": {
+              "header": "Inter 700",
+              "body": "Inter 400"
+            },
+            "tags": [
+              "架构",
+              "决策记录",
+              "数据库",
+              "LSM树",
+              "存储引擎"
+            ],
+            "fonts": [
+              "Inter",
+              "sans-serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "随机写入放大瓶颈",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "分析传统 B+ 树就地修改在百万级并发写入下的随机寻道死结",
+                    "title": "B+ 树就地写入放大瓶颈",
+                    "body": "在每秒百万级突发写入场景下，B+ 树就地更新（In-Place）引发频繁页分裂与随机 I/O，写入放大系数高达 40 倍。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "核心权衡评估矩阵",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "对比纯追加顺序写入与读放大之间的 RUM 权衡边界",
+                    "title": "追加顺序写与读放大的核心权衡",
+                    "body": "LSM-Tree 将离散随机写入转换为纯顺序追加，代价是引入后台 Compaction 压缩负载与跨层多文件点查读放大。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "确立 RUM 权衡取舍优先级",
+                    "title": "RUM 空间：优先保证极速更新",
+                    "body": "架构委员会明确优先压榨更新性能（Update）与内存开销（Memory），读放大（Read）则由专用硬件加速与内存层化解。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "决策选型分层压缩",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "正式裁定采用内存 MemTable 与磁盘 7 层 Leveled Compaction",
+                    "title": "正式决议：MemTable + 分层 SSTable",
+                    "body": "全量写入打入 WAL 日志与内存跳表 MemTable；后台线程按几何倍数在 7 级磁盘 SSTable 之间执行有序归并压缩。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "布隆过滤器化解读放大",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "为每个 SSTable 挂载 10-bit 布隆过滤器，拦截 99% 的无效磁盘读取",
+                    "title": "1% 误判率布隆过滤器防线",
+                    "body": "每个 SSTable 挂载内存布隆过滤器，在内存中以 99% 的确定性阻断不存在 Key 的磁盘下潜，将读放大压制在常数级别。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "决策状态正式生效",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "ADR-0042 标记为 ACCEPTED，写入吞吐跃升 10 倍基线",
+                    "title": "决议生效：写入吞吐实现 10 倍跃升",
+                    "body": "架构决策记录 ADR-0042 标记为 ACCEPTED。生产环境峰值写入延迟从 14ms 断崖式骤降至 0.8ms，写入吞吐提升 10 倍。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "The Log-Structured Merge-Tree (LSM-Tree) (O'Neil et al.)",
+              "url": "https://www.cs.umb.edu/~poneil/lsmtree.pdf",
+              "supports": "Sequential append-only writes, multi-tier SSTable levelled compaction, and Bloom filter read acceleration."
+            }
+          ]
+        },
+        "modulePath": "../topics/why-we-chose-lsm-tree.tsx"
       }
     ]
   },
@@ -53020,6 +62578,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/flaky-test-root-cause.tsx"
+      },
+      {
+        "id": "memory-leak-in-v8-closure",
+        "styleId": "maintainer-issue-brief",
+        "title": {
+          "en": "V8 Closure Memory Leak",
+          "zh": "V8闭包泄漏"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "V8 Engine Internals: Tracking Lexical Context Sharing in Sibling Closures",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0d1117",
+              "ink": "#c9d1d9",
+              "panel": "#161b22"
+            },
+            "typography": {
+              "header": "Fira Code 700",
+              "body": "Fira Code 400"
+            },
+            "tags": [
+              "javascript",
+              "v8",
+              "memory-leak",
+              "closure",
+              "issue-brief"
+            ],
+            "fonts": [
+              "Fira Code",
+              "monospace"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Linear Heap Growth",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Graph 72-hour continuous Node.js heap memory escalation to 1.4 GB",
+                    "title": "ISSUE #1042: Heap Escalation to OOM",
+                    "body": "Production microservices leak 20MB per hour, triggering SIGABRT out-of-memory crashes despite active V8 garbage collector passes."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "DevTools Retainer Tree",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Inspect heap snapshot retainer tree pinning large byte arrays",
+                    "title": "Heap Snapshot Retainer Trace",
+                    "body": "Chrome DevTools heap snapshot reveals huge 10MB ArrayBuffers pinned by invisible (closure) scope objects in the root retainer tree."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Isolate meteor closure pattern",
+                    "title": "Shared Lexical Scope Trap",
+                    "body": "A lightweight interval timer closure retains the outer lexical Context object containing the unused 10MB binary payload."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Root Cause: V8 Context Sharing",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Explain why sibling closures in the same parent scope share a single V8 Context object",
+                    "title": "ROOT CAUSE: Sibling Context Sharing",
+                    "body": "V8 allocates one shared Context object per parent function activation; if one inner function touches a variable, all sibling closures keep it alive."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Fix: Nullifying Reference",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Explicitly nullify the large reference or split scopes",
+                    "title": "PATCH: Explicit Ref Nullification",
+                    "body": "Setting `largeBuffer = null` after processing unpins the pointer from the shared V8 Context, allowing Mark-and-Sweep GC to free memory instantly."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "ESLint Guard Verification",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Enforce static AST linting rule in CI pipeline to prevent future regressions",
+                    "title": "VERIFIED: Closed & Guarded by CI",
+                    "body": "Merged PR #1048. Custom ESLint AST rule flags long-lived closures capturing large scoped variables across all repositories."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "V8 引擎内核：排查兄弟闭包共享词法上下文引发的内存泄漏",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0d1117",
+              "ink": "#c9d1d9",
+              "panel": "#161b22"
+            },
+            "typography": {
+              "header": "Fira Code 700",
+              "body": "Fira Code 400"
+            },
+            "tags": [
+              "JavaScript",
+              "V8引擎",
+              "内存泄漏",
+              "闭包",
+              "问题排查"
+            ],
+            "fonts": [
+              "Fira Code",
+              "monospace"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "72小时堆内存线性耗尽",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展示 Node.js 生产微服务 72 小时堆内存持续爬升至 1.4GB 触发 OOM",
+                    "title": "问题报告 #1042：堆内存线性暴涨",
+                    "body": "生产环境 Node.js 进程每小时稳定泄漏 20MB 内存，V8 垃圾回收器即使全量执行 Mark-Sweep 亦无法释放，最终触发 OOM 崩溃。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "堆快照引用链取证",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "使用 Chrome DevTools 堆快照排查 10MB 缓冲区支配树",
+                    "title": "DevTools 堆快照支配树取证",
+                    "body": "分析 Heap Snapshot 发现数以百计的 10MB ArrayBuffer 被隐式 (closure) 作用域对象死死锚定在 GC Root 支配树上。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "锁定典型 Meteor 闭包陷阱",
+                    "title": "共享词法上下文死锁陷阱",
+                    "body": "一个轻量的长生命周期定时器闭包，意外持有了包含 10MB 大变量的外部词法 Context 对象。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "根因：V8 Context 词法共享",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "揭秘同级兄弟闭包在 V8 底层共用单一 Context 对象的实现细节",
+                    "title": "根因剖析：兄弟闭包共享 Context",
+                    "body": "V8 为外层函数单次执行分配单一的共享 Context；只要兄弟闭包之一访问了某个变量，所有闭包都将永久锁定整个 Context 内部对象。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "修复：显式置空与解构",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "在执行完毕后显式置空引用打破 GC 引用链",
+                    "title": "修复方案：显式引用解绑置空",
+                    "body": "在业务处理完毕后显式赋值 `largeBuffer = null`，切断其在共享 V8 Context 中的强引用，垃圾回收器得以即刻释放千万字节内存。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "CI 静态扫描长效防护",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "在 CI 流水线引入 AST 静态检查规则，彻底防范同类回归",
+                    "title": "验收关闭：合入 CI 静态扫描防护",
+                    "body": "PR #1048 正式合入。CI 流水线追加自定义 ESLint 规则，静态检测长周期回调对大型局部作用域变量的隐式捕获，实现防劣化闭环。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "V8 JavaScript Engine: Scope and Context Allocation in Closures",
+              "url": "https://v8.dev/blog",
+              "supports": "Lexical context sharing between sibling closures, retainer tree snapshot tracing, and reference nullification."
+            }
+          ]
+        },
+        "modulePath": "../topics/memory-leak-in-v8-closure.tsx"
       }
     ]
   },
@@ -54201,6 +63976,225 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/shadowing-support.tsx"
+      },
+      {
+        "id": "tokyo-metro-passenger-flow",
+        "styleId": "field-notes-report",
+        "title": {
+          "en": "Shinjuku Flow Field Notes",
+          "zh": "新宿站客流"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Urban Ethnography: Passenger Fluid Dynamics at Shinjuku Station",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f4f1ea",
+              "ink": "#1c1917",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "Courier Prime 700",
+              "body": "Merriweather 400"
+            },
+            "tags": [
+              "ethnography",
+              "tokyo",
+              "transit",
+              "field-notes",
+              "pedestrian-dynamics"
+            ],
+            "fonts": [
+              "Courier Prime",
+              "Merriweather",
+              "serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "3.5 Million Transit Labyrinth",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Map 200 exits and 3.5 million daily commuters navigating Shinjuku Station",
+                    "title": "3.5 Million Daily Commuters",
+                    "body": "At peak 08:30 AM rush hour, over 120,000 pedestrians cross the concourses simultaneously across 36 interconnected platforms."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Chromatic Wayfinding Nudges",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Analyze painted floor lanes guiding subconscious navigation",
+                    "title": "Subconscious Chromatic Floor Markings",
+                    "body": "High-contrast floor ribbons nudge turning vectors 15 meters before bottlenecks, reducing visual hesitation by 42%."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Record gaze dwell time reduction",
+                    "title": "Kinetic Flow Priming",
+                    "body": "Overhead signage is angled to match walking gaze lines, ensuring zero-stop decision making at major junction gates."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Platform Pulsed Valve Effect",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Observe train arrivals acting as discrete fluid control valves",
+                    "title": "Platform Arrival Valve Throttling",
+                    "body": "Train door cycles pulse pedestrian inflows every 110 seconds, preventing continuous laminar compression at stairway entrances."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Spontaneous Laminar Flow",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Measure self-organizing dual-lane stream emergence without barriers",
+                    "title": "Self-Organizing Bidirectional Lanes",
+                    "body": "Without physical barricades, opposing crowds naturally spontaneously split into two counter-flowing laminar streams to minimize friction."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Field Synthesis: Living Megalopolis",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Synthesize the micro-sociological choreography of the Tokyo grid",
+                    "title": "Living Cellular Metronome",
+                    "body": "Shinjuku functions not through authoritarian coercion, but as an emergent fluid system where millions of micro-decisions sustain perfect harmony."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "都市田野调查：新宿车站 350 万人次的人群流体动力学观察",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#f4f1ea",
+              "ink": "#1c1917",
+              "panel": "#ffffff"
+            },
+            "typography": {
+              "header": "Courier Prime 700",
+              "body": "Merriweather 400"
+            },
+            "tags": [
+              "人类学",
+              "东京地铁",
+              "交通",
+              "田野笔记",
+              "人群动力学"
+            ],
+            "fonts": [
+              "Courier Prime",
+              "Merriweather",
+              "serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "350万人次地下迷宫",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "记录新宿站 200 个出口与早高峰每分钟上万人次的巨大客流",
+                    "title": "日均 350 万人次换乘枢纽",
+                    "body": "在早高峰 8:30，超过 12 万名通勤者在 36 个站台与 200 个出入口构成的多层立体地下网络中同时穿梭流动。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "地面导向色块心理引导",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "分析地面连续导向色带对步行动线的潜意识疏导",
+                    "title": "地面连续色彩动线潜意识分流",
+                    "body": "高对比度的地面导向色带在人流交汇点前 15 米提前分流拐弯向量，将行人的视觉停顿与犹豫概率降低了 42%。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "记录视线驻留与无阻通行实验",
+                    "title": "动线视线零阻碍引导",
+                    "body": "悬挂式标识严格按照人体行进步态的下俯视角倾斜排布，确保行人在跨线换乘时实现不停步毫秒级决断。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "站台脉冲分流阀效应",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "观察列车停靠车门开闭作为离散流体阀门的调控机制",
+                    "title": "列车站台离散脉冲调控阀",
+                    "body": "每隔 110 秒进站的列车车门如同一组精密的离散流体脉冲阀，周期性吞吐人流，彻底避免了楼梯口的持续性挤压踩踏。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "双向人流自组织层流",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "测绘对向人流在无栏杆干预下自发裂变为双向平滑层流态",
+                    "title": "对向人流自组织双向层流态",
+                    "body": "在完全没有物理硬隔离栏杆的通道内，对向走来的人群为了降低碰撞摩擦，会在数秒内自发分裂为两股平滑对流的层流束。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "田野结语：微观都市秩序",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结微观个体决策汇聚成大都市永恒流动的和谐律动",
+                    "title": "数百万微观决策的巨城节拍",
+                    "body": "新宿站的秩序并非建立在强力管制之上，而是由数百万个体微观理性的流动博弈所涌现出的惊人都市自组织生命体。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Self-Organized Pedestrian Crowd Dynamics (Helbing et al.)",
+              "url": "https://www.nature.com/articles/35035023",
+              "supports": "Spontaneous bidirectional lane formation, platform pulse valve effects, and chromatic floor wayfinding nudges."
+            }
+          ]
+        },
+        "modulePath": "../topics/tokyo-metro-passenger-flow.tsx"
       }
     ]
   },
@@ -55446,6 +65440,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/killing-a-god-object.tsx"
+      },
+      {
+        "id": "loop-tiling-cache-diff",
+        "styleId": "annotated-source-diff",
+        "title": {
+          "en": "Loop Tiling Diff",
+          "zh": "矩阵转置分块"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Performance Engineering: Loop Tiling Matrix Transpose Cache Optimization",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0d1117",
+              "ink": "#e6edf3",
+              "panel": "#161b22"
+            },
+            "typography": {
+              "header": "JetBrains Mono 700",
+              "body": "JetBrains Mono 400"
+            },
+            "tags": [
+              "performance",
+              "compiler",
+              "cache",
+              "annotated-diff",
+              "c++"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "monospace"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Naive Cache Thrashing",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Inspect naive 2D nested loop causing 92% L1 cache miss penalty",
+                    "title": "Naive Column-Major Cache Thrashing",
+                    "body": "Accessing $B[j][i] = A[i][j]$ with $N=4096$ strides 32KB per step, evicting active 64-byte cache lines before reuse."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "64-Byte Eviction Penalty",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Visualize memory bus saturation and CPU stall cycles",
+                    "title": "200-Cycle DRAM Fetch Latency Stall",
+                    "body": "Each matrix column hop triggers a cold DRAM fetch, stalling superscalar CPU execution units for over 200 clock cycles."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Calculate operational arithmetic intensity",
+                    "title": "Memory-Bound Bottleneck",
+                    "body": "With 0.03 FLOPs per byte transferred across the memory bus, execution throughput collapses to less than 5% of theoretical peak."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "16x16 Tiling Diff",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Refactor loop nest into 4-deep tiled blocks fitting inside 32KB L1 cache",
+                    "title": "DIFF: 4-Level Nested Tile Refactor",
+                    "body": "Splitting outer loops with `BLOCK = 16` confines active working sub-matrices ($16 \\times 16 \\times 8B = 2KB$) completely within L1 Cache."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "93.9% L1 Hit Rate",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Demonstrate cache miss rate dropping from 92.4% to 6.1%",
+                    "title": "L1 Data Cache Hit Rate: 93.9%",
+                    "body": "Cache lines loaded into L1 are reused across all 16 consecutive transpose steps, slashing memory bus traffic by 15.1x."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "7.8x Benchmark Speedup",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Benchmark wall-clock latency reduction and polyhedral compiler takeaways",
+                    "title": "7.8x Execution Speedup Benchmark",
+                    "body": "Matrix transpose execution time drops from 480ms down to 61ms, proving the supremacy of cache-locality conscious algorithms."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "性能工程：四重循环分块（Loop Tiling）化解 CPU 缓存行击穿",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0d1117",
+              "ink": "#e6edf3",
+              "panel": "#161b22"
+            },
+            "typography": {
+              "header": "JetBrains Mono 700",
+              "body": "JetBrains Mono 400"
+            },
+            "tags": [
+              "性能工程",
+              "编译器优化",
+              "缓存行",
+              "代码Diff",
+              "体系结构"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "monospace"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "朴素遍历击穿缓存",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "双重朴素嵌套循环导致 $N=4096$ 矩阵转置引发 92% 缓存缺失",
+                    "title": "朴素按列写入引发缓存行颠簸",
+                    "body": "朴素转置 `B[j][i] = A[i][j]` 在 $N=4096$ 时每次写入产生 32KB 大跨度跳跃，导致 64 字节缓存行在重用前被全量驱逐。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "64字节行驱逐惩罚",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "分析跨行寻道引发 200 周期的主存等待停顿",
+                    "title": "200 周期 DRAM 访存延迟阻塞",
+                    "body": "每一次列跳跃均触发主存冷不命中，流水线等待内存数据返回长达 200 个时钟周期，CPU 算力严重饥渴停摆。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "量化算术强度受限于内存总线瓶颈",
+                    "title": "访存带宽受限（Memory Bound）",
+                    "body": "每字节传输仅完成 0.03 次浮点操作，矩阵转置实际运行吞吐被锁死在硬件理论极限的 5% 以下。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "16x16分块代码Diff",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "重构为四重嵌套分块循环，将子矩阵锁入 32KB L1 缓存",
+                    "title": "Diff：四重嵌套分块循环重构",
+                    "body": "引入 `BLOCK = 16` 将大循环瓦片化切片，单块数据量（$16 \\times 16 \\times 8B = 2KB$）完美常驻 32KB L1 Cache 极速空间。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "93.9% 一级缓存命中",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展示 L1 缓存缺失率从 92.4% 断崖式下降至 6.1%",
+                    "title": "L1 数据缓存命中率飙升至 93.9%",
+                    "body": "加载至 L1 缓存行的 8 个连续双精度浮点数在子循环中被连续重复利用 16 次，总线 I/O 压力骤降 15.1 倍。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "7.8倍性能飞跃",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结实测运行耗时从 480ms 降至 61ms 的极致优化收益",
+                    "title": "实测 7.8 倍性能飞跃大捷",
+                    "body": "在不改变任何数学逻辑的前提下，矩阵转置耗时从 480ms 缩减至 61ms，展现了数据局部性对现代体系结构的决定性力量。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Computer Systems: A Programmer's Perspective (Bryant & O'Hallaron)",
+              "url": "https://csapp.cs.cmu.edu/",
+              "supports": "Loop tiling / blocking for spatial and temporal cache locality in matrix transpose."
+            }
+          ]
+        },
+        "modulePath": "../topics/loop-tiling-cache-diff.tsx"
       }
     ]
   },
@@ -56681,6 +66892,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/close-the-quarter.tsx"
+      },
+      {
+        "id": "falcon9-preflight-checklist",
+        "styleId": "checklist-ledger",
+        "title": {
+          "en": "Falcon 9 Preflight Checklist",
+          "zh": "猎鹰9号检查"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Launch Ledger: Terminal Countdown Checklist for Falcon 9 Heavy Lift",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#080e18",
+              "ink": "#f8fafc",
+              "panel": "#0f1a2e"
+            },
+            "typography": {
+              "header": "Space Grotesk 700",
+              "body": "Space Grotesk 400"
+            },
+            "tags": [
+              "spacex",
+              "falcon9",
+              "aerospace",
+              "checklist",
+              "countdown"
+            ],
+            "fonts": [
+              "Space Grotesk",
+              "sans-serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "T-45:00 Propellant Load",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Verify Launch Director GO poll for densified RP-1 and LOX loading",
+                    "title": "T-45:00 Propellant Loading GO",
+                    "body": "Launch Director polls all engineering consoles; automated ground systems begin pumping densified RP-1 kerosene and subcooled liquid oxygen."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "T-20:00 Subcooled LOX Purge",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Chill composite overwrapped pressure vessels (COPV) with cryogenic helium",
+                    "title": "T-20:00 Cryogenic Helium & LOX Purge",
+                    "body": "Second stage LOX load completes while super-chilled helium pressurization systems purge tanks to prevent thermal cavitation."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Arm flight termination system",
+                    "title": "T-15:00 Autonomous FTS Armed",
+                    "body": "Range Safety confirms the Autonomous Flight Termination System (AFTS) is armed and synced with Cape Canaveral tracking radar."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "T-07:00 Merlin Chilldown",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Bleed liquid oxygen through nine Merlin 1D turbopumps for thermal conditioning",
+                    "title": "T-07:00 9x Merlin 1D Engine Chill",
+                    "body": "Cryogenic liquid oxygen bleeds through nine Merlin turbopumps, conditioning metal chambers to prevent thermal shock upon hypergolic TEA-TEB ignition."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "T-00:45 Autonomous Handover",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Autonomous launch controller takes exclusive command; strongback retracts",
+                    "title": "T-00:45 Autonomous Flight Handover",
+                    "body": "The onboard flight computers take terminal control of countdown sequencing; the hydraulic transporter erector strongback retracts to 1.5 degrees."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "T-00:00 Ignition & Liftoff",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Ignite TEA-TEB pyrophoric fluid and release hydraulic hold-down clamps",
+                    "title": "T-00:00 Full Thrust Liftoff",
+                    "body": "Nine Merlin 1D engines ignite in pairs, generating 1.7 million pounds of thrust. Ground telemetry confirms hold-down clamp release for nominal ascent."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "发射台账：猎鹰9号运载火箭发射倒计时自动化检查清单",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#080e18",
+              "ink": "#f8fafc",
+              "panel": "#0f1a2e"
+            },
+            "typography": {
+              "header": "Space Grotesk 700",
+              "body": "Space Grotesk 400"
+            },
+            "tags": [
+              "航天",
+              "猎鹰9号",
+              "倒计时",
+              "检查清单",
+              "火箭发射"
+            ],
+            "fonts": [
+              "Space Grotesk",
+              "sans-serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "T-45分推进剂加注",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "发射指挥官进行全控制台 GO/NO-GO 轮询，启动过冷煤油与液氧加注",
+                    "title": "T-45:00 推进剂加注全席就绪",
+                    "body": "发射总指挥执行全席轮询确认 GO；自动化地面系统开始向一级箭体泵入高密度过冷 RP-1 航空煤油与零下 207 度液氧。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "T-20分氦气增压自检",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "超低温气氦加压系统吹除并预冷复合材料缠绕压力容器（COPV）",
+                    "title": "T-20:00 二级液氧与气氦增压自检",
+                    "body": "二级液氧加注进入终段，超低温气氦对储箱进行深度吹扫增压，防止推进剂在微重力环境下发生气蚀空泡。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "自毁安全系统上线",
+                    "title": "T-15:00 自主飞行终止系统上电",
+                    "body": "靶场安全官确认自动飞行终止系统（AFTS）完成双向雷达握手并进入自主待命状态。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "T-07分梅林预冷排气",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "液氧旁路流经 9 台梅林 1D 发动机涡轮泵进行热力学预冷",
+                    "title": "T-07:00 9 台梅林发动机热力预冷",
+                    "body": "超低温液氧旁路泄放流经 9 台梅林涡轮泵本体，使金属燃烧室提前适应极端温差，防范 TEA-TEB 自燃引发热应力破裂裂纹。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "T-45秒自控接管退回",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "箭载飞行计算机全面接管终端时序，发射架强力后撤",
+                    "title": "T-00:45 箭载飞控接管与支架退开",
+                    "body": "三台冗余箭载计算机接管终端发射时序控制权；液压起竖支撑臂快速后撤 1.5 度，箭地脐带电缆瞬间脱开并锁死保护门。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "T-00秒点火全推力起飞",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "TEA-TEB 引燃剂注入，9 台发动机并联爆发出 7600 千牛起飞推力",
+                    "title": "T-00:00 全推力释放点火升空",
+                    "body": "9 台梅林发动机成对以绿色火焰点火并达到 100% 额定推力，地面气动锁紧爪释放，猎鹰 9 号拔地而起冲向星空！"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "SpaceX Falcon 9 Launch Vehicle Payload User's Guide",
+              "url": "https://www.spacex.com/media/falcon-users-guide-2021-09.pdf",
+              "supports": "Terminal countdown sequence, RP-1/subcooled LOX propellant loading, Merlin chilldown, and AFTS arming."
+            }
+          ]
+        },
+        "modulePath": "../topics/falcon9-preflight-checklist.tsx"
       }
     ]
   },
@@ -57884,6 +68312,223 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/everything-the-intern-needs.tsx"
+      },
+      {
+        "id": "wasm-simd-compiler-box",
+        "styleId": "context-bento-box",
+        "title": {
+          "en": "WASM SIMD Runtime Box",
+          "zh": "WASM向量加速"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Runtime Architecture: WebAssembly 128-Bit Fixed-Width SIMD Vectorization",
+            "densityLabel": "Dense",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0a0f1d",
+              "ink": "#f8fafc",
+              "panel": "#161e31"
+            },
+            "typography": {
+              "header": "Inter 700",
+              "body": "Inter 400"
+            },
+            "tags": [
+              "wasm",
+              "simd",
+              "compiler",
+              "bento-box",
+              "webassembly"
+            ],
+            "fonts": [
+              "Inter",
+              "sans-serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "128-Bit Vector Core",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Present the 128-bit fixed-width WASM SIMD architecture tile",
+                    "title": "Fixed-Width v128 Type Primitive",
+                    "body": "WebAssembly SIMD introduces a portable 128-bit vector type (`v128`), compiling directly into x86 SSE/AVX and ARM NEON registers."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Aligned Vector Load",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Execute single-cycle aligned vector memory loads",
+                    "title": "v128.load Memory Packing",
+                    "body": "A single `v128.load` instruction fetches 16 contiguous bytes from linear memory in one CPU cycle, eliminating scalar loop overhead."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Demonstrate cross-lane shuffle operations",
+                    "title": "i8x16.shuffle Cross-Lane Permutation",
+                    "body": "Byte shuffle instructions rearrange arbitrary lane elements within vector registers without round-tripping to main memory."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "4x Parallel F32 Pipeline",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Execute 4 simultaneous single-precision float additions per clock tick",
+                    "title": "f32x4.add Quad-Lane Pipeline",
+                    "body": "Four 32-bit floating point arithmetic operations execute in lockstep across vector execution pipelines within a single clock cycle."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Deterministic Sandboxing",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Preserve strict WebAssembly trap semantics and NaN canonicalization",
+                    "title": "Safe Sandboxed Traps & Determinism",
+                    "body": "Hardware floating-point variations are strictly canonicalized to prevent CPU side-channel leaks across browser sandbox domains."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "4x Multimedia Acceleration",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Benchmark machine learning, computer vision, and audio DSP gains in the browser",
+                    "title": "4x Real-Time Multimedia Leap",
+                    "body": "WASM SIMD unlocks 60 FPS real-time background blur and in-browser ONNX neural inference without native plugin dependencies."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "运行时架构：WebAssembly 128 位定宽 SIMD 向量化加速便当盒",
+            "densityLabel": "密集",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#0a0f1d",
+              "ink": "#f8fafc",
+              "panel": "#161e31"
+            },
+            "typography": {
+              "header": "Inter 700",
+              "body": "Inter 400"
+            },
+            "tags": [
+              "WASM",
+              "SIMD",
+              "编译器",
+              "便当盒",
+              "WebAssembly"
+            ],
+            "fonts": [
+              "Inter",
+              "sans-serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "128位定宽向量核心",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展示 WebAssembly 规范中的 128 位定宽 v128 原生向量类型便当分区",
+                    "title": "跨平台 v128 原生定宽向量基元",
+                    "body": "WebAssembly 规范引入 128 位通用向量基元（`v128`），可 1:1 无缝直译编译为 x86 SSE/AVX 与 ARM NEON 原生底层寄存器指令。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "对齐内存批量载入",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "单周期批量载入 16 字节连续线性内存",
+                    "title": "v128.load 连续内存单周期载入",
+                    "body": "一条 `v128.load` 指令在一个时钟周期内将 16 字节连续线性内存直接灌入向量寄存器，消灭标量寻址开销。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "展示跨通道洗牌指令",
+                    "title": "i8x16.shuffle 跨通道重组",
+                    "body": "字节级洗牌指令无需内存往返，直接在 CPU 向量寄存器内部实现多通道数据的任意排列组合与重映射。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "四路浮点并发管线",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展示四路 32 位单精度浮点并发运算指令管线",
+                    "title": "f32x4.add 四路浮点单周期并行",
+                    "body": "单条 SIMD 指令驱动 4 个 32 位单精度浮点数同步执行加减乘除流水线，算术吞吐量理论拉升整整 4 倍。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "沙箱确定性安全边界",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "维持 WebAssembly 严格的内存越界陷阱与 NaN 规范化",
+                    "title": "沙箱隔离与 NaN 确定性规范化",
+                    "body": "跨架构的浮点差异经规范化处理抹平，保持 WebAssembly 严苛的越界 Trap 保护机制，防止侧信道漏洞利用。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "4倍音视频端侧加速",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结浏览器内运行 ONNX 神经网络与音视频 DSP 提速 4 倍的实践突破",
+                    "title": "端侧 4 倍多媒体实时计算突破",
+                    "body": "WASM SIMD 让浏览器内实时 60 帧视频虚化与 ONNX 轻量级神经网络推理成为现实，彻底解放纯 Web 算力上限。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "push-x",
+          "2->3": "push-x",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "WebAssembly 128-bit Fixed-width SIMD Specification",
+              "url": "https://github.com/WebAssembly/simd",
+              "supports": "v128 primitive, memory-aligned vector loading, f32x4.add execution, and JIT translation to SSE/NEON."
+            }
+          ]
+        },
+        "modulePath": "../topics/wasm-simd-compiler-box.tsx"
       }
     ]
   },
@@ -59063,6 +69708,225 @@ export const CATALOG_MANIFEST = [
           "display": "envelope"
         },
         "modulePath": "../topics/onboarding-toolkit.tsx"
+      },
+      {
+        "id": "gyroscope-attitude-control",
+        "styleId": "object-metaphor-hero",
+        "title": {
+          "en": "Spacecraft Gyroscope",
+          "zh": "航天陀螺仪"
+        },
+        "modelId": "Gemini 3.7 Flash",
+        "metadata": {
+          "en": {
+            "theme": "Spacecraft Navigation: Control Moment Gyroscopes and Angular Momentum",
+            "densityLabel": "Sparse",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#050814",
+              "ink": "#f8fafc",
+              "panel": "#0e1626"
+            },
+            "typography": {
+              "header": "Syne 800",
+              "body": "Inter 300"
+            },
+            "tags": [
+              "spacecraft",
+              "gyroscope",
+              "physics",
+              "object-hero",
+              "attitude-control"
+            ],
+            "fonts": [
+              "Syne",
+              "Inter",
+              "sans-serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "Levitated Beryllium Rotor",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Spotlight spinning beryllium sphere magnetically suspended in vacuum",
+                    "title": "Magnetically Levitated Beryllium Sphere",
+                    "body": "A polished beryllium rotor spins at 10,000 RPM in a vacuum chamber, isolated from all mechanical friction by magnetic suspension."
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "Angular Momentum Vectors",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Establish the conserved angular momentum vector L = I * omega",
+                    "title": "Conserved Angular Momentum Vector",
+                    "body": "Spinning mass creates a rigid angular momentum vector $\\vec{L} = I\\vec{\\omega}$ that resists external rotational perturbations in deep space."
+                  },
+                  {
+                    "id": 1,
+                    "action": "Demonstrate gyroscopic precession reaction torque",
+                    "title": "Precession & Torque Conversion",
+                    "body": "Applying a lateral gimbal torque forces the spinning vector to precess at right angles, converting gimbal energy into vehicle rotation."
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "Control Moment Gyroscopes",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Slew spacecraft attitude without expending consumable propellant",
+                    "title": "Zero-Fuel Control Moment Gyros (CMG)",
+                    "body": "Tilting four synchronized CMG gimbals reorients massive space stations and space telescopes using pure electrical power from solar arrays."
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "Arcsecond Pointing Precision",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Lock space telescope optics onto distant exoplanets with 0.007 arcsecond accuracy",
+                    "title": "0.007 Arcsecond Deep Space Stare",
+                    "body": "Fine guidance reaction wheels lock the James Webb Space Telescope onto exoplanet light curves for 100 hours without jitter."
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "Holding Direction in Void",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "Synthesize the philosophical and physical anchor of direction in the cosmic void",
+                    "title": "Eternal Direction in the Cosmic Void",
+                    "body": "In the pitch-black vacuum where up and down cease to exist, the spinning gyroscope rotor provides an unshakeable moral compass for humanity's voyage."
+                  }
+                ]
+              }
+            ]
+          },
+          "zh": {
+            "theme": "航天器姿态控制：控制力矩陀螺仪（CMG）与角动量守恒",
+            "densityLabel": "稀疏",
+            "heroScene": 3,
+            "colors": {
+              "bg": "#050814",
+              "ink": "#f8fafc",
+              "panel": "#0e1626"
+            },
+            "typography": {
+              "header": "Syne 800",
+              "body": "Inter 300"
+            },
+            "tags": [
+              "航天器",
+              "陀螺仪",
+              "物理学",
+              "主视觉隐喻",
+              "姿态控制"
+            ],
+            "fonts": [
+              "Syne",
+              "Inter",
+              "sans-serif"
+            ],
+            "scenes": [
+              {
+                "id": 1,
+                "title": "磁悬浮铍金属转子",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "特写聚光灯下的高精度真空磁悬浮铍金属自转球体",
+                    "title": "真空中万转磁悬浮铍合金转子",
+                    "body": "抛光至纳米级精度的铍金属转子在真空腔体内以每分钟上万转高速旋转，由磁悬浮轴承彻底消除机械摩擦力。"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "title": "角动量矢量刚性守恒",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "确立角动量守恒矢量 L = I * omega 与抗倾覆刚性",
+                    "title": "角动量守恒定律的物理刚性",
+                    "body": "高速旋转的转子生成强大的角动量刚性矢量 $\\vec{L} = I\\vec{\\omega}$，在深空虚无中天然抵抗一切外部姿态扰动力矩。"
+                  },
+                  {
+                    "id": 1,
+                    "action": "演示框架进动力矩偏转",
+                    "title": "陀螺力矩进动正交偏转",
+                    "body": "通过外部电机对框架施加侧向力矩，旋转轴将在正交方向发生自发进动，将框架转动能量高效转化为飞船机体偏转。"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "title": "控制力矩陀螺零燃料",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "利用控制力矩陀螺（CMG）实现无工质消耗的飞船大角度机动",
+                    "title": "无工质消耗的 CMG 姿态机动",
+                    "body": "4 组联动控制力矩陀螺仅消耗太阳能电池帆板的电能，即可轻松实现百吨级空间站的大角度高速姿态调姿，彻底告别化学推进剂消耗。"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "title": "角秒级极限空间指向",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "展示韦伯与哈勃太空望远镜实现 0.007 角秒超精细凝视",
+                    "title": "0.007 角秒级深空极限凝视",
+                    "body": "微调反作用飞轮将韦伯空间望远镜的光学视轴牢牢锁定在百亿光年外的系外行星光谱上，连续百小时曝光无抖动偏移。"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "title": "虚空中握持永恒方向",
+                "beats": [
+                  {
+                    "id": 0,
+                    "action": "总结陀螺仪在虚空宇宙中为人类文明指明永恒方向的物理史诗",
+                    "title": "在虚无宇宙中握持永恒坐标",
+                    "body": "在没有任何参照系、失去上下方位的浩瀚真空深渊里，飞速旋转的陀螺仪为人类探索宇宙的征途雕刻出永不迷失的方向坐标。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "navigation": {
+          "mode": "none"
+        },
+        "transitionScore": {
+          "1->2": "crossfade",
+          "2->3": "crossfade",
+          "3->4": "slide-x",
+          "4->5": "crossfade"
+        },
+        "evidence": {
+          "kind": "facts",
+          "sources": [
+            {
+              "title": "Spacecraft Attitude Determination and Control (James R. Wertz)",
+              "url": "https://link.springer.com/book/9789027712042",
+              "supports": "Control moment gyroscope dynamics, angular momentum vector conservation, and sub-arcsecond reaction wheel stability."
+            }
+          ]
+        },
+        "modulePath": "../topics/gyroscope-attitude-control.tsx"
       }
     ]
   }
@@ -59070,7 +69934,7 @@ export const CATALOG_MANIFEST = [
 
 export const CATALOG_STATS = {
   "styles": 49,
-  "topics": 196
+  "topics": 245
 } as const satisfies PublicationStats;
 
 export const PUBLICATION_TARGETS = [
@@ -59126,6 +69990,20 @@ export const PUBLICATION_TARGETS = [
       "language": "en",
       "scene": 4,
       "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "minimal-product-keynote",
+    "topicId": "solid-state-battery",
+    "modulePath": "../topics/solid-state-battery.tsx",
+    "testPath": "src/topics/solid-state-battery.test.tsx",
+    "previewFilename": "solid-state-battery.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
       "pure": true,
       "frozen": true
     }
@@ -59187,6 +70065,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "objective-swiss-grid",
+    "topicId": "air-traffic-separation",
+    "modulePath": "../topics/air-traffic-separation.tsx",
+    "testPath": "src/topics/air-traffic-separation.test.tsx",
+    "previewFilename": "air-traffic-separation.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "wabi-sabi-ceramic",
     "topicId": "ceramic-calm",
     "modulePath": "../topics/ceramic-calm.tsx",
@@ -59237,6 +70129,20 @@ export const PUBLICATION_TARGETS = [
     "capture": {
       "language": "en",
       "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "wabi-sabi-ceramic",
+    "topicId": "kintsugi-entropy",
+    "modulePath": "../topics/kintsugi-entropy.tsx",
+    "testPath": "src/topics/kintsugi-entropy.test.tsx",
+    "previewFilename": "kintsugi-entropy.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
       "beat": 0,
       "pure": true,
       "frozen": true
@@ -59299,6 +70205,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "interactive-dialogue-stage",
+    "topicId": "turing-test-dilemma",
+    "modulePath": "../topics/turing-test-dilemma.tsx",
+    "testPath": "src/topics/turing-test-dilemma.test.tsx",
+    "previewFilename": "turing-test-dilemma.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "cyanotype-drafting-table",
     "topicId": "blueprint",
     "modulePath": "../topics/blueprint.tsx",
@@ -59355,6 +70275,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "cyanotype-drafting-table",
+    "topicId": "fresnel-lens-drafting",
+    "modulePath": "../topics/fresnel-lens-drafting.tsx",
+    "testPath": "src/topics/fresnel-lens-drafting.test.tsx",
+    "previewFilename": "fresnel-lens-drafting.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "kinetic-type-punchline",
     "topicId": "type-poster",
     "modulePath": "../topics/type-poster.tsx",
@@ -59405,6 +70339,20 @@ export const PUBLICATION_TARGETS = [
     "capture": {
       "language": "en",
       "scene": 5,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "kinetic-type-punchline",
+    "topicId": "amdahls-law",
+    "modulePath": "../topics/amdahls-law.tsx",
+    "testPath": "src/topics/amdahls-law.test.tsx",
+    "previewFilename": "amdahls-law.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
       "beat": 0,
       "pure": true,
       "frozen": true
@@ -59467,6 +70415,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "sketch-board-emoji",
+    "topicId": "rubber-hose-animation",
+    "modulePath": "../topics/rubber-hose-animation.tsx",
+    "testPath": "src/topics/rubber-hose-animation.test.tsx",
+    "previewFilename": "rubber-hose-animation.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "spotlight-quote-poster",
     "topicId": "quote-poster",
     "modulePath": "../topics/quote-poster.tsx",
@@ -59523,6 +70485,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "spotlight-quote-poster",
+    "topicId": "shannon-information",
+    "modulePath": "../topics/shannon-information.tsx",
+    "testPath": "src/topics/shannon-information.test.tsx",
+    "previewFilename": "shannon-information.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "subway-map-of-intent",
     "topicId": "subway-flow",
     "modulePath": "../topics/subway-flow.tsx",
@@ -59573,6 +70549,20 @@ export const PUBLICATION_TARGETS = [
     "capture": {
       "language": "en",
       "scene": 4,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "subway-map-of-intent",
+    "topicId": "bgp-anycast-routing",
+    "modulePath": "../topics/bgp-anycast-routing.tsx",
+    "testPath": "src/topics/bgp-anycast-routing.test.tsx",
+    "previewFilename": "bgp-anycast-routing.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
       "beat": 1,
       "pure": true,
       "frozen": true
@@ -59635,6 +70625,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "benchmark-matrix",
+    "topicId": "solid-state-drive-nand",
+    "modulePath": "../topics/solid-state-drive-nand.tsx",
+    "testPath": "src/topics/solid-state-drive-nand.test.tsx",
+    "previewFilename": "solid-state-drive-nand.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "signal-pipeline-flow",
     "topicId": "pipeline",
     "modulePath": "../topics/pipeline.tsx",
@@ -59682,6 +70686,20 @@ export const PUBLICATION_TARGETS = [
     "modulePath": "../topics/where-request-goes.tsx",
     "testPath": "src/topics/where-request-goes.test.tsx",
     "previewFilename": "where-request-goes.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "signal-pipeline-flow",
+    "topicId": "zero-knowledge-snark",
+    "modulePath": "../topics/zero-knowledge-snark.tsx",
+    "testPath": "src/topics/zero-knowledge-snark.test.tsx",
+    "previewFilename": "zero-knowledge-snark.webp",
     "capture": {
       "language": "en",
       "scene": 3,
@@ -59747,6 +70765,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "engineering-whiteboard-explainer",
+    "topicId": "raft-consensus-election",
+    "modulePath": "../topics/raft-consensus-election.tsx",
+    "testPath": "src/topics/raft-consensus-election.test.tsx",
+    "previewFilename": "raft-consensus-election.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "soft-pastel-friendly",
     "topicId": "friendly-onboard",
     "modulePath": "../topics/friendly-onboard.tsx",
@@ -59798,6 +70830,20 @@ export const PUBLICATION_TARGETS = [
       "language": "en",
       "scene": 1,
       "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "soft-pastel-friendly",
+    "topicId": "origami-crease-patterns",
+    "modulePath": "../topics/origami-crease-patterns.tsx",
+    "testPath": "src/topics/origami-crease-patterns.test.tsx",
+    "previewFilename": "origami-crease-patterns.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
       "pure": true,
       "frozen": true
     }
@@ -59859,6 +70905,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "kitchen-prep-station",
+    "topicId": "sourdough-microbiome",
+    "modulePath": "../topics/sourdough-microbiome.tsx",
+    "testPath": "src/topics/sourdough-microbiome.test.tsx",
+    "previewFilename": "sourdough-microbiome.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "collaborative-pairing-board",
     "topicId": "pairing-board",
     "modulePath": "../topics/pairing-board.tsx",
@@ -59906,6 +70966,20 @@ export const PUBLICATION_TARGETS = [
     "modulePath": "../topics/human-reviews-ai.tsx",
     "testPath": "src/topics/human-reviews-ai.test.tsx",
     "previewFilename": "human-reviews-ai.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "collaborative-pairing-board",
+    "topicId": "compiler-front-back-end",
+    "modulePath": "../topics/compiler-front-back-end.tsx",
+    "testPath": "src/topics/compiler-front-back-end.test.tsx",
+    "previewFilename": "compiler-front-back-end.webp",
     "capture": {
       "language": "en",
       "scene": 3,
@@ -59971,6 +71045,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "studio-mixing-console",
+    "topicId": "power-grid-dispatch-console",
+    "modulePath": "../topics/power-grid-dispatch-console.tsx",
+    "testPath": "src/topics/power-grid-dispatch-console.test.tsx",
+    "previewFilename": "power-grid-dispatch-console.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "debug-reaction-board",
     "topicId": "debug-board",
     "modulePath": "../topics/debug-board.tsx",
@@ -60021,6 +71109,20 @@ export const PUBLICATION_TARGETS = [
     "capture": {
       "language": "en",
       "scene": 4,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "debug-reaction-board",
+    "topicId": "linux-oom-killer",
+    "modulePath": "../topics/linux-oom-killer.tsx",
+    "testPath": "src/topics/linux-oom-killer.test.tsx",
+    "previewFilename": "linux-oom-killer.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
       "beat": 1,
       "pure": true,
       "frozen": true
@@ -60083,6 +71185,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "front-page-broadsheet",
+    "topicId": "deep-sea-cables-cut",
+    "modulePath": "../topics/deep-sea-cables-cut.tsx",
+    "testPath": "src/topics/deep-sea-cables-cut.test.tsx",
+    "previewFilename": "deep-sea-cables-cut.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "magazine-masthead",
     "topicId": "masthead",
     "modulePath": "../topics/masthead.tsx",
@@ -60133,6 +71249,20 @@ export const PUBLICATION_TARGETS = [
     "capture": {
       "language": "en",
       "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "magazine-masthead",
+    "topicId": "mechanical-watch-escapement",
+    "modulePath": "../topics/mechanical-watch-escapement.tsx",
+    "testPath": "src/topics/mechanical-watch-escapement.test.tsx",
+    "previewFilename": "mechanical-watch-escapement.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
       "beat": 0,
       "pure": true,
       "frozen": true
@@ -60195,6 +71325,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "warm-editorial-feature",
+    "topicId": "lost-library-alexandria",
+    "modulePath": "../topics/lost-library-alexandria.tsx",
+    "testPath": "src/topics/lost-library-alexandria.test.tsx",
+    "previewFilename": "lost-library-alexandria.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "scholars-vellum",
     "topicId": "scholar-notes",
     "modulePath": "../topics/scholar-notes.tsx",
@@ -60245,6 +71389,20 @@ export const PUBLICATION_TARGETS = [
     "capture": {
       "language": "en",
       "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "scholars-vellum",
+    "topicId": "principia-mathematica-proof",
+    "modulePath": "../topics/principia-mathematica-proof.tsx",
+    "testPath": "src/topics/principia-mathematica-proof.test.tsx",
+    "previewFilename": "principia-mathematica-proof.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
       "beat": 0,
       "pure": true,
       "frozen": true
@@ -60307,6 +71465,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "solar-biennale-poster",
+    "topicId": "trombe-wall-passive-solar",
+    "modulePath": "../topics/trombe-wall-passive-solar.tsx",
+    "testPath": "src/topics/trombe-wall-passive-solar.test.tsx",
+    "previewFilename": "trombe-wall-passive-solar.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "duotone-session",
     "topicId": "session-poster",
     "modulePath": "../topics/session-poster.tsx",
@@ -60363,6 +71535,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "duotone-session",
+    "topicId": "magnetic-tape-splicing",
+    "modulePath": "../topics/magnetic-tape-splicing.tsx",
+    "testPath": "src/topics/magnetic-tape-splicing.test.tsx",
+    "previewFilename": "magnetic-tape-splicing.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "riso-print-zine",
     "topicId": "riso-zine",
     "modulePath": "../topics/riso-zine.tsx",
@@ -60413,6 +71599,20 @@ export const PUBLICATION_TARGETS = [
     "capture": {
       "language": "en",
       "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "riso-print-zine",
+    "topicId": "pirate-radio-broadcast",
+    "modulePath": "../topics/pirate-radio-broadcast.tsx",
+    "testPath": "src/topics/pirate-radio-broadcast.test.tsx",
+    "previewFilename": "pirate-radio-broadcast.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
       "beat": 0,
       "pure": true,
       "frozen": true
@@ -60475,6 +71675,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "analog-cutout-collage",
+    "topicId": "continental-drift-pangaea",
+    "modulePath": "../topics/continental-drift-pangaea.tsx",
+    "testPath": "src/topics/continental-drift-pangaea.test.tsx",
+    "previewFilename": "continental-drift-pangaea.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "woodblock-floating-world",
     "topicId": "woodblock",
     "modulePath": "../topics/woodblock.tsx",
@@ -60531,6 +71745,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "woodblock-floating-world",
+    "topicId": "kuroshio-current-voyage",
+    "modulePath": "../topics/kuroshio-current-voyage.tsx",
+    "testPath": "src/topics/kuroshio-current-voyage.test.tsx",
+    "previewFilename": "kuroshio-current-voyage.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "botanical-specimen-plate",
     "topicId": "specimen-plate",
     "modulePath": "../topics/specimen-plate.tsx",
@@ -60581,6 +71809,20 @@ export const PUBLICATION_TARGETS = [
     "capture": {
       "language": "en",
       "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "botanical-specimen-plate",
+    "topicId": "ginkgo-biloba-living-fossil",
+    "modulePath": "../topics/ginkgo-biloba-living-fossil.tsx",
+    "testPath": "src/topics/ginkgo-biloba-living-fossil.test.tsx",
+    "previewFilename": "ginkgo-biloba-living-fossil.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
       "beat": 0,
       "pure": true,
       "frozen": true
@@ -60643,6 +71885,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "machine-age-deco",
+    "topicId": "diesel-streamliner-train",
+    "modulePath": "../topics/diesel-streamliner-train.tsx",
+    "testPath": "src/topics/diesel-streamliner-train.test.tsx",
+    "previewFilename": "diesel-streamliner-train.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "expedition-screenprint",
     "topicId": "expedition-print",
     "modulePath": "../topics/expedition-print.tsx",
@@ -60699,6 +71955,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "expedition-screenprint",
+    "topicId": "mariana-trench-descent",
+    "modulePath": "../topics/mariana-trench-descent.tsx",
+    "testPath": "src/topics/mariana-trench-descent.test.tsx",
+    "previewFilename": "mariana-trench-descent.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "cassette-era-packaging",
     "topicId": "cassette-pack",
     "modulePath": "../topics/cassette-pack.tsx",
@@ -60749,6 +72019,20 @@ export const PUBLICATION_TARGETS = [
     "capture": {
       "language": "en",
       "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "cassette-era-packaging",
+    "topicId": "floppy-disk-interleaving",
+    "modulePath": "../topics/floppy-disk-interleaving.tsx",
+    "testPath": "src/topics/floppy-disk-interleaving.test.tsx",
+    "previewFilename": "floppy-disk-interleaving.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
       "beat": 0,
       "pure": true,
       "frozen": true
@@ -60811,6 +72095,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "neo-brutalist-bulletin",
+    "topicId": "zero-day-exploit-mitigation",
+    "modulePath": "../topics/zero-day-exploit-mitigation.tsx",
+    "testPath": "src/topics/zero-day-exploit-mitigation.test.tsx",
+    "previewFilename": "zero-day-exploit-mitigation.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "red-wedge-agitprop",
     "topicId": "red-wedge",
     "modulePath": "../topics/red-wedge.tsx",
@@ -60861,6 +72159,20 @@ export const PUBLICATION_TARGETS = [
     "capture": {
       "language": "en",
       "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "red-wedge-agitprop",
+    "topicId": "linear-types-memory-safety",
+    "modulePath": "../topics/linear-types-memory-safety.tsx",
+    "testPath": "src/topics/linear-types-memory-safety.test.tsx",
+    "previewFilename": "linear-types-memory-safety.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
       "beat": 0,
       "pure": true,
       "frozen": true
@@ -60923,6 +72235,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "mechanical-scoring-funnel",
+    "topicId": "venture-capital-deal-funnel",
+    "modulePath": "../topics/venture-capital-deal-funnel.tsx",
+    "testPath": "src/topics/venture-capital-deal-funnel.test.tsx",
+    "previewFilename": "venture-capital-deal-funnel.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "liquid-glass",
     "topicId": "liquid-glass",
     "modulePath": "../topics/liquid-glass.tsx",
@@ -60979,6 +72305,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "liquid-glass",
+    "topicId": "total-internal-reflection-waveguide",
+    "modulePath": "../topics/total-internal-reflection-waveguide.tsx",
+    "testPath": "src/topics/total-internal-reflection-waveguide.test.tsx",
+    "previewFilename": "total-internal-reflection-waveguide.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "retro-windows",
     "topicId": "retro-desktop",
     "modulePath": "../topics/retro-desktop.tsx",
@@ -61029,6 +72369,20 @@ export const PUBLICATION_TARGETS = [
     "capture": {
       "language": "en",
       "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "retro-windows",
+    "topicId": "win95-plug-and-play",
+    "modulePath": "../topics/win95-plug-and-play.tsx",
+    "testPath": "src/topics/win95-plug-and-play.test.tsx",
+    "previewFilename": "win95-plug-and-play.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
       "beat": 0,
       "pure": true,
       "frozen": true
@@ -61091,6 +72445,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "mid-century-grove",
+    "topicId": "eames-lounge-chair-molding",
+    "modulePath": "../topics/eames-lounge-chair-molding.tsx",
+    "testPath": "src/topics/eames-lounge-chair-molding.test.tsx",
+    "previewFilename": "eames-lounge-chair-molding.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "after-hours-luxe",
     "topicId": "after-hours",
     "modulePath": "../topics/after-hours.tsx",
@@ -61142,6 +72510,20 @@ export const PUBLICATION_TARGETS = [
       "language": "en",
       "scene": 3,
       "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "after-hours-luxe",
+    "topicId": "bespoke-perfume-pyramid",
+    "modulePath": "../topics/bespoke-perfume-pyramid.tsx",
+    "testPath": "src/topics/bespoke-perfume-pyramid.test.tsx",
+    "previewFilename": "bespoke-perfume-pyramid.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
       "pure": true,
       "frozen": true
     }
@@ -61203,6 +72585,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "operating-manual",
+    "topicId": "iss-docking-procedure",
+    "modulePath": "../topics/iss-docking-procedure.tsx",
+    "testPath": "src/topics/iss-docking-procedure.test.tsx",
+    "previewFilename": "iss-docking-procedure.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "widescreen-title-card",
     "topicId": "title-card",
     "modulePath": "../topics/title-card.tsx",
@@ -61253,6 +72649,20 @@ export const PUBLICATION_TARGETS = [
     "capture": {
       "language": "en",
       "scene": 2,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "widescreen-title-card",
+    "topicId": "black-hole-event-horizon",
+    "modulePath": "../topics/black-hole-event-horizon.tsx",
+    "testPath": "src/topics/black-hole-event-horizon.test.tsx",
+    "previewFilename": "black-hole-event-horizon.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
       "beat": 0,
       "pure": true,
       "frozen": true
@@ -61315,6 +72725,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "blackboard-chalk-talk",
+    "topicId": "euler-identity-derivation",
+    "modulePath": "../topics/euler-identity-derivation.tsx",
+    "testPath": "src/topics/euler-identity-derivation.test.tsx",
+    "previewFilename": "euler-identity-derivation.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "arcade-boss-fight",
     "topicId": "boss-fight",
     "modulePath": "../topics/boss-fight.tsx",
@@ -61366,6 +72790,20 @@ export const PUBLICATION_TARGETS = [
       "language": "en",
       "scene": 2,
       "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "arcade-boss-fight",
+    "topicId": "database-deadlock-duel",
+    "modulePath": "../topics/database-deadlock-duel.tsx",
+    "testPath": "src/topics/database-deadlock-duel.test.tsx",
+    "previewFilename": "database-deadlock-duel.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
       "pure": true,
       "frozen": true
     }
@@ -61427,6 +72865,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "research-memo",
+    "topicId": "agentic-memory-hierarchy",
+    "modulePath": "../topics/agentic-memory-hierarchy.tsx",
+    "testPath": "src/topics/agentic-memory-hierarchy.test.tsx",
+    "previewFilename": "agentic-memory-hierarchy.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "decision-record",
     "topicId": "decision-record",
     "modulePath": "../topics/decision-record.tsx",
@@ -61477,6 +72929,20 @@ export const PUBLICATION_TARGETS = [
     "capture": {
       "language": "en",
       "scene": 1,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "decision-record",
+    "topicId": "why-we-chose-lsm-tree",
+    "modulePath": "../topics/why-we-chose-lsm-tree.tsx",
+    "testPath": "src/topics/why-we-chose-lsm-tree.test.tsx",
+    "previewFilename": "why-we-chose-lsm-tree.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
       "beat": 0,
       "pure": true,
       "frozen": true
@@ -61539,6 +73005,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "maintainer-issue-brief",
+    "topicId": "memory-leak-in-v8-closure",
+    "modulePath": "../topics/memory-leak-in-v8-closure.tsx",
+    "testPath": "src/topics/memory-leak-in-v8-closure.test.tsx",
+    "previewFilename": "memory-leak-in-v8-closure.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "field-notes-report",
     "topicId": "field-notes",
     "modulePath": "../topics/field-notes.tsx",
@@ -61590,6 +73070,20 @@ export const PUBLICATION_TARGETS = [
       "language": "en",
       "scene": 3,
       "beat": 1,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "field-notes-report",
+    "topicId": "tokyo-metro-passenger-flow",
+    "modulePath": "../topics/tokyo-metro-passenger-flow.tsx",
+    "testPath": "src/topics/tokyo-metro-passenger-flow.test.tsx",
+    "previewFilename": "tokyo-metro-passenger-flow.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
       "pure": true,
       "frozen": true
     }
@@ -61651,6 +73145,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "annotated-source-diff",
+    "topicId": "loop-tiling-cache-diff",
+    "modulePath": "../topics/loop-tiling-cache-diff.tsx",
+    "testPath": "src/topics/loop-tiling-cache-diff.test.tsx",
+    "previewFilename": "loop-tiling-cache-diff.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "checklist-ledger",
     "topicId": "checklist-ledger",
     "modulePath": "../topics/checklist-ledger.tsx",
@@ -61702,6 +73210,20 @@ export const PUBLICATION_TARGETS = [
       "language": "en",
       "scene": 3,
       "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "checklist-ledger",
+    "topicId": "falcon9-preflight-checklist",
+    "modulePath": "../topics/falcon9-preflight-checklist.tsx",
+    "testPath": "src/topics/falcon9-preflight-checklist.test.tsx",
+    "previewFilename": "falcon9-preflight-checklist.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
       "pure": true,
       "frozen": true
     }
@@ -61763,6 +73285,20 @@ export const PUBLICATION_TARGETS = [
     }
   },
   {
+    "styleId": "context-bento-box",
+    "topicId": "wasm-simd-compiler-box",
+    "modulePath": "../topics/wasm-simd-compiler-box.tsx",
+    "testPath": "src/topics/wasm-simd-compiler-box.test.tsx",
+    "previewFilename": "wasm-simd-compiler-box.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
     "styleId": "object-metaphor-hero",
     "topicId": "object-metaphor",
     "modulePath": "../topics/object-metaphor.tsx",
@@ -61814,6 +73350,20 @@ export const PUBLICATION_TARGETS = [
       "language": "en",
       "scene": 2,
       "beat": 2,
+      "pure": true,
+      "frozen": true
+    }
+  },
+  {
+    "styleId": "object-metaphor-hero",
+    "topicId": "gyroscope-attitude-control",
+    "modulePath": "../topics/gyroscope-attitude-control.tsx",
+    "testPath": "src/topics/gyroscope-attitude-control.test.tsx",
+    "previewFilename": "gyroscope-attitude-control.webp",
+    "capture": {
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
       "pure": true,
       "frozen": true
     }
@@ -62140,6 +73690,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例产品决策场景：范围、时间与交付结果均为演示示例，并非外部事实主张。"
     },
     {
+      "styleId": "minimal-product-keynote",
+      "topicId": "solid-state-battery",
+      "topicName": "Solid-State Battery",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "minimal-product-keynote",
+      "topicId": "solid-state-battery",
+      "topicName": "固态电池",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "objective-swiss-grid",
       "topicId": "swiss-grid",
       "topicName": "Swiss Grid",
@@ -62208,6 +73774,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 3,
       "beat": 2,
       "evidenceBoundary": "示例时刻表研究：车次、时间与晚点状态均为演示示例，并非实时交通数据。"
+    },
+    {
+      "styleId": "objective-swiss-grid",
+      "topicId": "air-traffic-separation",
+      "topicName": "Air Traffic Separation",
+      "language": "en",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "objective-swiss-grid",
+      "topicId": "air-traffic-separation",
+      "topicName": "空域间隔标准",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1
     },
     {
       "styleId": "wabi-sabi-ceramic",
@@ -62280,6 +73862,24 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "wabi-sabi-ceramic",
+      "topicId": "kintsugi-entropy",
+      "topicName": "Kintsugi & Entropy",
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "evidenceBoundary": "Conceptual physics and Japanese craft metaphor illustrating entropy and restorative order."
+    },
+    {
+      "styleId": "wabi-sabi-ceramic",
+      "topicId": "kintsugi-entropy",
+      "topicName": "金缮与熵增",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0,
+      "evidenceBoundary": "概念物理学与传统金缮工艺隐喻，展示熵增与修复秩序。"
+    },
+    {
       "styleId": "interactive-dialogue-stage",
       "topicId": "dialogue-stage",
       "topicName": "Dialogue Stage",
@@ -62348,6 +73948,24 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 4,
       "beat": 2,
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "interactive-dialogue-stage",
+      "topicId": "turing-test-dilemma",
+      "topicName": "Turing Test Dilemma",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Philosophical dialogue exchange modeled for comparative analysis."
+    },
+    {
+      "styleId": "interactive-dialogue-stage",
+      "topicId": "turing-test-dilemma",
+      "topicName": "图灵测试困境",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "心智哲学辩论模型，用于对话式对比分析。"
     },
     {
       "styleId": "cyanotype-drafting-table",
@@ -62422,6 +74040,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "cyanotype-drafting-table",
+      "topicId": "fresnel-lens-drafting",
+      "topicName": "The Fresnel Lens",
+      "language": "en",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "cyanotype-drafting-table",
+      "topicId": "fresnel-lens-drafting",
+      "topicName": "菲涅尔透镜",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1
+    },
+    {
       "styleId": "kinetic-type-punchline",
       "topicId": "type-poster",
       "topicName": "Type Poster",
@@ -62494,6 +74128,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例发布提示：其中借口、倒数和结果均为海报修辞，并非一次产品发布的记录。"
     },
     {
+      "styleId": "kinetic-type-punchline",
+      "topicId": "amdahls-law",
+      "topicName": "Amdahl's Law",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "kinetic-type-punchline",
+      "topicId": "amdahls-law",
+      "topicName": "阿姆达尔定律",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "sketch-board-emoji",
       "topicId": "workshop-board",
       "topicName": "Workshop Board",
@@ -62562,6 +74212,24 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 2,
       "beat": 1,
       "evidenceBoundary": "示例起名工作坊：候选名称、反馈与选择均为创作的演示内容，并非外部流程记录。"
+    },
+    {
+      "styleId": "sketch-board-emoji",
+      "topicId": "rubber-hose-animation",
+      "topicName": "Rubber Hose Animation",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Animation craft principles illustrated through workshop sketches."
+    },
+    {
+      "styleId": "sketch-board-emoji",
+      "topicId": "rubber-hose-animation",
+      "topicName": "橡皮管动画",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "动画工艺原理手绘草图，展示早期橡皮管角色动态规律。"
     },
     {
       "styleId": "spotlight-quote-poster",
@@ -62636,6 +74304,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例性沉思：其中说话者、引言与离开叙事均为创作的演示内容，并非归属证词或报道。"
     },
     {
+      "styleId": "spotlight-quote-poster",
+      "topicId": "shannon-information",
+      "topicName": "Shannon's Measure",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "spotlight-quote-poster",
+      "topicId": "shannon-information",
+      "topicName": "香农不确定性",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "subway-map-of-intent",
       "topicId": "subway-flow",
       "topicName": "Subway Flow",
@@ -62704,6 +74388,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 4,
       "beat": 1,
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "subway-map-of-intent",
+      "topicId": "bgp-anycast-routing",
+      "topicName": "BGP Anycast Routing",
+      "language": "en",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "subway-map-of-intent",
+      "topicId": "bgp-anycast-routing",
+      "topicName": "BGP 选路中继",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1
     },
     {
       "styleId": "benchmark-matrix",
@@ -62776,6 +74476,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "benchmark-matrix",
+      "topicId": "solid-state-drive-nand",
+      "topicName": "NAND Flash Benchmarks",
+      "language": "en",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "benchmark-matrix",
+      "topicId": "solid-state-drive-nand",
+      "topicName": "闪存介质评测",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1
+    },
+    {
       "styleId": "signal-pipeline-flow",
       "topicId": "pipeline",
       "topicName": "Pipeline",
@@ -62844,6 +74560,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 3,
       "beat": 1,
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "signal-pipeline-flow",
+      "topicId": "zero-knowledge-snark",
+      "topicName": "ZK-SNARK Pipeline",
+      "language": "en",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "signal-pipeline-flow",
+      "topicId": "zero-knowledge-snark",
+      "topicName": "零知识证明流",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1
     },
     {
       "styleId": "engineering-whiteboard-explainer",
@@ -62916,6 +74648,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "这里的两个三角形、固定深度值（0.28 与 0.72）以及可视化队列，都是与具体 API 无关的教学示意。真实的 GPU、驱动、API 与管线状态可能重排、合批或优化这些工作，因此这既不代表硬件真的按此串行执行，也不代表固定的性能。"
     },
     {
+      "styleId": "engineering-whiteboard-explainer",
+      "topicId": "raft-consensus-election",
+      "topicName": "Raft Leader Election",
+      "language": "en",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "engineering-whiteboard-explainer",
+      "topicId": "raft-consensus-election",
+      "topicName": "Raft选主",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1
+    },
+    {
       "styleId": "soft-pastel-friendly",
       "topicId": "friendly-onboard",
       "topicName": "Friendly Onboard",
@@ -62984,6 +74732,24 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 1,
       "beat": 0,
       "evidenceBoundary": "示例入职场景：人物、工具、任务和结果均为演示示例，并非外部事实主张。"
+    },
+    {
+      "styleId": "soft-pastel-friendly",
+      "topicId": "origami-crease-patterns",
+      "topicName": "Mountain and Valley",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Mathematical origami principles illustrated through folding diagrams."
+    },
+    {
+      "styleId": "soft-pastel-friendly",
+      "topicId": "origami-crease-patterns",
+      "topicName": "折痕山谷",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "折纸数学几何原理图解，展示从平整纸面到刚性结构的形态演进。"
     },
     {
       "styleId": "kitchen-prep-station",
@@ -63056,6 +74822,24 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "kitchen-prep-station",
+      "topicId": "sourdough-microbiome",
+      "topicName": "Sourdough Fermentation",
+      "language": "en",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "Culinary biochemistry illustrated as kitchen prep steps."
+    },
+    {
+      "styleId": "kitchen-prep-station",
+      "topicId": "sourdough-microbiome",
+      "topicName": "酸种酵母发酵",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1,
+      "evidenceBoundary": "烹饪生物化学原理解析，以厨房备料步骤生动展示。"
+    },
+    {
       "styleId": "collaborative-pairing-board",
       "topicId": "pairing-board",
       "topicName": "Pairing Board",
@@ -63126,6 +74910,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "collaborative-pairing-board",
+      "topicId": "compiler-front-back-end",
+      "topicName": "Frontend & Backend Split",
+      "language": "en",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "collaborative-pairing-board",
+      "topicId": "compiler-front-back-end",
+      "topicName": "编译器前后端",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1
+    },
+    {
       "styleId": "studio-mixing-console",
       "topicId": "mixing-console",
       "topicName": "Mixing Console",
@@ -63194,6 +74994,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 2,
       "beat": 2,
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "studio-mixing-console",
+      "topicId": "power-grid-dispatch-console",
+      "topicName": "50 Hz Grid Dispatch",
+      "language": "en",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "studio-mixing-console",
+      "topicId": "power-grid-dispatch-console",
+      "topicName": "电网调度台",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1
     },
     {
       "styleId": "debug-reaction-board",
@@ -63268,6 +75084,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "debug-reaction-board",
+      "topicId": "linux-oom-killer",
+      "topicName": "Linux OOM Killer",
+      "language": "en",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "debug-reaction-board",
+      "topicId": "linux-oom-killer",
+      "topicName": "OOM进程裁决",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1
+    },
+    {
       "styleId": "front-page-broadsheet",
       "topicId": "broadsheet",
       "topicName": "Broadsheet",
@@ -63334,6 +75166,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "front-page-broadsheet",
+      "topicId": "deep-sea-cables-cut",
+      "topicName": "Undersea Cable Splicing",
+      "language": "en",
+      "scene": 3,
+      "beat": 1
+    },
+    {
+      "styleId": "front-page-broadsheet",
+      "topicId": "deep-sea-cables-cut",
+      "topicName": "跨洋海缆割接",
+      "language": "zh",
+      "scene": 3,
+      "beat": 1
+    },
+    {
       "styleId": "magazine-masthead",
       "topicId": "masthead",
       "topicName": "Masthead",
@@ -63398,6 +75246,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 1,
       "beat": 0,
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "magazine-masthead",
+      "topicId": "mechanical-watch-escapement",
+      "topicName": "Swiss Lever Escapement",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "magazine-masthead",
+      "topicId": "mechanical-watch-escapement",
+      "topicName": "机械擒纵机构",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
     },
     {
       "styleId": "warm-editorial-feature",
@@ -63470,6 +75334,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "warm-editorial-feature",
+      "topicId": "lost-library-alexandria",
+      "topicName": "Alexandria's Lost Scrolls",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "warm-editorial-feature",
+      "topicId": "lost-library-alexandria",
+      "topicName": "亚历山大书藏",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "scholars-vellum",
       "topicId": "scholar-notes",
       "topicName": "Scholar Notes",
@@ -63538,6 +75418,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 1,
       "beat": 0,
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "scholars-vellum",
+      "topicId": "principia-mathematica-proof",
+      "topicName": "Newton's Geometric Proof",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "scholars-vellum",
+      "topicId": "principia-mathematica-proof",
+      "topicName": "万有引力几何证",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
     },
     {
       "styleId": "solar-biennale-poster",
@@ -63610,6 +75506,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "solar-biennale-poster",
+      "topicId": "trombe-wall-passive-solar",
+      "topicName": "The Trombe Wall",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "solar-biennale-poster",
+      "topicId": "trombe-wall-passive-solar",
+      "topicName": "特朗布墙",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "duotone-session",
       "topicId": "session-poster",
       "topicName": "Session Poster",
@@ -63678,6 +75590,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 3,
       "beat": 1,
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "duotone-session",
+      "topicId": "magnetic-tape-splicing",
+      "topicName": "Razor and Tape",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "duotone-session",
+      "topicId": "magnetic-tape-splicing",
+      "topicName": "刀片剪磁带",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
     },
     {
       "styleId": "riso-print-zine",
@@ -63752,6 +75680,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "riso-print-zine",
+      "topicId": "pirate-radio-broadcast",
+      "topicName": "Pirate Radio Broadcast",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "riso-print-zine",
+      "topicId": "pirate-radio-broadcast",
+      "topicName": "海盗电台发射台",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "analog-cutout-collage",
       "topicId": "cutout-collage",
       "topicName": "Cutout Collage",
@@ -63824,6 +75768,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "analog-cutout-collage",
+      "topicId": "continental-drift-pangaea",
+      "topicName": "Pangaea Continental Drift",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "analog-cutout-collage",
+      "topicId": "continental-drift-pangaea",
+      "topicName": "大陆漂移拼图",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "woodblock-floating-world",
       "topicId": "woodblock",
       "topicName": "Woodblock",
@@ -63892,6 +75852,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 3,
       "beat": 2,
       "evidenceBoundary": "示例河流旅程：其中景观、顺序与表述均为视觉叙事，并非对某一实测河流系统的描述。"
+    },
+    {
+      "styleId": "woodblock-floating-world",
+      "topicId": "kuroshio-current-voyage",
+      "topicName": "Kuroshio Current Voyage",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "woodblock-floating-world",
+      "topicId": "kuroshio-current-voyage",
+      "topicName": "黑潮暖流航路",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
     },
     {
       "styleId": "botanical-specimen-plate",
@@ -63964,6 +75940,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例想法解剖：植物分类、标本标签与拉丁名称均为推理隐喻，并非生物学或分类学主张。"
     },
     {
+      "styleId": "botanical-specimen-plate",
+      "topicId": "ginkgo-biloba-living-fossil",
+      "topicName": "Ginkgo Biloba Plate",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "botanical-specimen-plate",
+      "topicId": "ginkgo-biloba-living-fossil",
+      "topicName": "银杏活化石",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "machine-age-deco",
       "topicId": "deco-gala",
       "topicName": "Deco Gala",
@@ -64034,6 +76026,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "machine-age-deco",
+      "topicId": "diesel-streamliner-train",
+      "topicName": "Diesel Streamliner Era",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "machine-age-deco",
+      "topicId": "diesel-streamliner-train",
+      "topicName": "柴油流线型机车",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "expedition-screenprint",
       "topicId": "expedition-print",
       "topicName": "Expedition Print",
@@ -64102,6 +76110,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 4,
       "beat": 1,
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "expedition-screenprint",
+      "topicId": "mariana-trench-descent",
+      "topicName": "Mariana Trench Descent",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "expedition-screenprint",
+      "topicId": "mariana-trench-descent",
+      "topicName": "马里亚纳深潜",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
     },
     {
       "styleId": "cassette-era-packaging",
@@ -64176,6 +76200,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "cassette-era-packaging",
+      "topicId": "floppy-disk-interleaving",
+      "topicName": "Floppy Interleaving",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "cassette-era-packaging",
+      "topicId": "floppy-disk-interleaving",
+      "topicName": "软盘磁道交织",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "neo-brutalist-bulletin",
       "topicId": "brutalist-bulletin",
       "topicName": "Brutalist Bulletin",
@@ -64248,6 +76288,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "neo-brutalist-bulletin",
+      "topicId": "zero-day-exploit-mitigation",
+      "topicName": "Zero-Day Incident Fix",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "neo-brutalist-bulletin",
+      "topicId": "zero-day-exploit-mitigation",
+      "topicName": "零日漏洞紧急修复",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "red-wedge-agitprop",
       "topicId": "red-wedge",
       "topicName": "Red Wedge",
@@ -64316,6 +76372,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 1,
       "beat": 0,
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "red-wedge-agitprop",
+      "topicId": "linear-types-memory-safety",
+      "topicName": "Linear Types Smash Bugs",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "red-wedge-agitprop",
+      "topicId": "linear-types-memory-safety",
+      "topicName": "线性类型除漏洞",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
     },
     {
       "styleId": "mechanical-scoring-funnel",
@@ -64388,6 +76460,24 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "mechanical-scoring-funnel",
+      "topicId": "venture-capital-deal-funnel",
+      "topicName": "Venture Deal Screening",
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "evidenceBoundary": "Illustrative investment pipeline model representing venture capital power-law distributions."
+    },
+    {
+      "styleId": "mechanical-scoring-funnel",
+      "topicId": "venture-capital-deal-funnel",
+      "topicName": "风投项目分拣",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0,
+      "evidenceBoundary": "风险投资漏斗模型展示，代表风投机构幂律收益下的分拣流程。"
+    },
+    {
       "styleId": "liquid-glass",
       "topicId": "liquid-glass",
       "topicName": "Liquid Glass",
@@ -64456,6 +76546,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 3,
       "beat": 2,
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "liquid-glass",
+      "topicId": "total-internal-reflection-waveguide",
+      "topicName": "Fiber Waveguide",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "liquid-glass",
+      "topicId": "total-internal-reflection-waveguide",
+      "topicName": "光纤全反射",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
     },
     {
       "styleId": "retro-windows",
@@ -64528,6 +76634,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "retro-windows",
+      "topicId": "win95-plug-and-play",
+      "topicName": "Win95 Plug and Play",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "retro-windows",
+      "topicId": "win95-plug-and-play",
+      "topicName": "即插即用架构",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "mid-century-grove",
       "topicId": "botanical-brand",
       "topicName": "Botanical Brand",
@@ -64598,6 +76720,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "mid-century-grove",
+      "topicId": "eames-lounge-chair-molding",
+      "topicName": "Eames Plywood Molding",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "mid-century-grove",
+      "topicId": "eames-lounge-chair-molding",
+      "topicName": "伊姆斯曲木",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "after-hours-luxe",
       "topicId": "after-hours",
       "topicName": "Luxe Reveal",
@@ -64666,6 +76804,24 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 3,
       "beat": 1,
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "after-hours-luxe",
+      "topicId": "bespoke-perfume-pyramid",
+      "topicName": "Bespoke Perfume Pyramid",
+      "language": "en",
+      "scene": 3,
+      "beat": 0,
+      "evidenceBoundary": "Illustrates the olfactory pyramid concept and molecular volatility dynamics."
+    },
+    {
+      "styleId": "after-hours-luxe",
+      "topicId": "bespoke-perfume-pyramid",
+      "topicName": "高定香水金字塔",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0,
+      "evidenceBoundary": "呈现高级定制香水的三段式挥发金字塔架构与分子挥发物理学原理。"
     },
     {
       "styleId": "operating-manual",
@@ -64740,6 +76896,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例安全手册：路径、版本号、副本数量、命令和结果均为演示内容；实际凭据轮换应遵循已批准的流程。"
     },
     {
+      "styleId": "operating-manual",
+      "topicId": "iss-docking-procedure",
+      "topicName": "Space Station Docking",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "operating-manual",
+      "topicId": "iss-docking-procedure",
+      "topicName": "空间站对接",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "widescreen-title-card",
       "topicId": "title-card",
       "topicName": "Title Card",
@@ -64812,6 +76984,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例标题卡场景：卷标、开场字幕、演职和收尾文字均为演示虚构内容，并非外部事实主张。"
     },
     {
+      "styleId": "widescreen-title-card",
+      "topicId": "black-hole-event-horizon",
+      "topicName": "Black Hole Horizon",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "widescreen-title-card",
+      "topicId": "black-hole-event-horizon",
+      "topicName": "事件视界",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "blackboard-chalk-talk",
       "topicId": "chalk-talk",
       "topicName": "Chalk Talk",
@@ -64880,6 +77068,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 3,
       "beat": 2,
       "evidenceBoundary": "示例 Big-O 推导：嵌套循环案例用于讲解渐近推理，并非运行系统的性能测量。"
+    },
+    {
+      "styleId": "blackboard-chalk-talk",
+      "topicId": "euler-identity-derivation",
+      "topicName": "Euler's Identity Proof",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "blackboard-chalk-talk",
+      "topicId": "euler-identity-derivation",
+      "topicName": "欧拉恒等式",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
     },
     {
       "styleId": "arcade-boss-fight",
@@ -64952,6 +77156,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例技术债 Boss 战：系统年龄、代码规模、伤害、得分和发布结果均为演示内容，并非运营测量数据。"
     },
     {
+      "styleId": "arcade-boss-fight",
+      "topicId": "database-deadlock-duel",
+      "topicName": "Defeating DB Deadlock",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "arcade-boss-fight",
+      "topicId": "database-deadlock-duel",
+      "topicName": "数据库死锁",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "research-memo",
       "topicId": "research-memo",
       "topicName": "Research Memo",
@@ -65018,6 +77238,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "language": "zh",
       "scene": 2,
       "beat": 1
+    },
+    {
+      "styleId": "research-memo",
+      "topicId": "agentic-memory-hierarchy",
+      "topicName": "Agent Memory Hierarchy",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "research-memo",
+      "topicId": "agentic-memory-hierarchy",
+      "topicName": "智能体记忆",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
     },
     {
       "styleId": "decision-record",
@@ -65090,6 +77326,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非经外部核验的事实主张。"
     },
     {
+      "styleId": "decision-record",
+      "topicId": "why-we-chose-lsm-tree",
+      "topicName": "ADR: Chose LSM-Tree",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "decision-record",
+      "topicId": "why-we-chose-lsm-tree",
+      "topicName": "选型LSM树",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "maintainer-issue-brief",
       "topicId": "issue-brief",
       "topicName": "Issue Brief",
@@ -65158,6 +77410,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例维护事件：仓库名称、失败率、耗时、问题历史和修复结果均为创作示例，并非真实项目的测量数据。"
     },
     {
+      "styleId": "maintainer-issue-brief",
+      "topicId": "memory-leak-in-v8-closure",
+      "topicName": "V8 Closure Memory Leak",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "maintainer-issue-brief",
+      "topicId": "memory-leak-in-v8-closure",
+      "topicName": "V8闭包泄漏",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "field-notes-report",
       "topicId": "field-notes",
       "topicName": "Field Notes",
@@ -65224,6 +77492,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 3,
       "beat": 1,
       "evidenceBoundary": "示例客服跟班报告：人物、对话、工单、时间、数量和发现均为创作示例，并非真实研究的观察结果。"
+    },
+    {
+      "styleId": "field-notes-report",
+      "topicId": "tokyo-metro-passenger-flow",
+      "topicName": "Shinjuku Flow Field Notes",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "field-notes-report",
+      "topicId": "tokyo-metro-passenger-flow",
+      "topicName": "新宿站客流",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
     },
     {
       "styleId": "annotated-source-diff",
@@ -65296,6 +77580,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "annotated-source-diff",
+      "topicId": "loop-tiling-cache-diff",
+      "topicName": "Loop Tiling Diff",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "annotated-source-diff",
+      "topicId": "loop-tiling-cache-diff",
+      "topicName": "矩阵转置分块",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "checklist-ledger",
       "topicId": "checklist-ledger",
       "topicName": "Checklist",
@@ -65364,6 +77664,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 3,
       "beat": 2,
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "checklist-ledger",
+      "topicId": "falcon9-preflight-checklist",
+      "topicName": "Falcon 9 Preflight Checklist",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "checklist-ledger",
+      "topicId": "falcon9-preflight-checklist",
+      "topicName": "猎鹰9号检查",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
     },
     {
       "styleId": "context-bento-box",
@@ -65436,6 +77752,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
     },
     {
+      "styleId": "context-bento-box",
+      "topicId": "wasm-simd-compiler-box",
+      "topicName": "WASM SIMD Runtime Box",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "context-bento-box",
+      "topicId": "wasm-simd-compiler-box",
+      "topicName": "WASM向量加速",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
+    },
+    {
       "styleId": "object-metaphor-hero",
       "topicId": "object-metaphor",
       "topicName": "Object Hero",
@@ -65504,6 +77836,22 @@ export const PUBLICATION_AUDIT_CASES = {
       "scene": 2,
       "beat": 2,
       "evidenceBoundary": "示例场景：其中名称、数字和结果均为演示内容，并非外部事实主张。"
+    },
+    {
+      "styleId": "object-metaphor-hero",
+      "topicId": "gyroscope-attitude-control",
+      "topicName": "Spacecraft Gyroscope",
+      "language": "en",
+      "scene": 3,
+      "beat": 0
+    },
+    {
+      "styleId": "object-metaphor-hero",
+      "topicId": "gyroscope-attitude-control",
+      "topicName": "航天陀螺仪",
+      "language": "zh",
+      "scene": 3,
+      "beat": 0
     }
   ],
   "bandBoundaryTransitions": [

@@ -1,0 +1,88 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #050814;
+  color: #f8fafc;
+  overflow: hidden;
+  font-family: Inter, -apple-system, sans-serif;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 5cqw 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: radial-gradient(circle at center, rgba(56, 189, 248, 0.08) 0%, #050814 70%);
+}
+
+.heroRibbon {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+  padding-bottom: 1.2cqh;
+}
+
+.heroBadge {
+  color: #38bdf8;
+  font-family: Syne, sans-serif;
+  font-size: 0.9cqw;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.rotorSpeed {
+  color: #eab308;
+  font-size: 0.85cqw;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.heroPanel {
+  background: #0e1626;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 16px;
+  padding: 4.5cqh 4cqw;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+}
+
+.metaphorTag {
+  color: #38bdf8;
+  font-size: 0.85cqw;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5cqh;
+}
+
+.sceneTitle {
+  font-family: Syne, sans-serif;
+  font-size: 3.2cqw;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 2cqh 0;
+  line-height: 1.15;
+}
+
+.sceneBody {
+  font-size: 1.4cqw;
+  line-height: 1.65;
+  color: #cbd5e1;
+  margin: 0;
+  font-weight: 300;
+}
+
+.heroFooter {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75cqw;
+  color: #64748b;
+  border-top: 1px solid rgba(56, 189, 248, 0.2);
+  padding-top: 1cqh;
+}

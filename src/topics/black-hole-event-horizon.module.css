@@ -1,0 +1,82 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  color: #ffffff;
+  overflow: hidden;
+  font-family: Inter, -apple-system, sans-serif;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 6cqw 10cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: radial-gradient(circle at center, rgba(245, 158, 11, 0.08) 0%, #000000 70%);
+}
+
+.cinematicBar {
+  display: flex;
+  justify-content: space-between;
+  font-family: Cinzel, serif;
+  font-size: 0.8cqw;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 1cqh;
+}
+
+.titleCard {
+  max-width: 70cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.chapterBadge {
+  font-family: Cinzel, serif;
+  color: #f59e0b;
+  font-size: 0.9cqw;
+  letter-spacing: 0.2em;
+  margin-bottom: 2cqh;
+  text-transform: uppercase;
+}
+
+.sceneTitle {
+  font-family: Cinzel, serif;
+  font-size: 3.6cqw;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 2cqh 0;
+  line-height: 1.15;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+}
+
+.sceneBody {
+  font-size: 1.4cqw;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  font-weight: 300;
+  max-width: 60cqw;
+}
+
+.cinematicFoot {
+  display: flex;
+  justify-content: space-between;
+  font-family: Cinzel, serif;
+  font-size: 0.75cqw;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.35);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 1cqh;
+}

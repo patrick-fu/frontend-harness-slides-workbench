@@ -1,0 +1,128 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #0d0221;
+  color: #fdf4ff;
+  overflow: hidden;
+  font-family: "Courier New", Courier, monospace;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 4cqw 6cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.arcadeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #f43f5e;
+  padding-bottom: 1cqh;
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.75cqw;
+  color: #eab308;
+}
+
+.scoreBoard {
+  display: flex;
+  gap: 2cqw;
+}
+
+.stageTag {
+  color: #06b6d4;
+}
+
+.arcadeCabinet {
+  background: #1e0b36;
+  border: 4px solid #f43f5e;
+  box-shadow: 0 0 30px rgba(244, 63, 94, 0.4), inset 0 0 40px rgba(0, 0, 0, 0.8);
+  padding: 3cqh 3.5cqw;
+  border-radius: 4px;
+}
+
+.bossWarning {
+  font-family: "Press Start 2P", monospace;
+  color: #f43f5e;
+  font-size: 0.75cqw;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5cqh;
+}
+
+.sceneTitle {
+  font-family: "Press Start 2P", monospace;
+  font-size: 1.8cqw;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 1.8cqh 0;
+  line-height: 1.35;
+  text-shadow: 2px 2px #f43f5e;
+}
+
+.sceneBody {
+  font-size: 1.35cqw;
+  line-height: 1.6;
+  color: #fdf4ff;
+  margin: 0 0 2.5cqh 0;
+  font-weight: bold;
+}
+
+.pixelHud {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5cqw;
+  background: #0d0221;
+  border: 2px solid #06b6d4;
+  padding: 1.2cqh 1.5cqw;
+}
+
+.hudStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4cqh;
+  font-size: 0.85cqw;
+}
+
+.hudLabel {
+  color: #94a3b8;
+  font-size: 0.7cqw;
+}
+
+.hudValGreen {
+  color: #22c55e;
+  font-weight: 700;
+}
+
+.hudValYellow {
+  color: #eab308;
+  font-weight: 700;
+}
+
+.hudValRed {
+  color: #f43f5e;
+  font-weight: 700;
+}
+
+.hudValCyan {
+  color: #06b6d4;
+  font-weight: 700;
+}
+
+.arcadeFooter {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.65cqw;
+  color: rgba(253, 244, 255, 0.5);
+  border-top: 1px solid rgba(244, 63, 94, 0.3);
+  padding-top: 1cqh;
+}

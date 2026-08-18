@@ -1,0 +1,74 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fbf5e6;
+  color: #1e293b;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", serif;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 6cqw 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #f3e8cb 0%, #fbf5e6 60%, #e0f2fe 100%);
+}
+
+.woodcutHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 1.5cqh;
+  align-items: center;
+}
+
+.sealStamp {
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 0.8cqw;
+  font-weight: 700;
+  padding: 0.4cqh 0.8cqw;
+  border-radius: 0.2cqw;
+  letter-spacing: 0.15em;
+  font-family: serif;
+}
+
+.woodcutBody {
+  max-width: 68cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.sceneTitle {
+  font-size: 3.6cqw;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 2cqh 0;
+  line-height: 1.15;
+}
+
+.sceneBody {
+  font-size: 1.45cqw;
+  line-height: 1.65;
+  color: #334155;
+  margin: 0;
+}
+
+.wavePatternFooter {
+  border-top: 1px solid rgba(15, 23, 42, 0.2);
+  padding-top: 1cqh;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85cqw;
+  font-family: monospace;
+  color: #0284c7;
+}

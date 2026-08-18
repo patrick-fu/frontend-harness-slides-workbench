@@ -1,0 +1,79 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #f8f4ec;
+  color: #2b2725;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 6cqw 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.boardContainer {
+  width: 100%;
+  max-width: 75cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5cqh;
+  align-items: center;
+}
+
+.stickyNote {
+  background: #fed330;
+  color: #2b2725;
+  padding: 3cqh 3.5cqw;
+  border-radius: 0.4cqw;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
+  transform: rotate(-1deg);
+  max-width: 60cqw;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.emojiHeader {
+  font-size: 2.2cqw;
+  margin-bottom: 1.5cqh;
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+}
+
+.sketchTitle {
+  font-size: 2.8cqw;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #1e272e;
+  margin: 0 0 1.5cqh 0;
+}
+
+.sketchBody {
+  font-size: 1.4cqw;
+  line-height: 1.6;
+  color: #485460;
+  margin: 0;
+}
+
+.tapeStrip {
+  width: 8cqw;
+  height: 1.8cqh;
+  background: rgba(255, 255, 255, 0.65);
+  margin: 0 auto -0.9cqh auto;
+  transform: rotate(2deg);
+  border-left: 2px dashed rgba(0, 0, 0, 0.1);
+  border-right: 2px dashed rgba(0, 0, 0, 0.1);
+}

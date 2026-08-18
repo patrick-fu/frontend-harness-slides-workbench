@@ -1,0 +1,77 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #0f2b38;
+  color: #f1f5f9;
+  overflow: hidden;
+  font-family: Impact, "Arial Black", sans-serif;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 6cqw 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #1e3a5f 0%, #0f2b38 40%, #020617 100%);
+}
+
+.expeditionHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #38bdf8;
+  padding-bottom: 1.5cqh;
+  font-size: 0.9cqw;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #38bdf8;
+}
+
+.depthIndicator {
+  background: #0284c7;
+  color: #ffffff;
+  padding: 0.4cqh 1.2cqw;
+  border-radius: 0.3cqw;
+  font-family: monospace;
+}
+
+.expeditionBody {
+  max-width: 70cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.sceneTitle {
+  font-size: 4cqw;
+  font-weight: 900;
+  line-height: 1.05;
+  color: #ffffff;
+  margin: 0 0 2cqh 0;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.sceneBody {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.45cqw;
+  line-height: 1.65;
+  color: #cbd5e1;
+  margin: 0;
+}
+
+.expeditionFooter {
+  border-top: 1px solid rgba(56, 189, 248, 0.3);
+  padding-top: 1cqh;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85cqw;
+  font-family: monospace;
+  color: #7dd3fc;
+}

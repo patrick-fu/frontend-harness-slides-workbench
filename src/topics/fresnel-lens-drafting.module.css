@@ -1,0 +1,89 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #0c2340;
+  color: #e2edfc;
+  overflow: hidden;
+  font-family: "Courier New", Courier, monospace, sans-serif;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 6cqw 8cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(56, 139, 253, 0.3);
+  margin: 2cqw;
+  width: calc(100% - 4cqw);
+  height: calc(100% - 4cqw);
+}
+
+.drawingHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed rgba(56, 139, 253, 0.4);
+  padding-bottom: 1.5cqh;
+  font-size: 0.9cqw;
+  letter-spacing: 0.15em;
+  color: #388bfd;
+}
+
+.drawingMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 65cqw;
+}
+
+.dimensionTag {
+  font-size: 0.85cqw;
+  color: #f85149;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1.5cqh;
+}
+
+.drawingTitle {
+  font-size: 3.4cqw;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 0 0 2.5cqh 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.drawingBody {
+  font-size: 1.4cqw;
+  line-height: 1.6;
+  color: #c9d1d9;
+  margin: 0;
+}
+
+.titleBlock {
+  align-self: flex-end;
+  border: 1px solid rgba(56, 139, 253, 0.6);
+  background: rgba(12, 35, 64, 0.8);
+  padding: 1.2cqh 1.8cqw;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.5cqh 1.5cqw;
+  font-size: 0.8cqw;
+}
+
+.titleBlockLabel {
+  color: #388bfd;
+}
+
+.titleBlockVal {
+  color: #ffffff;
+  font-weight: bold;
+}

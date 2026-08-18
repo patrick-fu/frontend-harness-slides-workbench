@@ -1,0 +1,106 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #0d1117;
+  color: #c9d1d9;
+  overflow: hidden;
+  font-family: "Fira Code", monospace;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 4.5cqw 7.5cqw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.issueHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #30363d;
+  padding-bottom: 1.2cqh;
+}
+
+.issueTag {
+  color: #58a6ff;
+  font-size: 0.9cqw;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.stateOpen {
+  background: #f85149;
+  color: #ffffff;
+  font-size: 0.75cqw;
+  font-weight: 700;
+  padding: 0.3cqh 0.8cqw;
+  border-radius: 4px;
+}
+
+.stateClosed {
+  background: #238636;
+  color: #ffffff;
+  font-size: 0.75cqw;
+  font-weight: 700;
+  padding: 0.3cqh 0.8cqw;
+  border-radius: 4px;
+}
+
+.issueBody {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-left: 4px solid #f85149;
+  padding: 3.5cqh 3.5cqw;
+  border-radius: 4px;
+}
+
+.phaseLabel {
+  color: #8b949e;
+  font-size: 0.8cqw;
+  letter-spacing: 0.1em;
+  margin-bottom: 1cqh;
+}
+
+.sceneTitle {
+  font-size: 2.6cqw;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 1.8cqh 0;
+  line-height: 1.2;
+}
+
+.sceneBody {
+  font-size: 1.35cqw;
+  line-height: 1.6;
+  color: #c9d1d9;
+  margin: 0 0 2.5cqh 0;
+}
+
+.heapDump {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  padding: 1.5cqh 1.5cqw;
+  font-size: 0.85cqw;
+  color: #7ee787;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4cqh;
+  border-radius: 4px;
+}
+
+.issueFooter {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75cqw;
+  color: #8b949e;
+  border-top: 1px solid #30363d;
+  padding-top: 1cqh;
+}
