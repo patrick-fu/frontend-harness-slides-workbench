@@ -3,7 +3,6 @@ export const MODEL_IDS = [
   "GPT 5.5",
   "GPT 5.6 Sol",
   "Claude Opus 4.8",
-  "Gemini 3.7 Flash",
 ] as const;
 
 export type ModelId = (typeof MODEL_IDS)[number];
