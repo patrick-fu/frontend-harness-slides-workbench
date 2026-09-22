@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import {
   LanguageProvider,
   ReducedMotionProvider,
@@ -11,6 +12,7 @@ export default function App() {
       <ThemeProvider>
         <ReducedMotionProvider>
           <WorkbenchEnvelope />
+          <Analytics />
         </ReducedMotionProvider>
       </ThemeProvider>
     </LanguageProvider>
